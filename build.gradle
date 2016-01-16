@@ -24,9 +24,32 @@ buildscript {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'org.apache.commons:commons-lang3:3.4'
-    compile 'com.fizzed:ch-smpp:5.0.9'
+
+    // Spring
+    compile 'org.springframework.boot:spring-boot-starter'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.data:spring-data-jpa'
+    compile 'org.springframework.data:spring-data-mongodb'
+    compile 'org.springframework.data:spring-data-rest-webmvc'
+    compile 'org.springframework.boot:spring-boot-starter-logging'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-test'
+    compile 'org.springframework:spring-context'
+    compile 'org.springframework.boot:spring-boot-starter-tomcat'
+
+    // Others
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'org.hibernate:hibernate-validator'
+    compile 'net.sf.ehcache:ehcache-web:2.0.4'
+    compile 'org.tuckey:urlrewritefilter:4.0.4'
+    compile 'javax.servlet:jstl:1.2'
+    compile 'net.jawr:jawr:3.8'
+    compile 'net.jawr.extensions:jawr-spring-extension:3.8'
+    compile 'com.carrotsearch:smartsprites:0.2.11'
     compile 'org.slf4j:slf4j-simple:1.7.13'
     compile 'org.slf4j:slf4j-api:1.7.13'
+    compile 'log4j:log4j:1.2.17'
     compile 'org.json:json:20151123'
 }
 
