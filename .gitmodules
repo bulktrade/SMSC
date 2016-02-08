@@ -1,9 +1,0 @@
-[submodule "vendor/cloudhopper-commons"]
-	path = vendor/cloudhopper-commons
-	url = git@github.com:bulktrade/cloudhopper-commons.git
-[submodule "vendor/SMPP"]
-	path = vendor/SMPP
-	url = git@github.com:bulktrade/SMPP.git
-[submodule "vendor/jss7"]
-	path = vendor/jss7
-	url = git@github.com:bulktrade/jss7.git

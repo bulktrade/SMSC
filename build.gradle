@@ -4,11 +4,16 @@ version '0.0.1'
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'gradle-one-jar'
+apply plugin: 'spring-boot'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
+    maven {
+        url "http://repo.springsource.org/release"
+    }
+    maven { url "https://jitpack.io" }
     mavenCentral()
 }
 
@@ -18,6 +23,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.3.2.RELEASE'
     }
 }
 
@@ -47,13 +53,15 @@ dependencies {
     compile 'net.jawr:jawr:3.8'
     compile 'net.jawr.extensions:jawr-spring-extension:3.8'
     compile 'com.carrotsearch:smartsprites:0.2.11'
-    compile 'org.slf4j:slf4j-simple:1.7.13'
-    compile 'org.slf4j:slf4j-api:1.7.13'
-    compile 'log4j:log4j:1.2.17'
     compile 'org.json:json:20151123'
+    compile 'com.orientechnologies:orientdb-server:2.1.10'
+    compile 'com.orientechnologies:orientdb-graphdb:2.1.10'
+    compile 'org.mozilla:rhino:1.7.7.1'
+
+    compile 'com.github.orientechnologies:spring-data-orientdb:3f6f7e5b15'
 }
 
 task bundledJar(type: OneJar) {
-    mainClass = 'org.bulktrade.smpp.server.Main'
-    archiveName = 'smpp-server.jar'
+    mainClass = 'io.sms.Application'
+    archiveName = 'smsc.jar'
 }
