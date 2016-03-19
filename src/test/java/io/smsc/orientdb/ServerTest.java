@@ -14,7 +14,6 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Application.class})
 public class ServerTest {
-
 	@Test
 	public void testStart() throws Exception {
 		System.setProperty("RUNMODE", "UNITTEST");

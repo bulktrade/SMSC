@@ -15,12 +15,16 @@ public class EmbeddedOrientDBListener {
 
 	@EventListener({ContextRefreshedEvent.class})
 	public void onApplicationEvent(ContextRefreshedEvent contextEvent) throws Exception {
-		server = Server.start();
+		if (System.getenv("EMBEDDED_ORIENTDB_ENABLED") != null && System.getenv("EMBEDDED_ORIENTDB_ENABLED").equals("1")) {
+		    server = Server.start();
+		}
 	}
 
 
 	@EventListener({ContextClosedEvent.class})
 	public void onApplicationEvent(ContextClosedEvent contextEvent) {
-		server.getInstance().shutdown();
+		if (System.getenv("EMBEDDED_ORIENTDB_ENABLED") != null && System.getenv("EMBEDDED_ORIENTDB_ENABLED").equals("1")) {
+            server.getInstance().shutdown();
+        }
 	}
 }
