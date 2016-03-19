@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background: #ccc;
+}
+
+.header {
+    height: 74px;
+    background: #fff;
+    color: #fff;
+}
+
+/* left panel style */
+.header .left-panel {
+    float: left;
+    padding: 26px 0 0 28px;
+}
+
+.left-panel .logo {
+    float: left;
+}
+
+.left-panel .menu-toggler {
+    width: 20px;
+    height: 14px;
+    float: left;
+    margin: 3px 0 0 90px;
+    cursor: pointer;
+    background: url("./../assets/img/sidebar-toggle-light.png");
+}
+
+.left-panel .btn-actions {
+    width: 78px;
+    height: 30px;
+    float: left;
+    background: #F36A5A;
+    margin: -5px 0 0 30px;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+}
+
+ .left-panel .btn-actions:hover {background: #E62711;}
+
+.left-panel .name-btn {
+    float: left;
+    margin: 7px 0 0 10px;
+}
+
+.btn-actions .fa-angle-down {
+    margin-top: 10px;
+}
+
+/* right panel style */
+.header .right-panel {
+    float: right;
+    height: 30px;
+    padding: 24px 21px 0 0;
+}
+
+.right-panel .search {
+    width: 30px;
+    height: 30px;
+    float: left;
+    border: 1px solid #D7E1EB;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    color: #D7E1EB;
+    cursor: pointer;
+    margin-top: -3px;
+}
+
+.right-panel .fa-search {
+    margin: 6px 0 0 7px;
+}
+
+.right-panel .notice {
+    float: left;
+    color: #D7E1EB;
+    margin-left: 7px;
+}
+
+.notice li {
+    display: block;
+    float: left;
+    margin-left: 25px;
+}
+
+.notice i {
+    float: left;
+    margin: 4px 7px 0 0;
+}
+
+.notice .counter {
+    width: 25px;
+    height: 25px;
+    float: left;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 6px 0 0 9px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 11px;
+}
+
+.notice .bell {background: #36C6D3;}
+.notice .envelope {background: #ED6B75;}
+.notice .calendar {background: #337AB7;}
+
+.right-panel .user-profile {
+    float: left;
+    margin-left: 30px;
+}
+
+.user-profile .user-name {
+    float: left;
+    color: #8EC4ED;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    margin: 4px 14px 0 0;
+}
+
+.user-profile .user-icon {
+    float: left;
+    width: 39px;
+    height: 39px;
+    background: url("./../assets/img/avatar.jpg");
+    margin: -6px 23px 0 0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.right-panel .glyphicon-log-out {
+    float: left;
+    display: block;
+    color: #000;
+    width: 10px;
+    height: 10px;
+}

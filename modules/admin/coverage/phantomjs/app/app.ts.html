@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/app.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">app/</a> app.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">84% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>21/25</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">48.28% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>14/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">80% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>4/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.48% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>19/21</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+var __decorate = (this &amp;&amp; this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c &lt; 3 ? target : <span class="branch-1 cbranch-no" title="branch not covered" >desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,</span> d;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof Reflect === "object" &amp;&amp; typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else <span class="cstat-no" title="statement not covered" >for (var i = decorators.length - 1; i &gt;= 0; i--) <span class="cstat-no" title="statement not covered" >if (d = decorators[i]) <span class="cstat-no" title="statement not covered" >r = (c &lt; 3 ? d(r) : c &gt; 3 ? d(target, key, r) : d(target, key)) || r;</span></span></span>
+    return c &gt; 3 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >r </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >Object.defineProperty(target, key, r),</span> r;
+};
+var __metadata = (this &amp;&amp; this.__metadata) || function (k, v) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof Reflect === "object" &amp;&amp; typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('angular2/core');
+var router_1 = require('angular2/router');
+var common_1 = require('angular2/common');
+var router_active_1 = require('./directives/router-active');
+var home_1 = require('./home/home');
+var App = (function () {
+    function App() {
+        this.angularclassLogo = 'assets/img/angularclass-avatar.png';
+        this.name = 'Angular 2 Webpack Starter';
+        this.url = 'https://twitter.com/AngularClass';
+    }
+    App = __decorate([
+        core_1.Component({
+            selector: 'app',
+            providers: common_1.FORM_PROVIDERS.slice(),
+            directives: router_1.ROUTER_DIRECTIVES.concat([router_active_1.RouterActive]),
+            pipes: [],
+            styles: ["\n    nav ul {\n      display: inline;\n      list-style-type: none;\n      margin: 0;\n      padding: 0;\n      width: 60px;\n    }\n    nav li {\n      display: inline;\n    }\n    nav li.active {\n      background-color: lightgray;\n    }\n  "],
+            template: "\n    &lt;header&gt;\n      &lt;nav&gt;\n        &lt;h1&gt;Hello {{ name }}&lt;/h1&gt;\n        &lt;ul&gt;\n          &lt;li router-active&gt;\n            &lt;a [routerLink]=\" ['Index'] \"&gt;Index&lt;/a&gt;\n          &lt;/li&gt;\n          &lt;li router-active&gt;\n            &lt;a [routerLink]=\" ['Home'] \"&gt;Home&lt;/a&gt;\n          &lt;/li&gt;\n          &lt;li router-active&gt;\n            &lt;a [routerLink]=\" ['About'] \"&gt;About&lt;/a&gt;\n          &lt;/li&gt;\n        &lt;/ul&gt;\n      &lt;/nav&gt;\n    &lt;/header&gt;\n\n    &lt;main&gt;\n      &lt;router-outlet&gt;&lt;/router-outlet&gt;\n    &lt;/main&gt;\n\n    &lt;footer&gt;\n      WebPack Angular 2 Starter by &lt;a [href]=\"url\"&gt;@AngularClass&lt;/a&gt;\n      &lt;div&gt;\n        &lt;img [src]=\"angularclassLogo\" width=\"10%\"&gt;\n      &lt;/div&gt;\n    &lt;/footer&gt;\n  "
+        }),
+        router_1.RouteConfig([
+            { path: '/', component: home_1.Home, name: 'Index' },
+            { path: '/home', component: home_1.Home, name: 'Home' },
+            { path: '/about', loader: <span class="fstat-no" title="function not covered" >function () {</span> <span class="cstat-no" title="statement not covered" >return require('es6-promise!./about/about')('About'); </span>}, name: 'About' },
+            { path: '/**', redirectTo: ['Index'] }
+        ]), 
+        __metadata('design:paramtypes', [])
+    ], App);
+    return App;
+}());
+exports.App = App;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Mar 09 2016 22:53:59 GMT+0200 (EET)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/directives/router-active.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">app/directives/</a> router-active.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">51.02% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>25/49</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">44.74% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>17/38</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">38.46% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>5/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>22/44</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+var __decorate = (this &amp;&amp; this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c &lt; 3 ? target : <span class="branch-1 cbranch-no" title="branch not covered" >desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,</span> d;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof Reflect === "object" &amp;&amp; typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else <span class="cstat-no" title="statement not covered" >for (var i = decorators.length - 1; i &gt;= 0; i--) <span class="cstat-no" title="statement not covered" >if (d = decorators[i]) <span class="cstat-no" title="statement not covered" >r = (c &lt; 3 ? d(r) : c &gt; 3 ? d(target, key, r) : d(target, key)) || r;</span></span></span>
+    return c &gt; 3 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >r </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >Object.defineProperty(target, key, r),</span> r;
+};
+var __metadata = (this &amp;&amp; this.__metadata) || function (k, v) {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof Reflect === "object" &amp;&amp; typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this &amp;&amp; this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var router_1 = require('angular2/router');
+var lang_1 = require('angular2/src/facade/lang');
+var core_1 = require('angular2/core');
+var router_2 = require('angular2/router');
+var RouterActive = (function () {
+<span class="fstat-no" title="function not covered" >    function RouterActive(router, element, renderer, routerLink, routerActiveAttr) {</span>
+<span class="cstat-no" title="statement not covered" >        this.router = router;</span>
+<span class="cstat-no" title="statement not covered" >        this.element = element;</span>
+<span class="cstat-no" title="statement not covered" >        this.renderer = renderer;</span>
+<span class="cstat-no" title="statement not covered" >        this.routerLink = routerLink;</span>
+<span class="cstat-no" title="statement not covered" >        this.routerActive = null;</span>
+<span class="cstat-no" title="statement not covered" >        this.routerActiveAttr = 'active';</span>
+<span class="cstat-no" title="statement not covered" >        this.routerActiveAttr = this._defaultAttrValue(routerActiveAttr);</span>
+    }
+    RouterActive.prototype.ngOnInit = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        var _this = this;</span>
+<span class="cstat-no" title="statement not covered" >        this.routerLink.changes.subscribe(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >            if (_this.routerLink.first) {</span>
+<span class="cstat-no" title="statement not covered" >                _this._updateClass();</span>
+<span class="cstat-no" title="statement not covered" >                _this._findRootRouter().subscribe(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >                    _this._updateClass();</span>
+                });
+            }
+        });
+    };
+    RouterActive.prototype._findRootRouter = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        var router = this.router;</span>
+<span class="cstat-no" title="statement not covered" >        while (lang_1.isPresent(router.parent)) {</span>
+<span class="cstat-no" title="statement not covered" >            router = router.parent;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        return router;</span>
+    };
+    RouterActive.prototype._updateClass = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        var active = this.routerLink.first.isRouteActive;</span>
+<span class="cstat-no" title="statement not covered" >        this.renderer.setElementClass(this.element.nativeElement, this._attrOrProp(), active);</span>
+    };
+    RouterActive.prototype._defaultAttrValue = <span class="fstat-no" title="function not covered" >function (attr) {</span>
+<span class="cstat-no" title="statement not covered" >        return this.routerActiveAttr = attr || this.routerActiveAttr;</span>
+    };
+    RouterActive.prototype._attrOrProp = <span class="fstat-no" title="function not covered" >function () {</span>
+<span class="cstat-no" title="statement not covered" >        return lang_1.isPresent(this.routerActive) ? this.routerActive : this.routerActiveAttr;</span>
+    };
+    RouterActive = __decorate([
+        core_1.Directive({
+            selector: '[router-active], [routerActive]',
+            inputs: ['routerActive']
+        }),
+        __param(3, core_1.Query(router_2.RouterLink)),
+        __param(4, core_1.Optional()),
+        __param(4, core_1.Attribute('router-active')), 
+        __metadata('design:paramtypes', [router_1.Router, core_1.ElementRef, core_1.Renderer, core_1.QueryList, String])
+    ], RouterActive);
+    return RouterActive;
+}());
+exports.RouterActive = RouterActive;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Mar 09 2016 22:53:59 GMT+0200 (EET)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

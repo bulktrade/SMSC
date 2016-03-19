@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background: #E9ECF3;
+}
+
+/* Clearfix */
+.clear:before,
+.clear:after {
+    content:"";
+    display:table;
+}
+.clear:after {
+    clear:both;
+}
+.clear {
+    zoom:1;
+}
