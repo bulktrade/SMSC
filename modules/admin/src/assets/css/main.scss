@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul > li {
+  list-style-type: none;
+}
+
+body {
+  background: #E9ECF3 !important;
+}
+
+/* Clearfix */
+
+.clear {
+  &:before {
+    content: "";
+    display: table;
+  }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  zoom: 1;
+}

@@ -1,0 +1,5 @@
+<h3>Log In</h3>
+<div id="error" style="display: none; color: #f00;">not entered correctly</div>
+<input type="text" #login placeholder="Enter login"/>  <br>
+<input type="password" #pwd placeholder="Enter password"/> <br>
+<button (click)="authentication(login.value, pwd.value)">Submit</button>

@@ -1,0 +1,234 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #ccc;
+}
+
+.header {
+  height: 74px;
+  background: #fff;
+  color: #fff;
+  .left-panel {
+    float: left;
+    padding: 26px 0 0 28px;
+  }
+}
+
+/* left panel style */
+
+.left-panel {
+  .logo {
+    float: left;
+  }
+  .menu-toggler {
+    width: 20px;
+    height: 14px;
+    float: left;
+    margin: 3px 0 0 90px;
+    cursor: pointer;
+    background: url("./../assets/img/sidebar-toggle-light.png");
+  }
+  .btn-actions {
+    width: 78px;
+    height: 30px;
+    float: left;
+    background: #F36A5A;
+    margin: -5px 0 0 30px;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    &:hover {
+      background: #E62711;
+    }
+  }
+  .name-btn {
+    float: left;
+    margin: 7px 0 0 10px;
+  }
+}
+
+.btn-actions .fa-angle-down {
+  margin-top: 10px;
+}
+
+/* right panel style */
+.header .right-panel {
+  float: right;
+  height: 30px;
+  padding: 24px 21px 0 0;
+}
+
+.right-panel {
+  .search {
+    width: 30px;
+    height: 30px;
+    float: left;
+    border: 1px solid #D7E1EB;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    color: #D7E1EB;
+    cursor: pointer;
+    margin-top: -3px;
+  }
+  .fa-search {
+    margin: 6px 0 0 7px;
+  }
+  .notice {
+    float: left;
+    color: #D7E1EB;
+    margin-left: 7px;
+  }
+}
+
+.notice {
+  li {
+    display: block;
+    float: left;
+    margin-left: 25px;
+  }
+  i {
+    float: left;
+    margin: 4px 7px 0 0;
+  }
+  .counter {
+    width: 25px;
+    height: 25px;
+    float: left;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 6px 0 0 9px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 11px;
+  }
+  .bell {
+    background: #36C6D3;
+  }
+  .envelope {
+    background: #ED6B75;
+  }
+  .calendar {
+    background: #337AB7;
+  }
+}
+
+.right-panel .user-profile {
+  float: left;
+  margin-left: 30px;
+}
+
+.user-profile {
+  .user-name {
+    float: left;
+    color: #8EC4ED;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    margin: 4px 14px 0 0;
+  }
+  .user-icon {
+    float: left;
+    width: 39px;
+    height: 39px;
+    background: url("./../assets/img/avatar.jpg");
+    margin: -6px 23px 0 0;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+}
+
+.right-panel .glyphicon-log-out {
+  float: left;
+  margin: 6px 6px 0 0;
+  cursor: pointer;
+  color: #D1D1D1;
+  &:hover {
+    color: #B0B0B0;
+  }
+}
+
+.side-bar {
+  float: left;
+}
+
+.side-bar {
+  float: left;
+  width: 238px;
+  background: #fff;
+  margin: 19px 0 0 22px;
+  font-size: 18px;
+  color: rgb(91, 155, 209);
+  .dashboard {
+    background: #F2F6F9;
+    height: 45px;
+    margin-top: 12px;
+    cursor: pointer;
+    &:before{
+      content: "";
+      float: left;
+      display: block;
+      width: 3px;
+      height: 45px;
+      background: #5C9ACF;
+      margin-left: -3px;
+    }
+    .icon-home {
+      float: left;
+      margin: 14px 0 0 18px;
+    }
+    .fa-angle-left {
+      float: right;
+      margin: 14px 23px 0 0;
+    }
+    .name-category {
+      font-family: 'Open Sans', sans-serif;
+      float: left;
+      font-size: 14px;
+      margin: 13px 0 0 14px;
+    }
+  }
+  .subtask {
+    margin: 0;
+    > li {
+      cursor: pointer;
+      .title {
+        text-transform: uppercase;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 13px;
+        padding: 22px 0 17px 17px;
+        color: rgb(92, 154, 207);
+      }
+    }
+    .item-menu {
+      &:hover {
+        background: #F2F6F9;
+      }
+      padding: 13px 0 13px 22px;
+      .icon-left {
+        float: left;
+        font-size: 18px;
+        color: rgb(167, 189, 205);
+      }
+      .fa-angle-left {
+        float: right;
+        margin: 0 23px 0 0;
+      }
+      .name-sub {
+        float: left;
+        color: rgb(91, 155, 209);
+        margin-left: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+}
