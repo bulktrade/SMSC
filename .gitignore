@@ -1,3 +1,4 @@
 .idea/
+modules/.idea/
 modules/admin/.idea/
 modules/admin/node_modules/

@@ -201,6 +201,7 @@ html {
     margin: 0;
     > li {
       cursor: pointer;
+      clear: both;
       .title {
         text-transform: uppercase;
         font-family: 'Open Sans', sans-serif;
@@ -208,10 +209,28 @@ html {
         padding: 22px 0 17px 17px;
         color: rgb(92, 154, 207);
       }
+      ul {
+        display: none;
+        clear: both;
+        padding: 5px 0 5px 0;
+        a {
+          display: block;
+          padding: 9px 0 9px 30px;
+          font-size: 14px;
+          color: rgb(72, 90, 106);
+          &:hover {
+            background: #F2F6F9;
+            color: rgb(91, 155, 209) !important;
+            text-decoration: none;
+          }
+        }
+      }
     }
-    .item-menu {
+    .item-menu .sub-task {
+      color: rgb(72, 90, 106);
       &:hover {
         background: #F2F6F9;
+        color: rgb(91, 155, 209) !important;
       }
       padding: 13px 0 13px 22px;
       .icon-left {
@@ -225,7 +244,6 @@ html {
       }
       .name-sub {
         float: left;
-        color: rgb(91, 155, 209);
         margin-left: 10px;
         font-size: 14px;
       }

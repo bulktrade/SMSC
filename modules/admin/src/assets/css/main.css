@@ -1,28 +1,25 @@
 * {
   margin: 0;
-  padding: 0;
-}
+  padding: 0; }
 
 ul > li {
-  list-style-type: none;
-}
+  list-style-type: none; }
 
 body {
-  background: #E9ECF3 !important;
-}
+  background: #E9ECF3 !important; }
+
+a {
+  text-decoration: none; }
 
 /* Clearfix */
 .clear {
-  zoom: 1;
-}
+  zoom: 1; }
 .clear:before {
   content: "";
-  display: table;
-}
+  display: table; }
 .clear:after {
   content: "";
   display: table;
-  clear: both;
-}
+  clear: both; }
 
 /*# sourceMappingURL=main.css.map */
