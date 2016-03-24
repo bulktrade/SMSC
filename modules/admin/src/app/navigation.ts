@@ -19,7 +19,16 @@ import {Login} from './components/login/login';
 ])
 
 export class Navigation {
+    getText: string;
+    show: boolean;
 
-    constructor() {}
+    constructor() {
+        this.show = false;
+    }
+
+    clicked() {
+        this.show = true;
+        this.getText = "Yes!!!";
+    }
 
 }

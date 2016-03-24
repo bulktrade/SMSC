@@ -5,6 +5,12 @@
 ul > li {
   list-style-type: none; }
 
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
 body {
   background: #E9ECF3 !important; }
 

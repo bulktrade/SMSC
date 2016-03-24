@@ -1,0 +1,18 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'start' ]
+2 info using npm@1.4.21
+3 info using node@v0.10.25
+4 verbose config Skipping project config: /home/dima/.npmrc. (matches userconfig)
+5 error Error: ENOENT, open '/home/dima/CloneGIT/SMSC/package.json'
+6 error If you need help, you may report this *entire* log,
+6 error including the npm and node versions, at:
+6 error     <http://github.com/npm/npm/issues>
+7 error System Linux 4.2.0-34-generic
+8 error command "/usr/bin/nodejs" "/usr/bin/npm" "start"
+9 error cwd /home/dima/CloneGIT/SMSC
+10 error node -v v0.10.25
+11 error npm -v 1.4.21
+12 error path /home/dima/CloneGIT/SMSC/package.json
+13 error code ENOENT
+14 error errno 34
+15 verbose exit [ 34, true ]

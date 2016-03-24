@@ -88,9 +88,13 @@ html {
 
 .notice {
   li {
+    height: 74px;
+    margin: -24px 0 0 18px;
+    padding: 24px 6px 0 6px;
+    cursor: pointer;
     display: block;
     float: left;
-    margin-left: 25px;
+    &:hover {background: #F9FAFC;}
   }
   i {
     float: left;
@@ -124,7 +128,11 @@ html {
 
 .right-panel .user-profile {
   float: left;
-  margin-left: 30px;
+  height: 74px;
+  margin: -24px 0 0 30px;
+  padding: 24px 6px 0 6px;
+  cursor: pointer;
+  &:hover {background: #F9FAFC;}
 }
 
 .user-profile {
@@ -140,7 +148,7 @@ html {
     width: 39px;
     height: 39px;
     background: url("./../assets/img/avatar.jpg");
-    margin: -6px 23px 0 0;
+    margin: -6px 5px 0 0;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -149,7 +157,7 @@ html {
 
 .right-panel .glyphicon-log-out {
   float: left;
-  margin: 6px 6px 0 0;
+  margin: 6px 6px 0 10px;
   cursor: pointer;
   color: #D1D1D1;
   &:hover {
@@ -157,50 +165,86 @@ html {
   }
 }
 
-.side-bar {
+.wrapper-user-menu .slide-menu {
+  position: absolute;
+  background: #536470;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  margin: -158px 0 0 723px;
+  display: none;
   float: left;
+  min-width: 160px;
+  padding: 8px 0 8px 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.15);
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  .hor-line {
+    background: #607482;
+    height: 1px;
+    margin: 10px 0;
+  }
+  &:before {
+    position: absolute;
+    top: -7px;
+    right: 9px;
+    display: inline-block!important;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid #eee;
+    border-left: 7px solid transparent;
+    border-bottom-color: #536470;
+    content: '';
+  }
+  li {
+    padding: 6px 15px;
+    cursor: pointer;
+    &:hover {background: #5F7381;}
+  }
+  a {
+    .badge-danger {background: #F17475 !important;}
+    .badge-success {background: #36C6D3 !important;}
+    i {margin-right: 5px;}
+    color: rgb(212, 218, 223);
+    padding-right: 45px;
+    text-decoration: none;
+  }
+  .badge {
+    float: right;
+  }
 }
 
 .side-bar {
   float: left;
   width: 238px;
+  padding-top: 12px;
   background: #fff;
   margin: 19px 0 0 22px;
   font-size: 18px;
   color: rgb(91, 155, 209);
-  .dashboard {
+  .active-task {
+    display: block;
     background: #F2F6F9;
-    height: 45px;
-    margin-top: 12px;
-    cursor: pointer;
+    span {color: rgb(91, 155, 209);}
     &:before{
       content: "";
+      position: absolute;
       float: left;
       display: block;
       width: 3px;
-      height: 45px;
+      height: 46px;
+      left: 19px;
+      margin-top: -13px;
       background: #5C9ACF;
-      margin-left: -3px;
-    }
-    .icon-home {
-      float: left;
-      margin: 14px 0 0 18px;
-    }
-    .fa-angle-left {
-      float: right;
-      margin: 14px 23px 0 0;
-    }
-    .name-category {
-      font-family: 'Open Sans', sans-serif;
-      float: left;
-      font-size: 14px;
-      margin: 13px 0 0 14px;
     }
   }
   .subtask {
     margin: 0;
     > li {
-      cursor: pointer;
       clear: both;
       .title {
         text-transform: uppercase;
@@ -210,9 +254,10 @@ html {
         color: rgb(92, 154, 207);
       }
       ul {
-        display: none;
+        display: block;
         clear: both;
         padding: 5px 0 5px 0;
+        cursor: pointer;
         a {
           display: block;
           padding: 9px 0 9px 30px;
@@ -228,6 +273,8 @@ html {
     }
     .item-menu .sub-task {
       color: rgb(72, 90, 106);
+      cursor: pointer;
+      display: block;
       &:hover {
         background: #F2F6F9;
         color: rgb(91, 155, 209) !important;
