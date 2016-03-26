@@ -8,14 +8,19 @@ html {
 .header {
   height: 74px;
   background: #fff;
-  color: #fff; }
+  color: #fff;
+  margin-bottom: 19px; }
 .header .left-panel {
   float: left;
   padding: 26px 0 0 28px; }
 
 /* left panel style */
 .left-panel .logo {
-  float: left; }
+  float: left;
+  color: #5B9BD1;
+  font-size: 24px;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: -6px; }
 .left-panel .menu-toggler {
   width: 20px;
   height: 14px;
@@ -108,6 +113,8 @@ html {
   cursor: pointer; }
 .right-panel .user-profile:hover {
   background: #F9FAFC; }
+.right-panel .user-profile:hover + .slide-menu {
+  display: block; }
 
 .user-profile .user-name {
   float: left;
@@ -137,9 +144,7 @@ html {
   position: absolute;
   background: #536470;
   z-index: 1000;
-  left: 50%;
-  top: 50%;
-  margin: -158px 0 0 723px;
+  margin: 58px 0 0 -53px;
   display: none;
   float: left;
   min-width: 160px;
@@ -189,7 +194,7 @@ html {
   width: 238px;
   padding-top: 12px;
   background: #fff;
-  margin: 19px 0 0 22px;
+  margin: 0 22px 0 22px;
   font-size: 18px;
   color: #5b9bd1; }
 .side-bar .active-task {
@@ -226,11 +231,11 @@ html {
   display: block;
   padding: 9px 0 9px 30px;
   font-size: 14px;
-  color: #485a6a; }
+  color: #485a6a;
+  text-decoration: none; }
 .side-bar .subtask > li ul a:hover {
   background: #F2F6F9;
-  color: #5b9bd1 !important;
-  text-decoration: none; }
+  color: #5b9bd1 !important; }
 .side-bar .subtask .item-menu .sub-task {
   color: #485a6a;
   cursor: pointer;
@@ -250,5 +255,9 @@ html {
   float: left;
   margin-left: 10px;
   font-size: 14px; }
+
+.menu {
+  float: left;
+  margin: 19px 0 0 22px; }
 
 /*# sourceMappingURL=style.css.map */

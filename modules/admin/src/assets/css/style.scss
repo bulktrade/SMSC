@@ -11,6 +11,7 @@ html {
   height: 74px;
   background: #fff;
   color: #fff;
+  margin-bottom: 19px;
   .left-panel {
     float: left;
     padding: 26px 0 0 28px;
@@ -22,6 +23,10 @@ html {
 .left-panel {
   .logo {
     float: left;
+    color: #5B9BD1;
+    font-size: 24px;
+    font-family: 'Open Sans', sans-serif;
+    margin-top: -6px;
   }
   .menu-toggler {
     width: 20px;
@@ -133,6 +138,8 @@ html {
   padding: 24px 6px 0 6px;
   cursor: pointer;
   &:hover {background: #F9FAFC;}
+  &:hover+.slide-menu {
+    display: block;}
 }
 
 .user-profile {
@@ -169,9 +176,7 @@ html {
   position: absolute;
   background: #536470;
   z-index: 1000;
-  left: 50%;
-  top: 50%;
-  margin: -158px 0 0 723px;
+  margin: 58px 0 0 -53px;
   display: none;
   float: left;
   min-width: 160px;
@@ -223,7 +228,7 @@ html {
   width: 238px;
   padding-top: 12px;
   background: #fff;
-  margin: 19px 0 0 22px;
+  margin: 0 22px 0 22px;
   font-size: 18px;
   color: rgb(91, 155, 209);
   .active-task {
@@ -263,10 +268,10 @@ html {
           padding: 9px 0 9px 30px;
           font-size: 14px;
           color: rgb(72, 90, 106);
+          text-decoration: none;
           &:hover {
             background: #F2F6F9;
             color: rgb(91, 155, 209) !important;
-            text-decoration: none;
           }
         }
       }
@@ -296,4 +301,9 @@ html {
       }
     }
   }
+}
+
+.menu {
+  float: left;
+  margin: 19px 0 0 22px;
 }

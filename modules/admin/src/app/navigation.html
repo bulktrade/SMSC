@@ -1,6 +1,6 @@
 <header class="header">
     <div class="left-panel clear">
-        <img src="./../assets/img/logo-light.png" alt="logo" class="logo">
+        <div class="logo">SMSC</div>
         <div class="menu-toggler"></div>
         <div class="btn-actions">
             <div class="name-btn">Actions &nbsp;</div>
@@ -69,9 +69,9 @@
                     <i class="fa fa-angle-left"></i>
                 </a>
                 <ul>
-                    <li><a>Dashboard 1</a></li>
-                    <li><a>Dashboard 2</a></li>
-                    <li><a>Dashboard 3</a></li>
+                    <li><a [routerLink]="['/Dashboard_1']">Dashboard 1</a></li>
+                    <li><a [routerLink]="['/Dashboard_2']">Dashboard 2</a></li>
+                    <li><a [routerLink]="['/Dashboard_3']">Dashboard 3</a></li>
                 </ul>
             </div>
             <div class="title">GSM</div>
@@ -82,28 +82,28 @@
                     <i class="fa fa-angle-left"></i>
                 </a>
                 <ul>
-                    <li><a>Provider</a></li>
-                    <li><a>Customers</a></li>
-                    <li><a>Routing</a></li>
-                    <li><a>Finances</a></li>
+                    <li><a [routerLink]="['/Provider']">Provider</a></li>
+                    <li><a [routerLink]="['/Customers']">Customers</a></li>
+                    <li><a [routerLink]="['/Routing']">Routing</a></li>
+                    <li><a [routerLink]="['/Finances']">Finances</a></li>
                 </ul>
             </div>
             <div class="item-menu clear">
-                <a class="sub-task clear">
+                <a [routerLink]="['/Prices']" class="sub-task clear">
                     <i class="icon-left icon-wallet"></i>
                     <span class="name-sub">Prices</span>
                     <i class="fa fa-angle-left"></i>
                 </a>
             </div>
             <div class="item-menu clear">
-                <a class="sub-task clear">
+                <a [routerLink]="['/Routing']" class="sub-task clear">
                     <i class="icon-left icon-rocket"></i>
                     <span class="name-sub">Routing</span>
                     <i class="fa fa-angle-left"></i>
                 </a>
             </div>
             <div class="item-menu clear">
-                <a class="sub-task clear">
+                <a [routerLink]="['/MCC_MNC']" class="sub-task clear">
                     <i class="icon-left icon-wrench"></i>
                     <span class="name-sub">MCC & MNC</span>
                     <i class="fa fa-angle-left"></i>
@@ -113,7 +113,7 @@
     </ul>
 </nav>
 
-<main>
+<main class="main">
     <router-outlet></router-outlet>
 </main>
 
