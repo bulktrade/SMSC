@@ -1,11 +1,6 @@
 import {
     it,
-    inject,
-    injectAsync,
-    describe,
-    beforeEachProviders,
-    TestComponentBuilder,
-    setBaseTestProviders
+    describe
 } from 'angular2/testing';
 
 // Load the implementations that should be tested
@@ -19,13 +14,9 @@ describe('ODatabase', () => {
     });
 
     it('open OrientDB', () => {
-        this.db.open('admin', 'admin')
-            .then(
-                (res) => {
-                    expect(res).toBeUndefined();
-                }
-            );
-        //expect(this.db.open).toHaveBeenCalled();
+        this.db.open('admin', 'admin');
+
+        expect(this.db.open).toHaveBeenCalled();
     });
 
     it('query to OrientDB', () => {

@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'mcc_mnc',
-    templateUrl: 'app/components/mcc_mnc/mcc_mnc.html',
-    styleUrls: ['app/components/mcc_mnc/mcc_mnc.css'],
+    selector: 'mccmnc',
+    templateUrl: 'app/components/mccmnc/mccmnc.html',
+    styleUrls: ['app/components/mccmnc/mccmnc.css'],
     providers: [],
     directives: [],
     pipes: []
 })
-export class MCC_MNC {
+export class MCCMNC {
 
     constructor() {}
 

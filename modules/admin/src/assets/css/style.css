@@ -256,8 +256,6 @@ html {
   margin-left: 10px;
   font-size: 14px; }
 
-.menu {
-  float: left;
-  margin: 19px 0 0 22px; }
+.main {float: left;}
 
 /*# sourceMappingURL=style.css.map */
