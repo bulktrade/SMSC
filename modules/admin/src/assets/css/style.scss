@@ -255,7 +255,7 @@ html {
         text-transform: uppercase;
         font-family: 'Open Sans', sans-serif;
         font-size: 13px;
-        padding: 22px 0 17px 17px;
+        padding: 15px 0 17px 17px;
         color: rgb(92, 154, 207);
       }
       ul {
@@ -272,6 +272,12 @@ html {
           &:hover {
             background: #F2F6F9;
             color: rgb(91, 155, 209) !important;
+          }
+          .subitem-icon-left {
+            float: left;
+            font-size: 18px;
+            color: rgb(167, 189, 205);
+            margin: -2px 10px 0 0;
           }
         }
       }
@@ -303,7 +309,4 @@ html {
   }
 }
 
-.menu {
-  float: left;
-  margin: 19px 0 0 22px;
-}
+.main {float: left;}

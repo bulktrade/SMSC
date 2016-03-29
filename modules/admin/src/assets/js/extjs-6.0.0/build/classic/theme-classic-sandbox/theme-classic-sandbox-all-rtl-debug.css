@@ -1,0 +1,63 @@
+/*
+Error: File to import not found or unreadable: ../../../sass/etc/all.
+       Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src
+        on line 863 of ./assets/js/extjs-6.0.0/build/classic/theme-classic-sandbox/theme-classic-sandbox-all-rtl-debug.scss
+
+858: $ext-resource-root: '' !default;
+859: $ext-resource-path: 'images' !default;
+860: $current-package: 'ext';
+861: $current-resource-root: $ext-resource-root;
+862: $relative-image-path-for-uis: $ext-resource-path;
+863: @import '../../../sass/etc/all';
+864: 
+865: /* including package core *\/
+866: $core-resource-root: '' !default;
+867: $core-resource-path: 'images' !default;
+868: $current-package: 'core';
+
+Backtrace:
+./assets/js/extjs-6.0.0/build/classic/theme-classic-sandbox/theme-classic-sandbox-all-rtl-debug.scss:863
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:67:in `rescue in import'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:45:in `import'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:28:in `imported_file'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:37:in `css_import?'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:311:in `visit_import'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/stack.rb:115:in `with_frame'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:52:in `map'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:157:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/root_node.rb:36:in `css_tree'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/engine.rb:378:in `_render_with_sourcemap'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/engine.rb:295:in `render_with_sourcemap'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:209:in `each'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/plugin/compiler.rb:293:in `watch'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/plugin.rb:109:in `method_missing'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/exec/sass_scss.rb:383:in `watch_or_update'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/exec/sass_scss.rb:51:in `process_result'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/exec/base.rb:52:in `parse'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/exec/base.rb:19:in `parse!'
+/var/lib/gems/2.1.0/gems/sass-3.4.21/bin/sass:13:in `<top (required)>'
+/usr/local/bin/sass:23:in `load'
+/usr/local/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: File to import not found or unreadable: ../../../sass/etc/all.\A        Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src\A         on line 863 of ./assets/js/extjs-6.0.0/build/classic/theme-classic-sandbox/theme-classic-sandbox-all-rtl-debug.scss\A \A 858: $ext-resource-root: '' !default;\A 859: $ext-resource-path: 'images' !default;\A 860: $current-package: 'ext';\A 861: $current-resource-root: $ext-resource-root;\A 862: $relative-image-path-for-uis: $ext-resource-path;\A 863: @import '../../../sass/etc/all';\A 864: \A 865: /* including package core */\A 866: $core-resource-root: '' !default;\A 867: $core-resource-path: 'images' !default;\A 868: $current-package: 'core';"; }
