@@ -12,5 +12,7 @@ import {PricesGrid} from "./directives/prices-grid";
 export class Prices {
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        
+    }
 }

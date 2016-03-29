@@ -20,7 +20,7 @@ html {
   color: #5B9BD1;
   font-size: 24px;
   font-family: 'Open Sans', sans-serif;
-  margin-top: -6px; }
+  margin-top: 2px; }
 .left-panel .menu-toggler {
   width: 20px;
   height: 14px;
@@ -113,9 +113,9 @@ html {
   cursor: pointer; }
 .right-panel .user-profile:hover {
   background: #F9FAFC; }
-.right-panel .user-profile:hover + .slide-menu {
-  display: block; }
 
+.user-profile {
+  display: block; }
 .user-profile .user-name {
   float: left;
   color: #8EC4ED;

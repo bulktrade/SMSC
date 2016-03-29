@@ -1,8 +1,5 @@
 import {Component} from 'angular2/core';
-import {Router, Route, RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-
 import {ODatabase} from './../../../Service/OrientDB';
-import {Mock} from "./../../../Service/Mock";
 
 @Component({
     selector: 'login',
@@ -13,11 +10,16 @@ import {Mock} from "./../../../Service/Mock";
 })
 
 export class Login {
-    database: ODatabase;
+    private adminName: string;
+    private adminPass: string;
+    private database: ODatabase;
 
     constructor() {
         this.database = new ODatabase('http://orientdb.127.0.0.1.xip.io/smsc');
         this.database.open('admin', 'admin');
+
+        this.adminName = 'admin';
+        this.adminPass = 'admin';
     }
 
     authentication(login, password) {
@@ -27,9 +29,17 @@ export class Login {
                 .then(
                     (res) => {
                        if (res.result.length) {
+                           if(res.result[0].name == this.adminName &&
+                               res.result[0].password == this.sha256(this.adminPass)) {
+                               document.cookie = 'rightWrite=true';
+                           } else {
+                               // delete cookie
+                               document.cookie = 'rightWrite=true;expires=Mon, 01-Jan-2000 00:00:00 GMT';
+                           }
                            alert('The user was found!');
                        } else {
                            alert('User not found!');
+                           document.cookie = 'rightWrite=true;expires=Mon, 01-Jan-2000 00:00:00 GMT';
                        }
                     }
                 );
@@ -46,4 +56,5 @@ export class Login {
             return message;
         }
     }
+
 }

@@ -8,6 +8,7 @@ import {MCCMNC} from './components/mccmnc/mccmnc';
 import {Prices} from './components/prices/prices';
 import {Provider} from './components/provider/provider';
 import {Routing} from './components/routing/routing';
+import {Login} from "./components/login/login";
 
 @Component({
     selector: 'navigation',
@@ -25,7 +26,8 @@ import {Routing} from './components/routing/routing';
     { path: './components/prices/prices', component: Prices, name: 'Prices' },
     { path: './components/provider/provider', component: Provider, name: 'Provider' },
     { path: './components/routing/routing', component: Routing, name: 'Routing' },
-    { path: './components/customers/customers', component: Customers, name: 'Customers' }
+    { path: './components/customers/customers', component: Customers, name: 'Customers' },
+    { path: './components/login/login', component: Login, name: 'Login' }
 ])
 
 export class Navigation {

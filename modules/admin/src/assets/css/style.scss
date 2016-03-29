@@ -26,7 +26,7 @@ html {
     color: #5B9BD1;
     font-size: 24px;
     font-family: 'Open Sans', sans-serif;
-    margin-top: -6px;
+    margin-top: 2px;
   }
   .menu-toggler {
     width: 20px;
@@ -138,11 +138,12 @@ html {
   padding: 24px 6px 0 6px;
   cursor: pointer;
   &:hover {background: #F9FAFC;}
-  &:hover+.slide-menu {
-    display: block;}
+  //&:hover+.slide-menu {
+  //  display: block;}
 }
 
 .user-profile {
+  display: block;
   .user-name {
     float: left;
     color: #8EC4ED;
