@@ -57,4 +57,12 @@ export class Login {
         }
     }
 
+    static getCookie() {
+        if (document.cookie) {
+            return document.cookie.split('=')[1];
+        }
+
+        return '';
+    }
+
 }

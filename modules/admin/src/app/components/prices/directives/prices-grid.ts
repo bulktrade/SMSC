@@ -1,4 +1,5 @@
 import {Directive, ElementRef} from 'angular2/core';
+import {Login} from "../../login/login";
 
 @Directive({
     selector: '[prices-grid]'
@@ -43,7 +44,7 @@ export class PricesGrid {
         PricesGrid.priceStore = this.mainStore();
 
 
-        var enumType = Ext.create('Ext.data.Store', {
+        let enumType = Ext.create('Ext.data.Store', {
             fields: ['abbr', 'name'],
             data: [
                 {"abbr": "numeric", "name": "numeric"},
@@ -52,12 +53,12 @@ export class PricesGrid {
             ]
         });
 
-        var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
+        let rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
             clicksToMoveEditor: 1,
             autoCancel: false
         });
 
-        if (this.getCookie()) {
+        if (Login.getCookie()) {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: PricesGrid.priceStore,
@@ -138,7 +139,7 @@ export class PricesGrid {
                         rowEditing.cancelEdit();
 
                         // Create a model instance
-                        var r = Ext.create('Prices', {
+                        let r = Ext.create('Prices', {
                             mcc: '1',
                             mnc: '2',
                             price: '500',
@@ -154,7 +155,7 @@ export class PricesGrid {
                     itemId: 'remove',
                     text: 'Remove',
                     handler: () => {
-                        var sm = grid.getSelectionModel();
+                        let sm = grid.getSelectionModel();
                         rowEditing.cancelEdit();
                         PricesGrid.priceStore.remove(sm.getSelection());
                         if (PricesGrid.priceStore.getCount() > 0) {
@@ -248,12 +249,4 @@ export class PricesGrid {
         }
         PricesGrid.visible = true;
     }
-
-     getCookie() {
-        if (document.cookie) {
-            return document.cookie.split('=')[1];
-        }
-
-        return '';
-     }
 }
