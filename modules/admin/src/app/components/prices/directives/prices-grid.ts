@@ -63,7 +63,7 @@ export class PricesGrid {
                 renderTo: this.element.nativeElement,
                 store: PricesGrid.priceStore,
                 width: 1000,
-                height: 500,
+                height: 476,
                 title: 'Gateway',
                 columns: [
                     {
@@ -176,7 +176,7 @@ export class PricesGrid {
                 renderTo: this.element.nativeElement,
                 store: PricesGrid.priceStore,
                 width: 1000,
-                height: 500,
+                height: 476,
                 title: 'Gateway',
                 columns: [
                     {

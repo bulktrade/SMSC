@@ -2,37 +2,44 @@ import {Directive, ElementRef} from 'angular2/core';
 import {Login} from "../../login/login";
 
 @Directive({
-    selector: '[customers-grid]'
+    selector: '[routing-grid]'
 })
-export class CustomersGrid {
+export class RoutingGrid {
     private static visible = false;
-    private static customersStore: any;
+    private static routingStore: any;
+
 
     constructor(private element: ElementRef) {}
 
     mainStore() {
         return Ext.create('Ext.data.Store', {
-            model: 'Customers',
+            model: 'Routing',
             data: [
-                {customer_id: '1', company_name: 'SMSC'},
-                {customer_id: '2', company_name: 'SMSC'},
-                {customer_id: '3', company_name: 'SMSC'}
+                {carrier: 'temp', type: 'http'},
             ]
         });
     }
 
     ngOnInit() {
-        if (!CustomersGrid.visible) {
-            Ext.define('Customers', {
+        if (!RoutingGrid.visible) {
+            Ext.define('Routing', {
                 extend: 'Ext.data.Model',
                 fields: [
-                    {name: 'customer_id', type: 'number'},
-                    {name: 'company_name', type: 'string'},
+                    {name: 'carrier', type: 'string'},
+                    {name: 'type', type: 'string'}
                 ]
             });
         }
 
-        CustomersGrid.customersStore = this.mainStore();
+        RoutingGrid.routingStore = this.mainStore();
+
+        let enumType = Ext.create('Ext.data.Store', {
+            fields: ['abbr', 'name'],
+            data: [
+                {"abbr": "smpp", "name": "smpp"},
+                {"abbr": "http", "name": "http"}
+            ]
+        });
 
         let rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
             clicksToMoveEditor: 1,
@@ -42,25 +49,30 @@ export class CustomersGrid {
         if (Login.getCookie()) {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
-                store: CustomersGrid.customersStore,
+                store: RoutingGrid.routingStore,
                 width: 1000,
                 height: 476,
-                title: 'Customers',
+                title: 'Routing',
                 columns: [
                     {
-                        text: 'Customer ID',
-                        dataIndex: 'customer_id',
+                        text: 'Carrier',
+                        dataIndex: 'carrier',
                         flex: 1,
                         editor: {
                             allowBlank: false
                         }
                     },
                     {
-                        text: 'Company Name',
-                        dataIndex: 'company_name',
+                        text: 'Type',
+                        dataIndex: 'type',
+                        xtype: 'gridcolumn',
                         flex: 1,
                         editor: {
-                            allowBlank: false
+                            xtype: 'combobox',
+                            displayField: 'name',
+                            valueField: 'abbr',
+                            queryMode: 'remote',
+                            store: enumType
                         }
                     }
                 ],
@@ -71,12 +83,12 @@ export class CustomersGrid {
                         rowEditing.cancelEdit();
 
                         // Create a model instance
-                        let r = Ext.create('Customers', {
-                            customer_id: 1,
-                            company_name: 'SMSC',
+                        let r = Ext.create('Routing', {
+                            carrier: 'temp',
+                            type: 'http',
                         });
 
-                        CustomersGrid.customersStore.insert(0, r);
+                        RoutingGrid.routingStore.insert(0, r);
                         rowEditing.startEdit(0, 0);
                     }
                 }, {
@@ -85,8 +97,8 @@ export class CustomersGrid {
                     handler: () => {
                         let sm = grid.getSelectionModel();
                         rowEditing.cancelEdit();
-                        CustomersGrid.customersStore.remove(sm.getSelection());
-                        if (CustomersGrid.customersStore.getCount() > 0) {
+                        RoutingGrid.routingStore.remove(sm.getSelection());
+                        if (RoutingGrid.routingStore.getCount() > 0) {
                             sm.select(0);
                         }
                     },
@@ -102,30 +114,35 @@ export class CustomersGrid {
         } else {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
-                store: CustomersGrid.customersStore,
+                store: RoutingGrid.routingStore,
                 width: 1000,
                 height: 476,
-                title: 'Customers',
+                title: 'Routing',
                 columns: [
                     {
-                        text: 'Customer ID',
-                        dataIndex: 'customer_id',
+                        text: 'Carrier',
+                        dataIndex: 'carrier',
                         flex: 1,
                         editor: {
                             allowBlank: false
                         }
                     },
                     {
-                        text: 'Company Name',
-                        dataIndex: 'company_name',
+                        text: 'Type',
+                        dataIndex: 'type',
+                        xtype: 'gridcolumn',
                         flex: 1,
                         editor: {
-                            allowBlank: false
+                            xtype: 'combobox',
+                            displayField: 'name',
+                            valueField: 'abbr',
+                            queryMode: 'remote',
+                            store: enumType
                         }
                     }
                 ],
             });
         }
-        CustomersGrid.visible = true;
+        RoutingGrid.visible = true;
     }
 }
