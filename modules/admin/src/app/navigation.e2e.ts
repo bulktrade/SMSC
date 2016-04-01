@@ -1,25 +1,45 @@
 describe('Navigation', () => {
 
   beforeEach(() => {
-    browser.get('/');
+    this.navigator = new NavigationTest();
+    this.navigator.get();
   });
 
   it('should have a title', () => {
-    let subject = browser.getTitle();
     let result  = 'Angular2 Admin';
-    expect(subject).toBe(result);
+    expect(this.navigator.getTitle()).toBe(result);
   });
 
   it('should have side-bar', () => {
-    let subject = element(by.className('side-bar')).isPresent();
     let result  = true;
-    expect(subject).toEqual(result);
+    expect(this.navigator.subjSidebar()).toEqual(result);
   });
 
   it('should have dashboard', () => {
-    let subject = element(by.className('dashboard')).getText();
     let result  = 'Dashboard';
-    expect(subject).toEqual(result);
+    expect(this.navigator.subjDashboard()).toEqual(result);
   });
 
 });
+
+class NavigationTest {
+  elemSidebar = element(by.className('side-bar'));
+  elemDashboard = element(by.className('dashboard'));
+
+  get() {
+    browser.get('/');
+  };
+
+  subjSidebar() {
+    return this.elemSidebar.isPresent();
+  }
+
+  subjDashboard() {
+    return this.elemDashboard.getText();
+  }
+
+  getTitle() {
+    return browser.getTitle();
+  }
+
+}

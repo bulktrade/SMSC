@@ -62,7 +62,6 @@ export class PricesGrid {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: PricesGrid.priceStore,
-                width: 1000,
                 height: 476,
                 title: 'Gateway',
                 columns: [
@@ -175,14 +174,13 @@ export class PricesGrid {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: PricesGrid.priceStore,
-                width: 1000,
                 height: 476,
                 title: 'Gateway',
                 columns: [
                     {
                         text: 'MCC',
                         dataIndex: 'mcc',
-                        flex: 1,
+                        flex: 0.5,
                         editor: {
                             allowBlank: false
                         }
@@ -190,14 +188,14 @@ export class PricesGrid {
                     {
                         text: 'MNC',
                         dataIndex: 'mnc',
-                        flex: 1,
+                        flex: 0.5,
                         editor: {
                             allowBlank: false
                         }
                     },
                     {
                         text: 'Price',
-                        flex: 1,
+                        flex: 0.5,
                         dataIndex: 'price',
                         editor: {
                             allowBlank: false
@@ -207,7 +205,7 @@ export class PricesGrid {
                         dataIndex: 'type',
                         xtype: 'gridcolumn',
                         text: 'Type',
-                        flex: 1,
+                        flex: 0.5,
                         editor: {
                             xtype: 'combobox',
                             displayField: 'name',
@@ -219,6 +217,7 @@ export class PricesGrid {
                     {
                         xtype: 'datecolumn',
                         header: 'Valid from',
+                        flex: 0.5,
                         dataIndex: 'valid_from',
                         width: 135,
                         editor: {
@@ -233,6 +232,7 @@ export class PricesGrid {
                     {
                         xtype: 'datecolumn',
                         header: 'Valid to',
+                        flex: 4,
                         dataIndex: 'valid_to',
                         width: 135,
                         editor: {

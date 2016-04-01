@@ -50,7 +50,7 @@ export class CustomersGrid {
                     {
                         text: 'Customer ID',
                         dataIndex: 'customer_id',
-                        flex: 1,
+                        flex: 0.5,
                         editor: {
                             allowBlank: false
                         }
@@ -58,7 +58,7 @@ export class CustomersGrid {
                     {
                         text: 'Company Name',
                         dataIndex: 'company_name',
-                        flex: 1,
+                        flex: 4,
                         editor: {
                             allowBlank: false
                         }
@@ -103,14 +103,13 @@ export class CustomersGrid {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: CustomersGrid.customersStore,
-                width: 1000,
                 height: 476,
                 title: 'Customers',
                 columns: [
                     {
                         text: 'Customer ID',
                         dataIndex: 'customer_id',
-                        flex: 1,
+                        flex: 0.5,
                         editor: {
                             allowBlank: false
                         }
@@ -118,7 +117,7 @@ export class CustomersGrid {
                     {
                         text: 'Company Name',
                         dataIndex: 'company_name',
-                        flex: 1,
+                        flex: 4,
                         editor: {
                             allowBlank: false
                         }

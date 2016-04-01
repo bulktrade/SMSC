@@ -50,14 +50,13 @@ export class RoutingGrid {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: RoutingGrid.routingStore,
-                width: 1000,
                 height: 476,
                 title: 'Routing',
                 columns: [
                     {
                         text: 'Carrier',
                         dataIndex: 'carrier',
-                        flex: 1,
+                        flex: 0.5,
                         editor: {
                             allowBlank: false
                         }
@@ -66,7 +65,7 @@ export class RoutingGrid {
                         text: 'Type',
                         dataIndex: 'type',
                         xtype: 'gridcolumn',
-                        flex: 1,
+                        flex: 4,
                         editor: {
                             xtype: 'combobox',
                             displayField: 'name',
@@ -115,14 +114,13 @@ export class RoutingGrid {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: RoutingGrid.routingStore,
-                width: 1000,
                 height: 476,
                 title: 'Routing',
                 columns: [
                     {
                         text: 'Carrier',
                         dataIndex: 'carrier',
-                        flex: 1,
+                        flex: 0.5,
                         editor: {
                             allowBlank: false
                         }
@@ -131,7 +129,7 @@ export class RoutingGrid {
                         text: 'Type',
                         dataIndex: 'type',
                         xtype: 'gridcolumn',
-                        flex: 1,
+                        flex: 4,
                         editor: {
                             xtype: 'combobox',
                             displayField: 'name',
@@ -140,7 +138,7 @@ export class RoutingGrid {
                             store: enumType
                         }
                     }
-                ],
+                ]
             });
         }
         RoutingGrid.visible = true;

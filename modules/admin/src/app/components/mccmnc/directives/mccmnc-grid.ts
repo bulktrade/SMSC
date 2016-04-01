@@ -76,7 +76,7 @@ export class MCCMNCGrid {
                 columns: [
                     {
                         text: "MCC",
-                        flex: 1,
+                        flex: 0.5,
                         dataIndex: 'mcc',
                         editor: {
                             allowBlank: false
@@ -84,7 +84,7 @@ export class MCCMNCGrid {
                     },
                     {
                         text: "Code",
-                        flex: 1,
+                        flex: 0.5,
                         dataIndex: 'code',
                         editor: {
                             allowBlank: false
@@ -92,7 +92,7 @@ export class MCCMNCGrid {
                     },
                     {
                         text: "Country",
-                        flex: 1,
+                        flex: 4,
                         dataIndex: 'country',
                         editor: {
                             allowBlank: false
@@ -142,7 +142,7 @@ export class MCCMNCGrid {
                 columns: [
                     {
                         text: "MNC",
-                        flex: 1,
+                        flex: 0.5,
                         dataIndex: 'mnc',
                         editor: {
                             allowBlank: false
@@ -150,7 +150,7 @@ export class MCCMNCGrid {
                     },
                     {
                         text: "MCC",
-                        flex: 1,
+                        flex: 0.5,
                         dataIndex: 'mcc',
                         editor: {
                             allowBlank: false
@@ -158,7 +158,7 @@ export class MCCMNCGrid {
                     },
                     {
                         text: "Carrier",
-                        flex: 1,
+                        flex: 4,
                         dataIndex: 'carrier',
                         editor: {
                             allowBlank: false
@@ -208,17 +208,17 @@ export class MCCMNCGrid {
                 columns: [
                     {
                         text: "MCC",
-                        flex: 1,
+                        flex: 0.5,
                         dataIndex: 'mcc'
                     },
                     {
                         text: "Code",
-                        flex: 1,
+                        flex: 0.5,
                         dataIndex: 'code'
                     },
                     {
                         text: "Country",
-                        flex: 1,
+                        flex: 4,
                         dataIndex: 'country'
                     }
                 ],
@@ -230,17 +230,17 @@ export class MCCMNCGrid {
                 columns: [
                     {
                         text: "MNC",
-                        flex: 1,
+                        flex: 0.5,
                         dataIndex: 'mnc'
                     },
                     {
                         text: "MCC",
-                        flex: 1,
+                        flex: 0.5,
                         dataIndex: 'mcc'
                     },
                     {
                         text: "Carrier",
-                        flex: 1,
+                        flex: 4,
                         dataIndex: 'carrier'
                     }
                 ],
@@ -249,7 +249,6 @@ export class MCCMNCGrid {
         }
 
         Ext.create('Ext.TabPanel', {
-            width: 1000,
             height: 476,
             renderTo: this.element.nativeElement,
             items: [
