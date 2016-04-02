@@ -3,4 +3,4 @@ node_js:
   - "0.10"
 install:
   - cd modules/admin/ && npm install && cd src && ../node_modules/bower/bin/bower install
-script: cd modules/admin/ && npm run ci
+script: cd .. && npm run ci
