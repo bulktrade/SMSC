@@ -1,6 +1,7 @@
-.idea/
-modules/.idea/
-modules/admin/.idea/
-modules/admin/coverage/phantomjs/
-modules/admin/coverage/PhantomJS 2.1.1 (Linux 0.0.0)/
-modules/admin/node_modules/
+.idea
+modules/.idea
+modules/admin/.idea
+modules/admin/coverage
+modules/admin/node_modules
+modules/admin/src/bower_components
+modules/admin/src/.sass-cache
