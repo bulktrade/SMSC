@@ -5,7 +5,7 @@ import {
 
 // Load the implementations that should be tested
 import {ODatabase} from './OrientDB';
-import {Mock} from "./Mock";
+import {Mock} from './Mock';
 
 describe('ODatabase', () => {
 

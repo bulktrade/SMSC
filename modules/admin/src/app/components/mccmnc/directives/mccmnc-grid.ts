@@ -1,5 +1,5 @@
 import {Directive, ElementRef} from 'angular2/core';
-import {Login} from "../../login/login";
+import {Cookie} from '../../login/cookie';
 
 @Directive({
     selector: '[mccmnc-grid]'
@@ -61,11 +61,12 @@ export class MCCMNCGrid {
         MCCMNCGrid.mccStore = this.MCCStore();
         MCCMNCGrid.mncStore = this.MNCStore();
 
-        if (Login.getCookie()) {
+        if (Cookie.getCookie()) {
             let rowEditingMCC = Ext.create('Ext.grid.plugin.RowEditing', {
                 clicksToMoveEditor: 1,
                 autoCancel: false
             });
+
             let rowEditingMNC = Ext.create('Ext.grid.plugin.RowEditing', {
                 clicksToMoveEditor: 1,
                 autoCancel: false
@@ -75,7 +76,7 @@ export class MCCMNCGrid {
                 store: MCCMNCGrid.mccStore,
                 columns: [
                     {
-                        text: "MCC",
+                        text: 'MCC',
                         flex: 0.5,
                         dataIndex: 'mcc',
                         editor: {
@@ -83,7 +84,7 @@ export class MCCMNCGrid {
                         }
                     },
                     {
-                        text: "Code",
+                        text: 'Code',
                         flex: 0.5,
                         dataIndex: 'code',
                         editor: {
@@ -91,7 +92,7 @@ export class MCCMNCGrid {
                         }
                     },
                     {
-                        text: "Country",
+                        text: 'Country',
                         flex: 4,
                         dataIndex: 'country',
                         editor: {
@@ -141,7 +142,7 @@ export class MCCMNCGrid {
                 store: MCCMNCGrid.mncStore,
                 columns: [
                     {
-                        text: "MNC",
+                        text: 'MNC',
                         flex: 0.5,
                         dataIndex: 'mnc',
                         editor: {
@@ -149,7 +150,7 @@ export class MCCMNCGrid {
                         }
                     },
                     {
-                        text: "MCC",
+                        text: 'MCC',
                         flex: 0.5,
                         dataIndex: 'mcc',
                         editor: {
@@ -157,7 +158,7 @@ export class MCCMNCGrid {
                         }
                     },
                     {
-                        text: "Carrier",
+                        text: 'Carrier',
                         flex: 4,
                         dataIndex: 'carrier',
                         editor: {
@@ -207,17 +208,17 @@ export class MCCMNCGrid {
                 store: MCCMNCGrid.mccStore,
                 columns: [
                     {
-                        text: "MCC",
+                        text: 'MCC',
                         flex: 0.5,
                         dataIndex: 'mcc'
                     },
                     {
-                        text: "Code",
+                        text: 'Code',
                         flex: 0.5,
                         dataIndex: 'code'
                     },
                     {
-                        text: "Country",
+                        text: 'Country',
                         flex: 4,
                         dataIndex: 'country'
                     }
@@ -229,17 +230,17 @@ export class MCCMNCGrid {
                 store: MCCMNCGrid.mncStore,
                 columns: [
                     {
-                        text: "MNC",
+                        text: 'MNC',
                         flex: 0.5,
                         dataIndex: 'mnc'
                     },
                     {
-                        text: "MCC",
+                        text: 'MCC',
                         flex: 0.5,
                         dataIndex: 'mcc'
                     },
                     {
-                        text: "Carrier",
+                        text: 'Carrier',
                         flex: 4,
                         dataIndex: 'carrier'
                     }

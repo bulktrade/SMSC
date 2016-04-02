@@ -3,8 +3,8 @@ import {
     inject,
     beforeEachProviders,
 } from 'angular2/testing';
-import {PricesGrid} from "./prices-grid";
-import {ElementRef} from "angular2/core";
+import {PricesGrid} from './prices-grid';
+import {ElementRef} from 'angular2/core';
 
 describe('PricesGrid', () => {
     beforeEachProviders(() => [

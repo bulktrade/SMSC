@@ -28,7 +28,7 @@ export class Request {
                 btoa(this.userName + ':' + this.userPass));
             xhr.onload = function () {
                 if (xhr.status === 200) {
-                    resolve(xhr.responseText)
+                    resolve(xhr.responseText);
                 } else {
                     reject(new Error(xhr.statusText));
                 }

@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {PricesGrid} from "./directives/prices-grid";
+import {PricesGrid} from './directives/prices-grid';
 
 @Component({
     selector: 'prices',

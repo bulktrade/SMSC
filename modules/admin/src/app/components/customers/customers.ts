@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {CustomersGrid} from "./directives/customers-grid";
+import {CustomersGrid} from './directives/customers-grid';
 
 @Component({
     selector: 'customers',

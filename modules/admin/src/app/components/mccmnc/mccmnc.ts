@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {MCCMNCGrid} from "./directives/mccmnc-grid";
+import {MCCMNCGrid} from './directives/mccmnc-grid';
 
 @Component({
     selector: 'mccmnc',

@@ -1,5 +1,5 @@
 import {Directive, ElementRef} from 'angular2/core';
-import {Login} from "../../login/login";
+import {Cookie} from '../../login/cookie';
 
 @Directive({
     selector: '[prices-grid]'
@@ -15,13 +15,20 @@ export class PricesGrid {
         return Ext.create('Ext.data.Store', {
             model: 'Prices',
             data: [
-                {mcc: '1', mnc: '2', price: '3', type: 'numeric', valid_from: '10/10/2014', valid_to: '10/10/2014'},
-                {mcc: '1', mnc: '2', price: '3', type: 'numeric', valid_from: '10/10/2014', valid_to: '10/10/2014'},
-                {mcc: '1', mnc: '2', price: '3', type: 'numeric', valid_from: '10/10/2014', valid_to: '10/10/2014'},
-                {mcc: '1', mnc: '2', price: '3', type: 'numeric', valid_from: '10/10/2014', valid_to: '10/10/2014'},
-                {mcc: '1', mnc: '2', price: '3', type: 'numeric', valid_from: '10/10/2014', valid_to: '10/10/2014'},
-                {mcc: '1', mnc: '2', price: '3', type: 'numeric', valid_from: '10/10/2014', valid_to: '10/10/2014'},
-                {mcc: '1', mnc: '2', price: '3', type: 'numeric', valid_from: '10/10/2014', valid_to: '10/10/2014'}
+                {mcc: '1', mnc: '2', price: '3', type: 'numeric',
+                    valid_from: '10/10/2014', valid_to: '10/10/2014'},
+                {mcc: '1', mnc: '2', price: '3', type: 'numeric',
+                    valid_from: '10/10/2014', valid_to: '10/10/2014'},
+                {mcc: '1', mnc: '2', price: '3', type: 'numeric',
+                    valid_from: '10/10/2014', valid_to: '10/10/2014'},
+                {mcc: '1', mnc: '2', price: '3', type: 'numeric',
+                    valid_from: '10/10/2014', valid_to: '10/10/2014'},
+                {mcc: '1', mnc: '2', price: '3', type: 'numeric',
+                    valid_from: '10/10/2014', valid_to: '10/10/2014'},
+                {mcc: '1', mnc: '2', price: '3', type: 'numeric',
+                    valid_from: '10/10/2014', valid_to: '10/10/2014'},
+                {mcc: '1', mnc: '2', price: '3', type: 'numeric',
+                    valid_from: '10/10/2014', valid_to: '10/10/2014'}
             ]
         });
     }
@@ -43,13 +50,12 @@ export class PricesGrid {
 
         PricesGrid.priceStore = this.mainStore();
 
-
         let enumType = Ext.create('Ext.data.Store', {
             fields: ['abbr', 'name'],
             data: [
-                {"abbr": "numeric", "name": "numeric"},
-                {"abbr": "alphanumeric", "name": "alphanumeric"},
-                {"abbr": "dynamic", "name": "dynamic"}
+                {'abbr': 'numeric', 'name': 'numeric'},
+                {'abbr': 'alphanumeric', 'name': 'alphanumeric'},
+                {'abbr': 'dynamic', 'name': 'dynamic'}
             ]
         });
 
@@ -58,7 +64,7 @@ export class PricesGrid {
             autoCancel: false
         });
 
-        if (Login.getCookie()) {
+        if (Cookie.getCookie()) {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: PricesGrid.priceStore,
@@ -138,6 +144,7 @@ export class PricesGrid {
                         rowEditing.cancelEdit();
 
                         // Create a model instance
+                        //noinspection TypeScriptUnresolvedVariable
                         let r = Ext.create('Prices', {
                             mcc: '1',
                             mnc: '2',

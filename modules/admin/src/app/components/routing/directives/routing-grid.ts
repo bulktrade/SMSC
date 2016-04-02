@@ -1,5 +1,5 @@
 import {Directive, ElementRef} from 'angular2/core';
-import {Login} from "../../login/login";
+import {Cookie} from '../../login/cookie';
 
 @Directive({
     selector: '[routing-grid]'
@@ -36,8 +36,8 @@ export class RoutingGrid {
         let enumType = Ext.create('Ext.data.Store', {
             fields: ['abbr', 'name'],
             data: [
-                {"abbr": "smpp", "name": "smpp"},
-                {"abbr": "http", "name": "http"}
+                {'abbr': 'smpp', 'name': 'smpp'},
+                {'abbr': 'http', 'name': 'http'}
             ]
         });
 
@@ -46,7 +46,7 @@ export class RoutingGrid {
             autoCancel: false
         });
 
-        if (Login.getCookie()) {
+        if (Cookie.getCookie()) {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: RoutingGrid.routingStore,

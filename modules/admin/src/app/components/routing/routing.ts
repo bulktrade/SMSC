@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {RoutingGrid} from "./directives/routing-grid";
+import {RoutingGrid} from './directives/routing-grid';
 
 @Component({
     selector: 'routing',

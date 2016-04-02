@@ -3,8 +3,8 @@ import {
     inject,
     beforeEachProviders,
 } from 'angular2/testing';
-import {RoutingGrid} from "./routing-grid";
-import {ElementRef} from "angular2/core";
+import {RoutingGrid} from './routing-grid';
+import {ElementRef} from 'angular2/core';
 
 describe('RoutingGrid', () => {
     beforeEachProviders(() => [

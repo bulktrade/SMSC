@@ -1,5 +1,6 @@
+/// <reference path="../../../../assets/js/ExtJS.d.ts" />
 import {Directive, ElementRef} from 'angular2/core';
-import {Login} from "../../login/login";
+import {Cookie} from '../../login/cookie';
 
 @Directive({
     selector: '[customers-grid]'
@@ -39,11 +40,10 @@ export class CustomersGrid {
             autoCancel: false
         });
 
-        if (Login.getCookie()) {
+        if (Cookie.getCookie()) {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: CustomersGrid.customersStore,
-                width: 1000,
                 height: 476,
                 title: 'Customers',
                 columns: [

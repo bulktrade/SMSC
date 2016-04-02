@@ -1,5 +1,5 @@
-"use strict";
-import 'rxjs/add/operator/map'
+'use strict';
+import 'rxjs/add/operator/map';
 import {Injectable} from 'angular2/core';
 import {Request} from './Request';
 import {Observable} from 'rxjs/Rx';
@@ -21,18 +21,18 @@ export class ODatabase {
     private urlSuffix;
 
     constructor(databasePath: string) {
-        this.databaseUrl = "";
-        this.databaseName = "";
-        this.encodedDatabaseName = "";
-        this.databaseInfo = null;
-        this.commandResult = null;
-        this.commandResponse = null;
-        this.errorMessage = null;
+        this.databaseUrl = '';
+        this.databaseName = '';
+        this.encodedDatabaseName = '';
+        this.databaseInfo = undefined;
+        this.commandResult = undefined;
+        this.commandResponse = undefined;
+        this.errorMessage = undefined;
         this.evalResponse = true;
         this.parseResponseLink = true;
         this.removeObjectCircleReferences = true;
-        this.urlPrefix = "/";
-        this.urlSuffix = "";
+        this.urlPrefix = '/';
+        this.urlSuffix = '';
         this.request = new Request();
 
         if (databasePath) {
@@ -48,11 +48,11 @@ export class ODatabase {
                 this.databaseName = databasePath.substring(pos + 1);
             } else {
                 this.databaseUrl = databasePath;
-                this.databaseName = null;
+                this.databaseName = undefined;
             }
 
-            if (this.databaseName != null && this.databaseName.indexOf('/') > -1) {
-                this.encodedDatabaseName = "";
+            if (this.databaseName !== undefined && this.databaseName.indexOf('/') > -1) {
+                this.encodedDatabaseName = '';
                 var parts = this.databaseName.split('/');
                 for (var p in parts) {
                     if (!parts.hasOwnProperty(p)) {
@@ -72,71 +72,72 @@ export class ODatabase {
     }
 
     open(userName?, userPass?, authProxy?, type?) {
-        if (userName == null) {
+        if (userName === undefined) {
             userName = '';
         }
 
-        if (userPass == null) {
+        if (userPass === undefined) {
             userPass = '';
         }
 
-        if (authProxy != null && authProxy != '') {
-            this.urlPrefix = this.databaseUrl + authProxy + "/";
+        if (authProxy !== undefined && authProxy !== '') {
+            this.urlPrefix = this.databaseUrl + authProxy + '/';
         } else {
             this.urlPrefix = this.databaseUrl;
         }
 
-        if (type == null || type == '') {
+        if (type === undefined || type === '') {
             type = 'GET';
         }
 
         this.request.basicAuth(userName, userPass);
 
         return this.request.httpRequest({
-            url: this.urlPrefix + 'database/' + this.encodedDatabaseName + this.urlSuffix,
-            type: "get"
-        })
+                url: this.urlPrefix + 'database/' + this.encodedDatabaseName + this.urlSuffix,
+                type: 'get'
+            })
             .then(
                 res => {
-                    this.setErrorMessage(null);
-                        if(res) {
-                            this.setDatabaseInfo(this.transformResponse(res));
-                        }
+                    this.setErrorMessage(undefined);
+                    if (res) {
+                        this.setDatabaseInfo(this.transformResponse(res));
+                    }
                     return this.getDatabaseInfo();
                 },
                 error => {
-                    this.setDatabaseInfo(null);
+                    this.setDatabaseInfo(undefined);
                     this.setErrorMessage('Connect error: ' + error.responseText);
                 }
-            )
+            );
     }
 
     query(iQuery?, iLimit?, iFetchPlan?,
           successCallback?, errorCallback?) {
 
-        if (iLimit == null || iLimit == '') {
+        if (iLimit === undefined || iLimit === '') {
             iLimit = '20';
         }
 
-        var url = 'query/' + this.encodedDatabaseName + '/sql/' + encodeURIComponent(iQuery) + '/' + iLimit;
+        var url = 'query/' + this.encodedDatabaseName + '/sql/'
+            + encodeURIComponent(iQuery) + '/' + iLimit;
 
-        if (iFetchPlan != null && iFetchPlan != '') {
+        if (iFetchPlan !== undefined && iFetchPlan !== '') {
             url += '/' + encodeURIComponent(iFetchPlan);
         }
 
         return this.request.httpRequest({
             url: this.urlPrefix + url + this.urlSuffix,
-            type: "get"
+            type: 'get'
         })
             .then(res => {
-                this.setErrorMessage(null);
+                this.setErrorMessage(undefined);
                 this.handleResponse(res);
                 if (successCallback) {
                     successCallback(this.commandResult);
                 }
-                return successCallback instanceof Function ? null : this.getCommandResult();
+                return successCallback instanceof Function ? undefined : this.getCommandResult();
             }).catch(error => {
-                this.handleResponse(null);
+                this.handleResponse(undefined);
                 this.setErrorMessage('Query error: ' + error.responseText);
                 if (errorCallback) {
                     errorCallback(this.errorMessage);
@@ -145,42 +146,42 @@ export class ODatabase {
     }
 
     close() {
-        if (this.databaseInfo != null) {
+        if (this.databaseInfo !== undefined) {
             return this.request.httpRequest({
                 url: this.urlPrefix + 'disconnect' + this.urlSuffix,
-                type: "get"
+                type: 'get'
             })
                 .then(res => {
                     this.handleResponse(res);
-                    this.setErrorMessage(null);
+                    this.setErrorMessage(undefined);
                     return this.getCommandResult();
                 }).catch(error => {
-                    this.handleResponse(null);
+                    this.handleResponse(undefined);
                     this.setErrorMessage('Command response: '
                         + error.responseText);
                 });
         }
 
-        this.databaseInfo = null;
+        this.databaseInfo = undefined;
     }
 
     handleResponse(iResponse) {
-        if (typeof iResponse != 'object') {
+        if (typeof iResponse !== 'object') {
             iResponse = this.UTF8Encode(iResponse);
         }
 
         this.setCommandResponse(iResponse);
 
-        if (iResponse != null) {
+        if (iResponse !== undefined) {
             this.setCommandResult(this.transformResponse(iResponse));
         } else {
-            this.setCommandResult(null);
+            this.setCommandResult(undefined);
         }
     }
 
     UTF8Encode(string) {
-        string = string.replace(/\r\n/g, "\n");
-        var utftext = "";
+        string = string.replace(/\r\n/g, '\n');
+        var utftext = '';
 
         for ( var n = 0; n < string.length; n++) {
 
@@ -205,7 +206,7 @@ export class ODatabase {
     transformResponse(msg) {
         if (this.getEvalResponse()) {
             var returnValue;
-            if (msg.length > 0 && typeof msg != 'object') {
+            if (msg.length > 0 && typeof msg !== 'object') {
                 returnValue = JSON.parse(msg);
             } else {
                 returnValue = msg;
@@ -222,15 +223,15 @@ export class ODatabase {
     }
 
     parseConnections(obj) {
-        if (typeof obj == 'object') {
+        if (typeof obj === 'object') {
             var linkMap = {
-                "foo": 0
+                'foo': 0
             };
 
             linkMap = this.createObjectsLinksMap(obj, linkMap);
-            if (linkMap["foo"] == 1) {
+            if (linkMap['foo'] === 1) {
                 linkMap = this.putObjectInLinksMap(obj, linkMap);
-                if (linkMap["foo"] == 2) {
+                if (linkMap['foo'] === 2) {
                     obj = this.getObjectFromLinksMap(obj, linkMap);
                 }
             }
@@ -245,14 +246,14 @@ export class ODatabase {
                 continue;
             }
             var value = obj[field];
-            if (typeof value == 'object') {
+            if (typeof value === 'object') {
                 this.createObjectsLinksMap(value, linkMap);
             } else {
-                if (typeof value == 'string') {
-                    if (value.length > 0 && value.charAt(0) == '#') {
+                if (typeof value === 'string') {
+                    if (value.length > 0 && value.charAt(0) === '#') {
                         if (!linkMap.hasOwnProperty(value)) {
-                            linkMap["foo"] = 1;
-                            linkMap[value] = null;
+                            linkMap['foo'] = 1;
+                            linkMap[value] = undefined;
                         }
                     }
                 }
@@ -268,17 +269,17 @@ export class ODatabase {
             }
 
             var value = obj[field];
-            if (typeof value == 'object') {
+            if (typeof value === 'object') {
                 this.getObjectFromLinksMap(value, linkMap);
             } else {
-                if (field != '@rid' && value.length > 0
-                    && value.charAt(0) == '#' && linkMap[value] != null) {
+                if (field !== '@rid' && value.length > 0
+                    && value.charAt(0) === '#' && linkMap[value] !== undefined) {
                     obj[field] = linkMap[value];
                 }
             }
         }
         return obj;
-    }
+    };
 
     putObjectInLinksMap = function (obj, linkMap) {
         for (var field in obj) {
@@ -287,24 +288,24 @@ export class ODatabase {
             }
 
             var value = obj[field];
-            if (typeof value == 'object') {
+            if (typeof value === 'object') {
                 this.putObjectInLinksMap(value, linkMap);
             } else {
-                if (field == '@rid' && value.length > 0
+                if (field === '@rid' && value.length > 0
                     && linkMap.hasOwnProperty(value)
-                    && linkMap[value] === null) {
-                    linkMap["foo"] = 2;
+                    && linkMap[value] === undefined) {
+                    linkMap['foo'] = 2;
                     linkMap[value] = obj;
                 }
             }
         }
         return linkMap;
-    }
+    };
 
     removeCircleReferences(obj, linkMap) {
         linkMap = this.removeCircleReferencesPopulateMap(obj, linkMap);
-        if (obj != null && typeof obj == 'object' && !Array.isArray(obj)) {
-            if (obj['@rid'] != null && obj['@rid']) {
+        if (obj !== undefined && typeof obj === 'object' && !Array.isArray(obj)) {
+            if (obj['@rid'] !== undefined && obj['@rid']) {
                 var rid = this.getRidWithPound(obj['@rid']);
                 linkMap[rid] = rid;
             }
@@ -318,7 +319,7 @@ export class ODatabase {
         } else {
             return '#' + rid;
         }
-    }
+    };
 
     removeCircleReferencesPopulateMap = function (obj, linkMap) {
         for (var field in obj) {
@@ -326,27 +327,27 @@ export class ODatabase {
                 continue;
             }
             var value = obj[field];
-            if (value != null && typeof value == 'object' && !Array.isArray(value)) {
-                if (value['@rid'] != null && value['@rid']) {
+            if (value !== undefined && typeof value === 'object' && !Array.isArray(value)) {
+                if (value['@rid'] !== undefined && value['@rid']) {
                     var rid = this.getRidWithPound(value['@rid']);
-                    if (linkMap[rid] == null || !linkMap[rid]) {
+                    if (linkMap[rid] === undefined || !linkMap[rid]) {
                         linkMap[rid] = value;
                     }
 
                     linkMap = this.removeCircleReferencesPopulateMap(value,
                         linkMap);
                 }
-            } else if (value != null && typeof value == 'object'
+            } else if (value !== undefined && typeof value === 'object'
                 && Array.isArray(value)) {
                 for (var i in value) {
                     if (!value.hasOwnProperty(i)) {
                         continue;
                     }
                     var arrayValue = value[i];
-                    if (arrayValue != null && typeof arrayValue == 'object') {
-                        if (arrayValue['@rid'] != null && arrayValue['@rid']) {
+                    if (arrayValue !== undefined && typeof arrayValue === 'object') {
+                        if (arrayValue['@rid'] !== undefined && arrayValue['@rid']) {
                             var rid = this.getRidWithPound(arrayValue['@rid']);
-                            if (linkMap[rid] == null || !linkMap[rid]) {
+                            if (linkMap[rid] === undefined || !linkMap[rid]) {
                                 linkMap[rid] = arrayValue;
                             }
                         }
@@ -357,7 +358,7 @@ export class ODatabase {
             }
         }
         return linkMap;
-    }
+    };
 
     removeCircleReferencesChangeObject(obj,
                                        linkMap) {
@@ -366,13 +367,13 @@ export class ODatabase {
                 continue;
             }
             var value = obj[field];
-            if (value != null && typeof value == 'object' && !Array.isArray(value)) {
+            if (value !== undefined && typeof value === 'object' && !Array.isArray(value)) {
                 var inspectObject = true;
-                if (value['@rid'] != null && value['@rid']) {
+                if (value['@rid'] !== undefined && value['@rid']) {
                     var rid = this.getRidWithPound(value['@rid']);
-                    if (linkMap[rid] != null && linkMap[rid]) {
+                    if (linkMap[rid] !== undefined && linkMap[rid]) {
                         var mapValue = linkMap[rid];
-                        if (typeof mapValue == 'object') {
+                        if (typeof mapValue === 'object') {
                             linkMap[rid] = rid;
                         } else {
                             obj[field] = mapValue;
@@ -383,20 +384,20 @@ export class ODatabase {
                 if (inspectObject) {
                     this.removeCircleReferencesChangeObject(value, linkMap);
                 }
-            } else if (value != null && typeof value == 'object'
+            } else if (value !== undefined && typeof value === 'object'
                 && Array.isArray(value)) {
                 for (var i in value) {
                     if (!value.hasOwnProperty(i)) {
                         continue;
                     }
                     var arrayValue = value[i];
-                    if (typeof arrayValue == 'object') {
+                    if (typeof arrayValue === 'object') {
                         var inspectObject = true;
-                        if (arrayValue['@rid'] != null && arrayValue['@rid']) {
+                        if (arrayValue['@rid'] !== undefined && arrayValue['@rid']) {
                             var rid = this.getRidWithPound(arrayValue['@rid']);
-                            if (linkMap[rid] != null && linkMap[rid]) {
+                            if (linkMap[rid] !== undefined && linkMap[rid]) {
                                 var mapValue = linkMap[rid];
-                                if (typeof mapValue == 'object') {
+                                if (typeof mapValue === 'object') {
                                     linkMap[rid] = rid;
                                 } else {
                                     value[i] = mapValue;
@@ -414,7 +415,7 @@ export class ODatabase {
         }
     }
 
-    private handleError(error) {
+    handleError(error) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
         console.error(error);
@@ -423,7 +424,7 @@ export class ODatabase {
 
     getUserName() {
         if (!this.databaseInfo) {
-            return null;
+            return undefined;
         }
 
         return this.databaseInfo.currentUser;
@@ -431,35 +432,35 @@ export class ODatabase {
 
     create(userName?, userPass?, type?,
                       databaseType?) {
-        if (userName == null)
+        if (userName === undefined)
             userName = '';
 
-        if (userPass == null)
+        if (userPass === undefined)
             userPass = '';
 
-        if (databaseType == null)
+        if (databaseType === undefined)
             databaseType = 'document';
 
         this.urlPrefix = this.databaseUrl;
 
-        if (type == null || type == '') {
+        if (type === undefined || type === '') {
             type = 'local';
         }
 
         return this.request.httpRequest({
             url: this.urlPrefix + 'database/' + this.encodedDatabaseName + '/'
             + type + '/' + databaseType + this.urlSuffix,
-            type: "post",
+            type: 'post',
             userName: userName,
             userPass: userPass,
         })
             .then(res => {
-                this.setErrorMessage(null);
+                this.setErrorMessage(undefined);
                 this.setDatabaseInfo(this.transformResponse(res));
                 return this.getDatabaseInfo();
             }).catch(error => {
                 this.setErrorMessage('Connect error: ' + error.responseText);
-                this.setDatabaseInfo(null);
+                this.setDatabaseInfo(undefined);
             });
     }
 
@@ -467,30 +468,30 @@ export class ODatabase {
         return this.request.httpRequest({
             url: this.urlPrefix + 'database/' + this.encodedDatabaseName
             + this.urlSuffix,
-            type: "get"
+            type: 'get'
         })
             .then(res => {
-                this.setErrorMessage(null);
+                this.setErrorMessage(undefined);
                 this.setDatabaseInfo(this.transformResponse(res));
                 return this.getDatabaseInfo();
             }).catch(error => {
                 this.setErrorMessage('Connect error: ' + error.responseText);
-                this.setDatabaseInfo(null);
+                this.setDatabaseInfo(undefined);
             });
     }
 
     load(iRID?, iFetchPlan?) {
-        if (this.databaseInfo == null) {
+        if (this.databaseInfo === undefined) {
             this.open();
         }
 
-        if (iFetchPlan != null && iFetchPlan != '') {
+        if (iFetchPlan !== undefined && iFetchPlan !== '') {
             iFetchPlan = '/' + iFetchPlan;
         } else {
             iFetchPlan = '';
         }
 
-        if (iRID && iRID.charAt(0) == '#') {
+        if (iRID && iRID.charAt(0) === '#') {
             iRID = iRID.substring(1);
         }
 
@@ -499,26 +500,26 @@ export class ODatabase {
         return this.request.httpRequest({
             url: this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
             + iRID + iFetchPlan + this.urlSuffix,
-            type: "get",
+            type: 'get',
         })
             .then(res => {
-                this.setErrorMessage(null);
+                this.setErrorMessage(undefined);
                 this.handleResponse(res);
                 return this.getCommandResult();
             }).catch(error => {
-                this.handleResponse(null);
+                this.handleResponse(undefined);
                 this.setErrorMessage('Query error: ' + error.responseText);
             });
     }
 
     save(obj?, errorCallback?, successCallback?) {
-        if (this.databaseInfo == null) {
+        if (this.databaseInfo === undefined) {
             this.open();
         }
 
         var rid = obj['@rid'];
-        var methodType = rid == null || rid == '-1:-1' ? 'POST' : 'PUT';
-        if (this.removeObjectCircleReferences && typeof obj == 'object') {
+        var methodType = rid === undefined || rid === '-1:-1' ? 'POST' : 'PUT';
+        if (this.removeObjectCircleReferences && typeof obj === 'object') {
             this.removeCircleReferences(obj, {});
         }
 
@@ -533,7 +534,7 @@ export class ODatabase {
             body: JSON.parse(obj)
         })
             .then(res => {
-                this.setErrorMessage(null);
+                this.setErrorMessage(undefined);
                 this.setCommandResponse(res);
                 this.setCommandResult(res);
                 if (successCallback) {
@@ -541,7 +542,7 @@ export class ODatabase {
                 }
                 return this.getCommandResult();
             }).catch(error => {
-                this.handleResponse(null);
+                this.handleResponse(undefined);
                 this.setErrorMessage('Save error: ' + error.responseText);
                 if (errorCallback) {
                     errorCallback(error.responseText);
@@ -550,31 +551,30 @@ export class ODatabase {
     }
 
     indexPut(iIndexName?, iKey?, iValue?) {
-        if (this.databaseInfo == null) {
+        if (this.databaseInfo === undefined) {
             this.open();
         }
 
         var req = this.urlPrefix + 'index/' + this.encodedDatabaseName + '/'
-            + iIndexName + "/" + iKey;
+            + iIndexName + '/' + iKey;
 
         var content;
-        if (typeof iValue == "object") {
+        if (typeof iValue === 'object') {
             content = JSON.parse(iValue);
-        }
-        else {
-            req += "/" + iValue;
-            content = null;
+        } else {
+            req += '/' + iValue;
+            content = undefined;
         }
 
         return this.request.httpRequest({
             url: req + this.urlSuffix,
-            type: "put"
+            type: 'put'
         })
             .then(res => {
-                this.setErrorMessage(null);
+                this.setErrorMessage(undefined);
                 return this.getCommandResult();
             }).catch(error => {
-                this.handleResponse(null);
+                this.handleResponse(undefined);
                 this.setErrorMessage('Index put error: ' + error.responseText);
             });
     }
