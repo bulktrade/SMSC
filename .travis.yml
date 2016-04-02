@@ -2,5 +2,5 @@ language: node_js
 node_js:
   - "0.10"
 install:
-  - cd modules/admin/ && npm install && bower install
+  - cd modules/admin/ && npm install && cd src && bower install
 script: cd modules/admin/ && npm run ci
