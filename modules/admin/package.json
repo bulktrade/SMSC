@@ -1,8 +1,8 @@
 {
-  "name": "angular2-login-admin",
-  "version": "3.0.0",
-  "homepage": "https://github.com/angularclass/angular2-webpack-starter",
-  "license": "MIT",
+  "name": "smsc-admin",
+  "version": "0.0.1",
+  "homepage": "http://smsc.io",
+  "license": "Apache License",
   "scripts": {
     "clean": "npm cache clean && rimraf node_modules doc typings coverage dist",
     "clean:dist": "rimraf dist",
@@ -40,7 +40,7 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
-    "start": "webpack-dev-server --inline --colors --progress --display-error-details --display-cached --port 8080 --content-base src"
+    "start": "webpack-dev-server --inline --colors --progress --display-error-details --display-cached --port 3000 --content-base src"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.7",
@@ -104,10 +104,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/angularclass/angular2-webpack-starter.git"
+    "url": "https://github.com/bulktrade/SMSC.git"
   },
   "bugs": {
-    "url": "https://github.com/angularclass/angular2-webpack-starter/issues"
+    "url": "https://github.com/bulktrade/SMSC/issues"
   },
   "engines": {
     "node": ">= 4.2.1",
