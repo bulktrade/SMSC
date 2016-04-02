@@ -1,7 +1,6 @@
 language: node_js
 node_js:
   - "0.10"
-  - "iojs"
 install:
   - cd modules/admin/ && npm install
   - cd modules/admin/ && bower install
