@@ -16,7 +16,7 @@ import {Login} from "./components/login/login";
     templateUrl: 'app/navigation.html',
     styleUrls: ['assets/css/style.css'],
     directives: [ROUTER_DIRECTIVES],
-    pipes: []
+    pipes: [],
 })
 
 @RouteConfig([
