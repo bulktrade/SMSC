@@ -1,6 +1,7 @@
 import {Directive, Attribute, ElementRef, DynamicComponentLoader} from 'angular2/core';
 import {Router, RouterOutlet, ComponentInstruction} from 'angular2/router';
 import {Login} from '../login/login';
+import {Cookie} from "../login/cookie";
 
 @Directive({
   selector: 'router-outlet'
@@ -22,7 +23,7 @@ export class LoggedInRouterOutlet extends RouterOutlet {
 
   activate(instruction: ComponentInstruction) {
     let url = instruction.urlPath;
-    if (!this.publicRoutes[url]) {
+    if (!this.publicRoutes[url] && !Cookie.getCookie()) {
       // todo: redirect to Login, may be there a better way?
       this.parentRouter.navigate(['Login']);
     }

@@ -62,8 +62,8 @@ export class Login {
     }
 
     ngOnInit() {
-        if (Cookie.getCookie()) {
-            this.router.parent.navigate(['Navigation']);
-        }
+        // if (Cookie.getCookie()) {
+        //     this.router.parent.navigate(['Navigation']);
+        // }
     }
 }

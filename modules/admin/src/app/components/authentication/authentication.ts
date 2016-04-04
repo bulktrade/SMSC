@@ -13,7 +13,7 @@ import {Navigation} from '../navigation/navigation'
 })
 @RouteConfig([
     { path: '/', redirectTo: ['/Login'] },
-    { path: '/login', component: Login, name: 'Login', useAsDefault: true},
+    { path: '/login', component: Login, name: 'Login'},
     { path: '/navigation/...', component: Navigation, name: 'Navigation'},
 ])
 
