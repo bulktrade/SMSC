@@ -26,7 +26,7 @@
             </li>
         </ul>
         <div class="wrapper-user-menu left clear">
-            <a [routerLink]="['/Login']" class="user-profile clear">
+            <a class="user-profile clear">
                 <div class="user-name">Admin</div>
                 <div class="user-icon"></div>
             </a>
@@ -56,7 +56,7 @@
                 </li>
             </ul>
         </div>
-        <i class="glyphicon glyphicon-log-out"></i>
+        <i (click)="logout()" class="glyphicon glyphicon-log-out"></i>
     </div>
 </header>
 <nav class="side-bar">
@@ -69,7 +69,7 @@
                     <i class="fa fa-angle-left"></i>
                 </a>
                 <ul>
-                    <li><a [routerLink]="['/Main']"><i class="subitem-icon-left icon-chart"></i>Main</a></li>
+                    <li><a (click)="onSelect('Main')"><i class="subitem-icon-left icon-chart"></i>Main</a></li>
                 </ul>
             </div>
             <div class="title">GSM</div>
@@ -80,28 +80,28 @@
                     <i class="fa fa-angle-left"></i>
                 </a>
                 <ul>
-                    <li><a [routerLink]="['/Provider']"><i class="subitem-icon-left icon-diamond"></i>Provider</a></li>
-                    <li><a [routerLink]="['/Customers']"><i class="subitem-icon-left icon-puzzle"></i>Customers</a></li>
-                    <li><a [routerLink]="['/Routing']"><i class="subitem-icon-left icon-feed"></i>Routing</a></li>
-                    <li><a [routerLink]="['/Finances']"><i class="subitem-icon-left icon-docs"></i>Finances</a></li>
+                    <li><a (click)="onSelect('Provider')"><i class="subitem-icon-left icon-diamond"></i>Provider</a></li>
+                    <li><a (click)="onSelect('Customers')"><i class="subitem-icon-left icon-puzzle"></i>Customers</a></li>
+                    <li><a (click)="onSelect('Routing')"><i class="subitem-icon-left icon-feed"></i>Routing</a></li>
+                    <li><a (click)="onSelect('Finances')"><i class="subitem-icon-left icon-docs"></i>Finances</a></li>
                 </ul>
             </div>
             <div class="item-menu clear">
-                <a [routerLink]="['/Prices']" class="sub-task clear">
+                <a (click)="onSelect('Prices')" class="sub-task clear">
                     <i class="icon-left icon-wallet"></i>
                     <span class="name-sub">Prices</span>
                     <i class="fa fa-angle-left"></i>
                 </a>
             </div>
             <div class="item-menu clear">
-                <a [routerLink]="['/Routing']" class="sub-task clear">
+                <a (click)="onSelect('Routing')" class="sub-task clear">
                     <i class="icon-left icon-rocket"></i>
                     <span class="name-sub">Routing</span>
                     <i class="fa fa-angle-left"></i>
                 </a>
             </div>
             <div class="item-menu clear">
-                <a [routerLink]="['/MCCMNC']" class="sub-task clear">
+                <a (click)="onSelect('MCCMNC')" class="sub-task clear">
                     <i class="icon-left icon-wrench"></i>
                     <span class="name-sub">MCC & MNC</span>
                     <i class="fa fa-angle-left"></i>
@@ -110,7 +110,6 @@
         </li>
     </ul>
 </nav>
-
 
 <main class="main">
     <router-outlet></router-outlet>

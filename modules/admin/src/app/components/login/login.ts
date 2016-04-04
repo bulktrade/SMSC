@@ -1,11 +1,15 @@
 import {Component} from 'angular2/core';
 import {ODatabase} from './../../../Service/OrientDB';
+import {Router, RouterLink, ROUTER_DIRECTIVES} from 'angular2/router';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
+import {Cookie} from "./cookie";
 
 @Component({
     selector: 'login',
-    providers: [ODatabase],
+    providers: [],
     templateUrl: 'app/components/login/login.html',
-    directives: [],
+    styleUrls: ['app/components/login/login.css'],
+    directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
     pipes: []
 })
 
@@ -14,7 +18,7 @@ export class Login {
     private adminPass: string;
     private database: ODatabase;
 
-    constructor() {
+    constructor(public router: Router) {
         this.database = new ODatabase('http://orientdb.127.0.0.1.xip.io/smsc');
         this.database.open('admin', 'admin');
 
@@ -32,16 +36,14 @@ export class Login {
                            if (res.result[0].name === this.adminName &&
                                res.result[0].password === this.sha256(this.adminPass)) {
                                document.cookie = 'rightWrite=true';
+                               this.router.parent.navigate(['Navigation']);
                            } else {
                                // delete cookie
                                document.cookie = 'rightWrite=true;expires=Mon, ' +
                                    '01-Jan-2000 00:00:00 GMT';
                            }
-                           alert('The user was found!');
                        } else {
                            alert('User not found!');
-                           document.cookie = 'rightWrite=true;expires=Mon, ' +
-                               '01-Jan-2000 00:00:00 GMT';
                        }
                     }
                 );
@@ -56,6 +58,12 @@ export class Login {
                 'EE15DFB167A9C873FC4BB8A81F6F2AB448A918';
         } else {
             return message;
+        }
+    }
+
+    ngOnInit() {
+        if (Cookie.getCookie()) {
+            this.router.parent.navigate(['Navigation']);
         }
     }
 }

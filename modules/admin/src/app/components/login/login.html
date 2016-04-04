@@ -1,5 +1,17 @@
-<h3>Log In</h3>
-<div id="error" style="display: none; color: #f00;">not entered correctly</div>
-<input type="text" #login placeholder="Enter login"/>  <br>
-<input type="password" #pwd placeholder="Enter password"/> <br>
-<button (click)="authentication(login.value, pwd.value)">Submit</button>
+<div class="container">
+    <form class="login-form" role="form" (submit)="authentication(login.value, pwd.value)">
+        <div class="row">
+            <div class="col-xs-6">
+                <input #login class="form-control form-control-solid placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="Username" name="username" required/> </div>
+            <div class="col-xs-6">
+                <input #pwd class="form-control form-control-solid placeholder-no-fix form-group" type="password" autocomplete="off" placeholder="Password" name="password" required/> </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-8 text-right">
+                <button class="btn blue" type="submit">Log In</button>
+            </div>
+        </div>
+    </form>
+</div>
