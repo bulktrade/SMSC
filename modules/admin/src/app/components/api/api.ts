@@ -1,14 +1,14 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'main',
-    templateUrl: 'app/components/main/main.html',
-    styleUrls: ['app/components/main/main.css'],
+    selector: 'home',
+    templateUrl: 'app/components/api/api.html',
+    styleUrls: ['app/components/api/api.css'],
     providers: [],
     directives: [],
     pipes: []
 })
-export class Main {
+export class API {
 
     constructor() {}
 
