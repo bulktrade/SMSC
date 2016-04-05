@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'home',
+    selector: 'systemsettings',
     templateUrl: 'app/components/systemsettings/systemsettings.html',
     styleUrls: ['app/components/systemsettings/systemsettings.css'],
     providers: [],

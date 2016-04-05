@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'home',
+    selector: 'smpp',
     templateUrl: 'app/components/smpp/smpp.html',
     styleUrls: ['app/components/smpp/smpp.css'],
     providers: [],

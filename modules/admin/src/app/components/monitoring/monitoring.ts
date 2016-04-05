@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'home',
+    selector: 'monitoring',
     templateUrl: 'app/components/monitoring/monitoring.html',
     styleUrls: ['app/components/monitoring/monitoring.css'],
     providers: [],
