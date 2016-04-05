@@ -30,7 +30,7 @@
     "e2e": "protractor",
     "e2e:live": "protractor --elementExplorer",
     "test": "karma start",
-    "ci": "npm run test & protractor",
+    "ci": "npm run test",
     "docs": "typedoc --options typedoc.json --exclude **/*.spec.ts ./src/",
     "typings-install": "typings install",
     "postinstall": "npm run typings-install",
