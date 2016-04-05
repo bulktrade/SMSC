@@ -115,14 +115,6 @@ class NavigationTest {
     browser.get('/');
   };
 
-  subjSidebar() {
-    return this.elemSidebar.isPresent();
-  }
-
-  subjDashboard() {
-    return this.elemDashboard.getText();
-  }
-
   getTitle() {
     return browser.getTitle();
   }
