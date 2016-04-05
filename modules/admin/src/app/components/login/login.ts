@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 import {ODatabase} from './../../../Service/OrientDB';
 import {Router, RouterLink, ROUTER_DIRECTIVES} from 'angular2/router';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
-import {Cookie} from "./cookie";
+import {Cookie} from './cookie';
 
 @Component({
     selector: 'login',
@@ -18,7 +18,7 @@ export class Login {
     private adminPass: string;
     private database: ODatabase;
 
-    constructor(public router: Router) {
+    constructor(public router?: Router) {
         this.database = new ODatabase('http://orientdb.127.0.0.1.xip.io/smsc');
         this.database.open('admin', 'admin');
 
@@ -62,8 +62,8 @@ export class Login {
     }
 
     ngOnInit() {
-        // if (Cookie.getCookie()) {
-        //     this.router.parent.navigate(['Navigation']);
-        // }
+        if (Cookie.getCookie()) {
+            this.router.parent.navigate(['Navigation']);
+        }
     }
 }

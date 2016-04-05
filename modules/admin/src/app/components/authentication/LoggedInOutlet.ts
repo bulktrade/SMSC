@@ -17,7 +17,8 @@ export class LoggedInRouterOutlet extends RouterOutlet {
     this.parentRouter = _parentRouter;
     // The Boolean following each route below denotes whether the route requires authentication to view
     this.publicRoutes = {
-      'login': true
+      'login': true,
+      'notfound': true
     };
   }
 
@@ -27,6 +28,7 @@ export class LoggedInRouterOutlet extends RouterOutlet {
       // todo: redirect to Login, may be there a better way?
       this.parentRouter.navigate(['Login']);
     }
+
     return super.activate(instruction);
   }
 }

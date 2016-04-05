@@ -1,8 +1,9 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, Router} from 'angular2/router';
+import {RouteConfig, Router, Location, Instruction} from 'angular2/router';
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {Login} from '../login/login'
 import {Navigation} from '../navigation/navigation'
+import {NotFound} from '../notfound/notfound'
 
 @Component({
     selector: 'auth-app',
@@ -15,9 +16,20 @@ import {Navigation} from '../navigation/navigation'
     { path: '/', redirectTo: ['/Login'] },
     { path: '/login', component: Login, name: 'Login'},
     { path: '/navigation/...', component: Navigation, name: 'Navigation'},
+    { path: '/notfound', component: NotFound, name: 'NotFound', useAsDefault: true},
 ])
 
 export class Authentication {
-    constructor(public router: Router) {
+    constructor(
+        public router: Router,
+        public location: Location
+    ) {
+        router.recognize(location.path()).then((instruction: Instruction) => {
+            if (!instruction) {
+                router.recognize('/notfound').then((instruction: Instruction) => {
+                    router.navigateByInstruction(instruction, true);
+                });
+            }
+        });
     }
 }
