@@ -15,4 +15,6 @@ before_install:
   - sleep 3 # give xvfb some time to start
 install:
   - cd modules/admin/ && npm install && cd src && ../node_modules/bower/bin/bower install
-script: cd .. && npm run test && npm run e2e
+script: cd .. && npm run test
+after_success: npm start
+after_script: npm run e2e
