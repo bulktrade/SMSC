@@ -2,7 +2,7 @@
 require('ts-node/register');
 
 exports.config = {
-  baseUrl: 'http://localhost:3000/login',
+  baseUrl: 'http://localhost:3000/',
 
   // use `npm run e2e`
   specs: [
