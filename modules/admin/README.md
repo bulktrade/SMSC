@@ -1,11 +1,11 @@
 # How to install required packages
 ```bash
 # install the repo with npm
-npm install
+$ npm install
 # install dependencies listed in bower.json
-bower install
+$ bower install
 # start the server
-npm start
+$ npm start
 ```
 go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
 
@@ -13,11 +13,10 @@ go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http
 
 ### run tests
 ```bash
-npm run test
+$ npm run test
 ```
 
 ### run end-to-end tests
 ```bash
-# make sure you have your server running in another terminal
-npm run e2e
+$ protractor
 ```

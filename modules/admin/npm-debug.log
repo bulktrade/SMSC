@@ -1,0 +1,25 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'run', 'e2e' ]
+2 info using npm@1.4.21
+3 info using node@v0.10.25
+4 verbose run-script [ 'pree2e', 'e2e', 'poste2e' ]
+5 info pree2e smsc-admin@0.0.1
+6 verbose unsafe-perm in lifecycle true
+7 info smsc-admin@0.0.1 Failed to exec pree2e script
+8 error smsc-admin@0.0.1 pree2e: `npm run webdriver:update -- --standalone`
+8 error Exit status 34
+9 error Failed at the smsc-admin@0.0.1 pree2e script.
+9 error This is most likely a problem with the smsc-admin package,
+9 error not with npm itself.
+9 error Tell the author that this fails on your system:
+9 error     npm run webdriver:update -- --standalone
+9 error You can get their info via:
+9 error     npm owner ls smsc-admin
+9 error There is likely additional logging output above.
+10 error System Linux 4.2.0-34-generic
+11 error command "/usr/bin/nodejs" "/usr/bin/npm" "run" "e2e"
+12 error cwd /home/dima/CloneGIT/Type/SMSC/modules/admin
+13 error node -v v0.10.25
+14 error npm -v 1.4.21
+15 error code ELIFECYCLE
+16 verbose exit [ 1, true ]

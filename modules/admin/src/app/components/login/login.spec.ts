@@ -3,7 +3,7 @@ describe('Login', () => {
   let login;
 
   beforeEach(() => {
-    // login = new Login();
+    login = new Login();
   });
 
   it('authentication method', () => {

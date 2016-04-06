@@ -1,14 +1,13 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'smpp',
-    templateUrl: 'app/components/smpp/smpp.html',
-    styleUrls: ['app/components/smpp/smpp.css'],
+    selector: 'notfound',
+    template: `<center><h1>404 Not Found!</h1></center>`,
     providers: [],
     directives: [],
     pipes: []
 })
-export class SMPP {
+export class NotFound {
 
     constructor() {}
 

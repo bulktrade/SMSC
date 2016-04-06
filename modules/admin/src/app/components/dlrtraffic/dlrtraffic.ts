@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'main',
+    selector: 'dlrtraffic',
     templateUrl: 'app/components/dlrtraffic/dlrtraffic.html',
     styleUrls: ['app/components/dlrtraffic/dlrtraffic.html'],
     providers: [],

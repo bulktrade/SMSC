@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 
 @Component({
-    selector: 'home',
+    selector: 'api',
     templateUrl: 'app/components/api/api.html',
     styleUrls: ['app/components/api/api.css'],
     providers: [],
