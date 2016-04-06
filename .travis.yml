@@ -9,7 +9,7 @@ before_install:
   - docker pull orientdb
   - docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
   - docker run -d --name orientdb -p 2424:2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=123test -e VIRTUAL_HOST=orientdb.* orientdb:latest
-  - docker exec -it orientdb /orientdb/bin/console.sh "CONNECT REMOTE:localhost root 123test;CREATE DATABASE memory:smsc admin admin MEMORY DOCUMENT;"
+  - docker exec -it orientdb /orientdb/bin/console.sh "CONNECT REMOTE:localhost/admin root 123test;CREATE DATABASE memory:smsc admin admin MEMORY DOCUMENT;"
 install:
   - cd modules/admin/ && npm install && cd src && ../node_modules/bower/bin/bower install
 script: cd .. && npm run test && npm run e2e
