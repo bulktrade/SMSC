@@ -5,3 +5,4 @@ modules/admin/coverage
 modules/admin/node_modules
 modules/admin/src/bower_components
 modules/admin/src/.sass-cache
+npm-debug.log
