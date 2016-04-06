@@ -17,62 +17,62 @@ describe('Navigation', () => {
 
   it('should have smstraffic', () => {
     this.navigator.clickOnItemNavSmstraffic();
-    expect(this.navigator.getTextSmstraffic()).toBeDefined();
+    expect(this.navigator.getSmstraffic()).toBeDefined();
   });
   
   it('should have dlrtraffic', () => {
     this.navigator.clickOnItemNavDlrtraffic();
-    expect(this.navigator.getTextDlrtraffic()).toBeDefined();
+    expect(this.navigator.getDlrtraffic()).toBeDefined();
   });
 
   it('should have finances', () => {
     this.navigator.clickOnItemNavFinances();
-    expect(this.navigator.getTextFinances()).toBeDefined();
+    expect(this.navigator.getFinances()).toBeDefined();
   });
 
   it('should have customers', () => {
     this.navigator.clickOnItemNavCustomers();
-    expect(this.navigator.getTextCustomers()).toBeDefined();
+    expect(this.navigator.getCustomers()).toBeDefined();
   });
 
   it('should have monitoring', () => {
     this.navigator.clickOnItemNavMonitoring();
-    expect(this.navigator.getTextMonitoring()).toBeDefined();
+    expect(this.navigator.getMonitoring()).toBeDefined();
   });
 
   it('should have carriers', () => {
     this.navigator.clickOnItemNavCarriers();
-    expect(this.navigator.getTextCarriers()).toBeDefined();
+    expect(this.navigator.getCarriers()).toBeDefined();
   });
 
   it('should have routing', () => {
     this.navigator.clickOnItemNavRouting();
-    expect(this.navigator.getTextRouting()).toBeDefined();
+    expect(this.navigator.getRouting()).toBeDefined();
   });
 
   it('should have prices', () => {
     this.navigator.clickOnItemNavPrices();
-    expect(this.navigator.getTextPrices()).toBeDefined();
+    expect(this.navigator.getPrices()).toBeDefined();
   });
 
   it('should have mccmnc', () => {
     this.navigator.clickOnItemNavMccmnc();
-    expect(this.navigator.getTextMccmnc()).toBeDefined();
+    expect(this.navigator.getMccmnc()).toBeDefined();
   });
 
   it('should have smpp', () => {
     this.navigator.clickOnItemNavSmpp();
-    expect(this.navigator.getTextSmpp()).toBeDefined();
+    expect(this.navigator.getSmpp()).toBeDefined();
   });
 
   it('should have api', () => {
     this.navigator.clickOnItemNavApi();
-    expect(this.navigator.getTextApi()).toBeDefined();
+    expect(this.navigator.getApi()).toBeDefined();
   });
 
   it('should have systemsettings', () => {
     this.navigator.clickOnItemNavSystemsettings();
-    expect(this.navigator.getTextSystemsettings()).toBeDefined();
+    expect(this.navigator.getSystemsettings()).toBeDefined();
   });
 
 });
@@ -97,7 +97,7 @@ class NavigationTest {
   api = element(by.tagName('api'));
   systemsettings = element(by.tagName('systemsettings'));
   
-  // the object event handler click()
+  // the object event handler click
   btnSmstraffic = element(by.className('smstraffic'));
   btnDlrtraffic = element(by.className('dlrtraffic'));
   btnFinances = element(by.className('finances'));
@@ -128,85 +128,85 @@ class NavigationTest {
   clickOnItemNavSmstraffic() {
     return this.btnSmstraffic.click();
   }
-  getTextSmstraffic() {
-    return this.smstraffic.getInnerHtml();
+  getSmstraffic() {
+    return this.smstraffic;
   }
 
   clickOnItemNavDlrtraffic() {
     return this.btnDlrtraffic.click();
   }
-  getTextDlrtraffic() {
-    return this.dlrtraffic.getInnerHtml();
+  getDlrtraffic() {
+    return this.dlrtraffic;
   }
 
   clickOnItemNavFinances() {
     return this.btnFinances.click();
   }
-  getTextFinances() {
-    return this.finances.getInnerHtml();
+  getFinances() {
+    return this.finances;
   }
 
   clickOnItemNavCustomers() {
     return this.btnCusomers.click();
   }
-  getTextCustomers() {
-    return this.customers.getInnerHtml();
+  getCustomers() {
+    return this.customers;
   }
 
   clickOnItemNavMonitoring() {
     return this.btnMonitoring.click();
   }
-  getTextMonitoring() {
-    return this.monitoring.getInnerHtml();
+  getMonitoring() {
+    return this.monitoring;
   }
 
   clickOnItemNavCarriers() {
     return this.btnCarriers.click();
   }
-  getTextCarriers() {
-    return this.carriers.getInnerHtml();
+  getCarriers() {
+    return this.carriers;
   }
 
   clickOnItemNavRouting() {
     return this.btnRouting.click();
   }
-  getTextRouting() {
-    return this.routing.getInnerHtml();
+  getRouting() {
+    return this.routing;
   }
 
   clickOnItemNavPrices() {
     return this.btnPrices.click();
   }
-  getTextPrices() {
-    return this.prices.getInnerHtml();
+  getPrices() {
+    return this.prices;
   }
 
   clickOnItemNavMccmnc() {
     return this.btnMccmnc.click();
   }
-  getTextMccmnc() {
-    return this.mccmnc.getInnerHtml();
+  getMccmnc() {
+    return this.mccmnc;
   }
 
   clickOnItemNavSmpp() {
     return this.btnSmpp.click();
   }
-  getTextSmpp() {
-    return this.smpp.getInnerHtml();
+  getSmpp() {
+    return this.smpp;
   }
 
   clickOnItemNavApi() {
     return this.btnApi.click();
   }
-  getTextApi() {
-    return this.api.getInnerHtml();
+  getApi() {
+    return this.api;
   }
 
   clickOnItemNavSystemsettings() {
     return this.btnSystemsettings.click();
   }
-  getTextSystemsettings() {
-    return this.systemsettings.getInnerHtml();
+  getSystemsettings() {
+    return this.systemsettings;
   }
 
 }

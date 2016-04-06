@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "0.10"
+  - "5"
 install:
   - cd modules/admin/ && npm install && cd src && ../node_modules/bower/bin/bower install
 script: cd .. && npm run ci
