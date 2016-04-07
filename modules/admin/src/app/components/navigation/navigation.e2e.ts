@@ -15,13 +15,13 @@ describe('Navigation', () => {
     expect(this.navigator.getTitle()).toBe(result);
   });
 
-  it('should have smstraffic', () => {
+  /*it('should have smstraffic', () => {
     browser.get('/navigation/smstraffic');
     this.navigator.clickOnItemNavSmstraffic();
     expect(this.navigator.getSmstraffic()).toBeTruthy();
   });
 
-  /*it('should have smstraffic', () => {
+  it('should have smstraffic', () => {
     this.navigator.clickOnItemNavSmstraffic();
     expect(this.navigator.getSmstraffic()).toBeTruthy();
   });
@@ -90,7 +90,7 @@ class NavigationTest {
   elemSubmitBtn = element(by.className('btn'));
 
   // is there a tag
-  smstraffic = element(by.className('sms'));
+  smstraffic = element(by.className('smstraffic'));
   dlrtraffic = element(by.tagName('dlrtraffic'));
   finances = element(by.tagName('finances'));
   customers = element(by.tagName('customers'));
