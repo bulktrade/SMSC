@@ -24,9 +24,10 @@ export class LoggedInRouterOutlet extends RouterOutlet {
 
   activate(instruction: ComponentInstruction) {
     let url = instruction.urlPath;
+
     if (!this.publicRoutes[url] && !Cookie.getCookie()) {
       // todo: redirect to Login, may be there a better way?
-      this.parentRouter.navigate(['Login']);
+      this.parentRouter.navigateByUrl('/login');
     }
 
     return super.activate(instruction);

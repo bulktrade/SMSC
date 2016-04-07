@@ -21,5 +21,4 @@ before_install:
 install:
   - cd modules/admin/ && npm install && cd src && ../node_modules/bower/bin/bower install && cd ..
 before_script: npm start& > /dev/null 2>&1
-#script: npm run test && npm run e2e
-script: npm run test 
+script: npm run test && npm run e2e
