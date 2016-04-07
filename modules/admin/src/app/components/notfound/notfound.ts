@@ -7,9 +7,11 @@ import {Component} from 'angular2/core';
     directives: [],
     pipes: []
 })
+
 export class NotFound {
 
-    constructor() {}
+    constructor() {
+    }
 
     ngOnInit() {
 

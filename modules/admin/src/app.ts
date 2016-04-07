@@ -6,6 +6,7 @@ import {Authentication} from './app/components/authentication/authentication';
 
 bootstrap(Authentication, [
     HTTP_PROVIDERS,
+    ROUTER_PROVIDERS,
     ROUTER_PROVIDERS
 ])
   .catch(err => console.error(err));

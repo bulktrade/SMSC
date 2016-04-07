@@ -1,5 +1,8 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/router';
+import { CORE_DIRECTIVES } from 'angular2/common';
+import {LoggedInRouterOutlet} from '../authentication/LoggedInOutlet';
+import {RouteConfig, Router} from 'angular2/router';
+import {Cookie} from '../login/cookie';
 
 import {SMSTraffic} from '../smstraffic/smstraffic';
 import {DLRTraffic} from '../dlrtraffic/dlrtraffic';
@@ -19,15 +22,15 @@ import {SystemSettings} from '../systemsettings/systemsettings';
     providers: [],
     templateUrl: 'app/components/navigation/navigation.html',
     styleUrls: ['../../assets/css/style.css'],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [LoggedInRouterOutlet, CORE_DIRECTIVES],
     pipes: [],
 })
 
 @RouteConfig([
-    { path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic', useAsDefault: true},
+    { path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic'},
     { path: '/dlrtraffic', component: DLRTraffic, name: 'DLRTraffic'},
     { path: '/finances', component: Finances, name: 'Finances' },
-    { path: '/customers', component: Customers, name: 'Customers' },
+    { path: '/customers', component: Customers, name: 'Customers', useAsDefault: true},
     { path: '/monitoring', component: Monitoring, name: 'Monitoring' },
     { path: '/carriers', component: Carriers, name: 'Carriers' },
     { path: '/routing', component: Routing, name: 'Routing' },
@@ -39,7 +42,10 @@ import {SystemSettings} from '../systemsettings/systemsettings';
 ])
 
 export class Navigation {
+    content: string;
+
     constructor(public router: Router) {
+        this.content = Cookie.getCookie();
     }
 
     onSelect(route) {

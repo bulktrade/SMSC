@@ -14,9 +14,9 @@ import {NotFound} from '../notfound/notfound'
 })
 @RouteConfig([
     { path: '/', redirectTo: ['/Login'] },
-    { path: '/login', component: Login, name: 'Login'},
-    { path: '/navigation/...', component: Navigation, name: 'Navigation'},
-    { path: '/notfound', component: NotFound, name: 'NotFound', useAsDefault: true},
+    { path: '/login', component: Login, as: 'Login'},
+    { path: '/navigation/...', component: Navigation, as: 'Navigation'},
+    { path: '/notfound', component: NotFound, as: 'NotFound'},
 ])
 
 export class Authentication {
