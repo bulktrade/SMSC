@@ -2,6 +2,9 @@ sudo: required
 services:
   - docker
 
+addons:
+  sauce_connect: true
+
 cache:
   directories:
   - modules/admin/node_modules
