@@ -9,6 +9,7 @@ cache:
   directories:
   - modules/admin/node_modules
   - modules/admin/src/bower_components
+  - /var/lib/docker
 
 language: node_js
 node_js:
