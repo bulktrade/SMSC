@@ -33,21 +33,17 @@ exports.config = {
 	multiCapabilities: [
 		{
 			browserName: 'chrome',
-			version: '49',
 			platform: 'OS X 10.11',
 			name: "chrome-tests",
 			shardTestFiles: true,
-			maxInstances: 25,
 			build: process.env.TRAVIS_BUILD_NUMBER,
 			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
 		{
 			browserName: 'firefox',
-			version: '45',
 			platform: 'OS X 10.11',
 			name: "firefox-tests",
 			shardTestFiles: true,
-			maxInstances: 25,
 			build: process.env.TRAVIS_BUILD_NUMBER,
 			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
@@ -56,7 +52,6 @@ exports.config = {
 			platform: 'OS X 10.11',
 			name: "safari-tests",
 			shardTestFiles: true,
-			maxInstances: 25,
 			build: process.env.TRAVIS_BUILD_NUMBER,
 			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
@@ -64,28 +59,26 @@ exports.config = {
 			browserName: 'MicrosoftEdge',
 			platform: 'windows',
 			name: "edge-tests",
+			shardTestFiles: true,
 			build: process.env.TRAVIS_BUILD_NUMBER,
 			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
 		{
 			platformName: 'iOS',
-			platformVersion: '9.2',
 			browserName: '',
 			name: "ios-tests",
 			app: 'safari',
 			deviceName: 'iPhone Simulator',
-			'appium-version': "1.4.0",
+			shardTestFiles: true,
 			build: process.env.TRAVIS_BUILD_NUMBER,
 			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 
 		},
 		{
 			platformName: 'Android',
-			platformVersion: '4.4',
 			browserName: 'Browser',
 			name: "android-tests",
 			deviceName: 'Android Emulator',
-			'appium-version': "1.4.0",
 			build: process.env.TRAVIS_BUILD_NUMBER,
 			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		}
