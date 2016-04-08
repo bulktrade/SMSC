@@ -61,8 +61,9 @@ exports.config = {
 			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
 		{
-			'browserName': 'MicrosoftEdge',
-			'platform': 'windows',
+			browserName: 'MicrosoftEdge',
+			platform: 'windows',
+			name: "edge-tests",
 			build: process.env.TRAVIS_BUILD_NUMBER,
 			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
@@ -70,6 +71,7 @@ exports.config = {
 			platformName: 'iOS',
 			platformVersion: '9.2',
 			browserName: '',
+			name: "ios-tests",
 			app: 'safari',
 			deviceName: 'iPhone Simulator',
 			'appium-version': "1.4.0",
@@ -81,6 +83,7 @@ exports.config = {
 			platformName: 'Android',
 			platformVersion: '4.4',
 			browserName: 'Browser',
+			name: "android-tests",
 			deviceName: 'Android Emulator',
 			'appium-version': "1.4.0",
 			build: process.env.TRAVIS_BUILD_NUMBER,
