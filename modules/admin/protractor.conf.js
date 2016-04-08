@@ -25,7 +25,6 @@ exports.config = {
 		includeStackTrace: true,
 		defaultTimeoutInterval: 400000
 	},
-	directConnect: true,
 
 	onPrepare: function(){
 		var caps = browser.getCapabilities()
@@ -76,12 +75,6 @@ exports.config = {
 			'appium-version': "1.4.0"
 		}
 	],
-
-	onPrepare: function () {
-		browser.ignoreSynchronization = true;
-	},
-
-	seleniumServerJar: "node_modules/protractor/selenium/selenium-server-standalone-2.48.2.jar",
 
 	/**
 	 * Angular 2 configuration
