@@ -2,7 +2,7 @@
 require('ts-node/register');
 
 exports.config = {
-	seleniumAddress: 'http://ondemand.saucelabs.com:80/wd/hub',
+	//seleniumAddress: 'http://ondemand.saucelabs.com:80/wd/hub',
 	sauceUser: process.env.SAUCE_USERNAME,
 	sauceKey: process.env.SAUCE_ACCESS_KEY,
 	baseUrl: 'http://localhost:3000/',
