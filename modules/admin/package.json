@@ -28,6 +28,8 @@
     "lint": "tsconfig-lint",
     "pree2e": "npm run webdriver:update -- --standalone",
     "e2e": "protractor",
+    "preprotractor": "npm start -- --standalone",
+    "protractor": "protractor",
     "e2e:live": "protractor --elementExplorer",
     "test": "karma start",
     "ci": "npm run test",

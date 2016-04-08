@@ -24,8 +24,6 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
-  - npm start&
-  - sleep 15
 script:
   - npm run test
-  - protractor
+  - npm run protractor
