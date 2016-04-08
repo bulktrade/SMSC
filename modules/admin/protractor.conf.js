@@ -37,7 +37,9 @@ exports.config = {
 			platform: 'OS X 10.11',
 			name: "chrome-tests",
 			shardTestFiles: true,
-			maxInstances: 25
+			maxInstances: 25,
+			build: process.env.TRAVIS_BUILD_NUMBER,
+			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
 		{
 			browserName: 'firefox',
@@ -45,18 +47,24 @@ exports.config = {
 			platform: 'OS X 10.11',
 			name: "firefox-tests",
 			shardTestFiles: true,
-			maxInstances: 25
+			maxInstances: 25,
+			build: process.env.TRAVIS_BUILD_NUMBER,
+			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
 		{
 			browserName: 'safari',
 			platform: 'OS X 10.11',
 			name: "safari-tests",
 			shardTestFiles: true,
-			maxInstances: 25
+			maxInstances: 25,
+			build: process.env.TRAVIS_BUILD_NUMBER,
+			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
 		{
 			'browserName': 'MicrosoftEdge',
-			'platform': 'windows'
+			'platform': 'windows',
+			build: process.env.TRAVIS_BUILD_NUMBER,
+			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		},
 		{
 			platformName: 'iOS',
@@ -64,7 +72,9 @@ exports.config = {
 			browserName: '',
 			app: 'safari',
 			deviceName: 'iPhone Simulator',
-			'appium-version': "1.4.0"
+			'appium-version': "1.4.0",
+			build: process.env.TRAVIS_BUILD_NUMBER,
+			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 
 		},
 		{
@@ -72,7 +82,9 @@ exports.config = {
 			platformVersion: '4.4',
 			browserName: 'Browser',
 			deviceName: 'Android Emulator',
-			'appium-version': "1.4.0"
+			'appium-version': "1.4.0",
+			build: process.env.TRAVIS_BUILD_NUMBER,
+			'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		}
 	],
 
