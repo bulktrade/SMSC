@@ -6,10 +6,10 @@ addons:
   sauce_connect: true
 
 cache:
+  docker: true
   directories:
-  - modules/admin/node_modules
-  - modules/admin/src/bower_components
-  - /var/lib/docker
+    - modules/admin/node_modules
+    - modules/admin/src/bower_components
 
 language: node_js
 node_js:
