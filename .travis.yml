@@ -28,4 +28,4 @@ before_script:
   - sleep 15
 script:
   - npm run test
-  - npm run e2e
+  - protractor
