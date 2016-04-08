@@ -57,7 +57,6 @@ exports.config = {
 		},
 		{
 			browserName: 'MicrosoftEdge',
-			platform: 'windows',
 			name: "edge-tests",
 			shardTestFiles: true,
 			build: process.env.TRAVIS_BUILD_NUMBER,
