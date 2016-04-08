@@ -10,6 +10,8 @@ cache:
   directories:
     - modules/admin/node_modules
     - modules/admin/src/bower_components
+    - .autoconf
+    - $HOME/.m2
 
 language: node_js
 node_js:
