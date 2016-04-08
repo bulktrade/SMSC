@@ -99,6 +99,6 @@ exports.config = {
 			});
 		}
 
-		printSessionId("Insert Job Name Here");
+		printSessionId("Admin Module");
 	}
 };

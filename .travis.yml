@@ -25,5 +25,7 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
   - npm start&
-  - sleep 3
-script: npm run test && npm run e2e
+  - sleep 15
+script:
+  - npm run test
+  - npm run e2e
