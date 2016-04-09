@@ -26,14 +26,13 @@ module.exports = {
 	},
 
 	devServer: {
-		historyApiFallback: true
-	},
-
-	proxy: {
-		'/orientdb/*': {
-			target: 'http://localhost:2480',
-			rewrite: function (req) {
-				req.url = req.url.replace(/^\/orientdb/, '');
+		historyApiFallback: true,
+		proxy: {
+			'/orientdb/*': {
+				target: 'http://localhost:2480',
+				rewrite: function (req) {
+					req.url = req.url.replace(/^\/orientdb/, '');
+				}
 			}
 		}
 	}

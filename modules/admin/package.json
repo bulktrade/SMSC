@@ -29,6 +29,8 @@
     "pree2e": "npm run webdriver:update -- --standalone",
     "e2e": "protractor",
     "e2e:live": "protractor --elementExplorer",
+    "orientdb:dev": "docker run -d --name testAdminOrientDB -p 2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=123test -v $(pwd)/docker/orientdb/config/orientdb-server-config.xml:/orientdb/config/orientdb-server-config.xml orientdb:latest && docker exec -it testAdminOrientDB /orientdb/bin/console.sh 'CREATE DATABASE memory:smsc admin admin MEMORY DOCUMENT;'",
+    "orientdb:dev:clean": "docker rm -fv testAdminOrientDB || true",
     "test": "karma start",
     "ci": "npm run test",
     "docs": "typedoc --options typedoc.json --exclude **/*.spec.ts ./src/",
@@ -40,13 +42,17 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "lite": "lite-server",
-    "start": "webpack-dev-server --inline --colors --progress --display-error-details --display-cached --port 3000 --content-base src"
+    "start": "webpack-dev-server --inline --colors --progress --display-error-details --display-cached --port 3000 --content-base src",
+    "prestart:dev": "npm run orientdb:dev:clean && npm run orientdb:dev",
+    "start:dev": "npm start",
+    "poststart:dev": "npm run orientdb:dev:clean"
   },
   "dependencies": {
     "angular2": "2.0.0-beta.7",
     "es6-promise": "^3.1.2",
     "es6-shim": "^0.33.3",
     "es7-reflect-metadata": "^1.6.0",
+    "http-proxy": "^1.13.2",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
     "systemjs": "0.19.6",
