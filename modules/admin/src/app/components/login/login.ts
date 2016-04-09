@@ -19,7 +19,7 @@ export class Login {
     private database: ODatabase;
 
     constructor(public router?: Router) {
-        this.database = new ODatabase('http://orientdb.127.0.0.1.xip.io/smsc');
+        this.database = new ODatabase('http://localhost:3000/orientdb/smsc');
         this.database.open('admin', 'admin');
 
         this.adminName = 'admin';
