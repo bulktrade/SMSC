@@ -15,7 +15,7 @@ describe('Navigation', () => {
     expect(this.navigator.getTitle()).toBe(result);
   });
 
-  /*it('should have smstraffic', () => {
+  it('should have smstraffic', () => {
     browser.get('/navigation/smstraffic');
     this.navigator.clickOnItemNavSmstraffic();
     expect(this.navigator.getSmstraffic()).toBeTruthy();
@@ -79,7 +79,7 @@ describe('Navigation', () => {
   it('should have systemsettings', () => {
     this.navigator.clickOnItemNavSystemsettings();
     expect(this.navigator.getSystemsettings()).toBeTruthy();
-  });*/
+  });
 
 });
 
