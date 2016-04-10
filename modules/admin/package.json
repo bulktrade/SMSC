@@ -29,7 +29,7 @@
     "pree2e": "npm run webdriver:update -- --standalone",
     "e2e": "protractor",
     "e2e:live": "protractor --elementExplorer",
-    "orientdb:dev": "docker run -d --name testAdminOrientDB -p 2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=123test -v $(pwd)/docker/orientdb/config/orientdb-server-config.xml:/orientdb/config/orientdb-server-config.xml orientdb:latest && docker exec -it testAdminOrientDB /orientdb/bin/console.sh 'CREATE DATABASE memory:smsc admin admin MEMORY DOCUMENT;'",
+    "orientdb:dev": "docker run -d --name testAdminOrientDB -p 2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=123test -v $(pwd)/docker/orientdb/config/orientdb-server-config.xml:/orientdb/config/orientdb-server-config.xml orientdb:latest",
     "orientdb:dev:clean": "docker rm -fv testAdminOrientDB || true",
     "test": "karma start",
     "ci": "npm run test",
