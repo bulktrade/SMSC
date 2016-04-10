@@ -1,12 +1,16 @@
 describe('Navigation', () => {
-
     beforeEach(() => {
+        browser.ignoreSynchronization = true;
         this.navigator = new NavigationTest();
         this.navigator.getRoot();
+        this.navigator.login();
+    });
+
+    afterEach(() => {
+        this.navigator.logout();
     });
 
     it('log in for user admin', () => {
-        this.navigator.login();
         expect(true).toBeTruthy();
     });
 
@@ -16,9 +20,6 @@ describe('Navigation', () => {
     });
 
     it('should have smstraffic', () => {
-        browser.ignoreSynchronization = true;
-        browser.get('/navigation/smstraffic');
-        this.navigator.login();
         this.navigator.clickOnItemNavSmstraffic().then(() => {
             expect(true).toBeTruthy();
         });
@@ -149,6 +150,13 @@ class NavigationTest {
                     el.submit();
                 });
             });
+        });
+    }
+
+    logout() {
+        var ptor = protractor.wrapDriver(browser.driver);
+        ptor.wait(protractor.until.elementLocated(by.id('btn-logout')), 5000).then(function (el: webdriver.IWebElement) {
+            el.click();
         });
     }
 
