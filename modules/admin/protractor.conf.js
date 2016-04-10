@@ -29,7 +29,7 @@ exports.config = {
 		var caps = browser.getCapabilities()
 	},
 
-	//directConnect: true,
+//	directConnect: true,
 
 	multiCapabilities: [
 		{
