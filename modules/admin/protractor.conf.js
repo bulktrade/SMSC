@@ -2,8 +2,8 @@
 require('ts-node/register');
 
 exports.config = {
-	// sauceUser: process.env.SAUCE_USERNAME,
-	// sauceKey: process.env.SAUCE_ACCESS_KEY,
+	sauceUser: process.env.SAUCE_USERNAME,
+	sauceKey: process.env.SAUCE_ACCESS_KEY,
 	baseUrl: 'http://localhost:3000/',
 
 	// use `npm run e2e`
@@ -28,7 +28,7 @@ exports.config = {
 		var caps = browser.getCapabilities()
 	},
 
-	directConnect: true,
+	//directConnect: true,
 
 	multiCapabilities: [
 		{
