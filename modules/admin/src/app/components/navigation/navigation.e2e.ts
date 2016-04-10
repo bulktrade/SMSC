@@ -16,6 +16,7 @@ describe('Navigation', () => {
     });
 
     it('should have smstraffic', () => {
+        browser.ignoreSynchronization = true;
         browser.get('/navigation/smstraffic');
         this.navigator.login();
         this.navigator.clickOnItemNavSmstraffic().then(() => {
@@ -123,10 +124,12 @@ class NavigationTest {
     btnSystemsettings = element(by.className('systemsettings'));
 
     getRoot() {
+        browser.ignoreSynchronization = true;
         browser.get('/');
     }
 
     getNavigation() {
+        browser.ignoreSynchronization = true;
         browser.get('/navigation');
     }
 
