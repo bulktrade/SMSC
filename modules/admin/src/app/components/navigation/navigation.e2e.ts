@@ -24,7 +24,7 @@ describe('Navigation', () => {
             expect(true).toBeTruthy();
         });
     });
-/*
+
     it('should have smstraffic', () => {
         this.navigator.clickOnItemNavSmstraffic();
         expect(this.navigator.getSmstraffic()).toBeTruthy();
@@ -83,7 +83,7 @@ describe('Navigation', () => {
     it('should have systemsettings', () => {
         this.navigator.clickOnItemNavSystemsettings();
         expect(this.navigator.getSystemsettings()).toBeTruthy();
-    }); */
+    });
 });
 
 class NavigationTest {

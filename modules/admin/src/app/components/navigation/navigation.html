@@ -1,17 +1,17 @@
 <div *ngIf="content" class="wrapper">
     <header class="header">
         <div class="left-panel clear">
-            <div class="logo">SMSC</div>
-            <div class="menu-toggler"></div>
+            <div *ngIf="!showNav" class="logo show">SMSC</div>
+            <div (click)="showNav=!showNav;
+                dashboard.toggle(visibleDash = false, 4*35, true, showNav); icnDsh = false;
+                gsm.toggle(visibleGsm = false, 7, true, showNav); icnGsm = false"
+                 [ngClass]="{'toggler-btn-active': showNav}" class="menu-toggler"></div>
             <div class="btn-actions">
                 <div class="name-btn">Actions &nbsp;</div>
                 <i class="fa fa-angle-down"></i>
             </div>
         </div>
         <div class="right-panel clear">
-            <div class="search">
-                <i class="fa fa-search"></i>
-            </div>
             <ul class="notice clear">
                 <li class="clear">
                     <i class="fa fa-bell-o"></i>
@@ -57,32 +57,36 @@
                     </li>
                 </ul>
             </div>
-            <i (click)="logout()" id="btn-logout" class="glyphicon glyphicon-log-out"></i>
+            <i (click)="logout()" class="glyphicon glyphicon-log-out"></i>
         </div>
     </header>
     <nav class="side-bar">
         <ul class="subtask">
             <li>
-                <div class="item-menu clear">
-                    <a class="sub-task active-task clear">
+                <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
+                    <a (click)="dashboard.toggle(visibleDash = !visibleDash, 4, false, showNav); icnDsh = !icnDsh" class="dashboard sub-task active-task clear">
                         <i class="icon-left icon-bulb"></i>
-                        <span class="name-sub dashboard">Dashboard</span>
-                        <i class="fa fa-angle-left"></i>
+                        <div class="show-nav" *ngIf="!showNav">
+                            <span class="name-sub">Dashboard</span>
+                            <i class="fa" [ngClass]="{'fa-angle-down': icnDsh, 'fa-angle-left': !icnDsh}"></i>
+                        </div>
                     </a>
-                    <ul>
+                    <ul animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showNav}">
                         <li><a (click)="onSelect('SMSTraffic')"><i class="smstraffic subitem-icon-left icon-chart"></i>SMS Traffic</a></li>
                         <li><a (click)="onSelect('DLRTraffic')"><i class="dlrtraffic subitem-icon-left fa fa-wrench"></i>DLR Traffic</a></li>
                         <li><a (click)="onSelect('Finances')"><i class="finances subitem-icon-left icon-docs"></i>Finances</a></li>
                         <li><a (click)="onSelect('Customers')"><i class="customers subitem-icon-left icon-puzzle"></i>Customers</a></li>
                     </ul>
                 </div>
-                <div class="item-menu clear">
-                    <a class="sub-task clear">
+                <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
+                    <a (click)="gsm.toggle(visibleGsm = !visibleGsm, 7, false, showNav); icnGsm = !icnGsm" class="gsm sub-task clear">
                         <i class="icon-left icon-settings"></i>
-                        <span class="name-sub">GSM</span>
-                        <i class="fa fa-angle-left"></i>
+                        <div class="show-nav" *ngIf="!showNav">
+                            <span class="name-sub">GSM</span>
+                            <i class="fa" [ngClass]="{'fa-angle-down': icnGsm, 'fa-angle-left': !icnGsm}"></i>
+                        </div>
                     </a>
-                    <ul>
+                    <ul animate-box #gsm="ab" [ngClass]="{'nav-subitem-relative': showNav}">
                         <li><a (click)="onSelect('Monitoring')"><i class="monitoring subitem-icon-left fa fa-sitemap"></i>Monitoring</a></li>
                         <li><a (click)="onSelect('Carriers')"><i class="carriers subitem-icon-left fa fa-fighter-jet"></i>Carriers</a></li>
                         <li><a (click)="onSelect('Routing')"><i class="routing subitem-icon-left icon-feed"></i>Routing</a></li>
@@ -92,18 +96,22 @@
                         <li><a (click)="onSelect('API')"><i class="api subitem-icon-left fa fa-code"></i>API</a></li>
                     </ul>
                 </div>
-                <div class="item-menu clear">
+                <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
                     <a (click)="onSelect('Finances')" class="sub-task clear">
                         <i class="icon-left icon-wallet"></i>
-                        <span class="name-sub">Finances</span>
-                        <i class="fa fa-angle-left"></i>
+                        <div class="show-nav" *ngIf="!showNav">
+                            <span class="name-sub">Finances</span>
+                            <i class="fa fa-angle-left"></i>
+                        </div>
                     </a>
                 </div>
-                <div class="item-menu clear">
+                <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
                     <a (click)="onSelect('SystemSettings')" class="systemsettings sub-task clear">
                         <i class="icon-left icon-settings"></i>
-                        <span class="name-sub">System Settings</span>
-                        <i class="fa fa-angle-left"></i>
+                        <div class="show-nav" *ngIf="!showNav">
+                            <span class="name-sub">System Settings</span>
+                            <i class="fa fa-angle-left last"></i>
+                        </div>
                     </a>
                 </div>
             </li>
@@ -113,6 +121,7 @@
     <main class="main">
         <router-outlet></router-outlet>
     </main>
+
 </div>
 
 

@@ -1,8 +1,9 @@
 import {Component} from 'angular2/core';
-import { CORE_DIRECTIVES } from 'angular2/common';
+import {CORE_DIRECTIVES, NgClass} from 'angular2/common';
 import {LoggedInRouterOutlet} from '../authentication/LoggedInOutlet';
 import {RouteConfig, Router} from 'angular2/router';
 import {Cookie} from '../login/cookie';
+import {AnimateBox} from './directives/animate';
 
 import {SMSTraffic} from '../smstraffic/smstraffic';
 import {DLRTraffic} from '../dlrtraffic/dlrtraffic';
@@ -22,7 +23,7 @@ import {SystemSettings} from '../systemsettings/systemsettings';
     providers: [],
     templateUrl: 'app/components/navigation/navigation.html',
     styleUrls: ['../../assets/css/style.css'],
-    directives: [LoggedInRouterOutlet, CORE_DIRECTIVES],
+    directives: [LoggedInRouterOutlet, CORE_DIRECTIVES, AnimateBox, NgClass],
     pipes: [],
 })
 
@@ -43,6 +44,7 @@ import {SystemSettings} from '../systemsettings/systemsettings';
 
 export class Navigation {
     content: string;
+    dashboard: boolean = false;
 
     constructor(public router: Router) {
         this.content = Cookie.getCookie();
@@ -56,5 +58,9 @@ export class Navigation {
         document.cookie = 'rightWrite=true;expires=Mon, ' +
             '01-Jan-2000 00:00:00 GMT';
         this.router.parent.navigate(['Login']);
+    }
+
+    show(){
+        this.dashboard = !this.dashboard;
     }
 }

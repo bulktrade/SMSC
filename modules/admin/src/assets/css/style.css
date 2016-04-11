@@ -25,7 +25,7 @@ html {
   width: 20px;
   height: 14px;
   float: left;
-  margin: 3px 0 0 90px;
+  margin: 3px 0 0 116px;
   cursor: pointer;
   background: url("./../assets/img/sidebar-toggle-light.png"); }
 .left-panel .btn-actions {
@@ -191,7 +191,6 @@ html {
 
 .side-bar {
   float: left;
-  width: 238px;
   padding-top: 12px;
   background: #fff;
   margin: 0 22px 0 22px;
@@ -223,10 +222,11 @@ html {
   padding: 15px 0 17px 17px;
   color: #5c9acf; }
 .side-bar .subtask > li ul {
-  display: block;
   clear: both;
-  padding: 5px 0 5px 0;
-  cursor: pointer; }
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  height: 0; }
 .side-bar .subtask > li ul a {
   display: block;
   padding: 9px 0 9px 30px;
@@ -245,6 +245,7 @@ html {
   color: #485a6a;
   cursor: pointer;
   display: block;
+  margin: 5px 0;
   padding: 13px 0 13px 22px; }
 .side-bar .subtask .item-menu .sub-task:hover {
   background: #F2F6F9;
@@ -253,16 +254,33 @@ html {
   float: left;
   font-size: 18px;
   color: #a7bdcd; }
-.side-bar .subtask .item-menu .sub-task .fa-angle-left {
+.side-bar .subtask .item-menu .sub-task .fa {
   float: right;
-  margin: 0 23px 0 0; }
+  margin: 0 23px 0 58px; }
+.side-bar .subtask .item-menu .sub-task .last {
+  margin-top: -18px !important; }
 .side-bar .subtask .item-menu .sub-task .name-sub {
   float: left;
   margin-left: 10px;
   font-size: 14px; }
 
+.toggler-btn-active {
+  margin: 0 12px 0 18px !important; }
+
+.item-menu-short {
+  width: 65px !important; }
+
+.nav-subitem-relative {
+  position: absolute;
+  background: #fff;
+  margin: -49px 0 0 65px;
+  width: 168px;
+  height: 0;
+  z-index: 1000; }
+.nav-subitem-relative a {
+  padding: 14px 0 13px 10px !important; }
+
 .main {
-  width: 98.5%;
-}
+  width: 98.5%; }
 
 /*# sourceMappingURL=style.css.map */

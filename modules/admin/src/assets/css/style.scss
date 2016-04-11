@@ -32,7 +32,7 @@ html {
     width: 20px;
     height: 14px;
     float: left;
-    margin: 3px 0 0 90px;
+    margin: 3px 0 0 116px;
     cursor: pointer;
     background: url("./../assets/img/sidebar-toggle-light.png");
   }
@@ -138,8 +138,6 @@ html {
   padding: 24px 6px 0 6px;
   cursor: pointer;
   &:hover {background: #F9FAFC;}
-  //&:hover+.slide-menu {
-  //  display: block;}
 }
 
 .user-profile {
@@ -226,7 +224,6 @@ html {
 
 .side-bar {
   float: left;
-  width: 238px;
   padding-top: 12px;
   background: #fff;
   margin: 0 22px 0 22px;
@@ -260,10 +257,11 @@ html {
         color: rgb(92, 154, 207);
       }
       ul {
-        display: block;
         clear: both;
-        padding: 5px 0 5px 0;
+        padding: 0;
         cursor: pointer;
+        overflow: hidden;
+        height: 0;
         a {
           display: block;
           padding: 9px 0 9px 30px;
@@ -287,6 +285,7 @@ html {
       color: rgb(72, 90, 106);
       cursor: pointer;
       display: block;
+      margin: 5px 0;
       &:hover {
         background: #F2F6F9;
         color: rgb(91, 155, 209) !important;
@@ -297,9 +296,15 @@ html {
         font-size: 18px;
         color: rgb(167, 189, 205);
       }
-      .fa-angle-left {
+      .fa {
         float: right;
-        margin: 0 23px 0 0;
+        margin: 0 23px 0 58px;
+      }
+      .last {
+        margin-top: -18px !important;
+      }
+      .fa:last-of-type {
+
       }
       .name-sub {
         float: left;
@@ -310,4 +315,25 @@ html {
   }
 }
 
-.main {float: left;}
+.toggler-btn-active {
+  margin: 0 12px 0 18px !important;
+}
+
+.item-menu-short {
+  width: 65px !important;
+}
+
+.nav-subitem-relative {
+  position: absolute;
+  background: #fff;
+  margin: -49px 0 0 65px;
+  width: 168px;
+  height: 0;
+  z-index: 1000;
+  a{
+    padding: 14px 0 13px 10px !important;
+  }
+}
+
+.main {
+  width: 98.5%;}
