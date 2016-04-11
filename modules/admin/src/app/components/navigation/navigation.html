@@ -72,10 +72,10 @@
                         </div>
                     </a>
                     <ul animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showNav}">
-                        <li><a (click)="onSelect('SMSTraffic')"><i class="smstraffic subitem-icon-left icon-chart"></i>SMS Traffic</a></li>
-                        <li><a (click)="onSelect('DLRTraffic')"><i class="dlrtraffic subitem-icon-left fa fa-wrench"></i>DLR Traffic</a></li>
-                        <li><a (click)="onSelect('Finances')"><i class="finances subitem-icon-left icon-docs"></i>Finances</a></li>
-                        <li><a (click)="onSelect('Customers')"><i class="customers subitem-icon-left icon-puzzle"></i>Customers</a></li>
+                        <li><a (click)="onSelect('SMSTraffic')" class="smstraffic"><i class="subitem-icon-left icon-chart"></i>SMS Traffic</a></li>
+                        <li><a (click)="onSelect('DLRTraffic')" class="dlrtraffic"><i class="subitem-icon-left fa fa-wrench"></i>DLR Traffic</a></li>
+                        <li><a (click)="onSelect('Finances')" class="finances"><i class="subitem-icon-left icon-docs"></i>Finances</a></li>
+                        <li><a (click)="onSelect('Customers')" class="customers"><i class="subitem-icon-left icon-puzzle"></i>Customers</a></li>
                     </ul>
                 </div>
                 <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
@@ -87,13 +87,13 @@
                         </div>
                     </a>
                     <ul animate-box #gsm="ab" [ngClass]="{'nav-subitem-relative': showNav}">
-                        <li><a (click)="onSelect('Monitoring')"><i class="monitoring subitem-icon-left fa fa-sitemap"></i>Monitoring</a></li>
-                        <li><a (click)="onSelect('Carriers')"><i class="carriers subitem-icon-left fa fa-fighter-jet"></i>Carriers</a></li>
-                        <li><a (click)="onSelect('Routing')"><i class="routing subitem-icon-left icon-feed"></i>Routing</a></li>
-                        <li><a (click)="onSelect('Prices')"><i class="prices subitem-icon-left fa fa-cart-arrow-down"></i>Prices</a></li>
-                        <li><a (click)="onSelect('MCCMNC')"><i class="mccmnc subitem-icon-left fa fa-exchange"></i>MCC && MNC</a></li>
-                        <li><a (click)="onSelect('SMPP')"><i class="smpp subitem-icon-left fa fa-commenting-o"></i>SMPP</a></li>
-                        <li><a (click)="onSelect('API')"><i class="api subitem-icon-left fa fa-code"></i>API</a></li>
+                        <li><a (click)="onSelect('Monitoring')" class="monitoring"><i class="subitem-icon-left fa fa-sitemap"></i>Monitoring</a></li>
+                        <li><a (click)="onSelect('Carriers')" class="carriers"><i class="subitem-icon-left fa fa-fighter-jet"></i>Carriers</a></li>
+                        <li><a (click)="onSelect('Routing')" class="routing"><i class="subitem-icon-left icon-feed"></i>Routing</a></li>
+                        <li><a (click)="onSelect('Prices')" class="prices"><i class="subitem-icon-left fa fa-cart-arrow-down"></i>Prices</a></li>
+                        <li><a (click)="onSelect('MCCMNC')" class="mccmnc"><i class="subitem-icon-left fa fa-exchange"></i>MCC && MNC</a></li>
+                        <li><a (click)="onSelect('SMPP')" class="smpp"><i class="subitem-icon-left fa fa-commenting-o"></i>SMPP</a></li>
+                        <li><a (click)="onSelect('API')" class="api"><i class="subitem-icon-left fa fa-code"></i>API</a></li>
                     </ul>
                 </div>
                 <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
