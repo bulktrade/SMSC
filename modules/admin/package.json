@@ -59,6 +59,7 @@
     "zone.js": "0.5.15"
   },
   "devDependencies": {
+    "ng2-translate": "^1.11.0",
     "bower": "^1.7.7",
     "compression-webpack-plugin": "^0.3.0",
     "concurrently": "^1.0.0",

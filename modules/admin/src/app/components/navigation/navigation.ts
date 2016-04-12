@@ -1,9 +1,10 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {CORE_DIRECTIVES, NgClass} from 'angular2/common';
 import {LoggedInRouterOutlet} from '../authentication/LoggedInOutlet';
 import {RouteConfig, Router} from 'angular2/router';
 import {Cookie} from '../login/cookie';
 import {AnimateBox} from './directives/animate';
+import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 import {SMSTraffic} from '../smstraffic/smstraffic';
 import {DLRTraffic} from '../dlrtraffic/dlrtraffic';
@@ -18,13 +19,15 @@ import {SMPP} from '../smpp/smpp';
 import {API} from '../api/api';
 import {SystemSettings} from '../systemsettings/systemsettings';
 
+
 @Component({
     selector: 'navigation',
     providers: [],
     templateUrl: 'app/components/navigation/navigation.html',
     styleUrls: ['../../assets/css/style.css'],
     directives: [LoggedInRouterOutlet, CORE_DIRECTIVES, AnimateBox, NgClass],
-    pipes: [],
+    // bindings : [TranslateService],
+    pipes : [TranslatePipe]
 })
 
 @RouteConfig([
@@ -42,11 +45,11 @@ import {SystemSettings} from '../systemsettings/systemsettings';
     { path: '/systemsettings', component: SystemSettings, name: 'SystemSettings' },
 ])
 
-export class Navigation {
+export class Navigation implements OnInit {
     content: string;
     dashboard: boolean = false;
 
-    constructor(public router: Router) {
+    constructor(public router: Router, public translate: TranslateService) {
         this.content = Cookie.getCookie();
     }
 
@@ -62,5 +65,16 @@ export class Navigation {
 
     show(){
         this.dashboard = !this.dashboard;
+    }
+
+    ngOnInit():any {
+        this.setDefaultLang();
+    }
+
+    setDefaultLang() {
+        // let userLang = navigator.language.split('-')[0];
+        // userLang = /(en|de)/gi.test(userLang) ? userLang : 'en';
+        this.translate.setDefaultLang('en');
+        this.translate.use('en');
     }
 }

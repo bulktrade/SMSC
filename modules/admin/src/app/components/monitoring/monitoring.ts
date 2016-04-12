@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'monitoring',
@@ -6,11 +7,11 @@ import {Component} from 'angular2/core';
     styleUrls: ['app/components/monitoring/monitoring.css'],
     providers: [],
     directives: [],
-    pipes: []
+    pipes: [TranslatePipe]
 })
 export class Monitoring {
 
-    constructor() {}
+    constructor(public translate: TranslateService) {}
 
     ngOnInit() {
 

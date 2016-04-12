@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {RoutingGrid} from './directives/routing-grid';
+import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'routing',
@@ -7,11 +8,11 @@ import {RoutingGrid} from './directives/routing-grid';
     styleUrls: ['app/components/routing/routing.css'],
     providers: [],
     directives: [RoutingGrid],
-    pipes: []
+    pipes: [TranslatePipe]
 })
 export class Routing {
 
-    constructor() {}
+    constructor(public translate: TranslateService) {}
 
     ngOnInit() {
 

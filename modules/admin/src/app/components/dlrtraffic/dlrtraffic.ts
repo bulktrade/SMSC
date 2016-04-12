@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'dlrtraffic',
@@ -6,11 +7,11 @@ import {Component} from 'angular2/core';
     styleUrls: ['app/components/dlrtraffic/dlrtraffic.html'],
     providers: [],
     directives: [],
-    pipes: []
+    pipes: [TranslatePipe]
 })
 export class DLRTraffic {
 
-    constructor() {}
+    constructor(public translate: TranslateService) {}
 
     ngOnInit() {
 
