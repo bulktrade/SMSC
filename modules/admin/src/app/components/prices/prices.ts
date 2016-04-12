@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
 import {PricesGrid} from './directives/prices-grid';
+import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'prices',
@@ -7,10 +8,10 @@ import {PricesGrid} from './directives/prices-grid';
     styleUrls: ['app/components/prices/prices.css'],
     providers: [],
     directives: [PricesGrid],
-    pipes: []
+    pipes: [TranslatePipe]
 })
 export class Prices {
-    constructor() {}
+    constructor(public translate: TranslateService) {}
 
     ngOnInit() {
         

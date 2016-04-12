@@ -7,7 +7,7 @@
                 gsm.toggle(visibleGsm = false, 7, true, showNav); icnGsm = false"
                  [ngClass]="{'toggler-btn-active': showNav}" class="menu-toggler"></div>
             <div class="btn-actions">
-                <div class="name-btn">Actions &nbsp;</div>
+                <div class="name-btn">{{'ACTIONS' | translate}} &nbsp;</div>
                 <i class="fa fa-angle-down"></i>
             </div>
         </div>
@@ -57,7 +57,7 @@
                     </li>
                 </ul>
             </div>
-            <i (click)="logout()" class="glyphicon glyphicon-log-out"></i>
+            <i (click)="logout()" class="glyphicon glyphicon-log-out btn-logout"></i>
         </div>
     </header>
     <nav class="side-bar">
@@ -67,15 +67,15 @@
                     <a (click)="dashboard.toggle(visibleDash = !visibleDash, 4, false, showNav); icnDsh = !icnDsh" class="dashboard sub-task active-task clear">
                         <i class="icon-left icon-bulb"></i>
                         <div class="show-nav" *ngIf="!showNav">
-                            <span class="name-sub">Dashboard</span>
+                            <span class="name-sub">{{'DASHBOARD' | translate}}</span>
                             <i class="fa" [ngClass]="{'fa-angle-down': icnDsh, 'fa-angle-left': !icnDsh}"></i>
                         </div>
                     </a>
                     <ul animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showNav}">
-                        <li><a (click)="onSelect('SMSTraffic')" class="smstraffic"><i class="subitem-icon-left icon-chart"></i>SMS Traffic</a></li>
-                        <li><a (click)="onSelect('DLRTraffic')" class="dlrtraffic"><i class="subitem-icon-left fa fa-wrench"></i>DLR Traffic</a></li>
-                        <li><a (click)="onSelect('Finances')" class="finances"><i class="subitem-icon-left icon-docs"></i>Finances</a></li>
-                        <li><a (click)="onSelect('Customers')" class="customers"><i class="subitem-icon-left icon-puzzle"></i>Customers</a></li>
+                        <li><a (click)="onSelect('SMSTraffic')" class="smstraffic"><i class="subitem-icon-left icon-chart"></i>{{'SMS TRAFFIC' | translate}}</a></li>
+                        <li><a (click)="onSelect('DLRTraffic')" class="dlrtraffic"><i class="subitem-icon-left fa fa-wrench"></i>{{'DLR TRAFFIC' | translate}}</a></li>
+                        <li><a (click)="onSelect('Finances')"><i class="subitem-icon-left icon-docs"></i>{{'FINANCES' | translate}}</a></li>
+                        <li><a (click)="onSelect('Customers')" class="customers"><i class="subitem-icon-left icon-puzzle"></i>{{'CUSTOMERS' | translate}}</a></li>
                     </ul>
                 </div>
                 <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
@@ -87,20 +87,20 @@
                         </div>
                     </a>
                     <ul animate-box #gsm="ab" [ngClass]="{'nav-subitem-relative': showNav}">
-                        <li><a (click)="onSelect('Monitoring')" class="monitoring"><i class="subitem-icon-left fa fa-sitemap"></i>Monitoring</a></li>
-                        <li><a (click)="onSelect('Carriers')" class="carriers"><i class="subitem-icon-left fa fa-fighter-jet"></i>Carriers</a></li>
-                        <li><a (click)="onSelect('Routing')" class="routing"><i class="subitem-icon-left icon-feed"></i>Routing</a></li>
-                        <li><a (click)="onSelect('Prices')" class="prices"><i class="subitem-icon-left fa fa-cart-arrow-down"></i>Prices</a></li>
-                        <li><a (click)="onSelect('MCCMNC')" class="mccmnc"><i class="subitem-icon-left fa fa-exchange"></i>MCC && MNC</a></li>
-                        <li><a (click)="onSelect('SMPP')" class="smpp"><i class="subitem-icon-left fa fa-commenting-o"></i>SMPP</a></li>
-                        <li><a (click)="onSelect('API')" class="api"><i class="subitem-icon-left fa fa-code"></i>API</a></li>
+                        <li><a (click)="onSelect('Monitoring')" class="monitoring"><i class="subitem-icon-left fa fa-sitemap"></i>{{'MONITORING' | translate}}</a></li>
+                        <li><a (click)="onSelect('Carriers')" class="carriers"><i class="subitem-icon-left fa fa-fighter-jet"></i>{{'CARRIERS' | translate}}</a></li>
+                        <li><a (click)="onSelect('Routing')" class="routing"><i class="subitem-icon-left icon-feed"></i>{{'ROUTING' | translate}}</a></li>
+                        <li><a (click)="onSelect('Prices')" class="prices"><i class="subitem-icon-left fa fa-cart-arrow-down"></i>{{'PRICES' | translate}}</a></li>
+                        <li><a (click)="onSelect('MCCMNC')" class="mccmnc"><i class="subitem-icon-left fa fa-exchange"></i>{{'MCC & MNC' | translate}}</a></li>
+                        <li><a (click)="onSelect('SMPP')" class="smpp"><i class="subitem-icon-left fa fa-commenting-o"></i>{{'SMPP' | translate}}</a></li>
+                        <li><a (click)="onSelect('API')" class="api"><i class="subitem-icon-left fa fa-code"></i>{{'API' | translate}}</a></li>
                     </ul>
                 </div>
                 <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
-                    <a (click)="onSelect('Finances')" class="sub-task clear">
+                    <a (click)="onSelect('Finances')" class="finances sub-task clear">
                         <i class="icon-left icon-wallet"></i>
                         <div class="show-nav" *ngIf="!showNav">
-                            <span class="name-sub">Finances</span>
+                            <span class="name-sub">{{'FINANCES' | translate}}</span>
                             <i class="fa fa-angle-left"></i>
                         </div>
                     </a>
@@ -109,7 +109,7 @@
                     <a (click)="onSelect('SystemSettings')" class="systemsettings sub-task clear">
                         <i class="icon-left icon-settings"></i>
                         <div class="show-nav" *ngIf="!showNav">
-                            <span class="name-sub">System Settings</span>
+                            <span class="name-sub">{{'SYSTEM SETTINGS' | translate}}</span>
                             <i class="fa fa-angle-left last"></i>
                         </div>
                     </a>
@@ -123,6 +123,3 @@
     </main>
 
 </div>
-
-
-

@@ -1,0 +1,16 @@
+{
+  "ACTIONS": "Actions",
+  "DASHBOARD" : "Dashboard",
+  "SMS TRAFFIC": "SMS Traffic",
+  "DLR TRAFFIC": "DLR Traffic",
+  "FINANCES": "Finances",
+  "CUSTOMERS": "Customers",
+  "MONITORING": "Monitoring",
+  "CARRIERS": "Carriers",
+  "ROUTING": "Routing",
+  "PRICES": "Prices",
+  "MCC & MNC": "MCC & MNC",
+  "SMPP": "SMPP",
+  "API": "API",
+  "SYSTEM SETTINGS": "System Settingss"
+}

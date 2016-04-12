@@ -3,6 +3,7 @@ import {ODatabase} from './../../../Service/OrientDB';
 import {Router, RouterLink, ROUTER_DIRECTIVES} from 'angular2/router';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
 import {Cookie} from './cookie';
+import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'login',
@@ -10,13 +11,13 @@ import {Cookie} from './cookie';
     templateUrl: 'app/components/login/login.html',
     styleUrls: ['app/components/login/login.css'],
     directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
-    pipes: []
+    pipes: [TranslatePipe]
 })
 
 export class Login {
     private database:ODatabase;
 
-    constructor(public router?:Router) {
+    constructor(public router?:Router, public translate?: TranslateService) {
         this.database = new ODatabase('http://localhost:3000/orientdb/smsc');
     }
 
