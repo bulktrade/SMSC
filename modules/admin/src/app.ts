@@ -9,6 +9,7 @@ import {
     TranslateService
 } from 'ng2-translate/ng2-translate';
 import {provide} from 'angular2/core';
+import {ODatabaseService} from "./Service/OrientDB.service";
 
 bootstrap(Authentication, [
     HTTP_PROVIDERS,
@@ -18,6 +19,7 @@ bootstrap(Authentication, [
         deps: [Http]
     }),
     TRANSLATE_PROVIDERS,
-    TranslateService
+    TranslateService,
+    ODatabaseService
 ])
   .catch(err => console.error(err));

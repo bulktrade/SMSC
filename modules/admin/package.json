@@ -48,7 +48,7 @@
     "poststart:dev": "npm run orientdb:dev:clean"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.7",
+    "angular2": "2.0.0-beta.10",
     "es6-promise": "^3.1.2",
     "es6-shim": "^0.33.3",
     "es7-reflect-metadata": "^1.6.0",

@@ -1,5 +1,10 @@
 export class NavigationTest {
     private ptor;
+    private prtor;
+
+    constructor(){
+        this.ptor = protractor.wrapDriver(browser.driver);
+    }
 
     smstraffic = element(by.tagName('smstraffic'));
     dlrtraffic = element(by.tagName('dlrtraffic'));
@@ -23,14 +28,13 @@ export class NavigationTest {
     }
 
     login() {
-        let ptor = protractor.wrapDriver(browser.driver);
-        ptor.wait(protractor.until.elementLocated(by.className('username')), 5000).then(function (el: webdriver.IWebElement) {
+        this.ptor.wait(protractor.until.elementLocated(by.className('username')), 5000).then(function (el: webdriver.IWebElement) {
             el.sendKeys('admin');
 
-            ptor.wait(protractor.until.elementLocated(by.className('password')), 5000).then(function (el: webdriver.IWebElement) {
+            this.ptor.wait(protractor.until.elementLocated(by.className('password')), 5000).then(function (el: webdriver.IWebElement) {
                 el.sendKeys('admin');
 
-                ptor.wait(protractor.until.elementLocated(by.className('btn')), 5000).then(function (el: webdriver.IWebElement) {
+                this.ptor.wait(protractor.until.elementLocated(by.className('btn')), 5000).then(function (el: webdriver.IWebElement) {
                     el.submit();
                 });
             });

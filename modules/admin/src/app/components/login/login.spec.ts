@@ -1,17 +1,15 @@
-import {Login} from './login';
+import {Login} from "./login";
 describe('Login', () => {
-  let login;
-
   beforeEach(() => {
-    login = new Login();
+    this.login = new Login();
   });
 
   it('authentication method', () => {
-    spyOn(login, 'authentication');
-    login.authentication('admin', 'admin');
-    expect(login.authentication).toHaveBeenCalled();
+    spyOn(this.login, 'authentication');
+    this.login.authentication('admin', 'admin');
+    expect(this.login.authentication).toHaveBeenCalled();
 
-    login.authentication('admin', 'admin');
-    expect(login.authentication).toHaveBeenCalledWith('admin', 'admin');
+    this.login.authentication('admin', 'admin');
+    expect(this.login.authentication).toHaveBeenCalledWith('admin', 'admin');
   });
 });

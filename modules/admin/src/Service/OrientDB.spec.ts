@@ -4,13 +4,13 @@ import {
 } from 'angular2/testing';
 
 // Load the implementations that should be tested
-import {ODatabase} from './OrientDB';
+import {ODatabaseService} from './OrientDB.service';
 import {Mock} from './Mock';
 
-describe('ODatabase', () => {
+describe('ODatabaseService', () => {
 
     beforeEach(() => {
-        this.db = Mock.mock(new ODatabase('http://localhost:3000/orientdb/smsc'));
+        this.db = Mock.mock(new ODatabaseService());
     });
 
     it('open OrientDB', () => {

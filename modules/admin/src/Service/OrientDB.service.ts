@@ -5,7 +5,7 @@ import {Request} from './Request';
 import {Observable} from 'rxjs/Rx';
 
 @Injectable()
-export class ODatabase {
+export class ODatabaseService {
     private request;
     private databaseUrl;
     private databaseName;
@@ -20,7 +20,10 @@ export class ODatabase {
     private urlPrefix;
     private urlSuffix;
 
-    constructor(databasePath:string) {
+    constructor() {
+    }
+
+    init(databasePath) {
         this.databaseUrl = '';
         this.databaseName = '';
         this.encodedDatabaseName = '';
