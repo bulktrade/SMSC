@@ -31,10 +31,10 @@ import {SystemSettings} from '../systemsettings/systemsettings';
 })
 
 @RouteConfig([
-    { path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic'},
+    { path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic', useAsDefault: true},
     { path: '/dlrtraffic', component: DLRTraffic, name: 'DLRTraffic'},
     { path: '/finances', component: Finances, name: 'Finances' },
-    { path: '/customers', component: Customers, name: 'Customers', useAsDefault: true},
+    { path: '/customers', component: Customers, name: 'Customers'},
     { path: '/monitoring', component: Monitoring, name: 'Monitoring' },
     { path: '/carriers', component: Carriers, name: 'Carriers' },
     { path: '/routing', component: Routing, name: 'Routing' },

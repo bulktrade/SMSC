@@ -43,9 +43,5 @@ export class Login {
 
     ngOnInit() {
         this.database.init('http://localhost:3000/orientdb/smsc');
-
-        if (Cookie.getCookie()) {
-            this.router.parent.navigate(['Navigation']);
-        }
     }
 }

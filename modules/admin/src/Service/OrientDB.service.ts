@@ -74,6 +74,54 @@ export class ODatabaseService {
         }
     }
 
+    executeCommand(iCommand?, iLanguage?, iLimit?,
+                              iFetchPlan?) {
+        return this.command(iCommand, iLanguage, iLimit, iFetchPlan);
+    };
+
+    command(iCommand?, iLanguage?, iLimit?,
+                       iFetchPlan?) {
+        if (this.databaseInfo === undefined) {
+            this.open();
+        }
+
+        if (!iLanguage) {
+            iLanguage = "sql";
+        }
+
+        if (!iLimit) {
+            iLimit = -1;
+        }
+
+        if (iFetchPlan === undefined || iFetchPlan === '') {
+            iFetchPlan = '';
+        } else {
+            iFetchPlan = "/" + encodeURIComponent(iFetchPlan);
+        }
+
+        var dataType = this.evalResponse ? undefined : 'text';
+
+        iCommand = encodeURIComponent(iCommand);
+
+        return this.request.httpRequest({
+                url: this.urlPrefix + 'command/' + this.encodedDatabaseName + '/'
+                + iLanguage + '/' + iCommand + "/" + iLimit + iFetchPlan
+                + this.urlSuffix,
+                type: 'POST'
+            })
+            .then(
+                res => {
+                    this.setErrorMessage(undefined);
+                    this.handleResponse(res);
+                    return this.getCommandResponse();
+                },
+                error => {
+                    this.handleResponse(undefined);
+                    this.setErrorMessage('Command error: ' + error.responseText);
+                }
+            );
+    };
+
     open(userName?, userPass?, authProxy?, type?) {
         if (userName === undefined) {
             userName = '';
@@ -603,10 +651,6 @@ export class ODatabaseService {
         this.commandResult = iCommandResult;
     }
 
-    setCommandResponse(iCommandResponse) {
-        this.commandResponse = iCommandResponse;
-    }
-
     setErrorMessage(iErrorMessage) {
         this.errorMessage = iErrorMessage;
     }
@@ -617,5 +661,13 @@ export class ODatabaseService {
 
     getParseResponseLinks() {
         return this.parseResponseLink;
+    }
+
+    getCommandResponse() {
+        return this.commandResponse;
+    }
+
+    setCommandResponse(iCommandResponse) {
+        this.commandResponse = iCommandResponse;
     }
 }
