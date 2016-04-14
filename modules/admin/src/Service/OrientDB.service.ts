@@ -86,7 +86,7 @@ export class ODatabaseService {
         }
 
         if (!iLanguage) {
-            iLanguage = "sql";
+            iLanguage = 'sql';
         }
 
         if (!iLimit) {
@@ -96,7 +96,7 @@ export class ODatabaseService {
         if (iFetchPlan === undefined || iFetchPlan === '') {
             iFetchPlan = '';
         } else {
-            iFetchPlan = "/" + encodeURIComponent(iFetchPlan);
+            iFetchPlan = '/' + encodeURIComponent(iFetchPlan);
         }
 
         var dataType = this.evalResponse ? undefined : 'text';
@@ -105,7 +105,7 @@ export class ODatabaseService {
 
         return this.request.httpRequest({
                 url: this.urlPrefix + 'command/' + this.encodedDatabaseName + '/'
-                + iLanguage + '/' + iCommand + "/" + iLimit + iFetchPlan
+                + iLanguage + '/' + iCommand + '/' + iLimit + iFetchPlan
                 + this.urlSuffix,
                 type: 'POST'
             })
@@ -134,7 +134,8 @@ export class ODatabaseService {
         if (authProxy !== undefined && authProxy !== '') {
             this.urlPrefix = this.databaseUrl + authProxy + '/';
         } else {
-            this.urlPrefix = this.databaseUrl.substring(this.databaseUrl.length - 1, this.databaseUrl.length) !== '/' ? this.databaseUrl + '/' : this.databaseUrl;
+            this.urlPrefix = this.databaseUrl.substring(this.databaseUrl.length - 1,
+                this.databaseUrl.length) !== '/' ? this.databaseUrl + '/' : this.databaseUrl;
         }
 
         if (type === undefined || type === '') {

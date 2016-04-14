@@ -1,4 +1,5 @@
-import {Login} from "./login";
+import {Login} from './login';
+
 describe('Login', () => {
   beforeEach(() => {
     this.login = new Login();

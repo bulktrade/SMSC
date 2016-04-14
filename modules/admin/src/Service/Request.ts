@@ -1,31 +1,32 @@
 'use strict';
 export interface RequestGetOptions {
-    url:string;
-    type:string;
-    body?:string;
-    userName?:string;
-    userPass?:string;
+    url: string;
+    type: string;
+    body?: string;
+    userName?: string;
+    userPass?: string;
 }
 export interface RequestGetResponse {
     string;
 }
 export class Request {
-    private userName:string;
-    private userPass:string;
+    private userName: string;
+    private userPass: string;
 
     basicAuth(userName, userPass) {
         this.userName = userName;
         this.userPass = userPass;
     }
 
-    httpRequest(options:RequestGetOptions):Promise<RequestGetResponse> {
+    httpRequest(options: RequestGetOptions): Promise<RequestGetResponse> {
         return new Promise((resolve, reject) => {
             var xhr = new XMLHttpRequest();
             xhr.getResponseHeader('Content-Type');
             xhr.open(options.type, options.url, true, options.userName, options.userPass);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(this.userName + ':' + this.userPass));
+            xhr.setRequestHeader('Authorization', 'Basic ' +
+                btoa(this.userName + ':' + this.userPass));
 
             xhr.onload = function (ev: Event) {
                 if (xhr.status === 200) {

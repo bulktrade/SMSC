@@ -15,7 +15,8 @@ import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 })
 
 export class Login {
-    constructor(public router?:Router, public translate?: TranslateService, public database?:ODatabaseService) {
+    constructor(public router?: Router, public translate?: TranslateService,
+                public database?: ODatabaseService) {
     }
 
     authentication(login, password) {
@@ -23,14 +24,14 @@ export class Login {
             this.database.open(login, password)
                 .then(
                     (res) => {
-                        console.log("Result: ", res);
+                        console.log('Result: ', res);
                         document.cookie = 'rightWrite=true';
                         this.router.parent.navigate(['Navigation']);
                     }
                 )
                 .catch(
                     (err) => {
-                        console.log("Error: ", err);
+                        console.log('Error: ', err);
                         // delete cookie
                         document.cookie = 'rightWrite=true;expires=Mon, ' +
                             '01-Jan-2000 00:00:00 GMT';

@@ -1,8 +1,6 @@
 /// <reference path="../../../../assets/js/ExtJS.d.ts" />
 import {Directive, ElementRef} from 'angular2/core';
-import {Cookie} from '../../login/cookie';
 import {ODatabaseService} from '../../../../Service/OrientDB.service';
-import {resolve} from "url";
 
 @Directive({
     selector: '[customers-grid]'
@@ -11,7 +9,7 @@ export class CustomersGrid {
     private static visible = false;
     private static customersStore: any;
 
-    constructor(private element: ElementRef, public databaseservice: ODatabaseService) {
+    constructor(public element: ElementRef, public databaseservice: ODatabaseService) {
     }
 
     mainStore(store) {
@@ -91,7 +89,8 @@ export class CustomersGrid {
                 text: 'Remove',
                 handler: () => {
                     let sm = grid.getSelectionModel();
-                    this.delete(sm.getSelection()[0].data.customer_id, sm.getSelection()[0].data.company_name);
+                    this.delete(sm.getSelection()[0].data.customer_id,
+                        sm.getSelection()[0].data.company_name);
                     rowEditing.cancelEdit();
                     CustomersGrid.customersStore.remove(sm.getSelection());
                     if (CustomersGrid.customersStore.getCount() > 0) {
@@ -106,12 +105,19 @@ export class CustomersGrid {
                     grid.down('#remove').setDisabled(!records.length);
                 },
                 edit: (editor, e) => {
-                    let originCustomerId  = e.originalValues.customer_id,
-                        dataCustomerId    = CustomersGrid.customersStore.getAt(e.rowIdx).data.customer_id,
-                        originCompanyName = e.originalValues.company_name,
-                        dataCompanyName   = CustomersGrid.customersStore.getAt(e.rowIdx).data.company_name;
+                    let originCustomerId  = e.originalValues.
+                            customer_id,
+                        dataCustomerId = CustomersGrid.
+                            customersStore.getAt(e.rowIdx)
+                            .data.customer_id,
+                        originCompanyName = e.originalValues.
+                            company_name,
+                        dataCompanyName   = CustomersGrid.
+                            customersStore.getAt(e.rowIdx).
+                            data.company_name;
 
-                    this.update(originCustomerId, dataCustomerId, originCompanyName, dataCompanyName);
+                    this.update(originCustomerId, dataCustomerId,
+                        originCompanyName, dataCompanyName);
                 }
             }
         });
@@ -120,8 +126,9 @@ export class CustomersGrid {
     }
 
     update(originId, dataId, originName, dataName) {
-        this.databaseservice.executeCommand('UPDATE customer SET customer_id=\''+ dataId +'\', ' +
-            'company_name=\''+ dataName +'\' WHERE customer_id=\''+ originId +'\' AND company_name=\''+ originName +'\'');
+        this.databaseservice.executeCommand('UPDATE customer SET customer_id=\'' + dataId
+            + '\', ' + 'company_name=\'' + dataName + '\' WHERE customer_id=\'' + originId +
+            '\' AND company_name=\'' + originName + '\'');
     }
 
     query() {
@@ -129,10 +136,11 @@ export class CustomersGrid {
             .then((data) => {
                 let store = [];
                 for (var i = 0; i < data.result.length; i++) {
-                    store.push({customer_id: data.result[i].customer_id, company_name: data.result[i].company_name});
+                    store.push({customer_id: data.result[i].customer_id,
+                        company_name: data.result[i].company_name});
                 }
                 return store;
-            })
+            });
     }
 
     insert() {
@@ -141,16 +149,17 @@ export class CustomersGrid {
                 let next_id = 1;
 
                 if (res.result.length) {
-                    next_id = Number(res.result[0].max)+1;
+                    next_id = Number(res.result[0].max) + 1;
                 }
 
                 this.databaseservice.executeCommand('insert into customer ' +
-                    '(customer_id,company_name) values (\''+ next_id +'\',\'SMSC\')');
+                    '(customer_id,company_name) values (\'' + next_id + '\',\'SMSC\')');
                 return {customer_id: next_id, company_name: 'SMSC'};
             });
     }
 
     delete(id, name) {
-        this.databaseservice.executeCommand('DELETE FROM customer WHERE customer_id = \''+ id +'\' AND company_name = \''+ name +'\'');
+        this.databaseservice.executeCommand('DELETE FROM customer WHERE customer_id = \'' + id +
+            '\' AND company_name = \'' + name + '\'');
     }
 }

@@ -3,13 +3,16 @@ import {
     inject,
     beforeEachProviders,
 } from 'angular2/testing';
-import {ElementRef} from 'angular2/core';
+
 import {CustomersGrid} from './customers-grid';
+import {ElementRef} from 'angular2/core';
+import {ODatabaseService} from '../../../../Service/OrientDB.service';
 
 describe('CustomersGrid', () => {
     beforeEachProviders(() => [
         CustomersGrid,
-        ElementRef
+        ElementRef,
+        ODatabaseService
     ]);
 
     it('should log store', inject([ CustomersGrid ], (customer) => {
