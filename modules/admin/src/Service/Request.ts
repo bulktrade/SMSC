@@ -28,7 +28,7 @@ export class Request {
             xhr.setRequestHeader('Authorization', 'Basic ' +
                 btoa(this.userName + ':' + this.userPass));
 
-            xhr.onload = function (ev: Event) {
+            xhr.onload = (ev: Event) => {
                 if (xhr.status === 200) {
                     resolve(xhr.responseText);
                 } else {
@@ -36,11 +36,11 @@ export class Request {
                 }
             };
 
-            xhr.onabort = function(ev: Event) {
+            xhr.onabort = (ev: Event) => {
                 reject(new Error(xhr.statusText));
             };
 
-            xhr.onerror = function(ev: Event) {
+            xhr.onerror = (ev: Event) => {
                 reject(new Error(xhr.statusText));
             };
 

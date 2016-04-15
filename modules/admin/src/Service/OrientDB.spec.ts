@@ -10,7 +10,7 @@ import {Mock} from './Mock';
 describe('ODatabaseService', () => {
 
     beforeEach(() => {
-        this.db = Mock.mock(new ODatabaseService());
+        this.db = Mock.mock(new ODatabaseService('http://localhost:3000/orientdb/smsc'));
     });
 
     it('open OrientDB', () => {

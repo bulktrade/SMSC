@@ -18,8 +18,10 @@ bootstrap(Authentication, [
         useFactory: (http:Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
         deps: [Http]
     }),
+    provide(ODatabaseService, {
+        useFactory: () => new ODatabaseService('http://localhost:3000/orientdb/smsc'),
+    }),
     TRANSLATE_PROVIDERS,
-    TranslateService,
-    ODatabaseService
+    TranslateService
 ])
   .catch(err => console.error(err));

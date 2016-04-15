@@ -7,6 +7,7 @@ export class NavigationTest {
         this.login = new Login();
     }
 
+    dashboard = element(by.className('dashboard-item'));
     smstraffic = element(by.tagName('smstraffic'));
     dlrtraffic = element(by.tagName('dlrtraffic'));
     finances = element(by.tagName('finances'));
@@ -27,6 +28,41 @@ export class NavigationTest {
     getTitle() {
         return browser.getTitle();
     }
+
+    getLanguage() {
+        let result,
+            userLang = 'en';
+
+        switch (userLang) {
+            case 'en':
+                result = 'Dashboard';
+                break;
+            case 'ru':
+                result = 'Приборная панель';
+                break;
+            case 'de':
+                result = 'Armaturenbrett';
+                break;
+            default:
+                result = 'Dashboard';
+                break;
+        }
+
+        return result;
+    }
+
+    getDashboardText() {
+        return this.dashboard.getText();
+    }
+
+    waitUntilReady(elm, ptor) {
+        ptor.wait(function () {
+            return elm.isPresent();
+        },10000);
+        ptor.wait(function () {
+            return elm.isDisplayed();
+        },10000);
+    };
 
     clickOnItemNavSmstraffic(ptor) {
         return new Promise((resolve, reject) => {

@@ -26,7 +26,6 @@ import {SystemSettings} from '../systemsettings/systemsettings';
     templateUrl: 'app/components/navigation/navigation.html',
     styleUrls: ['../../assets/css/style.css'],
     directives: [LoggedInRouterOutlet, CORE_DIRECTIVES, AnimateBox, NgClass],
-    // bindings : [TranslateService],
     pipes : [TranslatePipe]
 })
 
@@ -67,7 +66,7 @@ export class Navigation implements OnInit {
         this.dashboard = !this.dashboard;
     }
 
-    ngOnInit():any {
+    ngOnInit() :any {
         this.setDefaultLang();
     }
 

@@ -20,6 +20,16 @@ describe('Navigation', () => {
         expect(true).toBeTruthy();
     });
 
+    it('AngularJS Translations', () => {
+        let lang = this.navigator.getLanguage();
+
+        this.navigator.waitUntilReady(this.navigator.dashboard, ptor);
+        this.navigator.getDashboardText()
+            .then((text) => {
+                expect(lang).toEqual(text);
+            });
+    });
+
     it('should have smstraffic', () => {
         this.navigator.clickOnItemNavSmstraffic(ptor).then(() => {
             expect(this.navigator.getSmstraffic()).toBeTruthy();

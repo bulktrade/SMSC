@@ -67,7 +67,7 @@
                     <a (click)="dashboard.toggle(visibleDash = !visibleDash, 4, false, showNav); icnDsh = !icnDsh" class="dashboard sub-task active-task clear">
                         <i class="icon-left icon-bulb"></i>
                         <div class="show-nav" *ngIf="!showNav">
-                            <span class="name-sub">{{'DASHBOARD' | translate}}</span>
+                            <span class="name-sub dashboard-item">{{'DASHBOARD' | translate}}</span>
                             <i class="fa" [ngClass]="{'fa-angle-down': icnDsh, 'fa-angle-left': !icnDsh}"></i>
                         </div>
                     </a>
@@ -82,7 +82,7 @@
                     <a (click)="gsm.toggle(visibleGsm = !visibleGsm, 7, false, showNav); icnGsm = !icnGsm" class="gsm sub-task clear">
                         <i class="icon-left icon-settings"></i>
                         <div class="show-nav" *ngIf="!showNav">
-                            <span class="name-sub">GSM</span>
+                            <span class="name-sub">{{'GSM' | translate}}</span>
                             <i class="fa" [ngClass]="{'fa-angle-down': icnGsm, 'fa-angle-left': !icnGsm}"></i>
                         </div>
                     </a>

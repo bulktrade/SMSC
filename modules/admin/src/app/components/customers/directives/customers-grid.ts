@@ -1,6 +1,7 @@
 /// <reference path="../../../../assets/js/ExtJS.d.ts" />
 import {Directive, ElementRef} from 'angular2/core';
 import {ODatabaseService} from '../../../../Service/OrientDB.service';
+declare var sprintf: any;
 
 @Directive({
     selector: '[customers-grid]'
@@ -9,7 +10,7 @@ export class CustomersGrid {
     private static visible = false;
     private static customersStore: any;
 
-    constructor(public element: ElementRef, public databaseservice: ODatabaseService) {
+    constructor(public element?: ElementRef, public databaseservice?: ODatabaseService) {
     }
 
     mainStore(store) {
@@ -82,7 +83,6 @@ export class CustomersGrid {
 
                             CustomersGrid.customersStore.insert(0, r);
                         });
-
                 }
             }, {
                 itemId: 'remove',
@@ -126,9 +126,17 @@ export class CustomersGrid {
     }
 
     update(originId, dataId, originName, dataName) {
-        this.databaseservice.executeCommand('UPDATE customer SET customer_id=\'' + dataId
-            + '\', ' + 'company_name=\'' + dataName + '\' WHERE customer_id=\'' + originId +
-            '\' AND company_name=\'' + originName + '\'');
+        this.databaseservice.query(
+        sprintf('select from customer where customer_id = \'%s\' and company_name = \'%s\'', originId, originName))
+            .then((data) => {
+                let rid = data.result[0]['@rid'],
+                    version = data.result[0]['@version'],
+                    str = sprintf('{ "transaction" : true, "operations" : [ { "type" : "u", "record" : ' +
+                        '{ "@rid" : "%s", "@version": %s, ' +
+                        '"customer_id": "%s", "company_name": "%s" } } ] }', rid, version, dataId, dataName);
+
+                this.databaseservice.batchRequest(str);
+            });
     }
 
     query() {
@@ -145,21 +153,32 @@ export class CustomersGrid {
 
     insert() {
         return this.databaseservice.query('SELECT max(customer_id) FROM customer')
-            .then((res) => {
+            .then((data) => {
                 let next_id = 1;
 
-                if (res.result.length) {
-                    next_id = Number(res.result[0].max) + 1;
+                if (data.result.length) {
+                    next_id = Number(data.result[0].max) + 1;
                 }
 
-                this.databaseservice.executeCommand('insert into customer ' +
-                    '(customer_id,company_name) values (\'' + next_id + '\',\'SMSC\')');
+                let str = sprintf('{ "transaction" : true, "operations" : [ { "type" : "c", "record" : ' +
+                    '{ "@class" : "customer", "customer_id" : "%s",' +
+                    '"company_name" : "%s" } } ] }', next_id, 'SMSC');
+
+                this.databaseservice.batchRequest(str);
+
                 return {customer_id: next_id, company_name: 'SMSC'};
             });
     }
 
     delete(id, name) {
-        this.databaseservice.executeCommand('DELETE FROM customer WHERE customer_id = \'' + id +
-            '\' AND company_name = \'' + name + '\'');
+        this.databaseservice.query(
+            sprintf('select from customer where customer_id = "%s" and company_name = "%s"', id, name))
+            .then((data) => {
+                let rid = data.result[0]['@rid'],
+                    str = sprintf('{ "transaction" : true, "operations" : [ { "type" : "d", "record" : ' +
+                        '{ "@rid" : "%s" } } ] }', rid);
+
+                this.databaseservice.batchRequest(str);
+            });
     }
 }

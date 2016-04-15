@@ -20,10 +20,7 @@ export class ODatabaseService {
     private urlPrefix;
     private urlSuffix;
 
-    constructor() {
-    }
-
-    init(databasePath) {
+    constructor(databasePath) {
         this.databaseUrl = '';
         this.databaseName = '';
         this.encodedDatabaseName = '';
@@ -72,6 +69,24 @@ export class ODatabaseService {
                 this.encodedDatabaseName = this.databaseName;
             }
         }
+    }
+
+    batchRequest(data) {
+        return this.request.httpRequest({
+                type: 'POST',
+                url: this.urlPrefix + 'batch/' + this.encodedDatabaseName
+                + this.urlSuffix,
+                body: data
+            })
+            .then(
+                res => {
+                    console.log("Success!");
+                },
+                error => {
+                    console.log("Error!");
+                    this.setErrorMessage('Command error: ' + error.responseText);
+                }
+            );
     }
 
     executeCommand(iCommand?, iLanguage?, iLimit?,

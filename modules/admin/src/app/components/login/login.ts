@@ -2,7 +2,6 @@ import {Component, } from 'angular2/core';
 import {ODatabaseService} from './../../../Service/OrientDB.service';
 import {Router, RouterLink, ROUTER_DIRECTIVES} from 'angular2/router';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
-import {Cookie} from './cookie';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
@@ -40,9 +39,5 @@ export class Login {
         } else {
             alert('Not filled fields!');
         }
-    }
-
-    ngOnInit() {
-        this.database.init('http://localhost:3000/orientdb/smsc');
     }
 }

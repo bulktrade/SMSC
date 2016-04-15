@@ -5,14 +5,16 @@ import {
 } from 'angular2/testing';
 
 import {CustomersGrid} from './customers-grid';
-import {ElementRef} from 'angular2/core';
+import {ElementRef, provide} from 'angular2/core';
 import {ODatabaseService} from '../../../../Service/OrientDB.service';
 
 describe('CustomersGrid', () => {
     beforeEachProviders(() => [
         CustomersGrid,
         ElementRef,
-        ODatabaseService
+        provide(ODatabaseService, {
+            useFactory: () => new ODatabaseService('http://localhost:3000/orientdb/smsc'),
+        }),
     ]);
 
     it('should log store', inject([ CustomersGrid ], (customer) => {

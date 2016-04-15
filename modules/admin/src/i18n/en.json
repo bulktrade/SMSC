@@ -1,6 +1,7 @@
 {
   "ACTIONS": "Actions",
   "DASHBOARD" : "Dashboard",
+  "GSM" : "GSM",
   "SMS TRAFFIC": "SMS Traffic",
   "DLR TRAFFIC": "DLR Traffic",
   "FINANCES": "Finances",
@@ -12,5 +13,7 @@
   "MCC & MNC": "MCC & MNC",
   "SMPP": "SMPP",
   "API": "API",
-  "SYSTEM SETTINGS": "System Settingss"
+  "SYSTEM SETTINGS": "System Settingss",
+
+  "TEST": "Test AngularJS Translations"
 }
