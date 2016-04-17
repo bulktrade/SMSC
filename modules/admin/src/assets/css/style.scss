@@ -1,4 +1,4 @@
-body {
+  body {
   margin: 0;
   padding: 0;
 }
@@ -34,7 +34,7 @@ html {
     float: left;
     margin: 3px 0 0 116px;
     cursor: pointer;
-    background: url("./../assets/img/sidebar-toggle-light.png");
+    background: url("./../../assets/img/sidebar-toggle-light.png");
   }
   .btn-actions {
     width: 78px;
@@ -153,7 +153,7 @@ html {
     float: left;
     width: 39px;
     height: 39px;
-    background: url("./../assets/img/avatar.jpg");
+    background: url("./../../assets/img/avatar.jpg");
     margin: -6px 5px 0 0;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -229,6 +229,7 @@ html {
   margin: 0 22px 0 22px;
   font-size: 18px;
   color: rgb(91, 155, 209);
+  border-radius: 3px;
   .active-task {
     display: block;
     background: #F2F6F9;
