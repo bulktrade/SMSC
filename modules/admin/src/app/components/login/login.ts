@@ -1,4 +1,4 @@
-import {Component, } from 'angular2/core';
+import {Component} from 'angular2/core';
 import {ODatabaseService} from './../../../Service/OrientDB.service';
 import {Router, RouterLink, ROUTER_DIRECTIVES} from 'angular2/router';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
@@ -14,13 +14,17 @@ import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 })
 
 export class Login {
+    invalid:  boolean = false;
+    input:    boolean = false;
+    notfound: boolean = false;
+
     constructor(public router?: Router, public translate?: TranslateService,
                 public database?: ODatabaseService) {
     }
 
     authentication(login, password) {
-        if (login && password) {
-            this.database.open(login, password)
+        if (login.valid && password.valid) {
+            this.database.open(login.value, password.value)
                 .then(
                     (res) => {
                         console.log('Result: ', res);
@@ -31,13 +35,17 @@ export class Login {
                 .catch(
                     (err) => {
                         console.log('Error: ', err);
+                        this.notfound = true;
+                        this.invalid = false;
                         // delete cookie
                         document.cookie = 'rightWrite=true;expires=Mon, ' +
                             '01-Jan-2000 00:00:00 GMT';
                     }
                 );
         } else {
-            alert('Not filled fields!');
+            this.invalid  = true;
+            this.input    = true;
+            this.notfound = false;
         }
     }
 }

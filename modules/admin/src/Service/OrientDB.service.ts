@@ -79,9 +79,7 @@ export class ODatabaseService {
                 body: data
             })
             .then(
-                res => {
-                    console.log("Success!");
-                },
+                res => {},
                 error => {
                     console.log("Error!");
                     this.setErrorMessage('Command error: ' + error.responseText);

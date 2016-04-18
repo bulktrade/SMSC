@@ -1,10 +1,20 @@
 <div class="container">
-    <form class="login-form" role="form" (submit)="authentication(login.value, pwd.value)">
+    <form class="login-form" role="form" (submit)="authentication(login, pwd)" #mainForm="ngForm" novalidate>
+        <div *ngIf="invalid" class="alert alert-danger warn-sessage">
+            <div class="close-btn fa fa-close" (click)="invalid=false"></div>
+            <span>Enter any username and password. </span>
+        </div>
+        <div *ngIf="notfound" class="alert alert-warning user-not-found">
+            <div class="close-btn fa fa-close" (click)="notfound=false"></div>
+            <span>User with this data not found! </span>
+        </div>
         <div class="row">
             <div class="col-xs-6">
-                <input #login class="username form-control form-control-solid placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="Username" name="username" required/> </div>
+                <input ngControl="login"  #login="ngForm" [ngClass]="{'error-user': input && !login.valid}" class="username form-control form-control-solid placeholder-no-fix form-group"
+                       type="text" autocomplete="off" placeholder="Username" name="username" required/> </div>
             <div class="col-xs-6">
-                <input #pwd class="password form-control form-control-solid placeholder-no-fix form-group" type="password" autocomplete="off" placeholder="Password" name="password" required/> </div>
+                <input ngControl="pwd"  #pwd="ngForm" #pwd [ngClass]="{'error-user': input && !pwd.valid}" class="password form-control form-control-solid placeholder-no-fix form-group"
+                       type="password" autocomplete="off" placeholder="Password" name="password" required/> </div>
         </div>
         <div class="row">
             <div class="col-sm-4">
