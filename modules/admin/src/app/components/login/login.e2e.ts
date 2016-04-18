@@ -1,7 +1,21 @@
+import {LoginTest} from '../testpages/LoginTest';
+
 describe('Login page', () => {
+    let ptor = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
-        this.lognpg = new LoginPage();
+        browser.ignoreSynchronization = true;
+        this.lognpg = new LoginTest();
+        ptor = protractor.wrapDriver(browser.driver);
+    });
+
+    it('validation for empty fields', () => {
+        this.lognpg.get();
+        this.lognpg.clickOnBtnSend(ptor)
+            .then(() => {
+                this.lognpg.waitUntilReady(this.lognpg.dangerMessage, ptor);
+                expect(this.lognpg.ifPresentDangerMsg()).toBeTruthy();
+            });
     });
 
     it('show navigation content', () => {
@@ -15,24 +29,3 @@ describe('Login page', () => {
     });
 
 });
-
-class LoginPage {
-    elemMainContent  = element(by.className('user-name'));
-    elemNotFound  = element(by.tagName('notfound'));
-
-    getNavigation() {
-        browser.get('/navigation');
-    }
-
-    getNotFound() {
-        browser.get('/testloginpage');
-    }
-
-    isPresentMainContent() {
-        this.elemMainContent.isPresent();
-    }
-
-    isPresentNotFound() {
-        this.elemNotFound.isPresent();
-    }
-}

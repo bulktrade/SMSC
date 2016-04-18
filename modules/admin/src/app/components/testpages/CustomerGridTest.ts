@@ -21,19 +21,28 @@ export class CustomerGridTest {
 
     clickOnItemNavCustomers(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000).then(function (el: webdriver.IWebElement) {
-                el.click();
-                ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000).then(function (el: webdriver.IWebElement) {
-                    resolve(el.click())
-                });
+            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000).then(function (el:webdriver.IWebElement) {
+                el.click()
+                    .then(() => {
+                        ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000)
+                            .then((el:webdriver.IWebElement) => {
+                                return el.click();
+                            });
+                    });
+            }).thenCatch((errback) => {
+                reject(errback);
             });
         });
     }
 
     clickBtnWrap(ptor) {
-        return ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000).then(function (el: webdriver.IWebElement) {
-                el.click();
+        return new Promise((resolve, reject) => {
+            ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000).then(function (el:webdriver.IWebElement) {
+                resolve(el.click());
+            }).thenCatch((errback) => {
+                reject(errback);
             });
+        });
     }
 
     getCountRows() {
