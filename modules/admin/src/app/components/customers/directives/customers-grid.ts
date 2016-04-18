@@ -127,13 +127,16 @@ export class CustomersGrid {
 
     update(originId, dataId, originName, dataName) {
         this.databaseservice.query(
-        sprintf('select from customer where customer_id = \'%s\' and company_name = \'%s\'', originId, originName))
+        sprintf('select from customer where customer_id = \'%s\' and company_name = \'%s\'',
+            originId, originName))
             .then((data) => {
                 let rid = data.result[0]['@rid'],
                     version = data.result[0]['@version'],
-                    str = sprintf('{ "transaction" : true, "operations" : [ { "type" : "u", "record" : ' +
+                    str = sprintf('{ "transaction" : true, "operations" : ' +
+                        '[ { "type" : "u", "record" : ' +
                         '{ "@rid" : "%s", "@version": %s, ' +
-                        '"customer_id": "%s", "company_name": "%s" } } ] }', rid, version, dataId, dataName);
+                        '"customer_id": "%s", "company_name": "%s" } } ] }',
+                        rid, version, dataId, dataName);
 
                 this.databaseservice.batchRequest(str);
             });
@@ -160,7 +163,8 @@ export class CustomersGrid {
                     next_id = Number(data.result[0].max) + 1;
                 }
 
-                let str = sprintf('{ "transaction" : true, "operations" : [ { "type" : "c", "record" : ' +
+                let str = sprintf('{ "transaction" : true, "operations" : ' +
+                    '[ { "type" : "c", "record" : ' +
                     '{ "@class" : "customer", "customer_id" : "%s",' +
                     '"company_name" : "%s" } } ] }', next_id, 'SMSC');
 
@@ -172,10 +176,12 @@ export class CustomersGrid {
 
     delete(id, name) {
         this.databaseservice.query(
-            sprintf('select from customer where customer_id = "%s" and company_name = "%s"', id, name))
+            sprintf('select from customer where customer_id = "%s" and company_name = "%s"',
+                id, name))
             .then((data) => {
                 let rid = data.result[0]['@rid'],
-                    str = sprintf('{ "transaction" : true, "operations" : [ { "type" : "d", "record" : ' +
+                    str = sprintf('{ "transaction" : true, "operations" : ' +
+                        '[ { "type" : "d", "record" : ' +
                         '{ "@rid" : "%s" } } ] }', rid);
 
                 this.databaseservice.batchRequest(str);
