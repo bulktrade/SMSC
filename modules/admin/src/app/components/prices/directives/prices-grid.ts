@@ -1,5 +1,5 @@
 import {Directive, ElementRef} from 'angular2/core';
-import {Cookie} from '../../login/cookie';
+import {LocalStorage} from '../../login/localstorage';
 
 @Directive({
     selector: '[prices-grid]'
@@ -64,7 +64,7 @@ export class PricesGrid {
             autoCancel: false
         });
 
-        if (Cookie.getCookie()) {
+        if (LocalStorage.getLocalStorage()) {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: PricesGrid.priceStore,

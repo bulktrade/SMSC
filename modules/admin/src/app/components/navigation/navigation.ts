@@ -2,7 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import {CORE_DIRECTIVES, NgClass} from 'angular2/common';
 import {LoggedInRouterOutlet} from '../authentication/LoggedInOutlet';
 import {RouteConfig, Router} from 'angular2/router';
-import {Cookie} from '../login/cookie';
+import {LocalStorage} from '../login/localstorage';
 import {AnimateBox} from './directives/animate';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
@@ -46,10 +46,9 @@ import {SystemSettings} from '../systemsettings/systemsettings';
 
 export class Navigation implements OnInit {
     content: string;
-    dashboard: boolean = false;
 
     constructor(public router: Router, public translate: TranslateService) {
-        this.content = Cookie.getCookie();
+        this.content = LocalStorage.getLocalStorage();
     }
 
     onSelect(route) {
@@ -57,13 +56,8 @@ export class Navigation implements OnInit {
     }
 
     logout() {
-        document.cookie = 'rightWrite=true;expires=Mon, ' +
-            '01-Jan-2000 00:00:00 GMT';
+        localStorage.removeItem("rightWrite");
         this.router.parent.navigate(['Login']);
-    }
-
-    show(){
-        this.dashboard = !this.dashboard;
     }
 
     ngOnInit() :any {

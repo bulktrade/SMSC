@@ -1,5 +1,5 @@
 import {Directive, ElementRef} from 'angular2/core';
-import {Cookie} from '../../login/cookie';
+import {LocalStorage} from '../../login/localstorage';
 
 @Directive({
     selector: '[mccmnc-grid]'
@@ -61,7 +61,7 @@ export class MCCMNCGrid {
         MCCMNCGrid.mccStore = this.MCCStore();
         MCCMNCGrid.mncStore = this.MNCStore();
 
-        if (Cookie.getCookie()) {
+        if (LocalStorage.getLocalStorage()) {
             let rowEditingMCC = Ext.create('Ext.grid.plugin.RowEditing', {
                 clicksToMoveEditor: 1,
                 autoCancel: false

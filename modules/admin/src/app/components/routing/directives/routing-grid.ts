@@ -1,5 +1,5 @@
 import {Directive, ElementRef} from 'angular2/core';
-import {Cookie} from '../../login/cookie';
+import {LocalStorage} from '../../login/localstorage';
 
 @Directive({
     selector: '[routing-grid]'
@@ -46,7 +46,7 @@ export class RoutingGrid {
             autoCancel: false
         });
 
-        if (Cookie.getCookie()) {
+        if (LocalStorage.getLocalStorage()) {
             let grid = Ext.create('Ext.grid.Panel', {
                 renderTo: this.element.nativeElement,
                 store: RoutingGrid.routingStore,

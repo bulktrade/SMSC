@@ -14,8 +14,6 @@ import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 })
 
 export class Login {
-    invalid:  boolean = false;
-    input:    boolean = false;
     notfound: boolean = false;
 
     constructor(public router?: Router, public translate?: TranslateService,
@@ -28,7 +26,9 @@ export class Login {
                 .then(
                     (res) => {
                         console.log('Result: ', res);
-                        document.cookie = 'rightWrite=true';
+                        if (typeof(Storage) !== "undefined") {
+                            localStorage.setItem("rightWrite", "true");
+                        }
                         this.router.parent.navigate(['Navigation']);
                     }
                 )
@@ -36,15 +36,10 @@ export class Login {
                     (err) => {
                         console.log('Error: ', err);
                         this.notfound = true;
-                        this.invalid = false;
-                        // delete cookie
-                        document.cookie = 'rightWrite=true;expires=Mon, ' +
-                            '01-Jan-2000 00:00:00 GMT';
+                        localStorage.removeItem("rightWrite");
                     }
                 );
         } else {
-            this.invalid  = true;
-            this.input    = true;
             this.notfound = false;
         }
     }

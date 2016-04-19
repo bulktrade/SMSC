@@ -30,6 +30,11 @@ describe('Navigation', () => {
             });
     });
 
+    it('is exist local store', () => {
+        var value = browser.executeScript("return window.localStorage.getItem('rightWrite');");
+        expect(value).toBeDefined();
+    });
+
     it('should have smstraffic', () => {
         this.navigator.clickOnItemNavSmstraffic(ptor).then(() => {
             expect(this.navigator.getSmstraffic()).toBeTruthy();
