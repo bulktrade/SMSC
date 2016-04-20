@@ -9,8 +9,9 @@ export class AnimateBox {
     constructor(private _ab: AnimationBuilder, private _e: ElementRef) {
     }
 
-    toggle(isVisible: boolean = false, item: number, showNav: boolean, shortMenu: boolean) {
+    toggle(isVisible: boolean = false, item: number, showNav: boolean, navHeight: number) {
         let animation = this._ab.css();
+        let heightChild = this._e.nativeElement.firstChild.parentNode.childNodes[1].clientHeight;
 
         if (showNav) {
             animation.setDuration(0);
@@ -18,29 +19,36 @@ export class AnimateBox {
             animation.setDuration(200);
         }
 
-        if (isVisible) {
-            if (shortMenu) {
+        if (navHeight === undefined) {
+            if (isVisible) {
                 animation
                     .setFromStyles({height: '0'})
-                    .setToStyles({height: item*44 + 'px'});
+                    .setToStyles({height: heightChild * item + 'px'});
             } else {
                 animation
-                    .setFromStyles({height: '0'})
-                    .setToStyles({height: item*35 + 'px'});
+                    .setFromStyles({height: heightChild * item + 'px'})
+                    .setToStyles({height: '0'})
             }
         } else {
-            if (shortMenu) {
+            if (!isVisible) {
                 animation
-                    .setFromStyles({height: item*44 + 'px'})
-                    .setToStyles({height: '0'})
+                    .setFromStyles({height: '0'})
+                    .setToStyles({height: navHeight + 'px'});
             } else {
                 animation
-                    .setFromStyles({height: item*35 + 'px'})
+                    .setFromStyles({height: navHeight + 'px'})
                     .setToStyles({height: '0'})
             }
+
         }
 
         animation.start(this._e.nativeElement);
+        if (/*navHeight !== undefined &&*/ !isVisible) {
+            setTimeout(() => {
+                this._e.nativeElement.removeAttribute('style');
+            }, 430);
+        }
+
     }
 
 }

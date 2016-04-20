@@ -1,7 +1,7 @@
 /*
 Error: File to import not found or unreadable: ../../../sass/etc/all.
-       Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src
-        on line 863 of ./assets/js/extjs-6.0.0/build/classic/theme-classic-sandbox/theme-classic-sandbox-all-debug.scss
+       Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src/assets
+        on line 863 of ./js/extjs-6.0.0/build/classic/theme-classic-sandbox/theme-classic-sandbox-all-debug.scss
 
 858: $ext-resource-root: '' !default;
 859: $ext-resource-path: 'images' !default;
@@ -16,7 +16,7 @@ Error: File to import not found or unreadable: ../../../sass/etc/all.
 868: $current-package: 'core';
 
 Backtrace:
-./assets/js/extjs-6.0.0/build/classic/theme-classic-sandbox/theme-classic-sandbox-all-debug.scss:863
+./js/extjs-6.0.0/build/classic/theme-classic-sandbox/theme-classic-sandbox-all-debug.scss:863
 /var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:45:in `import'
 /var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:28:in `imported_file'
@@ -60,4 +60,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ../../../sass/etc/all.\A        Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src\A         on line 863 of ./assets/js/extjs-6.0.0/build/classic/theme-classic-sandbox/theme-classic-sandbox-all-debug.scss\A \A 858: $ext-resource-root: '' !default;\A 859: $ext-resource-path: 'images' !default;\A 860: $current-package: 'ext';\A 861: $current-resource-root: $ext-resource-root;\A 862: $relative-image-path-for-uis: $ext-resource-path;\A 863: @import '../../../sass/etc/all';\A 864: \A 865: /* including package core */\A 866: $core-resource-root: '' !default;\A 867: $core-resource-path: 'images' !default;\A 868: $current-package: 'core';"; }
+  content: "Error: File to import not found or unreadable: ../../../sass/etc/all.\A        Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src/assets\A         on line 863 of ./js/extjs-6.0.0/build/classic/theme-classic-sandbox/theme-classic-sandbox-all-debug.scss\A \A 858: $ext-resource-root: '' !default;\A 859: $ext-resource-path: 'images' !default;\A 860: $current-package: 'ext';\A 861: $current-resource-root: $ext-resource-root;\A 862: $relative-image-path-for-uis: $ext-resource-path;\A 863: @import '../../../sass/etc/all';\A 864: \A 865: /* including package core */\A 866: $core-resource-root: '' !default;\A 867: $core-resource-path: 'images' !default;\A 868: $current-package: 'core';"; }

@@ -1,7 +1,7 @@
 /*
 Error: File to import not found or unreadable: ../../../sass/etc/all.
-       Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src
-        on line 873 of ./assets/js/extjs-6.0.0/build/classic/theme-aria/theme-aria-all-rtl-debug.scss
+       Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src/assets
+        on line 873 of ./js/extjs-6.0.0/build/classic/theme-aria/theme-aria-all-rtl-debug.scss
 
 868: $ext-resource-root: '' !default;
 869: $ext-resource-path: 'images' !default;
@@ -16,7 +16,7 @@ Error: File to import not found or unreadable: ../../../sass/etc/all.
 878: $current-package: 'core';
 
 Backtrace:
-./assets/js/extjs-6.0.0/build/classic/theme-aria/theme-aria-all-rtl-debug.scss:873
+./js/extjs-6.0.0/build/classic/theme-aria/theme-aria-all-rtl-debug.scss:873
 /var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:45:in `import'
 /var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:28:in `imported_file'
@@ -60,4 +60,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ../../../sass/etc/all.\A        Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src\A         on line 873 of ./assets/js/extjs-6.0.0/build/classic/theme-aria/theme-aria-all-rtl-debug.scss\A \A 868: $ext-resource-root: '' !default;\A 869: $ext-resource-path: 'images' !default;\A 870: $current-package: 'ext';\A 871: $current-resource-root: $ext-resource-root;\A 872: $relative-image-path-for-uis: $ext-resource-path;\A 873: @import '../../../sass/etc/all';\A 874: \A 875: /* including package core */\A 876: $core-resource-root: '' !default;\A 877: $core-resource-path: 'images' !default;\A 878: $current-package: 'core';"; }
+  content: "Error: File to import not found or unreadable: ../../../sass/etc/all.\A        Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src/assets\A         on line 873 of ./js/extjs-6.0.0/build/classic/theme-aria/theme-aria-all-rtl-debug.scss\A \A 868: $ext-resource-root: '' !default;\A 869: $ext-resource-path: 'images' !default;\A 870: $current-package: 'ext';\A 871: $current-resource-root: $ext-resource-root;\A 872: $relative-image-path-for-uis: $ext-resource-path;\A 873: @import '../../../sass/etc/all';\A 874: \A 875: /* including package core */\A 876: $core-resource-root: '' !default;\A 877: $core-resource-path: 'images' !default;\A 878: $current-package: 'core';"; }

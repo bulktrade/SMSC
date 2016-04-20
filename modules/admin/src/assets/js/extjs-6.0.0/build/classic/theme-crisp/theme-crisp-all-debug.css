@@ -1,7 +1,7 @@
 /*
 Error: File to import not found or unreadable: ../../../sass/etc/all.
-       Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src
-        on line 874 of ./assets/js/extjs-6.0.0/build/classic/theme-crisp/theme-crisp-all-debug.scss
+       Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src/assets
+        on line 874 of ./js/extjs-6.0.0/build/classic/theme-crisp/theme-crisp-all-debug.scss
 
 869: $ext-resource-root: '' !default;
 870: $ext-resource-path: 'images' !default;
@@ -16,7 +16,7 @@ Error: File to import not found or unreadable: ../../../sass/etc/all.
 879: $current-package: 'core';
 
 Backtrace:
-./assets/js/extjs-6.0.0/build/classic/theme-crisp/theme-crisp-all-debug.scss:874
+./js/extjs-6.0.0/build/classic/theme-crisp/theme-crisp-all-debug.scss:874
 /var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:67:in `rescue in import'
 /var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:45:in `import'
 /var/lib/gems/2.1.0/gems/sass-3.4.21/lib/sass/tree/import_node.rb:28:in `imported_file'
@@ -60,4 +60,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ../../../sass/etc/all.\A        Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src\A         on line 874 of ./assets/js/extjs-6.0.0/build/classic/theme-crisp/theme-crisp-all-debug.scss\A \A 869: $ext-resource-root: '' !default;\A 870: $ext-resource-path: 'images' !default;\A 871: $current-package: 'ext';\A 872: $current-resource-root: $ext-resource-root;\A 873: $relative-image-path-for-uis: $ext-resource-path;\A 874: @import '../../../sass/etc/all';\A 875: \A 876: /* including package core */\A 877: $core-resource-root: '' !default;\A 878: $core-resource-path: 'images' !default;\A 879: $current-package: 'core';"; }
+  content: "Error: File to import not found or unreadable: ../../../sass/etc/all.\A        Load path: /home/dima/CloneGIT/Type/SMSC/modules/admin/src/assets\A         on line 874 of ./js/extjs-6.0.0/build/classic/theme-crisp/theme-crisp-all-debug.scss\A \A 869: $ext-resource-root: '' !default;\A 870: $ext-resource-path: 'images' !default;\A 871: $current-package: 'ext';\A 872: $current-resource-root: $ext-resource-root;\A 873: $relative-image-path-for-uis: $ext-resource-path;\A 874: @import '../../../sass/etc/all';\A 875: \A 876: /* including package core */\A 877: $core-resource-root: '' !default;\A 878: $core-resource-path: 'images' !default;\A 879: $current-package: 'core';"; }

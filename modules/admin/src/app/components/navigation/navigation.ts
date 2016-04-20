@@ -46,6 +46,7 @@ import {SystemSettings} from '../systemsettings/systemsettings';
 
 export class Navigation implements OnInit {
     content: string;
+    showNav: boolean = false;
 
     constructor(public router: Router, public translate: TranslateService) {
         this.content = LocalStorage.getLocalStorage();
@@ -60,8 +61,19 @@ export class Navigation implements OnInit {
         this.router.parent.navigate(['Login']);
     }
 
-    ngOnInit() :any {
+    ngOnInit() {
         this.setDefaultLang();
+
+        // save state navigation in local store
+        if (!localStorage.getItem('showNav')) {
+            localStorage.setItem('showNav', 'false');
+        } else {
+            this.showNav = this.toBoolean(localStorage.getItem('showNav'));
+        }
+    }
+
+    ngOnDestroy() {
+        localStorage.removeItem('showNav');
     }
 
     setDefaultLang() {
@@ -69,5 +81,14 @@ export class Navigation implements OnInit {
         // userLang = /(en|de)/gi.test(userLang) ? userLang : 'en';
         this.translate.setDefaultLang('en');
         this.translate.use('en');
+    }
+
+    saveStateNav() {
+        localStorage.setItem('showNav', !this.toBoolean(localStorage.getItem('showNav')) + "");
+        this.showNav = this.toBoolean(localStorage.getItem('showNav'));
+    }
+
+    toBoolean(str) {
+        return str === 'true' ? true : false;
     }
 }
