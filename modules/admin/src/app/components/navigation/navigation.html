@@ -4,26 +4,8 @@
             <div [hidden]="showNav" class="logo">SMSC</div>
             <div (click)="saveStateNav();"
                  [ngClass]="{'toggler-btn-active': showNav}" class="menu-toggler"></div>
-            <div class="btn-actions">
-                <div class="name-btn">{{'ACTIONS' | translate}} &nbsp;</div>
-                <i class="fa fa-angle-down"></i>
-            </div>
         </div>
         <div class="right-panel clear">
-            <ul class="notice clear">
-                <li class="clear">
-                    <i class="fa fa-bell-o"></i>
-                    <div class="counter bell">7</div>
-                </li>
-                <li class="clear">
-                    <i class="fa fa-envelope-o"></i>
-                    <div class="counter envelope">4</div>
-                </li>
-                <li class="clear">
-                    <i class="fa fa-calendar"></i>
-                    <div class="counter calendar">3</div>
-                </li>
-            </ul>
             <div class="wrapper-user-menu left clear">
                 <a class="user-profile clear">
                     <div class="user-name">Admin</div>

@@ -42,29 +42,10 @@ html {
     font-family: 'Open Sans', sans-serif;
     margin-top: 2px;
   }
-  .btn-actions {
-    width: 78px;
-    height: 30px;
-    float: left;
-    background: #F36A5A;
-    margin: -5px 0 0 30px;
-    cursor: pointer;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #fff;
-    font-family: 'Open Sans', sans-serif;
-    &:hover {
-      background: #E62711;
-    }
-  }
   .name-btn {
     float: left;
     margin: 7px 0 0 10px;
   }
-}
-
-.btn-actions .fa-angle-down {
-  margin-top: 10px;
 }
 
 /* right panel style */
@@ -89,51 +70,6 @@ html {
   }
   .fa-search {
     margin: 6px 0 0 7px;
-  }
-  .notice {
-    float: left;
-    color: #D7E1EB;
-    margin-left: 7px;
-  }
-}
-
-.notice {
-  li {
-    height: 74px;
-    margin: -24px 0 0 18px;
-    padding: 24px 6px 0 6px;
-    cursor: pointer;
-    display: block;
-    float: left;
-    &:hover {background: #F9FAFC;}
-  }
-  i {
-    float: left;
-    margin: 4px 7px 0 0;
-  }
-  .counter {
-    width: 25px;
-    height: 25px;
-    float: left;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    color: #fff;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 6px 0 0 9px;
-    font-family: "Open Sans", sans-serif;
-    font-size: 11px;
-  }
-  .bell {
-    background: #36C6D3;
-  }
-  .envelope {
-    background: #ED6B75;
-  }
-  .calendar {
-    background: #337AB7;
   }
 }
 
@@ -407,7 +343,13 @@ html {
   }
 }
 
-
+@media (max-width: 320px) {
+  .right-panel {
+    .user-name {
+      display: none;
+    }
+  }
+}
 
 @media (min-width: 992px) {
   .side-bar {

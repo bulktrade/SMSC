@@ -26,8 +26,8 @@ export class Login {
                 .then(
                     (res) => {
                         console.log('Result: ', res);
-                        if (typeof(Storage) !== "undefined") {
-                            localStorage.setItem("rightWrite", "true");
+                        if (typeof(Storage) !== 'undefined') {
+                            localStorage.setItem('rightWrite', 'true');
                         }
                         this.router.parent.navigate(['Navigation']);
                     }
@@ -36,7 +36,7 @@ export class Login {
                     (err) => {
                         console.log('Error: ', err);
                         this.notfound = true;
-                        localStorage.removeItem("rightWrite");
+                        localStorage.removeItem('rightWrite');
                     }
                 );
         } else {
