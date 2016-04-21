@@ -271,12 +271,15 @@ html {
         padding: 15px 0 17px 17px;
         color: rgb(92, 154, 207);
       }
+      .save-state-item {
+        height: 0;
+      }
       ul {
         clear: both;
         padding: 0;
         cursor: pointer;
         overflow: hidden;
-        height: 0;
+        //height: 0;
         a {
           display: block;
           padding: 9px 0 9px 30px;
@@ -348,7 +351,6 @@ html {
   background: #fff;
   margin: -49px 0 0 65px;
   width: 168px;
-  height: 0;
   z-index: 1000;
   a{
     padding: 14px 0 13px 10px !important;

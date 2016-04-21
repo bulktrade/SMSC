@@ -2,9 +2,7 @@
     <header class="header">
         <div class="left-panel clear">
             <div [hidden]="showNav" class="logo">SMSC</div>
-            <div (click)="saveStateNav();
-                dashboard.toggle(visibleDash = false, 4*35, true); icnDsh = false;
-                gsm.toggle(visibleGsm = false, 7, true); icnGsm = false"
+            <div (click)="saveStateNav();"
                  [ngClass]="{'toggler-btn-active': showNav}" class="menu-toggler"></div>
             <div class="btn-actions">
                 <div class="name-btn">{{'ACTIONS' | translate}} &nbsp;</div>
@@ -66,27 +64,27 @@
             <nav #sidebar class="side-bar">
                 <ul class="subtask">
                     <li>
-                        <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
+                        <div class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showNav}">
                             <a [class.active]="
                                 router.isRouteActive(router.parent.generate(['./Navigation', 'SMSTraffic'])) ||
                                 router.isRouteActive(router.parent.generate(['./Navigation', 'DLRTraffic'])) ||
                                 router.isRouteActive(router.parent.generate(['./Navigation', 'Finances'])) ||
                                 router.isRouteActive(router.parent.generate(['./Navigation', 'Customers']))
-                            " (click)="dashboard.toggle(visibleDash = !visibleDash, 4, false); icnDsh = !icnDsh;" class="dashboard sub-task clear">
+                            " (click)="dashboard.toggle(icnDsh, 4, false); saveStateDash();" class="dashboard sub-task clear">
                                 <i class="icon-left icon-bulb"></i>
                                 <div class="show-nav" [hidden]="showNav">
                                     <span class="name-sub dashboard-item">{{'DASHBOARD' | translate}}</span>
-                                    <i class="fa" [ngClass]="{'fa-angle-down': icnDsh, 'fa-angle-left': !icnDsh}"></i>
+                                    <i class="fa" [ngClass]="{'fa-angle-down': !icnDsh, 'fa-angle-left': icnDsh}"></i>
                                 </div>
                             </a>
-                            <ul animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showNav}">
+                            <ul class="dashboard-submenu" animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showNav, 'save-state-item': icnDsh}">
                                 <li><a [class.activesub]="router.isRouteActive(router.parent.generate(['./Navigation', 'SMSTraffic']))" (click)="onSelect('SMSTraffic')" class="smstraffic"><i class="subitem-icon-left icon-chart"></i>{{'SMS TRAFFIC' | translate}}</a></li>
                                 <li><a [class.activesub]="router.isRouteActive(router.parent.generate(['./Navigation', 'DLRTraffic']))" (click)="onSelect('DLRTraffic')" class="dlrtraffic"><i class="subitem-icon-left fa fa-wrench"></i>{{'DLR TRAFFIC' | translate}}</a></li>
                                 <li><a [class.activesub]="router.isRouteActive(router.parent.generate(['./Navigation', 'Finances']))" (click)="onSelect('Finances')"><i class="subitem-icon-left icon-docs"></i>{{'FINANCES' | translate}}</a></li>
                                 <li><a [class.activesub]="router.isRouteActive(router.parent.generate(['./Navigation', 'Customers']))" (click)="onSelect('Customers')" class="customers"><i class="subitem-icon-left icon-puzzle"></i>{{'CUSTOMERS' | translate}}</a></li>
                             </ul>
                         </div>
-                        <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
+                        <div class="item-menu clear gsm-item-nav" [ngClass]="{'item-menu-short': showNav}">
                             <a [class.active]="
                                 router.isRouteActive(router.parent.generate(['./Navigation', 'Monitoring'])) ||
                                 router.isRouteActive(router.parent.generate(['./Navigation', 'Carriers'])) ||
@@ -95,14 +93,14 @@
                                 router.isRouteActive(router.parent.generate(['./Navigation', 'MCCMNC'])) ||
                                 router.isRouteActive(router.parent.generate(['./Navigation', 'SMPP'])) ||
                                 router.isRouteActive(router.parent.generate(['./Navigation', 'API']))
-                            " (click)="gsm.toggle(visibleGsm = !visibleGsm, 7, false); icnGsm = !icnGsm;" class="gsm sub-task clear">
+                            " (click)="gsm.toggle(icnGsm, 7, false); saveStateGsm();" class="gsm sub-task clear">
                                 <i class="icon-left icon-settings"></i>
                                 <div class="show-nav" [hidden]="showNav">
                                     <span class="name-sub">{{'GSM' | translate}}</span>
-                                    <i class="fa" [ngClass]="{'fa-angle-down': icnGsm, 'fa-angle-left': !icnGsm}"></i>
+                                    <i class="fa" [ngClass]="{'fa-angle-down': !icnGsm, 'fa-angle-left': icnGsm}"></i>
                                 </div>
                             </a>
-                            <ul animate-box #gsm="ab" [ngClass]="{'nav-subitem-relative': showNav}">
+                            <ul animate-box #gsm="ab" [ngClass]="{'nav-subitem-relative': showNav, 'save-state-item': icnGsm}">
                                 <li><a [class.activesub]="router.isRouteActive(router.parent.generate(['./Navigation', 'Monitoring']))" (click)="onSelect('Monitoring')" class="monitoring"><i class="subitem-icon-left fa fa-sitemap"></i>{{'MONITORING' | translate}}</a></li>
                                 <li><a [class.activesub]="router.isRouteActive(router.parent.generate(['./Navigation', 'Carriers']))" (click)="onSelect('Carriers')" class="carriers"><i class="subitem-icon-left fa fa-fighter-jet"></i>{{'CARRIERS' | translate}}</a></li>
                                 <li><a [class.activesub]="router.isRouteActive(router.parent.generate(['./Navigation', 'Routing']))" (click)="onSelect('Routing')" class="routing"><i class="subitem-icon-left icon-feed"></i>{{'ROUTING' | translate}}</a></li>
@@ -112,7 +110,7 @@
                                 <li><a [class.activesub]="router.isRouteActive(router.parent.generate(['./Navigation', 'API']))" (click)="onSelect('API')" class="api"><i class="subitem-icon-left fa fa-code"></i>{{'API' | translate}}</a></li>
                             </ul>
                         </div>
-                        <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
+                        <div class="item-menu clear finances-item-nav" [ngClass]="{'item-menu-short': showNav}">
                             <a [class.active]="router.isRouteActive(router.parent.generate(['./Navigation', 'Finances']))"  (click)="onSelect('Finances')" class="finances sub-task clear">
                                 <i class="icon-left icon-wallet"></i>
                                 <div class="show-nav" [hidden]="showNav">
@@ -121,7 +119,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="item-menu clear" [ngClass]="{'item-menu-short': showNav}">
+                        <div class="item-menu clear settings-item-nav" [ngClass]="{'item-menu-short': showNav}">
                             <a [class.active]="router.isRouteActive(router.parent.generate(['./Navigation', 'SystemSettings']))" (click)="onSelect('SystemSettings')" class="systemsettings sub-task clear">
                                 <i class="icon-left icon-settings"></i>
                                 <div class="show-nav" [hidden]="showNav">

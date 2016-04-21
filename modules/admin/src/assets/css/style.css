@@ -235,12 +235,13 @@ html {
   font-size: 13px;
   padding: 15px 0 17px 17px;
   color: #5c9acf; }
+.side-bar .subtask > li .save-state-item {
+  height: 0; }
 .side-bar .subtask > li ul {
   clear: both;
   padding: 0;
   cursor: pointer;
-  overflow: hidden;
-  height: 0; }
+  overflow: hidden; }
 .side-bar .subtask > li ul a {
   display: block;
   padding: 9px 0 9px 30px;
@@ -293,7 +294,6 @@ html {
   background: #fff;
   margin: -49px 0 0 65px;
   width: 168px;
-  height: 0;
   z-index: 1000; }
 .nav-subitem-relative a {
   padding: 14px 0 13px 10px !important; }

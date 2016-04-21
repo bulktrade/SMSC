@@ -47,6 +47,8 @@ import {SystemSettings} from '../systemsettings/systemsettings';
 export class Navigation implements OnInit {
     content: string;
     showNav: boolean = false;
+    icnDsh: boolean = true;
+    icnGsm: boolean = true;
 
     constructor(public router: Router, public translate: TranslateService) {
         this.content = LocalStorage.getLocalStorage();
@@ -63,17 +65,13 @@ export class Navigation implements OnInit {
 
     ngOnInit() {
         this.setDefaultLang();
-
-        // save state navigation in local store
-        if (!localStorage.getItem('showNav')) {
-            localStorage.setItem('showNav', 'false');
-        } else {
-            this.showNav = this.toBoolean(localStorage.getItem('showNav'));
-        }
+        this.initLocalStore();
     }
 
     ngOnDestroy() {
         localStorage.removeItem('showNav');
+        localStorage.removeItem('icnDsh');
+        localStorage.removeItem('icnGsm');
     }
 
     setDefaultLang() {
@@ -83,9 +81,32 @@ export class Navigation implements OnInit {
         this.translate.use('en');
     }
 
+    initLocalStore() {
+        // save state navigation in local store
+        if (!localStorage.getItem('showNav')) {
+            localStorage.setItem('showNav', 'false');
+            localStorage.setItem('icnDsh', 'true');
+            localStorage.setItem('icnGsm', 'true');
+        } else {
+            this.showNav = this.toBoolean(localStorage.getItem('showNav'));
+            this.icnDsh = this.toBoolean(localStorage.getItem('icnDsh'));
+            this.icnGsm = this.toBoolean(localStorage.getItem('icnGsm'));
+        }
+    }
+
     saveStateNav() {
         localStorage.setItem('showNav', !this.toBoolean(localStorage.getItem('showNav')) + "");
         this.showNav = this.toBoolean(localStorage.getItem('showNav'));
+    }
+
+    saveStateDash() {
+        localStorage.setItem('icnDsh', !this.toBoolean(localStorage.getItem('icnDsh')) + "");
+        this.icnDsh = this.toBoolean(localStorage.getItem('icnDsh'));
+    }
+
+    saveStateGsm() {
+        localStorage.setItem('icnGsm', !this.toBoolean(localStorage.getItem('icnGsm')) + "");
+        this.icnGsm = this.toBoolean(localStorage.getItem('icnGsm'));
     }
 
     toBoolean(str) {

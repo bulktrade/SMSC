@@ -8,6 +8,10 @@ export class NavigationTest {
     }
 
     dashboard = element(by.className('dashboard-item'));
+    dashSubMenu = element(by.className('dashboard-submenu'));
+    titleDash = element(by.className('dashboard'));
+    titleDlrtraffic = element(by.className('dlrtraffic'));
+    navigation = element(by.className('side-bar'));
     smstraffic = element(by.tagName('smstraffic'));
     dlrtraffic = element(by.tagName('dlrtraffic'));
     finances = element(by.tagName('finances'));
@@ -54,6 +58,12 @@ export class NavigationTest {
     getDashboardText() {
         return this.dashboard.getText();
     }
+
+    hasClass (element, cls) {
+        return element.getAttribute('class').then((classes) => {
+            return classes.split(' ').indexOf(cls) !== -1;
+        });
+    };
 
     waitUntilReady(elm, ptor) {
         ptor.wait(function () {

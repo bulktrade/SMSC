@@ -47,6 +47,35 @@ describe('Navigation', () => {
         });
     });
 
+    it('marked sub and main item navigation like active', () => {
+        // main item navigation
+        expect(this.navigator.hasClass(this.navigator.titleDash, 'active')).toBeTruthy();
+        // sub item navigation
+        expect(this.navigator.hasClass(this.navigator.titleDlrtraffic, 'activesub')).toBeTruthy();
+    });
+
+    it('responsive navigation', () => {
+        let width  = 900,
+            height = 1300;
+        ptor.manage().window().setSize(width, height);
+        this.navigator.navigation.getCssValue('width')
+            .then(value => {
+                let widthElem = Number(value.substring(0, value.length-2));
+                expect(widthElem > 230).toBeTruthy();
+            })
+    });
+
+    it('save state navigation after refresh page', () => {
+        ptor.refresh()
+            .then(() => {
+                this.navigator.dashSubMenu.getCssValue('height')
+                    .then(value => {
+                        let heightElem = Number(value.substring(0, value.length-2));
+                        expect(heightElem).toBeTruthy();
+                    })
+            });
+    });
+
     it('should have finances', () => {
         this.navigator.clickOnItemNavFinances(ptor).then(() => {
                 expect(this.navigator.getFinances()).toBeTruthy();
