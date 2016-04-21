@@ -35,6 +35,11 @@ describe('Navigation', () => {
         expect(value).toBeDefined();
     });
 
+    it('visible fa-angle-left if main item have sub menu', () => {
+        expect(this.navigator.hasClass(this.navigator.firstNav, 'fa-angle-left')).toBeTruthy();
+        expect(this.navigator.hasClass(this.navigator.lastNav, 'fa-angle-left')).toBeFalsy();
+    });
+
     it('should have smstraffic', () => {
         this.navigator.clickOnItemNavSmstraffic(ptor).then(() => {
             expect(this.navigator.getSmstraffic()).toBeTruthy();

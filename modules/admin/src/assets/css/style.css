@@ -272,8 +272,6 @@ html {
 .side-bar .subtask .item-menu .sub-task .fa {
   float: right;
   margin: 0 23px 0 58px; }
-.side-bar .subtask .item-menu .sub-task .last {
-  margin-top: -18px !important; }
 .side-bar .subtask .item-menu .sub-task .name-sub {
   float: left;
   margin-left: 10px;
@@ -346,12 +344,14 @@ html {
   .subtask > li ul {
     color: #f0f !important; } }
 @media (min-width: 992px) {
+  .side-bar .last {
+    margin-top: -18px !important; }
   .side-bar .subtask .item-menu-short > ul {
     height: 0 !important; }
   .side-bar .subtask .item-menu-short:hover > ul {
     position: absolute;
     height: auto !important;
-    z-index: 9999999999 !important; } }
+    z-index: 99999 !important; } }
 /* MOBILE DEVICE (END)*/
 
 /*# sourceMappingURL=style.css.map */

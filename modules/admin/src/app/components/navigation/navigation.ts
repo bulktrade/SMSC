@@ -112,4 +112,9 @@ export class Navigation implements OnInit {
     toBoolean(str) {
         return str === 'true' ? true : false;
     }
+
+    hasClass(element) {
+        return (' ' + element.children[element.children.length-1].className + ' ').indexOf(' ' + 'sub-menu-item' + ' ') > -1;
+    }
+
 }
