@@ -1,0 +1,39 @@
+.wrap-breadcrumb .page-title {
+  display: inline-block;
+  padding: 5px 0 10px; }
+.wrap-breadcrumb .page-title h1 {
+  color: #697882;
+  font-size: 22px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif; }
+.wrap-breadcrumb .page-title h1 small {
+  color: #9eacb4;
+  font-size: 13px;
+  font-weight: 400; }
+.wrap-breadcrumb .breadcrumb {
+  background: 0 0;
+  padding: 0 0 15px;
+  margin: 0;
+  color: #c5ccd5;
+  font-size: 14px; }
+.wrap-breadcrumb .breadcrumb > li {
+  display: inline-block; }
+.wrap-breadcrumb .breadcrumb > li a {
+  color: #337ab7;
+  text-shadow: none;
+  text-decoration: none;
+  cursor: pointer; }
+.wrap-breadcrumb .breadcrumb > li a:hover {
+  text-decoration: underline;
+  color: #23527c; }
+.wrap-breadcrumb .breadcrumb > li:last-of-type:before {
+  display: none; }
+.wrap-breadcrumb .breadcrumb .fa {
+  font-size: 6px;
+  margin: 0 2px 0 4px;
+  position: relative;
+  top: -1px; }
+
+/*# sourceMappingURL=breadcrumb.css.map */

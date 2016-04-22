@@ -248,7 +248,8 @@ html {
   position: relative; }
 
 .main {
-  width: 98.5%; }
+  width: 98.5%;
+  padding-top: 10px; }
 
 /* MOBILE DEVICE (BEGIN)*/
 @media (max-width: 992px) {
@@ -265,8 +266,10 @@ html {
 
   .main {
     float: left;
-    margin-top: 28px;
     width: 100%; }
+
+  .alignment {
+    margin-top: 13px; }
 
   .show-nav {
     display: block !important; }

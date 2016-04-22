@@ -6,4 +6,5 @@ modules/admin/node_modules
 modules/admin/src/bower_components
 modules/admin/src/.sass-cache
 modules/admin/src/assets/css/.sass-cache
+modules/admin/src/app/components/.sass-cache
 npm-debug.log

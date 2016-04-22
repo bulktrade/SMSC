@@ -115,7 +115,7 @@
             </nav>
         </div>
 
-        <main class="main">
+        <main class="main clear" [ngClass]="{'alignment': !visibleNav}">
             <router-outlet></router-outlet>
         </main>
 
