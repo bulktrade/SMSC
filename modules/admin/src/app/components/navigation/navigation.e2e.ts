@@ -73,6 +73,7 @@ describe('Navigation', () => {
     it('save state navigation after refresh page', () => {
         ptor.refresh()
             .then(() => {
+                this.navigator.waitUntilReady(this.navigator.dashSubMenu, ptor);
                 this.navigator.dashSubMenu.getCssValue('height')
                     .then(value => {
                         let heightElem = Number(value.substring(0, value.length-2));

@@ -14,18 +14,19 @@ export class NavigationTest {
     titleDash = element(by.className('dashboard'));
     titleDlrtraffic = element(by.className('dlrtraffic'));
     navigation = element(by.className('side-bar'));
-    smstraffic = element(by.tagName('smstraffic'));
-    dlrtraffic = element(by.tagName('dlrtraffic'));
-    finances = element(by.tagName('finances'));
-    customers = element(by.tagName('customers'));
-    monitoring = element(by.tagName('monitoring'));
-    carriers = element(by.tagName('carriers'));
-    routing = element(by.tagName('routing'));
-    prices = element(by.tagName('prices'));
-    mccmnc = element(by.tagName('mccmnc'));
-    smpp = element(by.tagName('smpp'));
-    api = element(by.tagName('api'));
-    systemsettings = element(by.tagName('systemsettings'));
+
+    smstraffic = element(by.css('smstraffic .wrap-breadcrumb'));
+    dlrtraffic = element(by.css('dlrtraffic .wrap-breadcrumb'));
+    finances = element(by.css('finances .wrap-breadcrumb'));
+    customers = element(by.css('customers .wrap-breadcrumb'));
+    monitoring = element(by.css('monitoring .wrap-breadcrumb'));
+    carriers = element(by.css('carriers .wrap-breadcrumb'));
+    routing = element(by.css('routing .wrap-breadcrumb'));
+    prices = element(by.css('prices .wrap-breadcrumb'));
+    mccmnc = element(by.css('mccmnc .wrap-breadcrumb'));
+    smpp = element(by.css('smpp .wrap-breadcrumb'));
+    api = element(by.css('api .wrap-breadcrumb'));
+    systemsettings = element(by.css('systemsettings .wrap-breadcrumb'));
 
     getRoot() {
         browser.get('/');
