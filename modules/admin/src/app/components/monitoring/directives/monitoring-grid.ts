@@ -43,6 +43,9 @@ export class MonitoringGrid {
             store: MonitoringGrid.priceStore,
             height: 476,
             title: 'Monitoring',
+            style: {
+                borderRadius: '3px'
+            },
             columns: [
                 {
                     text: 'column1',

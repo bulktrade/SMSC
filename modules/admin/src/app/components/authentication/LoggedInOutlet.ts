@@ -26,7 +26,6 @@ export class LoggedInRouterOutlet extends RouterOutlet {
     let url = instruction.urlPath;
 
     if (!this.publicRoutes[url] && !LocalStorage.getLocalStorage()) {
-      // todo: redirect to Login, may be there a better way?
       this.parentRouter.navigateByUrl('/login');
     }
 

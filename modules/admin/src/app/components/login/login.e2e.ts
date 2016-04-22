@@ -28,4 +28,14 @@ describe('Login page', () => {
         expect(this.lognpg.isPresentNotFound).toBeTruthy();
     });
 
+    it('responsive navigation', () => {
+        let width  = 330,
+            height = 1300;
+        ptor.manage().window().setSize(width, height);
+        this.lognpg.details.getCssValue('text-align')
+            .then(value => {
+                expect(value).toEqual('center');
+            })
+    });
+
 });

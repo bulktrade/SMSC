@@ -2,6 +2,7 @@ export class LoginTest {
     elemMainContent  = element(by.className('user-name'));
     elemNotFound  = element(by.tagName('notfound'));
     dangerMessage = element(by.className('alert-danger'));
+    details = element(by.className('details'));
 
     get() {
         browser.get('/');
