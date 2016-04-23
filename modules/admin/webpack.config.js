@@ -24,7 +24,7 @@ module.exports = {
 			{
         		test: /\.scss$/,
         		exclude: /node_modules/,
-        		loaders: ['raw-loader', 'sass-loader'] // sass-loader not scss-loader
+        		loaders: ['raw-loader', 'sass-loader']
       		},
 		],
 		noParse: [path.join(__dirname, 'node_modules', 'angular2', 'bundles')]
