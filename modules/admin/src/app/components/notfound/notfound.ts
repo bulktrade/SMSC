@@ -19,6 +19,7 @@ export class NotFound {
     }
 
     ngOnInit() {
+        console.log(this.router.parent.lastNavigationAttempt);
     }
 
 }

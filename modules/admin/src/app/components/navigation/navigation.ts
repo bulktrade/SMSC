@@ -18,6 +18,7 @@ import {MCCMNC} from '../mccmnc/mccmnc';
 import {SMPP} from '../smpp/smpp';
 import {API} from '../api/api';
 import {SystemSettings} from '../systemsettings/systemsettings';
+import {ActiveItem} from './directives/active';
 
 
 @Component({
@@ -27,7 +28,7 @@ import {SystemSettings} from '../systemsettings/systemsettings';
     styles: [
         require('../../../assets/css/style.scss')
      ],
-    directives: [LoggedInRouterOutlet, CORE_DIRECTIVES, AnimateBox, NgClass],
+    directives: [LoggedInRouterOutlet, CORE_DIRECTIVES, AnimateBox, NgClass, ActiveItem],
     pipes : [TranslatePipe]
 })
 

@@ -1,6 +1,10 @@
-  body {
+body {
   margin: 0;
   padding: 0;
+}
+
+.router-link-active {
+  display: none !important;
 }
 
 html {
