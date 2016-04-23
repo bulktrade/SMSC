@@ -5,9 +5,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'systemsettings',
     templateUrl: 'app/components/systemsettings/systemsettings.html',
-    styleUrls: [
-        'app/components/systemsettings/systemsettings.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./systemsettings.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss')
     ],
     providers: [],
     directives: [],

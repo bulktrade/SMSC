@@ -18,14 +18,14 @@
     font-size: 30px;
     font-weight: 300;
     color: #4e5a64;
-    font-family: "Open Sans",sans-serif;
+    font-family: "Open Sans", sans-serif;
   }
   .description {
     color: #a0a9b4;
     font-size: 15px;
     line-height: 22px;
     margin: 20px 0;
-    font-family: "Open Sans",sans-serif;
+    font-family: "Open Sans", sans-serif;
     box-sizing: border-box;
   }
 }
@@ -53,7 +53,9 @@
       outline: 0 !important;
       float: left;
     }
-    input[type="checkbox"] {display: none;}
+    input[type="checkbox"] {
+      display: none;
+    }
     input[type="checkbox"] + label span {
       display: inline-block;
       vertical-align: middle;
@@ -71,10 +73,12 @@
     margin-top: -50px;
     box-shadow: rgba(0, 0, 0, 0.09) 0 1px 3px 0, rgba(0, 0, 0, 0.18) 0 1px 2px 0;
   }
-  .ng-valid[required]
-  { border-bottom: 2px solid #42A948;}
-  .ng-invalid
-  { border-bottom: 2px solid #a94442;}
+  .ng-valid[required] {
+    border-bottom: 2px solid #42A948;
+  }
+  .ng-invalid {
+    border-bottom: 2px solid #a94442;
+  }
   input {
     width: 100%;
     padding: 10px;
@@ -158,29 +162,29 @@
 }
 
 @media (max-width: 1365px) {
-  .user-login-5{
+  .user-login-5 {
 
-    .login-logo{
-      &.login-6{
-        top:40px;
-        left:40px;
+    .login-logo {
+      &.login-6 {
+        top: 40px;
+        left: 40px;
       }
     }
 
-    .login-container{
+    .login-container {
 
-      >.login-content,
+      > .login-content,
       .login-social,
-      .login-copyright{
-        padding:0 40px;
+      .login-copyright {
+        padding: 0 40px;
       }
 
-      .login-social{
-        padding-right:0;
+      .login-social {
+        padding-right: 0;
       }
 
-      .login-copyright{
-        padding-left:0;
+      .login-copyright {
+        padding-left: 0;
       }
     }
   }
@@ -188,66 +192,62 @@
 
 @media (max-width: 1023px) {
 
-  .user-login-5{
-    min-height:50vh;
+  .user-login-5 {
+    min-height: 50vh;
 
-    .login-bg{
+    .login-bg {
       min-height: 50vh;
     }
 
-    .login-logo{
-      &.login-6{
+    .login-logo {
+      &.login-6 {
         position: relative;
-        margin:0 0 40px 0;
+        margin: 0 0 40px 0;
       }
     }
 
-    .login-container{
+    .login-container {
       min-height: 50vh;
 
-      >.login-content{
-        margin-top:60px;
+      > .login-content {
+        margin-top: 60px;
 
-        .login-form{
+        .login-form {
           margin-top: 40px;
         }
 
       }
 
-      .rem-password{
+      .rem-password {
         margin-bottom: 1em;
       }
 
-      >.login-footer{
-        position:relative;
-        margin-top:40px;
+      > .login-footer {
+        position: relative;
+        margin-top: 40px;
         padding-bottom: 0;
 
-        .login-social{
+        .login-social {
 
-          li{
-            margin-right:0.5em;
+          li {
+            margin-right: 0.5em;
           }
         }
       }
     }
 
-    .alert{
-      margin-top:-20px;
+    .alert {
+      margin-top: -20px;
     }
 
   }
 }
 
 @media (max-width: 640px) {
-
-  .user-login-5{
-
-    .login-container{
-
-      >.login-content{
-
-        .text-right{
+  .user-login-5 {
+    .login-container {
+      > .login-content {
+        .text-right {
           text-align: left;
         }
       }

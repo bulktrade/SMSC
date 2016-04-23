@@ -252,6 +252,9 @@ export class MCCMNCGrid {
         Ext.create('Ext.TabPanel', {
             height: 476,
             renderTo: this.element.nativeElement,
+            style: {
+                borderRadius: '3px'
+            },
             items: [
                 this.gridMCC, this.gridMNC
             ]

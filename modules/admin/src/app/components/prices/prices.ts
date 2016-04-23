@@ -6,9 +6,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'prices',
     templateUrl: 'app/components/prices/prices.html',
-    styleUrls: [
-        'app/components/prices/prices.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./prices.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss')
     ],
     providers: [],
     directives: [PricesGrid],

@@ -5,9 +5,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'smstraffic',
     templateUrl: 'app/components/smstraffic/smstraffic.html',
-    styleUrls: [
-        'app/components/smstraffic/smstraffic.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./smstraffic.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss')
     ],
     providers: [],
     directives: [],

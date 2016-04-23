@@ -6,9 +6,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'customers',
     templateUrl: 'app/components/customers/customers.html',
-    styleUrls: [
-        'app/components/customers/customers.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./customers.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss'),
     ],
     providers: [],
     directives: [CustomersGrid],

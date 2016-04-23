@@ -5,9 +5,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'carriers',
     templateUrl: 'app/components/carriers/carriers.html',
-    styleUrls: [
-        'app/components/carriers/carriers.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./carriers.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss'),
     ],
     providers: [],
     directives: [],

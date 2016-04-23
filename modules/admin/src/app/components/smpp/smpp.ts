@@ -5,9 +5,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'smpp',
     templateUrl: 'app/components/smpp/smpp.html',
-    styleUrls: [
-        'app/components/smpp/smpp.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./smpp.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss')
     ],
     providers: [],
     directives: [],

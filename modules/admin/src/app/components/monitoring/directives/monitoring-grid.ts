@@ -36,8 +36,7 @@ export class MonitoringGrid {
             clicksToMoveEditor: 1,
             autoCancel: false
         });
-
-
+        
         let grid = Ext.create('Ext.grid.Panel', {
             renderTo: this.element.nativeElement,
             store: MonitoringGrid.priceStore,

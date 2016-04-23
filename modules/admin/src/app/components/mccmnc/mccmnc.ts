@@ -6,9 +6,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'mccmnc',
     templateUrl: 'app/components/mccmnc/mccmnc.html',
-    styleUrls: [
-        'app/components/mccmnc/mccmnc.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./mccmnc.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss'),
     ],
     providers: [],
     directives: [MCCMNCGrid],

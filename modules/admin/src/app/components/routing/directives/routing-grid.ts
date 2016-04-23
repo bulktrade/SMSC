@@ -52,6 +52,9 @@ export class RoutingGrid {
                 store: RoutingGrid.routingStore,
                 height: 476,
                 title: 'Routing',
+                style: {
+                    borderRadius: '3px'
+                },
                 columns: [
                     {
                         text: 'Carrier',
@@ -116,6 +119,9 @@ export class RoutingGrid {
                 store: RoutingGrid.routingStore,
                 height: 476,
                 title: 'Routing',
+                style: {
+                    borderRadius: '3px'
+                },
                 columns: [
                     {
                         text: 'Carrier',

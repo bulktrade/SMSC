@@ -22,7 +22,7 @@
     color: #333;
   }
   p {
-    a{
+    a {
       &:hover {
         cursor: pointer;
         text-decoration: underline;
@@ -31,6 +31,7 @@
   }
   text-align: center;
 }
+
 .page-404-full-page {
   .page-404 {
     margin-top: 100px;
@@ -40,14 +41,16 @@
   padding: 20px;
   margin-bottom: 20px;
 }
-@media (max-width:535px) {
+
+@media (max-width: 535px) {
   .page-404 {
     .details {
       top: 0;
     }
   }
 }
-@media (max-width:480px) {
+
+@media (max-width: 480px) {
   .page-404 {
     .details {
       text-align: center;

@@ -70,6 +70,9 @@ export class PricesGrid {
                 store: PricesGrid.priceStore,
                 height: 476,
                 title: 'Gateway',
+                style: {
+                    borderRadius: '3px'
+                },
                 columns: [
                     {
                         text: 'MCC',
@@ -183,6 +186,9 @@ export class PricesGrid {
                 store: PricesGrid.priceStore,
                 height: 476,
                 title: 'Gateway',
+                style: {
+                    borderRadius: '3px'
+                },
                 columns: [
                     {
                         text: 'MCC',

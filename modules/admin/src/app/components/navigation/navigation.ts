@@ -24,7 +24,9 @@ import {SystemSettings} from '../systemsettings/systemsettings';
     selector: 'navigation',
     providers: [],
     templateUrl: 'app/components/navigation/navigation.html',
-    styleUrls: ['../../assets/css/style.css'],
+    styles: [
+        require('../../../assets/css/style.scss')
+     ],
     directives: [LoggedInRouterOutlet, CORE_DIRECTIVES, AnimateBox, NgClass],
     pipes : [TranslatePipe]
 })

@@ -8,7 +8,9 @@ import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
     selector: 'login',
     providers: [],
     templateUrl: 'app/components/login/login.html',
-    styleUrls: ['app/components/login/login.css'],
+    styles: [
+        require('./login.scss')
+    ],
     directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
     pipes: [TranslatePipe]
 })

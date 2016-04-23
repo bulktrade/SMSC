@@ -50,6 +50,9 @@ export class CustomersGrid {
             store: CustomersGrid.customersStore,
             height: 476,
             title: 'Customers',
+            style: {
+                borderRadius: '3px'
+            },
             columns: [
                 {
                     text: 'Customer ID',

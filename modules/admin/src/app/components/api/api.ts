@@ -5,9 +5,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'api',
     templateUrl: 'app/components/api/api.html',
-    styleUrls: [
-        'app/components/api/api.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./api.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss'),
     ],
     providers: [],
     directives: [],

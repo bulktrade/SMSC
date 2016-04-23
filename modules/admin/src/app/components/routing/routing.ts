@@ -6,9 +6,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'routing',
     templateUrl: 'app/components/routing/routing.html',
-    styleUrls: [
-        'app/components/routing/routing.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./routing.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss')
     ],
     providers: [],
     directives: [RoutingGrid],

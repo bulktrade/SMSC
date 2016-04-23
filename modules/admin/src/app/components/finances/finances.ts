@@ -5,9 +5,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'finances',
     templateUrl: 'app/components/finances/finances.html',
-    styleUrls: [
-        'app/components/finances/finances.css',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./finances.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss')
     ],
     providers: [],
     directives: [],

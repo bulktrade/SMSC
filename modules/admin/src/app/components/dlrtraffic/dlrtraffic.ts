@@ -5,9 +5,9 @@ import {Router} from 'angular2/router';
 @Component({
     selector: 'dlrtraffic',
     templateUrl: 'app/components/dlrtraffic/dlrtraffic.html',
-    styleUrls: [
-        'app/components/dlrtraffic/dlrtraffic.html',
-        'assets/css/theme/breadcrumb.css'
+    styles: [
+        require('./dlrtraffic.scss'),
+        require('../../../assets/css/theme/breadcrumb.scss'),
     ],
     providers: [],
     directives: [],
