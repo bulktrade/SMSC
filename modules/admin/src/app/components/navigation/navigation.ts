@@ -19,105 +19,103 @@ import {SMPP} from '../smpp/smpp';
 import {API} from '../api/api';
 import {SystemSettings} from '../systemsettings/systemsettings';
 import {ActiveItem} from './directives/active';
+import {FaAngleLeft} from './directives/FaAngleLeft';
 
 
 @Component({
-    selector: 'navigation',
-    providers: [],
-    templateUrl: 'app/components/navigation/navigation.html',
-    styles: [
-        require('../../../assets/css/style.scss')
-     ],
-    directives: [LoggedInRouterOutlet, CORE_DIRECTIVES, AnimateBox, NgClass, ActiveItem],
-    pipes : [TranslatePipe]
+	selector: 'navigation',
+	providers: [],
+	templateUrl: 'app/components/navigation/navigation.html',
+	styles: [
+		require('../../../assets/css/style.scss')
+	],
+	directives: [LoggedInRouterOutlet, CORE_DIRECTIVES,
+		AnimateBox, NgClass, ActiveItem, FaAngleLeft],
+	pipes: [TranslatePipe]
 })
 
 @RouteConfig([
-    { path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic', useAsDefault: true},
-    { path: '/dlrtraffic', component: DLRTraffic, name: 'DLRTraffic'},
-    { path: '/finances', component: Finances, name: 'Finances' },
-    { path: '/customers', component: Customers, name: 'Customers'},
-    { path: '/monitoring', component: Monitoring, name: 'Monitoring' },
-    { path: '/carriers', component: Carriers, name: 'Carriers' },
-    { path: '/routing', component: Routing, name: 'Routing' },
-    { path: '/prices', component: Prices, name: 'Prices' },
-    { path: '/mccmnc', component: MCCMNC, name: 'MCCMNC' },
-    { path: '/smpp', component: SMPP, name: 'SMPP' },
-    { path: '/api', component: API, name: 'API' },
-    { path: '/systemsettings', component: SystemSettings, name: 'SystemSettings' },
+	{path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic', useAsDefault: true},
+	{path: '/dlrtraffic', component: DLRTraffic, name: 'DLRTraffic'},
+	{path: '/finances', component: Finances, name: 'Finances'},
+	{path: '/customers', component: Customers, name: 'Customers'},
+	{path: '/monitoring', component: Monitoring, name: 'Monitoring'},
+	{path: '/carriers', component: Carriers, name: 'Carriers'},
+	{path: '/routing', component: Routing, name: 'Routing'},
+	{path: '/prices', component: Prices, name: 'Prices'},
+	{path: '/mccmnc', component: MCCMNC, name: 'MCCMNC'},
+	{path: '/smpp', component: SMPP, name: 'SMPP'},
+	{path: '/api', component: API, name: 'API'},
+	{path: '/systemsettings', component: SystemSettings, name: 'SystemSettings'},
 ])
 
 export class Navigation implements OnInit {
-    content: string;
-    showNav: boolean = false;
-    icnDsh: boolean = true;
-    icnGsm: boolean = true;
+	content:string;
+	showNav:boolean = false;
+	icnDsh:boolean = true;
+	icnGsm:boolean = true;
 
-    constructor(public router: Router, public translate: TranslateService) {
-        this.content = LocalStorage.getLocalStorage();
-    }
+	constructor(public router:Router, public translate:TranslateService) {
+		this.content = LocalStorage.getLocalStorage();
+	}
 
-    onSelect(route) {
-        this.router.navigate([route]);
-    }
+	onSelect(route) {
+		this.router.navigate([route]);
+	}
 
-    logout() {
-        localStorage.removeItem("rightWrite");
-        this.router.parent.navigate(['Login']);
-    }
+	logout() {
+		localStorage.removeItem("rightWrite");
+		this.router.parent.navigate(['Login']);
+	}
 
-    ngOnInit() {
-        this.setDefaultLang();
-        this.initLocalStore();
-    }
+	ngOnInit() {
+		this.setDefaultLang();
+		this.initLocalStore();
+	}
 
-    ngOnDestroy() {
-        localStorage.removeItem('showNav');
-        localStorage.removeItem('icnDsh');
-        localStorage.removeItem('icnGsm');
-    }
+	ngOnDestroy() {
+		localStorage.removeItem('showNav');
+		localStorage.removeItem('icnDsh');
+		localStorage.removeItem('icnGsm');
+	}
 
-    setDefaultLang() {
-        // let userLang = navigator.language.split('-')[0];
-        // userLang = /(en|de)/gi.test(userLang) ? userLang : 'en';
-        this.translate.setDefaultLang('en');
-        this.translate.use('en');
-    }
+	setDefaultLang() {
+		// let userLang = navigator.language.split('-')[0];
+		// userLang = /(en|de)/gi.test(userLang) ? userLang : 'en';
+		this.translate.setDefaultLang('en');
+		this.translate.use('en');
+	}
 
-    initLocalStore() {
-        // save state navigation in local store
-        if (!localStorage.getItem('showNav')) {
-            localStorage.setItem('showNav', 'false');
-            localStorage.setItem('icnDsh', 'true');
-            localStorage.setItem('icnGsm', 'true');
-        } else {
-            this.showNav = this.toBoolean(localStorage.getItem('showNav'));
-            this.icnDsh = this.toBoolean(localStorage.getItem('icnDsh'));
-            this.icnGsm = this.toBoolean(localStorage.getItem('icnGsm'));
-        }
-    }
+	initLocalStore() {
+		// save state navigation in local store
+		if (!localStorage.getItem('showNav')) {
+			localStorage.setItem('showNav', 'false');
+			localStorage.setItem('icnDsh', 'true');
+			localStorage.setItem('icnGsm', 'true');
+		} else {
+			this.showNav = this.toBoolean(localStorage.getItem('showNav'));
+			this.icnDsh = this.toBoolean(localStorage.getItem('icnDsh'));
+			this.icnGsm = this.toBoolean(localStorage.getItem('icnGsm'));
+		}
+	}
 
-    saveStateNav() {
-        localStorage.setItem('showNav', !this.toBoolean(localStorage.getItem('showNav')) + "");
-        this.showNav = this.toBoolean(localStorage.getItem('showNav'));
-    }
+	saveStateNav() {
+		localStorage.setItem('showNav', !this.toBoolean(localStorage.getItem('showNav')) + "");
+		this.showNav = this.toBoolean(localStorage.getItem('showNav'));
+	}
 
-    saveStateDash() {
-        localStorage.setItem('icnDsh', !this.toBoolean(localStorage.getItem('icnDsh')) + "");
-        this.icnDsh = this.toBoolean(localStorage.getItem('icnDsh'));
-    }
+	saveStateDash() {
+		localStorage.setItem('icnDsh', !this.toBoolean(localStorage.getItem('icnDsh')) + "");
+		this.icnDsh = this.toBoolean(localStorage.getItem('icnDsh'));
+	}
 
-    saveStateGsm() {
-        localStorage.setItem('icnGsm', !this.toBoolean(localStorage.getItem('icnGsm')) + "");
-        this.icnGsm = this.toBoolean(localStorage.getItem('icnGsm'));
-    }
+	saveStateGsm() {
+		localStorage.setItem('icnGsm', !this.toBoolean(localStorage.getItem('icnGsm')) + "");
+		this.icnGsm = this.toBoolean(localStorage.getItem('icnGsm'));
+	}
 
-    toBoolean(str) {
-        return str === 'true' ? true : false;
-    }
-
-    hasClass(element) {
-        return (' ' + element.children[element.children.length-1].className + ' ').indexOf(' ' + 'sub-menu-item' + ' ') > -1;
-    }
+	toBoolean(str) {
+		return str === 'true' ? true : false;
+	}
 
 }

@@ -45,13 +45,13 @@
         <div animate-box #nav="ab" class="wrap-nav clear">
             <nav #sidebar class="side-bar">
                 <ul class="subtask">
-                    <li #solitaryItem="active" #numerousItem="active" active-item>
+                    <li #solitaryItem="active" #numerousItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
                         <div #dashItem class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showNav}">
                             <a [class.active]="numerousItem.isActiveMainDashboard()" (click)="dashboard.toggle(icnDsh, 4, false); saveStateDash();" class="dashboard sub-task clear">
                                 <i class="icon-left icon-bulb"></i>
                                 <div class="show-nav" [hidden]="showNav">
                                     <span class="name-sub dashboard-item">{{'DASHBOARD' | translate}}</span>
-                                    <i class="fa dashboard-icon" [ngClass]="{'fa-angle-down': !icnDsh && hasClass(dashItem), 'fa-angle-left': icnDsh && hasClass(dashItem)}"></i>
+                                    <i class="fa dashboard-icon" [ngClass]="{'fa-angle-down': !icnDsh && faAngleLeft.isSubMenu(dashItem), 'fa-angle-left': icnDsh && faAngleLeft.isSubMenu(dashItem)}"></i>
                                 </div>
                             </a>
                             <ul class="dashboard-submenu sub-menu-item" animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showNav, 'save-state-item': icnDsh}">
@@ -66,7 +66,7 @@
                                 <i class="icon-left icon-settings"></i>
                                 <div class="show-nav" [hidden]="showNav">
                                     <span class="name-sub">{{'GSM' | translate}}</span>
-                                    <i class="fa" [ngClass]="{'fa-angle-down': !icnGsm && hasClass(gsmItem), 'fa-angle-left': icnGsm && hasClass(gsmItem)}"></i>
+                                    <i class="fa" [ngClass]="{'fa-angle-down': !icnGsm && faAngleLeft.isSubMenu(gsmItem), 'fa-angle-left': icnGsm && faAngleLeft.isSubMenu(gsmItem)}"></i>
                                 </div>
                             </a>
                             <ul class="sub-menu-item" #gsm="ab" animate-box [ngClass]="{'nav-subitem-relative': showNav, 'save-state-item': icnGsm}">
@@ -84,7 +84,7 @@
                                 <i class="icon-left icon-wallet"></i>
                                 <div class="show-nav" [hidden]="showNav">
                                     <span class="name-sub">{{'FINANCES' | translate}}</span>
-                                    <i [ngClass]="{'fa-angle-left': hasClass(financesItem)}" class="fa"></i>
+                                    <i [ngClass]="{'fa-angle-left': faAngleLeft.isSubMenu(financesItem)}" class="fa"></i>
                                 </div>
                             </a>
                         </div>
@@ -93,7 +93,7 @@
                                 <i class="icon-left icon-settings"></i>
                                 <div class="show-nav" [hidden]="showNav">
                                     <span class="name-sub">{{'SYSTEM SETTINGS' | translate}}</span>
-                                    <i [ngClass]="{'fa-angle-left': hasClass(settingItem)}" class="fa last setting-icon"></i>
+                                    <i [ngClass]="{'fa-angle-left': faAngleLeft.isSubMenu(settingItem)}" class="fa last setting-icon"></i>
                                 </div>
                             </a>
                         </div>
