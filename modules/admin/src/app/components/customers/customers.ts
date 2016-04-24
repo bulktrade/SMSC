@@ -2,16 +2,16 @@ import {Component} from 'angular2/core';
 import {CustomersGrid} from './directives/customers-grid';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {Router} from 'angular2/router';
+import {Breadcrumb} from '../breadcrumb/breadcrumb';
 
 @Component({
     selector: 'customers',
     templateUrl: 'app/components/customers/customers.html',
     styles: [
-        require('./customers.scss'),
-        require('../../../assets/css/theme/breadcrumb.scss'),
+        require('./customers.scss')
     ],
     providers: [],
-    directives: [CustomersGrid],
+    directives: [CustomersGrid, Breadcrumb],
     pipes : [TranslatePipe]
 })
 export class Customers {
