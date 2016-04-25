@@ -6,9 +6,12 @@
     </div>
     <ul class="page-breadcrumb breadcrumb">
         <li>
-            <a (click)="router.navigate(['SMSTraffic'])">Home</a>
+            <a (click)="router.navigateByUrl('/navigation')">Home</a>
             <i class="fa fa-circle"></i>
         </li>
-        <li>{{parent | uppercase | translate}}</li>
+        <li class="parents" *ngFor="#parent of parents;">
+            <a>{{parent | uppercase | translate}}</a>
+            <i class="fa fa-circle"></i>
+        </li>
     </ul>
 </div>

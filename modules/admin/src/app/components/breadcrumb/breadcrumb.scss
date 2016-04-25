@@ -22,6 +22,22 @@
     margin: 0;
     color: #c5ccd5;
     font-size: 14px;
+    .parents:before {
+      display: none;
+      margin-right: 3px;
+    }
+    .parents:last-of-type {
+      i {
+        display: none;
+      }
+      a {
+        color: #c5ccd5;
+        &:hover {
+          text-decoration: none;
+          cursor: text;
+        }
+      }
+    }
     > li {
       display: inline-block;
       a {
@@ -34,13 +50,10 @@
           color: rgb(35, 82, 124);
         }
       }
-      &:last-of-type:before {
-        display: none;
-      }
     }
     .fa {
       font-size: 6px;
-      margin: 0 2px 0 4px;
+      margin: 0 4px 0 3px;
       position: relative;
       top: -1px;
     }
