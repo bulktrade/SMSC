@@ -4,8 +4,8 @@
         <div class="login-content">
             <h1 class="title">SMSC Admin Login</h1>
             <p class="description">Lorem ipsum dolor sit amet, coectetuer adipiscing elit sed diam nonummy et nibh euismod aliquam erat volutpat. Lorem ipsum dolor sit amet, coectetuer adipiscing.</p>
-            <form class="login-form" role="form" (submit)="authentication(login, pwd)" #mainForm="ngForm" novalidate>
-                <div [hidden]="login.valid && pwd.valid" class="alert alert-danger warn-sessage">
+            <form class="login-form" role="form" (submit)="authentication(login, pwd);" #mainForm="ngForm" novalidate>
+                <div [hidden]="!onSubmitBtn" class="alert alert-danger warn-sessage">
                     <span>Enter any username and password. </span>
                 </div>
                 <div *ngIf="notfound" class="alert alert-warning user-not-found">

@@ -17,6 +17,7 @@ import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 export class Login {
     notfound: boolean = false;
+    onSubmitBtn: boolean = false;
 
     constructor(public router?: Router, public translate?: TranslateService,
                 public database?: ODatabaseService) {
@@ -43,6 +44,7 @@ export class Login {
                 );
         } else {
             this.notfound = false;
+            this.onSubmitBtn = true;
         }
     }
 }
