@@ -1,26 +1,44 @@
-import {Component} from 'angular2/core';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
-@Component({
-    selector: 'breadcrumb',
-    templateUrl: 'app/components/breadcrumb/breadcrumb.html',
-    styles: [
-        require('./breadcrumb.scss')
-    ],
-    inputs: [
-        'title',
-        'description',
-        'parents'
-    ],
-    directives: [ROUTER_DIRECTIVES],
-    pipes: [TranslatePipe]
-})
+import {Childs} from './childs';
+import {Location} from 'angular2/router';
+import {Injectable} from 'angular2/core';
 
+@Injectable()
 export class Breadcrumb {
+    public name: string;
+    public childs: Childs[];
 
-    constructor(public translate:TranslateService, public router:Router) {
+    constructor(location: Location) {
+        this.init(location);
     }
 
-    ngOnInit() {
+    init(location) {
+        let rootPath = location.path();
+        this.name = rootPath.split('/')[rootPath.split('/').length-1];
+
+        this.childs = this.initChilds(location);
+    }
+
+    initChilds(location) {
+        let result = [];
+        let arrPath;
+        let linkPath = '/';
+
+        if (location.path().split('/').length > 3) {
+            arrPath = location.path().split('/').splice(1, location.path().split('/').length-2);
+        } else  {
+            arrPath = location.path().split('/').splice(1, location.path().split('/').length-1);
+        }
+
+        while (arrPath.length) {
+            arrPath.forEach((item) => {
+               linkPath += item + '/';
+            });
+
+            result.push({name: arrPath[arrPath.length-1], link: linkPath});
+
+            arrPath = arrPath.splice(0, arrPath.splice.length-2);
+        }
+
+        return result;
     }
 }

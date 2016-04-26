@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {Router} from 'angular2/router';
-import {Breadcrumb} from '../breadcrumb/breadcrumb';
+import {BreadcrumbService} from '../breadcrumb/breadcrumb.service';
 
 @Component({
     selector: 'api',
@@ -9,17 +9,17 @@ import {Breadcrumb} from '../breadcrumb/breadcrumb';
     styles: [
         require('./api.scss')
     ],
-    providers: [],
-    directives: [Breadcrumb],
+    providers: [BreadcrumbService],
+    directives: [BreadcrumbService],
     pipes : [TranslatePipe]
 })
 export class API {
 
-    constructor(public translate: TranslateService, public router: Router) {
+    constructor(public translate: TranslateService, public router: Router, 
+                public breadcrumb: BreadcrumbService) {
     }
 
     ngOnInit() {
-
     }
 
 }

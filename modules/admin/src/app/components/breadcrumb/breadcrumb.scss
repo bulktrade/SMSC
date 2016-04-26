@@ -22,11 +22,11 @@
     margin: 0;
     color: #c5ccd5;
     font-size: 14px;
-    .parents:before {
+    .childs:before {
       display: none;
       margin-right: 3px;
     }
-    .parents:last-of-type {
+    .childs:last-of-type {
       i {
         display: none;
       }

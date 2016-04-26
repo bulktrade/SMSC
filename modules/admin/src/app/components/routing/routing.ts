@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 import {RoutingGrid} from './directives/routing-grid';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {Router} from 'angular2/router';
-import {Breadcrumb} from '../breadcrumb/breadcrumb';
+import {BreadcrumbService} from '../breadcrumb/breadcrumb.service';
 
 @Component({
     selector: 'routing',
@@ -10,13 +10,14 @@ import {Breadcrumb} from '../breadcrumb/breadcrumb';
     styles: [
         require('./routing.scss')
     ],
-    providers: [],
-    directives: [RoutingGrid, Breadcrumb],
+    providers: [BreadcrumbService],
+    directives: [RoutingGrid, BreadcrumbService],
     pipes: [TranslatePipe]
 })
 export class Routing {
 
-    constructor(public translate: TranslateService, public router: Router) {}
+    constructor(public translate: TranslateService, public router: Router,
+                public breadcrumb: BreadcrumbService) {}
 
     ngOnInit() {
 

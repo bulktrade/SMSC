@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 import {MCCMNCGrid} from './directives/mccmnc-grid';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {Router} from 'angular2/router';
-import {Breadcrumb} from '../breadcrumb/breadcrumb';
+import {BreadcrumbService} from '../breadcrumb/breadcrumb.service';
 
 @Component({
     selector: 'mccmnc',
@@ -10,13 +10,14 @@ import {Breadcrumb} from '../breadcrumb/breadcrumb';
     styles: [
         require('./mccmnc.scss')
     ],
-    providers: [],
-    directives: [MCCMNCGrid, Breadcrumb],
+    providers: [BreadcrumbService],
+    directives: [MCCMNCGrid, BreadcrumbService],
     pipes: [TranslatePipe]
 })
 export class MCCMNC {
 
-    constructor(public translate: TranslateService,  public router: Router) {}
+    constructor(public translate: TranslateService,  public router: Router,
+                public breadcrumb: BreadcrumbService) {}
 
     ngOnInit() {
 

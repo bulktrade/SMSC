@@ -4,23 +4,22 @@ import {Router} from 'angular2/router';
 import {BreadcrumbService} from '../breadcrumb/breadcrumb.service';
 
 @Component({
-	selector: 'finances',
-	templateUrl: 'app/components/finances/finances.html',
+	selector: 'finances-main',
+	templateUrl: 'app/components/financesmain/financesmain.html',
 	styles: [
-		require('./finances.scss')
+		require('./financesmain.scss')
 	],
 	providers: [BreadcrumbService],
 	directives: [BreadcrumbService],
 	pipes: [TranslatePipe]
 })
-export class Finances {
+export class FinancesMain {
 
 	constructor(public translate:TranslateService, public router:Router,
 				public breadcrumb: BreadcrumbService) {
 	}
 
 	ngOnInit() {
-
 	}
 
 }

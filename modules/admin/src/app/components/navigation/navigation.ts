@@ -1,25 +1,17 @@
 import {Component, OnInit} from 'angular2/core';
 import {CORE_DIRECTIVES, NgClass} from 'angular2/common';
 import {LoggedInRouterOutlet} from '../authentication/LoggedInOutlet';
-import {RouteConfig, Router} from 'angular2/router';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {LocalStorage} from '../login/localstorage';
 import {AnimateBox} from './directives/animate';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
-import {SMSTraffic} from '../smstraffic/smstraffic';
-import {DLRTraffic} from '../dlrtraffic/dlrtraffic';
-import {Finances} from '../finances/finances';
-import {Customers} from '../customers/customers';
-import {Monitoring} from '../monitoring/monitoring';
-import {Carriers} from '../carriers/carriers';
-import {Routing} from '../routing/routing';
-import {Prices} from '../prices/prices';
-import {MCCMNC} from '../mccmnc/mccmnc';
-import {SMPP} from '../smpp/smpp';
-import {API} from '../api/api';
 import {SystemSettings} from '../systemsettings/systemsettings';
 import {ActiveItem} from './directives/active';
 import {FaAngleLeft} from './directives/FaAngleLeft';
+import {Dashboard} from "../dashboard/dashboard";
+import {GSM} from '../gsm/gsm';
+import {FinancesMain} from '../financesmain/financesmain';
 
 
 @Component({
@@ -29,23 +21,15 @@ import {FaAngleLeft} from './directives/FaAngleLeft';
 	styles: [
 		require('../../../assets/css/style.scss')
 	],
-	directives: [LoggedInRouterOutlet, CORE_DIRECTIVES,
+	directives: [ROUTER_DIRECTIVES,
 		AnimateBox, NgClass, ActiveItem, FaAngleLeft],
 	pipes: [TranslatePipe]
 })
 
 @RouteConfig([
-	{path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic', useAsDefault: true},
-	{path: '/dlrtraffic', component: DLRTraffic, name: 'DLRTraffic'},
-	{path: '/finances', component: Finances, name: 'Finances'},
-	{path: '/customers', component: Customers, name: 'Customers'},
-	{path: '/monitoring', component: Monitoring, name: 'Monitoring'},
-	{path: '/carriers', component: Carriers, name: 'Carriers'},
-	{path: '/routing', component: Routing, name: 'Routing'},
-	{path: '/prices', component: Prices, name: 'Prices'},
-	{path: '/mccmnc', component: MCCMNC, name: 'MCCMNC'},
-	{path: '/smpp', component: SMPP, name: 'SMPP'},
-	{path: '/api', component: API, name: 'API'},
+	{path: '/dashboard/...', component: Dashboard, name: 'Dashboard', useAsDefault: true},
+	{path: '/gsm/...', component: GSM, name: 'GSM'},
+	{path: '/financesmain', component: FinancesMain, name: 'FinancesMain'},
 	{path: '/systemsettings', component: SystemSettings, name: 'SystemSettings'},
 ])
 
@@ -57,10 +41,6 @@ export class Navigation implements OnInit {
 
 	constructor(public router:Router, public translate:TranslateService) {
 		this.content = LocalStorage.getLocalStorage();
-	}
-
-	onSelect(route) {
-		this.router.navigate([route]);
 	}
 
 	logout() {
