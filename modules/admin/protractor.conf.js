@@ -82,7 +82,7 @@ exports.config = {
 		// 	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
 		// }
 	],
-
+	
 	/**
 	 * Angular 2 configuration
 	 *

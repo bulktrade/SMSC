@@ -10,7 +10,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li class="childs" *ngFor="#child of breadcrumb.childs;">
-            <a (click)="router.navigateByUrl(child.link)">{{child.name | uppercase | translate}}</a>
+            <a (click)="navigateTo(child.link)">{{child.name | uppercase | translate}}</a>
             <i class="fa fa-circle"></i>
         </li>
     </ul>

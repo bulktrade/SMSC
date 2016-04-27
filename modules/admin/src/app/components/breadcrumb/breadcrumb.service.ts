@@ -29,4 +29,9 @@ export class BreadcrumbService {
     ngOnInit() {
         this.breadcrumb = new Breadcrumb(this.location);
     }
+
+    navigateTo(url) {
+        this.router.navigateByUrl(url);
+    }
+
 }
