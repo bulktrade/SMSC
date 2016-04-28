@@ -2,6 +2,7 @@ import {bootstrap} from 'angular2/platform/browser';
 import {HTTP_PROVIDERS, Http} from 'angular2/http';
 import {ROUTER_PROVIDERS} from 'angular2/router';
 import {Authentication} from './app/components/authentication/authentication';
+import {LocalStorageSubscriber} from 'angular2-localstorage/LocalStorageEmitter';
 import {
     TranslateLoader,
     TranslateStaticLoader,
@@ -11,7 +12,7 @@ import {
 import {provide} from 'angular2/core';
 import {ODatabaseService} from "./Service/OrientDB.service";
 
-bootstrap(Authentication, [
+let appPromise = bootstrap(Authentication, [
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
     provide(TranslateLoader, {
@@ -23,5 +24,6 @@ bootstrap(Authentication, [
     }),
     TRANSLATE_PROVIDERS,
     TranslateService
-])
-  .catch(err => console.error(err));
+]);
+
+LocalStorageSubscriber(appPromise);

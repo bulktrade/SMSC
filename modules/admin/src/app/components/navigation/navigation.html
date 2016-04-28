@@ -2,7 +2,7 @@
     <header class="header">
         <div class="left-panel clear">
             <div [hidden]="showNav" class="logo">SMSC</div>
-            <div (click)="saveStateNav();"
+            <div (click)="showNav=!showNav"
                  [ngClass]="{'toggler-btn-active': showNav}" class="menu-toggler"></div>
         </div>
         <div class="right-panel clear">
@@ -47,7 +47,7 @@
                 <ul class="subtask">
                     <li #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
                         <div #dashItem class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showNav}">
-                            <a [class.active]="activeItem.isActiveMainDashboard()" (click)="dashboard.toggle(icnDsh, 4, false); saveStateDash();" class="dashboard sub-task clear">
+                            <a [class.active]="activeItem.isActiveMainDashboard()" (click)="dashboard.toggle(icnDsh, 4, false); icnDsh=!icnDsh;" class="dashboard sub-task clear">
                                 <i class="icon-left icon-bulb"></i>
                                 <div class="show-nav" [hidden]="showNav">
                                     <span class="name-sub dashboard-item">{{'DASHBOARD' | translate}}</span>
@@ -62,7 +62,7 @@
                             </ul>
                         </div>
                         <div #gsmItem class="item-menu clear gsm-item-nav" [ngClass]="{'item-menu-short': showNav}">
-                            <a [class.active]="activeItem.isActiveMainGSM()" (click)="gsm.toggle(icnGsm, 7, false); saveStateGsm();" class="gsm sub-task clear">
+                            <a [class.active]="activeItem.isActiveMainGSM()" (click)="gsm.toggle(icnGsm, 7, false); icnGsm=!icnGsm;" class="gsm sub-task clear">
                                 <i class="icon-left icon-settings"></i>
                                 <div class="show-nav" [hidden]="showNav">
                                     <span class="name-sub">{{'GSM' | translate}}</span>
