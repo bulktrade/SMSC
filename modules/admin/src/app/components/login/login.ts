@@ -16,8 +16,6 @@ import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 })
 
 export class Login {
-    // @LocalStorage() public right:boolean = false;
-
     notfound: boolean = false;
     onSubmitBtn: boolean = false;
 
