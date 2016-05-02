@@ -3,7 +3,7 @@ import {NgClass} from 'angular2/common';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {AnimateBox} from './directives/animate';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {LocalStorage} from 'angular2-localstorage/WebStorage';
+import {LocalStorage} from '../../../assets/js/angular2-localstorage/WebStorage';
 
 import {SystemSettings} from '../systemsettings/systemsettings';
 import {ActiveItem} from './directives/active';

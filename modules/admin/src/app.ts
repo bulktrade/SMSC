@@ -2,7 +2,7 @@ import {bootstrap} from 'angular2/platform/browser';
 import {HTTP_PROVIDERS, Http} from 'angular2/http';
 import {ROUTER_PROVIDERS} from 'angular2/router';
 import {Authentication} from './app/components/authentication/authentication';
-import {LocalStorageSubscriber} from 'angular2-localstorage/LocalStorageEmitter';
+import {LocalStorageSubscriber} from './assets/js/angular2-localstorage/LocalStorageEmitter';
 import {
     TranslateLoader,
     TranslateStaticLoader,

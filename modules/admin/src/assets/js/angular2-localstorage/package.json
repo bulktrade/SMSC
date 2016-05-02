@@ -1,0 +1,79 @@
+{
+  "_args": [
+    [
+      "angular2-localstorage",
+      "/home/dima/CloneGIT/Type/SMSC/modules/admin"
+    ]
+  ],
+  "_from": "angular2-localstorage@latest",
+  "_id": "angular2-localstorage@0.2.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular2-localstorage",
+  "_nodeVersion": "5.8.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular2-localstorage-0.2.0.tgz_1458053420047_0.7549046182539314"
+  },
+  "_npmUser": {
+    "email": "marc@marcjschmidt.de",
+    "name": "marcj"
+  },
+  "_npmVersion": "3.7.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "angular2-localstorage",
+    "raw": "angular2-localstorage",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular2-localstorage/-/angular2-localstorage-0.2.0.tgz",
+  "_shasum": "da200a77fcaaf13f1c096040e56778472f595c68",
+  "_shrinkwrap": null,
+  "_spec": "angular2-localstorage",
+  "_where": "/home/dima/CloneGIT/Type/SMSC/modules/admin",
+  "author": {
+    "name": "Marc J. Schmidt"
+  },
+  "bugs": {
+    "url": "https://github.com/marcj/angular2-localStorage/issues"
+  },
+  "dependencies": {},
+  "description": "Angular2 decorator to save and restore class properties automatically from LocalStorage.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "da200a77fcaaf13f1c096040e56778472f595c68",
+    "tarball": "https://registry.npmjs.org/angular2-localstorage/-/angular2-localstorage-0.2.0.tgz"
+  },
+  "gitHead": "e9b53972d24c9f442c2a5b90e575e81545af9ccb",
+  "homepage": "https://github.com/marcj/angular2-localStorage",
+  "keywords": [
+    "Angular2",
+    "LocalStorage"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "marc@marcjschmidt.de",
+      "name": "marcj"
+    }
+  ],
+  "name": "angular2-localstorage",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/marcj/angular2-localStorage.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.2.0"
+}

@@ -37,10 +37,15 @@ module.exports = {
         loader: 'ts-loader',
         query: {
           "compilerOptions": {
-            "removeComments": true,
+            "removeComments": true
           }
         },
         exclude: [ /\.e2e\.ts$/, helpers.root('node_modules') ]
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loaders: ['raw-loader', 'sass-loader']
       },
       { test: /\.json$/, loader: 'json-loader', exclude: [ helpers.root('src/index.html'), helpers.root('node_modules') ] },
       { test: /\.html$/, loader: 'raw-loader', exclude: [ helpers.root('src/index.html'), helpers.root('node_modules') ] },
