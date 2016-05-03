@@ -36,8 +36,16 @@ describe('Navigation', () => {
     });
 
     it('visible fa-angle-left if main item have sub menu', () => {
-        expect(this.navigator.hasClass(this.navigator.firstNav, 'fa-angle-left')).toBeTruthy();
-        expect(this.navigator.hasClass(this.navigator.lastNav, 'fa-angle-left')).toBeFalsy();
+        this.navigator.waitUntilReady(this.navigator.firstNav, ptor);
+        expect(this.navigator.hasClass(this.navigator.firstNav, 'fa-angle-down')).toBeTruthy();
+        expect(this.navigator.hasClass(this.navigator.lastNav, 'fa-angle-down')).toBeFalsy();
+    });
+
+    it('marked sub and main item navigation like active', () => {
+        this.navigator.clickOnItemNavDashboard(ptor).then(() => {
+            expect(this.navigator.hasClass(this.navigator.titleDash, 'active')).toBeTruthy();
+            expect(this.navigator.hasClass(this.navigator.titleDlrtraffic, 'activesub')).toBeTruthy();
+        });
     });
 
     it('should have smstraffic', () => {
@@ -50,13 +58,6 @@ describe('Navigation', () => {
         this.navigator.clickOnItemNavDlrtraffic(ptor).then(() => {
             expect(this.navigator.getDlrtraffic()).toBeTruthy();
         });
-    });
-
-    it('marked sub and main item navigation like active', () => {
-        // main item navigation
-        expect(this.navigator.hasClass(this.navigator.titleDash, 'active')).toBeTruthy();
-        // sub item navigation
-        expect(this.navigator.hasClass(this.navigator.titleDlrtraffic, 'activesub')).toBeTruthy();
     });
 
     it('responsive navigation', () => {

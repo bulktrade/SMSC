@@ -1,44 +1,37 @@
-import {Childs} from './childs';
-import {Location} from 'angular2/router';
+import {Router} from 'angular2/router';
 import {Injectable} from 'angular2/core';
 
 @Injectable()
 export class Breadcrumb {
     public name: string;
-    public childs: Childs[];
+    public childs: Array<any>;
 
-    constructor(location: Location) {
-        this.init(location);
+    constructor(router: Router) {
+        this.init(router);
     }
 
-    init(location) {
-        let rootPath = location.path();
-        this.name = rootPath.split('/')[rootPath.split('/').length-1];
-
-        this.childs = this.initChilds(location);
+    init(router) {
+        this.childs = new Array(0);
+        
+        this.chainChilds(router);
+        this.childs.reverse();
+        this.name = this.getName(this.childs[this.childs.length-1]);
     }
 
-    initChilds(location) {
-        let result = [];
-        let arrPath;
-        let linkPath = '/';
-
-        if (location.path().split('/').length > 3) {
-            arrPath = location.path().split('/').splice(1, location.path().split('/').length-2);
-        } else  {
-            arrPath = location.path().split('/').splice(1, location.path().split('/').length-1);
+    chainChilds(router) {
+        if (this.getName(router) === 'Navigation') {
+            return;
         }
 
-        while (arrPath.length) {
-            arrPath.forEach((item) => {
-               linkPath += item + '/';
-            });
+        this.childs.push(router);
+        this.chainChilds(router.parent);
+    }
 
-            result.push({name: arrPath[arrPath.length-1], link: linkPath});
+    getName(router) {
+        return router.hostComponent.name;
+    }
 
-            arrPath = arrPath.splice(0, arrPath.splice.length-2);
-        }
-
-        return result;
+    navigateTo(router) {
+        router.navigate([router.hostComponent.name]);
     }
 }

@@ -1,6 +1,6 @@
 import {Component, Injectable} from 'angular2/core';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {Router, Location, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {Breadcrumb} from './breadcrumb';
 @Component({
     selector: 'breadcrumb',
@@ -23,15 +23,10 @@ export class BreadcrumbService {
     public breadcrumb: Breadcrumb;
 
     constructor(public translate:TranslateService,
-                public router:Router, public location: Location) {
+                public router:Router) {
     }
 
     ngOnInit() {
-        this.breadcrumb = new Breadcrumb(this.location);
+        this.breadcrumb = new Breadcrumb(this.router);
     }
-
-    navigateTo(url) {
-        this.router.navigateByUrl(url);
-    }
-
 }

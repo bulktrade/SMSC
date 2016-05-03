@@ -13,8 +13,8 @@ describe('Login page', () => {
         this.lognpg.get();
         this.lognpg.clickOnBtnSend(ptor)
             .then(() => {
-                this.lognpg.waitUntilReady(this.lognpg.dangerMessage, ptor);
-                expect(this.lognpg.ifPresentDangerMsg()).toBeTruthy();
+                // todo: check isDisable button
+                expect(this.lognpg.ifPresentDangerMsg()).toBeFalsy();
             });
     });
 
