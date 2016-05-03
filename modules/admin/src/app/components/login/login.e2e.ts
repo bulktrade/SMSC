@@ -11,11 +11,7 @@ describe('Login page', () => {
 
     it('validation for empty fields', () => {
         this.lognpg.get();
-        this.lognpg.clickOnBtnSend(ptor)
-            .then(() => {
-                // todo: check isDisable button
-                expect(this.lognpg.ifPresentDangerMsg()).toBeFalsy();
-            });
+        expect(this.lognpg.btnSubmit.isEnabled()).toBeFalsy();
     });
 
     it('show navigation content', () => {

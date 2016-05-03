@@ -3,6 +3,7 @@ export class LoginTest {
     elemNotFound  = element(by.tagName('notfound'));
     dangerMessage = element(by.className('alert-danger'));
     details = element(by.className('details'));
+    btnSubmit = element(by.className('btn'));
 
     get() {
         browser.get('/');
