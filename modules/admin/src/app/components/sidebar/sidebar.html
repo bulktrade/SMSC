@@ -1,0 +1,57 @@
+<div animate-box #nav="ab" class="wrap-nav clear">
+    <nav #sidebar class="side-bar">
+        <ul #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
+            <li #dashItem class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showNav}">
+                <a [class.active]="activeItem.isActiveMainDashboard()" (click)="dashboard.toggle(icnDsh, 4, false); icnDsh=!icnDsh;" class="dashboard sub-task clear">
+                    <i class="icon-left icon-bulb"></i>
+                    <div class="show-nav" [hidden]="showNav">
+                        <span class="name-sub dashboard-item">{{'DASHBOARD' | translate}}</span>
+                        <i class="fa dashboard-icon" [ngClass]="{'fa-angle-down': !icnDsh && faAngleLeft.isSubMenu(dashItem), 'fa-angle-left': icnDsh && faAngleLeft.isSubMenu(dashItem)}"></i>
+                    </div>
+                </a>
+                <ul class="dashboard-submenu sub-menu-item" animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showNav, 'save-state-item': icnDsh}">
+                    <li><a [class.activesub]="activeItem.isActiveSubDashboard('smstraffic')" [routerLink]="['./Dashboard', 'SMSTraffic']" class="smstraffic"><i class="subitem-icon-left icon-chart"></i>{{'SMSTRAFFIC' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubDashboard('dlrtraffic')" (click)="router.navigate(['./Dashboard', 'DLRTraffic'])" class="dlrtraffic"><i class="subitem-icon-left fa fa-wrench"></i>{{'DLRTRAFFIC' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubDashboard('finances')" [routerLink]="['./Dashboard', 'Finances']" class="finances"><i class="subitem-icon-left icon-docs"></i>{{'FINANCES' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubDashboard('customers')" [routerLink]="['./Dashboard', 'Customers']" class="customers"><i class="subitem-icon-left icon-puzzle"></i>{{'CUSTOMERS' | translate}}</a></li>
+                </ul>
+            </li>
+            <li #gsmItem class="item-menu clear gsm-item-nav" [ngClass]="{'item-menu-short': showNav}">
+                <a [class.active]="activeItem.isActiveMainGSM()" (click)="gsm.toggle(icnGsm, 7, false); icnGsm=!icnGsm;" class="gsm sub-task clear">
+                    <i class="icon-left icon-settings"></i>
+                    <div class="show-nav" [hidden]="showNav">
+                        <span class="name-sub">{{'GSM' | translate}}</span>
+                        <i class="fa" [ngClass]="{'fa-angle-down': !icnGsm && faAngleLeft.isSubMenu(gsmItem), 'fa-angle-left': icnGsm && faAngleLeft.isSubMenu(gsmItem)}"></i>
+                    </div>
+                </a>
+                <ul class="sub-menu-item" #gsm="ab" animate-box [ngClass]="{'nav-subitem-relative': showNav, 'save-state-item': icnGsm}">
+                    <li><a [class.activesub]="activeItem.isActiveSubGSM('monitoring')" [routerLink]="['./GSM', 'Monitoring']" class="monitoring"><i class="subitem-icon-left fa fa-sitemap"></i>{{'MONITORING' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubGSM('carriers')" [routerLink]="['./GSM', 'Carriers']" class="carriers"><i class="subitem-icon-left fa fa-fighter-jet"></i>{{'CARRIERS' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubGSM('routing')" [routerLink]="['./GSM', 'Routing']" class="routing"><i class="subitem-icon-left icon-feed"></i>{{'ROUTING' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubGSM('prices')" [routerLink]="['./GSM', 'Prices']" class="prices"><i class="subitem-icon-left fa fa-cart-arrow-down"></i>{{'PRICES' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubGSM('mccmnc')" [routerLink]="['./GSM', 'MCCMNC']" class="mccmnc"><i class="subitem-icon-left fa fa-exchange"></i>{{'MCCMNC' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubGSM('smpp')" [routerLink]="['./GSM', 'SMPP']" class="smpp"><i class="subitem-icon-left fa fa-commenting-o"></i>{{'SMPP' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubGSM('api')" [routerLink]="['./GSM', 'API']" class="api"><i class="subitem-icon-left fa fa-code"></i>{{'API' | translate}}</a></li>
+                </ul>
+            </li>
+            <li #financesItem class="item-menu clear finances-item-nav" [ngClass]="{'item-menu-short': showNav}">
+                <a [class.active]="activeItem.isActiveSubNavigation('FinancesMain')" [routerLink]="['./FinancesMain']" class="financesmain sub-task clear">
+                    <i class="icon-left icon-wallet"></i>
+                    <div class="show-nav" [hidden]="showNav">
+                        <span class="name-sub">{{'FINANCESMAIN' | translate}}</span>
+                        <i [ngClass]="{'fa-angle-left': faAngleLeft.isSubMenu(financesItem)}" class="fa"></i>
+                    </div>
+                </a>
+            </li>
+            <li #settingItem class="item-menu clear settings-item-nav" [ngClass]="{'item-menu-short': showNav}">
+                <a [class.active]="activeItem.isActiveSubNavigation('SystemSettings')" [routerLink]="['./SystemSettings']" class="systemsettings sub-task clear">
+                    <i class="icon-left icon-settings"></i>
+                    <div class="show-nav" [hidden]="showNav">
+                        <span class="name-sub">{{'SYSTEMSETTINGS' | translate}}</span>
+                        <i [ngClass]="{'fa-angle-left': faAngleLeft.isSubMenu(settingItem)}" class="fa last setting-icon"></i>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

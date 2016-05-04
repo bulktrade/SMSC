@@ -30,6 +30,7 @@ import {SMSTraffic} from "../smstraffic/smstraffic";
 export class Dashboard {
 
     constructor(public router:Router, public translate:TranslateService) {
+        console.log(this.router);
     }
 
 }
