@@ -54,6 +54,14 @@ describe('Navigation', () => {
         });
     });
 
+    it('multi level urs structure', () => {
+        browser.driver.getCurrentUrl()
+            .then(url => {
+                console.log(url);
+                expect(url.indexOf('dashboard') !== -1).toBeTruthy();
+            });
+    });
+
     it('should have dlrtraffic', () => {
         this.navigator.clickOnItemNavDlrtraffic(ptor).then(() => {
             expect(this.navigator.getDlrtraffic()).toBeTruthy();

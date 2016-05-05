@@ -11,7 +11,7 @@ export class NavigationTest {
     dashSubMenu = element(by.className('dashboard-submenu'));
     firstNav = element(by.css('.dashboard-item-nav .dashboard-icon'));
     lastNav = element(by.css('.settings-item-nav .setting-icon'));
-    titleDash = element(by.css('.subtask .dashboard'));
+    titleDash = element(by.css('.side-bar .dashboard'));
     titleDlrtraffic = element(by.className('dlrtraffic'));
     navigation = element(by.className('side-bar'));
 
