@@ -9,6 +9,7 @@ import {Dashboard} from "../dashboard/dashboard";
 import {GSM} from '../gsm/gsm';
 import {FinancesMain} from '../financesmain/financesmain';
 import {Sidebar} from '../sidebar/sidebar';
+import {AnimateBox} from '../sidebar/directives/animate';
 
 
 @Component({
@@ -21,7 +22,8 @@ import {Sidebar} from '../sidebar/sidebar';
     directives: [
         ROUTER_DIRECTIVES,
         NgClass,
-        Sidebar
+        Sidebar,
+        AnimateBox
     ],
     pipes: [TranslatePipe]
 })
@@ -35,11 +37,7 @@ import {Sidebar} from '../sidebar/sidebar';
 
 export class Navigation implements OnInit {
     @LocalStorage()
-    public showNav:boolean = false;
-    @LocalStorage()
-    public icnDsh:boolean;
-    @LocalStorage()
-    public icnGsm:boolean;
+    public showNav:boolean;
 
     content:string;
 

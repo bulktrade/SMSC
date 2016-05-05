@@ -1,7 +1,7 @@
-<div animate-box #nav="ab" class="wrap-nav clear">
-    <nav #sidebar class="side-bar">
-        <ul #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
-            <li #dashItem class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showNav}">
+<nav class="side-bar">
+    <ul #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
+        <sidebar-item class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showNav}">
+            <div class="wrapper clear" #dashItem>
                 <a [class.active]="activeItem.isActiveMainDashboard()" (click)="dashboard.toggle(icnDsh, 4, false); icnDsh=!icnDsh;" class="dashboard sub-task clear">
                     <i class="icon-left icon-bulb"></i>
                     <div class="show-nav" [hidden]="showNav">
@@ -11,12 +11,14 @@
                 </a>
                 <ul class="dashboard-submenu sub-menu-item" animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showNav, 'save-state-item': icnDsh}">
                     <li><a [class.activesub]="activeItem.isActiveSubDashboard('smstraffic')" [routerLink]="['./Dashboard', 'SMSTraffic']" class="smstraffic"><i class="subitem-icon-left icon-chart"></i>{{'SMSTRAFFIC' | translate}}</a></li>
-                    <li><a [class.activesub]="activeItem.isActiveSubDashboard('dlrtraffic')" (click)="router.navigate(['./Dashboard', 'DLRTraffic'])" class="dlrtraffic"><i class="subitem-icon-left fa fa-wrench"></i>{{'DLRTRAFFIC' | translate}}</a></li>
+                    <li><a [class.activesub]="activeItem.isActiveSubDashboard('dlrtraffic')" [routerLink]="['./Dashboard', 'DLRTraffic']" class="dlrtraffic"><i class="subitem-icon-left fa fa-wrench"></i>{{'DLRTRAFFIC' | translate}}</a></li>
                     <li><a [class.activesub]="activeItem.isActiveSubDashboard('finances')" [routerLink]="['./Dashboard', 'Finances']" class="finances"><i class="subitem-icon-left icon-docs"></i>{{'FINANCES' | translate}}</a></li>
                     <li><a [class.activesub]="activeItem.isActiveSubDashboard('customers')" [routerLink]="['./Dashboard', 'Customers']" class="customers"><i class="subitem-icon-left icon-puzzle"></i>{{'CUSTOMERS' | translate}}</a></li>
                 </ul>
-            </li>
-            <li #gsmItem class="item-menu clear gsm-item-nav" [ngClass]="{'item-menu-short': showNav}">
+            </div>
+        </sidebar-item>
+        <sidebar-item class="item-menu clear gsm-item-nav" [ngClass]="{'item-menu-short': showNav}">
+            <div class="wrapper clear" #gsmItem>
                 <a [class.active]="activeItem.isActiveMainGSM()" (click)="gsm.toggle(icnGsm, 7, false); icnGsm=!icnGsm;" class="gsm sub-task clear">
                     <i class="icon-left icon-settings"></i>
                     <div class="show-nav" [hidden]="showNav">
@@ -33,8 +35,10 @@
                     <li><a [class.activesub]="activeItem.isActiveSubGSM('smpp')" [routerLink]="['./GSM', 'SMPP']" class="smpp"><i class="subitem-icon-left fa fa-commenting-o"></i>{{'SMPP' | translate}}</a></li>
                     <li><a [class.activesub]="activeItem.isActiveSubGSM('api')" [routerLink]="['./GSM', 'API']" class="api"><i class="subitem-icon-left fa fa-code"></i>{{'API' | translate}}</a></li>
                 </ul>
-            </li>
-            <li #financesItem class="item-menu clear finances-item-nav" [ngClass]="{'item-menu-short': showNav}">
+            </div>
+        </sidebar-item>
+        <sidebar-item class="item-menu clear finances-item-nav" [ngClass]="{'item-menu-short': showNav}">
+            <div class="wrapper clear" #financesItem>
                 <a [class.active]="activeItem.isActiveSubNavigation('FinancesMain')" [routerLink]="['./FinancesMain']" class="financesmain sub-task clear">
                     <i class="icon-left icon-wallet"></i>
                     <div class="show-nav" [hidden]="showNav">
@@ -42,8 +46,10 @@
                         <i [ngClass]="{'fa-angle-left': faAngleLeft.isSubMenu(financesItem)}" class="fa"></i>
                     </div>
                 </a>
-            </li>
-            <li #settingItem class="item-menu clear settings-item-nav" [ngClass]="{'item-menu-short': showNav}">
+            </div>
+        </sidebar-item>
+        <sidebar-item class="item-menu clear settings-item-nav" [ngClass]="{'item-menu-short': showNav}">
+            <div class="wrapper clear" #settingItem>
                 <a [class.active]="activeItem.isActiveSubNavigation('SystemSettings')" [routerLink]="['./SystemSettings']" class="systemsettings sub-task clear">
                     <i class="icon-left icon-settings"></i>
                     <div class="show-nav" [hidden]="showNav">
@@ -51,7 +57,9 @@
                         <i [ngClass]="{'fa-angle-left': faAngleLeft.isSubMenu(settingItem)}" class="fa last setting-icon"></i>
                     </div>
                 </a>
-            </li>
-        </ul>
-    </nav>
-</div>
+            </div>
+        </sidebar-item>
+    </ul>
+</nav>
+
+// todo: fix small menu

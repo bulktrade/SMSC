@@ -43,7 +43,7 @@ export class AnimateBox {
         }
 
         animation.start(this._e.nativeElement);
-        if (/*navHeight !== undefined &&*/ !isVisible) {
+        if (!isVisible) {
             setTimeout(() => {
                 this._e.nativeElement.removeAttribute('style');
             }, 430);
