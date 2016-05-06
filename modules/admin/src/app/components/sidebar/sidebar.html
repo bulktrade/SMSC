@@ -1,7 +1,7 @@
 <nav class="side-bar">
     <ul #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
-        <sidebar-item class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showNav}">
-            <div class="wrapper clear" #dashItem>
+        <sidebar-item class="clear">
+            <div class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showNav}" #dashItem>
                 <a [class.active]="activeItem.isActiveMainDashboard()" (click)="dashboard.toggle(icnDsh, 4, false); icnDsh=!icnDsh;" class="dashboard sub-task clear">
                     <i class="icon-left icon-bulb"></i>
                     <div class="show-nav" [hidden]="showNav">
@@ -17,8 +17,8 @@
                 </ul>
             </div>
         </sidebar-item>
-        <sidebar-item class="item-menu clear gsm-item-nav" [ngClass]="{'item-menu-short': showNav}">
-            <div class="wrapper clear" #gsmItem>
+        <sidebar-item class="clear">
+            <div class="item-menu clear gsm-item-nav" [ngClass]="{'item-menu-short': showNav}" #gsmItem>
                 <a [class.active]="activeItem.isActiveMainGSM()" (click)="gsm.toggle(icnGsm, 7, false); icnGsm=!icnGsm;" class="gsm sub-task clear">
                     <i class="icon-left icon-settings"></i>
                     <div class="show-nav" [hidden]="showNav">
@@ -37,8 +37,8 @@
                 </ul>
             </div>
         </sidebar-item>
-        <sidebar-item class="item-menu clear finances-item-nav" [ngClass]="{'item-menu-short': showNav}">
-            <div class="wrapper clear" #financesItem>
+        <sidebar-item class="clear">
+            <div class="item-menu clear finances-item-nav" [ngClass]="{'item-menu-short': showNav}" #financesItem>
                 <a [class.active]="activeItem.isActiveSubNavigation('FinancesMain')" [routerLink]="['./FinancesMain']" class="financesmain sub-task clear">
                     <i class="icon-left icon-wallet"></i>
                     <div class="show-nav" [hidden]="showNav">
@@ -48,8 +48,8 @@
                 </a>
             </div>
         </sidebar-item>
-        <sidebar-item class="item-menu clear settings-item-nav" [ngClass]="{'item-menu-short': showNav}">
-            <div class="wrapper clear" #settingItem>
+        <sidebar-item class="clear">
+            <div class="item-menu clear settings-item-nav" [ngClass]="{'item-menu-short': showNav}" #settingItem>
                 <a [class.active]="activeItem.isActiveSubNavigation('SystemSettings')" [routerLink]="['./SystemSettings']" class="systemsettings sub-task clear">
                     <i class="icon-left icon-settings"></i>
                     <div class="show-nav" [hidden]="showNav">
@@ -62,4 +62,3 @@
     </ul>
 </nav>
 
-// todo: fix small menu
