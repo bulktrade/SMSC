@@ -61,6 +61,14 @@ describe('Navigation', () => {
             });
     });
 
+    it('should have navigation directive', () => {
+        expect(this.navigator.isPresentNavDirective()).toBeTruthy();
+    });
+
+    it('should have navigation item directive', () => {
+        expect(this.navigator.isPresentNavItemDirective()).toBeTruthy();
+    });
+
     it('should have dlrtraffic', () => {
         this.navigator.clickOnItemNavDlrtraffic(ptor).then(() => {
             expect(this.navigator.getDlrtraffic()).toBeTruthy();

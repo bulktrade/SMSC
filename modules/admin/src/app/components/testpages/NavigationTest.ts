@@ -14,6 +14,8 @@ export class NavigationTest {
     titleDash = element(by.css('.side-bar .dashboard'));
     titleDlrtraffic = element(by.className('dlrtraffic'));
     navigation = element(by.className('side-bar'));
+    navDirective = element(by.tagName('sidebar'));
+    navItemDirective = element(by.tagName('sidebar-item'));
 
     smstraffic = element(by.css('smstraffic .wrap-breadcrumb'));
     dlrtraffic = element(by.css('dlrtraffic .wrap-breadcrumb'));
@@ -99,6 +101,15 @@ export class NavigationTest {
             });
         });
     }
+
+    isPresentNavDirective() {
+        return this.navDirective.isPresent();
+    }
+
+    isPresentNavItemDirective() {
+        return this.navItemDirective.isPresent();
+    }
+
     getSmstraffic() {
         return this.smstraffic.isPresent();
     }

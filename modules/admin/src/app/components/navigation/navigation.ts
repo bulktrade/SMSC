@@ -11,7 +11,6 @@ import {FinancesMain} from '../financesmain/financesmain';
 import {Sidebar} from '../sidebar/sidebar';
 import {AnimateBox} from '../sidebar/directives/animate';
 
-
 @Component({
     selector: 'navigation',
     providers: [],
