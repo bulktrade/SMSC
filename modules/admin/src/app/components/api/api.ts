@@ -1,6 +1,5 @@
 import {Component} from 'angular2/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {Router} from 'angular2/router';
 import {BreadcrumbService} from '../breadcrumb/breadcrumb.service';
 
 @Component({
@@ -15,7 +14,7 @@ import {BreadcrumbService} from '../breadcrumb/breadcrumb.service';
 })
 export class API {
 
-    constructor(public translate: TranslateService, public router: Router, 
+    constructor(public translate: TranslateService,
                 public breadcrumb: BreadcrumbService) {
     }
 

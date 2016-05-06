@@ -1,4 +1,4 @@
-import {RouteConfig, Router} from "angular2/router";
+import {RouteConfig} from "angular2/router";
 import {Component} from "angular2/core";
 import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
 import {LoggedInRouterOutlet} from "../authentication/LoggedInOutlet";
@@ -35,7 +35,7 @@ import {API} from '../api/api';
 
 export class GSM {
 
-    constructor(public router:Router, public translate:TranslateService) {
+    constructor(public translate:TranslateService) {
     }
 
 }

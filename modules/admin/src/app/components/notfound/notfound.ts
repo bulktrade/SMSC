@@ -1,5 +1,5 @@
 import {Component, ViewEncapsulation} from 'angular2/core';
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
 
 @Component({
 	selector: 'notfound',
@@ -15,7 +15,7 @@ import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 
 export class NotFound {
 
-	constructor(public router:Router) {
+	constructor() {
 	}
 
 	ngOnInit() {

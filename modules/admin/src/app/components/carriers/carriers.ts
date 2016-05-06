@@ -14,7 +14,8 @@ import {BreadcrumbService} from '../breadcrumb/breadcrumb.service';
 })
 export class Carriers {
 
-    constructor(public translate: TranslateService, public breadcrumb: BreadcrumbService) {}
+    constructor(public translate: TranslateService,
+                public breadcrumb: BreadcrumbService) {}
 
     ngOnInit() {
 

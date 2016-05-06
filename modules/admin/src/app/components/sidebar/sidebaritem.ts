@@ -1,6 +1,5 @@
 import {Component} from 'angular2/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {Router} from 'angular2/router';
 
 @Component({
     selector: 'sidebar-item',
@@ -12,7 +11,7 @@ import {Router} from 'angular2/router';
 })
 export class SidebarItem {
 
-    constructor(public translate: TranslateService, public router: Router) {
+    constructor(public translate: TranslateService) {
     }
 
     ngOnInit() {

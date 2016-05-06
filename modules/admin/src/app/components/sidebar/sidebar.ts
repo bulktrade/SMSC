@@ -14,7 +14,7 @@ import {LocalStorage} from '../../../assets/js/angular2-localstorage/WebStorage'
     styles: [
         require('./sidebar.scss')
     ],
-    providers: [],
+    providers: [SidebarItem],
     directives: [
         ROUTER_DIRECTIVES,
         AnimateBox,
@@ -33,7 +33,8 @@ export class Sidebar {
     @LocalStorage()
     public icnGsm:boolean;
 
-    constructor(public translate: TranslateService, public router: Router) {
+    constructor(public translate: TranslateService,
+                public sidebaritem: SidebarItem) {
     }
 
     ngOnInit() {
