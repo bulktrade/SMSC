@@ -24,13 +24,22 @@ export class DynamicTag {
                     });
                 break;
             case 'GSM':
-                this.loader.loadNextToLocation(GSMItem, this.elementRef);
+                this.loader.loadNextToLocation(GSMItem, this.elementRef)
+                    .then((compRef:ComponentRef) => {
+                        compRef.instance.showNav = this.showNav;
+                    });;
                 break;
             case 'Finances':
-                this.loader.loadNextToLocation(FinancesItem, this.elementRef);
+                this.loader.loadNextToLocation(FinancesItem, this.elementRef)
+                    .then((compRef:ComponentRef) => {
+                        compRef.instance.showNav = this.showNav;
+                    });;
                 break;
             case 'Setting':
-                this.loader.loadNextToLocation(SettingItem, this.elementRef);
+                this.loader.loadNextToLocation(SettingItem, this.elementRef)
+                    .then((compRef:ComponentRef) => {
+                        compRef.instance.showNav = this.showNav;
+                    });;
                 break;
         }
     }
