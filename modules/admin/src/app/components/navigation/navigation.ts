@@ -8,7 +8,7 @@ import {SystemSettings} from '../systemsettings/systemsettings';
 import {Dashboard} from "../dashboard/dashboard";
 import {GSM} from '../gsm/gsm';
 import {FinancesMain} from '../financesmain/financesmain';
-import {Sidebar} from '../sidebar/sidebar';
+import {SidebarService} from '../sidebar/sidebar.service';
 import {AnimateBox} from '../sidebar/directives/animate';
 
 @Component({
@@ -21,7 +21,7 @@ import {AnimateBox} from '../sidebar/directives/animate';
     directives: [
         ROUTER_DIRECTIVES,
         NgClass,
-        Sidebar,
+        SidebarService,
         AnimateBox
     ],
     pipes: [TranslatePipe]

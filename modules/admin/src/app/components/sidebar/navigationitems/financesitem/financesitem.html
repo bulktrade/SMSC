@@ -1,0 +1,10 @@
+<div class="item-menu clear finances-item-nav" [ngClass]="{'item-menu-short': showNav}" #financesItem
+     #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
+    <a [class.active]="activeItem.isActiveSubNavigation('FinancesMain')" [routerLink]="['./FinancesMain']" class="financesmain sub-task clear">
+        <i class="icon-left icon-wallet"></i>
+        <div class="show-nav" [hidden]="showNav">
+            <span class="name-sub">{{'FINANCESMAIN' | translate}}</span>
+            <i [ngClass]="{'fa-angle-left': faAngleLeft.isSubMenu(financesItem)}" class="fa"></i>
+        </div>
+    </a>
+</div>
