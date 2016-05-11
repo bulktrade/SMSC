@@ -2,7 +2,6 @@ import {Component, OnInit} from 'angular2/core';
 import {NgClass} from 'angular2/common';
 import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {LocalStorage} from '../../../assets/js/angular2-localstorage/WebStorage';
 
 import {SystemSettings} from '../systemsettings/systemsettings';
 import {Dashboard} from "../dashboard/dashboard";
@@ -10,10 +9,11 @@ import {GSM} from '../gsm/gsm';
 import {FinancesMain} from '../financesmain/financesmain';
 import {SidebarService} from '../sidebar/sidebar.service';
 import {AnimateBox} from '../sidebar/directives/animate';
+import {ShowMiniNav} from "../sidebar/ShowMiniNav";
 
 @Component({
     selector: 'navigation',
-    providers: [],
+    providers: [ShowMiniNav],
     templateUrl: 'app/components/navigation/navigation.html',
     styles: [
         require('../../../assets/css/style.scss')
@@ -22,7 +22,7 @@ import {AnimateBox} from '../sidebar/directives/animate';
         ROUTER_DIRECTIVES,
         NgClass,
         SidebarService,
-        AnimateBox
+        AnimateBox,
     ],
     pipes: [TranslatePipe]
 })
@@ -35,12 +35,9 @@ import {AnimateBox} from '../sidebar/directives/animate';
 ])
 
 export class Navigation implements OnInit {
-    @LocalStorage()
-    public showNav:boolean;
-
     content:string;
 
-    constructor(public router:Router, public translate:TranslateService) {
+    constructor(public router:Router, public translate:TranslateService, public showmininav: ShowMiniNav) {
         this.content = localStorage.getItem('rightWrite');
     }
 

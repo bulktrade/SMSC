@@ -1,13 +1,13 @@
-<div class="item-menu clear gsm-item-nav" [ngClass]="{'item-menu-short': showNav}" #gsmItem
+<div class="item-menu clear gsm-item-nav" [ngClass]="{'item-menu-short': showmininav.showNav}" #gsmItem
      #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
     <a [class.active]="activeItem.isActiveMainGSM()" (click)="gsm.toggle(icnGsm, 7, false); icnGsm=!icnGsm;" class="gsm sub-task clear">
         <i class="icon-left icon-settings"></i>
-        <div class="show-nav" [hidden]="showNav">
+        <div class="show-nav" [hidden]="showmininav.showNav">
             <span class="name-sub">{{'GSM' | translate}}</span>
             <i class="fa" [ngClass]="{'fa-angle-down': !icnGsm && faAngleLeft.isSubMenu(gsmItem), 'fa-angle-left': icnGsm && faAngleLeft.isSubMenu(gsmItem)}"></i>
         </div>
     </a>
-    <ul class="sub-menu-item" #gsm="ab" animate-box [ngClass]="{'nav-subitem-relative': showNav, 'save-state-item': icnGsm}">
+    <ul class="sub-menu-item" #gsm="ab" animate-box [ngClass]="{'nav-subitem-relative': showmininav.showNav, 'save-state-item': icnGsm}">
         <li><a [class.activesub]="activeItem.isActiveSubGSM('monitoring')" [routerLink]="['./GSM', 'Monitoring']" class="monitoring"><i class="subitem-icon-left fa fa-sitemap"></i>{{'MONITORING' | translate}}</a></li>
         <li><a [class.activesub]="activeItem.isActiveSubGSM('carriers')" [routerLink]="['./GSM', 'Carriers']" class="carriers"><i class="subitem-icon-left fa fa-fighter-jet"></i>{{'CARRIERS' | translate}}</a></li>
         <li><a [class.activesub]="activeItem.isActiveSubGSM('routing')" [routerLink]="['./GSM', 'Routing']" class="routing"><i class="subitem-icon-left icon-feed"></i>{{'ROUTING' | translate}}</a></li>

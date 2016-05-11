@@ -1,13 +1,13 @@
-<div class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showNav}" #dashItem
+<div class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showmininav.showNav}" #dashItem
      #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
     <a [class.active]="activeItem.isActiveMainDashboard()" (click)="dashboard.toggle(icnDsh, 4, false); icnDsh=!icnDsh;" class="dashboard sub-task clear">
         <i class="icon-left icon-bulb"></i>
-        <div class="show-nav" [hidden]="showNav">
+        <div class="show-nav" [hidden]="showmininav.showNav">
             <span class="name-sub dashboard-item">{{'DASHBOARD' | translate}}</span>
             <i class="fa dashboard-icon" [ngClass]="{'fa-angle-down': !icnDsh && faAngleLeft.isSubMenu(dashItem), 'fa-angle-left': icnDsh && faAngleLeft.isSubMenu(dashItem)}"></i>
         </div>
     </a>
-    <ul class="dashboard-submenu sub-menu-item" animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showNav, 'save-state-item': icnDsh}">
+    <ul class="dashboard-submenu sub-menu-item" animate-box #dashboard="ab" [ngClass]="{'nav-subitem-relative': showmininav.showNav, 'save-state-item': icnDsh}">
         <li><a [class.activesub]="activeItem.isActiveSubDashboard('smstraffic')" [routerLink]="['./Dashboard', 'SMSTraffic']" class="smstraffic"><i class="subitem-icon-left icon-chart"></i>{{'SMSTRAFFIC' | translate}}</a></li>
         <li><a [class.activesub]="activeItem.isActiveSubDashboard('dlrtraffic')" [routerLink]="['./Dashboard', 'DLRTraffic']" class="dlrtraffic"><i class="subitem-icon-left fa fa-wrench"></i>{{'DLRTRAFFIC' | translate}}</a></li>
         <li><a [class.activesub]="activeItem.isActiveSubDashboard('finances')" [routerLink]="['./Dashboard', 'Finances']" class="finances"><i class="subitem-icon-left icon-docs"></i>{{'FINANCES' | translate}}</a></li>
