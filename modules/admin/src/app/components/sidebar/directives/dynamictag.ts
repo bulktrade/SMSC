@@ -1,8 +1,7 @@
-import {Directive, ElementRef, DynamicComponentLoader, Input, ComponentRef} from 'angular2/core';
-import {DashboardItem} from '../navigationitems/dashboarditem/dashboarditem';
-import {GSMItem} from '../navigationitems/gsmitem/gsmitem';
-import {FinancesItem} from '../navigationitems/financesitem/financesitem';
-import {SettingItem} from '../navigationitems/settingitem/settingitem';
+import {Directive, ElementRef, DynamicComponentLoader, Input} from 'angular2/core';
+import {SidebarService} from '../sidebar.service';
+
+declare var Reflect;
 
 @Directive({
     selector: '[dynamic-tag]',
@@ -18,19 +17,13 @@ export class DynamicTag {
     }
 
     ngOnInit() {
-        switch (this.directiveName) {
-            case 'Dashboard':
-                this.loader.loadNextToLocation(DashboardItem, this.elementRef);
-                break;
-            case 'GSM':
-                this.loader.loadNextToLocation(GSMItem, this.elementRef);
-                break;
-            case 'FinancesMain':
-                this.loader.loadNextToLocation(FinancesItem, this.elementRef);
-                break;
-            case 'SystemSettings':
-                this.loader.loadNextToLocation(SettingItem, this.elementRef);
-                break;
+        let decoratorValue = Reflect.getMetadata("NavigationConfig", SidebarService);
+
+        for (var index = 0; index < decoratorValue.length; index++) {
+            if (decoratorValue[index].name === this.directiveName) {
+                this.loader.loadNextToLocation(decoratorValue[index].component, this.elementRef);
+                return;
+            }
         }
     }
 }

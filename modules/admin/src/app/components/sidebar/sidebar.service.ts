@@ -12,7 +12,7 @@ import {DynamicTag} from './directives/dynamictag';
 import {GSMItem} from './navigationitems/gsmitem/gsmitem';
 import {FinancesItem} from './navigationitems/financesitem/financesitem';
 import {SettingItem} from './navigationitems/settingitem/settingitem';
-import {Navigation} from '../navigation/navigation';
+import {NavigationConfig} from './decorators/NavigationConfig';
 
 declare var Reflect;
 
@@ -39,6 +39,14 @@ declare var Reflect;
     ],
     pipes: [TranslatePipe]
 })
+
+@NavigationConfig([
+    {name: 'Dashboard', component: DashboardItem},
+    {name: 'GSM', component: GSMItem},
+    {name: 'FinancesMain', component: FinancesItem},
+    {name: 'SystemSettings', component: SettingItem}
+])
+
 export class SidebarService {
     @Input() showNav:boolean;
     @LocalStorage()
@@ -51,12 +59,9 @@ export class SidebarService {
 
     ngOnInit() {
         this.items = this.listNavItems();
-
-        console.log(this.listNavItems());
     }
 
     listNavItems() {
-        let annotations = Reflect.getOwnMetadata('annotations', Navigation);
-        return annotations[0].configs;
+        return Reflect.getMetadata("NavigationConfig", SidebarService);
     }
 }
