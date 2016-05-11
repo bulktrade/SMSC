@@ -22,7 +22,7 @@ import {ShowMiniNav} from "../sidebar/ShowMiniNav";
         ROUTER_DIRECTIVES,
         NgClass,
         SidebarService,
-        AnimateBox,
+        AnimateBox
     ],
     pipes: [TranslatePipe]
 })
