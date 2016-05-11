@@ -12,7 +12,9 @@ import {DynamicTag} from './directives/dynamictag';
 import {GSMItem} from './navigationitems/gsmitem/gsmitem';
 import {FinancesItem} from './navigationitems/financesitem/financesitem';
 import {SettingItem} from './navigationitems/settingitem/settingitem';
-import {listItems} from './listNavigationItems';
+import {Navigation} from '../navigation/navigation';
+
+declare var Reflect;
 
 @Component({
     selector: 'sidebar',
@@ -41,14 +43,20 @@ export class SidebarService {
     @Input() showNav:boolean;
     @LocalStorage()
     public icnGsm:boolean;
-    public listItems;
+    public items;
 
     constructor(public translate: TranslateService,
                 public sidebaritem: SidebarItem) {
     }
 
     ngOnInit() {
-        this.listItems = listItems;
+        this.items = this.listNavItems();
+
+        console.log(this.listNavItems());
     }
 
+    listNavItems() {
+        let annotations = Reflect.getOwnMetadata('annotations', Navigation);
+        return annotations[0].configs;
+    }
 }

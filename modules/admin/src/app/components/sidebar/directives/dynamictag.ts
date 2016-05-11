@@ -25,10 +25,10 @@ export class DynamicTag {
             case 'GSM':
                 this.loader.loadNextToLocation(GSMItem, this.elementRef);
                 break;
-            case 'Finances':
+            case 'FinancesMain':
                 this.loader.loadNextToLocation(FinancesItem, this.elementRef);
                 break;
-            case 'Setting':
+            case 'SystemSettings':
                 this.loader.loadNextToLocation(SettingItem, this.elementRef);
                 break;
         }
