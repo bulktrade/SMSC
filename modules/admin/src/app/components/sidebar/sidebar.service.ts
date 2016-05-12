@@ -1,4 +1,4 @@
-import {Component, Input} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {ROUTER_DIRECTIVES} from 'angular2/router';
 import {FaAngleLeft} from './directives/FaAngleLeft';
@@ -12,7 +12,7 @@ import {DynamicTag} from './directives/dynamictag';
 import {GSMItem} from './navigationitems/gsmitem/gsmitem';
 import {FinancesItem} from './navigationitems/financesitem/financesitem';
 import {SettingItem} from './navigationitems/settingitem/settingitem';
-import {NavigationConfig} from './decorators/NavigationConfig';
+import {Navigation} from '../navigation/navigation';
 
 declare var Reflect;
 
@@ -40,15 +40,7 @@ declare var Reflect;
     pipes: [TranslatePipe]
 })
 
-@NavigationConfig([
-    {name: 'Dashboard', component: DashboardItem},
-    {name: 'GSM', component: GSMItem},
-    {name: 'FinancesMain', component: FinancesItem},
-    {name: 'SystemSettings', component: SettingItem}
-])
-
 export class SidebarService {
-    @Input() showNav:boolean;
     @LocalStorage()
     public icnGsm:boolean;
     public items;
@@ -62,6 +54,9 @@ export class SidebarService {
     }
 
     listNavItems() {
-        return Reflect.getMetadata("NavigationConfig", SidebarService);
+        return Reflect.getMetadata('annotations', Navigation)
+            .filter(a => {
+                return a.constructor.name === 'RouteConfig';
+            }).pop().configs;
     }
 }

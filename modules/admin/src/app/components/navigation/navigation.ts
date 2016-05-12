@@ -1,15 +1,20 @@
 import {Component, OnInit} from 'angular2/core';
 import {NgClass} from 'angular2/common';
-import {RouteConfig, Router, ROUTER_DIRECTIVES, RouteRegistry} from 'angular2/router';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 import {SystemSettings} from '../systemsettings/systemsettings';
-import {Dashboard} from "../dashboard/dashboard";
+import {Dashboard} from '../dashboard/dashboard';
 import {GSM} from '../gsm/gsm';
 import {FinancesMain} from '../financesmain/financesmain';
 import {SidebarService} from '../sidebar/sidebar.service';
 import {AnimateBox} from '../sidebar/directives/animate';
-import {ShowMiniNav} from "../sidebar/ShowMiniNav";
+import {ShowMiniNav} from '../sidebar/ShowMiniNav';
+
+import {DashboardItem} from '../sidebar/navigationitems/dashboarditem/dashboarditem';
+import {GSMItem} from '../sidebar/navigationitems/gsmitem/gsmitem';
+import {FinancesItem} from '../sidebar/navigationitems/financesitem/financesitem';
+import {SettingItem} from '../sidebar/navigationitems/settingitem/settingitem';
 
 @Component({
     selector: 'navigation',
@@ -28,16 +33,16 @@ import {ShowMiniNav} from "../sidebar/ShowMiniNav";
 })
 
 @RouteConfig([
-    {path: '/dashboard/...', component: Dashboard, name: 'Dashboard', useAsDefault: true},
-    {path: '/gsm/...', component: GSM, name: 'GSM'},
-    {path: '/financesmain', component: FinancesMain, name: 'FinancesMain'},
-    {path: '/systemsettings', component: SystemSettings, name: 'SystemSettings'},
+    {path: '/dashboard/...', component: Dashboard, name: 'Dashboard', data: {component: DashboardItem}, useAsDefault: true},
+    {path: '/gsm/...', component: GSM, name: 'GSM', data: {component: GSMItem}},
+    {path: '/financesmain', component: FinancesMain, name: 'FinancesMain', data: {component: FinancesItem}},
+    {path: '/systemsettings', component: SystemSettings, name: 'SystemSettings', data: {component: SettingItem}}
 ])
 
 export class Navigation implements OnInit {
     content:string;
 
-    constructor(public router:Router, public translate:TranslateService, public showmininav: ShowMiniNav, private registry: RouteRegistry) {
+    constructor(public router:Router, public translate:TranslateService, public showmininav:ShowMiniNav) {
         this.content = localStorage.getItem('rightWrite');
     }
 
