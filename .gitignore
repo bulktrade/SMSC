@@ -1,6 +1,10 @@
+*.iml
 .idea
+modules/core/target
+modules/core/databases
 modules/.idea
 modules/admin/.idea
+modules/admin/target
 modules/admin/coverage
 modules/admin/node_modules
 modules/admin/src/bower_components

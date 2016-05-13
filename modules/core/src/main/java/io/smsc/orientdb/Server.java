@@ -92,7 +92,7 @@ public class Server {
 		cfg.security = new OServerSecurityConfiguration();
 		cfg.security.users = Arrays.asList(
 			new OServerUserConfiguration(
-				OServerConfiguration.SRV_ROOT_ADMIN,
+				OServerConfiguration.DEFAULT_ROOT_USER,
 				System.getProperty("ORIENTDB_ROOT_PASSWORD"),
 				"*"
 			)
