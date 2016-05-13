@@ -11,11 +11,6 @@ import {SidebarService} from '../sidebar/sidebar.service';
 import {AnimateBox} from '../sidebar/directives/animate';
 import {ShowMiniNav} from '../sidebar/ShowMiniNav';
 
-import {DashboardItem} from '../sidebar/navigationitems/dashboarditem/dashboarditem';
-import {GSMItem} from '../sidebar/navigationitems/gsmitem/gsmitem';
-import {FinancesItem} from '../sidebar/navigationitems/financesitem/financesitem';
-import {SettingItem} from '../sidebar/navigationitems/settingitem/settingitem';
-
 @Component({
     selector: 'navigation',
     providers: [ShowMiniNav],
@@ -33,10 +28,10 @@ import {SettingItem} from '../sidebar/navigationitems/settingitem/settingitem';
 })
 
 @RouteConfig([
-    {path: '/dashboard/...', component: Dashboard, name: 'Dashboard', data: {component: DashboardItem}, useAsDefault: true},
-    {path: '/gsm/...', component: GSM, name: 'GSM', data: {component: GSMItem}},
-    {path: '/financesmain', component: FinancesMain, name: 'FinancesMain', data: {component: FinancesItem}},
-    {path: '/systemsettings', component: SystemSettings, name: 'SystemSettings', data: {component: SettingItem}}
+    {path: '/dashboard/...', component: Dashboard, name: 'Dashboard', data: {showInSubNavigation: true}, useAsDefault: true},
+    {path: '/gsm/...', component: GSM, name: 'GSM', data: {showInSubNavigation: true}},
+    {path: '/financesmain', component: FinancesMain, name: 'FinancesMain', data: {showInSubNavigation: true}},
+    {path: '/systemsettings', component: SystemSettings, name: 'SystemSettings', data: {showInSubNavigation: true}}
 ])
 
 export class Navigation implements OnInit {

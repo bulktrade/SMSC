@@ -1,6 +1,6 @@
 <nav class="side-bar">
     <ul>
-        <sidebar-item dynamic-tag="{{item.name}}" class="clear" *ngFor="#item of items"></sidebar-item>
+        <sidebar-item class="clear" nameItem="{{data.name}}" showInSubNavigation="{{data.showInSubNavigation}}" *ngFor="#data of dataNavItems"></sidebar-item>
     </ul>
 </nav>
 

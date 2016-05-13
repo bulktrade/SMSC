@@ -6,12 +6,6 @@ import {ActiveItem} from './directives/active';
 import {NgClass, NgFor} from 'angular2/common';
 import {AnimateBox} from './directives/animate';
 import {SidebarItem} from './sidebaritem';
-import {LocalStorage} from '../../../assets/js/angular2-localstorage/WebStorage';
-import {DashboardItem} from './navigationitems/dashboarditem/dashboarditem';
-import {DynamicTag} from './directives/dynamictag';
-import {GSMItem} from './navigationitems/gsmitem/gsmitem';
-import {FinancesItem} from './navigationitems/financesitem/financesitem';
-import {SettingItem} from './navigationitems/settingitem/settingitem';
 import {Navigation} from '../navigation/navigation';
 
 declare var Reflect;
@@ -30,33 +24,37 @@ declare var Reflect;
         ActiveItem,
         FaAngleLeft,
         SidebarItem,
-        DashboardItem,
-        GSMItem,
-        FinancesItem,
-        SettingItem,
-        NgFor,
-        DynamicTag
+        NgFor
     ],
     pipes: [TranslatePipe]
 })
 
 export class SidebarService {
-    @LocalStorage()
-    public icnGsm:boolean;
-    public items;
+    public dataNavItems = [];
 
     constructor(public translate: TranslateService,
                 public sidebaritem: SidebarItem) {
     }
 
     ngOnInit() {
-        this.items = this.listNavItems();
+        this.dataNavItems = this.initDataNavItems();
     }
 
-    listNavItems() {
-        return Reflect.getMetadata('annotations', Navigation)
+    initDataNavItems() {
+        let result = [];
+
+        let decoratorValue = Reflect.getMetadata('annotations', Navigation)
             .filter(a => {
                 return a.constructor.name === 'RouteConfig';
             }).pop().configs;
+
+        decoratorValue.forEach((item) => {
+            result.push({
+                name: item.name,
+                showInSubNavigation: item.data.showInSubNavigation
+            });
+        });
+
+        return result;
     }
 }
