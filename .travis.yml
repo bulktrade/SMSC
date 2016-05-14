@@ -22,8 +22,8 @@ node_js:
   - "5"
 
 before_install:
-  - nvm install 5
-  - nvm use 5
+  - nvm install 6
+  - nvm use 6
 
 install:
   - cd modules/admin/ && npm install && cd src && ../node_modules/bower/bin/bower install && cd ..

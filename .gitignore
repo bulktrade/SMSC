@@ -1,6 +1,7 @@
 *.iml
 .idea
 modules/core/target
+/modules/admin/node_modules
 modules/core/databases
 modules/.idea
 modules/admin/.idea
@@ -12,3 +13,4 @@ modules/admin/src/.sass-cache
 modules/admin/src/assets/css/.sass-cache
 modules/admin/src/app/components/.sass-cache
 npm-debug.log
+modules/admin/dist

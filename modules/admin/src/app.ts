@@ -10,13 +10,13 @@ import {
     TranslateService
 } from 'ng2-translate/ng2-translate';
 import {provide} from 'angular2/core';
-import {ODatabaseService} from "./Service/OrientDB.service";
+import {ODatabaseService} from './Service/OrientDB.service';
 
 let appPromise = bootstrap(Authentication, [
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
     provide(TranslateLoader, {
-        useFactory: (http:Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
+        useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
         deps: [Http]
     }),
     provide(ODatabaseService, {

@@ -5,14 +5,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static org.junit.Assert.*;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 /**
  * Created by deacix on 08.02.16.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {Application.class})
+@WebAppConfiguration
 public class ServerTest {
 	@Test
 	public void testStart() throws Exception {

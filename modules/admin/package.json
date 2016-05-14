@@ -18,9 +18,9 @@
     "prebuild:dev": "npm run clean:dist",
     "build:dev": "webpack --progress --profile --colors --display-error-details --display-cached",
     "prebuild:prod": "npm run clean:dist",
-    "build:prod": "webpack --config webpack.prod.config.js --progress --profile --colors --display-error-details --display-cached  --bail",
+    "build:prod": "webpack --config webpack.prod.config.js --progress --profile --colors --display-error-details --display-cached --bail",
     "server": "npm run server:dev:hmr",
-    "server:dev": "webpack-dev-server --inline --progress --profile --colors --watch --display-error-details --display-cached  --content-base src/",
+    "server:dev": "webpack-dev-server --inline --progress --profile --colors --watch --display-error-details --display-cached --content-base src/",
     "server:dev:hmr": "npm run server:dev -- --hot",
     "server:prod": "http-server dist --cors",
     "webdriver:update": "webdriver-manager update",
@@ -48,20 +48,21 @@
     "poststart:dev": "npm run orientdb:dev:clean"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.14",
+    "angular2": "2.0.0-beta.17",
     "es6-promise": "^3.1.2",
     "es6-shim": "^0.35.0",
     "es7-reflect-metadata": "^1.6.0",
     "http-proxy": "^1.13.2",
     "ng2-translate": "^1.11.0",
     "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.2",
+    "rxjs": "5.0.0-beta.6",
     "systemjs": "0.19.6",
-    "zone.js": "0.6.6"
+    "zone.js": "0.6.12"
   },
   "devDependencies": {
     "bower": "^1.7.7",
-    "compression-webpack-plugin": "^0.3.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "compression-webpack-plugin": "^0.3.1",
     "concurrently": "^1.0.0",
     "copy-webpack-plugin": "^1.1.1",
     "css-loader": "^0.23.1",
