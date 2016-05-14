@@ -28,7 +28,12 @@ import {ShowMiniNav} from '../sidebar/ShowMiniNav';
 })
 
 @RouteConfig([
-    {path: '/dashboard/...', component: Dashboard, name: 'Dashboard', data: {showInSubNavigation: true, icon: 'icon-bulb'}, useAsDefault: true},
+    {path: '/dashboard/...', component: Dashboard, name: 'Dashboard',
+        data: {
+            showInSubNavigation: true,
+            icon: 'icon-bulb',
+            'fa-angle': '/icnDsh'
+        }, useAsDefault: true},
     {path: '/gsm/...', component: GSM, name: 'GSM', data: {showInSubNavigation: true, icon: 'icon-settings'}},
     {path: '/financesmain', component: FinancesMain, name: 'FinancesMain', data: {showInSubNavigation: true, icon: 'icon-wallet'}},
     {path: '/systemsettings', component: SystemSettings, name: 'SystemSettings', data: {showInSubNavigation: true, icon: 'icon-settings'}}

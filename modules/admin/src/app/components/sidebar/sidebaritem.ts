@@ -30,6 +30,7 @@ declare var Reflect;
 })
 export class SidebarItem {
     public dataNavItems = [];
+    public store = localStorage;
 
     @LocalStorage() public icnDsh:boolean;
     @LocalStorage() public icnGsm:boolean;
@@ -43,6 +44,7 @@ export class SidebarItem {
     }
 
     ngOnInit() {
+        console.log(this['icnDs']);
     }
 
     initDataNavItems() {
@@ -64,8 +66,12 @@ export class SidebarItem {
         return result;
     }
 
-    test(elem) {
-        console.log(elem);
+    getStorageItem(item) {
+        if (localStorage.getItem(item) === null) {
+            return undefined;
+        } else {
+            return localStorage.getItem(item) === 'true' ? true : false;
+        }
     }
 
 }

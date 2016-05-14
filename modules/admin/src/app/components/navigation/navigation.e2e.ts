@@ -9,7 +9,7 @@ describe('Navigation', () => {
         ptor = protractor.wrapDriver(browser.driver);
     });
 
-    it('should have a title', () => {
+    /*it('should have a title', () => {
         this.navigator.getRoot();
         let result = 'SMSC Admin';
         expect(this.navigator.getTitle()).toBe(result);
@@ -163,6 +163,6 @@ describe('Navigation', () => {
             .then(() => {
                 expect(this.navigator.getSystemsettings()).toBeTruthy();
             });
-    });
+    });*/
 
 });

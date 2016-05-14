@@ -32,8 +32,6 @@ export class SidebarService {
 
     constructor(public translate: TranslateService,
                 public sidebaritem: SidebarItem) {
-        console.log(this.sidebaritem.dataNavItems);
-
     }
 
     ngOnInit() {
