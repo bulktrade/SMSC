@@ -6,7 +6,6 @@ import {ActiveItem} from './directives/active';
 import {NgClass, NgFor} from 'angular2/common';
 import {AnimateBox} from './directives/animate';
 import {SidebarItem} from './sidebaritem';
-import {Navigation} from '../navigation/navigation';
 
 declare var Reflect;
 
@@ -30,31 +29,13 @@ declare var Reflect;
 })
 
 export class SidebarService {
-    public dataNavItems = [];
 
     constructor(public translate: TranslateService,
                 public sidebaritem: SidebarItem) {
+        console.log(this.sidebaritem.dataNavItems);
+
     }
 
     ngOnInit() {
-        this.dataNavItems = this.initDataNavItems();
-    }
-
-    initDataNavItems() {
-        let result = [];
-
-        let decoratorValue = Reflect.getMetadata('annotations', Navigation)
-            .filter(a => {
-                return a.constructor.name === 'RouteConfig';
-            }).pop().configs;
-
-        decoratorValue.forEach((item) => {
-            result.push({
-                name: item.name,
-                showInSubNavigation: item.data.showInSubNavigation
-            });
-        });
-
-        return result;
     }
 }
