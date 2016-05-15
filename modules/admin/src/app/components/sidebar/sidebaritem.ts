@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Injectable} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {AnimateBox} from './directives/animate';
@@ -28,6 +28,8 @@ declare var Reflect;
     ],
     pipes: [TranslatePipe]
 })
+
+@Injectable()
 export class SidebarItem {
     public dataNavItems = [];
     public store = localStorage;
