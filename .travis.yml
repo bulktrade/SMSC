@@ -37,10 +37,6 @@ before_script:
 after_success:
   - mvn clean cobertura:cobertura coveralls:report
 
-script:
-  - npm run test
-  - npm run e2e
-
 notifications:
   email:
     recipients:
