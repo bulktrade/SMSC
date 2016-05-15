@@ -2,7 +2,7 @@ import {
     it,
     inject,
     beforeEachProviders,
-} from '@angular/testing';
+} from '@angular/core/testing';
 import {MonitoringGrid} from './monitoring-grid';
 import {ElementRef} from '@angular/core';
 
