@@ -6,7 +6,7 @@ import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'login',
-    providers: [],
+    providers: [Router],
     templateUrl: 'app/components/login/login.html',
     styles: [
         require('./login.scss')

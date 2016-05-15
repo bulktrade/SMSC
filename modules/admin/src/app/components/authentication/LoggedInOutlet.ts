@@ -3,7 +3,8 @@ import {Router, RouterOutlet, ComponentInstruction} from '@angular/router-deprec
 import {LocalStorage} from "../login/localstorage";
 
 @Directive({
-  selector: 'router-outlet'
+  selector: 'router-outlet',
+  providers: [Router]
 })
 export class LoggedInRouterOutlet extends RouterOutlet {
   publicRoutes: any;

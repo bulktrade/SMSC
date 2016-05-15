@@ -13,7 +13,7 @@ import {ShowMiniNav} from '../sidebar/ShowMiniNav';
 
 @Component({
     selector: 'navigation',
-    providers: [ShowMiniNav],
+    providers: [ShowMiniNav, Router],
     templateUrl: 'app/components/navigation/navigation.html',
     styles: [
         require('../../../assets/css/style.scss')
