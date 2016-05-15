@@ -1,13 +1,14 @@
 {
-  "name": "src",
+  "name": "SMSC Admin",
   "homepage": "https://github.com/bulktrade/SMSC",
   "authors": [
-    "HVND <dimakuba124@gmail.com>"
+    "HVND <dimakuba124@gmail.com>",
+    "deacix <info@deacix.de>"
   ],
   "description": "",
   "main": "",
   "moduleType": [],
-  "license": "MIT",
+  "license": "APACHE",
   "private": true,
   "ignore": [
     "**/.*",
