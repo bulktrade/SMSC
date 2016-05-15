@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
-import {RouteConfig, Router, Location, Instruction} from 'angular2/router';
+import {Location} from 'angular2/platform/common';
+import {RouteConfig, Router, Instruction} from 'angular2/router';
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {Login} from '../login/login'
 import {Navigation} from '../navigation/navigation'

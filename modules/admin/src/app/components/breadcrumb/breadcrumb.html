@@ -9,7 +9,7 @@
             <a (click)="router.navigateByUrl('/')">{{'HOME' | translate}}</a>
             <i class="fa fa-circle"></i>
         </li>
-        <li class="childs" *ngFor="#child of breadcrumb.childs;">
+        <li class="childs" *ngFor="let child of breadcrumb.childs;">
             <a (click)="breadcrumb.navigateTo(child)">{{breadcrumb.getName(child) | uppercase | translate}}</a>
             <i class="fa fa-circle"></i>
         </li>

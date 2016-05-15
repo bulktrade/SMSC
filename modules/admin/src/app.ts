@@ -2,7 +2,7 @@ import {bootstrap} from 'angular2/platform/browser';
 import {HTTP_PROVIDERS, Http} from 'angular2/http';
 import {ROUTER_PROVIDERS} from 'angular2/router';
 import {Authentication} from './app/components/authentication/authentication';
-import {LocalStorageSubscriber} from './assets/js/angular2-localstorage/LocalStorageEmitter';
+import {LocalStorageSubscriber, LocalStorageService} from './assets/js/angular2-localstorage/LocalStorageEmitter';
 import {
     TranslateLoader,
     TranslateStaticLoader,
@@ -15,6 +15,7 @@ import {ODatabaseService} from './Service/OrientDB.service';
 let appPromise = bootstrap(Authentication, [
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
+    LocalStorageService,
     provide(TranslateLoader, {
         useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
         deps: [Http]
