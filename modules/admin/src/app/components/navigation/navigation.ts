@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgClass} from '@angular/common';
-import {RouteConfig, Router, ROUTER_DIRECTIVES} from '@angular/router';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 import {SystemSettings} from '../systemsettings/systemsettings';
