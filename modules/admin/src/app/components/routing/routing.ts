@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {RoutingGrid} from './directives/routing-grid';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {BreadcrumbService} from '../breadcrumb/breadcrumb.service';

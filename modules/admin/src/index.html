@@ -34,8 +34,13 @@
 		<script src="assets/js/system.js"></script>
 		<script>
 			System.config({
+                defaultJSExtensions: true,
 				packages: {
-					"/ng2-translate": {"defaultExtension": "js"}
+                    "/angular2": {"defaultExtension": false}
+				},
+				map: {
+					'ng2-translate': 'node_modules/ng2-translate',
+					'rxjs': 'node_modules/rxjs'
 				}
 			});
 		</script>

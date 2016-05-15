@@ -1,8 +1,8 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {AnimateBox} from './directives/animate';
-import {NgClass, NgFor} from 'angular2/common';
+import {NgClass, NgFor} from '@angular/common';
 import {ActiveItem} from './directives/active';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ShowMiniNav} from './ShowMiniNav';

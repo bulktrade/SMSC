@@ -2,10 +2,10 @@ import {
     it,
     inject,
     beforeEachProviders,
-} from 'angular2/testing';
+} from '@angular/testing';
 
 import {CustomersGrid} from './customers-grid';
-import {ElementRef, provide} from 'angular2/core';
+import {ElementRef, provide} from '@angular/core';
 import {ODatabaseService} from '../../../../Service/OrientDB.service';
 
 describe('CustomersGrid', () => {

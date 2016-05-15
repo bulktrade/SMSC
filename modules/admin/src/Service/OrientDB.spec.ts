@@ -1,7 +1,7 @@
 import {
     it,
     describe
-} from 'angular2/testing';
+} from '@angular/testing';
 
 // Load the implementations that should be tested
 import {ODatabaseService} from './OrientDB.service';

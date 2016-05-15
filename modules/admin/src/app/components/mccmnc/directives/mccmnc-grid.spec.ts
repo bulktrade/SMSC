@@ -2,8 +2,8 @@ import {
     it,
     inject,
     beforeEachProviders,
-} from 'angular2/testing';
-import {ElementRef} from 'angular2/core';
+} from '@angular/testing';
+import {ElementRef} from '@angular/core';
 import {MCCMNCGrid} from './mccmnc-grid';
 
 describe('MCC & MNC', () => {

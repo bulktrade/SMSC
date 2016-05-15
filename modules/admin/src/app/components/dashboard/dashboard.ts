@@ -1,8 +1,8 @@
-import {RouteConfig} from "angular2/router";
-import {Component} from "angular2/core";
+import {RouteConfig} from "@angular/router";
+import {Component} from "@angular/core";
 import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
 import {LoggedInRouterOutlet} from "../authentication/LoggedInOutlet";
-import {CORE_DIRECTIVES} from "angular2/common";
+import {CORE_DIRECTIVES} from "@angular/common";
 
 import {Customers} from "../customers/customers";
 import {Finances} from "../finances/finances";

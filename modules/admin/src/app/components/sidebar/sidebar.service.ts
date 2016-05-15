@@ -1,9 +1,9 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ActiveItem} from './directives/active';
-import {NgClass, NgFor} from 'angular2/common';
+import {NgClass, NgFor} from '@angular/common';
 import {AnimateBox} from './directives/animate';
 import {SidebarItem} from './sidebaritem';
 

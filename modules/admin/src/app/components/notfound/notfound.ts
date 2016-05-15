@@ -1,5 +1,5 @@
-import {Component, ViewEncapsulation} from 'angular2/core';
-import {ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component, ViewEncapsulation} from '@angular/core';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 
 @Component({
 	selector: 'notfound',

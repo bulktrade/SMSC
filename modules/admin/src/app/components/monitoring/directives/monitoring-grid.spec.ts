@@ -2,9 +2,9 @@ import {
     it,
     inject,
     beforeEachProviders,
-} from 'angular2/testing';
+} from '@angular/testing';
 import {MonitoringGrid} from './monitoring-grid';
-import {ElementRef} from 'angular2/core';
+import {ElementRef} from '@angular/core';
 
 describe('MonitoringGrid', () => {
     beforeEachProviders(() => [

@@ -1,5 +1,5 @@
 /// <reference path="../../../../assets/js/ExtJS.d.ts" />
-import {Directive, ElementRef} from 'angular2/core';
+import {Directive, ElementRef} from '@angular/core';
 import {ODatabaseService} from '../../../../Service/OrientDB.service';
 declare var sprintf: any;
 

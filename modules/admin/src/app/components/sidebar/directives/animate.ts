@@ -1,5 +1,5 @@
-import {Directive, ElementRef} from 'angular2/core';
-import {AnimationBuilder} from 'angular2/animate';
+import {Directive, ElementRef} from '@angular/core';
+import {AnimationBuilder} from '@angular/platform-browser/src/animate/animation_builder';
 
 @Directive({
     selector : '[animate-box]',

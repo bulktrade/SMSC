@@ -1,5 +1,5 @@
-import {Directive, Attribute, DynamicComponentLoader, ViewContainerRef} from 'angular2/core';
-import {Router, RouterOutlet, ComponentInstruction} from 'angular2/router';
+import {Directive, Attribute, DynamicComponentLoader, ViewContainerRef} from '@angular/core';
+import {Router, RouterOutlet, ComponentInstruction} from '@angular/router';
 import {LocalStorage} from "../login/localstorage";
 
 @Directive({

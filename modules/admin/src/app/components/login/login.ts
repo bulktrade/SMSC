@@ -1,7 +1,7 @@
-import {Component} from 'angular2/core';
+import {Component} from '@angular/core';
 import {ODatabaseService} from './../../../Service/OrientDB.service';
-import {Router, RouterLink, ROUTER_DIRECTIVES} from 'angular2/router';
-import {CORE_DIRECTIVES, FORM_DIRECTIVES} from 'angular2/common';
+import {Router, RouterLink, ROUTER_DIRECTIVES} from '@angular/router';
+import {CORE_DIRECTIVES, FORM_DIRECTIVES} from '@angular/common';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 @Component({

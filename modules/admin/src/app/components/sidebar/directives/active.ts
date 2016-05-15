@@ -1,6 +1,6 @@
-import {Directive} from 'angular2/core';
-import {Location} from 'angular2/platform/common';
-import {Router} from 'angular2/router';
+import {Directive} from '@angular/core';
+import {Location} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Directive({
     selector: '[active-item]',

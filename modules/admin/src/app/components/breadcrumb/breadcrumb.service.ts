@@ -1,6 +1,6 @@
-import {Component, Injectable} from 'angular2/core';
+import {Component, Injectable} from '@angular/core';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {Breadcrumb} from './breadcrumb';
 @Component({
     selector: 'breadcrumb',

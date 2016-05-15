@@ -1,6 +1,6 @@
 'use strict';
 import 'rxjs/add/operator/map';
-import {Injectable} from 'angular2/core';
+import {Injectable} from '@angular/core';
 import {Request} from './Request';
 import {Observable} from 'rxjs/Rx';
 

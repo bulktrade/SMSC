@@ -1,6 +1,6 @@
-import {Component} from 'angular2/core';
-import {Location} from 'angular2/platform/common';
-import {RouteConfig, Router, Instruction} from 'angular2/router';
+import {Component} from '@angular/core';
+import {Location} from '@angular/common';
+import {Routes, Router} from '@angular/router';
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {Login} from '../login/login'
 import {Navigation} from '../navigation/navigation'
@@ -13,11 +13,12 @@ import {NotFound} from '../notfound/notfound'
     directives: [LoggedInRouterOutlet],
     pipes: []
 })
-@RouteConfig([
-    { path: '/', redirectTo: ['/Login'] },
-    { path: '/login', component: Login, as: 'Login'},
-    { path: '/navigation/...', component: Navigation, as: 'Navigation'},
-    { path: '/notfound', component: NotFound, as: 'NotFound'},
+@Routes([
+    // @todo Fix it
+    // { path: '/', redirectTo: ['/Login'] },
+    { path: '/login', component: Login },
+    { path: '/navigation/...', component: Navigation },
+    { path: '/notfound', component: NotFound },
 ])
 
 export class Authentication {
@@ -25,12 +26,13 @@ export class Authentication {
         public router: Router,
         public location: Location
     ) {
-        router.recognize(location.path()).then((instruction: Instruction) => {
-            if (!instruction) {
-                router.recognize('/notfound').then((instruction: Instruction) => {
-                    router.navigateByInstruction(instruction, true);
-                });
-            }
-        });
+        // @todo Fix it
+        // router.recognize(location.path()).then((instruction: Instruction) => {
+        //     if (!instruction) {
+        //         router.recognize('/notfound').then((instruction: Instruction) => {
+        //             router.navigateByInstruction(instruction, true);
+        //         });
+        //     }
+        // });
     }
 }

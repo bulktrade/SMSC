@@ -1,6 +1,6 @@
-import {Component, OnInit} from 'angular2/core';
-import {NgClass} from 'angular2/common';
-import {RouteConfig, Router, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component, OnInit} from '@angular/core';
+import {NgClass} from '@angular/common';
+import {RouteConfig, Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 
 import {SystemSettings} from '../systemsettings/systemsettings';
