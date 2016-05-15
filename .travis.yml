@@ -9,7 +9,7 @@ cache:
   docker: true
   directories:
     - modules/admin/node_modules
-#    - modules/admin/src/bower_components
+    - modules/admin/src/bower_components
     - .autoconf
     - $HOME/.m2
 
@@ -24,6 +24,7 @@ node_js:
 before_install:
   - nvm install 6
   - nvm use 6
+  - npm install -g bower
 
 before_script:
   - export CHROME_BIN=chromium-browser
