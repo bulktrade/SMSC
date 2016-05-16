@@ -3,16 +3,16 @@
  */
 import { bootstrap } from '@angular/platform-browser-dynamic';
 /*
- * Platform and Environment
- * our providers/directives/pipes
- */
+* Platform and Environment
+* our providers/directives/pipes
+*/
 import { DIRECTIVES, PIPES, PROVIDERS } from './platform/browser';
 import { ENV_PROVIDERS } from './platform/environment';
 
 /*
- * App Component
- * our top level component that holds all of our components
- */
+* App Component
+* our top level component that holds all of our components
+*/
 import { App, APP_PROVIDERS } from './app';
 
 /*
@@ -21,16 +21,20 @@ import { App, APP_PROVIDERS } from './app';
  */
 export function main(initialHmrState?: any): Promise<any> {
 
-    return bootstrap(App, [
-        ...PROVIDERS,
-        ...ENV_PROVIDERS,
-        ...DIRECTIVES,
-        ...PIPES,
-        ...APP_PROVIDERS
-    ])
-        .catch(err => console.error(err));
+  return bootstrap(App, [
+    ...PROVIDERS,
+    ...ENV_PROVIDERS,
+    ...DIRECTIVES,
+    ...PIPES,
+    ...APP_PROVIDERS
+  ])
+  .catch(err => console.error(err));
 
 }
+
+
+
+
 
 /*
  * Vendors
@@ -45,10 +49,10 @@ export function main(initialHmrState?: any): Promise<any> {
  * experimental version by @gdi2290
  */
 if ('development' === ENV && HMR === true) {
-    // activate hot module reload
-    let ngHmr = require('angular2-hmr');
-    ngHmr.hotModuleReplacement(main, module);
+  // activate hot module reload
+  let ngHmr = require('angular2-hmr');
+  ngHmr.hotModuleReplacement(main, module);
 } else {
-    // bootstrap when document is ready
-    document.addEventListener('DOMContentLoaded', () => main());
+  // bootstrap when document is ready
+  document.addEventListener('DOMContentLoaded', () => main());
 }

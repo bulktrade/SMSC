@@ -1,4 +1,3 @@
-/// <reference path="browser/ambient/ExtJS/index.d.ts" />
 /// <reference path="browser/ambient/angular-protractor/index.d.ts" />
 /// <reference path="browser/ambient/core-js/index.d.ts" />
 /// <reference path="browser/ambient/hammerjs/index.d.ts" />

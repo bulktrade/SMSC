@@ -24,11 +24,10 @@ exports.config = {
     jasmineNodeOpts: {
         showTiming: true,
         showColors: true,
-        isVerbose: true,
-        includeStackTrace: true,
+        isVerbose: false,
+        includeStackTrace: false,
         defaultTimeoutInterval: 400000
     },
-
     directConnect: true,
 
     multiCapabilities: [

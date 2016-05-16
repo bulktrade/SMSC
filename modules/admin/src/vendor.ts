@@ -9,7 +9,7 @@ import '@angular/platform-browser-dynamic';
 import '@angular/core';
 import '@angular/common';
 import '@angular/http';
-import '@angular/router';
+import '@angular/router-deprecated';
 
 // RxJS
 import 'rxjs/add/operator/map';
@@ -27,8 +27,6 @@ import '@angular2-material/progress-bar';
 import '@angular2-material/progress-circle';
 import '@angular2-material/toolbar';
 // look in src/platform/angular2-material2 and src/platform/providers
-
-import 'reflect-metadata';
 
 if ('production' === ENV) {
   // Production
