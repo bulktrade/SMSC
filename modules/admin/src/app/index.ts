@@ -2,23 +2,40 @@
 export * from './app.component';
 export * from './app.service';
 
-import { provide } from '@angular/core';
-import { Http } from '@angular/http';
-
 import { AppState } from './app.service';
 
-// https://github.com/ocombe/ng2-translate
-import {
-    TranslateService,
-    TranslateLoader,
-    TranslateStaticLoader
-} from 'ng2-translate/ng2-translate';
+import { DIRECTIVES, PIPES, PROVIDERS } from '../platform/browser';
+import { ENV_PROVIDERS } from '../platform/environment';
 
+import { HTTP_PROVIDERS, Http } from '@angular/http';
+import { ROUTER_PROVIDERS } from '@angular/router';
+import {
+    TranslateLoader,
+    TranslateStaticLoader,
+    TRANSLATE_PROVIDERS,
+    TranslateService
+} from 'ng2-translate/ng2-translate';
+import { provide } from '@angular/core';
+// import { ODatabaseService } from './orientdb/orientdb.service';
+
+// Application wide providers
+// @Injectable()
 export const APP_PROVIDERS = [
-    AppState,
+  AppState,
+    HTTP_PROVIDERS,
+    ROUTER_PROVIDERS,
     provide(TranslateLoader, {
         useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
         deps: [Http]
     }),
-    TranslateService
+    /*provide(ODatabaseService, {
+        useFactory: () => new ODatabaseService('http://localhost:3000/orientdb/smsc'),
+    }),*/
+    TRANSLATE_PROVIDERS,
+    TranslateService,
+    ...PROVIDERS,
+    ...ENV_PROVIDERS,
+    ...DIRECTIVES,
+    ...PIPES,
+    // ...APP_PROVIDERS
 ];

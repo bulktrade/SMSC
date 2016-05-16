@@ -139,6 +139,12 @@ module.exports = {
        */
       { test: /\.css$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] },
 
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loaders: ['raw-loader', 'sass-loader']
+      },
+
       /**
        * Raw loader support for *.html
        * Returns file content as string

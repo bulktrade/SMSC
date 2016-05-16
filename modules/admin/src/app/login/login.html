@@ -1,0 +1,45 @@
+<div class="row bs-reset">
+    <div class="col-md-6 login-container bs-reset">
+        <div class="login-logo login-6">SMSC</div>
+        <div class="login-content">
+            <h1 class="title">SMSC Admin Login</h1>
+            <p class="description">Lorem ipsum dolor sit amet, coectetuer adipiscing elit sed diam nonummy et nibh
+                euismod aliquam erat volutpat. Lorem ipsum dolor sit amet, coectetuer adipiscing.</p>
+            <form class="login-form" role="form" (submit)="authentication(login, pwd);" #mainForm="ngForm" novalidate>
+                <div [hidden]="!onSubmitBtn" class="alert alert-danger warn-sessage">
+                    <span>Enter any username and password. </span>
+                </div>
+                <div *ngIf="notfound" class="alert alert-warning user-not-found">
+                    <div class="close-btn fa fa-close" (click)="notfound=false"></div>
+                    <span>User with this data not found! </span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <input ngControl="login" #login="ngForm"
+                               class="username form-control form-control-solid placeholder-no-fix form-group"
+                               type="text" autocomplete="off" placeholder="Username" name="username" required/></div>
+                    <div class="col-xs-6">
+                        <input ngControl="pwd" #pwd="ngForm"
+                               class="password form-control form-control-solid placeholder-no-fix form-group"
+                               type="password" autocomplete="off" placeholder="Password" name="password" required/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="rem-password">
+                            <input type="checkbox" class="rem-checkbox" id="check"/>
+                            <label class="remember" for="check">Remember Me<span></span></label>
+                        </div>
+                        <button [disabled]="!mainForm.form.valid" class="btn blue right" type="submit">Log In</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6 bs-reset">
+        <div class="login-bg"></div>
+        <div class="backstretch">
+            <img src="./../../assets/img/bg1.jpg" class="img-responsive img-fluid" width="992" alt="Login bg">
+        </div>
+    </div>
+</div>

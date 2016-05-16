@@ -5,7 +5,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
     selector: 'notfound',
     templateUrl: 'app/notfound/notfound.html',
     styles: [
-        require('./notfound.scss')
+        // require('./notfound.scss')
     ],
     encapsulation: ViewEncapsulation.None,
     providers: [],

@@ -1,18 +1,46 @@
 /*
+import {bootstrap} from '@angular/platform-browser-dynamic';
+import {App} from './app/app.component';
+import {APP_PROVIDERS} from "./app/index";
+
+// let appPromise = bootstrap(Authentication, [
+
+export function main(initialHmrState?: any): Promise<any> {
+
+  return bootstrap(App, APP_PROVIDERS)
+      .catch(err => console.error(err));
+}
+
+
+
+// LocalStorageSubscriber(appPromise);
+
+
+if ('development' === ENV && HMR === true) {
+  // activate hot module reload
+  let ngHmr = require('angular2-hmr');
+  ngHmr.hotModuleReplacement(main, module);
+} else {
+  // bootstrap when document is ready
+  document.addEventListener('DOMContentLoaded', () => main());
+}
+*/
+
+/*
  * Providers provided by Angular
  */
 import { bootstrap } from '@angular/platform-browser-dynamic';
 /*
-* Platform and Environment
-* our providers/directives/pipes
-*/
+ * Platform and Environment
+ * our providers/directives/pipes
+ */
 import { DIRECTIVES, PIPES, PROVIDERS } from './platform/browser';
 import { ENV_PROVIDERS } from './platform/environment';
 
 /*
-* App Component
-* our top level component that holds all of our components
-*/
+ * App Component
+ * our top level component that holds all of our components
+ */
 import { App, APP_PROVIDERS } from './app';
 
 /*
@@ -28,7 +56,7 @@ export function main(initialHmrState?: any): Promise<any> {
     ...PIPES,
     ...APP_PROVIDERS
   ])
-  .catch(err => console.error(err));
+      .catch(err => console.error(err));
 
 }
 
