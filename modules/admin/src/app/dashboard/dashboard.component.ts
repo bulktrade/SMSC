@@ -1,7 +1,6 @@
-import {RouteConfig} from "@angular/router-deprecated";
+import {Routes, ROUTER_DIRECTIVES} from "@angular/router";
 import {Component} from "@angular/core";
 import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
-import {LoggedInRouterOutlet} from "../app.router-outlet";
 import {CORE_DIRECTIVES} from "@angular/common";
 
 import {Customers} from "../customers/customers.component";
@@ -16,11 +15,11 @@ import {SMSTraffic} from "../smstraffic/smstraffic.component";
     styles: [
         require('./dashboard.scss')
     ],
-    directives: [LoggedInRouterOutlet, CORE_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES],
     pipes: [TranslatePipe]
 })
 
-@RouteConfig([
+@Routes([
     {path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic', useAsDefault: true},
     {path: '/dlrtraffic', component: DLRTraffic, name: 'DLRTraffic'},
     {path: '/finances', component: Finances, name: 'Finances'},

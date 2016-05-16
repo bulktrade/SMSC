@@ -2,8 +2,8 @@
  * Angular 2 decorators and services
  */
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
-// import { AppRouterOutlet } from './app.router-outlet';
+import { Routes, Router } from '@angular/router';
+import { AppRouterOutlet } from './app.router-outlet';
 
 import { Location } from '@angular/common';
 
@@ -18,7 +18,7 @@ import { NotFound } from './notfound';
     selector: 'app',
     pipes: [],
     providers: [],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [AppRouterOutlet],
     encapsulation: ViewEncapsulation.None,
     styles: [
         require('./app.scss')

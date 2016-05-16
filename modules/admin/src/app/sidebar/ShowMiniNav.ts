@@ -1,4 +1,4 @@
-import {LocalStorage} from "../../../assets/js/angular2-localstorage/WebStorage";
+import {LocalStorage} from "../../assets/js/angular2-localstorage/WebStorage";
 
 // save state short navigation after reload page
 export class ShowMiniNav {

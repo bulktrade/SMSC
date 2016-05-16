@@ -1,7 +1,6 @@
-import {RouteConfig} from "@angular/router-deprecated";
+import {Routes, ROUTER_DIRECTIVES} from "@angular/router";
 import {Component} from "@angular/core";
 import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
-import {LoggedInRouterOutlet} from "../app.router-outlet";
 import {CORE_DIRECTIVES} from "@angular/common";
 
 import {Monitoring} from '../monitoring/monitoring.component';
@@ -19,11 +18,11 @@ import {API} from '../api/api.component';
     styles: [
         require('./gsm.scss')
     ],
-    directives: [LoggedInRouterOutlet, CORE_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES],
     pipes: [TranslatePipe]
 })
 
-@RouteConfig([
+@Routes([
     {path: '/monitoring', component: Monitoring, name: 'Monitoring', useAsDefault: true},
     {path: '/carriers', component: Carriers, name: 'Carriers'},
     {path: '/routing', component: Routing, name: 'Routing'},

@@ -31,7 +31,8 @@ export class Login {
                         if (typeof(Storage) !== 'undefined') {
                             localStorage.setItem('rightWrite', 'true');
                         }
-                      //  this.router.parent.navigate(['Navigation']);
+
+                        this.router.navigateByUrl('/navigation');
                     }
                 )
                 .catch(

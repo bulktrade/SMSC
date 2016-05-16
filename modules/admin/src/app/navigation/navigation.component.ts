@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 
 import { SystemSettings } from '../systemsettings/systemsettings.component';
@@ -27,7 +27,7 @@ import { ShowMiniNav } from '../sidebar/ShowMiniNav';
     pipes: [TranslatePipe]
 })
 
-@RouteConfig([
+@Routes([
     {
         path: '/dashboard/...', component: Dashboard, name: 'Dashboard',
         data: {
@@ -61,7 +61,7 @@ export class Navigation implements OnInit {
 
     logout() {
         localStorage.removeItem('rightWrite');
-        this.router.parent.navigate(['Login']);
+        this.router.navigateByUrl('/login');
     }
 
     ngOnInit() {
