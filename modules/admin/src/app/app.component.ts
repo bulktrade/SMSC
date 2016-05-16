@@ -2,7 +2,7 @@
  * Angular 2 decorators and services
  */
 import { Component, ViewEncapsulation } from '@angular/core';
-import { Routes, Router } from '@angular/router';
+import { Routes, Router, ROUTER_DIRECTIVES } from '@angular/router';
 // import { AppRouterOutlet } from './app.router-outlet';
 
 import { Location } from '@angular/common';
@@ -18,7 +18,7 @@ import { NotFound } from './notfound';
     selector: 'app',
     pipes: [],
     providers: [],
-    directives: [],
+    directives: [ROUTER_DIRECTIVES],
     encapsulation: ViewEncapsulation.None,
     styles: [
         require('./app.scss')
@@ -26,23 +26,16 @@ import { NotFound } from './notfound';
     template: '<router-outlet></router-outlet>'
 })
 @Routes([
-    { path: '/', component: Login },
+    { path: '', component: Login },
     { path: '/login', component: Login },
     // { path: '/navigation/...', component: Navigation, as: 'Navigation' },
-    { path: '/notfound', component: NotFound }
+    { path: '/notfound', component: NotFound },
+    { path: '*', component: NotFound }
 ])
 export class App {
     constructor(public router: Router, public location: Location) {
-        // router.recognize(location.path()).then((instruction: Instruction) => {
-        //     if (!instruction) {
-        //         router.recognize('/notfound').then((instruction: Instruction) => {
-        //             router.navigateByInstruction(instruction, true);
-        //         });
-        //     }
-        // });
     }
 
     ngOnInit() {
-        this.router.navigate(['/']);
     }
 }
