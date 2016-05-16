@@ -6,7 +6,7 @@ import {NgClass, NgFor} from '@angular/common';
 import {ActiveItem} from './directives/active';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ShowMiniNav} from './ShowMiniNav';
-import {LocalStorage} from '../../../assets/js/angular2-localstorage/WebStorage';
+import {LocalStorage} from '../../assets/js/angular2-localstorage/WebStorage';
 import {Navigation} from "../navigation/navigation.component";
 
 declare var Reflect;

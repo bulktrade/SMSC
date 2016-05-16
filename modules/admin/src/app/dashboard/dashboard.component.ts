@@ -1,7 +1,7 @@
 import {RouteConfig} from "@angular/router-deprecated";
 import {Component} from "@angular/core";
 import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
-import {LoggedInRouterOutlet} from "../authentication/LoggedInOutlet";
+import {LoggedInRouterOutlet} from "../app.router-outlet";
 import {CORE_DIRECTIVES} from "@angular/common";
 
 import {Customers} from "../customers/customers.component";
