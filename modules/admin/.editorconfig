@@ -1,29 +1,12 @@
+# @AngularClass
 # http://editorconfig.org
-<<<<<<< HEAD
-=======
-<<<<<<< ea1acb396c6b8ac8b776b1a1ae28633e0c834a69
->>>>>>> Added HVND
-root = true
-
-[*]
-indent_style = space
-indent_size = 2
-charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
-
-[*.md]
-trim_trailing_whitespace = false
-<<<<<<< HEAD
-=======
-=======
 
 root = true
 
 [*]
 charset = utf-8
 indent_style = space
-indent_size = 2
+indent_size = 4
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
@@ -31,5 +14,3 @@ trim_trailing_whitespace = true
 [*.md]
 insert_final_newline = false
 trim_trailing_whitespace = false
->>>>>>> Added HVND
->>>>>>> Added HVND

@@ -127,6 +127,9 @@
                             <directory>${basedir}/node_modules</directory>
                         </fileset>
                         <fileset>
+                            <directory>${basedir}/typings</directory>
+                        </fileset>
+                        <fileset>
                             <directory>${basedir}/dist</directory>
                         </fileset>
                         <fileset>
