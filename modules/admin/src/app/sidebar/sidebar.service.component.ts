@@ -33,7 +33,9 @@ export class SidebarService {
     public dataNavItems = [];
 
     constructor(public translate: TranslateService) {
-        this.dataNavItems = this.initDataNavItems();
+        this.initDataNavItems();
+
+        console.log(this.dataNavItems);
     }
 
     ngOnInit() {
@@ -41,20 +43,36 @@ export class SidebarService {
 
     initDataNavItems() {
         let result = [];
+        let decoratorValue;
 
-        let decoratorValue = Reflect.getMetadata('annotations', Navigation)
+        this.getRouteConfig(Navigation).forEach((item) => {
+            if (item.path.substring(item.path.length-3, item.path.length) === '...') {
+                decoratorValue = this.getRouteConfig(item.component);
+                
+                decoratorValue.forEach((subItem) => {
+                    result.push(subItem.name);
+                })
+            }
+
+            if (result.length === 0) {
+                result = null;
+            }
+
+            this.dataNavItems.push({
+                name: item.name,
+                icon: item.data.icon,
+                submenu: result,
+                showInSubNavigation: item.data.showInSubNavigation
+            });
+
+            result = [];
+        });
+    }
+
+    getRouteConfig(component) {
+        return Reflect.getMetadata('annotations', component)
             .filter(a => {
                 return a.constructor.name === 'RouteConfig';
             }).pop().configs;
-
-        decoratorValue.forEach((item) => {
-            result.push({
-                name: item.name,
-                icon: item.data.icon,
-                showInSubNavigation: item.data.showInSubNavigation
-            });
-        });
-
-        return result;
     }
 }

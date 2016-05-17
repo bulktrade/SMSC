@@ -38,10 +38,10 @@ export class SidebarItem {
 
     @Input('icon') public icon;
     @Input('nameItem') public nameItem;
+    @Input('submenu') public submenu;
     @Input('showInSubNavigation') public showInSubNavigation;
     
     constructor(public translate:TranslateService, public showmininav:ShowMiniNav) {
-        
     }
 
     ngOnInit() {

@@ -9,7 +9,7 @@ export class AnimateBox {
     constructor(private _ab: AnimationBuilder, private _e: ElementRef) {
     }
 
-    toggle(isVisible: boolean = false, showNav: boolean, navHeight: number) {
+    toggle(isVisible: boolean, showNav: boolean, navHeight?: number) {
         let animation = this._ab.css();
         let thisElement = this._e.nativeElement.childNodes[3];
         let heightChild = thisElement.childNodes[1].clientHeight;
