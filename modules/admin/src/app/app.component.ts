@@ -5,26 +5,24 @@ import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 import {Location} from '@angular/common';
 
 import { AppState } from './app.service';
-import {RouterActive} from "./example/router-active/router-active.directive";
 import {AppRouterOutlet} from "./app.router-outlet";
 import {NotFound} from "./notfound/notfound.component";
 import {Login} from "./login/login.component";
+import {Navigation} from "./navigation/navigation.component";
 
 @Component({
     selector: 'app',
     pipes: [TranslatePipe],
     providers: [],
-    directives: [RouterActive],
-    template: '<router-outlet></router-outlet>',
-    styles: [
-        require('normalize.css')
-    ]
+    directives: [AppRouterOutlet],
+    template: '<route-outlet></route-outlet>',
+    styles: []
 })
 @RouteConfig([
-    { path: '/', redirectTo: ['/Login'] },
-    { path: '/login', component: Login, as: 'Login'},
-    // { path: '/navigation/...', component: Navigation, as: 'Navigation'},
-    {path: '/notfound', component: NotFound, as: 'NotFound', useAsDefault: true}
+    // { path: '/', redirectTo: ['/Login'] },
+    { path: '/login', component: Login, name: 'Login', useAsDefault: true},
+    { path: '/navigation/...', component: Navigation, name: 'Navigation'},
+    {path: '/notfound', component: NotFound, name: 'NotFound'}
 ])
 export class App {
 
@@ -33,7 +31,6 @@ export class App {
         router.recognize(location.path()).then((instruction: Instruction) => {
             if (!instruction) {
                 router.recognize('/notfound').then((instruction: Instruction) => {
-                    console.log('asd');
                     router.navigateByInstruction(instruction, true);
                 });
             }

@@ -1,52 +1,55 @@
-<!DOCTYPE html>
-<html lang="">
+<html>
 <head>
-
+  <meta charset=UTF-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title><%= webpackConfig.metadata.title %></title>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="<%= webpackConfig.metadata.title %>">
-
-  <!-- use http://www.favicon-generator.org/ to replace files in public/icon-->
-  <link rel="apple-touch-icon" sizes="57x57" href="/assets/icon/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/assets/icon/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/assets/icon/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/assets/icon/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/assets/icon/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/assets/icon/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/assets/icon/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/assets/icon/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="/assets/icon/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="/assets/icon/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
-  <link rel="manifest" href="/assets/manifest.json">
-  <meta name="msapplication-TileColor" content="#00bcd4">
-  <meta name="msapplication-TileImage" content="/assets/icon/ms-icon-144x144.png">
-  <meta name="theme-color" content="#00bcd4">
-  <!-- end favicon -->
+  <link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
+  <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../bower_components/simple-line-icons/css/simple-line-icons.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/js/extjs-6.0.0/build/classic/theme-neptune/resources/theme-neptune-all.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/css/spinkit/cube-grid.css">
 
   <!-- base url -->
   <base href="<%= webpackConfig.metadata.baseUrl %>">
-
-
 </head>
-
 <body>
-
   <app>
-    Loading...
+    <div class="sk-cube-grid">
+      <div class="sk-cube sk-cube1"></div>
+      <div class="sk-cube sk-cube2"></div>
+      <div class="sk-cube sk-cube3"></div>
+      <div class="sk-cube sk-cube4"></div>
+      <div class="sk-cube sk-cube5"></div>
+      <div class="sk-cube sk-cube6"></div>
+      <div class="sk-cube sk-cube7"></div>
+      <div class="sk-cube sk-cube8"></div>
+      <div class="sk-cube sk-cube9"></div>
+    </div>
   </app>
+  <script src="assets/js/extjs-6.0.0/build/ext-all-debug.js"></script>
+  <script src="assets/js/extjs-6.0.0/build/classic/theme-neptune/theme-neptune.js"></script>
+  <script src="assets/js/sprintf.js"></script>
+  <script src="assets/js/system.js"></script>
+  <script>
+    System.config({
+      transpiler: 'typescript',
+      typescriptOptions: {emitDecoratorMetadata: true},
+      map: {
+        'app' : 'app',
+        'rxjs': 'node_modules/rxjs',
+        '@angular' : 'node_modules/@angular'
+      },
+      packages: {
+        "/ng2-translate": {"defaultExtension": "js"}
+      }
+    });
+  </script>
+  <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->
 
   <% if (webpackConfig.metadata.ENV === 'development') { %>
   <!-- Webpack Dev Server reload -->
   <script src="/webpack-dev-server.js"></script>
   <% } %>
-
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </body>
 </html>

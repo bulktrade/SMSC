@@ -25,7 +25,7 @@ if ('development' === ENV && HMR === true) {
   document.addEventListener('DOMContentLoaded', () => main());
 }
 */
-
+/// <reference path="./assets/js/ExtJS.d.ts" />
 /*
  * Providers provided by Angular
  */
@@ -50,18 +50,11 @@ import { App, APP_PROVIDERS } from './app';
 export function main(initialHmrState?: any): Promise<any> {
 
   return bootstrap(App, [
-    ...PROVIDERS,
-    ...ENV_PROVIDERS,
-    ...DIRECTIVES,
-    ...PIPES,
     ...APP_PROVIDERS
   ])
       .catch(err => console.error(err));
 
 }
-
-
-
 
 
 /*

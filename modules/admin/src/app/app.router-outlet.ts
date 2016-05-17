@@ -3,7 +3,7 @@ import { Directive, Attribute, DynamicComponentLoader, ViewContainerRef } from '
 import { Router, RouterOutlet, ComponentInstruction } from '@angular/router-deprecated';
 
 @Directive({
-    selector: 'router-outlet',
+    selector: 'route-outlet',
     providers: []
 })
 @Injectable()
@@ -23,11 +23,11 @@ export class AppRouterOutlet extends RouterOutlet {
     }
 
     activate(instruction: ComponentInstruction) {
-        let url = instruction.urlPath;
+       /* let url = instruction.urlPath;
 
         if (!this.publicRoutes[url]) {
             this.parentRouter.navigateByUrl('/login');
-        }
+        }*/
 
         return super.activate(instruction);
     }
