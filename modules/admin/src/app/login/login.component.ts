@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-// import { ODatabaseService } from '../orientdb/orientdb.service';
+import { ODatabaseService } from '../orientdb/orientdb.service';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
@@ -12,34 +12,30 @@ import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
     styles: [
         require('./login.scss')
     ],
-    // directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, /*ROUTER_DIRECTIVES*/],
+    directives: [CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
     pipes: [TranslatePipe]
 })
 export class Login implements OnInit {
     notfound: boolean = false;
     onSubmitBtn: boolean = false;
 
-    // constructor(public router: Router){
-                // public translate?: TranslateService) {
-                // public database?: ODatabaseService
-    // }
+    constructor(public router: Router,
+                public translate?: TranslateService,
+                public database?: ODatabaseService) {
+    }
 
     ngOnInit() {
     }
 
-    constructor(public router: Router,
-                public location: Location) {}
-
     authentication(login, password) {
-        this.router.navigateByUrl('/navigation');
-        /*if (login.valid && password.valid) {
+        if (login.valid && password.valid) {
             this.database.open(login.value, password.value)
                 .then(
                     (res) => {
+                        console.log('Result: ', res);
                         if (typeof(Storage) !== 'undefined') {
                             localStorage.setItem('rightWrite', 'true');
                         }
-
                         this.router.navigateByUrl('/navigation');
                     }
                 )
@@ -52,6 +48,6 @@ export class Login implements OnInit {
         } else {
             this.notfound = false;
             this.onSubmitBtn = true;
-        }*/
+        }
     }
 }
