@@ -23,13 +23,13 @@ import {API} from './api/api.component';
 })
 
 @RouteConfig([
-    {path: '/monitoring', component: Monitoring, name: 'Monitoring', useAsDefault: true},
-    {path: '/carriers', component: Carriers, name: 'Carriers'},
-    {path: '/routing', component: Routing, name: 'Routing'},
-    {path: '/prices', component: Prices, name: 'Prices'},
-    {path: '/mccmnc', component: MCCMNC, name: 'MCCMNC'},
-    {path: '/smpp', component: SMPP, name: 'SMPP'},
-    {path: '/api', component: API, name: 'API'},
+    {path: '/monitoring', component: Monitoring, name: 'Monitoring', data: {icon: 'fa-sitemap'}, useAsDefault: true},
+    {path: '/carriers', component: Carriers, name: 'Carriers', data: {icon: 'fa-fighter-jet'}},
+    {path: '/routing', component: Routing, name: 'Routing', data: {icon: 'icon-feed'}},
+    {path: '/prices', component: Prices, name: 'Prices', data: {icon: 'fa-cart-arrow-down'}},
+    {path: '/mccmnc', component: MCCMNC, name: 'MCCMNC', data: {icon: 'fa-exchange'}},
+    {path: '/smpp', component: SMPP, name: 'SMPP', data: {icon: 'fa-commenting-o'}},
+    {path: '/api', component: API, name: 'API', data: {icon: 'fa-code'}},
 ])
 
 export class GSM {

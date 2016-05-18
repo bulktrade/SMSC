@@ -1,17 +1,13 @@
-<div *ngIf="showInSubNavigation" animate-box #navigationItem="ab" class="item-menu clear dashboard-item-nav" [ngClass]="{'item-menu-short': showmininav.showNav}" #isIcon
+<div *ngIf="showInSubNavigation" animate-box #navigationItem="ab" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav" [ngClass]="{'item-menu-short': showmininav.showNav}" #isIcon
      #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
-    <a [class.active]="activeItem.isActiveMainItem(nameItem)" (click)="navigationItem.toggle(icnDsh, false); icnDsh=!icnDsh;" class="dashboard sub-task clear">
+    <a [ngClass]="{active: activeItem.isActiveMainItem(nameItem)}" (click)="navigationItem.toggle(getStorageItem(toggle), false); setToggle(toggle);" class="{{nameItem.toLowerCase()}} sub-task clear" [routerLink]="[nameItem]">
         <i class="icon-left {{icon}}"></i>
         <div class="show-nav" [hidden]="showmininav.showNav">
-            <span class="name-sub dashboard-item">{{nameItem | translate}}</span>
-            <i class="fa dashboard-icon" [ngClass]="{'fa-angle-down': !icnDsh && faAngleLeft.isSubMenu(isIcon), 'fa-angle-left': icnDsh && faAngleLeft.isSubMenu(isIcon)}"></i>
+            <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
+            <i *ngIf="submenu" class="fa {{nameItem.toLowerCase()}}-icon" [ngClass]="{'fa-angle-down': !getStorageItem(toggle) && faAngleLeft.isSubMenu(isIcon), 'fa-angle-left': getStorageItem(toggle) && faAngleLeft.isSubMenu(isIcon)}"></i>
         </div>
     </a>
-    <ul class="dashboard-submenu sub-menu-item" [ngClass]="{'nav-subitem-relative': showmininav.showNav, 'save-state-item': icnDsh}">
-        <li *ngFor="let item of submenu.split(',')"><a [class.activesub]="activeItem.isActiveSubDashboard(item)" [routerLink]="[nameItem, item]" class="smstraffic"><i class="subitem-icon-left icon-chart"></i>{{item | translate}}</a></li>
+    <ul *ngIf="submenu" class="{{nameItem.toLowerCase()}}-submenu sub-menu-item" [ngClass]="{'nav-subitem-relative': showmininav.showNav, 'save-state-item': getStorageItem(toggle)}">
+        <li *ngFor="let item of submenu"><a [ngClass]="{activesub: activeItem.isActiveSubItem([nameItem, item.name])}" [routerLink]="[nameItem, item.name]" class="{{item.name.toLowerCase()}}"><i class="subitem-icon-left fa {{item.icon}}"></i>{{item.name | translate}}</a></li>
     </ul>
 </div>
-<h1>{{getStorageItem('/icnDs')}}</h1>
-<!--<h1 *ngIf="submenu">Hello</h1>-->
-<!--<h1 *ngFor="let item of {{submenu}}">{{item}}</h1>-->
-<!--<h1 *ngFor="let item of submenu.split(',')">{{item}}</h1> './Dashboard'-->

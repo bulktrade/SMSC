@@ -31,15 +31,18 @@ import {SidebarService} from '../sidebar/sidebar.service.component';
         path: '/dashboard/...', component: Dashboard, name: 'Dashboard',
         data: {
             showInSubNavigation: true,
-            icon: 'icon-bulb'
+            icon: 'icon-bulb',
+            toggle: '/icnDsh'
         }, 
         useAsDefault: true
     },
     {
-        path: '/gsm/...',
-        component: GSM,
-        name: 'GSM',
-        data: { showInSubNavigation: true, icon: 'icon-settings' }
+        path: '/gsm/...', component: GSM, name: 'GSM',
+        data: {
+            showInSubNavigation: true,
+            icon: 'icon-settings',
+            toggle: '/icnGsm'
+        }
     },
     {
         path: '/financesmain',

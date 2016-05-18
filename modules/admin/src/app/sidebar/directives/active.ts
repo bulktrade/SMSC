@@ -13,12 +13,16 @@ export class ActiveItem {
         return this.location.path().indexOf(path.toLowerCase()) !== -1;
     }
 
-    isActiveSubDashboard(path) {
-        return this.location.path() === '/navigation/dashboard/' + path;
-    }
+    isActiveSubItem(items) {
+        let path = '';
 
-    isActiveSubGSM(path) {
-        return this.location.path() === '/navigation/gsm/' + path;
+        items.forEach(item => {
+           path += item + '/';
+        });
+
+        path = path.substring(0, path.length-1);
+
+        return this.location.path() === '/navigation/' + path.toLowerCase();
     }
 
 }

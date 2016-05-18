@@ -6,8 +6,8 @@ import {NgClass, NgFor} from '@angular/common';
 import {ActiveItem} from './directives/active';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ShowMiniNav} from './ShowMiniNav';
-import {LocalStorage} from '../../assets/js/angular2-localstorage/WebStorage';
 import { Injectable } from '@angular/core';
+import {LocalStorage} from "../../../dist/assets/js/angular2-localstorage/WebStorage";
 
 declare var Reflect;
 
@@ -38,14 +38,14 @@ export class SidebarItem {
 
     @Input('icon') public icon;
     @Input('nameItem') public nameItem;
-    @Input('submenu') public submenu;
     @Input('showInSubNavigation') public showInSubNavigation;
-    
+    @Input() public submenu;
+    @Input() public toggle;
+
     constructor(public translate:TranslateService, public showmininav:ShowMiniNav) {
     }
 
     ngOnInit() {
-        console.log(this['icnDs']);
     }
 
     getStorageItem(item) {
@@ -54,6 +54,10 @@ export class SidebarItem {
         } else {
             return localStorage.getItem(item) === 'true' ? true : false;
         }
+    }
+
+    setToggle(name) {
+        this[name.substring(1, name.length)] = !this[name.substring(1, name.length)];
     }
 
 }

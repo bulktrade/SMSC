@@ -32,10 +32,8 @@ declare var Reflect;
 export class SidebarService {
     public dataNavItems = [];
 
-    constructor(public translate: TranslateService) {
+    constructor(public translate:TranslateService) {
         this.initDataNavItems();
-
-        console.log(this.dataNavItems);
     }
 
     ngOnInit() {
@@ -46,11 +44,14 @@ export class SidebarService {
         let decoratorValue;
 
         this.getRouteConfig(Navigation).forEach((item) => {
-            if (item.path.substring(item.path.length-3, item.path.length) === '...') {
+            if (item.path.substring(item.path.length - 3, item.path.length) === '...') {
                 decoratorValue = this.getRouteConfig(item.component);
-                
+
                 decoratorValue.forEach((subItem) => {
-                    result.push(subItem.name);
+                    result.push({
+                        name: subItem.name,
+                        icon: subItem.data.icon
+                    });
                 })
             }
 
@@ -61,6 +62,7 @@ export class SidebarService {
             this.dataNavItems.push({
                 name: item.name,
                 icon: item.data.icon,
+                toggle: item.data.toggle,
                 submenu: result,
                 showInSubNavigation: item.data.showInSubNavigation
             });

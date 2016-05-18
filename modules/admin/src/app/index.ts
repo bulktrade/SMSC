@@ -1,3 +1,4 @@
+import {LocalStorageService} from "../../dist/assets/js/angular2-localstorage/LocalStorageEmitter";
 export * from './app.component';
 export * from './app.service';
 
@@ -19,6 +20,7 @@ export const APP_PROVIDERS = [
   AppState,
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
+    LocalStorageService,
     provide(TranslateLoader, {
         useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
         deps: [Http]

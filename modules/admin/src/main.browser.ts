@@ -42,19 +42,29 @@ import { ENV_PROVIDERS } from './platform/environment';
  * our top level component that holds all of our components
  */
 import { App, APP_PROVIDERS } from './app';
+import {LocalStorageSubscriber} from "../dist/assets/js/angular2-localstorage/LocalStorageEmitter";
 
 /*
  * Bootstrap our Angular app with a top level component `App` and inject
  * our Services and Providers into Angular's dependency injection
  */
-export function main(initialHmrState?: any): Promise<any> {
 
-  return bootstrap(App, [
+var appPromise = bootstrap(App, [
+  ...APP_PROVIDERS
+]);
+
+LocalStorageSubscriber(appPromise);
+
+/*export function main(initialHmrState?: any): Promise<any> {
+
+  var appPromise = bootstrap(App, [
     ...APP_PROVIDERS
   ])
       .catch(err => console.error(err));
+  LocalStorageSubscriber(appPromise);
 
-}
+  return appPromise;
+}*/
 
 
 /*
@@ -69,11 +79,11 @@ export function main(initialHmrState?: any): Promise<any> {
  * Hot Module Reload
  * experimental version by @gdi2290
  */
-if ('development' === ENV && HMR === true) {
+/*if ('development' === ENV && HMR === true) {
   // activate hot module reload
   let ngHmr = require('angular2-hmr');
   ngHmr.hotModuleReplacement(main, module);
 } else {
   // bootstrap when document is ready
   document.addEventListener('DOMContentLoaded', () => main());
-}
+}*/

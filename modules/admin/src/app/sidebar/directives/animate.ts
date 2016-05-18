@@ -9,11 +9,9 @@ export class AnimateBox {
     constructor(private _ab: AnimationBuilder, private _e: ElementRef) {
     }
 
-    toggle(isVisible: boolean, showNav: boolean, navHeight?: number) {
+    toggle(isVisible: boolean=false, showNav: boolean, navHeight?: number) {
+        let heightChild, thisElement, item;
         let animation = this._ab.css();
-        let thisElement = this._e.nativeElement.childNodes[3];
-        let heightChild = thisElement.childNodes[1].clientHeight;
-        let item = thisElement.children.length;
 
         if (showNav) {
             animation.setDuration(0);
@@ -22,6 +20,14 @@ export class AnimateBox {
         }
 
         if (navHeight === undefined) {
+            thisElement = this._e.nativeElement.childNodes[4];
+
+            if (this._e.nativeElement.childNodes[4].tagName === 'UL') {
+                heightChild = thisElement.childNodes[2].clientHeight;
+            } else {return;}
+
+            item = thisElement.children.length;
+
             if (isVisible) {
                 animation
                     .setFromStyles({height: '0'})
