@@ -1,7 +1,7 @@
 import {
     it,
     inject,
-    beforeEachProviders,
+    beforeEachProviders
 } from '@angular/core/testing';
 
 import {CustomersGrid} from './customers-grid';
@@ -14,8 +14,8 @@ describe('CustomersGrid', () => {
         CustomersGrid,
         provide(ElementRef, { useValue: new MockApplicationRef() }),
         provide(ODatabaseService, {
-            useFactory: () => new ODatabaseService('http://localhost:3000/orientdb/smsc'),
-        }),
+            useFactory: () => new ODatabaseService('http://localhost:3000/orientdb/smsc')
+        })
     ]);
 
     it('should log store', inject([ CustomersGrid ], (customer) => {

@@ -16,7 +16,7 @@ export class MonitoringGrid {
         return Ext.create('Ext.data.Store', {
             model: 'Monitoring',
             data: [
-                {column1: 'test record', column2: 'test record'},
+                {column1: 'test record', column2: 'test record'}
             ]
         });
     }
@@ -27,7 +27,7 @@ export class MonitoringGrid {
                 extend: 'Ext.data.Model',
                 fields: [
                     {name: 'column1', type: 'string'},
-                    {name: 'column2', type: 'string'},
+                    {name: 'column2', type: 'string'}
                 ]
             });
         }
@@ -71,11 +71,9 @@ export class MonitoringGrid {
                 handler: () => {
                     rowEditing.cancelEdit();
 
-                    // Create a model instance
-                    //noinspection TypeScriptUnresolvedVariable
                     let r = Ext.create('Monitoring', {
                         column1: 'test',
-                        column2: 'test',
+                        column2: 'test'
                     });
 
                     MonitoringGrid.priceStore.insert(0, r);

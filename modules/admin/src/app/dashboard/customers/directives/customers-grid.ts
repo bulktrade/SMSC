@@ -35,7 +35,7 @@ export class CustomersGrid {
                 extend: 'Ext.data.Model',
                 fields: [
                     {name: 'customer_id', type: 'number'},
-                    {name: 'company_name', type: 'string'},
+                    {name: 'company_name', type: 'string'}
                 ]
             });
         }
@@ -83,7 +83,7 @@ export class CustomersGrid {
                         .then((res) => {
                             let r = Ext.create('Customers', {
                                 customer_id: res.customer_id,
-                                company_name: res.company_name,
+                                company_name: res.company_name
                             });
 
                             CustomersGrid.customersStore.insert(0, r);
@@ -151,7 +151,7 @@ export class CustomersGrid {
         return this.databaseservice.query('select from customer')
             .then((data) => {
                 let store = [];
-                for (var i = 0; i < data.result.length; i++) {
+                for (let i = 0; i < data.result.length; i++) {
                     store.push({customer_id: data.result[i].customer_id,
                         company_name: data.result[i].company_name});
                 }
@@ -162,20 +162,20 @@ export class CustomersGrid {
     insert() {
         return this.databaseservice.query('SELECT max(customer_id) FROM customer')
             .then((data) => {
-                let next_id = 1;
+                let nextId = 1;
 
                 if (data.result.length) {
-                    next_id = Number(data.result[0].max) + 1;
+                    nextId = Number(data.result[0].max) + 1;
                 }
 
                 let str = sprintf('{ "transaction" : true, "operations" : ' +
                     '[ { "type" : "c", "record" : ' +
                     '{ "@class" : "customer", "customer_id" : "%s",' +
-                    '"company_name" : "%s" } } ] }', next_id, 'SMSC');
+                    '"company_name" : "%s" } } ] }', nextId, 'SMSC');
 
                 this.databaseservice.batchRequest(str);
 
-                return {customer_id: next_id, company_name: 'SMSC'};
+                return {customer_id: nextId, company_name: 'SMSC'};
             });
     }
 

@@ -36,7 +36,7 @@ export class ODatabaseService {
         this.request = new Request();
 
         if (databasePath) {
-            var pos = databasePath.indexOf('orientdb_proxy', 8); // JUMP HTTP
+            let pos = databasePath.indexOf('orientdb_proxy', 8); // JUMP HTTP
             if (pos > -1) {
                 pos = databasePath.lastIndexOf('/'); // END OF PROXY
             } else {
@@ -53,8 +53,8 @@ export class ODatabaseService {
 
             if (this.databaseName !== undefined && this.databaseName.indexOf('/') > -1) {
                 this.encodedDatabaseName = '';
-                var parts = this.databaseName.split('/');
-                for (var p in parts) {
+                let parts = this.databaseName.split('/');
+                for (let p in parts) {
                     if (!parts.hasOwnProperty(p)) {
                         continue;
                     }
@@ -112,7 +112,7 @@ export class ODatabaseService {
             iFetchPlan = '/' + encodeURIComponent(iFetchPlan);
         }
 
-        var dataType = this.evalResponse ? undefined : 'text';
+        let dataType = this.evalResponse ? undefined : 'text';
 
         iCommand = encodeURIComponent(iCommand);
 
@@ -188,7 +188,7 @@ export class ODatabaseService {
             iLimit = '20';
         }
 
-        var url = 'query/' + this.encodedDatabaseName + '/sql/'
+        let url = 'query/' + this.encodedDatabaseName + '/sql/'
             + encodeURIComponent(iQuery) + '/' + iLimit;
 
         if (iFetchPlan !== undefined && iFetchPlan !== '') {
@@ -249,13 +249,13 @@ export class ODatabaseService {
         }
     }
 
-    UTF8Encode(string) {
-        string = string.replace(/\r\n/g, '\n');
-        var utftext = '';
+    UTF8Encode(str) {
+        let pattern = str.replace(/\r\n/g, '\n');
+        let utftext = '';
 
-        for (var n = 0; n < string.length; n++) {
+        for (let n = 0; n < pattern.length; n++) {
 
-            var c = string.charCodeAt(n);
+            let c = pattern.charCodeAt(n);
 
             if (c < 128) {
                 utftext += String.fromCharCode(c);
@@ -275,7 +275,7 @@ export class ODatabaseService {
 
     transformResponse(msg) {
         if (this.getEvalResponse()) {
-            var returnValue;
+            let returnValue;
             if (msg.length > 0 && typeof msg !== 'object') {
                 returnValue = JSON.parse(msg);
             } else {
@@ -294,7 +294,7 @@ export class ODatabaseService {
 
     parseConnections(obj) {
         if (typeof obj === 'object') {
-            var linkMap = {
+            let linkMap = {
                 'foo': 0
             };
 
@@ -311,11 +311,11 @@ export class ODatabaseService {
     }
 
     createObjectsLinksMap(obj, linkMap) {
-        for (var field in obj) {
+        for (let field in obj) {
             if (!obj.hasOwnProperty(field)) {
                 continue;
             }
-            var value = obj[field];
+            let value = obj[field];
             if (typeof value === 'object') {
                 this.createObjectsLinksMap(value, linkMap);
             } else {
@@ -333,12 +333,12 @@ export class ODatabaseService {
     }
 
     getObjectFromLinksMap = function (obj, linkMap) {
-        for (var field in obj) {
+        for (let field in obj) {
             if (!obj.hasOwnProperty(field)) {
                 continue;
             }
 
-            var value = obj[field];
+            let value = obj[field];
             if (typeof value === 'object') {
                 this.getObjectFromLinksMap(value, linkMap);
             } else {
@@ -352,12 +352,12 @@ export class ODatabaseService {
     };
 
     putObjectInLinksMap = function (obj, linkMap) {
-        for (var field in obj) {
+        for (let field in obj) {
             if (!obj.hasOwnProperty(field)) {
                 continue;
             }
 
-            var value = obj[field];
+            let value = obj[field];
             if (typeof value === 'object') {
                 this.putObjectInLinksMap(value, linkMap);
             } else {
@@ -376,7 +376,7 @@ export class ODatabaseService {
         linkMap = this.removeCircleReferencesPopulateMap(obj, linkMap);
         if (obj !== undefined && typeof obj === 'object' && !Array.isArray(obj)) {
             if (obj['@rid'] !== undefined && obj['@rid']) {
-                var rid = this.getRidWithPound(obj['@rid']);
+                let rid = this.getRidWithPound(obj['@rid']);
                 linkMap[rid] = rid;
             }
         }
@@ -392,14 +392,14 @@ export class ODatabaseService {
     };
 
     removeCircleReferencesPopulateMap = function (obj, linkMap) {
-        for (var field in obj) {
+        for (let field in obj) {
             if (!obj.hasOwnProperty(field)) {
                 continue;
             }
-            var value = obj[field];
+            let value = obj[field];
             if (value !== undefined && typeof value === 'object' && !Array.isArray(value)) {
                 if (value['@rid'] !== undefined && value['@rid']) {
-                    var rid = this.getRidWithPound(value['@rid']);
+                    let rid = this.getRidWithPound(value['@rid']);
                     if (linkMap[rid] === undefined || !linkMap[rid]) {
                         linkMap[rid] = value;
                     }
@@ -409,14 +409,14 @@ export class ODatabaseService {
                 }
             } else if (value !== undefined && typeof value === 'object'
                 && Array.isArray(value)) {
-                for (var i in value) {
+                for (let i in value) {
                     if (!value.hasOwnProperty(i)) {
                         continue;
                     }
-                    var arrayValue = value[i];
+                    let arrayValue = value[i];
                     if (arrayValue !== undefined && typeof arrayValue === 'object') {
                         if (arrayValue['@rid'] !== undefined && arrayValue['@rid']) {
-                            var rid = this.getRidWithPound(arrayValue['@rid']);
+                            let rid = this.getRidWithPound(arrayValue['@rid']);
                             if (linkMap[rid] === undefined || !linkMap[rid]) {
                                 linkMap[rid] = arrayValue;
                             }
@@ -432,17 +432,17 @@ export class ODatabaseService {
 
     removeCircleReferencesChangeObject(obj,
                                        linkMap) {
-        for (var field in obj) {
+        for (let field in obj) {
             if (!obj.hasOwnProperty(field)) {
                 continue;
             }
-            var value = obj[field];
+            let value = obj[field];
             if (value !== undefined && typeof value === 'object' && !Array.isArray(value)) {
-                var inspectObject = true;
+                let inspectObject = true;
                 if (value['@rid'] !== undefined && value['@rid']) {
-                    var rid = this.getRidWithPound(value['@rid']);
+                    let rid = this.getRidWithPound(value['@rid']);
                     if (linkMap[rid] !== undefined && linkMap[rid]) {
-                        var mapValue = linkMap[rid];
+                        let mapValue = linkMap[rid];
                         if (typeof mapValue === 'object') {
                             linkMap[rid] = rid;
                         } else {
@@ -456,17 +456,17 @@ export class ODatabaseService {
                 }
             } else if (value !== undefined && typeof value === 'object'
                 && Array.isArray(value)) {
-                for (var i in value) {
+                for (let i in value) {
                     if (!value.hasOwnProperty(i)) {
                         continue;
                     }
-                    var arrayValue = value[i];
+                    let arrayValue = value[i];
                     if (typeof arrayValue === 'object') {
-                        var inspectObject = true;
+                        let inspectObject = true;
                         if (arrayValue['@rid'] !== undefined && arrayValue['@rid']) {
-                            var rid = this.getRidWithPound(arrayValue['@rid']);
+                            let rid = this.getRidWithPound(arrayValue['@rid']);
                             if (linkMap[rid] !== undefined && linkMap[rid]) {
-                                var mapValue = linkMap[rid];
+                                let mapValue = linkMap[rid];
                                 if (typeof mapValue === 'object') {
                                     linkMap[rid] = rid;
                                 } else {
@@ -522,7 +522,7 @@ export class ODatabaseService {
             + type + '/' + databaseType + this.urlSuffix,
             type: 'post',
             userName: userName,
-            userPass: userPass,
+            userPass: userPass
         })
             .then(res => {
                 this.setErrorMessage(undefined);
@@ -570,7 +570,7 @@ export class ODatabaseService {
         return this.request.httpRequest({
             url: this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
             + iRID + iFetchPlan + this.urlSuffix,
-            type: 'get',
+            type: 'get'
         })
             .then(res => {
                 this.setErrorMessage(undefined);
@@ -587,13 +587,13 @@ export class ODatabaseService {
             this.open();
         }
 
-        var rid = obj['@rid'];
-        var methodType = rid === undefined || rid === '-1:-1' ? 'POST' : 'PUT';
+        let rid = obj['@rid'];
+        let methodType = rid === undefined || rid === '-1:-1' ? 'POST' : 'PUT';
         if (this.removeObjectCircleReferences && typeof obj === 'object') {
             this.removeCircleReferences(obj, {});
         }
 
-        var url = this.urlPrefix + 'document/' + this.encodedDatabaseName;
+        let url = this.urlPrefix + 'document/' + this.encodedDatabaseName;
         if (rid) {
             url += '/' + encodeURIComponent(rid);
         }
@@ -625,10 +625,10 @@ export class ODatabaseService {
             this.open();
         }
 
-        var req = this.urlPrefix + 'index/' + this.encodedDatabaseName + '/'
+        let req = this.urlPrefix + 'index/' + this.encodedDatabaseName + '/'
             + iIndexName + '/' + iKey;
 
-        var content;
+        let content;
         if (typeof iValue === 'object') {
             content = JSON.parse(iValue);
         } else {

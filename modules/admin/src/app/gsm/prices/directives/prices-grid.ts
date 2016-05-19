@@ -138,7 +138,7 @@ export class PricesGrid {
                         minText: 'Cannot have a start date before the company existed!',
                         maxValue: Ext.Date.format(new Date(), 'm/d/Y')
                     }
-                },
+                }
             ],
             tbar: [{
                 itemId: 'add',
@@ -146,8 +146,6 @@ export class PricesGrid {
                 handler: () => {
                     rowEditing.cancelEdit();
 
-                    // Create a model instance
-                    //noinspection TypeScriptUnresolvedVariable
                     let r = Ext.create('Prices', {
                         mcc: '1',
                         mnc: '2',

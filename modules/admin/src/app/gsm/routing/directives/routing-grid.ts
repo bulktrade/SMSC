@@ -16,7 +16,7 @@ export class RoutingGrid {
         return Ext.create('Ext.data.Store', {
             model: 'Routing',
             data: [
-                {carrier: 'temp', type: 'http'},
+                {carrier: 'temp', type: 'http'}
             ]
         });
     }
@@ -87,7 +87,7 @@ export class RoutingGrid {
                     // Create a model instance
                     let r = Ext.create('Routing', {
                         carrier: 'temp',
-                        type: 'http',
+                        type: 'http'
                     });
 
                     RoutingGrid.routingStore.insert(0, r);

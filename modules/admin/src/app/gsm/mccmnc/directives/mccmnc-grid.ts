@@ -21,7 +21,7 @@ export class MCCMNCGrid {
             data: [
                 {mcc: 'temp', code: '324235234', country: 'temp'},
                 {mcc: 'temp', code: '324235234', country: 'temp'},
-                {mcc: 'temp', code: '324235234', country: 'temp'},
+                {mcc: 'temp', code: '324235234', country: 'temp'}
             ]
         });
     }
@@ -32,7 +32,7 @@ export class MCCMNCGrid {
             data: [
                 {mnc: 'temp', mcc: 'temp', carrier: 'temp'},
                 {mnc: 'temp', mcc: 'temp', carrier: 'temp'},
-                {mnc: 'temp', mcc: 'temp', carrier: 'temp'},
+                {mnc: 'temp', mcc: 'temp', carrier: 'temp'}
             ]
         });
     }
@@ -45,7 +45,7 @@ export class MCCMNCGrid {
                 fields: [
                     {name: 'mcc', type: 'string'},
                     {name: 'code', type: 'number'},
-                    {name: 'country', type: 'string'},
+                    {name: 'country', type: 'string'}
                 ]
             });
 
@@ -54,7 +54,7 @@ export class MCCMNCGrid {
                 fields: [
                     {name: 'mnc', type: 'string'},
                     {name: 'mcc', type: 'string'},
-                    {name: 'carrier', type: 'string'},
+                    {name: 'carrier', type: 'string'}
                 ]
             });
         }
