@@ -1,4 +1,4 @@
-import { LoginTest } from 'login.page';
+import {LoginTest} from './login.page';
 
 describe('Login page', () => {
     let ptor = protractor.wrapDriver(browser.driver);

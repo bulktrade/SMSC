@@ -3,13 +3,14 @@ import {
     inject,
     beforeEachProviders,
 } from '@angular/core/testing';
-import {ElementRef} from '@angular/core';
+import {ElementRef, provide} from '@angular/core';
 import {MCCMNCGrid} from './mccmnc-grid';
+import {MockApplicationRef} from '@angular/core/testing';
 
 describe('MCC & MNC', () => {
     beforeEachProviders(() => [
         MCCMNCGrid,
-        ElementRef
+        provide(ElementRef, { useValue: new MockApplicationRef() }),
     ]);
 
     it('should MCC store', inject([ MCCMNCGrid ], (mccmnc) => {

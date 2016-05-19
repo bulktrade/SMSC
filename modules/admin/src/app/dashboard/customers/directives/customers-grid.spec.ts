@@ -6,12 +6,13 @@ import {
 
 import {CustomersGrid} from './customers-grid';
 import {ElementRef, provide} from '@angular/core';
-import {ODatabaseService} from '../../../../Service/OrientDB.service';
+import {ODatabaseService} from '../../../orientdb/orientdb.service';
+import {MockApplicationRef} from '@angular/core/testing';
 
 describe('CustomersGrid', () => {
     beforeEachProviders(() => [
         CustomersGrid,
-        ElementRef,
+        provide(ElementRef, { useValue: new MockApplicationRef() }),
         provide(ODatabaseService, {
             useFactory: () => new ODatabaseService('http://localhost:3000/orientdb/smsc'),
         }),

@@ -19,7 +19,7 @@ export class Login implements OnInit {
     notfound: boolean = false;
     onSubmitBtn: boolean = false;
 
-    constructor(public router: Router,
+    constructor(public router?: Router,
                 public translate?: TranslateService,
                 public database?: ODatabaseService) {
     }

@@ -1,5 +1,7 @@
 import {Directive, ElementRef} from '@angular/core';
 
+declare var Ext: any;
+
 @Directive({
     selector: '[monitoring-grid]'
 })

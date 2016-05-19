@@ -4,12 +4,13 @@ import {
     beforeEachProviders,
 } from '@angular/core/testing';
 import {RoutingGrid} from './routing-grid';
-import {ElementRef} from '@angular/core';
+import {ElementRef, provide} from '@angular/core';
+import {MockApplicationRef} from '@angular/core/testing';
 
 describe('RoutingGrid', () => {
     beforeEachProviders(() => [
         RoutingGrid,
-        ElementRef
+        provide(ElementRef, { useValue: new MockApplicationRef() }),
     ]);
 
     it('should log store', inject([ RoutingGrid ], (routing) => {

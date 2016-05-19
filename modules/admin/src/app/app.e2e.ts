@@ -1,32 +1,37 @@
+import {AppTest} from './systemsettings/app.page';
+
 describe('App', () => {
+  let ptor = protractor.wrapDriver(browser.driver);
 
   beforeEach(() => {
-    browser.get('/');
+    browser.ignoreSynchronization = true;
+    this.apptest = new AppTest();
+    ptor = protractor.wrapDriver(browser.driver);
+    this.apptest.get();
   });
-
 
   it('should have a title', () => {
     let subject = browser.getTitle();
-    let result  = 'Angular2 Webpack Starter by @gdi2290 from @AngularClass';
+    let result  = 'SMSC Admin';
     expect(subject).toEqual(result);
   });
 
-  it('should have <header>', () => {
-    let subject = element(by.css('app header')).isPresent();
+  it('should have input username', () => {
+    this.apptest.waitUntilReady(this.apptest.elemUsername, ptor);
     let result  = true;
-    expect(subject).toEqual(result);
+    expect(this.apptest.isPresentUsername()).toEqual(result);
   });
 
-  it('should have <main>', () => {
-    let subject = element(by.css('app main')).isPresent();
+  it('should have input password', () => {
+    this.apptest.waitUntilReady(this.apptest.elemPassword, ptor);
     let result  = true;
-    expect(subject).toEqual(result);
+    expect(this.apptest.isPresentPassword()).toEqual(result);
   });
 
-  it('should have <footer>', () => {
-    let subject = element(by.css('app footer')).getText();
-    let result  = 'WebPack Angular 2 Starter by @AngularClass';
-    expect(subject).toEqual(result);
+  it('should have button submit', () => {
+    this.apptest.waitUntilReady(this.apptest.elemBtn, ptor);
+    let result  = true;
+    expect(this.apptest.isPresentBtn()).toEqual(result);
   });
 
 });

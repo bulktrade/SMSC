@@ -1,4 +1,4 @@
-import {NavigationTest} from '../testpages/NavigationTest';
+import {NavigationTest} from './navigation.page';
 
 describe('Navigation', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -9,7 +9,7 @@ describe('Navigation', () => {
         ptor = protractor.wrapDriver(browser.driver);
     });
 
-    /*it('should have a title', () => {
+    it('should have a title', () => {
         this.navigator.getRoot();
         let result = 'SMSC Admin';
         expect(this.navigator.getTitle()).toBe(result);
@@ -38,7 +38,7 @@ describe('Navigation', () => {
     it('visible fa-angle-left if main item have sub menu', () => {
         this.navigator.waitUntilReady(this.navigator.firstNav, ptor);
         expect(this.navigator.hasClass(this.navigator.firstNav, 'fa-angle-down')).toBeTruthy();
-        expect(this.navigator.hasClass(this.navigator.lastNav, 'fa-angle-down')).toBeFalsy();
+        expect(this.navigator.lastNav.isPresent()).toBeFalsy();
     });
 
     it('marked sub and main item navigation like active', () => {
@@ -163,6 +163,6 @@ describe('Navigation', () => {
             .then(() => {
                 expect(this.navigator.getSystemsettings()).toBeTruthy();
             });
-    });*/
+    });
 
 });

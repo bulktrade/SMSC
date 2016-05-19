@@ -1,6 +1,8 @@
 import {Directive, ElementRef} from '@angular/core';
 import {ODatabaseService} from '../../../orientdb/orientdb.service';
+
 declare var sprintf: any;
+declare var Ext: any;
 
 @Directive({
     selector: '[customers-grid]',

@@ -4,7 +4,7 @@ import {
 } from '@angular/core/testing';
 
 // Load the implementations that should be tested
-import { ODatabaseService } from './OrientDB.service';
+import { ODatabaseService } from './orientdb.service';
 import { Mock } from '../common';
 
 describe('ODatabaseService', () => {

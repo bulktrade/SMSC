@@ -1,4 +1,4 @@
-import {CustomerGridTest} from '../../testpages/CustomerGridTest';
+import {CustomerGridTest} from './customers-grid.page';
 
 describe('Customer grid', () => {
     let ptor = protractor.wrapDriver(browser.driver);
