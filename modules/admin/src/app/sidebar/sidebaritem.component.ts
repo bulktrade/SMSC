@@ -7,7 +7,7 @@ import {ActiveItem} from './directives/active';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ShowMiniNav} from './ShowMiniNav';
 import { Injectable } from '@angular/core';
-import {LocalStorage} from "../../../dist/assets/js/angular2-localstorage/WebStorage";
+import {LocalStorage} from "angular2-localStorage/WebStorage";
 
 declare var Reflect;
 

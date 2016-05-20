@@ -78,6 +78,7 @@
   },
   "devDependencies": {
     "angular2-hmr": "~0.7.0",
+    "angular2-localStorage": "^0.2.1",
     "awesome-typescript-loader": "~0.17.0",
     "codelyzer": "~0.0.19",
     "compression-webpack-plugin": "^0.3.1",
@@ -103,6 +104,7 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "1.7.0",
+    "node-sass": "^3.7.0",
     "parse5": "^1.5.1",
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "^2.1.7",
@@ -110,6 +112,7 @@
     "raw-loader": "0.5.1",
     "remap-istanbul": "^0.6.3",
     "rimraf": "^2.5.2",
+    "sass-loader": "^3.2.0",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
     "ts-helpers": "1.1.1",
@@ -123,9 +126,7 @@
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1",
     "webpack-md5-hash": "^0.0.5",
-    "webpack-merge": "^0.12.0",
-    "sass-loader": "^3.2.0",
-    "node-sass": "^3.7.0"
+    "webpack-merge": "^0.12.0"
   },
   "repository": {
     "type": "git",

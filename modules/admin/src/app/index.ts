@@ -1,4 +1,4 @@
-import {LocalStorageService} from "../../dist/assets/js/angular2-localstorage/LocalStorageEmitter";
+import {LocalStorageService} from "angular2-localStorage/LocalStorageEmitter";
 export * from './app.component';
 export * from './app.service';
 
