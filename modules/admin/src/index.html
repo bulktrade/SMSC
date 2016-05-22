@@ -30,22 +30,6 @@
   <script src="assets/js/extjs-6.0.0/build/ext-all-debug.js"></script>
   <script src="assets/js/extjs-6.0.0/build/classic/theme-neptune/theme-neptune.js"></script>
   <script src="assets/js/sprintf.js"></script>
-  <script src="assets/js/system.js"></script>
-  <script>
-    System.config({
-      transpiler: 'typescript',
-      typescriptOptions: {emitDecoratorMetadata: true},
-      map: {
-        'app' : 'app',
-        'rxjs': 'node_modules/rxjs',
-        '@angular' : 'node_modules/@angular'
-      },
-      packages: {
-        "/ng2-translate": {"defaultExtension": "js"}
-      }
-    });
-  </script>
-  <!-- Google Analytics: change UA-71073175-1 to be your site's ID -->
 
   <% if (webpackConfig.metadata.ENV === 'development') { %>
   <!-- Webpack Dev Server reload -->
