@@ -24,10 +24,6 @@ node_js:
 before_install:
   - nvm install 6
   - nvm use 6
-  - npm install -g bower
-
-install:
-  - cd modules/admin/ && npm install && cd src && bower install && cd ..
 
 before_script:
   - export CHROME_BIN=chromium-browser
@@ -39,10 +35,6 @@ before_script:
 
 after_success:
   - mvn clean cobertura:cobertura coveralls:report
-
-script:
-  - npm run test
-  - npm run e2e
 
 notifications:
   email:
