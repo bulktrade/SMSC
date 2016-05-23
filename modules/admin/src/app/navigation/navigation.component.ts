@@ -31,7 +31,7 @@ import {SidebarService} from '../sidebar/sidebar.service.component';
         path: '/dashboard/...', component: Dashboard, name: 'Dashboard',
         data: {
             showInSubNavigation: true,
-            icon: 'icon-bulb',
+            icon: 'layers',
             toggle: '/icnDsh'
         }, 
         useAsDefault: true
@@ -40,7 +40,7 @@ import {SidebarService} from '../sidebar/sidebar.service.component';
         path: '/gsm/...', component: GSM, name: 'GSM',
         data: {
             showInSubNavigation: true,
-            icon: 'icon-settings',
+            icon: 'settings_remote',
             toggle: '/icnGsm'
         }
     },
@@ -48,13 +48,13 @@ import {SidebarService} from '../sidebar/sidebar.service.component';
         path: '/financesmain',
         component: FinancesMain,
         name: 'FinancesMain',
-        data: { showInSubNavigation: true, icon: 'icon-wallet' }
+        data: { showInSubNavigation: true, icon: 'edit' }
     },
     {
         path: '/systemsettings',
         component: SystemSettings,
         name: 'SystemSettings',
-        data: { showInSubNavigation: true, icon: 'icon-settings' }
+        data: { showInSubNavigation: true, icon: 'settings' }
     }
 ])
 

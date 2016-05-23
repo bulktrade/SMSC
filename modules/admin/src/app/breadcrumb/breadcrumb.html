@@ -7,11 +7,11 @@
     <ul class="page-breadcrumb breadcrumb">
         <li>
             <a (click)="router.navigateByUrl('/')">{{'HOME' | translate}}</a>
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-circle">&bull;</i>
         </li>
         <li class="childs" *ngFor="let child of breadcrumb.childs;">
             <a (click)="breadcrumb.navigateTo(child)">{{breadcrumb.getName(child) | uppercase | translate}}</a>
-            <i class="fa fa-circle"></i>
+            <i class="fa fa-circle">&bull;</i>
         </li>
     </ul>
 </div>

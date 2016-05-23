@@ -20,10 +20,10 @@ import {SMSTraffic} from "./smstraffic/smstraffic.component";
 })
 
 @RouteConfig([
-    {path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic', data: {icon: 'icon-chart'}, useAsDefault: true},
-    {path: '/dlrtraffic', component: DLRTraffic, name: 'DLRTraffic', data: {icon: 'fa-wrench'}},
-    {path: '/finances', component: Finances, name: 'Finances', data: {icon: 'icon-docs'}},
-    {path: '/customers', component: Customers, name: 'Customers', data: {icon: 'icon-puzzle'}},
+    {path: '/smstraffic', component: SMSTraffic, name: 'SMSTraffic', data: {icon: 'settings_ethernet'}, useAsDefault: true},
+    {path: '/dlrtraffic', component: DLRTraffic, name: 'DLRTraffic', data: {icon: 'settings_input_svideo'}},
+    {path: '/finances', component: Finances, name: 'Finances', data: {icon: 'settings_applications'}},
+    {path: '/customers', component: Customers, name: 'Customers', data: {icon: 'settings_voice'}},
 ])
 
 export class Dashboard {
