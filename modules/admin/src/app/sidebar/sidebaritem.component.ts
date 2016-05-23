@@ -7,7 +7,7 @@ import {ActiveItem} from './directives/active';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ShowMiniNav} from './ShowMiniNav';
 import { Injectable } from '@angular/core';
-import {LocalStorage} from "angular2-localStorage/WebStorage";
+import {LocalStorage} from 'angular2-localStorage/WebStorage';
 
 declare var Reflect;
 
@@ -15,7 +15,7 @@ declare var Reflect;
     selector: 'sidebar-item',
     templateUrl: 'app/sidebar/sidebaritem.html',
     styles: [
-        require('./sidebaritem.scss')
+        require('./sidebaritem.scss'),
     ],
     providers: [],
     directives: [

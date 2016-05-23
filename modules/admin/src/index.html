@@ -7,14 +7,6 @@
     <meta name="description" content="<%= webpackConfig.metadata.title %>">
 
     <title><%= webpackConfig.metadata.title %></title>
-    
-    <link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
-    <link rel="stylesheet" href="../../bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../bower_components/simple-line-icons/css/simple-line-icons.css">
-    <link rel="stylesheet" type="text/css"
-          href="../../assets/js/extjs-6.0.0/build/classic/theme-neptune/resources/theme-neptune-all.css">
-    <link rel="stylesheet" type="text/css" href="../../assets/css/spinkit/cube-grid.css">
 
     <!-- base url -->
     <base href="<%= webpackConfig.metadata.baseUrl %>">
@@ -36,7 +28,7 @@
     <script src="assets/js/extjs-6.0.0/build/ext-all-debug.js"></script>
     <script src="assets/js/extjs-6.0.0/build/classic/theme-neptune/theme-neptune.js"></script>
     <script src="assets/js/sprintf.js"></script>
-
+    <script src="assets/js/system.js"></script>
     <% if (webpackConfig.metadata.ENV === 'development') { %>
     <!-- Webpack Dev Server reload -->
     <script src="/webpack-dev-server.js"></script>

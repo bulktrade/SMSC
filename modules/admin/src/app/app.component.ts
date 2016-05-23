@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouteConfig, Router, Instruction } from '@angular/router-deprecated';
+import {ViewEncapsulation} from '@angular/core';
 
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 import {Location} from '@angular/common';
@@ -15,7 +16,15 @@ import {Navigation} from "./navigation/navigation.component";
     providers: [],
     directives: [AppRouterOutlet],
     template: '<route-outlet></route-outlet>',
-    styles: []
+    encapsulation: ViewEncapsulation.None,
+    styles: [
+        require('./../../node_modules/bootstrap/dist/css/bootstrap.min.css'),
+        require('./../../node_modules/font-awesome/css/font-awesome.min.css'),
+        require('./../../node_modules/simple-line-icons/css/simple-line-icons.css'),
+        require('./../assets/css/main.css'),
+        require('./../assets/js/extjs-6.0.0/build/classic/theme-neptune/resources/theme-neptune-all_1.css'),
+        require('./../assets/css/spinkit/cube-grid.css'),
+    ]
 })
 @RouteConfig([
     { path: '/', redirectTo: ['/Login'] },

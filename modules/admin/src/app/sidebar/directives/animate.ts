@@ -10,7 +10,7 @@ export class AnimateBox {
     }
 
     toggle(isVisible: boolean=false, showNav: boolean, navHeight?: number) {
-        let heightChild, thisElement, item;
+        let heightChild, item, thisElement = this._e.nativeElement;
         let animation = this._ab.css();
 
         if (showNav) {
