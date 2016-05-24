@@ -1,48 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
-ul > li {
-  list-style-type: none;
-}
-
-.left {
-  float: left;}
-
-.right {
-  float: right;}
-
 body {
-  background: #E9ECF3 !important;
-}
-
-a {
-  text-decoration: none;
-}
-
-/* Clearfix */
-
-.clear {
-  &:before {
-    content: "";
-    display: table;
-  }
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-  zoom: 1;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  background: #ccc;
+  background: #E9ECF3;
 }
 
 .header {
@@ -61,7 +18,7 @@ html {
   height: 14px;
   float: left;
   cursor: pointer;
-  background: url("./../../assets/img/sidebar-toggle-light.png");
+  background: url("../assets/img/sidebar-toggle-light.png");
 }
 
 .right-panel .menu-toggler {
@@ -133,7 +90,7 @@ html {
     float: left;
     width: 39px;
     height: 39px;
-    background: url("./../../assets/img/avatar.jpg");
+    background: url("../assets/img/avatar.jpg");
     margin: -6px 5px 0 0;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
