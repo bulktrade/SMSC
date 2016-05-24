@@ -183,44 +183,44 @@
                     </systemProperties>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>start </id>
-                        <phase>process-test-classes</phase>
-                        <configuration>
-                            <target>
-                                <exec dir="${project.basedir}" executable="${fuse.home}/start" spawn="true">
-                                </exec>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>############## stop-fuse ################</id>
-                        <phase>post-integration-test</phase>
-                        <configuration>
-                            <target>
-                                <exec dir="${project.basedir}" executable="${fuse.home}/stop" spawn="true">
-                                </exec>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<artifactId>maven-antrun-plugin</artifactId>-->
+                <!--<version>1.6</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>start </id>-->
+                        <!--<phase>process-test-classes</phase>-->
+                        <!--<configuration>-->
+                            <!--<target>-->
+                                <!--<exec dir="${project.basedir}" executable="${fuse.home}/start" spawn="true">-->
+                                <!--</exec>-->
+                            <!--</target>-->
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                            <!--<goal>run</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+            <!--<plugin>-->
+                <!--<artifactId>maven-antrun-plugin</artifactId>-->
+                <!--<version>1.6</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>############## stop-fuse ################</id>-->
+                        <!--<phase>post-integration-test</phase>-->
+                        <!--<configuration>-->
+                            <!--<target>-->
+                                <!--<exec dir="${project.basedir}" executable="${fuse.home}/stop" spawn="true">-->
+                                <!--</exec>-->
+                            <!--</target>-->
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                            <!--<goal>run</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 
