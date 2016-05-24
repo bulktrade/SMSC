@@ -12,10 +12,10 @@ export class Breadcrumb {
 
     init(router) {
         this.childs = new Array(0);
-        
+
         this.chainChilds(router);
         this.childs.reverse();
-        this.name = this.getName(this.childs[this.childs.length-1]);
+        this.name = this.getName(this.childs[this.childs.length - 1]);
     }
 
     chainChilds(router) {

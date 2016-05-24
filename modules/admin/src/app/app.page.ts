@@ -25,10 +25,10 @@ export class AppTest {
     waitUntilReady(elm, ptor) {
         ptor.wait(function () {
             return elm.isPresent();
-        },10000);
+        }, 10000);
         ptor.wait(function () {
             return elm.isDisplayed();
-        },10000);
+        }, 10000);
     };
 
 }

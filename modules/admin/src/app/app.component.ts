@@ -5,10 +5,10 @@ import {ViewEncapsulation} from '@angular/core';
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 import {Location} from '@angular/common';
 
-import {AppRouterOutlet} from "./app.router-outlet";
-import {NotFound} from "./notfound/notfound.component";
-import {Login} from "./login/login.component";
-import {Navigation} from "./navigation/navigation.component";
+import {AppRouterOutlet} from './app.router-outlet';
+import {NotFound} from './notfound/notfound.component';
+import {Login} from './login/login.component';
+import {Navigation} from './navigation/navigation.component';
 
 @Component({
     selector: 'app',
@@ -17,11 +17,12 @@ import {Navigation} from "./navigation/navigation.component";
     directives: [AppRouterOutlet],
     template: '<route-outlet></route-outlet>',
     encapsulation: ViewEncapsulation.None,
-    styles: [
-        require('./../../node_modules/bootstrap/dist/css/bootstrap.min.css'),
+    styleUrls: [
+        require('./../../node_modules/bootstrap/dist/css/bootstrap.css'),
         require('./../assets/css/main.css'),
-        require('./../assets/js/extjs-6.0.0/build/classic/theme-neptune/resources/theme-neptune-all_1.css'),
+        require('./../assets/js/ext-6.0.1/build/classic/theme-neptune/resources/theme-neptune-all.css'),
         require('./../assets/css/spinkit/cube-grid.css'),
+        require('./../assets/css/iconfont/material-icons.css')
     ]
 })
 @RouteConfig([
@@ -36,8 +37,8 @@ export class App {
                 public location: Location) {
         router.recognize(location.path()).then((instruction: Instruction) => {
             if (!instruction) {
-                router.recognize('/notfound').then((instruction: Instruction) => {
-                    router.navigateByInstruction(instruction, true);
+                router.recognize('/notfound').then((inst: Instruction) => {
+                    router.navigateByInstruction(inst, true);
                 });
             }
         });

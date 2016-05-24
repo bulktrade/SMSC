@@ -21,12 +21,13 @@ export class CustomerGridTest {
 
     clickOnItemNavCustomers(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000).then(function (el:webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 el.click()
                     .then(() => {
                         ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000)
-                            .then((el:webdriver.IWebElement) => {
-                                return el.click();
+                            .then((elem: webdriver.IWebElement) => {
+                                return elem.click();
                             });
                     });
             }).thenCatch((errback) => {
@@ -37,7 +38,8 @@ export class CustomerGridTest {
 
     clickBtnWrap(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000).then(function (el:webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -55,10 +57,12 @@ export class CustomerGridTest {
 
     remove(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(this.getFirstRow()), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(this.getFirstRow()), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 el.click();
-                ptor.wait(protractor.until.elementLocated(this.removeBtn), 5000).then(function (el: webdriver.IWebElement) {
-                    resolve(el.click());
+                ptor.wait(protractor.until.elementLocated(this.removeBtn), 5000)
+                    .then(function (elem: webdriver.IWebElement) {
+                    resolve(elem.click());
                 });
             });
         });
@@ -67,10 +71,10 @@ export class CustomerGridTest {
     waitUntilReady(elm, ptor) {
         ptor.wait(function () {
             return elm.isPresent();
-        },10000);
+        }, 10000);
         ptor.wait(function () {
             return elm.isDisplayed();
-        },10000);
+        }, 10000);
     };
 
 }

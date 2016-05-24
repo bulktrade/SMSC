@@ -22,8 +22,8 @@ import {Breadcrumb} from './breadcrumb.service';
 export class BreadcrumbService {
     public breadcrumb: Breadcrumb;
 
-    constructor(public translate:TranslateService,
-                public router:Router) {
+    constructor(public translate: TranslateService,
+                public router: Router) {
     }
 
     ngOnInit() {
