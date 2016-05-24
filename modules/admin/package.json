@@ -84,11 +84,13 @@
     "@angular2-material/toolbar": "2.0.0-alpha.4",
     "core-js": "^2.2.2",
     "ng2-translate": "^2.1.0",
-    "normalize.css": "^4.1.1",
     "rxjs": "5.0.0-beta.6",
     "zone.js": "~0.6.12"
   },
   "devDependencies": {
+    "resolve-url-loader": "^1.4.3",
+    "bootstrap-sass": "^3.3.6",
+    "bootstrap-loader": "^1.0.10",
     "angular2-hmr": "~0.7.0",
     "angular2-localStorage": "^0.2.1",
     "awesome-typescript-loader": "~0.17.0",

@@ -1,2 +1,0 @@
-# theme-cupertino - Read Me
-

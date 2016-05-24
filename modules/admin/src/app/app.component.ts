@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, Router, Instruction } from '@angular/router-deprecated';
-import {ViewEncapsulation} from '@angular/core';
 
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
-import {AppRouterOutlet} from './app.router-outlet';
-import {NotFound} from './notfound/notfound.component';
-import {Login} from './login/login.component';
-import {Navigation} from './navigation/navigation.component';
+import { AppRouterOutlet } from './app.router-outlet';
+import { NotFound } from './notfound/notfound.component';
+import { Login } from './login/login.component';
+import { Navigation } from './navigation/navigation.component';
 
 @Component({
     selector: 'app',
@@ -18,18 +17,19 @@ import {Navigation} from './navigation/navigation.component';
     template: '<route-outlet></route-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
-        require('./../../node_modules/bootstrap/dist/css/bootstrap.css'),
+        require('bootstrap-loader'), // https://github.com/shakacode/bootstrap-loader
         require('./../assets/css/main.css'),
-        require('./../assets/js/ext-6.0.1/build/classic/theme-neptune/resources/theme-neptune-all.css'),
+//        require('./../assets/js/ext-6.0.1/build/classic/theme-neptune/resources/theme-neptune-all.css'),
         require('./../assets/css/spinkit/cube-grid.css'),
         require('./../assets/css/iconfont/material-icons.css')
     ]
 })
 @RouteConfig([
-    { path: '/', redirectTo: ['/Login'] },
-    { path: '/login', component: Login, name: 'Login', useAsDefault: true},
-    { path: '/navigation/...', component: Navigation, name: 'Navigation'},
-    {path: '/notfound', component: NotFound, name: 'NotFound'}
+    { path: '/', redirectTo: ['/login'] },
+    { path: '/login', component: Login, name: 'Login', useAsDefault: true },
+    { path: '/navigation/...', component: Navigation, name: 'Navigation' },
+    { path: '/notfound', component: NotFound, name: 'NotFound' },
+    { path: '*', redirectTo: ['/notfound'] }
 ])
 export class App {
 
@@ -43,7 +43,6 @@ export class App {
             }
         });
     }
-
 
 }
 
