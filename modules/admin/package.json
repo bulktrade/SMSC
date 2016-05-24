@@ -41,7 +41,6 @@
     "poste2e": "npm run orientdb:dev:clean",
     "e2e": "npm run protractor",
     "e2e:live": "npm run e2e -- --elementExplorer",
-//    "pretest": "npm run orientdb:dev:clean && npm run orientdb:dev && npm run lint",
     "pretest": "npm run orientdb:dev:clean && npm run orientdb:dev",
     "test": "karma start",
     "posttest": "npm run orientdb:dev:clean",
