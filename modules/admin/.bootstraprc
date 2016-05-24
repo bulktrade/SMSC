@@ -1,0 +1,10 @@
+{
+  "bootstrapVersion": 3,
+  "useFlexbox": true,
+  "styleLoaders": ["style", "css", "sass"],
+  "styles": {
+    "normalize": true,
+    "print": true
+  },
+  "scripts": false
+}

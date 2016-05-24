@@ -18,18 +18,18 @@ import { Navigation } from './navigation/navigation.component';
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
         require('bootstrap-loader'), // https://github.com/shakacode/bootstrap-loader
-        require('./../assets/css/main.css'),
-//        require('./../assets/js/ext-6.0.1/build/classic/theme-neptune/resources/theme-neptune-all.css'),
-        require('./../assets/css/spinkit/cube-grid.css'),
-        require('./../assets/css/iconfont/material-icons.css')
+        require('../assets/css/main.css'),
+        require('../vendor/ext-6.0.1/build/classic/theme-crisp/resources/theme-crisp-all.css'),
+        require('../vendor/spinkit/cube-grid.css'),
+        require('../vendor/iconfont/material-icons.css')
     ]
 })
 @RouteConfig([
-    { path: '/', redirectTo: ['/login'] },
+    { path: '/', redirectTo: ['/Login'] },
     { path: '/login', component: Login, name: 'Login', useAsDefault: true },
     { path: '/navigation/...', component: Navigation, name: 'Navigation' },
     { path: '/notfound', component: NotFound, name: 'NotFound' },
-    { path: '*', redirectTo: ['/notfound'] }
+    { path: '*', redirectTo: ['/NotFound'] }
 ])
 export class App {
 
