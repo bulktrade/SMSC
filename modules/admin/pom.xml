@@ -32,20 +32,6 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>exec-bower-install</id>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <executable>bower</executable>
-                            <workingDirectory>${project.basedir}/src</workingDirectory>
-                            <arguments>
-                                <argument>install</argument>
-                            </arguments>
-                        </configuration>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                    <execution>
                         <id>test-app</id>
                         <phase>process-test-resources</phase>
                         <configuration>
@@ -121,10 +107,10 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>${basedir}/src/bower_components</directory>
+                            <directory>${basedir}/node_modules</directory>
                         </fileset>
                         <fileset>
-                            <directory>${basedir}/node_modules</directory>
+                            <directory>${basedir}/typings</directory>
                         </fileset>
                         <fileset>
                             <directory>${basedir}/dist</directory>
