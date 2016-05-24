@@ -6,7 +6,7 @@ import {Location} from '@angular/common';
     exportAs: 'active'
 })
 export class ActiveItem {
-    constructor(public location:Location) {
+    constructor(public location: Location) {
     }
 
     isActiveMainItem(path) {
@@ -20,7 +20,7 @@ export class ActiveItem {
            path += item + '/';
         });
 
-        path = path.substring(0, path.length-1);
+        path = path.substring(0, path.length - 1);
 
         return this.location.path() === '/navigation/' + path.toLowerCase();
     }

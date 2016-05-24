@@ -6,7 +6,7 @@ import {ActiveItem} from './directives/active';
 import {NgClass, NgFor} from '@angular/common';
 import {AnimateBox} from './directives/animate';
 import {SidebarItem} from './sidebaritem.component';
-import {Navigation} from "../navigation/navigation.component";
+import {Navigation} from '../navigation/navigation.component';
 
 declare var Reflect;
 
@@ -32,7 +32,7 @@ declare var Reflect;
 export class SidebarService {
     public dataNavItems = [];
 
-    constructor(public translate:TranslateService) {
+    constructor(public translate: TranslateService) {
         this.initDataNavItems();
     }
 
@@ -52,11 +52,11 @@ export class SidebarService {
                         name: subItem.name,
                         icon: subItem.data.icon
                     });
-                })
+                });
             }
 
             if (result.length === 0) {
-                result = null;
+                result = undefined;
             }
 
             this.dataNavItems.push({

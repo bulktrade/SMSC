@@ -15,7 +15,7 @@ declare var Reflect;
     selector: 'sidebar-item',
     templateUrl: 'app/sidebar/sidebaritem.html',
     styles: [
-        require('./sidebaritem.scss'),
+        require('./sidebaritem.scss')
     ],
     providers: [],
     directives: [
@@ -33,8 +33,8 @@ declare var Reflect;
 export class SidebarItem {
     public store = localStorage;
 
-    @LocalStorage() public icnDsh:boolean;
-    @LocalStorage() public icnGsm:boolean;
+    @LocalStorage() public icnDsh: boolean;
+    @LocalStorage() public icnGsm: boolean;
 
     @Input('icon') public icon;
     @Input('nameItem') public nameItem;
@@ -42,14 +42,14 @@ export class SidebarItem {
     @Input() public submenu;
     @Input() public toggle;
 
-    constructor(public translate:TranslateService, public showmininav:ShowMiniNav) {
+    constructor(public translate: TranslateService, public showmininav: ShowMiniNav) {
     }
 
     ngOnInit() {
     }
 
     getStorageItem(item) {
-        if (localStorage.getItem(item) === null) {
+        if (localStorage.getItem(item) === undefined) {
             return undefined;
         } else {
             return localStorage.getItem(item) === 'true' ? true : false;

@@ -33,7 +33,7 @@ import {SidebarService} from '../sidebar/sidebar.service.component';
             showInSubNavigation: true,
             icon: 'layers',
             toggle: '/icnDsh'
-        }, 
+        },
         useAsDefault: true
     },
     {
@@ -61,7 +61,8 @@ import {SidebarService} from '../sidebar/sidebar.service.component';
 export class Navigation implements OnInit {
     content: string;
 
-    constructor(public router: Router, public translate: TranslateService, public showmininav: ShowMiniNav) {
+    constructor(public router: Router, public translate: TranslateService,
+                public showmininav: ShowMiniNav) {
         this.content = localStorage.getItem('rightWrite');
     }
 

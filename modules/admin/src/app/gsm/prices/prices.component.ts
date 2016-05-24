@@ -18,6 +18,5 @@ export class Prices {
                 public breadcrumb: BreadcrumbService) {}
 
     ngOnInit() {
-        
     }
 }

@@ -31,7 +31,8 @@ export class LoginTest {
 
     clickOnBtnSend(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('btn')), 5000).then(function (el:webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('btn')), 5000).
+            then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -42,9 +43,9 @@ export class LoginTest {
     waitUntilReady(elm, ptor) {
         ptor.wait(function () {
             return elm.isPresent();
-        },10000);
+        }, 10000);
         ptor.wait(function () {
             return elm.isDisplayed();
-        },10000);
+        }, 10000);
     };
 }

@@ -31,7 +31,7 @@ describe('Navigation', () => {
     });
 
     it('is exist local store', () => {
-        var value = browser.executeScript("return window.localStorage.getItem('rightWrite');");
+        let value = browser.executeScript("return window.localStorage.getItem('rightWrite');");
         expect(value).toBeDefined();
     });
 
@@ -44,7 +44,8 @@ describe('Navigation', () => {
     it('marked sub and main item navigation like active', () => {
         this.navigator.clickOnItemNavDashboard(ptor).then(() => {
             expect(this.navigator.hasClass(this.navigator.titleDash, 'active')).toBeTruthy();
-            expect(this.navigator.hasClass(this.navigator.titleDlrtraffic, 'activesub')).toBeTruthy();
+            expect(this.navigator.hasClass(this.navigator.titleDlrtraffic, 'activesub'))
+                .toBeTruthy();
         });
     });
 
@@ -81,9 +82,9 @@ describe('Navigation', () => {
         ptor.manage().window().setSize(width, height);
         this.navigator.navigation.getCssValue('width')
             .then(value => {
-                let widthElem = Number(value.substring(0, value.length-2));
+                let widthElem = Number(value.substring(0, value.length - 2));
                 expect(widthElem > 230).toBeTruthy();
-            })
+            });
     });
 
     it('save state navigation after refresh page', () => {
@@ -92,9 +93,9 @@ describe('Navigation', () => {
                 this.navigator.waitUntilReady(this.navigator.dashSubMenu, ptor);
                 this.navigator.dashSubMenu.getCssValue('height')
                     .then(value => {
-                        let heightElem = Number(value.substring(0, value.length-2));
+                        let heightElem = Number(value.substring(0, value.length - 2));
                         expect(heightElem).toBeTruthy();
-                    })
+                    });
             });
     });
 

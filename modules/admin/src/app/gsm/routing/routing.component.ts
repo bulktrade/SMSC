@@ -19,7 +19,6 @@ export class Routing {
                 public breadcrumb: BreadcrumbService) {}
 
     ngOnInit() {
-
     }
 
 }

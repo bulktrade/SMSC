@@ -1,11 +1,7 @@
-import {Login} from "../login/login.loginpage";
+import {Login} from '../login/login.loginpage';
 
 export class NavigationTest {
     public login;
-
-    constructor(){
-        this.login = new Login();
-    }
 
     dashboard = element(by.className('dashboard-item'));
     dashSubMenu = element(by.className('dashboard-submenu'));
@@ -29,6 +25,10 @@ export class NavigationTest {
     smpp = element(by.css('smpp .wrap-breadcrumb'));
     api = element(by.css('api .wrap-breadcrumb'));
     systemsettings = element(by.css('systemsettings .wrap-breadcrumb'));
+
+    constructor() {
+        this.login = new Login();
+    }
 
     getRoot() {
         browser.get('/');
@@ -73,15 +73,16 @@ export class NavigationTest {
     waitUntilReady(elm, ptor) {
         ptor.wait(function () {
             return elm.isPresent();
-        },10000);
+        }, 10000);
         ptor.wait(function () {
             return elm.isDisplayed();
-        },10000);
+        }, 10000);
     };
 
     clickOnItemNavDashboard(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000).then(function (el:webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -91,10 +92,12 @@ export class NavigationTest {
 
         clickOnItemNavSmstraffic(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 el.click();
-                ptor.wait(protractor.until.elementLocated(by.className('smstraffic')), 5000).then(function (el: webdriver.IWebElement) {
-                    resolve(el.click());
+                ptor.wait(protractor.until.elementLocated(by.className('smstraffic')), 5000)
+                    .then(function (elem: webdriver.IWebElement) {
+                    resolve(elem.click());
                 }).thenCatch((errback) => {
                     reject(errback);
                 });
@@ -116,7 +119,8 @@ export class NavigationTest {
 
     clickOnItemNavDlrtraffic(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('dlrtraffic')), 5000).then(function (el:webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('dlrtraffic')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -129,7 +133,8 @@ export class NavigationTest {
 
     clickOnItemNavFinances(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('finances')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('finances')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -142,7 +147,8 @@ export class NavigationTest {
 
     clickOnItemNavCustomers(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -155,10 +161,12 @@ export class NavigationTest {
 
     clickOnItemNavMonitoring(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('gsm')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('gsm')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 el.click();
-                ptor.wait(protractor.until.elementLocated(by.className('monitoring')), 5000).then(function (el: webdriver.IWebElement) {
-                    resolve(el.click());
+                ptor.wait(protractor.until.elementLocated(by.className('monitoring')), 5000)
+                    .then(function (elem: webdriver.IWebElement) {
+                    resolve(elem.click());
                 }).thenCatch((errback) => {
                     reject(errback);
                 });
@@ -171,7 +179,8 @@ export class NavigationTest {
 
     clickOnItemNavCarriers(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('carriers')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('carriers')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -184,7 +193,8 @@ export class NavigationTest {
 
     clickOnItemNavRouting(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('routing')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('routing')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -197,7 +207,8 @@ export class NavigationTest {
 
     clickOnItemNavPrices(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('prices')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('prices')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -210,7 +221,8 @@ export class NavigationTest {
 
     clickOnItemNavMccmnc(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('mccmnc')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('mccmnc')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -223,7 +235,8 @@ export class NavigationTest {
 
     clickOnItemNavSmpp(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('smpp')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('smpp')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -236,7 +249,8 @@ export class NavigationTest {
 
     clickOnItemNavApi(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('api')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('api')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);
@@ -249,7 +263,8 @@ export class NavigationTest {
 
     clickOnItemNavSystemsettings(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('systemsettings')), 5000).then(function (el: webdriver.IWebElement) {
+            ptor.wait(protractor.until.elementLocated(by.className('systemsettings')), 5000)
+                .then(function (el: webdriver.IWebElement) {
                 resolve(el.click());
             }).thenCatch((errback) => {
                 reject(errback);

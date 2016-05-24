@@ -299,9 +299,9 @@ export class ODatabaseService {
             };
 
             linkMap = this.createObjectsLinksMap(obj, linkMap);
-            if (linkMap['foo'] === 1) {
+            if (linkMap.foo === 1) {
                 linkMap = this.putObjectInLinksMap(obj, linkMap);
-                if (linkMap['foo'] === 2) {
+                if (linkMap.foo === 2) {
                     obj = this.getObjectFromLinksMap(obj, linkMap);
                 }
             }
@@ -322,7 +322,7 @@ export class ODatabaseService {
                 if (typeof value === 'string') {
                     if (value.length > 0 && value.charAt(0) === '#') {
                         if (!linkMap.hasOwnProperty(value)) {
-                            linkMap['foo'] = 1;
+                            linkMap.foo = 1;
                             linkMap[value] = undefined;
                         }
                     }
@@ -364,7 +364,7 @@ export class ODatabaseService {
                 if (field === '@rid' && value.length > 0
                     && linkMap.hasOwnProperty(value)
                     && linkMap[value] === undefined) {
-                    linkMap['foo'] = 2;
+                    linkMap.foo = 2;
                     linkMap[value] = obj;
                 }
             }
