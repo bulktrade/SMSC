@@ -1,0 +1,12 @@
+#content-panel-body {
+    background-image: url(get-resource-path('images/square.gif', 'toolkit'));
+}
+
+#content-panel-innerCt {
+    padding: 20px;
+    vertical-align: middle;
+    > * {
+        margin: auto;
+    }
+}
+
