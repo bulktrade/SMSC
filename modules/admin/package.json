@@ -130,6 +130,7 @@
     "resolve-url-loader": "^1.4.3",
     "rimraf": "^2.5.2",
     "sass-loader": "^3.2.0",
+    "selenium-webdriver": "^2.53.2",
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
     "ts-helpers": "1.1.1",
