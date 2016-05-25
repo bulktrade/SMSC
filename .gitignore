@@ -5,6 +5,7 @@ modules/core/target
 modules/core/databases
 modules/.idea
 modules/admin/.idea
+modules/admin/.com.google.Chrome.*
 modules/admin/target
 modules/admin/coverage
 modules/admin/node_modules
