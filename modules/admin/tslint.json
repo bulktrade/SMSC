@@ -32,7 +32,7 @@
 
     "ban": false,
     "curly": false,
-    "forin": true,
+    "forin": false,
     "label-position": true,
     "label-undefined": true,
     "no-arg": true,

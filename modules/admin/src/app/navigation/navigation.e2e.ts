@@ -37,7 +37,7 @@ describe('Navigation', () => {
 
     it('visible fa-angle-left if main item have sub menu', () => {
         this.navigator.waitUntilReady(this.navigator.firstNav, ptor);
-        expect(this.navigator.hasClass(this.navigator.firstNav, 'fa-angle-down')).toBeTruthy();
+        expect(this.navigator.firstNav.isPresent()).toBeTruthy();
         expect(this.navigator.lastNav.isPresent()).toBeFalsy();
     });
 

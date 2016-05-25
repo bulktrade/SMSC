@@ -39,7 +39,7 @@ exports.config = {
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
-        {
+        /*{
         	browserName: 'firefox',
         	platform: 'OS X 10.11',
         	name: "firefox-tests",
@@ -69,7 +69,7 @@ exports.config = {
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        } //,
+        } //,*/
         // {
         // 	platformName: 'iOS',
         // 	browserName: '',
