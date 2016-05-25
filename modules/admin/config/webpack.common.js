@@ -205,6 +205,10 @@ module.exports = {
      */
     plugins: [
 
+        new webpack.ProvidePlugin({
+            Ext: helpers.root('src/vendor/ext-6.0.1/build/ext-all-debug.js')
+        }),
+
         new ExtractTextPlugin("[name].css"),
         /*
          * Plugin: ForkCheckerPlugin
