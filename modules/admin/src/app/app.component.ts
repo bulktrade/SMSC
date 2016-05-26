@@ -17,7 +17,6 @@ import { Navigation } from './navigation/navigation.component';
     styleUrls: [
         require('./app.scss'),
         // require('../vendor/ext-6.0.1/build/classic/theme-crisp/resources/theme-crisp-all.css'),
-        require('../vendor/spinkit/cube-grid.css'),
         require('../vendor/iconfont/material-icons.css')
     ]
 })
