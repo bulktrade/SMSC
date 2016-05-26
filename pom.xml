@@ -108,6 +108,16 @@
         </pluginManagement>
 
         <plugins>
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-antrun-plugin</artifactId>-->
+                <!--<version>1.3</version>-->
+                <!--<configuration>-->
+                    <!--<tasks>-->
+                        <!--<java fork="true" spawn="true" classpathref="maven.runtime.classpath" className=""/>-->
+                    <!--</tasks>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
