@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 @Component({
     selector: 'customers',
     templateUrl: 'app/dashboard/customers/customers.html',
-    styles: [
+    styleUrls: [
         require('./customers.scss')
     ],
     providers: [BreadcrumbService],

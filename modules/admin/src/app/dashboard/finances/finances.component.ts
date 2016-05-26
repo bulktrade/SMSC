@@ -5,7 +5,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 @Component({
     selector: 'finances',
     templateUrl: 'app/dashboard/finances/finances.html',
-    styles: [
+    styleUrls: [
         require('./finances.scss')
     ],
     providers: [BreadcrumbService],

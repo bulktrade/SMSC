@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 @Component({
     selector: 'mccmnc',
     templateUrl: 'app/gsm/mccmnc/mccmnc.html',
-    styles: [
+    styleUrls: [
         require('./mccmnc.scss')
     ],
     providers: [BreadcrumbService],
