@@ -204,11 +204,7 @@ module.exports = {
                 test: /\.html$/,
                 loader: 'raw-loader',
                 exclude: [helpers.root('src/index.html')]
-            },
-
-            // Bootstrap 4
-            { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' }
-
+            }
         ]
 
     },
