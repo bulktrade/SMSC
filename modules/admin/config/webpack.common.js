@@ -50,6 +50,7 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#entry
      */
     entry: {
+        'bootstrap-loader' : 'bootstrap-loader', // https://github.com/shakacode/bootstrap-loader
         'polyfills': './src/polyfills.ts',
         'vendor': './src/vendor.ts',
         'main': './src/main.browser.ts'

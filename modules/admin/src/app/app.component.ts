@@ -15,7 +15,6 @@ import { Navigation } from './navigation/navigation.component';
     template: '<route-outlet></route-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
-        require('bootstrap-loader'), // https://github.com/shakacode/bootstrap-loader
         require('./app.scss'),
         // require('../vendor/ext-6.0.1/build/classic/theme-crisp/resources/theme-crisp-all.css'),
         require('../vendor/spinkit/cube-grid.css'),
