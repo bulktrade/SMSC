@@ -54,7 +54,9 @@ module.exports = {
         'vendor': './src/vendor.ts',
         'main': './src/main.browser.ts'
     },
-    
+
+    // entry: [ 'bootstrap-loader', './app' ],
+
     /*
      * Options affecting the resolving of modules.
      *
@@ -83,7 +85,7 @@ module.exports = {
             'angular2/router': helpers.root('node_modules/@angular/router-deprecated/index.js'),
             'angular2/http': helpers.root('node_modules/@angular/http/index.js'),
             'angular2/http/testing': helpers.root('node_modules/@angular/http/testing.js')
-        },
+        }
 
     },
 
@@ -154,13 +156,19 @@ module.exports = {
              * See: https://github.com/webpack/json-loader
              */
 
-            {test: /\.css$/, loader: "style-loader!css-loader"},
-
+            // {test: /\.css$/, loader: "style-loader!css-loader"},
+            // {test: /\.css$/, loader: "postcss-loader"},
             {
+                test:   /\.css$/,
+                loader: "style-loader!css-loader!postcss-loader"
+            },
+            // { test: /\.css$/, loader: 'raw-loader' },
+
+           /* {
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: "url-loader?limit=10000&minetype=application/font-woff"
             },
-            {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"},
+            {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"},*/
 
             /*
              * Raw loader support for *.css files
@@ -177,11 +185,14 @@ module.exports = {
                 ]
             },
 
-            {
+            /*{
                 test: /\.scss$/,
                 exclude: /node_modules/,
                 loaders: ['raw-loader', 'sass-loader']
-            },
+            },*/
+
+            { test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass'] },
+            { test: /\.(woff2?|ttf|eot|svg|jpg)$/, loader: 'url?limit=10000' },
 
             /* Raw loader support for *.html
              * Returns file content as string
@@ -192,7 +203,10 @@ module.exports = {
                 test: /\.html$/,
                 loader: 'raw-loader',
                 exclude: [helpers.root('src/index.html')]
-            }
+            },
+
+            // Bootstrap 4
+            { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' }
 
         ]
 

@@ -3,6 +3,9 @@
 // at the entry point of the async loaded file. Also see custom-typings.d.ts as you also need to
 // run `typings install x` where `x` is your module
 
+// bootstrap-loader
+import 'bootstrap-loader';
+
 // Angular 2
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';

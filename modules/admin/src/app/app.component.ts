@@ -1,9 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, Router, Instruction } from '@angular/router-deprecated';
-
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 import { Location } from '@angular/common';
-
 import { AppRouterOutlet } from './app.router-outlet';
 import { NotFound } from './notfound/notfound.component';
 import { Login } from './login/login.component';
@@ -16,11 +14,9 @@ import { Navigation } from './navigation/navigation.component';
     directives: [AppRouterOutlet],
     template: '<route-outlet></route-outlet>',
     encapsulation: ViewEncapsulation.None,
-    styles: [
-        require('./app.scss')
-    ],
     styleUrls: [
-        require('bootstrap-loader'), // https://github.com/shakacode/bootstrap-loader
+        // require('bootstrap-loader'), // https://github.com/shakacode/bootstrap-loader
+        require('./app.scss'),
         // require('../vendor/ext-6.0.1/build/classic/theme-crisp/resources/theme-crisp-all.css'),
         require('../vendor/spinkit/cube-grid.css'),
         require('../vendor/iconfont/material-icons.css')

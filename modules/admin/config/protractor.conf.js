@@ -28,23 +28,23 @@ exports.config = {
         var caps = browser.getCapabilities()
     },
 
-    directConnect: true,
+    //directConnect: true,
 
     multiCapabilities: [
         {
             'browserName': 'chrome',
             'chromeOptions': {
-                'args': ['show-fps-counter=true']
+                   'args': ['show-fps-counter=true']
             }
-        }
-        /* {
+         }
+        /*{
             browserName: 'chrome',
             platform: 'OS X 10.11',
             name: "chrome-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
+        }
         {
         	browserName: 'firefox',
         	platform: 'OS X 10.11',
