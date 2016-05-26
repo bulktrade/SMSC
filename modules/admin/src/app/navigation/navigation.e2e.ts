@@ -30,11 +30,6 @@ describe('Navigation', () => {
             });
     });
 
-    it('is exist local store', () => {
-        let value = browser.executeScript("return window.localStorage.getItem('rightWrite');");
-        expect(value).toBeDefined();
-    });
-
     it('visible fa-angle-left if main item have sub menu', () => {
         this.navigator.waitUntilReady(this.navigator.firstNav, ptor);
         expect(this.navigator.firstNav.isPresent()).toBeTruthy();
@@ -53,13 +48,6 @@ describe('Navigation', () => {
         this.navigator.clickOnItemNavSmstraffic(ptor).then(() => {
             expect(this.navigator.getSmstraffic()).toBeTruthy();
         });
-    });
-
-    it('multi level urs structure', () => {
-        browser.driver.getCurrentUrl()
-            .then(url => {
-                expect(url.indexOf('dashboard') !== -1).toBeTruthy();
-            });
     });
 
     it('should have navigation directive', () => {
