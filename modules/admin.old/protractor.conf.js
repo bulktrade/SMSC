@@ -2,5 +2,5 @@
  * @author: @AngularClass
  */
 
-// look in ./config for protractor.conf.js
-exports.config = require('./config/protractor.conf.js').config;
+// look in ./config for protractor.dev.js
+exports.config = require('./config/protractor.dev.js').config;
