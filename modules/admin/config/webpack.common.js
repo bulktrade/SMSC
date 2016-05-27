@@ -157,19 +157,10 @@ module.exports = {
              * See: https://github.com/webpack/json-loader
              */
 
-            // {test: /\.css$/, loader: "style-loader!css-loader"},
-            // {test: /\.css$/, loader: "postcss-loader"},
             {
                 test:   /\.css$/,
                 loader: "style-loader!css-loader!postcss-loader"
             },
-            // { test: /\.css$/, loader: 'raw-loader' },
-
-           /* {
-                test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                loader: "url-loader?limit=10000&minetype=application/font-woff"
-            },
-            {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"},*/
 
             /*
              * Raw loader support for *.css files
@@ -186,13 +177,12 @@ module.exports = {
                 ]
             },
 
-            /*{
+            {
                 test: /\.scss$/,
                 exclude: /node_modules/,
                 loaders: ['raw-loader', 'sass-loader']
-            },*/
+            },
 
-            { test: /\.scss$/, loaders: ['style', 'css', 'postcss', 'sass'] },
             { test: /\.(woff2?|ttf|eot|svg|jpg)$/, loader: 'url?limit=10000' },
 
             /* Raw loader support for *.html

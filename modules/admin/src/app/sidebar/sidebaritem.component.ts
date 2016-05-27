@@ -14,7 +14,7 @@ declare var Reflect;
 @Component({
     selector: 'sidebar-item',
     templateUrl: 'app/sidebar/sidebaritem.html',
-    styleUrls: [
+    styles: [
         require('./sidebaritem.scss')
     ],
     providers: [],

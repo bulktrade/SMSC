@@ -5,7 +5,7 @@ import {BreadcrumbService} from '../breadcrumb/breadcrumb.component.ts';
 @Component({
     selector: 'systemsettings',
     templateUrl: 'app/systemsettings/systemsettings.html',
-    styleUrls: [
+    styles: [
         require('./systemsettings.scss')
     ],
     providers: [BreadcrumbService],

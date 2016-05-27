@@ -14,7 +14,7 @@ import {SidebarService} from '../sidebar/sidebar.service.component';
     selector: 'navigation',
     providers: [ShowMiniNav],
     templateUrl: 'app/navigation/navigation.html',
-    styleUrls: [
+    styles: [
         require('./navigation.scss')
     ],
     directives: [

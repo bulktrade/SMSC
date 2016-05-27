@@ -402,3 +402,43 @@ body {
     }
   }
 }
+
+/* Common styles */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+ul > li {
+  list-style-type: none;
+}
+
+.left {
+  float: left;}
+
+.right {
+  float: right;}
+
+body {
+  background: #E9ECF3 !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Clearfix */
+
+.clear {
+  &:before {
+    content: "";
+    display: table;
+  }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  zoom: 1;
+}
