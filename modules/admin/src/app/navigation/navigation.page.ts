@@ -7,7 +7,7 @@ export class NavigationTest {
     dashSubMenu = element(by.className('dashboard-submenu'));
     firstNav = element(by.css('.dashboard-icon'));
     lastNav = element(by.css('.systemsetting-icon'));
-    titleDash = element(by.css('.side-bar .dashboard'));
+    titleDash = element(by.className('dashboard-item'));
     titleDlrtraffic = element(by.className('dlrtraffic'));
     navigation = element(by.className('side-bar'));
     navDirective = element(by.tagName('sidebar'));
@@ -90,17 +90,13 @@ export class NavigationTest {
         });
     }
 
-        clickOnItemNavSmstraffic(ptor) {
+    clickOnItemNavSmstraffic(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000)
+            ptor.wait(protractor.until.elementLocated(by.className('smstraffic')), 5000)
                 .then(function (el: webdriver.IWebElement) {
-                el.click();
-                ptor.wait(protractor.until.elementLocated(by.className('smstraffic')), 5000)
-                    .then(function (elem: webdriver.IWebElement) {
-                    resolve(elem.click());
+                    resolve(el.click());
                 }).thenCatch((errback) => {
-                    reject(errback);
-                });
+                reject(errback);
             });
         });
     }
@@ -161,15 +157,11 @@ export class NavigationTest {
 
     clickOnItemNavMonitoring(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('gsm')), 5000)
+            ptor.wait(protractor.until.elementLocated(by.className('monitoring')), 5000)
                 .then(function (el: webdriver.IWebElement) {
-                el.click();
-                ptor.wait(protractor.until.elementLocated(by.className('monitoring')), 5000)
-                    .then(function (elem: webdriver.IWebElement) {
-                    resolve(elem.click());
+                    resolve(el.click());
                 }).thenCatch((errback) => {
-                    reject(errback);
-                });
+                reject(errback);
             });
         });
     }
