@@ -2,9 +2,6 @@ sudo: required
 services:
   - docker
 
-addons:
-  sauce_connect: true
-
 cache:
   docker: true
   directories:
@@ -40,3 +37,6 @@ notifications:
       - dimakuba124@gmail.com
     on_success: change
     on_failure: always
+
+addons:
+  sauce_connect: true
