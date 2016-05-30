@@ -2,7 +2,7 @@
  * @author: @AngularClass
  */
 
-// look in ./config for protractor.conf.js
+// look in ./config for protractor.dev.js
 switch (process.env.NODE_ENV) {
     case 'ci':
         exports.config = require('./config/protractor.ci').config;
