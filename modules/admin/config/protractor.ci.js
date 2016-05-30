@@ -19,8 +19,8 @@ exports.config = objectMerge(commonConfig.config, {
     multiCapabilities: [
         {
             browserName: 'chrome',
-            platform: 'OS X 10.11',
-            name: "chrome-tests",
+            platform: 'OS X',
+            name: "chrome-osx-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
             shardTestFiles: true,
@@ -28,8 +28,26 @@ exports.config = objectMerge(commonConfig.config, {
         },
         {
             browserName: 'firefox',
-            platform: 'OS X 10.11',
-            name: "firefox-tests",
+            platform: 'OS X',
+            name: "firefox-osx-tests",
+            build: process.env.TRAVIS_BUILD_NUMBER,
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
+        },
+        {
+            browserName: 'chrome',
+            platform: 'Windows',
+            name: "chrome-windows-tests",
+            build: process.env.TRAVIS_BUILD_NUMBER,
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
+        },
+        {
+            browserName: 'firefox',
+            platform: 'Windows',
+            name: "firefox-windows-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
             shardTestFiles: true,
@@ -37,7 +55,7 @@ exports.config = objectMerge(commonConfig.config, {
         },
         {
             browserName: 'safari',
-            platform: 'OS X 10.11',
+            platform: 'OS X',
             name: "safari-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
@@ -53,31 +71,33 @@ exports.config = objectMerge(commonConfig.config, {
         },
         {
             browserName: 'opera',
-            platform: 'OS X 10.11',
             name: "opera-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
             shardTestFiles: true,
             maxInstances: 25
-        } //,*/
-        // {
-        // 	platformName: 'iOS',
-        // 	browserName: '',
-        // 	name: "ios-tests",
-        // 	app: 'safari',
-        // 	deviceName: 'iPhone Simulator',
-        // 	shardTestFiles: true,
-        // 	build: process.env.TRAVIS_BUILD_NUMBER,
-        // 	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        //
-        // },
-        // {
-        // 	platformName: 'Android',
-        // 	browserName: 'Browser',
-        // 	name: "android-tests",
-        // 	deviceName: 'Android Emulator',
-        // 	build: process.env.TRAVIS_BUILD_NUMBER,
-        // 	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        // }
+        },
+        {
+        	platformName: 'iOS',
+         	browserName: '',
+         	name: "ios-tests",
+         	app: 'safari',
+         	deviceName: 'iPhone Simulator',
+         	build: process.env.TRAVIS_BUILD_NUMBER,
+         	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
+        
+        },
+        {
+         	platformName: 'Android',
+         	browserName: 'Browser',
+         	name: "android-tests",
+         	deviceName: 'Android Emulator',
+         	build: process.env.TRAVIS_BUILD_NUMBER,
+         	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
+        }
     ]
 });
