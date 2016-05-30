@@ -19,7 +19,7 @@ exports.config = objectMerge(commonConfig.config, {
     multiCapabilities: [
         {
             browserName: 'chrome',
-            platform: 'OS X',
+            platform: 'OS X 10.11',
             name: "chrome-osx-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
@@ -27,7 +27,7 @@ exports.config = objectMerge(commonConfig.config, {
         },
         {
             browserName: 'firefox',
-            platform: 'OS X',
+            platform: 'OS X 10.11',
             name: "firefox-osx-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
@@ -51,7 +51,7 @@ exports.config = objectMerge(commonConfig.config, {
         },
         {
             browserName: 'chrome',
-            platform: 'Windows',
+            platform: 'Windows 10',
             name: "chrome-windows-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
@@ -59,7 +59,7 @@ exports.config = objectMerge(commonConfig.config, {
         },
         {
             browserName: 'firefox',
-            platform: 'Windows',
+            platform: 'Windows 10',
             name: "firefox-windows-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
@@ -67,7 +67,7 @@ exports.config = objectMerge(commonConfig.config, {
         },
         {
             browserName: 'safari',
-            platform: 'OS X',
+            platform: 'OS X 10.11',
             name: "safari-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
