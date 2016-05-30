@@ -14,23 +14,23 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'ci';
 exports.config = objectMerge(commonConfig.config, {
     sauceUser: process.env.SAUCE_USERNAME,
     sauceKey: process.env.SAUCE_ACCESS_KEY,
+    seleniumAddress: 'http://localhost:4444/wd/hub',
 
     multiCapabilities: [
         {
             browserName: 'chrome',
             platform: 'OS X 10.11',
             name: "chrome-tests",
-            shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
-        },
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+        } /* ,
         {
             browserName: 'firefox',
             platform: 'OS X 10.11',
             name: "firefox-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'safari',
@@ -38,14 +38,14 @@ exports.config = objectMerge(commonConfig.config, {
             name: "safari-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'MicrosoftEdge',
             name: "edge-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'opera',
@@ -53,7 +53,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "opera-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         } //,*/
         // {
         // 	platformName: 'iOS',
