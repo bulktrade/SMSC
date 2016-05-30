@@ -31,6 +31,26 @@ describe('Navigation', () => {
             expect(this.navigator.getSmstraffic()).toBeTruthy();
         });
     });
+
+    it('AngularJS Translations', () => {
+        let lang = this.navigator.getLanguage();
+
+        this.navigator.waitUntilReady(this.navigator.dashboard, ptor);
+        this.navigator.getDashboardText()
+            .then((text) => {
+                expect(lang).toEqual(text);
+            });
+    });
+
+    it('marked sub and main item navigation like active', () => {
+        this.navigator.waitUntilReady(this.navigator.titleDash, ptor);
+        this.navigator.hasClass(this.navigator.titleDash, 'active').then((data) => {
+            expect(data).toBeTruthy();
+            this.navigator.hasClass(this.navigator.titleDlrtraffic, 'activesub').then((res) => {
+                expect(res).toBeTruthy();
+            });
+        });
+    });
     
     it('should have navigation directive', () => {
         expect(this.navigator.isPresentNavDirective()).toBeTruthy();
@@ -60,11 +80,10 @@ describe('Navigation', () => {
     it('save state navigation after refresh page', () => {
         ptor.refresh()
             .then(() => {
-                this.navigator.waitUntilReady(this.navigator.dashSubMenu, ptor);
                 this.navigator.dashSubMenu.getCssValue('height')
                     .then(value => {
                         let heightElem = Number(value.substring(0, value.length - 2));
-                        expect(heightElem).toBeTruthy();
+                        expect(heightElem).toBe(0);
                     });
             });
     });
@@ -81,19 +100,19 @@ describe('Navigation', () => {
             });
     });
     
-    it('should have carriers', () => {
-        this.navigator.clickOnItemNavCarriers(ptor)
-            .then(() => {
-                expect(this.navigator.getCarriers()).toBeTruthy();
-            });
-    });
-
-    it('should have routing', () => {
-        this.navigator.clickOnItemNavRouting(ptor)
-            .then(() => {
-                expect(this.navigator.getRouting()).toBeTruthy();
-            });
-    });
+    // it('should have carriers', () => {
+    //     this.navigator.clickOnItemNavCarriers(ptor)
+    //         .then(() => {
+    //             expect(this.navigator.getCarriers()).toBeTruthy();
+    //         });
+    // });
+    //
+    // it('should have routing', () => {
+    //     this.navigator.clickOnItemNavRouting(ptor)
+    //         .then(() => {
+    //             expect(this.navigator.getRouting()).toBeTruthy();
+    //         });
+    // });
 
     it('should have prices', () => {
         this.navigator.clickOnItemNavPrices(ptor)
@@ -131,23 +150,6 @@ describe('Navigation', () => {
     });
 
     // todo: soon will be fixed
-    //
-    // it('AngularJS Translations', () => {
-    //     let lang = this.navigator.getLanguage();
-    //
-    //     this.navigator.waitUntilReady(this.navigator.dashboard, ptor);
-    //     this.navigator.getDashboardText()
-    //         .then((text) => {
-    //             expect(lang).toEqual(text);
-    //         });
-    // });
-    //
-    // it('marked sub and main item navigation like active', () => {
-    //      this.navigator.waitUntilReady(this.navigator.titleDash, ptor);
-    //      expect(this.navigator.hasClass(this.navigator.titleDash, 'active')).toBeTruthy();
-    //      expect(this.navigator.hasClass(this.navigator.titleDlrtraffic, 'activesub'))
-    //         .toBeTruthy();
-    //  });
     //
     // it('should have customers', () => {
     //     this.navigator.clickOnItemNavCustomers(ptor).then(() => {
