@@ -54,7 +54,7 @@
     "preversion": "npm test",
     "version": "npm run build",
     "postversion": "git push && git push --tags",
-    "orientdb:dev": "docker run -d --name testAdminOrientDB -p 2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=123test -v $(pwd)/docker/orientdb/config/orientdb-server-config.xml:/orientdb/config/orientdb-server-config.xml orientdb:latest",
+    "orientdb:dev": "docker run -d --name testAdminOrientDB -p 2424:2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=123test -v $(pwd)/docker/orientdb/config/orientdb-server-config.xml:/orientdb/config/orientdb-server-config.xml orientdb:latest",
     "orientdb:dev:clean": "docker rm -fv testAdminOrientDB || true",
     "typings-install": "typings install",
     "tsc": "tsc",

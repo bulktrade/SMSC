@@ -9,9 +9,6 @@ import com.orientechnologies.orient.server.network.protocol.http.ONetworkProtoco
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by deacix on 31.01.16.
- */
 public class Server {
 	/**
 	 * OrientDB Embedded Server Instance.
