@@ -34,7 +34,7 @@ before_install:
 #  - sleep 10
 
 install: 
-  - mvn install -DskipIntegrationTests=true -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn install -DskipIntegrationTests=true -DskipTests=true -DskipTestResources=true -Dmaven.javadoc.skip=true -B -V
 
 script:
   - mvn test
