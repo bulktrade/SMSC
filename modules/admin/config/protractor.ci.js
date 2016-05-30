@@ -22,7 +22,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "chrome-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
         },
         {
             browserName: 'firefox',
@@ -30,7 +30,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "firefox-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
         },
         {
             browserName: 'safari',
@@ -38,14 +38,14 @@ exports.config = objectMerge(commonConfig.config, {
             name: "safari-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
         },
         {
             browserName: 'MicrosoftEdge',
             name: "edge-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
         },
         {
             browserName: 'opera',
@@ -53,7 +53,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "opera-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER + '-admin'
         } //,*/
         // {
         // 	platformName: 'iOS',
