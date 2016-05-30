@@ -24,7 +24,7 @@ exports.config = objectMerge(commonConfig.config, {
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
             shardTestFiles: true,
             maxInstances: 5
-        },
+        } /*,
         {
             browserName: 'firefox',
             platform: 'OS X 10.11',
@@ -117,6 +117,6 @@ exports.config = objectMerge(commonConfig.config, {
          	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
             shardTestFiles: true,
             maxInstances: 5
-        }
+        } */
     ]
 });
