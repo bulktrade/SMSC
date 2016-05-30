@@ -18,7 +18,7 @@ import { Navigation } from './navigation/navigation.component';
         require('./app.scss')
     ],
     styleUrls: [
-        // require('../vendor/ext-6.0.1/build/classic/theme-crisp/resources/theme-crisp-all.css')
+        require('../vendor/ext-6.0.1/build/classic/theme-classic/resources/theme-classic-all.css'),
         require('../vendor/iconfont/material-icons.css')
     ]
 })
