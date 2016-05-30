@@ -25,22 +25,24 @@ exports.config = objectMerge(commonConfig.config, {
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
             shardTestFiles: true,
             maxInstances: 25
-        } /* ,
+        },
         {
             browserName: 'firefox',
             platform: 'OS X 10.11',
             name: "firefox-tests",
-            shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
         },
         {
             browserName: 'safari',
             platform: 'OS X 10.11',
             name: "safari-tests",
-            shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
         },
         {
             browserName: 'MicrosoftEdge',
@@ -53,9 +55,10 @@ exports.config = objectMerge(commonConfig.config, {
             browserName: 'opera',
             platform: 'OS X 10.11',
             name: "opera-tests",
-            shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
         } //,*/
         // {
         // 	platformName: 'iOS',
