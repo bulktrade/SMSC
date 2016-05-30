@@ -4,7 +4,7 @@ describe('Customer grid', () => {
     let ptor = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
-        browser.ignoreSynchronization = false;
+        browser.ignoreSynchronization = true;
         this.customerGrid = new CustomerGridTest();
         ptor = protractor.wrapDriver(browser.driver);
     });
