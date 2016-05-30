@@ -38,6 +38,10 @@ script:
 
 after_success:
   - mvn clean cobertura:cobertura coveralls:report
+  
+after_script:
+  - killall node
+  - killall npm
 
 notifications:
   email:
