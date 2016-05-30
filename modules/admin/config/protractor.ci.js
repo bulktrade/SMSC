@@ -23,8 +23,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "chrome-osx-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         },
         {
             browserName: 'firefox',
@@ -32,8 +31,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "firefox-osx-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         },
         {
             browserName: 'chrome',
@@ -41,8 +39,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "chrome-linux-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         },
         {
             browserName: 'firefox',
@@ -50,8 +47,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "firefox-linux-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         },
         {
             browserName: 'chrome',
@@ -59,8 +55,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "chrome-windows-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         },
         {
             browserName: 'firefox',
@@ -68,8 +63,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "firefox-windows-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         },
         {
             browserName: 'safari',
@@ -77,8 +71,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "safari-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         },
         {
             browserName: 'MicrosoftEdge',
@@ -92,8 +85,7 @@ exports.config = objectMerge(commonConfig.config, {
             name: "opera-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         },
         {
         	platformName: 'iOS',
@@ -103,8 +95,7 @@ exports.config = objectMerge(commonConfig.config, {
          	deviceName: 'iPhone Simulator',
          	build: process.env.TRAVIS_BUILD_NUMBER,
          	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         
         },
         {
@@ -114,8 +105,7 @@ exports.config = objectMerge(commonConfig.config, {
          	deviceName: 'Android Emulator',
          	build: process.env.TRAVIS_BUILD_NUMBER,
          	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 25
+            shardTestFiles: true
         }
     ]
 });
