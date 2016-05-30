@@ -70,11 +70,10 @@
                         <id>e2e-app</id>
                         <phase>process-test-resources</phase>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>sh</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
-                                <argument>run</argument>
-                                <argument>e2e:ci</argument>
+                                <argument>bin/e2e-ci.sh</argument>
                             </arguments>
                         </configuration>
                         <goals>
