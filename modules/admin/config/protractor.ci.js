@@ -37,6 +37,24 @@ exports.config = objectMerge(commonConfig.config, {
         },
         {
             browserName: 'chrome',
+            platform: 'Linux',
+            name: "chrome-linux-tests",
+            build: process.env.TRAVIS_BUILD_NUMBER,
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
+        },
+        {
+            browserName: 'firefox',
+            platform: 'Linux',
+            name: "firefox-linux-tests",
+            build: process.env.TRAVIS_BUILD_NUMBER,
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
+        },
+        {
+            browserName: 'chrome',
             platform: 'Windows',
             name: "chrome-windows-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
