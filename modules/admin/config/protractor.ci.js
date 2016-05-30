@@ -88,11 +88,13 @@ exports.config = objectMerge(commonConfig.config, {
             shardTestFiles: true
         },
         {
-        	platformName: 'iOS',
-         	browserName: '',
-         	name: "ios-tests",
+        	platform: 'OS X 10.10',
+         	browserName: 'iphone',
+         	name: 'ios-tests',
+         	varsion: '9.2',
          	app: 'safari',
-         	deviceName: 'iPhone Simulator',
+         	deviceName: 'iPhone 6',
+         	deviceOrientation: 'portrait',
          	build: process.env.TRAVIS_BUILD_NUMBER,
          	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
             shardTestFiles: true
