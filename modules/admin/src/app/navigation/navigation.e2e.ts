@@ -4,7 +4,7 @@ describe('Navigation', () => {
     let ptor = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
-        browser.ignoreSynchronization = true;
+        browser.ignoreSynchronization = false;
         this.navigator = new NavigationTest();
         ptor = protractor.wrapDriver(browser.driver);
     });
@@ -25,7 +25,7 @@ describe('Navigation', () => {
         expect(this.navigator.firstNav.isPresent()).toBeTruthy();
         expect(this.navigator.lastNav.isPresent()).toBeFalsy();
     });
-    
+
     it('should have smstraffic', () => {
         this.navigator.clickOnItemNavSmstraffic(ptor).then(() => {
             expect(this.navigator.getSmstraffic()).toBeTruthy();
@@ -51,7 +51,7 @@ describe('Navigation', () => {
             });
         });
     });
-    
+
     it('should have navigation directive', () => {
         expect(this.navigator.isPresentNavDirective()).toBeTruthy();
     });
@@ -93,13 +93,13 @@ describe('Navigation', () => {
                 expect(this.navigator.getFinances()).toBeTruthy();
             });
     });
-    
+
     it('should have monitoring', () => {
         this.navigator.clickOnItemNavMonitoring(ptor).then(() => {
                 expect(this.navigator.getMonitoring()).toBeTruthy();
             });
     });
-    
+
     // it('should have carriers', () => {
     //     this.navigator.clickOnItemNavCarriers(ptor)
     //         .then(() => {
