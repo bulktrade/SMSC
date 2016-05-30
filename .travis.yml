@@ -33,6 +33,12 @@ before_install:
 #  - npm run start:hmr&
 #  - sleep 10
 
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+script:
+  - mvn test
+
 after_success:
   - mvn clean cobertura:cobertura coveralls:report
 
