@@ -21,79 +21,61 @@ exports.config = objectMerge(commonConfig.config, {
             platform: 'OS X 10.11',
             name: "chrome-osx-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         } /*,
         {
             browserName: 'firefox',
             platform: 'OS X 10.11',
             name: "firefox-osx-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'chrome',
             platform: 'Linux',
             name: "chrome-linux-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'firefox',
             platform: 'Linux',
             name: "firefox-linux-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'chrome',
             platform: 'Windows 10',
             name: "chrome-windows-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'firefox',
             platform: 'Windows 10',
             name: "firefox-windows-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'safari',
             platform: 'OS X 10.11',
             name: "safari-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'MicrosoftEdge',
             name: "edge-tests",
-            shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            maxInstances: 5
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
             browserName: 'opera',
             name: "opera-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
         	platform: 'OS X 10.10',
@@ -104,9 +86,7 @@ exports.config = objectMerge(commonConfig.config, {
          	deviceName: 'iPhone 6',
          	deviceOrientation: 'portrait',
          	build: process.env.TRAVIS_BUILD_NUMBER,
-         	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+         	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         },
         {
          	platformName: 'Android',
@@ -114,9 +94,7 @@ exports.config = objectMerge(commonConfig.config, {
          	name: "android-tests",
          	deviceName: 'Android Emulator',
          	build: process.env.TRAVIS_BUILD_NUMBER,
-         	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
-            shardTestFiles: true,
-            maxInstances: 5
+         	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         } */
     ]
 });
