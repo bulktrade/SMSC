@@ -40,7 +40,7 @@
     "pree2e": "npm run orientdb:dev:clean && npm run orientdb:dev && npm run webdriver:update -- --standalone",
     "pree2e:ci": "npm run orientdb:dev:clean && npm run orientdb:dev",
     "poste2e": "npm run orientdb:dev:clean",
-    "poste2e:ci": "npm run orientdb:dev:clean && killall node || true && killall npm || true",
+    "poste2e:ci": "npm run orientdb:dev:clean",
     "e2e": "npm run protractor",
     "e2e:ci": "(npm run start . &) && while ! timeout 1 bash -c \"echo > /dev/tcp/localhost/3000\"; do sleep 10; done && npm run protractor",
     "e2e:live": "npm run e2e -- --elementExplorer",
