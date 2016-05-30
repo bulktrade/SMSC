@@ -42,7 +42,7 @@
     "poste2e": "npm run orientdb:dev:clean",
     "poste2e:ci": "set +e && npm run orientdb:dev:clean && killall node && killall npm && set -e",
     "e2e": "npm run protractor",
-    "e2e:ci": "(npm run start || true . &) && while ! timeout 1 bash -c \"echo > /dev/tcp/localhost/3000\"; do sleep 10; done && npm run protractor",
+    "e2e:ci": "(npm run start || true . &) && sleep 60 && npm run protractor",
     "e2e:live": "npm run e2e -- --elementExplorer",
     "pretest": "npm run orientdb:dev:clean && npm run orientdb:dev",
     "test": "karma start",
