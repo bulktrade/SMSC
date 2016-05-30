@@ -22,7 +22,9 @@ exports.config = objectMerge(commonConfig.config, {
             platform: 'OS X 10.11',
             name: "chrome-tests",
             build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            shardTestFiles: true,
+            maxInstances: 25
         } /* ,
         {
             browserName: 'firefox',
