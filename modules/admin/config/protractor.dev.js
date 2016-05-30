@@ -24,6 +24,7 @@ exports.config = objectMerge(commonConfig.config, {
         includeStackTrace: true,
         defaultTimeoutInterval: 400000
     },
+    directConnect: true,
     capabilities: {
         'browserName': 'chrome',
         'chromeOptions': {

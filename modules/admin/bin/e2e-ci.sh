@@ -6,6 +6,8 @@ npm run start > /dev/null 2>&1&
 sleep 60
 set -e
 
+export DBUS_SESSION_BUS_ADDRESS=/dev/null
+
 npm run protractor
 
 set +e
