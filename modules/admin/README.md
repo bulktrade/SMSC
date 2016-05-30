@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bulktrade/SMSC.svg?branch=master)](https://travis-ci.org/bulktrade/SMSC)
+
 # How to install required packages
 ```bash
 # install the repo with npm
