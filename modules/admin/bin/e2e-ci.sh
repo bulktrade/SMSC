@@ -8,7 +8,7 @@ set -e
 
 export DBUS_SESSION_BUS_ADDRESS=/dev/null
 
-sudo protractor
+sudo npm run protractor
 
 set +e
 npm run orientdb:dev:clean
