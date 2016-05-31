@@ -20,7 +20,7 @@ public class MVC extends WebMvcConfigurerAdapter {
 	@Autowired
 	Environment env;
 
-	@Value("classpath:/META-INF/resources/io.smsc.admin/index.html")
+	@Value("classpath:META-INF/resources/io.smsc.admin/index.html")
 	Resource adminIndexHTMLResource;
 
     @Bean
