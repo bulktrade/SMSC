@@ -70,6 +70,10 @@
             <groupId>com.orientechnologies</groupId>
             <artifactId>orientdb-jdbc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.directory.studio</groupId>
+            <artifactId>org.apache.commons.io</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -145,30 +149,30 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.5.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>com.orientechnologies.orient.server.OServerMain</mainClass>
-                    <arguments>
-                        <argument>argument1</argument>
-                    </arguments>
-                    <systemProperties>
-                        <systemProperty>
-                            <key>myproperty</key>
-                            <value>myvalue</value>
-                        </systemProperty>
-                    </systemProperties>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>exec-maven-plugin</artifactId>-->
+                <!--<version>1.5.0</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>java</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<mainClass>com.orientechnologies.orient.server.OServerMain</mainClass>-->
+                    <!--<arguments>-->
+                        <!--<argument>argument1</argument>-->
+                    <!--</arguments>-->
+                    <!--<systemProperties>-->
+                        <!--<systemProperty>-->
+                            <!--<key>myproperty</key>-->
+                            <!--<value>myvalue</value>-->
+                        <!--</systemProperty>-->
+                    <!--</systemProperties>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <!--<plugin>-->
                 <!--<artifactId>maven-antrun-plugin</artifactId>-->
                 <!--<version>1.6</version>-->

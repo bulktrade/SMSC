@@ -109,12 +109,10 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/classes/META-INF/resources/io.smsc.admin
-                            </outputDirectory>
+                            <outputDirectory>${basedir}/target/classes/META-INF/resources/io.smsc.admin</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${basedir}/dist</directory>
-                                    <filtering>true</filtering>
                                 </resource>
                             </resources>
                         </configuration>
