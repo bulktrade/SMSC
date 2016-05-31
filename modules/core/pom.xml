@@ -76,22 +76,6 @@
         <finalName>smsc</finalName>
         <plugins>
             <plugin>
-                <groupId>com.heroku.sdk</groupId>
-                <artifactId>heroku-maven-plugin</artifactId>
-                <version>1.0.3</version>
-                <configuration>
-                  <appName>smsc</appName>
-                  <processTypes>
-                           <web>java -Dserver.port=$PORT -jar target/smsc.jar</web>
-                  </processTypes>
-                  <jdkVersion>1.8</jdkVersion>
-                  <includeTarget>false</includeTarget>
-                  <includes>
-                           <include>target/smsc.jar</include>
-                  </includes>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
