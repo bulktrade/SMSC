@@ -27,7 +27,8 @@ node_js:
 install:
   - nvm install 6
   - nvm use 6
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - npm install -g protractor
+  - mvn install -DskipTests=true -DskipIntegrationTests=true -Dmaven.javadoc.skip=true -B -V
 #  - export CHROME_BIN=chromium-browser
 #  - export DISPLAY=:99.0
 #  - "sh -e /etc/init.d/xvfb start"
