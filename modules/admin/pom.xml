@@ -11,6 +11,49 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>admin</artifactId>
 
+    <profiles>
+        <profile>
+            <id>adminTesting</id>
+            <build>
+                <plugins>
+                    <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                        <execution>
+                            <id>test-app</id>
+                            <phase>test</phase>
+                            <configuration>
+                                <executable>npm</executable>
+                                <workingDirectory>${project.basedir}</workingDirectory>
+                                <arguments>
+                                    <argument>run</argument>
+                                    <argument>test</argument>
+                                </arguments>
+                            </configuration>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>e2e-app</id>
+                            <phase>integration-test</phase>
+                            <configuration>
+                                <executable>sh</executable>
+                                <workingDirectory>${project.basedir}</workingDirectory>
+                                <arguments>
+                                    <argument>bin/e2e-ci.sh</argument>
+                                </arguments>
+                            </configuration>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                        </execution>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
@@ -29,35 +72,6 @@
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
-                            </arguments>
-                        </configuration>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-app</id>
-                        <phase>test</phase>
-                        <configuration>
-                            <executable>npm</executable>
-                            <workingDirectory>${project.basedir}</workingDirectory>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>test</argument>
-                            </arguments>
-                        </configuration>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>e2e-app</id>
-                        <phase>integration-test</phase>
-                        <configuration>
-                            <executable>sh</executable>
-                            <workingDirectory>${project.basedir}</workingDirectory>
-                            <arguments>
-                                <argument>bin/e2e-ci.sh</argument>
                             </arguments>
                         </configuration>
                         <goals>
