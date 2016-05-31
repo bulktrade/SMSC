@@ -120,7 +120,7 @@
                 <configuration>
                   <appName>smsc</appName>
                   <processTypes>
-                           <web>java -Dserver.port=$PORT -jar modules/core/target/smsc.jar</web>
+                           <web>java -Dserver.port=$PORT -jar target/smsc.jar</web>
                   </processTypes>
                   <jdkVersion>1.8</jdkVersion>
                   <includeTarget>false</includeTarget>
