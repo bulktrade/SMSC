@@ -36,6 +36,7 @@ install:
 
 script:
   - mvn test
+  - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn deploy ; fi
 
 #after_success:
 #  - mvn clean cobertura:cobertura coveralls:report
