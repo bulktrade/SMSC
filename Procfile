@@ -1,1 +1,0 @@
-web: java -Dserver.port=$PORT -jar modules/core/target/smsc.jar
