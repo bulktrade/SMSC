@@ -185,11 +185,15 @@
                 <artifactId>heroku-maven-plugin</artifactId>
                 <version>1.0.3</version>
                 <configuration>
-                    <appName>smsc</appName>
-                    <processTypes>
-                        <web>web: java -Dserver.port=$PORT -jar modules/core/target/smsc.jar</web>
-                    </processTypes>
-                    <jdkVersion>1.8</jdkVersion>
+                  <appName>smsc</appName>
+                  <processTypes>
+                           <web>web: java -Dserver.port=$PORT -jar modules/core/target/smsc.jar</web>
+                  </processTypes>
+                  <jdkVersion>1.8</jdkVersion>
+                  <includeTarget>false</includeTarget>
+                  <includes>
+                           <include>modules/core/target/smsc.jar</include>
+                  </includes>
                 </configuration>
             </plugin>
             <!--<plugin>-->
