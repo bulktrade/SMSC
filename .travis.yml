@@ -34,11 +34,8 @@ install:
 #  - npm run start:hmr&
 #  - sleep 10
 
-before_script:
-  - mvn install -DskipTests=true -DskipIntegrationTests=true -Dmaven.javadoc.skip=true -B -V
-
 script:
-  - mvn test
+  - mvn install test
   - if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn package heroku:deploy ; fi
  
 #after_success:
