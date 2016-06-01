@@ -4,7 +4,7 @@ import {Router, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {Breadcrumb} from './breadcrumb.service';
 @Component({
     selector: 'breadcrumb',
-    templateUrl: 'app/breadcrumb/breadcrumb.html',
+    template: require('./breadcrumb.html'),
     styles: [
         require('./breadcrumb.scss')
     ],

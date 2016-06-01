@@ -11,7 +11,7 @@ import {SMSTraffic} from './smstraffic/smstraffic.component';
 @Component({
     selector: 'dashboard',
     providers: [],
-    templateUrl: 'app/dashboard/dashboard.html',
+    template: require('./dashboard.html'),
     styles: [
         require('./dashboard.scss')
     ],

@@ -13,7 +13,7 @@ import {SidebarService} from '../sidebar/sidebar.service.component';
 @Component({
     selector: 'navigation',
     providers: [ShowMiniNav],
-    templateUrl: 'app/navigation/navigation.html',
+    template: require('./navigation.html'),
     styles: [
         require('./navigation.scss')
     ],

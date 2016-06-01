@@ -14,7 +14,7 @@ import {API} from './api/api.component';
 @Component({
     selector: 'gsm',
     providers: [],
-    templateUrl: 'app/gsm/gsm.html',
+    template: require('./gsm.html'),
     styles: [
         require('./gsm.scss')
     ],

@@ -5,7 +5,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 
 @Component({
     selector: 'monitoring',
-    templateUrl: 'app/gsm/monitoring/monitoring.html',
+    template: require('./monitoring.html'),
     styles: [
         require('./monitoring.scss')
     ],

@@ -13,7 +13,7 @@ declare var Reflect;
 
 @Component({
     selector: 'sidebar-item',
-    templateUrl: 'app/sidebar/sidebaritem.html',
+    template: require('./sidebaritem.html'),
     styles: [
         require('./sidebaritem.scss')
     ],

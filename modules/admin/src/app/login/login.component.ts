@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { ODatabaseService } from '../orientdb/orientdb.service';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
@@ -8,7 +7,7 @@ import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 @Component({
     selector: 'login',
     providers: [],
-    templateUrl: 'app/login/login.html',
+    template: require('./login.html'),
     styles: [
         require('./login.scss')
     ],

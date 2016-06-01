@@ -4,7 +4,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 
 @Component({
     selector: 'api',
-    templateUrl: 'app/gsm/api/api.html',
+    template: require('./api.html'),
     styles: [
         require('./api.scss')
     ],

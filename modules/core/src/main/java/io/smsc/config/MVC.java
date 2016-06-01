@@ -34,8 +34,8 @@ public class MVC extends WebMvcConfigurerAdapter {
 			registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 		}
 
-        if (!registry.hasMappingForPattern("/admin/**")) {
-            registry.addResourceHandler("/admin/**").addResourceLocations("classpath:/META-INF/resources/io.smsc.admin/");
+        if (!registry.hasMappingForPattern("/resources/admin/**")) {
+            registry.addResourceHandler("/resources/admin/**").addResourceLocations("classpath:/META-INF/resources/io.smsc.admin/");
         }
 
 		if (!registry.hasMappingForPattern("/**")) {

@@ -30,11 +30,6 @@ public class Index {
                     "/admin/",
                     "/admin/*"
             },
-            consumes = {
-                    MediaType.TEXT_HTML_VALUE,
-                    MediaType.APPLICATION_XHTML_XML_VALUE,
-                    MediaType.APPLICATION_XML_VALUE,
-            },
             produces = {
                     MediaType.TEXT_HTML_VALUE
             }

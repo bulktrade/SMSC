@@ -4,7 +4,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 
 @Component({
     selector: 'dlrtraffic',
-    templateUrl: 'app/dashboard/dlrtraffic/dlrtraffic.html',
+    template: require('./dlrtraffic.html'),
     styles: [
         require('./dlrtraffic.scss')
     ],

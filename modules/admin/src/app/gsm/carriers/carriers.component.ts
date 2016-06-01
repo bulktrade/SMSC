@@ -4,7 +4,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 
 @Component({
     selector: 'carriers',
-    templateUrl: 'app/gsm/carriers/carriers.html',
+    template: require('./carriers.html'),
     styles: [
         require('./carriers.scss')
     ],
