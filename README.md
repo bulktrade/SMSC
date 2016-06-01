@@ -1,4 +1,5 @@
-![Heroku](https://heroku-badge.herokuapp.com/?app=smsc)
+![Heroku](https://heroku-badge.herokuapp.com/?app=smsc) 
+[![Build Status](https://travis-ci.org/bulktrade/SMSC.svg?branch=master)](https://travis-ci.org/bulktrade/SMSC)
 
 # smsc.io
 SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API support.
