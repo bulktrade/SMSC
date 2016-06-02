@@ -13,7 +13,7 @@
     "webpack": "webpack",
     "webpack-dev-server": "webpack-dev-server",
     "webdriver-manager": "webdriver-manager",
-    "protractor": "protractor",
+    "protractor": "sudo protractor",
     "clean": "npm cache clean && npm run rimraf -- node_modules doc typings coverage dist",
     "clean:dist": "npm run rimraf -- dist",
     "preclean:install": "npm run clean",
