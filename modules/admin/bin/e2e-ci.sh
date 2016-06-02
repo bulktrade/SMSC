@@ -9,7 +9,7 @@ sleep 60
 
 export DBUS_SESSION_BUS_ADDRESS=/dev/null
 
-npm run protractor
+sudo protractor
 
 set +e
 npm run orientdb:dev:clean
