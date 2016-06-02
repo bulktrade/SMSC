@@ -65,6 +65,55 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>buildAdminSources</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${basedir}/target/classes/META-INF/resources/io.smsc.admin</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${basedir}/dist</directory>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-app</id>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <executable>npm</executable>
+                                    <workingDirectory>${project.basedir}</workingDirectory>
+                                    <arguments>
+                                        <argument>run</argument>
+                                        <argument>build:prod</argument>
+                                    </arguments>
+                                </configuration>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <build>
@@ -91,43 +140,6 @@
                             <goal>exec</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>build-app</id>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <executable>npm</executable>
-                            <workingDirectory>${project.basedir}</workingDirectory>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>build:prod</argument>
-                            </arguments>
-                        </configuration>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/classes/META-INF/resources/io.smsc.admin</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/dist</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -136,12 +148,6 @@
                 <version>3.0.0</version>
                 <configuration>
                     <filesets>
-                        <!--<fileset>-->
-                            <!--<directory>${basedir}/node_modules</directory>-->
-                        <!--</fileset>-->
-                        <!--<fileset>-->
-                            <!--<directory>${basedir}/typings</directory>-->
-                        <!--</fileset>-->
                         <fileset>
                             <directory>${basedir}/dist</directory>
                         </fileset>

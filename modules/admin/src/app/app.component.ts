@@ -15,11 +15,11 @@ import { Navigation } from './navigation/navigation.component';
     template: '<route-outlet></route-outlet>',
     encapsulation: ViewEncapsulation.None,
     styles: [
-        require('./app.scss')
+        require('./app.scss'),
+        require('../vendor/iconfont/material-icons.css')
     ],
     styleUrls: [
-        require('../vendor/ext-6.0.1/build/classic/theme-classic/resources/theme-classic-all.css'),
-        require('../vendor/iconfont/material-icons.css')
+        require('../vendor/ext-6.0.1/build/classic/theme-classic/resources/theme-classic-all.css')
     ]
 })
 @RouteConfig([

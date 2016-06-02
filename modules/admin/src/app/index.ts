@@ -26,7 +26,7 @@ export const APP_PROVIDERS = [
         deps: [Http]
     }),
     provide(ODatabaseService, {
-        useFactory: () => new ODatabaseService('http://localhost:3000/orientdb/smsc')
+        useFactory: () => new ODatabaseService('/orientdb/smsc')
     }),
     TRANSLATE_PROVIDERS,
     TranslateService,
