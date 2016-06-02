@@ -4,7 +4,7 @@ describe('Navigation', () => {
     let ptor = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
-        browser.ignoreSynchronization = true;
+        browser.ignoreSynchronization = false;
         this.navigator = new NavigationTest();
         ptor = protractor.wrapDriver(browser.driver);
     });
