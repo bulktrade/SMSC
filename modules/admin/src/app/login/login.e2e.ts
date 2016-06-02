@@ -4,7 +4,6 @@ describe('Login page', () => {
     let ptor = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
-        browser.ignoreSynchronization = false;
         this.lognpg = new LoginTest();
         ptor = protractor.wrapDriver(browser.driver);
     });

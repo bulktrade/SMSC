@@ -4,7 +4,6 @@ describe('App', () => {
   let ptor = protractor.wrapDriver(browser.driver);
 
   beforeEach(() => {
-    browser.ignoreSynchronization = false;
     this.apptest = new AppTest();
     ptor = protractor.wrapDriver(browser.driver);
     this.apptest.get();
