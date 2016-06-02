@@ -50,11 +50,13 @@
                                 <id>e2e-app</id>
                                 <phase>integration-test</phase>
                                 <configuration>
-                                    <executable>sh</executable>
+                                    <!--<executable>sh</executable>-->
+                                    <!--<workingDirectory>${project.basedir}</workingDirectory>-->
+                                    <!--<arguments>-->
+                                        <!--<argument>bin/e2e-ci.sh</argument>-->
+                                    <!--</arguments>-->
+                                    <executable>protractor</executable>
                                     <workingDirectory>${project.basedir}</workingDirectory>
-                                    <arguments>
-                                        <argument>bin/e2e-ci.sh</argument>
-                                    </arguments>
                                 </configuration>
                                 <goals>
                                     <goal>exec</goal>
