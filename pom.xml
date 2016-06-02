@@ -124,6 +124,9 @@
                 <version>1.0.3</version>
                 <configuration>
                   <appName>smsc</appName>
+                  <configVars>
+                    <EMBEDDED_ORIENTDB_ENABLED>true</EMBEDDED_ORIENTDB_ENABLED>
+                  </configVars>
                   <processTypes>
                            <web>java -Dserver.port=$PORT -jar target/smsc.jar</web>
                   </processTypes>
