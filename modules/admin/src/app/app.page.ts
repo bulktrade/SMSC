@@ -7,7 +7,7 @@ export class AppTest {
     constructor() {}
 
     get() {
-        browser.get('/');
+        browser.driver.get('/');
     }
 
     isPresentUsername() {
