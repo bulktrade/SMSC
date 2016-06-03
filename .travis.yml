@@ -35,7 +35,7 @@ install:
 #  - sleep 10
 
 script:
-  - mvn -PadminTesting -PbuildAdminSources integration-test && if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn -PbuildAdminSources heroku:deploy -Dmaven.test.skip=true -Dmaven.integration-test.skip=true -Dmaven.javadoc.skip=true ; fi
+  - mvn -PadminTesting install && if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn -PbuildAdminSources heroku:deploy -Dmaven.test.skip=true -Dmaven.integration-test.skip=true -Dmaven.javadoc.skip=true ; fi
  
 #after_success:
 #  - mvn clean cobertura:cobertura coveralls:report
