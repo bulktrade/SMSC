@@ -3,6 +3,9 @@ package io.smsc.config;
 import com.orientechnologies.orient.jdbc.OrientJdbcConnection;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.cloud.netflix.zuul.filters.discovery.PatternServiceRouteMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +21,8 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages="io.smsc")
 @EnableAutoConfiguration
+@EnableZuulProxy
+@EnableEurekaClient
 public class App {
 	@Bean
 	public FilterRegistrationBean characterEncodingFilterRegistrationBean () {
@@ -59,4 +64,10 @@ public class App {
         }
     }
 
+    @Bean
+    public PatternServiceRouteMapper serviceRouteMapper() {
+        return new PatternServiceRouteMapper(
+                "(?<name>^.+)-(?<version>v.+$)",
+                "${version}/${name}");
+    }
 }
