@@ -1,0 +1,13 @@
+zuul:
+  ignoredServices: '*'
+  routes:
+    orientdb:
+      path: /orientdb/**
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      url: http://localhost:8080
+      serviceId: orientdb_service
+
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
