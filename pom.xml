@@ -53,7 +53,7 @@
         </license>
     </licenses>
 
-    <!-- <repositories>
+    <repositories>
         <repository>
             <id>snapshots-repo</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -64,7 +64,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-    </repositories> -->
+    </repositories>
 
     <modules>
         <module>modules/admin</module>
