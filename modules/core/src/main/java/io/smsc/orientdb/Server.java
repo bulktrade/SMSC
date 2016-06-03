@@ -21,8 +21,8 @@ public class Server {
 
 	private String defaultRootPassword = "admin";
 	private String defaultDatabase = "smsc";
-	private String defaultUserName = "smsc";
-	private String defaultPassword = "smscPassword$";
+	private String defaultUserName = "admin";
+	private String defaultPassword = "admin";
 	private String defaultStorage = STORAGE_MEMORY;
 	private String defaultOAuth2Key = null;
 

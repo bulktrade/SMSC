@@ -4,10 +4,21 @@ zuul:
     orientdb:
       path: /orientdb/**
       sensitiveHeaders: Cookie,Set-Cookie,Authorization
-      url: http://localhost:8080
+      url: http://localhost:2480
       serviceId: orientdb_service
 
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ribbon:
   ConnectTimeout: 3000
   ReadTimeout: 60000
+  eureka:
+    enabled: false
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    server:
+    waitTimeInMsWhenSyncEmpty: 0
+    healthcheck:
+      enabled: false

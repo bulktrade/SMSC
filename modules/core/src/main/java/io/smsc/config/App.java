@@ -22,7 +22,6 @@ import java.util.Properties;
 @ComponentScan(basePackages="io.smsc")
 @EnableAutoConfiguration
 @EnableZuulProxy
-@EnableEurekaClient
 public class App {
 	@Bean
 	public FilterRegistrationBean characterEncodingFilterRegistrationBean () {
@@ -62,12 +61,5 @@ public class App {
             e.printStackTrace();
             return null;
         }
-    }
-
-    @Bean
-    public PatternServiceRouteMapper serviceRouteMapper() {
-        return new PatternServiceRouteMapper(
-                "(?<name>^.+)-(?<version>v.+$)",
-                "${version}/${name}");
     }
 }
