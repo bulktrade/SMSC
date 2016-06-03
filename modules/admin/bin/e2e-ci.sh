@@ -4,12 +4,15 @@ npm run orientdb:dev:clean
 npm run orientdb:dev
 set -e
 
-npm run start&
-sleep 60
+npm run start > webpack.log 2>&1&
 
-export DBUS_SESSION_BUS_ADDRESS=/dev/null
+while [ ! grep "[default] Ok,\|npm ERR!" webpack.log ]; do
+     echo -n "."
+done
 
-protractor
+rm webpack.log
+
+npm run protractor
 
 set +e
 npm run orientdb:dev:clean
