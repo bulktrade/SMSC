@@ -141,7 +141,7 @@
                     <appName>smsc</appName>
                     <configVars>
                         <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
-                        <JAVA_OPTS>-XX:MaxDirectMemorySize=500m -XX:+UseCompressedOops -Xmx350m -Xss512k -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+UseConcMarkSweepGC</JAVA_OPTS>
+                        <JAVA_OPTS>-XX:MaxDirectMemorySize=50000m -XX:+UseCompressedOops -Xmx350m -Xss512k -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+UseConcMarkSweepGC</JAVA_OPTS>
                     </configVars>
                     <processTypes>
                         <web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/smsc.jar</web>
