@@ -58,6 +58,9 @@ public class Server {
 	}
 
 	public void run() throws Exception {
+        String classpath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        System.setProperty("orientdb.www.path", classpath + "db/orientdb/site");
+
 		setInstance(OServerMain.create());
 		OServerConfiguration cfg = new OServerConfiguration();
 
@@ -79,7 +82,8 @@ public class Server {
 			new OServerEntryConfiguration("profiler.enabled", System.getenv("ORIENTDB_PROFILER_ENABLED") != null ? System.getenv("ORIENTDB_PROFILER_ENABLED") : "true"),
 			new OServerEntryConfiguration("profiler.config", System.getenv("ORIENTDB_PROFILER_CONFIG") != null ? System.getenv("ORIENTDB_PROFILER_CONFIG") : "30,10,10"),
 			new OServerEntryConfiguration("db.pool.min", System.getenv("ORIENTDB_POOL_MIN") != null ? System.getenv("ORIENTDB_POOL_MIN") : "1"),
-			new OServerEntryConfiguration("db.pool.max", System.getenv("ORIENTDB_POOL_MAX") != null ? System.getenv("ORIENTDB_POOL_MAX") : "50")
+			new OServerEntryConfiguration("db.pool.max", System.getenv("ORIENTDB_POOL_MAX") != null ? System.getenv("ORIENTDB_POOL_MAX") : "50"),
+			new OServerEntryConfiguration("plugin.directory", classpath + "db/orientdb/plugins")
 		};
 
 		if (System.getenv("ORIENTDB_ROOT_PASSWORD") == null) {
@@ -142,8 +146,8 @@ public class Server {
 		httpListener.portRange = "2480-2490";
 		httpListener.parameters = new OServerParameterConfiguration[] {
 			new OServerParameterConfiguration("network.http.charset", "utf-8"),
-			new OServerParameterConfiguration("network.http.jsonResponseError", "true"),
-			new OServerParameterConfiguration("network.http.additionalResponseHeaders", "Access-Control-Allow-Origin:*;Access-Control-Allow-Credentials: true"),
+			new OServerParameterConfiguration("network.http.jsonResponseError", "true") //,
+//			new OServerParameterConfiguration("network.http.additionalResponseHeaders", "Access-Control-Allow-Origin:*;Access-Control-Allow-Credentials: true"),
 		};
 
 		OServerCommandConfiguration httpListenerCommand = new OServerCommandConfiguration();

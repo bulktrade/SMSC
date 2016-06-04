@@ -3,7 +3,8 @@ zuul:
   routes:
     orientdb:
       path: /orientdb/**
-      sensitiveHeaders: Cookie,Set-Cookie,Authorization
+      stripPrefix: true
+      sensitiveHeaders: Cookie,Set-Cookie,Authorization,Cache-Control
       url: http://localhost:2480
       serviceId: orientdb_service
 
@@ -22,3 +23,8 @@ eureka:
     waitTimeInMsWhenSyncEmpty: 0
     healthcheck:
       enabled: false
+
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.web: DEBUG

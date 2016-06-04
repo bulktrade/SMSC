@@ -75,12 +75,12 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                      <groupId>org.apache.maven.plugins</groupId>
-                      <artifactId>maven-deploy-plugin</artifactId>
-                      <version>2.7</version>
-                      <configuration>
-                          <skip>true</skip>
-                      </configuration>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.7</version>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -122,16 +122,21 @@
                         <repository>${project.basedir}/migrations/orientdb/</repository>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.4.10</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
             <plugin>
-             <groupId>org.apache.maven.plugins</groupId>
-             <artifactId>maven-deploy-plugin</artifactId>
-             <configuration>
-                 <skip>true</skip>
-             </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.heroku.sdk</groupId>
@@ -140,8 +145,7 @@
                 <configuration>
                     <appName>smsc</appName>
                     <configVars>
-                        <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
-                        <JAVA_OPTS>-XX:MaxDirectMemorySize=50000m -XX:+UseCompressedOops -Xmx350m -Xss512k -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+UseConcMarkSweepGC</JAVA_OPTS>
+                        <EMBEDDED_ORIENTDB_ENABLED>0</EMBEDDED_ORIENTDB_ENABLED>
                     </configVars>
                     <processTypes>
                         <web>java $JAVA_OPTS -Dserver.port=$PORT -jar target/smsc.jar</web>
