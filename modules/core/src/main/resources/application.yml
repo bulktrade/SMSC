@@ -1,16 +1,28 @@
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
 zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
   ignoredServices: '*'
   routes:
     orientdb:
       path: /orientdb/**
       stripPrefix: true
-      sensitiveHeaders: Cookie,Set-Cookie,Authorization,Cache-Control
-      url: http://localhost:2480
-      serviceId: orientdb_service
+      serviceId: orientdb
+
+orientdb:
+  ribbon:
+    listOfServers: localhost:2480,orientdb.smsc.io:80
+    ServerListRefreshInterval: 15000
 
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ribbon:
-  ConnectTimeout: 3000
+  ConnectTimeout: 200
   ReadTimeout: 60000
   eureka:
     enabled: false
@@ -27,4 +39,4 @@ eureka:
 logging:
   level:
     ROOT: INFO
-    org.springframework.web: DEBUG
+    org.springframework.web: INFO

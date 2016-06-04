@@ -36,7 +36,9 @@ public class Index {
             value = {
                     "/admin",
                     "/admin/",
-                    "/admin/*"
+                    "/admin/*",
+                    "/admin/**",
+                    "/admin/**/**",
             },
             produces = {
                     MediaType.TEXT_HTML_VALUE

@@ -185,14 +185,9 @@ module.exports = {
 
             { test: /\.(woff2?|ttf|eot|svg|jpg)$/, loader: 'url?limit=10000' },
 
-            /* Raw loader support for *.html
-             * Returns file content as string
-             *
-             * See: https://github.com/webpack/raw-loader
-             */
             {
                 test: /\.html$/,
-                loader: 'raw-loader',
+                loader: 'html',
                 exclude: [helpers.root('src/index.html')]
             }
         ]
