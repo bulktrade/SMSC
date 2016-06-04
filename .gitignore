@@ -18,3 +18,4 @@ modules/admin/dist
 modules/admin/typings
 node_modules
 databases
+smsc

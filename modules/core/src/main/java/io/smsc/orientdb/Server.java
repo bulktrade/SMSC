@@ -23,7 +23,7 @@ public class Server {
 	private String defaultDatabase = "smsc";
 	private String defaultUserName = "admin";
 	private String defaultPassword = "admin";
-	private String defaultStorage = STORAGE_MEMORY;
+	private String defaultStorage = STORAGE_PLOCAL;
 	private String defaultOAuth2Key = null;
 
 	public OServer getInstance() {
