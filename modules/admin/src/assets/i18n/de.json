@@ -1,4 +1,6 @@
 {
+    "login.username": "Username",
+    "login.password": "Passwort",
     "DASHBOARD" : "Dashboard",
     "GSM" : "GSM",
     "SMSTRAFFIC": "SMS Traffic",

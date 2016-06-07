@@ -109,7 +109,7 @@ module.exports = webpackMerge(commonConfig, {
             'process.env': {
                 'ENV': JSON.stringify(METADATA.ENV),
                 'NODE_ENV': JSON.stringify(METADATA.ENV),
-                'HMR': METADATA.HMR,
+                'HMR': METADATA.HMR
             }
         })
     ],

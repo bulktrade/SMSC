@@ -1,11 +1,11 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { RouteConfig, Router, Instruction } from '@angular/router-deprecated';
-import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
-import { Location } from '@angular/common';
-import { AppRouterOutlet } from './app.router-outlet';
-import { NotFound } from './notfound/notfound.component';
-import { Login } from './login/login.component';
-import { Navigation } from './navigation/navigation.component';
+import { Component, ViewEncapsulation } from "@angular/core";
+import { RouteConfig, Router, Instruction } from "@angular/router-deprecated";
+import { TranslatePipe } from "ng2-translate/ng2-translate";
+import { Location } from "@angular/common";
+import { AppRouterOutlet } from "./app.router-outlet";
+import { NotFound } from "./notfound/notfound.component";
+import { Login } from "./login/login.component";
+import { Navigation } from "./navigation/navigation.component";
 
 @Component({
     selector: 'app',
@@ -14,12 +14,10 @@ import { Navigation } from './navigation/navigation.component';
     directives: [AppRouterOutlet],
     template: '<route-outlet></route-outlet>',
     encapsulation: ViewEncapsulation.None,
-    styles: [
-        require('./app.scss')
-    ],
     styleUrls: [
-        require('../vendor/ext-6.0.1/build/classic/theme-classic/resources/theme-classic-all.css'),
-        require('../vendor/iconfont/material-icons.css')
+        // require('./app.scss'),
+        // require('../vendor/ext-6.0.1/build/classic/theme-classic/resources/theme-classic-all.css'),
+        // require('../vendor/iconfont/material-icons.css')
     ]
 })
 @RouteConfig([

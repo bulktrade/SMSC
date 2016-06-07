@@ -1,62 +1,62 @@
-.wrap-breadcrumb {
-  .page-title {
-    display: inline-block;
-    padding: 5px 0 10px;
-    h1 {
-      color: #697882;
-      font-size: 22px;
-      font-weight: 400;
-      margin: 0;
-      padding: 0;
-      font-family: 'Open Sans', sans-serif;
-      small {
-        color: #9eacb4;
-        font-size: 13px;
-        font-weight: 400;
-      }
-    }
-  }
-  .breadcrumb {
-    background: 0 0;
-    padding: 0 0 15px;
-    margin: 0;
-    color: #c5ccd5;
-    font-size: 14px;
-    .childs:before {
-      display: none;
-      margin-right: 3px;
-    }
-    .childs:last-of-type {
-      i {
-        display: none;
-      }
-      a {
-        color: #c5ccd5;
-        &:hover {
-          text-decoration: none;
-          cursor: text;
-        }
-      }
-    }
-    > li {
-      display: inline-block;
-      a {
-        color: #337ab7;
-        text-shadow: none;
-        text-decoration: none;
-        cursor: pointer;
-        &:hover {
-          text-decoration: underline;
-          color: rgb(35, 82, 124);
-        }
-      }
-    }
-    .fa {
-      position: relative;
-      top: 1px;
-      color: #C5CCD5;
-      font-size: 18px;
-      margin: 0 4px 0 3px;
-    }
-  }
-}
+//.wrap-breadcrumb {
+//  .page-title {
+//    display: inline-block;
+//    padding: 5px 0 10px;
+//    h1 {
+//      color: #697882;
+//      font-size: 22px;
+//      font-weight: 400;
+//      margin: 0;
+//      padding: 0;
+//      font-family: 'Open Sans', sans-serif;
+//      small {
+//        color: #9eacb4;
+//        font-size: 13px;
+//        font-weight: 400;
+//      }
+//    }
+//  }
+//  .breadcrumb {
+//    background: 0 0;
+//    padding: 0 0 15px;
+//    margin: 0;
+//    color: #c5ccd5;
+//    font-size: 14px;
+//    .childs:before {
+//      display: none;
+//      margin-right: 3px;
+//    }
+//    .childs:last-of-type {
+//      i {
+//        display: none;
+//      }
+//      a {
+//        color: #c5ccd5;
+//        &:hover {
+//          text-decoration: none;
+//          cursor: text;
+//        }
+//      }
+//    }
+//    > li {
+//      display: inline-block;
+//      a {
+//        color: #337ab7;
+//        text-shadow: none;
+//        text-decoration: none;
+//        cursor: pointer;
+//        &:hover {
+//          text-decoration: underline;
+//          color: rgb(35, 82, 124);
+//        }
+//      }
+//    }
+//    .fa {
+//      position: relative;
+//      top: 1px;
+//      color: #C5CCD5;
+//      font-size: 18px;
+//      margin: 0 4px 0 3px;
+//    }
+//  }
+//}

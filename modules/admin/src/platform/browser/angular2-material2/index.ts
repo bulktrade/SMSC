@@ -3,6 +3,7 @@ import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { MdCheckbox } from '@angular2-material/checkbox';
 import { MD_INPUT_DIRECTIVES } from '@angular2-material/input';
 import { MD_LIST_DIRECTIVES } from '@angular2-material/list';
+import { MD_GRID_LIST_DIRECTIVES } from '@angular2-material/grid-list';
 import { MdProgressBar } from '@angular2-material/progress-bar';
 import { MdProgressCircle, MdSpinner } from '@angular2-material/progress-circle';
 import { MdRadioButton, MdRadioDispatcher, MdRadioGroup } from '@angular2-material/radio';
@@ -32,6 +33,7 @@ export const MATERIAL_DIRECTIVES = [
   ],
   ...MD_INPUT_DIRECTIVES,
   ...MD_LIST_DIRECTIVES,
+  ...MD_GRID_LIST_DIRECTIVES,
   ...MD_CARD_DIRECTIVES
 ];
 

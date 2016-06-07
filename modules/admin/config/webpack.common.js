@@ -50,7 +50,7 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#entry
      */
     entry: {
-        'bootstrap-loader' : 'bootstrap-loader', // https://github.com/shakacode/bootstrap-loader
+        // 'bootstrap-loader': 'bootstrap-loader', // https://github.com/shakacode/bootstrap-loader
         'polyfills': './src/polyfills.ts',
         'vendor': './src/vendor.ts',
         'main': './src/main.browser.ts'
@@ -95,6 +95,7 @@ module.exports = {
      *
      * See: http://webpack.github.io/docs/configuration.html#module
      */
+    devtool: 'source-map',
     module: {
 
         /*
@@ -123,7 +124,7 @@ module.exports = {
                 exclude: [
                     // these packages have problems with their sourcemaps
                     helpers.root('node_modules/rxjs'),
-                    helpers.root('node_modules/@angular2-material'),
+                    // helpers.root('node_modules/@angular2-material'),
                     helpers.root('node_modules/@angular')
                 ]
             }
@@ -158,8 +159,11 @@ module.exports = {
              */
 
             {
-                test:   /\.css$/,
-                loader: "style-loader!css-loader!postcss-loader"
+                test: /\.css$/,
+                exclude: /node_modules/,
+                loader: ExtractTextPlugin.extract(
+                    'css?sourceMap!'
+                )
             },
 
             /*
@@ -180,10 +184,22 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
-                loaders: ['raw-loader', 'sass-loader']
+                loader: ExtractTextPlugin.extract(
+                    'css?sourceMap!' +
+                    'sass?sourceMap'
+                )
             },
 
-            { test: /\.(woff2?|ttf|eot|svg|jpg)$/, loader: 'url?limit=10000' },
+            {
+                test: /\.less$/,
+                exclude: /node_modules/,
+                loader: ExtractTextPlugin.extract(
+                    'css?sourceMap!' +
+                    'less?sourceMap'
+                )
+            },
+
+            {test: /\.(woff2?|ttf|eot|svg|jpg)$/, loader: 'url?limit=10000'},
 
             {
                 test: /\.html$/,
@@ -201,12 +217,15 @@ module.exports = {
      */
     plugins: [
 
-        new webpack.ProvidePlugin({
-            Ext: helpers.root('src/vendor/ext-6.0.1/build/ext-all-debug.js'),
-            sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js')
+        // new webpack.ProvidePlugin({
+        //     Ext: helpers.root('src/vendor/ext-6.0.1/build/ext-all.js'),
+        //     sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js')
+        // }),
+
+        new ExtractTextPlugin("style.css", {
+            allChunks: true
         }),
 
-        new ExtractTextPlugin("[name].css"),
         /*
          * Plugin: ForkCheckerPlugin
          * Description: Do type checking in a separate process, so webpack don't need to wait.

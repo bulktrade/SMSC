@@ -1,6 +1,8 @@
 {
-    "DASHBOARD" : "Dashboard",
-    "GSM" : "GSM",
+    "login.username": "Username",
+    "login.password": "Password",
+    "DASHBOARD": "Dashboard",
+    "GSM": "GSM",
     "SMSTRAFFIC": "SMS Traffic",
     "DLRTRAFFIC": "DLR Traffic",
     "FINANCES": "Finances",
