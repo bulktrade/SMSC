@@ -3,7 +3,7 @@
 #loglevel: debug
 
 # Major version of Bootstrap: 3 or 4
-bootstrapVersion: 3
+bootstrapVersion: 4
 
 # If Bootstrap version 3 is used - turn on/off custom icon font path
 useCustomIconFontPath: false
@@ -12,6 +12,7 @@ useCustomIconFontPath: false
 styleLoaders:
   - style
   - css
+  - postcss
   - sass
 
 # Extract styles to stand-alone css file
@@ -57,69 +58,7 @@ extractStyles: false
 #appStyles: ./app/styles/app.scss
 
 ### Bootstrap styles
-styles:
-
-  # Mixins
-  mixins: true
-
-  # Reset and dependencies
-  normalize: true
-  print: true
-  glyphicons: true
-
-  # Core CSS
-  scaffolding: true
-  type: true
-  code: true
-  grid: true
-  tables: true
-  forms: true
-  buttons: true
-
-  # Components
-  component-animations: true
-  dropdowns: true
-  button-groups: true
-  input-groups: true
-  navs: true
-  navbar: true
-  breadcrumbs: true
-  pagination: true
-  pager: true
-  labels: true
-  badges: true
-  jumbotron: true
-  thumbnails: true
-  alerts: true
-  progress-bars: true
-  media: true
-  list-group: true
-  panels: true
-  wells: true
-  responsive-embed: true
-  close: true
-
-  # Components w/ JavaScript
-  modals: true
-  tooltip: true
-  popovers: true
-  carousel: true
-
-  # Utility classes
-  utilities: true
-  responsive-utilities: true
+styles: true
 
 ### Bootstrap scripts
-scripts:
-  transition: false
-  alert: false
-  button: false
-  carousel: false
-  collapse: false
-  dropdown: false
-  modal: false
-  tooltip: false
-  popover: false
-  scrollspy: false
-  tab: false
-  affix: false
+scripts: true

@@ -5,7 +5,7 @@ import {BreadcrumbService} from '../breadcrumb/breadcrumb.component.ts';
 @Component({
     selector: 'finances-main',
     template: require('./financesmain.html'),
-    styles: [
+    styleUrls: [
         require('./financesmain.scss')
     ],
     providers: [BreadcrumbService],

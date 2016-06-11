@@ -4,6 +4,7 @@
     "authentication.password": "Password",
     "authentication.btnLogin": "Log In",
     "authentication.rememberMe": "Remember Me",
+    "authentication.usernotFound": "The credentials you supplied were not correct or did not grant access to this resource!",
     "DASHBOARD": "Dashboard",
     "GSM": "GSM",
     "SMSTRAFFIC": "SMS Traffic",

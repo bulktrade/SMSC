@@ -50,7 +50,6 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#entry
      */
     entry: {
-        'bootstrap-loader': 'bootstrap-loader', // https://github.com/shakacode/bootstrap-loader
         'polyfills': './src/polyfills.ts',
         'vendor': './src/vendor.ts',
         'main': './src/main.browser.ts'
@@ -177,7 +176,6 @@ module.exports = {
 
             {
                 test: /\.scss$/,
-                exclude: /node_modules/,
                 loader: ExtractTextPlugin.extract(
                     'css?sourceMap!' +
                     'sass?sourceMap'
@@ -185,20 +183,19 @@ module.exports = {
             },
 
             {
-                test: /\.less$/,
-                exclude: /node_modules/,
-                loader: ExtractTextPlugin.extract(
-                    'css?sourceMap!' +
-                    'less?sourceMap'
-                )
-            },
-
-            {test: /\.(woff2?|ttf|eot|svg|jpg)$/, loader: 'url?limit=10000'},
-
-            {
                 test: /\.html$/,
                 loader: 'html',
                 exclude: [helpers.root('src/index.html')]
+            },
+
+            {
+                test: /\.(eot|woff|ttf|svg|woff2)$/,
+                loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]'
+            },
+
+            {
+                test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
+                loader: 'imports?jQuery=jquery'
             }
         ]
 
@@ -218,6 +215,10 @@ module.exports = {
 
         new ExtractTextPlugin("style.css", {
             allChunks: true
+        }),
+
+        new webpack.ProvidePlugin({
+            "window.Tether": "tether"
         }),
 
         /*

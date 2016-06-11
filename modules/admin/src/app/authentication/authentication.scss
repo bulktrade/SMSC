@@ -1,6 +1,3 @@
-body {
-    background: #E9ECF3;
-}
 
 #login-window {
     width: 40vh;
@@ -18,6 +15,10 @@ body {
         margin-bottom: 10px;
     }
 
+    .alert {
+        border-radius: 0;
+    }
+
     .right-align {
         text-align: right;
     }
@@ -31,6 +32,11 @@ body {
         width: auto;
         height: auto;
         display: inherit;
+
+        #submitButton {
+            margin-top: 10px;
+            width: 100%;
+        }
     }
 }
 

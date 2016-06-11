@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 @Component({
     selector: 'routing',
     template: require('./routing.html'),
-    styles: [
+    styleUrls: [
         require('./routing.scss')
     ],
     providers: [BreadcrumbService],

@@ -15,7 +15,7 @@ import {API} from './api/api.component';
     selector: 'gsm',
     providers: [],
     template: require('./gsm.html'),
-    styles: [
+    styleUrls: [
         require('./gsm.scss')
     ],
     directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES],

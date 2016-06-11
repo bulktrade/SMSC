@@ -1,16 +1,10 @@
-import {Component, ViewEncapsulation} from '@angular/core';
-import {RouteConfig, Router, Instruction} from '@angular/router-deprecated';
-import {
-    TranslateService,
-    TranslatePipe,
-    TranslateLoader,
-    TranslateStaticLoader
-} from 'ng2-translate/ng2-translate';
-import {Location} from '@angular/common';
-import {AppRouterOutlet} from './app.router-outlet';
-import {NotFound} from './notfound/notfound.component';
-import {Authentication} from './authentication/authentication.component';
-import {Navigation} from './navigation/navigation.component';
+import { Component, ViewEncapsulation } from "@angular/core";
+import { RouteConfig } from "@angular/router-deprecated";
+import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
+import { AppRouterOutlet } from "./app.router-outlet";
+import { NotFound } from "./notfound/notfound.component";
+import { Authentication } from "./authentication/authentication.component";
+import { Navigation } from "./navigation/navigation.component";
 
 @Component({
     selector: 'app',
@@ -20,17 +14,17 @@ import {Navigation} from './navigation/navigation.component';
     template: '<route-outlet></route-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
-        // require('./app.scss'),
+        require('./app.scss')
         // require('../vendor/ext-6.0.1/build/classic/theme-classic/resources/theme-classic-all.css'),
         // require('../vendor/iconfont/material-icons.css')
     ]
 })
 @RouteConfig([
-    {path: '/', redirectTo: ['/Login']},
-    {path: '/login', component: Authentication, name: 'Login', useAsDefault: true},
-    {path: '/navigation/...', component: Navigation, name: 'Navigation'},
-    {path: '/notfound', component: NotFound, name: 'NotFound'},
-    {path: '*', redirectTo: ['/NotFound']}
+    { path: '/', redirectTo: ['/Authentication'] },
+    { path: '/authentication', component: Authentication, name: 'Authentication', useAsDefault: true },
+    { path: '/navigation/...', component: Navigation, name: 'Navigation' },
+    { path: '/notfound', component: NotFound, name: 'NotFound' },
+    { path: '*', redirectTo: ['/NotFound'] }
 ])
 export class App {
     constructor(translate: TranslateService) {
