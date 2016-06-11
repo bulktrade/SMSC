@@ -152,12 +152,6 @@ module.exports = {
                 exclude: [/\.(spec|e2e)\.ts$/]
             },
 
-            /*
-             * Json loader support for *.json files.
-             *
-             * See: https://github.com/webpack/json-loader
-             */
-
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
@@ -268,6 +262,13 @@ module.exports = {
             from: 'src/assets',
             to: 'assets'
         }]),
+
+        new CopyWebpackPlugin([
+            {
+                from: helpers.root('src', 'i18n'),
+                to: 'i18n'
+            }
+        ]),
 
         /*
          * Plugin: HtmlWebpackPlugin

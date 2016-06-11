@@ -1,11 +1,16 @@
-import { Component, ViewEncapsulation } from "@angular/core";
-import { RouteConfig, Router, Instruction } from "@angular/router-deprecated";
-import { TranslatePipe } from "ng2-translate/ng2-translate";
-import { Location } from "@angular/common";
-import { AppRouterOutlet } from "./app.router-outlet";
-import { NotFound } from "./notfound/notfound.component";
-import { Login } from "./login/login.component";
-import { Navigation } from "./navigation/navigation.component";
+import {Component, ViewEncapsulation} from '@angular/core';
+import {RouteConfig, Router, Instruction} from '@angular/router-deprecated';
+import {
+    TranslateService,
+    TranslatePipe,
+    TranslateLoader,
+    TranslateStaticLoader
+} from 'ng2-translate/ng2-translate';
+import {Location} from '@angular/common';
+import {AppRouterOutlet} from './app.router-outlet';
+import {NotFound} from './notfound/notfound.component';
+import {Authentication} from './authentication/authentication.component';
+import {Navigation} from './navigation/navigation.component';
 
 @Component({
     selector: 'app',
@@ -21,23 +26,22 @@ import { Navigation } from "./navigation/navigation.component";
     ]
 })
 @RouteConfig([
-    { path: '/', redirectTo: ['/Login'] },
-    { path: '/login', component: Login, name: 'Login', useAsDefault: true },
-    { path: '/navigation/...', component: Navigation, name: 'Navigation' },
-    { path: '/notfound', component: NotFound, name: 'NotFound' },
-    { path: '*', redirectTo: ['/NotFound'] }
+    {path: '/', redirectTo: ['/Login']},
+    {path: '/login', component: Authentication, name: 'Login', useAsDefault: true},
+    {path: '/navigation/...', component: Navigation, name: 'Navigation'},
+    {path: '/notfound', component: NotFound, name: 'NotFound'},
+    {path: '*', redirectTo: ['/NotFound']}
 ])
 export class App {
-    constructor(public router: Router,
-                public location: Location) {
-        router.recognize(location.path()).then((instruction: Instruction) => {
-            if (!instruction) {
-                router.recognize('/notfound').then((inst: Instruction) => {
-                    router.navigateByInstruction(inst, true);
-                });
-            }
-        });
-    }
+    constructor(translate: TranslateService) {
+        var userLang = navigator.language.split('-')[0]; // use navigator lang if available
+        userLang = /(de|ru|en)/gi.test(userLang) ? userLang : 'en';
 
+        // this language will be used as a fallback when a translation isn't found in the current language
+        translate.setDefaultLang('en');
+
+        // the lang to use, if the lang isn't available, it will use the current loader to get them
+        translate.use(userLang);
+    }
 }
 

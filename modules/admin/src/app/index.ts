@@ -22,7 +22,7 @@ export const APP_PROVIDERS = [
     ROUTER_PROVIDERS,
     LocalStorageService,
     provide(TranslateLoader, {
-        useFactory: (http: Http) => new TranslateStaticLoader(http, 'assets/i18n', '.json'),
+        useFactory: (http: Http) => new TranslateStaticLoader(http, 'i18n', '.json'),
         deps: [Http]
     }),
     provide(ODatabaseService, {

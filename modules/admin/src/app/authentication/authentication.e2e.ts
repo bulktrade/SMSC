@@ -1,33 +1,33 @@
-import {LoginTest} from './login.page';
+import {AuthenticationPage} from './authentication.page';
 
 describe('Login page', () => {
     let ptor = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
-        this.lognpg = new LoginTest();
+        this.page = new AuthenticationPage();
         ptor = protractor.wrapDriver(browser.driver);
     });
 
     it('validation for empty fields', () => {
-        this.lognpg.get();
-        expect(this.lognpg.btnSubmit.isEnabled()).toBeFalsy();
+        this.page.get();
+        expect(this.page.btnSubmit.isEnabled()).toBeFalsy();
     });
 
     it('show navigation content', () => {
-        this.lognpg.getNavigation();
-        expect(this.lognpg.isPresentMainContent()).toBeFalsy();
+        this.page.getNavigation();
+        expect(this.page.isPresentMainContent()).toBeFalsy();
     });
 
     it('is exist page 404 not found', () => {
-        this.lognpg.getNotFound();
-        expect(this.lognpg.isPresentNotFound).toBeTruthy();
+        this.page.getNotFound();
+        expect(this.page.isPresentNotFound).toBeTruthy();
     });
 
     it('responsive navigation', () => {
         let width = 330,
             height = 1300;
         ptor.manage().window().setSize(width, height);
-        this.lognpg.details.getCssValue('text-align')
+        this.page.details.getCssValue('text-align')
             .then(value => {
                 expect(value).toEqual('center');
             });

@@ -1,3 +1,38 @@
+body {
+    background: #E9ECF3;
+}
+
+#login-window {
+    width: 40vh;
+    height: 40vh;
+    min-width: 420px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: table;
+
+    .title {
+        margin-bottom: 10px;
+    }
+
+    .right-align {
+        text-align: right;
+    }
+
+    .rememberMe {
+        margin: 5px 0;
+    }
+
+    @media(max-width:48em) {
+        position: inherit;
+        width: auto;
+        height: auto;
+        display: inherit;
+    }
+}
 
 //.bs-reset {
 //    background: #fff;

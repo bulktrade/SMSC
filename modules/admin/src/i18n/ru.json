@@ -1,6 +1,9 @@
 {
-    "login.username": "Username",
-    "login.password": "Password",
+    "authentication.title": "SMSC Admin",
+    "authentication.username": "Username",
+    "authentication.password": "Password",
+    "authentication.btnLogin": "Log In",
+    "authentication.rememberMe": "Remember Me",
     "DASHBOARD": "Dashboard",
     "GSM": "GSM",
     "SMSTRAFFIC": "SMS Traffic",

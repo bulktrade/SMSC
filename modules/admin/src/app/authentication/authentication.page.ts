@@ -1,4 +1,4 @@
-export class LoginTest {
+export class AuthenticationPage {
     elemMainContent  = element(by.className('user-name'));
     elemNotFound  = element(by.tagName('notfound'));
     dangerMessage = element(by.className('alert-danger'));
@@ -48,4 +48,21 @@ export class LoginTest {
             return elm.isDisplayed();
         }, 10000);
     };
+
+    login() {
+        let ptor = protractor.wrapDriver(browser.driver);
+
+        ptor.wait(protractor.until.elementLocated(by.className('username')), 5000)
+            .then(function (el: webdriver.IWebElement) {
+            el.sendKeys('admin');
+            ptor.wait(protractor.until.elementLocated(by.className('password')), 5000)
+                .then(function (elem: webdriver.IWebElement) {
+                    elem.sendKeys('admin');
+                ptor.wait(protractor.until.elementLocated(by.className('btn')), 5000)
+                    .then(function (element: webdriver.IWebElement) {
+                        element.submit();
+                });
+            });
+        });
+    }
 }

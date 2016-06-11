@@ -24,7 +24,7 @@ export class AppRouterOutlet extends RouterOutlet {
 
     activate(instruction: ComponentInstruction) {
         let url = instruction.urlPath;
-        let isLogin = localStorage.getItem('rightWrite') === 'true' ? true : false;
+        let isLogin = localStorage.getItem('adminRight') === 'true' ? true : false;
 
         if (!this.publicRoutes[url] && !isLogin) {
             this.parentRouter.navigateByUrl('/login');

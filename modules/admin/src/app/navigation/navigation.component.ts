@@ -63,11 +63,11 @@ export class Navigation implements OnInit {
 
     constructor(public router: Router, public translate: TranslateService,
                 public showmininav: ShowMiniNav) {
-        this.content = localStorage.getItem('rightWrite');
+        this.content = localStorage.getItem('adminRight');
     }
 
     logout() {
-        localStorage.removeItem('rightWrite');
+        localStorage.removeItem('adminRight');
         this.router.navigateByUrl('/login');
     }
 
