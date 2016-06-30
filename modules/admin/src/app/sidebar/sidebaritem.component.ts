@@ -8,6 +8,7 @@ import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ShowMiniNav} from './ShowMiniNav';
 import { Injectable } from '@angular/core';
 import {LocalStorage} from 'angular2-localStorage/WebStorage';
+import {MdIcon} from '@angular2-material/icon/icon';
 
 declare var Reflect;
 
@@ -24,7 +25,8 @@ declare var Reflect;
         NgClass,
         ActiveItem,
         FaAngleLeft,
-        NgFor
+        NgFor,
+        MdIcon
     ],
     pipes: [TranslatePipe]
 })

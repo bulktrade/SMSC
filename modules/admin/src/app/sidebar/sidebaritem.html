@@ -1,13 +1,15 @@
 <div *ngIf="showInSubNavigation" animate-box #navigationItem="ab" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav" [ngClass]="{'item-menu-short': showmininav.showNav}" #isIcon
      #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
     <a [ngClass]="{active: activeItem.isActiveMainItem(nameItem)}" (click)="navigationItem.toggle(getStorageItem(toggle), false); setToggle(toggle);" class="{{nameItem.toLowerCase()}} sub-task clear" [routerLink]="[nameItem]">
-        <i class="icon-left material-icons">{{icon}}</i>
+        <md-icon class="icon-left material-icons md-24" >{{icon}}</md-icon>
+        <!--<i class="icon-left material-icons"></i>-->
         <div class="show-nav" [hidden]="showmininav.showNav">
             <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
-            <i *ngIf="submenu" class="material-icons fa {{nameItem.toLowerCase()}}-icon">{{getStorageItem(toggle) ? 'chevron_left' : 'expand_more'}}</i>
+            <md-icon *ngIf="submenu" class="material-icons fa {{nameItem.toLowerCase()}}-icon">{{getStorageItem(toggle) ? 'chevron_left' : 'expand_more'}}</md-icon>
         </div>
     </a>
     <ul *ngIf="submenu" class="{{nameItem.toLowerCase()}}-submenu sub-menu-item" [ngClass]="{'nav-subitem-relative': showmininav.showNav, 'save-state-item': getStorageItem(toggle)}">
-        <li *ngFor="let item of submenu"><a [ngClass]="{activesub: activeItem.isActiveSubItem([nameItem, item.name])}" [routerLink]="[nameItem, item.name]" class="{{item.name.toLowerCase()}}"><i class="subitem-icon-left fa material-icons">{{item.icon}}</i>{{item.name | translate}}</a></li>
+        <li *ngFor="let item of submenu"><a [ngClass]="{activesub: activeItem.isActiveSubItem([nameItem, item.name])}" [routerLink]="[nameItem, item.name]" class="{{item.name.toLowerCase()}}"><md-icon class="subitem-icon-left fa material-icons">{{item.icon}}</md-icon>{{item.name | translate}}</a></li>
     </ul>
 </div>
+

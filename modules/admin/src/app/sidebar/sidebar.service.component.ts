@@ -7,6 +7,7 @@ import {NgClass, NgFor} from '@angular/common';
 import {AnimateBox} from './directives/animate';
 import {SidebarItem} from './sidebaritem.component';
 import {Navigation} from '../navigation/navigation.component';
+import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav/sidenav';
 
 declare var Reflect;
 
@@ -24,7 +25,8 @@ declare var Reflect;
         ActiveItem,
         FaAngleLeft,
         SidebarItem,
-        NgFor
+        NgFor,
+        MD_SIDENAV_DIRECTIVES
     ],
     pipes: [TranslatePipe]
 })

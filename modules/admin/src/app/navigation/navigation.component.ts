@@ -9,10 +9,18 @@ import {ShowMiniNav} from '../sidebar/ShowMiniNav';
 import {Dashboard} from '../dashboard/dashboard.component';
 import {GSM} from '../gsm/gsm.component';
 import {SidebarService} from '../sidebar/sidebar.service.component';
+import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav/sidenav';
+import {MdButton} from '@angular2-material/button/button';
+import {Dir} from '@angular2-material/core/core';
+import {MdIcon} from '@angular2-material/icon/icon';
+import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
+import {MdToolbar} from '@angular2-material/toolbar/toolbar';
+import {MdIconRegistry} from '@angular2-material/icon/icon-registry';
+import {SidebarItem} from "../sidebar/sidebaritem.component";
 
 @Component({
     selector: 'navigation',
-    providers: [ShowMiniNav],
+    providers: [ShowMiniNav, MdIconRegistry],
     template: require('./navigation.html'),
     styleUrls: [
         require('./navigation.scss')
@@ -21,7 +29,14 @@ import {SidebarService} from '../sidebar/sidebar.service.component';
         ROUTER_DIRECTIVES,
         NgClass,
         SidebarService,
-        AnimateBox
+        AnimateBox,
+        MD_SIDENAV_DIRECTIVES,
+        MdButton,
+        Dir,
+        MdIcon,
+        MD_LIST_DIRECTIVES,
+        MdToolbar,
+        SidebarItem
     ],
     pipes: [TranslatePipe]
 })
@@ -68,7 +83,7 @@ export class Navigation implements OnInit {
 
     logout() {
         localStorage.removeItem('adminRight');
-        this.router.navigateByUrl('/login');
+        this.router.navigateByUrl('/authentication');
     }
 
     ngOnInit() {

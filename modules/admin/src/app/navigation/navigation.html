@@ -1,57 +1,84 @@
 <div *ngIf="content" class="wrapper clear">
-    <header class="header">
-        <div class="left-panel clear">
-            <div [hidden]="showmininav.showNav" class="logo">SMSC</div>
-            <div (click)="showmininav.showNav=!showmininav.showNav"
-                 [ngClass]="{'toggler-btn-active': showmininav.showNav}" class="menu-toggler"></div>
-        </div>
-        <div class="right-panel clear">
-            <div class="wrapper-user-menu left clear">
-                <a class="user-profile clear">
-                    <div class="user-name">Admin</div>
-                    <div class="user-icon"></div>
-                </a>
-                <ul class="slide-menu clear">
-                    <li class="clear">
-                        <a><i class="icon-user"></i> My Profile </a>
-                    </li>
-                    <li class="clear">
-                        <a><i class="icon-calendar"></i> My Calendar </a>
-                    </li>
-                    <li class="clear">
-                        <a><i class="icon-envelope-open"></i> My Inbox
-                            <span class="badge badge-danger"> 3 </span>
-                        </a>
-                    </li>
-                    <li class="clear">
-                        <a><i class="icon-rocket"></i> My Tasks
-                            <span class="badge badge-success"> 7 </span>
-                        </a>
-                    </li>
-                    <div class="hor-line"></div>
-                    <li class="clear">
-                        <a><i class="icon-lock"></i> Lock Screen </a>
-                    </li>
-                    <li class="clear">
-                        <a><i class="icon-key"></i> Log Out </a>
-                    </li>
-                </ul>
-            </div>
-            <i (click)="logout()" class="material-icons btn-logout">subdirectory_arrow_left</i>
-            <div (click)="nav.toggle(visibleNav = !visibleNav, false, sidebar.clientHeight);" class="menu-toggler"></div>
-        </div>
-    </header>
-    <div class="page-container clear">
-        <div animate-box #nav="ab" class="wrap-nav clear">
-            <div #sidebar class="wrapper clear">
-                <sidebar class="clear"></sidebar>
-            </div>
-        </div>
+    <!--<header class="header">-->
+        <!--<div class="left-panel clear">-->
+            <!--<div [hidden]="showmininav.showNav" class="logo">SMSC</div>-->
+            <!--<div (click)="showmininav.showNav=!showmininav.showNav"-->
+                 <!--[ngClass]="{'toggler-btn-active': showmininav.showNav}" class="menu-toggler"></div>-->
+        <!--</div>-->
+        <!--<div class="right-panel clear">-->
+            <!--<div class="wrapper-user-menu left clear">-->
+                <!--<a class="user-profile clear">-->
+                    <!--<div class="user-name">Admin</div>-->
+                    <!--<div class="user-icon"></div>-->
+                <!--</a>-->
+                <!--<ul class="slide-menu clear">-->
+                    <!--<li class="clear">-->
+                        <!--<a><i class="icon-user"></i> My Profile </a>-->
+                    <!--</li>-->
+                    <!--<li class="clear">-->
+                        <!--<a><i class="icon-calendar"></i> My Calendar </a>-->
+                    <!--</li>-->
+                    <!--<li class="clear">-->
+                        <!--<a><i class="icon-envelope-open"></i> My Inbox-->
+                            <!--<span class="badge badge-danger"> 3 </span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="clear">-->
+                        <!--<a><i class="icon-rocket"></i> My Tasks-->
+                            <!--<span class="badge badge-success"> 7 </span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <!--<div class="hor-line"></div>-->
+                    <!--<li class="clear">-->
+                        <!--<a><i class="icon-lock"></i> Lock Screen </a>-->
+                    <!--</li>-->
+                    <!--<li class="clear">-->
+                        <!--<a><i class="icon-key"></i> Log Out </a>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<i (click)="logout()" class="material-icons btn-logout">subdirectory_arrow_left</i>-->
+            <!--<div (click)="nav.toggle(visibleNav = !visibleNav, false, sidebar.clientHeight);" class="menu-toggler"></div>-->
+        <!--</div>-->
+    <!--</header>-->
+    <!--<div class="page-container clear">-->
+        <!--<div animate-box #nav="ab" class="wrap-nav clear">-->
+            <!--<div #sidebar class="wrapper clear">-->
+                <!--<sidebar class="clear"></sidebar>-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <main class="main clear" [ngClass]="{'alignment': !visibleNav}">
+        <!--<main class="main clear" [ngClass]="{'alignment': !visibleNav}">-->
+            <!--<router-outlet></router-outlet>-->
+        <!--</main>-->
+
+    <!--</div>-->
+
+    <md-sidenav-layout class="demo-root" fullscreen>
+        <md-sidenav #start mode="side" opened>
+            <md-nav-list>
+                <sidebar class="clear"></sidebar>
+            </md-nav-list>
+        </md-sidenav>
+        <main class="main clear">
             <router-outlet></router-outlet>
         </main>
+    </md-sidenav-layout>
 
+    <div class="header" clear>
+        <md-toolbar color="primary" clear>
+            <div class="title">
+                <h1>SMSC</h1>
+            </div>
+            <div class="demo-toolbar" clear>
+                <button md-icon-button (click)="start.toggle()">
+                    <md-icon class="md-24" >menu</md-icon>
+                </button>
+                <button md-icon-button (click)="logout()" class="right">
+                    <md-icon class="md-24" >subdirectory_arrow_left</md-icon>
+                </button>
+            </div>
+        </md-toolbar>
     </div>
-    <footer class="footer"></footer>
+
 </div>

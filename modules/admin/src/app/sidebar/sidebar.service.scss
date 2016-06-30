@@ -1,15 +1,35 @@
-//.side-bar {
-//  float: left;
-//  padding-top: 8px;
-//  background: #fff;
-//  font-size: 18px;
-//  color: rgb(91, 155, 209);
-//  border-radius: 3px;
-//  clear: both;
-//  ul {
-//    clear: both;
-//    padding: 0;
-//    cursor: pointer;
-//    overflow: hidden;
-//  }
-//}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul > li {
+    list-style-type: none;
+}
+
+.left {
+    float: left;}
+
+.right {
+    float: right;}
+
+body {
+    background: #E9ECF3 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.clear {
+    &:before {
+        content: "";
+        display: table;
+    }
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    zoom: 1;
+}
