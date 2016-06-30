@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { ODatabaseService } from "../orientdb/orientdb.service";
-import { Router, ROUTER_DIRECTIVES } from "@angular/router-deprecated";
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from "@angular/common";
-import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
-import { AuthenticationModel } from "./authentication.model";
-import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
+import { Component, OnInit } from '@angular/core';
+import { ODatabaseService } from '../orientdb/orientdb.service';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
+import { AuthenticationModel } from './authentication.model';
+import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
     selector: 'authentication',
