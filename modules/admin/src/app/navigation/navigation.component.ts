@@ -15,12 +15,11 @@ import {Dir} from '@angular2-material/core/core';
 import {MdIcon} from '@angular2-material/icon/icon';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
 import {MdToolbar} from '@angular2-material/toolbar/toolbar';
-import {MdIconRegistry} from '@angular2-material/icon/icon-registry';
 import {SidebarItem} from "../sidebar/sidebaritem.component";
 
 @Component({
     selector: 'navigation',
-    providers: [ShowMiniNav, MdIconRegistry],
+    providers: [ShowMiniNav],
     template: require('./navigation.html'),
     styleUrls: [
         require('./navigation.scss')

@@ -79,6 +79,12 @@ ul {
     color: rgb(91, 155, 209);
 }
 
+.activesub:focus {
+    background: #F2F6F9;
+    color: #5b9bd1;
+    text-decoration: none !important;
+}
+
 .nav-subitem-relative {
     position: absolute;
     background: #fff;

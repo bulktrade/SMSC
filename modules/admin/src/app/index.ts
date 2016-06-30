@@ -15,12 +15,14 @@ import {
 } from 'ng2-translate/ng2-translate';
 import { provide } from '@angular/core';
 import { ODatabaseService } from './orientdb/orientdb.service';
+import {MdIconRegistry} from '@angular2-material/icon/icon-registry';
 
 export const APP_PROVIDERS = [
   AppState,
     HTTP_PROVIDERS,
     ROUTER_PROVIDERS,
     LocalStorageService,
+    MdIconRegistry,
     provide(TranslateLoader, {
         useFactory: (http: Http) => new TranslateStaticLoader(http, 'i18n', '.json'),
         deps: [Http]

@@ -17,7 +17,6 @@
         }
     }
     .breadcrumb {
-        background: 0 0;
         padding: 0 0 15px;
         margin: 0;
         color: #c5ccd5;
@@ -35,6 +34,8 @@
                 &:hover {
                     text-decoration: none;
                     cursor: text;
+                    background: inherit;
+                    color: #c5ccd5 !important;
                 }
             }
         }
@@ -51,6 +52,7 @@
                 &:hover {
                     text-decoration: underline;
                     color: rgb(35, 82, 124);
+                    background: inherit;
                 }
             }
         }
