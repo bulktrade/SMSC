@@ -91,6 +91,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.12.4</version>
+                    <configuration>
+                        <forkMode>always</forkMode>
+                        <argLine>-Dlog4j.configuration=</argLine>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
