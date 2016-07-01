@@ -5,11 +5,9 @@ export * from './app.service';
 import { AppState } from './app.service';
 import { DIRECTIVES, PIPES, PROVIDERS } from '../platform/browser';
 import { ENV_PROVIDERS } from '../platform/environment';
-import { HTTP_PROVIDERS, Http } from '@angular/http';
+import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_PROVIDERS } from '@angular/router';
 import {
-    TranslateLoader,
-    TranslateStaticLoader,
     TRANSLATE_PROVIDERS,
     TranslateService
 } from 'ng2-translate/ng2-translate';
@@ -23,10 +21,6 @@ export const APP_PROVIDERS = [
     ROUTER_PROVIDERS,
     LocalStorageService,
     MdIconRegistry,
-    provide(TranslateLoader, {
-        useFactory: (http: Http) => new TranslateStaticLoader(http, 'i18n', '.json'),
-        deps: [Http]
-    }),
     provide(ODatabaseService, {
         useFactory: () => new ODatabaseService('/orientdb/smsc')
     }),

@@ -1,9 +1,20 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { App, APP_PROVIDERS } from './app';
-import {LocalStorageSubscriber} from 'angular2-localStorage/LocalStorageEmitter';
+import { LocalStorageSubscriber } from 'angular2-localStorage/LocalStorageEmitter';
+
+import {
+    TranslateLoader,
+    TranslateStaticLoader
+} from 'ng2-translate/ng2-translate';
+import { provide } from '@angular/core';
+import { Http } from '@angular/http';
 
 let appPromise = bootstrap(App, [
-  ...APP_PROVIDERS
+    ...APP_PROVIDERS, 
+    provide(TranslateLoader, {
+        useFactory: (http: Http) => new TranslateStaticLoader(http, './assets/i18n', '.json'),
+        deps: [Http]
+    })
 ]);
 
 LocalStorageSubscriber(appPromise);
