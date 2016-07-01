@@ -1,10 +1,10 @@
-import {AuthenticationPage} from './authentication.page';
+import {LoginPage} from './login.page';
 
 describe('Login page', () => {
     let ptor = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
-        this.page = new AuthenticationPage();
+        this.page = new LoginPage();
         ptor = protractor.wrapDriver(browser.driver);
     });
 

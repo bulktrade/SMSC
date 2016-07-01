@@ -3,7 +3,7 @@ import { RouteConfig } from "@angular/router-deprecated";
 import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
 import { AppRouterOutlet } from "./app.router-outlet";
 import { NotFound } from "./notfound/notfound.component";
-import { Authentication } from "./authentication/authentication.component";
+import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
 
 @Component({
@@ -21,8 +21,8 @@ import { Navigation } from "./navigation/navigation.component";
     ]
 })
 @RouteConfig([
-    { path: '/', redirectTo: ['/Authentication'] },
-    { path: '/authentication', component: Authentication, name: 'Authentication', useAsDefault: true },
+    { path: '/', redirectTo: ['/Login'] },
+    { path: '/login', component: Login, name: 'Login', useAsDefault: true },
     { path: '/navigation/...', component: Navigation, name: 'Navigation' },
     { path: '/notfound', component: NotFound, name: 'NotFound' },
     { path: '*', redirectTo: ['/NotFound'] }

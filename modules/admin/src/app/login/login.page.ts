@@ -1,4 +1,4 @@
-export class AuthenticationPage {
+export class LoginPage {
     elemMainContent  = element(by.className('user-name'));
     elemNotFound  = element(by.tagName('notfound'));
     dangerMessage = element(by.className('alert-danger'));

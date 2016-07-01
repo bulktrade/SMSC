@@ -1,10 +1,10 @@
-import {Authentication} from './authentication.component';
-import {AuthenticationModel} from './authentication.model';
+import {Login} from "./login.component";
+import {LoginModel} from "./login.model";
 
 describe('Authentication', () => {
     beforeEach(() => {
-        this.authentication = new Authentication();
-        this.model = new AuthenticationModel('admin', 'admin', false);
+        this.authentication = new Login();
+        this.model = new LoginModel('admin', 'admin', false);
     });
 
     it('authentication method', () => {

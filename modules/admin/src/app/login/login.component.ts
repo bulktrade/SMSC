@@ -3,23 +3,23 @@ import { ODatabaseService } from '../orientdb/orientdb.service';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
-import { AuthenticationModel } from './authentication.model';
+import { LoginModel } from './login.model';
 import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
-    selector: 'authentication',
+    selector: 'login',
     providers: [],
-    template: require('./authentication.html'),
+    template: require('./login.html'),
     styleUrls: [
-        require('./authentication.scss')
+        require('./login.scss')
     ],
     directives: [AlertComponent, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
     pipes: [TranslatePipe]
 })
-export class Authentication implements OnInit {
+export class Login implements OnInit {
     notFound: boolean = false;
 
-    model = new AuthenticationModel('', '', false);
+    model = new LoginModel('', '', false);
 
     constructor(public router?: Router,
                 public translate?: TranslateService,
