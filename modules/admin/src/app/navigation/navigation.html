@@ -54,7 +54,7 @@
 
     <!--</div>-->
 
-    <md-sidenav-layout class="demo-root" fullscreen>
+    <md-sidenav-layout class="root" fullscreen>
         <md-sidenav #start mode="side" opened>
             <md-nav-list>
                 <sidebar class="clear"></sidebar>
@@ -67,13 +67,11 @@
 
     <div class="header" clear>
         <md-toolbar color="primary" clear>
-            <div class="title">
+            <button md-icon-button (click)="start.toggle()">
+                <md-icon class="md-24" >menu</md-icon>
+            </button>
+            <div class="toolbar" clear>
                 <h1>SMSC</h1>
-            </div>
-            <div class="demo-toolbar" clear>
-                <button md-icon-button (click)="start.toggle()">
-                    <md-icon class="md-24" >menu</md-icon>
-                </button>
                 <button md-icon-button (click)="logout()" class="right">
                     <md-icon class="md-24" >subdirectory_arrow_left</md-icon>
                 </button>

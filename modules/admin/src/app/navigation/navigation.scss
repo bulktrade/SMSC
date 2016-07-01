@@ -1,8 +1,8 @@
 .header {
-    .title > h1 {
-        margin: 0 !important;
-        padding-right: 20px !important;
-        font-size: 1.5rem !important;
+    h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        line-height: 40px;
     }
 
     md-toolbar {
@@ -10,7 +10,7 @@
             cursor: pointer;
         }
 
-        .demo-toolbar {
+        .toolbar {
             display: flex;
             justify-content: space-between;
             width: 100%;
@@ -22,7 +22,7 @@
     float: right !important;
 }
 
-.demo-root {
+.root {
     font-family: Roboto, 'Helvetica Neue', sans-serif;
 
     // Helps fonts on OSX looks more consistent with other systems
@@ -35,7 +35,7 @@
     md-sidenav {
         min-width: 15%;
         color: #000;
-        top: 65px !important;
+        top: 85px !important;
         bottom: initial !important;
 
         [md-button] {
@@ -47,13 +47,9 @@
     }
 
     main {
-        position: relative !important;
-        top: 74px !important;
-        padding-left: 10px !important;
-    }
-
-    .demo-content {
-        padding: 32px;
+        position: relative;
+        top: 94px;
+        padding-left: 22px;
     }
 
     a:hover {
