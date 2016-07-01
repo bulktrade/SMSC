@@ -22,8 +22,7 @@ const METADATA = {
     baseUrl: '/'
 };
 
-var appCSS = new ExtractTextPlugin("app.css");
-var vendorCSS = new ExtractTextPlugin("vendor.css");
+var extractCSS = new ExtractTextPlugin("[name].css");
 
 /*
  * Webpack configuration
@@ -156,18 +155,7 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
-                loader: appCSS.extract(
-                    'css?sourceMap'
-                )
-            },
-
-            {
-                test: /\.css$/,
-                exclude: /src/,
-                loader: vendorCSS.extract(
-                    'css?sourceMap'
-                )
+                loader: extractCSS.extract(['css'])
             },
 
             /*
@@ -187,20 +175,7 @@ module.exports = {
 
             {
                 test: /\.scss$/,
-                exclude: /node_modules/,
-                loader: appCSS.extract(
-                    'css?sourceMap!' +
-                    'sass?sourceMap'
-                )
-            },
-
-            {
-                test: /\.scss$/,
-                exclude: /src/,
-                loader: vendorCSS.extract(
-                    'css?sourceMap!' +
-                    'sass?sourceMap'
-                )
+                loader: extractCSS.extract(['css','sass'])
             },
 
             {
@@ -233,9 +208,6 @@ module.exports = {
         //     Ext: helpers.root('src/vendor/ext-6.0.1/build/ext-all.js'),
         //     sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js')
         // }),
-
-        appCSS,
-        vendorCSS,
 
         new webpack.ProvidePlugin({
             "window.Tether": "tether"
@@ -295,8 +267,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             chunksSortMode: 'dependency'
-        })
+        }),
 
+        extractCSS
     ],
 
     /*
