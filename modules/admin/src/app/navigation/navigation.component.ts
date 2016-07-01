@@ -82,7 +82,7 @@ export class Navigation implements OnInit {
 
     logout() {
         localStorage.removeItem('adminRight');
-        this.router.navigateByUrl('/authentication');
+        this.router.navigateByUrl('/login');
     }
 
     ngOnInit() {

@@ -1,20 +1,20 @@
 <div id="login-window">
     <md-card id="login-card">
-        <md-toolbar class="title" color="primary">{{ 'authentication.title' | translate }}</md-toolbar>
+        <md-toolbar class="title" color="primary">{{ 'login.title' | translate }}</md-toolbar>
         <md-card-content>
             <form role="form" (submit)="onSubmit(model)" #authenticationForm="ngForm" novalidate>
                 <alert *ngIf="notFound" type="danger" dismissible="true" (close)="notFound=false">
-                    {{ 'authentication.usernotFound' | translate }}
+                    {{ 'login.usernotFound' | translate }}
                 </alert>
                 <div class="row">
                     <div class="col-md-6">
-                        <md-input placeholder="{{ 'authentication.username' | translate }}"
+                        <md-input placeholder="{{ 'login.username' | translate }}"
                                   ngControl="username" #username="ngForm" [(ngModel)]="model.username"
                                   autocomplete="off"
                                   name="username" required style="width: 100%"></md-input>
                     </div>
                     <div class="col-md-6">
-                        <md-input placeholder="{{ 'authentication.password' | translate }}"
+                        <md-input placeholder="{{ 'login.password' | translate }}"
                                   ngControl="password" #password="ngForm" [(ngModel)]="model.password"
                                   type="password"
                                   autocomplete="off" name="password" required style="width: 100%"></md-input>
@@ -24,12 +24,12 @@
                     <div class="col-sm-12 col-md-6 right-align">
                         <md-slide-toggle color="primary" ngControl="rememberMe" #rememberMe="ngForm"
                                          [(ngModel)]="model.rememberMe" class="rememberMe">
-                            {{ 'authentication.rememberMe' | translate }}
+                            {{ 'login.rememberMe' | translate }}
                         </md-slide-toggle>
                     </div>
                     <div class="col-sm-12 col-md-6 right-align">
                         <button md-raised-button id="submitButton" [disabled]="!authenticationForm.form.valid" color="primary">
-                            {{ 'authentication.btnLogin' | translate }}
+                            {{ 'login.btnLogin' | translate }}
                         </button>
                     </div>
                 </div>
