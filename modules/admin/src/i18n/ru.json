@@ -1,4 +1,5 @@
 {
+    "project.title": "SMSC",
     "authentication.title": "SMSC Admin",
     "authentication.username": "Username",
     "authentication.password": "Password",
