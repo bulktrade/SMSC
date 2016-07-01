@@ -22,6 +22,9 @@ const METADATA = {
     baseUrl: '/'
 };
 
+var appCSS = new ExtractTextPlugin("app.css");
+var vendorCSS = new ExtractTextPlugin("vendor.css");
+
 /*
  * Webpack configuration
  *
@@ -154,8 +157,16 @@ module.exports = {
             {
                 test: /\.css$/,
                 exclude: /node_modules/,
-                loader: ExtractTextPlugin.extract(
-                    'css?sourceMap!'
+                loader: appCSS.extract(
+                    'css?sourceMap'
+                )
+            },
+
+            {
+                test: /\.css$/,
+                exclude: /src/,
+                loader: vendorCSS.extract(
+                    'css?sourceMap'
                 )
             },
 
@@ -176,7 +187,17 @@ module.exports = {
 
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract(
+                exclude: /node_modules/,
+                loader: appCSS.extract(
+                    'css?sourceMap!' +
+                    'sass?sourceMap'
+                )
+            },
+
+            {
+                test: /\.scss$/,
+                exclude: /src/,
+                loader: vendorCSS.extract(
                     'css?sourceMap!' +
                     'sass?sourceMap'
                 )
@@ -213,9 +234,8 @@ module.exports = {
         //     sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js')
         // }),
 
-        new ExtractTextPlugin("style.css", {
-            allChunks: true
-        }),
+        appCSS,
+        vendorCSS,
 
         new webpack.ProvidePlugin({
             "window.Tether": "tether"

@@ -31,6 +31,7 @@ import '@angular2-material/toolbar';
 
 import 'jquery';
 import 'bootstrap-loader'; // https://github.com/shakacode/bootstrap-loader
+import 'webpack-material-design-icons';
 
 if ('production' === ENV) {
   // Production
