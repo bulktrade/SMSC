@@ -284,13 +284,6 @@ module.exports = {
             to: 'assets'
         }]),
 
-        new CopyWebpackPlugin([
-            {
-                from: helpers.root('src', 'i18n'),
-                to: 'i18n'
-            }
-        ]),
-
         /*
          * Plugin: HtmlWebpackPlugin
          * Description: Simplifies creation of HTML files to serve your webpack bundles.

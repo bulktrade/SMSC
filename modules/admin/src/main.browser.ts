@@ -10,9 +10,9 @@ import { provide } from '@angular/core';
 import { Http } from '@angular/http';
 
 let appPromise = bootstrap(App, [
-    ...APP_PROVIDERS, 
+    ...APP_PROVIDERS,
     provide(TranslateLoader, {
-        useFactory: (http: Http) => new TranslateStaticLoader(http, './assets/i18n', '.json'),
+        useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
         deps: [Http]
     })
 ]);
