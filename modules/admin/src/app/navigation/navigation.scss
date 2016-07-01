@@ -22,7 +22,7 @@
     float: right !important;
 }
 
-.root {
+.sidenav-root {
     font-family: Roboto, 'Helvetica Neue', sans-serif;
 
     // Helps fonts on OSX looks more consistent with other systems
@@ -65,7 +65,7 @@
 }
 
 @media (max-width: 992px) {
-    md-sidenav { 
+    md-sidenav {
         position: relative !important;
     }
 
