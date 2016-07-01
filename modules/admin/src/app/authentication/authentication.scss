@@ -1,20 +1,13 @@
 #login-window {
-    width: 100%;
-    height: 100%;
+    width: 40vh;
+    height: 40vh;
+    min-width: 420px;
+    margin: auto;
     position: absolute;
     top: 0;
     left: 0;
-    overflow: auto;
-
-    #login-card {
-        width: 420px;
-        height: 211px;
-        min-width: 420px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -105px 0 0 -210px;
-    }
+    bottom: 0;
+    right: 0;
 
     .title {
         margin-bottom: 10px;
@@ -33,13 +26,15 @@
     }
 
     @media(max-width:48em) {
-        &, #login-card {
-            position: inherit;
-            width: auto;
-            height: auto;
-            min-width: auto;
-            margin: 0;
-        }
+        width: inherit;
+        height: inherit;
+        min-width: inherit;
+        margin: inherit;
+        position: inherit;
+        top: inherit;
+        left: inherit;
+        bottom: inherit;
+        right: inherit;
 
         #submitButton {
             margin-top: 10px;
