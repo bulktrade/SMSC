@@ -8,7 +8,7 @@
             <md-icon *ngIf="submenu" class="material-icons fa {{nameItem.toLowerCase()}}-icon">{{getStorageItem(toggle) ? 'chevron_left' : 'expand_more'}}</md-icon>
         </div>
     </a>
-    <ul @state="getStorageItem(toggle) ? 'active' : 'hidden'" *ngIf="submenu" class="{{nameItem.toLowerCase()}}-submenu sub-menu-item" [ngClass]="{'nav-subitem-relative': showmininav.showNav, 'save-state-iteme': getStorageItem(toggle)}">
+    <ul @state="getStorageItem(toggle) ? 'open' : 'closed'" *ngIf="submenu" class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
         <li *ngFor="let item of submenu"><a [ngClass]="{activesub: activeItem.isActiveSubItem([nameItem, item.name])}" [routerLink]="[nameItem, item.name]" class="{{item.name.toLowerCase()}}"><md-icon class="subitem-icon-left fa material-icons">{{item.icon}}</md-icon>{{item.name | translate}}</a></li>
     </ul>
 </div>

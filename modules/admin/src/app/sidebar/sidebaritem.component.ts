@@ -33,13 +33,10 @@ declare var Reflect;
     pipes: [TranslatePipe],
     animations: [
     trigger('state', [
-        state('active', style({ height: '0' })),
-        transition('active => hidden', [
-            animate('200ms ease-out'),
-        ]),
-        transition('hidden => active', [
-            animate('200ms ease-out'),
-        ]),
+      state('closed', style({ height: 0 })),
+      state('open', style({ height: '*' })),
+      transition('closed => open', [ animate('200ms ease-out') ]),
+      transition('open => closed', [ animate('200ms ease-out') ])
     ]),
   ]
 })
@@ -64,11 +61,7 @@ export class SidebarItem {
     }
 
     getStorageItem(item) {
-        if (localStorage.getItem(item) === undefined) {
-            return undefined;
-        } else {
-            return localStorage.getItem(item) === 'true' ? true : false;
-        }
+        return this[item.substring(1, item.length)];
     }
 
     setToggle(name) {
