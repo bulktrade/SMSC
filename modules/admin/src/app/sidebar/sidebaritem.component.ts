@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import {LocalStorage} from 'angular2-localStorage/WebStorage';
 import {MdIcon} from '@angular2-material/icon/icon';
 
-// import {trigger, style, animate, state, transition} from '@angular/core';
+import {trigger, style, animate, state, transition} from '@angular/core';
 
 declare var Reflect;
 
@@ -18,7 +18,7 @@ declare var Reflect;
     selector: 'sidebar-item',
     template: require('./sidebaritem.html'),
     styleUrls: [
-        // require('./sidebaritem.scss')
+        require('./sidebaritem.scss').toString()
     ],
     providers: [],
     directives: [
@@ -31,19 +31,17 @@ declare var Reflect;
         MdIcon
     ],
     pipes: [TranslatePipe],
-    // animations: [
-    //     trigger('state', [
-    //       transition('active => hidden', [
-    //         style({ transform: 'translate3d(-100%, 0, 0)' }),
-    //         animate('350ms ease-out')
-    //       ]),
-    //       transition('hidden => active', [
-    //         style({ transform: 'translate3d(-100%, 0, 0)' }),
-    //         animate('350ms ease-out')
-    //       ]),
-    //     ]),
-    // ]
-    // })
+    animations: [
+    trigger('state', [
+        state('active', style({ height: '0' })),
+        transition('active => hidden', [
+            animate('200ms ease-out'),
+        ]),
+        transition('hidden => active', [
+            animate('200ms ease-out'),
+        ]),
+    ]),
+  ]
 })
 
 @Injectable()
