@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'smstraffic',
     template: require('./smstraffic.html'),
     styleUrls: [
-        require('./smstraffic.scss')
+        // require('./smstraffic.scss')
     ],
     providers: [BreadcrumbService],
     directives: [BreadcrumbService],

@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'api',
     template: require('./api.html'),
     styleUrls: [
-        require('./api.scss')
+        // require('./api.scss')
     ],
     providers: [BreadcrumbService],
     directives: [BreadcrumbService],

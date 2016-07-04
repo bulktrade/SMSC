@@ -15,7 +15,7 @@ declare var Reflect;
     selector: 'sidebar',
     template: require('./sidebar.service.html'),
     styleUrls: [
-        require('./sidebar.service.scss')
+        // require('./sidebar.service.scss')
     ],
     providers: [],
     directives: [

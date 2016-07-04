@@ -6,7 +6,7 @@ import {Breadcrumb} from './breadcrumb.service';
     selector: 'breadcrumb',
     template: require('./breadcrumb.html'),
     styleUrls: [
-        require('./breadcrumb.scss')
+        // require('./breadcrumb.scss')
     ],
     inputs: [
         'title',

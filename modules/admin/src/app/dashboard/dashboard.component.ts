@@ -13,7 +13,7 @@ import {SMSTraffic} from './smstraffic/smstraffic.component';
     providers: [],
     template: require('./dashboard.html'),
     styleUrls: [
-        require('./dashboard.scss')
+        // require('./dashboard.scss')
     ],
     directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES],
     pipes: [TranslatePipe]

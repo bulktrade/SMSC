@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'dlrtraffic',
     template: require('./dlrtraffic.html'),
     styleUrls: [
-        require('./dlrtraffic.scss')
+        // require('./dlrtraffic.scss')
     ],
     providers: [BreadcrumbService],
     directives: [BreadcrumbService],

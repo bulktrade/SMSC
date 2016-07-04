@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'smpp',
     template: require('./smpp.html'),
     styleUrls: [
-        require('./smpp.scss')
+        // require('./smpp.scss')
     ],
     providers: [BreadcrumbService],
     directives: [BreadcrumbService],

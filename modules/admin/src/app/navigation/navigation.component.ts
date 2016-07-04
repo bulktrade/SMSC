@@ -22,7 +22,7 @@ import {SidebarItem} from "../sidebar/sidebaritem.component";
     providers: [ShowMiniNav],
     template: require('./navigation.html'),
     styleUrls: [
-        require('./navigation.scss')
+        // require('./navigation.scss')
     ],
     directives: [
         ROUTER_DIRECTIVES,

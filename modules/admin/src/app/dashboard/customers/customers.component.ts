@@ -7,7 +7,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'customers',
     template: require('./customers.html'),
     styleUrls: [
-        require('./customers.scss')
+        // require('./customers.scss')
     ],
     providers: [BreadcrumbService],
     directives: [CustomersGrid, BreadcrumbService],

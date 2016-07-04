@@ -11,7 +11,7 @@ import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
     providers: [],
     template: require('./login.html'),
     styleUrls: [
-        require('./login.scss')
+        require('./login.scss').toString()
     ],
     directives: [AlertComponent, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
     pipes: [TranslatePipe]

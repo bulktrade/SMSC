@@ -6,7 +6,7 @@ import { AppState } from './app.service';
 import { DIRECTIVES, PIPES, PROVIDERS } from '../platform/browser';
 import { ENV_PROVIDERS } from '../platform/environment';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { ROUTER_PROVIDERS } from '@angular/router';
+import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import {
     TRANSLATE_PROVIDERS,
     TranslateService

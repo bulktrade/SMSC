@@ -7,7 +7,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'monitoring',
     template: require('./monitoring.html'),
     styleUrls: [
-        require('./monitoring.scss')
+        // require('./monitoring.scss')
     ],
     providers: [BreadcrumbService],
     directives: [MonitoringGrid, BreadcrumbService],
