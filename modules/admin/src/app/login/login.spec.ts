@@ -1,5 +1,5 @@
-import {Login} from "./login.component";
-import {LoginModel} from "./login.model";
+import {Login} from './login.component';
+import {LoginModel} from './login.model';
 
 describe('Authentication', () => {
     beforeEach(() => {
