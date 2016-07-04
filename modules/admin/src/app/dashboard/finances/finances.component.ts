@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'finances',
     template: require('./finances.html'),
     styleUrls: [
-        require('./finances.scss')
+        // require('./finances.scss')
     ],
     providers: [BreadcrumbService],
     directives: [BreadcrumbService],

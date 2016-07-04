@@ -6,7 +6,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'carriers',
     template: require('./carriers.html'),
     styleUrls: [
-        require('./carriers.scss')
+        // require('./carriers.scss')
     ],
     providers: [BreadcrumbService],
     directives: [BreadcrumbService],

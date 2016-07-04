@@ -14,8 +14,8 @@ import { Navigation } from "./navigation/navigation.component";
     template: '<route-outlet></route-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
-        require('./app.scss'),
-        require('npm-font-open-sans/open-sans.css')
+        require('./app.scss').toString(),
+        require('npm-font-open-sans/open-sans.css').toString()
         // require('../vendor/ext-6.0.1/build/classic/theme-classic/resources/theme-classic-all.css'),
         // require('../vendor/iconfont/material-icons.css')
     ]

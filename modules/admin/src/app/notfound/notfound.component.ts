@@ -5,7 +5,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
     selector: 'notfound',
     template: require('./notfound.html'),
     styleUrls: [
-        require('./notfound.scss')
+        // require('./notfound.scss')
     ],
     encapsulation: ViewEncapsulation.None,
     providers: [],

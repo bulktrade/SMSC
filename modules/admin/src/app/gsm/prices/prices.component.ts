@@ -7,7 +7,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'prices',
     template: require('./prices.html'),
     styleUrls: [
-        require('./prices.scss')
+        // require('./prices.scss')
     ],
     providers: [BreadcrumbService],
     directives: [PricesGrid, BreadcrumbService],

@@ -7,7 +7,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
     selector: 'mccmnc',
     template: require('./mccmnc.html'),
     styleUrls: [
-        require('./mccmnc.scss')
+        // require('./mccmnc.scss')
     ],
     providers: [BreadcrumbService],
     directives: [MCCMNCGrid, BreadcrumbService],
