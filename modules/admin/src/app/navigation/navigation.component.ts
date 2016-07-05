@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 import {FinancesMain} from '../financesmain/financesmain.component';
 import {SystemSettings} from '../systemsettings/systemsettings.component';
@@ -16,6 +16,7 @@ import {MdIcon} from '@angular2-material/icon/icon';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
 import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 import {SidebarItem} from "../sidebar/sidebaritem.component";
+import {ItemConfig} from "./navigation.itemConfig";
 
 @Component({
     selector: 'navigation',
@@ -40,18 +41,21 @@ import {SidebarItem} from "../sidebar/sidebaritem.component";
     pipes: [TranslatePipe]
 })
 
-@RouteConfig([
+@ItemConfig([
     {
-        path: '/dashboard/...', component: Dashboard, name: 'Dashboard',
+        name: 'Dashboard',
+        component: Dashboard,
+        submenu: true,
         data: {
             showInSubNavigation: true,
             icon: 'layers',
             toggle: '/icnDsh'
-        },
-        useAsDefault: true
+        }
     },
     {
-        path: '/gsm/...', component: GSM, name: 'GSM',
+        name: 'GSM',
+        component: GSM,
+        submenu: true,
         data: {
             showInSubNavigation: true,
             icon: 'settings_remote',
@@ -59,15 +63,15 @@ import {SidebarItem} from "../sidebar/sidebaritem.component";
         }
     },
     {
-        path: '/financesmain',
-        component: FinancesMain,
         name: 'FinancesMain',
+        component: FinancesMain,
+        submenu: false,
         data: { showInSubNavigation: true, icon: 'edit' }
     },
     {
-        path: '/systemsettings',
-        component: SystemSettings,
         name: 'SystemSettings',
+        component: SystemSettings,
+        submenu: false,
         data: { showInSubNavigation: true, icon: 'settings' }
     }
 ])

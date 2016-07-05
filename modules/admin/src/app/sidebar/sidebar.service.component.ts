@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ActiveItem} from './directives/active';
 import {NgClass, NgFor} from '@angular/common';
@@ -35,7 +35,7 @@ export class SidebarService {
     public dataNavItems = [];
 
     constructor(public translate: TranslateService) {
-        this.initDataNavItems();
+        // this.initDataNavItems();
     }
 
     ngOnInit() {
@@ -45,9 +45,9 @@ export class SidebarService {
         let result = [];
         let decoratorValue;
 
-        this.getRouteConfig(Navigation).forEach((item) => {
-            if (item.path.substring(item.path.length - 3, item.path.length) === '...') {
-                decoratorValue = this.getRouteConfig(item.component);
+        this.getItemConfig(Navigation).forEach((item) => {
+            if (item.submenu) {
+                decoratorValue = this.getItemConfig(item.component);
 
                 decoratorValue.forEach((subItem) => {
                     result.push({
@@ -73,10 +73,11 @@ export class SidebarService {
         });
     }
 
-    getRouteConfig(component) {
-        return Reflect.getMetadata('annotations', component)
-            .filter(a => {
-                return a.constructor.name === 'RouteConfig';
-            }).pop().configs;
+    getItemConfig(component) {
+        // return Reflect.getMetadata('annotations', component)
+        //     .filter(a => {
+        //         return a.constructor.name === 'ItemConfig';
+        //     });
+        return Reflect.getMetadata('annotations', component);
     }
 }

@@ -11,7 +11,16 @@ import { Http } from '@angular/http';
 
 import {disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
 
+import { PLATFORM_PROVIDERS } from './platform/browser';
+import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
+
+import { APP_ROUTER_PROVIDERS } from './app/app.routes'
+
 let appPromise = bootstrap(App, [
+    ...APP_ROUTER_PROVIDERS,
+    ...APP_PROVIDERS,
+    ...PLATFORM_PROVIDERS,
+    ...ENV_PROVIDERS,
     disableDeprecatedForms(),
     provideForms(),
     {
@@ -19,11 +28,11 @@ let appPromise = bootstrap(App, [
           useValue: [REACTIVE_FORM_DIRECTIVES],
           multi: true
     },
-    ...APP_PROVIDERS,
+
     provide(TranslateLoader, {
         useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
         deps: [Http]
-    }),
+    })
 ]);
 
 LocalStorageSubscriber(appPromise);
