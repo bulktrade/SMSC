@@ -17,7 +17,7 @@ zuul:
 
 orientdb:
   ribbon:
-    listOfServers: localhost:2480,orientdb.smsc.io:80
+    listOfServers: ${ORIENTDB_RIBBON_LIST_OF_SERVERS:localhost:2480}
     ServerListRefreshInterval: 15000
 
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
