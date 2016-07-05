@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ODatabaseService } from '../orientdb/orientdb.service';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 import { LoginModel } from './login.model';
 import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
+import {FORM_DIRECTIVES} from '@angular/forms';
+import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
+import {MdButton} from '@angular2-material/button/button';
 
 @Component({
     selector: 'login',
@@ -13,7 +15,12 @@ import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
     styleUrls: [
         require('./login.scss').toString()
     ],
-    directives: [AlertComponent, CORE_DIRECTIVES, FORM_DIRECTIVES, ROUTER_DIRECTIVES],
+    directives: [
+        AlertComponent,
+        MdButton,
+        MD_INPUT_DIRECTIVES,
+        FORM_DIRECTIVES
+    ],
     pipes: [TranslatePipe]
 })
 export class Login implements OnInit {
@@ -30,6 +37,7 @@ export class Login implements OnInit {
     }
 
     onSubmit(model) {
+        console.log(this.model);
         this.database.open(model.username, model.password)
             .then(
                 (res) => {

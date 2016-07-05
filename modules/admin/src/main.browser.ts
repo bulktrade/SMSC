@@ -6,15 +6,24 @@ import {
     TranslateLoader,
     TranslateStaticLoader
 } from 'ng2-translate/ng2-translate';
-import { provide } from '@angular/core';
+import { provide, PLATFORM_DIRECTIVES } from '@angular/core';
 import { Http } from '@angular/http';
 
+import {disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
+
 let appPromise = bootstrap(App, [
+    disableDeprecatedForms(),
+    provideForms(),
+    {
+          provide: PLATFORM_DIRECTIVES,
+          useValue: [REACTIVE_FORM_DIRECTIVES],
+          multi: true
+    },
     ...APP_PROVIDERS,
     provide(TranslateLoader, {
         useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
         deps: [Http]
-    })
+    }),
 ]);
 
 LocalStorageSubscriber(appPromise);
