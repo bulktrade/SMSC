@@ -43,9 +43,9 @@ export class Login implements OnInit {
 
     model = new LoginModel('', '', false);
 
-    constructor(public router: Router,
-                public translate: TranslateService,
-                public database: ODatabaseService) {
+    constructor(public router?: Router,
+                public translate?: TranslateService,
+                public database?: ODatabaseService) {
     }
 
     ngOnInit() {

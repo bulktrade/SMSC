@@ -16,7 +16,7 @@ import { disableDeprecatedForms, provideForms } from '@angular/forms';
 // import { providePrefetchIdleCallbacks } from '@angularclass/request-idle-callback';
 
 
-import { routes } from '../app/app.routes';
+import { routes } from '../app/routes';
 import { APP_RESOLVER_PROVIDERS } from '../app/app.resolver';
 /*
 * Application Providers/Directives/Pipes

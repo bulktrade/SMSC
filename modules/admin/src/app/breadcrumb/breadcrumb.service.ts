@@ -1,4 +1,4 @@
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {Injectable} from '@angular/core';
 
 @Injectable()
@@ -6,32 +6,38 @@ export class Breadcrumb {
     public name: string;
     public childs: Array<any>;
 
-    constructor(router: Router) {
-        this.init(router);
+    constructor(public router: Router) {
+        this.init();
     }
 
-    init(router) {
-        this.childs = new Array(0);
+    init() {
+        let paths = [];
+        let path = '';
+        this.childs = new Array();
 
-        this.chainChilds(router);
-        this.childs.reverse();
-        this.name = this.getName(this.childs[this.childs.length - 1]);
-    }
+        paths = this.router.url.split('/');
 
-    chainChilds(router) {
-        if (this.getName(router) === 'Navigation') {
-            return;
+        this.router.url.split('/').forEach(() => {
+            paths.forEach((ph, item) => {
+                if (item) {
+                    path += '/' + ph;
+                }
+            })
+            this.childs.push({
+                'name': paths[paths.length - 1],
+                'router': path,
+            })
+            path = '';
+            paths = paths.splice(0, paths.length - 1);
+        })
+
+        if (this.childs.length) {
+            this.childs = this.childs.splice(0, this.childs.length-2).reverse();
+            this.name = this.childs[this.childs.length - 1].name;
         }
-
-        this.childs.push(router);
-        this.chainChilds(router.parent);
-    }
-
-    getName(router) {
-        return router.hostComponent.name;
     }
 
     navigateTo(router) {
-        router.navigate([router.hostComponent.name]);
+        this.router.navigateByUrl(router);
     }
 }

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ActiveItem} from './directives/active';
 import {NgClass, NgFor} from '@angular/common';
@@ -34,50 +34,50 @@ declare var Reflect;
 export class SidebarService {
     public dataNavItems = [];
 
-    constructor(public translate: TranslateService) {
-        // this.initDataNavItems();
+    constructor(public translate: TranslateService,
+                public router: Router) {
+        this.initDataNavItems(this.router);
     }
 
     ngOnInit() {
     }
 
-    initDataNavItems() {
+    initDataNavItems(router) {
         let result = [];
         let decoratorValue;
 
-        this.getItemConfig(Navigation).forEach((item) => {
-            if (item.submenu) {
-                decoratorValue = this.getItemConfig(item.component);
+        let routeConfig = router.config;
+        routeConfig[2].children.forEach((item) => {
 
-                decoratorValue.forEach((subItem) => {
-                    result.push({
-                        name: subItem.name,
-                        icon: subItem.data.icon
+            if (item.path) {
+                if (item.hasOwnProperty('children')) {
+                    decoratorValue = item.children;
+
+                    decoratorValue.forEach((subItem) => {
+                        if (subItem.path) {
+                            result.push({
+                                name: subItem.path,
+                                icon: subItem.data.icon
+                            });
+                        }
                     });
+                }
+
+                if (result.length === 0) {
+                    result = undefined;
+                }
+
+
+                this.dataNavItems.push({
+                    name: item.path,
+                    icon: item.data.icon,
+                    toggle: item.data.toggle,
+                    submenu: result,
+                    showInSubNavigation: item.data.showInSubNavigation
                 });
+
+                result = [];
             }
-
-            if (result.length === 0) {
-                result = undefined;
-            }
-
-            this.dataNavItems.push({
-                name: item.name,
-                icon: item.data.icon,
-                toggle: item.data.toggle,
-                submenu: result,
-                showInSubNavigation: item.data.showInSubNavigation
-            });
-
-            result = [];
         });
-    }
-
-    getItemConfig(component) {
-        // return Reflect.getMetadata('annotations', component)
-        //     .filter(a => {
-        //         return a.constructor.name === 'ItemConfig';
-        //     });
-        return Reflect.getMetadata('annotations', component);
     }
 }
