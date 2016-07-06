@@ -33,7 +33,7 @@ export const routes: RouterConfig = [
 		path: 'login',
 		component: Login,
 	},
-    { path: 'navigation', component: Navigation,
+    { path: '', component: Navigation,
         canActivate:[AuthGuard],
         children: [
             { path: '', redirectTo: 'dashboard' },

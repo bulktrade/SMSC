@@ -16,13 +16,15 @@ export class ActiveItem {
     isActiveSubItem(items) {
         let path = '';
 
+        // console.log(items);
+
         items.forEach(item => {
            path += item + '/';
         });
 
         path = path.substring(0, path.length - 1);
 
-        return this.location.path() === '/navigation/' + path.toLowerCase();
+        return this.location.path() === '/' + path.toLowerCase();
     }
 
 }
