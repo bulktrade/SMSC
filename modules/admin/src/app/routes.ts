@@ -1,4 +1,5 @@
 import { provideRouter, RouterConfig }  from '@angular/router';
+import { AuthGuard } from './login/login.guard';
 
 import {Dashboard} from './dashboard/dashboard.component';
 import {Customers} from './dashboard/customers/customers.component';
@@ -33,6 +34,7 @@ export const routes: RouterConfig = [
 		component: Login,
 	},
     { path: 'navigation', component: Navigation,
+        canActivate:[AuthGuard],
         children: [
             { path: '', redirectTo: 'dashboard' },
             {

@@ -1,7 +1,5 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-// import { RouteConfig } from "@angular/router";
 import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
-import { AppRouterOutlet } from "./app.router-outlet";
 import { NotFound } from "./notfound/notfound.component";
 import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
@@ -22,13 +20,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
         // require('../vendor/iconfont/material-icons.css')
     ]
 })
-/*@RouteConfig([
-    { path: '/', redirectTo: ['/Login'] },
-    { path: '/login', component: Login, name: 'Login', useAsDefault: true },
-    { path: '/navigation/...', component: Navigation, name: 'Navigation' },
-    { path: '/notfound', component: NotFound, name: 'NotFound' },
-    { path: '*', redirectTo: ['/NotFound'] }
-])*/
+
 export class App {
     constructor(translate: TranslateService) {
         var userLang = navigator.language.split('-')[0]; // use navigator lang if available

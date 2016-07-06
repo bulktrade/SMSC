@@ -13,7 +13,10 @@ import { provide, PLATFORM_DIRECTIVES } from '@angular/core';
 import { ODatabaseService } from './orientdb/orientdb.service';
 import {MdIconRegistry} from '@angular2-material/icon/icon-registry';
 
+import { AuthGuard } from './login/login.guard';
+
 export const APP_PROVIDERS = [
+    AuthGuard,
     AppState,
     HTTP_PROVIDERS,
     ROUTER_DIRECTIVES,
