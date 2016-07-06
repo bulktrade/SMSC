@@ -15,7 +15,9 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
         require('./app.scss').toString(),
-        require('npm-font-open-sans/open-sans.css').toString()
+        require('npm-font-open-sans/open-sans.css').toString(),
+        require('../../node_modules/ag-grid/dist/styles/ag-grid.css').toString(),
+        require('../../node_modules/ag-grid/dist/styles/theme-fresh.css').toString(),
         // require('../vendor/ext-6.0.1/build/classic/theme-classic/resources/theme-classic-all.css'),
         // require('../vendor/iconfont/material-icons.css')
     ]

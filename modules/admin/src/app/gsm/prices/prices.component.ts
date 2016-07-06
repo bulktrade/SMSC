@@ -3,6 +3,9 @@ import {PricesGrid} from './directives/prices-grid';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 
+import {AgGridNg2} from 'ag-grid-ng2/main';
+import {GridOptions} from 'ag-grid/main';
+
 @Component({
     selector: 'prices',
     template: require('./prices.html'),
@@ -10,7 +13,7 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
         // require('./prices.scss')
     ],
     providers: [BreadcrumbService],
-    directives: [PricesGrid, BreadcrumbService],
+    directives: [PricesGrid, BreadcrumbService, AgGridNg2],
     pipes: [TranslatePipe]
 })
 export class Prices {
@@ -18,5 +21,25 @@ export class Prices {
                 public breadcrumb: BreadcrumbService) {}
 
     ngOnInit() {
+    }
+
+    columnDefs = [
+        { headerName: "MCC", field: "mcc" },
+        { headerName: "MNC", field: "mnc" },
+        { headerName: "Price", field: "price" },
+        { headerName: "Type", field: "type" },
+        { headerName: "Valid from", field: "valid_from" },
+        { headerName: "Valid to", field: "valid_to" }
+    ];
+
+    rowData = [
+        { mcc: "", mnc: "", price: "", type: "", valid_from: "", valid_to: ""},
+        { mcc: "", mnc: "", price: "", type: "", valid_from: "", valid_to: ""},
+        { mcc: "", mnc: "", price: "", type: "", valid_from: "", valid_to: ""}
+    ];
+
+    GridOptions: GridOptions = {
+        columnDefs: this.columnDefs,
+        rowData: this.rowData
     }
 }

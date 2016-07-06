@@ -60,7 +60,7 @@ export class Login implements OnInit {
                         localStorage.setItem('adminRight', 'true');
                     }
 
-                    this.router.navigateByUrl('navigation');
+                    this.router.navigateByUrl('dashboard');
                 }
             )
             .catch(

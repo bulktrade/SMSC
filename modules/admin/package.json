@@ -93,6 +93,8 @@
     "zone.js": "~0.6.12"
   },
   "devDependencies": {
+    "ag-grid": "^4.2.7",
+    "ag-grid-ng2": "^4.2.2",
     "angular2-hmr": "~0.7.0",
     "angular2-localStorage": "^0.2.1",
     "awesome-typescript-loader": "~0.17.0",

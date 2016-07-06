@@ -15,9 +15,7 @@ export class ActiveItem {
 
     isActiveSubItem(items) {
         let path = '';
-
-        // console.log(items);
-
+        
         items.forEach(item => {
            path += item + '/';
         });
