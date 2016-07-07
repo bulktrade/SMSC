@@ -14,13 +14,12 @@ import {MD_CARD_DIRECTIVES} from '@angular2-material/card/card';
 import {MdSlideToggle} from '@angular2-material/slide-toggle/slide-toggle';
 import {MdIcon} from '@angular2-material/icon/icon';
 
+require('./login.scss');
+
 @Component({
     selector: 'login',
     providers: [],
     template: require('./login.html'),
-    styleUrls: [
-        require('./login.scss').toString()
-    ],
     directives: [
         CORE_DIRECTIVES,
         AlertComponent,

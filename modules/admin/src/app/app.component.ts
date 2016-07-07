@@ -1,10 +1,11 @@
-import { Component, ViewEncapsulation } from "@angular/core";
-import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
-import { NotFound } from "./notfound/notfound.component";
-import { Login } from "./login/login.component";
-import { Navigation } from "./navigation/navigation.component";
+import {Component, ViewEncapsulation} from "@angular/core";
+import {TranslateService, TranslatePipe} from "ng2-translate/ng2-translate";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 
-import { ROUTER_DIRECTIVES } from '@angular/router';
+require('./app.scss');
+require('npm-font-open-sans/open-sans.css');
+require('../../node_modules/ag-grid/dist/styles/ag-grid.css');
+require('../../node_modules/ag-grid/dist/styles/theme-fresh.css');
 
 @Component({
     selector: 'app',
@@ -12,19 +13,11 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
     providers: [],
     directives: [ROUTER_DIRECTIVES],
     template: '<router-outlet></router-outlet>',
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: [
-        require('./app.scss').toString(),
-        require('npm-font-open-sans/open-sans.css').toString(),
-        require('../../node_modules/ag-grid/dist/styles/ag-grid.css').toString(),
-        require('../../node_modules/ag-grid/dist/styles/theme-fresh.css').toString(),
-        // require('../vendor/ext-6.0.1/build/classic/theme-classic/resources/theme-classic-all.css'),
-        // require('../vendor/iconfont/material-icons.css')
-    ]
+    encapsulation: ViewEncapsulation.None
 })
 
 export class App {
-    constructor(translate: TranslateService) {
+    constructor(translate:TranslateService) {
         var userLang = navigator.language.split('-')[0]; // use navigator lang if available
         userLang = /(de|ru|en)/gi.test(userLang) ? userLang : 'en';
 

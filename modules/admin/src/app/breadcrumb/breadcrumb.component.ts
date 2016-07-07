@@ -2,12 +2,12 @@ import {Component, Injectable} from '@angular/core';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {Breadcrumb} from './breadcrumb.service';
+
+require('./breadcrumb.scss');
+
 @Component({
     selector: 'breadcrumb',
     template: require('./breadcrumb.html'),
-    styleUrls: [
-        require('./breadcrumb.scss').toString()
-    ],
     inputs: [
         'title',
         'description',
