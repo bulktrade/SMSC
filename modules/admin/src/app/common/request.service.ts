@@ -18,7 +18,11 @@ export class HTTPRequest {
     any(options: RequestGetOptions): Promise<RequestGetResponse> {
         let body = JSON.stringify(options.body);
         let headers = new Headers(options.headers);
-        let requestOptions = new RequestOptions({ headers: headers, method: options.method, body: body });
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: options.method,
+            body: body
+        });
 
         return new Promise((resolve, reject) => {
             this.http.request(options.url, requestOptions)
@@ -29,7 +33,7 @@ export class HTTPRequest {
                     }).catch(error => {
                          reject(error);
                     });
-                })
+                });
     }
 
 }

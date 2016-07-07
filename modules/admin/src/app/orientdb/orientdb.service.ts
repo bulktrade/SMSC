@@ -218,7 +218,8 @@ export class ODatabaseService {
                         if (successCallback) {
                             successCallback(this.commandResult);
                         }
-                        resolve(successCallback instanceof Function ? undefined : this.getCommandResult());
+                        resolve(successCallback instanceof Function ?
+                            undefined : this.getCommandResult());
                     },
                     error => {
                         this.handleResponse(undefined);
