@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {RoutingGrid} from './directives/routing-grid';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 
@@ -13,7 +12,7 @@ import {GridOptions} from 'ag-grid/main';
         // require('./routing.scss')
     ],
     providers: [BreadcrumbService],
-    directives: [RoutingGrid, BreadcrumbService, AgGridNg2],
+    directives: [BreadcrumbService, AgGridNg2],
     pipes: [TranslatePipe]
 })
 export class Routing {

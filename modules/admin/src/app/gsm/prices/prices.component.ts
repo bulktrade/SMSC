@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {PricesGrid} from './directives/prices-grid';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 
@@ -13,7 +12,7 @@ import {GridOptions} from 'ag-grid/main';
         // require('./prices.scss')
     ],
     providers: [BreadcrumbService],
-    directives: [PricesGrid, BreadcrumbService, AgGridNg2],
+    directives: [BreadcrumbService, AgGridNg2],
     pipes: [TranslatePipe]
 })
 export class Prices {
