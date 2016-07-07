@@ -6,6 +6,8 @@ import { Navigation } from "./navigation/navigation.component";
 
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
+let test = require('npm-font-open-sans/open-sans.css').toString()
+
 @Component({
     selector: 'app',
     pipes: [TranslatePipe],
@@ -25,6 +27,7 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 
 export class App {
     constructor(translate: TranslateService) {
+        console.log(test);
         var userLang = navigator.language.split('-')[0]; // use navigator lang if available
         userLang = /(de|ru|en)/gi.test(userLang) ? userLang : 'en';
 

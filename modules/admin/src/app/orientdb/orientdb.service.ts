@@ -2,8 +2,9 @@
 
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { Request } from '../common';
+import { HTTPRequest } from '../common';
 import { Observable } from 'rxjs/Rx';
+import { Http, RequestMethod } from '@angular/http';
 
 @Injectable()
 export class ODatabaseService {
@@ -21,7 +22,7 @@ export class ODatabaseService {
     private urlPrefix;
     private urlSuffix;
 
-    constructor(databasePath) {
+    constructor(databasePath?: string, public http?: Http) {
         this.databaseUrl = '';
         this.databaseName = '';
         this.encodedDatabaseName = '';
@@ -34,7 +35,7 @@ export class ODatabaseService {
         this.removeObjectCircleReferences = true;
         this.urlPrefix = '/';
         this.urlSuffix = '';
-        this.request = new Request();
+        this.request = new HTTPRequest(this.http);
 
         if (databasePath) {
             let pos = databasePath.indexOf('orientdb_proxy', 8); // JUMP HTTP
@@ -73,19 +74,21 @@ export class ODatabaseService {
     }
 
     batchRequest(data) {
-        return this.request.httpRequest({
-            type: 'POST',
-            url: this.urlPrefix + 'batch/' + this.encodedDatabaseName
-            + this.urlSuffix,
-            body: data
-        })
-            .then(
-                res => {
-                },
-                error => {
-                    this.setErrorMessage('Command error: ' + error.responseText);
-                }
-            );
+        return new Promise((resolve, reject) => {
+            this.request.any({
+                url: this.urlPrefix + 'batch/' + this.encodedDatabaseName
+                + this.urlSuffix,
+                method: RequestMethod.Post,
+                headers: { 'Content-Type': 'application/json' },
+                body: data
+            })
+                .then(
+                    res => {},
+                    error => {
+                        this.setErrorMessage('Command error: ' + error.responseText);
+                    }
+                );
+        });
     }
 
     executeCommand(iCommand?, iLanguage?, iLimit?,
@@ -117,23 +120,26 @@ export class ODatabaseService {
 
         iCommand = encodeURIComponent(iCommand);
 
-        return this.request.httpRequest({
-            url: this.urlPrefix + 'command/' + this.encodedDatabaseName + '/'
-            + iLanguage + '/' + iCommand + '/' + iLimit + iFetchPlan
-            + this.urlSuffix,
-            type: 'POST'
-        })
-            .then(
-                res => {
-                    this.setErrorMessage(undefined);
-                    this.handleResponse(res);
-                    return this.getCommandResponse();
-                },
-                error => {
-                    this.handleResponse(undefined);
-                    this.setErrorMessage('Command error: ' + error.responseText);
-                }
-            );
+        return new Promise((resolve, reject) => {
+            this.request.any({
+                url: this.urlPrefix + 'command/' + this.encodedDatabaseName + '/' +
+                    iLanguage + '/' + iCommand + '/' + iLimit + iFetchPlan +
+                    this.urlSuffix,
+                method: RequestMethod.Post,
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        resolve(this.getCommandResponse());
+                    },
+                    error => {
+                        this.handleResponse(undefined);
+                        this.setErrorMessage('Command error: ' + error.responseText);
+                    }
+                );
+        });
     };
 
     open(userName?, userPass?, authProxy?, type?) {
@@ -156,13 +162,16 @@ export class ODatabaseService {
             type = 'GET';
         }
 
-        this.request.basicAuth(userName, userPass);
-
         return new Promise((resolve, reject) => {
-            this.request.httpRequest({
-                url: this.urlPrefix + 'database/' + this.encodedDatabaseName + this.urlSuffix,
-                type: type
-            })
+            this.request.any({
+                    url: this.urlPrefix + 'database/' + this.encodedDatabaseName + this.urlSuffix,
+                    method: RequestMethod.Get,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Basic ' +
+                        btoa(userName + ':' + userPass)
+                    }
+                })
                 .then(
                     res => {
                         this.setErrorMessage(undefined);
@@ -196,41 +205,53 @@ export class ODatabaseService {
             url += '/' + encodeURIComponent(iFetchPlan);
         }
 
-        return this.request.httpRequest({
-            url: this.urlPrefix + url + this.urlSuffix,
-            type: 'get'
-        })
-            .then(res => {
-                this.setErrorMessage(undefined);
-                this.handleResponse(res);
-                if (successCallback) {
-                    successCallback(this.commandResult);
-                }
-                return successCallback instanceof Function ? undefined : this.getCommandResult();
-            }).catch(error => {
-                this.handleResponse(undefined);
-                this.setErrorMessage('Query error: ' + error.responseText);
-                if (errorCallback) {
-                    errorCallback(this.errorMessage);
-                }
-            });
+        return new Promise((resolve, reject) => {
+            this.request.any({
+                    url: this.urlPrefix + url + this.urlSuffix,
+                    method: RequestMethod.Get,
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        if (successCallback) {
+                            successCallback(this.commandResult);
+                        }
+                        resolve(successCallback instanceof Function ? undefined : this.getCommandResult());
+                    },
+                    error => {
+                        this.handleResponse(undefined);
+                        this.setErrorMessage('Query error: ' + error.responseText);
+                        if (errorCallback) {
+                            errorCallback(this.errorMessage);
+                        }
+                    }
+                );
+        });
     }
 
     close() {
         if (this.databaseInfo !== undefined) {
-            return this.request.httpRequest({
-                url: this.urlPrefix + 'disconnect' + this.urlSuffix,
-                type: 'get'
-            })
-                .then(res => {
-                    this.handleResponse(res);
-                    this.setErrorMessage(undefined);
-                    return this.getCommandResult();
-                }).catch(error => {
-                    this.handleResponse(undefined);
-                    this.setErrorMessage('Command response: '
-                        + error.responseText);
-                });
+            return new Promise((resolve, reject) => {
+                this.request.any({
+                    url: this.urlPrefix + 'disconnect' + this.urlSuffix,
+                    method: RequestMethod.Get,
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                    .then(
+                        res => {
+                            this.handleResponse(res);
+                            this.setErrorMessage(undefined);
+                            resolve(this.getCommandResult());
+                        },
+                        error => {
+                            this.handleResponse(undefined);
+                            this.setErrorMessage('Command response: '
+                                + error.responseText);
+                        }
+                    );
+            });
         }
 
         this.databaseInfo = undefined;
@@ -518,37 +539,51 @@ export class ODatabaseService {
             type = 'local';
         }
 
-        return this.request.httpRequest({
-            url: this.urlPrefix + 'database/' + this.encodedDatabaseName + '/'
-            + type + '/' + databaseType + this.urlSuffix,
-            type: 'post',
-            userName: userName,
-            userPass: userPass
-        })
-            .then(res => {
-                this.setErrorMessage(undefined);
-                this.setDatabaseInfo(this.transformResponse(res));
-                return this.getDatabaseInfo();
-            }).catch(error => {
-                this.setErrorMessage('Connect error: ' + error.responseText);
-                this.setDatabaseInfo(undefined);
-            });
+        return new Promise((resolve, reject) => {
+            this.request.any({
+                url: this.urlPrefix + 'database/' + this.encodedDatabaseName + '/' +
+                        type + '/' + databaseType + this.urlSuffix,
+                method: RequestMethod.Post,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' +
+                    btoa(userName + ':' + userPass)
+                }
+            })
+                .then(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.setDatabaseInfo(this.transformResponse(res));
+                        resolve(this.getDatabaseInfo());
+                    },
+                    error => {
+                        this.setErrorMessage('Connect error: ' + error.responseText);
+                        this.setDatabaseInfo(undefined);
+                    }
+                );
+        });
     }
 
     metadata() {
-        return this.request.httpRequest({
-            url: this.urlPrefix + 'database/' + this.encodedDatabaseName
-            + this.urlSuffix,
-            type: 'get'
-        })
-            .then(res => {
-                this.setErrorMessage(undefined);
-                this.setDatabaseInfo(this.transformResponse(res));
-                return this.getDatabaseInfo();
-            }).catch(error => {
-                this.setErrorMessage('Connect error: ' + error.responseText);
-                this.setDatabaseInfo(undefined);
-            });
+        return new Promise((resolve, reject) => {
+            this.request.any({
+                url: this.urlPrefix + 'database/' + this.encodedDatabaseName
+                    + this.urlSuffix,
+                method: RequestMethod.Get,
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.setDatabaseInfo(this.transformResponse(res));
+                        resolve(this.getDatabaseInfo());
+                    },
+                    error => {
+                        this.setErrorMessage('Connect error: ' + error.responseText);
+                        this.setDatabaseInfo(undefined);
+                    }
+                );
+        });
     }
 
     load(iRID?, iFetchPlan?) {
@@ -568,19 +603,25 @@ export class ODatabaseService {
 
         iRID = encodeURIComponent(iRID);
 
-        return this.request.httpRequest({
-            url: this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
-            + iRID + iFetchPlan + this.urlSuffix,
-            type: 'get'
-        })
-            .then(res => {
-                this.setErrorMessage(undefined);
-                this.handleResponse(res);
-                return this.getCommandResult();
-            }).catch(error => {
-                this.handleResponse(undefined);
-                this.setErrorMessage('Query error: ' + error.responseText);
-            });
+        return new Promise((resolve, reject) => {
+            this.request.any({
+                url: this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
+                + iRID + iFetchPlan + this.urlSuffix,
+                method: RequestMethod.Get,
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        resolve(this.getCommandResult());
+                    },
+                    error => {
+                        this.handleResponse(undefined);
+                        this.setErrorMessage('Query error: ' + error.responseText);
+                    }
+                );
+        });
     }
 
     save(obj?, errorCallback?, successCallback?) {
@@ -599,26 +640,32 @@ export class ODatabaseService {
             url += '/' + encodeURIComponent(rid);
         }
 
-        return this.request.httpRequest({
-            url: url + this.urlSuffix,
-            type: methodType,
-            body: JSON.parse(obj)
-        })
-            .then(res => {
-                this.setErrorMessage(undefined);
-                this.setCommandResponse(res);
-                this.setCommandResult(res);
-                if (successCallback) {
-                    successCallback(res);
-                }
-                return this.getCommandResult();
-            }).catch(error => {
-                this.handleResponse(undefined);
-                this.setErrorMessage('Save error: ' + error.responseText);
-                if (errorCallback) {
-                    errorCallback(error.responseText);
-                }
-            });
+        return new Promise((resolve, reject) => {
+            this.request.any({
+                url: url + this.urlSuffix,
+                method: methodType,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.parse(obj)
+            })
+                .then(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.setCommandResponse(res);
+                        this.setCommandResult(res);
+                        if (successCallback) {
+                            successCallback(res);
+                        }
+                        resolve(this.getCommandResult());
+                    },
+                    error => {
+                        this.handleResponse(undefined);
+                        this.setErrorMessage('Save error: ' + error.responseText);
+                        if (errorCallback) {
+                            errorCallback(error.responseText);
+                        }
+                    }
+                );
+        });
     }
 
     indexPut(iIndexName?, iKey?, iValue?) {
@@ -637,17 +684,23 @@ export class ODatabaseService {
             content = undefined;
         }
 
-        return this.request.httpRequest({
-            url: req + this.urlSuffix,
-            type: 'put'
-        })
-            .then(res => {
-                this.setErrorMessage(undefined);
-                return this.getCommandResult();
-            }).catch(error => {
-                this.handleResponse(undefined);
-                this.setErrorMessage('Index put error: ' + error.responseText);
-            });
+        return new Promise((resolve, reject) => {
+            this.request.any({
+                url: req + this.urlSuffix,
+                method: RequestMethod.Put,
+                headers: { 'Content-Type': 'application/json' }
+            })
+                .then(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        resolve(this.getCommandResult());
+                    },
+                    error => {
+                        this.handleResponse(undefined);
+                        this.setErrorMessage('Index put error: ' + error.responseText);
+                    }
+                );
+        });
     }
 
     getDatabaseInfo() {

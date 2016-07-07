@@ -3,13 +3,13 @@ export * from './app.component';
 export * from './app.service';
 
 import { AppState } from './app.service';
-import { HTTP_PROVIDERS } from '@angular/http';
+import { HTTP_PROVIDERS, Http } from '@angular/http';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import {
     TRANSLATE_PROVIDERS,
     TranslateService
 } from 'ng2-translate/ng2-translate';
-import { provide, PLATFORM_DIRECTIVES } from '@angular/core';
+import { provide } from '@angular/core';
 import { ODatabaseService } from './orientdb/orientdb.service';
 import {MdIconRegistry} from '@angular2-material/icon/icon-registry';
 
@@ -23,7 +23,8 @@ export const APP_PROVIDERS = [
     LocalStorageService,
     MdIconRegistry,
     provide(ODatabaseService, {
-        useFactory: () => new ODatabaseService('/orientdb/smsc')
+        useFactory: (http: Http) => new ODatabaseService('/orientdb/smsc', http),
+        deps: [Http]
     }),
     TRANSLATE_PROVIDERS,
     TranslateService
