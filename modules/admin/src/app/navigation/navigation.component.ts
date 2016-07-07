@@ -50,14 +50,5 @@ export class Navigation implements OnInit {
     }
 
     ngOnInit() {
-        this.setDefaultLang();
     }
-
-    setDefaultLang() {
-        let userLang = navigator.language.split('-')[0];
-        userLang = /(en|de)/gi.test(userLang) ? userLang : 'en';
-        this.translate.setDefaultLang('en');
-        this.translate.use('en');
-    }
-
 }

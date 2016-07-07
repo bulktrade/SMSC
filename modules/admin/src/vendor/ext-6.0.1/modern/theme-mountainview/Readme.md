@@ -1,2 +1,0 @@
-# theme-mountainview - Read Me
-
