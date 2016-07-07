@@ -155,7 +155,8 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                loader: extractCSS.extract(['css'])
+                loader: extractCSS.extract(['css']),
+                exclude: [helpers.root('src/index.html')]
             },
 
             /*
@@ -175,7 +176,8 @@ module.exports = {
 
             {
                 test: /\.scss$/,
-                loader: extractCSS.extract(['css','sass'])
+                loader: extractCSS.extract(['css', 'sass']),
+                exclude: [helpers.root('src/index.html')]
             },
 
             {
