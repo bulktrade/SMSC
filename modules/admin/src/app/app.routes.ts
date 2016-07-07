@@ -20,8 +20,9 @@ import {FinancesMain} from './financesmain/financesmain.component';
 import {SystemSettings} from './systemsettings/systemsettings.component';
 
 import {Login}  from './login/login.component';
-import {Navigation} from "./navigation/navigation.component";
+import {Navigation} from './navigation/navigation.component';
 import {NotFound} from './notfound/notfound.component';
+import {DashboardRoutes} from './dashboard/dashboard.routs';
 
 export const routes: RouterConfig = [
 	{
@@ -36,23 +37,7 @@ export const routes: RouterConfig = [
     { path: '', component: Navigation,
         canActivate:[AuthGuard],
         children: [
-            { path: '', redirectTo: 'dashboard' },
-            {
-                path: 'dashboard',
-                component: Dashboard,
-                children: [
-                    { path: '', redirectTo: 'customers'},
-                    { path: 'customers', component: Customers,  data: {icon: 'settings_ethernet'} },
-                    { path: 'finances', component: Finances, data: {icon: 'settings_input_svideo'} },
-                    { path: 'dlrtraffic', component: DLRTraffic, data: {icon: 'settings_applications'} },
-                    { path: 'smstraffic', component: SMSTraffic, data: {icon: 'settings_voice'} }
-                ],
-                data: {
-                    showInSubNavigation: true,
-                    icon: 'layers',
-                    toggle: '/icnDsh'
-                }
-            },
+            { path: '', redirectTo: 'gsm' },
             {
                 path: 'gsm',
                 component: GSM,
@@ -83,6 +68,7 @@ export const routes: RouterConfig = [
                 data: { showInSubNavigation: true, icon: 'settings' }
             }
         ]},
+    ...DashboardRoutes,
     { path: '**', component: NotFound },
 ];
 

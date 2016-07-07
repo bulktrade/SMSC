@@ -14,7 +14,7 @@ import {disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES} from '@a
 import { PLATFORM_PROVIDERS } from './platform/browser';
 import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
 
-import { APP_ROUTER_PROVIDERS } from './app/routes'
+import { APP_ROUTER_PROVIDERS } from './app/app.routes'
 
 let appPromise = bootstrap(App, [
     ...APP_ROUTER_PROVIDERS,

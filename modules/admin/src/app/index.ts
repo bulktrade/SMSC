@@ -14,9 +14,11 @@ import { ODatabaseService } from './orientdb/orientdb.service';
 import {MdIconRegistry} from '@angular2-material/icon/icon-registry';
 
 import { AuthGuard } from './login/login.guard';
+import {DashboardGuard} from './dashboard/dashboard.guard';
 
 export const APP_PROVIDERS = [
     AuthGuard,
+    DashboardGuard,
     AppState,
     HTTP_PROVIDERS,
     ROUTER_DIRECTIVES,
