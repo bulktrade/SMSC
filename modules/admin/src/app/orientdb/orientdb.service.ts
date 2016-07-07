@@ -2,13 +2,11 @@
 
 import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
-import { HTTPRequest } from '../common';
 import { Observable } from 'rxjs/Rx';
-import { Http, RequestMethod } from '@angular/http';
+import {Http, RequestMethod, RequestOptions, Headers} from '@angular/http';
 
 @Injectable()
 export class ODatabaseService {
-    private request;
     private databaseUrl;
     private databaseName;
     private encodedDatabaseName;
@@ -35,7 +33,6 @@ export class ODatabaseService {
         this.removeObjectCircleReferences = true;
         this.urlPrefix = '/';
         this.urlSuffix = '';
-        this.request = new HTTPRequest(this.http);
 
         if (databasePath) {
             let pos = databasePath.indexOf('orientdb_proxy', 8); // JUMP HTTP
@@ -74,20 +71,25 @@ export class ODatabaseService {
     }
 
     batchRequest(data) {
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+        });
+
         return new Promise((resolve, reject) => {
-            this.request.any({
-                url: this.urlPrefix + 'batch/' + this.encodedDatabaseName
-                + this.urlSuffix,
-                method: RequestMethod.Post,
-                headers: { 'Content-Type': 'application/json' },
-                body: data
-            })
+            this.http.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
+            + this.urlSuffix,
+                requestOptions)
+                .toPromise()
                 .then(
                     res => {},
                     error => {
                         this.setErrorMessage('Command error: ' + error.responseText);
-                    }
-                );
+                    });
         });
     }
 
@@ -120,14 +122,21 @@ export class ODatabaseService {
 
         iCommand = encodeURIComponent(iCommand);
 
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+        });
+
         return new Promise((resolve, reject) => {
-            this.request.any({
-                url: this.urlPrefix + 'command/' + this.encodedDatabaseName + '/' +
-                    iLanguage + '/' + iCommand + '/' + iLimit + iFetchPlan +
-                    this.urlSuffix,
-                method: RequestMethod.Post,
-                headers: { 'Content-Type': 'application/json' }
-            })
+            this.http.request(this.urlPrefix + 'command/' + this.encodedDatabaseName + '/' +
+                iLanguage + '/' + iCommand + '/' + iLimit + iFetchPlan +
+                this.urlSuffix,
+                requestOptions)
+                .toPromise()
                 .then(
                     res => {
                         this.setErrorMessage(undefined);
@@ -137,8 +146,7 @@ export class ODatabaseService {
                     error => {
                         this.handleResponse(undefined);
                         this.setErrorMessage('Command error: ' + error.responseText);
-                    }
-                );
+                    });
         });
     };
 
@@ -162,16 +170,21 @@ export class ODatabaseService {
             type = 'GET';
         }
 
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' +
+            btoa(userName + ':' + userPass)
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Get
+        });
+
         return new Promise((resolve, reject) => {
-            this.request.any({
-                    url: this.urlPrefix + 'database/' + this.encodedDatabaseName + this.urlSuffix,
-                    method: RequestMethod.Get,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Basic ' +
-                        btoa(userName + ':' + userPass)
-                    }
-                })
+            this.http.request(this.urlPrefix + 'database/' + this.encodedDatabaseName + this.urlSuffix,
+                requestOptions)
+                .toPromise()
                 .then(
                     res => {
                         this.setErrorMessage(undefined);
@@ -186,8 +199,7 @@ export class ODatabaseService {
                         this.setDatabaseInfo(undefined);
                         this.setErrorMessage('Connect error: ' + error.responseText);
                         reject(new Error('Connect error: ' + error.responseText));
-                    }
-                );
+                    });
         });
     }
 
@@ -205,12 +217,19 @@ export class ODatabaseService {
             url += '/' + encodeURIComponent(iFetchPlan);
         }
 
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Get
+        });
+
         return new Promise((resolve, reject) => {
-            this.request.any({
-                    url: this.urlPrefix + url + this.urlSuffix,
-                    method: RequestMethod.Get,
-                    headers: { 'Content-Type': 'application/json' }
-                })
+            this.http.request(this.urlPrefix + url + this.urlSuffix,
+                requestOptions)
+                .toPromise()
                 .then(
                     res => {
                         this.setErrorMessage(undefined);
@@ -234,12 +253,20 @@ export class ODatabaseService {
 
     close() {
         if (this.databaseInfo !== undefined) {
+
+            let headers = new Headers({
+                'Content-Type': 'application/json'
+            });
+
+            let requestOptions = new RequestOptions({
+                headers: headers,
+                method: RequestMethod.Get
+            });
+
             return new Promise((resolve, reject) => {
-                this.request.any({
-                    url: this.urlPrefix + 'disconnect' + this.urlSuffix,
-                    method: RequestMethod.Get,
-                    headers: { 'Content-Type': 'application/json' }
-                })
+                this.http.request(this.urlPrefix + 'disconnect' + this.urlSuffix,
+                    requestOptions)
+                    .toPromise()
                     .then(
                         res => {
                             this.handleResponse(res);
@@ -540,17 +567,22 @@ export class ODatabaseService {
             type = 'local';
         }
 
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' +
+            btoa(userName + ':' + userPass)
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Post
+        });
+
         return new Promise((resolve, reject) => {
-            this.request.any({
-                url: this.urlPrefix + 'database/' + this.encodedDatabaseName + '/' +
-                        type + '/' + databaseType + this.urlSuffix,
-                method: RequestMethod.Post,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' +
-                    btoa(userName + ':' + userPass)
-                }
-            })
+            this.http.request(this.urlPrefix + 'database/' + this.encodedDatabaseName + '/' +
+                type + '/' + databaseType + this.urlSuffix,
+                requestOptions)
+                .toPromise()
                 .then(
                     res => {
                         this.setErrorMessage(undefined);
@@ -566,13 +598,20 @@ export class ODatabaseService {
     }
 
     metadata() {
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Get
+        });
+
         return new Promise((resolve, reject) => {
-            this.request.any({
-                url: this.urlPrefix + 'database/' + this.encodedDatabaseName
-                    + this.urlSuffix,
-                method: RequestMethod.Get,
-                headers: { 'Content-Type': 'application/json' }
-            })
+            this.http.request(this.urlPrefix + 'database/' + this.encodedDatabaseName
+            + this.urlSuffix,
+                requestOptions)
+                .toPromise()
                 .then(
                     res => {
                         this.setErrorMessage(undefined);
@@ -604,13 +643,20 @@ export class ODatabaseService {
 
         iRID = encodeURIComponent(iRID);
 
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Get
+        });
+
         return new Promise((resolve, reject) => {
-            this.request.any({
-                url: this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
+            this.http.request(this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
                 + iRID + iFetchPlan + this.urlSuffix,
-                method: RequestMethod.Get,
-                headers: { 'Content-Type': 'application/json' }
-            })
+                requestOptions)
+                .toPromise()
                 .then(
                     res => {
                         this.setErrorMessage(undefined);
@@ -641,13 +687,22 @@ export class ODatabaseService {
             url += '/' + encodeURIComponent(rid);
         }
 
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let body = JSON.stringify(JSON.parse(obj));
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: methodType,
+            body: body
+        });
+
         return new Promise((resolve, reject) => {
-            this.request.any({
-                url: url + this.urlSuffix,
-                method: methodType,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.parse(obj)
-            })
+            this.http.request(url + this.urlSuffix,
+                requestOptions)
+                .toPromise()
                 .then(
                     res => {
                         this.setErrorMessage(undefined);
@@ -685,12 +740,19 @@ export class ODatabaseService {
             content = undefined;
         }
 
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method:  RequestMethod.Put,
+        });
+
         return new Promise((resolve, reject) => {
-            this.request.any({
-                url: req + this.urlSuffix,
-                method: RequestMethod.Put,
-                headers: { 'Content-Type': 'application/json' }
-            })
+            this.http.request(req + this.urlSuffix,
+                requestOptions)
+                .toPromise()
                 .then(
                     res => {
                         this.setErrorMessage(undefined);
