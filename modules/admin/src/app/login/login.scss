@@ -10,9 +10,7 @@
     right: 0;
 
     .title {
-        color: #fff;
-        margin-bottom: 10px;
-        background-color: #31b0d5;
+        margin-bottom: 20px;
     }
 
     .alert {
@@ -31,27 +29,6 @@
         margin: auto;
         width: 35px;
         height: 35px;
-
-        path {
-            stroke: #31b0d5;
-        }
-    }
-
-    #submitButton {
-        color: #fff;
-        background-color: #31b0d5;
-        border-color: #269abc;
-
-        &:hover {
-            background-color: #269abc;
-            border-color: #1b6d85;
-        }
-
-        &[disabled] {
-            background-color: #5bc0de;
-            border-color: #46b8da;
-            cursor: not-allowed;
-        }
     }
 
     @media(max-width:48em) {

@@ -55,7 +55,6 @@ export class Login implements OnInit {
         this.database.open(model.username, model.password)
             .then(
                 (res) => {
-                    console.log('Result: ', res);
                     if (typeof(Storage) !== 'undefined') {
                         localStorage.setItem('adminRight', 'true');
                     }

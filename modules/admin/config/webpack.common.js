@@ -4,7 +4,7 @@
 
 const webpack = require('webpack');
 const helpers = require('./helpers');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 /*
  * Webpack Plugins

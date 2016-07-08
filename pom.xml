@@ -108,21 +108,6 @@
                     <version>1.5.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.mybatis.maven</groupId>
-                    <artifactId>migrations-maven-plugin</artifactId>
-                    <version>1.1.2</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.orientechnologies</groupId>
-                            <artifactId>orientdb-jdbc</artifactId>
-                            <version>2.2.0</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <repository>${project.basedir}/migrations/orientdb/</repository>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>com.spotify</groupId>
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>0.4.10</version>
@@ -319,7 +304,7 @@
     </profiles>
 
     <properties>
-        <orientdb.version>2.2.0-rc1</orientdb.version>
+        <orientdb.version>2.2.3</orientdb.version>
         <enableAssertions>false</enableAssertions>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -410,7 +395,7 @@
             <dependency>
                 <groupId>com.orientechnologies</groupId>
                 <artifactId>orientdb-jdbc</artifactId>
-                <version>2.2.0</version>
+                <version>${orientdb.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.directory.studio</groupId>

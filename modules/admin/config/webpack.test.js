@@ -9,11 +9,14 @@ const helpers = require('./helpers');
  */
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 /**
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
+
+var extractCSS = new ExtractTextPlugin("[name].css");
 
 /**
  * Webpack configuration
@@ -131,18 +134,16 @@ module.exports = {
              */
             { test: /\.json$/, loader: 'json-loader', exclude: [helpers.root('src/index.html')] },
 
-            /**
-             * Raw loader support for *.css files
-             * Returns file content as string
-             *
-             * See: https://github.com/webpack/raw-loader
-             */
-            { test: /\.css$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] },
+            {
+                test: /\.css$/,
+                loader: extractCSS.extract(['css']),
+                exclude: [helpers.root('src/index.html')]
+            },
 
             {
                 test: /\.scss$/,
-                exclude: /node_modules/,
-                loaders: ['raw-loader', 'sass-loader']
+                loader: extractCSS.extract(['css', 'sass']),
+                exclude: [helpers.root('src/index.html')]
             },
 
             /**
@@ -203,11 +204,11 @@ module.exports = {
             'process.env': {
                 'ENV': JSON.stringify(ENV),
                 'NODE_ENV': JSON.stringify(ENV),
-                'HMR': false,
+                'HMR': false
             }
         }),
 
-
+        extractCSS
     ],
 
     /**

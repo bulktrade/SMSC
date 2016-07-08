@@ -172,8 +172,8 @@ export class ODatabaseService {
 
         let headers = new Headers({
             'Content-Type': 'application/json',
-            'Authorization': 'Basic ' +
-            btoa(userName + ':' + userPass)
+            'Authorization': 'Basic ' + btoa(userName + ':' + userPass),
+            'X-Requested-With': 'XMLHttpRequest'
         });
 
         let requestOptions = new RequestOptions({
