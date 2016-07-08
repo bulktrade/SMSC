@@ -5,12 +5,12 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 import {AgGridNg2} from 'ag-grid-ng2/main';
 import {GridOptions} from 'ag-grid/main';
 
+require('./monitoring.scss');
+
 @Component({
     selector: 'monitoring',
     template: require('./monitoring.html'),
-    styleUrls: [
-        // require('./monitoring.scss')
-    ],
+    styleUrls: [],
     providers: [BreadcrumbService],
     directives: [BreadcrumbService, AgGridNg2],
     pipes: [TranslatePipe]

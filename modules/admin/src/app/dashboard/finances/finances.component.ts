@@ -2,12 +2,12 @@ import {Component} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
 import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 
+require('./finances.scss');
+
 @Component({
     selector: 'finances',
     template: require('./finances.html'),
-    styleUrls: [
-        // require('./finances.scss')
-    ],
+    styleUrls: [],
     providers: [BreadcrumbService],
     directives: [BreadcrumbService],
     pipes: [TranslatePipe]

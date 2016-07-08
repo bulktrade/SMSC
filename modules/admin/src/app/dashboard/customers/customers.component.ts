@@ -5,12 +5,12 @@ import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 import {AgGridNg2} from 'ag-grid-ng2/main';
 import {GridOptions} from 'ag-grid/main';
 
+require('./customers.scss');
+
 @Component({
     selector: 'customers',
     template: require('./customers.html'),
-    styleUrls: [
-        // require('./customers.scss')
-    ],
+    styleUrls: [],
     providers: [BreadcrumbService],
     directives: [BreadcrumbService, AgGridNg2],
     pipes : [TranslatePipe]

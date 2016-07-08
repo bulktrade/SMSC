@@ -1,7 +1,7 @@
 <breadcrumb></breadcrumb>
 <md-tab-group class="tab-group">
     <md-tab *ngFor="let tab of tabs">
-        <template md-tab-label>{{tab.label}}</template>
+        <template md-tab-label class="md-tab-header">{{tab.label}}</template>
         <template md-tab-content>
             <ag-grid-ng2 class="ag-fresh" style="height: 300px; width: 100%"
                          [rowGroupPanelShow]="always" [columnDefs]="tab.columnDefs"
