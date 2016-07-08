@@ -6,15 +6,6 @@
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // Angular 2 Http
 import { HTTP_PROVIDERS } from '@angular/http';
-// Angular 2 Router
-import { provideRouter } from '@angular/router';
-// Angular 2 forms
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
-
-// AngularClass
-// import { provideWebpack } from '@angularclass/webpack-toolkit';
-// import { providePrefetchIdleCallbacks } from '@angularclass/request-idle-callback';
-
 
 import { APP_RESOLVER_PROVIDERS } from '../app/app.resolver';
 /*
@@ -23,8 +14,6 @@ import { APP_RESOLVER_PROVIDERS } from '../app/app.resolver';
 */
 export const APPLICATION_PROVIDERS = [
   // new Angular 2 forms
-  disableDeprecatedForms(),
-  provideForms(),
   ...APP_RESOLVER_PROVIDERS,
   ...HTTP_PROVIDERS,
 
