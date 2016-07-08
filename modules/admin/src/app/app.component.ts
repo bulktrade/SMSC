@@ -1,6 +1,9 @@
-import {Component, ViewEncapsulation} from "@angular/core";
-import {TranslateService, TranslatePipe} from "ng2-translate/ng2-translate";
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import {Component, ViewEncapsulation} from '@angular/core';
+import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
+import { NotFound } from './notfound/notfound.component';
+import { Login } from './login/login.component';
+import { Navigation } from './navigation/navigation.component';
+import {RouteConfig, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 
 require('./app.scss');
 require('npm-font-open-sans/open-sans.css');
@@ -15,6 +18,14 @@ require('../../node_modules/ag-grid/dist/styles/theme-fresh.css');
     template: '<router-outlet></router-outlet>',
     encapsulation: ViewEncapsulation.None
 })
+
+@RouteConfig([
+    { path: '/', redirectTo: ['/Login'] },
+    { path: '/login', component: Login, name: 'Login', useAsDefault: true },
+    { path: '/navigation/...', component: Navigation, name: 'Navigation' },
+    { path: '/notfound', component: NotFound, name: 'NotFound' },
+    { path: '**', redirectTo: ['/NotFound'] }
+])
 
 export class App {
     constructor(translate:TranslateService) {

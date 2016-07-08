@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {AnimateBox} from './directives/animate';
 import {NgClass, NgFor} from '@angular/common';
 import {ActiveItem} from './directives/active';

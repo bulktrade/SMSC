@@ -4,7 +4,6 @@ export * from './app.service';
 
 import { AppState } from './app.service';
 import { HTTP_PROVIDERS, Http } from '@angular/http';
-import { ROUTER_DIRECTIVES } from '@angular/router';
 import {
     TRANSLATE_PROVIDERS,
     TranslateService
@@ -15,13 +14,14 @@ import {MdIconRegistry} from '@angular2-material/icon/icon-registry';
 
 import { AuthGuard } from './login/login.guard';
 import {DashboardGuard} from './dashboard/dashboard.guard';
+import {ROUTER_PROVIDERS} from "@angular/router-deprecated";
 
 export const APP_PROVIDERS = [
     AuthGuard,
     DashboardGuard,
     AppState,
     HTTP_PROVIDERS,
-    ROUTER_DIRECTIVES,
+    ROUTER_PROVIDERS,
     LocalStorageService,
     MdIconRegistry,
     provide(ODatabaseService, {

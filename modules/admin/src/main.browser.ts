@@ -12,12 +12,9 @@ import { Http } from '@angular/http';
 import {disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES} from '@angular/forms';
 
 import { PLATFORM_PROVIDERS } from './platform/browser';
-import { ENV_PROVIDERS, decorateComponentRef } from './platform/environment';
-
-import { APP_ROUTER_PROVIDERS } from './app/app.routes'
+import { ENV_PROVIDERS } from './platform/environment';
 
 let appPromise = bootstrap(App, [
-    ...APP_ROUTER_PROVIDERS,
     ...APP_PROVIDERS,
     ...PLATFORM_PROVIDERS,
     ...ENV_PROVIDERS,

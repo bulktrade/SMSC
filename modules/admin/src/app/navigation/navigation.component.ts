@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { Router, ROUTER_DIRECTIVES } from '@angular/router';
+import {Router, ROUTER_DIRECTIVES, RouteConfig} from '@angular/router-deprecated';
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 import {AnimateBox} from '../sidebar/directives/animate';
 import {ShowMiniNav} from '../sidebar/ShowMiniNav';
@@ -12,6 +12,11 @@ import {MdIcon} from '@angular2-material/icon/icon';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
 import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 import {SidebarItem} from "../sidebar/sidebaritem.component";
+
+import {Dashboard} from '../dashboard/dashboard.component';
+import {GSM} from '../gsm/gsm.component';
+import {FinancesMain} from '../financesmain/financesmain.component';
+import {SystemSettings} from '../systemsettings/systemsettings.component';
 
 @Component({
     selector: 'navigation',
@@ -35,6 +40,38 @@ import {SidebarItem} from "../sidebar/sidebaritem.component";
     ],
     pipes: [TranslatePipe]
 })
+
+@RouteConfig([
+    {
+        path: '/dashboard/...', component: Dashboard, name: 'Dashboard',
+        data: {
+            showInSubNavigation: true,
+            icon: 'layers',
+            toggle: '/icnDsh'
+        },
+        useAsDefault: true
+    },
+    {
+        path: '/gsm/...', component: GSM, name: 'GSM',
+        data: {
+            showInSubNavigation: true,
+            icon: 'settings_remote',
+            toggle: '/icnGsm'
+        }
+    },
+    {
+        path: '/financesmain',
+        component: FinancesMain,
+        name: 'FinancesMain',
+        data: { showInSubNavigation: true, icon: 'edit' }
+    },
+    {
+        path: '/systemsettings',
+        component: SystemSettings,
+        name: 'SystemSettings',
+        data: { showInSubNavigation: true, icon: 'settings' }
+    }
+])
 
 export class Navigation implements OnInit {
     content: string;

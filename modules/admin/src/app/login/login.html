@@ -9,21 +9,21 @@
                 <div class="row">
                     <div class="col-md-6">
                         <md-input placeholder="{{ 'login.username' | translate }}"
-                                 [(ngModel)]="model.username" type="text"
-                                 autocomplete="off" name="username" required style="width: 100%"></md-input>
+                                  [(ngModel)]="model.username" type="text"
+                                  autocomplete="off" name="username" required style="width: 100%"></md-input>
                     </div>
                     <div class="col-md-6">
                         <md-input placeholder="{{ 'login.password' | translate }}"
-                                 [(ngModel)]="model.password" type="password"
-                                 autocomplete="off" name="password" required style="width: 100%"></md-input>
+                                  [(ngModel)]="model.password" type="password"
+                                  autocomplete="off" name="password" required style="width: 100%"></md-input>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 col-md-6 right-align">
                         <md-slide-toggle color="primary"
-                                 [(ngModel)]="model.rememberMe"
-                                 class="rememberMe" 
-                                 [ngModelOptions]="{standalone: true}">
+                                         [(ngModel)]="model.rememberMe"
+                                         class="rememberMe"
+                                         [ngModelOptions]="{standalone: true}">
                             {{ 'login.rememberMe' | translate }}
                         </md-slide-toggle>
                     </div>

@@ -1,7 +1,7 @@
- <div *ngIf="showInSubNavigation" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav" [ngClass]="{'item-menu-short': showmininav.showNav}" #isIcon
+<div *ngIf="showInSubNavigation" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav" [ngClass]="{'item-menu-short': showmininav.showNav}" #isIcon
      #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
     <a [ngClass]="{active: activeItem.isActiveMainItem(nameItem)}" class="{{nameItem.toLowerCase()}} sub-task clear"
-    (click)="setToggle(toggle)">
+       (click)="setToggle(toggle)">
         <md-icon class="icon-left material-icons md-24" >{{icon}}</md-icon>
         <div class="show-nav" [hidden]="showmininav.showNav">
             <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
@@ -9,7 +9,6 @@
         </div>
     </a>
     <ul @state="getStorageItem(toggle) ? 'open' : 'closed'" *ngIf="submenu" class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
-        <li *ngFor="let item of submenu"><a [ngClass]="{activesub: activeItem.isActiveSubItem([nameItem, item.name])}" [routerLink]="['/' + nameItem, item.name]"
-              class="{{item.name.toLowerCase()}}"><md-icon class="subitem-icon-left fa material-icons">{{item.icon}}</md-icon>{{item.name | uppercase | translate}}</a></li>
+        <li *ngFor="let item of submenu"><a [ngClass]="{activesub: activeItem.isActiveSubItem([nameItem, item.name])}" [routerLink]="[nameItem, item.name]" class="{{item.name.toLowerCase()}}"><md-icon class="subitem-icon-left fa material-icons">{{item.icon}}</md-icon>{{item.name | translate}}</a></li>
     </ul>
 </div>
