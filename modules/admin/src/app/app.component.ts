@@ -22,7 +22,7 @@ require('../../node_modules/ag-grid/dist/styles/theme-fresh.css');
 @RouteConfig([
     { path: '/', redirectTo: ['/Login'] },
     { path: '/login', component: Login, name: 'Login', useAsDefault: true },
-    { path: '/navigation/...', component: Navigation, name: 'Navigation' },
+    { path: '/...', component: Navigation, name: 'Navigation' },
     { path: '/notfound', component: NotFound, name: 'NotFound' },
     { path: '**', redirectTo: ['/NotFound'] }
 ])
