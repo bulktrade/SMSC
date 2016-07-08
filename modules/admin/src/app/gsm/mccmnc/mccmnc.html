@@ -1,5 +1,12 @@
 <breadcrumb></breadcrumb>
-<ag-grid-ng2 class="ag-fresh" style="height: 300px; width: 100%"
-             [rowGroupPanelShow]="always" [columnDefs]="columnDefsMCC"  [rowData] = "rowDataMCC"></ag-grid-ng2>
-<ag-grid-ng2 class="ag-fresh" style="height: 300px; width: 100%"
-             [rowGroupPanelShow]="always" [columnDefs]="columnDefsMNC"  [rowData] = "rowDataMNC"></ag-grid-ng2>
+<md-tab-group class="tab-group">
+    <md-tab *ngFor="let tab of tabs">
+        <template md-tab-label>{{tab.label}}</template>
+        <template md-tab-content>
+            <ag-grid-ng2 class="ag-fresh" style="height: 300px; width: 100%"
+                         [rowGroupPanelShow]="always" [columnDefs]="tab.columnDefs"
+                         [rowData] = "tab.rowData"></ag-grid-ng2>
+        </template>
+    </md-tab>
+</md-tab-group>
+
