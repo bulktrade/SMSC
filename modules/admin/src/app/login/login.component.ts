@@ -13,6 +13,7 @@ import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 import {MD_CARD_DIRECTIVES, MdCard} from '@angular2-material/card/card';
 import {MdSlideToggle} from '@angular2-material/slide-toggle/slide-toggle';
 import {MdIcon} from '@angular2-material/icon/icon';
+import {MdProgressCircle, MdSpinner} from '@angular2-material/progress-circle/progress-circle';
 
 require('./login.scss');
 
@@ -30,12 +31,15 @@ require('./login.scss');
         FORM_DIRECTIVES,
         MD_CARD_DIRECTIVES,
         MdSlideToggle,
-        MdIcon
+        MdIcon,
+        MdProgressCircle,
+        MdSpinner
     ],
     pipes: [TranslatePipe]
 })
 export class Login implements OnInit {
     notFound: boolean = false;
+    loading: boolean = false;
 
     model = new LoginModel('', '', false);
 
@@ -62,8 +66,13 @@ export class Login implements OnInit {
             .catch(
                 (err) => {
                     this.notFound = true;
+                    this.loading = false;
                     localStorage.removeItem('adminRight');
                 }
             );
+
+        if (!this.loading) {
+            this.loading = !this.loading
+        }
     }
 }

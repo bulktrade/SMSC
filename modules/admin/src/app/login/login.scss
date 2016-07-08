@@ -25,6 +25,12 @@
         margin: 5px 0;
     }
 
+    md-progress-circle {
+        margin: auto;
+        width: 35px;
+        height: 35px;
+    }
+
     @media(max-width:48em) {
         width: inherit;
         height: inherit;

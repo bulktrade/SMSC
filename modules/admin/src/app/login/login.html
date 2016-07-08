@@ -27,9 +27,13 @@
                             {{ 'login.rememberMe' | translate }}
                         </md-slide-toggle>
                     </div>
-                    <div class="col-sm-12 col-md-6 right-align">
-                        <button md-raised-button id="submitButton" [disabled]="!authenticationForm.form.valid" color="primary">
-                            {{ 'login.btnLogin' | translate }}
+                    <div class="col-sm-12 col-md-6 right-align"
+                         [ngSwitch]="loading">
+                        <button md-raised-button id="submitButton" [disabled]="!authenticationForm.form.valid || loading"
+                                color="primary">
+                            <div *ngSwitchCase="false">{{ 'login.btnLogin' | translate }}</div>
+                            <md-progress-circle *ngSwitchCase="true"
+                                                mode="indeterminate" color="primary"></md-progress-circle>
                         </button>
                     </div>
                 </div>
