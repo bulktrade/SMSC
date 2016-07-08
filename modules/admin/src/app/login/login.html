@@ -1,6 +1,6 @@
 <div id="login-window">
     <md-card id="login-card">
-        <md-toolbar class="title" color="primary">{{ 'login.title' | translate }}</md-toolbar>
+        <md-toolbar class="title">{{ 'login.title' | translate }}</md-toolbar>
         <md-card-content>
             <form role="form" (submit)="onSubmit(model)" #authenticationForm="ngForm" novalidate>
                 <alert *ngIf="notFound" type="danger" dismissible="true" (close)="notFound=false">
@@ -29,11 +29,10 @@
                     </div>
                     <div class="col-sm-12 col-md-6 right-align"
                          [ngSwitch]="loading">
-                        <button md-raised-button id="submitButton" [disabled]="!authenticationForm.form.valid || loading"
-                                color="primary">
+                        <button md-raised-button id="submitButton" [disabled]="!authenticationForm.form.valid || loading">
                             <div *ngSwitchCase="false">{{ 'login.btnLogin' | translate }}</div>
-                            <md-progress-circle *ngSwitchCase="true"
-                                                mode="indeterminate" color="primary"></md-progress-circle>
+                            <md-progress-circle class="loader" *ngSwitchCase="true"
+                                                mode="indeterminate"></md-progress-circle>
                         </button>
                     </div>
                 </div>
