@@ -9,6 +9,6 @@
         </div>
     </a>
     <ul @state="getStorageItem(toggle) ? 'open' : 'closed'" *ngIf="submenu" class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
-        <li *ngFor="let item of submenu"><a [ngClass]="{activesub: activeItem.isActiveSubItem([nameItem, item.name])}" [routerLink]="[nameItem, item.name]" class="{{item.name.toLowerCase()}}"><md-icon class="subitem-icon-left fa material-icons">{{item.icon}}</md-icon>{{item.name | translate}}</a></li>
+        <li *ngFor="let item of submenu"><a [ngClass]="{activesub: activeItem.isActiveSubItem([nameItem, item.name])}" [routerLink]="[nameItem, item.name]" class="{{item.name.toLowerCase()}}"><md-icon class="subitem-icon-left fa material-icons">{{item.icon}}</md-icon>{{item.name | uppercase | translate}}</a></li>
     </ul>
 </div>
