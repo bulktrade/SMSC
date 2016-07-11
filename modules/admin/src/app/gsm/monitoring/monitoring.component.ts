@@ -31,7 +31,7 @@ export class Monitoring {
     rowData = [
         { column1: "", column2: "" },
         { column1: "", column2: "" },
-        { column1: "", column2: "" },
+        { column1: "", column2: "" }
     ];
 
     GridOptions: GridOptions = {

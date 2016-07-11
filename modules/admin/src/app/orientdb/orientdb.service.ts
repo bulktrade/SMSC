@@ -182,7 +182,8 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(this.urlPrefix + 'database/' + this.encodedDatabaseName + this.urlSuffix,
+            this.http.request(this.urlPrefix + 'database/' +
+                this.encodedDatabaseName + this.urlSuffix,
                 requestOptions)
                 .toPromise()
                 .then(
@@ -741,7 +742,7 @@ export class ODatabaseService {
 
         let requestOptions = new RequestOptions({
             headers: headers,
-            method:  RequestMethod.Put,
+            method:  RequestMethod.Put
         });
 
         return new Promise((resolve, reject) => {
