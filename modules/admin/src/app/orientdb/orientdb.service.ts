@@ -19,6 +19,7 @@ export class ODatabaseService {
     private removeObjectCircleReferences;
     private urlPrefix;
     private urlSuffix;
+    private authorization: String = null;
 
     constructor(databasePath?: string, public http?: Http) {
         this.databaseUrl = '';
@@ -118,8 +119,6 @@ export class ODatabaseService {
             iFetchPlan = '/' + encodeURIComponent(iFetchPlan);
         }
 
-        let dataType = this.evalResponse ? undefined : 'text';
-
         iCommand = encodeURIComponent(iCommand);
 
         let headers = new Headers({
@@ -150,7 +149,7 @@ export class ODatabaseService {
         });
     };
 
-    open(userName?, userPass?, authProxy?, type?) {
+    open(userName?, userPass?, authProxy?, type?: RequestMethod) {
         if (userName === undefined) {
             userName = '';
         }
@@ -166,19 +165,20 @@ export class ODatabaseService {
                 this.databaseUrl.length) !== '/' ? this.databaseUrl + '/' : this.databaseUrl;
         }
 
-        if (type === undefined || type === '') {
-            type = 'GET';
+        if (type === undefined) {
+            type = RequestMethod.Get;
         }
 
+        this.authorization = 'Basic ' + btoa(userName + ':' + userPass);
         let headers = new Headers({
             'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + btoa(userName + ':' + userPass),
+            'Authorization': this.authorization,
             'X-Requested-With': 'XMLHttpRequest'
         });
 
         let requestOptions = new RequestOptions({
             headers: headers,
-            method: RequestMethod.Get
+            method: type
         });
 
         return new Promise((resolve, reject) => {
@@ -187,25 +187,29 @@ export class ODatabaseService {
                 .toPromise()
                 .then(
                     res => {
-                        this.setErrorMessage(undefined);
                         if (res) {
                             this.setDatabaseInfo(this.transformResponse(res));
                             resolve(this.getDatabaseInfo());
                         } else {
+                            this.authorization = null;
                             reject(new Error('no response'));
                         }
                     },
                     error => {
-                        this.setDatabaseInfo(undefined);
-                        this.setErrorMessage('Connect error: ' + error.responseText);
+                        this.authorization = null;
                         reject(new Error('Connect error: ' + error.responseText));
                     });
         });
     }
 
-    query(iQuery?, iLimit?, iFetchPlan?,
-          successCallback?, errorCallback?) {
-
+    /**
+     *
+     * @param iQuery
+     * @param iLimit
+     * @param iFetchPlan
+     * @returns {Promise<T>}
+     */
+    query(iQuery?, iLimit?, iFetchPlan?) {
         if (iLimit === undefined || iLimit === '') {
             iLimit = '20';
         }
@@ -218,7 +222,8 @@ export class ODatabaseService {
         }
 
         let headers = new Headers({
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': this.authorization
         });
 
         let requestOptions = new RequestOptions({
@@ -232,20 +237,10 @@ export class ODatabaseService {
                 .toPromise()
                 .then(
                     res => {
-                        this.setErrorMessage(undefined);
-                        this.handleResponse(res);
-                        if (successCallback) {
-                            successCallback(this.commandResult);
-                        }
-                        resolve(successCallback instanceof Function ?
-                            undefined : this.getCommandResult());
+                        resolve(res);
                     },
                     error => {
-                        this.handleResponse(undefined);
-                        this.setErrorMessage('Query error: ' + error.responseText);
-                        if (errorCallback) {
-                            errorCallback(this.errorMessage);
-                        }
+                        reject(new Error('Query error: ' + error.responseText));
                     }
                 );
         });

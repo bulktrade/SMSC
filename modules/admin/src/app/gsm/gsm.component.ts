@@ -1,15 +1,14 @@
 import {RouteConfig, ROUTER_DIRECTIVES} from "@angular/router-deprecated";
-import {Component} from '@angular/core';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {CORE_DIRECTIVES} from '@angular/common';
-
-import {Monitoring} from './monitoring/monitoring.component';
-import {Carriers} from './carriers/carriers.component';
-import {Routing} from './routing/routing.component';
-import {Prices} from './prices/prices.component';
-import {MCCMNC} from './mccmnc/mccmnc.component';
-import {SMPP} from './smpp/smpp.component';
-import {API} from './api/api.component';
+import {Component} from "@angular/core";
+import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
+import {CORE_DIRECTIVES} from "@angular/common";
+import {Monitoring} from "./monitoring/monitoring.component";
+import {Carriers} from "./carriers/carriers.component";
+import {Routing} from "./routing/routing.component";
+import {Prices} from "./prices/prices.component";
+import {MCCMNC} from "./mccmnc/mccmnc.component";
+import {SMPP} from "./smpp/smpp.component";
+import {API} from "./api/api.component";
 
 require('./gsm.scss');
 
@@ -23,8 +22,10 @@ require('./gsm.scss');
 })
 
 @RouteConfig([
-    {path: '/monitoring', component: Monitoring, name: 'Monitoring',
-        data: {icon: 'assessment'}, useAsDefault: true},
+    {
+        path: '/monitoring', component: Monitoring, name: 'Monitoring',
+        data: {icon: 'assessment'}, useAsDefault: true
+    },
     {path: '/carriers', component: Carriers, name: 'Carriers', data: {icon: 'book'}},
     {path: '/routing', component: Routing, name: 'Routing', data: {icon: 'class'}},
     {path: '/prices', component: Prices, name: 'Prices', data: {icon: 'donut_large'}},
@@ -35,7 +36,7 @@ require('./gsm.scss');
 
 export class GSM {
 
-    constructor(public translate: TranslateService) {
+    constructor(public translate:TranslateService) {
     }
 
 }

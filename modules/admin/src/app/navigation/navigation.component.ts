@@ -75,10 +75,15 @@ import {SystemSettings} from '../systemsettings/systemsettings.component';
 
 export class Navigation implements OnInit {
     content: string;
+    username: string;
 
-    constructor(public router: Router, public translate: TranslateService,
-                public showmininav: ShowMiniNav) {
+    constructor(
+        public router: Router,
+        public translate: TranslateService,
+        public showmininav: ShowMiniNav
+    ) {
         this.content = localStorage.getItem('adminRight');
+        this.username = 'admin';
     }
 
     logout() {
