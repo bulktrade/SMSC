@@ -36,9 +36,12 @@ export class Customers {
     };
 
     columnDefs = [
-        { headerName: "Customer ID", field: "customer_id", editable: true },
-        { headerName: "Company Name", field: "company_name", editable: true },
-        { headerName: "Contacts", field: "contacts", editable: true },
+        { headerName: this.translate.get('CUSTOMERID')['value'], 
+            field: "customer_id", editable: true },
+        { headerName: this.translate.get('COMPANYNAME')['value'], 
+            field: "company_name", editable: true },
+        { headerName: this.translate.get('CONTACTS')['value'], 
+            field: "contacts", editable: true },
     ];
 
     gridOptions: GridOptions = {

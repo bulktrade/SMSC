@@ -38,9 +38,9 @@ export class MCCMNC {
 
     // MCC Grid
     columnDefsMCC = [
-        { headerName: "MCC", field: "mcc" },
-        { headerName: "Code", field: "code" },
-        { headerName: "Country", field: "country" }
+        { headerName: this.translate.get('MCC')['value'], field: "mcc" },
+        { headerName: this.translate.get('CODE')['value'], field: "code" },
+        { headerName: this.translate.get('COUNTRY')['value'], field: "country" }
     ];
 
     rowDataMCC = [
@@ -56,9 +56,9 @@ export class MCCMNC {
 
     // MNC Grid
     columnDefsMNC = [
-        { headerName: "MNC", field: "mnc" },
-        { headerName: "MCC", field: "mcc" },
-        { headerName: "Carrier", field: "carrier" }
+        { headerName: this.translate.get('MNC')['value'], field: "mnc" },
+        { headerName: this.translate.get('MCC')['value'], field: "mcc" },
+        { headerName: this.translate.get('CARRIER')['value'], field: "carrier" }
     ];
 
     rowDataMNC = [
@@ -73,8 +73,8 @@ export class MCCMNC {
     };
 
     tabs = [
-        { label: 'MCC', columnDefs: this.columnDefsMCC,  rowData: this.rowDataMCC },
-        { label: 'MNC', columnDefs: this.columnDefsMNC,  rowData: this.rowDataMNC }
+        { label: this.translate.get('MCC')['value'], columnDefs: this.columnDefsMCC,  rowData: this.rowDataMCC },
+        { label: this.translate.get('MNC')['value'], columnDefs: this.columnDefsMNC,  rowData: this.rowDataMNC }
     ];
 
 }
