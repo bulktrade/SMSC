@@ -23,12 +23,12 @@ export class Prices {
     }
 
     columnDefs = [
-        { headerName: "MCC", field: "mcc" },
-        { headerName: "MNC", field: "mnc" },
-        { headerName: "Price", field: "price" },
-        { headerName: "Type", field: "type" },
-        { headerName: "Valid from", field: "valid_from" },
-        { headerName: "Valid to", field: "valid_to" }
+        { headerName: this.translate.get('MCC')['value'], field: "mcc" },
+        { headerName: this.translate.get('MNC')['value'], field: "mnc" },
+        { headerName: this.translate.get('PRICE')['value'], field: "price" },
+        { headerName: this.translate.get('TYPE')['value'], field: "type" },
+        { headerName: this.translate.get('VALIDFROM')['value'], field: "valid_from" },
+        { headerName: this.translate.get('VALIDTO')['value'], field: "valid_to" }
     ];
 
     rowData = [

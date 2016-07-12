@@ -24,8 +24,8 @@ export class Routing {
     }
 
     columnDefs = [
-        { headerName: "Carrier", field: "carrier" },
-        { headerName: "Type", field: "type" }
+        { headerName: this.translate.get('CARRIER')['value'], field: "carrier" },
+        { headerName: this.translate.get('TYPE')['value'], field: "type" }
     ];
 
     rowData = [

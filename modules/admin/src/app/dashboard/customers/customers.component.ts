@@ -7,6 +7,8 @@ import {ODatabaseService} from '../../orientdb/orientdb.service';
 import {AgGridNg2} from 'ag-grid-ng2/main';
 import {GridOptions} from 'ag-grid/main';
 
+declare var sprintf: any;
+
 require('./customers.scss');
 
 @Component({
@@ -19,6 +21,7 @@ require('./customers.scss');
 })
 export class Customers {
     public rowData;
+    public selectedRowIndex: number;
 
     constructor(public translate: TranslateService,
                 public breadcrumb: BreadcrumbService,
@@ -33,13 +36,73 @@ export class Customers {
     };
 
     columnDefs = [
-        { headerName: "Customer ID", field: "customer_id" },
-        { headerName: "Company Name", field: "company_name" }
+        { headerName: this.translate.get('CUSTOMERID')['value'], 
+            field: "customer_id", editable: true },
+        { headerName: this.translate.get('COMPANYNAME')['value'], 
+            field: "company_name", editable: true },
+        { headerName: this.translate.get('CONTACTS')['value'], 
+            field: "contacts", editable: true },
     ];
 
-    GridOptions: GridOptions = {
+    gridOptions: GridOptions = {
         columnDefs: this.columnDefs,
-        rowData: this.rowData
+        rowData: this.rowData,
+        rowSelection: 'single',
+        singleClickEdit: true,
+        onCellClicked: (event) => {
+            this.selectedRowIndex = event.rowIndex;
+        }
+    }
+
+    addRow() {
+        this.insert()
+            .then((data) => {
+                this.rowData.push({
+                    customer_id: data.customer_id,
+                    company_name: data.company_name
+                }); 
+                this.gridOptions.api.setRowData(this.rowData);
+                this.gridOptions.api.refreshView();
+            });
+        
+    }
+
+    removeRow() {
+        if(this.rowData.length > 1) {
+            this.delete(this.rowData[this.selectedRowIndex].customer_id,
+                this.rowData[this.selectedRowIndex].company_name);
+
+            this.rowData.splice(this.selectedRowIndex, 1);
+            this.gridOptions.api.setRowData(this.rowData);
+            this.gridOptions.api.refreshView();
+        }
+    }
+
+    onFilterChanged(value) {
+        this.gridOptions.api.setQuickFilter(value);
+    }
+
+    cellValueChanged(value) {
+        this.update(value.data.customer_id, value.oldValue,
+                        value.newValue);
+    }
+
+    update(originId, originName, dataName) {
+        this.databaSeservice.query(
+        sprintf('select from customer where customer_id = \'%s\' and company_name = \'%s\'',
+            originId, originName))
+            .then((res: Response) => {
+                let data = res.json();
+                let rid = data['result'][0]['@rid'],
+                    version = data['result'][0]['@version'],
+                    str = sprintf('{ "transaction" : true, "operations" : ' +
+                        '[ { "type" : "u", "record" : ' +
+                        '{ "@rid" : "%s", "@version": %s, ' +
+                        '"customer_id": "%s", "company_name": "%s" } } ] }',
+                        rid, version, originId, dataName);
+
+                this.databaSeservice.batchRequest(str);
+            });
     }
 
     query() {
@@ -48,10 +111,49 @@ export class Customers {
                 let store = [];
                 let data = res.json();
                 for (let i = 0; i < data['result'].length; i++) {
-                    store.push({customer_id: data['result'][i].customer_id,
-                        company_name: data['result'][i].company_name});
+                    store.push({
+                        customer_id: data['result'][i].customer_id,
+                        company_name: data['result'][i].company_name,
+                        contacts: data['result'][i].contacts,
+                    });
                 }
                 return store;
+            });
+    }
+
+    insert() {
+        return this.databaSeservice.query('SELECT max(customer_id) FROM customer')
+            .then((res: Response) => {
+                let nextId = 1;
+                let data = res.json();
+
+                if (data['result'].length) {
+                    nextId = Number(data['result'][0].max) + 1;
+                }
+
+                let str = sprintf('{ "transaction" : true, "operations" : ' +
+                    '[ { "type" : "c", "record" : ' +
+                    '{ "@class" : "customer", "customer_id" : "%s",' +
+                    '"company_name" : "%s" } } ] }', nextId, 'test');
+
+                this.databaSeservice.batchRequest(str);
+
+                return {customer_id: nextId, company_name: 'test'};
+            });
+    }
+
+    delete(id, name) {
+        this.databaSeservice.query(
+            sprintf('select from customer where customer_id = "%s" and company_name = "%s"',
+                id, name))
+            .then((res: Response) => {
+                let data = res.json();
+                let rid = data['result'][0]['@rid'],
+                    str = sprintf('{ "transaction" : true, "operations" : ' +
+                        '[ { "type" : "d", "record" : ' +
+                        '{ "@rid" : "%s" } } ] }', rid);
+
+                this.databaSeservice.batchRequest(str);
             });
     }
 

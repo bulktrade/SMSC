@@ -24,8 +24,8 @@ export class Monitoring {
     }
 
     columnDefs = [
-        { headerName: "column1", field: "column1" },
-        { headerName: "column2", field: "column2" }
+        { headerName: this.translate.get('COLUMN1')['value'], field: "column1" },
+        { headerName: this.translate.get('COLUMN2')['value'], field: "column2" }
     ];
 
     rowData = [

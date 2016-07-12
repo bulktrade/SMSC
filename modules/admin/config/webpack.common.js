@@ -206,10 +206,7 @@ module.exports = {
      */
     plugins: [
 
-        // new webpack.ProvidePlugin({
-        //     Ext: helpers.root('src/vendor/ext-6.0.1/build/ext-all.js'),
-        //     sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js')
-        // }),
+        new webpack.ProvidePlugin({ sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js') }),
 
         new webpack.ProvidePlugin({
             "window.Tether": "tether"

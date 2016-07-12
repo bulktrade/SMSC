@@ -1,3 +1,11 @@
 <breadcrumb></breadcrumb>
-<ag-grid-ng2 class="ag-fresh" style="height: 300px; width: 100%"
-             [rowGroupPanelShow]="always" [columnDefs]="columnDefs"  [rowData] = "rowData"></ag-grid-ng2>
+<div style="display: flex; height: 25px; font-size: 14px;">
+    <button style="padding: 1px 5px;" (click)="addRow()">Add</button>
+    <button style="padding: 1px 5px;" (click)="removeRow()">Remove</button>
+</div>
+<input placeholder="Filter..." type="text" #db
+           (keydown)="onFilterChanged(db.value)"
+           (keyup)="onFilterChanged(db.value)"/>
+<ag-grid-ng2 class="ag-fresh" style="width: 100%"
+             [rowGroupPanelShow]="always" [columnDefs]="columnDefs" 
+             [gridOptions]="gridOptions" [rowData]="rowData" (cellValueChanged)="cellValueChanged($event)"></ag-grid-ng2>
