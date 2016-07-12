@@ -75,9 +75,12 @@ export class ODatabaseService {
             'Content-Type': 'application/json'
         });
 
+        let body = JSON.stringify(JSON.parse(data));
+
         let requestOptions = new RequestOptions({
             headers: headers,
-            method: RequestMethod.Post
+            method: RequestMethod.Post,
+            body: body
         });
 
         return new Promise((resolve, reject) => {
