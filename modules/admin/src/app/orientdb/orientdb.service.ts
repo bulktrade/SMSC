@@ -4,6 +4,9 @@ import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import {Http, RequestMethod, RequestOptions, Headers} from '@angular/http';
+import {Response} from '@angular/http';
+
+declare var sprintf: any;
 
 @Injectable()
 export class ODatabaseService {
@@ -95,7 +98,64 @@ export class ODatabaseService {
                         this.setErrorMessage('Command error: ' + error.responseText);
                     });
         });
-    }
+    };
+
+    insert(params) {
+        let batch = '{ "transaction" : true, "operations" : ' +
+            '[ { "type" : "c", "record" : ' +
+            '{ "@class" : "%(class)s", ';
+
+        for (var key in params) {
+            if (key !== 'class') {
+                batch += '"' + key + '" : "%(' + key + ')s", ';
+            }
+        }
+
+        batch = batch.substring(0, batch.length - 2) + '}}]}';
+
+        this.batchRequest(sprintf(batch, params));
+    };
+
+    update(params) {
+        let batch = '{ "transaction" : true, "operations" : ' +
+            '[ { "type" : "u", "record" : ' +
+            '{ "@rid" : "%(rid)s", "@version": "%(version)s", ';
+
+        for (var key in params) {
+            if (key !== 'rid' && key !== 'version') {
+                batch += '"' + key + '" : "%(' + key + ')s", ';
+            }
+        }
+
+        batch = batch.substring(0, batch.length - 2) + '}}]}';
+
+        this.batchRequest(sprintf(batch, params));
+    };
+
+    delete(rid) {
+        let batch = sprintf('{ "transaction" : true, "operations" : ' +
+            '[ { "type" : "d", "record" : ' +
+            '{ "@rid" : "%s" } } ] }', rid);
+
+        this.batchRequest(batch);
+    };
+
+    getRowMetadata(params) {
+        let sql = 'select from %(class)s where';
+
+        for (var key in params) {
+            if (key !== 'class') {
+                sql += ' ' + key + ' = "%(' + key + ')s" and';
+            }
+        }
+
+        sql = sql.substring(0, sql.length - 4);
+
+        return this.query(sprintf(sql, params))
+                .then((res: Response) => {
+                    return res.json()['result'][0];
+                });
+    };
 
     executeCommand(iCommand?, iLanguage?, iLimit?,
                    iFetchPlan?) {
