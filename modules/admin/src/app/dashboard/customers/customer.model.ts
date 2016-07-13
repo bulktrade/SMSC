@@ -63,7 +63,7 @@ export class CustomerModel {
             });
     }
 
-    getRowData(params) {
+    getRowMetadata(params) {
 		let sql = 'select from customer where';
 
         for (var key in params) {
@@ -74,7 +74,6 @@ export class CustomerModel {
 
     	return this.databaSeservice.query(sprintf(sql, params))
 	            .then((res: Response) => {
-	            	console.log(res.json());
 	                return res.json()['result'][0];
 	            });
     }

@@ -62,7 +62,7 @@ export class Customers {
         if(this.gridOptions.rowData.length > 1) {
             let selected = this.gridOptions.api.getFocusedCell();
 
-            this.customerModel.getRowData({
+            this.customerModel.getRowMetadata({
                 "customer_id": this.gridOptions.rowData[selected.rowIndex].customer_id,
                 "company_name": this.gridOptions.rowData[selected.rowIndex].company_name,
             }).then((data) => {
@@ -79,7 +79,7 @@ export class Customers {
     }
 
     cellValueChanged(value) {
-        this.customerModel.getRowData({
+        this.customerModel.getRowMetadata({
                 "customer_id": value.data.customer_id,
                 "company_name": value.oldValue
             }).then((data) => {
