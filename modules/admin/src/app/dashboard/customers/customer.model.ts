@@ -1,5 +1,5 @@
 import {ODatabaseService} from '../../orientdb/orientdb.service';
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 
 declare var sprintf: any;
