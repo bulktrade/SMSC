@@ -48,30 +48,11 @@ export class Customers {
     }
 
     addRow() {
-        let params = {
-            "customer_id": "1",
-            "company_name": "SMSC",
-        };
-
-        this.customerModel.insert(params);
-        this.gridOptions.rowData.push(params);
-        this.gridOptions.api.setRowData(this.gridOptions.rowData);
+         this.customerModel.addRow(this.gridOptions);
     }
 
     removeRow() {
-        if(this.gridOptions.rowData.length > 1) {
-            let selected = this.gridOptions.api.getFocusedCell();
-
-            this.customerModel.getRowMetadata({
-                "customer_id": this.gridOptions.rowData[selected.rowIndex].customer_id,
-                "company_name": this.gridOptions.rowData[selected.rowIndex].company_name,
-            }).then((data) => {
-                this.customerModel.delete(data['@rid']);
-            });
-
-            this.gridOptions.rowData.splice(selected.rowIndex, 1);
-            this.gridOptions.api.setRowData(this.gridOptions.rowData);
-        }
+        this.customerModel.removeRow(this.gridOptions);
     }
 
     onFilterChanged(value) {
@@ -79,17 +60,7 @@ export class Customers {
     }
 
     cellValueChanged(value) {
-        this.customerModel.getRowMetadata({
-                "customer_id": value.data.customer_id,
-                "company_name": value.oldValue
-            }).then((data) => {
-                this.customerModel.update({
-                    "rid": data['@rid'],
-                    "version": data['@version'],
-                    "customer_id": value.data.customer_id,
-                    "company_name": value.newValue
-                });
-            });
+        this.customerModel.cellValueChanged(value);
     }
 
 }

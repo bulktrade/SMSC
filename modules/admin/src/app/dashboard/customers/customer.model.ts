@@ -9,42 +9,51 @@ export class CustomerModel {
     constructor(public databaSeservice: ODatabaseService) {
     }
 
-    delete(rid) {
-        let batch = sprintf('{ "transaction" : true, "operations" : ' +
-            '[ { "type" : "d", "record" : ' +
-            '{ "@rid" : "%s" } } ] }', rid);
+    addRow(gridOptions) {
+        let params = {
+            "customer_id": "1",
+            "company_name": "SMSC",
+        };
 
-        this.databaSeservice.batchRequest(batch);
+        this.databaSeservice.insert({
+            "class": "customer",
+            "customer_id": "1",
+            "company_name": "SMSC",
+        });
+        gridOptions.rowData.push(params);
+        gridOptions.api.setRowData(gridOptions.rowData);
     }
 
-    insert(params) {
-        let batch = '{ "transaction" : true, "operations" : ' +
-            '[ { "type" : "c", "record" : ' +
-            '{ "@class" : "customer", ';
+    removeRow(gridOptions) {
+        if(gridOptions.rowData.length > 1) {
+            let selected = gridOptions.api.getFocusedCell();
 
-        for (var key in params) {
-            batch += '"' + key + '" : "%(' + key + ')s", ';
+            this.databaSeservice.getRowMetadata({
+            	"class": "customer",
+                "customer_id": gridOptions.rowData[selected.rowIndex].customer_id,
+                "company_name": gridOptions.rowData[selected.rowIndex].company_name,
+            }).then((data) => {
+                this.databaSeservice.delete(data['@rid']);
+            });
+
+            gridOptions.rowData.splice(selected.rowIndex, 1);
+            gridOptions.api.setRowData(gridOptions.rowData);
         }
-
-        batch = batch.substring(0, batch.length - 2) + '}}]}';
-
-        this.databaSeservice.batchRequest(sprintf(batch, params));
     }
 
-    update(params) {
-        let batch = '{ "transaction" : true, "operations" : ' +
-            '[ { "type" : "u", "record" : ' +
-            '{ "@rid" : "%(rid)s", "@version": "%(version)s", ';
-
-        for (var key in params) {
-            if (key !== 'rid' && key !== 'version') {
-            	batch += '"' + key + '" : "%(' + key + ')s", ';
-        	}
-        }
-
-        batch = batch.substring(0, batch.length - 2) + '}}]}';
-
-        this.databaSeservice.batchRequest(sprintf(batch, params));
+    cellValueChanged(value) {
+        this.databaSeservice.getRowMetadata({
+        		"class": "customer",
+                "customer_id": value.data.customer_id,
+                "company_name": value.oldValue
+            }).then((data) => {
+                this.databaSeservice.update({
+                    "rid": data['@rid'],
+                    "version": data['@version'],
+                    "customer_id": value.data.customer_id,
+                    "company_name": value.newValue
+                });
+            });
     }
 
     query() {
@@ -61,20 +70,5 @@ export class CustomerModel {
                 }
                 return store;
             });
-    }
-
-    getRowMetadata(params) {
-		let sql = 'select from customer where';
-
-        for (var key in params) {
-            sql += ' ' + key + ' = "%(' + key + ')s" and';
-        }
-
-        sql = sql.substring(0, sql.length - 4);
-
-    	return this.databaSeservice.query(sprintf(sql, params))
-	            .then((res: Response) => {
-	                return res.json()['result'][0];
-	            });
     }
 }
