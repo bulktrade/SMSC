@@ -1,7 +1,7 @@
 import {ROUTER_DIRECTIVES, RouteConfig} from '@angular/router-deprecated';
 import {Component} from '@angular/core';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {CustomersEditGrid} from './customers.editGrid';
+import {CustomersEditing} from './customers.edit';
 
 require('./customers.scss');
 
@@ -15,7 +15,7 @@ require('./customers.scss');
 })
 
 @RouteConfig([
-    {path: '/edit/:id', component: CustomersEditGrid,
+    {path: '/edit/:id', component: CustomersEditing,
         name: 'CustomersEditGrid', useAsDefault: true}
 ])
 

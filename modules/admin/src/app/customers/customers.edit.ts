@@ -7,14 +7,14 @@ import {GridOptions} from 'ag-grid/main';
 
 @Component({
     selector: 'customers-edit-grid',
-    template: require('./customers.editGrid.html'),
+    template: require('./customers.edit.html'),
     styleUrls: [],
     providers: [CustomerService],
     directives: [AgGridNg2],
     pipes : [TranslatePipe]
 })
 
-export class CustomersEditGrid {
+export class CustomersEditing {
     public rowData;
 
     constructor(public translate: TranslateService,
