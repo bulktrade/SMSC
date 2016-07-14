@@ -1,0 +1,10 @@
+<div style="display: flex; height: 25px; font-size: 14px;">
+    <button style="padding: 1px 5px;" (click)="customerService.addRow(gridOptions)">Add</button>
+    <button style="padding: 1px 5px;" (click)="customerService.removeRow(gridOptions)">Remove</button>
+</div>
+<input placeholder="Filter..." type="text" #db
+       (keydown)="customerService.onFilterChanged(db.value, gridOptions)"
+       (keyup)="customerService.onFilterChanged(db.value, gridOptions)"/>
+<ag-grid-ng2 class="ag-fresh" style="width: 100%"
+             [rowGroupPanelShow]="always" [columnDefs]="columnDefs"
+             [gridOptions]="gridOptions" [rowData]="rowData" (cellValueChanged)="customerService.cellValueChanged($event)"></ag-grid-ng2>

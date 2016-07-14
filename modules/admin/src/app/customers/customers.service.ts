@@ -1,4 +1,4 @@
-import {ODatabaseService} from '../../orientdb/orientdb.service';
+import {ODatabaseService} from '../orientdb/orientdb.service';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 
@@ -74,5 +74,5 @@ export class CustomerService {
                 }
                 return store;
             });
-    }    
+    }
 }
