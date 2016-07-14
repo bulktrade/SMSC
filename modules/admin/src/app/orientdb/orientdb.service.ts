@@ -115,17 +115,7 @@ export class ODatabaseService {
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';
 
-        return new Promise((resolve, reject) => {
-            this.batchRequest(sprintf(batch, params))
-                .then(
-                    (res) => {
-                        resolve(res);
-                    },
-                    (err) => {
-                        reject(err);
-                    }
-                );
-        });
+        return this.batchRequest(sprintf(batch, params));
     };
 
     update(params: RequestGetParameters) {
@@ -139,17 +129,7 @@ export class ODatabaseService {
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';
 
-        return new Promise((resolve, reject) => {
-            this.batchRequest(sprintf(batch, params))
-                .then(
-                    (res) => {
-                        resolve(res);
-                    },
-                    (err) => {
-                        reject(err);
-                    }
-                );
-        });
+        return this.batchRequest(sprintf(batch, params));
     };
 
     delete(rid) {
@@ -158,17 +138,7 @@ export class ODatabaseService {
             '{ "@rid" : "%s" } } ] }', rid);
 
 
-        return new Promise((resolve, reject) => {
-            this.batchRequest(batch)
-                .then(
-                    (res) => {
-                        resolve(res);
-                    },
-                    (err) => {
-                        reject(err);
-                    }
-                );
-        });
+        return this.batchRequest(batch);
     };
 
     getRowMetadata(params: RequestGetParameters) {
