@@ -10,17 +10,17 @@ export class CustomerService {
     }
 
     addRow(gridOptions) {
-        let params = {
-            "customer_id": "1",
-            "company_name": "SMSC",
-        };
-
         this.databaSeservice.insert({
-            "class": "customer",
+            "nameClass": "customer",
+            "colsValue": {
+                "customer_id": "1",
+                "company_name": "SMSC"
+            }
+        });
+        gridOptions.rowData.push({
             "customer_id": "1",
             "company_name": "SMSC",
         });
-        gridOptions.rowData.push(params);
         gridOptions.api.setRowData(gridOptions.rowData);
     }
 
@@ -29,9 +29,11 @@ export class CustomerService {
             let selected = gridOptions.api.getFocusedCell();
 
             this.databaSeservice.getRowMetadata({
-                "class": "customer",
-                "customer_id": gridOptions.rowData[selected.rowIndex].customer_id,
-                "company_name": gridOptions.rowData[selected.rowIndex].company_name,
+                "nameClass": "customer",
+                "colsValue": {
+                    "customer_id": gridOptions.rowData[selected.rowIndex].customer_id,
+                    "company_name": gridOptions.rowData[selected.rowIndex].company_name
+                }
             }).then((data) => {
                 this.databaSeservice.delete(data['@rid']);
             });
@@ -47,15 +49,19 @@ export class CustomerService {
 
     cellValueChanged(value) {
         this.databaSeservice.getRowMetadata({
-                "class": "customer",
-                "customer_id": value.data.customer_id,
-                "company_name": value.oldValue
+                "nameClass": "customer",
+                "colsValue": {
+                    "customer_id": value.data.customer_id,
+                    "company_name": value.oldValue
+                }
             }).then((data) => {
                 this.databaSeservice.update({
                     "rid": data['@rid'],
                     "version": data['@version'],
-                    "customer_id": value.data.customer_id,
-                    "company_name": value.newValue
+                    "colsValue": {
+                        "customer_id": value.data.customer_id,
+                        "company_name": value.newValue
+                    }
                 });
             });
     }
