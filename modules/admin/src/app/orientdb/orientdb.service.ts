@@ -92,7 +92,11 @@ export class ODatabaseService {
                 requestOptions)
                 .toPromise()
                 .then(
-                    res => {},
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        resolve(this.getCommandResponse());
+                    },
                     error => {
                         this.setErrorMessage('Command error: ' + error.responseText);
                     });
@@ -112,7 +116,17 @@ export class ODatabaseService {
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';
 
-        this.batchRequest(sprintf(batch, params));
+        return new Promise((resolve, reject) => { 
+            this.batchRequest(sprintf(batch, params))
+                .then(
+                    (res) => {
+                        resolve(res);
+                    },
+                    (err) => {
+                        reject(err);
+                    }
+                );
+        });
     };
 
     update(params) {
@@ -127,8 +141,18 @@ export class ODatabaseService {
         }
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';
-
-        this.batchRequest(sprintf(batch, params));
+        
+        return new Promise((resolve, reject) => { 
+            this.batchRequest(sprintf(batch, params))
+                .then(
+                    (res) => {
+                        resolve(res);
+                    },
+                    (err) => {
+                        reject(err);
+                    }
+                );
+        });
     };
 
     delete(rid) {
@@ -136,7 +160,18 @@ export class ODatabaseService {
             '[ { "type" : "d", "record" : ' +
             '{ "@rid" : "%s" } } ] }', rid);
 
-        this.batchRequest(batch);
+
+        return new Promise((resolve, reject) => { 
+            this.batchRequest(batch)
+                .then(
+                    (res) => {
+                        resolve(res);
+                    },
+                    (err) => {
+                        reject(err);
+                    }
+                );
+        });
     };
 
     getRowMetadata(params) {
