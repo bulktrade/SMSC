@@ -98,7 +98,7 @@ export class ODatabaseService {
                         resolve(this.getCommandResponse());
                     },
                     error => {
-                        this.setErrorMessage('Command error: ' + error.responseText);
+                        reject(this.setErrorMessage('Command error: ' + error.responseText));
                     });
         });
     };
@@ -108,7 +108,7 @@ export class ODatabaseService {
             '[ { "type" : "c", "record" : ' +
             '{ "@class" : "%(class)s", ';
 
-        for (var key in params) {
+        for (let key in params) {
             if (key !== 'class') {
                 batch += '"' + key + '" : "%(' + key + ')s", ';
             }
@@ -116,7 +116,7 @@ export class ODatabaseService {
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';
 
-        return new Promise((resolve, reject) => { 
+        return new Promise((resolve, reject) => {
             this.batchRequest(sprintf(batch, params))
                 .then(
                     (res) => {
@@ -134,15 +134,15 @@ export class ODatabaseService {
             '[ { "type" : "u", "record" : ' +
             '{ "@rid" : "%(rid)s", "@version": "%(version)s", ';
 
-        for (var key in params) {
+        for (let key in params) {
             if (key !== 'rid' && key !== 'version') {
                 batch += '"' + key + '" : "%(' + key + ')s", ';
             }
         }
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';
-        
-        return new Promise((resolve, reject) => { 
+
+        return new Promise((resolve, reject) => {
             this.batchRequest(sprintf(batch, params))
                 .then(
                     (res) => {
@@ -161,7 +161,7 @@ export class ODatabaseService {
             '{ "@rid" : "%s" } } ] }', rid);
 
 
-        return new Promise((resolve, reject) => { 
+        return new Promise((resolve, reject) => {
             this.batchRequest(batch)
                 .then(
                     (res) => {
@@ -177,7 +177,7 @@ export class ODatabaseService {
     getRowMetadata(params) {
         let sql = 'select from %(class)s where';
 
-        for (var key in params) {
+        for (let key in params) {
             if (key !== 'class') {
                 sql += ' ' + key + ' = "%(' + key + ')s" and';
             }
@@ -187,7 +187,7 @@ export class ODatabaseService {
 
         return this.query(sprintf(sql, params))
                 .then((res: Response) => {
-                    return res.json()['result'][0];
+                    return res.json().result[0];
                 });
     };
 
