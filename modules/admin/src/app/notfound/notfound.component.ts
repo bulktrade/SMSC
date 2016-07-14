@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import {ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 
 require('./notfound.scss')
 
@@ -8,7 +9,7 @@ require('./notfound.scss')
     styleUrls: [],
     encapsulation: ViewEncapsulation.None,
     providers: [],
-    directives: [],
+    directives: [ROUTER_DIRECTIVES],
     pipes: []
 })
 export class NotFound {
