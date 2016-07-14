@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {BreadcrumbService} from '../../breadcrumb/breadcrumb.component';
 import {CustomerModel} from './customer.model';
+import {CustomerController} from './customer.controller';
 
 import {AgGridNg2} from 'ag-grid-ng2/main';
 import {GridOptions} from 'ag-grid/main';
@@ -12,7 +13,7 @@ require('./customers.scss');
     selector: 'customers',
     template: require('./customers.html'),
     styleUrls: [],
-    providers: [BreadcrumbService, CustomerModel],
+    providers: [BreadcrumbService, CustomerModel, CustomerController],
     directives: [BreadcrumbService, AgGridNg2],
     pipes : [TranslatePipe]
 })
@@ -21,7 +22,8 @@ export class Customers {
 
     constructor(public translate: TranslateService,
                 public breadcrumb: BreadcrumbService,
-                public customerModel: CustomerModel) {
+                public customerModel: CustomerModel,
+                public customerController: CustomerController) {
     }
 
     ngOnInit() {
@@ -45,22 +47,6 @@ export class Customers {
         rowData: this.rowData,
         rowSelection: 'single',
         singleClickEdit: true
-    }
-
-    addRow() {
-         this.customerModel.addRow(this.gridOptions);
-    }
-
-    removeRow() {
-        this.customerModel.removeRow(this.gridOptions);
-    }
-
-    onFilterChanged(value) {
-        this.gridOptions.api.setQuickFilter(value);
-    }
-
-    cellValueChanged(value) {
-        this.customerModel.cellValueChanged(value);
     }
 
 }

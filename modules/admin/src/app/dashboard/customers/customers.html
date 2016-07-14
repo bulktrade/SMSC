@@ -1,11 +1,11 @@
 <breadcrumb></breadcrumb>
 <div style="display: flex; height: 25px; font-size: 14px;">
-    <button style="padding: 1px 5px;" (click)="addRow()">Add</button>
-    <button style="padding: 1px 5px;" (click)="removeRow()">Remove</button>
+    <button style="padding: 1px 5px;" (click)="customerController.addRow(gridOptions)">Add</button>
+    <button style="padding: 1px 5px;" (click)="customerController.removeRow(gridOptions)">Remove</button>
 </div>
 <input placeholder="Filter..." type="text" #db
-           (keydown)="onFilterChanged(db.value)"
-           (keyup)="onFilterChanged(db.value)"/>
+           (keydown)="customerController.onFilterChanged(db.value, gridOptions)"
+           (keyup)="customerController.onFilterChanged(db.value, gridOptions)"/>
 <ag-grid-ng2 class="ag-fresh" style="width: 100%"
              [rowGroupPanelShow]="always" [columnDefs]="columnDefs" 
-             [gridOptions]="gridOptions" [rowData]="rowData" (cellValueChanged)="cellValueChanged($event)"></ag-grid-ng2>
+             [gridOptions]="gridOptions" [rowData]="rowData" (cellValueChanged)="customerController.cellValueChanged($event)"></ag-grid-ng2>
