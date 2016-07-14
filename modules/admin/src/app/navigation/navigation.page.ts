@@ -1,4 +1,4 @@
-import {Login} from '../login/login.loginpage';
+import {LoginPage} from '../login/login.page';
 
 export class NavigationTest {
     public login;
@@ -27,7 +27,7 @@ export class NavigationTest {
     systemsettings = element(by.css('systemsettings .wrap-breadcrumb'));
 
     constructor() {
-        this.login = new Login();
+        this.login = new LoginPage();
     }
 
     getRoot() {
