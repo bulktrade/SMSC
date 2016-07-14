@@ -4,17 +4,18 @@ import {CustomerService} from './customers.service';
 
 import {AgGridNg2} from 'ag-grid-ng2/main';
 import {GridOptions} from 'ag-grid/main';
+import {CustomersCrud} from './customers.crud';
 
 @Component({
     selector: 'customers-edit-grid',
-    template: require('./customers.editGrid.html'),
+    template: require('./customers.edit.html'),
     styleUrls: [],
-    providers: [CustomerService],
+    providers: [CustomerService, CustomersCrud],
     directives: [AgGridNg2],
     pipes : [TranslatePipe]
 })
 
-export class CustomersEditGrid {
+export class CustomersEditing {
     public rowData;
 
     constructor(public translate: TranslateService,

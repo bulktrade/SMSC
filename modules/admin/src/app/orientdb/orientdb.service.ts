@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import {Http, RequestMethod, RequestOptions, Headers} from '@angular/http';
 import {Response} from '@angular/http';
+import {RequestGetParameters} from "./orientdb.requestGetParameters";
 
 declare var sprintf: any;
 
@@ -104,56 +105,32 @@ export class ODatabaseService {
         });
     };
 
-    insert(params) {
+    insert(params: RequestGetParameters) {
         let batch = '{ "transaction" : true, "operations" : ' +
             '[ { "type" : "c", "record" : ' +
-            '{ "@class" : "%(class)s", ';
+            '{ "@class" : "%(nameClass)s", ';
 
-        for (let key in params) {
-            if (key !== 'class') {
-                batch += '"' + key + '" : "%(' + key + ')s", ';
-            }
+        for (let key in params.colsValue) {
+            batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
         }
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';
 
-        return new Promise((resolve, reject) => {
-            this.batchRequest(sprintf(batch, params))
-                .then(
-                    (res) => {
-                        resolve(res);
-                    },
-                    (err) => {
-                        reject(err);
-                    }
-                );
-        });
+        return this.batchRequest(sprintf(batch, params));
     };
 
-    update(params) {
+    update(params: RequestGetParameters) {
         let batch = '{ "transaction" : true, "operations" : ' +
             '[ { "type" : "u", "record" : ' +
             '{ "@rid" : "%(rid)s", "@version": "%(version)s", ';
 
-        for (let key in params) {
-            if (key !== 'rid' && key !== 'version') {
-                batch += '"' + key + '" : "%(' + key + ')s", ';
-            }
+        for (let key in params.colsValue) {
+            batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
         }
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';
 
-        return new Promise((resolve, reject) => {
-            this.batchRequest(sprintf(batch, params))
-                .then(
-                    (res) => {
-                        resolve(res);
-                    },
-                    (err) => {
-                        reject(err);
-                    }
-                );
-        });
+        return this.batchRequest(sprintf(batch, params));
     };
 
     delete(rid) {
@@ -162,26 +139,14 @@ export class ODatabaseService {
             '{ "@rid" : "%s" } } ] }', rid);
 
 
-        return new Promise((resolve, reject) => {
-            this.batchRequest(batch)
-                .then(
-                    (res) => {
-                        resolve(res);
-                    },
-                    (err) => {
-                        reject(err);
-                    }
-                );
-        });
+        return this.batchRequest(batch);
     };
 
-    getRowMetadata(params) {
-        let sql = 'select from %(class)s where';
+    getRowMetadata(params: RequestGetParameters) {
+        let sql = 'select from %(nameClass)s where';
 
-        for (let key in params) {
-            if (key !== 'class') {
-                sql += ' ' + key + ' = "%(' + key + ')s" and';
-            }
+        for (let key in params.colsValue) {
+            sql += ' ' + key + ' = "%(colsValue.' + key + ')s" and';
         }
 
         sql = sql.substring(0, sql.length - 4);
