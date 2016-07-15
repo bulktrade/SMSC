@@ -11,16 +11,34 @@
     <base href="<%= webpackConfig.metadata.baseUrl %>">
 
     <style type="text/css">
+        #app {
+            width: 100vw;
+            height: 100vh;
+
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            -moz-box-orient: vertical;
+            -moz-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+
         .sk-cube-grid {
             width: 40px;
             height: 40px;
-            margin: 400px auto;
+            margin: auto;
         }
 
         .sk-cube-grid .sk-cube {
             width: 33%;
             height: 33%;
-            background-color: #5B9BD1;
+            background-color: #009688;
             float: left;
             -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
             animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
@@ -75,7 +93,7 @@
     </style>
 </head>
 <body>
-    <app>
+    <app id="app">
         <div class="sk-cube-grid">
             <div class="sk-cube sk-cube1"></div>
             <div class="sk-cube sk-cube2"></div>
