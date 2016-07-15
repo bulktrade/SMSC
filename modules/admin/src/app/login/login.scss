@@ -1,50 +1,57 @@
-#login-window {
-    width: 40vh;
-    height: 40vh;
-    min-width: 420px;
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+#login {
+    width: 100vw;
+    height: 100vh;
 
-    .title {
-        margin-bottom: 20px;
-    }
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
 
-    .alert {
-        border-radius: 0;
-    }
-
-    .right-align {
-        text-align: right;
-    }
-
-    .rememberMe {
-        margin: 5px 0;
-    }
-
-    .loader {
+    #login-card {
+        width: 20vw;
         margin: auto;
-        width: 35px;
-        height: 35px;
-    }
+        min-width: 420px;
 
-    @media(max-width:48em) {
-        width: inherit;
-        height: inherit;
-        min-width: inherit;
-        margin: inherit;
-        position: inherit;
-        top: inherit;
-        left: inherit;
-        bottom: inherit;
-        right: inherit;
+        .title {
+            margin-bottom: 20px;
+        }
 
-        #submitButton {
-            margin-top: 10px;
-            width: 100%;
+        .alert {
+            border-radius: 0;
+        }
+
+        .right-align {
+            text-align: right;
+        }
+
+        .rememberMe {
+            margin: 5px 0;
+        }
+
+        .loader {
+            margin: auto;
+            width: 35px;
+            height: 35px;
+        }
+
+        @media(max-width:48em) {
+            width: inherit;
+            height: inherit;
+            margin: inherit;
+            min-width: inherit;
+
+            #submitButton {
+                margin-top: 10px;
+                width: 100%;
+            }
         }
     }
 }
