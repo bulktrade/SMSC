@@ -6,12 +6,35 @@ import {AgGridNg2} from 'ag-grid-ng2/main';
 import {GridOptions} from 'ag-grid/main';
 import {CustomersCrud} from './customers.crud';
 
+import {MdCard, MD_CARD_DIRECTIVES} from '@angular2-material/card/card';
+import {CORE_DIRECTIVES} from '@angular/common';
+import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
+import {MdButton} from '@angular2-material/button/button';
+import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
+import {MdToolbar} from '@angular2-material/toolbar/toolbar';
+import {FORM_DIRECTIVES} from '@angular/forms';
+import {MdSlideToggle} from '@angular2-material/slide-toggle/slide-toggle';
+import {MdIcon} from '@angular2-material/icon/icon';
+
+//noinspection TypeScriptUnresolvedVariable
 @Component({
     selector: 'customers-edit-grid',
     template: require('./customers.edit.html'),
     styleUrls: [],
     providers: [CustomerService, CustomersCrud],
-    directives: [AgGridNg2],
+    directives: [
+        AgGridNg2,
+        MdCard,
+        CORE_DIRECTIVES,
+        AlertComponent,
+        MdButton,
+        MD_INPUT_DIRECTIVES,
+        MdToolbar,
+        FORM_DIRECTIVES,
+        MD_CARD_DIRECTIVES,
+        MdSlideToggle,
+        MdIcon,
+    ],
     pipes : [TranslatePipe]
 })
 
