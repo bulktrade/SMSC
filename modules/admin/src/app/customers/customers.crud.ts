@@ -7,13 +7,10 @@ export class CustomersCrud {
     constructor(public databaSeservice: ODatabaseService) {
     }
 
-    createRecord() {
+    createRecord(colsValue) {
         let params: RequestGetParameters = {
             "nameClass": "customer",
-            "colsValue": {
-                "customer_id": "1",
-                "company_name": "SMSC"
-            }
+            "colsValue": colsValue
         };
 
         this.databaSeservice.insert(params);
@@ -41,15 +38,15 @@ export class CustomersCrud {
 
     deleteRecord(gridOptions) {
         let selected = gridOptions.api.getFocusedCell();
-
+        
          return this.databaSeservice.getRowMetadata({
                 "nameClass": "customer",
                 "colsValue": {
-                "customer_id": gridOptions.rowData[selected.rowIndex].customer_id,
-                "company_name": gridOptions.rowData[selected.rowIndex].company_name
-            }})
-                .then((data) => {
-                    this.databaSeservice.delete(data['@rid']);
-                 });
+                    "customer_id": gridOptions.rowData[selected.rowIndex].customerId,
+                    "company_name": gridOptions.rowData[selected.rowIndex].companyName
+                }})
+                    .then((data) => {
+                        this.databaSeservice.delete(data['@rid']);
+                     });
     }
 }

@@ -1,15 +1,41 @@
-<div style="display: flex; height: 34px; font-size: 14px;">
-    <button md-raised-button color="primary" id="addRow"
-            (click)="customerService.addRow(gridOptions)">Add</button>
-    <button md-raised-button color="primary" id="deleteRow"
-            (click)="customerService.removeRow(gridOptions)">Delete</button>
-</div>
+<md-card id="customer-card">
+        <md-toolbar class="title" color="primary">{{ 'CUSTOMERS' | translate }}</md-toolbar>
+        <md-card-content>
+        	<div [hidden]="showGrid" class="grid">
+				<div class="buttons">
+				    <button md-raised-button color="primary" (click)="toForm();" id="addRow">Add</button>
+				    <button md-raised-button color="primary" (click)="toDeleteMsg();" id="deleteRow">Delete</button>
+				</div>
+				<md-input placeholder="{{ 'SEARCH' | translate }}"
+						type="text" autocomplete="off" name="search" style=""
+						#db (keydown)="customerService.onFilterChanged(db.value, gridOptions)"
+						(keyup)="customerService.onFilterChanged(db.value, gridOptions)"></md-input>
 
-<md-input placeholder="{{ 'SEARCH' | translate }}"
-          type="text" autocomplete="off" name="search" style=""
-          #db (keydown)="customerService.onFilterChanged(db.value, gridOptions)"
-          (keyup)="customerService.onFilterChanged(db.value, gridOptions)"></md-input>
+				<ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 400px;"
+				             [rowGroupPanelShow]="always" [columnDefs]="columnDefs"
+				             [gridOptions]="gridOptions" [rowData]="rowData" (cellValueChanged)="customerService.cellValueChanged($event)"></ag-grid-ng2>
+			</div>
 
-<ag-grid-ng2 class="ag-fresh" style="width: 100%"
-             [rowGroupPanelShow]="always" [columnDefs]="columnDefs"
-             [gridOptions]="gridOptions" [rowData]="rowData" (cellValueChanged)="customerService.cellValueChanged($event)"></ag-grid-ng2>
+			<div [hidden]="showForm" class="form">
+				<form>
+					 <md-input placeholder="{{item.headerName}}" name="{{item.headerName}}" id="{{item.headerName}}"
+						type="text" autocomplete="off" [(ngModel)]="model[item.field]"
+						class="form-control" *ngFor="let item of columnDefs"></md-input>
+
+					<div class="formButtons">
+					    <button md-raised-button color="primary" (click)="toGrid();" id="cancel">Cancel</button>
+					    <button md-raised-button color="primary" (click)="customerService.addRow(gridOptions, model); toGrid();" id="add">Add</button>
+					</div>
+				</form>
+			</div>
+
+			<div [hidden]="showDeleteMsg" class="deleteRecords">
+				<h1>You are dropping the record. Are you sure?</h1>
+				<div class="formButtons">
+				    <button md-raised-button color="primary" (click)="toGrid();" id="no">No</button>
+				    <button md-raised-button color="primary" (click)="customerService.removeRow(gridOptions); toGrid();" id="yes">Yes</button>
+				</div>
+			</div>
+
+        </md-card-content>
+</md-card>
