@@ -35,5 +35,6 @@
     "PRICE": "Price",
     "TYPE": "Type",
     "VALIDFROM": "Valid from",
-    "VALIDTO": "Valid to"
+    "VALIDTO": "Valid to",
+    "SEARCH": "Search"
 }

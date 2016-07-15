@@ -1,27 +1,33 @@
-CREATE Class customer
-CREATE PROPERTY customer.customer_id INTEGER
-CREATE PROPERTY customer.company_name STRING
+CREATE Class Customer
+CREATE PROPERTY Customer.customerId DOUBLE
+CREATE PROPERTY Customer.companyName STRING
+CREATE PROPERTY Customer.street STRING
+CREATE PROPERTY Customer.street2 STRING
+CREATE PROPERTY Customer.postcode DOUBLE
+CREATE PROPERTY Customer.country STRING
+CREATE PROPERTY Customer.city STRING
+CREATE PROPERTY Customer.vatid DOUBLE
 
-CREATE Class contacts
-CREATE PROPERTY contacts.contacts_id INTEGER
-CREATE PROPERTY contacts.type EMBEDDEDLIST
-CREATE PROPERTY contacts.salutation EMBEDDEDLIST
-CREATE PROPERTY contacts.firstname STRING
-CREATE PROPERTY contacts.surename STRING
-CREATE PROPERTY contacts.phone STRING
-CREATE PROPERTY contacts.mobile_phone STRING
-CREATE PROPERTY contacts.fax STRING
-CREATE PROPERTY contacts.email_address STRING
-CREATE PROPERTY contacts.street STRING
-CREATE PROPERTY contacts.street2 STRING
-CREATE PROPERTY contacts.postcode INTEGER
-CREATE PROPERTY contacts.country STRING
-CREATE PROPERTY contacts.city STRING
-CREATE PROPERTY contacts.vatid INTEGER
-CREATE PROPERTY contacts.parent_customer INTEGER
-CREATE PROPERTY contacts.ouser_id INTEGER
+CREATE Class CustomerContacts
+CREATE PROPERTY CustomerContacts.contactsId DOUBLE
+CREATE PROPERTY CustomerContacts.type EMBEDDEDLIST
+CREATE PROPERTY CustomerContacts.salutation EMBEDDEDLIST
+CREATE PROPERTY CustomerContacts.firstname STRING
+CREATE PROPERTY CustomerContacts.surename STRING
+CREATE PROPERTY CustomerContacts.phone STRING
+CREATE PROPERTY CustomerContacts.mobilePhone STRING
+CREATE PROPERTY CustomerContacts.fax STRING
+CREATE PROPERTY CustomerContacts.emailAddress STRING
 
-CREATE PROPERTY customer.contacts LINKSET contacts
-CREATE PROPERTY contacts.users LINKSET OUser
+CREATE INDEX Customer.companyName UNIQUE
+CREATE INDEX Customer.street UNIQUE
+CREATE INDEX Customer.country UNIQUE
+CREATE INDEX Customer.city UNIQUE
+CREATE INDEX CustomerContacts.firstname UNIQUE
+CREATE INDEX CustomerContacts.surename UNIQUE
 
-CREATE LINK contacts TYPE LINKSET FROM contacts.parent_customer TO customer.customer_id INVERSE
+CREATE SEQUENCE customerIdSeq TYPE ORDERED
+
+CREATE PROPERTY Customer.contacts LINKSET CustomerContacts
+CREATE PROPERTY Customer.users LINKSET OUser
+CREATE PROPERTY Customer.parentCustomer LINK Customer
