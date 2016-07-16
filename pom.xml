@@ -385,7 +385,6 @@
                 <groupId>com.orientechnologies</groupId>
                 <artifactId>orientdb-jdbc</artifactId>
                 <version>${orientdb.version}</version>
-                <type>bundle</type>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
