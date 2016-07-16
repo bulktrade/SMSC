@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {CustomerService} from './customers.service';
+import {AddingFormRecords} from './addRecords/addRecords.component';
 
 import {AgGridNg2} from 'ag-grid-ng2/main';
 import {GridOptions} from 'ag-grid/main';
@@ -16,13 +17,15 @@ import {FORM_DIRECTIVES} from '@angular/forms';
 import {MdSlideToggle} from '@angular2-material/slide-toggle/slide-toggle';
 import {MdIcon} from '@angular2-material/icon/icon';
 
-//noinspection TypeScriptUnresolvedVariable
+require('./customers.edit.scss');
+
 @Component({
     selector: 'customers-edit-grid',
     template: require('./customers.edit.html'),
     styleUrls: [],
     providers: [CustomerService, CustomersCrud],
     directives: [
+        AddingFormRecords,
         AgGridNg2,
         MdCard,
         CORE_DIRECTIVES,
@@ -33,19 +36,25 @@ import {MdIcon} from '@angular2-material/icon/icon';
         FORM_DIRECTIVES,
         MD_CARD_DIRECTIVES,
         MdSlideToggle,
-        MdIcon,
+        MdIcon
     ],
     pipes : [TranslatePipe]
 })
 
 export class CustomersEditing {
     public rowData;
+    public showGrid: boolean = false;
+    public showForm: boolean = true;
+    public showDeleteMsg: boolean = true;
+    public model: any = {};
 
     constructor(public translate: TranslateService,
                 public customerService: CustomerService) {
     }
 
     ngOnInit() {
+console.log(this.model);  
+
         this.customerService.query()
             .then((store) => {
                 this.rowData = store;
@@ -54,11 +63,27 @@ export class CustomersEditing {
 
     columnDefs = [
         { headerName: this.translate.get('CUSTOMERID')['value'],
-            field: "customer_id", editable: true },
+            field: "customerId", editable: true },
         { headerName: this.translate.get('COMPANYNAME')['value'],
-            field: "company_name", editable: true },
+            field: "companyName", editable: true },
         { headerName: this.translate.get('CONTACTS')['value'],
             field: "contacts", editable: true },
+        { headerName: this.translate.get('STREET')['value'],
+            field: "street", editable: true },
+        { headerName: this.translate.get('STREET2')['value'],
+            field: "street2", editable: true },
+        { headerName: this.translate.get('POSTCODE')['value'],
+            field: "postcode", editable: true },
+        { headerName: this.translate.get('COUNTRY')['value'],
+            field: "country", editable: true },
+        { headerName: this.translate.get('CITY')['value'],
+            field: "city", editable: true },
+        { headerName: this.translate.get('VATID')['value'],
+            field: "vatid", editable: true },
+        { headerName: this.translate.get('USERS')['value'],
+            field: "users", editable: true },
+        { headerName: this.translate.get('PARENTCUSTOMER')['value'],
+            field: "parentCustomer", editable: true }
     ];
 
     gridOptions: GridOptions = {
@@ -66,6 +91,24 @@ export class CustomersEditing {
         rowData: this.rowData,
         rowSelection: 'single',
         singleClickEdit: true
+    }
+
+    toGrid() {
+        this.showGrid = false;
+        this.showForm = true;
+        this.showDeleteMsg = true;
+    }
+
+    toForm() {
+        this.showGrid = true;
+        this.showForm = false;
+        this.showDeleteMsg = true;
+    }
+
+    toDeleteMsg() {
+        this.showGrid = true;
+        this.showForm = true;
+        this.showDeleteMsg = false;
     }
 
 }

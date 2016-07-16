@@ -9,8 +9,9 @@ export class CustomerService {
                 public customersCrud: CustomersCrud) {
     }
 
-    addRow(gridOptions) {
-        gridOptions.rowData.push(this.customersCrud.createRecord().colsValue);
+    addRow(gridOptions, params) {
+        this.customersCrud.createRecord(params)
+        gridOptions.rowData.push(this.customersCrud.createRecord(params).colsValue);
         gridOptions.api.setRowData(gridOptions.rowData);
     }
 
@@ -40,8 +41,8 @@ export class CustomerService {
                 let data = res.json();
                 for (let i = 0; i < data['result'].length; i++) {
                     store.push({
-                        customer_id: data['result'][i].customer_id,
-                        company_name: data['result'][i].company_name,
+                        customerId: data['result'][i].customer_id,
+                        companyName: data['result'][i].company_name,
                         contacts: data['result'][i].contacts,
                     });
                 }
