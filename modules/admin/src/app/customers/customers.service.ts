@@ -1,17 +1,17 @@
 import {ODatabaseService} from '../orientdb/orientdb.service';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
-import {CustomersCrud} from './customers.crud';
+import {CustomerModel} from './customers.model';
+import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
 
 @Injectable()
 export class CustomerService {
-	constructor(public databaSeservice: ODatabaseService,
-                public customersCrud: CustomersCrud) {
+	constructor(public databaSeservice?: ODatabaseService,
+                public customerModel?: CustomerModel) {
     }
 
     addRow(gridOptions, params) {
-        this.customersCrud.createRecord(params)
-        gridOptions.rowData.push(this.customersCrud.createRecord(params).colsValue);
+        gridOptions.rowData.push(this.createRecord(params).colsValue);
         gridOptions.api.setRowData(gridOptions.rowData);
     }
 
@@ -19,7 +19,7 @@ export class CustomerService {
         if(gridOptions.rowData.length > 1) {
             let selected = gridOptions.api.getFocusedCell();
 
-            this.customersCrud.deleteRecord(gridOptions);
+            this.deleteRecord(gridOptions);
 
             gridOptions.rowData.splice(selected.rowIndex, 1);
             gridOptions.api.setRowData(gridOptions.rowData);
@@ -31,22 +31,53 @@ export class CustomerService {
     }
 
     cellValueChanged(value) {
-        this.customersCrud.updateRecord(value);
+        this.updateRecord(value);
     }
 
-    query() {
+    getCustomers() {
         return this.databaSeservice.query('select from customer')
             .then((res: Response) => {
-                let store = [];
                 let data = res.json();
-                for (let i = 0; i < data['result'].length; i++) {
-                    store.push({
-                        customerId: data['result'][i].customer_id,
-                        companyName: data['result'][i].company_name,
-                        contacts: data['result'][i].contacts,
-                    });
-                }
-                return store;
+
+                return this.customerModel.getStore(data['result']);
+            });
+    }
+
+    createRecord(colsValue) {
+        let params: RequestGetParameters = {
+            "nameClass": "customer",
+            "colsValue": colsValue
+        };
+
+        this.databaSeservice.insert(params);
+        return params;
+    }
+
+    updateRecord(value) {
+        return this.databaSeservice.getRowMetadata({
+            "nameClass": "customer",
+            "colsValue": {
+                "customerId": value.data.customerId
+            }
+        }).then((data) => {
+            this.databaSeservice.update({
+                "rid": data['@rid'],
+                "version": data['@version'],
+                "colsValue": value.data
+            });
+        });
+    }
+
+    deleteRecord(gridOptions) {
+        let selected = gridOptions.api.getFocusedCell();
+
+        return this.databaSeservice.getRowMetadata({
+            "nameClass": "customer",
+            "colsValue": {
+                "customerId": gridOptions.rowData[selected.rowIndex].customerId
+            }})
+            .then((data) => {
+                this.databaSeservice.delete(data['@rid']);
             });
     }
 }
