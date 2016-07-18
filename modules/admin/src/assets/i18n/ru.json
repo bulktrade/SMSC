@@ -22,8 +22,9 @@
     "SYSTEMSETTINGS": "System Settings",
     "FINANCESMAIN": "Finances",
     "HOME": "Home",
-    "CUSTOMERID": "CustomerID",
-    "COMPANYNAME": "CompanyName",
+    "SEARCH": "Search",
+    "CUSTOMERID": "Customer ID",
+    "COMPANYNAME": "Company Name",
     "CONTACTS": "Contacts",
     "COLUMN1": "Column1",
     "COLUMN2": "Column2",
@@ -36,5 +37,12 @@
     "TYPE": "Type",
     "VALIDFROM": "Valid from",
     "VALIDTO": "Valid to",
-    "SEARCH": "Search"
+    "STREET": "Street",
+    "STREET2": "Street2",
+    "POSTCODE": "Postcode",
+    "COUNTRY": "Country",
+    "CITY": "City",
+    "VATID": "VATID",
+    "USERS": "Users",
+    "PARENTCUSTOMER": "Parent Customer"
 }
