@@ -39,7 +39,7 @@ export class CustomerService {
             .then((res: Response) => {
                 let data = res.json();
 
-                return this.customerModel.getStore(data['result']);
+                return this.customerModel.getStore(data['result'], 'customer');
             });
     }
 
@@ -54,17 +54,10 @@ export class CustomerService {
     }
 
     updateRecord(value) {
-        return this.databaSeservice.getRowMetadata({
-            "nameClass": "customer",
-            "colsValue": {
-                "customerId": value.data.customerId
-            }
-        }).then((data) => {
-            this.databaSeservice.update({
-                "rid": data['@rid'],
-                "version": data['@version'],
-                "colsValue": value.data
-            });
+        this.databaSeservice.update({
+            "rid": value.data.rid,
+            "version": value.data.version,
+            "colsValue": value.data
         });
     }
 
