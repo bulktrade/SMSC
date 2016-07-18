@@ -13,6 +13,7 @@ import {disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTIVES} from '@a
 
 import { PLATFORM_PROVIDERS } from './platform/browser';
 import { ENV_PROVIDERS } from './platform/environment';
+import { appRouterProviders } from "./app/app.routes";
 
 let appPromise = bootstrap(App, [
     ...APP_PROVIDERS,
@@ -25,11 +26,11 @@ let appPromise = bootstrap(App, [
           useValue: [REACTIVE_FORM_DIRECTIVES],
           multi: true
     },
-
     provide(TranslateLoader, {
         useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
         deps: [Http]
-    })
+    }),
+    appRouterProviders
 ]);
 
 LocalStorageSubscriber(appPromise);

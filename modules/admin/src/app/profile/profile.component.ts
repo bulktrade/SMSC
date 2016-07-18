@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router-deprecated";
+import {Router} from "@angular/router";
 import {TranslateService, TranslatePipe} from "ng2-translate/ng2-translate";
-import {AlertComponent} from "ng2-bootstrap/ng2-bootstrap";
 import {ProfileModel} from "./profile.model";
 import {ProfileService} from "./profile.service";
 

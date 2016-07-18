@@ -1,7 +1,7 @@
-import {ROUTER_DIRECTIVES, RouteConfig} from '@angular/router-deprecated';
 import {Component} from '@angular/core';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
 import {CORE_DIRECTIVES} from '@angular/common';
+import { ROUTER_DIRECTIVES } from "@angular/router";
 
 require('./dashboard.scss');
 
@@ -13,8 +13,6 @@ require('./dashboard.scss');
     directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES],
     pipes: [TranslatePipe]
 })
-
-@RouteConfig([])
 
 export class Dashboard {
 

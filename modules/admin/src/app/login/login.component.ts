@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ODatabaseService } from '../orientdb/orientdb.service';
-import { Router } from '@angular/router-deprecated';
+import { Router } from '@angular/router';
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 import { LoginModel } from './login.model';
 
@@ -37,7 +37,7 @@ export class Login implements OnInit {
                         localStorage.setItem('adminRight', 'true');
                     }
 
-                    this.router.navigateByUrl('/gsm');
+                    this.router.navigateByUrl('/');
                 }
             )
             .catch(

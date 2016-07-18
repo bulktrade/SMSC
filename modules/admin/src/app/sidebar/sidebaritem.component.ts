@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {AnimateBox} from './directives/animate';
 import {NgClass, NgFor} from '@angular/common';
 import {ActiveItem} from './directives/active';
@@ -14,15 +13,13 @@ import {trigger, style, animate, state, transition} from '@angular/core';
 
 declare var Reflect;
 
+require('./sidebaritem.scss');
+
 @Component({
     selector: 'sidebar-item',
     template: require('./sidebaritem.html'),
-    styleUrls: [
-        require('./sidebaritem.scss').toString()
-    ],
     providers: [],
     directives: [
-        ROUTER_DIRECTIVES,
         AnimateBox,
         NgClass,
         ActiveItem,

@@ -1,6 +1,6 @@
 <md-card id="customer-card">
         <md-toolbar class="title" color="primary">{{ 'CUSTOMERS' | translate }}</md-toolbar>
-        <md-card-content>
+        <md-card-content id="customer-card-content">
         	<div [hidden]="showGrid" class="grid">
 				<div class="buttons">
 				    <button md-raised-button color="primary" (click)="toForm();" id="addRow">Add</button>
@@ -36,6 +36,5 @@
 				    <button md-raised-button color="primary" (click)="customerService.removeRow(gridOptions); toGrid();" id="yes">Yes</button>
 				</div>
 			</div>
-
         </md-card-content>
 </md-card>

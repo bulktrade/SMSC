@@ -1,15 +1,14 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import {ROUTER_DIRECTIVES} from "@angular/router-deprecated";
 
-require('./notfound.scss')
+require('./notFound.scss');
 
 @Component({
-    selector: 'notfound',
-    template: require('./notfound.html'),
+    selector: 'notFound',
+    template: require('./notFound.html'),
     styleUrls: [],
     encapsulation: ViewEncapsulation.None,
     providers: [],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [],
     pipes: []
 })
 export class NotFound {

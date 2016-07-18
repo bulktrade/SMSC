@@ -1,12 +1,12 @@
-import {Router} from '@angular/router-deprecated';
-import {Injectable} from '@angular/core';
+import { Router } from "@angular/router";
+import { Injectable } from "@angular/core";
 
 @Injectable()
 export class Breadcrumb {
-    public name: string;
-    public childs: Array<any>;
+    public name:string;
+    public childs:Array<any>;
 
-    constructor(router: Router) {
+    constructor(router:Router) {
         this.init(router);
     }
 
@@ -15,7 +15,7 @@ export class Breadcrumb {
 
         this.chainChilds(router);
         this.childs.reverse();
-        this.name = this.getName(this.childs[this.childs.length - 1]);
+        this.name = this.getName(this.childs[ this.childs.length - 1 ]);
     }
 
     chainChilds(router) {
@@ -32,6 +32,6 @@ export class Breadcrumb {
     }
 
     navigateTo(router) {
-        router.navigate([router.hostComponent.name]);
+        router.navigate([ router.hostComponent.name ]);
     }
 }

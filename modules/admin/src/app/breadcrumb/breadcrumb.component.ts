@@ -1,29 +1,29 @@
-import {Component, Injectable} from '@angular/core';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {Router, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-import {Breadcrumb} from './breadcrumb.service';
+import { Component, Injectable } from "@angular/core";
+import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
+import { Router } from "@angular/router";
+import { Breadcrumb } from "./breadcrumb.service";
+
+require('./breadcrumb.scss');
+
 @Component({
     selector: 'breadcrumb',
     template: require('./breadcrumb.html'),
-    styleUrls: [
-        require('./breadcrumb.scss').toString()
-    ],
     inputs: [
         'title',
         'description',
         'parents'
     ],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [],
     providers: [],
-    pipes: [TranslatePipe]
+    pipes: [ TranslatePipe ]
 })
 
 @Injectable()
 export class BreadcrumbService {
-    public breadcrumb: Breadcrumb;
+    public breadcrumb:Breadcrumb;
 
-    constructor(public translate: TranslateService,
-                public router: Router) {
+    constructor(public translate:TranslateService,
+                public router:Router) {
     }
 
     ngOnInit() {

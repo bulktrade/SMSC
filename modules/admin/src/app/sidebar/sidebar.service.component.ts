@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ActiveItem} from './directives/active';
 import {NgClass, NgFor} from '@angular/common';
@@ -19,7 +18,6 @@ declare var Reflect;
     ],
     providers: [],
     directives: [
-        ROUTER_DIRECTIVES,
         AnimateBox,
         NgClass,
         ActiveItem,

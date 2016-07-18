@@ -1,24 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { NgClass } from '@angular/common';
-import {Router, ROUTER_DIRECTIVES, RouteConfig} from '@angular/router-deprecated';
-import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
-import {AnimateBox} from '../sidebar/directives/animate';
-import {ShowMiniNav} from '../sidebar/ShowMiniNav';
-import {SidebarService} from '../sidebar/sidebar.service.component';
-import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav/sidenav';
-import {MdButton} from '@angular2-material/button/button';
-import {Dir} from '@angular2-material/core/core';
-import {MdIcon} from '@angular2-material/icon/icon';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list/list';
-import {MdToolbar} from '@angular2-material/toolbar/toolbar';
-import {SidebarItem} from "../sidebar/sidebaritem.component";
-
-import {Dashboard} from '../dashboard/dashboard.component';
-import {SystemSettings} from '../systemsettings/systemsettings.component';
+import { Component, OnInit } from "@angular/core";
+import { NgClass } from "@angular/common";
+import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
+import { AnimateBox } from "../sidebar/directives/animate";
+import { ShowMiniNav } from "../sidebar/ShowMiniNav";
+import { SidebarService } from "../sidebar/sidebar.service.component";
+import { MD_SIDENAV_DIRECTIVES } from "@angular2-material/sidenav/sidenav";
+import { MdButton } from "@angular2-material/button/button";
+import { Dir } from "@angular2-material/core/core";
+import { MdIcon } from "@angular2-material/icon/icon";
+import { MD_LIST_DIRECTIVES } from "@angular2-material/list/list";
+import { MdToolbar } from "@angular2-material/toolbar/toolbar";
+import { SidebarItem } from "../sidebar/sidebaritem.component";
+import { ROUTER_DIRECTIVES, Router } from "@angular/router";
 
 @Component({
     selector: 'navigation',
-    providers: [ShowMiniNav],
+    providers: [ ShowMiniNav ],
     template: require('./navigation.html'),
     styleUrls: [
         require('./navigation.scss').toString()
@@ -36,36 +33,16 @@ import {SystemSettings} from '../systemsettings/systemsettings.component';
         MdToolbar,
         SidebarItem
     ],
-    pipes: [TranslatePipe]
+    pipes: [ TranslatePipe ]
 })
 
-@RouteConfig([
-    {
-        path: '/dashboard/...', component: Dashboard, name: 'Dashboard',
-        data: {
-            showInSubNavigation: true,
-            icon: 'layers',
-            toggle: '/icnDsh'
-        },
-        useAsDefault: true
-    },
-    {
-        path: '/systemsettings',
-        component: SystemSettings,
-        name: 'SystemSettings',
-        data: { showInSubNavigation: true, icon: 'settings' }
-    }
-])
-
 export class Navigation implements OnInit {
-    content: string;
-    username: string;
+    content:string;
+    username:string;
 
-    constructor(
-        public router: Router,
-        public translate: TranslateService,
-        public showmininav: ShowMiniNav
-    ) {
+    constructor(public router:Router,
+                public translate:TranslateService,
+                public showmininav:ShowMiniNav) {
         this.content = localStorage.getItem('adminRight');
         this.username = 'admin';
     }

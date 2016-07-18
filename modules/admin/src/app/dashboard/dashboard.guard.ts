@@ -5,13 +5,8 @@ import {
     RouterStateSnapshot,
     Router
 } from '@angular/router';
+import { AuthGuard } from "../common/authGuard";
 
 @Injectable()
-export class DashboardGuard implements CanActivate {
-
-    constructor(private router: Router) {}
-
-    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return true;
-    }
+export class DashboardGuard extends AuthGuard {
 }
