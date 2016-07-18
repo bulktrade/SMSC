@@ -14,8 +14,6 @@ import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 import {SidebarItem} from "../sidebar/sidebaritem.component";
 
 import {Dashboard} from '../dashboard/dashboard.component';
-import {GSM} from '../gsm/gsm.component';
-import {FinancesMain} from '../financesmain/financesmain.component';
 import {SystemSettings} from '../systemsettings/systemsettings.component';
 
 @Component({
@@ -50,20 +48,6 @@ import {SystemSettings} from '../systemsettings/systemsettings.component';
             toggle: '/icnDsh'
         },
         useAsDefault: true
-    },
-    {
-        path: '/gsm/...', component: GSM, name: 'GSM',
-        data: {
-            showInSubNavigation: true,
-            icon: 'settings_remote',
-            toggle: '/icnGsm'
-        }
-    },
-    {
-        path: '/financesmain',
-        component: FinancesMain,
-        name: 'FinancesMain',
-        data: { showInSubNavigation: true, icon: 'edit' }
     },
     {
         path: '/systemsettings',
