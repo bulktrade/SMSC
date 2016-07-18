@@ -14,12 +14,12 @@ const routes:RouterConfig = [
         component: Login
     },
     {
-        path: '',
+        path: 'n',
         component: Navigation,
         canActivate: [ AuthGuard ],
         children: [
             {
-                path: '/dashboard',
+                path: 'dashboard',
                 component: Dashboard,
                 data: {
                     showInSubNavigation: true,
