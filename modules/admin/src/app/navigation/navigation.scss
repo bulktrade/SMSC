@@ -57,9 +57,6 @@
 }
 
 @media (min-width: 992px) {
-    md-sidenav.md-sidenav-opened + md-content {
-        margin-left: 224px !important;
-    }
 }
 
 @media (max-width: 992px) {
@@ -69,7 +66,6 @@
 
     md-sidenav.md-sidenav-closed {
         position: fixed !important;
-        /*display: none !important;*/
     }
 
     md-content {

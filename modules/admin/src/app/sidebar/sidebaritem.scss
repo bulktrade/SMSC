@@ -126,6 +126,9 @@ ul {
 }
 
 @media (min-width: 992px) {
+    .show-nav {
+        display: flex;
+    }
     .last {
         margin-top: -18px !important;
     }
