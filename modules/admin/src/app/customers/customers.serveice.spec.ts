@@ -11,6 +11,7 @@ import {CustomerModel} from "./customers.model";
 import {Http, HTTP_PROVIDERS} from "@angular/http";
 import {provide} from "@angular/core";
 import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
+import {CustomerUsers} from "./customers.users";
 
 describe('Customer Service', () => {
     beforeEachProviders(() => [
@@ -23,7 +24,7 @@ describe('Customer Service', () => {
         CustomerModel,
         CustomersCrud,
         TranslateService,
-
+        CustomerUsers,
         provide(TranslateLoader, {
 	        useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
 	        deps: [Http]
