@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
+import {Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {FaAngleLeft} from './directives/FaAngleLeft';
 import {ActiveItem} from './directives/active';
 import {NgClass, NgFor} from '@angular/common';
 import {AnimateBox} from './directives/animate';
 import {SidebarItem} from './sidebaritem.component';
-import {Navigation} from '../navigation/navigation.component';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav/sidenav';
 
 declare var Reflect;
@@ -18,6 +18,7 @@ declare var Reflect;
     ],
     providers: [],
     directives: [
+        ROUTER_DIRECTIVES,
         AnimateBox,
         NgClass,
         ActiveItem,
@@ -32,49 +33,52 @@ declare var Reflect;
 export class SidebarService {
     public dataNavItems = [];
 
-    constructor(public translate: TranslateService) {
-        this.initDataNavItems();
+    constructor(public translate: TranslateService,
+                public router: Router) {
+        this.initDataNavItems(this.router);
     }
 
     ngOnInit() {
     }
 
-    initDataNavItems() {
+    initDataNavItems(router) {
         let result = [];
         let decoratorValue;
 
-        this.getRouteConfig(Navigation).forEach((item) => {
-            if (item.path.substring(item.path.length - 3, item.path.length) === '...') {
-                decoratorValue = this.getRouteConfig(item.component);
+        let routeConfig = router.config;
+        routeConfig[2].children.forEach((item) => {
 
-                decoratorValue.forEach((subItem) => {
-                    result.push({
-                        name: subItem.name,
-                        icon: subItem.data.icon
+            if (item.path && item.data.showInSubNavigation) {
+                if (item.hasOwnProperty('children')) {
+                    decoratorValue = item.children;
+
+                    decoratorValue.forEach((subItem) => {
+                        if (subItem.path && subItem.data.showInSubNavigation) {
+                            result.push({
+                                name: subItem.component.name.toLowerCase(),
+                                path: subItem.path,
+                                icon: subItem.data.icon
+                            });
+                        }
                     });
+                }
+
+                if (result.length === 0) {
+                    result = undefined;
+                }
+
+
+                this.dataNavItems.push({
+                    name: item.component.name.toLowerCase(),
+                    path: item.path,
+                    icon: item.data.icon,
+                    toggle: item.data.toggle,
+                    submenu: result,
+                    showInSubNavigation: item.data.showInSubNavigation
                 });
+
+                result = [];
             }
-
-            if (result.length === 0) {
-                result = undefined;
-            }
-
-            this.dataNavItems.push({
-                name: item.name,
-                icon: item.data.icon,
-                toggle: item.data.toggle,
-                submenu: result,
-                showInSubNavigation: item.data.showInSubNavigation
-            });
-
-            result = [];
         });
-    }
-
-    getRouteConfig(component) {
-        return Reflect.getMetadata('annotations', component)
-            .filter(a => {
-                return a.constructor.name === 'RouteConfig';
-            }).pop().configs;
     }
 }

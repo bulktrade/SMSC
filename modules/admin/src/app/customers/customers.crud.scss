@@ -17,6 +17,12 @@
 		margin-bottom: 10px;
 	}
 
+    form,
+    .deleteRecords,
+    .usersGrid {
+        display: inline-block;
+    }
+
 	form {
 		width: 100%;
 

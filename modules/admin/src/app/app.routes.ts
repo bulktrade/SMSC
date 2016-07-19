@@ -10,11 +10,16 @@ import { NotFound } from "./notFound/notFound.component";
 
 const routes:RouterConfig = [
     {
+        path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
+    },
+    {
         path: 'login',
         component: Login
     },
     {
-        path: 'n',
+        path: '',
         component: Navigation,
         canActivate: [ AuthGuard ],
         children: [
@@ -28,7 +33,7 @@ const routes:RouterConfig = [
                 }
             },
             {
-                path: '/customers',
+                path: 'customers',
                 component: Customers,
                 data: {
                     showInSubNavigation: true,
@@ -37,17 +42,23 @@ const routes:RouterConfig = [
                 },
                 children: [
                     {
-                        path: '/:action/:id',
-                        component: CustomersCrud
+                        path: ':action/:id',
+                        component: CustomersCrud,
+                        data: {
+                            showInSubNavigation: false,
+                        }
                     },
                     {
-                        path: '/:action',
-                        component: CustomersCrud
+                        path: ':action',
+                        component: CustomersCrud,
+                        data: {
+                            showInSubNavigation: false,
+                        }
                     }
                 ]
             },
             {
-                path: '/system/settings',
+                path: 'settings',
                 component: SystemSettings,
                 data: {
                     showInSubNavigation: true,

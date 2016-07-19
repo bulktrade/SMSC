@@ -1,7 +1,7 @@
 <div *ngIf="showInSubNavigation" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav" [ngClass]="{'item-menu-short': showmininav.showNav}" #isIcon
      #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
-    <a [ngClass]="{active: activeItem.isActiveMainItem(nameItem)}" class="{{nameItem.toLowerCase()}} sub-task clear"
-       (click)="setToggle(toggle)">
+    <a [ngClass]="{active: activeItem.isActiveMainItem(path)}" class="{{nameItem.toLowerCase()}} sub-task clear"
+       (click)="setToggle(toggle)" [routerLink]="['/'+path]">
         <md-icon class="icon-left material-icons md-24" >{{icon}}</md-icon>
         <div class="show-nav" [hidden]="showmininav.showNav">
             <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>

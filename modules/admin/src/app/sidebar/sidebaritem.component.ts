@@ -42,14 +42,15 @@ require('./sidebaritem.scss');
 export class SidebarItem {
     public store = localStorage;
 
-    @LocalStorage() public icnDsh: boolean;
-    @LocalStorage() public icnGsm: boolean;
+    @LocalStorage('icnDsh') public icnDsh: boolean;
+    @LocalStorage('icnGsm') public icnGsm: boolean;
 
     @Input('icon') public icon;
+    @Input('path') public path;
     @Input('nameItem') public nameItem;
     @Input('showInSubNavigation') public showInSubNavigation;
-    @Input() public submenu;
-    @Input() public toggle;
+    @Input('submenu') public submenu;
+    @Input('toggle') public toggle;
 
     constructor(public translate: TranslateService, public showmininav: ShowMiniNav) {
     }
