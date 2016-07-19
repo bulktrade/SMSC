@@ -22,7 +22,9 @@ const METADATA = {
     baseUrl: '/'
 };
 
-var extractCSS = new ExtractTextPlugin("[name].css");
+var extractCSS = new ExtractTextPlugin('[name].[contenthash].css', {
+    allChunks: true
+});
 
 /*
  * Webpack configuration
@@ -154,19 +156,6 @@ module.exports = {
             },
 
             {
-                test: /\.css$/,
-                loader: extractCSS.extract(['css']),
-                exclude: [helpers.root('src/index.html')]
-            },
-
-            /*
-             * Raw loader support for *.css files
-             * Returns file content as string
-             *
-             * See: https://github.com/webpack/raw-loader
-             */
-
-            {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 loaders: [
                     'file?hash=sha512&digest=hex&name=[hash].[ext]',
@@ -175,9 +164,28 @@ module.exports = {
             },
 
             {
+                test: /\.css$/,
+                loader: 'file?name=[hash].css!extract!css',
+                exclude: [
+                    helpers.root('src/index.html'),
+                    /webpack-material-design-icons/
+                ]
+            },
+
+            {
+                test: /\.css$/,
+                loader: extractCSS.extract(['css']),
+                include: [
+                    /webpack-material-design-icons/
+                ]
+            },
+
+            {
                 test: /\.scss$/,
-                loader: extractCSS.extract(['css', 'sass']),
-                exclude: [helpers.root('src/index.html')]
+                loader: 'file?name=[hash].css!extract!css!sass?sourceMap',
+                exclude: [
+                    helpers.root('src/index.html')
+                ]
             },
 
             {
@@ -206,7 +214,7 @@ module.exports = {
      */
     plugins: [
 
-        new webpack.ProvidePlugin({ sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js') }),
+        new webpack.ProvidePlugin({sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js')}),
 
         new webpack.ProvidePlugin({
             "window.Tether": "tether"

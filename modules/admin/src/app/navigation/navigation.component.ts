@@ -13,8 +13,6 @@ import { MdToolbar } from "@angular2-material/toolbar/toolbar";
 import { SidebarItem } from "../sidebar/sidebaritem.component";
 import { ROUTER_DIRECTIVES, Router } from "@angular/router";
 
-require('./navigation.scss');
-
 @Component({
     selector: 'navigation',
     providers: [ ShowMiniNav ],
@@ -32,7 +30,10 @@ require('./navigation.scss');
         MdToolbar,
         SidebarItem
     ],
-    pipes: [ TranslatePipe ]
+    pipes: [ TranslatePipe ],
+    styleUrls: [
+        require('./navigation.scss')
+    ]
 })
 
 export class Navigation implements OnInit {

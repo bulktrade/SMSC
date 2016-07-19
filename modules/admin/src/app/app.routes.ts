@@ -23,8 +23,7 @@ const routes:RouterConfig = [
                 component: Dashboard,
                 data: {
                     showInSubNavigation: true,
-                    icon: 'layers',
-                    toggle: 'dashboard'
+                    icon: 'layers'
                 }
             },
             {
@@ -32,23 +31,16 @@ const routes:RouterConfig = [
                 component: Customers,
                 data: {
                     showInSubNavigation: true,
-                    icon: 'layers',
-                    toggle: 'customers'
+                    icon: 'perm_contact_calendar'
                 },
                 children: [
                     {
                         path: ':action/:id',
-                        component: CustomersCrud,
-                        data: {
-                            showInSubNavigation: false,
-                        }
+                        component: CustomersCrud
                     },
                     {
                         path: ':action',
-                        component: CustomersCrud,
-                        data: {
-                            showInSubNavigation: false,
-                        }
+                        component: CustomersCrud
                     }
                 ]
             },

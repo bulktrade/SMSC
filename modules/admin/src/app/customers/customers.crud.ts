@@ -16,12 +16,12 @@ import {MdIcon} from '@angular2-material/icon/icon';
 import {CustomerModel} from './customers.model';
 import {CustomerUsers} from './customers.users';
 
-require('./customers.crud.scss');
-
 @Component({
     selector: 'customers-crud',
     template: require('./customers.crud.html'),
-    styleUrls: [],
+    styleUrls: [
+        require('./customers.crud.scss')
+    ],
     providers: [CustomerService, CustomerModel, CustomerUsers],
     directives: [
         AgGridNg2,

@@ -4,15 +4,16 @@ import { Router } from '@angular/router';
 import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
 import { LoginModel } from './login.model';
 
-require('./login.scss');
-
 @Component({
     selector: 'login',
     providers: [],
     template: require('./login.html'),
     directives: [
     ],
-    pipes: [TranslatePipe]
+    pipes: [TranslatePipe],
+    styleUrls: [
+        require('./login.scss')
+    ]
 })
 export class Login implements OnInit {
     notFound: boolean = false;

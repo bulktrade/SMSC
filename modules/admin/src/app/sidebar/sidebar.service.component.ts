@@ -13,9 +13,6 @@ declare var Reflect;
 @Component({
     selector: 'sidebar',
     template: require('./sidebar.service.html'),
-    styleUrls: [
-        require('./sidebar.service.scss').toString()
-    ],
     providers: [],
     directives: [
         ROUTER_DIRECTIVES,
@@ -27,7 +24,10 @@ declare var Reflect;
         NgFor,
         MD_SIDENAV_DIRECTIVES
     ],
-    pipes: [TranslatePipe]
+    pipes: [TranslatePipe],
+    styleUrls: [
+        require('./sidebar.service.scss')
+    ]
 })
 
 export class SidebarService {
@@ -47,38 +47,48 @@ export class SidebarService {
 
         let routeConfig = router.config;
 
-        routeConfig[1].children.forEach((item) => {
+        routeConfig.forEach((route) => {
+            if (route.hasOwnProperty('children')) {
+                route.children.forEach((item) => {
+                    if (
+                        item.hasOwnProperty('data') &&
+                        item.data.hasOwnProperty('showInSubNavigation') &&
+                        item.data.showInSubNavigation
+                    ) {
+                        if (item.hasOwnProperty('children')) {
+                            decoratorValue = item.children;
 
-            if (item.path && item.data.showInSubNavigation) {
-                if (item.hasOwnProperty('children')) {
-                    decoratorValue = item.children;
-
-                    decoratorValue.forEach((subItem) => {
-                        if (subItem.path && subItem.data.showInSubNavigation) {
-                            result.push({
-                                name: subItem.component.name.toLowerCase(),
-                                path: subItem.path,
-                                icon: subItem.data.icon
+                            decoratorValue.forEach((subItem) => {
+                                if (
+                                    subItem.hasOwnProperty('data') &&
+                                    subItem.data.hasOwnProperty('showInSubNavigation') &&
+                                    subItem.data.showInSubNavigation
+                                ) {
+                                    result.push({
+                                        name: subItem.component.name.toLowerCase(),
+                                        path: subItem.path ? item.path : '/',
+                                        icon: subItem.data.icon
+                                    });
+                                }
                             });
                         }
-                    });
-                }
 
-                if (result.length === 0) {
-                    result = undefined;
-                }
+                        if (result.length === 0) {
+                            result = undefined;
+                        }
 
+                        this.dataNavItems.push({
+                            name: item.component.name.toLowerCase(),
+                            path: item.path ? item.path : '/',
+                            icon: item.data.icon,
+                            toggle: item.data.toggle,
+                            submenu: result,
+                            showInSubNavigation: item.data.showInSubNavigation
+                        });
 
-                this.dataNavItems.push({
-                    name: item.component.name.toLowerCase(),
-                    path: item.path,
-                    icon: item.data.icon,
-                    toggle: item.data.toggle,
-                    submenu: result,
-                    showInSubNavigation: item.data.showInSubNavigation
+                        result = [];
+                    }
                 });
-
-                result = [];
             }
         });
     }

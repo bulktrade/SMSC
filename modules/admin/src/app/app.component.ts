@@ -2,18 +2,19 @@ import { Component, ViewEncapsulation } from "@angular/core";
 import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
 import { ROUTER_DIRECTIVES } from "@angular/router";
 
-require('./app.scss');
-require('npm-font-open-sans/open-sans.css');
-require('../../node_modules/ag-grid/dist/styles/ag-grid.css');
-require('../../node_modules/ag-grid/dist/styles/theme-fresh.css');
-
 @Component({
     selector: 'app',
     pipes: [ TranslatePipe ],
     providers: [],
     directives: [ ROUTER_DIRECTIVES ],
     template: '<router-outlet></router-outlet>',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: [
+        require('./app.scss'),
+        require('npm-font-open-sans/open-sans.css'),
+        require('ag-grid/dist/styles/ag-grid.css'),
+        require('ag-grid/dist/styles/theme-fresh.css')
+    ]
 })
 
 export class App {

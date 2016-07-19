@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-require('./notFound.scss');
-
 @Component({
     selector: 'notFound',
     template: require('./notFound.html'),
-    styleUrls: [],
+    styleUrls: [
+        require('./notFound.scss')
+    ],
     encapsulation: ViewEncapsulation.None,
     providers: [],
     directives: [],

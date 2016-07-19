@@ -31,7 +31,22 @@
     }
 
     md-sidenav {
-        min-width: 15%;
+        min-width: 230px;
+        overflow-y: hidden;
+
+        ul > li {
+            list-style-type: none;
+        }
+
+        a,
+        a:link,
+        a:active,
+        a:hover,
+        a:visited {
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
         color: #000;
         top: 85px !important;
         bottom: initial !important;
@@ -48,11 +63,6 @@
         position: relative;
         top: 94px;
         padding: 0 22px 0 22px;
-    }
-
-    a:hover {
-        text-decoration: none;
-        color: #000 !important;
     }
 }
 
