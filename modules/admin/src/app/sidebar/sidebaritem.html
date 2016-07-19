@@ -3,7 +3,7 @@
      #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
     <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
        class="{{nameItem.toLowerCase()}} sub-task clear"
-       (click)="setToggle(toggle)" [routerLink]="['/'+path]">
+       (click)="setToggle(toggle); navigateTo(path, paramsAsDefault)">
         <md-icon class="icon-left material-icons md-24">{{icon}}</md-icon>
         <div class="show-nav" [hidden]="showmininav.showNav">
             <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>

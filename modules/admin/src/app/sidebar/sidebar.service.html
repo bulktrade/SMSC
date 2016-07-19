@@ -1,5 +1,5 @@
-<sidebar-item md-list-item icon="{{item.icon}}" nameItem="{{item.name}}"
-              [submenu]=item.submenu toggle="{{item.toggle}}" path="{{item.path}}"
+<sidebar-item md-list-item class="clear" icon="{{item.icon}}" nameItem="{{item.name}}"
+              [submenu]=item.submenu toggle="{{item.toggle}}" path="{{item.path}}" paramsAsDefault="{{item.paramsAsDefault}}"
               showInSubNavigation="{{item.showInSubNavigation}}"
               *ngFor="let item of dataNavItems"></sidebar-item>
 

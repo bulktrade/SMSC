@@ -80,6 +80,7 @@ export class SidebarService {
                         this.dataNavItems.push({
                             name: item.component.name.toLowerCase(),
                             path: item.path ? item.path : '/',
+                            paramsAsDefault: item.data.paramsAsDefault,
                             icon: item.data.icon,
                             toggle: item.data.toggle,
                             submenu: result,

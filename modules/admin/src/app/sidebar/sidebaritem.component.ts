@@ -7,6 +7,7 @@ import { FaAngleLeft } from "./directives/FaAngleLeft";
 import { ShowMiniNav } from "./ShowMiniNav";
 import { LocalStorage } from "angular2-localStorage/WebStorage";
 import { MdIcon } from "@angular2-material/icon/icon";
+import {Router} from "@angular/router";
 
 declare var Reflect;
 
@@ -45,12 +46,15 @@ export class SidebarItem {
 
     @Input('icon') public icon;
     @Input('path') public path;
+    @Input('paramsAsDefault') public paramsAsDefault;
     @Input('nameItem') public nameItem;
     @Input('showInSubNavigation') public showInSubNavigation;
     @Input('submenu') public submenu;
     @Input('toggle') public toggle;
 
-    constructor(public translate:TranslateService, public showmininav:ShowMiniNav) {
+    constructor(public translate: TranslateService,
+                public showmininav: ShowMiniNav,
+                public router: Router) {
     }
 
     ngOnInit() {
@@ -62,6 +66,16 @@ export class SidebarItem {
 
     setToggle(name) {
         this[ name.substring(1, name.length) ] = !this[ name.substring(1, name.length) ];
+    }
+
+    navigateTo(path, params) {
+        let storePath = [path];
+
+        if (params) {
+            storePath.push(params);
+        }
+
+        this.router.navigate(storePath);
     }
 
 }
