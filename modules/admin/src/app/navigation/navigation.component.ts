@@ -13,13 +13,12 @@ import { MdToolbar } from "@angular2-material/toolbar/toolbar";
 import { SidebarItem } from "../sidebar/sidebaritem.component";
 import { ROUTER_DIRECTIVES, Router } from "@angular/router";
 
+require('./navigation.scss');
+
 @Component({
     selector: 'navigation',
     providers: [ ShowMiniNav ],
     template: require('./navigation.html'),
-    styleUrls: [
-        require('./navigation.scss').toString()
-    ],
     directives: [
         ROUTER_DIRECTIVES,
         NgClass,
