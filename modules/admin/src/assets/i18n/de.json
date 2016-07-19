@@ -44,5 +44,12 @@
     "CITY": "City",
     "VATID": "VATID",
     "USERS": "Users",
-    "PARENTCUSTOMER": "Parent Customer"
+    "PARENTCUSTOMER": "Parent Customer",
+    "ADD": "Add",
+    "DELETE": "Delete",
+    "CANCEL": "Cancel",
+    "NO": "No",
+    "YES": "Yes",
+    "BACK": "Back",
+    "CHOOSE": "Choose"
 }

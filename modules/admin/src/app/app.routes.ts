@@ -20,7 +20,7 @@ const routes:RouterConfig = [
         children: [
             {
                 path: '',
-                redirectTo: '/dashboard'
+                redirectTo: 'dashboard'
             },
             {
                 path: 'dashboard',

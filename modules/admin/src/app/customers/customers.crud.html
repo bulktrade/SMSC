@@ -3,8 +3,8 @@
         <md-card-content>
         	<div [hidden]="customerService.switcher.showCustomersGrid" class="customersGrid">
 				<div class="buttons">
-				    <button md-raised-button color="primary" (click)="customerService.goTo('showForm');" id="addRow">Add</button>
-				    <button md-raised-button color="primary" (click)="customerService.goTo('showDeleteMsg');" id="deleteRow">Delete</button>
+				    <button md-raised-button color="primary" (click)="customerService.goTo('showForm');" id="addRow">{{'ADD' | translate}}</button>
+				    <button md-raised-button color="primary" (click)="customerService.goTo('showDeleteMsg');" id="deleteRow">{{'DELETE' | translate}}</button>
 				</div>
 				<md-input placeholder="{{ 'SEARCH' | translate }}"
 						type="text" autocomplete="off" name="search" style=""
@@ -24,8 +24,8 @@
 						class="form-control" *ngFor="let item of columnDefs"></md-input>
 
 					<div class="formButtons">
-					    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid');" id="cancel">Cancel</button>
-					    <button md-raised-button color="primary" (click)="customerService.addRow(gridOptions, model); toGrid();" id="add">Add</button>
+					    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid');" id="cancel">{{'CANCEL' | translate}}</button>
+					    <button md-raised-button color="primary" (click)="customerService.addRow(gridOptions, model); toGrid();" id="add">{{'ADD' | translate}}</button>
 					</div>
 				</form>
 			</div>
@@ -33,8 +33,8 @@
 			<div [hidden]="customerService.switcher.showDeleteMsg" class="deleteRecords">
 				<h1>You are dropping the record. Are you sure?</h1>
 				<div class="formButtons">
-				    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid');" id="no">No</button>
-				    <button md-raised-button color="primary" (click)="customerService.removeRow(gridOptions); toGrid();" id="yes">Yes</button>
+				    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid');" id="no">{{'NO' | translate}}</button>
+				    <button md-raised-button color="primary" (click)="customerService.removeRow(gridOptions); toGrid();" id="yes">{{'YES' | translate}}</button>
 				</div>
 			</div>
 
@@ -43,10 +43,10 @@
 				             [rowGroupPanelShow]="always" [columnDefs]="customerUsers.columnDefs"
 				             [gridOptions]="customerUsers.gridOptions" [rowData]="customerUsers.rowData"></ag-grid-ng2>
 				<div class="formButtons">
-				    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid');">Back</button>
+				    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid');">{{'BACK' | translate}}</button>
 				    <button md-raised-button color="primary" (click)="customerService.chooseUsers(customerUsers.gridOptions.api.getSelectedRows(),
 				                                                                                  gridOptions, customerService);
-				    		customerService.goTo('showCustomersGrid');">Choose</button>
+				    		customerService.goTo('showCustomersGrid');">{{'CHOOSE' | translate}}</button>
 				</div>
 
 			</div>
