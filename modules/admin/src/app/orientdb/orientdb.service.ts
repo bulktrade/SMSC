@@ -80,12 +80,10 @@ export class ODatabaseService {
             'Content-Type': 'application/json'
         });
 
-        let body = JSON.stringify(JSON.parse(data));
-
         let requestOptions = new RequestOptions({
             headers: headers,
             method: RequestMethod.Post,
-            body: body
+            body: data
         });
 
         return new Promise((resolve, reject) => {
@@ -125,7 +123,11 @@ export class ODatabaseService {
             '{ "@rid" : "%(rid)s", "@version": "%(version)s", ';
 
         for (let key in params.colsValue) {
-            batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
+            if(key !== 'users') {
+                batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
+            } else {
+                batch += '"' + key + '" : %(colsValue.' + key + ')s, ';
+            }
         }
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';

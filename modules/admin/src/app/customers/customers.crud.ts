@@ -42,16 +42,7 @@ require('./customers.crud.scss');
 @Injectable()
 export class CustomersCrud {
     public rowData;
-    public showGrid:boolean = false;
-    public showForm:boolean = true;
-    public showDeleteMsg:boolean = true;
     public model: any = {};
-    public switcher = {
-        showCustomersGrid: false,
-        showUsersGrid: true,
-        showForm: true,
-        showDeleteMsg: true,
-    };
 
     constructor(public translate: TranslateService,
                 public customerService: CustomerService,
@@ -95,36 +86,5 @@ export class CustomersCrud {
         rowData: this.rowData,
         rowSelection: 'single',
         singleClickEdit: true
-    }
-
-    goTo(key) {
-        for (let item in this.switcher) {
-            this.switcher[item] = true;
-        }
-
-        this.switcher[key] = false;
-    }
-
-    cellClicked(event) {
-        if (event.colDef.field === 'users') {
-            this.goTo('showUsersGrid');
-        }
-    }
-
-    chooseUsers(ridUsers) {
-        let selected = this.gridOptions.api.getFocusedCell();
-        let linkSet = '[';
-        let params = {};
-
-        for (let item = 0; item < ridUsers.length; item++) {
-            linkSet += "'" + ridUsers[item].rid + "',";
-        }
-
-        linkSet = linkSet.substring(0, linkSet.length - 1) + ']';
-
-        params['data'] = this.gridOptions.rowData[selected.rowIndex];
-        params['data'].users = linkSet;
-
-        this.customerService.updateRecord(params);
     }
 }

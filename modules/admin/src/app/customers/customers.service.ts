@@ -3,9 +3,17 @@ import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {CustomerModel} from './customers.model';
 import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
+import {CustomersCrud} from "./customers.crud";
 
 @Injectable()
 export class CustomerService {
+    public switcher = {
+        showCustomersGrid: false,
+        showUsersGrid: true,
+        showForm: true,
+        showDeleteMsg: true,
+    };
+
 	constructor(public databaSeservice?: ODatabaseService,
                 public customerModel?: CustomerModel) {
     }
@@ -59,6 +67,7 @@ export class CustomerService {
             "version": value.data.version,
             "colsValue": value.data
         });
+        value.data.version++
     }
 
     deleteRecord(gridOptions) {
@@ -72,5 +81,39 @@ export class CustomerService {
             .then((data) => {
                 this.databaSeservice.delete(data['@rid']);
             });
+    }
+
+    goTo(key) {
+        for (let item in this.switcher) {
+            this.switcher[item] = true;
+        }
+
+        this.switcher[key] = false;
+    }
+
+    cellClicked(event) {
+        if (event.colDef.field === 'users') {
+            this.goTo('showUsersGrid');
+        }
+    }
+
+    chooseUsers(ridUsers, gridOptions, customerService) {
+        let selected = gridOptions.api.getFocusedCell();
+        let linkSet = '[';
+        let params = {};
+
+        for (let item = 0; item < ridUsers.length; item++) {
+            linkSet += "" + ridUsers[item].rid + ",";
+        }
+
+        linkSet = linkSet.substring(0, linkSet.length - 1) + ']';
+
+        params['data'] = gridOptions.rowData[selected.rowIndex];
+        params['data'].users = linkSet;
+
+        customerService.updateRecord(params);
+        gridOptions.rowData[selected.rowIndex] = params['data'];
+
+        gridOptions.api.setRowData(gridOptions.rowData);
     }
 }
