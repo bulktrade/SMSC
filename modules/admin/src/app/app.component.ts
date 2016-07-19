@@ -10,10 +10,10 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
     template: '<router-outlet></router-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
-        require('./app.scss'),
         require('npm-font-open-sans/open-sans.css'),
         require('ag-grid/dist/styles/ag-grid.css'),
-        require('ag-grid/dist/styles/theme-fresh.css')
+        require('ag-grid/dist/styles/theme-fresh.css'),
+        require('./app.scss')
     ]
 })
 

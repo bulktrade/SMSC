@@ -32,7 +32,6 @@
 
     md-sidenav {
         min-width: 230px;
-        overflow-y: hidden;
 
         ul > li {
             list-style-type: none;
@@ -48,8 +47,8 @@
         }
 
         color: #000;
-        top: 85px !important;
-        bottom: initial !important;
+        top: 85px;
+        bottom: initial;
 
         [md-button] {
             width: 100%;

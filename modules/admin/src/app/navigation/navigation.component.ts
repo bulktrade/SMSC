@@ -17,6 +17,9 @@ import { ROUTER_DIRECTIVES, Router } from "@angular/router";
     selector: 'navigation',
     providers: [ ShowMiniNav ],
     template: require('./navigation.html'),
+    styleUrls: [
+        require('./navigation.scss')
+    ],
     directives: [
         ROUTER_DIRECTIVES,
         NgClass,
@@ -30,10 +33,7 @@ import { ROUTER_DIRECTIVES, Router } from "@angular/router";
         MdToolbar,
         SidebarItem
     ],
-    pipes: [ TranslatePipe ],
-    styleUrls: [
-        require('./navigation.scss')
-    ]
+    pipes: [ TranslatePipe ]
 })
 
 export class Navigation implements OnInit {
