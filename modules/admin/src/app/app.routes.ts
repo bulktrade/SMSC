@@ -10,11 +10,6 @@ import { NotFound } from "./notFound/notFound.component";
 
 const routes:RouterConfig = [
     {
-        path: '',
-        redirectTo: '/login',
-        pathMatch: 'full'
-    },
-    {
         path: 'login',
         component: Login
     },
@@ -23,6 +18,10 @@ const routes:RouterConfig = [
         component: Navigation,
         canActivate: [ AuthGuard ],
         children: [
+            {
+                path: '',
+                redirectTo: '/dashboard'
+            },
             {
                 path: 'dashboard',
                 component: Dashboard,

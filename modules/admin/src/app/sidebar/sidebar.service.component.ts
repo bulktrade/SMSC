@@ -46,7 +46,8 @@ export class SidebarService {
         let decoratorValue;
 
         let routeConfig = router.config;
-        routeConfig[2].children.forEach((item) => {
+
+        routeConfig[1].children.forEach((item) => {
 
             if (item.path && item.data.showInSubNavigation) {
                 if (item.hasOwnProperty('children')) {
