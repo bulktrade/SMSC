@@ -20,6 +20,10 @@ const routes:RouterConfig = [
         children: [
             {
                 path: '',
+                redirectTo: 'dashboard'
+            },
+            {
+                path: 'dashboard',
                 component: Dashboard,
                 data: {
                     showInSubNavigation: true,
@@ -31,6 +35,7 @@ const routes:RouterConfig = [
                 component: Customers,
                 data: {
                     showInSubNavigation: true,
+                    paramsAsDefault: 'update',
                     icon: 'perm_contact_calendar'
                 },
                 children: [

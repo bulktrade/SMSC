@@ -34,7 +34,6 @@ export class Breadcrumb {
         if (this.childs.length) {
             this.childs = this.childs.splice(0, this.childs.length-1).reverse();
             this.name = this.childs[this.childs.length-1].name;
-            console.log(this.name);
         }
 
     }
