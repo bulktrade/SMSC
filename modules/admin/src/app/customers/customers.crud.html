@@ -1,12 +1,7 @@
 <md-card id="customer-card">
         <md-toolbar class="title" color="primary">{{ 'CUSTOMERS' | translate }}</md-toolbar>
-<<<<<<< Updated upstream
-        <md-card-content id="customer-card-content">
-        	<div [hidden]="showGrid" class="grid">
-=======
         <md-card-content>
         	<div [hidden]="switcher.showCustomersGrid" class="grid">
->>>>>>> Stashed changes
 				<div class="buttons">
 				    <button md-raised-button color="primary" (click)="goTo('showForm');" id="addRow">Add</button>
 				    <button md-raised-button color="primary" (click)="goTo('showDeleteMsg');" id="deleteRow">Delete</button>
@@ -42,9 +37,6 @@
 				    <button md-raised-button color="primary" (click)="customerService.removeRow(gridOptions); toGrid();" id="yes">Yes</button>
 				</div>
 			</div>
-<<<<<<< Updated upstream
-=======
-
 			<div [hidden]="switcher.showUsersGrid" class="grid">
 				<ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 400px;"
 				             [rowGroupPanelShow]="always" [columnDefs]="customerUsers.columnDefs"
@@ -54,9 +46,7 @@
 				    <button md-raised-button color="primary" (click)="chooseUsers(customerUsers.gridOptions.api.getSelectedRows());
 				    		goTo('showCustomersGrid');">Choose</button>
 				</div>
-				
-			</div>
 
->>>>>>> Stashed changes
+			</div>
         </md-card-content>
 </md-card>
