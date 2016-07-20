@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import { NgClass } from "@angular/common";
 import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
 import { AnimateBox } from "../sidebar/directives/animate";
@@ -20,6 +20,7 @@ import { ROUTER_DIRECTIVES, Router } from "@angular/router";
     styleUrls: [
         require('./navigation.scss')
     ],
+    encapsulation: ViewEncapsulation.None,
     directives: [
         ROUTER_DIRECTIVES,
         NgClass,

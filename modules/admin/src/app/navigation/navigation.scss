@@ -47,8 +47,8 @@
         }
 
         color: #000;
-        top: 85px;
-        bottom: initial;
+        top: 85px !important;
+        bottom: initial !important;
 
         [md-button] {
             width: 100%;

@@ -1,8 +1,10 @@
 .item-menu .sub-task {
     color: rgb(72, 90, 106);
     cursor: pointer;
-    display: block;
+    display: flex;
     margin: 0;
+    text-decoration: none;
+
     &:hover {
         background: #F2F6F9;
         color: rgb(91, 155, 209) !important;
