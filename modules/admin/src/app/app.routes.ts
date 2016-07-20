@@ -20,10 +20,6 @@ const routes:RouterConfig = [
         children: [
             {
                 path: '',
-                redirectTo: 'dashboard'
-            },
-            {
-                path: 'dashboard',
                 component: Dashboard,
                 data: {
                     showInSubNavigation: true,
