@@ -1,4 +1,4 @@
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Injectable} from '@angular/core';
 
 @Injectable()
@@ -6,7 +6,8 @@ export class Breadcrumb {
     public name: string;
     public childs: Array<any>;
 
-    constructor(public router: Router) {
+    constructor(public router: Router,
+                public route: ActivatedRoute) {
         this.init();
     }
 
@@ -23,8 +24,15 @@ export class Breadcrumb {
                     path += '/' + ph;
                 }
             });
+
+            let nameChild = paths[paths.length - 1];
+
+            if (nameChild === '') {
+                nameChild = this.route.component['name'];
+            }
+
             this.childs.push({
-                'name': paths[paths.length - 1],
+                'name': nameChild,
                 'router': path,
             });
             path = '';

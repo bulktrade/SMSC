@@ -1,6 +1,6 @@
 import { Component, Injectable } from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import { Router } from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import { Breadcrumb } from "./breadcrumb.service";
 
 @Component({
@@ -24,10 +24,11 @@ export class BreadcrumbService {
     public breadcrumb:Breadcrumb;
 
     constructor(public translate:TranslateService,
-                public router:Router) {
+                public router:Router,
+                public route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.breadcrumb = new Breadcrumb(this.router);
+        this.breadcrumb = new Breadcrumb(this.router, this.route);
     }
 }
