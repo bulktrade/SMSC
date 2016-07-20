@@ -1,17 +1,18 @@
-<md-card id="customer-card">
+<md-card id="customer-crud">
         <md-toolbar class="title" color="primary">{{ 'CUSTOMERS' | translate }}</md-toolbar>
         <md-card-content>
         	<div [hidden]="customerService.switcher.showCustomersGrid" class="customersGrid">
-				<div class="buttons">
-				    <button md-raised-button color="primary" (click)="customerService.goTo('showForm');" id="addRow">{{'ADD' | translate}}</button>
-				    <button md-raised-button color="primary" (click)="customerService.goTo('showDeleteMsg');" id="deleteRow">{{'DELETE' | translate}}</button>
-				</div>
 				<md-input placeholder="{{ 'SEARCH' | translate }}"
 						type="text" autocomplete="off" name="search" style=""
 						#db (keydown)="customerService.onFilterChanged(db.value, gridOptions)"
 						(keyup)="customerService.onFilterChanged(db.value, gridOptions)"></md-input>
+                <div class="buttons">
+                    <button md-raised-button color="primary" (click)="customerService.goTo('showForm');" id="addRow">{{'ADD' | translate}}</button>
+                    <button md-raised-button color="warn" [disabled]="customerService.btnDeleteDisabled"
+                            (click)="customerService.goTo('showDeleteMsg');" id="deleteRow">{{'DELETE' | translate}}</button>
+                </div>
 
-				<ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 400px;"
+				<ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 100%;"
 				             [rowGroupPanelShow]="always" [columnDefs]="columnDefs"
 				             [gridOptions]="gridOptions" [rowData]="rowData" (cellValueChanged)="customerService.cellValueChanged($event)"
 				             (cellClicked)="customerService.cellClicked($event)"></ag-grid-ng2>
@@ -33,8 +34,8 @@
 			<div [hidden]="customerService.switcher.showDeleteMsg" class="deleteRecords">
 				<h1>You are dropping the record. Are you sure?</h1>
 				<div class="formButtons">
-				    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid');" id="no">{{'NO' | translate}}</button>
-				    <button md-raised-button color="primary" (click)="customerService.removeRow(gridOptions); toGrid();" id="yes">{{'YES' | translate}}</button>
+				    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid'); customerService.goTo('showCustomersGrid');" id="no">{{'NO' | translate}}</button>
+				    <button md-raised-button color="primary" (click)="customerService.removeRow(gridOptions); customerService.goTo('showCustomersGrid');" id="yes">{{'YES' | translate}}</button>
 				</div>
 			</div>
 

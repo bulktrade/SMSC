@@ -3,10 +3,10 @@ import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {CustomerModel} from './customers.model';
 import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
-import {CustomersCrud} from "./customers.crud";
 
 @Injectable()
 export class CustomerService {
+    public btnDeleteDisabled = true;
     public switcher = {
         showCustomersGrid: false,
         showUsersGrid: true,
@@ -24,14 +24,12 @@ export class CustomerService {
     }
 
     removeRow(gridOptions) {
-        if(gridOptions.rowData.length > 1) {
-            let selected = gridOptions.api.getFocusedCell();
+        let selected = gridOptions.api.getFocusedCell();
 
-            this.deleteRecord(gridOptions);
+        this.deleteRecord(gridOptions);
 
-            gridOptions.rowData.splice(selected.rowIndex, 1);
-            gridOptions.api.setRowData(gridOptions.rowData);
-        }
+        gridOptions.rowData.splice(selected.rowIndex, 1);
+        gridOptions.api.setRowData(gridOptions.rowData);
     }
 
     onFilterChanged(value, gridOptions) {
@@ -92,8 +90,16 @@ export class CustomerService {
     }
 
     cellClicked(event) {
-        if (event.colDef.field === 'users') {
-            this.goTo('showUsersGrid');
+        this.btnDeleteDisabled = false;
+
+        switch (event.colDef.field) {
+            case 'users':
+                this.goTo('showUsersGrid');
+                break;
+
+            case 'delete':
+                this.goTo('showDeleteMsg');
+                break;
         }
     }
 

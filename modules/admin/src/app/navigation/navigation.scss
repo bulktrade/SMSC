@@ -37,6 +37,10 @@
             list-style-type: none;
         }
 
+        .customer-card {
+            height: 100%;
+        }
+
         a,
         a:link,
         a:active,
@@ -60,8 +64,8 @@
 
     main {
         position: relative;
-        top: 94px;
-        padding: 0 22px 0 22px;
+        height: 100%;
+        padding: 94px 22px 0 22px;
     }
 }
 

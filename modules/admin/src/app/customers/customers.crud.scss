@@ -1,16 +1,33 @@
-#customer-card {
+#customer-crud {
 	padding: 0;
+    height: 100%;
 	background: transparent;
 
 	#customer-card-content {
 		display: flex;
 		overflow: auto;
 	}
+    .customersGrid {
+        height: inherit;
+
+        md-input {
+            padding-left: 14px;
+            width: 380px;
+        }
+    }
+
+    md-card-content {
+        height: inherit;
+    }
+
+    .md-card {
+        height: inherit;
+    }
 
 	.buttons {
-	    float: left;
+	    float: right;
 	    font-size: 14px;
-	    padding: 6px 21px 0 14px;
+	    padding: 6px 14px 0 0;
 	}
 
 	.title {

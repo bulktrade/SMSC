@@ -57,6 +57,24 @@ export class CustomersCrud {
     }
 
     columnDefs = [
+        {
+            headerName: " ",
+            field: "update",
+            width: 66,
+            cellRenderer: (params) => {
+                return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
+                    "border-radius: 3px;' disabled>Update</button>";
+            },
+        },
+        {
+            headerName: " ",
+            field: "delete",
+            width: 61,
+            cellRenderer: (params) => {
+                return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
+                            "border-radius: 3px;'>Delete</button>";
+            }
+        },
         { headerName: this.translate.get('CUSTOMERID')['value'],
             field: "customerId", editable: false },
         { headerName: this.translate.get('COMPANYNAME')['value'],
