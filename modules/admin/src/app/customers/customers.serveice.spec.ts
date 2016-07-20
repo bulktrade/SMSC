@@ -31,8 +31,8 @@ describe('Customer Service', () => {
 	    })
     ]);
 
-    it('should be 11 columns', inject([ CustomersCrud ], (customerCrud) => {
-    	expect(customerCrud.columnDefs.length).toBe(11);
+    it('should be 13 columns', inject([ CustomersCrud ], (customerCrud) => {
+    	expect(customerCrud.columnDefs.length).toBe(13);
     }));
 
 });
