@@ -65,6 +65,7 @@ export class CustomersCrud {
                 return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
                     "border-radius: 3px;' disabled>Update</button>";
             },
+            hideInForm: true
         },
         {
             headerName: " ",
@@ -73,10 +74,11 @@ export class CustomersCrud {
             cellRenderer: (params) => {
                 return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
                             "border-radius: 3px;'>Delete</button>";
-            }
+            },
+            hideInForm: true
         },
         { headerName: this.translate.get('CUSTOMERID')['value'],
-            field: "customerId", editable: false },
+            field: "customerId", editable: false, hideInForm: true },
         { headerName: this.translate.get('COMPANYNAME')['value'],
             field: "companyName", editable: true },
         { headerName: this.translate.get('CONTACTS')['value'],

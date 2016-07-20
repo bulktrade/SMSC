@@ -20,9 +20,11 @@
 
 			<div [hidden]="customerService.switcher.showForm" class="form">
 				<form>
-					 <md-input placeholder="{{item.headerName}}" name="{{item.headerName}}" id="{{item.headerName}}"
-						type="text" autocomplete="off" [(ngModel)]="model[item.field]"
-						class="form-control" *ngFor="let item of columnDefs"></md-input>
+					<div *ngFor="let item of columnDefs">
+						 <md-input *ngIf="!item.hideInForm" placeholder="{{item.headerName}}" name="{{item.headerName}}" id="{{item.headerName}}"
+							type="text" autocomplete="off" [(ngModel)]="model[item.field]"
+							class="form-control"></md-input>
+					</div>
 
 					<div class="formButtons">
 					    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid');" id="cancel">{{'CANCEL' | translate}}</button>
