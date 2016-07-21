@@ -72,7 +72,10 @@ export class ODatabaseService {
             } else {
                 this.encodedDatabaseName = this.databaseName;
             }
+
+            this.urlPrefix = this.databaseUrl + '/';
         }
+
     }
 
     batchRequest(data) {
