@@ -8,7 +8,7 @@
 						(keyup)="customerService.onFilterChanged(db.value, gridOptions)"></md-input>
                 <div class="buttons">
                     <button md-raised-button color="primary" (click)="router.navigateByUrl('customers/add')" id="addRow">{{'ADD' | translate}}</button>
-                    <button md-raised-button color="warn" [disabled]="btnDeleteDisabled"
+                    <button md-raised-button color="warn" [disabled]="customerService.btnDeleteDisabled"
                             (click)="router.navigateByUrl('customers/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
                 </div>
 

@@ -62,7 +62,9 @@ export class CustomersCrud {
         this.route
             .params
             .subscribe(params => {
-                this.customerService.redirectTo(params['action']);
+                if (params['action']) {
+                    this.customerService.redirectTo(params['action']);
+                }
             });
     }
 

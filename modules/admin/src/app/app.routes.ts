@@ -35,7 +35,7 @@ const routes:RouterConfig = [
                     icon: 'perm_contact_calendar'
                 },
                 children: [
-                    { path: '', redirectTo: ' ', pathMatch: 'full' },
+                    { path: '',  component: CustomersCrud },
                     {
                         path: ':action/:id',
                         component: CustomersCrud
