@@ -106,7 +106,7 @@ export class CustomerService {
                 this.goTo('showDeleteMsg');
                 break;
 
-            case 'add':
+            case 'create':
                 this.goTo('showForm');
                 break;
 
