@@ -146,8 +146,8 @@ public class Server {
 		httpListener.portRange = "2480-2490";
 		httpListener.parameters = new OServerParameterConfiguration[] {
 			new OServerParameterConfiguration("network.http.charset", "utf-8"),
-			new OServerParameterConfiguration("network.http.jsonResponseError", "true") //,
-//			new OServerParameterConfiguration("network.http.additionalResponseHeaders", "Access-Control-Allow-Origin:*;Access-Control-Allow-Credentials: true"),
+			new OServerParameterConfiguration("network.http.jsonResponseError", "true"),
+			new OServerParameterConfiguration("network.http.additionalResponseHeaders", "Access-Control-Allow-Origin:*;Access-Control-Allow-Credentials: true;X-FRAME-OPTIONS: DENY"),
 		};
 
 		OServerCommandConfiguration httpListenerCommand = new OServerCommandConfiguration();

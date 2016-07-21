@@ -7,7 +7,7 @@ endpoints:
     sensitive: false
 
 zuul:
-  sensitiveHeaders: Cookie,Set-Cookie,www-authenticate
+  sensitiveHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Credentials,www-authenticate
   ignoredServices: '*'
   routes:
     orientdb:
