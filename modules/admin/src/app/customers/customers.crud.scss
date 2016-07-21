@@ -3,6 +3,10 @@
     height: 100%;
 	background: transparent;
 
+    alert {
+        text-align: center;
+    }
+
 	#customer-card-content {
 		display: flex;
 		overflow: auto;

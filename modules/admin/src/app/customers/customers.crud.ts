@@ -90,7 +90,7 @@ export class CustomersCrud {
             hideInForm: true
         },
         { headerName: this.translate.get('CUSTOMERID')['value'],
-            field: "customerId", editable: false, hideInForm: true },
+            field: "customerId", editable: false },
         { headerName: this.translate.get('COMPANYNAME')['value'],
             field: "companyName", editable: true },
         { headerName: this.translate.get('CONTACTS')['value'],

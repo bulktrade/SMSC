@@ -7,6 +7,7 @@ import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
 @Injectable()
 export class CustomerService {
     public btnDeleteDisabled = true;
+    public dataNotFound = false;
     public switcher = {
         showCustomersGrid: false,
         showUsersGrid: true,
@@ -46,6 +47,8 @@ export class CustomerService {
                 let data = res.json();
 
                 return this.customerModel.getStore(data['result'], 'customer');
+            }, (error) => {
+                this.dataNotFound = true;
             });
     }
 
@@ -55,29 +58,34 @@ export class CustomerService {
             "colsValue": colsValue
         };
 
-        this.databaSeservice.insert(params);
+        this.databaSeservice.insert(params)
+            .then((res) => {
+            }, (error) => {
+                this.dataNotFound = true;
+            });
         return params;
     }
 
     updateRecord(value) {
-        this.databaSeservice.update({
+        return this.databaSeservice.update({
             "rid": value.data.rid,
             "version": value.data.version,
             "colsValue": value.data
-        });
-        value.data.version++
+        })
+            .then((res) => {
+                value.data.version++;
+            }, (error) => {
+                this.dataNotFound = true;
+            });
     }
 
     deleteRecord(gridOptions) {
         let selected = gridOptions.api.getFocusedCell();
 
-        return this.databaSeservice.getRowMetadata({
-            "nameClass": "customer",
-            "colsValue": {
-                "customerId": gridOptions.rowData[selected.rowIndex].customerId
-            }})
-            .then((data) => {
-                this.databaSeservice.delete(data['@rid']);
+        return this.databaSeservice.delete(gridOptions.rowData[selected.rowIndex].rid)
+            .then((res) => {
+            }, (error) => {
+                this.dataNotFound = true;
             });
     }
 

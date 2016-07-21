@@ -51,5 +51,6 @@
     "NO": "No",
     "YES": "Yes",
     "BACK": "Back",
-    "CHOOSE": "Choose"
+    "CHOOSE": "Choose",
+    "customers.dataNotFound": "Your data is not found or did not grant access to this resource!"
 }

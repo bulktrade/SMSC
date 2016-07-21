@@ -11,7 +11,9 @@
                     <button md-raised-button color="warn" [disabled]="customerService.btnDeleteDisabled"
                             (click)="router.navigateByUrl('customers/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
                 </div>
-
+                <alert *ngIf="customerService.dataNotFound" type="danger" dismissible="true" (close)="customerService.dataNotFound=false">
+                    {{ 'customers.dataNotFound' | translate }}
+                </alert>
 				<ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 100%;"
 				             [rowGroupPanelShow]="always" [columnDefs]="columnDefs"
 				             [gridOptions]="gridOptions" [rowData]="rowData" (cellValueChanged)="customerService.cellValueChanged($event)"
