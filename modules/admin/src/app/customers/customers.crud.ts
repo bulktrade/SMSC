@@ -15,6 +15,7 @@ import {MdSlideToggle} from '@angular2-material/slide-toggle/slide-toggle';
 import {MdIcon} from '@angular2-material/icon/icon';
 import {CustomerModel} from './customers.model';
 import {CustomerUsers} from './customers.users';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'customers-crud',
@@ -46,13 +47,22 @@ export class CustomersCrud {
 
     constructor(public translate: TranslateService,
                 public customerService: CustomerService,
-                public customerUsers: CustomerUsers) {
+                public customerUsers: CustomerUsers,
+                public route: ActivatedRoute,
+                public router: Router) {
     }
 
     ngOnInit() {
         this.customerService.getCustomers()
             .then((store) => {
                 this.rowData = store;
+            });
+
+        // redirect depending on params
+        this.route
+            .params
+            .subscribe(params => {
+                this.customerService.redirectTo(params['action']);
             });
     }
 

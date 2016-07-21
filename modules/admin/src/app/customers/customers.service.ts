@@ -89,16 +89,29 @@ export class CustomerService {
         this.switcher[key] = false;
     }
 
-    cellClicked(event) {
+    redirectTo(event) {
+        let param = event;
         this.btnDeleteDisabled = false;
 
-        switch (event.colDef.field) {
+        if (param.hasOwnProperty('colDef')) {
+            param = event.colDef.field;
+        }
+
+        switch (param) {
             case 'users':
                 this.goTo('showUsersGrid');
                 break;
 
             case 'delete':
                 this.goTo('showDeleteMsg');
+                break;
+
+            case 'add':
+                this.goTo('showForm');
+                break;
+
+            default:
+                this.goTo('showCustomersGrid');
                 break;
         }
     }

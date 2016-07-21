@@ -31,10 +31,11 @@ const routes:RouterConfig = [
                 component: Customers,
                 data: {
                     showInSubNavigation: true,
-                    paramsAsDefault: 'update',
+                    paramsAsDefault: '',
                     icon: 'perm_contact_calendar'
                 },
                 children: [
+                    { path: '', redirectTo: ' ', pathMatch: 'full' },
                     {
                         path: ':action/:id',
                         component: CustomersCrud
