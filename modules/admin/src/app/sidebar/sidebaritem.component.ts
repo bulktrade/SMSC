@@ -7,7 +7,7 @@ import { FaAngleLeft } from "./directives/FaAngleLeft";
 import { ShowMiniNav } from "./ShowMiniNav";
 import { LocalStorage } from "angular2-localStorage/WebStorage";
 import { MdIcon } from "@angular2-material/icon/icon";
-import {Router} from "@angular/router";
+import {Router, ROUTER_DIRECTIVES} from "@angular/router";
 
 declare var Reflect;
 
@@ -21,7 +21,8 @@ declare var Reflect;
         ActiveItem,
         FaAngleLeft,
         NgFor,
-        MdIcon
+        MdIcon,
+        ROUTER_DIRECTIVES
     ],
     pipes: [ TranslatePipe ],
     animations: [
@@ -66,16 +67,6 @@ export class SidebarItem {
 
     setToggle(name) {
         this[ name.substring(1, name.length) ] = !this[ name.substring(1, name.length) ];
-    }
-
-    navigateTo(path, params) {
-        let storePath = [path];
-
-        if (params) {
-            storePath.push(params);
-        }
-
-        this.router.navigate(storePath);
     }
 
 }
