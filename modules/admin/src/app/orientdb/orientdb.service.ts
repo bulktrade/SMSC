@@ -288,8 +288,7 @@ export class ODatabaseService {
         }
 
         let headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': this.authorization
+            'Content-Type': 'application/json'
         });
 
         let requestOptions = new RequestOptions({
