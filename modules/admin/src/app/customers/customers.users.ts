@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {ODatabaseService} from '../orientdb/orientdb.service';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
+import {TranslateService} from 'ng2-translate/ng2-translate';
 import {GridOptions} from 'ag-grid/main';
 import {CustomerModel} from './customers.model';
 
 @Injectable()
 export class CustomerUsers {
 	public rowData;
+    public dataNotFound = false;
+    public dangerMessage = '';
 
     constructor(public translate: TranslateService,
     			public databaseService: ODatabaseService,
@@ -25,6 +27,9 @@ export class CustomerUsers {
                 return this.customerModel.getStore(data['result'], nameClass);
             }).then((store) => {
                 this.rowData = store;
+            }, (error) => {
+                this.dataNotFound = true;
+                this.dangerMessage = 'orientdb.dataNotFound';
             });
 
     }

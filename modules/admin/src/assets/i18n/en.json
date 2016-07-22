@@ -52,5 +52,6 @@
     "YES": "Yes",
     "BACK": "Back",
     "CHOOSE": "Choose",
-    "customers.dataNotFound": "Your data is not found or did not grant access to this resource!"
+    "orientdb.dataNotFound": "Your data is not found or did not grant access to this resource!",
+    "orientdb.dataNotCorrect": "You have entered incorrect data or did not grant access to this resource"
 }

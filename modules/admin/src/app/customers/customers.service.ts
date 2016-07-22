@@ -8,6 +8,7 @@ import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
 export class CustomerService {
     public btnDeleteDisabled = true;
     public dataNotFound = false;
+    public dangerMessage = '';
     public switcher = {
         showCustomersGrid: false,
         showUsersGrid: true,
@@ -49,6 +50,7 @@ export class CustomerService {
                 return this.customerModel.getStore(data['result'], 'customer');
             }, (error) => {
                 this.dataNotFound = true;
+                this.dangerMessage = 'orientdb.dataNotFound';
             });
     }
 
@@ -62,6 +64,7 @@ export class CustomerService {
             .then((res) => {
             }, (error) => {
                 this.dataNotFound = true;
+                this.dangerMessage = 'orientdb.dataNotCorrect';
             });
         return params;
     }
@@ -76,6 +79,7 @@ export class CustomerService {
                 value.data.version++;
             }, (error) => {
                 this.dataNotFound = true;
+                this.dangerMessage = 'orientdb.dataNotCorrect';
             });
     }
 
@@ -86,6 +90,7 @@ export class CustomerService {
             .then((res) => {
             }, (error) => {
                 this.dataNotFound = true;
+                this.dangerMessage = 'orientdb.dataNotFound';
             });
     }
 
