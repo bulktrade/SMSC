@@ -90,27 +90,27 @@ export class CustomersCrud {
             hideInForm: true
         },
         { headerName: this.translate.get('CUSTOMERID')['value'],
-            field: "customerId", editable: false },
+            field: "customerId", editable: false, required: true },
         { headerName: this.translate.get('COMPANYNAME')['value'],
-            field: "companyName", editable: true },
+            field: "companyName", editable: true, required: true },
         { headerName: this.translate.get('CONTACTS')['value'],
-            field: "contacts", editable: true },
+            field: "contacts", editable: true, required: true },
         { headerName: this.translate.get('STREET')['value'],
-            field: "street", editable: true },
+            field: "street", editable: true, required: true },
         { headerName: this.translate.get('STREET2')['value'],
-            field: "street2", editable: true },
+            field: "street2", editable: true, required: true },
         { headerName: this.translate.get('POSTCODE')['value'],
-            field: "postcode", editable: true },
+            field: "postcode", editable: true, required: true },
         { headerName: this.translate.get('COUNTRY')['value'],
-            field: "country", editable: true },
+            field: "country", editable: true, required: true },
         { headerName: this.translate.get('CITY')['value'],
-            field: "city", editable: true },
+            field: "city", editable: true, required: true },
         { headerName: this.translate.get('VATID')['value'],
             field: "vatid", editable: true },
         { headerName: this.translate.get('USERS')['value'],
-            field: "users", editable: false },
+            field: "users", editable: false, required: true },
         { headerName: this.translate.get('PARENTCUSTOMER')['value'],
-            field: "parentCustomer", editable: true }
+            field: "parentCustomer", editable: true, required: true }
     ];
 
     gridOptions:GridOptions = {

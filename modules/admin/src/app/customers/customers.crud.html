@@ -24,7 +24,7 @@
 				<form>
 					<div *ngFor="let item of columnDefs">
 						 <md-input *ngIf="!item.hideInForm" placeholder="{{item.headerName}}" name="{{item.headerName}}" id="{{item.headerName}}"
-							type="text" autocomplete="off" [(ngModel)]="model[item.field]"
+							type="text" autocomplete="off" [(ngModel)]="model[item.field]" [required]="item.required"
 							class="form-control"></md-input>
 					</div>
 
