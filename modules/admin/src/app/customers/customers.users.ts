@@ -9,7 +9,7 @@ import {CustomerModel} from './customers.model';
 export class CustomerUsers {
 	public rowData;
     public dataNotFound = false;
-    public dangerMessage = '';
+    public dangerAlert = '';
 
     constructor(public translate: TranslateService,
     			public databaseService: ODatabaseService,
@@ -29,7 +29,7 @@ export class CustomerUsers {
                 this.rowData = store;
             }, (error) => {
                 this.dataNotFound = true;
-                this.dangerMessage = 'orientdb.dataNotFound';
+                this.dangerAlert = 'orientdb.dataNotFound';
             });
 
     }
