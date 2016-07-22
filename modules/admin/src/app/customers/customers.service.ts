@@ -8,7 +8,9 @@ import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
 export class CustomerService {
     public btnDeleteDisabled = true;
     public dataNotFound = false;
-    public dangerAlert = '';
+    public successExecute = false;
+    public errorMessage = '';
+    public successMessage = '';
     public switcher = {
         showCustomersGrid: false,
         showUsersGrid: true,
@@ -50,7 +52,7 @@ export class CustomerService {
                 return this.customerModel.getStore(data['result'], 'customer');
             }, (error) => {
                 this.dataNotFound = true;
-                this.dangerAlert = 'orientdb.dataNotFound';
+                this.errorMessage = 'orientdb.dataNotFound';
             });
     }
 
@@ -62,9 +64,11 @@ export class CustomerService {
 
         this.databaSeservice.insert(params)
             .then((res) => {
+                this.successExecute = true;
+                this.successMessage = 'orientdb.successCreate';
             }, (error) => {
                 this.dataNotFound = true;
-                this.dangerAlert = 'orientdb.dataNotCorrect';
+                this.errorMessage = 'orientdb.dataNotCorrect';
             });
         return params;
     }
@@ -77,9 +81,11 @@ export class CustomerService {
         })
             .then((res) => {
                 value.data.version++;
+                this.successExecute = true;
+                this.successMessage = 'orientdb.successUpdate';
             }, (error) => {
                 this.dataNotFound = true;
-                this.dangerAlert = 'orientdb.dataNotCorrect';
+                this.errorMessage = 'orientdb.dataNotCorrect';
             });
     }
 
@@ -88,9 +94,11 @@ export class CustomerService {
 
         return this.databaSeservice.delete(gridOptions.rowData[selected.rowIndex].rid)
             .then((res) => {
+                this.successExecute = true;
+                this.successMessage = 'orientdb.successDelete';
             }, (error) => {
                 this.dataNotFound = true;
-                this.dangerAlert = 'orientdb.dataNotFound';
+                this.errorMessage = 'orientdb.dataNotFound';
             });
     }
 
