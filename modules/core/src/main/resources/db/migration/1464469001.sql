@@ -27,22 +27,22 @@ CREATE SEQUENCE customerIdSeq TYPE ORDERED
 CREATE INDEX Customer.customerId UNIQUE
 CREATE INDEX CustomerContacts.emailAddress UNIQUE
 
-ALTER PROPERTY Customer.customerId NOTNULL true
-ALTER PROPERTY Customer.companyName NOTNULL true
-ALTER PROPERTY Customer.street NOTNULL true
-ALTER PROPERTY Customer.street2 NOTNULL true
-ALTER PROPERTY Customer.postcode NOTNULL true
-ALTER PROPERTY Customer.country NOTNULL true
-ALTER PROPERTY Customer.city NOTNULL true
-ALTER PROPERTY Customer.contacts NOTNULL true
-ALTER PROPERTY Customer.users NOTNULL true
-ALTER PROPERTY Customer.parentCustomer NOTNULL true
+ALTER PROPERTY Customer.customerId MANDATORY true
+ALTER PROPERTY Customer.companyName MANDATORY true
+ALTER PROPERTY Customer.street MANDATORY true
+ALTER PROPERTY Customer.street2 MANDATORY true
+ALTER PROPERTY Customer.postcode MANDATORY true
+ALTER PROPERTY Customer.country MANDATORY true
+ALTER PROPERTY Customer.city MANDATORY true
+ALTER PROPERTY Customer.contacts MANDATORY true
+ALTER PROPERTY Customer.users MANDATORY true
+ALTER PROPERTY Customer.parentCustomer MANDATORY true
 
-ALTER PROPERTY CustomerContacts.type NOTNULL true
-ALTER PROPERTY CustomerContacts.salutation NOTNULL true
-ALTER PROPERTY CustomerContacts.firstname NOTNULL true
-ALTER PROPERTY CustomerContacts.surename NOTNULL true
-ALTER PROPERTY CustomerContacts.phone NOTNULL true
-ALTER PROPERTY CustomerContacts.mobilePhone NOTNULL true
-ALTER PROPERTY CustomerContacts.emailAddress NOTNULL true
+ALTER PROPERTY CustomerContacts.type MANDATORY true
+ALTER PROPERTY CustomerContacts.salutation MANDATORY true
+ALTER PROPERTY CustomerContacts.firstname MANDATORY true
+ALTER PROPERTY CustomerContacts.surename MANDATORY true
+ALTER PROPERTY CustomerContacts.phone MANDATORY true
+ALTER PROPERTY CustomerContacts.mobilePhone MANDATORY true
+ALTER PROPERTY CustomerContacts.emailAddress MANDATORY true
 
