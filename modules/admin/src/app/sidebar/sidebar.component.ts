@@ -12,7 +12,7 @@ declare var Reflect;
 
 @Component({
     selector: 'sidebar',
-    template: require('./sidebar.service.html'),
+    template: require('./sidebar.html'),
     providers: [],
     directives: [
         ROUTER_DIRECTIVES,
@@ -26,11 +26,11 @@ declare var Reflect;
     ],
     pipes: [TranslatePipe],
     styleUrls: [
-        require('./sidebar.service.scss')
+        require('./sidebar.scss')
     ]
 })
 
-export class SidebarService {
+export class Sidebar {
     public dataNavItems = [];
 
     constructor(public translate: TranslateService,
