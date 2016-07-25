@@ -2,10 +2,15 @@
         <md-toolbar class="title" color="primary">{{ 'CUSTOMERS' | translate }}</md-toolbar>
         <md-card-content>
         	<div [hidden]="customerService.switcher.showCustomersGrid" class="customersGrid">
-				<md-input placeholder="{{ 'SEARCH' | translate }}"
-						type="text" autocomplete="off" name="search" style=""
-						#db (keydown)="customerService.onFilterChanged(db.value, gridOptions)"
-						(keyup)="customerService.onFilterChanged(db.value, gridOptions)"></md-input>
+                <div class="searchPanel">
+                    <md-input placeholder="{{ 'SEARCH' | translate }}"
+                            type="text" autocomplete="off" name="search" style=""
+                            #db (keydown)="customerService.onFilterChanged(db.value, gridOptions)"
+                            (keyup)="customerService.onFilterChanged(db.value, gridOptions)"></md-input>
+                    <button md-icon-button color="primary" class="searchBtn">
+                        <md-icon class="md-24">search</md-icon>
+                    </button>
+                </div>
                 <div class="buttons">
                     <button md-raised-button color="primary" (click)="router.navigateByUrl('customers/create')" id="addRow">{{'ADD' | translate}}</button>
                     <button md-raised-button color="warn" [disabled]="customerService.btnDeleteDisabled"

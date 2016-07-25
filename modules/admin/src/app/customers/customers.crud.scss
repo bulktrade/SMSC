@@ -7,6 +7,16 @@
         text-align: center;
     }
 
+    .searchPanel {
+        display: flex;
+        float: left;
+        width: 50%;
+
+        .searchBtn {
+            margin-top: 8px;
+        }
+    }
+
 	#customer-card-content {
 		display: flex;
 		overflow: auto;
@@ -29,9 +39,15 @@
     }
 
 	.buttons {
-	    float: right;
+        display: flex;
+        justify-content: flex-end;
 	    font-size: 14px;
 	    padding: 6px 14px 0 0;
+        width: 50%;
+
+        #deleteRow {
+            margin-left: 7px;
+        }
 	}
 
 	.title {

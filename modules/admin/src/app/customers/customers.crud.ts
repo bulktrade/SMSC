@@ -7,7 +7,7 @@ import {GridOptions} from 'ag-grid/main';
 import {MdCard, MD_CARD_DIRECTIVES} from '@angular2-material/card/card';
 import {CORE_DIRECTIVES} from '@angular/common';
 import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
-import {MdButton} from '@angular2-material/button/button';
+import {MdButton, MdAnchor} from '@angular2-material/button/button';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
 import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 import {FORM_DIRECTIVES} from '@angular/forms';
@@ -35,7 +35,8 @@ import {ActivatedRoute, Router} from "@angular/router";
         FORM_DIRECTIVES,
         MD_CARD_DIRECTIVES,
         MdSlideToggle,
-        MdIcon
+        MdIcon,
+        MdAnchor
     ],
     pipes: [TranslatePipe]
 })
