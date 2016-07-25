@@ -3,9 +3,12 @@ import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {CustomerModel} from './customers.model';
 import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
+import {LocalStorage} from "angular2-localStorage/WebStorage";
 
 @Injectable()
 export class CustomerService {
+    @LocalStorage('focusedRow') public focusedRow:any;
+
     public btnDeleteDisabled = true;
     public dataNotFound = false;
     public successExecute = false;
@@ -28,11 +31,8 @@ export class CustomerService {
     }
 
     removeRow(gridOptions) {
-        let selected = gridOptions.api.getFocusedCell();
-
         this.deleteRecord(gridOptions);
-
-        gridOptions.rowData.splice(selected.rowIndex, 1);
+        gridOptions.rowData.splice(this.focusedRow, 1);
         gridOptions.api.setRowData(gridOptions.rowData);
     }
 
@@ -74,11 +74,16 @@ export class CustomerService {
     }
 
     updateRecord(value) {
-        return this.databaSeservice.update({
+        let params = {
             "rid": value.data.rid,
             "version": value.data.version,
             "colsValue": value.data
-        })
+        };
+
+        delete params.colsValue.rid;
+        delete params.colsValue.version;
+
+        return this.databaSeservice.update(params)
             .then((res) => {
                 value.data.version++;
                 this.successExecute = true;
@@ -90,9 +95,7 @@ export class CustomerService {
     }
 
     deleteRecord(gridOptions) {
-        let selected = gridOptions.api.getFocusedCell();
-
-        return this.databaSeservice.delete(gridOptions.rowData[selected.rowIndex].rid)
+        return this.databaSeservice.delete(gridOptions.rowData[this.focusedRow].rid)
             .then((res) => {
                 this.successExecute = true;
                 this.successMessage = 'orientdb.successDelete';
@@ -116,6 +119,7 @@ export class CustomerService {
 
         if (param.hasOwnProperty('colDef')) {
             param = event.colDef.field;
+            this.focusedRow = event.rowIndex;
         }
 
         switch (param) {
