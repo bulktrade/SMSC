@@ -2,7 +2,7 @@ import { provideRouter, RouterConfig } from "@angular/router";
 import { AuthGuard } from "./common/authGuard";
 import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
-import { SystemSettings } from "./systemsettings/systemsettings.component";
+import { SystemSettings } from "./systemsettings/systemSettings.component";
 import { Dashboard } from "./dashboard/dashboard.component";
 import { Customers } from "./customers/customers.components";
 import { CustomersCrud } from "./customers/customers.crud";

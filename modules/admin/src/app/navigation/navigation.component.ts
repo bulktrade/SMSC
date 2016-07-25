@@ -3,7 +3,7 @@ import { NgClass } from "@angular/common";
 import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
 import { AnimateBox } from "../sidebar/directives/animate";
 import { ShowMiniNav } from "../sidebar/ShowMiniNav";
-import { SidebarService } from "../sidebar/sidebar.service.component";
+import { Sidebar } from "../sidebar/sidebar.component";
 import { MD_SIDENAV_DIRECTIVES } from "@angular2-material/sidenav/sidenav";
 import { MdButton } from "@angular2-material/button/button";
 import { Dir } from "@angular2-material/core/core";
@@ -24,7 +24,7 @@ import { ROUTER_DIRECTIVES, Router } from "@angular/router";
     directives: [
         ROUTER_DIRECTIVES,
         NgClass,
-        SidebarService,
+        Sidebar,
         AnimateBox,
         MD_SIDENAV_DIRECTIVES,
         MdButton,
