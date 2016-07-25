@@ -9,6 +9,9 @@ import org.springframework.cloud.netflix.zuul.filters.discovery.PatternServiceRo
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 import javax.servlet.DispatcherType;
@@ -58,7 +61,7 @@ public class App {
         try {
             return (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:localhost/smsc", info);
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return null;
         }
     }

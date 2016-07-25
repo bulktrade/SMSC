@@ -250,7 +250,7 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(this.urlPrefix + 'database/' +
+            this.http.request(this.urlPrefix + 'connect/' +
                 this.encodedDatabaseName + this.urlSuffix,
                 requestOptions)
                 .toPromise()

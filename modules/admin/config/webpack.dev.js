@@ -145,10 +145,10 @@ module.exports = webpackMerge(commonConfig, {
         outputPath: helpers.root('dist'),
         proxy: {
             '/orientdb/*': {
-                target: 'http://localhost:8080' //,
-                // rewrite: function (req) {
-                    // req.url = req.url.replace(/^\/orientdb/, '');
-                // }
+                target: 'http://localhost:2480',
+                rewrite: function (req) {
+                    req.url = req.url.replace(/^\/orientdb/, '');
+                }
             }
         }
     },

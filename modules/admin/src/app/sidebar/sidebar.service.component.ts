@@ -25,7 +25,7 @@ declare var Reflect;
         MD_SIDENAV_DIRECTIVES
     ],
     pipes: [TranslatePipe],
-    styleUrls: [
+    styles: [
         require('./sidebar.service.scss')
     ]
 })

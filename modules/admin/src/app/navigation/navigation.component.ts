@@ -17,7 +17,7 @@ import { ROUTER_DIRECTIVES, Router } from "@angular/router";
     selector: 'navigation',
     providers: [ ShowMiniNav ],
     template: require('./navigation.html'),
-    styleUrls: [
+    styles: [
         require('./navigation.scss')
     ],
     encapsulation: ViewEncapsulation.None,

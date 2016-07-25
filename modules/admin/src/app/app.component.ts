@@ -12,7 +12,9 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
     styleUrls: [
         require('npm-font-open-sans/open-sans.css'),
         require('ag-grid/dist/styles/ag-grid.css'),
-        require('ag-grid/dist/styles/theme-fresh.css'),
+        require('ag-grid/dist/styles/theme-fresh.css')
+    ],
+    styles: [
         require('./app.scss')
     ]
 })

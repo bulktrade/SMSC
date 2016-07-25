@@ -14,7 +14,7 @@ import { Breadcrumb } from "./breadcrumb.service";
     directives: [],
     providers: [],
     pipes: [ TranslatePipe ],
-    styleUrls: [
+    styles: [
         require('./breadcrumb.scss')
     ]
 })

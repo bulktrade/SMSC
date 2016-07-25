@@ -169,6 +169,20 @@ module.exports = {
                 exclude: [
                     helpers.root('src/index.html'),
                     /webpack-material-design-icons/
+                ],
+                include: [
+                    /node_modules/
+                ]
+            },
+
+            {
+                test: /\.css$/,
+                loader: 'to-string!css',
+                exclude: [
+                    /node_modules/
+                ],
+                include: [
+                    helpers.root('src/app')
                 ]
             },
 
@@ -185,6 +199,21 @@ module.exports = {
                 loader: 'file?name=[hash].css!extract!css!sass?sourceMap',
                 exclude: [
                     helpers.root('src/index.html')
+                ],
+                include: [
+                    /node_modules/
+                ]
+            },
+
+            {
+                test: /\.scss$/,
+                loader: 'to-string!css!sass?sourceMap',
+                exclude: [
+                    helpers.root('src/index.html'),
+                    /node_modules/
+                ],
+                include: [
+                    helpers.root('src/app')
                 ]
             },
 

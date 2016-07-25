@@ -1,5 +1,6 @@
 package io.smsc.orientdb;
 
+import com.orientechnologies.orient.core.config.OGlobalConfiguration;
 import com.orientechnologies.orient.server.OServer;
 import com.orientechnologies.orient.server.OServerMain;
 import com.orientechnologies.orient.server.config.*;
@@ -8,6 +9,7 @@ import com.orientechnologies.orient.server.network.protocol.http.ONetworkProtoco
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 public class Server {
 	/**
@@ -60,6 +62,7 @@ public class Server {
 	public void run() throws Exception {
         String classpath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         System.setProperty("orientdb.www.path", classpath + "db/orientdb/site");
+        System.setProperty("network.http.useToken", "true");
 
 		setInstance(OServerMain.create());
 		OServerConfiguration cfg = new OServerConfiguration();
@@ -127,11 +130,23 @@ public class Server {
 			new OServerParameterConfiguration("enabled", System.getenv("ORIENTDB_LIVE_QUERY_PLUGIN") != null ? System.getenv("ORIENTDB_LIVE_QUERY_PLUGIN") : "true"),
 		};
 
+		OServerHandlerConfiguration tokenHandler = new OServerHandlerConfiguration();
+		tokenHandler.clazz = "com.orientechnologies.orient.server.token.OrientTokenHandler";
+		tokenHandler.parameters = new OServerParameterConfiguration[] {
+			new OServerParameterConfiguration("enabled", System.getenv("ORIENTDB_TOKEN") != null ? System.getenv("ORIENTDB_TOKEN") : "true"),
+			new OServerParameterConfiguration("oAuth2Key", System.getenv("ORIENTDB_TOKEN_OAUTH2_KEY") != null ? System.getenv("ORIENTDB_TOKEN_OAUTH2_KEY") : UUID.randomUUID().toString()),
+			new OServerParameterConfiguration("sessionLength", System.getenv("ORIENTDB_TOKEN_SESSION_LENGTH") != null ? System.getenv("ORIENTDB_TOKEN_SESSION_LENGTH") : "60"),
+			new OServerParameterConfiguration("encryptionAlgorithm", System.getenv("ORIENTDB_TOKEN_ENCRYPTION_ALGORITHM") != null ? System.getenv("ORIENTDB_TOKEN_ENCRYPTION_ALGORITHM") : "HmacSHA256"),
+		};
+
+		OGlobalConfiguration.NETWORK_HTTP_USE_TOKEN.setValue("true");
+
 		cfg.handlers = Arrays.asList(
 			graphHandler,
 			jmxHandler,
 			serverSideScriptInterpreterHandler,
-			liveQueryHandler
+			liveQueryHandler,
+			tokenHandler
 		);
 
 		cfg.network = new OServerNetworkConfiguration();
@@ -145,6 +160,7 @@ public class Server {
 		httpListener.protocol = "http";
 		httpListener.portRange = "2480-2490";
 		httpListener.parameters = new OServerParameterConfiguration[] {
+			new OServerParameterConfiguration("network.http.maxLength", "10000000"),
 			new OServerParameterConfiguration("network.http.charset", "utf-8"),
 			new OServerParameterConfiguration("network.http.jsonResponseError", "true"),
 			new OServerParameterConfiguration("network.http.additionalResponseHeaders", "Access-Control-Allow-Origin:*;Access-Control-Allow-Credentials: true;X-FRAME-OPTIONS: DENY"),
