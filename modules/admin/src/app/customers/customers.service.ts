@@ -4,6 +4,7 @@ import {Response} from '@angular/http';
 import {CustomerModel} from './customers.model';
 import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
 import {LocalStorage} from "angular2-localStorage/WebStorage";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class CustomerService {
@@ -22,7 +23,8 @@ export class CustomerService {
     };
 
 	constructor(public databaSeservice?: ODatabaseService,
-                public customerModel?: CustomerModel) {
+                public customerModel?: CustomerModel,
+                public router?: Router) {
     }
 
     addRow(gridOptions, params) {
@@ -74,14 +76,19 @@ export class CustomerService {
     }
 
     updateRecord(value) {
+        let colsValue = [];
+
+        for (let key in value.data) {
+            if (key !== 'rid' && key !== 'version') {
+                colsValue.push(value.data[key]);
+            }
+        }
+
         let params = {
             "rid": value.data.rid,
             "version": value.data.version,
             "colsValue": value.data
         };
-
-        delete params.colsValue.rid;
-        delete params.colsValue.version;
 
         return this.databaSeservice.update(params)
             .then((res) => {
@@ -141,22 +148,37 @@ export class CustomerService {
         }
     }
 
+    clickOnCell(path) {
+        switch (path.colDef.field) {
+            case 'users':
+                this.router.navigateByUrl('customers/users');
+                break;
+
+            case 'delete':
+                this.goTo('showDeleteMsg');
+                break;
+
+            case 'create':
+                this.goTo('showForm');
+                break;
+        }
+    }
+
     chooseUsers(ridUsers, gridOptions, customerService) {
-        let selected = gridOptions.api.getFocusedCell();
-        let linkSet = '[';
+        let linkSet = '';
         let params = {};
 
         for (let item = 0; item < ridUsers.length; item++) {
             linkSet += "" + ridUsers[item].rid + ",";
         }
 
-        linkSet = linkSet.substring(0, linkSet.length - 1) + ']';
+        linkSet = linkSet.substring(0, linkSet.length - 1);
 
-        params['data'] = gridOptions.rowData[selected.rowIndex];
+        params['data'] = gridOptions.rowData[this.focusedRow];
         params['data'].users = linkSet;
 
         customerService.updateRecord(params);
-        gridOptions.rowData[selected.rowIndex] = params['data'];
+        gridOptions.rowData[this.focusedRow] = params['data'];
 
         gridOptions.api.setRowData(gridOptions.rowData);
     }

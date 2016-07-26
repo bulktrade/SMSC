@@ -129,7 +129,7 @@ export class ODatabaseService {
             if(key !== 'users') {
                 batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
             } else {
-                batch += '"' + key + '" : %(colsValue.' + key + ')s, ';
+                batch += '"' + key + '" : [%(colsValue.' + key + ')s], ';
             }
         }
 

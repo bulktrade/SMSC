@@ -30,6 +30,11 @@
         }
     }
 
+    .opionPanel {
+        display: flex;
+        padding-bottom: 16px;
+    }
+
     md-card-content {
         height: inherit;
     }
@@ -54,13 +59,13 @@
 		margin-bottom: 10px;
 	}
 
-    form,
+    .form,
     .deleteRecords,
     .usersGrid {
         display: inline-block;
     }
 
-	form {
+	.form {
 		width: 100%;
 
 		md-input {
