@@ -156,11 +156,10 @@ export class CustomerService {
         }
 
         linkSet = linkSet.substring(0, linkSet.length - 1);
-        console.log(this.focusedRow);
+
         params['data'] = gridOptions.rowData[this.focusedRow];
         params['data'].users = linkSet;
 
-        console.log(this.focusedRow);
         customerService.updateRecord(params);
         gridOptions.rowData[this.focusedRow] = params['data'];
 
