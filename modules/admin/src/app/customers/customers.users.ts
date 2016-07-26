@@ -30,6 +30,8 @@ export class CustomerUsers {
                 this.customerModel.getStore(this.nameClass)
                     .then((store) => {
                         this.rowData = store;
+                        this.dataNotFound = true;
+                        this.errorMessage = 'orientdb.dataNotFound';
                     });
             });
 

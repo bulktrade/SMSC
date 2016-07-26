@@ -66,6 +66,9 @@ export class CustomersCrud {
                 this.CrudModel.getStore('customer')
                     .then((store) => {
                         this.rowData = store;
+                    }, (error) => {
+                        this.customerService.dataNotFound = true;
+                        this.customerService.errorMessage = 'orientdb.dataNotFound';
                     });
             });
 
