@@ -66,7 +66,7 @@ export class CrudModel {
                     columnDefs.push({
                         headerName: this.translate.get(item.name.toUpperCase())['value'],
                         field: item.name,
-                        editable: item.readonly,
+                        editable: !item.readonly,
                         required: item.mandatory
                     })
                 })

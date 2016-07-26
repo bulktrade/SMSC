@@ -43,8 +43,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable()
 export class CustomersCrud {
-    public rowData;
-    public columnDefs;
+    public rowData = [];
+    public columnDefs = [];
     public model: any = {};
 
     constructor(public translate: TranslateService,

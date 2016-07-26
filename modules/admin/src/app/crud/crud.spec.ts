@@ -7,7 +7,7 @@ import {
 import {CustomerService} from "../customers/customers.service";
 import {CustomersCrud} from "./crud";
 import {ODatabaseService} from "../orientdb/orientdb.service";
-import {CustomerModel} from "./crud.model";
+import {CrudModel} from "./crud.model";
 import {Http, HTTP_PROVIDERS} from "@angular/http";
 import {provide} from "@angular/core";
 import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
@@ -24,7 +24,7 @@ describe('Customer Crud', () => {
             useFactory: (http: Http) => new ODatabaseService('/orientdb/smsc', http),
             deps: [Http]
         }),
-        CustomerModel,
+        CrudModel,
         CustomersCrud,
         TranslateService,
         CustomerUsers,

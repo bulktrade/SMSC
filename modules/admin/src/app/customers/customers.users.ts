@@ -8,8 +8,8 @@ import {CrudModel} from '../crud/crud.model';
 @Injectable()
 export class CustomerUsers {
     public nameClass = 'OUser';
-	public rowData;
-	public columnDefs;
+	public rowData = [];
+	public columnDefs = [];
     public dataNotFound = false;
     public errorMessage = '';
 
