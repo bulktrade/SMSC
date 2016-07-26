@@ -1,7 +1,7 @@
 import {ODatabaseService} from '../orientdb/orientdb.service';
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
-import {CustomerModel} from '../crud/crud.model';
+import {CrudModel} from '../crud/crud.model';
 import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
 import {LocalStorage} from "angular2-localStorage/WebStorage";
 import {Router} from "@angular/router";
@@ -23,7 +23,7 @@ export class CustomerService {
     };
 
 	constructor(public databaSeservice?: ODatabaseService,
-                public customerModel?: CustomerModel,
+                public customerModel?: CrudModel,
                 public router?: Router) {
     }
 
@@ -44,18 +44,6 @@ export class CustomerService {
 
     cellValueChanged(value) {
         this.updateRecord(value);
-    }
-
-    getCustomers() {
-        return this.databaSeservice.query('select from customer')
-            .then((res: Response) => {
-                let data = res.json();
-
-                return this.customerModel.getStore(data['result'], 'customer');
-            }, (error) => {
-                this.dataNotFound = true;
-                this.errorMessage = 'orientdb.dataNotFound';
-            });
     }
 
     createRecord(colsValue) {
@@ -120,16 +108,8 @@ export class CustomerService {
         this.switcher[key] = false;
     }
 
-    redirectTo(event) {
-        let param = event;
-        this.btnDeleteDisabled = false;
-
-        if (param.hasOwnProperty('colDef')) {
-            param = event.colDef.field;
-            this.focusedRow = event.rowIndex;
-        }
-
-        switch (param) {
+    redirectTo(path) {
+        switch (path) {
             case 'users':
                 this.goTo('showUsersGrid');
                 break;
@@ -148,8 +128,11 @@ export class CustomerService {
         }
     }
 
-    clickOnCell(path) {
-        switch (path.colDef.field) {
+    clickOnCell(event) {
+        this.btnDeleteDisabled = false;
+        this.focusedRow = event.rowIndex;
+
+        switch (event.colDef.field) {
             case 'users':
                 this.router.navigateByUrl('customers/users');
                 break;
@@ -173,10 +156,11 @@ export class CustomerService {
         }
 
         linkSet = linkSet.substring(0, linkSet.length - 1);
-
+        console.log(this.focusedRow);
         params['data'] = gridOptions.rowData[this.focusedRow];
         params['data'].users = linkSet;
 
+        console.log(this.focusedRow);
         customerService.updateRecord(params);
         gridOptions.rowData[this.focusedRow] = params['data'];
 

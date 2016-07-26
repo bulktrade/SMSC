@@ -13,7 +13,7 @@ import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 import {FORM_DIRECTIVES} from '@angular/forms';
 import {MdSlideToggle} from '@angular2-material/slide-toggle/slide-toggle';
 import {MdIcon} from '@angular2-material/icon/icon';
-import {CustomerModel} from './crud.model';
+import {CrudModel} from './crud.model';
 import {CustomerUsers} from '../customers/customers.users';
 import {ActivatedRoute, Router} from "@angular/router";
 
@@ -23,7 +23,7 @@ import {ActivatedRoute, Router} from "@angular/router";
     styleUrls: [
         require('./crud.scss')
     ],
-    providers: [CustomerService, CustomerModel, CustomerUsers],
+    providers: [CustomerService, CrudModel, CustomerUsers],
     directives: [
         AgGridNg2,
         MdCard,
@@ -44,19 +44,29 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Injectable()
 export class CustomersCrud {
     public rowData;
+    public columnDefs;
     public model: any = {};
 
     constructor(public translate: TranslateService,
                 public customerService: CustomerService,
                 public customerUsers: CustomerUsers,
+                public CrudModel: CrudModel,
                 public route: ActivatedRoute,
                 public router: Router) {
     }
 
     ngOnInit() {
-        this.customerService.getCustomers()
-            .then((store) => {
-                this.rowData = store;
+        // init the column definitions
+        this.CrudModel.getColumnDefs('customer', true)
+            .then((columnDefs) => {
+                this.columnDefs = columnDefs;
+            })
+            .then((res) => {
+                // init the row data
+                this.CrudModel.getStore('customer')
+                    .then((store) => {
+                        this.rowData = store;
+                    });
             });
 
         // redirect depending on params
@@ -68,51 +78,6 @@ export class CustomersCrud {
                 }
             });
     }
-
-    columnDefs = [
-        {
-            headerName: " ",
-            field: "update",
-            width: 66,
-            cellRenderer: (params) => {
-                return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
-                    "border-radius: 3px;' disabled>Update</button>";
-            },
-            hideInForm: true
-        },
-        {
-            headerName: " ",
-            field: "delete",
-            width: 61,
-            cellRenderer: (params) => {
-                return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
-                            "border-radius: 3px;'>Delete</button>";
-            },
-            hideInForm: true
-        },
-        { headerName: this.translate.get('CUSTOMERID')['value'],
-            field: "customerId", editable: false, required: true },
-        { headerName: this.translate.get('COMPANYNAME')['value'],
-            field: "companyName", editable: true, required: true },
-        { headerName: this.translate.get('CONTACTS')['value'],
-            field: "contacts", editable: true, required: true },
-        { headerName: this.translate.get('STREET')['value'],
-            field: "street", editable: true, required: true },
-        { headerName: this.translate.get('STREET2')['value'],
-            field: "street2", editable: true, required: true },
-        { headerName: this.translate.get('POSTCODE')['value'],
-            field: "postcode", editable: true, required: true },
-        { headerName: this.translate.get('COUNTRY')['value'],
-            field: "country", editable: true, required: true },
-        { headerName: this.translate.get('CITY')['value'],
-            field: "city", editable: true, required: true },
-        { headerName: this.translate.get('VATID')['value'],
-            field: "vatid", editable: true },
-        { headerName: this.translate.get('USERS')['value'],
-            field: "users", editable: false, required: true },
-        { headerName: this.translate.get('PARENTCUSTOMER')['value'],
-            field: "parentCustomer", editable: true, required: true }
-    ];
 
     gridOptions:GridOptions = {
         columnDefs: this.columnDefs,

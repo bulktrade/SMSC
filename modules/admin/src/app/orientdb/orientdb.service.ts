@@ -147,6 +147,35 @@ export class ODatabaseService {
         return this.batchRequest(batch);
     };
 
+    getInfoClass(className) {
+        this.urlSuffix = '/';
+
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Get,
+        });
+
+        return new Promise((resolve, reject) => {
+            this.http.request(this.urlPrefix + 'class/' + this.encodedDatabaseName
+                + this.urlSuffix + className + this.urlSuffix,
+                requestOptions)
+                .toPromise()
+                .then(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        resolve(this.getCommandResponse());
+                    },
+                    error => {
+                        reject(this.setErrorMessage('Command error: ' + error.responseText));
+                    });
+        });
+    }
+
     getRowMetadata(params: RequestGetParameters) {
         let sql = 'select from %(nameClass)s where';
 

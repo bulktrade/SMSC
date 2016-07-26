@@ -1,47 +1,77 @@
 import {Injectable} from '@angular/core';
+import {ODatabaseService} from '../orientdb/orientdb.service';
+import {Response} from "@angular/http";
+import {TranslateService} from "ng2-translate/ng2-translate";
 
 @Injectable()
-export class CustomerModel {
+export class CrudModel {
+    public className = null;
 
-    public customer = [
-        'customerId',
-        'companyName',
-        'street',
-        'street2',
-        'postcode',
-        'country',
-        'city',
-        'vatid',
-        'contacts',
-        'users',
-        'parentCustomer'
-    ];
-
-    public ouser = [
-        'name',
-        'password'
-    ];
-
-    constructor() {
+    constructor(public databaseService: ODatabaseService,
+                public translate: TranslateService) {
     }
 
-    getStore(result, nameClass) {
-        let res = [];
-        let colsName = this[nameClass.toLowerCase()];
+    getStore(nameClass) {
+        return this.databaseService.query('select from ' + nameClass)
+            .then((res: Response) => {
+                let result = res.json()['result'];
 
-        result.forEach((item) => {
-            let row = '{';
-            colsName.forEach((cols) => {
-                row += '"' + cols + '": "' + item[cols] + '", ';
-            });
+                result.forEach((item) => {
+                    item['rid'] = item['@rid'];
+                    item['version'] = item['@version'];
 
-            row += '"rid": "' + item['@rid'] + '", ';
-            row += '"version": "' + item['@version'] + '", ';
-            row = row.substring(0, row.length - 2) + '}';
+                    delete item['@rid'];
+                    delete item['@version'];
+                    delete item['@fieldTypes'];
+                    delete item['@class'];
+                    delete item['@type'];
+                });
 
-            res.push(JSON.parse(row));
-        });
+                return result;
+        })
+    }
 
-        return res;
+    getColumnDefs(className, readOnly) {
+        this.className = className;
+        let columnDefs = [];
+
+        if (readOnly) {
+            columnDefs = [
+                {
+                    headerName: " ",
+                    field: "update",
+                    width: 66,
+                    cellRenderer: (params) => {
+                        return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
+                            "border-radius: 3px;' disabled>Update</button>";
+                    },
+                    hideInForm: true
+                },
+                {
+                    headerName: " ",
+                    field: "delete",
+                    width: 61,
+                    cellRenderer: (params) => {
+                        return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
+                            "border-radius: 3px;'>Delete</button>";
+                    },
+                    hideInForm: true
+                }
+            ];
+        }
+
+        return this.databaseService.getInfoClass(className)
+            .then((res: Response) => {
+                res.json().properties.forEach((item) => {
+                    columnDefs.push({
+                        headerName: this.translate.get(item.name.toUpperCase())['value'],
+                        field: item.name,
+                        editable: item.readonly,
+                        required: item.mandatory
+                    })
+                })
+
+                return columnDefs;
+            })
     }
 }
