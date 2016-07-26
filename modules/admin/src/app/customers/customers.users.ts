@@ -3,7 +3,7 @@ import {Response} from '@angular/http';
 import {ODatabaseService} from '../orientdb/orientdb.service';
 import {TranslateService} from 'ng2-translate/ng2-translate';
 import {GridOptions} from 'ag-grid/main';
-import {CustomerModel} from './customers.model';
+import {CustomerModel} from '../crud/crud.model';
 
 @Injectable()
 export class CustomerUsers {

@@ -1,6 +1,6 @@
 import {Injectable, Component} from '@angular/core';
 import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {CustomerService} from './customers.service';
+import {CustomerService} from '../customers/customers.service';
 import {AgGridNg2} from 'ag-grid-ng2/main';
 import {GridOptions} from 'ag-grid/main';
 
@@ -13,15 +13,15 @@ import {MdToolbar} from '@angular2-material/toolbar/toolbar';
 import {FORM_DIRECTIVES} from '@angular/forms';
 import {MdSlideToggle} from '@angular2-material/slide-toggle/slide-toggle';
 import {MdIcon} from '@angular2-material/icon/icon';
-import {CustomerModel} from './customers.model';
-import {CustomerUsers} from './customers.users';
+import {CustomerModel} from './crud.model';
+import {CustomerUsers} from '../customers/customers.users';
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'customers-crud',
-    template: require('./customers.crud.html'),
+    template: require('./crud.html'),
     styleUrls: [
-        require('./customers.crud.scss')
+        require('./crud.scss')
     ],
     providers: [CustomerService, CustomerModel, CustomerUsers],
     directives: [

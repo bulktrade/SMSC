@@ -4,14 +4,14 @@ import {
     it
 } from '@angular/core/testing';
 
-import {CustomerService} from "./customers.service";
-import {CustomersCrud} from "./customers.crud";
+import {CustomerService} from "../customers/customers.service";
+import {CustomersCrud} from "./crud";
 import {ODatabaseService} from "../orientdb/orientdb.service";
-import {CustomerModel} from "./customers.model";
+import {CustomerModel} from "./crud.model";
 import {Http, HTTP_PROVIDERS} from "@angular/http";
 import {provide} from "@angular/core";
 import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';
-import {CustomerUsers} from "./customers.users";
+import {CustomerUsers} from "../customers/customers.users";
 import {ActivatedRoute, Router} from "@angular/router";
 
 class MockActivatedRoute {};

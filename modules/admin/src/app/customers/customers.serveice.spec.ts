@@ -5,9 +5,9 @@ import {
 } from '@angular/core/testing';
 
 import {CustomerService} from "./customers.service";
-import {CustomersCrud} from "./customers.crud";
+import {CustomersCrud} from "../crud/crud";
 import {ODatabaseService} from "../orientdb/orientdb.service";
-import {CustomerModel} from "./customers.model";
+import {CustomerModel} from "../crud/crud.model";
 import {Http, HTTP_PROVIDERS} from "@angular/http";
 import {provide} from "@angular/core";
 import {TranslateService, TranslateLoader, TranslateStaticLoader} from 'ng2-translate/ng2-translate';

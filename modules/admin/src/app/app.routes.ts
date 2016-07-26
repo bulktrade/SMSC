@@ -5,7 +5,7 @@ import { Navigation } from "./navigation/navigation.component";
 import { SystemSettings } from "./systemsettings/systemSettings.component";
 import { Dashboard } from "./dashboard/dashboard.component";
 import { Customers } from "./customers/customers.components";
-import { CustomersCrud } from "./customers/customers.crud";
+import { CustomersCrud } from "./crud/crud";
 import { NotFound } from "./notFound/notFound.component";
 
 const routes:RouterConfig = [
