@@ -25,7 +25,6 @@ export class Login implements OnInit {
 
     constructor(public router:Router,
                 public translate:TranslateService,
-                public database:ODatabaseService,
                 public authService:AuthService) {
     }
 
@@ -33,6 +32,7 @@ export class Login implements OnInit {
     }
 
     onSubmit(model) {
+        this.loading = true;
         this.authService.login(model.username, model.password)
             .then(
                 (res) => {
