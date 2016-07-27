@@ -129,7 +129,7 @@ export class ODatabaseService {
             if (key !== 'users') {
                 batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
             } else {
-                batch += '"' + key + '" : %(colsValue.' + key + ')s, ';
+                batch += '"' + key + '" : [%(colsValue.' + key + ')s], ';
             }
         }
 
@@ -147,7 +147,36 @@ export class ODatabaseService {
         return this.batchRequest(batch);
     };
 
-    getRowMetadata(params:RequestGetParameters) {
+    getInfoClass(className) {
+        this.urlSuffix = '/';
+
+        let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        let requestOptions = new RequestOptions({
+            headers: headers,
+            method: RequestMethod.Get,
+        });
+
+        return new Promise((resolve, reject) => {
+            this.authHttp.request(this.urlPrefix + 'class/' + this.encodedDatabaseName
+                + this.urlSuffix + className + this.urlSuffix,
+                requestOptions)
+                .toPromise()
+                .then(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        resolve(this.getCommandResponse());
+                    },
+                    error => {
+                        reject(this.setErrorMessage('Command error: ' + error.responseText));
+                    });
+        });
+    }
+
+    getRowMetadata(params: RequestGetParameters) {
         let sql = 'select from %(nameClass)s where';
 
         for (let key in params.colsValue) {
@@ -157,9 +186,9 @@ export class ODatabaseService {
         sql = sql.substring(0, sql.length - 4);
 
         return this.query(sprintf(sql, params))
-            .then((res:Response) => {
-                return res.json().result[0];
-            });
+                .then((res: Response) => {
+                    return res.json().result[0];
+                });
     };
 
     executeCommand(iCommand?, iLanguage?, iLimit?,

@@ -31,7 +31,7 @@ export const APP_PROVIDERS = [
                 headerName: 'Authorization',
                 headerPrefix: 'Bearer',
                 tokenName: AUTH_TOKEN_NAME,
-                tokenGetter: tokenService.getToken(),
+                tokenGetter: tokenService.getToken,
                 globalHeaders: [{ 'Content-Type': 'application/json' }],
                 noJwtError: true,
                 noTokenScheme: true

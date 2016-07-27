@@ -1,0 +1,9 @@
+<div class="deleteRecords">
+	<alert type="warning" dismissible="true">
+		{{ 'warning.deleteRecords' | translate }}
+    </alert>
+	<div class="formButtons">
+	    <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath);" id="no">{{'NO' | translate}}</button>
+	    <button md-raised-button color="primary" (click)="crudService.deleteRecord(rowData); router.navigateByUrl(crudService.currPath);" id="yes">{{'YES' | translate}}</button>
+	</div>
+</div>

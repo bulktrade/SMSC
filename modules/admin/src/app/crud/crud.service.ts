@@ -1,41 +1,25 @@
-import {ODatabaseService} from '../orientdb/orientdb.service';
-import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
-import {CrudModel} from '../crud/crud.model';
-import {RequestGetParameters} from "../orientdb/orientdb.requestGetParameters";
-import {LocalStorage} from "angular2-localStorage/WebStorage";
-import {Router} from "@angular/router";
+import { ODatabaseService } from "../orientdb/orientdb.service";
+import { Injectable } from "@angular/core";
+import { RequestGetParameters } from "../orientdb/orientdb.requestGetParameters";
+import { LocalStorage } from "angular2-localStorage/WebStorage";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Injectable()
-export class CustomerService {
+export class CrudService {
     @LocalStorage('focusedRow') public focusedRow:any;
 
     public btnDeleteDisabled = true;
+    public currPath = null;
+    public className = null;
     public dataNotFound = false;
     public successExecute = false;
     public errorMessage = '';
     public successMessage = '';
-    public switcher = {
-        showCustomersGrid: false,
-        showUsersGrid: true,
-        showForm: true,
-        showDeleteMsg: true,
-    };
+    public model:any = {};
 
-	constructor(public databaSeservice: ODatabaseService,
-                public customerModel: CrudModel,
-                public router: Router) {
-    }
-
-    addRow(gridOptions, params) {
-        gridOptions.rowData.push(this.createRecord(params).colsValue);
-        gridOptions.api.setRowData(gridOptions.rowData);
-    }
-
-    removeRow(gridOptions) {
-        this.deleteRecord(gridOptions);
-        gridOptions.rowData.splice(this.focusedRow, 1);
-        gridOptions.api.setRowData(gridOptions.rowData);
+    constructor(public databaseService:ODatabaseService,
+                public router:Router,
+                public route:ActivatedRoute) {
     }
 
     onFilterChanged(value, gridOptions) {
@@ -47,12 +31,12 @@ export class CustomerService {
     }
 
     createRecord(colsValue) {
-        let params: RequestGetParameters = {
+        let params:RequestGetParameters = {
             "nameClass": "customer",
             "colsValue": colsValue
         };
 
-        this.databaSeservice.insert(params)
+        this.databaseService.insert(params)
             .then((res) => {
                 this.successExecute = true;
                 this.successMessage = 'orientdb.successCreate';
@@ -78,7 +62,7 @@ export class CustomerService {
             "colsValue": value.data
         };
 
-        return this.databaSeservice.update(params)
+        return this.databaseService.update(params)
             .then((res) => {
                 value.data.version++;
                 this.successExecute = true;
@@ -89,8 +73,8 @@ export class CustomerService {
             });
     }
 
-    deleteRecord(gridOptions) {
-        return this.databaSeservice.delete(gridOptions.rowData[this.focusedRow].rid)
+    deleteRecord(rowData) {
+        return this.databaseService.delete(rowData[this.focusedRow - 1].rid)
             .then((res) => {
                 this.successExecute = true;
                 this.successMessage = 'orientdb.successDelete';
@@ -98,34 +82,6 @@ export class CustomerService {
                 this.dataNotFound = true;
                 this.errorMessage = 'orientdb.dataNotFound';
             });
-    }
-
-    goTo(key) {
-        for (let item in this.switcher) {
-            this.switcher[item] = true;
-        }
-
-        this.switcher[key] = false;
-    }
-
-    redirectTo(path) {
-        switch (path) {
-            case 'users':
-                this.goTo('showUsersGrid');
-                break;
-
-            case 'delete':
-                this.goTo('showDeleteMsg');
-                break;
-
-            case 'create':
-                this.goTo('showForm');
-                break;
-
-            default:
-                this.goTo('showCustomersGrid');
-                break;
-        }
     }
 
     clickOnCell(event) {
@@ -138,11 +94,9 @@ export class CustomerService {
                 break;
 
             case 'delete':
-                this.goTo('showDeleteMsg');
                 break;
 
             case 'update':
-                this.goTo('showForm');
                 break;
         }
     }
@@ -164,6 +118,19 @@ export class CustomerService {
         gridOptions.rowData[this.focusedRow] = params['data'];
 
         gridOptions.api.setRowData(gridOptions.rowData);
+    }
+
+    setCrudName(router) {
+        for (let k in router) {
+            if (typeof router[k] == "object" && router[k] !== null) {
+                if (router[k].path === this.currPath) {
+                    this.className = router[k].data['crudClass'];
+                    return;
+                } else {
+                    this.setCrudName(router[k]);
+                }
+            }
+        }
     }
 
 }

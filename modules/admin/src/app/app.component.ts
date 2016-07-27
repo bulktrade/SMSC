@@ -20,6 +20,8 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
 })
 
 export class App {
+    url = 'http://www.smsc.io/';
+
     constructor(translate:TranslateService) {
         var userLang = navigator.language.split('-')[ 0 ]; // use navigator lang if available
         userLang = /(de|ru|en)/gi.test(userLang) ? userLang : 'en';

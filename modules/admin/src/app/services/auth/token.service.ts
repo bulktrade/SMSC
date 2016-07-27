@@ -43,7 +43,7 @@ export class TokenService {
      */
     isTokenExpired():boolean {
         if (!this.getToken()) {
-            return false;
+            return true;
         }
 
         return this.jwtHelper.isTokenExpired(this.getToken())
