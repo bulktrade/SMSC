@@ -51,5 +51,11 @@
     "NO": "No",
     "YES": "Yes",
     "BACK": "Back",
-    "CHOOSE": "Choose"
+    "CHOOSE": "Choose",
+    "orientdb.dataNotFound": "Your data is not found!",
+    "orientdb.dataNotCorrect": "You have entered incorrect data!",
+    "orientdb.successCreate": "New record was successfully added!",
+    "orientdb.successUpdate": "The record was successfully updated!",
+    "orientdb.successDelete": "The record was successfully deleted!",
+    "warning.deleteRecords": "You are dropping the record. Are you sure?"
 }

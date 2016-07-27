@@ -36,8 +36,8 @@ describe('Customer Service', () => {
         {provide: Router, useClass: MockActivatedRoute}
     ]);
 
-    it('should be column definitions', inject([ CustomersCrud ], (customerCrud) => {
-    	expect(customerCrud.columnDefs).toBeDefined();
-    }));
+    // it('should be column definitions', inject([ CustomersCrud ], (customerCrud) => {
+    // 	expect(customerCrud.columnDefs).toBeDefined();
+    // }));
 
 });

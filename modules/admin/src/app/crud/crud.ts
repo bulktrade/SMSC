@@ -1,111 +1,35 @@
-import {Injectable, Component} from '@angular/core';
-import {TranslatePipe, TranslateService} from 'ng2-translate/ng2-translate';
-import {CustomerService} from '../customers/customers.service';
-import {AgGridNg2} from 'ag-grid-ng2/main';
-import {GridOptions} from 'ag-grid/main';
-
+import {Component} from "@angular/core";
+import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
+import {ROUTER_DIRECTIVES} from "@angular/router";
 import {MdCard, MD_CARD_DIRECTIVES} from '@angular2-material/card/card';
-import {CORE_DIRECTIVES} from '@angular/common';
-import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
-import {MdButton, MdAnchor} from '@angular2-material/button/button';
-import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
-import {MdToolbar} from '@angular2-material/toolbar/toolbar';
-import {FORM_DIRECTIVES} from '@angular/forms';
-import {MdSlideToggle} from '@angular2-material/slide-toggle/slide-toggle';
-import {MdIcon} from '@angular2-material/icon/icon';
-import {CrudModel} from './crud.model';
-import {CustomerUsers} from '../customers/customers.users';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
+
+import {CrudService} from "./crud.service";
+import {CrudModel} from "./crud.model";
 
 @Component({
-    selector: 'customers-crud',
+    selector: 'crud',
     template: require('./crud.html'),
     styleUrls: [
         require('./crud.scss')
     ],
-    providers: [CustomerService, CrudModel, CustomerUsers],
+    providers: [
+        CrudService,
+        CrudModel
+    ],
     directives: [
-        AgGridNg2,
-        MdCard,
-        CORE_DIRECTIVES,
-        AlertComponent,
-        MdButton,
-        MD_INPUT_DIRECTIVES,
-        MdToolbar,
-        FORM_DIRECTIVES,
+        ROUTER_DIRECTIVES,
         MD_CARD_DIRECTIVES,
-        MdSlideToggle,
-        MdIcon,
-        MdAnchor
+        MdCard
     ],
     pipes: [TranslatePipe]
 })
 
-@Injectable()
 export class Crud {
-    public className = null;
-    public currPath = null;
-    public rowData = [];
-    public columnDefs = [];
-    public model: any = {};
-
-    constructor(public translate: TranslateService,
-                public customerService: CustomerService,
-                public customerUsers: CustomerUsers,
-                public CrudModel: CrudModel,
-                public route: ActivatedRoute,
-                public router: Router) {
+    constructor(public translate:TranslateService,
+                public route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.currPath = this.router.url.split('/')[1];
-        this.foundParentRouter(this.router['config']);
-
-        // init the column definitions
-        this.CrudModel.getColumnDefs(this.className, true)
-            .then((columnDefs) => {
-                this.columnDefs = columnDefs;
-            })
-            .then((res) => {
-                // init the row data
-                this.CrudModel.getStore(this.className)
-                    .then((store) => {
-                        this.rowData = store;
-                    }, (error) => {
-                        this.customerService.dataNotFound = true;
-                        this.customerService.errorMessage = 'orientdb.dataNotFound';
-                    });
-            });
-
-        // redirect depending on params
-        this.route
-            .params
-            .subscribe(params => {
-                if (params['action']) {
-                    this.customerService.redirectTo(params['action']);
-                }
-            });
     }
-
-    gridOptions:GridOptions = {
-        columnDefs: this.columnDefs,
-        rowData: this.rowData,
-        rowSelection: 'single',
-        singleClickEdit: true
-    }
-
-    foundParentRouter(router) {
-        for (var k in router)
-        {
-            if (typeof router[k] == "object" && router[k] !== null) {
-                if (router[k].path === this.currPath) {
-                    this.className = router[k].data['crudClass'];
-                    return;
-                } else {
-                    this.foundParentRouter(router[k]);
-                }
-            }
-        }
-    }
-
 }
