@@ -1,26 +1,18 @@
 import {
-    beforeEachProviders,
-    inject,
-    it, setBaseTestProviders
+  beforeEachProviders,
+  inject,
+  it
 } from '@angular/core/testing';
-import {Router} from "@angular/router";
-import {Location, LocationStrategy} from "@angular/common";
-import {TEST_BROWSER_APPLICATION_PROVIDERS, TEST_BROWSER_PLATFORM_PROVIDERS} from "@angular/platform-browser/testing";
 
-class MockActivatedRoute {}
+import { App } from './app.component';
+import { AppState } from './app.service';
 
-describe('Customer Service', () => {
-    beforeEachProviders(() => [
-        Router,
-        {provide: Location, useClass: MockActivatedRoute},
-        setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS)
-    ]);
+describe('App', () => {
+  beforeEachProviders(() => [
+  ]);
 
-    it('should be 13 columns', inject([ Router, Location ], (router: Router, location: Location) => {
-        router.navigateByUrl('/');
-
-        expect(location.path()).toEqual('/login');
-    }));
+  it('should have a url', inject([ App ], (app) => {
+    expect(app.url).toEqual('http://www.smsc.io/');
+  }));
 
 });
-
