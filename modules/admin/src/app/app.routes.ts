@@ -4,7 +4,7 @@ import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
 import { SystemSettings } from "./systemsettings/systemSettings.component";
 import { Dashboard } from "./dashboard/dashboard.component";
-import { Customer } from "./customers/customers.components";
+import { Customers } from "./customers/customers.components";
 import { CustomersCrud } from "./crud/crud";
 import { NotFound } from "./notFound/notFound.component";
 
@@ -28,26 +28,24 @@ const routes:RouterConfig = [
             },
             {
                 path: 'customers',
-                component: Customer,
+                component: Customers,
                 data: {
                     showInSubNavigation: true,
                     paramsAsDefault: '',
-                    icon: 'perm_contact_calendar'
-                }
-            },
-            {
-                path: 'customers/:action',
-                component: Customer,
-                data: {
-                    showInSubNavigation: false,
+                    icon: 'perm_contact_calendar',
+                    crudClass: 'Customer'
                 },
-            },
-            {
-                path: 'customers/:action/:id',
-                component: Customer,
-                data: {
-                    showInSubNavigation: false,
-                },
+                children: [
+                    { path: '',  component: CustomersCrud },
+                    {
+                        path: ':action/:id',
+                        component: CustomersCrud
+                    },
+                    {
+                        path: ':action',
+                        component: CustomersCrud
+                    }
+                ]
             },
             {
                 path: 'settings',

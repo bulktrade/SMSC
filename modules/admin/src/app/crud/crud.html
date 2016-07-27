@@ -1,5 +1,5 @@
 <md-card id="customer-crud">
-        <md-toolbar class="title" color="primary">{{ 'CUSTOMERS' | translate }}</md-toolbar>
+        <md-toolbar class="title" color="primary">{{ className | uppercase | translate }}</md-toolbar>
         <md-card-content>
         	<div [hidden]="customerService.switcher.showCustomersGrid" class="customersGrid">
                 <div class="opionPanel">

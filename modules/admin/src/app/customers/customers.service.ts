@@ -22,9 +22,9 @@ export class CustomerService {
         showDeleteMsg: true,
     };
 
-	constructor(public databaSeservice?: ODatabaseService,
-                public customerModel?: CrudModel,
-                public router?: Router) {
+	constructor(public databaSeservice: ODatabaseService,
+                public customerModel: CrudModel,
+                public router: Router) {
     }
 
     addRow(gridOptions, params) {
@@ -165,4 +165,5 @@ export class CustomerService {
 
         gridOptions.api.setRowData(gridOptions.rowData);
     }
+
 }

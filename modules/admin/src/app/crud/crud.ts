@@ -58,8 +58,8 @@ export class CustomersCrud {
     }
 
     ngOnInit() {
-        this.className = this.route.component['name'];
         this.currPath = this.router.url.split('/')[1];
+        this.foundParentRouter(this.router['config']);
 
         // init the column definitions
         this.CrudModel.getColumnDefs(this.className, true)
@@ -93,4 +93,19 @@ export class CustomersCrud {
         rowSelection: 'single',
         singleClickEdit: true
     }
+
+    foundParentRouter(router) {
+        for (var k in router)
+        {
+            if (typeof router[k] == "object" && router[k] !== null) {
+                if (router[k].path === this.currPath) {
+                    this.className = router[k].data['crudClass'];
+                    return;
+                } else {
+                    this.foundParentRouter(router[k]);
+                }
+            }
+        }
+    }
+
 }
