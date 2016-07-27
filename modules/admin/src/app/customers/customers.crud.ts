@@ -20,7 +20,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Component({
     selector: 'customers-crud',
     template: require('./customers.crud.html'),
-    styleUrls: [
+    styles: [
         require('./customers.crud.scss')
     ],
     providers: [CustomerService, CustomerModel, CustomerUsers],

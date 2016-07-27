@@ -26,7 +26,7 @@ declare var Reflect;
     ],
     pipes: [TranslatePipe],
     styles: [
-        require('./sidebar.service.scss')
+        require('./sidebar.scss')
     ]
 })
 

@@ -1,13 +1,13 @@
 'use strict';
 
-import 'rxjs/add/operator/map';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import {Http, RequestMethod, RequestOptions, Headers} from '@angular/http';
-import {Response} from '@angular/http';
-import {RequestGetParameters} from "./orientdb.requestGetParameters";
+import "rxjs/add/operator/map";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs/Rx";
+import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
+import { RequestGetParameters } from "./orientdb.requestGetParameters";
+import { AuthHttp } from "angular2-jwt/angular2-jwt";
 
-declare var sprintf: any;
+declare var sprintf:any;
 
 @Injectable()
 export class ODatabaseService {
@@ -23,9 +23,9 @@ export class ODatabaseService {
     private removeObjectCircleReferences;
     private urlPrefix;
     private urlSuffix;
-    private authorization: String = null;
+    private authorization:String = null;
 
-    constructor(databasePath?: string, public http?: Http) {
+    constructor(databasePath:string, public authHttp:AuthHttp) {
         this.databaseUrl = '';
         this.databaseName = '';
         this.encodedDatabaseName = '';
@@ -90,8 +90,8 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
-            + this.urlSuffix,
+            this.authHttp.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
+                + this.urlSuffix,
                 requestOptions)
                 .toPromise()
                 .then(
@@ -106,7 +106,7 @@ export class ODatabaseService {
         });
     };
 
-    insert(params: RequestGetParameters) {
+    insert(params:RequestGetParameters) {
         let batch = '{ "transaction" : true, "operations" : ' +
             '[ { "type" : "c", "record" : ' +
             '{ "@class" : "%(nameClass)s", ';
@@ -120,13 +120,13 @@ export class ODatabaseService {
         return this.batchRequest(sprintf(batch, params));
     };
 
-    update(params: RequestGetParameters) {
+    update(params:RequestGetParameters) {
         let batch = '{ "transaction" : true, "operations" : ' +
             '[ { "type" : "u", "record" : ' +
             '{ "@rid" : "%(rid)s", "@version": "%(version)s", ';
 
         for (let key in params.colsValue) {
-            if(key !== 'users') {
+            if (key !== 'users') {
                 batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
             } else {
                 batch += '"' + key + '" : %(colsValue.' + key + ')s, ';
@@ -147,7 +147,7 @@ export class ODatabaseService {
         return this.batchRequest(batch);
     };
 
-    getRowMetadata(params: RequestGetParameters) {
+    getRowMetadata(params:RequestGetParameters) {
         let sql = 'select from %(nameClass)s where';
 
         for (let key in params.colsValue) {
@@ -157,9 +157,9 @@ export class ODatabaseService {
         sql = sql.substring(0, sql.length - 4);
 
         return this.query(sprintf(sql, params))
-                .then((res: Response) => {
-                    return res.json().result[0];
-                });
+            .then((res:Response) => {
+                return res.json().result[0];
+            });
     };
 
     executeCommand(iCommand?, iLanguage?, iLimit?,
@@ -199,7 +199,7 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(this.urlPrefix + 'command/' + this.encodedDatabaseName + '/' +
+            this.authHttp.request(this.urlPrefix + 'command/' + this.encodedDatabaseName + '/' +
                 iLanguage + '/' + iCommand + '/' + iLimit + iFetchPlan +
                 this.urlSuffix,
                 requestOptions)
@@ -217,7 +217,11 @@ export class ODatabaseService {
         });
     };
 
-    open(userName?, userPass?, authProxy?, type?: RequestMethod) {
+    public connect(username, password) {
+
+    }
+
+    open(userName?, userPass?, authProxy?, type?:RequestMethod) {
         if (userName === undefined) {
             userName = '';
         }
@@ -250,7 +254,7 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(this.urlPrefix + 'connect/' +
+            this.authHttp.request(this.urlPrefix + 'connect/' +
                 this.encodedDatabaseName + this.urlSuffix,
                 requestOptions)
                 .toPromise()
@@ -300,7 +304,7 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(this.urlPrefix + url + this.urlSuffix,
+            this.authHttp.request(this.urlPrefix + url + this.urlSuffix,
                 requestOptions)
                 .toPromise()
                 .then(
@@ -327,7 +331,7 @@ export class ODatabaseService {
             });
 
             return new Promise((resolve, reject) => {
-                this.http.request(this.urlPrefix + 'disconnect' + this.urlSuffix,
+                this.authHttp.request(this.urlPrefix + 'disconnect' + this.urlSuffix,
                     requestOptions)
                     .toPromise()
                     .then(
@@ -642,7 +646,7 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(this.urlPrefix + 'database/' + this.encodedDatabaseName + '/' +
+            this.authHttp.request(this.urlPrefix + 'database/' + this.encodedDatabaseName + '/' +
                 type + '/' + databaseType + this.urlSuffix,
                 requestOptions)
                 .toPromise()
@@ -671,8 +675,8 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(this.urlPrefix + 'database/' + this.encodedDatabaseName
-            + this.urlSuffix,
+            this.authHttp.request(this.urlPrefix + 'database/' + this.encodedDatabaseName
+                + this.urlSuffix,
                 requestOptions)
                 .toPromise()
                 .then(
@@ -716,7 +720,7 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
+            this.authHttp.request(this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
                 + iRID + iFetchPlan + this.urlSuffix,
                 requestOptions)
                 .toPromise()
@@ -763,7 +767,7 @@ export class ODatabaseService {
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(url + this.urlSuffix,
+            this.authHttp.request(url + this.urlSuffix,
                 requestOptions)
                 .toPromise()
                 .then(
@@ -809,11 +813,11 @@ export class ODatabaseService {
 
         let requestOptions = new RequestOptions({
             headers: headers,
-            method:  RequestMethod.Put
+            method: RequestMethod.Put
         });
 
         return new Promise((resolve, reject) => {
-            this.http.request(req + this.urlSuffix,
+            this.authHttp.request(req + this.urlSuffix,
                 requestOptions)
                 .toPromise()
                 .then(

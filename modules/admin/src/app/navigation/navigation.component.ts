@@ -12,6 +12,7 @@ import { MD_LIST_DIRECTIVES } from "@angular2-material/list/list";
 import { MdToolbar } from "@angular2-material/toolbar/toolbar";
 import { SidebarItem } from "../sidebar/sidebaritem.component";
 import { ROUTER_DIRECTIVES, Router } from "@angular/router";
+import { TokenService } from "../services/auth/token.service";
 
 @Component({
     selector: 'navigation',
@@ -43,13 +44,14 @@ export class Navigation implements OnInit {
 
     constructor(public router:Router,
                 public translate:TranslateService,
-                public showmininav:ShowMiniNav) {
+                public showmininav:ShowMiniNav,
+                public tokenService:TokenService) {
         this.content = localStorage.getItem('adminRight');
         this.username = 'admin';
     }
 
     logout() {
-        localStorage.removeItem('adminRight');
+        this.tokenService.resetToken();
         this.router.navigateByUrl('/login');
     }
 

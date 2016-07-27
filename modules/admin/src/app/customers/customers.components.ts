@@ -5,7 +5,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
 @Component({
     selector: 'customers',
     template: require('./customers.html'),
-    styleUrls: [
+    styles: [
         require('./customers.scss')
     ],
     providers: [],
