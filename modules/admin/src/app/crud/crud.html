@@ -13,9 +13,9 @@
                         </button>
                     </div>
                     <div class="buttons">
-                        <button md-raised-button color="primary" (click)="router.navigateByUrl('customers/create')" id="addRow">{{'ADD' | translate}}</button>
+                        <button md-raised-button color="primary" (click)="router.navigateByUrl(currPath + '/create')" id="addRow">{{'ADD' | translate}}</button>
                         <button md-raised-button color="warn" [disabled]="customerService.btnDeleteDisabled"
-                                (click)="router.navigateByUrl('customers/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
+                                (click)="router.navigateByUrl(currPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
                     </div>
                 </div>
                 <alert *ngIf="customerService.dataNotFound" type="danger" dismissible="true" (close)="customerService.dataNotFound=false">
@@ -39,8 +39,8 @@
 					</div>
 
 					<div class="formButtons">
-					    <button md-raised-button color="primary" (click)="router.navigateByUrl('customers')" id="cancel">{{'CANCEL' | translate}}</button>
-					    <button md-raised-button color="primary" (click)="customerService.addRow(gridOptions, model); router.navigateByUrl('customers')" id="add">{{'ADD' | translate}}</button>
+					    <button md-raised-button color="primary" (click)="router.navigateByUrl(currPath)" id="cancel">{{'CANCEL' | translate}}</button>
+					    <button md-raised-button color="primary" (click)="customerService.addRow(gridOptions, model); router.navigateByUrl(currPath)" id="add">{{'ADD' | translate}}</button>
 					</div>
 				</div>
 			</div>
@@ -48,8 +48,8 @@
 			<div [hidden]="customerService.switcher.showDeleteMsg" class="deleteRecords">
 				<h1>You are dropping the record. Are you sure?</h1>
 				<div class="formButtons">
-				    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid'); router.navigateByUrl('customers')" id="no">{{'NO' | translate}}</button>
-				    <button md-raised-button color="primary" (click)="customerService.removeRow(gridOptions); router.navigateByUrl('customers')" id="yes">{{'YES' | translate}}</button>
+				    <button md-raised-button color="primary" (click)="customerService.goTo('showCustomersGrid'); router.navigateByUrl(currPath)" id="no">{{'NO' | translate}}</button>
+				    <button md-raised-button color="primary" (click)="customerService.removeRow(gridOptions); router.navigateByUrl(currPath)" id="yes">{{'YES' | translate}}</button>
 				</div>
 			</div>
 
@@ -61,9 +61,9 @@
 				             [rowGroupPanelShow]="always" [columnDefs]="customerUsers.columnDefs"
 				             [gridOptions]="customerUsers.gridOptions" [rowData]="customerUsers.rowData"></ag-grid-ng2>
 				<div class="formButtons">
-				    <button md-raised-button color="primary" (click)="router.navigateByUrl('customers')">{{'BACK' | translate}}</button>
+				    <button md-raised-button color="primary" (click)="router.navigateByUrl(currPath)">{{'BACK' | translate}}</button>
 				    <button md-raised-button color="primary" (click)="customerService.chooseUsers(customerUsers.gridOptions.api.getSelectedRows(), gridOptions, customerService);
-				    		router.navigateByUrl('customers')">{{'CHOOSE' | translate}}</button>
+				    		router.navigateByUrl(currPath)">{{'CHOOSE' | translate}}</button>
 				</div>
 
 			</div>

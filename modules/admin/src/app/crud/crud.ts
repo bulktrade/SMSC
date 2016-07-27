@@ -43,6 +43,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable()
 export class CustomersCrud {
+    public className = null;
+    public currPath = null;
     public rowData = [];
     public columnDefs = [];
     public model: any = {};
@@ -56,14 +58,17 @@ export class CustomersCrud {
     }
 
     ngOnInit() {
+        this.className = this.route.component['name'];
+        this.currPath = this.router.url.split('/')[1];
+
         // init the column definitions
-        this.CrudModel.getColumnDefs('customer', true)
+        this.CrudModel.getColumnDefs(this.className, true)
             .then((columnDefs) => {
                 this.columnDefs = columnDefs;
             })
             .then((res) => {
                 // init the row data
-                this.CrudModel.getStore('customer')
+                this.CrudModel.getStore(this.className)
                     .then((store) => {
                         this.rowData = store;
                     }, (error) => {

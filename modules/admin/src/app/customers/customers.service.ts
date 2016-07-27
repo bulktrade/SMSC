@@ -141,7 +141,7 @@ export class CustomerService {
                 this.goTo('showDeleteMsg');
                 break;
 
-            case 'create':
+            case 'update':
                 this.goTo('showForm');
                 break;
         }
