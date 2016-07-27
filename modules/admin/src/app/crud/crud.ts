@@ -42,7 +42,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 
 @Injectable()
-export class CustomersCrud {
+export class Crud {
     public className = null;
     public currPath = null;
     public rowData = [];

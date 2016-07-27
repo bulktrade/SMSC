@@ -5,7 +5,7 @@ import { Navigation } from "./navigation/navigation.component";
 import { SystemSettings } from "./systemsettings/systemSettings.component";
 import { Dashboard } from "./dashboard/dashboard.component";
 import { Customers } from "./customers/customers.components";
-import { CustomersCrud } from "./crud/crud";
+import { Crud } from "./crud/crud";
 import { NotFound } from "./notFound/notFound.component";
 
 const routes:RouterConfig = [
@@ -36,14 +36,14 @@ const routes:RouterConfig = [
                     crudClass: 'Customer'
                 },
                 children: [
-                    { path: '',  component: CustomersCrud },
+                    { path: '',  component: Crud },
                     {
                         path: ':action/:id',
-                        component: CustomersCrud
+                        component: Crud
                     },
                     {
                         path: ':action',
-                        component: CustomersCrud
+                        component: Crud
                     }
                 ]
             },
