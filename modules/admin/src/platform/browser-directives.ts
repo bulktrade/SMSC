@@ -6,7 +6,6 @@ import { PLATFORM_DIRECTIVES } from "@angular/core";
 import { REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES } from "@angular/forms";
 import { MdCard, MD_CARD_DIRECTIVES } from "@angular2-material/card/card";
 import { CORE_DIRECTIVES } from "@angular/common";
-import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
 import { MdButton } from "@angular2-material/button/button";
 import { MD_INPUT_DIRECTIVES } from "@angular2-material/input/input";
 import { MdToolbar } from "@angular2-material/toolbar/toolbar";
@@ -22,7 +21,6 @@ export const APPLICATION_DIRECTIVES = [
     ...REACTIVE_FORM_DIRECTIVES,
     MdCard,
     CORE_DIRECTIVES,
-    AlertComponent,
     MdButton,
     MD_INPUT_DIRECTIVES,
     MdToolbar,

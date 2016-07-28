@@ -1,7 +1,7 @@
 import { Component, Injectable } from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import {Router, ActivatedRoute} from "@angular/router";
-import { Breadcrumb } from "./breadcrumb.service";
+import { Router, ActivatedRoute } from "@angular/router";
+import { BreadcrumbService } from "./breadcrumb.service";
 
 @Component({
     selector: 'breadcrumb',
@@ -13,22 +13,22 @@ import { Breadcrumb } from "./breadcrumb.service";
     ],
     directives: [],
     providers: [],
-    pipes: [ TranslatePipe ],
+    pipes: [TranslatePipe],
     styles: [
         require('./breadcrumb.scss')
     ]
 })
 
 @Injectable()
-export class BreadcrumbService {
-    public breadcrumb:Breadcrumb;
+export class Breadcrumb {
+    public breadcrumb:BreadcrumbService;
 
     constructor(public translate:TranslateService,
                 public router:Router,
-                public route: ActivatedRoute) {
+                public route:ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.breadcrumb = new Breadcrumb(this.router, this.route);
+        this.breadcrumb = new BreadcrumbService(this.router, this.route);
     }
 }

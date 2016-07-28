@@ -1,6 +1,7 @@
-import {Component} from "@angular/core";
-import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
-import {ROUTER_DIRECTIVES} from "@angular/router";
+import { Component } from "@angular/core";
+import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
+import { ROUTER_DIRECTIVES } from "@angular/router";
+import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
 
 @Component({
     selector: 'customers',
@@ -8,8 +9,11 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
     styles: [
         require('./customers.scss')
     ],
-    providers: [],
-    directives: [ROUTER_DIRECTIVES],
+    providers: [Breadcrumb],
+    directives: [
+        ROUTER_DIRECTIVES,
+        Breadcrumb
+    ],
     pipes: [TranslatePipe]
 })
 

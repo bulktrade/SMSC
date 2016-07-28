@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NgClass } from "@angular/common";
 import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
 import { AnimateBox } from "../sidebar/directives/animate";
@@ -16,12 +16,11 @@ import { TokenService } from "../services/auth/token.service";
 
 @Component({
     selector: 'navigation',
-    providers: [ ShowMiniNav ],
+    providers: [ShowMiniNav],
     template: require('./navigation.html'),
     styles: [
         require('./navigation.scss')
     ],
-    encapsulation: ViewEncapsulation.None,
     directives: [
         ROUTER_DIRECTIVES,
         NgClass,
@@ -35,19 +34,14 @@ import { TokenService } from "../services/auth/token.service";
         MdToolbar,
         SidebarItem
     ],
-    pipes: [ TranslatePipe ]
+    pipes: [TranslatePipe]
 })
 
 export class Navigation implements OnInit {
-    content:string;
-    username:string;
-
     constructor(public router:Router,
                 public translate:TranslateService,
                 public showmininav:ShowMiniNav,
                 public tokenService:TokenService) {
-        this.content = localStorage.getItem('adminRight');
-        this.username = 'admin';
     }
 
     logout() {

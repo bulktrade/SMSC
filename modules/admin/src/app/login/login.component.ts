@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Router } from "@angular/router";
 import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
 import { LoginModel } from "./login.model";

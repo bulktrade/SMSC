@@ -12,11 +12,11 @@
 
     <div class="header" >
         <md-toolbar color="primary">
-            <button md-icon-button (click)="start.toggle()">
+            <button id="btn-menu" md-icon-button (click)="start.toggle()">
                 <md-icon class="md-24" >menu</md-icon>
             </button>
             <div class="toolbar">
-                <h1 [routerLink]="['/', 'Navigation']">{{ 'project.title' | translate }}</h1>
+                <h1 [routerLink]="['/', '']">{{ 'project.title' | translate }}</h1>
                 <div style="width: 100%"></div>
                 <button md-icon-button class="pull-right">
                     <md-icon class="md-24" >person</md-icon>

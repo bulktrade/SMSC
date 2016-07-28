@@ -1,13 +1,13 @@
-import {Router, ActivatedRoute} from '@angular/router';
-import {Injectable} from '@angular/core';
+import { Router, ActivatedRoute } from "@angular/router";
+import { Injectable } from "@angular/core";
 
 @Injectable()
-export class Breadcrumb {
-    public name: string;
-    public childs: Array<any>;
+export class BreadcrumbService {
+    public name:string;
+    public childs:Array<any>;
 
-    constructor(public router: Router,
-                public route: ActivatedRoute) {
+    constructor(public router:Router,
+                public route:ActivatedRoute) {
         this.init();
     }
 
@@ -40,8 +40,8 @@ export class Breadcrumb {
         });
 
         if (this.childs.length) {
-            this.childs = this.childs.splice(0, this.childs.length-1).reverse();
-            this.name = this.childs[this.childs.length-1].name;
+            this.childs = this.childs.splice(0, this.childs.length - 1).reverse();
+            this.name = this.childs[this.childs.length - 1].name;
         }
 
     }

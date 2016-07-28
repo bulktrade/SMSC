@@ -30,11 +30,14 @@
         font-size: 14px;
     }
 }
+
 .active {
     display: block;
     background: #F2F6F9;
-    span {color: rgb(91, 155, 209);}
-    &:before{
+    span {
+        color: rgb(91, 155, 209);
+    }
+    &:before {
         content: "";
         position: absolute;
         float: left;
@@ -94,7 +97,7 @@ ul {
     margin: -49px 0 0 65px;
     width: 168px;
     z-index: 1000;
-    a{
+    a {
         padding: 14px 0 13px 10px !important;
     }
 }
@@ -121,7 +124,7 @@ ul {
         background: #fff;
         margin: 0;
         width: 100%;
-        a{
+        a {
             padding: 9px 0 9px 30px !important;
         }
     }
