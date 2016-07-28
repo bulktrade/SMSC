@@ -10,25 +10,24 @@ import { CrudModel } from "../crud.model";
     styles: [
         require('./crud.delete.scss')
     ],
-    providers: [],
+    providers: [CrudService],
     directives: [],
     pipes: [TranslatePipe]
 })
 
 export class CrudDelete {
-    public rowData = [];
+    model = new CrudModel([], []);
 
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
-                public crudModel:CrudModel,
                 public router:Router) {
     }
 
     ngOnInit() {
         // init the row data
-        this.crudModel.getStore(this.crudService.className)
+        this.crudService.getStore()
             .then((store) => {
-                this.rowData = store;
+                this.model.rowData = store;
             }, (error) => {
                 this.crudService.dataNotFound = true;
                 this.crudService.errorMessage = 'orientdb.dataNotFound';

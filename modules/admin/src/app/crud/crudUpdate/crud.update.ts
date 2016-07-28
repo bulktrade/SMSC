@@ -12,7 +12,7 @@ import { CrudModel } from "../crud.model";
     styles: [
         require('./crud.update.scss')
     ],
-    providers: [],
+    providers: [CrudService],
     directives: [
         AgGridNg2
     ],
@@ -20,29 +20,24 @@ import { CrudModel } from "../crud.model";
 })
 
 export class CrudUpdate {
-    public rowData = [];
-    public columnDefs = [];
+    model = new CrudModel([], []);
 
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
-                public crudModel:CrudModel,
                 public router:Router) {
     }
 
     ngOnInit() {
-        this.crudService.currPath = this.router.url.split('/')[1];
-        this.crudService.setCrudName(this.router['config']);
-
         // init the column definitions
-        this.crudModel.getColumnDefs(this.crudService.className, true)
+        this.crudService.getColumnDefs(true)
             .then((columnDefs) => {
-                this.columnDefs = columnDefs;
+                this.model.columnDefs = columnDefs;
             })
             .then((res) => {
                 // init the row data
-                this.crudModel.getStore(this.crudService.className)
+                this.crudService.getStore()
                     .then((store) => {
-                        this.rowData = store;
+                        this.model.rowData = store;
                     }, (error) => {
                         this.crudService.dataNotFound = true;
                         this.crudService.errorMessage = 'orientdb.dataNotFound';
@@ -51,8 +46,8 @@ export class CrudUpdate {
     }
 
     gridOptions:GridOptions = {
-        columnDefs: this.columnDefs,
-        rowData: this.rowData,
+        columnDefs: this.model.columnDefs,
+        rowData: this.model.rowData,
         rowSelection: 'single',
         singleClickEdit: true
     }

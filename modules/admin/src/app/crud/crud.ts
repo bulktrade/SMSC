@@ -5,7 +5,6 @@ import {MdCard, MD_CARD_DIRECTIVES} from '@angular2-material/card/card';
 import {ActivatedRoute} from "@angular/router";
 
 import {CrudService} from "./crud.service";
-import {CrudModel} from "./crud.model";
 
 @Component({
     selector: 'crud',
@@ -13,10 +12,7 @@ import {CrudModel} from "./crud.model";
     styles: [
         require('./crud.scss')
     ],
-    providers: [
-        CrudService,
-        CrudModel
-    ],
+    providers: [],
     directives: [
         ROUTER_DIRECTIVES,
         MD_CARD_DIRECTIVES,

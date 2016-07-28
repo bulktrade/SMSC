@@ -22,7 +22,7 @@
         {{ crudService.successMessage | translate }}
     </alert>
 	<ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 100%;"
-	             [rowGroupPanelShow]="always" [columnDefs]="columnDefs"
-	             [gridOptions]="gridOptions" [rowData]="rowData" (cellValueChanged)="crudService.cellValueChanged($event)"
+	             [rowGroupPanelShow]="always" [columnDefs]="model.columnDefs"
+	             [gridOptions]="gridOptions" [rowData]="model.rowData" (cellValueChanged)="crudService.cellValueChanged($event)"
 	             (cellClicked)="crudService.clickOnCell($event)"></ag-grid-ng2>
 </div>

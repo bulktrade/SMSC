@@ -1,6 +1,6 @@
 <div class="addingForm">
 	<div class="form">
-		<div *ngFor="let item of columnDefs">
+		<div *ngFor="let item of model.columnDefs">
 			 <md-input *ngIf="!item.hideInForm" placeholder="{{item.headerName}}" name="{{item.headerName}}" id="{{item.headerName}}"
 				type="text" autocomplete="off" [(ngModel)]="crudService.model[item.field]" [required]="item.required"
 				class="form-control"></md-input>
