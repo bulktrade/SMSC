@@ -4,15 +4,15 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
 
 @Component({
     selector: 'app',
-    pipes: [ TranslatePipe ],
+    pipes: [TranslatePipe],
     providers: [],
-    directives: [ ROUTER_DIRECTIVES ],
+    directives: [ROUTER_DIRECTIVES],
     template: '<router-outlet></router-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
         require('npm-font-open-sans/open-sans.css'),
-        require('ag-grid/dist/styles/ag-grid.css'),
-        require('ag-grid/dist/styles/theme-fresh.css')
+        require('normalize.css/normalize.css'),
+        require('webpack-material-design-icons/material-design-icons.css')
     ],
     styles: [
         require('./app.scss')
@@ -23,7 +23,7 @@ export class App {
     url = 'http://www.smsc.io/';
 
     constructor(translate:TranslateService) {
-        var userLang = navigator.language.split('-')[ 0 ]; // use navigator lang if available
+        var userLang = navigator.language.split('-')[0]; // use navigator lang if available
         userLang = /(de|ru|en)/gi.test(userLang) ? userLang : 'en';
 
         // this language will be used as a fallback when a translation isn't found in the current language

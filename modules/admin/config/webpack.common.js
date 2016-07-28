@@ -22,10 +22,6 @@ const METADATA = {
     baseUrl: '/'
 };
 
-var extractCSS = new ExtractTextPlugin('[name].[contenthash].css', {
-    allChunks: true
-});
-
 /*
  * Webpack configuration
  *
@@ -58,8 +54,6 @@ module.exports = {
         'vendor': './src/vendor.ts',
         'main': './src/main.browser.ts'
     },
-
-    // entry: [ 'bootstrap-loader', './app' ],
 
     /*
      * Options affecting the resolving of modules.
@@ -167,8 +161,7 @@ module.exports = {
                 test: /\.css$/,
                 loader: 'file?name=[hash].css!extract!css',
                 exclude: [
-                    helpers.root('src/index.html'),
-                    /webpack-material-design-icons/
+                    helpers.root('src/index.html')
                 ],
                 include: [
                     /node_modules/
@@ -183,14 +176,6 @@ module.exports = {
                 ],
                 include: [
                     helpers.root('src/app')
-                ]
-            },
-
-            {
-                test: /\.css$/,
-                loader: extractCSS.extract(['css']),
-                include: [
-                    /webpack-material-design-icons/
                 ]
             },
 
@@ -226,11 +211,6 @@ module.exports = {
             {
                 test: /\.(eot|woff|ttf|svg|woff2)$/,
                 loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]'
-            },
-
-            {
-                test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
-                loader: 'imports?jQuery=jquery'
             }
         ]
 
@@ -303,9 +283,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'src/index.html',
             chunksSortMode: 'dependency'
-        }),
-
-        extractCSS
+        })
     ],
 
     /*
