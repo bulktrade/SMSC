@@ -20,13 +20,15 @@
         bottom: 0;
     }
 
-    md-input {
-        &.error {
-            padding-bottom: 5px;
-            margin-bottom: 5px;
-        }
+    form {
+        md-input {
+            &.error {
+                padding-bottom: 5px;
+                margin-bottom: 5px;
+            }
 
-        display: block;
+            display: block;
+        }
     }
 
     #login-card {
@@ -57,7 +59,7 @@
         }
 
         @media(max-width:48em) {
-            width: inherit;
+            width: auto;
             height: inherit;
             margin: inherit;
             min-width: inherit;

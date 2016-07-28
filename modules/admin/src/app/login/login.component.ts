@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
 import { LoginModel } from "./login.model";
 import { AuthService } from "../services/auth/auth.service";
+import { Response } from "@angular/http";
 
 @Component({
     selector: 'login',
@@ -17,7 +18,7 @@ import { AuthService } from "../services/auth/auth.service";
     ]
 })
 export class Login implements OnInit {
-    notFound:boolean = false;
+    errorMessage:string = null;
     loading:boolean = false;
 
     model = new LoginModel('', '', false);
@@ -31,7 +32,9 @@ export class Login implements OnInit {
     }
 
     onSubmit(model) {
+        this.errorMessage = null;
         this.loading = true;
+
         this.authService.login(model.username, model.password)
             .then(
                 (res) => {
@@ -39,8 +42,16 @@ export class Login implements OnInit {
                 }
             )
             .catch(
-                (err) => {
-                    this.notFound = true;
+                (err:Response) => {
+                    switch (err.status) {
+                        case 400:
+                            this.errorMessage = 'login.userNotFound';
+                            break;
+                        default:
+                            this.errorMessage = 'login.commonError';
+                            break;
+                    }
+
                     this.loading = false;
                 }
             );
