@@ -6,7 +6,7 @@ import { Dashboard } from "./dashboard/dashboard.component";
 import { Customers } from "./customers/customers.components";
 import { Crud } from "./crud/crud";
 import { NotFound } from "./notFound/notFound.component";
-import { CrudUpdate } from "./crud/crudUpdate/crud.update";
+import { CrudView } from "./crud/crudView/crud.view";
 import { CrudDelete } from "./crud/crudDelete/crud.delete";
 import { CrudCreate } from "./crud/crudCreate/crud.create";
 
@@ -42,7 +42,7 @@ const routes:RouterConfig = [
                         path: '',
                         component: Crud,
                         children: [
-                            { path: '',  component: CrudUpdate },
+                            { path: '',  component: CrudView },
                             { path: 'delete',  component: CrudDelete },
                             { path: 'create',  component: CrudCreate }
                         ]

@@ -8,14 +8,14 @@ import { CrudModel } from "../crud.model";
 
 @Component({
     selector: 'crud-update',
-    template: require('./crud.update.html'),
+    template: require('./crud.view.html'),
     encapsulation: ViewEncapsulation.Native,
     styleUrls: [
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-fresh.css')
     ],
     styles: [
-        require('./crud.update.scss')
+        require('./crud.view.scss')
     ],
     providers: [CrudService],
     directives: [
@@ -24,7 +24,7 @@ import { CrudModel } from "../crud.model";
     pipes: [TranslatePipe]
 })
 
-export class CrudUpdate {
+export class CrudView {
     model = new CrudModel([], []);
 
     constructor(public translate:TranslateService,
