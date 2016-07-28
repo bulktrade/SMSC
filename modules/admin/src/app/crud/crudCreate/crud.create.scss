@@ -1,5 +1,6 @@
 .addingForm {
 	width: 100%;
+    height: inherit;
 	display: inline-block;
 
 	md-input {
@@ -8,4 +9,9 @@
 		width: 99%;
 		padding: 0 12px;
 	}
+
+    .formButtons {
+        float: right;
+        padding: 5px 10px 10px 0;
+    }
 }

@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { RequestGetParameters } from "../orientdb/orientdb.requestGetParameters";
 import { LocalStorage } from "angular2-localStorage/WebStorage";
 import { Router, ActivatedRoute } from "@angular/router";
+import {Response} from "@angular/http";
+import {TranslateService} from "ng2-translate/ng2-translate";
 
 @Injectable()
 export class CrudService {
@@ -19,7 +21,10 @@ export class CrudService {
 
     constructor(public databaseService:ODatabaseService,
                 public router:Router,
-                public route:ActivatedRoute) {
+                public route:ActivatedRoute,
+                public translate: TranslateService) {
+        this.currPath = this.route.snapshot['_urlSegment'].pathsWithParams[0].path;
+        this.setCrudClass(this.router['config']);
     }
 
     onFilterChanged(value, gridOptions) {
@@ -74,7 +79,7 @@ export class CrudService {
     }
 
     deleteRecord(rowData) {
-        return this.databaseService.delete(rowData[this.focusedRow - 1].rid)
+        return this.databaseService.delete(rowData[this.focusedRow].rid)
             .then((res) => {
                 this.successExecute = true;
                 this.successMessage = 'orientdb.successDelete';
@@ -120,17 +125,80 @@ export class CrudService {
         gridOptions.api.setRowData(gridOptions.rowData);
     }
 
-    setCrudName(router) {
+    setCrudClass(router) {
         for (let k in router) {
             if (typeof router[k] == "object" && router[k] !== null) {
                 if (router[k].path === this.currPath) {
                     this.className = router[k].data['crudClass'];
                     return;
                 } else {
-                    this.setCrudName(router[k]);
+                    this.setCrudClass(router[k]);
                 }
             }
         }
+    }
+
+    getStore() {
+        return this.databaseService.query('select from ' + this.className)
+            .then((res: Response) => {
+                let result = res.json()['result'];
+
+                result.forEach((item) => {
+                    item['rid'] = item['@rid'];
+                    item['version'] = item['@version'];
+
+                    delete item['@rid'];
+                    delete item['@version'];
+                    delete item['@fieldTypes'];
+                    delete item['@class'];
+                    delete item['@type'];
+                });
+
+                return result;
+            })
+    }
+
+    getColumnDefs(readOnly) {
+        let columnDefs = [];
+
+        if (readOnly) {
+            columnDefs = [
+                {
+                    headerName: " ",
+                    field: "update",
+                    width: 66,
+                    cellRenderer: (params) => {
+                        return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
+                            "border-radius: 3px;' disabled>Update</button>";
+                    },
+                    hideInForm: true
+                },
+                {
+                    headerName: " ",
+                    field: "delete",
+                    width: 61,
+                    cellRenderer: (params) => {
+                        return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
+                            "border-radius: 3px;'>Delete</button>";
+                    },
+                    hideInForm: true
+                }
+            ];
+        }
+
+        return this.databaseService.getInfoClass(this.className)
+            .then((res: Response) => {
+                res.json().properties.forEach((item) => {
+                    columnDefs.push({
+                        headerName: this.translate.get(item.name.toUpperCase())['value'],
+                        field: item.name,
+                        editable: !item.readonly,
+                        required: item.mandatory
+                    })
+                })
+
+                return columnDefs;
+            })
     }
 
 }

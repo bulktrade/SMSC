@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { ROUTER_DIRECTIVES, ActivatedRoute } from "@angular/router";
-import { MdCard, MD_CARD_DIRECTIVES } from "@angular2-material/card/card";
-import { CrudService } from "./crud.service";
-import { CrudModel } from "./crud.model";
+import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
+
+import {CrudService} from "./crud.service";
 
 @Component({
     selector: 'crud',
@@ -11,10 +11,7 @@ import { CrudModel } from "./crud.model";
     styles: [
         require('./crud.scss')
     ],
-    providers: [
-        CrudService,
-        CrudModel
-    ],
+    providers: [],
     directives: [
         ROUTER_DIRECTIVES,
         MD_CARD_DIRECTIVES,
@@ -25,7 +22,7 @@ import { CrudModel } from "./crud.model";
 
 export class Crud {
     constructor(public translate:TranslateService,
-                public route:ActivatedRoute) {
+                public route: ActivatedRoute) {
     }
 
     ngOnInit() {

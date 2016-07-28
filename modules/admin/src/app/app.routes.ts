@@ -38,8 +38,8 @@ const routes:RouterConfig = [
                     crudClass: 'Customer'
                 },
                 children: [
-                    { 
-                        path: '',  
+                    {
+                        path: '',
                         component: Crud,
                         children: [
                             { path: '',  component: CrudUpdate },
