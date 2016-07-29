@@ -58,12 +58,6 @@
                             <goal>exec</goal>
                         </goals>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <executions>
                     <execution>
                         <id>exec-npm-install</id>
                         <phase>initialize</phase>
