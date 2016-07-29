@@ -48,7 +48,7 @@ public class Server {
 	}
 
 	public String getDefaultPath() {
-		return defaultStorage + ":";
+		return defaultStorage + ":databases/";
 	}
 
 	public String getDefaultOAuth2Key() {
@@ -184,6 +184,8 @@ public class Server {
 			httpListenerCommand2
 		};
 
+		binaryListener.portRange = "2424-2430";
+
 		cfg.network.listeners = Arrays.asList(
 			binaryListener,
 			httpListener
@@ -194,7 +196,7 @@ public class Server {
 		if (System.getenv("ORIENTDB_BINARY_SSL_ENABLED") != null) {
 			OServerNetworkListenerConfiguration binarySSLListener = new OServerNetworkListenerConfiguration();
 			binarySSLListener.socket = "ssl";
-			binaryListener.portRange = "2434-2440";
+			binarySSLListener.portRange = "2434-2440";
 
 			cfg.network.listeners.add(binarySSLListener);
 

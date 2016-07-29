@@ -95,59 +95,6 @@
     <build>
         <finalName>smsc</finalName>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>com.spotify</groupId>-->
-                <!--<artifactId>docker-maven-plugin</artifactId>-->
-                <!--<configuration>-->
-                    <!--<imageName>smsc</imageName>-->
-                    <!--<baseImage>java</baseImage>-->
-                    <!--<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>-->
-                    <!--&lt;!&ndash; copy the service's jar file from target into the root directory of the image &ndash;&gt;-->
-                    <!--<resources>-->
-                        <!--<resource>-->
-                            <!--<targetPath>/</targetPath>-->
-                            <!--<directory>${project.build.directory}</directory>-->
-                            <!--<include>${project.build.finalName}.jar</include>-->
-                        <!--</resource>-->
-                    <!--</resources>-->
-                    <!--<forceTags>true</forceTags>-->
-                    <!--<imageTags>-->
-                        <!--<imageTag>${project.version}</imageTag>-->
-                        <!--<imageTag>latest</imageTag>-->
-                    <!--</imageTags>-->
-                <!--</configuration>-->
-
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>build-image</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>build</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>tag-image</id>-->
-                        <!--<phase>package</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>tag</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<image>smsc:${project.version}</image>-->
-                            <!--<newName>smscio/smsc:${project.version}</newName>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>push-image</id>-->
-                        <!--<phase>deploy</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>push</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<imageName>smscio/smsc:${project.version}</imageName>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -178,6 +125,66 @@
                         <goals>
                             <goal>stop</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>smscio/smsc</imageName>
+                    <baseImage>java</baseImage>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <exposes>
+                        <expose>8080</expose>
+                        <expose>2480</expose>
+                        <expose>2424</expose>
+                        <expose>2434</expose>
+                    </exposes>
+                    <volumes>
+                        <volume>/databases</volume>
+                    </volumes>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <forceTags>true</forceTags>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>push-latest-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>smscio/smsc:latest</imageName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>smscio/smsc:${project.version}</imageName>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -218,68 +225,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.codehaus.mojo</groupId>-->
-                <!--<artifactId>exec-maven-plugin</artifactId>-->
-                <!--<version>1.5.0</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>java</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<mainClass>com.orientechnologies.orient.server.OServerMain</mainClass>-->
-                    <!--<arguments>-->
-                        <!--<argument>argument1</argument>-->
-                    <!--</arguments>-->
-                    <!--<systemProperties>-->
-                        <!--<systemProperty>-->
-                            <!--<key>myproperty</key>-->
-                            <!--<value>myvalue</value>-->
-                        <!--</systemProperty>-->
-                    <!--</systemProperties>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<artifactId>maven-antrun-plugin</artifactId>-->
-                <!--<version>1.6</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>start </id>-->
-                        <!--<phase>process-test-classes</phase>-->
-                        <!--<configuration>-->
-                            <!--<target>-->
-                                <!--<exec dir="${project.basedir}" executable="${fuse.home}/start" spawn="true">-->
-                                <!--</exec>-->
-                            <!--</target>-->
-                        <!--</configuration>-->
-                        <!--<goals>-->
-                            <!--<goal>run</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<artifactId>maven-antrun-plugin</artifactId>-->
-                <!--<version>1.6</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>############## stop-fuse ################</id>-->
-                        <!--<phase>post-integration-test</phase>-->
-                        <!--<configuration>-->
-                            <!--<target>-->
-                                <!--<exec dir="${project.basedir}" executable="${fuse.home}/stop" spawn="true">-->
-                                <!--</exec>-->
-                            <!--</target>-->
-                        <!--</configuration>-->
-                        <!--<goals>-->
-                            <!--<goal>run</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 

@@ -142,16 +142,6 @@
                     </includes>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-            <!--<groupId>org.apache.maven.plugins</groupId>-->
-            <!--<artifactId>maven-antrun-plugin</artifactId>-->
-            <!--<version>1.3</version>-->
-            <!--<configuration>-->
-            <!--<tasks>-->
-            <!--<java fork="true" spawn="true" classpathref="maven.runtime.classpath" className=""/>-->
-            <!--</tasks>-->
-            <!--</configuration>-->
-            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
@@ -171,18 +161,6 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
-            <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <releaseProfiles>release</releaseProfiles>
-                    <goals>deploy</goals>
-                    <tagNameFormat>v@{project.version}</tagNameFormat>
-                    <arguments>-Pskip-integration-tests</arguments>
-                </configuration>
-            </plugin> -->
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
@@ -201,7 +179,6 @@
                         <format>xml</format>
                     </formats>
                     <maxmem>256m</maxmem>
-                    <!-- aggregated reports for multi-module projects -->
                     <aggregate>true</aggregate>
                     <check/>
                 </configuration>
@@ -304,7 +281,7 @@
     </profiles>
 
     <properties>
-        <orientdb.version>2.2.5</orientdb.version>
+        <orientdb.version>2.2.6</orientdb.version>
         <enableAssertions>false</enableAssertions>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
