@@ -1,0 +1,14 @@
+<div class="addingForm">
+	<div class="form">
+		<div *ngFor="let item of crudService.crudModel.columnDefs">
+			 <md-input *ngIf="!item.hideInForm" placeholder="{{item.headerName}}" name="{{item.headerName}}" id="{{item.headerName}}"
+				type="text" autocomplete="off" [(ngModel)]="crudService.model[item.field]" [required]="item.required"
+				class="form-control"></md-input>
+		</div>
+
+		<div class="formButtons">
+		    <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath)" id="cancel">{{'CANCEL' | translate}}</button>
+		    <button md-raised-button color="primary" (click)="crudService.updateRecord(crudService.model); router.navigateByUrl(crudService.currPath)" id="update">{{'UPDATE' | translate}}</button>
+		</div>
+	</div>
+</div>

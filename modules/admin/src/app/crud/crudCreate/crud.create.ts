@@ -16,19 +16,12 @@ import { CrudModel } from "../crud.model";
 })
 
 export class CrudCreate {
-    model = new CrudModel([], []);
-
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
                 public router:Router) {
     }
 
     ngOnInit() {
-        // init the column definitions
-        this.crudService.getColumnDefs(true)
-            .then((columnDefs) => {
-                this.model.columnDefs = columnDefs;
-            })
     }
 
 }
