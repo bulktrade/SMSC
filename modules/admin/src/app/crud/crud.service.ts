@@ -28,7 +28,12 @@ export class CrudService {
                 public route:ActivatedRoute,
                 public translate: TranslateService) {
         this.currPath = this.route.snapshot['_urlSegment'].pathsWithParams[0].path;
-        this.setCrudClass(this.router['config']);
+
+        if (this.route.data['value'].crudClass) {
+            this.className = this.route.data['value'].crudClass;
+        } else {
+            this.setCrudClass(this.router['config']);
+        }
 
         // init the column definitions
         this.initGridData = new Promise((resolve, reject) => {
@@ -60,7 +65,7 @@ export class CrudService {
 
     createRecord(colsValue) {
         let params:RequestGetParameters = {
-            "nameClass": "customer",
+            "nameClass": this.className,
             "colsValue": colsValue
         };
 
@@ -118,7 +123,7 @@ export class CrudService {
 
         switch (event.colDef.field) {
             case 'users':
-                this.router.navigateByUrl('customers/users');
+                this.router.navigateByUrl(this.currPath + '/users');
                 break;
 
             case 'delete':
@@ -130,23 +135,28 @@ export class CrudService {
         }
     }
 
-    chooseUsers(ridUsers, gridOptions, customerService) {
-        let linkSet = '';
-        let params = {};
+    chooseUsers(ridUsers) {
+        this.setCrudClass(this.router['config']);
 
-        for (let item = 0; item < ridUsers.length; item++) {
-            linkSet += "" + ridUsers[item].rid + ",";
-        }
+        this.getStore()
+            .then((store) => {
+                let linkSet = '';
+                let params;
 
-        linkSet = linkSet.substring(0, linkSet.length - 1);
+                for (let item = 0; item < ridUsers.length; item++) {
+                    linkSet += "" + ridUsers[item].rid + ",";
+                }
 
-        params['data'] = gridOptions.rowData[this.focusedRow];
-        params['data'].users = linkSet;
+                linkSet = linkSet.substring(0, linkSet.length - 1);
 
-        customerService.updateRecord(params);
-        gridOptions.rowData[this.focusedRow] = params['data'];
+                params = store[this.focusedRow];
+                params['users'] = linkSet;
 
-        gridOptions.api.setRowData(gridOptions.rowData);
+                this.updateRecord(params);
+            }, (error) => {
+                this.dataNotFound = true;
+                this.errorMessage = 'orientdb.dataNotFound';
+            });
     }
 
     setCrudClass(router) {

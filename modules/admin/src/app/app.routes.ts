@@ -9,6 +9,7 @@ import { NotFound } from "./notFound/notFound.component";
 import { CrudView } from "./crud/crudView/crud.view";
 import { CrudDelete } from "./crud/crudDelete/crud.delete";
 import { CrudCreate } from "./crud/crudCreate/crud.create";
+import {CrudUsers} from "./crud/crudUsers/crud.users";
 
 const routes:RouterConfig = [
     {
@@ -44,7 +45,13 @@ const routes:RouterConfig = [
                         children: [
                             { path: '',  component: CrudView },
                             { path: 'delete',  component: CrudDelete },
-                            { path: 'create',  component: CrudCreate }
+                            { path: 'create',  component: CrudCreate },
+                            { path: 'users',  component: CrudUsers, data: { crudClass: 'OUser' } },
+
+                            { path: ':id',  component: CrudView },
+                            { path: 'delete/:id',  component: CrudDelete },
+                            { path: 'create/:id',  component: CrudCreate },
+                            { path: 'users/:id',  component: CrudUsers, data: { crudClass: 'OUser' } }
                         ]
                     }
                 ]

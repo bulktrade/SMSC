@@ -9,7 +9,7 @@
         <div class="wrapBtn">
             <div class="formButtons">
                 <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath)" id="cancel">{{'CANCEL' | translate}}</button>
-                <button md-raised-button color="primary" (click)="crudService.createRecord(crudService.model); router.navigateByUrl(crudService.currPath)" id="add">{{'ADD' | translate}}</button>
+                <button md-raised-button color="primary" (click)="crudService.chooseUsers(gridOptions.api.getSelectedRows(), crudService.crudModel.rowData); router.navigateByUrl(crudService.currPath)" id="add">{{'ADD' | translate}}</button>
             </div>
         </div>
 	</div>
