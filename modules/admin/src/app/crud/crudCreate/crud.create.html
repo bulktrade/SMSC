@@ -6,9 +6,11 @@
 				class="form-control"></md-input>
 		</div>
 
-		<div class="formButtons">
-		    <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath)" id="cancel">{{'CANCEL' | translate}}</button>
-		    <button md-raised-button color="primary" (click)="crudService.createRecord(crudService.model); router.navigateByUrl(crudService.currPath)" id="add">{{'ADD' | translate}}</button>
-		</div>
+        <div class="wrapBtn">
+            <div class="formButtons">
+                <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath)" id="cancel">{{'CANCEL' | translate}}</button>
+                <button md-raised-button color="primary" (click)="crudService.createRecord(crudService.model); router.navigateByUrl(crudService.currPath)" id="add">{{'ADD' | translate}}</button>
+            </div>
+        </div>
 	</div>
 </div>

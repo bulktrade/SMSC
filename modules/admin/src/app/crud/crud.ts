@@ -1,9 +1,7 @@
-import { Component } from "@angular/core";
+import {Component, ViewEncapsulation} from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { ROUTER_DIRECTIVES, ActivatedRoute } from "@angular/router";
 import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
-
-import {CrudService} from "./crud.service";
 
 @Component({
     selector: 'crud',
@@ -17,6 +15,7 @@ import {CrudService} from "./crud.service";
         MD_CARD_DIRECTIVES,
         MdCard
     ],
+    encapsulation: ViewEncapsulation.Native,
     pipes: [TranslatePipe]
 })
 

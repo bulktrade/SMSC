@@ -3,38 +3,6 @@
     height: 100%;
 	background: #fff;
 
-    alert {
-        text-align: center;
-    }
-
-    .searchPanel {
-        display: flex;
-        float: left;
-        width: 50%;
-
-        .searchBtn {
-            margin-top: 8px;
-        }
-    }
-
-	#customer-card-content {
-		display: flex;
-		overflow: auto;
-	}
-    .customersGrid {
-        height: inherit;
-
-        md-input {
-            padding-left: 14px;
-            width: 380px;
-        }
-    }
-
-    .opionPanel {
-        display: flex;
-        padding-bottom: 16px;
-    }
-
     md-card-content {
         height: inherit;
     }
@@ -43,50 +11,8 @@
         height: inherit;
     }
 
-	.buttons {
-        display: flex;
-        justify-content: flex-end;
-	    font-size: 14px;
-	    padding: 6px 14px 0 0;
-        width: 50%;
-
-        #deleteRow {
-            margin-left: 7px;
-        }
-	}
-
 	.title {
 		margin-bottom: 10px;
 	}
 
-    .form,
-    .deleteRecords,
-    .usersGrid {
-        display: inline-block;
-    }
-
-	.form {
-		width: 100%;
-
-		md-input {
-			background: transparent;
-			border: none;
-			width: 99%;
-			padding: 0 12px;
-		}
-	}
-
-	.formButtons {
-		float: right;
-		padding: 5px 10px 10px 0;
-	}
-
-	.deleteRecords {
-		width: 100%;
-		text-align: center;
-
-		h1 {
-			font-size: 16px;
-		}
-	}
 }
