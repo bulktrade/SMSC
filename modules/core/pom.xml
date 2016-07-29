@@ -167,13 +167,23 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>push-latest-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>smscio/smsc:latest</imageName>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>push-image</id>
                         <phase>deploy</phase>
                         <goals>
                             <goal>push</goal>
                         </goals>
                         <configuration>
-                            <imageName>smscio/smsc</imageName>
+                            <imageName>smscio/smsc:${project.version}</imageName>
                         </configuration>
                     </execution>
                 </executions>
