@@ -304,7 +304,7 @@
     </profiles>
 
     <properties>
-        <orientdb.version>2.2.5</orientdb.version>
+        <orientdb.version>2.2.6</orientdb.version>
         <enableAssertions>false</enableAssertions>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

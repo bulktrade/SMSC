@@ -62,7 +62,6 @@ public class Server {
 	public void run() throws Exception {
         String classpath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         System.setProperty("orientdb.www.path", classpath + "db/orientdb/site");
-        System.setProperty("network.http.useToken", "true");
 
 		setInstance(OServerMain.create());
 		OServerConfiguration cfg = new OServerConfiguration();
