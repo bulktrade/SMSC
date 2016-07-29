@@ -4,10 +4,9 @@ import { AgGridNg2 } from "ag-grid-ng2/main";
 import { GridOptions } from "ag-grid/main";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
-import { CrudModel } from "../crud.model";
 
 @Component({
-    selector: 'crud-update',
+    selector: 'crud-view',
     template: require('./crud.view.html'),
     encapsulation: ViewEncapsulation.Native,
     styleUrls: [
@@ -25,34 +24,17 @@ import { CrudModel } from "../crud.model";
 })
 
 export class CrudView {
-    model = new CrudModel([], []);
-
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
                 public router:Router) {
     }
 
     ngOnInit() {
-        // init the column definitions
-        this.crudService.getColumnDefs(true)
-            .then((columnDefs) => {
-                this.model.columnDefs = columnDefs;
-            })
-            .then((res) => {
-                // init the row data
-                this.crudService.getStore()
-                    .then((store) => {
-                        this.model.rowData = store;
-                    }, (error) => {
-                        this.crudService.dataNotFound = true;
-                        this.crudService.errorMessage = 'orientdb.dataNotFound';
-                    });
-            });
     }
 
     gridOptions:GridOptions = {
-        columnDefs: this.model.columnDefs,
-        rowData: this.model.rowData,
+        columnDefs: this.crudService.crudModel.columnDefs,
+        rowData: this.crudService.crudModel.rowData,
         rowSelection: 'single',
         singleClickEdit: true
     }

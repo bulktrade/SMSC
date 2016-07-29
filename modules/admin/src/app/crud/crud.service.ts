@@ -5,12 +5,16 @@ import { LocalStorage } from "angular2-localStorage/WebStorage";
 import { Router, ActivatedRoute } from "@angular/router";
 import {Response} from "@angular/http";
 import {TranslateService} from "ng2-translate/ng2-translate";
+import {CrudModel} from "./crud.model";
 
 @Injectable()
 export class CrudService {
     @LocalStorage('focusedRow') public focusedRow:any;
 
+    crudModel = new CrudModel([], []);
+
     public btnDeleteDisabled = true;
+    public initGridData: Promise<any>;
     public currPath = null;
     public className = null;
     public dataNotFound = false;
@@ -25,6 +29,25 @@ export class CrudService {
                 public translate: TranslateService) {
         this.currPath = this.route.snapshot['_urlSegment'].pathsWithParams[0].path;
         this.setCrudClass(this.router['config']);
+
+        // init the column definitions
+        this.initGridData = new Promise((resolve, reject) => {
+            this.getColumnDefs(true)
+                .then((columnDefs) => {
+                    this.crudModel.columnDefs = columnDefs;
+                })
+                .then((res) => {
+                    // init the row data
+                    this.getStore()
+                        .then((store) => {
+                            this.crudModel.rowData = store;
+                            resolve(this.crudModel.rowData);
+                        }, (error) => {
+                            this.dataNotFound = true;
+                            this.errorMessage = 'orientdb.dataNotFound';
+                        });
+                });
+        });
     }
 
     onFilterChanged(value, gridOptions) {
@@ -32,7 +55,7 @@ export class CrudService {
     }
 
     cellValueChanged(value) {
-        this.updateRecord(value);
+        this.updateRecord(value.data);
     }
 
     createRecord(colsValue) {
@@ -55,21 +78,21 @@ export class CrudService {
     updateRecord(value) {
         let colsValue = [];
 
-        for (let key in value.data) {
+        for (let key in value) {
             if (key !== 'rid' && key !== 'version') {
-                colsValue.push(value.data[key]);
+                colsValue.push(value[key]);
             }
         }
 
         let params = {
-            "rid": value.data.rid,
-            "version": value.data.version,
-            "colsValue": value.data
+            "rid": value.rid,
+            "version": value.version,
+            "colsValue": value
         };
 
         return this.databaseService.update(params)
             .then((res) => {
-                value.data.version++;
+                value.version++;
                 this.successExecute = true;
                 this.successMessage = 'orientdb.successUpdate';
             }, (error) => {
@@ -101,7 +124,8 @@ export class CrudService {
             case 'delete':
                 break;
 
-            case 'update':
+            case 'edit':
+                this.router.navigateByUrl(this.currPath + '/edit');
                 break;
         }
     }
@@ -165,7 +189,7 @@ export class CrudService {
             columnDefs = [
                 {
                     headerName: " ",
-                    field: "update",
+                    field: "edit",
                     width: 66,
                     cellRenderer: (params) => {
                         return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
