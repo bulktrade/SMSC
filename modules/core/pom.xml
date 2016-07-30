@@ -134,7 +134,7 @@
                 <configuration>
                     <imageName>smscio/smsc</imageName>
                     <baseImage>java</baseImage>
-                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <entryPoint>["java", "-XX:MaxDirectMemorySize=32142m", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
                     <exposes>
                         <expose>8080</expose>
                         <expose>2480</expose>
