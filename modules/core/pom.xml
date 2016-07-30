@@ -5,7 +5,7 @@
     <parent>
         <artifactId>smsc</artifactId>
         <groupId>io.smsc</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -87,8 +87,8 @@
             <artifactId>spring-cloud-starter-zuul</artifactId>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-zookeeper-discovery</artifactId>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-zookeeper-discovery</artifactId>-->
         <!--</dependency>-->
     </dependencies>
 
@@ -157,7 +157,6 @@
                         <imageTag>latest</imageTag>
                     </imageTags>
                 </configuration>
-
                 <executions>
                     <execution>
                         <id>build-image</id>
@@ -165,26 +164,6 @@
                         <goals>
                             <goal>build</goal>
                         </goals>
-                    </execution>
-                    <execution>
-                        <id>push-latest-image</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>push</goal>
-                        </goals>
-                        <configuration>
-                            <imageName>smscio/smsc:latest</imageName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>push-image</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>push</goal>
-                        </goals>
-                        <configuration>
-                            <imageName>smscio/smsc:${project.version}</imageName>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
