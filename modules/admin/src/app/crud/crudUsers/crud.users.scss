@@ -1,0 +1,48 @@
+#windowGrid {
+    height: 83.7%;
+
+    .opionPanel {
+        display: flex;
+        padding-bottom: 16px;
+    }
+
+    .searchPanel {
+        display: flex;
+        float: left;
+        width: 50%;
+
+        .searchBtn {
+            margin-top: 8px;
+        }
+
+        md-input {
+            padding-left: 14px;
+            width: 100%;
+        }
+    }
+
+    .buttonsPanel {
+        display: flex;
+        justify-content: flex-end;
+	    font-size: 14px;
+	    padding: 6px 14px 0 0;
+        width: 50%;
+
+        #deleteRow {
+            margin-left: 7px;
+        }
+	}
+
+	alert {
+        text-align: center;
+    }
+
+    .wrapBtn {
+        display: flex;
+        justify-content: flex-end;
+
+        .formButtons {
+            padding: 15px 5px 15px 0;
+        }
+    }
+}
