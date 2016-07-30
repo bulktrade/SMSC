@@ -134,7 +134,10 @@
                 <configuration>
                     <imageName>smscio/smsc</imageName>
                     <baseImage>java</baseImage>
-                    <entryPoint>["java", "-XX:MaxDirectMemorySize=32142m", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <entryPoint>["java", "-XX:MaxDirectMemorySize=32142m", "-jar", "/orientdb/${project.build.finalName}.jar"]</entryPoint>
+                    <env>
+                        <ORIENTDB_HOME>/orientdb</ORIENTDB_HOME>
+                    </env>
                     <exposes>
                         <expose>8080</expose>
                         <expose>2480</expose>
@@ -142,11 +145,11 @@
                         <expose>2434</expose>
                     </exposes>
                     <volumes>
-                        <volume>/databases</volume>
+                        <volume>/orientdb/databases</volume>
                     </volumes>
                     <resources>
                         <resource>
-                            <targetPath>/</targetPath>
+                            <targetPath>/orientdb</targetPath>
                             <directory>${project.build.directory}</directory>
                             <include>${project.build.finalName}.jar</include>
                         </resource>
