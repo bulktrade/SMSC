@@ -1,35 +1,37 @@
 package io.smsc.listener;
 
 import io.smsc.orientdb.Server;
-import org.springframework.context.ApplicationEvent;
+import org.apache.log4j.Logger;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextClosedEvent;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmbeddedOrientDBListener implements ApplicationListener<ContextRefreshedEvent>, Ordered {
+public class EmbeddedOrientDBListener implements ApplicationListener<ApplicationReadyEvent>, Ordered {
+	private static Logger log = Logger.getLogger(EmbeddedOrientDBListener.class);
+
 	Server server;
 
-	@EventListener({ContextRefreshedEvent.class})
-	public void onApplicationEvent(ContextRefreshedEvent contextEvent) {
+	@Override
+	public void onApplicationEvent(ApplicationReadyEvent contextEvent) {
+		log.info("Start OrientDB.");
+
 		if (System.getenv("EMBEDDED_ORIENTDB_ENABLED") != null && System.getenv("EMBEDDED_ORIENTDB_ENABLED").equals("1")) {
 			try {
 				server = Server.start();
+
+				Runtime.getRuntime().addShutdownHook(new Thread() {
+					@Override
+					public void run() {
+						log.info("Stop OrientDB.");
+						server.getInstance().shutdown();
+					}
+				});
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-	}
-
-
-	@EventListener({ContextClosedEvent.class})
-	public void onApplicationEvent(ContextClosedEvent contextEvent) {
-		if (System.getenv("EMBEDDED_ORIENTDB_ENABLED") != null && System.getenv("EMBEDDED_ORIENTDB_ENABLED").equals("1")) {
-            server.getInstance().shutdown();
-        }
 	}
 
 	@Override

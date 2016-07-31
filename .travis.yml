@@ -34,8 +34,14 @@ install:
 #  - npm run start:hmr&
 #  - sleep 10
 
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push smscio/smsc;
+    fi
+
 script:
-  - mvn clean install && if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn heroku:deploy docker:push -Dmaven.test.skip=true -Dmaven.integration-test.skip=true -Dmaven.javadoc.skip=true ; fi
+  - mvn clean install && if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then mvn heroku:deploy -Dmaven.test.skip=true -Dmaven.integration-test.skip=true -Dmaven.javadoc.skip=true ; fi
  
 #after_success:
 #  - mvn clean cobertura:cobertura coveralls:report
