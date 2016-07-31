@@ -133,7 +133,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <configuration>
                     <imageName>smscio/smsc</imageName>
-                    <baseImage>java</baseImage>
+                    <baseImage>java:8-alpine</baseImage>
                     <entryPoint>["java", "-XX:MaxDirectMemorySize=32142m", "-jar", "/orientdb/${project.build.finalName}.jar"]</entryPoint>
                     <env>
                         <ORIENTDB_HOME>/orientdb</ORIENTDB_HOME>
