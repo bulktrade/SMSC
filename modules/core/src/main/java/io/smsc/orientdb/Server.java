@@ -156,9 +156,13 @@ public class Server {
 		);
 
 		OServerNetworkListenerConfiguration binaryListener = new OServerNetworkListenerConfiguration();
+		binaryListener.ipAddress = "0.0.0.0";
+
 		OServerNetworkListenerConfiguration httpListener = new OServerNetworkListenerConfiguration();
 		httpListener.protocol = "http";
+		httpListener.ipAddress = "0.0.0.0";
 		httpListener.portRange = "2480-2490";
+
 		httpListener.parameters = new OServerParameterConfiguration[] {
 			new OServerParameterConfiguration("network.http.maxLength", "10000000"),
 			new OServerParameterConfiguration("network.http.charset", "utf-8"),

@@ -134,7 +134,9 @@
                 <configuration>
                     <imageName>smscio/smsc</imageName>
                     <baseImage>java:8-alpine</baseImage>
-                    <entryPoint>["java", "-XX:MaxDirectMemorySize=32142m", "-jar", "/orientdb/${project.build.finalName}.jar"]</entryPoint>
+                    <entryPoint>
+                        ["java", "-Xmx800m", "-Dstorage.diskCache.bufferSize=1200", "-XX:+PerfDisableSharedMem", "-XX:MaxDirectMemorySize=32142m", "-jar", "/orientdb/${project.build.finalName}.jar"]
+                    </entryPoint>
                     <env>
                         <ORIENTDB_HOME>/orientdb</ORIENTDB_HOME>
                     </env>
