@@ -14,6 +14,8 @@ export class CrudService {
     crudModel = new CrudModel([], []);
 
     public btnDeleteDisabled = true;
+    public gridOptions;
+    public showGridUsers = false;
     public initGridData: Promise<any>;
     public currPath = null;
     public className = null;
@@ -37,13 +39,13 @@ export class CrudService {
 
         // init the column definitions
         this.initGridData = new Promise((resolve, reject) => {
-            this.getColumnDefs(true)
+            this.getColumnDefs(this.className, true)
                 .then((columnDefs) => {
                     this.crudModel.columnDefs = columnDefs;
                 })
                 .then((res) => {
                     // init the row data
-                    this.getStore()
+                    this.getStore(this.className)
                         .then((store) => {
                             this.crudModel.rowData = store;
                             resolve(this.crudModel.rowData);
@@ -123,7 +125,7 @@ export class CrudService {
 
         switch (event.colDef.field) {
             case 'users':
-                this.router.navigateByUrl(this.currPath + '/users');
+                this.showGridUsers = true;
                 break;
 
             case 'delete':
@@ -135,28 +137,28 @@ export class CrudService {
         }
     }
 
-    chooseUsers(ridUsers) {
-        this.setCrudClass(this.router['config']);
+    chooseUsers(usersGridOptions) {
+        let focusedRows = usersGridOptions.api.getSelectedRows();
+        let linkSet = '';
+        let params;
 
-        this.getStore()
-            .then((store) => {
-                let linkSet = '';
-                let params;
+        for (let item = 0; item < focusedRows.length; item++) {
+            linkSet += "" + focusedRows[item].rid + ",";
+        }
 
-                for (let item = 0; item < ridUsers.length; item++) {
-                    linkSet += "" + ridUsers[item].rid + ",";
-                }
+        linkSet = linkSet.substring(0, linkSet.length - 1);
 
-                linkSet = linkSet.substring(0, linkSet.length - 1);
+        if (this.gridOptions) {
+            params = this.gridOptions.rowData[this.focusedRow];
+            params['users'] = linkSet;
+            this.updateRecord(params);
 
-                params = store[this.focusedRow];
-                params['users'] = linkSet;
+            this.gridOptions.rowData[this.focusedRow]['users'] = linkSet;
+            this.gridOptions.api.setRowData(this.gridOptions.rowData);
+        } else {
+            this.model['users'] = linkSet.split(',');
+        }
 
-                this.updateRecord(params);
-            }, (error) => {
-                this.dataNotFound = true;
-                this.errorMessage = 'orientdb.dataNotFound';
-            });
     }
 
     setCrudClass(router) {
@@ -172,8 +174,8 @@ export class CrudService {
         }
     }
 
-    getStore() {
-        return this.databaseService.query('select from ' + this.className)
+    getStore(className) {
+        return this.databaseService.query('select from ' + className)
             .then((res: Response) => {
                 let result = res.json()['result'];
 
@@ -192,7 +194,7 @@ export class CrudService {
             })
     }
 
-    getColumnDefs(readOnly) {
+    getColumnDefs(className, readOnly) {
         let columnDefs = [];
 
         if (readOnly) {
@@ -220,7 +222,7 @@ export class CrudService {
             ];
         }
 
-        return this.databaseService.getInfoClass(this.className)
+        return this.databaseService.getInfoClass(className)
             .then((res: Response) => {
                 res.json().properties.forEach((item) => {
                     columnDefs.push({

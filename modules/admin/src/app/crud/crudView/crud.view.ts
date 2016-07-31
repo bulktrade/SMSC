@@ -4,6 +4,7 @@ import { AgGridNg2 } from "ag-grid-ng2/main";
 import { GridOptions } from "ag-grid/main";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
+import {CrudUsers} from "../crudUsers/crud.users";
 
 @Component({
     selector: 'crud-view',
@@ -18,7 +19,8 @@ import { CrudService } from "../crud.service";
     ],
     providers: [CrudService],
     directives: [
-        AgGridNg2
+        AgGridNg2,
+        CrudUsers
     ],
     pipes: [TranslatePipe]
 })
@@ -30,6 +32,7 @@ export class CrudView {
     }
 
     ngOnInit() {
+        this.crudService.gridOptions = this.gridOptions;
     }
 
     gridOptions:GridOptions = {

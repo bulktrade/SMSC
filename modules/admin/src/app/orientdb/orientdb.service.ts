@@ -112,7 +112,11 @@ export class ODatabaseService {
             '{ "@class" : "%(nameClass)s", ';
 
         for (let key in params.colsValue) {
-            batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
+            if (key !== 'users') {
+                batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
+            } else {
+                batch += '"' + key + '" : [%(colsValue.' + key + ')s], ';
+            }
         }
 
         batch = batch.substring(0, batch.length - 2) + '}}]}';

@@ -1,6 +1,10 @@
 #windowGrid {
     height: 83.7%;
 
+    .wrapGrid {
+        display: block;
+        height: 100%;}
+
     .opionPanel {
         display: flex;
         padding-bottom: 16px;

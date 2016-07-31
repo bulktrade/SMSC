@@ -1,0 +1,38 @@
+#multipleSelect {
+    border: 1px solid rgba(0, 0, 0, 0.38);
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 14px;
+    padding: 5px;
+    min-height: 60px;
+
+    .items {
+        display: inline-block;
+        float: left;
+        margin-right: 10px;
+    }
+
+    md-icon {
+        float: left;
+        cursor: pointer;
+        font-size: 20px;
+        margin: auto;
+
+        &:hover {
+            color: red;
+        }
+    }
+
+    .items,
+    .item {
+        display: flex;
+    }
+
+    #add {
+        margin-bottom: 6px;
+
+        &:hover {
+            color: green;
+        }
+    }
+
+}

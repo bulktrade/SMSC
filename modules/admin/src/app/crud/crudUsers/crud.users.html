@@ -15,9 +15,9 @@
 	             [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData"></ag-grid-ng2>
     <div class="wrapBtn">
         <div class="formButtons">
-            <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath)">{{'BACK' | translate}}</button>
-            <button md-raised-button color="primary" (click)="crudService.chooseUsers(gridOptions.api.getSelectedRows());
-                                router.navigateByUrl(crudService.currPath)">{{'CHOOSE' | translate}}</button>
+            <button md-raised-button color="primary" (click)="crudServiceParent.showGridUsers=false">{{'BACK' | translate}}</button>
+            <button md-raised-button color="primary" (click)="crudServiceParent.chooseUsers(gridOptions);
+                                crudServiceParent.showGridUsers=false">{{'CHOOSE' | translate}}</button>
         </div>
     </div>
 </div>

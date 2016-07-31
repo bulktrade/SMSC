@@ -1,28 +1,33 @@
 <div id="windowGrid">
-    <div class="opionPanel">
-        <div class="searchPanel">
-            <md-input placeholder="{{ 'SEARCH' | translate }}"
-                    type="text" autocomplete="off" name="search" style=""
-                    #db (keydown)="crudService.onFilterChanged(db.value, gridOptions)"
-                    (keyup)="crudService.onFilterChanged(db.value, gridOptions)"></md-input>
-            <button md-icon-button color="primary" class="searchBtn">
-                <md-icon class="md-24">search</md-icon>
-            </button>
+    <div *ngIf="!crudService.showGridUsers" class="wrapGrid">
+        <div class="opionPanel">
+            <div class="searchPanel">
+                <md-input placeholder="{{ 'SEARCH' | translate }}"
+                        type="text" autocomplete="off" name="search" style=""
+                        #db (keydown)="crudService.onFilterChanged(db.value, gridOptions)"
+                        (keyup)="crudService.onFilterChanged(db.value, gridOptions)"></md-input>
+                <button md-icon-button color="primary" class="searchBtn">
+                    <md-icon class="md-24">search</md-icon>
+                </button>
+            </div>
+            <div class="buttonsPanel">
+                <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath + '/create')" id="addRow">{{'ADD' | translate}}</button>
+                <button md-raised-button color="warn" [disabled]="crudService.btnDeleteDisabled"
+                        (click)="router.navigateByUrl(crudService.currPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
+            </div>
         </div>
-        <div class="buttonsPanel">
-            <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath + '/create')" id="addRow">{{'ADD' | translate}}</button>
-            <button md-raised-button color="warn" [disabled]="crudService.btnDeleteDisabled"
-                    (click)="router.navigateByUrl(crudService.currPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
-        </div>
+        <alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true" (close)="crudService.dataNotFound=false">
+            {{ crudService.errorMessage | translate }}
+        </alert>
+        <alert *ngIf="crudService.successExecute" type="success" dismissible="true" (close)="crudService.successExecute=false">
+            {{ crudService.successMessage | translate }}
+        </alert>
+        <ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 100%;"
+                     [rowGroupPanelShow]="always" [columnDefs]="crudService.crudModel.columnDefs"
+                     [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData" (cellValueChanged)="crudService.cellValueChanged($event)"
+                     (cellClicked)="crudService.clickOnCell($event)"></ag-grid-ng2>
     </div>
-    <alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true" (close)="crudService.dataNotFound=false">
-        {{ crudService.errorMessage | translate }}
-    </alert>
-    <alert *ngIf="crudService.successExecute" type="success" dismissible="true" (close)="crudService.successExecute=false">
-        {{ crudService.successMessage | translate }}
-    </alert>
-	<ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 100%;"
-	             [rowGroupPanelShow]="always" [columnDefs]="crudService.crudModel.columnDefs"
-	             [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData" (cellValueChanged)="crudService.cellValueChanged($event)"
-	             (cellClicked)="crudService.clickOnCell($event)"></ag-grid-ng2>
+    <div *ngIf="crudService.showGridUsers">
+        <crud-users [crudService]="crudService"></crud-users>
+    </div>
 </div>
