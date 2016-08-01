@@ -1,5 +1,5 @@
 <div id="multipleSelect">
-    <div class="title">{{title | uppercase | translate}}</div>
+    <div class="title">{{property.field | uppercase | translate}}</div>
     <hr>
     <!--<md-icon class="md-24" id="add">clear_all</md-icon>-->
     <div *ngFor="let item of items" class="items">
@@ -10,6 +10,5 @@
         </div>
     </div>
     <md-icon class="md-24" id="add"
-    (click)="crudService.showGridUsers=true;
-                crudService.fieldsValue = crudService.model;">add_circle</md-icon>
+    (click)="addLinkset();">add_circle</md-icon>
 </div>
