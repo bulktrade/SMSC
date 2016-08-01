@@ -8,24 +8,24 @@ CREATE PROPERTY Customer.country STRING
 CREATE PROPERTY Customer.city STRING
 CREATE PROPERTY Customer.vatid DOUBLE
 
-CREATE Class CustomerContacts
-CREATE PROPERTY CustomerContacts.type EMBEDDEDLIST
-CREATE PROPERTY CustomerContacts.salutation EMBEDDEDLIST
-CREATE PROPERTY CustomerContacts.firstname STRING
-CREATE PROPERTY CustomerContacts.surename STRING
-CREATE PROPERTY CustomerContacts.phone STRING
-CREATE PROPERTY CustomerContacts.mobilePhone STRING
-CREATE PROPERTY CustomerContacts.fax STRING
-CREATE PROPERTY CustomerContacts.emailAddress STRING
+CREATE Class CustomerContact
+CREATE PROPERTY CustomerContact.type EMBEDDEDLIST
+CREATE PROPERTY CustomerContact.salutation EMBEDDEDLIST
+CREATE PROPERTY CustomerContact.firstname STRING
+CREATE PROPERTY CustomerContact.surename STRING
+CREATE PROPERTY CustomerContact.phone STRING
+CREATE PROPERTY CustomerContact.mobilePhone STRING
+CREATE PROPERTY CustomerContact.fax STRING
+CREATE PROPERTY CustomerContact.emailAddress STRING
 
-CREATE PROPERTY Customer.contacts LINKSET CustomerContacts
+CREATE PROPERTY Customer.contacts LINKSET CustomerContact
 CREATE PROPERTY Customer.users LINKSET OUser
 CREATE PROPERTY Customer.parentCustomer LINK Customer
 
 CREATE SEQUENCE customerIdSeq TYPE ORDERED
 
 CREATE INDEX Customer.customerId UNIQUE
-CREATE INDEX CustomerContacts.emailAddress UNIQUE
+CREATE INDEX CustomerContact.emailAddress UNIQUE
 
 ALTER PROPERTY Customer.customerId MANDATORY true
 ALTER PROPERTY Customer.companyName MANDATORY true
@@ -38,11 +38,11 @@ ALTER PROPERTY Customer.contacts MANDATORY true
 ALTER PROPERTY Customer.users MANDATORY true
 ALTER PROPERTY Customer.parentCustomer MANDATORY true
 
-ALTER PROPERTY CustomerContacts.type MANDATORY true
-ALTER PROPERTY CustomerContacts.salutation MANDATORY true
-ALTER PROPERTY CustomerContacts.firstname MANDATORY true
-ALTER PROPERTY CustomerContacts.surename MANDATORY true
-ALTER PROPERTY CustomerContacts.phone MANDATORY true
-ALTER PROPERTY CustomerContacts.mobilePhone MANDATORY true
-ALTER PROPERTY CustomerContacts.emailAddress MANDATORY true
+ALTER PROPERTY CustomerContact.type MANDATORY true
+ALTER PROPERTY CustomerContact.salutation MANDATORY true
+ALTER PROPERTY CustomerContact.firstname MANDATORY true
+ALTER PROPERTY CustomerContact.surename MANDATORY true
+ALTER PROPERTY CustomerContact.phone MANDATORY true
+ALTER PROPERTY CustomerContact.mobilePhone MANDATORY true
+ALTER PROPERTY CustomerContact.emailAddress MANDATORY true
 
