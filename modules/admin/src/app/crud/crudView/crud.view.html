@@ -1,5 +1,5 @@
 <div id="windowGrid">
-    <div *ngIf="!crudService.showGridUsers" class="wrapGrid">
+    <div *ngIf="!crudService.showLinksetView" class="wrapGrid">
         <div class="opionPanel">
             <div class="searchPanel">
                 <md-input placeholder="{{ 'SEARCH' | translate }}"
@@ -27,7 +27,7 @@
                      [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData" (cellValueChanged)="crudService.cellValueChanged($event)"
                      (cellClicked)="crudService.clickOnCell($event)"></ag-grid-ng2>
     </div>
-    <div *ngIf="crudService.showGridUsers">
-        <crud-users [crudService]="crudService"></crud-users>
+    <div *ngIf="crudService.showLinksetView">
+        <crud-linkset [crudService]="crudService"></crud-linkset>
     </div>
 </div>

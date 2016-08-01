@@ -5,7 +5,7 @@ import { NgClass, NgFor } from "@angular/common";
 import { ActiveItem } from "./directives/active";
 import { FaAngleLeft } from "./directives/FaAngleLeft";
 import { ShowMiniNav } from "./ShowMiniNav";
-import { LocalStorage } from "angular2-localStorage/WebStorage";
+import { LocalStorage } from "angular2-localstorage/WebStorage";
 import { MdIcon } from "@angular2-material/icon/icon";
 import {Router, ROUTER_DIRECTIVES} from "@angular/router";
 

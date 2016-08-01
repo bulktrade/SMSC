@@ -6,15 +6,15 @@ import {Router } from "@angular/router";
 import {CrudService} from "../crud.service";
 
 @Component({
-    selector: 'crud-users',
-    template: require('./crud.users.html'),
+    selector: 'crud-linkset',
+    template: require('./crud.linkset.html'),
     encapsulation: ViewEncapsulation.Native,
     styleUrls: [
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-fresh.css')
     ],
     styles: [
-        require('./crud.users.scss')
+        require('./crud.linkset.scss')
     ],
     providers: [CrudService],
     directives: [
@@ -23,10 +23,10 @@ import {CrudService} from "../crud.service";
     pipes: [TranslatePipe]
 })
 
-export class CrudUsers {
+export class CrudLinkset {
     @Input('crudService') crudServiceParent:any;
 
-    public className = 'OUser';
+    public className;
     public gridOptions:GridOptions;
 
     constructor(public translate:TranslateService,
@@ -35,8 +35,10 @@ export class CrudUsers {
     }
 
     ngOnInit() {
+        this.className = this.crudServiceParent.linkedClass;
+
         // init the column definitions
-        this.crudService.getColumnDefs(this.className, true)
+        this.crudService.getColumnDefs(this.className, false)
             .then((columnDefs) => {
                 this.crudService.crudModel.columnDefs = columnDefs;
             })

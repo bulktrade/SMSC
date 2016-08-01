@@ -4,7 +4,7 @@ import { AgGridNg2 } from "ag-grid-ng2/main";
 import { GridOptions } from "ag-grid/main";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
-import {CrudUsers} from "../crudUsers/crud.users";
+import {CrudLinkset} from "../crudLinkset/crud.linkset";
 
 @Component({
     selector: 'crud-view',
@@ -20,7 +20,7 @@ import {CrudUsers} from "../crudUsers/crud.users";
     providers: [CrudService],
     directives: [
         AgGridNg2,
-        CrudUsers
+        CrudLinkset
     ],
     pipes: [TranslatePipe]
 })

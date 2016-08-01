@@ -1,4 +1,4 @@
-import { LocalStorageService } from "angular2-localStorage/LocalStorageEmitter";
+import { LocalStorageService } from "angular2-localstorage/LocalStorageEmitter";
 import { AppState } from "./app.service";
 import { HTTP_PROVIDERS, Http } from "@angular/http";
 import { TRANSLATE_PROVIDERS, TranslateService } from "ng2-translate/ng2-translate";

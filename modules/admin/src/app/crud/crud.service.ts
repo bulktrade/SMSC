@@ -1,7 +1,7 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
 import { RequestGetParameters } from "../orientdb/orientdb.requestGetParameters";
-import { LocalStorage } from "angular2-localStorage/WebStorage";
+import { LocalStorage } from "angular2-localstorage/WebStorage";
 import { Router, ActivatedRoute } from "@angular/router";
 import {Response} from "@angular/http";
 import {TranslateService} from "ng2-translate/ng2-translate";
@@ -9,13 +9,15 @@ import {CrudModel} from "./crud.model";
 
 @Injectable()
 export class CrudService {
-    @LocalStorage('focusedRow') public focusedRow:any;
+    @LocalStorage() public focusedRow:any;
 
     crudModel = new CrudModel([], []);
 
     public btnDeleteDisabled = true;
     public gridOptions;
-    public showGridUsers = false;
+    public isActiveLinkset = null;
+    public linkedClass = null;
+    public showLinksetView = false;
     public initGridData: Promise<any>;
     public currPath = null;
     public className = null;
@@ -123,22 +125,25 @@ export class CrudService {
         this.btnDeleteDisabled = false;
         this.focusedRow = event.rowIndex;
 
-        switch (event.colDef.field) {
-            case 'users':
-                this.showGridUsers = true;
-                break;
+        if (event.colDef.type === 'LINKSET') {
+            this.linkedClass = event.colDef.linkedClass;
+            this.isActiveLinkset = event.colDef.field;
+            this.showLinksetView = true;
+        }
 
+        switch (event.colDef.field) {
             case 'delete':
                 break;
 
             case 'edit':
                 this.router.navigateByUrl(this.currPath + '/edit');
+                localStorage.setItem('isEditForm', 'true');
                 break;
         }
     }
 
-    chooseUsers(usersGridOptions) {
-        let focusedRows = usersGridOptions.api.getSelectedRows();
+    chooseLinkset(linksetGridOptions) {
+        let focusedRows = linksetGridOptions.api.getSelectedRows();
         let linkSet = '';
         let params;
 
@@ -150,13 +155,13 @@ export class CrudService {
 
         if (this.gridOptions) {
             params = this.gridOptions.rowData[this.focusedRow];
-            params['users'] = linkSet;
+            params[this.isActiveLinkset] = linkSet;
             this.updateRecord(params);
 
-            this.gridOptions.rowData[this.focusedRow]['users'] = linkSet;
+            this.gridOptions.rowData[this.focusedRow][this.isActiveLinkset] = linkSet;
             this.gridOptions.api.setRowData(this.gridOptions.rowData);
         } else {
-            this.model['users'] = linkSet.split(',');
+            this.model[this.isActiveLinkset] = linkSet.split(',');
         }
 
     }
@@ -229,7 +234,9 @@ export class CrudService {
                         headerName: this.translate.get(item.name.toUpperCase())['value'],
                         field: item.name,
                         editable: !item.readonly,
-                        required: item.mandatory
+                        required: item.mandatory,
+                        type: item.type,
+                        linkedClass: item.linkedClass
                     })
                 })
 
