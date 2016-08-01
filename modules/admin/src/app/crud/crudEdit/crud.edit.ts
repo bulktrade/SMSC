@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
-import {MultipleSelect} from "../directives/multipleSelect";
-import {CrudLinkset} from "../crudLinkset/crud.linkset";
-import {MdCheckbox} from "@angular2-material/checkbox/checkbox";
+import { MultipleSelect } from "../directives/multipleSelect";
+import { CrudLinkset } from "../crudLinkset/crud.linkset";
+import { MdCheckbox } from "@angular2-material/checkbox/checkbox";
 
 @Component({
     selector: 'crud-edit',
@@ -18,7 +18,7 @@ import {MdCheckbox} from "@angular2-material/checkbox/checkbox";
 })
 
 export class CrudEdit {
-    public  btnName:string = 'Update';
+    public btnName:string = 'Update';
 
     constructor(public translate:TranslateService,
                 public crudService:CrudService,

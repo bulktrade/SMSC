@@ -22,7 +22,7 @@ orientdb:
 
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ribbon:
-  ConnectTimeout: 200
+  ConnectTimeout: 200 
   ReadTimeout: 60000
   eureka:
     enabled: false
