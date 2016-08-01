@@ -1,0 +1,27 @@
+<div class="addingForm">
+	<div *ngIf="!crudService.showLinksetView" class="form">
+		<div *ngFor="let item of crudService.crudModel.columnDefs" [ngSwitch]="item.type">
+			 <md-input *ngIf="item.type==='STRING' || item.type==='DOUBLE' || item.type==='EMBEDDEDLIST'" placeholder="{{item.headerName}}" name="{{item.headerName}}" id="{{item.headerName}}"
+				type="text" autocomplete="off" [(ngModel)]="crudService.model[item.field]" [required]="item.required"
+				class="form-control"></md-input>
+             <multiple-select *ngSwitchCase="'LINKSET'"
+                              [property]="item" [crudService]="crudService"
+                              [rowSelectionLinkset]="'single'"></multiple-select>
+             <multiple-select *ngSwitchCase="'LINK'"
+                             [property]="item" [crudService]="crudService"
+                             [rowSelectionLinkset]="'multiple'"></multiple-select>
+             <md-checkbox *ngSwitchCase="'BOOLEAN'"
+                [(ngModel)]="crudService.model[item.field]" name="cb" [align]="alignment">
+                    {{item.headerName}}</md-checkbox>
+		</div>
+        <div class="wrapBtn">
+            <div class="formButtons">
+                <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath)" id="cancel">{{'CANCEL' | translate}}</button>
+                <button md-raised-button color="primary" (click)="edit();" id="add">{{btnName | uppercase | translate}}</button>
+            </div>
+        </div>
+	</div>
+    <div *ngIf="crudService.showLinksetView">
+        <crud-linkset [crudService]="crudService"></crud-linkset>
+    </div>
+</div>

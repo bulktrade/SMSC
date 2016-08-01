@@ -56,7 +56,7 @@ export class CrudLinkset {
         this.gridOptions = {
             columnDefs: this.crudService.crudModel.columnDefs,
             rowData: this.crudService.crudModel.rowData,
-            rowSelection: 'multiple',
+            rowSelection: this.crudServiceParent.rowSelectionLinkset,
             singleClickEdit: true
         }
     }

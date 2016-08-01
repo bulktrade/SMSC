@@ -53,6 +53,8 @@
     "YES": "Yes",
     "BACK": "Back",
     "CHOOSE": "Choose",
+    "UPDATE": "Update",
+    "CREATE": "Create",
     "orientdb.dataNotFound": "Your data is not found!",
     "orientdb.dataNotCorrect": "You have entered incorrect data!",
     "orientdb.successCreate": "New record was successfully added!",

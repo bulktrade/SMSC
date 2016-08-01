@@ -16,6 +16,7 @@ export class CrudService {
     public btnDeleteDisabled = true;
     public gridOptions;
     public isActiveLinkset = null;
+    public rowSelectionLinkset = null;
     public linkedClass = null;
     public showLinksetView = false;
     public initGridData: Promise<any>;
@@ -125,10 +126,12 @@ export class CrudService {
         this.btnDeleteDisabled = false;
         this.focusedRow = event.rowIndex;
 
-        if (event.colDef.type === 'LINKSET') {
+        if (event.colDef.type === 'LINKSET' ||
+                event.colDef.type === 'LINK') {
             this.linkedClass = event.colDef.linkedClass;
             this.isActiveLinkset = event.colDef.field;
             this.showLinksetView = true;
+            this.rowSelectionLinkset = 'multiple';
         }
 
         switch (event.colDef.field) {
@@ -137,7 +140,6 @@ export class CrudService {
 
             case 'edit':
                 this.router.navigateByUrl(this.currPath + '/edit');
-                localStorage.setItem('isEditForm', 'true');
                 break;
         }
     }

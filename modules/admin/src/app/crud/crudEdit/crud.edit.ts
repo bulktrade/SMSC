@@ -7,7 +7,7 @@ import {CrudLinkset} from "../crudLinkset/crud.linkset";
 import {MdCheckbox} from "@angular2-material/checkbox/checkbox";
 
 @Component({
-    selector: 'crud-create',
+    selector: 'crud-edit',
     template: require('../form.html'),
     styles: [
         require('../form.scss')
@@ -17,8 +17,8 @@ import {MdCheckbox} from "@angular2-material/checkbox/checkbox";
     pipes: [TranslatePipe]
 })
 
-export class CrudCreate {
-    public  btnName:string = 'Create';
+export class CrudEdit {
+    public  btnName:string = 'Update';
 
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
@@ -26,10 +26,13 @@ export class CrudCreate {
     }
 
     ngOnInit() {
+        this.crudService.initGridData = this.crudService.initGridData.then((res) => {
+            this.crudService.model = this.crudService.crudModel.rowData[this.crudService.focusedRow];
+        })
     }
 
     edit() {
-        this.crudService.createRecord(this.crudService.model);
+        this.crudService.updateRecord(this.crudService.model);
         this.router.navigateByUrl(this.crudService.currPath)
     }
 
