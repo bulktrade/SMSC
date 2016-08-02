@@ -12,7 +12,7 @@ import {CrudLinkset} from "../crudLinkset/crud.linkset";
     encapsulation: ViewEncapsulation.Native,
     styleUrls: [
         require('ag-grid/dist/styles/ag-grid.css'),
-        require('ag-grid/dist/styles/theme-fresh.css')
+        require('ag-grid/dist/styles/theme-material.css')
     ],
     styles: [
         require('./crud.view.scss')
