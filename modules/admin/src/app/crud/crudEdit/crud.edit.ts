@@ -31,9 +31,20 @@ export class CrudEdit {
         })
     }
 
-    edit() {
+    ngOnDestroy() {
+        this.crudService.addingFormValid = false;
+    }
+
+    onSubmit() {
         this.crudService.updateRecord(this.crudService.model);
-        this.router.navigateByUrl(this.crudService.currPath)
+        this.router.navigateByUrl(this.crudService.currPath);
+    }
+
+    isRequired(event) {
+        if (event) {
+            this.crudService.addingFormValid = true;
+            return;
+        }
     }
 
 }

@@ -28,9 +28,20 @@ export class CrudCreate {
     ngOnInit() {
     }
 
-    edit() {
+    ngOnDestroy() {
+        this.crudService.addingFormValid = false;
+    }
+
+    onSubmit() {
         this.crudService.createRecord(this.crudService.model);
         this.router.navigateByUrl(this.crudService.currPath)
+    }
+
+    isRequired(event) {
+        if (event) {
+            this.crudService.addingFormValid = true;
+            return;
+        }
     }
 
 }

@@ -14,6 +14,7 @@ export class CrudService {
     crudModel = new CrudModel([], []);
 
     public btnDeleteDisabled = true;
+    public addingFormValid = false;
     public gridOptions;
     public isActiveLinkset = null;
     public rowSelectionLinkset = null;

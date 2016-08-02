@@ -4,6 +4,7 @@ import { ROUTER_DIRECTIVES, ActivatedRoute } from "@angular/router";
 import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
 import {MdIcon} from "@angular2-material/icon/icon";
 import {MdAnchor, MdButton} from "@angular2-material/button/button";
+import {EventEmitter} from "@angular/router-deprecated/src/facade/async";
 
 @Component({
     selector: 'multiple-select',
@@ -18,13 +19,17 @@ import {MdAnchor, MdButton} from "@angular2-material/button/button";
         MdCard,
         MdButton, MdAnchor, MdIcon
     ],
-    pipes: [TranslatePipe]
+    pipes: [TranslatePipe],
+    outputs: ['isRequired']
 })
 
 export class MultipleSelect {
     @Input('crudService') public crudService:any;
     @Input('property') public property:any;
     @Input('rowSelectionLinkset') rowSelectionLinkset:string;
+
+    public isRequired = new EventEmitter();
+    public requiredSymb = ' ';
     public items;
 
     constructor(public translate:TranslateService,
@@ -47,11 +52,29 @@ export class MultipleSelect {
                         name: item, visible: true
                     });
                 });
+
+                if (this.property.required) {
+                    this.requiredSymb += '*';
+
+                    if (linkset.length) {
+                        this.isRequired.emit(false);
+                    } else {
+                        this.isRequired.emit(true);
+                    }
+                } else {
+                    this.isRequired.emit(false);
+                }
+            } else if (this.property.required) {
+                this.requiredSymb += '*';
+                this.isRequired.emit(true);
+            } else {
+                this.isRequired.emit(false);
             }
         });
     }
 
     removeItem() {
+        this.crudService.addingFormValid = false;
         let linkset = [];
 
         this.items.forEach((item) => {
@@ -59,6 +82,16 @@ export class MultipleSelect {
                linkset.push(item.name);
            }
         });
+
+        if (this.property.required) {
+            if (linkset.length) {
+                this.isRequired.emit(false);
+            } else {
+                this.isRequired.emit(true);
+            }
+        } else {
+            this.isRequired.emit(false);
+        }
 
         this.crudService.model[this.property.field] = linkset;
         this.crudService.isActiveLinkset = this.property.field;
@@ -69,5 +102,6 @@ export class MultipleSelect {
         this.crudService.fieldsValue = this.crudService.model;
         this.crudService.isActiveLinkset = this.property.field;
         this.crudService.linkedClass = this.property.linkedClass;
+        this.crudService.addingFormValid = false;
     }
 }
