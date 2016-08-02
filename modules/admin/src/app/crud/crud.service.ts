@@ -166,7 +166,6 @@ export class CrudService {
         } else {
             this.model[this.isActiveLinkset] = linkSet.split(',');
         }
-
     }
 
     setCrudClass(router) {
@@ -208,7 +207,7 @@ export class CrudService {
         columnDefs.push({
             headerName: " ",
             field: "checkboxSel",
-            width: 22,
+            width: 40,
             hideInForm: true,
             checkboxSelection: true
         });
@@ -247,7 +246,7 @@ export class CrudService {
                         type: item.type,
                         linkedClass: item.linkedClass
                     })
-                })
+                });
 
                 return columnDefs;
             })
