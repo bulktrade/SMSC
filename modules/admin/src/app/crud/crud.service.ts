@@ -205,29 +205,35 @@ export class CrudService {
     getColumnDefs(className, readOnly) {
         let columnDefs = [];
 
+        columnDefs.push({
+            headerName: " ",
+            field: "checkboxSel",
+            width: 22,
+            hideInForm: true,
+            checkboxSelection: true
+        });
+
         if (readOnly) {
-            columnDefs = [
-                {
-                    headerName: " ",
-                    field: "edit",
-                    width: 66,
-                    cellRenderer: (params) => {
-                        return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
-                            "border-radius: 3px;' disabled>Update</button>";
-                    },
-                    hideInForm: true
+            columnDefs.push({
+                headerName: " ",
+                field: "edit",
+                width: 66,
+                cellRenderer: (params) => {
+                    return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
+                        "border-radius: 3px;' disabled>Update</button>";
                 },
-                {
-                    headerName: " ",
-                    field: "delete",
-                    width: 61,
-                    cellRenderer: (params) => {
-                        return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
-                            "border-radius: 3px;'>Delete</button>";
-                    },
-                    hideInForm: true
-                }
-            ];
+                hideInForm: true
+            });
+            columnDefs.push({
+                headerName: " ",
+                field: "delete",
+                width: 61,
+                cellRenderer: (params) => {
+                    return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
+                        "border-radius: 3px;'>Delete</button>";
+                },
+                hideInForm: true
+            });
         }
 
         return this.databaseService.getInfoClass(className)
