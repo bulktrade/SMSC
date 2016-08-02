@@ -4,8 +4,8 @@
     .opionPanel {
         display: flex;
         padding-bottom: 16px;
+        width: 100%;
     }
-
     .searchPanel {
         display: flex;
         float: left;
@@ -28,7 +28,7 @@
 	    padding: 6px 14px 0 0;
         width: 50%;
 
-        #deleteRow {
+        button {
             margin-left: 7px;
         }
 	}

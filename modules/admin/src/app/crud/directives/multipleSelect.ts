@@ -97,6 +97,13 @@ export class MultipleSelect {
         this.crudService.isActiveLinkset = this.property.field;
     }
 
+    clearAll() {
+        this.crudService.addingFormValid = true;
+        this.items = [];
+        this.crudService.model[this.property.field] = [];
+        this.crudService.isActiveLinkset = this.property.field;
+    }
+
     addLinkset() {
         this.crudService.showLinksetView = true;
         this.crudService.fieldsValue = this.crudService.model;
