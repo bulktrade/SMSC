@@ -37,16 +37,19 @@ export class CrudLinkset {
         this.className = this.crudServiceParent.linkedClass;
 
         // init the column definitions
-        this.crudService.getColumnDefs(this.className, false, false)
+        this.crudService.getColumnDefs(this.className, false)
             .then((columnDefs) => {
                 this.crudService.crudModel.columnDefs = columnDefs;
+                this.gridOptions.columnDefs = columnDefs;
                 this.crudService.addCheckboxSelection(this.crudService.crudModel.columnDefs, this.gridOptions);
             })
             .then((res) => {
                 // init the row data
                 this.crudService.getStore(this.className)
                     .then((store) => {
+                        this.gridOptions.rowData = store;
                         this.crudService.crudModel.rowData = store;
+                        this.crudService.gridOptions = this.gridOptions;
                     }, (error) => {
                         this.crudService.dataNotFound = true;
                         this.crudService.errorMessage = 'orientdb.dataNotFound';

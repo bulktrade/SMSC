@@ -35,32 +35,7 @@ export class CrudService {
                 public route:ActivatedRoute,
                 public translate:TranslateService) {
         this.currPath = this.route.snapshot['_urlSegment'].pathsWithParams[0].path;
-
-        if (this.route.data['value'].crudClass) {
-            this.className = this.route.data['value'].crudClass;
-        } else {
-            this.setCrudClass(this.router['config']);
-        }
-
-        // init the column definitions
-        this.initGridData = new Promise((resolve, reject) => {
-            this.getColumnDefs(this.className, true, false)
-                .then((columnDefs) => {
-                    this.crudModel.columnDefs = columnDefs;
-                    this.addCheckboxSelection(this.crudModel.columnDefs, this.gridOptions);
-                })
-                .then((res) => {
-                    // init the row data
-                    this.getStore(this.className)
-                        .then((store) => {
-                            this.crudModel.rowData = store;
-                            resolve(this.crudModel.rowData);
-                        }, (error) => {
-                            this.dataNotFound = true;
-                            this.errorMessage = 'orientdb.dataNotFound';
-                        });
-                });
-        });
+        this.setCrudClass(this.router['config']);
     }
 
     onFilterChanged(value, gridOptions) {
@@ -285,12 +260,8 @@ export class CrudService {
         }
     }
 
-    getColumnDefs(className, readOnly, checkboxSelection) {
+    getColumnDefs(className, readOnly) {
         let columnDefs = [];
-
-        if (checkboxSelection) {
-            this.addCheckboxSelection(columnDefs, this.gridOptions)
-        }
 
         if (readOnly) {
             columnDefs.push({

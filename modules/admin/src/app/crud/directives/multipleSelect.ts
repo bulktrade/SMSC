@@ -37,7 +37,7 @@ export class MultipleSelect {
     }
 
     ngOnInit() {
-        this.crudService.initGridData.then((res) => {
+        this.crudService.initGridData.then(() => {
             this.crudService.rowSelectionLinkset = this.rowSelectionLinkset;
             this.items = [];
             let linkset = this.crudService.model[this.property.field];

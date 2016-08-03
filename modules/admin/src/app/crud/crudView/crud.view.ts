@@ -36,12 +36,27 @@ export class CrudView {
     }
 
     ngOnInit() {
-        this.crudService.gridOptions = this.gridOptions;
+        this.crudService.getColumnDefs(this.crudService.className, true)
+            .then((columnDefs) => {
+                this.crudService.crudModel.columnDefs = columnDefs;
+                this.gridOptions.columnDefs = columnDefs;
+                this.crudService.addCheckboxSelection(columnDefs, this.gridOptions);
+            })
+            .then((res) => {
+                // init the row data
+                this.crudService.getStore(this.crudService.className)
+                    .then((store) => {
+                        this.gridOptions.rowData = store;
+                        this.crudService.crudModel.rowData = store;
+                        this.crudService.gridOptions = this.gridOptions;
+                    }, (error) => {
+                        this.crudService.dataNotFound = true;
+                        this.crudService.errorMessage = 'orientdb.dataNotFound';
+                    });
+            });
     }
 
     gridOptions:GridOptions = {
-        columnDefs: this.crudService.crudModel.columnDefs,
-        rowData: this.crudService.crudModel.rowData,
         rowSelection: 'multiple',
         singleClickEdit: true,
         rowHeight: 50
