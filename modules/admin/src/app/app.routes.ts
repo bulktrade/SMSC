@@ -4,7 +4,7 @@ import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
 import { Dashboard } from "./dashboard/dashboard.component";
 import { Customers } from "./customers/customers.components";
-import { Crud } from "./crud/crud";
+import { Crud } from "./crud/crud.component";
 import { NotFound } from "./notFound/notFound.component";
 import { CrudView } from "./crud/crudView/crud.view";
 import { CrudDelete } from "./crud/crudDelete/crud.delete";

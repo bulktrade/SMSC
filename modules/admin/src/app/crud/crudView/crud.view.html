@@ -12,7 +12,6 @@
             </div>
             <div class="buttonsPanel">
                 <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath + '/create')" id="addRow">{{'ADD' | translate}}</button>
-                <button md-raised-button color="primary" (click)="gridOptions.api.selectAll()" id="selectAll">{{'SELECTALL' | translate}}</button>
                 <button md-raised-button color="warn" [disabled]="crudService.btnDeleteDisabled"
                         (click)="router.navigateByUrl(crudService.currPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
             </div>
@@ -23,7 +22,7 @@
         <alert *ngIf="crudService.successExecute" type="success" dismissible="true" (close)="crudService.successExecute=false">
             {{ crudService.successMessage | translate }}
         </alert>
-        <ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 100%;"
+        <ag-grid-ng2 class="ag-material" style="width: 100%; height: 100%;"
                      [rowGroupPanelShow]="always" [columnDefs]="crudService.crudModel.columnDefs"
                      [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData" (cellValueChanged)="crudService.cellValueChanged($event)"
                      (cellClicked)="crudService.clickOnCell($event)"></ag-grid-ng2>

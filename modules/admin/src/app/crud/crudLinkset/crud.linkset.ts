@@ -11,7 +11,7 @@ import {CrudService} from "../crud.service";
     encapsulation: ViewEncapsulation.Native,
     styleUrls: [
         require('ag-grid/dist/styles/ag-grid.css'),
-        require('ag-grid/dist/styles/theme-fresh.css')
+        require('ag-grid/dist/styles/theme-material.css')
     ],
     styles: [
         require('./crud.linkset.scss')
@@ -27,7 +27,6 @@ export class CrudLinkset {
     @Input('crudService') crudServiceParent:any;
 
     public className;
-    public gridOptions:GridOptions;
 
     constructor(public translate:TranslateService,
                 public router:Router,
@@ -38,9 +37,10 @@ export class CrudLinkset {
         this.className = this.crudServiceParent.linkedClass;
 
         // init the column definitions
-        this.crudService.getColumnDefs(this.className, false)
+        this.crudService.getColumnDefs(this.className, false, false)
             .then((columnDefs) => {
                 this.crudService.crudModel.columnDefs = columnDefs;
+                this.crudService.addCheckboxSelection(this.crudService.crudModel.columnDefs, this.gridOptions);
             })
             .then((res) => {
                 // init the row data
@@ -51,13 +51,13 @@ export class CrudLinkset {
                         this.crudService.dataNotFound = true;
                         this.crudService.errorMessage = 'orientdb.dataNotFound';
                     });
-            });
-
-        this.gridOptions = {
-            columnDefs: this.crudService.crudModel.columnDefs,
-            rowData: this.crudService.crudModel.rowData,
-            rowSelection: this.crudServiceParent.rowSelectionLinkset
-        }
+            })
     }
 
+    gridOptions:GridOptions = {
+        columnDefs: this.crudService.crudModel.columnDefs,
+        rowData: this.crudService.crudModel.rowData,
+        rowSelection: 'multiple',
+        rowHeight: 50
+    }
 }

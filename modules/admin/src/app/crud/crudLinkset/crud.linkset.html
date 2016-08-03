@@ -10,12 +10,9 @@
                     <md-icon class="md-24">search</md-icon>
                 </button>
             </div>
-            <div class="buttonsPanel">
-                <button md-raised-button color="primary" (click)="gridOptions.api.selectAll()" id="selectAll">{{'SELECTALL' | translate}}</button>
-            </div>
         </div>
     </div>
-	<ag-grid-ng2 class="ag-fresh" style="width: 100%; height: 79%;"
+	<ag-grid-ng2 class="ag-material" style="width: 100%;"
 	             [rowGroupPanelShow]="always" [columnDefs]="crudService.crudModel.columnDefs"
 	             [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData"></ag-grid-ng2>
     <div class="wrapBtn">

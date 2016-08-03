@@ -43,7 +43,7 @@ export class CrudService {
 
         // init the column definitions
         this.initGridData = new Promise((resolve, reject) => {
-            this.getColumnDefs(this.className, true)
+            this.getColumnDefs(this.className, true, true)
                 .then((columnDefs) => {
                     this.crudModel.columnDefs = columnDefs;
                 })
@@ -202,16 +202,48 @@ export class CrudService {
             })
     }
 
-    getColumnDefs(className, readOnly) {
-        let columnDefs = [];
-
-        columnDefs.push({
+    addCheckboxSelection(columnDefs, gridOptions) {
+        columnDefs.unshift({
             headerName: " ",
             field: "checkboxSel",
-            width: 22,
+            width: 45,
             hideInForm: true,
-            checkboxSelection: true
+            checkboxSelection: true,
+            headerCellTemplate: () => {
+                var that = this;
+                var checkbox = document.createElement('input');
+                checkbox.setAttribute('type', 'checkbox');
+                checkbox.style.height = '15px';
+                checkbox.addEventListener('click', () => {
+                    gridOptions.api.selectAll();
+                });
+                return checkbox;
+            }
         });
+    }
+
+    getColumnDefs(className, readOnly, checkboxSelection) {
+        let columnDefs = [];
+
+        if (checkboxSelection) {
+            columnDefs.push({
+                headerName: " ",
+                field: "checkboxSel",
+                width: 45,
+                hideInForm: true,
+                checkboxSelection: true,
+                headerCellTemplate: () => {
+                    var that = this;
+                    var checkbox = document.createElement('input');
+                    checkbox.setAttribute('type', 'checkbox');
+                    checkbox.style.height = '15px';
+                    checkbox.addEventListener('click', () => {
+                        this.gridOptions.api.selectAll();
+                    });
+                    return checkbox;
+                }
+            });
+        }
 
         if (readOnly) {
             columnDefs.push({

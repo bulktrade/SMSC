@@ -1,10 +1,11 @@
-import { Component, ViewEncapsulation } from "@angular/core";
+import {Component, ViewEncapsulation, Renderer, ElementRef} from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { AgGridNg2 } from "ag-grid-ng2/main";
 import { GridOptions } from "ag-grid/main";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
 import {CrudLinkset} from "../crudLinkset/crud.linkset";
+import {MdCheckbox} from "@angular2-material/checkbox/checkbox";
 
 @Component({
     selector: 'crud-view',
@@ -12,15 +13,16 @@ import {CrudLinkset} from "../crudLinkset/crud.linkset";
     encapsulation: ViewEncapsulation.Native,
     styleUrls: [
         require('ag-grid/dist/styles/ag-grid.css'),
-        require('ag-grid/dist/styles/theme-fresh.css')
+        require('ag-grid/dist/styles/theme-material.css')
     ],
     styles: [
-        require('./crud.view.scss')
+        require('./crud.v' +
+            'iew.scss')
     ],
     providers: [CrudService],
     directives: [
         AgGridNg2,
-        CrudLinkset
+        CrudLinkset, MdCheckbox
     ],
     pipes: [TranslatePipe]
 })
@@ -28,7 +30,9 @@ import {CrudLinkset} from "../crudLinkset/crud.linkset";
 export class CrudView {
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
-                public router:Router) {
+                public router:Router,
+                public renderer:Renderer,
+                public elementRef: ElementRef) {
     }
 
     ngOnInit() {
@@ -39,7 +43,8 @@ export class CrudView {
         columnDefs: this.crudService.crudModel.columnDefs,
         rowData: this.crudService.crudModel.rowData,
         rowSelection: 'single',
-        singleClickEdit: true
+        singleClickEdit: true,
+        rowHeight: 50
     }
 
 }
