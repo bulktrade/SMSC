@@ -1,8 +1,9 @@
 import { Http, Request, RequestOptionsArgs, Response, RequestOptions, ConnectionBackend, Headers } from "@angular/http";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
-import * as _ from "lodash";
 import { Injectable } from "@angular/core";
+import "lodash";
+declare var _;
 
 @Injectable()
 export class HttpInterceptor extends Http {
