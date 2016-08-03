@@ -15,6 +15,7 @@ export class CrudService {
 
     public btnDeleteDisabled = true;
     public addingFormValid = false;
+    public querySelectors = null;
     public gridOptions;
     public isActiveLinkset = null;
     public rowSelectionLinkset = null;
@@ -43,9 +44,10 @@ export class CrudService {
 
         // init the column definitions
         this.initGridData = new Promise((resolve, reject) => {
-            this.getColumnDefs(this.className, true, true)
+            this.getColumnDefs(this.className, true, false)
                 .then((columnDefs) => {
                     this.crudModel.columnDefs = columnDefs;
+                    this.addCheckboxSelection(this.crudModel.columnDefs, this.gridOptions);
                 })
                 .then((res) => {
                     // init the row data
@@ -145,6 +147,16 @@ export class CrudService {
         }
     }
 
+    rowSelected(gridOptions) {
+        if (gridOptions.api.getSelectedRows().length === gridOptions.rowData.length) {
+            this.changeCheckboxState('allSelected', gridOptions);
+        } else if (!gridOptions.api.getSelectedRows().length) {
+            this.changeCheckboxState('notSelected', gridOptions);
+        } else {
+            this.changeCheckboxState('notAllSelected', gridOptions);
+        }
+    }
+
     chooseLinkset(linksetGridOptions) {
         let focusedRows = linksetGridOptions.api.getSelectedRows();
         let linkSet = '';
@@ -209,6 +221,7 @@ export class CrudService {
             hideInForm: true,
             checkboxSelection: true,
             headerCellTemplate: () => {
+                let that = this;
                 let eCell = document.createElement('span');
                 eCell.innerHTML =
                     '<div style="text-align: left;">' +
@@ -224,26 +237,20 @@ export class CrudService {
 
                 let clicked = false;
 
-                let eCalendar = eCell.querySelector('#select-all');
-                let allSelected = eCell.querySelector('#all-selected');
-                let notSelected = eCell.querySelector('#not-selected');
-                let notAllSelected = eCell.querySelector('#not-all-selected');
+                this.querySelectors = {
+                    eCalendar: eCell.querySelector('#select-all'),
+                    allSelected: eCell.querySelector('#all-selected'),
+                    notSelected: eCell.querySelector('#not-selected'),
+                    notAllSelected: eCell.querySelector('#not-all-selected')
+                };
 
-                eCalendar.addEventListener('click', function() {
+                this.querySelectors.eCalendar.addEventListener('click', () => {
                     clicked = !clicked;
 
                     if (clicked) {
-                        gridOptions.api.selectAll();
-
-                        allSelected.setAttribute('style', 'display: inline;');
-                        notSelected.setAttribute('style', 'display: none;');
-                        notAllSelected.setAttribute('style', 'display: none;');
+                        that.changeCheckboxState('allSelected', gridOptions);
                     } else {
-                        gridOptions.api.deselectAll();
-
-                        allSelected.setAttribute('style', 'display: none;');
-                        notSelected.setAttribute('style', 'display: inline;');
-                        notAllSelected.setAttribute('style', 'display: none;');
+                        that.changeCheckboxState('notSelected', gridOptions);
                     }
                 });
 
@@ -252,27 +259,37 @@ export class CrudService {
         });
     }
 
+    changeCheckboxState(isSelectCheckbox, gridOptions) {
+        switch (isSelectCheckbox) {
+            case 'allSelected':
+                gridOptions.api.selectAll();
+
+                this.querySelectors.allSelected.setAttribute('style', 'display: inline;');
+                this.querySelectors.notSelected.setAttribute('style', 'display: none;');
+                this.querySelectors.notAllSelected.setAttribute('style', 'display: none;');
+                break;
+
+            case 'notSelected':
+                gridOptions.api.deselectAll();
+
+                this.querySelectors.allSelected.setAttribute('style', 'display: none;');
+                this.querySelectors.notSelected.setAttribute('style', 'display: inline;');
+                this.querySelectors.notAllSelected.setAttribute('style', 'display: none;');
+                break;
+
+            case 'notAllSelected':
+                this.querySelectors.allSelected.setAttribute('style', 'display: none;');
+                this.querySelectors.notSelected.setAttribute('style', 'display: none;');
+                this.querySelectors.notAllSelected.setAttribute('style', 'display: inline;');
+                break;
+        }
+    }
+
     getColumnDefs(className, readOnly, checkboxSelection) {
         let columnDefs = [];
 
         if (checkboxSelection) {
-            columnDefs.push({
-                headerName: " ",
-                field: "checkboxSel",
-                width: 45,
-                hideInForm: true,
-                checkboxSelection: true,
-                headerCellTemplate: () => {
-                    var that = this;
-                    var checkbox = document.createElement('input');
-                    checkbox.setAttribute('type', 'checkbox');
-                    checkbox.style.height = '15px';
-                    checkbox.addEventListener('click', () => {
-                        this.gridOptions.api.selectAll();
-                    });
-                    return checkbox;
-                }
-            });
+            this.addCheckboxSelection(columnDefs, this.gridOptions)
         }
 
         if (readOnly) {

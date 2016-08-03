@@ -42,7 +42,7 @@ export class CrudView {
     gridOptions:GridOptions = {
         columnDefs: this.crudService.crudModel.columnDefs,
         rowData: this.crudService.crudModel.rowData,
-        rowSelection: 'single',
+        rowSelection: 'multiple',
         singleClickEdit: true,
         rowHeight: 50
     }

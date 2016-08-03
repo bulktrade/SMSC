@@ -14,7 +14,8 @@
     </div>
 	<ag-grid-ng2 class="ag-material" style="width: 100%;"
 	             [rowGroupPanelShow]="always" [columnDefs]="crudService.crudModel.columnDefs"
-	             [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData"></ag-grid-ng2>
+	             [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData"
+                 (rowSelected)="crudService.rowSelected(gridOptions)"></ag-grid-ng2>
     <div class="wrapBtn">
         <div class="formButtons">
             <button md-raised-button color="primary" (click)="crudServiceParent.showLinksetView=false">{{'BACK' | translate}}</button>
