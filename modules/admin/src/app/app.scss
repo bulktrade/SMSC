@@ -1,5 +1,12 @@
 body {
     background: #E9ECF3 !important;
-    font-family: 'Open Sans', sans-serif;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     margin: 0;
+}
+
+.ag-material {
+    .ag-cell-not-inline-editing {
+        padding-top: 2px !important;
+        outline: none;
+    }
 }

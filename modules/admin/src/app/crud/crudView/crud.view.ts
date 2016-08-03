@@ -1,11 +1,12 @@
-import {Component, ViewEncapsulation, Renderer, ElementRef} from "@angular/core";
+import { Component, ViewEncapsulation } from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { AgGridNg2 } from "ag-grid-ng2/main";
 import { GridOptions } from "ag-grid/main";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
-import {CrudLinkset} from "../crudLinkset/crud.linkset";
+import { CrudLinkset } from "../crudLinkset/crud.linkset";
 import {MdCheckbox} from "@angular2-material/checkbox/checkbox";
+import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
     selector: 'crud-view',
@@ -22,7 +23,8 @@ import {MdCheckbox} from "@angular2-material/checkbox/checkbox";
     providers: [CrudService],
     directives: [
         AgGridNg2,
-        CrudLinkset, MdCheckbox
+        CrudLinkset,
+        AlertComponent
     ],
     pipes: [TranslatePipe]
 })
@@ -30,9 +32,7 @@ import {MdCheckbox} from "@angular2-material/checkbox/checkbox";
 export class CrudView {
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
-                public router:Router,
-                public renderer:Renderer,
-                public elementRef: ElementRef) {
+                public router:Router) {
     }
 
     ngOnInit() {

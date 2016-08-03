@@ -10,7 +10,6 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
     template: '<router-outlet></router-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
-        require('npm-font-open-sans/open-sans.css'),
         require('normalize.css/normalize.css'),
         require('webpack-material-design-icons/material-design-icons.css')
     ],

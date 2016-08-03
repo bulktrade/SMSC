@@ -166,7 +166,6 @@ export class CrudService {
         } else {
             this.model[this.isActiveLinkset] = linkSet.split(',');
         }
-
     }
 
     setCrudClass(router) {
@@ -279,7 +278,7 @@ export class CrudService {
                         type: item.type,
                         linkedClass: item.linkedClass
                     })
-                })
+                });
 
                 return columnDefs;
             })
