@@ -5,7 +5,8 @@ import { CrudService } from "../crud.service";
 import { MultipleSelect } from "../directives/multipleSelect";
 import { CrudLinkset } from "../crudLinkset/crud.linkset";
 import { MdCheckbox } from "@angular2-material/checkbox/checkbox";
-import {resolve} from "@angular/router/src/resolve";
+import {BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import {SELECT_DIRECTIVES} from "ng2-select";
 
 @Component({
     selector: 'crud-edit',
@@ -14,7 +15,13 @@ import {resolve} from "@angular/router/src/resolve";
         require('../form.scss')
     ],
     providers: [CrudService],
-    directives: [MultipleSelect, CrudLinkset, MdCheckbox],
+    directives: [
+        MultipleSelect,
+        CrudLinkset,
+        MdCheckbox,
+        SELECT_DIRECTIVES,
+        BUTTON_DIRECTIVES
+    ],
     pipes: [TranslatePipe]
 })
 

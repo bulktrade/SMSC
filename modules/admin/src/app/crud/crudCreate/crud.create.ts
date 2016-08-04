@@ -5,6 +5,8 @@ import { CrudService } from "../crud.service";
 import { MultipleSelect } from "../directives/multipleSelect";
 import { CrudLinkset } from "../crudLinkset/crud.linkset";
 import { MdCheckbox } from "@angular2-material/checkbox/checkbox";
+import {BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import {SELECT_DIRECTIVES} from "ng2-select";
 
 @Component({
     selector: 'crud-create',
@@ -17,7 +19,9 @@ import { MdCheckbox } from "@angular2-material/checkbox/checkbox";
     directives: [
         MultipleSelect,
         CrudLinkset,
-        MdCheckbox
+        MdCheckbox,
+        SELECT_DIRECTIVES,
+        BUTTON_DIRECTIVES
     ],
     pipes: [TranslatePipe]
 })
@@ -65,5 +69,4 @@ export class CrudCreate {
             return;
         }
     }
-
 }
