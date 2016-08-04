@@ -18,9 +18,9 @@
                  (rowSelected)="crudService.rowSelected(gridOptions)"></ag-grid-ng2>
     <div class="wrapBtn">
         <div class="formButtons">
-            <button md-raised-button color="primary" (click)="crudServiceParent.showLinksetView=false">{{'BACK' | translate}}</button>
+            <button md-raised-button color="primary" (click)="crudServiceParent.showLinksetView=true">{{'BACK' | translate}}</button>
             <button md-raised-button color="primary" (click)="crudServiceParent.chooseLinkset(gridOptions);
-                                crudServiceParent.showLinksetView=false">{{'CHOOSE' | translate}}</button>
+                             crudServiceParent.showLinksetView=false">{{'CHOOSE' | translate}}</button>
         </div>
     </div>
 </div>

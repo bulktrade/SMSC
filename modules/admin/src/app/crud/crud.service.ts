@@ -16,6 +16,8 @@ export class CrudService {
     public btnDeleteDisabled = true;
     public addingFormValid = false;
     public querySelectors = null;
+    public multileSelect = {};
+    public embeddedList = null;
     public gridOptions;
     public isActiveLinkset = null;
     public rowSelectionLinkset = null;
@@ -28,7 +30,7 @@ export class CrudService {
     public successExecute = false;
     public errorMessage = '';
     public successMessage = '';
-    public model:any = {};
+    public model = {};
 
     constructor(public databaseService:ODatabaseService,
                 public router:Router,
@@ -104,12 +106,18 @@ export class CrudService {
         this.btnDeleteDisabled = false;
         this.focusedRow = event.rowIndex;
 
-        if (event.colDef.type === 'LINKSET' ||
-            event.colDef.type === 'LINK') {
-            this.linkedClass = event.colDef.linkedClass;
-            this.isActiveLinkset = event.colDef.field;
-            this.showLinksetView = true;
-            this.rowSelectionLinkset = 'multiple';
+        switch (event.colDef.type) {
+            case 'LINKSET':
+            case 'LINK':
+                this.linkedClass = event.colDef.linkedClass;
+                this.isActiveLinkset = event.colDef.field;
+                this.showLinksetView = true;
+                this.rowSelectionLinkset = 'multiple';
+                break;
+
+            case 'EMBEDDEDLIST':
+                this.embeddedList = event.colDef.custom['type'] || '';
+                break;
         }
 
         switch (event.colDef.field) {
@@ -152,6 +160,9 @@ export class CrudService {
             this.gridOptions.api.setRowData(this.gridOptions.rowData);
         } else {
             this.model[this.isActiveLinkset] = linkSet.split(',');
+            for (let item in this.multileSelect) {
+                this.multileSelect[item].init();
+            }
         }
     }
 
@@ -295,7 +306,8 @@ export class CrudService {
                         editable: !item.readonly,
                         required: item.mandatory,
                         type: item.type,
-                        linkedClass: item.linkedClass
+                        linkedClass: item.linkedClass,
+                        custom: item.custom || ''
                     })
                 });
 

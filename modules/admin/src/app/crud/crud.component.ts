@@ -15,8 +15,7 @@ import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
         MD_CARD_DIRECTIVES,
         MdCard
     ],
-    encapsulation: ViewEncapsulation.Native,
-    pipes: [TranslatePipe]
+    pipes: [TranslatePipe],
 })
 
 export class Crud {

@@ -7,7 +7,8 @@ import { CrudService } from "../crud.service";
     selector: 'crud-delete',
     template: require('./crud.delete.html'),
     styles: [
-        require('./crud.delete.scss')
+        require('./crud.delete.scss'),
+        require('../common/style.scss')
     ],
     providers: [CrudService],
     directives: [],

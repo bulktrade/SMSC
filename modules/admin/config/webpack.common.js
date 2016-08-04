@@ -53,7 +53,7 @@ module.exports = {
         'vendor': './src/vendor.ts',
         'main': './src/main.browser.ts'
     },
-    
+
     /*
      * Options affecting the resolving of modules.
      *
@@ -212,7 +212,10 @@ module.exports = {
                 loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]'
             },
 
-            { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },
+            {
+                test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
+                loader: 'imports?jQuery=jquery'
+            }
 
         ]
 

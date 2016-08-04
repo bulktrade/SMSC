@@ -1,5 +1,9 @@
 #windowGrid {
-    height: 83.7%;
+
+    ag-grid-ng2 {
+        position: static;
+    }
+
 
     .opionPanel {
         display: flex;
@@ -42,7 +46,7 @@
         justify-content: flex-end;
 
         .formButtons {
-            padding: 15px 5px 15px 0;
+            padding: 5px 15px 15px 0;
         }
     }
 }

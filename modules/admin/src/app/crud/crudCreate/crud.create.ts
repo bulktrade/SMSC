@@ -10,10 +10,15 @@ import { MdCheckbox } from "@angular2-material/checkbox/checkbox";
     selector: 'crud-create',
     template: require('../form.html'),
     styles: [
-        require('../form.scss')
+        require('../form.scss'),
+        require('../common/style.scss')
     ],
     providers: [CrudService],
-    directives: [MultipleSelect, CrudLinkset, MdCheckbox],
+    directives: [
+        MultipleSelect,
+        CrudLinkset,
+        MdCheckbox
+    ],
     pipes: [TranslatePipe]
 })
 

@@ -1,6 +1,10 @@
 #windowGrid {
     height: 83.7%;
 
+    ag-grid-ng2 {
+        min-height: 100px;
+    }
+
     .wrapGrid {
         display: block;
         height: 100%;}
