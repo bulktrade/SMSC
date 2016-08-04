@@ -45,4 +45,5 @@ ALTER PROPERTY CustomerContact.surename MANDATORY true
 ALTER PROPERTY CustomerContact.phone MANDATORY true
 ALTER PROPERTY CustomerContact.mobilePhone MANDATORY true
 ALTER PROPERTY CustomerContact.emailAddress MANDATORY true
+ALTER PROPERTY CustomerContact.type CUSTOM type='CEO,technical,primary'
 
