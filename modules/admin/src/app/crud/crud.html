@@ -1,6 +1,7 @@
 <md-card id="customer-crud">
         <md-toolbar class="title" color="primary">{{ route.component['name'] | uppercase | translate }}</md-toolbar>
         <md-card-content>
+            <sk-cube-grid [isRunning]="!navigationInterceptor.loading"></sk-cube-grid>
         	<router-outlet></router-outlet>
         </md-card-content>
 </md-card>
