@@ -274,6 +274,12 @@ export class CrudService {
     getColumnDefs(className, readOnly) {
         let columnDefs = [];
 
+        columnDefs.push({
+            headerName: "RID",
+            field: "rid",
+            hideInForm: true
+        });
+
         if (readOnly) {
             columnDefs.push({
                 headerName: " ",
