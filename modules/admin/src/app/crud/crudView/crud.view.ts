@@ -55,7 +55,7 @@ export class CrudView {
     gridOptions:GridOptions = {
         rowSelection: 'multiple',
         singleClickEdit: true,
-        rowHeight: 50
+        rowHeight: 30
     }
 
 }

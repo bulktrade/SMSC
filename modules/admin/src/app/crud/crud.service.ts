@@ -119,15 +119,6 @@ export class CrudService {
                 this.embeddedList = event.colDef.custom['type'] || '';
                 break;
         }
-
-        switch (event.colDef.field) {
-            case 'delete':
-                break;
-
-            case 'edit':
-                this.router.navigateByUrl(this.currPath + '/edit');
-                break;
-        }
     }
 
     rowSelected(gridOptions) {
@@ -271,36 +262,39 @@ export class CrudService {
         }
     }
 
+    btnRenderer(columnDefs, nameBtn) {
+        columnDefs.push({
+            headerName: " ",
+            field: nameBtn.toLowerCase(),
+            width: 66,
+            cellRenderer: () => {
+                let that = this;
+                let eCell = document.createElement('button');
+                eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())['value'];
+                eCell.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
+                                            "border-radius: 3px; cursor: pointer;");
+                eCell.addEventListener('click', () => {
+                    that.router.navigateByUrl(that.currPath + '/' + nameBtn.toLowerCase());
+                });
+                return eCell;
+            },
+            hideInForm: true
+        });
+    }
+
     getColumnDefs(className, readOnly) {
         let columnDefs = [];
 
         columnDefs.push({
             headerName: "RID",
             field: "rid",
-            hideInForm: true
+            hideInForm: true,
+            width: 45
         });
 
         if (readOnly) {
-            columnDefs.push({
-                headerName: " ",
-                field: "edit",
-                width: 66,
-                cellRenderer: (params) => {
-                    return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
-                        "border-radius: 3px;' disabled>Update</button>";
-                },
-                hideInForm: true
-            });
-            columnDefs.push({
-                headerName: " ",
-                field: "delete",
-                width: 61,
-                cellRenderer: (params) => {
-                    return "<button style='height: 19px; background-color: #009688; color: #fff; border: none; " +
-                        "border-radius: 3px;'>Delete</button>";
-                },
-                hideInForm: true
-            });
+            this.btnRenderer(columnDefs, 'Edit');
+            this.btnRenderer(columnDefs, 'Delete');
         }
 
         return this.databaseService.getInfoClass(className)
