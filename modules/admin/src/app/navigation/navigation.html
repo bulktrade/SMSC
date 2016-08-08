@@ -6,7 +6,10 @@
             </md-nav-list>
         </md-sidenav>
         <main class="main">
-             <router-outlet></router-outlet>
+            <sk-cube-grid [isRunning]="navigationInterceptor.isRunningLoadingIcon()"></sk-cube-grid>
+            <div [hidden]="navigationInterceptor.isRunningLoadingIcon()">
+                <router-outlet></router-outlet>
+            </div>
         </main>
     </md-sidenav-layout>
 
