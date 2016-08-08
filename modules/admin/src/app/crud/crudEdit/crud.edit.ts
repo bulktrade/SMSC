@@ -14,7 +14,7 @@ import {SELECT_DIRECTIVES} from "ng2-select";
     styles: [
         require('../form.scss')
     ],
-    providers: [CrudService],
+    providers: [],
     directives: [
         MultipleSelect,
         CrudLinkset,

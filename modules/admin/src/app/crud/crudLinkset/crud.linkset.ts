@@ -16,7 +16,7 @@ import {CrudService} from "../crud.service";
         require('./crud.linkset.scss'),
         require('../common/style.scss')
     ],
-    providers: [CrudService],
+    providers: [],
     directives: [
         AgGridNg2
     ],

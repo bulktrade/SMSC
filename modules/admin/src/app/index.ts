@@ -13,12 +13,14 @@ import { TokenService, AUTH_TOKEN_NAME } from "./services/auth/token.service";
 import { Router } from "@angular/router";
 import {TeamResolver} from "./common/teamResolver";
 import {LoadingService} from "./services/loading.service";
+import {CrudService} from "./crud/crud.service";
 
 export * from './app.component';
 export * from './app.service';
 
 export const APP_PROVIDERS = [
     TeamResolver,
+    CrudService,
     TokenService,
     LoadingService,
     AuthService,

@@ -5,7 +5,6 @@ import { GridOptions } from "ag-grid/main";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { CrudLinkset } from "../crudLinkset/crud.linkset";
-import {MdCheckbox} from "@angular2-material/checkbox/checkbox";
 import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
 
 @Component({
@@ -16,7 +15,7 @@ import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
         require('./crud.view.scss'),
         require('../common/style.scss')
     ],
-    providers: [CrudService],
+    providers: [],
     directives: [
         AgGridNg2,
         CrudLinkset,
@@ -50,6 +49,7 @@ export class CrudView {
                         this.crudService.errorMessage = 'orientdb.dataNotFound';
                     });
             });
+
     }
 
     gridOptions:GridOptions = {

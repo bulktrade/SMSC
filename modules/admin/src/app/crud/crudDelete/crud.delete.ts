@@ -10,7 +10,7 @@ import { CrudService } from "../crud.service";
         require('./crud.delete.scss'),
         require('../common/style.scss')
     ],
-    providers: [CrudService],
+    providers: [],
     directives: [],
     pipes: [TranslatePipe]
 })
