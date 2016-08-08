@@ -7,6 +7,9 @@ import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./crud.model";
 
+let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
+let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
+
 @Injectable()
 export class CrudService {
     @LocalStorage() public focusedRow:any;
@@ -188,6 +191,10 @@ export class CrudService {
 
                 return result;
             })
+    }
+
+    overlayLoadingTemplate() {
+        return cubeGridHtml + '<style>' + cubeGridStyle + '</style>';
     }
 
     addCheckboxSelection(columnDefs, gridOptions) {
