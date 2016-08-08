@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
 import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
+import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
 
 @Component({
     selector: 'crud',
@@ -12,6 +13,7 @@ import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
     providers: [],
     directives: [
         ROUTER_DIRECTIVES,
+        LoadingRouterOutlet,
         MD_CARD_DIRECTIVES,
         MdCard
     ],

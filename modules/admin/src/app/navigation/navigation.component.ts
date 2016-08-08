@@ -14,7 +14,8 @@ import { SidebarItem } from "../sidebar/sidebaritem.component";
 import { ROUTER_DIRECTIVES, Router } from "@angular/router";
 import { TokenService } from "../services/auth/token.service";
 import {CubeGridComponent} from "../common/spinner/cubeGrid/cubeGrid.component";
-import {NavigationInterceptor} from "../common/navigationInterceptor";
+import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
+import {LoadingService} from "../services/loading.service";
 
 @Component({
     selector: 'navigation',
@@ -25,6 +26,7 @@ import {NavigationInterceptor} from "../common/navigationInterceptor";
     ],
     directives: [
         ROUTER_DIRECTIVES,
+        LoadingRouterOutlet,
         NgClass,
         Sidebar,
         AnimateBox,
@@ -45,7 +47,7 @@ export class Navigation implements OnInit {
                 public translate:TranslateService,
                 public showmininav:ShowMiniNav,
                 public tokenService:TokenService,
-                public navigationInterceptor: NavigationInterceptor) {
+                public loadingService:LoadingService) {
     }
 
     logout() {
@@ -54,10 +56,5 @@ export class Navigation implements OnInit {
     }
 
     ngOnInit() {
-        this.navigationInterceptor.stopLoadingIcon();
-
-        this.router.events.subscribe((event:any):void => {
-            this.navigationInterceptor.intercept(event);
-        });
     }
 }
