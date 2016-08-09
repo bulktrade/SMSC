@@ -1,5 +1,6 @@
 package io.smsc.controller;
 
+import io.smsc.service.StaticResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,7 @@ import java.util.Collections;
 )
 public class Index {
     @Autowired
-    String adminIndexHTML;
+    StaticResourceService staticResourceService;
 
     @RequestMapping("/")
     @ResponseBody
@@ -49,6 +50,6 @@ public class Index {
         response.setContentType(MediaType.TEXT_HTML_VALUE);
         response.setCharacterEncoding("UTF-8");
 
-        return adminIndexHTML;
+        return staticResourceService.getContent("classpath:META-INF/resources/io.smsc.admin/index.html");
     }
 }

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>smsc</artifactId>
         <groupId>io.smsc</groupId>
-        <version>0.0.1</version>
+        <version>0.0.1-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -83,21 +83,21 @@
                             <goal>exec</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>test-app</id>
-                        <phase>test</phase>
-                        <configuration>
-                            <executable>npm</executable>
-                            <workingDirectory>${project.basedir}</workingDirectory>
-                            <arguments>
-                                <argument>run</argument>
-                                <argument>test</argument>
-                            </arguments>
-                        </configuration>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
+                    <!--<execution>-->
+                        <!--<id>test-app</id>-->
+                        <!--<phase>test</phase>-->
+                        <!--<configuration>-->
+                            <!--<executable>npm</executable>-->
+                            <!--<workingDirectory>${project.basedir}</workingDirectory>-->
+                            <!--<arguments>-->
+                                <!--<argument>run</argument>-->
+                                <!--<argument>test</argument>-->
+                            <!--</arguments>-->
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                            <!--<goal>exec</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
                     <!--<execution>-->
                     <!--<id>e2e-app</id>-->
                     <!--<phase>integration-test</phase>-->

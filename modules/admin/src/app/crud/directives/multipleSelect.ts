@@ -4,7 +4,7 @@ import { ROUTER_DIRECTIVES, ActivatedRoute } from "@angular/router";
 import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
 import {MdIcon} from "@angular2-material/icon/icon";
 import {MdAnchor, MdButton} from "@angular2-material/button/button";
-import {EventEmitter} from "@angular/router-deprecated/src/facade/async";
+import { EventEmitter } from "@angular/common/src/facade/async";
 
 @Component({
     selector: 'multiple-select',

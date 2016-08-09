@@ -20,14 +20,6 @@ public class MVC extends WebMvcConfigurerAdapter {
 	@Autowired
 	Environment env;
 
-	@Value("classpath:META-INF/resources/io.smsc.admin/index.html")
-	Resource adminIndexHTMLResource;
-
-    @Bean
-	public String adminIndexHTML() throws IOException {
-		return IOUtils.toString(adminIndexHTMLResource.getInputStream());
-	}
-
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		if (!registry.hasMappingForPattern("/webjars/**")) {
