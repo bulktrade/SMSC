@@ -4,6 +4,7 @@ import { AgGridNg2 } from "ag-grid-ng2/main";
 import { GridOptions } from "ag-grid/main";
 import {Router } from "@angular/router";
 import {CrudService} from "../crud.service";
+import {CrudModel} from "../crud.model";
 
 @Component({
     selector: 'crud-linkset',
@@ -24,8 +25,7 @@ import {CrudService} from "../crud.service";
 })
 
 export class CrudLinkset {
-    @Input('crudService') crudServiceParent:any;
-
+    public crudModel = new CrudModel([], []);
     public className;
 
     constructor(public translate:TranslateService,
@@ -34,22 +34,21 @@ export class CrudLinkset {
     }
 
     ngOnInit() {
-        this.className = this.crudServiceParent.linkedClass;
+        this.className = this.crudService.linkedClass;
 
         // init the column definitions
         this.crudService.getColumnDefs(this.className, false)
             .then((columnDefs) => {
-                this.crudService.crudModel.columnDefs = columnDefs;
+                this.crudModel.columnDefs = columnDefs;
                 this.gridOptions.columnDefs = columnDefs;
-                this.crudService.addCheckboxSelection(this.crudService.crudModel.columnDefs, this.gridOptions);
+                this.crudService.addCheckboxSelection(this.crudModel.columnDefs, this.gridOptions);
             })
             .then((res) => {
                 // init the row data
                 this.crudService.getStore(this.className)
                     .then((store) => {
                         this.gridOptions.rowData = store;
-                        this.crudService.crudModel.rowData = store;
-                        this.crudService.gridOptions = this.gridOptions;
+                        this.crudModel.rowData = store;
                     }, (error) => {
                         this.crudService.dataNotFound = true;
                         this.crudService.errorMessage = 'orientdb.dataNotFound';
@@ -58,9 +57,9 @@ export class CrudLinkset {
     }
 
     gridOptions:GridOptions = {
-        columnDefs: this.crudService.crudModel.columnDefs,
-        rowData: this.crudService.crudModel.rowData,
+        columnDefs: this.crudModel.columnDefs,
+        rowData: this.crudModel.rowData,
         rowSelection: 'multiple',
         rowHeight: 50
-    }
+    };
 }

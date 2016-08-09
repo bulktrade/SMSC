@@ -22,14 +22,6 @@ export class CrudDelete {
     }
 
     ngOnInit() {
-        // init the row data
-        this.crudService.getStore(this.crudService.className)
-            .then((store) => {
-                this.crudService.crudModel.rowData = store;
-            }, (error) => {
-                this.crudService.dataNotFound = true;
-                this.crudService.errorMessage = 'orientdb.dataNotFound';
-            });
     }
 
 }

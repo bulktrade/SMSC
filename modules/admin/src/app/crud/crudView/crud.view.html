@@ -28,6 +28,6 @@
                      (cellClicked)="crudService.clickOnCell($event)" (rowSelected)="crudService.rowSelected(gridOptions)"></ag-grid-ng2>
     </div>
     <div *ngIf="crudService.showLinksetView">
-        <crud-linkset [crudService]="crudService"></crud-linkset>
+        <crud-linkset></crud-linkset>
     </div>
 </div>

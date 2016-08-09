@@ -6,6 +6,7 @@ import {Router, ActivatedRoute, NavigationEnd} from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./crud.model";
+import {GridOptions} from "ag-grid";
 
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
 let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
@@ -21,7 +22,7 @@ export class CrudService {
     public querySelectors = null;
     public multileSelect = {};
     public embeddedList = null;
-    public gridOptions;
+    public activeComponent = null;
     public isActiveLinkset = null;
     public rowSelectionLinkset = null;
     public linkedClass = null;
@@ -35,16 +36,17 @@ export class CrudService {
     public successMessage = '';
     public model = {};
 
+    public gridOptions:GridOptions = {
+        columnDefs: this.crudModel.columnDefs,
+        rowData: this.crudModel.rowData,
+        rowSelection: 'multiple',
+        rowHeight: 50
+    };
+
     constructor(public databaseService:ODatabaseService,
                 public router:Router,
                 public route:ActivatedRoute,
                 public translate:TranslateService) {
-        this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                this.currPath = event.url.split('/')[1];
-                this.setCrudClass(this.router['config']);
-            }
-        });
     }
 
     onFilterChanged(value, gridOptions) {
@@ -149,7 +151,7 @@ export class CrudService {
 
         linkSet = linkSet.substring(0, linkSet.length - 1);
 
-        if (this.gridOptions) {
+        if (this.activeComponent === 'CrudView') {
             params = this.gridOptions.rowData[this.focusedRow];
             params[this.isActiveLinkset] = linkSet;
             this.updateRecord(params);

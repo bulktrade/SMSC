@@ -10,7 +10,7 @@ import { CrudView } from "./crud/crudView/crud.view";
 import { CrudDelete } from "./crud/crudDelete/crud.delete";
 import { CrudCreate } from "./crud/crudCreate/crud.create";
 import {CrudEdit} from "./crud/crudEdit/crud.edit";
-import {TeamResolver} from "./common/teamResolver";
+import {ResolveData} from "./common/resolveData";
 
 const routes:RouterConfig = [
     {
@@ -21,12 +21,12 @@ const routes:RouterConfig = [
         path: '',
         component: Navigation,
         canActivate: [AuthGuard],
-        resolve: [TeamResolver],
+        resolve: [],
         children: [
             {
                 path: '',
                 component: Dashboard,
-                resolve: [TeamResolver],
+                resolve: [],
                 data: {
                     showInSubNavigation: true,
                     icon: 'layers'
@@ -35,7 +35,7 @@ const routes:RouterConfig = [
             {
                 path: 'customers',
                 component: Customers,
-                resolve: [TeamResolver],
+                resolve: [],
                 data: {
                     showInSubNavigation: true,
                     paramsAsDefault: '',
@@ -46,17 +46,16 @@ const routes:RouterConfig = [
                     {
                         path: '',
                         component: Crud,
-                        resolve: [TeamResolver],
+                        resolve: [],
                         children: [
-                            { path: '',  component: CrudView, resolve: [TeamResolver] },
-                            { path: 'delete',  component: CrudDelete, resolve: [TeamResolver] },
-                            { path: 'create',  component: CrudCreate, resolve: [TeamResolver] },
-                            { path: 'edit',  component: CrudEdit, resolve: [TeamResolver] },
+                            { path: '',  component: CrudView, resolve: [ResolveData] },
+                            { path: 'delete',  component: CrudDelete, resolve: [ResolveData] },
+                            { path: 'create',  component: CrudCreate, resolve: [ResolveData] },
+                            { path: 'edit',  component: CrudEdit, resolve: [ResolveData] },
 
-                            { path: ':id',  component: CrudView },
-                            { path: 'delete/:id',  component: CrudDelete, resolve: [TeamResolver] },
-                            { path: 'create/:id',  component: CrudCreate, resolve: [TeamResolver] },
-                            { path: 'edit/:id',  component: CrudEdit, resolve: [TeamResolver] },
+                            { path: 'delete/:id',  component: CrudDelete, resolve: [ResolveData] },
+                            { path: 'create/:id',  component: CrudCreate, resolve: [ResolveData] },
+                            { path: 'edit/:id',  component: CrudEdit, resolve: [ResolveData] },
                         ]
                     }
                 ]
