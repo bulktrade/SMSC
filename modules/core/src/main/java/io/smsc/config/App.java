@@ -47,22 +47,4 @@ public class App {
 
 		return registration;
 	}
-
-    @Bean
-    public OrientJdbcConnection orientDBConnection() {
-        Properties info = new Properties();
-        info.put("user", "admin");
-        info.put("password", "admin");
-
-        info.put("db.usePool", "true"); // USE THE POOL
-        info.put("db.pool.min", "3");   // MINIMUM POOL SIZE
-        info.put("db.pool.max", "30");  // MAXIMUM POOL SIZE
-
-        try {
-            return (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:localhost/smsc", info);
-        } catch (Exception e) {
-//            e.printStackTrace();
-            return null;
-        }
-    }
 }
