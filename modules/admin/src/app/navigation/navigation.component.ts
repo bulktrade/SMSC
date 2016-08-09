@@ -13,6 +13,9 @@ import { MdToolbar } from "@angular2-material/toolbar/toolbar";
 import { SidebarItem } from "../sidebar/sidebaritem.component";
 import { ROUTER_DIRECTIVES, Router } from "@angular/router";
 import { TokenService } from "../services/auth/token.service";
+import {CubeGridComponent} from "../common/spinner/cubeGrid/cubeGrid.component";
+import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
+import {LoadingService} from "../services/loading.service";
 
 @Component({
     selector: 'navigation',
@@ -23,6 +26,7 @@ import { TokenService } from "../services/auth/token.service";
     ],
     directives: [
         ROUTER_DIRECTIVES,
+        LoadingRouterOutlet,
         NgClass,
         Sidebar,
         AnimateBox,
@@ -32,7 +36,8 @@ import { TokenService } from "../services/auth/token.service";
         MdIcon,
         MD_LIST_DIRECTIVES,
         MdToolbar,
-        SidebarItem
+        SidebarItem,
+        CubeGridComponent
     ],
     pipes: [TranslatePipe]
 })
@@ -41,7 +46,8 @@ export class Navigation implements OnInit {
     constructor(public router:Router,
                 public translate:TranslateService,
                 public showmininav:ShowMiniNav,
-                public tokenService:TokenService) {
+                public tokenService:TokenService,
+                public loadingService:LoadingService) {
     }
 
     logout() {

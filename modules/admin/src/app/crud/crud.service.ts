@@ -2,10 +2,13 @@ import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
 import { RequestGetParameters } from "../orientdb/orientdb.requestGetParameters";
 import { LocalStorage } from "angular2-localstorage/WebStorage";
-import { Router, ActivatedRoute } from "@angular/router";
+import {Router, ActivatedRoute, NavigationEnd} from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./crud.model";
+
+let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
+let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 
 @Injectable()
 export class CrudService {
@@ -36,8 +39,12 @@ export class CrudService {
                 public router:Router,
                 public route:ActivatedRoute,
                 public translate:TranslateService) {
-        this.currPath = this.route.snapshot['_urlSegment'].pathsWithParams[0].path;
-        this.setCrudClass(this.router['config']);
+        this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                this.currPath = event.url.split('/')[1];
+                this.setCrudClass(this.router['config']);
+            }
+        });
     }
 
     onFilterChanged(value, gridOptions) {
@@ -188,6 +195,10 @@ export class CrudService {
 
                 return result;
             })
+    }
+
+    overlayLoadingTemplate() {
+        return cubeGridHtml + '<style>' + cubeGridStyle + '</style>';
     }
 
     addCheckboxSelection(columnDefs, gridOptions) {

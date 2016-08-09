@@ -1,27 +1,20 @@
-import { NavigationEnd } from "@angular/router";
 import { Injectable } from "@angular/core";
 
 @Injectable()
-export class NavigationInterceptor {
+export class LoadingService {
 
     constructor() {
     }
 
-    intercept(event):void {
-        if (event instanceof NavigationEnd) {
-            this.stopLoadingIcon();
-        }
-    }
-
-    startLoadingIcon() {
+    start() {
         localStorage.setItem('loading', 'start');
     }
 
-    stopLoadingIcon() {
+    stop() {
         localStorage.setItem('loading', 'stop');
     }
 
-    isRunningLoadingIcon() {
+    isRunning() {
         if(localStorage.getItem('loading') === 'start') {
             return true;
         } else {

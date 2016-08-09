@@ -11,14 +11,18 @@ import { AuthHttp, AuthConfig } from "angular2-jwt";
 import { AuthService } from "./services/auth/auth.service";
 import { TokenService, AUTH_TOKEN_NAME } from "./services/auth/token.service";
 import { Router } from "@angular/router";
-import {NavigationInterceptor} from "./common/navigationInterceptor";
+import {TeamResolver} from "./common/teamResolver";
+import {LoadingService} from "./services/loading.service";
+import {CrudService} from "./crud/crud.service";
 
 export * from './app.component';
 export * from './app.service';
 
 export const APP_PROVIDERS = [
-    NavigationInterceptor,
+    TeamResolver,
+    CrudService,
     TokenService,
+    LoadingService,
     AuthService,
     AuthGuard,
     DashboardGuard,
