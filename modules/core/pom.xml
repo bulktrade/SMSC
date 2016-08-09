@@ -96,6 +96,25 @@
         <finalName>smsc</finalName>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.12</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <inherited>true</inherited>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -195,25 +214,25 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.10</version>
-                <executions>
-                    <execution>
-                        <id>reserve-tomcat-port</id>
-                        <goals>
-                            <goal>reserve-network-port</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <portNames>
-                                <portName>tomcat.http.port</portName>
-                            </portNames>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>build-helper-maven-plugin</artifactId>-->
+                <!--<version>1.10</version>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>reserve-tomcat-port</id>-->
+                        <!--<goals>-->
+                            <!--<goal>reserve-network-port</goal>-->
+                        <!--</goals>-->
+                        <!--<phase>process-resources</phase>-->
+                        <!--<configuration>-->
+                            <!--<portNames>-->
+                                <!--<portName>tomcat.http.port</portName>-->
+                            <!--</portNames>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
