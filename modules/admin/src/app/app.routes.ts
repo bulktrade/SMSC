@@ -21,12 +21,10 @@ const routes:RouterConfig = [
         path: '',
         component: Navigation,
         canActivate: [AuthGuard],
-        resolve: [],
         children: [
             {
                 path: '',
                 component: Dashboard,
-                resolve: [],
                 data: {
                     showInSubNavigation: true,
                     icon: 'layers'
@@ -35,7 +33,6 @@ const routes:RouterConfig = [
             {
                 path: 'customers',
                 component: Customers,
-                resolve: [],
                 data: {
                     showInSubNavigation: true,
                     paramsAsDefault: '',
@@ -46,13 +43,8 @@ const routes:RouterConfig = [
                     {
                         path: '',
                         component: Crud,
-                        resolve: [],
                         children: [
-                            { path: '',  component: CrudView, resolve: [ResolveData] },
-                            { path: 'delete',  component: CrudDelete, resolve: [ResolveData] },
-                            { path: 'create',  component: CrudCreate, resolve: [ResolveData] },
-                            { path: 'edit',  component: CrudEdit, resolve: [ResolveData] },
-
+                            { path: '',  component: CrudView },
                             { path: 'delete/:id',  component: CrudDelete, resolve: [ResolveData] },
                             { path: 'create/:id',  component: CrudCreate, resolve: [ResolveData] },
                             { path: 'edit/:id',  component: CrudEdit, resolve: [ResolveData] },
@@ -63,7 +55,7 @@ const routes:RouterConfig = [
         ]
     },
     {
-        path: '**',
+        path: '',
         component: NotFound
     }
 ];
