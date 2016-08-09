@@ -39,6 +39,11 @@ export class CrudService {
                 public router:Router,
                 public route:ActivatedRoute,
                 public translate:TranslateService) {
+
+        // this.router.routerState.parent(this.route).data.subscribe(data => {
+        //
+        // });
+
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 this.currPath = event.url.split('/')[1];

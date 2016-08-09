@@ -56,7 +56,7 @@ const routes:RouterConfig = [
                             { path: ':id',  component: CrudView },
                             { path: 'delete/:id',  component: CrudDelete, resolve: [TeamResolver] },
                             { path: 'create/:id',  component: CrudCreate, resolve: [TeamResolver] },
-                            { path: 'edit/:id',  component: CrudEdit, resolve: [TeamResolver] },
+                            { path: 'edit/:id',  component: CrudEdit, resolve: [TeamResolver] }
                         ]
                     }
                 ]
