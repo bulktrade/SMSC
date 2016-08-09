@@ -1,11 +1,8 @@
-import {
-    ResolvedReflectiveProvider,
-    Directive
-} from '@angular/core';
-import {RouterOutlet, ActivatedRoute, RouterOutletMap} from "@angular/router";
-import {LoadingService} from "../services/loading.service";
+import { ResolvedReflectiveProvider, Directive } from "@angular/core";
+import { RouterOutlet, ActivatedRoute, RouterOutletMap } from "@angular/router";
+import { LoadingService } from "../services/loading.service";
 
-@Directive({selector: 'router-outlet'})
+@Directive({ selector: 'router-outlet' })
 export class LoadingRouterOutlet extends RouterOutlet {
     public loadingService: LoadingService = new LoadingService();
 
