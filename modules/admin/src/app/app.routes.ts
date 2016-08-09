@@ -55,7 +55,7 @@ const routes:RouterConfig = [
         ]
     },
     {
-        path: '',
+        path: '**',
         component: NotFound
     }
 ];
