@@ -32,6 +32,9 @@ import '@angular2-material/toolbar';
 import 'webpack-material-design-icons';
 import 'lodash';
 
+import 'bootstrap-loader';
+import 'jquery';
+
 if ('production' === ENV) {
   // Production
 

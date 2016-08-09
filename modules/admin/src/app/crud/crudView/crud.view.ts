@@ -12,13 +12,9 @@ import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
     selector: 'crud-view',
     template: require('./crud.view.html'),
     encapsulation: ViewEncapsulation.Native,
-    styleUrls: [
-        require('ag-grid/dist/styles/ag-grid.css'),
-        require('ag-grid/dist/styles/theme-material.css')
-    ],
     styles: [
-        require('./crud.v' +
-            'iew.scss')
+        require('./crud.view.scss'),
+        require('../common/style.scss')
     ],
     providers: [CrudService],
     directives: [
@@ -59,7 +55,7 @@ export class CrudView {
     gridOptions:GridOptions = {
         rowSelection: 'multiple',
         singleClickEdit: true,
-        rowHeight: 50
+        rowHeight: 30
     }
 
 }

@@ -8,13 +8,13 @@ import {CrudService} from "../crud.service";
 @Component({
     selector: 'crud-linkset',
     template: require('./crud.linkset.html'),
-    encapsulation: ViewEncapsulation.Native,
     styleUrls: [
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-material.css')
     ],
     styles: [
-        require('./crud.linkset.scss')
+        require('./crud.linkset.scss'),
+        require('../common/style.scss')
     ],
     providers: [CrudService],
     directives: [

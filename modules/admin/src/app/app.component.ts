@@ -11,7 +11,10 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
         require('normalize.css/normalize.css'),
-        require('webpack-material-design-icons/material-design-icons.css')
+        require('webpack-material-design-icons/material-design-icons.css'),
+        require('ag-grid/dist/styles/ag-grid.css'),
+        require('ag-grid/dist/styles/theme-material.css'),
+        require('ng2-select/components/css/ng2-select.css')
     ],
     styles: [
         require('./app.scss')

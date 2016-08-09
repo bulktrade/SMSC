@@ -30,16 +30,20 @@ export class MultipleSelect {
 
     public isRequired = new EventEmitter();
     public requiredSymb = ' ';
-    public items;
+    public items = [];
 
     constructor(public translate:TranslateService,
                 public route: ActivatedRoute) {
     }
 
     ngOnInit() {
+        this.crudService.multileSelect[this.property.field] = this;
+        this.init();
+    }
+
+    init() {
         this.crudService.initGridData.then(() => {
             this.crudService.rowSelectionLinkset = this.rowSelectionLinkset;
-            this.items = [];
             let linkset = this.crudService.model[this.property.field];
 
             if (typeof linkset === 'string') {
@@ -48,9 +52,11 @@ export class MultipleSelect {
 
             if (linkset) {
                 linkset.forEach((item) => {
-                    this.items.push({
-                        name: item, visible: true
-                    });
+                    if (item) {
+                        this.items.push({
+                            name: item, visible: true
+                        });
+                    }
                 });
 
                 if (this.property.required) {

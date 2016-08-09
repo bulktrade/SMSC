@@ -210,7 +210,13 @@ module.exports = {
             {
                 test: /\.(eot|woff|ttf|svg|woff2)$/,
                 loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]'
+            },
+
+            {
+                test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
+                loader: 'imports?jQuery=jquery'
             }
+
         ]
 
     },
