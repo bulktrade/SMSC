@@ -10,9 +10,7 @@ import { LoadingService } from "../services/loading.service";
 
 @Directive({ selector: 'router-outlet' })
 export class LoadingRouterOutlet extends RouterOutlet {
-    public loadingService: LoadingService = new LoadingService();
-
-    constructor(parentOutletMap: RouterOutletMap, location: ViewContainerRef, resolver: ComponentFactoryResolver, name: string) {
+    constructor(private loadingService: LoadingService, parentOutletMap: RouterOutletMap, location: ViewContainerRef, resolver: ComponentFactoryResolver, name: string) {
         super(parentOutletMap, location, resolver, name);
     }
 
