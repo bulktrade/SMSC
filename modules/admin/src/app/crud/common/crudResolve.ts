@@ -1,19 +1,17 @@
 import {ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, Router} from "@angular/router";
 import {Injectable, Inject} from "@angular/core";
-import {CrudService} from "../crud/crud.service";
+import {CrudService} from "../crud.service";
 import {GridOptions} from "ag-grid";
 
 @Injectable()
-export class ResolveData implements Resolve<any> {
+export class CrudResolve implements Resolve<any> {
 
     constructor(public crudService: CrudService,
                 public router: Router) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        this.crudService.activeComponent = route.component['name'];
-        this.crudService.currPath = route['_urlSegment'].pathsWithParams[0].path;
-        this.crudService.setCrudClass(this.router['config']);
+        this.crudService.className = route.parent.parent.data['crudClass'];
 
         if (this.crudService.activeComponent === 'CrudLinkset') {
             this.crudService.className = this.crudService.linkedClass;
@@ -22,6 +20,7 @@ export class ResolveData implements Resolve<any> {
         this.crudService.initGridData = new Promise((resolve, reject) => {
             this.crudService.getColumnDefs(this.crudService.className, true)
                 .then((columnDefs) => {
+                    console.log(columnDefs);
                     this.crudService.crudModel.columnDefs = columnDefs;
                     this.crudService.gridOptions.columnDefs = columnDefs;
                     this.crudService.addCheckboxSelection(columnDefs, this.crudService.gridOptions);

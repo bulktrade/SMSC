@@ -10,7 +10,7 @@ import { CrudView } from "./crud/crudView/crud.view";
 import { CrudDelete } from "./crud/crudDelete/crud.delete";
 import { CrudCreate } from "./crud/crudCreate/crud.create";
 import {CrudEdit} from "./crud/crudEdit/crud.edit";
-import {ResolveData} from "./common/resolveData";
+import {CrudResolve} from "./crud/common/crudResolve";
 
 const routes:RouterConfig = [
     {
@@ -44,10 +44,10 @@ const routes:RouterConfig = [
                         path: '',
                         component: Crud,
                         children: [
-                            { path: '',  component: CrudView },
-                            { path: 'delete/:id',  component: CrudDelete, resolve: [ResolveData] },
-                            { path: 'create/:id',  component: CrudCreate, resolve: [ResolveData] },
-                            { path: 'edit/:id',  component: CrudEdit, resolve: [ResolveData] },
+                            { path: '',  component: CrudView, resolve: [CrudResolve] },
+                            { path: 'delete/:id',  component: CrudDelete, resolve: [CrudResolve] },
+                            { path: 'create/:id',  component: CrudCreate, resolve: [CrudResolve] },
+                            { path: 'edit/:id',  component: CrudEdit, resolve: [CrudResolve] },
                         ]
                     }
                 ]
@@ -60,6 +60,4 @@ const routes:RouterConfig = [
     }
 ];
 
-export const appRouterProviders = [
-    provideRouter(routes)
-];
+export const APP_ROUTE_PROVIDER = provideRouter(routes);

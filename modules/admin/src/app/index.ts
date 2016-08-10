@@ -11,7 +11,7 @@ import { AuthHttp, AuthConfig } from "angular2-jwt";
 import { AuthService } from "./services/auth/auth.service";
 import { TokenService, AUTH_TOKEN_NAME } from "./services/auth/token.service";
 import { Router } from "@angular/router";
-import { ResolveData } from "./common/resolveData";
+import { CrudResolve } from "./crud/common/crudResolve";
 import { LoadingService } from "./services/loading.service";
 import { CrudService } from "./crud/crud.service";
 
@@ -19,7 +19,7 @@ export * from './app.component';
 export * from './app.service';
 
 export const APP_PROVIDERS = [
-    ResolveData,
+    CrudResolve,
     CrudService,
     TokenService,
     LoadingService,
