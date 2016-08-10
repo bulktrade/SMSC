@@ -31,6 +31,7 @@ import '@angular2-material/toolbar';
 
 import 'webpack-material-design-icons';
 import 'lodash';
+import 'hammerjs';
 
 import 'bootstrap-loader';
 import 'jquery';
