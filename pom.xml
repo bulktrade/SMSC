@@ -159,6 +159,10 @@
                     <encoding>UTF-8</encoding>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
+                    <!--<compilerArgs>-->
+                        <!--<arg>-verbose</arg>-->
+                        <!--<arg>-Xlint:all,-options,-path</arg>-->
+                    <!--</compilerArgs>-->
                 </configuration>
             </plugin>
             <plugin>
