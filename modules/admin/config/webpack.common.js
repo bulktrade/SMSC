@@ -215,8 +215,16 @@ module.exports = {
             {
                 test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
                 loader: 'imports?jQuery=jquery'
+            },
+            {
+                test: /.js$/,
+                loader: 'string-replace-loader',
+                query: {
+                    search: 'moduleId: module.id,',
+                    replace: '',
+                    flags: 'g'
+                }
             }
-
         ]
 
     },
