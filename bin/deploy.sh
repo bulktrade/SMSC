@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/sh
+set -x
+set -e
+
 mvn clean install
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
