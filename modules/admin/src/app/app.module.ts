@@ -21,12 +21,11 @@ import {CrudEdit} from "./crud/crudEdit/crud.edit";
 import {Dashboard} from "./dashboard/dashboard.component";
 import {NotFound} from "./notFound/notFound.component";
 
-
 @NgModule({
     imports: [
         BrowserModule,
         MaterialModule,
-        FormsModule,
+        FormsModule
     ],
     providers: [
         ...APP_PROVIDERS,
@@ -43,7 +42,7 @@ import {NotFound} from "./notFound/notFound.component";
             useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
             deps: [Http]
         }),
-        APP_ROUTE_PROVIDER,
+        APP_ROUTE_PROVIDER
     ],
     declarations: [
         App,
@@ -57,7 +56,7 @@ import {NotFound} from "./notFound/notFound.component";
         CrudEdit,
         NotFound,
         Dashboard,
-        Breadcrumb
+        Breadcrumb,
     ],
     entryComponents: [
         App

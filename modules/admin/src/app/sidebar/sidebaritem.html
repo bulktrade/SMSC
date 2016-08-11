@@ -12,7 +12,7 @@
             </md-icon>
         </div>
     </a>
-    <ul @state="getStorageItem(toggle) ? 'open' : 'closed'" *ngIf="submenu"
+    <ul [@state]="getStorageItem(toggle) ? 'open' : 'closed'" *ngIf="submenu"
         class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
         <li *ngFor="let item of submenu"><a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                                             [routerLink]="[nameItem, item.name]" class="{{item.name.toLowerCase()}}">

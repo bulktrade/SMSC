@@ -16,13 +16,7 @@ declare var Reflect;
     providers: [],
     directives: [
         ROUTER_DIRECTIVES,
-        AnimateBox,
-        NgClass,
-        ActiveItem,
-        FaAngleLeft,
-        SidebarItem,
-        NgFor,
-        MD_SIDENAV_DIRECTIVES
+        SidebarItem
     ],
     pipes: [TranslatePipe],
     styles: [

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, OnInit, NgModule} from "@angular/core";
 import { NgClass } from "@angular/common";
 import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
 import { AnimateBox } from "../sidebar/directives/animate";
@@ -11,7 +11,7 @@ import { MdIcon } from "@angular2-material/icon/icon";
 import { MD_LIST_DIRECTIVES } from "@angular2-material/list/list";
 import { MdToolbar } from "@angular2-material/toolbar/toolbar";
 import { SidebarItem } from "../sidebar/sidebaritem.component";
-import { ROUTER_DIRECTIVES, Router } from "@angular/router";
+import {ROUTER_DIRECTIVES, Router, RouterOutlet} from "@angular/router";
 import { TokenService } from "../services/auth/token.service";
 import {CubeGridComponent} from "../common/spinner/cubeGrid/cubeGrid.component";
 import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
@@ -25,18 +25,7 @@ import {LoadingService} from "../services/loading.service";
         require('./navigation.scss')
     ],
     directives: [
-        ROUTER_DIRECTIVES,
-        LoadingRouterOutlet,
-        NgClass,
         Sidebar,
-        AnimateBox,
-        MD_SIDENAV_DIRECTIVES,
-        MdButton,
-        Dir,
-        MdIcon,
-        MD_LIST_DIRECTIVES,
-        MdToolbar,
-        SidebarItem,
         CubeGridComponent
     ],
     pipes: [TranslatePipe]

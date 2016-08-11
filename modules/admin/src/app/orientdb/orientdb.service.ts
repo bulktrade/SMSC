@@ -190,9 +190,9 @@ export class ODatabaseService {
         sql = sql.substring(0, sql.length - 4);
 
         return this.query(sprintf(sql, params))
-                .then((res: Response) => {
-                    return res.json().result[0];
-                });
+            .then((res: Response) => {
+                return res.json().result[0];
+            });
     };
 
     executeCommand(iCommand?, iLanguage?, iLimit?,

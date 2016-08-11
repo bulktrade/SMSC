@@ -16,12 +16,8 @@ declare var Reflect;
     template: require('./sidebaritem.html'),
     providers: [],
     directives: [
-        AnimateBox,
-        NgClass,
         ActiveItem,
         FaAngleLeft,
-        NgFor,
-        MdIcon,
         ROUTER_DIRECTIVES
     ],
     pipes: [ TranslatePipe ],

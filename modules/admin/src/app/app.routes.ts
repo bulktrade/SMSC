@@ -46,8 +46,8 @@ const routes:RouterConfig = [
                         children: [
                             { path: '',  component: CrudView, resolve: [CrudResolve] },
                             { path: 'delete/:id',  component: CrudDelete, resolve: [CrudResolve] },
-                            { path: 'create/:id',  component: CrudCreate, resolve: [CrudResolve] },
-                            { path: 'edit/:id',  component: CrudEdit, resolve: [CrudResolve] },
+                            { path: 'create',  component: CrudCreate, resolve: [CrudResolve] },
+                            { path: 'edit',  component: CrudEdit, resolve: [CrudResolve] },
                         ]
                     }
                 ]

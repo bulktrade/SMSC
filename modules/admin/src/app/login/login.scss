@@ -46,6 +46,8 @@
 
         .right-align {
             text-align: right;
+            width: 50%;
+            float: left;
         }
 
         .rememberMe {
@@ -63,6 +65,10 @@
             height: inherit;
             margin: inherit;
             min-width: inherit;
+
+            .right-align {
+                width: 100%;
+            }
 
             #submitButton {
                 margin-top: 10px;
