@@ -3,7 +3,7 @@ import {ROUTER_DIRECTIVES} from "@angular/router";
 import {CubeGridComponent} from "./spinner/cubeGrid/cubeGrid.component";
 
 @Component({
-    selector: 'route-outlet',
+    selector: ' loading-router-outlet',
     directives: [
         ROUTER_DIRECTIVES,
         CubeGridComponent
