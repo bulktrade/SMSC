@@ -63,5 +63,5 @@ import {NotFound} from "./notFound/notFound.component";
     ],
     bootstrap: [App]
 })
-export class DemoAppModule {
+export class AppModule {
 }
