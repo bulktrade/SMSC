@@ -1,16 +1,17 @@
 import {
-    beforeEachProviders,
     inject,
-    it
+    addProviders
 } from '@angular/core/testing';
 import {CrudCreate} from "./crud.create";
-import {crudProviders} from "../common/crudProviders";
+import {CRUD_PROVIDERS} from "../common/crudProviders";
 
-describe('Customer Create', () => {
-    beforeEachProviders(() => [
-        ...crudProviders,
-        CrudCreate,
-    ]);
+describe('Crud Create', () => {
+    beforeEach(() => {
+        addProviders([
+            ...CRUD_PROVIDERS,
+            CrudCreate
+        ]);
+    });
 
     it('should be defined grid options', inject([ CrudCreate ], (crudCreate) => {
         expect(crudCreate.crudService.gridOptions).toBeDefined();

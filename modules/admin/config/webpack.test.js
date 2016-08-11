@@ -146,6 +146,11 @@ module.exports = {
                 exclude: [helpers.root('src/index.html')]
             },
 
+            {
+                test: /\.(eot|woff|ttf|svg|woff2)$/,
+                loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]'
+            },
+
             /**
              * Raw loader support for *.html
              * Returns file content as string
