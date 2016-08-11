@@ -29,8 +29,7 @@ export const APPLICATION_DIRECTIVES = [
     MdSlideToggle,
     MdIcon,
     MdProgressCircle,
-    MdSpinner,
-    ROUTER_DIRECTIVES
+    MdSpinner
 ];
 
 export const DIRECTIVES = [
