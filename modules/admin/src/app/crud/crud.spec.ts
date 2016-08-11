@@ -1,16 +1,17 @@
 import {
-    beforeEachProviders,
-    inject,
-    it
+    inject
 } from '@angular/core/testing';
-import {crudProviders} from "./common/crudProviders";
+import {CRUD_PROVIDERS} from "./common/crudProviders";
 import {Crud} from "./crud.component";
+import {addProviders} from "@angular/core/testing/testing";
 
-describe('Customer View', () => {
-    beforeEachProviders(() => [
-        ...crudProviders,
-        Crud
-    ]);
+describe('Crud', () => {
+    beforeEach(() => {
+        addProviders([
+            ...CRUD_PROVIDERS,
+            Crud
+        ]);
+    });
 
     it('should be defined router', inject([ Crud ], (crud) => {
         expect(crud.router).toBeDefined();
