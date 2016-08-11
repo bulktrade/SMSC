@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import {ROUTER_DIRECTIVES, ActivatedRoute, Router} from "@angular/router";
-import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
+import {TranslatePipe, TranslateService} from "ng2-translate/ng2-translate";
+import {ActivatedRoute, Router} from "@angular/router";
+import {MdCard, MD_CARD_DIRECTIVES} from '@angular2-material/card/card';
 import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
 
 @Component({
@@ -12,7 +12,6 @@ import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
     ],
     providers: [],
     directives: [
-        ROUTER_DIRECTIVES,
         LoadingRouterOutlet,
         MD_CARD_DIRECTIVES,
         MdCard
@@ -22,7 +21,7 @@ import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
 
 export class Crud {
 
-    constructor(public translate:TranslateService,
+    constructor(public translate: TranslateService,
                 public route: ActivatedRoute,
                 public router: Router) {
     }

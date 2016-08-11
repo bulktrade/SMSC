@@ -1,25 +1,27 @@
-import {
-    ResolvedReflectiveProvider,
-    Directive,
-    ComponentFactoryResolver,
-    ViewContainerRef,
-    Injector
-} from "@angular/core";
-import { RouterOutlet, ActivatedRoute, RouterOutletMap } from "@angular/router";
-import { LoadingService } from "../services/loading.service";
+import {Component} from "@angular/core";
+import {ROUTER_DIRECTIVES} from "@angular/router";
+import {CubeGridComponent} from "./spinner/cubeGrid/cubeGrid.component";
 
-@Directive({ selector: 'router-outlet' })
-export class LoadingRouterOutlet extends RouterOutlet {
+@Component({
+    selector: 'route-outlet',
+    directives: [
+        ROUTER_DIRECTIVES,
+        CubeGridComponent
+    ],
+    template: `
+        <router-outlet *ngIf="!loading" (activate)="stop()" (deactivate)="start()"></router-outlet>
+        <sk-cube-grid [isRunning]="loading"></sk-cube-grid>
+    `
+})
 
-    constructor(private _parentOutletMap: RouterOutletMap, private _location: ViewContainerRef, private _resolver: ComponentFactoryResolver, private _name: string, private _loadingService: LoadingService) {
-        super(_parentOutletMap, _location, _resolver, _name);
+export class LoadingRouterOutlet {
+    public loading = false;
+
+    start() {
+        this.loading = true;
     }
 
-    activate(activatedRoute: ActivatedRoute, loadedResolver: ComponentFactoryResolver, loadedInjector: Injector, providers: ResolvedReflectiveProvider[], outletMap: RouterOutletMap): void {
-        super.activate(activatedRoute, loadedResolver, loadedInjector, providers, outletMap);
-    }
-
-    deactivate(): void {
-        super.deactivate();
+    stop() {
+        this.loading = false;
     }
 }
