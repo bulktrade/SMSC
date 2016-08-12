@@ -6,7 +6,6 @@ import io.smsc.service.OrientDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.SQLException;
 import java.sql.Statement;
 
 @Component
@@ -14,7 +13,7 @@ public class MigrationDaoImpl implements MigrationDao {
 	@Autowired
 	private OrientDBService orientDBService;
 
-	public void upgradeDatabase(String sql) throws SQLException {
+	public void upgradeDatabase(String sql) throws Exception {
 		OrientJdbcConnection connection = orientDBService.getJdbcConnection();
 		Statement stmt = connection.createStatement();
 

@@ -31,8 +31,6 @@ public class MigrationServiceImpl implements MigrationService {
 				migrationDao.upgradeDatabase(IOUtils.toString(resource.getInputStream()));
 
 				log.info("Migration is done for " + resource.getFilename());
-			} catch (IOException e) {
-				log.error(e);
 			} catch (SQLException ex) {
 				log.error("SQL Exception!");
 
@@ -49,6 +47,8 @@ public class MigrationServiceImpl implements MigrationService {
 						}
 					}
 				}
+			} catch (Exception e) {
+				log.error(e);
 			}
 		}
 	}

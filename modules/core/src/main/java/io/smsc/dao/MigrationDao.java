@@ -6,5 +6,5 @@ import java.sql.SQLException;
 
 @Repository
 public interface MigrationDao {
-    void upgradeDatabase(String sql) throws SQLException;
+    void upgradeDatabase(String sql) throws Exception;
 }
