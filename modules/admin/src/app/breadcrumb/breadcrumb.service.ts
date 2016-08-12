@@ -29,12 +29,12 @@ export class BreadcrumbService {
     chainPaths(paths): string {
         let result:string = '';
 
-        for (let item = 2; item < paths.length; item++) {
-            if (paths[item].routeConfig.path !== '') {
-                if (item !== paths.length - 1) {
-                    result += paths[item].routeConfig.path + '/';
+        for (let i = 2; i < paths.length; i++) {
+            if (paths[i].routeConfig.path !== '') {
+                if (i !== paths.length - 1) {
+                    result += paths[i].routeConfig.path + '/';
                 } else {
-                    result += paths[item].routeConfig.path;
+                    result += paths[i].routeConfig.path;
                 }
             }
         }

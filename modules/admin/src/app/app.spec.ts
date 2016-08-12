@@ -2,20 +2,21 @@ import {
     inject,
     addProviders
 } from '@angular/core/testing';
-
-// Load the implementations that should be tested
-import { App } from './app.component';
-import { AppState } from './app.service';
-import {APP_PROVIDERS} from "./index";
-import {CRUD_PROVIDERS} from "./crud/common/crudProviders";
+import {App} from "./app.component";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {provide} from "@angular/core";
 
 describe('App', () => {
-    // provide our implementations or mocks to the dependency injector
     beforeEach(() => {
         addProviders([
-            ...APP_PROVIDERS,
-            ...CRUD_PROVIDERS,
-            App
+            App,
+            provide(TranslateService, {useValue: jasmine.createSpyObj('TranslateService', ['setDefaultLang', 'use'])}),
         ]);
     });
+
+    it('should be url', inject([ App ], (app) => {
+        let url = 'http://www.smsc.io/';
+
+        expect(app.url).toEqual(url);
+    }));
 });
