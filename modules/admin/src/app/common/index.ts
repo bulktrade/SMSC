@@ -18,7 +18,6 @@ export const COMMON_PROVIDERS = [
                 headerPrefix: 'Bearer',
                 tokenName: AUTH_TOKEN_NAME,
                 tokenGetter: tokenService.getToken,
-                globalHeaders: [{ 'Content-Type': 'application/json' }],
                 noJwtError: true,
                 noTokenScheme: true
             }), http);

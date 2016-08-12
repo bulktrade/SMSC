@@ -3,7 +3,7 @@
 import "rxjs/add/operator/map";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
-import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
+import {RequestMethod, RequestOptions, Headers, Response} from "@angular/http";
 import { RequestGetParameters } from "./orientdb.requestGetParameters";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
 
@@ -155,18 +155,12 @@ export class ODatabaseService {
         this.urlSuffix = '/';
 
         let headers = new Headers({
-            'Content-Type': 'application/json'
-        });
-
-        let requestOptions = new RequestOptions({
-            headers: headers,
-            method: RequestMethod.Get,
+            'content-Type': 'application/json'
         });
 
         return new Promise((resolve, reject) => {
-            this.authHttp.request(this.urlPrefix + 'class/' + this.encodedDatabaseName
-                + this.urlSuffix + className + this.urlSuffix,
-                requestOptions)
+            this.authHttp.get(this.urlPrefix + 'class/' + this.encodedDatabaseName
+                + this.urlSuffix + className + this.urlSuffix, headers)
                 .toPromise()
                 .then(
                     res => {
@@ -289,7 +283,7 @@ export class ODatabaseService {
         return new Promise((resolve, reject) => {
             this.authHttp.request(this.urlPrefix + 'connect/' +
                 this.encodedDatabaseName + this.urlSuffix,
-                requestOptions)
+                type === RequestMethod.Get ? headers : requestOptions)
                 .toPromise()
                 .then(
                     res => {
@@ -331,14 +325,9 @@ export class ODatabaseService {
             'Content-Type': 'application/json'
         });
 
-        let requestOptions = new RequestOptions({
-            headers: headers,
-            method: RequestMethod.Get
-        });
-
         return new Promise((resolve, reject) => {
-            this.authHttp.request(this.urlPrefix + url + this.urlSuffix,
-                requestOptions)
+            this.authHttp.get(this.urlPrefix + url + this.urlSuffix,
+                headers)
                 .toPromise()
                 .then(
                     res => {
@@ -358,14 +347,9 @@ export class ODatabaseService {
                 'Content-Type': 'application/json'
             });
 
-            let requestOptions = new RequestOptions({
-                headers: headers,
-                method: RequestMethod.Get
-            });
-
             return new Promise((resolve, reject) => {
-                this.authHttp.request(this.urlPrefix + 'disconnect' + this.urlSuffix,
-                    requestOptions)
+                this.authHttp.get(this.urlPrefix + 'disconnect' + this.urlSuffix,
+                    headers)
                     .toPromise()
                     .then(
                         res => {
@@ -702,15 +686,10 @@ export class ODatabaseService {
             'Content-Type': 'application/json'
         });
 
-        let requestOptions = new RequestOptions({
-            headers: headers,
-            method: RequestMethod.Get
-        });
-
         return new Promise((resolve, reject) => {
-            this.authHttp.request(this.urlPrefix + 'database/' + this.encodedDatabaseName
+            this.authHttp.get(this.urlPrefix + 'database/' + this.encodedDatabaseName
                 + this.urlSuffix,
-                requestOptions)
+                headers)
                 .toPromise()
                 .then(
                     res => {
@@ -747,15 +726,10 @@ export class ODatabaseService {
             'Content-Type': 'application/json'
         });
 
-        let requestOptions = new RequestOptions({
-            headers: headers,
-            method: RequestMethod.Get
-        });
-
         return new Promise((resolve, reject) => {
-            this.authHttp.request(this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
+            this.authHttp.get(this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
                 + iRID + iFetchPlan + this.urlSuffix,
-                requestOptions)
+                headers)
                 .toPromise()
                 .then(
                     res => {
