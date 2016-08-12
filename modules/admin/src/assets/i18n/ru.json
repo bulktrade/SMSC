@@ -56,6 +56,7 @@
     "UPDATE": "Update",
     "CREATE": "Create",
     "SELECTALL": "Select all",
+    "EDIT": "Edit",
     "orientdb.dataNotFound": "Your data is not found!",
     "orientdb.dataNotCorrect": "You have entered incorrect data!",
     "orientdb.successCreate": "New record was successfully added!",

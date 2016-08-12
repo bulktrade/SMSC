@@ -13,10 +13,9 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 
 @Injectable()
 export class CrudService {
-    @LocalStorage() public focusedRow:any;
-
     crudModel = new CrudModel([], []);
 
+    public focusedRow:any;
     public btnDeleteDisabled = true;
     public addingFormValid = false;
     public querySelectors = null;
