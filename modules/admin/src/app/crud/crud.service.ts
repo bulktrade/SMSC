@@ -28,7 +28,7 @@ export class CrudService {
     public linkedClass = null;
     public showLinksetView = false;
     public initGridData:Promise<any>;
-    public currPath = null;
+    public parentPath = null;
     public className = null;
     public dataNotFound = false;
     public successExecute = false;
@@ -166,19 +166,6 @@ export class CrudService {
         }
     }
 
-    setCrudClass(router) {
-        for (let k in router) {
-            if (typeof router[k] == "object" && router[k] !== null) {
-                if (router[k].path === this.currPath) {
-                    this.className = router[k].data['crudClass'];
-                    return;
-                } else {
-                    this.setCrudClass(router[k]);
-                }
-            }
-        }
-    }
-
     getStore(className) {
         return this.databaseService.query('select from ' + className)
             .then((res:Response) => {
@@ -287,7 +274,7 @@ export class CrudService {
                 eCell.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
                                             "border-radius: 3px; cursor: pointer;");
                 eCell.addEventListener('click', () => {
-                    that.router.navigateByUrl(that.currPath + '/' + nameBtn.toLowerCase());
+                    that.router.navigateByUrl(that.parentPath + '/' + nameBtn.toLowerCase());
                 });
                 return eCell;
             },

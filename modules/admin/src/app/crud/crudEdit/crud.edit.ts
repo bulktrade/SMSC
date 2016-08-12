@@ -61,7 +61,7 @@ export class CrudEdit {
 
     onSubmit() {
         this.crudService.updateRecord(this.crudService.model);
-        this.router.navigateByUrl(this.crudService.currPath);
+        this.router.navigateByUrl(this.crudService.parentPath);
     }
 
     isRequired(event) {

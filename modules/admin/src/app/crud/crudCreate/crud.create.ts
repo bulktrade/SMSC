@@ -44,7 +44,7 @@ export class CrudCreate {
 
     onSubmit() {
         this.crudService.createRecord(this.crudService.model);
-        this.router.navigateByUrl(this.crudService.currPath)
+        this.router.navigateByUrl(this.crudService.parentPath)
     }
 
     isRequired(event) {

@@ -25,7 +25,7 @@
         </div>
         <div class="wrapBtn">
             <div class="formButtons">
-                <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath);" id="cancel">{{'CANCEL' | translate}}</button>
+                <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.parentPath);" id="cancel">{{'CANCEL' | translate}}</button>
                 <button md-raised-button color="primary" [disabled]="!addingForm.form.valid || crudService.addingFormValid" id="add">{{btnName | uppercase | translate}}</button>
             </div>
         </div>

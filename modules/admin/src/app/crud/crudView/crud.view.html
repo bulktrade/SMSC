@@ -11,9 +11,9 @@
                 </button>
             </div>
             <div class="buttonsPanel">
-                <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.currPath + '/create')" id="addRow">{{'ADD' | translate}}</button>
+                <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.parentPath + '/create')" id="addRow">{{'ADD' | translate}}</button>
                 <button md-raised-button color="warn" [disabled]="crudService.btnDeleteDisabled"
-                        (click)="router.navigateByUrl(crudService.currPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
+                        (click)="router.navigateByUrl(crudService.parentPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
             </div>
         </div>
         <alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true" (close)="crudService.dataNotFound=false">

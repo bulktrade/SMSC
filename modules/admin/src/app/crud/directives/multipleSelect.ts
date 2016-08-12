@@ -38,6 +38,9 @@ export class MultipleSelect {
 
     ngOnInit() {
         this.crudService.multileSelect[this.property.field] = this;
+        if (this.property.required) {
+            this.requiredSymb += '*';
+        }
         this.init();
     }
 
@@ -60,8 +63,6 @@ export class MultipleSelect {
                 });
 
                 if (this.property.required) {
-                    this.requiredSymb += '*';
-
                     if (linkset.length) {
                         this.isRequired.emit(false);
                     } else {
@@ -71,7 +72,6 @@ export class MultipleSelect {
                     this.isRequired.emit(false);
                 }
             } else if (this.property.required) {
-                this.requiredSymb += '*';
                 this.isRequired.emit(true);
             } else {
                 this.isRequired.emit(false);

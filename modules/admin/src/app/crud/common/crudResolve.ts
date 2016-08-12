@@ -12,6 +12,7 @@ export class CrudResolve implements Resolve<any> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         this.crudService.className = route.parent.parent.data['crudClass'];
+        this.crudService.parentPath = route.parent.parent.routeConfig.path;
 
         if (this.crudService.activeComponent === 'CrudLinkset') {
             this.crudService.className = this.crudService.linkedClass;
