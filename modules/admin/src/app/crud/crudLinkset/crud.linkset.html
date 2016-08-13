@@ -19,7 +19,7 @@
     <div class="wrapBtn">
         <div class="formButtons">
             <button md-raised-button color="primary" (click)="crudService.showLinksetView=false">{{'BACK' | translate}}</button>
-            <button md-raised-button color="primary" (click)="crudService.chooseLinkset(gridOptions);
+            <button md-raised-button color="primary" (click)="crudService.chooseLinkset(gridOptions, route.component['name']);
                              crudService.showLinksetView=false">{{'CHOOSE' | translate}}</button>
         </div>
     </div>

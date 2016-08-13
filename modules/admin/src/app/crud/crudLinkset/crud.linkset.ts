@@ -2,7 +2,7 @@ import {Component, ViewEncapsulation, Input} from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { AgGridNg2 } from "ag-grid-ng2/main";
 import { GridOptions } from "ag-grid/main";
-import {Router } from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {CrudService} from "../crud.service";
 import {CrudModel} from "../crud.model";
 
@@ -30,7 +30,8 @@ export class CrudLinkset {
 
     constructor(public translate:TranslateService,
                 public router:Router,
-                public crudService:CrudService) {
+                public crudService:CrudService,
+                public route:ActivatedRoute) {
     }
 
     ngOnInit() {

@@ -1,8 +1,7 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
 import { RequestGetParameters } from "../orientdb/orientdb.requestGetParameters";
-import { LocalStorage } from "angular2-localstorage/WebStorage";
-import {Router, ActivatedRoute, NavigationEnd} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./crud.model";
@@ -16,12 +15,10 @@ export class CrudService {
     crudModel = new CrudModel([], []);
 
     public focusedRow:any;
-    public btnDeleteDisabled = true;
     public addingFormValid = false;
     public querySelectors = null;
     public multileSelect = {};
     public embeddedList = null;
-    public activeComponent = null;
     public isActiveLinkset = null;
     public rowSelectionLinkset = null;
     public linkedClass = null;
@@ -111,9 +108,6 @@ export class CrudService {
     }
 
     clickOnCell(event) {
-        this.btnDeleteDisabled = false;
-        this.focusedRow = event.rowIndex;
-
         switch (event.colDef.type) {
             case 'LINKSET':
             case 'LINK':
@@ -139,7 +133,7 @@ export class CrudService {
         }
     }
 
-    chooseLinkset(linksetGridOptions) {
+    chooseLinkset(linksetGridOptions, activeComponent) {
         let focusedRows = linksetGridOptions.api.getSelectedRows();
         let linkSet = '';
         let params;
@@ -150,7 +144,7 @@ export class CrudService {
 
         linkSet = linkSet.substring(0, linkSet.length - 1);
 
-        if (this.activeComponent === 'CrudView') {
+        if (activeComponent === 'CrudView') {
             params = this.gridOptions.rowData[this.focusedRow];
             params[this.isActiveLinkset] = linkSet;
             this.updateRecord(params);

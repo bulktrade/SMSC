@@ -1,7 +1,6 @@
 import {ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, Router} from "@angular/router";
-import {Injectable, Inject} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {CrudService} from "../crud.service";
-import {GridOptions} from "ag-grid";
 
 @Injectable()
 export class CrudResolve implements Resolve<any> {
@@ -13,10 +12,6 @@ export class CrudResolve implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         this.crudService.className = route.parent.parent.data['crudClass'];
         this.crudService.parentPath = route.parent.parent.routeConfig.path;
-
-        if (this.crudService.activeComponent === 'CrudLinkset') {
-            this.crudService.className = this.crudService.linkedClass;
-        }
 
         this.crudService.initGridData = new Promise((resolve, reject) => {
             this.crudService.getColumnDefs(this.crudService.className, true)
@@ -31,9 +26,6 @@ export class CrudResolve implements Resolve<any> {
                         .then((store) => {
                             this.crudService.gridOptions.rowData = store;
                             this.crudService.crudModel.rowData = store;
-                            if (this.crudService.activeComponent === 'CrudEdit') {
-                                this.crudService.model = this.crudService.crudModel.rowData[0];
-                            }
                             resolve();
                         }, (error) => {
                             this.crudService.dataNotFound = true;
