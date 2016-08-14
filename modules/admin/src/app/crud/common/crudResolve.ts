@@ -1,16 +1,16 @@
-import {ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, Router} from "@angular/router";
-import {Injectable} from "@angular/core";
-import {CrudService} from "../crud.service";
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, Router } from "@angular/router";
+import { Injectable } from "@angular/core";
+import { CrudService } from "../crud.service";
 
 @Injectable()
 export class CrudResolve implements Resolve<any> {
 
-    constructor(public crudService: CrudService,
-                public router: Router) {
+    constructor(public crudService:CrudService,
+                public router:Router) {
     }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        this.crudService.className = route.parent.parent.data['crudClass'];
+    resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot) {
+        this.crudService.className = route.parent.parent.data[ 'crudClass' ];
         this.crudService.parentPath = route.parent.parent.routeConfig.path;
 
         this.crudService.initGridData = new Promise((resolve, reject) => {

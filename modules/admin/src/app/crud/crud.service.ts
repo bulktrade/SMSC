@@ -1,11 +1,11 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
 import { RequestGetParameters } from "../orientdb/orientdb.requestGetParameters";
-import {Router, ActivatedRoute} from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./crud.model";
-import {GridOptions} from "ag-grid";
+import { GridOptions } from "ag-grid";
 
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
 let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
@@ -75,7 +75,7 @@ export class CrudService {
 
         for (let key in value) {
             if (key !== 'rid' && key !== 'version') {
-                colsValue.push(value[key]);
+                colsValue.push(value[ key ]);
             }
         }
 
@@ -96,8 +96,8 @@ export class CrudService {
             });
     }
 
-    deleteRecord(rowData) {
-        return this.databaseService.delete(rowData[this.focusedRow].rid)
+    deleteRecord(rid):Promise<any> {
+        return this.databaseService.delete(rid)
             .then((res) => {
                 this.successExecute = true;
                 this.successMessage = 'orientdb.successDelete';
@@ -105,6 +105,16 @@ export class CrudService {
                 this.dataNotFound = true;
                 this.errorMessage = 'orientdb.dataNotFound';
             });
+    }
+
+    multipleDeleteRecords():Promise<any> {
+        let result:Promise<any>;
+
+        this.gridOptions.api.getSelectedRows().forEach((i) => {
+            result = this.deleteRecord(i.rid);
+        });
+
+        return result;
     }
 
     clickOnCell(event) {
@@ -118,7 +128,7 @@ export class CrudService {
                 break;
 
             case 'EMBEDDEDLIST':
-                this.embeddedList = event.colDef.custom['type'] || '';
+                this.embeddedList = event.colDef.custom[ 'type' ] || '';
                 break;
         }
     }
@@ -139,22 +149,22 @@ export class CrudService {
         let params;
 
         for (let item = 0; item < focusedRows.length; item++) {
-            linkSet += "" + focusedRows[item].rid + ",";
+            linkSet += "" + focusedRows[ item ].rid + ",";
         }
 
         linkSet = linkSet.substring(0, linkSet.length - 1);
 
         if (activeComponent === 'CrudView') {
-            params = this.gridOptions.rowData[this.focusedRow];
-            params[this.isActiveLinkset] = linkSet;
+            params = this.gridOptions.rowData[ this.focusedRow ];
+            params[ this.isActiveLinkset ] = linkSet;
             this.updateRecord(params);
 
-            this.gridOptions.rowData[this.focusedRow][this.isActiveLinkset] = linkSet;
+            this.gridOptions.rowData[ this.focusedRow ][ this.isActiveLinkset ] = linkSet;
             this.gridOptions.api.setRowData(this.gridOptions.rowData);
         } else {
-            this.model[this.isActiveLinkset] = linkSet.split(',');
+            this.model[ this.isActiveLinkset ] = linkSet.split(',');
             for (let item in this.multileSelect) {
-                this.multileSelect[item].init();
+                this.multileSelect[ item ].init();
             }
         }
     }
@@ -162,17 +172,17 @@ export class CrudService {
     getStore(className) {
         return this.databaseService.query('select from ' + className)
             .then((res:Response) => {
-                let result = res.json()['result'];
+                let result = res.json()[ 'result' ];
 
                 result.forEach((item) => {
-                    item['rid'] = item['@rid'];
-                    item['version'] = item['@version'];
+                    item[ 'rid' ] = item[ '@rid' ];
+                    item[ 'version' ] = item[ '@version' ];
 
-                    delete item['@rid'];
-                    delete item['@version'];
-                    delete item['@fieldTypes'];
-                    delete item['@class'];
-                    delete item['@type'];
+                    delete item[ '@rid' ];
+                    delete item[ '@version' ];
+                    delete item[ '@fieldTypes' ];
+                    delete item[ '@class' ];
+                    delete item[ '@type' ];
                 });
 
                 return result;
@@ -263,9 +273,9 @@ export class CrudService {
             cellRenderer: () => {
                 let that = this;
                 let eCell = document.createElement('button');
-                eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())['value'];
+                eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())[ 'value' ];
                 eCell.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
-                                            "border-radius: 3px; cursor: pointer;");
+                    "border-radius: 3px; cursor: pointer;");
                 eCell.addEventListener('click', () => {
                     that.router.navigateByUrl(that.parentPath + '/' + nameBtn.toLowerCase());
                 });
@@ -294,7 +304,7 @@ export class CrudService {
             .then((res:Response) => {
                 res.json().properties.forEach((item) => {
                     columnDefs.push({
-                        headerName: this.translate.get(item.name.toUpperCase())['value'],
+                        headerName: this.translate.get(item.name.toUpperCase())[ 'value' ],
                         field: item.name,
                         editable: !item.readonly,
                         required: item.mandatory,
