@@ -2,25 +2,25 @@ import {
     inject,
     addProviders
 } from '@angular/core/testing';
-import { LoadingGrid } from "./loadingGrid";
+import { LoadingRouterOutlet } from "./loadingRouterOutlet";
 
-describe('Loading Grid', () => {
+describe('Loading RouterOutlet', () => {
     beforeEach(() => {
         addProviders([
-            LoadingGrid
+            LoadingRouterOutlet
         ]);
     });
 
-    it('loading spinner should be true', inject([ LoadingGrid ], (loadingGrid) => {
-        loadingGrid.start();
+    it('loading spinner should be true', inject([ LoadingRouterOutlet ], (loadingRouterOutlet) => {
+        loadingRouterOutlet.start();
 
-        expect(loadingGrid.loadingGridData).toBeTruthy();
+        expect(loadingRouterOutlet.loading).toBeTruthy();
     }));
 
-    it('loading spinner should be false', inject([ LoadingGrid ], (loadingGrid) => {
-        loadingGrid.stop();
+    it('loading spinner should be false', inject([ LoadingRouterOutlet ], (loadingRouterOutlet) => {
+        loadingRouterOutlet.stop();
 
-        expect(loadingGrid.loadingGridData).toBeFalsy();
+        expect(loadingRouterOutlet.loading).toBeFalsy();
     }));
 
 });

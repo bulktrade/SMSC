@@ -2,19 +2,25 @@ import {
     inject,
     addProviders
 } from '@angular/core/testing';
-import {CrudLinkset} from "./crud.linkset";
-import {CRUD_PROVIDERS} from "../common/crudProviders";
+import { LoadingGrid } from "./loadingGrid";
 
-describe('Crud Linkset', () => {
+describe('Loading Grid', () => {
     beforeEach(() => {
         addProviders([
-            ...CRUD_PROVIDERS,
-            CrudLinkset
+            LoadingGrid
         ]);
     });
 
-    it('should be defined grid options', inject([ CrudLinkset ], (crudLinkset) => {
-        expect(crudLinkset.gridOptions).toBeDefined();
+    it('loading spinner should be true', inject([ LoadingGrid ], (loadingGrid) => {
+        loadingGrid.start();
+
+        expect(loadingGrid.loadingGridData).toBeTruthy();
+    }));
+
+    it('loading spinner should be false', inject([ LoadingGrid ], (loadingGrid) => {
+        loadingGrid.stop();
+
+        expect(loadingGrid.loadingGridData).toBeFalsy();
     }));
 
 });
