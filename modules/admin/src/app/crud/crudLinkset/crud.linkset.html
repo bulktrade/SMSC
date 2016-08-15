@@ -12,10 +12,12 @@
             </div>
         </div>
     </div>
-	<ag-grid-ng2 class="ag-material" style="width: 100%;"
+    <loading-grid [crudService]="crudService">
+	    <ag-grid-ng2 class="ag-material" style="width: 100%;"
 	             [rowGroupPanelShow]="always" [columnDefs]="crudModel.columnDefs" [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
 	             [gridOptions]="gridOptions" [rowData]="crudModel.rowData"
                  (rowSelected)="crudService.rowSelected(gridOptions)"></ag-grid-ng2>
+    </loading-grid>
     <div class="wrapBtn">
         <div class="formButtons">
             <button md-raised-button color="primary" (click)="crudService.showLinksetView=false">{{'BACK' | translate}}</button>

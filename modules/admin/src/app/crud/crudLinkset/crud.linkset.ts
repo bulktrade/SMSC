@@ -1,10 +1,11 @@
-import {Component, ViewEncapsulation, Input} from "@angular/core";
+import { Component, ViewEncapsulation, Input } from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { AgGridNg2 } from "ag-grid-ng2/main";
 import { GridOptions } from "ag-grid/main";
-import {Router, ActivatedRoute} from "@angular/router";
-import {CrudService} from "../crud.service";
-import {CrudModel} from "../crud.model";
+import { Router, ActivatedRoute } from "@angular/router";
+import { CrudService } from "../crud.service";
+import { CrudModel } from "../crud.model";
+import { LoadingGrid } from "../../common/loadingGrid";
 
 @Component({
     selector: 'crud-linkset',
@@ -19,9 +20,10 @@ import {CrudModel} from "../crud.model";
     ],
     providers: [],
     directives: [
-        AgGridNg2
+        AgGridNg2,
+        LoadingGrid
     ],
-    pipes: [TranslatePipe]
+    pipes: [ TranslatePipe ]
 })
 
 export class CrudLinkset {
@@ -38,23 +40,26 @@ export class CrudLinkset {
         this.className = this.crudService.linkedClass;
 
         // init the column definitions
-        this.crudService.getColumnDefs(this.className, false)
-            .then((columnDefs) => {
-                this.crudModel.columnDefs = columnDefs;
-                this.gridOptions.columnDefs = columnDefs;
-                this.crudService.addCheckboxSelection(this.crudModel.columnDefs, this.gridOptions);
-            })
-            .then((res) => {
-                // init the row data
-                this.crudService.getStore(this.className)
-                    .then((store) => {
-                        this.gridOptions.rowData = store;
-                        this.crudModel.rowData = store;
-                    }, (error) => {
-                        this.crudService.dataNotFound = true;
-                        this.crudService.errorMessage = 'orientdb.dataNotFound';
-                    });
-            })
+        this.crudService.initGridData = new Promise((resolve, reject) => {
+            this.crudService.getColumnDefs(this.className, false)
+                .then((columnDefs) => {
+                    this.crudModel.columnDefs = columnDefs;
+                    this.gridOptions.columnDefs = columnDefs;
+                    this.crudService.addCheckboxSelection(this.crudModel.columnDefs, this.gridOptions);
+                })
+                .then((res) => {
+                    // init the row data
+                    this.crudService.getStore(this.className)
+                        .then((store) => {
+                            this.gridOptions.rowData = store;
+                            this.crudModel.rowData = store;
+                            resolve();
+                        }, (error) => {
+                            this.crudService.dataNotFound = true;
+                            this.crudService.errorMessage = 'orientdb.dataNotFound';
+                        });
+                })
+        });
     }
 
     gridOptions:GridOptions = {

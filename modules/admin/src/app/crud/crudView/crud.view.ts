@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { CrudLinkset } from "../crudLinkset/crud.linkset";
 import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
+import { LoadingGrid } from "../../common/loadingGrid";
 
 @Component({
     selector: 'crud-view',
@@ -19,7 +20,8 @@ import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
         AgGridNg2,
         CrudLinkset,
         AlertComponent,
-        AlertComponent
+        AlertComponent,
+        LoadingGrid
     ],
     pipes: [TranslatePipe]
 })
