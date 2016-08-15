@@ -64,23 +64,24 @@ if ($customerClass.size() == 0) {
 
 CREATE Class CrudPropertyMetaData
 CREATE PROPERTY CrudPropertyMetaData.editable BOOLEAN
+CREATE PROPERTY CrudPropertyMetaData.visible BOOLEAN
+CREATE PROPERTY CrudPropertyMetaData.decorator STRING
+CREATE PROPERTY CrudPropertyMetaData.order INTEGER
+CREATE PROPERTY CrudPropertyMetaData.crudClassMetaData LINK CrudClassMetaData
 
 CREATE Class CrudClassMetaData
-CREATE PROPERTY CrudClassMetaData.titleColumns EMBEDDEDLIST
-ALTER CLASS CrudClassMetaData SUPERCLASS +CrudPropertyMetaData
+CREATE PROPERTY CrudClassMetaData.class LINK
+CREATE PROPERTY CrudClassMetaData.titleColumns LINKSET
+CREATE PROPERTY CrudClassMetaData.editable BOOLEAN
+CREATE PROPERTY CrudClassMetaData.query STRING
 
-CREATE Class CrudMetaData
-CREATE PROPERTY CrudMetaData.visible BOOLEAN
-CREATE PROPERTY CrudMetaData.decorator STRING
+CREATE INDEX CrudClassMetaData.class UNIQUE
 
 CREATE Class CrudMetaGridData
-CREATE PROPERTY CrudMetaGridData.columnOrder INTEGER
 CREATE PROPERTY CrudMetaGridData.columnWidth INTEGER
 ALTER CLASS CrudMetaGridData SUPERCLASS +CrudPropertyMetaData
-ALTER CLASS CrudMetaGridData SUPERCLASS +CrudMetaData
 
 CREATE Class CrudMetaFormData
-CREATE PROPERTY CrudMetaFormData.fieldOrder INTEGER
 CREATE PROPERTY CrudMetaFormData.fieldLayoutGridPosition STRING
 ALTER CLASS CrudMetaFormData SUPERCLASS +CrudPropertyMetaData
 ALTER CLASS CrudMetaFormData SUPERCLASS +CrudMetaData
