@@ -63,27 +63,27 @@ if ($customerClass.size() == 0) {
 }
 
 CREATE Class CrudPropertyMetaData
+CREATE PROPERTY CrudPropertyMetaData.editable BOOLEAN
 
 CREATE Class CrudClassMetaData
 CREATE PROPERTY CrudClassMetaData.titleColumns EMBEDDEDLIST
-CREATE PROPERTY CrudClassMetaData.editable BOOLEAN
 ALTER CLASS CrudClassMetaData SUPERCLASS +CrudPropertyMetaData
+
+CREATE Class CrudMetaData
+CREATE PROPERTY CrudMetaData.visible BOOLEAN
+CREATE PROPERTY CrudMetaData.decorator STRING
 
 CREATE Class CrudMetaGridData
 CREATE PROPERTY CrudMetaGridData.columnOrder INTEGER
-CREATE PROPERTY CrudMetaGridData.visible BOOLEAN
 CREATE PROPERTY CrudMetaGridData.columnWidth INTEGER
-CREATE PROPERTY CrudMetaGridData.decorator STRING
-CREATE PROPERTY CrudMetaGridData.editable BOOLEAN
 ALTER CLASS CrudMetaGridData SUPERCLASS +CrudPropertyMetaData
+ALTER CLASS CrudMetaGridData SUPERCLASS +CrudMetaData
 
 CREATE Class CrudMetaFormData
-CREATE PROPERTY CrudMetaFormData.visible BOOLEAN
 CREATE PROPERTY CrudMetaFormData.fieldOrder INTEGER
 CREATE PROPERTY CrudMetaFormData.fieldLayoutGridPosition STRING
-CREATE PROPERTY CrudMetaFormData.decorator STRING
-CREATE PROPERTY CrudMetaFormData.editable BOOLEAN
 ALTER CLASS CrudMetaFormData SUPERCLASS +CrudPropertyMetaData
+ALTER CLASS CrudMetaFormData SUPERCLASS +CrudMetaData
 
 let customerIdSeqOSequence = SELECT FROM OSequence WHERE name = 'customerIdSeq';
 
