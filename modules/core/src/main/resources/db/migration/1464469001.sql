@@ -62,6 +62,29 @@ if ($customerClass.size() == 0) {
   console.log "Creating process for Customer class is done."
 }
 
+CREATE Class CrudPropertyMetaData
+
+CREATE Class CrudClassMetaData
+CREATE PROPERTY CrudClassMetaData.titleColumns EMBEDDEDLIST
+CREATE PROPERTY CrudClassMetaData.editable BOOLEAN
+ALTER CLASS CrudClassMetaData SUPERCLASS +CrudPropertyMetaData
+
+CREATE Class CrudMetaGridData
+CREATE PROPERTY CrudMetaGridData.columnOrder INTEGER
+CREATE PROPERTY CrudMetaGridData.visible BOOLEAN
+CREATE PROPERTY CrudMetaGridData.columnWidth INTEGER
+CREATE PROPERTY CrudMetaGridData.decorator STRING
+CREATE PROPERTY CrudMetaGridData.editable BOOLEAN
+ALTER CLASS CrudMetaGridData SUPERCLASS +CrudPropertyMetaData
+
+CREATE Class CrudMetaFormData
+CREATE PROPERTY CrudMetaFormData.visible BOOLEAN
+CREATE PROPERTY CrudMetaFormData.fieldOrder INTEGER
+CREATE PROPERTY CrudMetaFormData.fieldLayoutGridPosition STRING
+CREATE PROPERTY CrudMetaFormData.decorator STRING
+CREATE PROPERTY CrudMetaFormData.editable BOOLEAN
+ALTER CLASS CrudMetaFormData SUPERCLASS +CrudPropertyMetaData
+
 let customerIdSeqOSequence = SELECT FROM OSequence WHERE name = 'customerIdSeq';
 
 if ($customerIdSeqOSequence.size() == 0) {
