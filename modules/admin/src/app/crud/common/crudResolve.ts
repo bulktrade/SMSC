@@ -19,6 +19,9 @@ export class CrudResolve implements Resolve<any> {
                     this.crudService.crudModel.columnDefs = columnDefs;
                     this.crudService.gridOptions.columnDefs = columnDefs;
                     this.crudService.addCheckboxSelection(columnDefs, this.crudService.gridOptions);
+                }, (error) => {
+                    this.crudService.dataNotFound = true;
+                    this.crudService.errorMessage = 'orientdb.dataNotFound';
                 })
                 .then((res) => {
                     // init the row data

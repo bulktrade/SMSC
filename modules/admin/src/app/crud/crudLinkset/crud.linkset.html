@@ -12,6 +12,9 @@
             </div>
         </div>
     </div>
+    <alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true" (close)="crudService.dataNotFound=false">
+        {{ crudService.errorMessage | translate }}
+    </alert>
     <loading-grid [crudService]="crudService">
 	    <ag-grid-ng2 class="ag-material" style="width: 100%;"
 	             [rowGroupPanelShow]="always" [columnDefs]="crudModel.columnDefs" [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"

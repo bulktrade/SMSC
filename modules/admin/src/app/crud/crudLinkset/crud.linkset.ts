@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { CrudModel } from "../crud.model";
 import { LoadingGrid } from "../../common/loadingGrid";
+import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
 
 @Component({
     selector: 'crud-linkset',
@@ -21,7 +22,8 @@ import { LoadingGrid } from "../../common/loadingGrid";
     providers: [],
     directives: [
         AgGridNg2,
-        LoadingGrid
+        LoadingGrid,
+        AlertComponent
     ],
     pipes: [ TranslatePipe ]
 })
@@ -46,6 +48,9 @@ export class CrudLinkset {
                     this.crudModel.columnDefs = columnDefs;
                     this.gridOptions.columnDefs = columnDefs;
                     this.crudService.addCheckboxSelection(this.crudModel.columnDefs, this.gridOptions);
+                }, (error) => {
+                    this.crudService.dataNotFound = true;
+                    this.crudService.errorMessage = 'orientdb.dataNotFound';
                 })
                 .then((res) => {
                     // init the row data

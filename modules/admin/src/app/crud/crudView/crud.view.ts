@@ -20,7 +20,6 @@ import { LoadingGrid } from "../../common/loadingGrid";
         AgGridNg2,
         CrudLinkset,
         AlertComponent,
-        AlertComponent,
         LoadingGrid
     ],
     pipes: [TranslatePipe]

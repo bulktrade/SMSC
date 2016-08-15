@@ -10,17 +10,19 @@ import { CrudService } from "../crud/crud.service";
         CubeGridComponent
     ],
     template: `
-        <sk-cube-grid [isRunning]="loadingGridData"></sk-cube-grid>
-        <ng-content *ngIf="!loadingGridData"></ng-content>
+        <sk-cube-grid [isRunning]="loadingGridData && !this.crudService.dataNotFound"></sk-cube-grid>
+        <ng-content *ngIf="!loadingGridData && !this.crudService.dataNotFound"></ng-content>
     `
 })
 
 export class LoadingGrid implements OnInit {
     @Input('crudService') crudService:CrudService;
-    public loadingGridData;
+    public loadingGridData = false;
 
     ngOnInit():void {
-        this.start();
+        if (!this.crudService.dataNotFound) {
+            this.start();
+        }
 
         this.crudService.initGridData
             .then(() => {
