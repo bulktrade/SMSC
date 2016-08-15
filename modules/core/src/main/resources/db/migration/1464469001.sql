@@ -84,7 +84,6 @@ ALTER CLASS CrudMetaGridData SUPERCLASS +CrudPropertyMetaData
 CREATE Class CrudMetaFormData
 CREATE PROPERTY CrudMetaFormData.fieldLayoutGridPosition STRING
 ALTER CLASS CrudMetaFormData SUPERCLASS +CrudPropertyMetaData
-ALTER CLASS CrudMetaFormData SUPERCLASS +CrudMetaData
 
 let customerIdSeqOSequence = SELECT FROM OSequence WHERE name = 'customerIdSeq';
 
