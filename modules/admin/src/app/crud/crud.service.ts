@@ -7,6 +7,8 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./crud.model";
 import { GridOptions } from "ag-grid";
 
+const squel = require('squel');
+
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
 let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 
@@ -286,9 +288,9 @@ export class CrudService {
     }
 
     getColumnDefs(className, readOnly) {
-        let columnDefs = [];
+        let columnDefs = { grid: [], form: [] };
 
-        columnDefs.push({
+        columnDefs.grid.push({
             headerName: "RID",
             field: "rid",
             hideInForm: true,
@@ -300,21 +302,39 @@ export class CrudService {
             this.btnRenderer(columnDefs, 'Delete');
         }
 
-        return this.databaseService.getInfoClass(className)
-            .then((res:Response) => {
-                res.json().properties.forEach((item) => {
-                    columnDefs.push({
-                        headerName: this.translate.get(item.name.toUpperCase())[ 'value' ],
-                        field: item.name,
-                        editable: !item.readonly,
-                        required: item.mandatory,
-                        type: item.type,
-                        linkedClass: item.linkedClass,
-                        custom: item.custom || ''
-                    })
-                });
+        let queryCrudMetaGridData = squel.select()
+            .from('CrudMetaGridData')
+            .where('crudClassMetaData.class = ?', className);
 
-                return columnDefs;
+        let queryCrudMetaFormDataa = squel.select()
+            .from('CrudMetaFormData')
+            .where('crudClassMetaData.class = ?', className);
+
+        return this.databaseService.query(queryCrudMetaGridData.toString())
+            .then((res:Response) => {
+                let result = res.json()[ 'result' ];
+
+                columnDefs.grid.concat(result);
+
+            }, (error) => {
+                this.dataNotFound = true;
+                this.errorMessage = 'orientdb.dataNotFound';
+            })
+            .then(() => {
+                this.databaseService.query(queryCrudMetaFormDataa.toString())
+                    .then((res:Response) => {
+                        let result = res.json()[ 'result' ];
+
+                        columnDefs.form = result;
+
+                        return columnDefs;
+                    }, (error) => {
+                        this.dataNotFound = true;
+                        this.errorMessage = 'orientdb.dataNotFound';
+                    })
+            }, (error) => {
+                this.dataNotFound = true;
+                this.errorMessage = 'orientdb.dataNotFound';
             })
     }
 
