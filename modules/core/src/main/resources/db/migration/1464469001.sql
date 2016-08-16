@@ -69,12 +69,13 @@ CREATE PROPERTY CrudPropertyMetaData.decorator STRING
 CREATE PROPERTY CrudPropertyMetaData.order DOUBLE
 
 CREATE Class CrudClassMetaData
-CREATE PROPERTY CrudClassMetaData.class LINK
-CREATE PROPERTY CrudClassMetaData.titleColumns LINKSET
+CREATE PROPERTY CrudClassMetaData.class STRING
+CREATE PROPERTY CrudClassMetaData.titleColumns STRING
 CREATE PROPERTY CrudClassMetaData.editable BOOLEAN
 CREATE PROPERTY CrudClassMetaData.query STRING
 
 CREATE INDEX CrudClassMetaData.class UNIQUE
+CREATE INDEX CrudClassMetaData.titleColumns UNIQUE
 CREATE PROPERTY CrudPropertyMetaData.crudClassMetaData LINK CrudClassMetaData
 
 CREATE Class CrudMetaGridData
