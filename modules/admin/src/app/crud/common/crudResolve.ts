@@ -16,8 +16,8 @@ export class CrudResolve implements Resolve<any> {
         this.crudService.initGridData = new Promise((resolve, reject) => {
             this.crudService.getColumnDefs(this.crudService.className, true)
                 .then((columnDefs) => {
-                    this.crudService.crudModel.columnDefs = columnDefs;
-                    this.crudService.gridOptions.columnDefs = columnDefs;
+                    this.crudService.crudModel.columnDefs = columnDefs['grid'];
+                    this.crudService.gridOptions.columnDefs = columnDefs['grid'];
                     this.crudService.addCheckboxSelection(columnDefs, this.crudService.gridOptions);
                 }, (error) => {
                     this.crudService.dataNotFound = true;

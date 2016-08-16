@@ -310,32 +310,35 @@ export class CrudService {
             .from('CrudMetaFormData')
             .where('crudClassMetaData.class = ?', className);
 
-        return this.databaseService.query(queryCrudMetaGridData.toString())
-            .then((res:Response) => {
-                let result = res.json()[ 'result' ];
+        return new Promise((resolve, reject) => {
+            this.databaseService.query(queryCrudMetaGridData.toString())
+                .then((res:Response) => {
+                    let result = res.json()[ 'result' ];
 
-                columnDefs.grid.concat(result);
+                    columnDefs.grid.concat(result);
 
-            }, (error) => {
-                this.dataNotFound = true;
-                this.errorMessage = 'orientdb.dataNotFound';
-            })
-            .then(() => {
-                this.databaseService.query(queryCrudMetaFormDataa.toString())
-                    .then((res:Response) => {
-                        let result = res.json()[ 'result' ];
+                }, (error) => {
+                    this.dataNotFound = true;
+                    this.errorMessage = 'orientdb.dataNotFound';
+                })
+                .then(() => {
+                    this.databaseService.query(queryCrudMetaFormDataa.toString())
+                        .then((res:Response) => {
+                            let result = res.json()[ 'result' ];
 
-                        columnDefs.form = result;
+                            columnDefs.form = result;
 
-                        return columnDefs;
-                    }, (error) => {
-                        this.dataNotFound = true;
-                        this.errorMessage = 'orientdb.dataNotFound';
-                    })
-            }, (error) => {
-                this.dataNotFound = true;
-                this.errorMessage = 'orientdb.dataNotFound';
-            })
+                            resolve(columnDefs);
+                        }, (error) => {
+                            this.dataNotFound = true;
+                            this.errorMessage = 'orientdb.dataNotFound';
+                            reject(error);
+                        })
+                }, (error) => {
+                    this.dataNotFound = true;
+                    this.errorMessage = 'orientdb.dataNotFound';
+                })
+        });
     }
 
 }
