@@ -20,6 +20,10 @@ import {CrudEdit} from "./crud/crudEdit/crud.edit";
 import {Dashboard} from "./dashboard/dashboard.component";
 import {NotFound} from "./notFound/notFound.component";
 import { TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
+import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
+import { CrudMetadata } from "./crudMetadata/crudMetadata.components";
+import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
+import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
 
 @NgModule({
     imports: [
@@ -57,6 +61,10 @@ import { TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-transl
         NotFound,
         Dashboard,
         Breadcrumb,
+        CrudMetadata,
+        CrudMetaFormData,
+        CrudClassMetaData,
+        CrudMetaGridData
     ],
     entryComponents: [
         App
