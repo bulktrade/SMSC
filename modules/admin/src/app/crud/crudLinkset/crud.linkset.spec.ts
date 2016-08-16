@@ -2,7 +2,7 @@ import {
     inject,
     addProviders
 } from '@angular/core/testing';
-import {CrudLinkset} from "./crud.linkset";
+import {CrudLinkset} from "./crud.linkset.component";
 import {CRUD_PROVIDERS} from "../common/crudProviders";
 
 describe('Crud Linkset', () => {

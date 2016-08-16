@@ -1,9 +1,9 @@
-import {Component, Input} from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { ROUTER_DIRECTIVES, ActivatedRoute } from "@angular/router";
 import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
-import {MdIcon} from "@angular2-material/icon/icon";
-import {MdAnchor, MdButton} from "@angular2-material/button/button";
+import { MdIcon } from "@angular2-material/icon/icon";
+import { MdAnchor, MdButton } from "@angular2-material/button/button";
 import { EventEmitter } from "@angular/common/src/facade/async";
 
 @Component({
@@ -19,8 +19,8 @@ import { EventEmitter } from "@angular/common/src/facade/async";
         MdCard,
         MdButton, MdAnchor, MdIcon
     ],
-    pipes: [TranslatePipe],
-    outputs: ['isRequired']
+    pipes: [ TranslatePipe ],
+    outputs: [ 'isRequired' ]
 })
 
 export class MultipleSelect {
@@ -33,21 +33,21 @@ export class MultipleSelect {
     public items = [];
 
     constructor(public translate:TranslateService,
-                public route: ActivatedRoute) {
+                public route:ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.crudService.multileSelect[this.property.field] = this;
+        this.crudService.multileSelect[ this.property.field ] = this;
         if (this.property.required) {
             this.requiredSymb += '*';
         }
         this.init();
     }
 
-    init() {
+    init():void {
         this.crudService.initGridData.then(() => {
             this.crudService.rowSelectionLinkset = this.rowSelectionLinkset;
-            let linkset = this.crudService.model[this.property.field];
+            let linkset = this.crudService.titleColumns[ this.property.field ];
 
             if (typeof linkset === 'string') {
                 linkset = linkset.split(',');
@@ -79,15 +79,22 @@ export class MultipleSelect {
         });
     }
 
-    removeItem() {
+    removeItem():void {
         this.crudService.addingFormValid = false;
-        let linkset = [];
+        let linkset = this.crudService.model[ this.property.field ];
+        let titleColumns = [];
+        let model = [];
 
-        this.items.forEach((item) => {
-           if (item.visible) {
-               linkset.push(item.name);
-           }
-        });
+        if (typeof linkset === 'string') {
+            linkset = linkset.split(',');
+        }
+
+        for (let i in this.items) {
+            if (this.items[ i ].visible) {
+                model.push(linkset[ i ]);
+                titleColumns.push(this.items[ i ].name);
+            }
+        }
 
         if (this.property.required) {
             if (linkset.length) {
@@ -99,23 +106,32 @@ export class MultipleSelect {
             this.isRequired.emit(false);
         }
 
-        this.crudService.model[this.property.field] = linkset;
+        this.crudService.model[ this.property.field ] = model;
+        this.crudService.titleColumns[ this.property.field ] = titleColumns;
         this.crudService.isActiveLinkset = this.property.field;
     }
 
-    clearAll() {
+    clearAll():void {
+        this.resetParams();
+
         this.crudService.addingFormValid = true;
-        this.items = [];
-        this.crudService.model[this.property.field] = [];
         this.crudService.isActiveLinkset = this.property.field;
     }
 
-    addLinkset() {
-        this.crudService.model[this.property.field] = [];
+    addLinkset():void {
+        this.resetParams();
+
         this.crudService.showLinksetView = true;
         this.crudService.fieldsValue = this.crudService.model;
         this.crudService.isActiveLinkset = this.property.field;
         this.crudService.linkedClass = this.property.linkedClass;
         this.crudService.addingFormValid = false;
+    }
+
+    resetParams():void {
+        this.crudService.titleColumns[ this.property.field ] = [];
+        this.crudService.model[ this.property.field ] = [];
+        this.crudService.titleColumns = [];
+        this.items = [];
     }
 }

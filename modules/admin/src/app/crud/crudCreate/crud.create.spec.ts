@@ -2,7 +2,7 @@ import {
     inject,
     addProviders
 } from '@angular/core/testing';
-import {CrudCreate} from "./crud.create";
+import {CrudCreate} from "./crud.create.component";
 import {CRUD_PROVIDERS} from "../common/crudProviders";
 
 describe('Crud Create', () => {

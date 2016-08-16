@@ -32,6 +32,7 @@ export class CrudService {
     public successExecute = false;
     public errorMessage = '';
     public successMessage = '';
+    public titleColumns = {};
     public model = {};
 
     public gridOptions:GridOptions = {
@@ -147,11 +148,13 @@ export class CrudService {
 
     chooseLinkset(linksetGridOptions, activeComponent) {
         let focusedRows = linksetGridOptions.api.getSelectedRows();
-        let linkSet = '';
+        let linkSet:string = '';
+        this.titleColumns[ this.isActiveLinkset ] = [];
         let params;
 
         for (let item = 0; item < focusedRows.length; item++) {
             linkSet += "" + focusedRows[ item ].rid + ",";
+            this.titleColumns[ this.isActiveLinkset ].push(focusedRows[ item ].name);
         }
 
         linkSet = linkSet.substring(0, linkSet.length - 1);

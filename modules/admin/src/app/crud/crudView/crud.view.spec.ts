@@ -2,7 +2,7 @@ import {
     inject,addProviders
 } from '@angular/core/testing';
 import {CRUD_PROVIDERS} from "../common/crudProviders";
-import {CrudView} from "./crud.view";
+import {CrudView} from "./crud.view.component";
 
 describe('Crud View', () => {
     beforeEach(() => {

@@ -4,7 +4,7 @@ import { AgGridNg2 } from "ag-grid-ng2/main";
 import { GridOptions } from "ag-grid/main";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
-import { CrudLinkset } from "../crudLinkset/crud.linkset";
+import { CrudLinkset } from "../crudLinkset/crud.linkset.component";
 import {AlertComponent} from 'ng2-bootstrap/ng2-bootstrap';
 import { LoadingGrid } from "../../common/loadingGrid";
 

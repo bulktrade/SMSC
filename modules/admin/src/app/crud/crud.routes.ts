@@ -1,8 +1,8 @@
-import { CrudView } from "./crudView/crud.view";
+import { CrudView } from "./crudView/crud.view.component";
 import { CrudResolve } from "./common/crudResolve";
-import { CrudDelete } from "./crudDelete/crud.delete";
-import { CrudCreate } from "./crudCreate/crud.create";
-import { CrudEdit } from "./crudEdit/crud.edit";
+import { CrudDelete } from "./crudDelete/crud.delete.component";
+import { CrudCreate } from "./crudCreate/crud.create.component";
+import { CrudEdit } from "./crudEdit/crud.edit.component";
 
 export const CRUD_ROUTE_PROVIDER = [
     { path: '', component: CrudView, resolve: [ CrudResolve ] },

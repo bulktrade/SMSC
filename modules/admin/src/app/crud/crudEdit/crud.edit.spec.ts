@@ -3,7 +3,7 @@ import {
     addProviders
 } from '@angular/core/testing';
 import {CRUD_PROVIDERS} from "../common/crudProviders";
-import {CrudEdit} from "./crud.edit";
+import {CrudEdit} from "./crud.edit.component";
 
 describe('Crud Edit', () => {
     beforeEach(() => {
