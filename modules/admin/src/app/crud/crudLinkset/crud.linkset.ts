@@ -45,8 +45,8 @@ export class CrudLinkset {
         this.crudService.initGridData = new Promise((resolve, reject) => {
             this.crudService.getColumnDefs(this.className, false)
                 .then((columnDefs) => {
-                    this.crudModel.columnDefs = columnDefs['grid'];
-                    this.gridOptions.columnDefs = columnDefs['grid'];
+                    this.crudModel.columnDefs = columnDefs;
+                    this.gridOptions.columnDefs = columnDefs;
                     this.crudService.addCheckboxSelection(this.crudModel.columnDefs, this.gridOptions);
                 }, (error) => {
                     this.crudService.dataNotFound = true;
