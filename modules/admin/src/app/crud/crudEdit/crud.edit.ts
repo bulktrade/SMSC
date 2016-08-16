@@ -37,7 +37,7 @@ export class CrudEdit {
         this.crudService.initGridData = new Promise((resolve, reject) => {
             this.crudService.getColumnDefs(this.crudService.className, true)
                 .then((columnDefs) => {
-                    this.crudService.crudModel.columnDefs = columnDefs['grid'];
+                    this.crudService.crudModel.columnDefs = columnDefs;
                 })
                 .then((res) => {
                     // init the row data

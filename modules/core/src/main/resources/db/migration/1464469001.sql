@@ -66,8 +66,7 @@ CREATE Class CrudPropertyMetaData
 CREATE PROPERTY CrudPropertyMetaData.editable BOOLEAN
 CREATE PROPERTY CrudPropertyMetaData.visible BOOLEAN
 CREATE PROPERTY CrudPropertyMetaData.decorator STRING
-CREATE PROPERTY CrudPropertyMetaData.order INTEGER
-CREATE PROPERTY CrudPropertyMetaData.crudClassMetaData LINK CrudClassMetaData
+CREATE PROPERTY CrudPropertyMetaData.order DOUBLE
 
 CREATE Class CrudClassMetaData
 CREATE PROPERTY CrudClassMetaData.class LINK
@@ -76,9 +75,10 @@ CREATE PROPERTY CrudClassMetaData.editable BOOLEAN
 CREATE PROPERTY CrudClassMetaData.query STRING
 
 CREATE INDEX CrudClassMetaData.class UNIQUE
+CREATE PROPERTY CrudPropertyMetaData.crudClassMetaData LINK CrudClassMetaData
 
 CREATE Class CrudMetaGridData
-CREATE PROPERTY CrudMetaGridData.columnWidth INTEGER
+CREATE PROPERTY CrudMetaGridData.columnWidth DOUBLE
 ALTER CLASS CrudMetaGridData SUPERCLASS +CrudPropertyMetaData
 
 CREATE Class CrudMetaFormData

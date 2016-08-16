@@ -6,11 +6,11 @@ import { Dashboard } from "./dashboard/dashboard.component";
 import { Customers } from "./customers/customers.components";
 import { Crud } from "./crud/crud.component";
 import { NotFound } from "./notFound/notFound.component";
-import { CrudView } from "./crud/crudView/crud.view";
-import { CrudDelete } from "./crud/crudDelete/crud.delete";
-import { CrudCreate } from "./crud/crudCreate/crud.create";
-import { CrudEdit } from "./crud/crudEdit/crud.edit";
-import { CrudResolve } from "./crud/common/crudResolve";
+import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
+import { CRUD_ROUTE_PROVIDER } from "./crud/crud.routes";
+import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
+import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
+import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
 
 const routes:RouterConfig = [
     {
@@ -43,11 +43,68 @@ const routes:RouterConfig = [
                     {
                         path: '',
                         component: Crud,
+                        children: CRUD_ROUTE_PROVIDER
+                    }
+                ]
+            },
+            {
+                path: 'crud/metadata',
+                component: CrudMetaData,
+                data: {
+                    showInSubNavigation: false,
+                    paramsAsDefault: '',
+                    icon: 'perm_contact_calendar'
+                },
+                children: [
+                    {
+                        path: '',
+                        component: CrudClassMetaData,
+                        data: {
+                            showInSubNavigation: true,
+                            paramsAsDefault: '',
+                            icon: 'perm_contact_calendar',
+                            crudClass: 'CrudClassMetaData'
+                        },
                         children: [
-                            { path: '', component: CrudView, resolve: [ CrudResolve ] },
-                            { path: 'delete/:id', component: CrudDelete },
-                            { path: 'create', component: CrudCreate },
-                            { path: 'edit', component: CrudEdit },
+                            {
+                                path: '',
+                                component: Crud,
+                                children: CRUD_ROUTE_PROVIDER
+                            }
+                        ]
+                    },
+                    {
+                        path: 'grid',
+                        component: CrudMetaGridData,
+                        data: {
+                            showInSubNavigation: true,
+                            paramsAsDefault: '',
+                            icon: 'perm_contact_calendar',
+                            crudClass: 'CrudMetaGridData'
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: Crud,
+                                children: CRUD_ROUTE_PROVIDER
+                            }
+                        ]
+                    },
+                    {
+                        path: 'form',
+                        component: CrudMetaFormData,
+                        data: {
+                            showInSubNavigation: true,
+                            paramsAsDefault: '',
+                            icon: 'perm_contact_calendar',
+                            crudClass: 'CrudMetaFormData'
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: Crud,
+                                children: CRUD_ROUTE_PROVIDER
+                            }
                         ]
                     }
                 ]
