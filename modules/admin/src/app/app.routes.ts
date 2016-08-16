@@ -6,7 +6,7 @@ import { Dashboard } from "./dashboard/dashboard.component";
 import { Customers } from "./customers/customers.components";
 import { Crud } from "./crud/crud.component";
 import { NotFound } from "./notFound/notFound.component";
-import { CrudMetadata } from "./crudMetadata/crudMetadata.components";
+import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
 import { CRUD_ROUTE_PROVIDER } from "./crud/crud.routes";
 import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
@@ -49,7 +49,7 @@ const routes:RouterConfig = [
             },
             {
                 path: 'crud/metadata',
-                component: CrudMetadata,
+                component: CrudMetaData,
                 data: {
                     showInSubNavigation: false,
                     paramsAsDefault: '',

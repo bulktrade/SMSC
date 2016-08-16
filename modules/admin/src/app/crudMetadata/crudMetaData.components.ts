@@ -5,9 +5,9 @@ import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
 
 @Component({
     selector: 'crud-metadata',
-    template: require('./crudMetadata.html'),
+    template: require('./crudMetaData.html'),
     styles: [
-        require('./crudMetadata.scss')
+        require('./crudMetaData.scss')
     ],
     providers: [Breadcrumb],
     directives: [
@@ -17,7 +17,7 @@ import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
     pipes: [TranslatePipe]
 })
 
-export class CrudMetadata {
+export class CrudMetaData {
     constructor(public translate:TranslateService) {
     }
 
