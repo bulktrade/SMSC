@@ -1,5 +1,6 @@
 package io.smsc.service.impl;
 
+import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.jdbc.OrientJdbcConnection;
 import io.smsc.service.OrientDBService;
 import org.apache.log4j.Logger;
@@ -8,14 +9,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 @Component
 @PropertySource("classpath:orientdb.properties")
 public class OrientDBServiceImpl implements OrientDBService {
 	private static Logger log = Logger.getLogger(MigrationServiceImpl.class);
-	private static OrientJdbcConnection connection = null;
+	private static OrientJdbcConnection jdbcConnection = null;
+	private static ODatabaseDocumentTx documentConnection = null;
 
 	@Value("${orientdb.username}")
 	private String username;
@@ -38,8 +39,14 @@ public class OrientDBServiceImpl implements OrientDBService {
 	@Value("${orientdb.pool.max}")
 	private String poolMax;
 
-	public synchronized OrientJdbcConnection getJdbcConnection() throws SQLException {
-		if (connection == null) {
+	/**
+	 * Connect to OrientDB over JDBC.
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public synchronized OrientJdbcConnection getJdbcConnection() throws Exception {
+		if (jdbcConnection == null) {
 			Properties info = new Properties();
 			info.put("user", username);
 			info.put("password", password);
@@ -48,10 +55,25 @@ public class OrientDBServiceImpl implements OrientDBService {
 			info.put("db.pool.min", poolMin);   // MINIMUM POOL SIZE
 			info.put("db.pool.max", poolMax);  // MAXIMUM POOL SIZE
 
-			connection = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:" + hostname + "/" + database, info);
+			jdbcConnection = (OrientJdbcConnection) DriverManager.getConnection("jdbc:orient:remote:" + hostname + "/" + database, info);
 			log.info("Connected to OrientDB over JDBC.");
 		}
 
-		return connection;
+		return jdbcConnection;
+	}
+
+	/**
+	 * Connect to OrientDB over document connection.
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public synchronized ODatabaseDocumentTx getDocumentConnection() throws Exception {
+		if (documentConnection == null) {
+			documentConnection = new ODatabaseDocumentTx("remote:" + hostname + "/" + database).open(username, password);
+			log.info("Connected to OrientDB over document connection.");
+		}
+
+		return documentConnection;
 	}
 }

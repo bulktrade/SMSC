@@ -160,8 +160,8 @@
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
                     <!--<compilerArgs>-->
-                        <!--<arg>-verbose</arg>-->
-                        <!--<arg>-Xlint:all,-options,-path</arg>-->
+                    <!--<arg>-verbose</arg>-->
+                    <!--<arg>-Xlint:all,-options,-path</arg>-->
                     <!--</compilerArgs>-->
                 </configuration>
             </plugin>
@@ -366,6 +366,21 @@
                 <groupId>com.orientechnologies</groupId>
                 <artifactId>orientdb-jdbc</artifactId>
                 <version>${orientdb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.orientechnologies</groupId>
+                <artifactId>spring-data-orientdb-graph</artifactId>
+                <version>0.12</version>
+            </dependency>
+            <dependency>
+                <groupId>com.orientechnologies</groupId>
+                <artifactId>spring-data-orientdb-document</artifactId>
+                <version>0.12</version>
+            </dependency>
+            <dependency>
+                <groupId>com.orientechnologies</groupId>
+                <artifactId>spring-data-orientdb-object</artifactId>
+                <version>0.12</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
