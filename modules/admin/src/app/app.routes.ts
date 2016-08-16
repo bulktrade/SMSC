@@ -9,8 +9,8 @@ import { NotFound } from "./notFound/notFound.component";
 import { CrudView } from "./crud/crudView/crud.view";
 import { CrudDelete } from "./crud/crudDelete/crud.delete";
 import { CrudCreate } from "./crud/crudCreate/crud.create";
-import {CrudEdit} from "./crud/crudEdit/crud.edit";
-import {CrudResolve} from "./crud/common/crudResolve";
+import { CrudEdit } from "./crud/crudEdit/crud.edit";
+import { CrudResolve } from "./crud/common/crudResolve";
 
 const routes:RouterConfig = [
     {
@@ -20,7 +20,7 @@ const routes:RouterConfig = [
     {
         path: '',
         component: Navigation,
-        canActivate: [AuthGuard],
+        canActivate: [ AuthGuard ],
         children: [
             {
                 path: '',
@@ -44,10 +44,10 @@ const routes:RouterConfig = [
                         path: '',
                         component: Crud,
                         children: [
-                            { path: '',  component: CrudView, resolve: [CrudResolve] },
-                            { path: 'delete/:id',  component: CrudDelete, resolve: [CrudResolve] },
-                            { path: 'create',  component: CrudCreate, resolve: [CrudResolve] },
-                            { path: 'edit',  component: CrudEdit, resolve: [CrudResolve] },
+                            { path: '', component: CrudView, resolve: [ CrudResolve ] },
+                            { path: 'delete/:id', component: CrudDelete },
+                            { path: 'create', component: CrudCreate },
+                            { path: 'edit', component: CrudEdit },
                         ]
                     }
                 ]

@@ -1,6 +1,6 @@
-import {Component} from "@angular/core";
-import {ROUTER_DIRECTIVES} from "@angular/router";
-import {CubeGridComponent} from "./spinner/cubeGrid/cubeGrid.component";
+import { Component } from "@angular/core";
+import { ROUTER_DIRECTIVES } from "@angular/router";
+import { CubeGridComponent } from "./spinner/cubeGrid/cubeGrid.component";
 
 @Component({
     selector: ' loading-router-outlet',

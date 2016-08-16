@@ -12,14 +12,19 @@
             </div>
         </div>
     </div>
-	<ag-grid-ng2 class="ag-material" style="width: 100%;"
+    <alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true" (close)="crudService.dataNotFound=false">
+        {{ crudService.errorMessage | translate }}
+    </alert>
+    <loading-grid [crudService]="crudService">
+	    <ag-grid-ng2 class="ag-material" style="width: 100%;"
 	             [rowGroupPanelShow]="always" [columnDefs]="crudModel.columnDefs" [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
 	             [gridOptions]="gridOptions" [rowData]="crudModel.rowData"
                  (rowSelected)="crudService.rowSelected(gridOptions)"></ag-grid-ng2>
+    </loading-grid>
     <div class="wrapBtn">
         <div class="formButtons">
             <button md-raised-button color="primary" (click)="crudService.showLinksetView=false">{{'BACK' | translate}}</button>
-            <button md-raised-button color="primary" (click)="crudService.chooseLinkset(gridOptions);
+            <button md-raised-button color="primary" (click)="crudService.chooseLinkset(gridOptions, route.component['name']);
                              crudService.showLinksetView=false">{{'CHOOSE' | translate}}</button>
         </div>
     </div>

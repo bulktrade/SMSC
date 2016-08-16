@@ -5,7 +5,6 @@ import {FormsModule, disableDeprecatedForms, provideForms, REACTIVE_FORM_DIRECTI
 import {MaterialModule} from "./app.materialModule";
 import {App} from "./app.component";
 import {Breadcrumb} from "./breadcrumb/breadcrumb.component";
-import {TranslateLoader, TranslateStaticLoader} from "ng2-translate";
 import {APP_ROUTE_PROVIDER} from "./app.routes";
 import {APP_PROVIDERS} from "./index";
 import {PLATFORM_PROVIDERS} from "../platform/browser";
@@ -20,6 +19,7 @@ import {CrudCreate} from "./crud/crudCreate/crud.create";
 import {CrudEdit} from "./crud/crudEdit/crud.edit";
 import {Dashboard} from "./dashboard/dashboard.component";
 import {NotFound} from "./notFound/notFound.component";
+import { TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
 
 @NgModule({
     imports: [
