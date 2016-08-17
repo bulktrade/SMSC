@@ -11,6 +11,14 @@ body {
     }
 }
 
+.ag-body-viewport {
+  overflow-y: hidden !important;
+}
+
+.ag-overlay-no-rows-center {
+  display: none;
+}
+
 .ag-paging-panel {
     display: flex;
     justify-content: center;

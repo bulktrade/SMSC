@@ -27,6 +27,11 @@ export class CrudResolve implements Resolve<any> {
                     // init the row data
                     this.crudService.getStore(this.crudService.className)
                         .then((store) => {
+                            if (!store.length) {
+                                this.crudService.isInfoMessage = true;
+                                this.crudService.infoMessage = 'orientdb.noRows';
+                            }
+
                             this.crudService.gridOptions.rowData = store;
                             this.crudService.setRowData(store, this.crudService.gridOptions);
                             this.crudService.crudModel.rowData = store;

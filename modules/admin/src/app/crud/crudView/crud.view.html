@@ -19,6 +19,9 @@
         <alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true" (close)="crudService.dataNotFound=false">
             {{ crudService.errorMessage | translate }}
         </alert>
+	    <alert *ngIf="crudService.isInfoMessage" type="info" dismissible="true" (close)="crudService.isInfoMessage=false">
+            {{ crudService.infoMessage | translate }}
+        </alert>
         <alert *ngIf="crudService.successExecute" type="success" dismissible="true" (close)="crudService.successExecute=false">
             {{ crudService.successMessage | translate }}
         </alert>

@@ -62,5 +62,6 @@
     "orientdb.successCreate": "New record was successfully added!",
     "orientdb.successUpdate": "The record was successfully updated!",
     "orientdb.successDelete": "The record was successfully deleted!",
+    "orientdb.noRows": "No rows to show.",
     "warning.deleteRecords": "You are dropping the record. Are you sure?"
 }

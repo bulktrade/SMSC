@@ -35,6 +35,8 @@ export class CrudService {
     public successExecute = false;
     public errorMessage = '';
     public successMessage = '';
+    public isInfoMessage:boolean = false;
+    public infoMessage:string = '';
     public titleColumns = {};
     public model = {};
 
@@ -342,10 +344,10 @@ export class CrudService {
 
         return this.databaseService.getInfoClass(className)
             .then((res:Response) => {
-                let result: Promise<any>;
+                let result:Promise<any>;
 
                 res.json().properties.forEach((item) => {
-                    result = this.translate.get(item.name.toUpperCase()).toPromise().then((res: string) => {
+                    result = this.translate.get(item.name.toUpperCase()).toPromise().then((res:string) => {
                         columnDefs.push({
                             headerName: res,
                             field: item.name,
@@ -365,4 +367,9 @@ export class CrudService {
             })
     }
 
+    hideAllMessageBoxes() {
+        this.isInfoMessage = false;
+        this.dataNotFound = false;
+        this.successExecute = false;
+    }
 }
