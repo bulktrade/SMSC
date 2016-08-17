@@ -26,6 +26,7 @@ export class CrudService {
     public linkedClass = null;
     public showLinksetView = false;
     public initGridData:Promise<any>;
+    public crud:Promise<any> = Promise.resolve();
     public parentPath = null;
     public className = null;
     public dataNotFound = false;
@@ -62,7 +63,7 @@ export class CrudService {
             "colsValue": colsValue
         };
 
-        this.databaseService.insert(params)
+        this.crud = this.databaseService.insert(params)
             .then((res) => {
                 this.successExecute = true;
                 this.successMessage = 'orientdb.successCreate';
@@ -70,7 +71,8 @@ export class CrudService {
                 this.dataNotFound = true;
                 this.errorMessage = 'orientdb.dataNotCorrect';
             });
-        return params;
+
+        return this.crud;
     }
 
     updateRecord(value) {
@@ -88,7 +90,7 @@ export class CrudService {
             "colsValue": value
         };
 
-        return this.databaseService.update(params)
+        this.crud = this.databaseService.update(params)
             .then((res) => {
                 value.version++;
                 this.successExecute = true;
@@ -97,10 +99,12 @@ export class CrudService {
                 this.dataNotFound = true;
                 this.errorMessage = 'orientdb.dataNotCorrect';
             });
+
+        return this.crud;
     }
 
     deleteRecord(rid):Promise<any> {
-        return this.databaseService.delete(rid)
+        this.crud = this.databaseService.delete(rid)
             .then((res) => {
                 this.successExecute = true;
                 this.successMessage = 'orientdb.successDelete';
@@ -108,6 +112,8 @@ export class CrudService {
                 this.dataNotFound = true;
                 this.errorMessage = 'orientdb.dataNotFound';
             });
+
+        return this.crud;
     }
 
     multipleDeleteRecords():Promise<any> {

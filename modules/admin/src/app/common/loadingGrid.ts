@@ -24,10 +24,11 @@ export class LoadingGrid implements OnInit {
             this.start();
         }
 
-        this.crudService.initGridData
-            .then(() => {
+        this.crudService.crud.then(() => {
+            this.crudService.initGridData.then(() => {
                 this.stop();
             })
+        });
     }
 
     start() {
