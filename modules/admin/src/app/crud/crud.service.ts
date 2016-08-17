@@ -305,18 +305,26 @@ export class CrudService {
 
         return this.databaseService.getInfoClass(className)
             .then((res:Response) => {
+                let result: Promise<any>;
+
                 res.json().properties.forEach((item) => {
-                    columnDefs.push({
-                        headerName: this.translate.get(item.name.toUpperCase())[ 'value' ],
-                        field: item.name,
-                        editable: !item.readonly,
-                        required: item.mandatory,
-                        type: item.type,
-                        linkedClass: item.linkedClass,
-                        custom: item.custom || ''
+                    result = this.translate.get(item.name.toUpperCase()).toPromise().then((res: string) => {
+                        columnDefs.push({
+                            headerName: res,
+                            field: item.name,
+                            editable: !item.readonly,
+                            required: item.mandatory,
+                            type: item.type,
+                            linkedClass: item.linkedClass,
+                            custom: item.custom || ''
+                        });
                     })
+                        .then(() => {
+                            return columnDefs;
+                        });
                 });
-                return columnDefs;
+
+                return result;
             })
     }
 
