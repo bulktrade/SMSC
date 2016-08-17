@@ -15,6 +15,11 @@ body {
     min-height: 100px;
 }
 
+.ag-paging-panel {
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 992px) {
     md-content {
         margin-left: 0 !important;

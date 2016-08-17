@@ -16,6 +16,8 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 export class CrudService {
     crudModel = new CrudModel([], []);
 
+    public pageSize = 500;
+    public allOfTheData;
     public focusedRow:any;
     public addingFormValid = false;
     public querySelectors = null;
@@ -40,7 +42,8 @@ export class CrudService {
         columnDefs: this.crudModel.columnDefs,
         rowData: this.crudModel.rowData,
         rowSelection: 'multiple',
-        rowHeight: 50
+        rowHeight: 50,
+        rowModelType: 'pagination'
     };
 
     constructor(public databaseService:ODatabaseService,
@@ -294,6 +297,34 @@ export class CrudService {
         });
     }
 
+    createNewDatasource(allOfTheData, gridOptions) {
+        if (!this.allOfTheData) {
+            return;
+        }
+
+        var dataSource = {
+            pageSize: this.pageSize,
+            getRows: (params) => {
+                setTimeout(() => {
+                    var rowsThisPage = allOfTheData.slice(params.startRow, params.endRow);
+
+                    var lastRow = -1;
+                    if (allOfTheData.length <= params.endRow) {
+                        lastRow = allOfTheData.length;
+                    }
+                    params.successCallback(rowsThisPage, lastRow);
+                }, 500);
+            }
+        };
+
+        gridOptions.api.setDatasource(dataSource);
+    }
+
+    setRowData(rowData, gridOptions) {
+        this.allOfTheData = rowData;
+        this.createNewDatasource(this.allOfTheData, gridOptions);
+    }
+
     getColumnDefs(className, readOnly) {
         let columnDefs = [];
 
@@ -301,7 +332,7 @@ export class CrudService {
             headerName: "RID",
             field: "rid",
             hideInForm: true,
-            width: 45
+            width: 55
         });
 
         if (readOnly) {

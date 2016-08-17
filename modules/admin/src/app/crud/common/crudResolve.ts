@@ -23,16 +23,18 @@ export class CrudResolve implements Resolve<any> {
                     this.crudService.dataNotFound = true;
                     this.crudService.errorMessage = 'orientdb.dataNotFound';
                 })
-                .then((res) => {
+                .then(() => {
                     // init the row data
                     this.crudService.getStore(this.crudService.className)
                         .then((store) => {
                             this.crudService.gridOptions.rowData = store;
+                            this.crudService.setRowData(store, this.crudService.gridOptions);
                             this.crudService.crudModel.rowData = store;
                             resolve();
                         }, (error) => {
                             this.crudService.dataNotFound = true;
                             this.crudService.errorMessage = 'orientdb.dataNotFound';
+                            reject(error);
                         });
                 });
         });

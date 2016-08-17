@@ -57,6 +57,7 @@ export class CrudLinkset {
                     this.crudService.getStore(this.className)
                         .then((store) => {
                             this.gridOptions.rowData = store;
+                            this.crudService.setRowData(store, this.gridOptions);
                             this.crudModel.rowData = store;
                             resolve();
                         }, (error) => {
@@ -71,6 +72,7 @@ export class CrudLinkset {
         columnDefs: this.crudModel.columnDefs,
         rowData: this.crudModel.rowData,
         rowSelection: 'multiple',
-        rowHeight: 50
+        rowHeight: 50,
+        rowModelType: 'pagination'
     };
 }
