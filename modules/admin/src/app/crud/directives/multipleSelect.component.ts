@@ -38,6 +38,7 @@ export class MultipleSelect {
 
     ngOnInit() {
         this.crudService.multileSelect[ this.property.field ] = this;
+        this.items = [];
         if (this.property.required) {
             this.requiredSymb += '*';
         }

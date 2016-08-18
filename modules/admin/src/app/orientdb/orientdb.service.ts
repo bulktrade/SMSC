@@ -112,10 +112,12 @@ export class ODatabaseService {
             '{ "@class" : "%(nameClass)s", ';
 
         for (let key in params.colsValue) {
-            if (key !== 'users') {
-                batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
-            } else {
+            if (Array.isArray(params.colsValue[key])) {
+                let linkset = params.colsValue[key].join();
+                params.colsValue[key] = linkset;
                 batch += '"' + key + '" : [%(colsValue.' + key + ')s], ';
+            } else {
+                batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
             }
         }
 
@@ -130,10 +132,12 @@ export class ODatabaseService {
             '{ "@rid" : "%(rid)s", "@version": "%(version)s", ';
 
         for (let key in params.colsValue) {
-            if (key !== 'users') {
-                batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
-            } else {
+            if (Array.isArray(params.colsValue[key])) {
+                let linkset = params.colsValue[key].join();
+                params.colsValue[key] = linkset;
                 batch += '"' + key + '" : [%(colsValue.' + key + ')s], ';
+            } else {
+                batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
             }
         }
 

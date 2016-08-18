@@ -34,8 +34,7 @@
         <div class="wrapBtn" *ngIf="crudService.multiCrud.length">
             <div class="navigationBtn buttons">
                 <button md-raised-button color="primary" (click)="back()">{{'BACK' | translate}}</button>
-                <button md-raised-button color="primary" (click)="crudService.chooseLinkset(gridOptions, route.component['name']);
-                             crudService.showLinksetView=false">{{'ADDLINK' | translate}}</button>
+                <button md-raised-button color="primary" (click)="addLink(gridOptions)">{{'ADDLINK' | translate}}</button>
             </div>
         </div>
     </div>

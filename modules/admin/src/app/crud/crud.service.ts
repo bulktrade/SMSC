@@ -139,10 +139,6 @@ export class CrudService {
             case 'LINKSET':
             case 'LINK':
                 this.isActiveLinkset = columnDefs.field;
-                this.multiCrud.push({
-                    linkedClass: this.linkedClass,
-                    rid: event.data.rid
-                });
                 break;
 
             case 'EMBEDDEDLIST':

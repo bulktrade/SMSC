@@ -58,21 +58,34 @@ export class CrudView {
         this.gridOptions = this.crudService.gridOptions;
     }
 
-    back() {
-        let lastElement:any;
-
+    back(addLinkset?:(value) => void) {
         if (this.crudService.multiCrud.length) {
-            this.crudService.multiCrud.pop();
-            lastElement = this.crudService.multiCrud[ this.crudService.multiCrud.length - 1 ];
-        }
+            let lastElement = this.crudService.multiCrud.pop();
 
-        if (lastElement) {
+            if (addLinkset) {
+                addLinkset(lastElement)
+            }
+
             this.crudService.linkedClass = lastElement.linkedClass;
-        } else {
-            this.crudService.linkedClass = this.crudService.className;
         }
 
         this.showLinksetView = true;
+    }
+
+    addLink(gridOptions) {
+        let focusedRows = gridOptions.api.getSelectedRows();
+        let params:any;
+        let linkSet = [];
+
+        for (let item = 0; item < focusedRows.length; item++) {
+            linkSet.push(focusedRows[ item ].rid);
+        }
+
+        this.back((element) => {
+            params = element.data;
+            params[ element.field ] = linkSet;
+            this.crudService.updateRecord(params);
+        });
     }
 
     clickOnCell(event) {
@@ -80,6 +93,12 @@ export class CrudView {
 
         if (columnDefs.type === 'LINKSET' ||
             columnDefs.type === 'LINK') {
+            this.crudService.multiCrud.push({
+                linkedClass: this.crudService.getClassName(),
+                data: event.data,
+                field: columnDefs.field
+            });
+            console.log(this.crudService.multiCrud);
             this.crudService.linkedClass = columnDefs.linkedClass;
             this.showLinksetView = true;
         }
