@@ -26,11 +26,18 @@
     }
 
     .buttonsPanel {
+        padding: 6px 14px 0 0;
+        width: 50%;
+    }
+
+    .navigationBtn {
+        padding: 14px;
+    }
+
+    .buttons {
         display: flex;
         justify-content: flex-end;
 	    font-size: 14px;
-	    padding: 6px 14px 0 0;
-        width: 50%;
 
         button {
             margin-left: 7px;

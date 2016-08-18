@@ -37,6 +37,7 @@ export class CrudService {
     public successMessage = '';
     public isInfoMessage:boolean = false;
     public infoMessage:string = '';
+    public multiCrud = [];
     public titleColumns = {};
     public model = {};
 
@@ -64,7 +65,7 @@ export class CrudService {
 
     createRecord(colsValue) {
         let params:RequestGetParameters = {
-            "nameClass": this.className,
+            "nameClass": this.getClassName(),
             "colsValue": colsValue
         };
 
@@ -132,17 +133,20 @@ export class CrudService {
     }
 
     clickOnCell(event) {
-        switch (event.colDef.type) {
+        let columnDefs = event.colDef;
+
+        switch (columnDefs.type) {
             case 'LINKSET':
             case 'LINK':
-                this.linkedClass = event.colDef.linkedClass;
-                this.isActiveLinkset = event.colDef.field;
-                this.showLinksetView = true;
-                this.rowSelectionLinkset = 'multiple';
+                this.isActiveLinkset = columnDefs.field;
+                this.multiCrud.push({
+                    linkedClass: this.linkedClass,
+                    rid: event.data.rid
+                });
                 break;
 
             case 'EMBEDDEDLIST':
-                this.embeddedList = event.colDef.custom[ 'type' ] || '';
+                this.embeddedList = columnDefs.custom[ 'type' ] || '';
                 break;
         }
     }
@@ -371,5 +375,41 @@ export class CrudService {
         this.isInfoMessage = false;
         this.dataNotFound = false;
         this.successExecute = false;
+    }
+
+    initializationGrid(className, initRowData?:(columnDefs) => void, initColumnDefs?:(rowData) => void):Promise<any> {
+        this.initGridData = new Promise((resolve, reject) => {
+            this.getColumnDefs(className, true)
+                .then((columnDefs) => {
+                    this.crudModel.columnDefs = columnDefs;
+                    if (initColumnDefs) {
+                        initColumnDefs(columnDefs);
+                    }
+                })
+                .then((res) => {
+                    // init the row data
+                    this.getStore(className)
+                        .then((store) => {
+                            this.crudModel.rowData = store;
+                            if (initRowData) {
+                                initRowData(store);
+                            }
+                            resolve();
+                        }, (error) => {
+                            this.dataNotFound = true;
+                            this.errorMessage = 'orientdb.dataNotFound';
+                        });
+                });
+        });
+
+        return this.initGridData;
+    }
+
+    getClassName() {
+        if (this.linkedClass) {
+            return this.linkedClass;
+        } else {
+            return this.className;
+        }
     }
 }

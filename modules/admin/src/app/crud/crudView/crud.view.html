@@ -1,5 +1,5 @@
 <div id="windowGrid">
-    <div [hidden]="crudService.showLinksetView" class="wrapGrid">
+    <div [hidden]="showLinksetView" class="wrapGrid">
         <div class="opionPanel">
             <div class="searchPanel">
                 <md-input placeholder="{{ 'SEARCH' | translate }}"
@@ -10,7 +10,7 @@
                     <md-icon class="md-24">search</md-icon>
                 </button>
             </div>
-            <div class="buttonsPanel">
+            <div class="buttonsPanel buttons">
                 <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.parentPath + '/create')" id="addRow">{{'ADD' | translate}}</button>
                 <button md-raised-button color="warn" [disabled]="!gridOptions.api.getSelectedRows().length"
                         (click)="router.navigateByUrl(crudService.parentPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
@@ -29,10 +29,17 @@
             <ag-grid-ng2 class="ag-material"
                      [rowGroupPanelShow]="always" [columnDefs]="crudService.crudModel.columnDefs" [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
                      [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData" (cellValueChanged)="crudService.cellValueChanged($event)"
-                     (cellClicked)="crudService.clickOnCell($event)" (rowSelected)="crudService.rowSelected(gridOptions)" (cellFocused)="crudService.focusedRow=$event.rowIndex"></ag-grid-ng2>
+                     (cellClicked)="clickOnCell($event); crudService.clickOnCell($event)" (rowSelected)="crudService.rowSelected(gridOptions)" (cellFocused)="crudService.focusedRow=$event.rowIndex"></ag-grid-ng2>
         </loading-grid>
+        <div class="wrapBtn" *ngIf="crudService.multiCrud.length">
+            <div class="navigationBtn buttons">
+                <button md-raised-button color="primary" (click)="back()">{{'BACK' | translate}}</button>
+                <button md-raised-button color="primary" (click)="crudService.chooseLinkset(gridOptions, route.component['name']);
+                             crudService.showLinksetView=false">{{'ADDLINK' | translate}}</button>
+            </div>
+        </div>
     </div>
-    <div *ngIf="crudService.showLinksetView">
-        <crud-linkset></crud-linkset>
+    <div *ngIf="showLinksetView">
+        <crud-view></crud-view>
     </div>
 </div>

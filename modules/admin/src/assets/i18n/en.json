@@ -57,6 +57,7 @@
     "CREATE": "Create",
     "SELECTALL": "Select all",
     "EDIT": "Edit",
+    "ADDLINK": "Add link",
     "orientdb.noRows": "No rows to show.",
     "orientdb.dataNotFound": "Data not found!",
     "orientdb.dataNotCorrect": "Entered incorrect data!",

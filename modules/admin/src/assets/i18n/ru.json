@@ -57,6 +57,7 @@
     "CREATE": "Create",
     "SELECTALL": "Select all",
     "EDIT": "Edit",
+    "ADDLINK": "Add link",
     "orientdb.dataNotFound": "Data not found!",
     "orientdb.dataNotCorrect": "Entered incorrect data!",
     "orientdb.successCreate": "New record was successfully added!",
