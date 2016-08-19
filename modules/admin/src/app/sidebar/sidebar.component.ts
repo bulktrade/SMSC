@@ -1,12 +1,12 @@
-import {Component} from '@angular/core';
-import {TranslateService, TranslatePipe} from 'ng2-translate/ng2-translate';
-import {Router, ROUTER_DIRECTIVES} from '@angular/router';
-import {FaAngleLeft} from './directives/FaAngleLeft';
-import {ActiveItem} from './directives/active';
-import {NgClass, NgFor} from '@angular/common';
-import {AnimateBox} from './directives/animate';
-import {SidebarItem} from './sidebaritem.component';
-import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav/sidenav';
+import { Component } from '@angular/core';
+import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
+import { Router, ROUTER_DIRECTIVES } from '@angular/router';
+import { FaAngleLeft } from './directives/FaAngleLeft';
+import { ActiveItem } from './directives/active';
+import { NgClass, NgFor } from '@angular/common';
+import { AnimateBox } from './directives/animate';
+import { SidebarItem } from './sidebaritem.component';
+import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav/sidenav';
 
 declare var Reflect;
 
@@ -18,7 +18,7 @@ declare var Reflect;
         ROUTER_DIRECTIVES,
         SidebarItem
     ],
-    pipes: [TranslatePipe],
+    pipes: [ TranslatePipe ],
     styles: [
         require('./sidebar.scss')
     ]
@@ -27,8 +27,8 @@ declare var Reflect;
 export class Sidebar {
     public dataNavItems = [];
 
-    constructor(public translate: TranslateService,
-                public router: Router) {
+    constructor(public translate:TranslateService,
+                public router:Router) {
         this.initDataNavItems(this.router);
     }
 
@@ -60,7 +60,7 @@ export class Sidebar {
                                 ) {
                                     result.push({
                                         name: subItem.component.name.toLowerCase(),
-                                        path: subItem.path ? item.path : '/',
+                                        path: subItem.path,
                                         icon: subItem.data.icon
                                     });
                                 }
@@ -73,7 +73,7 @@ export class Sidebar {
 
                         this.dataNavItems.push({
                             name: item.component.name.toLowerCase(),
-                            path: item.path ? item.path : '/',
+                            path: item.path ? '/' + item.path : '/',
                             paramsAsDefault: item.data.paramsAsDefault,
                             icon: item.data.icon,
                             toggle: item.data.toggle,
@@ -85,6 +85,7 @@ export class Sidebar {
                     }
                 });
             }
+
         });
     }
 }

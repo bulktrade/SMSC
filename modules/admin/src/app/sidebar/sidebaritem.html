@@ -1,22 +1,23 @@
 <div *ngIf="showInSubNavigation" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav"
      [ngClass]="{'item-menu-short': showmininav.showNav}" #isIcon
      #activeItem="active" active-item #faAngleLeft="fa-angle-left" angle-left>
-    <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-       class="{{nameItem.toLowerCase()}} sub-task clear" [routerLink]="path"
-       (click)="setToggle(toggle);">
-        <md-icon class="icon-left material-icons md-24">{{icon}}</md-icon>
-        <div class="show-nav" [hidden]="showmininav.showNav">
-            <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
-            <md-icon *ngIf="submenu" class="material-icons fa {{nameItem.toLowerCase()}}-icon">{{getStorageItem(toggle)
-                ? 'chevron_left' : 'expand_more'}}
-            </md-icon>
-        </div>
-    </a>
-    <ul [@state]="getStorageItem(toggle) ? 'open' : 'closed'" *ngIf="submenu"
-        class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
-        <li *ngFor="let item of submenu"><a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-                                            [routerLink]="[nameItem, item.name]" class="{{item.name.toLowerCase()}}">
-            <md-icon class="subitem-icon-left fa material-icons">{{item.icon}}</md-icon>
-            {{item.name | uppercase | translate}}</a></li>
-    </ul>
+	<a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+	   class="{{nameItem.toLowerCase()}} sub-task clear" [routerLink]="[path]"
+	   (click)="setToggle(toggle);">
+		<md-icon class="icon-left material-icons md-24">{{icon}}</md-icon>
+		<div class="show-nav" [hidden]="showmininav.showNav">
+			<span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
+			<md-icon *ngIf="submenu" class="material-icons fa {{nameItem.toLowerCase()}}-icon">{{getStorageItem(toggle)
+				? 'chevron_left' : 'expand_more'}}
+			</md-icon>
+		</div>
+	</a>
+	<ul [@state]="getStorageItem(toggle) ? 'open' : 'closed'" *ngIf="submenu"
+	    class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
+		<li *ngFor="let item of submenu"><a routerLinkActive="activesub" [routerLinkActiveOptions]="{exact: true}"
+		                                    [routerLink]="item.path === '' ? [path] : [path, item.path]"
+		                                    class="{{item.name.toLowerCase()}}">
+			<md-icon class="subitem-icon-left fa material-icons">{{item.icon}}</md-icon>
+			{{item.name | uppercase | translate}}</a></li>
+	</ul>
 </div>

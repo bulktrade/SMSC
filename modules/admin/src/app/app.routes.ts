@@ -48,10 +48,10 @@ const routes:RouterConfig = [
                 ]
             },
             {
-                path: 'crud/metadata',
+                path: 'metadata',
                 component: CrudMetaData,
                 data: {
-                    showInSubNavigation: false,
+                    showInSubNavigation: true,
                     paramsAsDefault: '',
                     icon: 'perm_contact_calendar'
                 },
@@ -62,7 +62,7 @@ const routes:RouterConfig = [
                         data: {
                             showInSubNavigation: true,
                             paramsAsDefault: '',
-                            icon: 'perm_contact_calendar',
+                            icon: 'perm_data_setting',
                             crudClass: 'CrudClassMetaData'
                         },
                         children: [
@@ -79,7 +79,7 @@ const routes:RouterConfig = [
                         data: {
                             showInSubNavigation: true,
                             paramsAsDefault: '',
-                            icon: 'perm_contact_calendar',
+                            icon: 'grid_on',
                             crudClass: 'CrudMetaGridData'
                         },
                         children: [
@@ -96,7 +96,7 @@ const routes:RouterConfig = [
                         data: {
                             showInSubNavigation: true,
                             paramsAsDefault: '',
-                            icon: 'perm_contact_calendar',
+                            icon: 'format_shapes',
                             crudClass: 'CrudMetaFormData'
                         },
                         children: [

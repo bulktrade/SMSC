@@ -7,7 +7,7 @@ import { FaAngleLeft } from "./directives/FaAngleLeft";
 import { ShowMiniNav } from "./ShowMiniNav";
 import { LocalStorage } from "angular2-localstorage/WebStorage";
 import { MdIcon } from "@angular2-material/icon/icon";
-import {Router, ROUTER_DIRECTIVES} from "@angular/router";
+import { Router, ROUTER_DIRECTIVES } from "@angular/router";
 
 declare var Reflect;
 
@@ -49,9 +49,9 @@ export class SidebarItem {
     @Input('submenu') public submenu;
     @Input('toggle') public toggle;
 
-    constructor(public translate: TranslateService,
-                public showmininav: ShowMiniNav,
-                public router: Router) {
+    constructor(public translate:TranslateService,
+                public showmininav:ShowMiniNav,
+                public router:Router) {
     }
 
     ngOnInit() {
