@@ -3,7 +3,6 @@ import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { MultipleSelect } from "../directives/multipleSelect.component";
-import { CrudLinkset } from "../crudLinkset/crud.linkset.component";
 import { MdCheckbox } from "@angular2-material/checkbox/checkbox";
 import {BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import {SELECT_DIRECTIVES} from "ng2-select";
@@ -17,7 +16,6 @@ import {SELECT_DIRECTIVES} from "ng2-select";
     providers: [],
     directives: [
         MultipleSelect,
-        CrudLinkset,
         MdCheckbox,
         SELECT_DIRECTIVES,
         BUTTON_DIRECTIVES
