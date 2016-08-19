@@ -15,8 +15,7 @@ import { Customers } from "./customers/customers.components";
 import { Crud } from "./crud/crud.component";
 import { CrudView } from "./crud/crudView/crud.view.component";
 import { CrudDelete } from "./crud/crudDelete/crud.delete.component";
-import { CrudCreate } from "./crud/crudCreate/crud.create.component";
-import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
+import { CrudModify } from "./crud/crudModify/crud.modify.component";
 import { Dashboard } from "./dashboard/dashboard.component";
 import { NotFound } from "./notFound/notFound.component";
 import { TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
@@ -56,8 +55,7 @@ import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridDa
         Crud,
         CrudView,
         CrudDelete,
-        CrudCreate,
-        CrudEdit,
+        CrudModify,
         NotFound,
         Dashboard,
         Breadcrumb,

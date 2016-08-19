@@ -12,9 +12,9 @@ import { CrudModel } from "../crud.model";
 
 @Component({
     selector: 'crud-create',
-    template: require('../form.html'),
+    template: require('./crud.modify.html'),
     styles: [
-        require('../form.scss'),
+        require('./crud.modify.scss'),
         require('../common/style.scss')
     ],
     providers: [ Location ],
@@ -28,8 +28,8 @@ import { CrudModel } from "../crud.model";
     pipes: [ TranslatePipe ]
 })
 
-export class CrudCreate {
-    public btnName:string = 'Create';
+export class CrudModify {
+    public btnName:string;
     public model = new CrudModel([], []);
 
     constructor(public translate:TranslateService,
@@ -42,7 +42,7 @@ export class CrudCreate {
     ngOnInit() {
         this.crudService.className = this.crudService.getClassName();
         this.crudService.parentPath = this.router.url;
-        this.crudService.showCrudCreate = false;
+        this.crudService.showCrudModify = false;
 
         if (!this.crudService.linkedClass) {
             this.crudService.multiCrud.push({
@@ -59,6 +59,13 @@ export class CrudCreate {
 
         this.crudService.initializationGrid(this.crudService.getClassName(),
             (rowData) => {
+                if(this.crudService.isEditForm) {
+                    this.crudService.model = this.crudService.crudModel.rowData[this.crudService.focusedRow];
+                    this.btnName = 'UPDATE';
+                } else {
+                    this.btnName = 'CREATE';
+                }
+
                 this.model.rowData = rowData;
             },
             (columnDefs) => {
@@ -73,12 +80,19 @@ export class CrudCreate {
 
     ngOnDestroy() {
         this.crudService.addingFormValid = false;
+        this.crudService.isEditForm = false;
         this.crudService.model = {};
     }
 
     onSubmit() {
         this.crudService.multiCrud.pop();
-        this.crudService.createRecord(this.crudService.model);
+
+        if (this.crudService.isEditForm) {
+            this.crudService.updateRecord(this.crudService.model);
+        } else {
+            this.crudService.createRecord(this.crudService.model);
+        }
+
         this.location.back();
     }
 

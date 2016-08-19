@@ -17,7 +17,8 @@ export class CrudService {
     crudModel = new CrudModel([], []);
 
     public pageSize = 50;
-    public showCrudCreate:boolean = false;
+    public showCrudModify:boolean = false;
+    public isEditForm:boolean = false;
     public lastCrudElement:any;
     public allOfTheData;
     public focusedRow:any;
@@ -293,7 +294,11 @@ export class CrudService {
                 eCell.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
                     "border-radius: 3px; cursor: pointer;");
                 eCell.addEventListener('click', () => {
-                    that.router.navigateByUrl(that.parentPath + '/' + nameBtn.toLowerCase());
+                    if (nameBtn === 'Edit') {
+                        this.isEditForm = true;
+                    }
+
+                    that.router.navigateByUrl(that.parentPath + '/modify');
                 });
                 return eCell;
             },

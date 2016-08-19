@@ -56,13 +56,13 @@ export class CrudView {
         this.gridOptions = this.crudService.gridOptions;
     }
 
-    goToCreate() {
+    goToModify() {
         this.crudService.multiCrud.push({
             goto: 'form',
             className: this.crudService.getClassName()
         });
 
-        this.router.navigateByUrl(this.crudService.parentPath + '/create');
+        this.router.navigateByUrl(this.crudService.parentPath + '/modify');
     }
 
     back(addLinkset?:(value) => void) {
@@ -78,7 +78,7 @@ export class CrudView {
             if (this.crudService.lastCrudElement.goto === 'grid') {
                 this.showLinksetView = true;
             } else if (this.crudService.lastCrudElement.goto === 'form') {
-                this.goToCreate();
+                this.goToModify();
             }
         }
     }
