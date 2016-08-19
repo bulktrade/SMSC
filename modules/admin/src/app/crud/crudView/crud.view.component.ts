@@ -58,18 +58,31 @@ export class CrudView {
         this.gridOptions = this.crudService.gridOptions;
     }
 
+    goToCreate() {
+        this.crudService.multiCrud.push({
+            goto: 'form',
+            className: this.crudService.getClassName()
+        });
+
+        this.router.navigateByUrl(this.crudService.parentPath + '/create');
+    }
+
     back(addLinkset?:(value) => void) {
         if (this.crudService.multiCrud.length) {
-            let lastElement = this.crudService.multiCrud.pop();
+            this.crudService.lastCrudElement = this.crudService.multiCrud.pop();
 
             if (addLinkset) {
-                addLinkset(lastElement)
+                addLinkset(this.crudService.lastCrudElement)
             }
 
-            this.crudService.linkedClass = lastElement.linkedClass;
-        }
+            this.crudService.linkedClass = this.crudService.lastCrudElement.linkedClass;
 
-        this.showLinksetView = true;
+            if (this.crudService.lastCrudElement.goto === 'grid') {
+                this.showLinksetView = true;
+            } else if (this.crudService.lastCrudElement.goto === 'form') {
+                this.goToCreate();
+            }
+        }
     }
 
     addLink(gridOptions) {
@@ -82,9 +95,17 @@ export class CrudView {
         }
 
         this.back((element) => {
-            params = element.data;
-            params[ element.field ] = linkSet;
-            this.crudService.updateRecord(params);
+            if (element.goto === 'grid') {
+                params = element.data;
+                params[ element.field ] = linkSet;
+                this.crudService.updateRecord(params);
+            } else if (element.goto === 'form') {
+                this.crudService.lastCrudElement.model[ element.field ] = linkSet;
+
+                for (let i in this.crudService.multileSelect) {
+                    this.crudService.multileSelect[ i ].init();
+                }
+            }
         });
     }
 
@@ -96,9 +117,10 @@ export class CrudView {
             this.crudService.multiCrud.push({
                 linkedClass: this.crudService.getClassName(),
                 data: event.data,
-                field: columnDefs.field
+                field: columnDefs.field,
+                goto: 'grid'
             });
-            console.log(this.crudService.multiCrud);
+
             this.crudService.linkedClass = columnDefs.linkedClass;
             this.showLinksetView = true;
         }

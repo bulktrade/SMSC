@@ -5,6 +5,7 @@ import { MdCard, MD_CARD_DIRECTIVES } from '@angular2-material/card/card';
 import { MdIcon } from "@angular2-material/icon/icon";
 import { MdAnchor, MdButton } from "@angular2-material/button/button";
 import { EventEmitter } from "@angular/common/src/facade/async";
+import { Location } from "@angular/common";
 
 @Component({
     selector: 'multiple-select',
@@ -33,7 +34,8 @@ export class MultipleSelect {
     public items = [];
 
     constructor(public translate:TranslateService,
-                public route:ActivatedRoute) {
+                public route:ActivatedRoute,
+                public location:Location) {
     }
 
     ngOnInit() {
@@ -48,7 +50,7 @@ export class MultipleSelect {
     init():void {
         this.crudService.initGridData.then(() => {
             this.crudService.rowSelectionLinkset = this.rowSelectionLinkset;
-            let linkset = this.crudService.titleColumns[ this.property.field ];
+            let linkset = this.crudService.model[ this.property.field ];
 
             if (typeof linkset === 'string') {
                 linkset = linkset.split(',');
@@ -127,6 +129,10 @@ export class MultipleSelect {
         this.crudService.isActiveLinkset = this.property.field;
         this.crudService.linkedClass = this.property.linkedClass;
         this.crudService.addingFormValid = false;
+
+        this.crudService.multiCrud[ this.crudService.multiCrud.length - 1 ]['field'] = this.property.field;
+        this.crudService.multiCrud[ this.crudService.multiCrud.length - 1 ]['model'] = this.crudService.model;
+        this.location.back();
     }
 
     resetParams():void {

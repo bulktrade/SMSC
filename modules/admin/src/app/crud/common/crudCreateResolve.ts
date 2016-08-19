@@ -12,6 +12,9 @@ export class CrudCreateResolve extends CrudResolve {
     }
 
     resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot) {
+        this.crudService.className = route.parent.parent.data[ 'crudClass' ];
+        this.crudService.parentPath = state.url;
+
         this.crudService.initializationGrid(this.crudService.getClassName());
     }
 

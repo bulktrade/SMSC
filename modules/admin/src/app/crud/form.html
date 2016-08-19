@@ -1,6 +1,6 @@
 <div class="addingForm">
-	<form [hidden]="crudService.showLinksetView" class="form" #addingForm="ngForm" (submit)="onSubmit()">
-		<div *ngFor="let item of crudService.crudModel.columnDefs" [ngSwitch]="item.type">
+	<form class="form" #addingForm="ngForm" (submit)="onSubmit()">
+		<div *ngFor="let item of model.columnDefs" [ngSwitch]="item.type">
 			<md-input *ngSwitchCase="'STRING'" placeholder="{{item.headerName}}" name="{{item.headerName}}"
 			          class="{{item.headerName}}"
 			          type="text" autocomplete="off" [(ngModel)]="crudService.model[item.field]"
@@ -36,16 +36,12 @@
 		<div class="wrapBtn">
 			<div class="formButtons">
 				<button md-raised-button color="primary" type="button"
-				        (click)="router.navigateByUrl(crudService.parentPath);" id="cancel">{{'CANCEL' | translate}}
+				        (click)="back()" id="cancel">{{'CANCEL' | translate}}
 				</button>
 				<button md-raised-button color="primary"
-				        id="add">{{btnName |
-					uppercase | translate}}
+				        id="add">{{btnName | uppercase | translate}}
 				</button>
 			</div>
 		</div>
 	</form>
-	<div *ngIf="crudService.showLinksetView">
-		<crud-linkset></crud-linkset>
-	</div>
 </div>

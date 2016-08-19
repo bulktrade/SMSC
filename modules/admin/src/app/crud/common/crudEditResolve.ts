@@ -12,6 +12,9 @@ export class CrudEditResolve extends CrudResolve {
     }
 
     resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot) {
+        this.crudService.className = route.parent.parent.data[ 'crudClass' ];
+        this.crudService.parentPath = state.url;
+
         this.crudService.initializationGrid(this.crudService.getClassName(), () => {
             this.crudService.model = this.crudService.crudModel.rowData[this.crudService.focusedRow];
         });

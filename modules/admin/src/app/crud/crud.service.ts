@@ -16,8 +16,11 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 export class CrudService {
     crudModel = new CrudModel([], []);
 
-    public pageSize = 500;
+    public pageSize = 50;
+    public showCrudCreate:boolean = false;
+    public lastCrudElement:any;
     public allOfTheData;
+    public crudCreate:any;
     public focusedRow:any;
     public addingFormValid = false;
     public querySelectors = null;

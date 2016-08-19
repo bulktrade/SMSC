@@ -11,7 +11,7 @@
                 </button>
             </div>
             <div class="buttonsPanel buttons">
-                <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.parentPath + '/create')" id="addRow">{{'ADD' | translate}}</button>
+                <button md-raised-button color="primary" (click)="goToCreate()" id="addRow">{{'ADD' | translate}}</button>
                 <button md-raised-button color="warn" [disabled]="!gridOptions.api.getSelectedRows().length"
                         (click)="router.navigateByUrl(crudService.parentPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
             </div>
