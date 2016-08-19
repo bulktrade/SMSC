@@ -20,7 +20,6 @@ export class CrudService {
     public showCrudCreate:boolean = false;
     public lastCrudElement:any;
     public allOfTheData;
-    public crudCreate:any;
     public focusedRow:any;
     public addingFormValid = false;
     public querySelectors = null;

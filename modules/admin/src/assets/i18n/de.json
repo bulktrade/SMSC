@@ -57,6 +57,7 @@
   "CREATE": "Create",
   "SELECTALL": "Select all",
   "EDIT": "Edit",
+  "CONFIRM": "Confirm",
   "ADDLINK": "Add link",
   "CRUDMETADATA": "Crud metadata",
   "CRUDCLASSMETADATA": "Class metadata",

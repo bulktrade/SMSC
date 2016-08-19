@@ -3,7 +3,7 @@
 		{{ 'warning.deleteRecords' | translate }}
     </alert>
 	<div class="formButtons">
-	    <button md-raised-button color="primary" (click)="router.navigateByUrl(crudService.parentPath);" id="no">{{'NO' | translate}}</button>
-	    <button md-raised-button color="primary" (click)="crudService.multipleDeleteRecords(); router.navigateByUrl(crudService.parentPath);" id="yes">{{'YES' | translate}}</button>
+	    <button md-raised-button color="primary" (click)="back()" id="cancel">{{'CANCEL' | translate}}</button>
+	    <button md-raised-button color="primary" (click)="confirm()" id="confirm">{{'CONFIRM' | translate}}</button>
 	</div>
 </div>

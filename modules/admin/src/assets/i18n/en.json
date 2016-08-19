@@ -58,6 +58,7 @@
   "SELECTALL": "Select all",
   "EDIT": "Edit",
   "ADDLINK": "Add link",
+  "CONFIRM": "Confirm",
   "CRUDMETADATA": "Crud metadata",
   "CRUDCLASSMETADATA": "Class metadata",
   "CRUDMETAGRIDDATA": "Meta grid data",

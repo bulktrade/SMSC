@@ -42,11 +42,17 @@ export class CrudCreate {
     ngOnInit() {
         this.crudService.className = this.crudService.getClassName();
         this.crudService.parentPath = this.router.url;
-        this.crudService.crudCreate = this;
         this.crudService.showCrudCreate = false;
 
+        if (!this.crudService.linkedClass) {
+            this.crudService.multiCrud.push({
+                goto: 'form',
+                className: this.crudService.getClassName()
+            });
+        }
+
         if (this.crudService.lastCrudElement) {
-            this.crudService.model = this.crudService.lastCrudElement.model;
+            this.crudService.model = this.crudService.lastCrudElement.model || {};
             this.crudService.linkedClass = this.crudService.lastCrudElement.className;
         }
         this.crudService.lastCrudElement = null;

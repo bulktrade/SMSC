@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
+import { Location } from "@angular/common";
 
 @Component({
     selector: 'crud-delete',
@@ -18,10 +19,20 @@ import { CrudService } from "../crud.service";
 export class CrudDelete {
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
-                public router:Router) {
+                public router:Router,
+                public location:Location) {
     }
 
     ngOnInit() {
+    }
+
+    back() {
+        this.location.back();
+    }
+
+    confirm() {
+        this.crudService.multipleDeleteRecords();
+        this.back();
     }
 
 }
