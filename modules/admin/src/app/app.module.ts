@@ -23,12 +23,14 @@ import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormDa
 import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
 import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
 import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
+import { SimpleNotificationsModule } from "angular2-notifications/components";
 
 @NgModule({
     imports: [
         BrowserModule,
         MaterialModule,
-        FormsModule
+        FormsModule,
+        SimpleNotificationsModule
     ],
     providers: [
         ...APP_PROVIDERS,

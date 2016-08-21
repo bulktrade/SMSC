@@ -6,6 +6,7 @@ import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./crud.model";
 import { GridOptions } from "ag-grid";
+import { ServiceNotifications } from "../services/serviceNotification";
 
 const squel = require('squel');
 
@@ -38,8 +39,6 @@ export class CrudService {
     public successExecute = false;
     public errorMessage = '';
     public successMessage = '';
-    public isInfoMessage:boolean = false;
-    public infoMessage:string = '';
     public multiCrud = [];
     public titleColumns = {};
     public model = {};
@@ -55,7 +54,8 @@ export class CrudService {
     constructor(public databaseService:ODatabaseService,
                 public router:Router,
                 public route:ActivatedRoute,
-                public translate:TranslateService) {
+                public translate:TranslateService,
+                public serviceNotifications:ServiceNotifications) {
     }
 
     onFilterChanged(value, gridOptions) {
@@ -74,8 +74,7 @@ export class CrudService {
 
         this.crud = this.databaseService.insert(params)
             .then((res) => {
-                this.successExecute = true;
-                this.successMessage = 'orientdb.successCreate';
+                this.serviceNotifications.createNotification('success', 'message.create', 'orientdb.successCreate');
             }, (error) => {
                 this.dataNotFound = true;
                 this.errorMessage = 'orientdb.dataNotCorrect';
@@ -102,8 +101,7 @@ export class CrudService {
         this.crud = this.databaseService.update(params)
             .then((res) => {
                 value.version++;
-                this.successExecute = true;
-                this.successMessage = 'orientdb.successUpdate';
+                this.serviceNotifications.createNotification('success', 'message.update', 'orientdb.successUpdate');
             }, (error) => {
                 this.dataNotFound = true;
                 this.errorMessage = 'orientdb.dataNotCorrect';
@@ -115,8 +113,7 @@ export class CrudService {
     deleteRecord(rid):Promise<any> {
         this.crud = this.databaseService.delete(rid)
             .then((res) => {
-                this.successExecute = true;
-                this.successMessage = 'orientdb.successDelete';
+                this.serviceNotifications.createNotification('success', 'message.delete', 'orientdb.successDelete');
             }, (error) => {
                 this.dataNotFound = true;
                 this.errorMessage = 'orientdb.dataNotFound';
@@ -375,7 +372,6 @@ export class CrudService {
     }
 
     hideAllMessageBoxes() {
-        this.isInfoMessage = false;
         this.dataNotFound = false;
         this.successExecute = false;
     }

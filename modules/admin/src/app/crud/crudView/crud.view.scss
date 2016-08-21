@@ -1,5 +1,17 @@
 #windowGrid {
-    height: 83.7%;
+    height: 100%;
+
+    loading-router-outlet {
+        display: flex;
+    }
+
+    ag-grid-ng2 {
+        height: calc(100% - 79px);
+    }
+
+    .view-wrap {
+        height: inherit;
+    }
 
     .wrapGrid {
         display: block;
@@ -13,7 +25,7 @@
     .searchPanel {
         display: flex;
         float: left;
-        width: 50%;
+        flex-grow: 2;
 
         .searchBtn {
             margin-top: 8px;
@@ -27,7 +39,7 @@
 
     .buttonsPanel {
         padding: 6px 14px 0 0;
-        width: 50%;
+        flex-grow: 1;
     }
 
     .navigationBtn {
@@ -36,7 +48,6 @@
 
     .buttons {
         display: flex;
-        justify-content: flex-end;
 	    font-size: 14px;
 
         button {
@@ -48,3 +59,20 @@
         text-align: center;
     }
 }
+
+@media all and (min-width: 550px) {
+    .buttons {
+        justify-content: flex-end;
+    }
+}
+
+@media all and (max-width: 550px) {
+    .opionPanel {
+        flex-direction: column;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+}
+

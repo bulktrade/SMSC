@@ -41,7 +41,6 @@
   "STREET": "Street",
   "STREET2": "Street2",
   "POSTCODE": "Postcode",
-  "COUNTRY": "Country",
   "CITY": "City",
   "VATID": "VATID",
   "USERS": "Users",
@@ -63,11 +62,15 @@
   "CRUDCLASSMETADATA": "Class metadata",
   "CRUDMETAGRIDDATA": "Meta grid data",
   "CRUDMETAFORMDATA": "Meta form data",
+  "NEWRECORD": "New record",
   "orientdb.dataNotFound": "Data not found!",
   "orientdb.dataNotCorrect": "Entered incorrect data!",
   "orientdb.successCreate": "New record was successfully added!",
   "orientdb.successUpdate": "The record was successfully updated!",
   "orientdb.successDelete": "The record was successfully deleted!",
   "orientdb.noRows": "No rows to show.",
-  "warning.deleteRecords": "You are dropping the record. Are you sure?"
+  "warning.deleteRecords": "You are dropping the record. Are you sure?",
+  "message.create": "Successful create",
+  "message.update": "Successful update",
+  "message.delete": "Successful delete"
 }

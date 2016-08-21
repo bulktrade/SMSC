@@ -1,9 +1,14 @@
-#customer-crud {
+#crud-window {
+	height: calc(100% - 92px);
 	padding: 0;
 	background: #fff;
 
 	.title {
 		margin-bottom: 10px;
+	}
+
+	md-card-content {
+		height: calc(100% - 74px);
 	}
 
 }

@@ -40,11 +40,6 @@ export class CrudView {
 
         this.crudService.initializationGrid(this.crudService.getClassName(),
             (rowData) => {
-                if (!rowData.length) {
-                    this.crudService.isInfoMessage = true;
-                    this.crudService.infoMessage = 'orientdb.noRows';
-                }
-
                 this.crudService.gridOptions.rowData = rowData;
                 this.crudService.setRowData(rowData, this.crudService.gridOptions);
             },

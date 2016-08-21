@@ -9,10 +9,14 @@ import { CrudService } from "../crud.service";
 import { TokenService } from "../../services/auth/token.service";
 import { LocalStorageService } from "angular2-localstorage/LocalStorageEmitter";
 import { COMMON_PROVIDERS } from "../../common/index";
+import { ServiceNotifications } from "../../services/serviceNotification";
+import { NotificationsService } from "angular2-notifications/components";
 
 class MockActivatedRoute {};
 
 export const CRUD_PROVIDERS = [
+    NotificationsService,
+    ServiceNotifications,
     ...COMMON_PROVIDERS,
     { provide: ActivatedRoute, useClass: MockActivatedRoute },
     { provide: Router, useClass: MockActivatedRoute },

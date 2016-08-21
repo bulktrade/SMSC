@@ -10,6 +10,7 @@ import { CrudService } from "./crud/crud.service";
 import { AuthGuard } from "./common/authGuard";
 import { CrudEditResolve } from "./crud/common/crudEditResolve";
 import { CrudCreateResolve } from "./crud/common/crudCreateResolve";
+import { ServiceNotifications } from "./services/serviceNotification";
 
 export * from './app.component';
 export * from './app.service';
@@ -27,5 +28,6 @@ export const APP_PROVIDERS = [
     LocalStorageService,
     TRANSLATE_PROVIDERS,
     TranslateService,
+    ServiceNotifications,
     ...COMMON_PROVIDERS
 ];
