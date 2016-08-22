@@ -11,10 +11,12 @@ import { LocalStorageService } from "angular2-localstorage/LocalStorageEmitter";
 import { COMMON_PROVIDERS } from "../../common/index";
 import { ServiceNotifications } from "../../services/serviceNotification";
 import { NotificationsService } from "angular2-notifications/components";
+import { LoadingGridService } from "../../services/loadingGrid.service";
 
 class MockActivatedRoute {};
 
 export const CRUD_PROVIDERS = [
+    LoadingGridService,
     NotificationsService,
     ServiceNotifications,
     ...COMMON_PROVIDERS,

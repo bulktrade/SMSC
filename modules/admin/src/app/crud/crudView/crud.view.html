@@ -33,7 +33,7 @@
                 {{ crudService.successMessage | translate }}
             </alert>
         </div>
-        <loading-grid [crudService]="crudService">
+        <loading-grid>
             <ag-grid-ng2 class="ag-material"
                      [rowGroupPanelShow]="always" [columnDefs]="crudService.crudModel.columnDefs" [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
                      [gridOptions]="gridOptions" [rowData]="crudService.crudModel.rowData" (cellValueChanged)="crudService.cellValueChanged($event)"
@@ -41,7 +41,7 @@
         </loading-grid>
     </div>
     <div *ngIf="showLinksetView" class="view-wrap">
-        <loading-grid [crudService]="crudService">
+        <loading-grid>
             <crud-view></crud-view>
         </loading-grid>
     </div>

@@ -1,5 +1,5 @@
 <div class="addingForm">
-	<loading-grid [crudService]="crudService">
+	<loading-grid>
 		<form class="form" #addingForm="ngForm" (submit)="onSubmit()">
 			<div *ngFor="let item of model.columnDefs" [ngSwitch]="item.type">
 				<md-input *ngSwitchCase="'STRING'" placeholder="{{item.headerName}}" name="{{item.headerName}}"
@@ -41,7 +41,7 @@
 			<div class="wrapBtn">
 				<div class="formButtons">
 					<button md-raised-button color="primary" type="button"
-					        (click)="back()" id="cancel">{{'CANCEL' | translate}}
+					        (click)="back()" id="back">{{'BACK' | translate}}
 					</button>
 					<button md-raised-button color="primary"
 					        id="modify">{{btnName | translate}}

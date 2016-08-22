@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ROUTER_DIRECTIVES } from "@angular/router";
 import { CubeGridComponent } from "./spinner/cubeGrid/cubeGrid.component";
+import { LoadingGridService } from "../services/loadingGrid.service";
 import { CrudService } from "../crud/crud.service";
 
 @Component({
@@ -10,32 +11,19 @@ import { CrudService } from "../crud/crud.service";
         CubeGridComponent
     ],
     template: `
-        <sk-cube-grid [isRunning]="loadingGridData && !this.crudService.dataNotFound"></sk-cube-grid>
-        <ng-content *ngIf="!loadingGridData && !this.crudService.dataNotFound"></ng-content>
+        <sk-cube-grid [isRunning]="service.loadingGridData"></sk-cube-grid>
+        <ng-content *ngIf="!service.loadingGridData"></ng-content>
     `
 })
 
 export class LoadingGrid implements OnInit {
-    @Input('crudService') crudService:CrudService;
-    public loadingGridData = false;
 
-    ngOnInit():void {
-        if (!this.crudService.dataNotFound) {
-            this.start();
-        }
-
-        this.crudService.crud.then(() => {
-            this.crudService.initGridData.then(() => {
-                this.stop();
-            })
-        });
+    constructor(public service: LoadingGridService,
+                public crudService: CrudService) {
     }
 
-    start() {
-        this.loadingGridData = true;
-    }
-
-    stop() {
-        this.loadingGridData = false;
+    ngOnInit(): void {
+        this.service.crudService = this.crudService;
+        this.service.run();
     }
 }

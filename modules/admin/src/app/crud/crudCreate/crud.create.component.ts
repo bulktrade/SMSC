@@ -81,8 +81,7 @@ export class CrudCreate {
     onSubmit() {
         this.crudService.multiCrud.pop();
         this.crudService.createRecord(this.crudService.model);
-
-        this.location.back();
+        this.crudService.model = {};
     }
 
 }

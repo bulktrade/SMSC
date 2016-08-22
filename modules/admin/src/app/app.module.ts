@@ -24,6 +24,7 @@ import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMet
 import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
 import { SimpleNotificationsModule } from "angular2-notifications/components";
 import { CrudCreate } from "./crud/crudCreate/crud.create.component";
+import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
 
 @NgModule({
     imports: [
@@ -56,6 +57,7 @@ import { CrudCreate } from "./crud/crudCreate/crud.create.component";
         Customers,
         Crud,
         CrudView,
+        CrudEdit,
         CrudDelete,
         CrudCreate,
         NotFound,

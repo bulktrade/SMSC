@@ -7,6 +7,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./crud.model";
 import { GridOptions } from "ag-grid";
 import { ServiceNotifications } from "../services/serviceNotification";
+import { LoadingGridService } from "../services/loadingGrid.service";
 
 const squel = require('squel');
 
@@ -54,7 +55,8 @@ export class CrudService {
                 public router: Router,
                 public route: ActivatedRoute,
                 public translate: TranslateService,
-                public serviceNotifications: ServiceNotifications) {
+                public serviceNotifications: ServiceNotifications,
+                public loadingService: LoadingGridService) {
     }
 
     onFilterChanged(value, gridOptions) {
@@ -77,6 +79,8 @@ export class CrudService {
             "nameClass": this.getClassName(),
             "colsValue": colsValue
         };
+
+        this.loadingService.run();
 
         this.crud = this.databaseService.insert(params)
             .then((res) => {
@@ -105,6 +109,8 @@ export class CrudService {
             "colsValue": value
         };
 
+        this.loadingService.run();
+
         this.crud = this.databaseService.update(params)
             .then((res) => {
                 value.version++;
@@ -118,6 +124,8 @@ export class CrudService {
     }
 
     deleteRecord(rid): Promise<any> {
+        this.loadingService.run();
+
         this.crud = this.databaseService.delete(rid)
             .then((res) => {
                 this.serviceNotifications.createNotification('success', 'message.delete', 'orientdb.successDelete');

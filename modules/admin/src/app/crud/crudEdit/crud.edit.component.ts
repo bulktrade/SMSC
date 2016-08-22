@@ -86,7 +86,6 @@ export class CrudEdit {
     onSubmit() {
         this.crudService.multiCrud.pop();
         this.crudService.updateRecord(this.crudService.model);
-        this.location.back();
     }
 
 }
