@@ -80,20 +80,9 @@ export class CrudCreate {
 
     onSubmit() {
         this.crudService.multiCrud.pop();
-
-        if (this.crudService.isEditForm) {
-            this.crudService.updateRecord(this.crudService.model);
-        } else {
-            this.crudService.createRecord(this.crudService.model);
-        }
+        this.crudService.createRecord(this.crudService.model);
 
         this.location.back();
     }
 
-    isRequired(event) {
-        if (event) {
-            this.crudService.addingFormValid = true;
-            return;
-        }
-    }
 }

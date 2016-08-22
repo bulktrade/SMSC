@@ -26,7 +26,7 @@
 				          class="form-control"></md-input>
 				<multiple-select *ngIf="item.type === 'LINKSET' || item.type === 'LINK'"
 				                 [property]="item" [crudService]="crudService"
-				                 [rowSelectionLinkset]="'single'" (isRequired)="isRequired($event)"></multiple-select>
+				                 [rowSelectionLinkset]="'single'" (isRequired)="crudService.isRequired($event)"></multiple-select>
 				<md-checkbox *ngSwitchCase="'BOOLEAN'"
 				             [(ngModel)]="crudService.model[item.field]" name="{{item.headerName}}" [align]="alignment">
 					{{item.headerName}}

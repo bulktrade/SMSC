@@ -89,10 +89,4 @@ export class CrudEdit {
         this.location.back();
     }
 
-    isRequired(event) {
-        if (event) {
-            this.crudService.addingFormValid = true;
-            return;
-        }
-    }
 }

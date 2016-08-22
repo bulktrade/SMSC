@@ -65,6 +65,13 @@ export class CrudService {
         this.updateRecord(value.data);
     }
 
+    isRequired(event) {
+        if (event) {
+            this.addingFormValid = true;
+            return;
+        }
+    }
+
     createRecord(colsValue): Promise<any> {
         let params: RequestGetParameters = {
             "nameClass": this.getClassName(),
