@@ -9,6 +9,7 @@ import { SELECT_DIRECTIVES } from "ng2-select";
 import { CrudView } from "../crudView/crud.view.component";
 import { Location } from "@angular/common";
 import { CrudModel } from "../crud.model";
+import { LoadingGrid } from "../../common/loadingGrid";
 
 @Component({
     selector: 'crud-create',
@@ -23,7 +24,8 @@ import { CrudModel } from "../crud.model";
         CrudView,
         MdCheckbox,
         SELECT_DIRECTIVES,
-        BUTTON_DIRECTIVES
+        BUTTON_DIRECTIVES,
+        LoadingGrid
     ],
     pipes: [ TranslatePipe ]
 })

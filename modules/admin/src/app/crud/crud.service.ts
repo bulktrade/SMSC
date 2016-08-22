@@ -25,7 +25,6 @@ export class CrudService {
     public focusedRow:any;
     public addingFormValid = false;
     public querySelectors = null;
-    public multileSelect = {};
     public embeddedList = null;
     public isActiveLinkset = null;
     public rowSelectionLinkset = null;
@@ -154,34 +153,6 @@ export class CrudService {
             this.changeCheckboxState('notSelected', gridOptions);
         } else {
             this.changeCheckboxState('notAllSelected', gridOptions);
-        }
-    }
-
-    chooseLinkset(linksetGridOptions, activeComponent) {
-        let focusedRows = linksetGridOptions.api.getSelectedRows();
-        let linkSet:string = '';
-        this.titleColumns[ this.isActiveLinkset ] = [];
-        let params;
-
-        for (let item = 0; item < focusedRows.length; item++) {
-            linkSet += "" + focusedRows[ item ].rid + ",";
-            this.titleColumns[ this.isActiveLinkset ].push(focusedRows[ item ].name);
-        }
-
-        linkSet = linkSet.substring(0, linkSet.length - 1);
-
-        if (activeComponent === 'CrudView') {
-            params = this.gridOptions.rowData[ this.focusedRow ];
-            params[ this.isActiveLinkset ] = linkSet;
-            this.updateRecord(params);
-
-            this.gridOptions.rowData[ this.focusedRow ][ this.isActiveLinkset ] = linkSet;
-            this.gridOptions.api.setRowData(this.gridOptions.rowData);
-        } else {
-            this.model[ this.isActiveLinkset ] = linkSet.split(',');
-            for (let item in this.multileSelect) {
-                this.multileSelect[ item ].init();
-            }
         }
     }
 

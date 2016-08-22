@@ -1,7 +1,7 @@
 <div id="multipleSelect">
     <div class="title">{{property.field | uppercase | translate}}<span class="requiredSymb">{{requiredSymb}}</span></div>
     <hr>
-    <div *ngFor="let item of items" class="items">
+    <div *ngFor="let item of ridItems" class="items">
         <div class="item" *ngIf="item.visible">
             <div class="title">{{item.name}}</div>
             <md-icon (click)="item.visible=!item.visible; removeItem()"

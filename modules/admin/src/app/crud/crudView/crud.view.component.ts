@@ -73,7 +73,7 @@ export class CrudView {
             if (this.crudService.lastCrudElement.goto === 'grid') {
                 this.showLinksetView = true;
             } else if (this.crudService.lastCrudElement.goto === 'form') {
-                this.goToModify();
+                this.router.navigateByUrl(this.crudService.parentPath + '/modify');
             }
         }
     }
@@ -94,10 +94,6 @@ export class CrudView {
                 this.crudService.updateRecord(params);
             } else if (element.goto === 'form') {
                 this.crudService.lastCrudElement.model[ element.field ] = linkSet;
-
-                for (let i in this.crudService.multileSelect) {
-                    this.crudService.multileSelect[ i ].init();
-                }
             }
         });
     }

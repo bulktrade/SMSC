@@ -31,7 +31,7 @@ export class MultipleSelect {
 
     public isRequired = new EventEmitter();
     public requiredSymb = ' ';
-    public items = [];
+    public ridItems = [];
 
     constructor(public translate:TranslateService,
                 public route:ActivatedRoute,
@@ -39,46 +39,39 @@ export class MultipleSelect {
     }
 
     ngOnInit() {
-        this.crudService.multileSelect[ this.property.field ] = this;
-        this.items = [];
         if (this.property.required) {
             this.requiredSymb += '*';
         }
-        this.init();
-    }
 
-    init():void {
         this.crudService.initGridData.then(() => {
-            this.crudService.rowSelectionLinkset = this.rowSelectionLinkset;
-            let linkset = this.crudService.model[ this.property.field ];
+            this.crudService.initGridData.then(() => {
+                this.crudService.rowSelectionLinkset = this.rowSelectionLinkset;
+                let linkset = this.crudService.model[ this.property.field ];
 
-            if (typeof linkset === 'string') {
-                linkset = linkset.split(',');
-            }
+                if (linkset) {
+                    linkset.forEach((item) => {
+                        if (item) {
+                            this.ridItems.push({
+                                name: item, visible: true
+                            });
+                        }
+                    });
 
-            if (linkset) {
-                linkset.forEach((item) => {
-                    if (item) {
-                        this.items.push({
-                            name: item, visible: true
-                        });
-                    }
-                });
-
-                if (this.property.required) {
-                    if (linkset.length) {
-                        this.isRequired.emit(false);
+                    if (this.property.required) {
+                        if (linkset.length) {
+                            this.isRequired.emit(false);
+                        } else {
+                            this.isRequired.emit(true);
+                        }
                     } else {
-                        this.isRequired.emit(true);
+                        this.isRequired.emit(false);
                     }
+                } else if (this.property.required) {
+                    this.isRequired.emit(true);
                 } else {
                     this.isRequired.emit(false);
                 }
-            } else if (this.property.required) {
-                this.isRequired.emit(true);
-            } else {
-                this.isRequired.emit(false);
-            }
+            });
         });
     }
 
@@ -88,14 +81,10 @@ export class MultipleSelect {
         let titleColumns = [];
         let model = [];
 
-        if (typeof linkset === 'string') {
-            linkset = linkset.split(',');
-        }
-
-        for (let i in this.items) {
-            if (this.items[ i ].visible) {
+        for (let i in this.ridItems) {
+            if (this.ridItems[ i ].visible) {
                 model.push(linkset[ i ]);
-                titleColumns.push(this.items[ i ].name);
+                titleColumns.push(this.ridItems[ i ].name);
             }
         }
 
@@ -130,8 +119,8 @@ export class MultipleSelect {
         this.crudService.linkedClass = this.property.linkedClass;
         this.crudService.addingFormValid = false;
 
-        this.crudService.multiCrud[ this.crudService.multiCrud.length - 1 ]['field'] = this.property.field;
-        this.crudService.multiCrud[ this.crudService.multiCrud.length - 1 ]['model'] = this.crudService.model;
+        this.crudService.multiCrud[ this.crudService.multiCrud.length - 1 ][ 'field' ] = this.property.field;
+        this.crudService.multiCrud[ this.crudService.multiCrud.length - 1 ][ 'model' ] = this.crudService.model;
         this.location.back();
     }
 
@@ -139,6 +128,6 @@ export class MultipleSelect {
         this.crudService.titleColumns[ this.property.field ] = [];
         this.crudService.model[ this.property.field ] = [];
         this.crudService.titleColumns = [];
-        this.items = [];
+        this.ridItems = [];
     }
 }
