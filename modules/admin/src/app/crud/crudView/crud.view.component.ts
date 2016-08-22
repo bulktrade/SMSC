@@ -51,13 +51,13 @@ export class CrudView {
         this.gridOptions = this.crudService.gridOptions;
     }
 
-    goToModify() {
+    goToCreate() {
         this.crudService.multiCrud.push({
-            goto: 'form',
+            goto: 'formCreate',
             className: this.crudService.getClassName()
         });
 
-        this.router.navigateByUrl(this.crudService.parentPath + '/modify');
+        this.router.navigateByUrl(this.crudService.parentPath + '/create');
     }
 
     back(addLinkset?:(value) => void) {
@@ -72,8 +72,26 @@ export class CrudView {
 
             if (this.crudService.lastCrudElement.goto === 'grid') {
                 this.showLinksetView = true;
-            } else if (this.crudService.lastCrudElement.goto === 'form') {
-                this.router.navigateByUrl(this.crudService.parentPath + '/modify');
+            } else if (this.crudService.lastCrudElement.goto === 'formCreate') {
+                this.router.navigateByUrl(this.crudService.parentPath + '/create');
+            }
+
+            switch (this.crudService.lastCrudElement.goto) {
+                case 'grid':
+                    this.showLinksetView = true;
+                    break;
+
+                case 'formCreate':
+                    this.router.navigateByUrl(this.crudService.parentPath + '/create');
+                    break;
+
+                case 'formEdit':
+                    this.crudService.isEditForm = true;
+                    this.router.navigateByUrl(this.crudService.parentPath + '/edit');
+                    break;
+
+                default:
+                    break;
             }
         }
     }
@@ -88,12 +106,20 @@ export class CrudView {
         }
 
         this.back((element) => {
-            if (element.goto === 'grid') {
-                params = element.data;
-                params[ element.field ] = linkSet;
-                this.crudService.updateRecord(params);
-            } else if (element.goto === 'form') {
-                this.crudService.lastCrudElement.model[ element.field ] = linkSet;
+            switch (element.goto) {
+                case 'grid':
+                    params = element.data;
+                    params[ element.field ] = linkSet;
+                    this.crudService.updateRecord(params);
+                    break;
+
+                case 'formCreate':
+                case 'formEdit':
+                    this.crudService.lastCrudElement.model[ element.field ] = linkSet;
+                    break;
+
+                default:
+                    break;
             }
         });
     }

@@ -17,7 +17,7 @@
                         <button md-raised-button color="primary" (click)="addLink(gridOptions)">{{'ADDLINK' | translate}}</button>
                     </div>
                     <div>
-                        <button md-raised-button color="primary" (click)="goToModify()" id="addRow">{{'NEWRECORD' | translate}}</button>
+                        <button md-raised-button color="primary" (click)="goToCreate()" id="addRow">{{'NEWRECORD' | translate}}</button>
                         <button md-raised-button color="warn" [disabled]="!gridOptions.api.getSelectedRows().length"
                                 (click)="router.navigateByUrl(crudService.parentPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
                     </div>

@@ -12,10 +12,10 @@ import { CrudModel } from "../crud.model";
 import { LoadingGrid } from "../../common/loadingGrid";
 
 @Component({
-    selector: 'crud-create',
-    template: require('./crud.modify.html'),
+    selector: 'crud-edit',
+    template: require('../common/form.html'),
     styles: [
-        require('./crud.modify.scss'),
+        require('../common/form.scss'),
         require('../common/style.scss')
     ],
     providers: [ Location ],
@@ -30,8 +30,8 @@ import { LoadingGrid } from "../../common/loadingGrid";
     pipes: [ TranslatePipe ]
 })
 
-export class CrudModify {
-    public btnName:string;
+export class CrudEdit {
+    public btnName:string = 'UPDATE';
     public model = new CrudModel([], []);
 
     constructor(public translate:TranslateService,
@@ -44,11 +44,10 @@ export class CrudModify {
     ngOnInit() {
         this.crudService.className = this.crudService.getClassName();
         this.crudService.parentPath = this.router.url;
-        this.crudService.showCrudModify = false;
 
         if (!this.crudService.linkedClass) {
             this.crudService.multiCrud.push({
-                goto: 'form',
+                goto: 'formEdit',
                 className: this.crudService.getClassName()
             });
         }
@@ -61,11 +60,9 @@ export class CrudModify {
 
         this.crudService.initializationGrid(this.crudService.getClassName(),
             (rowData) => {
-                if(this.crudService.isEditForm) {
-                    this.crudService.model = this.crudService.crudModel.rowData[this.crudService.focusedRow];
-                    this.btnName = 'UPDATE';
-                } else {
-                    this.btnName = 'CREATE';
+                if (!this.crudService.isEditForm) {
+                    this.crudService.model = this.crudService.crudModel.rowData[ this.crudService.focusedRow ];
+                    this.crudService.isEditForm = false;
                 }
 
                 this.model.rowData = rowData;
@@ -88,13 +85,7 @@ export class CrudModify {
 
     onSubmit() {
         this.crudService.multiCrud.pop();
-
-        if (this.crudService.isEditForm) {
-            this.crudService.updateRecord(this.crudService.model);
-        } else {
-            this.crudService.createRecord(this.crudService.model);
-        }
-
+        this.crudService.updateRecord(this.crudService.model);
         this.location.back();
     }
 

@@ -15,7 +15,6 @@ import { Customers } from "./customers/customers.components";
 import { Crud } from "./crud/crud.component";
 import { CrudView } from "./crud/crudView/crud.view.component";
 import { CrudDelete } from "./crud/crudDelete/crud.delete.component";
-import { CrudModify } from "./crud/crudModify/crud.modify.component";
 import { Dashboard } from "./dashboard/dashboard.component";
 import { NotFound } from "./notFound/notFound.component";
 import { TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
@@ -24,6 +23,7 @@ import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
 import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
 import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
 import { SimpleNotificationsModule } from "angular2-notifications/components";
+import { CrudCreate } from "./crud/crudCreate/crud.create.component";
 
 @NgModule({
     imports: [
@@ -57,7 +57,8 @@ import { SimpleNotificationsModule } from "angular2-notifications/components";
         Crud,
         CrudView,
         CrudDelete,
-        CrudModify,
+        // CrudModify,
+        CrudCreate,
         NotFound,
         Dashboard,
         Breadcrumb,

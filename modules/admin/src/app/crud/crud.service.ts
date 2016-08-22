@@ -18,11 +18,11 @@ export class CrudService {
     crudModel = new CrudModel([], []);
 
     public pageSize = 50;
-    public showCrudModify:boolean = false;
-    public isEditForm:boolean = false;
-    public lastCrudElement:any;
+    public showCrudModify: boolean = false;
+    public isEditForm: boolean = false;
+    public lastCrudElement: any;
     public allOfTheData;
-    public focusedRow:any;
+    public focusedRow: any;
     public addingFormValid = false;
     public querySelectors = null;
     public embeddedList = null;
@@ -30,8 +30,8 @@ export class CrudService {
     public rowSelectionLinkset = null;
     public linkedClass = null;
     public showLinksetView = false;
-    public initGridData:Promise<any>;
-    public crud:Promise<any> = Promise.resolve();
+    public initGridData: Promise<any>;
+    public crud: Promise<any> = Promise.resolve();
     public parentPath = null;
     public className = null;
     public dataNotFound = false;
@@ -42,7 +42,7 @@ export class CrudService {
     public titleColumns = {};
     public model = {};
 
-    public gridOptions:GridOptions = {
+    public gridOptions: GridOptions = {
         columnDefs: this.crudModel.columnDefs,
         rowData: this.crudModel.rowData,
         rowSelection: 'multiple',
@@ -50,11 +50,17 @@ export class CrudService {
         rowModelType: 'pagination'
     };
 
-    constructor(public databaseService:ODatabaseService,
-                public router:Router,
-                public route:ActivatedRoute,
-                public translate:TranslateService,
-                public serviceNotifications:ServiceNotifications) {
+    constructor(public databaseService: ODatabaseService,
+                public router: Router,
+                public route: ActivatedRoute,
+                public translate: TranslateService,
+                public serviceNotifications: ServiceNotifications) {
+    }
+
+    getDateTime() {
+        return this.databaseService.authHttp.get('http://date.jsontest.com/').toPromise().then((res: Response) => {
+            return res.json().date;
+        });
     }
 
     onFilterChanged(value, gridOptions) {
@@ -65,15 +71,16 @@ export class CrudService {
         this.updateRecord(value.data);
     }
 
-    createRecord(colsValue) {
-        let params:RequestGetParameters = {
-            "nameClass": this.getClassName(),
+    createRecord(colsValue): Promise<any> {
+        let params: RequestGetParameters = {
+            "nameClass": 'Customer',
             "colsValue": colsValue
         };
 
         this.crud = this.databaseService.insert(params)
             .then((res) => {
                 this.serviceNotifications.createNotification('success', 'message.create', 'orientdb.successCreate');
+                return res;
             }, (error) => {
                 this.dataNotFound = true;
                 this.errorMessage = 'orientdb.dataNotCorrect';
@@ -109,7 +116,7 @@ export class CrudService {
         return this.crud;
     }
 
-    deleteRecord(rid):Promise<any> {
+    deleteRecord(rid): Promise<any> {
         this.crud = this.databaseService.delete(rid)
             .then((res) => {
                 this.serviceNotifications.createNotification('success', 'message.delete', 'orientdb.successDelete');
@@ -121,8 +128,8 @@ export class CrudService {
         return this.crud;
     }
 
-    multipleDeleteRecords():Promise<any> {
-        let result:Promise<any>;
+    multipleDeleteRecords(): Promise<any> {
+        let result: Promise<any>;
 
         this.gridOptions.api.getSelectedRows().forEach((i) => {
             result = this.deleteRecord(i.rid);
@@ -158,7 +165,7 @@ export class CrudService {
 
     getStore(className) {
         return this.databaseService.query('select from ' + className)
-            .then((res:Response) => {
+            .then((res: Response) => {
                 let result = res.json()[ 'result' ];
 
                 result.forEach((item) => {
@@ -263,10 +270,10 @@ export class CrudService {
                     "border-radius: 3px; cursor: pointer;");
                 eCell.addEventListener('click', () => {
                     if (nameBtn === 'Edit') {
-                        this.isEditForm = true;
+                        that.router.navigateByUrl(that.parentPath + '/edit');
+                    } else if (nameBtn === 'Create') {
+                        that.router.navigateByUrl(that.parentPath + '/create');
                     }
-
-                    that.router.navigateByUrl(that.parentPath + '/modify');
                 });
                 return eCell;
             },
@@ -318,11 +325,11 @@ export class CrudService {
         }
 
         return this.databaseService.getInfoClass(className)
-            .then((res:Response) => {
-                let result:Promise<any>;
+            .then((res: Response) => {
+                let result: Promise<any>;
 
                 res.json().properties.forEach((item) => {
-                    result = this.translate.get(item.name.toUpperCase()).toPromise().then((res:string) => {
+                    result = this.translate.get(item.name.toUpperCase()).toPromise().then((res: string) => {
                         columnDefs.push({
                             headerName: res,
                             field: item.name,
@@ -347,7 +354,7 @@ export class CrudService {
         this.successExecute = false;
     }
 
-    initializationGrid(className, initRowData?:(columnDefs) => void, initColumnDefs?:(rowData) => void):Promise<any> {
+    initializationGrid(className, initRowData?: (columnDefs) => void, initColumnDefs?: (rowData) => void): Promise<any> {
         this.initGridData = new Promise((resolve, reject) => {
             this.getColumnDefs(className, true)
                 .then((columnDefs) => {
