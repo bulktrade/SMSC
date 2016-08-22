@@ -11,12 +11,12 @@ body {
     }
 }
 
-.ag-body-viewport {
-  overflow-y: hidden !important;
+.md-card {
+    height: 100%;
 }
 
-.ag-overlay-no-rows-center {
-  display: none;
+.ag-body-viewport {
+  overflow-y: hidden !important;
 }
 
 .ag-paging-panel {
