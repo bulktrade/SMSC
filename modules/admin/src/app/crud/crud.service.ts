@@ -57,12 +57,6 @@ export class CrudService {
                 public serviceNotifications: ServiceNotifications) {
     }
 
-    getDateTime() {
-        return this.databaseService.authHttp.get('http://date.jsontest.com/').toPromise().then((res: Response) => {
-            return res.json().date;
-        });
-    }
-
     onFilterChanged(value, gridOptions) {
         gridOptions.api.setQuickFilter(value);
     }
@@ -73,7 +67,7 @@ export class CrudService {
 
     createRecord(colsValue): Promise<any> {
         let params: RequestGetParameters = {
-            "nameClass": 'Customer',
+            "nameClass": this.getClassName(),
             "colsValue": colsValue
         };
 

@@ -57,7 +57,6 @@ import { CrudCreate } from "./crud/crudCreate/crud.create.component";
         Crud,
         CrudView,
         CrudDelete,
-        // CrudModify,
         CrudCreate,
         NotFound,
         Dashboard,
