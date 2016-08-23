@@ -18,12 +18,18 @@ import { CrudService } from "../crud/crud.service";
 
 export class LoadingGrid implements OnInit {
 
-    constructor(public service: LoadingGridService,
+    constructor(public service:LoadingGridService,
                 public crudService: CrudService) {
     }
 
-    ngOnInit(): void {
-        this.service.crudService = this.crudService;
-        this.service.run();
+    ngOnInit():void {
+        this.service.start();
+
+        this.crudService.initGridData
+            .then((res) => {
+                this.service.stop();
+            }, (error) => {
+                this.service.stop();
+            })
     }
 }

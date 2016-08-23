@@ -80,7 +80,6 @@ export class CrudCreate {
 
     onSubmit() {
         this.crudService.createRecord(this.crudService.model);
-        this.crudService.model = {};
     }
 
 }
