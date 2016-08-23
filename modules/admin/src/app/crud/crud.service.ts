@@ -83,8 +83,9 @@ export class CrudService {
         this.crud = this.databaseService.insert(params)
             .then((res) => {
                 this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
+                return Promise.resolve(res);
             }, (error) => {
-                this.serviceNotifications.createNotification('error', 'ERROR', 'orientdb.dataNotCorrect');
+                return Promise.reject(error);
             });
 
         this.loadingService.run();
@@ -107,14 +108,13 @@ export class CrudService {
             "colsValue": value
         };
 
-        this.loadingService.run();
-
         this.crud = this.databaseService.update(params)
             .then((res) => {
                 value.version++;
                 this.serviceNotifications.createNotification('success', 'message.updateSuccessful', 'orientdb.successUpdate');
+                return Promise.resolve(res);
             }, (error) => {
-                this.serviceNotifications.createNotification('error', 'ERROR', 'orientdb.dataNotCorrect');
+                return Promise.reject(error);
             });
 
         this.loadingService.run();
@@ -123,13 +123,12 @@ export class CrudService {
     }
 
     deleteRecord(rid):Promise<any> {
-        this.loadingService.run();
-
         this.crud = this.databaseService.delete(rid)
             .then((res) => {
                 this.serviceNotifications.createNotification('success', 'message.deleteSuccessful', 'orientdb.successDelete');
+                return Promise.resolve(res);
             }, (error) => {
-                this.serviceNotifications.createNotification('error', 'ERROR', 'orientdb.dataNotCorrect');
+                return Promise.reject(error);
             });
 
         this.loadingService.run();

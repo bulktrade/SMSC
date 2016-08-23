@@ -89,8 +89,7 @@ export class ODatabaseService {
             body: data
         });
 
-        return new Promise((resolve, reject) => {
-            this.authHttp.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
+        return this.authHttp.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
                 + this.urlSuffix,
                 requestOptions)
                 .toPromise()
@@ -98,12 +97,12 @@ export class ODatabaseService {
                     res => {
                         this.setErrorMessage(undefined);
                         this.handleResponse(res);
-                        resolve(this.getCommandResponse());
+                        return Promise.resolve(res);
                     },
                     error => {
-                        reject(this.setErrorMessage('Command error: ' + error.responseText));
+                        this.setErrorMessage('Command error: ' + error.responseText)
+                        return Promise.reject(error);
                     });
-        });
     };
 
     insert(params:RequestGetParameters) {

@@ -64,6 +64,7 @@
   "CRUDMETAFORMDATA": "Meta form data",
   "NEWRECORD": "New record",
   "OK": "Ok",
+  "NO_INTERNET_CONNECTION": "No internet connection",
   "ERROR": "Error",
   "orientdb.unregistered": "401 unregistered",
   "orientdb.dataNotFound": "Data not found!",

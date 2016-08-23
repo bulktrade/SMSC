@@ -3,6 +3,7 @@ import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { Router } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { Location } from "@angular/common";
+import { LoadingGrid } from "../../common/loadingGrid";
 
 @Component({
     selector: 'crud-delete',
@@ -12,7 +13,9 @@ import { Location } from "@angular/common";
         require('../common/style.scss')
     ],
     providers: [],
-    directives: [],
+    directives: [
+        LoadingGrid
+    ],
     pipes: [TranslatePipe]
 })
 
@@ -32,7 +35,10 @@ export class CrudDelete {
 
     confirm() {
         this.crudService.multipleDeleteRecords();
-        this.back();
+
+        this.crudService.crud.then(() => {
+            this.location.back();
+        });
     }
 
 }

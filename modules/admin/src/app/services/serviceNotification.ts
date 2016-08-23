@@ -34,6 +34,10 @@ export class ServiceNotifications {
 
     createNotificationOnResponse(response:Response) {
         switch (response.status) {
+            case 0:
+                this.createNotification('error', 'ERROR', 'NO_INTERNET_CONNECTION');
+                break;
+
             case 401:
                 this.createNotification('error', 'ERROR', 'orientdb.unregistered');
                 break;
