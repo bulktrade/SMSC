@@ -2,6 +2,7 @@
  * @author: @AngularClass
  */
 
+const webpack = require('webpack');
 const helpers = require('./helpers');
 
 /**
@@ -192,6 +193,8 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
+
+        new webpack.ProvidePlugin({sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js')}),
 
         /**
          * Plugin: DefinePlugin
