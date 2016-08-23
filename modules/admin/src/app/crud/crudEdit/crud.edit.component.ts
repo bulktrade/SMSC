@@ -42,7 +42,7 @@ export class CrudEdit {
     }
 
     ngOnInit() {
-        this.crudService.className = this.crudService.getClassName();
+        this.crudService.className = this.route.parent.parent.routeConfig.data[ 'crudClass' ];
         this.crudService.parentPath = this.router.url;
 
         if (!this.crudService.linkedClass) {
@@ -84,7 +84,6 @@ export class CrudEdit {
     }
 
     onSubmit() {
-        this.crudService.multiCrud.pop();
         this.crudService.updateRecord(this.crudService.model);
     }
 

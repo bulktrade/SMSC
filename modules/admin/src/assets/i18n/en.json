@@ -32,6 +32,7 @@
   "MCC": "MCC",
   "MNC": "MNC",
   "CODE": "Code",
+  "COUNTRY": "Country",
   "CARRIER": "Carrier",
   "PRICE": "Price",
   "TYPE": "Type",
@@ -40,7 +41,6 @@
   "STREET": "Street",
   "STREET2": "Street2",
   "POSTCODE": "Postcode",
-  "COUNTRY": "Country",
   "CITY": "City",
   "VATID": "VATID",
   "USERS": "Users",
@@ -64,6 +64,8 @@
   "CRUDMETAFORMDATA": "Meta form data",
   "NEWRECORD": "New record",
   "OK": "Ok",
+  "ERROR": "Error",
+  "orientdb.unregistered": "401 unregistered",
   "orientdb.dataNotFound": "Data not found!",
   "orientdb.dataNotCorrect": "Entered incorrect data!",
   "orientdb.successCreate": "New record was successfully added!",
@@ -71,7 +73,10 @@
   "orientdb.successDelete": "The record was successfully deleted!",
   "orientdb.noRows": "No rows to show.",
   "warning.deleteRecords": "You are dropping the record. Are you sure?",
-  "message.create": "Successful create",
-  "message.update": "Successful update",
-  "message.delete": "Successful delete"
+  "message.createSuccessful": "Successful create",
+  "message.updateSuccessful": "Successful update",
+  "message.deleteSuccessful": "Successful delete",
+  "message.createError": "Error creating",
+  "message.updateError": "Error update",
+  "message.deleteError": "Error when updating"
 }

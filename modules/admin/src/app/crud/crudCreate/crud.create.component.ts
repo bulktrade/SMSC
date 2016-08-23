@@ -42,7 +42,7 @@ export class CrudCreate {
     }
 
     ngOnInit() {
-        this.crudService.className = this.crudService.getClassName();
+        this.crudService.className = this.route.parent.parent.routeConfig.data[ 'crudClass' ];
         this.crudService.parentPath = this.router.url;
 
         if (!this.crudService.linkedClass) {
@@ -79,7 +79,6 @@ export class CrudCreate {
     }
 
     onSubmit() {
-        this.crudService.multiCrud.pop();
         this.crudService.createRecord(this.crudService.model);
         this.crudService.model = {};
     }

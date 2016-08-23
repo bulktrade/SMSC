@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { NotificationsService } from "angular2-notifications/components";
 import { TranslateService } from "ng2-translate/ng2-translate";
+import { Response } from "@angular/http";
 
 @Injectable()
 export class ServiceNotifications {
@@ -11,7 +12,7 @@ export class ServiceNotifications {
     createNotification(type, title, content) {
         this.translate.get(title).subscribe((title) => {
             this.translate.get(content).subscribe((content) => {
-                switch(type) {
+                switch (type) {
                     case 'success':
                         this.notificationsService.success(title, content);
                         break;
@@ -29,5 +30,20 @@ export class ServiceNotifications {
                 }
             });
         });
+    }
+
+    createNotificationOnResponse(response:Response) {
+        switch (response.status) {
+            case 401:
+                this.createNotification('error', 'ERROR', 'orientdb.unregistered');
+                break;
+
+            case 500:
+                this.createNotification('error', 'ERROR', 'orientdb.dataNotCorrect');
+                break;
+
+            default:
+                break;
+        }
     }
 }

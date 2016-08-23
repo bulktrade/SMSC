@@ -7,7 +7,7 @@ import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http"
 import { RequestGetParameters } from "./orientdb.requestGetParameters";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
 
-declare var sprintf: any;
+declare var sprintf:any;
 
 @Injectable()
 export class ODatabaseService {
@@ -23,9 +23,9 @@ export class ODatabaseService {
     private removeObjectCircleReferences;
     private urlPrefix;
     private urlSuffix;
-    private authorization: String = null;
+    private authorization:String = null;
 
-    constructor(databasePath: string, public authHttp: AuthHttp) {
+    constructor(databasePath:string, public authHttp:AuthHttp) {
         this.databaseUrl = '';
         this.databaseName = '';
         this.encodedDatabaseName = '';
@@ -78,7 +78,7 @@ export class ODatabaseService {
 
     }
 
-    batchRequest(data): Promise<any> {
+    batchRequest(data):Promise<any> {
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -106,7 +106,7 @@ export class ODatabaseService {
         });
     };
 
-    insert(params: RequestGetParameters) {
+    insert(params:RequestGetParameters) {
         let batch = '{ "transaction" : true, "operations" : ' +
             '[ { "type" : "c", "record" : ' +
             '{ "@class" : "%(nameClass)s", ';
@@ -178,7 +178,7 @@ export class ODatabaseService {
         });
     }
 
-    getRowMetadata(params: RequestGetParameters) {
+    getRowMetadata(params:RequestGetParameters) {
         let sql = 'select from %(nameClass)s where';
 
         for (let key in params.colsValue) {
@@ -188,7 +188,7 @@ export class ODatabaseService {
         sql = sql.substring(0, sql.length - 4);
 
         return this.query(sprintf(sql, params))
-            .then((res: Response) => {
+            .then((res:Response) => {
                 return res.json().result[ 0 ];
             });
     };
@@ -252,7 +252,7 @@ export class ODatabaseService {
 
     }
 
-    open(userName?, userPass?, authProxy?, type?: RequestMethod) {
+    open(userName?, userPass?, authProxy?, type?:RequestMethod) {
         if (userName === undefined) {
             userName = '';
         }
