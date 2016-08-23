@@ -1,15 +1,19 @@
-import {
-    inject,addProviders
-} from '@angular/core/testing';
-import {CRUD_PROVIDERS} from "../common/crudProviders";
-import {CrudView} from "./crud.view.component";
+import { inject, TestBed } from '@angular/core/testing';
+import { CRUD_PROVIDERS } from "../common/crudProviders";
+import { CrudView } from "./crud.view.component";
+import { HttpModule } from "@angular/http";
 
 describe('Crud View', () => {
     beforeEach(() => {
-        addProviders([
-            ...CRUD_PROVIDERS,
-            CrudView
-        ]);
+        TestBed.configureTestingModule({
+            providers: [
+                ...CRUD_PROVIDERS,
+                CrudView
+            ],
+            imports: [
+                HttpModule
+            ]
+        });
     });
 
     it('should be defined grid options', inject([ CrudView ], (crudView) => {

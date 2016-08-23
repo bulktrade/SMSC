@@ -1,16 +1,19 @@
-import {
-    inject
-} from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { CRUD_PROVIDERS } from "./common/crudProviders";
 import { Crud } from "./crud.component";
-import { addProviders } from "@angular/core/testing/testing";
+import { HttpModule } from "@angular/http";
 
 describe('Crud', () => {
     beforeEach(() => {
-        addProviders([
-            ...CRUD_PROVIDERS,
-            Crud
-        ]);
+        TestBed.configureTestingModule({
+            providers: [
+                ...CRUD_PROVIDERS,
+                Crud
+            ],
+            imports: [
+                HttpModule
+            ]
+        });
     });
 
     it('should be defined router', inject([ Crud ], (crud) => {

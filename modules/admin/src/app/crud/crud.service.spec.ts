@@ -2,7 +2,6 @@ import {
     inject, TestBed
 } from '@angular/core/testing';
 import { CRUD_PROVIDERS } from "./common/crudProviders";
-import { Crud } from "./crud.component";
 import { BaseRequestOptions, Http, ResponseOptions, Response, HttpModule, ConnectionBackend } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { CrudService } from "./crud.service";

@@ -1,18 +1,21 @@
-import {
-    inject,
-    addProviders
-} from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { ODatabaseService } from './orientdb.service';
-import {APP_PROVIDERS} from "../index";
-import {CRUD_PROVIDERS} from "../crud/common/crudProviders";
+import { APP_PROVIDERS } from "../index";
+import { CRUD_PROVIDERS } from "../crud/common/crudProviders";
+import { HttpModule } from "@angular/http";
 
 describe('ODatabaseService', () => {
 
     beforeEach(() => {
-        addProviders([
-            ...APP_PROVIDERS,
-            ...CRUD_PROVIDERS
-        ]);
+        TestBed.configureTestingModule({
+            providers: [
+                ...CRUD_PROVIDERS,
+                ...APP_PROVIDERS,
+            ],
+            imports: [
+                HttpModule
+            ]
+        });
     });
 
     it('should be defined authHttp', inject([ ODatabaseService ], (db) => {

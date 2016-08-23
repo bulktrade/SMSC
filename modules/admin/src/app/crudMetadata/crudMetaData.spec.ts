@@ -1,14 +1,19 @@
-import { inject } from '@angular/core/testing';
-import { addProviders } from "@angular/core/testing";
+import { inject, TestBed } from '@angular/core/testing';
 import { CRUD_PROVIDERS } from "../crud/common/crudProviders";
 import { CrudMetaData } from "./crudMetaData.components";
+import { HttpModule } from "@angular/http";
 
 describe('CrudMetaGridData', () => {
     beforeEach(() => {
-        addProviders([
-            ...CRUD_PROVIDERS,
-            CrudMetaData
-        ]);
+        TestBed.configureTestingModule({
+            providers: [
+                ...CRUD_PROVIDERS,
+                CrudMetaData
+            ],
+            imports: [
+                HttpModule
+            ]
+        });
     });
 
     it('should be translate', inject([ CrudMetaData ], (crudMetaData) => {

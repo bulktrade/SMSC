@@ -1,17 +1,22 @@
-import {inject} from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import {Login} from './login.component';
-import {addProviders} from "@angular/core/testing";
 import {CRUD_PROVIDERS} from "../crud/common/crudProviders";
 import {AuthService} from "../services/auth/auth.service";
 import {LoginModel} from "./login.model";
+import { HttpModule } from "@angular/http";
 
 describe('Authentication', () => {
     beforeEach(() => {
-        addProviders([
-            ...CRUD_PROVIDERS,
-            Login,
-            AuthService
-        ]);
+        TestBed.configureTestingModule({
+            providers: [
+                ...CRUD_PROVIDERS,
+                Login,
+                AuthService
+            ],
+            imports: [
+                HttpModule
+            ]
+        });
     });
 
     it('should be model', inject([ Login ], (login) => {

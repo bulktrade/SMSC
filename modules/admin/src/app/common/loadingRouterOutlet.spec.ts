@@ -1,14 +1,17 @@
-import {
-    inject,
-    addProviders
-} from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { LoadingRouterOutlet } from "./loadingRouterOutlet";
+import { HttpModule } from "@angular/http";
 
 describe('Loading RouterOutlet', () => {
     beforeEach(() => {
-        addProviders([
-            LoadingRouterOutlet
-        ]);
+        TestBed.configureTestingModule({
+            providers: [
+                LoadingRouterOutlet
+            ],
+            imports: [
+                HttpModule
+            ]
+        });
     });
 
     it('loading spinner should be true', inject([ LoadingRouterOutlet ], (loadingRouterOutlet) => {

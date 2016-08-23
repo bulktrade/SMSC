@@ -1,20 +1,23 @@
-import {
-    inject,
-    addProviders
-} from '@angular/core/testing';
+import { inject, TestBed } from '@angular/core/testing';
 import { CrudCreate } from "./crud.create.component";
 import { CRUD_PROVIDERS } from "../common/crudProviders";
 import { Location } from "@angular/common";
+import { HttpModule } from "@angular/http";
 
 class MockLocation {};
 
 describe('Crud Create', () => {
     beforeEach(() => {
-        addProviders([
-            ...CRUD_PROVIDERS,
-            CrudCreate,
-            { provide: Location, useClass: MockLocation }
-        ]);
+        TestBed.configureTestingModule({
+            providers: [
+                ...CRUD_PROVIDERS,
+                CrudCreate,
+                { provide: Location, useClass: MockLocation }
+            ],
+            imports: [
+                HttpModule
+            ]
+        });
     });
 
     it('should be defined grid options', inject([ CrudCreate ], (crudCreate) => {
