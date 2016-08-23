@@ -57,7 +57,6 @@ describe('Crud Service', () => {
         });
 
         crudService.className = className;
-        crudService.loadingService.crudService = crudService;
         crudService.initGridData = Promise.resolve();
 
         crudService.createRecord(colsValue)
@@ -81,7 +80,6 @@ describe('Crud Service', () => {
             c.mockRespond(new Response(response));
         });
 
-        crudService.loadingService.crudService = crudService;
         crudService.initGridData = Promise.resolve();
 
         crudService.updateRecord(colsValue)
@@ -100,7 +98,6 @@ describe('Crud Service', () => {
             c.mockRespond(new Response(response));
         });
 
-        crudService.loadingService.crudService = crudService;
         crudService.initGridData = Promise.resolve();
 
         crudService.deleteRecord(rid)

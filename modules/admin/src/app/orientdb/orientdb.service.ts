@@ -90,19 +90,19 @@ export class ODatabaseService {
         });
 
         return this.authHttp.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
-                + this.urlSuffix,
-                requestOptions)
-                .toPromise()
-                .then(
-                    res => {
-                        this.setErrorMessage(undefined);
-                        this.handleResponse(res);
-                        return Promise.resolve(res);
-                    },
-                    error => {
-                        this.setErrorMessage('Command error: ' + error.responseText)
-                        return Promise.reject(error);
-                    });
+            + this.urlSuffix,
+            requestOptions)
+            .toPromise()
+            .then(
+                res => {
+                    this.setErrorMessage(undefined);
+                    this.handleResponse(res);
+                    return Promise.resolve(res);
+                },
+                error => {
+                    this.setErrorMessage('Command error: ' + error.responseText)
+                    return Promise.reject(error);
+                });
     };
 
     insert(params:RequestGetParameters) {
@@ -246,10 +246,6 @@ export class ODatabaseService {
                     });
         });
     };
-
-    public connect(username, password) {
-
-    }
 
     open(userName?, userPass?, authProxy?, type?:RequestMethod) {
         if (userName === undefined) {
