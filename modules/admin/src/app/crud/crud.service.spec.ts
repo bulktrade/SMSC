@@ -27,11 +27,9 @@ describe('Crud Service', () => {
         });
     });
 
-    it('should be defined response of the getColumnDefs', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
-        let path = '/orientdb//class/smsc/Customers/';
-
+    it('should be defined response of the ge' +
+        'tColumnDefs', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         backend.connections.subscribe(c => {
-            expect(c.request.url).toEqual(path);
             let response = new ResponseOptions({ body: '{"properties":[{"name":"test","headerName":"test","field":"test","editable":true,"required":true,"type":"test","linkedClass":"test","custom":"test"}]}' });
             c.mockRespond(new Response(response));
         });
