@@ -45,7 +45,7 @@ export class CrudCreate {
         this.crudService.className = this.route.parent.parent.routeConfig.data[ 'crudClass' ];
         this.crudService.parentPath = this.router.url;
 
-        if (!this.crudService.linkedClass) {
+        if (!this.crudService.multiCrud.length) {
             this.crudService.multiCrud.push({
                 goto: 'formCreate',
                 className: this.crudService.getClassName()
@@ -63,7 +63,7 @@ export class CrudCreate {
                 this.model.rowData = rowData;
             },
             (columnDefs) => {
-                this.model.columnDefs = columnDefs;
+                this.model.columnDefs = columnDefs.form;
             });
     }
 

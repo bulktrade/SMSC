@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Injectable } from "@angular/core";
 import { CrudService } from "../crud.service";
 import { CrudResolve } from "./crudResolve";
@@ -11,11 +11,7 @@ export class CrudCreateResolve extends CrudResolve {
         super();
     }
 
-    resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot) {
-        this.crudService.className = route.parent.parent.data[ 'crudClass' ];
-        this.crudService.parentPath = state.url;
-
-        this.crudService.initializationGrid(this.crudService.getClassName());
+    resolve() {
     }
 
 }

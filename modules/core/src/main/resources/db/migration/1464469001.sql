@@ -63,6 +63,7 @@ if ($customerClass.size() == 0) {
 }
 
 CREATE Class CrudPropertyMetaData
+CREATE PROPERTY CrudPropertyMetaData.property STRING
 CREATE PROPERTY CrudPropertyMetaData.editable BOOLEAN
 CREATE PROPERTY CrudPropertyMetaData.visible BOOLEAN
 CREATE PROPERTY CrudPropertyMetaData.decorator STRING

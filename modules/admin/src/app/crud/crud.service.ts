@@ -203,7 +203,7 @@ export class CrudService {
     }
 
     addCheckboxSelection(columnDefs, gridOptions) {
-        columnDefs.unshift({
+        columnDefs.grid.unshift({
             headerName: " ",
             field: "checkboxSel",
             width: 45,
@@ -273,7 +273,7 @@ export class CrudService {
     }
 
     btnRenderer(columnDefs, nameBtn) {
-        columnDefs.push({
+        columnDefs.grid.push({
             headerName: " ",
             field: nameBtn.toLowerCase(),
             width: 66,
@@ -325,13 +325,16 @@ export class CrudService {
     }
 
     getColumnDefs(className, readOnly) {
-        let columnDefs = [];
+        let columnDefs = {
+            grid: [],
+            form: []
+        };
 
-        columnDefs.push({
+        columnDefs.grid.push({
             headerName: "RID",
             field: "rid",
             hideInForm: true,
-            width: 55
+            width: 45
         });
 
         if (readOnly) {
@@ -339,29 +342,62 @@ export class CrudService {
             this.btnRenderer(columnDefs, 'Delete');
         }
 
-        return this.databaseService.getInfoClass(className)
+        let queryCrudMetaGridData = squel.select()
+            .from('CrudMetaGridData')
+            .where('crudClassMetaData.class = ?', className);
+
+        let queryCrudMetaFormDataa = squel.select()
+            .from('CrudMetaFormData')
+            .where('crudClassMetaData.class = ?', className);
+
+        return this.databaseService.query(queryCrudMetaGridData.toString())
             .then((res:Response) => {
-                let result:Promise<any>;
+                let result = res.json()[ 'result' ];
 
-                res.json().properties.forEach((item) => {
-                    result = this.translate.get(item.name.toUpperCase()).toPromise().then((res:string) => {
-                        columnDefs.push({
-                            headerName: res,
-                            field: item.name,
-                            editable: !item.readonly,
-                            required: item.mandatory,
-                            type: item.type,
-                            linkedClass: item.linkedClass,
-                            custom: item.custom || ''
-                        });
-                    })
-                        .then(() => {
-                            return columnDefs;
-                        });
-                });
+                for (let i in result) {
+                    let column = result[i];
 
-                return result;
+                    this.translate.get(result[i]['property'].toUpperCase())
+                        .toPromise()
+                        .then((headerName) => {
+                            column['headerName'] = headerName;
+                            column['field'] = result[i]['property'];
+                            column['hide'] = !result[i]['visible'];
+                            column['width'] = result[i]['columnWidth'];
+
+                            columnDefs.grid.push(column);
+                        });
+                }
+
+            }, (error) => {
+                this.dataNotFound = true;
+                this.errorMessage = 'orientdb.dataNotFound';
             })
+            .then(() => {
+                return this.databaseService.query(queryCrudMetaFormDataa.toString())
+                    .then((res:Response) => {
+                        let result = res.json()[ 'result' ];
+
+                        columnDefs.grid.sort(this.compare);
+                        columnDefs.form = result;
+
+                        return columnDefs;
+                    }, (error) => {
+                        this.dataNotFound = true;
+                        this.errorMessage = 'orientdb.dataNotFound';
+                    })
+            }, (error) => {
+                this.dataNotFound = true;
+                this.errorMessage = 'orientdb.dataNotFound';
+            })
+    }
+
+    compare(a,b) {
+        if (a.order < b.order)
+            return -1;
+        if (a.order > b.order)
+            return 1;
+        return 0;
     }
 
     hideAllMessageBoxes() {
@@ -373,7 +409,7 @@ export class CrudService {
         this.initGridData = new Promise((resolve, reject) => {
             this.getColumnDefs(className, true)
                 .then((columnDefs) => {
-                    this.crudModel.columnDefs = columnDefs;
+                    this.crudModel.columnDefs = columnDefs.grid;
                     if (initColumnDefs) {
                         initColumnDefs(columnDefs);
                     }
