@@ -15,8 +15,8 @@ describe('Crud Service', () => {
                 BaseRequestOptions,
                 MockBackend,
                 {
-                    provide: Http, useFactory: (backend: ConnectionBackend,
-                                                defaultOptions: BaseRequestOptions) => {
+                    provide: Http, useFactory: (backend:ConnectionBackend,
+                                                defaultOptions:BaseRequestOptions) => {
                     return new Http(backend, defaultOptions);
                 }, deps: [ MockBackend, BaseRequestOptions ]
                 }
@@ -27,7 +27,7 @@ describe('Crud Service', () => {
         });
     });
 
-    it('should be defined response of the getColumnDefs', inject([ MockBackend, Http, CrudService ], (backend: MockBackend, http: Http, crudService: CrudService) => {
+    it('should be defined response of the getColumnDefs', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         let path = '/orientdb//class/smsc/Customers/';
 
         backend.connections.subscribe(c => {
@@ -42,7 +42,7 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should be defined response of the createRecord', inject([ MockBackend, Http, CrudService ], (backend: MockBackend, http: Http, crudService: CrudService) => {
+    it('should be defined response of the createRecord', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         let path = '/orientdb//batch/smsc';
         let className = 'Customer';
         let colsValue = {
@@ -65,7 +65,7 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should be defined response of the updateRecord', inject([ MockBackend, Http, CrudService ], (backend: MockBackend, http: Http, crudService: CrudService) => {
+    it('should be defined response of the updateRecord', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         let path = '/orientdb//batch/smsc';
         let colsValue = {
             rid: '#1:1',
@@ -88,7 +88,7 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should be defined response of the deleteRecord', inject([ MockBackend, Http, CrudService ], (backend: MockBackend, http: Http, crudService: CrudService) => {
+    it('should be defined response of the deleteRecord', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         let path = '/orientdb//batch/smsc';
         let rid = '#1:1';
 
@@ -106,12 +106,11 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should be defined response of the getStore', inject([ MockBackend, Http, CrudService ], (backend: MockBackend, http: Http, crudService: CrudService) => {
+    it('should be defined response of the getStore', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         let path = '/orientdb//query/smsc/sql/select%20from%20Customer/20';
         let className = 'Customer';
         let body = {
-            "result": [
-            ]
+            "result": []
         };
 
         backend.connections.subscribe(c => {
@@ -124,6 +123,22 @@ describe('Crud Service', () => {
             .then(res => {
                 expect(res).toBeDefined();
             });
+    }));
+
+    it('addCheckboxSelection to have been called', inject([ CrudService ], (crudService:CrudService) => {
+        spyOn(crudService, 'addCheckboxSelection');
+
+        crudService.addCheckboxSelection(crudService.crudModel.columnDefs, crudService.gridOptions);
+
+        expect(crudService.addCheckboxSelection).toHaveBeenCalledWith(crudService.crudModel.columnDefs, crudService.gridOptions);
+    }));
+
+    it('btnRenderer to have been called', inject([ CrudService ], (crudService:CrudService) => {
+        spyOn(crudService, 'btnRenderer');
+
+        crudService.btnRenderer(crudService.crudModel.columnDefs, 'Test');
+
+        expect(crudService.btnRenderer).toHaveBeenCalledWith(crudService.crudModel.columnDefs, 'Test');
     }));
 
 });
