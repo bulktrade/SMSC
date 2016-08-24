@@ -27,8 +27,7 @@ describe('Crud Service', () => {
         });
     });
 
-    it('should be defined response of the ge' +
-        'tColumnDefs', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a columnDefs with options for grid and form', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         backend.connections.subscribe(c => {
             let response = new ResponseOptions({ body: '{"properties":[{"name":"test","headerName":"test","field":"test","editable":true,"required":true,"type":"test","linkedClass":"test","custom":"test"}]}' });
             c.mockRespond(new Response(response));
@@ -36,11 +35,12 @@ describe('Crud Service', () => {
 
         crudService.getColumnDefs('Customers', false)
             .then(res => {
-                expect(res).toBeDefined();
+                expect(res.hasOwnProperty('grid')).toBeTruthy();
+                expect(res.hasOwnProperty('form')).toBeTruthy();
             });
     }));
 
-    it('should be defined response of the createRecord', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a successful result after the record is created', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         let path = '/orientdb//batch/smsc';
         let className = 'Customer';
         let colsValue = {
@@ -59,11 +59,11 @@ describe('Crud Service', () => {
 
         crudService.createRecord(colsValue)
             .then(res => {
-                expect(res).toBeDefined();
+                expect(res.json().result).toEqual('success');
             });
     }));
 
-    it('should be defined response of the updateRecord', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a successful result after the record is updated', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         let path = '/orientdb//batch/smsc';
         let colsValue = {
             rid: '#1:1',
@@ -82,11 +82,11 @@ describe('Crud Service', () => {
 
         crudService.updateRecord(colsValue)
             .then(res => {
-                expect(res).toBeDefined();
+                expect(res.json().result).toEqual('success');
             });
     }));
 
-    it('should be defined response of the deleteRecord', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a successful result after deleting a record', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         let path = '/orientdb//batch/smsc';
         let rid = '#1:1';
 
@@ -100,11 +100,11 @@ describe('Crud Service', () => {
 
         crudService.deleteRecord(rid)
             .then(res => {
-                expect(res).toBeDefined();
+                expect(res.json().result).toEqual('success');
             });
     }));
 
-    it('should be defined response of the getStore', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a rowData', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
         let path = '/orientdb//query/smsc/sql/select%20from%20Customer/20';
         let className = 'Customer';
         let body = {
