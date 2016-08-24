@@ -8,8 +8,6 @@ import { AuthService } from "./services/auth/auth.service";
 import { TokenService } from "./services/auth/token.service";
 import { CrudService } from "./crud/crud.service";
 import { AuthGuard } from "./common/authGuard";
-import { CrudEditResolve } from "./crud/common/crudEditResolve";
-import { CrudCreateResolve } from "./crud/common/crudCreateResolve";
 import { ServiceNotifications } from "./services/serviceNotification";
 import { LoadingGridService } from "./services/loadingGrid.service";
 
@@ -17,9 +15,7 @@ export * from './app.component';
 export * from './app.service';
 
 export const APP_PROVIDERS = [
-    CrudEditResolve,
     LoadingGridService,
-    CrudCreateResolve,
     CrudService,
     TokenService,
     AuthService,

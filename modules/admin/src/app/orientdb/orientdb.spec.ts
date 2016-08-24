@@ -105,7 +105,7 @@ describe('ODatabaseService', () => {
             .then((res:Response) => {
                 expect(res.json().result).toEqual('success');
             });
-    }));////////
+    }));
 
     it('should return the record informations', inject([ MockBackend, Http, ODatabaseService ], (backend:MockBackend, http:Http, db:ODatabaseService) => {
         let body = {
