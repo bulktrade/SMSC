@@ -84,12 +84,66 @@ describe('ODatabaseService', () => {
     }));
 
     it('should be defined response of the create', inject([ MockBackend, Http, ODatabaseService ], (backend:MockBackend, http:Http, db:ODatabaseService) => {
+        let path = '/orientdb/database/smsc/local/document';
+
         backend.connections.subscribe(c => {
+            expect(c.request.url).toEqual(path);
             let response = new ResponseOptions({ body: '{"properties": "success"}' });
             c.mockRespond(new Response(response));
         });
 
         db.create('root', '12t')
+            .then((res) => {
+                expect(res).toBeDefined();
+            }, (error) => {
+                expect(error).toBeDefined();
+            });
+    }));
+
+    it('should be defined response of the metadata', inject([ MockBackend, Http, ODatabaseService ], (backend:MockBackend, http:Http, db:ODatabaseService) => {
+        let path = '/orientdb//database/smsc';
+
+        backend.connections.subscribe(c => {
+            expect(c.request.url).toEqual(path);
+            let response = new ResponseOptions({ body: '{"properties": "success"}' });
+            c.mockRespond(new Response(response));
+        });
+
+        db.metadata()
+            .then((res) => {
+                expect(res).toBeDefined();
+            }, (error) => {
+                expect(error).toBeDefined();
+            });
+    }));
+
+    it('should be defined response of the load', inject([ MockBackend, Http, ODatabaseService ], (backend:MockBackend, http:Http, db:ODatabaseService) => {
+        backend.connections.subscribe(c => {
+            let response = new ResponseOptions({ body: '{"properties": "success"}' });
+            c.mockRespond(new Response(response));
+        });
+
+        db.load('#1:1')
+            .then((res) => {
+                expect(res).toBeDefined();
+            }, (error) => {
+                expect(error).toBeDefined();
+            });
+    }));
+
+    it('should be defined response of the save', inject([ MockBackend, Http, ODatabaseService ], (backend:MockBackend, http:Http, db:ODatabaseService) => {
+        let obj = JSON.stringify({
+            "@rid": "#1:1",
+            "@version": "1",
+            "@class": "Customer"
+        });
+
+        backend.connections.subscribe(c => {
+            let response = new ResponseOptions({ body: '{"properties": "success"}' });
+            c.mockRespond(new Response(response));
+        });
+
+        db.save(obj)
             .then((res) => {
                 expect(res).toBeDefined();
             }, (error) => {
