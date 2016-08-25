@@ -87,6 +87,50 @@ CREATE Class CrudMetaFormData
 CREATE PROPERTY CrudMetaFormData.fieldLayoutGridPosition STRING
 ALTER CLASS CrudMetaFormData SUPERCLASS +CrudPropertyMetaData
 
+INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudPropertyMetaData', 'property', true);
+INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudMetaGridData', 'columnWidth', true);
+INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudMetaFormData', 'fieldLayoutGridPosition', true);
+INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudClassMetaData', 'Class', true);
+
+INSERT INTO CrudPropertyMetaData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 1, '33:0');
+INSERT INTO CrudPropertyMetaData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 1, '33:0');
+INSERT INTO CrudPropertyMetaData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 1, '33:0');
+INSERT INTO CrudPropertyMetaData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 1, '33:0');
+INSERT INTO CrudPropertyMetaData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 1, '33:0');
+
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('columnWidth', true, true, 1, '34:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 1, '34:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 1, '34:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 1, '34:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 1, '34:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 1, '34:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 1, '34:0');
+
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('columnWidth', true, true, 1, '35:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 1, '35:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 1, '35:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 1, '35:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 1, '35:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 1, '35:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 1, '35:0');
+
+
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('fieldLayoutGridPosition', true, true, 1, '34:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 1, '34:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 1, '34:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 1, '34:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 1, '34:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 1, '34:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 1, '34:0');
+
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('fieldLayoutGridPosition', true, true, 1, '35:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 1, '35:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 1, '35:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 1, '35:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 1, '35:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 1, '35:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 1, '35:0');
+
 let customerIdSeqOSequence = SELECT FROM OSequence WHERE name = 'customerIdSeq';
 
 if ($customerIdSeqOSequence.size() == 0) {
