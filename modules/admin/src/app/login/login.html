@@ -1,39 +1,43 @@
 <div id="login">
-	<md-card id="login-card">
-		<md-toolbar class="title" color="primary">{{ 'login.title' | translate }}</md-toolbar>
-		<md-card-content>
-			<form role="form" (submit)="onSubmit(model)" #authenticationForm="ngForm" novalidate>
-				<alert id="errorMessage" *ngIf="isErrorMessage" type="danger" dismissible="true"
-				       (close)="isErrorMessage=false">
-					{{ errorMessage | translate }}
-				</alert>
-				<div id="input-panel">
-					<md-input [class.error]="errorMessage" placeholder="{{ 'login.username' | translate }}"
-					          [(ngModel)]="model.username" type="text"
-					          autocomplete="off" name="username" required>
-					</md-input>
-					<md-input placeholder="{{ 'login.password' | translate }}"
-					          [(ngModel)]="model.password" type="password"
-					          autocomplete="off" name="password" required></md-input>
-				</div>
-				<div class="right-align">
-					<md-slide-toggle color="primary"
-					                 [(ngModel)]="model.rememberMe"
-					                 class="rememberMe"
-					                 name="rememberMe">
-						{{ 'login.rememberMe' | translate }}
-					</md-slide-toggle>
-				</div>
-				<div class="right-align"
-				     [ngSwitch]="loading">
-					<button md-raised-button color="primary" id="submitButton"
-					        [disabled]="!authenticationForm.form.valid || loading">
-						<div *ngSwitchCase="false">{{ 'login.btnLogin' | translate }}</div>
-						<md-progress-circle class="loader" *ngSwitchCase="true"
-						                    mode="indeterminate"></md-progress-circle>
-					</button>
-				</div>
-			</form>
-		</md-card-content>
-	</md-card>
+    <md-card id="login-card">
+        <md-toolbar class="title" color="primary">{{ 'login.title' | translate }}</md-toolbar>
+        <md-card-content>
+            <form role="form" (submit)="onSubmit(model)" #authenticationForm="ngForm" novalidate>
+                <alert *ngIf="errorMessage" type="danger" dismissible="true" (close)="errorMessage=false">
+                    {{ errorMessage | translate }}
+                </alert>
+                <div class="row">
+                    <div class="col-md-6">
+                        <md-input class="username" placeholder="{{ 'login.username' | translate }}"
+                                  [(ngModel)]="model.username" type="text"
+                                  autocomplete="off" name="username" required></md-input>
+                    </div>
+                    <div class="col-md-6">
+                        <md-input class="password" placeholder="{{ 'login.password' | translate }}"
+                                  [(ngModel)]="model.password" type="password"
+                                  autocomplete="off" name="password" required></md-input>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 right-align">
+                        <md-slide-toggle color="primary"
+                                         [(ngModel)]="model.rememberMe"
+                                         class="rememberMe"
+                                         [ngModelOptions]="{standalone: true}">
+                            {{ 'login.rememberMe' | translate }}
+                        </md-slide-toggle>
+                    </div>
+                    <div class="col-sm-12 col-md-6 right-align"
+                         [ngSwitch]="loading">
+                        <button md-raised-button color="primary" id="submitButton"
+                                [disabled]="!authenticationForm.form.valid || loading">
+                            <div *ngSwitchCase="false">{{ 'login.btnLogin' | translate }}</div>
+                            <md-progress-circle class="loader" *ngSwitchCase="true"
+                                                mode="indeterminate"></md-progress-circle>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
 </div>

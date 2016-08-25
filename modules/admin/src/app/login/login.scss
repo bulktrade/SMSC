@@ -15,11 +15,6 @@
     -ms-flex-direction: column;
     flex-direction: column;
 
-    md-hint {
-        color: red;
-        bottom: 0;
-    }
-
     form {
         #input-panel {
             display: flex;
@@ -30,16 +25,7 @@
         }
 
         md-input {
-            &.error {
-                padding-bottom: 5px;
-                margin-bottom: 5px;
-            }
-
-            &:last-child {
-                margin-left: 15px;
-            }
-
-            flex-grow: 1;
+            display: block;
         }
     }
 
