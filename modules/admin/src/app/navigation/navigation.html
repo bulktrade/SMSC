@@ -12,16 +12,16 @@
 
     <div class="header">
         <md-toolbar color="primary">
-            <button id="btn-menu" md-icon-button (click)="start.toggle()">
+            <button [disableRipple]="true" id="btn-menu" md-icon-button (click)="start.toggle()">
                 <md-icon class="md-24" >menu</md-icon>
             </button>
             <div class="toolbar">
                 <h1 [routerLink]="['/', '']">{{ 'project.title' | translate }}</h1>
                 <div style="width: 100%"></div>
-                <button md-icon-button class="pull-right">
+                <button [disableRipple]="true" md-icon-button class="pull-right">
                     <md-icon class="md-24" >person</md-icon>
                 </button>
-                <button md-icon-button (click)="logout()" class="pull-right">
+                <button [disableRipple]="true" md-icon-button (click)="logout()" class="pull-right">
                     <md-icon class="md-24" >subdirectory_arrow_left</md-icon>
                 </button>
             </div>
@@ -29,5 +29,4 @@
     </div>
 
     <simple-notifications [options]="notificationOptions"></simple-notifications>
-
 </div>

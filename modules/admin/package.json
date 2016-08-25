@@ -105,6 +105,7 @@
     "awesome-typescript-loader": "~0.17.0",
     "bootstrap": "4.0.0-alpha.2",
     "bootstrap-loader": "^1.0.10",
+    "bootstrap-material-design": "^0.5.10",
     "codelyzer": "~0.0.19",
     "compression-webpack-plugin": "^0.3.1",
     "copy-webpack-plugin": "^2.1.3",

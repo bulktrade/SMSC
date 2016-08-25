@@ -14,6 +14,7 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
         require('webpack-material-design-icons/material-design-icons.css'),
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-material.css'),
+        require('bootstrap-material-design/dist/css/bootstrap-material-design.css'),
         require('ng2-select/components/css/ng2-select.css')
     ],
     styles: [
