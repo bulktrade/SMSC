@@ -158,12 +158,12 @@ export class CrudService {
         let columnDefs = event.colDef;
 
         switch (columnDefs.type) {
-            case 15:
-            case 13:
+            case "LINKSET":
+            case "LINK":
                 this.isActiveLinkset = columnDefs.field;
                 break;
 
-            case 10:
+            case "EMBEDDEDLIST":
                 this.embeddedList = columnDefs.custom[ 'type' ] || '';
                 break;
         }
@@ -347,36 +347,15 @@ export class CrudService {
             .from('CrudMetaGridData')
             .where('crudClassMetaData.class = ?', className);
 
-        let queryCrudMetaFormDataa = squel.select()
+        let queryCrudMetaFormData = squel.select()
             .from('CrudMetaFormData')
             .where('crudClassMetaData.class = ?', className);
 
-        return this.databaseService.query(queryCrudMetaGridData.toString())
+        return this.databaseService.getInfoClass(this.getClassName())
             .then((res: Response) => {
-                let result = res.json()[ 'result' ];
+                let properties = res.json().properties;
 
-                for (let i in result) {
-                    let column = result[ i ];
-
-                    this.translate.get(result[ i ][ 'property' ].toUpperCase())
-                        .toPromise()
-                        .then((headerName) => {
-                            column[ 'headerName' ] = headerName;
-                            column[ 'field' ] = result[ i ][ 'property' ];
-                            column[ 'hide' ] = !result[ i ][ 'visible' ];
-                            column[ 'width' ] = result[ i ][ 'columnWidth' ];
-
-                            this.getPropertyMetadata(result[ i ][ 'property' ], column, true);
-                            columnDefs.grid.push(column);
-                        });
-                }
-
-            }, (error) => {
-                this.dataNotFound = true;
-                this.errorMessage = 'orientdb.dataNotFound';
-            })
-            .then(() => {
-                return this.databaseService.query(queryCrudMetaFormDataa.toString())
+                return this.databaseService.query(queryCrudMetaGridData.toString())
                     .then((res: Response) => {
                         let result = res.json()[ 'result' ];
 
@@ -387,52 +366,86 @@ export class CrudService {
                                 .toPromise()
                                 .then((headerName) => {
                                     column[ 'headerName' ] = headerName;
+                                    column[ 'field' ] = result[ i ][ 'property' ];
+                                    column[ 'hide' ] = !result[ i ][ 'visible' ];
+                                    column[ 'width' ] = result[ i ][ 'columnWidth' ];
 
-                                    this.getPropertyMetadata(result[ i ][ 'property' ], column, false);
-                                    columnDefs.form.push(column);
+                                    this.getPropertyMetadata(column, true, properties);
+                                    columnDefs.grid.push(column);
                                 });
                         }
 
-                        columnDefs.grid.sort(this.compare);
-                        columnDefs.form.sort(this.compare);
+                    }, (error) => {
+                        this.dataNotFound = true;
+                        this.errorMessage = 'orientdb.dataNotFound';
+                    })
+                    .then(() => {
+                        return this.databaseService.query(queryCrudMetaFormData.toString())
+                            .then((res: Response) => {
+                                let result = res.json()[ 'result' ];
 
-                        return Promise.resolve(columnDefs);
+                                for (let i in result) {
+                                    let column = result[ i ];
+
+                                    this.translate.get(result[ i ][ 'property' ].toUpperCase())
+                                        .toPromise()
+                                        .then((headerName) => {
+                                            column[ 'headerName' ] = headerName;
+
+                                            this.getPropertyMetadata(column, false, properties);
+                                            columnDefs.form.push(column);
+                                        });
+                                }
+
+                                columnDefs.grid.sort(this.compare);
+                                columnDefs.form.sort(this.compare);
+
+                                return Promise.resolve(columnDefs);
+                            }, (error) => {
+                                this.dataNotFound = true;
+                                this.errorMessage = 'orientdb.dataNotFound';
+                            })
                     }, (error) => {
                         this.dataNotFound = true;
                         this.errorMessage = 'orientdb.dataNotFound';
                     })
             }, (error) => {
-                this.dataNotFound = true;
-                this.errorMessage = 'orientdb.dataNotFound';
-            })
+                this.serviceNotifications.createNotificationOnResponse(error);
+                return Promise.reject(error);
+            });
     }
 
-    getPropertyMetadata(property, column, isGrid: boolean) {
+    // to get additional metadata for the property. As the type linkedClass, mandatory, etc.
+    getPropertyMetadata(column, isGrid: boolean, properties) {
         let metadataGridProperty = [ 'linkedClass', 'type' ];
         let metadataFormProperty = [ 'mandatory', 'type' ];
-        let sql = sprintf('select classes[name="%s"].properties[name="%s"] FROM metadata:schema',
-            this.getClassName(), property);
+        let property;
 
-        return this.databaseService.query(sql)
-            .then((res: Response) => {
-                let result = res.json()[ 'result' ][ 0 ].classes;
+        if (isGrid) {
+            property = properties.filter((obj) => {
+                return obj.name === column.field;
+            })[ 0 ];
 
-                if (isGrid) {
-                    metadataGridProperty.forEach((i) => {
-                        column[ i ] = result[ i ];
-                    });
-                } else {
-                    metadataFormProperty.forEach((i) => {
-                        column[ i ] = result[ i ];
-                    });
-                }
+            if (property) {
+                metadataGridProperty.forEach((i) => {
+                    if (property.hasOwnProperty(i)) {
+                        column[ i ] = property[ i ];
+                    }
+                });
+            }
+        } else {
+            property = properties.filter((obj) => {
+                return obj.name === column.property;
+            })[ 0 ];
 
-                return Promise.resolve(column);
-            }, (error) => {
-                this.serviceNotifications.createNotificationOnResponse(error);
-
-                return Promise.reject(error);
-            })
+            if (property) {
+                metadataFormProperty.forEach((i) => {
+                    if (property.hasOwnProperty(i)) {
+                        column[ i ] = property[ i ];
+                    }
+                });
+            }
+        }
     }
 
     compare(a, b) {
