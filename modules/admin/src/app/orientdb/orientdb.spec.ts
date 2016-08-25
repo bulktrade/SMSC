@@ -142,7 +142,7 @@ describe('ODatabaseService', () => {
         db.save(obj)
             .then((res:Response) => {
                 expect(res.json().result).toEqual('success');
-            };
+            });
     }));
 
 });

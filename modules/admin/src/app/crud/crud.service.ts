@@ -10,6 +10,7 @@ import { ServiceNotifications } from "../services/serviceNotification";
 import { LoadingGridService } from "../services/loadingGrid.service";
 
 const squel = require('squel');
+declare let sprintf: any;
 
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
 let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
@@ -19,11 +20,11 @@ export class CrudService {
     crudModel = new CrudModel([], []);
 
     public pageSize = 50;
-    public showCrudModify:boolean = false;
-    public isEditForm:boolean = false;
-    public lastCrudElement:any;
+    public showCrudModify: boolean = false;
+    public isEditForm: boolean = false;
+    public lastCrudElement: any;
     public allOfTheData;
-    public focusedRow:any;
+    public focusedRow: any;
     public addingFormValid = false;
     public querySelectors = null;
     public embeddedList = null;
@@ -31,8 +32,8 @@ export class CrudService {
     public rowSelectionLinkset = null;
     public linkedClass = null;
     public showLinksetView = false;
-    public initGridData:Promise<any>;
-    public crud:Promise<any> = Promise.resolve();
+    public initGridData: Promise<any>;
+    public crud: Promise<any> = Promise.resolve();
     public parentPath = null;
     public className = null;
     public dataNotFound = false;
@@ -43,7 +44,7 @@ export class CrudService {
     public titleColumns = {};
     public model = {};
 
-    public gridOptions:GridOptions = {
+    public gridOptions: GridOptions = {
         columnDefs: this.crudModel.columnDefs,
         rowData: this.crudModel.rowData,
         rowSelection: 'multiple',
@@ -51,12 +52,12 @@ export class CrudService {
         rowModelType: 'pagination'
     };
 
-    constructor(public databaseService:ODatabaseService,
-                public router:Router,
-                public route:ActivatedRoute,
-                public translate:TranslateService,
-                public serviceNotifications:ServiceNotifications,
-                public loadingService:LoadingGridService) {
+    constructor(public databaseService: ODatabaseService,
+                public router: Router,
+                public route: ActivatedRoute,
+                public translate: TranslateService,
+                public serviceNotifications: ServiceNotifications,
+                public loadingService: LoadingGridService) {
     }
 
     onFilterChanged(value, gridOptions) {
@@ -74,8 +75,8 @@ export class CrudService {
         }
     }
 
-    createRecord(colsValue):Promise<any> {
-        let params:RequestGetParameters = {
+    createRecord(colsValue): Promise<any> {
+        let params: RequestGetParameters = {
             "nameClass": this.getClassName(),
             "colsValue": colsValue
         };
@@ -127,7 +128,7 @@ export class CrudService {
         return this.crud;
     }
 
-    deleteRecord(rid):Promise<any> {
+    deleteRecord(rid): Promise<any> {
         this.loadingService.start();
 
         this.crud = this.databaseService.delete(rid)
@@ -143,8 +144,8 @@ export class CrudService {
         return this.crud;
     }
 
-    multipleDeleteRecords():Promise<any> {
-        let result:Promise<any>;
+    multipleDeleteRecords(): Promise<any> {
+        let result: Promise<any>;
 
         this.gridOptions.api.getSelectedRows().forEach((i) => {
             result = this.deleteRecord(i.rid);
@@ -157,12 +158,12 @@ export class CrudService {
         let columnDefs = event.colDef;
 
         switch (columnDefs.type) {
-            case 'LINKSET':
-            case 'LINK':
+            case 15:
+            case 13:
                 this.isActiveLinkset = columnDefs.field;
                 break;
 
-            case 'EMBEDDEDLIST':
+            case 10:
                 this.embeddedList = columnDefs.custom[ 'type' ] || '';
                 break;
         }
@@ -180,7 +181,7 @@ export class CrudService {
 
     getStore(className) {
         return this.databaseService.query('select from ' + className)
-            .then((res:Response) => {
+            .then((res: Response) => {
                 let result = res.json()[ 'result' ];
 
                 result.forEach((item) => {
@@ -351,20 +352,21 @@ export class CrudService {
             .where('crudClassMetaData.class = ?', className);
 
         return this.databaseService.query(queryCrudMetaGridData.toString())
-            .then((res:Response) => {
+            .then((res: Response) => {
                 let result = res.json()[ 'result' ];
 
                 for (let i in result) {
-                    let column = result[i];
+                    let column = result[ i ];
 
-                    this.translate.get(result[i]['property'].toUpperCase())
+                    this.translate.get(result[ i ][ 'property' ].toUpperCase())
                         .toPromise()
                         .then((headerName) => {
-                            column['headerName'] = headerName;
-                            column['field'] = result[i]['property'];
-                            column['hide'] = !result[i]['visible'];
-                            column['width'] = result[i]['columnWidth'];
+                            column[ 'headerName' ] = headerName;
+                            column[ 'field' ] = result[ i ][ 'property' ];
+                            column[ 'hide' ] = !result[ i ][ 'visible' ];
+                            column[ 'width' ] = result[ i ][ 'columnWidth' ];
 
+                            this.getGPropertyMetadata(result[ i ][ 'property' ], column, true);
                             columnDefs.grid.push(column);
                         });
                 }
@@ -375,13 +377,26 @@ export class CrudService {
             })
             .then(() => {
                 return this.databaseService.query(queryCrudMetaFormDataa.toString())
-                    .then((res:Response) => {
+                    .then((res: Response) => {
                         let result = res.json()[ 'result' ];
 
-                        columnDefs.grid.sort(this.compare);
-                        columnDefs.form = result;
+                        for (let i in result) {
+                            let column = result[ i ];
 
-                        return columnDefs;
+                            this.translate.get(result[ i ][ 'property' ].toUpperCase())
+                                .toPromise()
+                                .then((headerName) => {
+                                    column[ 'headerName' ] = headerName;
+
+                                    this.getGPropertyMetadata(result[ i ][ 'property' ], column, false);
+                                    columnDefs.form.push(column);
+                                });
+                        }
+
+                        columnDefs.grid.sort(this.compare);
+                        columnDefs.form.sort(this.compare);
+
+                        return Promise.resolve(columnDefs);
                     }, (error) => {
                         this.dataNotFound = true;
                         this.errorMessage = 'orientdb.dataNotFound';
@@ -392,7 +407,33 @@ export class CrudService {
             })
     }
 
-    compare(a,b) {
+    getGPropertyMetadata(property, column, isGrid: boolean) {
+        let metadataGridProperty = [ 'linkedClass', 'type' ];
+        let metadataFormProperty = [ 'mandatory', 'type' ];
+        let sql = sprintf('select classes[name="%s"].properties[name="%s"] FROM metadata:schema',
+            this.getClassName(), property);
+
+        this.databaseService.query(sql)
+            .then((res: Response) => {
+                let result = res.json()[ 'result' ][ 0 ].classes;
+
+                if (isGrid) {
+                    metadataGridProperty.forEach((i) => {
+                        column[ i ] = result[ i ];
+                    });
+                } else {
+                    metadataFormProperty.forEach((i) => {
+                        column[ i ] = result[ i ];
+                    });
+                }
+            }, (error) => {
+                this.serviceNotifications.createNotificationOnResponse(error);
+
+                return Promise.reject(error);
+            })
+    }
+
+    compare(a, b) {
         if (a.order < b.order)
             return -1;
         if (a.order > b.order)
@@ -405,7 +446,7 @@ export class CrudService {
         this.successExecute = false;
     }
 
-    initializationGrid(className, initRowData?:(columnDefs) => void, initColumnDefs?:(rowData) => void):Promise<any> {
+    initializationGrid(className, initRowData?: (columnDefs) => void, initColumnDefs?: (rowData) => void): Promise<any> {
         this.initGridData = new Promise((resolve, reject) => {
             this.getColumnDefs(className, true)
                 .then((columnDefs) => {

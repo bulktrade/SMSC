@@ -2,39 +2,41 @@
 	<loading-grid>
 		<form class="form" #addingForm="ngForm" (submit)="onSubmit()">
 			<div *ngFor="let item of model.columnDefs" [ngSwitch]="item.type">
-				<md-input *ngSwitchCase="'STRING'" placeholder="{{item.headerName}}" name="{{item.headerName}}"
-				          class="{{item.headerName}}"
-				          type="text" autocomplete="off" [(ngModel)]="crudService.model[item.field]"
-				          [required]="item.required"
+				<md-input *ngSwitchCase="7" placeholder="{{item.headerName}}" name="{{item.headerName}}"
+				          class="{{item.headerName}}" [readOnly]="!item.editable" [hidden]="!item.visible"
+				          [required]="item.mandatory"
+				          type="text" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
 				          class="form-control"></md-input>
 				<md-input
-					*ngIf="item.type === 'DOUBLE' || item.type === 'INTEGER' || item.type === 'FLOAT' || item.type === 'BYTE' || item.type === 'DECIMAL'"
+					*ngIf="item.type === 5 || item.type === 1 || item.type === 4 || item.type === 17 || item.type === 21"
 					placeholder="{{item.headerName}}" name="{{item.headerName}}"
-					class="{{item.headerName}}"
-					type="number" autocomplete="off" [(ngModel)]="crudService.model[item.field]"
-					[required]="item.required"
+					class="{{item.headerName}}" [readOnly]="!item.editable" [hidden]="!item.visible"
+					[required]="item.mandatory"
+					type="number" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
 					class="form-control"></md-input>
-				<md-input *ngSwitchCase="'DATETIME'" placeholder="{{item.headerName}}" name="{{item.headerName}}"
-				          class="{{item.headerName}}"
-				          type="datetime" autocomplete="off" [(ngModel)]="crudService.model[item.field]"
-				          [required]="item.required"
+				<md-input *ngSwitchCase="6" placeholder="{{item.headerName}}" name="{{item.headerName}}"
+				          class="{{item.headerName}}" [readOnly]="!item.editable" [hidden]="!item.visible"
+				          [required]="item.mandatory"
+				          type="datetime" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
 				          class="form-control"></md-input>
-				<md-input *ngSwitchCase="'DATE'" placeholder="{{item.headerName}}" name="{{item.headerName}}"
-				          class="{{item.headerName}}"
-				          type="date" autocomplete="off" [(ngModel)]="crudService.model[item.field]"
-				          [required]="item.required"
+				<md-input *ngSwitchCase="19" placeholder="{{item.headerName}}" name="{{item.headerName}}"
+				          class="{{item.headerName}}" [readOnly]="!item.editable" [hidden]="!item.visible"
+				          [required]="item.mandatory"
+				          type="date" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
 				          class="form-control"></md-input>
-				<multiple-select *ngIf="item.type === 'LINKSET' || item.type === 'LINK'"
+				<multiple-select *ngIf="item.type === 15 || item.type === 13"
 				                 [property]="item" [crudService]="crudService"
-				                 [rowSelectionLinkset]="'single'" (isRequired)="crudService.isRequired($event)"></multiple-select>
-				<md-checkbox *ngSwitchCase="'BOOLEAN'"
-				             [(ngModel)]="crudService.model[item.field]" name="{{item.headerName}}" [align]="alignment">
+				                 [rowSelectionLinkset]="'single'"
+				                 (isRequired)="crudService.isRequired($event)"></multiple-select>
+				<md-checkbox *ngSwitchCase="0"
+				             [(ngModel)]="crudService.model[item.property]" name="{{item.headerName}}"
+				             [align]="alignment">
 					{{item.headerName}}
 				</md-checkbox>
-				<ng-select *ngSwitchCase="'EMBEDDEDLIST'" [allowClear]="true"
+				<ng-select *ngSwitchCase="10" [allowClear]="true"
 				           [items]="item.custom.type.split(',')"
-				           (data)="crudService.model[item.field]"
-				           (selected)="crudService.model[item.field] = $event.text"
+				           (data)="crudService.model[item.property]"
+				           (selected)="crudService.model[item.property] = $event.text"
 				           placeholder="{{item.headerName}}">
 				</ng-select>
 			</div>

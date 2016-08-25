@@ -127,8 +127,8 @@ export class CrudView {
     clickOnCell(event) {
         let columnDefs = event.colDef;
 
-        if (columnDefs.type === 'LINKSET' ||
-            columnDefs.type === 'LINK') {
+        if (columnDefs.type === 15 ||
+            columnDefs.type === 13) {
             this.crudService.multiCrud.push({
                 linkedClass: this.crudService.getClassName(),
                 data: event.data,
