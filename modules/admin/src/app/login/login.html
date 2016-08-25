@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6 right-align"
                          [ngSwitch]="loading">
-                        <button md-raised-button color="primary" id="submitButton"
+                        <button [disableRipple]="true" md-raised-button color="primary" id="submitButton"
                                 [disabled]="!authenticationForm.form.valid || loading">
                             <div *ngSwitchCase="false">{{ 'login.btnLogin' | translate }}</div>
                             <md-progress-circle class="loader" *ngSwitchCase="true"

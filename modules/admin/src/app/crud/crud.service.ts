@@ -102,7 +102,7 @@ export class CrudService {
 
         for (let key in value) {
             if (key !== 'rid' && key !== 'version') {
-                colsValue.push(value[ key ]);
+                colsValue.push(value[key]);
             }
         }
 
@@ -182,17 +182,17 @@ export class CrudService {
     getStore(className) {
         return this.databaseService.query('select from ' + className)
             .then((res: Response) => {
-                let result = res.json()[ 'result' ];
+                let result = res.json()['result'];
 
                 result.forEach((item) => {
-                    item[ 'rid' ] = item[ '@rid' ];
-                    item[ 'version' ] = item[ '@version' ];
+                    item['rid'] = item['@rid'];
+                    item['version'] = item['@version'];
 
-                    delete item[ '@rid' ];
-                    delete item[ '@version' ];
-                    delete item[ '@fieldTypes' ];
-                    delete item[ '@class' ];
-                    delete item[ '@type' ];
+                    delete item['@rid'];
+                    delete item['@version'];
+                    delete item['@fieldTypes'];
+                    delete item['@class'];
+                    delete item['@type'];
                 });
 
                 return result;
@@ -281,7 +281,7 @@ export class CrudService {
             cellRenderer: () => {
                 let that = this;
                 let eCell = document.createElement('button');
-                eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())[ 'value' ];
+                eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())['value'];
                 eCell.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
                     "border-radius: 3px; cursor: pointer;");
                 eCell.addEventListener('click', () => {
@@ -305,7 +305,7 @@ export class CrudService {
         var dataSource = {
             pageSize: this.pageSize,
             getRows: (params) => {
-                setTimeout(() => {
+                setTimeout(() => { // @todo timeout???, slice???
                     var rowsThisPage = allOfTheData.slice(params.startRow, params.endRow);
 
                     var lastRow = -1;
@@ -357,7 +357,7 @@ export class CrudService {
 
                 return this.databaseService.query(queryCrudMetaGridData.toString())
                     .then((res: Response) => {
-                        let result = res.json()[ 'result' ];
+                let result = res.json()['result']; // add try / catch, can throws an error
 
                         for (let i in result) {
                             let column = result[ i ];

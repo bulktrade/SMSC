@@ -7,5 +7,5 @@ export const CRUD_ROUTE_PROVIDER = [
     { path: '', component: CrudView },
     { path: 'delete/:id', component: CrudDelete },
     { path: 'create', component: CrudCreate },
-    { path: 'edit', component: CrudEdit },
+    { path: 'edit', component: CrudEdit }, // @todo add /:id and use it
 ];
