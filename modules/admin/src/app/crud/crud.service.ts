@@ -366,7 +366,7 @@ export class CrudService {
                             column[ 'hide' ] = !result[ i ][ 'visible' ];
                             column[ 'width' ] = result[ i ][ 'columnWidth' ];
 
-                            this.getGPropertyMetadata(result[ i ][ 'property' ], column, true);
+                            this.getPropertyMetadata(result[ i ][ 'property' ], column, true);
                             columnDefs.grid.push(column);
                         });
                 }
@@ -388,7 +388,7 @@ export class CrudService {
                                 .then((headerName) => {
                                     column[ 'headerName' ] = headerName;
 
-                                    this.getGPropertyMetadata(result[ i ][ 'property' ], column, false);
+                                    this.getPropertyMetadata(result[ i ][ 'property' ], column, false);
                                     columnDefs.form.push(column);
                                 });
                         }
@@ -407,13 +407,13 @@ export class CrudService {
             })
     }
 
-    getGPropertyMetadata(property, column, isGrid: boolean) {
+    getPropertyMetadata(property, column, isGrid: boolean) {
         let metadataGridProperty = [ 'linkedClass', 'type' ];
         let metadataFormProperty = [ 'mandatory', 'type' ];
         let sql = sprintf('select classes[name="%s"].properties[name="%s"] FROM metadata:schema',
             this.getClassName(), property);
 
-        this.databaseService.query(sql)
+        return this.databaseService.query(sql)
             .then((res: Response) => {
                 let result = res.json()[ 'result' ][ 0 ].classes;
 
@@ -426,6 +426,8 @@ export class CrudService {
                         column[ i ] = result[ i ];
                     });
                 }
+
+                return Promise.resolve(column);
             }, (error) => {
                 this.serviceNotifications.createNotificationOnResponse(error);
 

@@ -27,7 +27,7 @@ describe('Crud Service', () => {
         });
     });
 
-    it('should return a columnDefs with options for grid and form', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a columnDefs with options for grid and form', inject([ MockBackend, CrudService ], (backend:MockBackend, crudService:CrudService) => {
         backend.connections.subscribe(c => {
             let response = new ResponseOptions({ body: '{"properties":[{"name":"test","headerName":"test","field":"test","editable":true,"required":true,"type":"test","linkedClass":"test","custom":"test"}]}' });
             c.mockRespond(new Response(response));
@@ -40,7 +40,7 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should return a successful result after the record is created', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a successful result after the record is created', inject([ MockBackend, CrudService ], (backend:MockBackend, crudService:CrudService) => {
         let path = '/orientdb//batch/smsc';
         let className = 'Customer';
         let colsValue = {
@@ -63,7 +63,7 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should return a successful result after the record is updated', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a successful result after the record is updated', inject([ MockBackend, CrudService ], (backend:MockBackend, crudService:CrudService) => {
         let path = '/orientdb//batch/smsc';
         let colsValue = {
             rid: '#1:1',
@@ -86,7 +86,7 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should return a successful result after deleting a record', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a successful result after deleting a record', inject([ MockBackend, CrudService ], (backend:MockBackend, crudService:CrudService) => {
         let path = '/orientdb//batch/smsc';
         let rid = '#1:1';
 
@@ -104,7 +104,7 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should return a rowData', inject([ MockBackend, Http, CrudService ], (backend:MockBackend, http:Http, crudService:CrudService) => {
+    it('should return a rowData', inject([ MockBackend, CrudService ], (backend:MockBackend, crudService:CrudService) => {
         let path = '/orientdb//query/smsc/sql/select%20from%20Customer/20';
         let className = 'Customer';
         let body = {
@@ -120,6 +120,60 @@ describe('Crud Service', () => {
         crudService.getStore(className)
             .then(res => {
                 expect(res).toBeDefined();
+            });
+    }));
+
+    it('should return a metadata', inject([ MockBackend, CrudService ], (backend:MockBackend, crudService:CrudService) => {
+        let className = 'Customer';
+        let columnGrid:any = {};
+        let columnForm:any = {};
+        let bodyMetaGrid = {
+            "result": [
+                {
+                    "classes": {
+                        "type": 8,
+                        "linkedClass": "Test"
+                    }
+                }
+            ]
+        };
+        let bodyMetaForm = {
+            "result": [
+                {
+                    "classes": {
+                        "type": 15,
+                        "mandatory": true
+                    }
+                }
+            ]
+        };
+
+        crudService.className = className;
+
+        backend.connections.subscribe(c => {
+            let response = new ResponseOptions({ body: JSON.stringify(bodyMetaGrid) });
+            c.mockRespond(new Response(response));
+        });
+
+        crudService.getPropertyMetadata('property', columnGrid, true)
+            .then(res => {
+                let result = res.json()[ 'result' ][ 0 ].classes;
+
+                expect(result.linkedClass).toEqual("Test");
+                expect(result.type).toEqual(8);
+            });
+
+        backend.connections.subscribe(c => {
+            let response = new ResponseOptions({ body: JSON.stringify(bodyMetaForm) });
+            c.mockRespond(new Response(response));
+        });
+
+        crudService.getPropertyMetadata('property', columnForm, false)
+            .then(res => {
+                let result = res.json()[ 'result' ][ 0 ].classes;
+
+                expect(result.mandatory).toBeTruthy();
+                expect(result.type).toEqual(15);
             });
     }));
 
