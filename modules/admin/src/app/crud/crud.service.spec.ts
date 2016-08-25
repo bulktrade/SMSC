@@ -125,56 +125,23 @@ describe('Crud Service', () => {
 
     it('should return a metadata', inject([ MockBackend, CrudService ], (backend:MockBackend, crudService:CrudService) => {
         let className = 'Customer';
+        let properties = [
+            {
+                linkedClass: "Test",
+                type: "STRING",
+                mandatory: true,
+            }
+        ];
         let columnGrid:any = {};
         let columnForm:any = {};
-        let bodyMetaGrid = {
-            "result": [
-                {
-                    "classes": {
-                        "type": 8,
-                        "linkedClass": "Test"
-                    }
-                }
-            ]
-        };
-        let bodyMetaForm = {
-            "result": [
-                {
-                    "classes": {
-                        "type": 15,
-                        "mandatory": true
-                    }
-                }
-            ]
-        };
 
         crudService.className = className;
 
-        backend.connections.subscribe(c => {
-            let response = new ResponseOptions({ body: JSON.stringify(bodyMetaGrid) });
-            c.mockRespond(new Response(response));
-        });
+        crudService.getPropertyMetadata(columnGrid, true, properties);
+        expect(columnGrid.hasOwnProperty('type'));
 
-        crudService.getPropertyMetadata('property', columnGrid, true)
-            .then(res => {
-                let result = res.json()[ 'result' ][ 0 ].classes;
-
-                expect(result.linkedClass).toEqual("Test");
-                expect(result.type).toEqual(8);
-            });
-
-        backend.connections.subscribe(c => {
-            let response = new ResponseOptions({ body: JSON.stringify(bodyMetaForm) });
-            c.mockRespond(new Response(response));
-        });
-
-        crudService.getPropertyMetadata('property', columnForm, false)
-            .then(res => {
-                let result = res.json()[ 'result' ][ 0 ].classes;
-
-                expect(result.mandatory).toBeTruthy();
-                expect(result.type).toEqual(15);
-            });
+        crudService.getPropertyMetadata(columnForm, false, properties)
+        expect(columnForm.hasOwnProperty('type'));
     }));
 
     it('addCheckboxSelection to have been called', inject([ CrudService ], (crudService:CrudService) => {
