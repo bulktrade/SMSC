@@ -102,7 +102,7 @@ export class CrudService {
 
         for (let key in value) {
             if (key !== 'rid' && key !== 'version') {
-                colsValue.push(value[ key ]);
+                colsValue.push(value[key]);
             }
         }
 
@@ -164,7 +164,7 @@ export class CrudService {
                 break;
 
             case 10:
-                this.embeddedList = columnDefs.custom[ 'type' ] || '';
+                this.embeddedList = columnDefs.custom['type'] || '';
                 break;
         }
     }
@@ -182,17 +182,17 @@ export class CrudService {
     getStore(className) {
         return this.databaseService.query('select from ' + className)
             .then((res: Response) => {
-                let result = res.json()[ 'result' ];
+                let result = res.json()['result'];
 
                 result.forEach((item) => {
-                    item[ 'rid' ] = item[ '@rid' ];
-                    item[ 'version' ] = item[ '@version' ];
+                    item['rid'] = item['@rid'];
+                    item['version'] = item['@version'];
 
-                    delete item[ '@rid' ];
-                    delete item[ '@version' ];
-                    delete item[ '@fieldTypes' ];
-                    delete item[ '@class' ];
-                    delete item[ '@type' ];
+                    delete item['@rid'];
+                    delete item['@version'];
+                    delete item['@fieldTypes'];
+                    delete item['@class'];
+                    delete item['@type'];
                 });
 
                 return result;
@@ -281,7 +281,7 @@ export class CrudService {
             cellRenderer: () => {
                 let that = this;
                 let eCell = document.createElement('button');
-                eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())[ 'value' ];
+                eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())['value'];
                 eCell.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
                     "border-radius: 3px; cursor: pointer;");
                 eCell.addEventListener('click', () => {
@@ -305,7 +305,7 @@ export class CrudService {
         var dataSource = {
             pageSize: this.pageSize,
             getRows: (params) => {
-                setTimeout(() => {
+                setTimeout(() => { // @todo timeout???, slice???
                     var rowsThisPage = allOfTheData.slice(params.startRow, params.endRow);
 
                     var lastRow = -1;
@@ -353,20 +353,20 @@ export class CrudService {
 
         return this.databaseService.query(queryCrudMetaGridData.toString())
             .then((res: Response) => {
-                let result = res.json()[ 'result' ];
+                let result = res.json()['result']; // add try / catch, can throws an error
 
                 for (let i in result) {
-                    let column = result[ i ];
+                    let column = result[i];
 
-                    this.translate.get(result[ i ][ 'property' ].toUpperCase())
+                    this.translate.get(result[i]['property'].toUpperCase())
                         .toPromise()
                         .then((headerName) => {
-                            column[ 'headerName' ] = headerName;
-                            column[ 'field' ] = result[ i ][ 'property' ];
-                            column[ 'hide' ] = !result[ i ][ 'visible' ];
-                            column[ 'width' ] = result[ i ][ 'columnWidth' ];
+                            column['headerName'] = headerName;
+                            column['field'] = result[i]['property'];
+                            column['hide'] = !result[i]['visible'];
+                            column['width'] = result[i]['columnWidth'];
 
-                            this.getPropertyMetadata(result[ i ][ 'property' ], column, true);
+                            this.getPropertyMetadata(result[i]['property'], column, true);
                             columnDefs.grid.push(column);
                         });
                 }
@@ -378,17 +378,17 @@ export class CrudService {
             .then(() => {
                 return this.databaseService.query(queryCrudMetaFormDataa.toString())
                     .then((res: Response) => {
-                        let result = res.json()[ 'result' ];
+                        let result = res.json()['result'];
 
                         for (let i in result) {
-                            let column = result[ i ];
+                            let column = result[i];
 
-                            this.translate.get(result[ i ][ 'property' ].toUpperCase())
+                            this.translate.get(result[i]['property'].toUpperCase())
                                 .toPromise()
                                 .then((headerName) => {
-                                    column[ 'headerName' ] = headerName;
+                                    column['headerName'] = headerName;
 
-                                    this.getPropertyMetadata(result[ i ][ 'property' ], column, false);
+                                    this.getPropertyMetadata(result[i]['property'], column, false);
                                     columnDefs.form.push(column);
                                 });
                         }
@@ -408,22 +408,22 @@ export class CrudService {
     }
 
     getPropertyMetadata(property, column, isGrid: boolean) {
-        let metadataGridProperty = [ 'linkedClass', 'type' ];
-        let metadataFormProperty = [ 'mandatory', 'type' ];
+        let metadataGridProperty = ['linkedClass', 'type'];
+        let metadataFormProperty = ['mandatory', 'type'];
         let sql = sprintf('select classes[name="%s"].properties[name="%s"] FROM metadata:schema',
             this.getClassName(), property);
 
         return this.databaseService.query(sql)
             .then((res: Response) => {
-                let result = res.json()[ 'result' ][ 0 ].classes;
+                let result = res.json()['result'][0].classes;
 
                 if (isGrid) {
                     metadataGridProperty.forEach((i) => {
-                        column[ i ] = result[ i ];
+                        column[i] = result[i];
                     });
                 } else {
                     metadataFormProperty.forEach((i) => {
-                        column[ i ] = result[ i ];
+                        column[i] = result[i];
                     });
                 }
 

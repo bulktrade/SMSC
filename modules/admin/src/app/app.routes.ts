@@ -1,4 +1,4 @@
-import { provideRouter, RouterConfig } from "@angular/router";
+import { provideRouter, Routes } from "@angular/router";
 import { AuthGuard } from "./common/authGuard";
 import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
@@ -12,7 +12,7 @@ import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridDa
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
 import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
 
-const routes:RouterConfig = [
+const routes: Routes = [
     {
         path: 'login',
         component: Login
@@ -20,7 +20,7 @@ const routes:RouterConfig = [
     {
         path: '',
         component: Navigation,
-        canActivate: [ AuthGuard ],
+        canActivate: [AuthGuard],
         children: [
             {
                 path: '',
