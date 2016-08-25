@@ -12,20 +12,21 @@ import { Response } from "@angular/http";
     ],
     template: require('./login.html'),
     directives: [],
-    pipes: [TranslatePipe],
+    pipes: [ TranslatePipe ],
     styles: [
         require('./login.scss')
     ]
 })
 export class Login implements OnInit {
-    errorMessage:string = null;
-    loading:boolean = false;
+    errorMessage: string = null;
+    isErrorMessage: boolean = false;
+    loading: boolean = false;
 
     model = new LoginModel('', '', false);
 
-    constructor(public router:Router,
-                public translate:TranslateService,
-                public authService:AuthService) {
+    constructor(public router: Router,
+                public translate: TranslateService,
+                public authService: AuthService) {
     }
 
     ngOnInit() {
@@ -42,7 +43,7 @@ export class Login implements OnInit {
                 }
             )
             .catch(
-                (err:Response) => {
+                (err: Response) => {
                     switch (err.status) {
                         case 400:
                             this.errorMessage = 'login.userNotFound';
@@ -53,6 +54,7 @@ export class Login implements OnInit {
                     }
 
                     this.loading = false;
+                    this.isErrorMessage = true;
                 }
             );
     }

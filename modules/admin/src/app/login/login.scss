@@ -21,13 +21,25 @@
     }
 
     form {
+        #input-panel {
+            display: flex;
+        }
+
+        #errorMessage {
+            text-align: center;
+        }
+
         md-input {
             &.error {
                 padding-bottom: 5px;
                 margin-bottom: 5px;
             }
 
-            display: block;
+            &:last-child {
+                margin-left: 15px;
+            }
+
+            flex-grow: 1;
         }
     }
 
@@ -73,6 +85,14 @@
             #submitButton {
                 margin-top: 10px;
                 width: 100%;
+            }
+
+            #input-panel {
+                flex-direction: column;
+
+                md-input:last-child {
+                    margin-left: 0;
+                }
             }
         }
     }
