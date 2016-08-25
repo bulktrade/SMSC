@@ -15,18 +15,8 @@
     -ms-flex-direction: column;
     flex-direction: column;
 
-    md-hint {
-        color: red;
-        bottom: 0;
-    }
-
     form {
         md-input {
-            &.error {
-                padding-bottom: 5px;
-                margin-bottom: 5px;
-            }
-
             display: block;
         }
     }

@@ -169,7 +169,7 @@
     "typings": "^0.8.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
+    "webpack-dev-server": "^1.15.0",
     "webpack-material-design-icons": "0.0.2",
     "webpack-md5-hash": "^0.0.5",
     "webpack-merge": "^0.12.0"
