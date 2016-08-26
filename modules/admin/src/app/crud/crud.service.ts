@@ -357,28 +357,39 @@ export class CrudService {
             .from('CrudMetaFormData')
             .where('crudClassMetaData.class = ?', className);
 
-        return this.databaseService.getInfoClass(this.getClassName())
+        return this.databaseService.getInfoClass(className)
             .then((res: Response) => {
                 let properties = res.json().properties;
 
                 return this.databaseService.query(queryCrudMetaGridData.toString())
                     .then((res: Response) => {
-                        let result = res.json()['result']; // add try / catch, can throws an error
+                        let isExistColumn = res.json()['result'].length;
+                        let result = isExistColumn ? res.json()['result'] : properties; // add try / catch, can throws an error
 
                         for (let i in result) {
                             let column = result[i];
 
-                            this.translate.get(result[i]['property'].toUpperCase())
-                                .toPromise()
-                                .then((headerName) => {
-                                    column['headerName'] = headerName;
-                                    column['field'] = result[i]['property'];
-                                    column['hide'] = !result[i]['visible'];
-                                    column['width'] = result[i]['columnWidth'];
+                            if (isExistColumn) {
+                                this.translate.get(result[i]['property'].toUpperCase())
+                                    .toPromise()
+                                    .then((headerName) => {
+                                        column['headerName'] = headerName;
+                                        column['field'] = result[i]['property'];
+                                        column['hide'] = !result[i]['visible'];
+                                        column['width'] = result[i]['columnWidth'];
 
-                                    this.getPropertyMetadata(column, true, properties);
-                                    columnDefs.grid.push(column);
-                                });
+                                        this.getPropertyMetadata(column, true, properties);
+                                        columnDefs.grid.push(column);
+                                    });
+                            } else {
+                                this.translate.get(result[i]['name'].toUpperCase())
+                                    .toPromise()
+                                    .then((headerName) => {
+                                        column['headerName'] = headerName;
+                                        column['field'] = result[i]['name'];
+                                        columnDefs.grid.push(column);
+                                    });
+                            }
                         }
 
                     }, (error) => {
@@ -388,23 +399,39 @@ export class CrudService {
                     .then(() => {
                         return this.databaseService.query(queryCrudMetaFormData.toString())
                             .then((res: Response) => {
-                                let result = res.json()['result'];
+                                let isExistForm = res.json()['result'].length;
+                                let result = isExistForm ? res.json()['result'] : properties;
 
                                 for (let i in result) {
                                     let column = result[i];
 
-                                    this.translate.get(result[i]['property'].toUpperCase())
-                                        .toPromise()
-                                        .then((headerName) => {
-                                            column['headerName'] = headerName;
+                                    if (isExistForm) {
+                                        this.translate.get(result[i]['property'].toUpperCase())
+                                            .toPromise()
+                                            .then((headerName) => {
+                                                column['headerName'] = headerName;
 
-                                            this.getPropertyMetadata(column, false, properties);
-                                            columnDefs.form.push(column);
-                                        });
+                                                this.getPropertyMetadata(column, false, properties);
+                                                columnDefs.form.push(column);
+                                            });
+                                    }else {
+                                        this.translate.get(result[i]['name'].toUpperCase())
+                                            .toPromise()
+                                            .then((headerName) => {
+                                                column['headerName'] = headerName;
+                                                column['property'] = result[i]['name'];
+                                                column['editable'] = !result[i]['mandatory'];
+                                                column['visible'] = true;
+
+                                                columnDefs.form.push(column);
+                                            });
+                                    }
                                 }
 
-                                columnDefs.grid.sort(this.compare);
-                                columnDefs.form.sort(this.compare);
+                                if (isExistForm) {
+                                    columnDefs.grid.sort(this.compare);
+                                    columnDefs.form.sort(this.compare);
+                                }
 
                                 return Promise.resolve(columnDefs);
                             }, (error) => {
@@ -471,6 +498,7 @@ export class CrudService {
         return this.initGridData = this.getColumnDefs(className, true)
                 .then((columnDefs) => {
                     this.gridOptions.columnDefs = isGrid ? columnDefs.grid : columnDefs.form;
+
                     this.addColumnCheckbox(columnDefs, this.gridOptions);
                     if (initColumnDefs) {
                         initColumnDefs(columnDefs);

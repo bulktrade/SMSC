@@ -40,10 +40,13 @@ export class MultipleSelect {
         }
 
         this.crudService.initGridData.then(() => {
-
             this.crudService.rowSelectionLinkset = this.rowSelectionLinkset;
-            let linkset = Array.isArray(this.crudService.model[this.property.property]) ?
-                this.crudService.model[this.property.property] : this.crudService.model[this.property.property].split(',');
+            let linkset = [];
+
+            if (this.crudService.model[this.property.property]) {
+                linkset = (Array.isArray(this.crudService.model[this.property.property]) ?
+                    this.crudService.model[this.property.property] : this.crudService.model[this.property.property].split(','));
+            }
 
             if (linkset) {
                 linkset.forEach((item) => {
