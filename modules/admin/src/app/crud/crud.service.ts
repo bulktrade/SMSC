@@ -22,6 +22,7 @@ export class CrudService {
     public pageSize = 50;
     public showCrudModify: boolean = false;
     public isEditForm: boolean = false;
+    public modifiedRecord: any = {};
     public lastCrudElement: any;
     public allOfTheData;
     public focusedRow: any;
@@ -164,7 +165,7 @@ export class CrudService {
                 break;
 
             case "EMBEDDEDLIST":
-                this.embeddedList = columnDefs.custom[ 'type' ] || '';
+                this.embeddedList = columnDefs.custom['type'] || '';
                 break;
         }
     }
@@ -203,7 +204,7 @@ export class CrudService {
         return cubeGridHtml + '<style>' + cubeGridStyle + '</style>';
     }
 
-    addCheckboxSelection(columnDefs, gridOptions) {
+    addColumnCheckbox(columnDefs, gridOptions) {
         columnDefs.grid.unshift({
             headerName: " ",
             field: "checkboxSel",
@@ -286,7 +287,7 @@ export class CrudService {
                     "border-radius: 3px; cursor: pointer;");
                 eCell.addEventListener('click', () => {
                     if (nameBtn === 'Edit') {
-                        that.router.navigateByUrl(that.parentPath + '/edit');
+                        this.navigateToEdit();
                     } else if (nameBtn === 'Create') {
                         that.router.navigateByUrl(that.parentPath + '/create');
                     }
@@ -295,6 +296,11 @@ export class CrudService {
             },
             hideInForm: true
         });
+    }
+
+    navigateToEdit() {
+        this.setModel(this.gridOptions.rowData[this.focusedRow]);
+        this.router.navigateByUrl(this.parentPath + '/edit');
     }
 
     createNewDatasource(allOfTheData, gridOptions) {
@@ -357,18 +363,18 @@ export class CrudService {
 
                 return this.databaseService.query(queryCrudMetaGridData.toString())
                     .then((res: Response) => {
-                let result = res.json()['result']; // add try / catch, can throws an error
+                        let result = res.json()['result']; // add try / catch, can throws an error
 
                         for (let i in result) {
-                            let column = result[ i ];
+                            let column = result[i];
 
-                            this.translate.get(result[ i ][ 'property' ].toUpperCase())
+                            this.translate.get(result[i]['property'].toUpperCase())
                                 .toPromise()
                                 .then((headerName) => {
-                                    column[ 'headerName' ] = headerName;
-                                    column[ 'field' ] = result[ i ][ 'property' ];
-                                    column[ 'hide' ] = !result[ i ][ 'visible' ];
-                                    column[ 'width' ] = result[ i ][ 'columnWidth' ];
+                                    column['headerName'] = headerName;
+                                    column['field'] = result[i]['property'];
+                                    column['hide'] = !result[i]['visible'];
+                                    column['width'] = result[i]['columnWidth'];
 
                                     this.getPropertyMetadata(column, true, properties);
                                     columnDefs.grid.push(column);
@@ -382,15 +388,15 @@ export class CrudService {
                     .then(() => {
                         return this.databaseService.query(queryCrudMetaFormData.toString())
                             .then((res: Response) => {
-                                let result = res.json()[ 'result' ];
+                                let result = res.json()['result'];
 
                                 for (let i in result) {
-                                    let column = result[ i ];
+                                    let column = result[i];
 
-                                    this.translate.get(result[ i ][ 'property' ].toUpperCase())
+                                    this.translate.get(result[i]['property'].toUpperCase())
                                         .toPromise()
                                         .then((headerName) => {
-                                            column[ 'headerName' ] = headerName;
+                                            column['headerName'] = headerName;
 
                                             this.getPropertyMetadata(column, false, properties);
                                             columnDefs.form.push(column);
@@ -417,31 +423,31 @@ export class CrudService {
 
     // to get additional metadata for the property. As the type linkedClass, mandatory, etc.
     getPropertyMetadata(column, isGrid: boolean, properties) {
-        let metadataGridProperty = [ 'linkedClass', 'type' ];
-        let metadataFormProperty = [ 'mandatory', 'type' ];
+        let metadataGridProperty = ['linkedClass', 'type'];
+        let metadataFormProperty = ['mandatory', 'type', 'linkedClass'];
         let property;
 
         if (isGrid) {
             property = properties.filter((obj) => {
                 return obj.name === column.field;
-            })[ 0 ];
+            })[0];
 
             if (property) {
                 metadataGridProperty.forEach((i) => {
                     if (property.hasOwnProperty(i)) {
-                        column[ i ] = property[ i ];
+                        column[i] = property[i];
                     }
                 });
             }
         } else {
             property = properties.filter((obj) => {
                 return obj.name === column.property;
-            })[ 0 ];
+            })[0];
 
             if (property) {
                 metadataFormProperty.forEach((i) => {
                     if (property.hasOwnProperty(i)) {
-                        column[ i ] = property[ i ];
+                        column[i] = property[i];
                     }
                 });
             }
@@ -461,11 +467,11 @@ export class CrudService {
         this.successExecute = false;
     }
 
-    initializationGrid(className, initRowData?: (columnDefs) => void, initColumnDefs?: (rowData) => void): Promise<any> {
-        this.initGridData = new Promise((resolve, reject) => {
-            this.getColumnDefs(className, true)
+    initGrid(className, isGrid: boolean, initRowData?: (columnDefs) => void, initColumnDefs?: (rowData) => void): Promise<any> {
+        return this.initGridData = this.getColumnDefs(className, true)
                 .then((columnDefs) => {
-                    this.crudModel.columnDefs = columnDefs.grid;
+                    this.gridOptions.columnDefs = isGrid ? columnDefs.grid : columnDefs.form;
+                    this.addColumnCheckbox(columnDefs, this.gridOptions);
                     if (initColumnDefs) {
                         initColumnDefs(columnDefs);
                     }
@@ -474,26 +480,50 @@ export class CrudService {
                     // init the row data
                     this.getStore(className)
                         .then((store) => {
-                            this.crudModel.rowData = store;
+                            this.gridOptions.rowData = store;
+                            this.setRowData(store, this.gridOptions);
+
                             if (initRowData) {
                                 initRowData(store);
                             }
-                            resolve();
+
+                            return Promise.resolve(res);
                         }, (error) => {
                             this.dataNotFound = true;
                             this.errorMessage = 'orientdb.dataNotFound';
                         });
                 });
-        });
+    }
 
-        return this.initGridData;
+    setClassName(className) {
+        this.className = className;
     }
 
     getClassName() {
-        if (this.linkedClass) {
-            return this.linkedClass;
-        } else {
-            return this.className;
-        }
+        return this.className;
+    }
+
+    setModifiedRecord(ridModifiedRecord) {
+        this.modifiedRecord = ridModifiedRecord;
+    }
+
+    getModifiedRecord() {
+        return this.modifiedRecord;
+    }
+
+    setLinkedClass(linkedClass) {
+        this.linkedClass = linkedClass;
+    }
+
+    getLinkedClass() {
+        return this.linkedClass;
+    }
+
+    setParentPath(parentPath) {
+        this.parentPath = parentPath;
+    }
+
+    setModel(model) {
+        this.model = model;
     }
 }

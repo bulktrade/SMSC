@@ -29,11 +29,11 @@ describe('Crud Create', () => {
     }));
 
     it('should be columnDefs', inject([ CrudCreate ], (crudCreate) => {
-        expect(crudCreate.model.columnDefs).toBeDefined();
+        expect(crudCreate.crudService.gridOptions.hasOwnProperty('columnDefs')).toBeTruthy();
     }));
 
     it('should be rowData', inject([ CrudCreate ], (crudCreate) => {
-        expect(crudCreate.model.rowData).toBeDefined();
+        expect(crudCreate.crudService.gridOptions.hasOwnProperty('rowData')).toBeTruthy();
     }));
 
 });

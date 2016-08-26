@@ -144,12 +144,12 @@ describe('Crud Service', () => {
         expect(columnForm.hasOwnProperty('type'));
     }));
 
-    it('addCheckboxSelection to have been called', inject([ CrudService ], (crudService:CrudService) => {
-        spyOn(crudService, 'addCheckboxSelection');
+    it('addColumnCheckbox to have been called', inject([ CrudService ], (crudService:CrudService) => {
+        spyOn(crudService, 'addColumnCheckbox');
 
-        crudService.addCheckboxSelection(crudService.crudModel.columnDefs, crudService.gridOptions);
+        crudService.addColumnCheckbox(crudService.crudModel.columnDefs, crudService.gridOptions);
 
-        expect(crudService.addCheckboxSelection).toHaveBeenCalledWith(crudService.crudModel.columnDefs, crudService.gridOptions);
+        expect(crudService.addColumnCheckbox).toHaveBeenCalledWith(crudService.crudModel.columnDefs, crudService.gridOptions);
     }));
 
     it('btnRenderer to have been called', inject([ CrudService ], (crudService:CrudService) => {

@@ -1,0 +1,78 @@
+#windowGrid {
+    height: 100%;
+
+    loading-router-outlet {
+        display: flex;
+    }
+
+    ag-grid-ng2 {
+        height: calc(100% - 79px);
+    }
+
+    .view-wrap {
+        height: inherit;
+    }
+
+    .wrapGrid {
+        display: block;
+        height: 100%;}
+
+    .opionPanel {
+        display: flex;
+        padding-bottom: 16px;
+    }
+
+    .searchPanel {
+        display: flex;
+        float: left;
+        flex-grow: 2;
+
+        .searchBtn {
+            margin-top: 8px;
+        }
+
+        md-input {
+            padding-left: 14px;
+            width: 100%;
+        }
+    }
+
+    .buttonsPanel {
+        padding: 6px 14px 0 0;
+        flex-grow: 1;
+    }
+
+    .navigationBtn {
+        padding: 14px;
+    }
+
+    .buttons {
+        display: flex;
+	    font-size: 14px;
+
+        button {
+            margin-left: 7px;
+        }
+	}
+
+	alert {
+        text-align: center;
+    }
+}
+
+@media all and (min-width: 550px) {
+    .buttons {
+        justify-content: flex-end;
+    }
+}
+
+@media all and (max-width: 550px) {
+    .opionPanel {
+        flex-direction: column;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+}
+

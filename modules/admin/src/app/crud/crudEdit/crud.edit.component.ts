@@ -32,7 +32,6 @@ import { LoadingGrid } from "../../common/loadingGrid";
 
 export class CrudEdit {
     public btnName:string = 'UPDATE';
-    public model = new CrudModel([], []);
 
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
@@ -42,45 +41,15 @@ export class CrudEdit {
     }
 
     ngOnInit() {
-        this.crudService.className = this.route.parent.parent.routeConfig.data[ 'crudClass' ];
-        this.crudService.parentPath = this.router.url;
-
-        if (!this.crudService.linkedClass) {
-            this.crudService.multiCrud.push({
-                goto: 'formEdit',
-                className: this.crudService.getClassName()
-            });
-        }
-
-        if (this.crudService.lastCrudElement) {
-            this.crudService.model = this.crudService.lastCrudElement.model || {};
-            this.crudService.linkedClass = this.crudService.lastCrudElement.className;
-        }
-        this.crudService.lastCrudElement = null;
-
-        this.crudService.initializationGrid(this.crudService.getClassName(),
-            (rowData) => {
-                if (!this.crudService.isEditForm) {
-                    this.crudService.model = this.crudService.crudModel.rowData[ this.crudService.focusedRow ];
-                    this.crudService.isEditForm = false;
-                }
-
-                this.model.rowData = rowData;
-            },
-            (columnDefs) => {
-                this.model.columnDefs = columnDefs;
-            });
     }
 
     back() {
-        this.crudService.multiCrud.pop();
         this.location.back();
     }
 
     ngOnDestroy() {
         this.crudService.addingFormValid = false;
         this.crudService.isEditForm = false;
-        this.crudService.model = {};
     }
 
     onSubmit() {

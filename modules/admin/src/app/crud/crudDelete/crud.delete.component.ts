@@ -35,10 +35,6 @@ export class CrudDelete {
 
     confirm() {
         this.crudService.multipleDeleteRecords();
-
-        this.crudService.crud.then(() => {
-            this.location.back();
-        });
     }
 
 }

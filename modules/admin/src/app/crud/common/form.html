@@ -1,7 +1,7 @@
 <div class="addingForm">
 	<loading-grid>
 		<form class="form" #addingForm="ngForm" (submit)="onSubmit()">
-			<div *ngFor="let item of model.columnDefs" [ngSwitch]="item.type">
+			<div *ngFor="let item of crudService.gridOptions.columnDefs" [ngSwitch]="item.type">
 				<md-input *ngSwitchCase="'STRING'" placeholder="{{item.headerName}}" name="{{item.headerName}}"
 				          class="{{item.headerName}}" [readOnly]="!item.editable" [hidden]="!item.visible"
 				          [required]="item.mandatory"
@@ -25,7 +25,7 @@
 				          type="date" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
 				          class="form-control"></md-input>
 				<multiple-select *ngIf="item.type === 'LINKSET' || item.type === 'LINK'"
-				                 [property]="item" [crudService]="crudService"
+				                 [property]="item"
 				                 [rowSelectionLinkset]="'single'"
 				                 (isRequired)="crudService.isRequired($event)"></multiple-select>
 				<md-checkbox *ngSwitchCase="'BOOLEAN'"

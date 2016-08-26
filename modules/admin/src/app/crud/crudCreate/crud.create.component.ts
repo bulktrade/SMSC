@@ -32,7 +32,6 @@ import { LoadingGrid } from "../../common/loadingGrid";
 
 export class CrudCreate {
     public btnName:string = 'CREATE';
-    public model = new CrudModel([], []);
 
     constructor(public translate:TranslateService,
                 public crudService:CrudService,
@@ -42,44 +41,20 @@ export class CrudCreate {
     }
 
     ngOnInit() {
-        this.crudService.className = this.route.parent.parent.routeConfig.data[ 'crudClass' ];
-        this.crudService.parentPath = this.router.url;
-
-        if (!this.crudService.multiCrud.length) {
-            this.crudService.multiCrud.push({
-                goto: 'formCreate',
-                className: this.crudService.getClassName()
-            });
-        }
-
-        if (this.crudService.lastCrudElement) {
-            this.crudService.model = this.crudService.lastCrudElement.model || {};
-            this.crudService.linkedClass = this.crudService.lastCrudElement.className;
-        }
-        this.crudService.lastCrudElement = null;
-
-        this.crudService.initializationGrid(this.crudService.getClassName(),
-            (rowData) => {
-                this.model.rowData = rowData;
-            },
-            (columnDefs) => {
-                this.model.columnDefs = columnDefs.form;
-            });
     }
 
     back() {
-        this.crudService.multiCrud.pop();
         this.location.back();
     }
 
     ngOnDestroy() {
         this.crudService.addingFormValid = false;
         this.crudService.isEditForm = false;
-        this.crudService.model = {};
     }
 
     onSubmit() {
         this.crudService.createRecord(this.crudService.model);
+        this.crudService.setModel({});
     }
 
 }

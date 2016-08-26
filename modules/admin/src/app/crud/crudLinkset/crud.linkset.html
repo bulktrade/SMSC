@@ -13,17 +13,13 @@
                 </div>
                 <div class="buttonsPanel buttons">
                     <div>
-                        <button md-raised-button color="primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' | translate}}</button>
-                        <button md-raised-button color="warn" [disabled]="!crudService.gridOptions.api.getSelectedRows().length"
-                                (click)="router.navigateByUrl(crudService.parentPath + '/delete');" id="deleteRow">{{'DELETE' | translate}}</button>
+                        <button md-raised-button color="primary" (click)="back()">{{'BACK' | translate}}</button>
+                        <button md-raised-button color="primary" (click)="addLink(crudService.gridOptions)">{{'ADDLINK' | translate}}</button>
                     </div>
                 </div>
             </div>
             <alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true" (close)="crudService.dataNotFound=false">
                 {{ crudService.errorMessage | translate }}
-            </alert>
-            <alert *ngIf="crudService.successExecute" type="success" dismissible="true" (close)="crudService.successExecute=false">
-                {{ crudService.successMessage | translate }}
             </alert>
         </div>
         <loading-grid>
