@@ -13,7 +13,7 @@ export class CrudCreateResolve extends CrudResolve {
     resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot) {
         this.crudService.setClassName(route.parent.parent.data['crudClass']);
 
-        this.crudService.initGrid(this.crudService.getClassName(), false);
+        return this.crudService.initGrid(this.crudService.getClassName(), false);
     }
 
 }
