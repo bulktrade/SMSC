@@ -8,7 +8,6 @@ import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import { SELECT_DIRECTIVES } from "ng2-select";
 import { CrudView } from "../crudView/crud.view.component";
 import { Location } from "@angular/common";
-import { CrudModel } from "../crud.model";
 import { LoadingGrid } from "../../common/loadingGrid";
 
 @Component({
@@ -18,7 +17,7 @@ import { LoadingGrid } from "../../common/loadingGrid";
         require('../common/form.scss'),
         require('../common/style.scss')
     ],
-    providers: [ Location ],
+    providers: [Location],
     directives: [
         MultipleSelect,
         CrudView,
@@ -27,17 +26,17 @@ import { LoadingGrid } from "../../common/loadingGrid";
         BUTTON_DIRECTIVES,
         LoadingGrid
     ],
-    pipes: [ TranslatePipe ]
+    pipes: [TranslatePipe]
 })
 
 export class CrudEdit {
-    public btnName:string = 'UPDATE';
+    public btnName: string = 'UPDATE';
 
-    constructor(public translate:TranslateService,
-                public crudService:CrudService,
-                public router:Router,
-                public route:ActivatedRoute,
-                public location:Location) {
+    constructor(public translate: TranslateService,
+                public crudService: CrudService,
+                public router: Router,
+                public route: ActivatedRoute,
+                public location: Location) {
     }
 
     ngOnInit() {

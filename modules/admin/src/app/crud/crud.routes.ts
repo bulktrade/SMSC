@@ -11,7 +11,7 @@ import { CrudEditResolve } from "./crudEdit/crud.edit.resolve";
 export const CRUD_ROUTE_PROVIDER = [
     { path: '', component: CrudView, resolve: [CrudViewResolve] },
     { path: 'delete/:id', component: CrudDelete },
-    { path: 'edit', component: CrudEdit, resolve: [CrudEditResolve] }, // @todo add /:id and use it
+    { path: 'edit/:id', component: CrudEdit, resolve: [CrudEditResolve] },
     { path: 'create', component: CrudCreate, resolve: [CrudCreateResolve] },
     { path: 'linkset', component: CrudLinkset, resolve: [CrudLinksetResolve] },
 ];

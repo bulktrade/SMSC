@@ -37,6 +37,13 @@ export class CrudView {
         this.router.navigateByUrl(this.crudService.parentPath + '/create');
     }
 
+    navigateToDelete() {
+        let id = this.crudService.getSelectedRID(this.crudService.gridOptions);
+
+        this.router.navigate([this.crudService.parentPath, 'delete',
+            id.join().replace(/\[|\]/gi, '')]);
+    }
+
     clickOnCell(event) {
         if (event.colDef.type === 'LINK' ||
             event.colDef.type === 'LINKSET') {

@@ -723,8 +723,7 @@ export class ODatabaseService {
             'Content-Type': 'application/json'
         });
 
-        return new Promise((resolve, reject) => {
-            this.authHttp.get(this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
+        return this.authHttp.get(this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
                 + iRID + iFetchPlan + this.urlSuffix,
                 headers)
                 .toPromise()
@@ -732,14 +731,14 @@ export class ODatabaseService {
                     res => {
                         this.setErrorMessage(undefined);
                         this.handleResponse(res);
-                        resolve(this.getCommandResult());
+                        return Promise.resolve(this.getCommandResult());
                     },
                     error => {
                         this.handleResponse(undefined);
                         this.setErrorMessage('Query error: ' + error.responseText);
+                        return Promise.reject(error);
                     }
                 );
-        });
     }
 
     save(obj?, errorCallback?, successCallback?) {
