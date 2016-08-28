@@ -10,15 +10,13 @@
 					<md-icon class="md-24">search</md-icon>
 				</button>
 			</div>
-			<div class="buttonsPanel buttons">
-				<div>
-					<button md-raised-button color="primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
-						translate}}
-					</button>
-					<button md-raised-button color="warn" [disabled]="!crudService.gridOptions.api.getSelectedRows().length"
-					        (click)="navigateToDelete()" id="deleteRow">{{'DELETE' | translate}}
-					</button>
-				</div>
+			<div class="buttonsPanel">
+				<button md-raised-button color="primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
+					translate}}
+				</button>
+				<button md-raised-button color="warn" [disabled]="!crudService.gridOptions.api.getSelectedRows().length"
+				        (click)="navigateToDelete()" id="deleteRow">{{'DELETE' | translate}}
+				</button>
 			</div>
 		</div>
 		<alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true"

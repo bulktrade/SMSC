@@ -11,7 +11,7 @@ import { Location } from "@angular/common";
     selector: 'crud-linkset',
     template: require('./crud.linkset.html'),
     styles: [
-        require('./crud.linkset.scss'),
+        require('../common/grid.scss'),
         require('../common/style.scss')
     ],
     providers: [],

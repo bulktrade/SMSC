@@ -10,7 +10,7 @@ import { LoadingGrid } from "../../common/loadingGrid";
     selector: 'crud-view',
     template: require('./crud.view.html'),
     styles: [
-        require('./crud.view.scss'),
+        require('../common/grid.scss'),
         require('../common/style.scss')
     ],
     providers: [],
