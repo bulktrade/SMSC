@@ -20,22 +20,31 @@ export class CrudEditResolve extends CrudResolve {
 
         return this.crudService.databaseService.load(id)
             .then((res: Response) => {
-                let result = res.json();
-                result['rid'] = result['@rid'];
-                result['version'] = result['@version'];
+                let model = res.json();
+                model['rid'] = model['@rid'];
+                model['version'] = model['@version'];
 
-                result = this.crudService.removeProperties(result,
+                model = this.crudService.removeProperties(model,
                     ['@class', '@rid', '@type', '@version', '@fieldTypes']);
 
                 if (!Object.keys(this.crudService.model).length) {
-                    this.crudService.setModel(result);
+                    return Promise.resolve(model);
                 }
             }, error => {
                 this.crudService.serviceNotifications.createNotificationOnResponse(error);
                 this.location.back();
             })
-            .then((res) => {
-                this.crudService.initGrid(this.crudService.getClassName(), false);
+            .then((model) => {
+                return this.crudService.initGrid(this.crudService.getClassName(), false)
+                    .then((initGridData) => {
+                        return Promise.resolve({
+                            initGridData: initGridData,
+                            model: model
+                        });
+                    }, (error) => {
+                        this.crudService.serviceNotifications.createNotificationOnResponse(error);
+                        return Promise.reject(error);
+                    });
             }, (error) => {
                 this.crudService.serviceNotifications.createNotificationOnResponse(error);
                 return Promise.reject(error);

@@ -31,6 +31,7 @@ import { LoadingGrid } from "../../common/loadingGrid";
 })
 
 export class CrudCreate {
+    public resolveData: any;
     public btnName:string = 'CREATE';
 
     constructor(public translate:TranslateService,
@@ -41,6 +42,10 @@ export class CrudCreate {
     }
 
     ngOnInit() {
+        this.resolveData = this.route.snapshot.data['create'];
+
+        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs;
+        this.crudService.gridOptions.rowData = this.resolveData.rowData;
     }
 
     back() {

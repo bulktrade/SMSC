@@ -20,10 +20,8 @@ export class CrudService {
     crudModel = new CrudModel([], []);
 
     public pageSize = 50;
-    public showCrudModify: boolean = false;
     public isEditForm: boolean = false;
     public modifiedRecord: any = {};
-    public lastCrudElement: any;
     public allOfTheData;
     public focusedRow: any;
     public addingFormValid = false;
@@ -32,7 +30,6 @@ export class CrudService {
     public isActiveLinkset = null;
     public rowSelectionLinkset = null;
     public linkedClass = null;
-    public showLinksetView = false;
     public initGridData: Promise<any> = Promise.resolve();
     public crud: Promise<any> = Promise.resolve();
     public parentPath = null;
@@ -40,17 +37,15 @@ export class CrudService {
     public dataNotFound = false;
     public successExecute = false;
     public errorMessage = '';
-    public successMessage = '';
-    public multiCrud = [];
     public titleColumns = {};
     public model = {};
 
     public gridOptions: GridOptions = {
-        columnDefs: this.crudModel.columnDefs,
-        rowData: this.crudModel.rowData,
         rowSelection: 'multiple',
-        rowHeight: 50,
-        rowModelType: 'pagination'
+        rowHeight: 30,
+        rowModelType: 'pagination',
+        columnDefs: [],
+        rowData: []
     };
 
     constructor(public databaseService: ODatabaseService,
@@ -192,14 +187,11 @@ export class CrudService {
                     item['rid'] = item['@rid'];
                     item['version'] = item['@version'];
 
-                    delete item['@rid'];
-                    delete item['@version'];
-                    delete item['@fieldTypes'];
-                    delete item['@class'];
-                    delete item['@type'];
+                    item = this.removeProperties(item, ['@rid', '@version', '@fieldTypes',
+                        '@fieldTypes', '@class', '@type'])
                 });
 
-                return result;
+                return Promise.resolve(result);
             })
     }
 
@@ -285,35 +277,37 @@ export class CrudService {
         }
     }
 
-    btnRenderer(columnDefs, nameBtn) {
+    btnRenderer(columnDefs, nameBtn, clickEvent?: (event) => void) {
         columnDefs.grid.push({
             headerName: " ",
             field: nameBtn.toLowerCase(),
             width: 66,
+            hideInForm: true,
             cellRenderer: () => {
                 let that = this;
                 let eCell = document.createElement('button');
                 eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())['value'];
                 eCell.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
                     "border-radius: 3px; cursor: pointer;");
-                eCell.addEventListener('click', () => {
-
-                    switch (nameBtn) {
-                        case 'Edit':
-                            this.navigateToEdit();
-                            break;
-                        case 'Delete':
-                            let id = this.gridOptions.rowData[this.focusedRow].rid;
-                            that.router.navigate([that.parentPath, 'delete', id]);
-                            break;
-                        default:
-                            break;
+                eCell.addEventListener('click', (event) => {
+                    if (clickEvent) {
+                        clickEvent(event);
                     }
                 });
+
                 return eCell;
-            },
-            hideInForm: true
+            }
         });
+    }
+
+    navigateToEdit() {
+        let id = this.gridOptions.rowData[this.focusedRow].rid;
+        this.router.navigate([this.parentPath, 'edit', id]);
+    }
+
+    navigateToDelete() {
+        let id = this.gridOptions.rowData[this.focusedRow].rid;
+        this.router.navigate([this.parentPath, 'delete', id]);
     }
 
     getSelectedRID(gridOptions) {
@@ -326,38 +320,40 @@ export class CrudService {
         return id;
     }
 
-    navigateToEdit() {
-        let id = this.gridOptions.rowData[this.focusedRow].rid;
-
-        this.router.navigate([this.parentPath, 'edit', id]);
-    }
-
     createNewDatasource(allOfTheData, gridOptions) {
         if (!this.allOfTheData) {
             return;
         }
 
-        var dataSource = {
+        let dataSource = {
             pageSize: this.pageSize,
             getRows: (params) => {
-                setTimeout(() => { // @todo timeout???, slice???
-                    var rowsThisPage = allOfTheData.slice(params.startRow, params.endRow);
+                // @todo timeout???, slice???
+                let rowsThisPage = allOfTheData.slice(params.startRow, params.endRow);
 
-                    var lastRow = -1;
-                    if (allOfTheData.length <= params.endRow) {
-                        lastRow = allOfTheData.length;
-                    }
-                    params.successCallback(rowsThisPage, lastRow);
-                }, 500);
+                let lastRow = -1;
+                if (allOfTheData.length <= params.endRow) {
+                    lastRow = allOfTheData.length;
+                }
+                params.successCallback(rowsThisPage, lastRow);
             }
         };
 
-        gridOptions.api.setDatasource(dataSource);
+        return (dataSource);
     }
 
     setRowData(rowData, gridOptions) {
         this.allOfTheData = rowData;
-        this.createNewDatasource(this.allOfTheData, gridOptions);
+        return this.createNewDatasource(this.allOfTheData, gridOptions);
+    }
+
+    addRIDColumn(columnDefs) {
+        columnDefs.push({
+            headerName: "RID",
+            field: "rid",
+            hideInForm: true,
+            width: 45
+        });
     }
 
     getColumnDefs(className, readOnly) {
@@ -366,16 +362,16 @@ export class CrudService {
             form: []
         };
 
-        columnDefs.grid.push({
-            headerName: "RID",
-            field: "rid",
-            hideInForm: true,
-            width: 45
-        });
+        this.addColumnCheckbox(columnDefs, this.gridOptions);
+        this.addRIDColumn(columnDefs.grid);
 
         if (readOnly) {
-            this.btnRenderer(columnDefs, 'Edit');
-            this.btnRenderer(columnDefs, 'Delete');
+            this.btnRenderer(columnDefs, 'Edit', (clickEvent) => {
+                this.navigateToEdit();
+            });
+            this.btnRenderer(columnDefs, 'Delete', (clickEvent) => {
+                this.navigateToDelete();
+            });
         }
 
         let queryCrudMetaGridData = squel.select()
@@ -523,36 +519,28 @@ export class CrudService {
         this.successExecute = false;
     }
 
-    initGrid(className, isGrid: boolean, initRowData?: (columnDefs) => void, initColumnDefs?: (rowData) => void): Promise<any> {
+    initGrid(className, isGrid: boolean): Promise<any> {
         return this.initGridData = this.getColumnDefs(className, true)
             .then((columnDefs) => {
-                this.gridOptions.columnDefs = isGrid ? columnDefs.grid : columnDefs.form;
 
-                this.addColumnCheckbox(columnDefs, this.gridOptions);
-                if (initColumnDefs) {
-                    initColumnDefs(columnDefs);
-                }
-            })
-            .then((res) => {
-                // init the row data
-                this.getStore(className)
+                return this.getStore(className)
                     .then((store) => {
-                        this.gridOptions.rowData = store;
 
-                        if (this.gridOptions.hasOwnProperty('api')) {
-                            this.setRowData(store, this.gridOptions);
-                        }
-
-                        if (initRowData) {
-                            initRowData(store);
-                        }
-
-                        return Promise.resolve(res);
+                        return Promise.resolve({
+                            columnDefs: isGrid ? columnDefs.grid : columnDefs.form,
+                            rowData: store
+                        });
                     }, (error) => {
-                        this.dataNotFound = true;
-                        this.errorMessage = 'orientdb.dataNotFound';
+                        this.serviceNotifications.createNotificationOnResponse(error);
+
+                        return Promise.reject(error);
                     });
-            });
+
+            })
+    }
+
+    setDatasource(gridOptions) {
+        gridOptions.datasource = this.setRowData(gridOptions.rowData, gridOptions);
     }
 
     setClassName(className) {

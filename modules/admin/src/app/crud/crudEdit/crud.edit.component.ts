@@ -30,6 +30,7 @@ import { LoadingGrid } from "../../common/loadingGrid";
 })
 
 export class CrudEdit {
+    public resolveData: any;
     public btnName: string = 'UPDATE';
 
     constructor(public translate: TranslateService,
@@ -40,6 +41,14 @@ export class CrudEdit {
     }
 
     ngOnInit() {
+        this.resolveData = this.route.snapshot.data['edit'];
+
+        if (this.resolveData.model) {
+            this.crudService.setModel(this.resolveData.model);
+        }
+
+        this.crudService.gridOptions.columnDefs = this.resolveData.initGridData.columnDefs;
+        this.crudService.gridOptions.rowData = this.resolveData.initGridData.rowData;
     }
 
     back() {

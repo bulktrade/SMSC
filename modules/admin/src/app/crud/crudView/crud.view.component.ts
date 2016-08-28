@@ -23,6 +23,8 @@ import { LoadingGrid } from "../../common/loadingGrid";
 })
 
 export class CrudView {
+    public resolveData: any;
+
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
                 public router: Router,
@@ -30,6 +32,11 @@ export class CrudView {
     }
 
     ngOnInit() {
+        this.resolveData = this.route.snapshot.data['view'];
+
+        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs;
+        this.crudService.gridOptions.rowData = this.resolveData.rowData;
+        this.crudService.setDatasource(this.crudService.gridOptions);
     }
 
     navigateToCreate() {

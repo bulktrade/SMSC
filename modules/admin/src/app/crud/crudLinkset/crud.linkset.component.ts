@@ -24,6 +24,7 @@ import { Location } from "@angular/common";
 })
 
 export class CrudLinkset {
+    public resolveData: any;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -33,6 +34,11 @@ export class CrudLinkset {
     }
 
     ngOnInit() {
+        this.resolveData = this.route.snapshot.data['linkset'];
+
+        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs;
+        this.crudService.gridOptions.rowData = this.resolveData.rowData;
+        this.crudService.setDatasource(this.crudService.gridOptions);
     }
 
     back() {

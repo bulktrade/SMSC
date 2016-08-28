@@ -322,19 +322,15 @@ export class ODatabaseService {
             'Content-Type': 'application/json'
         });
 
-        return new Promise((resolve, reject) => {
-            this.authHttp.get(this.urlPrefix + url + this.urlSuffix,
+        return this.authHttp.get(this.urlPrefix + url + this.urlSuffix,
                 headers)
                 .toPromise()
-                .then(
-                    res => {
-                        resolve(res);
-                    },
-                    error => {
-                        reject(new Error('Query error: ' + error.responseText));
+                .then((res:Response) => {
+                        return Promise.resolve(res);
+                    }, (error) => {
+                        return Promise.reject(new Error('Query error: ' + error.responseText));
                     }
                 );
-        });
     }
 
     close() {
