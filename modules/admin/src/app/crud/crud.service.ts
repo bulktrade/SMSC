@@ -418,16 +418,20 @@ export class CrudService {
                             }
                         }
 
-                        return Promise.resolve(columnsGrid)
+                        return Promise.resolve({
+                            columnsGrid: columnsGrid,
+                            isExistColumn: isExistColumn,
+                        })
 
                     }, (error) => {
                         this.dataNotFound = true;
                         this.errorMessage = 'orientdb.dataNotFound';
                     })
-                    .then((columnsGrid) => {
+                    .then((gridDefs) => {
                         return this.databaseService.query(queryCrudMetaFormData.toString())
                             .then((res: Response) => {
                                 let isExistForm = res.json()['result'].length;
+                                let columnsForm = [];
                                 let result = isExistForm ? res.json()['result'] : properties;
 
                                 for (let i in result) {
@@ -440,7 +444,7 @@ export class CrudService {
                                                 column['headerName'] = headerName;
 
                                                 this.getPropertyMetadata(column, false, properties);
-                                                columnDefs.form.push(column);
+                                                columnsForm.push(column);
                                             });
                                     } else {
                                         this.translate.get(result[i]['name'].toUpperCase())
@@ -451,19 +455,18 @@ export class CrudService {
                                                 column['editable'] = !result[i]['mandatory'];
                                                 column['visible'] = true;
 
-                                                columnDefs.form.push(column);
+                                                columnsForm.push(column);
                                             });
                                     }
                                 }
 
-                                if (isExistForm) {
-                                    columnsGrid.sort(this.compare);
-                                    columnDefs.form.sort(this.compare);
-                                }
-
-                                columnDefs.grid = columnDefs.grid.concat(columnsGrid);
-
-                                return Promise.resolve(columnDefs);
+                                return Promise.resolve({
+                                    columnsGrid: gridDefs.columnsGrid,
+                                    isExistColumn: gridDefs.isExistColumn,
+                                    columnsForm: columnsForm,
+                                    isExistForm: isExistForm,
+                                    columnDefs: columnDefs,
+                                });
                             }, (error) => {
                                 this.dataNotFound = true;
                                 this.errorMessage = 'orientdb.dataNotFound';
@@ -526,7 +529,19 @@ export class CrudService {
 
     initGrid(className, isGrid: boolean): Promise<any> {
         return this.initGridData = this.getColumnDefs(className, true)
-            .then((columnDefs) => {
+            .then((result) => {
+                let columnDefs = result.columnDefs;
+
+                if (result.isExistForm) {
+                    result.columnsForm.sort(this.compare);
+                }
+
+                if (result.isExistColumn) {
+                    result.columnsGrid.sort(this.compare);
+                }
+
+                columnDefs.form = columnDefs.form.concat(result.columnsForm);
+                columnDefs.grid = columnDefs.grid.concat(result.columnsGrid);
 
                 return this.getStore(className)
                     .then((store) => {
