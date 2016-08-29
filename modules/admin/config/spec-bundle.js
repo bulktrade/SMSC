@@ -4,24 +4,28 @@
 
 /*
  * When testing with webpack and ES6, we have to do some extra
- * things get testing to work right. Because we are gonna write test
- * in ES6 to, we have to compile those as well. That's handled in
+ * things to get testing to work right. Because we are gonna write tests
+ * in ES6 too, we have to compile those as well. That's handled in
  * karma.conf.js with the karma-webpack plugin. This is the entry
  * file for webpack test. Just like webpack will create a bundle.js
- * file for our client, when we run test, it well compile and bundle them
+ * file for our client, when we run test, it will compile and bundle them
  * all here! Crazy huh. So we need to do some setup
  */
 Error.stackTraceLimit = Infinity;
 
-require('core-js');
+require('core-js/es6');
+require('core-js/es7/reflect');
 
 // Typescript emit helpers polyfill
 require('ts-helpers');
 
 require('zone.js/dist/zone');
 require('zone.js/dist/long-stack-trace-zone');
-require('zone.js/dist/jasmine-patch');
 require('zone.js/dist/async-test');
+require('zone.js/dist/fake-async-test');
+require('zone.js/dist/sync-test');
+require('zone.js/dist/proxy'); // since zone.js 0.6.15
+require('zone.js/dist/jasmine-patch'); // put here since zone.js 0.6.14
 
 // RxJS
 require('rxjs/Rx');
@@ -30,19 +34,17 @@ var testing = require('@angular/core/testing');
 var browser = require('@angular/platform-browser-dynamic/testing');
 
 testing.setBaseTestProviders(
-  browser.TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
-  browser.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS
+    browser.TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
+    browser.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS
 );
 
-Object.assign(global, testing);
-
 /*
- * Ok, this is kinda crazy. We can use the the context method on
+ * Ok, this is kinda crazy. We can use the context method on
  * require that webpack created in order to tell webpack
  * what files we actually want to require or import.
- * Below, context will be an function/object with file names as keys.
- * using that regex we are saying look in ./src/app and ./test then find
- * any file that ends with spec.js and get its path. By passing in true
+ * Below, context will be a function/object with file names as keys.
+ * Using that regex we are saying look in ../src then find
+ * any file that ends with spec.ts and get its path. By passing in true
  * we say do this recursively
  */
 var testContext = require.context('../src', true, /\.spec\.ts/);
@@ -53,7 +55,7 @@ var testContext = require.context('../src', true, /\.spec\.ts/);
  * loop and require those spec files here
  */
 function requireAll(requireContext) {
-  return requireContext.keys().map(requireContext);
+    return requireContext.keys().map(requireContext);
 }
 
 // requires and returns all modules that match
