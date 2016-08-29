@@ -79,5 +79,9 @@
   "message.deleteSuccessful": "Successful delete",
   "message.createError": "Error creating",
   "message.updateError": "Error update",
-  "message.deleteError": "Error when updating"
+  "message.deleteError": "Error when updating",
+  "FIRST": "First",
+  "PREVIOUS": "Previous",
+  "NEXT": "Next",
+  "LAST": "Last"
 }

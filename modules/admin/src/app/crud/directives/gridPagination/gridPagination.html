@@ -1,0 +1,20 @@
+<div class="grid-pagination">
+	<div class="row-summary-panel">{{currentPage * pageSize}} to {{currentPage * pageSize + rowsThisPage.length}} of more</div>
+	<div class="page-summary-panel">
+		<div class="previous-panel">
+			<button md-raised-button color="primary" (click)="first()" id="first">{{'FIRST' | translate}}</button>
+			<button md-raised-button color="primary" (click)="previous()" id="previous">{{'PREVIOUS' | translate}}</button>
+		</div>
+		<div class="page-info">Page {{currentPage + 1}} of more</div>
+		<div class="next-panel">
+			<button md-raised-button color="primary" (click)="next()" id="next">{{'NEXT' | translate}}</button>
+			<button md-raised-button color="primary" (click)="last()" id="last">{{'LAST' | translate}}</button>
+		</div>
+	</div>
+	<div class="page-size">
+		<div class="page-size-label">Page size</div>
+		<select [(ngModel)]="pageSize">
+			<option *ngFor="let i of stepPageSize">{{i}}</option>
+		</select>
+	</div>
+</div>

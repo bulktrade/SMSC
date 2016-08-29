@@ -43,7 +43,6 @@ export class CrudService {
     public gridOptions: GridOptions = {
         rowSelection: 'multiple',
         rowHeight: 30,
-        rowModelType: 'pagination',
         columnDefs: [],
         rowData: []
     };
@@ -319,31 +318,8 @@ export class CrudService {
         return id;
     }
 
-    createNewDatasource(allOfTheData) {
-        if (!this.allOfTheData) {
-            return;
-        }
-
-        let dataSource = {
-            pageSize: this.pageSize,
-            getRows: (params) => {
-                // @todo timeout???, slice???
-                let rowsThisPage = allOfTheData.slice(params.startRow, params.endRow);
-
-                let lastRow = -1;
-                if (allOfTheData.length <= params.endRow) {
-                    lastRow = allOfTheData.length;
-                }
-                params.successCallback(rowsThisPage, lastRow);
-            }
-        };
-
-        return dataSource;
-    }
-
     setRowData(rowData) {
-        this.allOfTheData = rowData;
-        return this.createNewDatasource(this.allOfTheData);
+        this.gridOptions.api.setRowData(rowData);
     }
 
     addRIDColumn(columnDefs) {

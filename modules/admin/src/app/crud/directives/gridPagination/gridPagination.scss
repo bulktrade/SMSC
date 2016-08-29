@@ -1,0 +1,29 @@
+.grid-pagination {
+  display: flex;
+  justify-content: center;
+  font-family: 'Open Sans';
+
+  .page-summary-panel,
+  .page-size {
+    display: flex;
+  }
+
+  .row-summary-panel,
+  .page-size-label {
+    padding: 7px 10px 0 0;
+  }
+
+  .page-size {
+    padding-left: 10px;
+  }
+
+  .previous-panel,
+  .next-panel {
+    flex-grow: 2;
+  }
+
+  .page-info {
+    padding: 7px 5px 0 5px;
+  }
+
+}

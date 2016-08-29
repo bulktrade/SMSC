@@ -3,7 +3,7 @@ import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { ROUTER_DIRECTIVES, ActivatedRoute, Router } from "@angular/router";
 import { EventEmitter } from "@angular/common/src/facade/async";
 import { Location } from "@angular/common";
-import { CrudService } from "../crud.service";
+import { CrudService } from "../../crud.service";
 
 @Component({
     selector: 'multiple-select',
