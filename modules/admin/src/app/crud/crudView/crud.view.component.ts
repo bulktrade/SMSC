@@ -32,7 +32,7 @@ export class CrudView {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data['view'];
+        this.resolveData = this.route.snapshot.data[0];
 
         this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs;
         this.crudService.gridOptions.rowData = this.resolveData.rowData;

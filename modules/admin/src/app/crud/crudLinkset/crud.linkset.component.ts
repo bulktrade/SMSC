@@ -34,7 +34,7 @@ export class CrudLinkset {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data['linkset'];
+        this.resolveData = this.route.snapshot.data[0];
 
         this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs;
         this.crudService.gridOptions.rowData = this.resolveData.rowData;

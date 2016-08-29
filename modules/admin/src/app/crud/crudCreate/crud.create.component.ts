@@ -42,7 +42,7 @@ export class CrudCreate {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data['create'];
+        this.resolveData = this.route.snapshot.data[0];
 
         this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs;
         this.crudService.gridOptions.rowData = this.resolveData.rowData;
