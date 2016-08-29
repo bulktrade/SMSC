@@ -389,6 +389,7 @@ export class CrudService {
                 return this.databaseService.query(queryCrudMetaGridData.toString())
                     .then((res: Response) => {
                         let isExistColumn = res.json()['result'].length;
+                        let columnsGrid = [];
                         let result = isExistColumn ? res.json()['result'] : properties; // add try / catch, can throws an error
 
                         for (let i in result) {
@@ -404,7 +405,7 @@ export class CrudService {
                                         column['width'] = result[i]['columnWidth'];
 
                                         this.getPropertyMetadata(column, true, properties);
-                                        columnDefs.grid.push(column);
+                                        columnsGrid.push(column);
                                     });
                             } else {
                                 this.translate.get(result[i]['name'].toUpperCase())
@@ -412,16 +413,18 @@ export class CrudService {
                                     .then((headerName) => {
                                         column['headerName'] = headerName;
                                         column['field'] = result[i]['name'];
-                                        columnDefs.grid.push(column);
+                                        columnsGrid.push(column);
                                     });
                             }
                         }
+
+                        return Promise.resolve(columnsGrid)
 
                     }, (error) => {
                         this.dataNotFound = true;
                         this.errorMessage = 'orientdb.dataNotFound';
                     })
-                    .then(() => {
+                    .then((columnsGrid) => {
                         return this.databaseService.query(queryCrudMetaFormData.toString())
                             .then((res: Response) => {
                                 let isExistForm = res.json()['result'].length;
@@ -454,9 +457,11 @@ export class CrudService {
                                 }
 
                                 if (isExistForm) {
-                                    columnDefs.grid.sort(this.compare);
+                                    columnsGrid.sort(this.compare);
                                     columnDefs.form.sort(this.compare);
                                 }
+
+                                columnDefs.grid = columnDefs.grid.concat(columnsGrid);
 
                                 return Promise.resolve(columnDefs);
                             }, (error) => {
