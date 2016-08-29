@@ -27,7 +27,7 @@ export class CrudService {
     public addingFormValid = false;
     public querySelectors = null;
     public embeddedList = null;
-    public isActiveLinkset = null;
+    public activeLinkset: boolean = false;
     public rowSelectionLinkset = null;
     public linkedClass = null;
     public initGridData: Promise<any> = Promise.resolve();
@@ -159,7 +159,6 @@ export class CrudService {
         switch (columnDefs.type) {
             case "LINKSET":
             case "LINK":
-                this.isActiveLinkset = columnDefs.field;
                 break;
 
             case "EMBEDDEDLIST":
@@ -320,7 +319,7 @@ export class CrudService {
         return id;
     }
 
-    createNewDatasource(allOfTheData, gridOptions) {
+    createNewDatasource(allOfTheData) {
         if (!this.allOfTheData) {
             return;
         }
@@ -339,12 +338,12 @@ export class CrudService {
             }
         };
 
-        return (dataSource);
+        return dataSource;
     }
 
-    setRowData(rowData, gridOptions) {
+    setRowData(rowData) {
         this.allOfTheData = rowData;
-        return this.createNewDatasource(this.allOfTheData, gridOptions);
+        return this.createNewDatasource(this.allOfTheData);
     }
 
     addRIDColumn(columnDefs) {
@@ -560,7 +559,7 @@ export class CrudService {
     }
 
     setDatasource(gridOptions) {
-        gridOptions.datasource = this.setRowData(gridOptions.rowData, gridOptions);
+        gridOptions.datasource = this.setRowData(gridOptions.rowData);
     }
 
     setClassName(className) {

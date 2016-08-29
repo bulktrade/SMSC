@@ -100,7 +100,7 @@ INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaD
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 1, '34:0');
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 1, '34:0');
 
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('columnWidth', true, true, 1, '35:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('fieldLayoutGridPosition', true, true, 1, '35:0');
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 1, '35:0');
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 1, '35:0');
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 1, '35:0');
@@ -120,7 +120,7 @@ INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaD
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('users', true, true, 10, '36:0');
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('parentCustomer', true, true, 11, '36:0');
 
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('fieldLayoutGridPosition', true, true, 1, '34:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('columnWidth', true, true, 1, '34:0');
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 1, '34:0');
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 1, '34:0');
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 1, '34:0');

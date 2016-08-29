@@ -100,14 +100,12 @@ export class MultipleSelect {
 
         this.crudService.model[this.property.property] = model;
         this.crudService.titleColumns[this.property.property] = titleColumns;
-        this.crudService.isActiveLinkset = this.property.property;
     }
 
     clearAll(): void {
         this.resetParams();
 
         this.crudService.addingFormValid = true;
-        this.crudService.isActiveLinkset = this.property.property;
     }
 
     addLinkset(): void {
