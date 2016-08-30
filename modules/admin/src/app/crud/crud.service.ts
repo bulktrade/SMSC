@@ -291,6 +291,22 @@ export class CrudService {
         });
     }
 
+    translateColumnsName(columnDefs, name): Promise<any> {
+        let headersName = [];
+
+        for (let i in columnDefs) {
+            headersName.push(columnDefs[i][name].toUpperCase());
+        }
+
+        return this.translate.get(headersName).toPromise()
+            .then((columnName) => {
+                return Promise.resolve(columnName);
+            }, (error) => {
+                this.serviceNotifications.createNotificationOnResponse(error);
+                return Promise.reject(error);
+            });
+    }
+
     getColumnDefs(className, readOnly) {
         let columnDefs = {
             grid: [],
@@ -327,37 +343,31 @@ export class CrudService {
                         let columnsGrid = [];
                         let result = isExistColumn ? res.json()['result'] : properties; // add try / catch, can throws an error
 
-                        for (let i in result) {
-                            let column = result[i];
+                        return this.translateColumnsName(result, isExistColumn ? 'property' : 'name')
+                            .then((columnsName) => {
+                                for (let i in result) {
+                                    let column = result[i];
 
-                            if (isExistColumn) {
-                                this.translate.get(result[i]['property'].toUpperCase())
-                                    .toPromise()
-                                    .then((headerName) => {
-                                        column['headerName'] = headerName;
+                                    if (isExistColumn) {
+                                        column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
                                         column['field'] = result[i]['property'];
                                         column['hide'] = !result[i]['visible'];
                                         column['width'] = result[i]['columnWidth'];
 
                                         this.getPropertyMetadata(column, true, properties);
                                         columnsGrid.push(column);
-                                    });
-                            } else {
-                                this.translate.get(result[i]['name'].toUpperCase())
-                                    .toPromise()
-                                    .then((headerName) => {
-                                        column['headerName'] = headerName;
+                                    } else {
+                                        column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
                                         column['field'] = result[i]['name'];
                                         columnsGrid.push(column);
-                                    });
-                            }
-                        }
+                                    }
+                                }
 
-                        return Promise.resolve({
-                            columnsGrid: columnsGrid,
-                            isExistColumn: isExistColumn,
-                        })
-
+                                return Promise.resolve({
+                                    columnsGrid: columnsGrid,
+                                    isExistColumn: isExistColumn,
+                                })
+                            });
                     }, (error) => {
                         this.dataNotFound = true;
                         this.errorMessage = 'orientdb.dataNotFound';
@@ -369,39 +379,34 @@ export class CrudService {
                                 let columnsForm = [];
                                 let result = isExistForm ? res.json()['result'] : properties;
 
-                                for (let i in result) {
-                                    let column = result[i];
+                                return this.translateColumnsName(result, isExistForm ? 'property' : 'name')
+                                    .then((columnsName) => {
+                                        for (let i in result) {
+                                            let column = result[i];
 
-                                    if (isExistForm) {
-                                        this.translate.get(result[i]['property'].toUpperCase())
-                                            .toPromise()
-                                            .then((headerName) => {
-                                                column['headerName'] = headerName;
+                                            if (isExistForm) {
+                                                column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
 
                                                 this.getPropertyMetadata(column, false, properties);
                                                 columnsForm.push(column);
-                                            });
-                                    } else {
-                                        this.translate.get(result[i]['name'].toUpperCase())
-                                            .toPromise()
-                                            .then((headerName) => {
-                                                column['headerName'] = headerName;
+                                            } else {
+                                                column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
                                                 column['property'] = result[i]['name'];
                                                 column['editable'] = !result[i]['mandatory'];
                                                 column['visible'] = true;
 
                                                 columnsForm.push(column);
-                                            });
-                                    }
-                                }
+                                            }
+                                        }
 
-                                return Promise.resolve({
-                                    columnsGrid: gridDefs.columnsGrid,
-                                    isExistColumn: gridDefs.isExistColumn,
-                                    columnsForm: columnsForm,
-                                    isExistForm: isExistForm,
-                                    columnDefs: columnDefs,
-                                });
+                                        return Promise.resolve({
+                                            columnsGrid: gridDefs.columnsGrid,
+                                            isExistColumn: gridDefs.isExistColumn,
+                                            columnsForm: columnsForm,
+                                            isExistForm: isExistForm,
+                                            columnDefs: columnDefs,
+                                        });
+                                    });
                             }, (error) => {
                                 this.dataNotFound = true;
                                 this.errorMessage = 'orientdb.dataNotFound';
