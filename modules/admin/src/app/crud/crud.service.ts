@@ -1,6 +1,5 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
-import { RequestGetParameters } from "../orientdb/orientdb.requestGetParameters";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
@@ -10,24 +9,19 @@ import { ServiceNotifications } from "../services/serviceNotification";
 import { LoadingGridService } from "../services/loadingGrid.service";
 
 const squel = require('squel');
-declare let sprintf: any;
 
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
 let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 
 @Injectable()
 export class CrudService {
-    crudModel = new CrudModel([], []);
-
-    public pageSize = 50;
+    public crudModel = new CrudModel([], []);
     public isEditForm: boolean = false;
     public modifiedRecord: any = {};
-    public allOfTheData;
     public focusedRow: any;
     public addingFormValid = false;
     public querySelectors = null;
     public embeddedList = null;
-    public activeLinkset: boolean = false;
     public rowSelectionLinkset = null;
     public linkedClass = null;
     public initGridData: Promise<any> = Promise.resolve();
@@ -70,15 +64,12 @@ export class CrudService {
         }
     }
 
-    createRecord(colsValue): Promise<any> {
-        let params: RequestGetParameters = {
-            "nameClass": this.getClassName(),
-            "colsValue": colsValue
-        };
+    createRecord(properties): Promise<any> {
+        properties['@class'] = this.getClassName();
 
         this.loadingService.start();
 
-        this.crud = this.databaseService.insert(params)
+        this.crud = this.databaseService.insert(properties)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
@@ -92,26 +83,11 @@ export class CrudService {
         return this.crud;
     }
 
-    updateRecord(value) {
-        let colsValue = {};
-
-        for (let key in value) {
-            if (key !== 'rid' && key !== 'version') {
-                colsValue[key] = value[key];
-            }
-        }
-
-        let params = {
-            "rid": value.rid,
-            "version": value.version,
-            "colsValue": colsValue
-        };
-
+    updateRecord(properties) {
         this.loadingService.start();
 
-        this.crud = this.databaseService.update(params)
+        this.crud = this.databaseService.update(properties)
             .then((res) => {
-                value.version++;
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.updateSuccessful', 'orientdb.successUpdate');
                 return Promise.resolve(res);
@@ -181,24 +157,8 @@ export class CrudService {
             .then((res: Response) => {
                 let result = res.json()['result'];
 
-                result.forEach((item) => {
-                    item['rid'] = item['@rid'];
-                    item['version'] = item['@version'];
-
-                    item = this.removeProperties(item, ['@rid', '@version', '@fieldTypes',
-                        '@fieldTypes', '@class', '@type'])
-                });
-
                 return Promise.resolve(result);
             })
-    }
-
-    removeProperties(obj, properties: Array<string>) {
-        properties.forEach((i) => {
-            delete obj[i];
-        });
-
-        return obj;
     }
 
     overlayLoadingTemplate() {
@@ -299,12 +259,12 @@ export class CrudService {
     }
 
     navigateToEdit() {
-        let id = this.gridOptions.rowData[this.focusedRow].rid;
+        let id = this.gridOptions.rowData[this.focusedRow]['@rid'];
         this.router.navigate([this.parentPath, 'edit', id]);
     }
 
     navigateToDelete() {
-        let id = this.gridOptions.rowData[this.focusedRow].rid;
+        let id = this.gridOptions.rowData[this.focusedRow]['@rid'];
         this.router.navigate([this.parentPath, 'delete', id]);
     }
 
@@ -312,20 +272,20 @@ export class CrudService {
         let id = [];
 
         gridOptions.api.getSelectedRows().forEach((i) => {
-            id.push(i.rid);
+            id.push(i['@rid']);
         });
 
         return id;
     }
 
     setRowData(rowData) {
-        this.gridOptions.api.setRowData(rowData);
+        this.gridOptions.rowData = rowData;
     }
 
     addRIDColumn(columnDefs) {
         columnDefs.push({
             headerName: "RID",
-            field: "rid",
+            field: "@rid",
             hideInForm: true,
             width: 45
         });
@@ -502,7 +462,7 @@ export class CrudService {
         this.successExecute = false;
     }
 
-    initGrid(className, isGrid: boolean): Promise<any> {
+    initColumnDefs(className, isGrid: boolean): Promise<any> {
         return this.initGridData = this.getColumnDefs(className, true)
             .then((result) => {
                 let columnDefs = result.columnDefs;
@@ -518,19 +478,7 @@ export class CrudService {
                 columnDefs.form = columnDefs.form.concat(result.columnsForm);
                 columnDefs.grid = columnDefs.grid.concat(result.columnsGrid);
 
-                return this.getStore(className)
-                    .then((store) => {
-
-                        return Promise.resolve({
-                            columnDefs: isGrid ? columnDefs.grid : columnDefs.form,
-                            rowData: store
-                        });
-                    }, (error) => {
-                        this.serviceNotifications.createNotificationOnResponse(error);
-
-                        return Promise.reject(error);
-                    });
-
+                return Promise.resolve(isGrid ? columnDefs.grid : columnDefs.form);
             })
     }
 

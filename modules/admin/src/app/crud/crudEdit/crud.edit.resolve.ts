@@ -21,11 +21,6 @@ export class CrudEditResolve extends CrudResolve {
         return this.crudService.databaseService.load(id)
             .then((res: Response) => {
                 let model = res.json();
-                model['rid'] = model['@rid'];
-                model['version'] = model['@version'];
-
-                model = this.crudService.removeProperties(model,
-                    ['@class', '@rid', '@type', '@version', '@fieldTypes']);
 
                 if (!Object.keys(this.crudService.model).length) {
                     return Promise.resolve(model);
@@ -35,7 +30,7 @@ export class CrudEditResolve extends CrudResolve {
                 this.location.back();
             })
             .then((model) => {
-                return this.crudService.initGrid(this.crudService.getClassName(), false)
+                return this.crudService.initColumnDefs(this.crudService.getClassName(), false)
                     .then((initGridData) => {
                         return Promise.resolve({
                             initGridData: initGridData,

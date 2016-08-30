@@ -133,9 +133,9 @@ export class GridPagination {
     }
 
     createNewDatasource(skip, limit, init?: boolean) {
-        let sql = "select * from Customer SKIP %s LIMIT %s";
+        let sql = "select * from %s SKIP %s LIMIT %s";
 
-        this.databaseService.query(sprintf(sql, skip, limit))
+        this.databaseService.query(sprintf(sql, this.className, skip, limit))
             .then((res: Response) => {
                 this.rowsThisPage = res.json().result;
 

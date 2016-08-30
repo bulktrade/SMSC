@@ -6,6 +6,7 @@ import { CrudService } from "../crud.service";
 import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
 import { LoadingGrid } from "../../common/loadingGrid";
 import { Location } from "@angular/common";
+import { GridPagination } from "../directives/gridPagination/gridPagination";
 
 @Component({
     selector: 'crud-linkset',
@@ -18,7 +19,8 @@ import { Location } from "@angular/common";
     directives: [
         AgGridNg2,
         AlertComponent,
-        LoadingGrid
+        LoadingGrid,
+        GridPagination
     ],
     pipes: [TranslatePipe]
 })
@@ -36,9 +38,7 @@ export class CrudLinkset {
     ngOnInit() {
         this.resolveData = this.route.snapshot.data[0];
 
-        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs;
-        this.crudService.gridOptions.rowData = this.resolveData.rowData;
-        this.crudService.setDatasource(this.crudService.gridOptions);
+        this.crudService.gridOptions.columnDefs = this.resolveData;
     }
 
     back() {
@@ -69,7 +69,7 @@ export class CrudLinkset {
         let result = [];
 
         for (let item = 0; item < focusedRows.length; item++) {
-            result.push(focusedRows[item].rid);
+            result.push(focusedRows[item]['@rid']);
         }
 
         return result;

@@ -47,8 +47,7 @@ export class CrudEdit {
             this.crudService.setModel(this.resolveData.model);
         }
 
-        this.crudService.gridOptions.columnDefs = this.resolveData.initGridData.columnDefs;
-        this.crudService.gridOptions.rowData = this.resolveData.initGridData.rowData;
+        this.crudService.gridOptions.columnDefs = this.resolveData.initGridData;
     }
 
     back() {
