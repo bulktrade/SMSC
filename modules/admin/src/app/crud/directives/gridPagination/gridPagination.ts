@@ -60,17 +60,17 @@ export class GridPagination {
             });
     }
 
-    first() {
+    first(): Promise<any> {
         this.setCurrentPage(0);
 
         let skip = this.currentPage * this.pageSize;
         let limit = this.pageSize;
 
-        this.createNewDatasource(skip, limit);
+        return this.createNewDatasource(skip, limit);
     }
 
     last() {
-        this.getSizeClass(this.className)
+        return this.getSizeClass(this.className)
             .then(size => {
                 let remainderRows = size % this.pageSize;
                 this.setCurrentPage(Math.floor(size / this.pageSize));
@@ -79,25 +79,27 @@ export class GridPagination {
                     let skip = this.currentPage * this.pageSize;
                     let limit = remainderRows;
 
-                    this.createNewDatasource(skip, limit);
+                    return this.createNewDatasource(skip, limit);
                 } else {
                     let skip = this.currentPage * this.pageSize;
                     let limit = this.pageSize;
 
-                    this.createNewDatasource(skip, limit);
+                    return this.createNewDatasource(skip, limit);
                 }
 
             });
     }
 
-    previous() {
+    previous(): Promise<any> {
         if ((this.currentPage - 1) * this.pageSize >= 0) {
             this.currentPage -= 1;
 
             let skip = this.currentPage * this.pageSize;
             let limit = this.pageSize;
 
-            this.createNewDatasource(skip, limit);
+            return this.createNewDatasource(skip, limit);
+        } else {
+            return Promise.resolve();
         }
     }
 
@@ -124,22 +126,16 @@ export class GridPagination {
             });
     }
 
-    getLastRows() {
-        if (this.rowsThisPage.length !== this.pageSize) {
-            return this.rowsThisPage.length;
-        } else {
-            this.pageSize
-        }
-    }
-
     createNewDatasource(skip, limit, init?: boolean) {
         let sql = "select * from %s SKIP %s LIMIT %s";
 
-        this.databaseService.query(sprintf(sql, this.className, skip, limit))
+        return this.databaseService.query(sprintf(sql, this.className, skip, limit))
             .then((res: Response) => {
                 this.rowsThisPage = res.json().result;
 
                 init ? this.initRowData.emit(this.rowsThisPage) : this.rowData.emit(this.rowsThisPage);
+
+                return Promise.resolve(this.rowsThisPage);
             }, (error) => {
                 this.serviceNotifications.createNotificationOnResponse(error);
                 return Promise.reject(error);
