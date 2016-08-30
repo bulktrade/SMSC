@@ -2,10 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="<%= webpackConfig.metadata.title %>">
+
     <title><%= webpackConfig.metadata.title %></title>
+
+    <meta name="description" content="<%= webpackConfig.metadata.title %>">
+
+    <% if (webpackConfig.htmlElements.headTags) { %>
+    <!-- Configured Head Tags  -->
+    <%= webpackConfig.htmlElements.headTags %>
+    <% } %>
 
     <!-- base url -->
     <base href="<%= webpackConfig.metadata.baseUrl %>">
@@ -117,7 +124,7 @@
     <script>
         var PUBLIC_PATH = '<%= webpackConfig.output.publicPath %>';
     </script>
-    <% if (webpackConfig.metadata.ENV === 'development') { %>
+    <% if (webpackConfig.metadata.isDevServer && webpackConfig.metadata.HMR !== true) { %>
     <!-- Webpack Dev Server reload -->
     <script src="/webpack-dev-server.js"></script>
     <% } %>

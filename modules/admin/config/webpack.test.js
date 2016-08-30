@@ -2,7 +2,6 @@
  * @author: @AngularClass
  */
 
-const webpack = require('webpack');
 const helpers = require('./helpers');
 
 /**
@@ -10,14 +9,11 @@ const helpers = require('./helpers');
  */
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 /**
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
-
-var extractCSS = new ExtractTextPlugin("[name].css");
 
 /**
  * Webpack configuration
@@ -92,9 +88,83 @@ module.exports = {
                 exclude: [
                     // these packages have problems with their sourcemaps
                     helpers.root('node_modules/rxjs'),
-                    helpers.root('node_modules/@angular2-material'),
                     helpers.root('node_modules/@angular')
-                ]}
+                ]
+            },
+
+            /*
+             * Json loader support for *.json files.
+             *
+             * See: https://github.com/webpack/json-loader
+             */
+            {
+                test: /\.json$/,
+                loader: 'json-loader'
+            },
+
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    'file?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                ]
+            },
+
+            {
+                test: /\.css$/,
+                loader: 'file?name=[hash].css!extract!css',
+                exclude: [
+                    helpers.root('src/index.html')
+                ],
+                include: [
+                    /node_modules/
+                ]
+            },
+
+            {
+                test: /\.css$/,
+                loader: 'to-string!css',
+                exclude: [
+                    /node_modules/
+                ],
+                include: [
+                    helpers.root('src/app')
+                ]
+            },
+
+            {
+                test: /\.scss$/,
+                loader: 'file?name=[hash].css!extract!css!sass?sourceMap',
+                exclude: [
+                    helpers.root('src/index.html')
+                ],
+                include: [
+                    /node_modules/
+                ]
+            },
+
+            {
+                test: /\.scss$/,
+                loader: 'to-string!css!sass?sourceMap',
+                exclude: [
+                    helpers.root('src/index.html'),
+                    /node_modules/
+                ],
+                include: [
+                    helpers.root('src/app')
+                ]
+            },
+
+            {
+                test: /\.html$/,
+                loader: 'html',
+                exclude: [helpers.root('src/index.html')]
+            },
+
+            {
+                test: /\.(eot|woff|ttf|svg|woff2)$/,
+                loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]'
+            }
 
         ],
 
@@ -107,7 +177,6 @@ module.exports = {
          * See: http://webpack.github.io/docs/configuration.html#module-loaders
          */
         loaders: [
-
             /**
              * Typescript loader support for .ts and Angular 2 async routes via .async.ts
              *
@@ -126,40 +195,7 @@ module.exports = {
                     }
                 },
                 exclude: [/\.e2e\.ts$/]
-            },
-
-            /**
-             * Json loader support for *.json files.
-             *
-             * See: https://github.com/webpack/json-loader
-             */
-            { test: /\.json$/, loader: 'json-loader', exclude: [helpers.root('src/index.html')] },
-
-            {
-                test: /\.css$/,
-                loader: extractCSS.extract(['css']),
-                exclude: [helpers.root('src/index.html')]
-            },
-
-            {
-                test: /\.scss$/,
-                loader: extractCSS.extract(['css', 'sass']),
-                exclude: [helpers.root('src/index.html')]
-            },
-
-            {
-                test: /\.(eot|woff|ttf|svg|woff2)$/,
-                loader: 'file?hash=sha512&digest=hex&name=[hash].[ext]'
-            },
-
-            /**
-             * Raw loader support for *.html
-             * Returns file content as string
-             *
-             * See: https://github.com/webpack/raw-loader
-             */
-            { test: /\.html$/, loader: 'raw-loader', exclude: [helpers.root('src/index.html')] }
-
+            }
         ],
 
         /**
@@ -194,8 +230,6 @@ module.exports = {
      */
     plugins: [
 
-        new webpack.ProvidePlugin({sprintf: helpers.root('src/vendor/sprintf-js/src/sprintf.js')}),
-
         /**
          * Plugin: DefinePlugin
          * Description: Define free variables.
@@ -212,11 +246,11 @@ module.exports = {
             'process.env': {
                 'ENV': JSON.stringify(ENV),
                 'NODE_ENV': JSON.stringify(ENV),
-                'HMR': false
+                'HMR': false,
             }
         }),
 
-        extractCSS
+
     ],
 
     /**
