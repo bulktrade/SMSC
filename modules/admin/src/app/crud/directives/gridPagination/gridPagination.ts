@@ -33,8 +33,8 @@ export class GridPagination {
     public initRowData = new EventEmitter();
 
     public rowsThisPage = [];
-    public stepPageSize = [5, 25, 50, 150, 200, 300];
-    public pageSize: number = 5;
+    public stepPageSize = [25, 50, 150, 200, 300];
+    public pageSize: number = 25;
     private currentPage: number = 0;
     private fromRecord: number;
     private toRecord: number;
@@ -51,7 +51,7 @@ export class GridPagination {
 
         return this.getSizeClass(this.className)
             .then(size => {
-                if (this.currentPage * this.pageSize < size) {
+                if (this.currentPage * this.pageSize <= size) {
                     let skip = this.currentPage * this.pageSize;
                     let limit = this.pageSize;
 
@@ -151,6 +151,7 @@ export class GridPagination {
 
                 if (this.gridOptions.api) {
                     this.gridOptions.api.setRowData(this.rowsThisPage);
+                    this.gridOptions.rowData = this.rowsThisPage;
                     this.gridOptions.api.hideOverlay();
                 }
 

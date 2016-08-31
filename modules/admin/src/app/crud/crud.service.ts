@@ -101,9 +101,12 @@ export class CrudService {
     }
 
     deleteRecord(rid): Promise<any> {
+        let property: any = {};
+        property['@rid'] = rid;
+
         this.loadingService.start();
 
-        this.crud = this.databaseService.delete(rid)
+        this.crud = this.databaseService.delete(property)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.deleteSuccessful', 'orientdb.successDelete');
@@ -119,6 +122,7 @@ export class CrudService {
 
     multipleDeleteRecords(id): Promise<any> {
         let result: Promise<any>;
+
         let rid = id.split(',');
 
         rid.forEach((i) => {
