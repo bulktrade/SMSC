@@ -235,25 +235,26 @@ export class CrudService {
         }
     }
 
-    btnRenderer(columnDefs, nameBtn, clickEvent?: (event) => void) {
+    btnRenderer(columnDefs, nameBtn, width, iconName, clickEvent?: (event) => void) {
         columnDefs.grid.push({
             headerName: " ",
             field: nameBtn.toLowerCase(),
-            width: 66,
+            width: width,
             hideInForm: true,
             cellRenderer: () => {
                 let that = this;
-                let eCell = document.createElement('button');
-                eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())['value'];
-                eCell.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
+                let button = document.createElement('button');
+                button.innerHTML = "<i class='material-icons' style='font-size: 18px;'>" + iconName + "</i>" +
+                    "<span style='position: relative; top: -4px; left: 3px; padding-right: 7px'>" + that.translate.get(nameBtn.toUpperCase())['value'] + "<span>";
+                button.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
                     "border-radius: 3px; cursor: pointer;");
-                eCell.addEventListener('click', (event) => {
+                button.addEventListener('click', (event) => {
                     if (clickEvent) {
                         clickEvent(event);
                     }
                 });
 
-                return eCell;
+                return button;
             }
         });
     }
@@ -317,10 +318,10 @@ export class CrudService {
         this.addRIDColumn(columnDefs.grid);
 
         if (readOnly) {
-            this.btnRenderer(columnDefs, 'Edit', (clickEvent) => {
+            this.btnRenderer(columnDefs, 'Edit', 70, 'mode_edit',  (clickEvent) => {
                 this.navigateToEdit();
             });
-            this.btnRenderer(columnDefs, 'Delete', (clickEvent) => {
+            this.btnRenderer(columnDefs, 'Delete', 80, 'delete', (clickEvent) => {
                 this.navigateToDelete();
             });
         }
