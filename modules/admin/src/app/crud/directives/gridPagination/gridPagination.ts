@@ -5,6 +5,7 @@ import { EventEmitter } from "@angular/common/src/facade/async";
 import { ODatabaseService } from "../../../orientdb/orientdb.service";
 import { ServiceNotifications } from "../../../services/serviceNotification";
 import { MdSelect } from "../../../common/material/select/select";
+import { GridOptions } from "ag-grid";
 
 declare let sprintf;
 const squel = require('squel');
@@ -27,6 +28,7 @@ const squel = require('squel');
 
 export class GridPagination {
     @Input('className') public className: string;
+    @Input('gridOptions') public gridOptions: GridOptions;
     public rowData = new EventEmitter();
     public initRowData = new EventEmitter();
 
@@ -40,14 +42,18 @@ export class GridPagination {
                 public serviceNotifications: ServiceNotifications) {
     }
 
-    ngOnInit() {
-        this.getSizeClass(this.className)
+    changePageSize() {
+        if (this.gridOptions.api) {
+            this.gridOptions.api.showLoadingOverlay();
+        }
+
+        return this.getSizeClass(this.className)
             .then(size => {
                 if (this.currentPage * this.pageSize < size) {
                     let skip = this.currentPage * this.pageSize;
                     let limit = this.pageSize;
 
-                    this.createNewDatasource(skip, limit, true);
+                    return this.createNewDatasource(skip, limit);
                 } else {
                     let lastRows = size - this.currentPage * this.pageSize;
 
@@ -55,10 +61,14 @@ export class GridPagination {
                         let skip = this.currentPage * this.pageSize;
                         let limit = lastRows;
 
-                        this.createNewDatasource(skip, limit, true);
+                        return this.createNewDatasource(skip, limit);
                     }
                 }
             });
+    }
+
+    ngOnInit() {
+        this.changePageSize();
     }
 
     first(): Promise<any> {
@@ -127,14 +137,18 @@ export class GridPagination {
             });
     }
 
-    createNewDatasource(skip, limit, init?: boolean) {
+    createNewDatasource(skip, limit) {
         let sql = "select * from %s SKIP %s LIMIT %s";
 
         return this.databaseService.query(sprintf(sql, this.className, skip, limit))
             .then((res: Response) => {
                 this.rowsThisPage = res.json().result;
 
-                init ? this.initRowData.emit(this.rowsThisPage) : this.rowData.emit(this.rowsThisPage);
+                if (this.gridOptions.api) {
+                    console.log(this.rowsThisPage);
+                    this.gridOptions.api.setRowData(this.rowsThisPage);
+                    this.gridOptions.api.hideOverlay();
+                }
 
                 return Promise.resolve(this.rowsThisPage);
             }, (error) => {

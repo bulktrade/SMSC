@@ -279,10 +279,6 @@ export class CrudService {
         return id;
     }
 
-    setRowData(rowData) {
-        this.gridOptions.rowData = rowData;
-    }
-
     addRIDColumn(columnDefs) {
         columnDefs.push({
             headerName: "RID",
@@ -486,10 +482,6 @@ export class CrudService {
 
                 return Promise.resolve(isGrid ? columnDefs.grid : columnDefs.form);
             })
-    }
-
-    setDatasource(gridOptions) {
-        gridOptions.datasource = this.setRowData(gridOptions.rowData);
     }
 
     setClassName(className) {

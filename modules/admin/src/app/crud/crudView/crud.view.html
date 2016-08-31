@@ -37,7 +37,7 @@
                      (cellClicked)="clickOnCell($event); crudService.clickOnCell($event)"
                      (rowSelected)="crudService.rowSelected(crudService.gridOptions)"
                      (cellFocused)="crudService.focusedRow=$event.rowIndex"></ag-grid-ng2>
-        <grid-pagination (rowData)="crudService.setRowData($event)" (initRowData)="crudService.setRowData($event)"
-                         [className]="crudService.getClassName()"></grid-pagination>
+        <grid-pagination [className]="crudService.getClassName()"
+                         [gridOptions]="crudService.gridOptions"></grid-pagination>
     </loading-grid>
 </div>

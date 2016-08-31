@@ -4,24 +4,25 @@
     </div>
     <div class="page-summary-panel">
         <div class="previous-panel">
-            <button md-icon-button color="primary" id="firstPage" (click)="first()">
+            <button [disableRipple]="true" md-icon-button color="primary" id="firstPage" (click)="first()">
                 <md-icon class="md-24">first_page</md-icon>
             </button>
-            <button md-icon-button color="primary" id="previousPage" (click)="previous()">
+            <button [disableRipple]="true" md-icon-button color="primary" id="previousPage" (click)="previous()">
                 <md-icon class="md-24">chevron_left</md-icon>
             </button>
         </div>
         <div class="page-info">Page {{currentPage + 1}} of more</div>
         <div class="next-panel">
-            <button md-icon-button color="primary" id="nextPage" (click)="next()">
+            <button [disableRipple]="true" md-icon-button color="primary" id="nextPage" (click)="next()">
                 <md-icon class="md-24">chevron_right</md-icon>
             </button>
-            <button md-icon-button color="primary" id="lastPage" (click)="last()">
+            <button [disableRipple]="true" md-icon-button color="primary" id="lastPage" (click)="last()">
                 <md-icon class="md-24">last_page</md-icon>
             </button>
         </div>
     </div>
     <div class="page-size">
-        <md-select [options]="stepPageSize" placeholder="Page Size" [(model)]="pageSize"></md-select>
+        <md-select [options]="stepPageSize" placeholder="Page Size" [(model)]="pageSize"
+                   (change)="changePageSize()"></md-select>
     </div>
 </div>

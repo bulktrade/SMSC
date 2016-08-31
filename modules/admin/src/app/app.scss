@@ -10,6 +10,10 @@ body {
     }
 }
 
+button:focus {
+    outline: none;
+}
+
 .md-card {
     height: 100%;
 }
