@@ -6,6 +6,7 @@ import { ODatabaseService } from "../../../orientdb/orientdb.service";
 import { ServiceNotifications } from "../../../services/serviceNotification";
 import { MdSelect } from "../../../common/material/select/select";
 import { GridOptions } from "ag-grid";
+import { GridService } from "../../../services/grid.service";
 
 declare let sprintf;
 const squel = require('squel');
@@ -40,6 +41,7 @@ export class GridPagination {
     private toRecord: number;
 
     constructor(public translate: TranslateService,
+                public gridService: GridService,
                 public databaseService: ODatabaseService,
                 public serviceNotifications: ServiceNotifications) {
     }
@@ -149,13 +151,17 @@ export class GridPagination {
                 this.setFromRecord();
                 this.setToRecord(this.rowsThisPage.length);
 
-                if (this.gridOptions.api) {
-                    this.gridOptions.api.setRowData(this.rowsThisPage);
-                    this.gridOptions.rowData = this.rowsThisPage;
-                    this.gridOptions.api.hideOverlay();
-                }
+                return this.gridService.selectLinksetProperties(this.gridOptions.columnDefs, this.rowsThisPage)
+                    .then(() => {
+                        if (this.gridOptions.api) {
+                            this.gridOptions.api.setRowData(this.rowsThisPage);
+                            this.gridOptions.rowData = this.rowsThisPage;
+                            this.gridOptions.api.hideOverlay();
+                        }
 
-                return Promise.resolve(this.rowsThisPage);
+
+                        return Promise.resolve(this.rowsThisPage);
+                    });
             }, (error) => {
                 this.serviceNotifications.createNotificationOnResponse(error);
                 return Promise.reject(error);

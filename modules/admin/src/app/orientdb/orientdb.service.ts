@@ -120,15 +120,24 @@ export class ODatabaseService {
 
     batchFormatter(properties, type: string|BatchType): string {
         let batch = sprintf('{"transaction": true, "operations": [{"type": "%s", "record": {', type);
-
+        
         for (let i in properties) {
             let value: string = '';
 
             if (Array.isArray(properties[i])) {
-                value = sprintf('[%s]', properties[i].join());
+                let link = properties[i];
+                let linkset = [];
+
+                for (let prop in link) {
+                    if (prop.charAt(0) === '_') {
+                        linkset.push(link[prop]);
+                    }
+                }
+
+                value = sprintf('[%s]', linkset.join());
             } else if (i === '@version') {
                 value = sprintf('%s', properties[i]);
-            } else  {
+            } else {
                 value = sprintf('"%s"', properties[i]);
             }
 
