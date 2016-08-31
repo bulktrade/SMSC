@@ -6,7 +6,7 @@ import { ServiceNotifications } from "./serviceNotification";
 export class GridService {
 
     constructor(public database: ODatabaseService,
-                public serviceNotifications: ServiceNotifications,) {
+                public serviceNotifications: ServiceNotifications) {
     }
 
     selectLinksetProperties(columnDefs, rowData) {
