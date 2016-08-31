@@ -1,29 +1,41 @@
 .grid-pagination {
-  display: flex;
-  justify-content: center;
-  font-family: 'Open Sans';
-
-  .page-summary-panel,
-  .page-size {
     display: flex;
-  }
+    justify-content: center;
+    font-family: 'Open Sans';
 
-  .row-summary-panel,
-  .page-size-label {
-    padding: 7px 10px 0 0;
-  }
+    .page-summary-panel,
+    .page-size {
+        display: flex;
+    }
 
-  .page-size {
-    padding-left: 10px;
-  }
+    .row-summary-panel,
+    .page-size-label {
+        padding: 10px 10px 0 0;
+    }
 
-  .previous-panel,
-  .next-panel {
-    flex-grow: 2;
-  }
+    .page-size {
+        padding: 6px 0 0 10px;
+    }
 
-  .page-info {
-    padding: 7px 5px 0 5px;
-  }
+    .previous-panel,
+    .next-panel {
+        flex-grow: 2;
+    }
 
+    .page-info {
+        padding: 10px 5px 0 5px;
+    }
 }
+
+@media all and (max-width: 550px) {
+    .grid-pagination {
+        .row-summary-panel {
+            display: none;
+        }
+
+        .page-size {
+            width: 50px;
+        }
+    }
+}
+

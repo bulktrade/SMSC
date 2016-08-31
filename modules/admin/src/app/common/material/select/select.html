@@ -1,0 +1,6 @@
+<div class="mdl-selectfield">
+    <select class="browser-default" [(ngModel)]="model" (change)="onChange($event)">
+        <option value="" disabled selected>{{placeholder}}</option>
+        <option *ngFor="let option of options">{{option}}</option>
+    </select>
+</div>

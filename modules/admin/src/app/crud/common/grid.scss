@@ -1,63 +1,71 @@
 #windowGrid {
-  height: 100%;
+    height: 100%;
 
-  ag-grid-ng2 {
-    height: calc(100% - 113px);
-  }
-
-  .opionPanel {
-    display: flex;
-    padding-bottom: 16px;
-  }
-
-  .searchPanel {
-    display: flex;
-    float: left;
-    flex-grow: 2;
-
-    .searchBtn {
-      margin-top: 8px;
+    ag-grid-ng2 {
+        height: calc(100% - 118px);
+        padding-bottom: 15px;
     }
 
-    md-input {
-      padding-left: 14px;
-      width: 100%;
+    .opionPanel {
+        display: flex;
+        padding-bottom: 16px;
     }
-  }
 
-  .buttonsPanel {
-    display: flex;
-    font-size: 14px;
+    .searchPanel {
+        display: flex;
+        float: left;
+        flex-grow: 2;
 
-    button {
-      margin-left: 7px;
+        .searchBtn {
+            margin-top: 8px;
+        }
+
+        md-input {
+            padding-left: 14px;
+            width: 100%;
+        }
     }
-  }
 
-  alert {
-    text-align: center;
-  }
+    .buttonsPanel {
+        display: flex;
+        font-size: 14px;
+
+        button {
+            margin-left: 7px;
+        }
+    }
+
+    alert {
+        text-align: center;
+    }
 }
 
 @media all and (min-width: 550px) {
-  .buttonsPanel {
-    padding: 6px 14px 0 0;
-    justify-content: flex-end;
-  }
+    .buttonsPanel {
+        padding: 6px 14px 0 0;
+        justify-content: flex-end;
+    }
 }
 
 @media all and (max-width: 550px) {
-  .opionPanel {
-    flex-direction: column;
-  }
+    #windowGrid {
+        .opionPanel {
+            flex-direction: column;
+        }
 
-  .buttonsPanel {
-    justify-content: center;
-    padding: 0 14px 0 7px;
+        ag-grid-ng2 {
+            height: calc(100% - 157px);
+            padding-bottom: 15px;
+        }
 
-    button {
-      flex-grow: 1;
+        .buttonsPanel {
+            justify-content: center;
+            padding: 0 14px 0 7px;
+
+            button {
+                flex-grow: 1;
+            }
+        }
     }
-  }
 }
 

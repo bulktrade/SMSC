@@ -4,6 +4,7 @@ import { Response } from "@angular/http";
 import { EventEmitter } from "@angular/common/src/facade/async";
 import { ODatabaseService } from "../../../orientdb/orientdb.service";
 import { ServiceNotifications } from "../../../services/serviceNotification";
+import { MdSelect } from "../../../common/material/select/select";
 
 declare let sprintf;
 const squel = require('squel');
@@ -16,7 +17,7 @@ const squel = require('squel');
         require('./gridPagination.scss'),
         require('ng2-select/components/css/ng2-select.css')
     ],
-    directives: [],
+    directives: [MdSelect],
     pipes: [TranslatePipe],
     outputs: [
         'rowData',
