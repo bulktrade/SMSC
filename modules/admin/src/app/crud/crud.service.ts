@@ -317,7 +317,7 @@ export class CrudService {
             this.btnRenderer(columnDefs, 'Edit', 70, 'mode_edit',  (clickEvent) => {
                 this.navigateToEdit();
             });
-            this.btnRenderer(columnDefs, 'Delete', 80, 'delete', (clickEvent) => {
+            this.btnRenderer(columnDefs, 'Delete', 90, 'delete', (clickEvent) => {
                 this.navigateToDelete();
             });
         }

@@ -36,6 +36,8 @@ export class GridPagination {
     public stepPageSize = [5, 25, 50, 150, 200, 300];
     public pageSize: number = 5;
     private currentPage: number = 0;
+    private fromRecord: number;
+    private toRecord: number;
 
     constructor(public translate: TranslateService,
                 public databaseService: ODatabaseService,
@@ -144,8 +146,10 @@ export class GridPagination {
             .then((res: Response) => {
                 this.rowsThisPage = res.json().result;
 
+                this.setFromRecord();
+                this.setToRecord(this.rowsThisPage.length);
+
                 if (this.gridOptions.api) {
-                    console.log(this.rowsThisPage);
                     this.gridOptions.api.setRowData(this.rowsThisPage);
                     this.gridOptions.api.hideOverlay();
                 }
@@ -176,5 +180,13 @@ export class GridPagination {
 
     setCurrentPage(value: number) {
         this.currentPage = value;
+    }
+
+    setFromRecord() {
+        this.fromRecord = this.currentPage * this.pageSize;
+    }
+
+    setToRecord(numberRecords) {
+        this.toRecord = this.currentPage * this.pageSize + numberRecords;
     }
 }
