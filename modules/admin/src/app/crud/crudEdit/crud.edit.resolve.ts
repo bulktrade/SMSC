@@ -28,8 +28,6 @@ export class CrudEditResolve extends CrudResolve {
 
                         if (!Object.keys(this.crudService.model).length) {
                             model.push(res.json());
-                        } else {
-                            model.push({});
                         }
 
                         return this.gridService.selectLinksetProperties(initGridData, model)

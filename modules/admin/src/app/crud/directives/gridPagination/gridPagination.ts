@@ -151,14 +151,15 @@ export class GridPagination {
                 this.setFromRecord();
                 this.setToRecord(this.rowsThisPage.length);
 
-                return this.gridService.selectLinksetProperties(this.gridOptions.columnDefs, this.rowsThisPage)
+                return this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
+                    this.rowsThisPage)
                     .then(() => {
+
                         if (this.gridOptions.api) {
                             this.gridOptions.api.setRowData(this.rowsThisPage);
                             this.gridOptions.rowData = this.rowsThisPage;
                             this.gridOptions.api.hideOverlay();
                         }
-
 
                         return Promise.resolve(this.rowsThisPage);
                     });
