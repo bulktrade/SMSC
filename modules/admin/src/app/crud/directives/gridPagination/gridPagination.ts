@@ -47,10 +47,6 @@ export class GridPagination {
     }
 
     changePageSize() {
-        if (this.gridOptions.api) {
-            this.gridOptions.api.showLoadingOverlay();
-        }
-
         return this.getSizeClass(this.className)
             .then(size => {
                 if (this.currentPage * this.pageSize <= size) {
@@ -143,6 +139,10 @@ export class GridPagination {
 
     createNewDatasource(skip, limit) {
         let sql = "select * from %s SKIP %s LIMIT %s";
+
+        if (this.gridOptions.api) {
+            this.gridOptions.api.showLoadingOverlay();
+        }
 
         return this.databaseService.query(sprintf(sql, this.className, skip, limit))
             .then((res: Response) => {

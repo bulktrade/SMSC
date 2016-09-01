@@ -247,11 +247,14 @@ export class CrudService {
             hideInForm: true,
             cellRenderer: () => {
                 let that = this;
-                let button = document.createElement('button');
-                button.innerHTML = "<i class='material-icons' style='font-size: 18px;'>" + iconName + "</i>" +
-                    "<span style='position: relative; top: -4px; left: 3px; padding-right: 7px'>" + that.translate.get(nameBtn.toUpperCase())['value'] + "<span>";
-                button.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
-                    "border-radius: 3px; cursor: pointer;");
+                let button = document.createElement('i');
+                button.setAttribute('class', 'material-icons');
+                that.translate.get(nameBtn.toUpperCase())
+                    .subscribe(title => {
+                        button.setAttribute('title', title);
+                    });
+                button.innerHTML = iconName;
+                button.setAttribute('style', "font-size: 18px; color: #009688; cursor: pointer;");
                 button.addEventListener('click', (event) => {
                     if (clickEvent) {
                         clickEvent(event);
@@ -318,10 +321,10 @@ export class CrudService {
         this.addRIDColumn(columnDefs.grid);
 
         if (readOnly) {
-            this.btnRenderer(columnDefs, 'Edit', 70, 'mode_edit',  (clickEvent) => {
+            this.btnRenderer(columnDefs, 'Edit', 30, 'mode_edit',  (clickEvent) => {
                 this.navigateToEdit();
             });
-            this.btnRenderer(columnDefs, 'Delete', 90, 'delete', (clickEvent) => {
+            this.btnRenderer(columnDefs, 'Delete', 30, 'delete', (clickEvent) => {
                 this.navigateToDelete();
             });
         }
