@@ -5,7 +5,6 @@ import { Sidebar } from "../sidebar/sidebar.component";
 import { Router } from "@angular/router";
 import { TokenService } from "../services/auth/token.service";
 import { LoadingRouterOutlet } from "../common/loadingRouterOutlet";
-import { NotificationsService } from "angular2-notifications/components";
 import { NOTIFICATION_OPTIONS } from "../common/notificationOptions";
 
 @Component({

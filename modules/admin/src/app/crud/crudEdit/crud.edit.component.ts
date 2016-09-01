@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
-import { MultipleSelect } from "../directives/multipleSelect.component";
+import { MultipleSelect } from "../directives/multipleSelect/multipleSelect.component";
 import { MdCheckbox } from "@angular2-material/checkbox/checkbox";
 import { BUTTON_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import { SELECT_DIRECTIVES } from "ng2-select";
@@ -41,14 +41,13 @@ export class CrudEdit {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data['edit'];
+        this.resolveData = this.route.snapshot.data[0];
 
         if (this.resolveData.model) {
             this.crudService.setModel(this.resolveData.model);
         }
 
-        this.crudService.gridOptions.columnDefs = this.resolveData.initGridData.columnDefs;
-        this.crudService.gridOptions.rowData = this.resolveData.initGridData.rowData;
+        this.crudService.gridOptions.columnDefs = this.resolveData.initGridData;
     }
 
     back() {

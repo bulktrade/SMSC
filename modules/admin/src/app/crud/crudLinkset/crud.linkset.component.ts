@@ -6,6 +6,8 @@ import { CrudService } from "../crud.service";
 import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
 import { LoadingGrid } from "../../common/loadingGrid";
 import { Location } from "@angular/common";
+import { GridPagination } from "../directives/gridPagination/gridPagination";
+import { GridService } from "../../services/grid.service";
 
 @Component({
     selector: 'crud-linkset',
@@ -18,7 +20,8 @@ import { Location } from "@angular/common";
     directives: [
         AgGridNg2,
         AlertComponent,
-        LoadingGrid
+        LoadingGrid,
+        GridPagination
     ],
     pipes: [TranslatePipe]
 })
@@ -30,15 +33,14 @@ export class CrudLinkset {
                 public crudService: CrudService,
                 public router: Router,
                 public route: ActivatedRoute,
-                public location: Location) {
+                public location: Location,
+                public gridService: GridService) {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data['linkset'];
+        this.resolveData = this.route.snapshot.data[0];
 
-        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs;
-        this.crudService.gridOptions.rowData = this.resolveData.rowData;
-        this.crudService.setDatasource(this.crudService.gridOptions);
+        this.crudService.gridOptions.columnDefs = this.resolveData;
     }
 
     back() {
@@ -47,32 +49,39 @@ export class CrudLinkset {
 
     addLink(gridOptions) {
         let params: any = this.crudService.modifiedRecord.data;
-        let linkSet = this.setLinkset(gridOptions);
 
-        if (this.crudService.modifiedRecord.type === 'LINK') {
-            params[this.crudService.modifiedRecord.modifiedLinkset] = linkSet.join().replace(/\[|\]/gi, '');
-        } else {
-            params[this.crudService.modifiedRecord.modifiedLinkset] = linkSet;
-        }
+        return this.getLinkset(gridOptions)
+            .then(linkSet => {
+                if (this.crudService.modifiedRecord.type === 'LINK') {
+                    params[this.crudService.modifiedRecord.modifiedLinkset] = linkSet.join().replace(/\[|\]/gi, '');
+                } else {
+                    params[this.crudService.modifiedRecord.modifiedLinkset] = linkSet;
+                }
 
-        if (this.crudService.modifiedRecord.from === 'CrudView') {
-            this.crudService.updateRecord(params);
-            this.back();
-        } else {
-            this.crudService.model = params;
-            this.back();
-        }
+                if (this.crudService.modifiedRecord.from === 'CrudView') {
+                    this.crudService.updateRecord(params);
+                    this.back();
+                } else {
+                    this.crudService.model = params;
+                    this.back();
+                }
+
+            });
     }
 
-    setLinkset(gridOptions) {
+    getLinkset(gridOptions) {
         let focusedRows = gridOptions.api.getSelectedRows();
         let result = [];
 
-        for (let item = 0; item < focusedRows.length; item++) {
-            result.push(focusedRows[item].rid);
-        }
+        return this.gridService.getTitleColumns(this.crudService.getLinkedClass())
+            .then((columnName) => {
+                for (let item = 0; item < focusedRows.length; item++) {
+                    result['_' + item] = focusedRows[item]['@rid'];
+                    result.push(focusedRows[item][columnName]);
+                }
 
-        return result;
+                return result;
+            });
     }
 
 }

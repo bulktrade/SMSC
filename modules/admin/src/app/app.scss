@@ -10,12 +10,12 @@ body {
     }
 }
 
-.md-card {
-    height: 100%;
+button:focus {
+    outline: none;
 }
 
-.ag-body-viewport {
-  overflow-y: hidden !important;
+.md-card {
+    height: 100%;
 }
 
 @media (max-width: 992px) {

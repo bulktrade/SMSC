@@ -6,6 +6,7 @@ import { Observable } from "rxjs/Rx";
 import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
 import { RequestGetParameters } from "./orientdb.requestGetParameters";
 import { AuthHttp } from "angular2-jwt/angular2-jwt";
+import { BatchType } from "./orientdb.batchType";
 
 declare var sprintf: any;
 
@@ -67,7 +68,7 @@ export class ODatabaseService {
                         this.encodedDatabaseName += '$';
                     }
 
-                    this.encodedDatabaseName += parts[ p ];
+                    this.encodedDatabaseName += parts[p];
                 }
             } else {
                 this.encodedDatabaseName = this.databaseName;
@@ -106,53 +107,47 @@ export class ODatabaseService {
     };
 
     insert(params: RequestGetParameters) {
-        let batch = '{ "transaction" : true, "operations" : ' +
-            '[ { "type" : "c", "record" : ' +
-            '{ "@class" : "%(nameClass)s", ';
-
-        for (let key in params.colsValue) {
-            if (Array.isArray(params.colsValue[ key ])) {
-                let linkset = params.colsValue[ key ].join();
-                params.colsValue[ key ] = linkset;
-                batch += '"' + key + '" : [%(colsValue.' + key + ')s], ';
-            } else {
-                batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
-            }
-        }
-
-        batch = batch.substring(0, batch.length - 2) + '}}]}';
-
-        return this.batchRequest(sprintf(batch, params));
+        return this.batchRequest(this.batchFormatter(params, BatchType.Create));
     };
 
     update(params: RequestGetParameters) {
-        let batch = '{ "transaction" : true, "operations" : ' +
-            '[ { "type" : "u", "record" : ' +
-            '{ "@rid" : "%(rid)s", "@version": "%(version)s", ';
-
-        for (let key in params.colsValue) {
-            if (Array.isArray(params.colsValue[ key ])) {
-                let linkset = params.colsValue[ key ].join();
-                params.colsValue[ key ] = linkset;
-                batch += '"' + key + '" : [%(colsValue.' + key + ')s], ';
-            } else {
-                batch += '"' + key + '" : "%(colsValue.' + key + ')s", ';
-            }
-        }
-
-        batch = batch.substring(0, batch.length - 2) + '}}]}';
-
-        return this.batchRequest(sprintf(batch, params));
+        return this.batchRequest(this.batchFormatter(params, BatchType.Update));
     };
 
     delete(rid) {
-        let batch = sprintf('{ "transaction" : true, "operations" : ' +
-            '[ { "type" : "d", "record" : ' +
-            '{ "@rid" : "%s" } } ] }', rid);
-
-
-        return this.batchRequest(batch);
+        return this.batchRequest(this.batchFormatter(rid, BatchType.Delete));
     };
+
+    batchFormatter(properties, type: string|BatchType): string {
+        let batch = sprintf('{"transaction": true, "operations": [{"type": "%s", "record": {', type);
+        
+        for (let i in properties) {
+            let value: string = '';
+
+            if (Array.isArray(properties[i])) {
+                let link = properties[i];
+                let linkset = [];
+
+                for (let prop in link) {
+                    if (prop.charAt(0) === '_') {
+                        linkset.push(link[prop]);
+                    }
+                }
+
+                value = sprintf('[%s]', linkset.join());
+            } else if (i === '@version') {
+                value = sprintf('%s', properties[i]);
+            } else {
+                value = sprintf('"%s"', properties[i]);
+            }
+
+            let property = '"' + i + '" :' + value + ', ';
+
+            batch += property;
+        }
+
+        return batch.substring(0, batch.length - 2) + '}}]}';
+    }
 
     getInfoClass(className) {
         this.urlSuffix = '/';
@@ -186,7 +181,7 @@ export class ODatabaseService {
 
         return this.query(sprintf(sql, params))
             .then((res: Response) => {
-                return res.json().result[ 0 ];
+                return res.json().result[0];
             });
     };
 
@@ -323,14 +318,14 @@ export class ODatabaseService {
         });
 
         return this.authHttp.get(this.urlPrefix + url + this.urlSuffix,
-                headers)
-                .toPromise()
-                .then((res:Response) => {
-                        return Promise.resolve(res);
-                    }, (error) => {
-                        return Promise.reject(new Error('Query error: ' + error.responseText));
-                    }
-                );
+            headers)
+            .toPromise()
+            .then((res: Response) => {
+                    return Promise.resolve(res);
+                }, (error) => {
+                    return Promise.reject(new Error('Query error: ' + error.responseText));
+                }
+            );
     }
 
     close() {
@@ -442,7 +437,7 @@ export class ODatabaseService {
             if (!obj.hasOwnProperty(field)) {
                 continue;
             }
-            let value = obj[ field ];
+            let value = obj[field];
             if (typeof value === 'object') {
                 this.createObjectsLinksMap(value, linkMap);
             } else {
@@ -450,7 +445,7 @@ export class ODatabaseService {
                     if (value.length > 0 && value.charAt(0) === '#') {
                         if (!linkMap.hasOwnProperty(value)) {
                             linkMap.foo = 1;
-                            linkMap[ value ] = undefined;
+                            linkMap[value] = undefined;
                         }
                     }
                 }
@@ -465,13 +460,13 @@ export class ODatabaseService {
                 continue;
             }
 
-            let value = obj[ field ];
+            let value = obj[field];
             if (typeof value === 'object') {
                 this.getObjectFromLinksMap(value, linkMap);
             } else {
                 if (field !== '@rid' && value.length > 0
-                    && value.charAt(0) === '#' && linkMap[ value ] !== undefined) {
-                    obj[ field ] = linkMap[ value ];
+                    && value.charAt(0) === '#' && linkMap[value] !== undefined) {
+                    obj[field] = linkMap[value];
                 }
             }
         }
@@ -484,15 +479,15 @@ export class ODatabaseService {
                 continue;
             }
 
-            let value = obj[ field ];
+            let value = obj[field];
             if (typeof value === 'object') {
                 this.putObjectInLinksMap(value, linkMap);
             } else {
                 if (field === '@rid' && value.length > 0
                     && linkMap.hasOwnProperty(value)
-                    && linkMap[ value ] === undefined) {
+                    && linkMap[value] === undefined) {
                     linkMap.foo = 2;
-                    linkMap[ value ] = obj;
+                    linkMap[value] = obj;
                 }
             }
         }
@@ -502,9 +497,9 @@ export class ODatabaseService {
     removeCircleReferences(obj, linkMap) {
         linkMap = this.removeCircleReferencesPopulateMap(obj, linkMap);
         if (obj !== undefined && typeof obj === 'object' && !Array.isArray(obj)) {
-            if (obj[ '@rid' ] !== undefined && obj[ '@rid' ]) {
-                let rid = this.getRidWithPound(obj[ '@rid' ]);
-                linkMap[ rid ] = rid;
+            if (obj['@rid'] !== undefined && obj['@rid']) {
+                let rid = this.getRidWithPound(obj['@rid']);
+                linkMap[rid] = rid;
             }
         }
         this.removeCircleReferencesChangeObject(obj, linkMap);
@@ -523,12 +518,12 @@ export class ODatabaseService {
             if (!obj.hasOwnProperty(field)) {
                 continue;
             }
-            let value = obj[ field ];
+            let value = obj[field];
             if (value !== undefined && typeof value === 'object' && !Array.isArray(value)) {
-                if (value[ '@rid' ] !== undefined && value[ '@rid' ]) {
-                    let rid = this.getRidWithPound(value[ '@rid' ]);
-                    if (linkMap[ rid ] === undefined || !linkMap[ rid ]) {
-                        linkMap[ rid ] = value;
+                if (value['@rid'] !== undefined && value['@rid']) {
+                    let rid = this.getRidWithPound(value['@rid']);
+                    if (linkMap[rid] === undefined || !linkMap[rid]) {
+                        linkMap[rid] = value;
                     }
 
                     linkMap = this.removeCircleReferencesPopulateMap(value,
@@ -540,12 +535,12 @@ export class ODatabaseService {
                     if (!value.hasOwnProperty(i)) {
                         continue;
                     }
-                    let arrayValue = value[ i ];
+                    let arrayValue = value[i];
                     if (arrayValue !== undefined && typeof arrayValue === 'object') {
-                        if (arrayValue[ '@rid' ] !== undefined && arrayValue[ '@rid' ]) {
-                            let rid = this.getRidWithPound(arrayValue[ '@rid' ]);
-                            if (linkMap[ rid ] === undefined || !linkMap[ rid ]) {
-                                linkMap[ rid ] = arrayValue;
+                        if (arrayValue['@rid'] !== undefined && arrayValue['@rid']) {
+                            let rid = this.getRidWithPound(arrayValue['@rid']);
+                            if (linkMap[rid] === undefined || !linkMap[rid]) {
+                                linkMap[rid] = arrayValue;
                             }
                         }
                         linkMap = this.removeCircleReferencesPopulateMap(
@@ -563,17 +558,17 @@ export class ODatabaseService {
             if (!obj.hasOwnProperty(field)) {
                 continue;
             }
-            let value = obj[ field ];
+            let value = obj[field];
             if (value !== undefined && typeof value === 'object' && !Array.isArray(value)) {
                 let inspectObject = true;
-                if (value[ '@rid' ] !== undefined && value[ '@rid' ]) {
-                    let rid = this.getRidWithPound(value[ '@rid' ]);
-                    if (linkMap[ rid ] !== undefined && linkMap[ rid ]) {
-                        let mapValue = linkMap[ rid ];
+                if (value['@rid'] !== undefined && value['@rid']) {
+                    let rid = this.getRidWithPound(value['@rid']);
+                    if (linkMap[rid] !== undefined && linkMap[rid]) {
+                        let mapValue = linkMap[rid];
                         if (typeof mapValue === 'object') {
-                            linkMap[ rid ] = rid;
+                            linkMap[rid] = rid;
                         } else {
-                            obj[ field ] = mapValue;
+                            obj[field] = mapValue;
                             inspectObject = false;
                         }
                     }
@@ -587,17 +582,17 @@ export class ODatabaseService {
                     if (!value.hasOwnProperty(i)) {
                         continue;
                     }
-                    let arrayValue = value[ i ];
+                    let arrayValue = value[i];
                     if (typeof arrayValue === 'object') {
                         let inspectObject = true;
-                        if (arrayValue[ '@rid' ] !== undefined && arrayValue[ '@rid' ]) {
-                            let rid = this.getRidWithPound(arrayValue[ '@rid' ]);
-                            if (linkMap[ rid ] !== undefined && linkMap[ rid ]) {
-                                let mapValue = linkMap[ rid ];
+                        if (arrayValue['@rid'] !== undefined && arrayValue['@rid']) {
+                            let rid = this.getRidWithPound(arrayValue['@rid']);
+                            if (linkMap[rid] !== undefined && linkMap[rid]) {
+                                let mapValue = linkMap[rid];
                                 if (typeof mapValue === 'object') {
-                                    linkMap[ rid ] = rid;
+                                    linkMap[rid] = rid;
                                 } else {
-                                    value[ i ] = mapValue;
+                                    value[i] = mapValue;
                                     inspectObject = false;
                                 }
                             }
@@ -720,21 +715,21 @@ export class ODatabaseService {
         });
 
         return this.authHttp.get(this.urlPrefix + 'document/' + this.encodedDatabaseName + '/'
-                + iRID + iFetchPlan + this.urlSuffix,
-                headers)
-                .toPromise()
-                .then(
-                    res => {
-                        this.setErrorMessage(undefined);
-                        this.handleResponse(res);
-                        return Promise.resolve(this.getCommandResult());
-                    },
-                    error => {
-                        this.handleResponse(undefined);
-                        this.setErrorMessage('Query error: ' + error.responseText);
-                        return Promise.reject(error);
-                    }
-                );
+            + iRID + iFetchPlan + this.urlSuffix,
+            headers)
+            .toPromise()
+            .then(
+                res => {
+                    this.setErrorMessage(undefined);
+                    this.handleResponse(res);
+                    return Promise.resolve(this.getCommandResult());
+                },
+                error => {
+                    this.handleResponse(undefined);
+                    this.setErrorMessage('Query error: ' + error.responseText);
+                    return Promise.reject(error);
+                }
+            );
     }
 
     save(obj?, errorCallback?, successCallback?) {
@@ -742,7 +737,7 @@ export class ODatabaseService {
             this.open();
         }
 
-        let rid = obj[ '@rid' ];
+        let rid = obj['@rid'];
         let methodType = rid === undefined || rid === '-1:-1' ? 'POST' : 'PUT';
         if (this.removeObjectCircleReferences && typeof obj === 'object') {
             this.removeCircleReferences(obj, {});

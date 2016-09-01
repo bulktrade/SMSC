@@ -11,7 +11,7 @@ export class CrudLinksetResolve extends CrudResolve {
     }
 
     resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot) {
-        return this.crudService.initGrid(this.crudService.getLinkedClass(), true);
+        return this.crudService.initColumnDefs(this.crudService.getLinkedClass(), true);
     }
 
 }

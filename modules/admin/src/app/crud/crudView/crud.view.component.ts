@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
 import { LoadingGrid } from "../../common/loadingGrid";
+import { GridPagination } from "../directives/gridPagination/gridPagination";
 
 @Component({
     selector: 'crud-view',
@@ -17,7 +18,8 @@ import { LoadingGrid } from "../../common/loadingGrid";
     directives: [
         AgGridNg2,
         AlertComponent,
-        LoadingGrid
+        LoadingGrid,
+        GridPagination
     ],
     pipes: [TranslatePipe]
 })
@@ -32,11 +34,9 @@ export class CrudView {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data['view'];
+        this.resolveData = this.route.snapshot.data[0];
 
-        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs;
-        this.crudService.gridOptions.rowData = this.resolveData.rowData;
-        this.crudService.setDatasource(this.crudService.gridOptions);
+        this.crudService.gridOptions.columnDefs = this.resolveData;
     }
 
     navigateToCreate() {
