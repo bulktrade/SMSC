@@ -1,4 +1,4 @@
-import { provideRouter, Routes } from "@angular/router";
+import { Routes } from "@angular/router";
 import { AuthGuard } from "./common/authGuard";
 import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
@@ -12,7 +12,7 @@ import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridDa
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
 import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
 
-const routes: Routes = [
+export const ROUTES: Routes = [
     {
         path: 'login',
         component: Login
@@ -116,5 +116,3 @@ const routes: Routes = [
         component: NotFound
     }
 ];
-
-export const APP_ROUTE_PROVIDER = provideRouter(routes);

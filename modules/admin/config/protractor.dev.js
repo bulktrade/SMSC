@@ -17,13 +17,6 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 
 exports.config = objectMerge(commonConfig.config, {
-    jasmineNodeOpts: {
-        showTiming: true,
-        showColors: true,
-        isVerbose: true,
-        includeStackTrace: true,
-        defaultTimeoutInterval: 400000
-    },
     directConnect: true,
     capabilities: {
         'browserName': 'chrome',

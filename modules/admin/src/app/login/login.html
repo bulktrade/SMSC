@@ -7,19 +7,19 @@
                     {{ errorMessage | translate }}
                 </alert>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-6">
                         <md-input class="username" placeholder="{{ 'login.username' | translate }}"
                                   [(ngModel)]="model.username" type="text"
                                   autocomplete="off" name="username" required></md-input>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-xs-12 col-sm-12 col-md-6">
                         <md-input class="password" placeholder="{{ 'login.password' | translate }}"
                                   [(ngModel)]="model.password" type="password"
                                   autocomplete="off" name="password" required></md-input>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 right-align">
+                    <div class="col-xs-12 col-sm-12 col-md-6 right-align">
                         <md-slide-toggle color="primary"
                                          [(ngModel)]="model.rememberMe"
                                          class="rememberMe"
@@ -27,7 +27,7 @@
                             {{ 'login.rememberMe' | translate }}
                         </md-slide-toggle>
                     </div>
-                    <div class="col-sm-12 col-md-6 right-align"
+                    <div class="col-xs-12 col-sm-12 col-md-6 right-align"
                          [ngSwitch]="loading">
                         <button [disableRipple]="true" md-raised-button color="primary" id="submitButton"
                                 [disabled]="!authenticationForm.form.valid || loading">

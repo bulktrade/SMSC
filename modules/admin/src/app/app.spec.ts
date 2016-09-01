@@ -16,10 +16,4 @@ describe('App', () => {
             ]
         });
     });
-
-    it('should be url', inject([ App ], (app) => {
-        let url = 'http://www.smsc.io/';
-
-        expect(app.url).toEqual(url);
-    }));
 });
