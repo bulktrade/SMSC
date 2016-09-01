@@ -34,8 +34,8 @@ export class GridPagination {
     public initRowData = new EventEmitter();
 
     public rowsThisPage = [];
-    public stepPageSize = [25, 50, 150, 200, 300];
-    public pageSize: number = 25;
+    public stepPageSize: any = [25, 50, 150, 200, 300];
+    public pageSize: any = 25;
     private currentPage: number = 0;
     private fromRecord: number;
     private toRecord: number;
@@ -46,29 +46,38 @@ export class GridPagination {
                 public serviceNotifications: ServiceNotifications) {
     }
 
-    changePageSize() {
-        return this.getSizeClass(this.className)
-            .then(size => {
-                if (this.currentPage * this.pageSize <= size) {
-                    let skip = this.currentPage * this.pageSize;
-                    let limit = this.pageSize;
-
-                    return this.createNewDatasource(skip, limit);
-                } else {
-                    let lastRows = size - this.currentPage * this.pageSize;
-
-                    if (lastRows) {
-                        let skip = this.currentPage * this.pageSize;
-                        let limit = lastRows;
-
-                        return this.createNewDatasource(skip, limit);
-                    }
-                }
+    ngOnInit() {
+        this.translate.get('ALL_RECORDS')
+            .subscribe(res => {
+                this.stepPageSize.push(res);
             });
+
+        this.changePageSize();
     }
 
-    ngOnInit() {
-        this.changePageSize();
+    changePageSize() {
+        if (this.pageSize === 'All records') {
+            return this.createNewDatasource();
+        } else {
+            return this.getSizeClass(this.className)
+                .then(size => {
+                    if (this.currentPage * this.pageSize <= size) {
+                        let skip = this.currentPage * this.pageSize;
+                        let limit = this.pageSize;
+
+                        return this.createNewDatasource(skip, limit);
+                    } else {
+                        let lastRows = size - this.currentPage * this.pageSize;
+
+                        if (lastRows) {
+                            let skip = this.currentPage * this.pageSize;
+                            let limit = lastRows;
+
+                            return this.createNewDatasource(skip, limit);
+                        }
+                    }
+                });
+        }
     }
 
     first(): Promise<any> {
@@ -137,19 +146,32 @@ export class GridPagination {
             });
     }
 
-    createNewDatasource(skip, limit) {
-        let sql = "select * from %s SKIP %s LIMIT %s";
+    createNewDatasource(skip?, limit?) {
+        let pagination = "select * from %s SKIP %s LIMIT %s";
+        let allRecords = "select * from %s";
+        let sql;
+
+        if (skip === undefined && limit === undefined) {
+            sql = sprintf(allRecords, this.className);
+        } else {
+            sql = sprintf(pagination, this.className, skip, limit);
+        }
 
         if (this.gridOptions.api) {
             this.gridOptions.api.showLoadingOverlay();
         }
 
-        return this.databaseService.query(sprintf(sql, this.className, skip, limit))
+        return this.databaseService.query(sql)
             .then((res: Response) => {
                 this.rowsThisPage = res.json().result;
 
-                this.setFromRecord();
-                this.setToRecord(this.rowsThisPage.length);
+                if (skip === undefined && limit === undefined) {
+                    this.fromRecord = 0;
+                    this.toRecord = this.rowsThisPage.length;
+                } else {
+                    this.setFromRecord();
+                    this.setToRecord(this.rowsThisPage.length);
+                }
 
                 return this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
                     this.rowsThisPage)
