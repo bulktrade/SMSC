@@ -62,30 +62,63 @@ if ($customerClass.size() == 0) {
   console.log "Creating process for Customer class is done."
 }
 
-CREATE Class CrudPropertyMetaData
-CREATE PROPERTY CrudPropertyMetaData.property STRING
-CREATE PROPERTY CrudPropertyMetaData.editable BOOLEAN
-CREATE PROPERTY CrudPropertyMetaData.visible BOOLEAN
-CREATE PROPERTY CrudPropertyMetaData.decorator STRING
-CREATE PROPERTY CrudPropertyMetaData.order DOUBLE
+let crudClassMetaData = SELECT FROM (SELECT expand(classes) FROM metadata:schema) WHERE name = 'CrudClassMetaData';
 
-CREATE Class CrudClassMetaData
-CREATE PROPERTY CrudClassMetaData.class STRING
-CREATE PROPERTY CrudClassMetaData.titleColumns STRING
-CREATE PROPERTY CrudClassMetaData.editable BOOLEAN
-CREATE PROPERTY CrudClassMetaData.query STRING
+if ($crudClassMetaData.size() == 0) {
+  console.log "CrudClassMetaData class not exists! Start creating process."
 
-CREATE INDEX CrudClassMetaData.class UNIQUE
-CREATE INDEX CrudClassMetaData.titleColumns UNIQUE
-CREATE PROPERTY CrudPropertyMetaData.crudClassMetaData LINK CrudClassMetaData
+  CREATE Class CrudClassMetaData
+  CREATE PROPERTY CrudClassMetaData.class STRING
+  CREATE PROPERTY CrudClassMetaData.titleColumns STRING
+  CREATE PROPERTY CrudClassMetaData.editable BOOLEAN
+  CREATE PROPERTY CrudClassMetaData.query STRING
 
-CREATE Class CrudMetaGridData
-CREATE PROPERTY CrudMetaGridData.columnWidth DOUBLE
-ALTER CLASS CrudMetaGridData SUPERCLASS +CrudPropertyMetaData
+  CREATE INDEX CrudClassMetaData.class UNIQUE
+  CREATE INDEX CrudClassMetaData.titleColumns UNIQUE
 
-CREATE Class CrudMetaFormData
-CREATE PROPERTY CrudMetaFormData.fieldLayoutGridPosition STRING
-ALTER CLASS CrudMetaFormData SUPERCLASS +CrudPropertyMetaData
+  console.log "Creating process for CrudClassMetaData class is done."
+}
+
+let crudPropertyMetaData = SELECT FROM (SELECT expand(classes) FROM metadata:schema) WHERE name = 'CrudPropertyMetaData';
+
+if ($crudPropertyMetaData.size() == 0) {
+  console.log "CrudPropertyMetaData class not exists! Start creating process."
+
+  CREATE Class CrudPropertyMetaData
+  CREATE PROPERTY CrudPropertyMetaData.property STRING
+  CREATE PROPERTY CrudPropertyMetaData.editable BOOLEAN
+  CREATE PROPERTY CrudPropertyMetaData.visible BOOLEAN
+  CREATE PROPERTY CrudPropertyMetaData.decorator STRING
+  CREATE PROPERTY CrudPropertyMetaData.order DOUBLE
+
+  CREATE PROPERTY CrudPropertyMetaData.crudClassMetaData LINK CrudClassMetaData
+
+  console.log "Creating process for CrudPropertyMetaData class is done."
+}
+
+let crudMetaGridData = SELECT FROM (SELECT expand(classes) FROM metadata:schema) WHERE name = 'CrudMetaGridData';
+
+if ($crudMetaGridData.size() == 0) {
+  console.log "CrudMetaGridData class not exists! Start creating process."
+
+  CREATE Class CrudMetaGridData
+  CREATE PROPERTY CrudMetaGridData.columnWidth DOUBLE
+  ALTER CLASS CrudMetaGridData SUPERCLASS +CrudPropertyMetaData
+
+  console.log "Creating process for CrudMetaGridData class is done."
+}
+
+let crudMetaFormData = SELECT FROM (SELECT expand(classes) FROM metadata:schema) WHERE name = 'CrudMetaFormData';
+
+if ($crudMetaFormData.size() == 0) {
+  console.log "CrudMetaFormData class not exists! Start creating process."
+
+  CREATE Class CrudMetaFormData
+  CREATE PROPERTY CrudMetaFormData.fieldLayoutGridPosition STRING
+  ALTER CLASS CrudMetaFormData SUPERCLASS +CrudPropertyMetaData
+
+  console.log "Creating process for CrudMetaFormData class is done."
+}
 
 INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudMetaGridData', 'columnWidth', true);
 INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudMetaFormData', 'fieldLayoutGridPosition', true);
