@@ -1,33 +1,35 @@
 <div id="windowGrid">
-	<div class="option-container">
-		<div class="opionPanel">
-			<div class="searchPanel">
-				<md-input placeholder="{{ 'SEARCH' | translate }}"
-				          type="text" autocomplete="off" name="search" style=""
-				          #db (keydown)="crudService.onFilterChanged(db.value, crudService.gridOptions)"
-				          (keyup)="crudService.onFilterChanged(db.value, crudService.gridOptions)"></md-input>
-				<button md-icon-button color="primary" class="searchBtn">
-					<md-icon class="md-24">search</md-icon>
-				</button>
-			</div>
-			<div class="buttonsPanel">
-				<button md-raised-button color="primary" (click)="back()">{{'BACK' | translate}}</button>
-				<button md-raised-button color="primary" (click)="addLink(crudService.gridOptions)">{{'ADDLINK'
-					| translate}}
-				</button>
-			</div>
-		</div>
-		<alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true"
-		       (close)="crudService.dataNotFound=false">
-			{{ crudService.errorMessage | translate }}
-		</alert>
-	</div>
-	<loading-grid>
-		<ag-grid-ng2 class="ag-material"
-		             [rowGroupPanelShow]="always" [columnDefs]="crudService.gridOptions.columnDefs"
-		             [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
-		             [gridOptions]="crudService.gridOptions" [rowData]="crudService.gridOptions.rowData"
-		             (rowSelected)="crudService.rowSelected(crudService.gridOptions)"
-		             (cellFocused)="crudService.focusedRow=$event.rowIndex"></ag-grid-ng2>
-	</loading-grid>
+    <div class="option-container">
+        <div class="opionPanel">
+            <div class="searchPanel">
+                <md-input placeholder="{{ 'SEARCH' | translate }}"
+                          type="text" autocomplete="off" name="search" style=""
+                          #db (keydown)="crudService.onFilterChanged(db.value, crudService.gridOptions)"
+                          (keyup)="crudService.onFilterChanged(db.value, crudService.gridOptions)"></md-input>
+                <button md-icon-button color="primary" class="searchBtn">
+                    <md-icon class="md-24">search</md-icon>
+                </button>
+            </div>
+            <div class="buttonsPanel">
+                <button md-raised-button color="primary" (click)="back()">{{'BACK' | translate}}</button>
+                <button md-raised-button color="primary" (click)="addLink(crudService.gridOptions)">{{'ADDLINK'
+                    | translate}}
+                </button>
+            </div>
+        </div>
+        <alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true"
+               (close)="crudService.dataNotFound=false">
+            {{ crudService.errorMessage | translate }}
+        </alert>
+    </div>
+    <loading-grid>
+        <ag-grid-ng2 class="ag-material"
+                     [rowGroupPanelShow]="always" [columnDefs]="crudService.gridOptions.columnDefs"
+                     [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
+                     [gridOptions]="crudService.gridOptions" [rowData]="crudService.gridOptions.rowData"
+                     (rowSelected)="crudService.rowSelected(crudService.gridOptions)"
+                     (cellFocused)="crudService.focusedRow=$event.rowIndex"></ag-grid-ng2>
+        <grid-pagination [className]="crudService.getLinkedClass()"
+                         [gridOptions]="crudService.gridOptions"></grid-pagination>
+    </loading-grid>
 </div>

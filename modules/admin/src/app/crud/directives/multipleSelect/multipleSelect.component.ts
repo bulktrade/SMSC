@@ -3,7 +3,7 @@ import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
 import { ROUTER_DIRECTIVES, ActivatedRoute, Router } from "@angular/router";
 import { EventEmitter } from "@angular/common/src/facade/async";
 import { Location } from "@angular/common";
-import { CrudService } from "../crud.service";
+import { CrudService } from "../../crud.service";
 
 @Component({
     selector: 'multiple-select',
@@ -78,13 +78,12 @@ export class MultipleSelect {
         this.crudService.addingFormValid = false;
         let linkset = Array.isArray(this.crudService.model[this.property.property]) ?
             this.crudService.model[this.property.property] : this.crudService.model[this.property.property].split(',');
-        let titleColumns = [];
         let model = [];
 
         for (let i in this.ridItems) {
             if (this.ridItems[i].visible) {
+                model['_' + i] = linkset['_' + i];
                 model.push(linkset[i]);
-                titleColumns.push(this.ridItems[i].name);
             }
         }
 
@@ -99,7 +98,6 @@ export class MultipleSelect {
         }
 
         this.crudService.model[this.property.property] = model;
-        this.crudService.titleColumns[this.property.property] = titleColumns;
     }
 
     clearAll(): void {

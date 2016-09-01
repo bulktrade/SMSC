@@ -1,6 +1,5 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
-import { RequestGetParameters } from "../orientdb/orientdb.requestGetParameters";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
@@ -10,24 +9,19 @@ import { ServiceNotifications } from "../services/serviceNotification";
 import { LoadingGridService } from "../services/loadingGrid.service";
 
 const squel = require('squel');
-declare let sprintf: any;
 
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
 let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 
 @Injectable()
 export class CrudService {
-    crudModel = new CrudModel([], []);
-
-    public pageSize = 50;
+    public crudModel = new CrudModel([], []);
     public isEditForm: boolean = false;
     public modifiedRecord: any = {};
-    public allOfTheData;
     public focusedRow: any;
     public addingFormValid = false;
     public querySelectors = null;
     public embeddedList = null;
-    public activeLinkset: boolean = false;
     public rowSelectionLinkset = null;
     public linkedClass = null;
     public initGridData: Promise<any> = Promise.resolve();
@@ -43,7 +37,6 @@ export class CrudService {
     public gridOptions: GridOptions = {
         rowSelection: 'multiple',
         rowHeight: 30,
-        rowModelType: 'pagination',
         columnDefs: [],
         rowData: []
     };
@@ -71,15 +64,12 @@ export class CrudService {
         }
     }
 
-    createRecord(colsValue): Promise<any> {
-        let params: RequestGetParameters = {
-            "nameClass": this.getClassName(),
-            "colsValue": colsValue
-        };
+    createRecord(properties): Promise<any> {
+        properties['@class'] = this.getClassName();
 
         this.loadingService.start();
 
-        this.crud = this.databaseService.insert(params)
+        this.crud = this.databaseService.insert(properties)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
@@ -93,26 +83,11 @@ export class CrudService {
         return this.crud;
     }
 
-    updateRecord(value) {
-        let colsValue = {};
-
-        for (let key in value) {
-            if (key !== 'rid' && key !== 'version') {
-                colsValue[key] = value[key];
-            }
-        }
-
-        let params = {
-            "rid": value.rid,
-            "version": value.version,
-            "colsValue": colsValue
-        };
-
+    updateRecord(properties) {
         this.loadingService.start();
 
-        this.crud = this.databaseService.update(params)
+        this.crud = this.databaseService.update(properties)
             .then((res) => {
-                value.version++;
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.updateSuccessful', 'orientdb.successUpdate');
                 return Promise.resolve(res);
@@ -126,9 +101,12 @@ export class CrudService {
     }
 
     deleteRecord(rid): Promise<any> {
+        let property: any = {};
+        property['@rid'] = rid;
+
         this.loadingService.start();
 
-        this.crud = this.databaseService.delete(rid)
+        this.crud = this.databaseService.delete(property)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.deleteSuccessful', 'orientdb.successDelete');
@@ -144,6 +122,7 @@ export class CrudService {
 
     multipleDeleteRecords(id): Promise<any> {
         let result: Promise<any>;
+
         let rid = id.split(',');
 
         rid.forEach((i) => {
@@ -182,24 +161,8 @@ export class CrudService {
             .then((res: Response) => {
                 let result = res.json()['result'];
 
-                result.forEach((item) => {
-                    item['rid'] = item['@rid'];
-                    item['version'] = item['@version'];
-
-                    item = this.removeProperties(item, ['@rid', '@version', '@fieldTypes',
-                        '@fieldTypes', '@class', '@type'])
-                });
-
                 return Promise.resolve(result);
             })
-    }
-
-    removeProperties(obj, properties: Array<string>) {
-        properties.forEach((i) => {
-            delete obj[i];
-        });
-
-        return obj;
     }
 
     overlayLoadingTemplate() {
@@ -276,36 +239,40 @@ export class CrudService {
         }
     }
 
-    btnRenderer(columnDefs, nameBtn, clickEvent?: (event) => void) {
+    btnRenderer(columnDefs, nameBtn, width, iconName, clickEvent?: (event) => void) {
         columnDefs.grid.push({
             headerName: " ",
             field: nameBtn.toLowerCase(),
-            width: 66,
+            width: width,
             hideInForm: true,
             cellRenderer: () => {
                 let that = this;
-                let eCell = document.createElement('button');
-                eCell.innerHTML = that.translate.get(nameBtn.toUpperCase())['value'];
-                eCell.setAttribute('style', "height: 19px; background-color: #009688; color: #fff; border: none; " +
-                    "border-radius: 3px; cursor: pointer;");
-                eCell.addEventListener('click', (event) => {
+                let button = document.createElement('i');
+                button.setAttribute('class', 'material-icons');
+                that.translate.get(nameBtn.toUpperCase())
+                    .subscribe(title => {
+                        button.setAttribute('title', title);
+                    });
+                button.innerHTML = iconName;
+                button.setAttribute('style', "font-size: 18px; color: #009688; cursor: pointer;");
+                button.addEventListener('click', (event) => {
                     if (clickEvent) {
                         clickEvent(event);
                     }
                 });
 
-                return eCell;
+                return button;
             }
         });
     }
 
     navigateToEdit() {
-        let id = this.gridOptions.rowData[this.focusedRow].rid;
+        let id = this.gridOptions.rowData[this.focusedRow]['@rid'];
         this.router.navigate([this.parentPath, 'edit', id]);
     }
 
     navigateToDelete() {
-        let id = this.gridOptions.rowData[this.focusedRow].rid;
+        let id = this.gridOptions.rowData[this.focusedRow]['@rid'];
         this.router.navigate([this.parentPath, 'delete', id]);
     }
 
@@ -313,46 +280,35 @@ export class CrudService {
         let id = [];
 
         gridOptions.api.getSelectedRows().forEach((i) => {
-            id.push(i.rid);
+            id.push(i['@rid']);
         });
 
         return id;
     }
 
-    createNewDatasource(allOfTheData) {
-        if (!this.allOfTheData) {
-            return;
-        }
-
-        let dataSource = {
-            pageSize: this.pageSize,
-            getRows: (params) => {
-                // @todo timeout???, slice???
-                let rowsThisPage = allOfTheData.slice(params.startRow, params.endRow);
-
-                let lastRow = -1;
-                if (allOfTheData.length <= params.endRow) {
-                    lastRow = allOfTheData.length;
-                }
-                params.successCallback(rowsThisPage, lastRow);
-            }
-        };
-
-        return dataSource;
-    }
-
-    setRowData(rowData) {
-        this.allOfTheData = rowData;
-        return this.createNewDatasource(this.allOfTheData);
-    }
-
     addRIDColumn(columnDefs) {
         columnDefs.push({
             headerName: "RID",
-            field: "rid",
+            field: "@rid",
             hideInForm: true,
             width: 45
         });
+    }
+
+    translateColumnsName(columnDefs, name): Promise<any> {
+        let headersName = [];
+
+        for (let i in columnDefs) {
+            headersName.push(columnDefs[i][name].toUpperCase());
+        }
+
+        return this.translate.get(headersName).toPromise()
+            .then((columnName) => {
+                return Promise.resolve(columnName);
+            }, (error) => {
+                this.serviceNotifications.createNotificationOnResponse(error);
+                return Promise.reject(error);
+            });
     }
 
     getColumnDefs(className, readOnly) {
@@ -365,10 +321,10 @@ export class CrudService {
         this.addRIDColumn(columnDefs.grid);
 
         if (readOnly) {
-            this.btnRenderer(columnDefs, 'Edit', (clickEvent) => {
+            this.btnRenderer(columnDefs, 'Edit', 30, 'mode_edit',  (clickEvent) => {
                 this.navigateToEdit();
             });
-            this.btnRenderer(columnDefs, 'Delete', (clickEvent) => {
+            this.btnRenderer(columnDefs, 'Delete', 30, 'delete', (clickEvent) => {
                 this.navigateToDelete();
             });
         }
@@ -391,37 +347,31 @@ export class CrudService {
                         let columnsGrid = [];
                         let result = isExistColumn ? res.json()['result'] : properties; // add try / catch, can throws an error
 
-                        for (let i in result) {
-                            let column = result[i];
+                        return this.translateColumnsName(result, isExistColumn ? 'property' : 'name')
+                            .then((columnsName) => {
+                                for (let i in result) {
+                                    let column = result[i];
 
-                            if (isExistColumn) {
-                                this.translate.get(result[i]['property'].toUpperCase())
-                                    .toPromise()
-                                    .then((headerName) => {
-                                        column['headerName'] = headerName;
+                                    if (isExistColumn) {
+                                        column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
                                         column['field'] = result[i]['property'];
                                         column['hide'] = !result[i]['visible'];
                                         column['width'] = result[i]['columnWidth'];
 
                                         this.getPropertyMetadata(column, true, properties);
                                         columnsGrid.push(column);
-                                    });
-                            } else {
-                                this.translate.get(result[i]['name'].toUpperCase())
-                                    .toPromise()
-                                    .then((headerName) => {
-                                        column['headerName'] = headerName;
+                                    } else {
+                                        column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
                                         column['field'] = result[i]['name'];
                                         columnsGrid.push(column);
-                                    });
-                            }
-                        }
+                                    }
+                                }
 
-                        return Promise.resolve({
-                            columnsGrid: columnsGrid,
-                            isExistColumn: isExistColumn,
-                        })
-
+                                return Promise.resolve({
+                                    columnsGrid: columnsGrid,
+                                    isExistColumn: isExistColumn,
+                                })
+                            });
                     }, (error) => {
                         this.dataNotFound = true;
                         this.errorMessage = 'orientdb.dataNotFound';
@@ -433,39 +383,34 @@ export class CrudService {
                                 let columnsForm = [];
                                 let result = isExistForm ? res.json()['result'] : properties;
 
-                                for (let i in result) {
-                                    let column = result[i];
+                                return this.translateColumnsName(result, isExistForm ? 'property' : 'name')
+                                    .then((columnsName) => {
+                                        for (let i in result) {
+                                            let column = result[i];
 
-                                    if (isExistForm) {
-                                        this.translate.get(result[i]['property'].toUpperCase())
-                                            .toPromise()
-                                            .then((headerName) => {
-                                                column['headerName'] = headerName;
+                                            if (isExistForm) {
+                                                column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
 
                                                 this.getPropertyMetadata(column, false, properties);
                                                 columnsForm.push(column);
-                                            });
-                                    } else {
-                                        this.translate.get(result[i]['name'].toUpperCase())
-                                            .toPromise()
-                                            .then((headerName) => {
-                                                column['headerName'] = headerName;
+                                            } else {
+                                                column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
                                                 column['property'] = result[i]['name'];
                                                 column['editable'] = !result[i]['mandatory'];
                                                 column['visible'] = true;
 
                                                 columnsForm.push(column);
-                                            });
-                                    }
-                                }
+                                            }
+                                        }
 
-                                return Promise.resolve({
-                                    columnsGrid: gridDefs.columnsGrid,
-                                    isExistColumn: gridDefs.isExistColumn,
-                                    columnsForm: columnsForm,
-                                    isExistForm: isExistForm,
-                                    columnDefs: columnDefs,
-                                });
+                                        return Promise.resolve({
+                                            columnsGrid: gridDefs.columnsGrid,
+                                            isExistColumn: gridDefs.isExistColumn,
+                                            columnsForm: columnsForm,
+                                            isExistForm: isExistForm,
+                                            columnDefs: columnDefs,
+                                        });
+                                    });
                             }, (error) => {
                                 this.dataNotFound = true;
                                 this.errorMessage = 'orientdb.dataNotFound';
@@ -526,7 +471,7 @@ export class CrudService {
         this.successExecute = false;
     }
 
-    initGrid(className, isGrid: boolean): Promise<any> {
+    initColumnDefs(className, isGrid: boolean): Promise<any> {
         return this.initGridData = this.getColumnDefs(className, true)
             .then((result) => {
                 let columnDefs = result.columnDefs;
@@ -542,24 +487,8 @@ export class CrudService {
                 columnDefs.form = columnDefs.form.concat(result.columnsForm);
                 columnDefs.grid = columnDefs.grid.concat(result.columnsGrid);
 
-                return this.getStore(className)
-                    .then((store) => {
-
-                        return Promise.resolve({
-                            columnDefs: isGrid ? columnDefs.grid : columnDefs.form,
-                            rowData: store
-                        });
-                    }, (error) => {
-                        this.serviceNotifications.createNotificationOnResponse(error);
-
-                        return Promise.reject(error);
-                    });
-
+                return Promise.resolve(isGrid ? columnDefs.grid : columnDefs.form);
             })
-    }
-
-    setDatasource(gridOptions) {
-        gridOptions.datasource = this.setRowData(gridOptions.rowData);
     }
 
     setClassName(className) {
