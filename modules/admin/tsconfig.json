@@ -14,7 +14,7 @@
         ],
         "lib": [
             "dom",
-            "es5"
+            "es6"
         ],
         "types": [
             "core-js",
@@ -38,7 +38,5 @@
     },
     "compileOnSave": false,
     "buildOnSave": false,
-    "atom": {
-        "rewriteTsconfig": false
-    }
+    "atom": { "rewriteTsconfig": false }
 }
