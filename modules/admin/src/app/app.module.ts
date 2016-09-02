@@ -22,7 +22,7 @@ import { CrudCreate } from "./crud/crudCreate/crud.create.component";
 import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
 import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
 import { RouterModule } from "@angular/router";
-import { LocalStorageService } from "angular2-localstorage/LocalStorageEmitter";
+import { LocalStorageService } from "angular2-localStorage/LocalStorageEmitter";
 import { AppState } from "./app.service";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { DashboardGuard } from "./dashboard/dashboard.guard";
