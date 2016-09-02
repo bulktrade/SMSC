@@ -13,7 +13,7 @@ import { CrudView } from "./crud/crudView/crud.view.component";
 import { CrudDelete } from "./crud/crudDelete/crud.delete.component";
 import { Dashboard } from "./dashboard/dashboard.component";
 import { NotFound } from "./notFound/notFound.component";
-import { TranslateModule, TranslateStaticLoader, TranslateLoader } from "ng2-translate/ng2-translate";
+import { TranslateModule, TranslateStaticLoader, TranslateLoader, TranslatePipe } from "ng2-translate/ng2-translate";
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
 import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
 import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
@@ -40,6 +40,17 @@ import { MdModule } from "./md.module";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { LocationStrategy, PathLocationStrategy } from "@angular/common";
 import { GridService } from "./services/grid.service";
+import { Sidebar } from "./sidebar/sidebar.component";
+import { SidebarItem } from "./sidebar/sidebaritem.component";
+import { LoadingRouterOutlet } from "./common/loadingRouterOutlet";
+import { CubeGridComponent } from "./common/spinner/cubeGrid/cubeGrid.component";
+import { AlertComponent } from "ng2-bootstrap";
+import { AgGridNg2 } from "ag-grid-ng2";
+import { LoadingGrid } from "./common/loadingGrid";
+import { GridPagination } from "./crud/directives/gridPagination/gridPagination";
+import { MdSelect } from "./common/material/select/select";
+import { MultipleSelect } from "./crud/directives/multipleSelect/multipleSelect.component";
+import { SELECT_DIRECTIVES } from "ng2-select";
 
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -65,6 +76,16 @@ const APP_PROVIDERS = [
 @NgModule({
     bootstrap: [App],
     declarations: [
+        MultipleSelect,
+        MdSelect,
+        GridPagination,
+        LoadingGrid,
+        AgGridNg2,
+        AlertComponent,
+        CubeGridComponent,
+        LoadingRouterOutlet,
+        Sidebar,
+        SidebarItem,
         App,
         Login,
         Navigation,
