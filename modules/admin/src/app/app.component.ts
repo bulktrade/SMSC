@@ -1,12 +1,9 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
-import { ROUTER_DIRECTIVES } from "@angular/router";
+import { TranslateService } from "ng2-translate/ng2-translate";
 
 @Component({
     selector: 'app',
-    pipes: [TranslatePipe],
     providers: [],
-    directives: [ROUTER_DIRECTIVES],
     template: '<router-outlet></router-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [

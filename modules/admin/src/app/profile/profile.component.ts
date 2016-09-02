@@ -1,25 +1,22 @@
-import {Component, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
-import {TranslateService, TranslatePipe} from "ng2-translate/ng2-translate";
-import {ProfileModel} from "./profile.model";
-import {ProfileService} from "./profile.service";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { ProfileModel } from "./profile.model";
+import { ProfileService } from "./profile.service";
 
 @Component({
     selector: 'user',
     providers: [],
-    template: require('./user.html'),
-    directives: [
-    ],
-    pipes: [TranslatePipe]
+    template: require('./user.html')
 })
 export class Profile implements OnInit {
-    loading:boolean = false;
+    loading: boolean = false;
 
-    model:ProfileModel;
+    model: ProfileModel;
 
-    constructor(public router?:Router,
-                public translate?:TranslateService,
-                public profileService?:ProfileService) {
+    constructor(public router?: Router,
+                public translate?: TranslateService,
+                public profileService?: ProfileService) {
 
         this.model = new ProfileModel('', '');
     }

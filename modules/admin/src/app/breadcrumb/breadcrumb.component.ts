@@ -1,5 +1,5 @@
 import { Component, Injectable } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { BreadcrumbService } from "./breadcrumb.service";
 
@@ -11,9 +11,7 @@ import { BreadcrumbService } from "./breadcrumb.service";
         'description',
         'parents'
     ],
-    directives: [],
     providers: [],
-    pipes: [TranslatePipe],
     styles: [
         require('./breadcrumb.scss')
     ]

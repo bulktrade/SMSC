@@ -7,8 +7,7 @@ import { EventEmitter } from "@angular/common/src/facade/async";
     template: require('./select.html'),
     styles: [
         require('./select.scss'),
-    ],
-    directives: []
+    ]
 })
 
 export class MdSelect {

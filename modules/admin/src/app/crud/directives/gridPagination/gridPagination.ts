@@ -1,10 +1,9 @@
 import { Component, Input } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Response } from "@angular/http";
 import { EventEmitter } from "@angular/common/src/facade/async";
 import { ODatabaseService } from "../../../orientdb/orientdb.service";
 import { ServiceNotifications } from "../../../services/serviceNotification";
-import { MdSelect } from "../../../common/material/select/select";
 import { GridOptions } from "ag-grid";
 import { GridService } from "../../../services/grid.service";
 
@@ -19,8 +18,6 @@ const squel = require('squel');
         require('./gridPagination.scss'),
         require('ng2-select/components/css/ng2-select.css')
     ],
-    directives: [MdSelect],
-    pipes: [TranslatePipe],
     outputs: [
         'rowData',
         'initRowData',

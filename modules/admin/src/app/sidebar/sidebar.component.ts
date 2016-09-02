@@ -1,24 +1,11 @@
 import { Component } from '@angular/core';
-import { TranslateService, TranslatePipe } from 'ng2-translate/ng2-translate';
-import { Router, ROUTER_DIRECTIVES } from '@angular/router';
-import { FaAngleLeft } from './directives/FaAngleLeft';
-import { ActiveItem } from './directives/active';
-import { NgClass, NgFor } from '@angular/common';
-import { AnimateBox } from './directives/animate';
-import { SidebarItem } from './sidebaritem.component';
-import { MD_SIDENAV_DIRECTIVES } from '@angular2-material/sidenav/sidenav';
-
-declare var Reflect;
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'sidebar',
     template: require('./sidebar.html'),
     providers: [],
-    directives: [
-        ROUTER_DIRECTIVES,
-        SidebarItem
-    ],
-    pipes: [ TranslatePipe ],
     styles: [
         require('./sidebar.scss')
     ]

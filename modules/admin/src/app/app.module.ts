@@ -1,4 +1,4 @@
-import { NgModule, provide, ApplicationRef } from "@angular/core";
+import { NgModule, ApplicationRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { Http, HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
@@ -55,10 +55,11 @@ const APP_PROVIDERS = [
     LocalStorageService,
     TranslateService,
     ServiceNotifications,
-    provide(TranslateLoader, {
-        useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
-        deps: [Http]
-    })
+    {
+        provide: TranslateLoader, useFactory: (http: Http) => {
+            new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json');
+        }, deps: [Http]
+    },
 ];
 
 @NgModule({

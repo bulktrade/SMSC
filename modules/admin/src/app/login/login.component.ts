@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { LoginModel } from "./login.model";
 import { AuthService } from "../services/auth/auth.service";
 import { Response } from "@angular/http";
@@ -11,8 +11,6 @@ import { Response } from "@angular/http";
         AuthService
     ],
     template: require('./login.html'),
-    directives: [],
-    pipes: [ TranslatePipe ],
     styles: [
         require('./login.scss')
     ]

@@ -7,9 +7,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
         require('./notFound.scss')
     ],
     encapsulation: ViewEncapsulation.None,
-    providers: [],
-    directives: [],
-    pipes: []
+    providers: []
 })
 export class NotFound {
     constructor() {

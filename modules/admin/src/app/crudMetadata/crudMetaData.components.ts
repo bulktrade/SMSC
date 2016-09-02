@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
-import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
 
 @Component({
     selector: 'crud-metadata',
@@ -9,12 +8,7 @@ import {LoadingRouterOutlet} from "../common/loadingRouterOutlet";
     styles: [
         require('./crudMetaData.scss')
     ],
-    providers: [Breadcrumb],
-    directives: [
-        LoadingRouterOutlet,
-        Breadcrumb
-    ],
-    pipes: [TranslatePipe]
+    providers: [Breadcrumb]
 })
 
 export class CrudMetaData {

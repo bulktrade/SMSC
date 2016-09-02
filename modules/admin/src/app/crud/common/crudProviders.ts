@@ -1,8 +1,6 @@
-import { Http, HTTP_PROVIDERS } from "@angular/http";
-import { provide } from "@angular/core";
+import { Http } from "@angular/http";
 import {
     TranslateService, TranslateLoader, TranslateStaticLoader,
-    TRANSLATE_PROVIDERS
 } from 'ng2-translate/ng2-translate';
 import { ActivatedRoute, Router } from "@angular/router";
 import { CrudService } from "../crud.service";
@@ -23,13 +21,12 @@ export const CRUD_PROVIDERS = [
     { provide: ActivatedRoute, useClass: MockActivatedRoute },
     { provide: Router, useClass: MockActivatedRoute },
     CrudService,
-    HTTP_PROVIDERS,
     TokenService,
     TranslateService,
     LocalStorageService,
-    TRANSLATE_PROVIDERS,
-    provide(TranslateLoader, {
-        useFactory: (http:Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
-        deps: [ Http ]
-    }),
+    {
+        provide: TranslateLoader, useFactory: (http: Http) => {
+            new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json');
+        }, deps: [Http]
+    }
 ];

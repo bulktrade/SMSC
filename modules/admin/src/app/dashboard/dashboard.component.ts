@@ -1,7 +1,5 @@
 import { Component } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import { CORE_DIRECTIVES } from "@angular/common";
-import { ROUTER_DIRECTIVES } from "@angular/router";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
 
 @Component({
@@ -10,13 +8,7 @@ import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
     template: require('./dashboard.html'),
     styleUrls: [
         require('./dashboard.scss')
-    ],
-    directives: [
-        ROUTER_DIRECTIVES,
-        CORE_DIRECTIVES,
-        Breadcrumb
-    ],
-    pipes: [TranslatePipe]
+    ]
 })
 
 export class Dashboard {

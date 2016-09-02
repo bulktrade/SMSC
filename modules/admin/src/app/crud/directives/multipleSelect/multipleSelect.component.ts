@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import { ROUTER_DIRECTIVES, ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { ActivatedRoute, Router } from "@angular/router";
 import { EventEmitter } from "@angular/common/src/facade/async";
 import { Location } from "@angular/common";
 import { CrudService } from "../../crud.service";
@@ -12,10 +12,6 @@ import { CrudService } from "../../crud.service";
         require('./multipleSelect.scss')
     ],
     providers: [],
-    directives: [
-        ROUTER_DIRECTIVES,
-    ],
-    pipes: [TranslatePipe],
     outputs: ['isRequired']
 })
 

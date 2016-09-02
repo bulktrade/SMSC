@@ -1,12 +1,8 @@
 import { Component } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import { AgGridNg2 } from "ag-grid-ng2/main";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
-import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
-import { LoadingGrid } from "../../common/loadingGrid";
 import { Location } from "@angular/common";
-import { GridPagination } from "../directives/gridPagination/gridPagination";
 import { GridService } from "../../services/grid.service";
 
 @Component({
@@ -16,14 +12,7 @@ import { GridService } from "../../services/grid.service";
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],
-    providers: [],
-    directives: [
-        AgGridNg2,
-        AlertComponent,
-        LoadingGrid,
-        GridPagination
-    ],
-    pipes: [TranslatePipe]
+    providers: []
 })
 
 export class CrudLinkset {

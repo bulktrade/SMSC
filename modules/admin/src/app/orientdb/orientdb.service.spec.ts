@@ -1,6 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { ODatabaseService } from './orientdb.service';
-import { APP_PROVIDERS } from "../index";
 import { CRUD_PROVIDERS } from "../crud/common/crudProviders";
 import { HttpModule, BaseRequestOptions, Http, ConnectionBackend, ResponseOptions, Response } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
