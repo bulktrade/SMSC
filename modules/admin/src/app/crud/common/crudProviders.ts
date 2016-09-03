@@ -5,7 +5,6 @@ import {
 import { ActivatedRoute, Router } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { TokenService } from "../../services/auth/token.service";
-import { LocalStorageService } from "angular2-localstorage/LocalStorageEmitter";
 import { COMMON_PROVIDERS } from "../../common/index";
 import { ServiceNotifications } from "../../services/serviceNotification";
 import { NotificationsService } from "angular2-notifications/components";
@@ -23,7 +22,6 @@ export const CRUD_PROVIDERS = [
     CrudService,
     TokenService,
     TranslateService,
-    LocalStorageService,
     {
         provide: TranslateLoader, useFactory: (http: Http) => {
             new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json');

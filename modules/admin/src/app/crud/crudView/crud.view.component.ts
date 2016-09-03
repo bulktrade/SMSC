@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
+import { AgGridNg2 } from "ag-grid-ng2";
 
 @Component({
     selector: 'crud-view',
@@ -10,7 +11,7 @@ import { CrudService } from "../crud.service";
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],
-    providers: []
+    providers: [],
 })
 
 export class CrudView {

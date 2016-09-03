@@ -3,24 +3,24 @@
 		<form class="form" #addingForm="ngForm" (submit)="onSubmit()">
 			<div *ngFor="let item of crudService.gridOptions.columnDefs" [ngSwitch]="item.type">
 				<md-input *ngSwitchCase="'STRING'" placeholder="{{item.headerName}}" name="{{item.headerName}}"
-				          class="{{item.headerName}}" [readOnly]="!item.editable" [hidden]="!item.visible"
+				          class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
 				          [required]="item.mandatory"
 				          type="text" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
 				          class="form-control"></md-input>
 				<md-input
 					*ngIf='item.type === "DOUBLE" || item.type === "INTEGER" || item.type === "FLOAT" || item.type === "BYTE" || item.type === "DECIMAL"'
 					placeholder="{{item.headerName}}" name="{{item.headerName}}"
-					class="{{item.headerName}}" [readOnly]="!item.editable" [hidden]="!item.visible"
+					class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
 					[required]="item.mandatory"
 					type="number" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
 					class="form-control"></md-input>
 				<md-input *ngSwitchCase="'DATETIME'" placeholder="{{item.headerName}}" name="{{item.headerName}}"
-				          class="{{item.headerName}}" [readOnly]="!item.editable" [hidden]="!item.visible"
+				          class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
 				          [required]="item.mandatory"
 				          type="datetime" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
 				          class="form-control"></md-input>
 				<md-input *ngSwitchCase="'DATE'" placeholder="{{item.headerName}}" name="{{item.headerName}}"
-				          class="{{item.headerName}}" [readOnly]="!item.editable" [hidden]="!item.visible"
+				          class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
 				          [required]="item.mandatory"
 				          type="date" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
 				          class="form-control"></md-input>

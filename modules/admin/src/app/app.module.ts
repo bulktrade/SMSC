@@ -22,7 +22,6 @@ import { CrudCreate } from "./crud/crudCreate/crud.create.component";
 import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
 import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
 import { RouterModule } from "@angular/router";
-import { LocalStorageService } from "angular2-localStorage/LocalStorageEmitter";
 import { AppState } from "./app.service";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { DashboardGuard } from "./dashboard/dashboard.guard";
@@ -40,6 +39,15 @@ import { MdModule } from "./md.module";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { LocationStrategy, PathLocationStrategy } from "@angular/common";
 import { GridService } from "./services/grid.service";
+import { Ng2BootstrapModule } from "ng2-bootstrap";
+import { Sidebar } from "./sidebar/sidebar.component";
+import { LoadingRouterOutlet } from "./common/loadingRouterOutlet";
+import { AgGridNg2 } from "ag-grid-ng2";
+import { GridPagination } from "./crud/directives/gridPagination/gridPagination";
+import { LoadingGrid } from "./common/loadingGrid";
+import { MultipleSelect } from "./crud/directives/multipleSelect/multipleSelect.component";
+import { SELECT_DIRECTIVES } from "ng2-select";
+import { SidebarItem } from "./sidebar/sidebaritem.component";
 
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -52,7 +60,6 @@ const APP_PROVIDERS = [
     AuthGuard,
     DashboardGuard,
     AppState,
-    LocalStorageService,
     TranslateService,
     ServiceNotifications,
     {
@@ -81,9 +88,20 @@ const APP_PROVIDERS = [
         CrudMetaData,
         CrudMetaFormData,
         CrudClassMetaData,
-        CrudMetaGridData
+        CrudMetaGridData,
+        Sidebar,
+        SidebarItem,
+        LoadingRouterOutlet,
+        GridPagination,
+        LoadingGrid,
+        MultipleSelect,
+
+        // @todo check vendor packages here?
+        AgGridNg2,
+        SELECT_DIRECTIVES
     ],
     imports: [
+        Ng2BootstrapModule,
         BrowserModule,
         FormsModule,
         HttpModule,

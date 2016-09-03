@@ -1,9 +1,8 @@
-import {LocalStorage} from 'angular2-localStorage/WebStorage';
 
 // save state short navigation after reload page
 export class ShowMiniNav {
-    @LocalStorage()
-    public showNav: boolean;
+    // @LocalStorage()
+    public showNav: boolean; // @todo do not use angular2-localStorage
 
     constructor() {
     }
