@@ -1,113 +1,87 @@
 import { NgModule, ApplicationRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { Http, HttpModule } from "@angular/http";
+import { HttpModule, Http } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { App } from "./app.component";
-import { Breadcrumb } from "./breadcrumb/breadcrumb.component";
 import { ROUTES } from "./app.routes";
-import { Login } from "./login/login.component";
-import { Navigation } from "./navigation/navigation.component";
-import { Customers } from "./customers/customers.components";
-import { Crud } from "./crud/crud.component";
-import { CrudView } from "./crud/crudView/crud.view.component";
-import { CrudDelete } from "./crud/crudDelete/crud.delete.component";
-import { Dashboard } from "./dashboard/dashboard.component";
 import { NotFound } from "./notFound/notFound.component";
-import { TranslateModule, TranslateStaticLoader, TranslateLoader } from "ng2-translate/ng2-translate";
-import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
-import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
-import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
-import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
-import { CrudCreate } from "./crud/crudCreate/crud.create.component";
-import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
-import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
 import { RouterModule } from "@angular/router";
 import { AppState } from "./app.service";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { DashboardGuard } from "./dashboard/dashboard.guard";
 import { COMMON_PROVIDERS } from "./common";
-import { AuthService } from "./services/auth/auth.service";
-import { TokenService } from "./services/auth/token.service";
-import { CrudService } from "./crud/crud.service";
-import { AuthGuard } from "./common/authGuard";
-import { ServiceNotifications } from "./services/serviceNotification";
-import { LoadingGridService } from "./services/loadingGrid.service";
 import { APP_RESOLVER_PROVIDERS } from "./app.resolver";
 import { createNewHosts, removeNgStyles } from "@angularclass/hmr";
 import { ENV_PROVIDERS } from "./environment";
 import { MdModule } from "./md.module";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { LocationStrategy, PathLocationStrategy } from "@angular/common";
-import { GridService } from "./services/grid.service";
 import { Ng2BootstrapModule } from "ng2-bootstrap";
-import { Sidebar } from "./sidebar/sidebar.component";
 import { LoadingRouterOutlet } from "./common/loadingRouterOutlet";
-import { AgGridNg2 } from "ag-grid-ng2";
-import { GridPagination } from "./crud/directives/gridPagination/gridPagination";
-import { LoadingGrid } from "./common/loadingGrid";
-import { MultipleSelect } from "./crud/directives/multipleSelect/multipleSelect.component";
-import { SELECT_DIRECTIVES } from "ng2-select";
-import { SidebarItem } from "./sidebar/sidebaritem.component";
+import { CubeGridComponent } from "./common/spinner/cubeGrid/cubeGrid.component";
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate";
 
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     ...COMMON_PROVIDERS,
-    LoadingGridService,
-    CrudService,
-    GridService,
-    TokenService,
-    AuthService,
-    AuthGuard,
-    DashboardGuard,
+    // LoadingGridService,
+    // CrudService,
+    // GridService,
+    // TokenService,
+    // AuthService,
+    // AuthGuard,
+    // DashboardGuard,
     AppState,
-    TranslateService,
-    ServiceNotifications,
-    {
-        provide: TranslateLoader, useFactory: (http: Http) => {
-            new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json');
-        }, deps: [Http]
-    },
+    // ServiceNotifications
 ];
 
 @NgModule({
     bootstrap: [App],
     declarations: [
         App,
-        Login,
-        Navigation,
-        Customers,
-        Crud,
-        CrudView,
-        CrudEdit,
-        CrudLinkset,
-        CrudDelete,
-        CrudCreate,
+        // Login,
+        // Navigation,
+        // Customers,
+        // Crud,
+        // CrudView,
+        // CrudEdit,
+        // CrudLinkset,
+        // CrudDelete,
+        // CrudCreate,
         NotFound,
-        Dashboard,
-        Breadcrumb,
-        CrudMetaData,
-        CrudMetaFormData,
-        CrudClassMetaData,
-        CrudMetaGridData,
-        Sidebar,
-        SidebarItem,
+        // Dashboard,
+        // Breadcrumb,
+        // CrudMetaData,
+        // CrudMetaFormData,
+        // CrudClassMetaData,
+        // CrudMetaGridData,
+        // Sidebar,
+        // SidebarItem,
         LoadingRouterOutlet,
-        GridPagination,
-        LoadingGrid,
-        MultipleSelect,
+        // GridPagination,
+        // LoadingGrid,
+        // MultipleSelect,
+        CubeGridComponent,
+        // MdSelect,
 
         // @todo check vendor packages here?
-        AgGridNg2,
-        SELECT_DIRECTIVES
+        // AgGridNg2,
+        // SELECT_DIRECTIVES, @todo not working with ng2 RC6
+        // OffClickDirective @todo not working with ng2 RC6
     ],
     imports: [
-        Ng2BootstrapModule,
         BrowserModule,
-        FormsModule,
         HttpModule,
+        FormsModule,
+        Ng2BootstrapModule,
         RouterModule.forRoot(ROUTES, { useHash: true }),
         MdModule.forRoot(),
-        TranslateModule,
+        TranslateModule.forRoot({
+            provide: TranslateLoader,
+            useFactory: (http: Http) => {
+                console.log(http);
+                return new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json');
+            },
+            deps: [Http] // @todo Http is null..
+        }),
         SimpleNotificationsModule
     ],
     providers: [

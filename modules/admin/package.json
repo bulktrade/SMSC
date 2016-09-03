@@ -144,7 +144,7 @@
         "material-design-icons": "^3.0.1",
         "ng2-bootstrap": "^1.1.0",
         "ng2-select": "^1.0.3",
-        "ng2-translate": "^2.4.2",
+        "ng2-translate": "^2.4.3",
         "node-sass": "^3.8.0",
         "normalize.css": "^4.2.0",
         "parse5": "^2.2.1",

@@ -3,12 +3,13 @@
         <div class="col-md-12 page-404">
             <div class="number font-red"> 404</div>
             <div class="details">
-                <h3>Oops! You're lost.</h3>
-                <p> We can not find the page you're looking for.
+                <h3>{{ '404_PAGE_TITLE' | translate }}</h3>
+                <p> {{ '404_PAGE_TEXT' | translate }}
                     <br/>
-                    <a [routerLink]="['/login']">Return home</a>
+                    <a [routerLink]="['/login']">{{ '404_PAGE_LINK_TITLE' | translate }}</a>
                 </p>
             </div>
         </div>
     </div>
 </div>
+
