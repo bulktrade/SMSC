@@ -1,0 +1,152 @@
+$color-1: #AAB5BC;
+$color-2: #2ab4c0;
+$color-3: #f36a5a;
+$color-4: #5C9BD1;
+$color-5: #8877a9;
+$color-6: #AAB5BC;
+
+md-card.status {
+    position: relative;
+    margin-right: 5px;
+    &:last-child {
+        margin-right: 0px;
+    }
+    .icon {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        font-size: 32px;
+        color: $color-1;
+    }
+    md-card-header-text {
+        display: block;
+        &.md-title {
+            font-size: 37px;
+            font-weight: 400;
+            span {
+                font-size: 27px;
+            }
+        }
+        &.md-subhead {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: $color-1;
+        }
+    }
+    .progress-container {
+        margin-top: 15px;
+        .progress-bar {
+            height: 4px;
+            margin-bottom: 10px;
+            position: relative;
+            background-color: $color-1;
+            .active-progress {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                height: 100%;
+            }
+        }
+        .info {
+            font-size: 13px;
+            color: $color-1;
+            span {
+                display: inline-block;
+                &.status {
+                    clear: both;
+                }
+                &.percent {
+                    float: right;
+                }
+            }
+        }
+    }
+    &.profit {
+        .md-title {
+            color: $color-2;
+        }
+        .active-progress {
+            background-color: $color-2;
+            width: 75%;
+        }
+    }
+    &.feedback {
+        .md-title {
+            color: $color-3;
+        }
+        .active-progress {
+            background-color: $color-3;
+            width: 35%;
+        }
+    }
+    &.orders {
+        .md-title {
+            color: $color-4;
+        }
+        .active-progress {
+            background-color: $color-4;
+            width: 60%;
+        }
+    }
+    &.users {
+        .md-title {
+            color: $color-5;
+        }
+        .active-progress {
+            background-color: $color-5;
+            width: 88%;
+        }
+    }
+}
+
+.content {
+    height: 100%;
+
+    div.chart {
+        position: relative;
+        height: 100%;
+        margin-right: 5px;
+        &:last-child {
+            margin-right: 0px;
+        }
+        md-card {
+            height: 100%;
+        }
+        md-header {
+            position: relative;
+            display: block;
+            padding-bottom: 15px;
+            border-bottom: 1px solid $color-6;
+            md-card-header-text {
+                &.md-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    margin-right: 10px;
+                }
+                &.md-subhead {
+                    color: $color-1;
+                }
+            }
+            .toolbar {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                .icon {
+                    color: $color-1;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+}

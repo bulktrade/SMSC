@@ -1,0 +1,83 @@
+<breadcrumb></breadcrumb>
+<loading-router-outlet></loading-router-outlet>
+
+
+
+<div id="dashboard" class="wrapper">
+    <router-outlet></router-outlet>
+    <div class="crud">
+        <md-button class="add">
+            <i class="material-icons">add</i>
+        </md-button>
+        <md-button class="reomve">
+            <i class="material-icons">delete_forever</i>
+        </md-button>
+    </div>
+    <md-content class="status container" [dragula]='"status-bag"'>
+        <dashboard-box [config]="{
+            'type': 'status',
+            'name': 'profit',
+            'header': '7001 <span>$</span>',
+            'sub-head': 'Total profit',
+            'icon': 'account_balance_wallet',
+            'customData': {
+                'processStatus': 'Progress',
+                'percent': '75'
+            }
+        }"></dashboard-box>
+        <dashboard-box [config]="{
+            'type': 'status',
+            'name': 'feedback',
+            'header': '1349',
+            'sub-head': 'New feedback',
+            'icon': 'message',
+            'customData': {
+                'processStatus': 'Change',
+                'percent': '35'
+            }
+        }"
+        ></dashboard-box>
+        <dashboard-box [config]="{
+            'type': 'status',
+            'name': 'orders',
+            'header': '1941',
+            'sub-head': 'New orders',
+            'icon': 'message',
+            'customData': {
+                'processStatus': 'Grow',
+                'percent': '60'
+            }
+        }"
+        ></dashboard-box>
+        <dashboard-box [config]="{
+            'type': 'status',
+            'name': 'users',
+            'header': '2184',
+            'sub-head': 'New users',
+            'icon': 'supervisor_account',
+            'customData': {
+                'processStatus': 'Change',
+                'percent': '88'
+            }
+        }"
+        ></dashboard-box>
+    </md-content>
+    <md-content class="graphics container" [dragula]='"chart-bag"'>
+        <dashboard-box [config]="{
+            'type': 'chart',
+            'header': 'Revenue',
+            'subHeader': 'distance stats...'
+        }"
+        ></dashboard-box>
+        <dashboard-box [config]="{
+            'type': 'chart',
+            'header': 'Finance',
+            'subHeader': 'distance stats...'
+        }"></dashboard-box>
+        <dashboard-box [config]="{
+            'type': 'chart',
+            'header': 'Profit',
+            'subHeader': 'distance stats...'
+        }"></dashboard-box>
+    </md-content>
+</div>

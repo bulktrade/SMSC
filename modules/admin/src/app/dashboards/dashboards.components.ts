@@ -1,28 +1,23 @@
 import { Component } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
+import { TranslatePipe } from "ng2-translate/ng2-translate";
 import { CORE_DIRECTIVES } from "@angular/common";
 import { ROUTER_DIRECTIVES } from "@angular/router";
 import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
+import { LoadingRouterOutlet } from "../common/loadingRouterOutlet";
 
 @Component({
     selector: 'dashboard',
     providers: [Breadcrumb],
-    template: require('./dashboard.html'),
-    styleUrls: [
-        require('./dashboard.scss')
-    ],
+    template: '<loading-router-outlet></loading-router-outlet>',
     directives: [
+        LoadingRouterOutlet,
         ROUTER_DIRECTIVES,
         CORE_DIRECTIVES,
         Breadcrumb
     ],
-    pipes: [TranslatePipe]
+    pipes: [TranslatePipe],
 })
-
-export class Dashboard {
-
-    constructor(public translate:TranslateService,
-                public breadcrumb:Breadcrumb) {
+export class Dashboards {
+    constructor() {
     }
-
 }

@@ -1,0 +1,42 @@
+<div class="content" [ngClass]="{fullscreen: fullscreenMode}">
+    <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}">
+        <i class="material-icons icon">
+            {{ config.icon }}
+        </i>
+        <md-card-header-text class="md-title" [innerHTML]="config.header"></md-card-header-text>
+        <md-card-header-text class="md-subhead">
+            {{ config.subHeader }}
+        </md-card-header-text>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <span class="active-progress"></span>
+            </div>
+            <div class="info">
+            <span class="status">
+                {{ config.customData.processStatus }}
+            </span>
+                <span class="percent">
+                {{ config.customData.percent }}%
+            </span>
+            </div>
+        </div>
+    </md-card>
+
+    <div *ngIf="config.type == 'chart'" class="chart">
+        <md-card>
+            <md-header>
+                <md-card-header-text class="md-title">
+                    {{ config.header }}
+                </md-card-header-text>
+                <md-card-header-text class="md-subhead">
+                    {{ config.subHeader }}
+                </md-card-header-text>
+                <div class="toolbar">
+                    <i class="material-icons icon " (click)="toggleFullscreen()">
+                        {{ fullscreenMode ? 'fullscreen' : 'fullscreen_exit' }}
+                    </i>
+                </div>
+            </md-header>
+        </md-card>
+    </div>
+</div>
