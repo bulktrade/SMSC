@@ -1,42 +1,71 @@
-<div class="content" [ngClass]="{fullscreen: fullscreenMode}">
-    <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}">
-        <i class="material-icons icon">
-            {{ config.icon }}
-        </i>
-        <md-card-header-text class="md-title" [innerHTML]="config.header"></md-card-header-text>
-        <md-card-header-text class="md-subhead">
-            {{ config.subHeader }}
-        </md-card-header-text>
-        <div class="progress-container">
-            <div class="progress-bar">
-                <span class="active-progress"></span>
+<div class="content rectangle" #box [ngClass]="{fullscreen: fullscreenMode, 'last-child-resize': resizeStart}"
+>
+    <div class="innerWrap"
+         [ngStyle]="style"
+         mwlResizable
+         (resizeStart)="start($event, this)"
+         [validateResize]="validate"
+         [resizeEdges]="{bottom: true, right: true, top: true, left: true}"
+         [enableGhostResize]="true"
+         (resizeEnd)="onResizeEnd($event)"
+         (resize)="resize($event)"
+         [ngClass]="{'last-child-resize': startResize}"
+    >
+        <div class="crud">
+            <div class="wrap" [ngClass]="{'crudOpen': crudOpen}">
+                <div class="icon" (click)="crudOpen = !crudOpen">
+                    <div>
+                        <i class="material-icons">more_vert</i>
+                    </div>
+                </div>
+                <md-button class="add">
+                    <i class="material-icons">add</i>
+                </md-button>
+                <md-button class="reomve">
+                    <i class="material-icons">delete_forever</i>
+                </md-button>
             </div>
-            <div class="info">
+        </div>
+
+        <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}">
+            <i class="material-icons icon">
+                {{ config.icon }}
+            </i>
+            <md-card-header-text class="md-title" [innerHTML]="config.header"></md-card-header-text>
+            <md-card-header-text class="md-subhead">
+                {{ config.subHeader }}
+            </md-card-header-text>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <span class="active-progress"></span>
+                </div>
+                <div class="info">
             <span class="status">
                 {{ config.customData.processStatus }}
             </span>
                 <span class="percent">
                 {{ config.customData.percent }}%
             </span>
-            </div>
-        </div>
-    </md-card>
-
-    <div *ngIf="config.type == 'chart'" class="chart">
-        <md-card>
-            <md-header>
-                <md-card-header-text class="md-title">
-                    {{ config.header }}
-                </md-card-header-text>
-                <md-card-header-text class="md-subhead">
-                    {{ config.subHeader }}
-                </md-card-header-text>
-                <div class="toolbar">
-                    <i class="material-icons icon " (click)="toggleFullscreen()">
-                        {{ fullscreenMode ? 'fullscreen' : 'fullscreen_exit' }}
-                    </i>
                 </div>
-            </md-header>
+            </div>
         </md-card>
+
+        <div *ngIf="config.type == 'chart'" class="chart">
+            <md-card>
+                <md-header>
+                    <md-card-header-text class="md-title">
+                        {{ config.header }}
+                    </md-card-header-text>
+                    <md-card-header-text class="md-subhead">
+                        {{ config.subHeader }}
+                    </md-card-header-text>
+                    <div class="toolbar">
+                        <i class="material-icons icon " (click)="toggleFullscreen()">
+                            {{ fullscreenMode ? 'fullscreen' : 'fullscreen_exit' }}
+                        </i>
+                    </div>
+                </md-header>
+            </md-card>
+        </div>
     </div>
 </div>

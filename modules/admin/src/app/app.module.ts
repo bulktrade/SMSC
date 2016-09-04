@@ -29,13 +29,15 @@ import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
 import { Dashboards } from "./dashboards/dashboards.components";
 import { DashboardView } from "./dashboards/dashboard.view.component";
 import { DashboardBox } from "./dashboards/dashboard.box.component";
+import {ResizableModule} from 'angular2-resizable';
 
 @NgModule({
     imports: [
         BrowserModule,
         MaterialModule,
         FormsModule,
-        SimpleNotificationsModule
+        SimpleNotificationsModule,
+        ResizableModule
     ],
     providers: [
         ...APP_PROVIDERS,

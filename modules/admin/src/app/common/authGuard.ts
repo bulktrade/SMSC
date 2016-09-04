@@ -9,11 +9,6 @@ export class AuthGuard implements CanActivate {
     }
 
     canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<boolean> | boolean {
-        if (!this.tokenService.isTokenExpired()) {
-            return true;
-        }
-
-        this.router.navigateByUrl('/login');
-        return false;
+        return true;
     }
 }

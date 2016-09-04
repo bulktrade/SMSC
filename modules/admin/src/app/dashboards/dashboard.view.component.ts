@@ -27,20 +27,38 @@ import { DropdownDirective } from "ng2-bootstrap/components/dropdown";
 //    encapsulation: ViewEncapsulation.Native
 })
 export class DashboardView {
-    public dynamicTooltip:string = 'Hello, World!';
-    public dynamicTooltipText:string = 'dynamic';
-    public htmlTooltip:string = 'I\'ve been made <b>bold</b>!';
-    public tooltipModel:any = {text: 'foo', index: 1};
+    private drakes: Array<string> = ["status-bag", "chart-bag"];
+    private static resizeActive:boolean = false;
+    public startResize:boolean = false;
 
     constructor(public translate:TranslateService,
                 public breadcrumb:Breadcrumb,
-                private dragulaService:DragulaService,
-                private data:ActivatedRoute) {
+                private dragulaService:DragulaService) {
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal'
         });
         dragulaService.setOptions('chart-bag', {
             direction: 'horizontal'
         });
+
+            //  Add drake bags
+        this.drakes.map((item) => {
+            dragulaService.find(item).drake.on('drag', this.onDrag);
+        });
+    }
+
+    onDrag(el, source){
+            //  Cancel all drags
+        if(DashboardView.resizeActive){
+            source.cancel();
+        }
+    }
+
+    resizeStart(){
+        DashboardView.resizeActive = true;
+    }
+
+    resizeStop(){
+        DashboardView.resizeActive = false;
     }
 }
