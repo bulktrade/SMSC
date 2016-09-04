@@ -26,6 +26,7 @@ import '@angularclass/hmr';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
+// Other
 import 'jquery';
 import 'bootstrap-loader';
 import 'webpack-material-design-icons';

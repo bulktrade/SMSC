@@ -45,6 +45,7 @@ export class Login implements OnInit {
                             this.errorMessage = 'login.userNotFound';
                             break;
                         default:
+                            console.log(err);
                             this.errorMessage = 'login.commonError';
                             break;
                     }

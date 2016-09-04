@@ -404,8 +404,8 @@ export class CrudService {
                                         }
 
                                         return Promise.resolve({
-                                            columnsGrid: gridDefs.columnsGrid,
-                                            isExistColumn: gridDefs.isExistColumn,
+                                            columnsGrid: gridDefs.columnsGrid, // @todo fix me, use model class
+                                            isExistColumn: gridDefs.isExistColumn, // @todo fix me, use model class
                                             columnsForm: columnsForm,
                                             isExistForm: isExistForm,
                                             columnDefs: columnDefs,

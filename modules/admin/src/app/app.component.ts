@@ -18,7 +18,6 @@ import { TranslateService } from "ng2-translate";
         require('./app.scss')
     ]
 })
-
 export class App {
     constructor(private translate: TranslateService) {
         var userLang = navigator.language.split('-')[0]; // use navigator lang if available

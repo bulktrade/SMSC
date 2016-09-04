@@ -40,7 +40,14 @@
     "@angular/platform-server": {
       "version": "2.0.0-rc.6",
       "from": "@angular/platform-server@2.0.0-rc.6",
-      "resolved": "https://registry.npmjs.org/@angular/platform-server/-/platform-server-2.0.0-rc.6.tgz"
+      "resolved": "https://registry.npmjs.org/@angular/platform-server/-/platform-server-2.0.0-rc.6.tgz",
+      "dependencies": {
+        "parse5": {
+          "version": "1.3.2",
+          "from": "parse5@1.3.2",
+          "resolved": "https://registry.npmjs.org/parse5/-/parse5-1.3.2.tgz"
+        }
+      }
     },
     "@angular/router": {
       "version": "3.0.0-rc.2",
@@ -695,9 +702,9 @@
       }
     },
     "caniuse-db": {
-      "version": "1.0.30000527",
+      "version": "1.0.30000528",
       "from": "caniuse-db@>=1.0.30000527 <2.0.0",
-      "resolved": "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000527.tgz"
+      "resolved": "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000528.tgz"
     },
     "capture-stack-trace": {
       "version": "1.0.0",
@@ -826,9 +833,9 @@
       "resolved": "https://registry.npmjs.org/color/-/color-0.11.3.tgz"
     },
     "color-convert": {
-      "version": "1.4.0",
+      "version": "1.5.0",
       "from": "color-convert@>=1.3.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-1.4.0.tgz"
+      "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-1.5.0.tgz"
     },
     "color-name": {
       "version": "1.1.1",
@@ -5182,7 +5189,19 @@
     "temp": {
       "version": "0.5.1",
       "from": "temp@>=0.5.1 <0.6.0",
-      "resolved": "https://registry.npmjs.org/temp/-/temp-0.5.1.tgz"
+      "resolved": "https://registry.npmjs.org/temp/-/temp-0.5.1.tgz",
+      "dependencies": {
+        "graceful-fs": {
+          "version": "1.2.3",
+          "from": "graceful-fs@>=1.0.0 <2.0.0",
+          "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-1.2.3.tgz"
+        },
+        "rimraf": {
+          "version": "2.1.4",
+          "from": "rimraf@>=2.1.4 <2.2.0",
+          "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-2.1.4.tgz"
+        }
+      }
     },
     "tempfile": {
       "version": "1.1.1",
