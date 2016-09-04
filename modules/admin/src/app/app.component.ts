@@ -12,7 +12,6 @@ import { TranslateService } from "ng2-translate";
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-material.css'),
         require('bootstrap-material-design/dist/css/bootstrap-material-design.css'),
-        // require('ng2-select/components/css/ng2-select.css') @todo not working with ng2 RC6
     ],
     styles: [
         require('./app.scss')
