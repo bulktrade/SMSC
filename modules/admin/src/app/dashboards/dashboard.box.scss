@@ -108,11 +108,51 @@ md-card.status {
         height: 100%;
         position: relative;
     }
-    &.last-child-resize {
-        .innerWrap:last-child{
-            position: absolute !important;
-            left: 0px !important;
-            top: 0px !important;
+    .view-width{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        text-align: right;
+        padding: 10px;
+        padding-right: 20px;
+        padding-left: 0px;
+        overflow: hidden;
+        .wrap {
+            position: relative;
+            left: -100%;
+            transition: left 300ms ease;
+            &.view-width-open {
+                left: 0%;
+            }
+            .icon {
+                position: absolute;
+                right: -20px;
+                top: -5px;
+                bottom: 0px;
+                margin: auto 0px;
+                height: 100%;
+                color: #adc1d0;
+                cursor: pointer;
+                div {
+                    display: table;
+                    width: 100%;
+                    height: 100%;
+                    i {
+                        display: table-cell;
+                        vertical-align: middle;
+                        font-size: 27px;
+                    }
+                }
+            }
+            md-button {
+                color: $color-1;
+                padding-right: 5px;
+                cursor: pointer;
+                &:hover{
+                    color: #8d969c;
+                }
+            }
         }
     }
     .crud {

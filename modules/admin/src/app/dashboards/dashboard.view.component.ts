@@ -27,9 +27,8 @@ import { DropdownDirective } from "ng2-bootstrap/components/dropdown";
 //    encapsulation: ViewEncapsulation.Native
 })
 export class DashboardView {
-    private drakes: Array<string> = ["status-bag", "chart-bag"];
-    private static resizeActive:boolean = false;
-    public startResize:boolean = false;
+    private drakes:Array<string> = ["status-bag", "chart-bag"];
+    public boxes:Object = {};
 
     constructor(public translate:TranslateService,
                 public breadcrumb:Breadcrumb,
@@ -40,11 +39,6 @@ export class DashboardView {
         dragulaService.setOptions('chart-bag', {
             direction: 'horizontal'
         });
-
-            //  Add drake bags
-        this.drakes.map((item) => {
-            dragulaService.find(item).drake.on('drag', this.onDrag);
-        });
     }
 
     onDrag(el, source){
@@ -54,11 +48,27 @@ export class DashboardView {
         }
     }
 
-    resizeStart(){
-        DashboardView.resizeActive = true;
-    }
+    reiszeBox(width, boxName:string){
+        console.log(event);
+        console.log(boxName);
 
-    resizeStop(){
-        DashboardView.resizeActive = false;
+        switch(width){
+            case 25:
+                this.boxes[boxName] = '';
+
+                break;
+            case 50:
+                this.boxes[boxName] = 'width-1';
+
+                break;
+            case 75:
+                this.boxes[boxName] = 'width-2';
+
+                break;
+            case 100:
+                this.boxes[boxName] = 'width-3';
+
+                break;
+        }
     }
 }

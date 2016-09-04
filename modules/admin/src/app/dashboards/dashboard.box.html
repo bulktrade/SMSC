@@ -1,16 +1,6 @@
-<div class="content rectangle" #box [ngClass]="{fullscreen: fullscreenMode, 'last-child-resize': resizeStart}"
+<div class="content rectangle" [ngClass]="{fullscreen: fullscreenMode}"
 >
-    <div class="innerWrap"
-         [ngStyle]="style"
-         mwlResizable
-         (resizeStart)="start($event, this)"
-         [validateResize]="validate"
-         [resizeEdges]="{bottom: true, right: true, top: true, left: true}"
-         [enableGhostResize]="true"
-         (resizeEnd)="onResizeEnd($event)"
-         (resize)="resize($event)"
-         [ngClass]="{'last-child-resize': startResize}"
-    >
+    <div class="innerWrap">
         <div class="crud">
             <div class="wrap" [ngClass]="{'crudOpen': crudOpen}">
                 <div class="icon" (click)="crudOpen = !crudOpen">
@@ -26,7 +16,27 @@
                 </md-button>
             </div>
         </div>
-
+        <div class="view-width">
+            <div class="wrap" [ngClass]="{'view-width-open': viewWidth}">
+                <div class="icon" (click)="viewWidth = !viewWidth">
+                    <div>
+                        <i class="material-icons">more_vert</i>
+                    </div>
+                </div>
+                <md-button (click)="emitResizeBox(25)">
+                    1/4
+                </md-button>
+                <md-button  (click)="emitResizeBox(50)">
+                    2/4
+                </md-button>
+                <md-button  (click)="emitResizeBox(75)">
+                    3/4
+                </md-button>
+                <md-button  (click)="emitResizeBox(100)">
+                    4/4
+                </md-button>
+            </div>
+        </div>
         <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}">
             <i class="material-icons icon">
                 {{ config.icon }}

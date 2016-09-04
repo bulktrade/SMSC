@@ -4,8 +4,8 @@
 <div id="dashboard" class="wrapper">
     <router-outlet></router-outlet>
 
-    <md-content class="status container">
-        <div>
+    <md-content class="status container" [dragula]='"status-bag"'>
+        <div [ngClass]="boxes.box1">
             <dashboard-box [config]="{
                 'type': 'status',
                 'name': 'profit',
@@ -16,9 +16,10 @@
                     'processStatus': 'Progress',
                     'percent': '75'
                 }
-            }"></dashboard-box>
+            }" (resizeBox)="reiszeBox($event, 'box1')"
+            ></dashboard-box>
         </div>
-        <div>
+        <div [ngClass]="boxes.box2">
             <dashboard-box [config]="{
                 'type': 'status',
                 'name': 'feedback',
@@ -29,10 +30,10 @@
                     'processStatus': 'Change',
                     'percent': '35'
                 }
-            }"
+            }" (resizeBox)="reiszeBox($event, 'box2')"
             ></dashboard-box>
         </div>
-        <div>
+        <div [ngClass]="boxes.box3">
             <dashboard-box [config]="{
                 'type': 'status',
                 'name': 'orders',
@@ -43,10 +44,10 @@
                     'processStatus': 'Grow',
                     'percent': '60'
                 }
-            }"
+            }" (resizeBox)="reiszeBox($event, 'box3')"
             ></dashboard-box>
         </div>
-        <div>
+        <div [ngClass]="boxes.box4">
             <dashboard-box [config]="{
                 'type': 'status',
                 'name': 'users',
@@ -57,7 +58,7 @@
                     'processStatus': 'Change',
                     'percent': '88'
                 }
-            }"
+            }" (resizeBox)="reiszeBox($event, 'box4')"
             ></dashboard-box>
         </div>
     </md-content>

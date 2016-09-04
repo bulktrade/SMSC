@@ -16,16 +16,13 @@ $color-6: #AAB5BC;
     }
 
     .width-1{
-        flex-basis: 25%;
+        flex-basis: 50% !important;
     }
     .width-2{
-        flex-basis: 50%;
+        flex-basis: 75% !important;
     }
     .width-3{
-        flex-basis: 75%;
-    }
-    .width-4{
-        flex-basis: 50%;
+        flex-basis: 100% !important;
     }
     > md-content {
         display: flex;
@@ -39,7 +36,8 @@ $color-6: #AAB5BC;
                 min-width: 25%;
                 display: inline-block;
                 position: relative;
-                margin-right: 5px;
+                padding-right: 5px;
+                padding-bottom: 5px;
                 &:last-child {
                     margin-right: 0px;
                 }
@@ -52,18 +50,14 @@ $color-6: #AAB5BC;
         }
         &.graphics {
             flex-wrap: wrap;
-            padding-right: 5px;
             max-width: 100% !important;
             dashboard-box {
                 flex-basis: 50%;
                 min-height: 500px;
                 display: inline-block;
                 position: relative;
-                margin-right: 5px;
+                padding-right: 5px;
                 padding-bottom: 5px;
-                &:nth-child(even) {
-                    margin-right: -5px;
-                }
             }
         }
     }
