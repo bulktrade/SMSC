@@ -1,7 +1,6 @@
 import { Component, Input, Injectable, trigger, style, animate, state, transition } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { ShowMiniNav } from "./ShowMiniNav";
-import { LocalStorage } from "angular2-localstorage/WebStorage";
 import { Router } from "@angular/router";
 
 declare var Reflect;
@@ -27,8 +26,8 @@ declare var Reflect;
 export class SidebarItem {
     public store = localStorage;
 
-    @LocalStorage('icnDsh') public icnDsh:boolean;
-    @LocalStorage('icnGsm') public icnGsm:boolean;
+    // @LocalStorage('icnDsh') public icnDsh:boolean; @todo do not use local storage
+    // @LocalStorage('icnGsm') public icnGsm:boolean; @todo do not use local storage
 
     @Input('icon') public icon;
     @Input('path') public path;

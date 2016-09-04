@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { TranslateService } from "ng2-translate/ng2-translate";
 import { LoginModel } from "./login.model";
 import { AuthService } from "../services/auth/auth.service";
 import { Response } from "@angular/http";
@@ -23,7 +22,6 @@ export class Login implements OnInit {
     model = new LoginModel('', '', false);
 
     constructor(public router: Router,
-                public translate: TranslateService,
                 public authService: AuthService) {
     }
 

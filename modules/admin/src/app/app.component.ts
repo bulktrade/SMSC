@@ -1,10 +1,9 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "ng2-translate";
 
 @Component({
     selector: 'app',
-    providers: [
-    ],
+    providers: [],
     template: '<router-outlet></router-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
@@ -13,7 +12,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-material.css'),
         require('bootstrap-material-design/dist/css/bootstrap-material-design.css'),
-        require('ng2-select/components/css/ng2-select.css')
+        // require('ng2-select/components/css/ng2-select.css') @todo not working with ng2 RC6
     ],
     styles: [
         require('./app.scss')

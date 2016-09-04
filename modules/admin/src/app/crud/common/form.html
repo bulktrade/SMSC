@@ -33,6 +33,13 @@
 				             [align]="alignment">
 					{{item.headerName}}
 				</md-checkbox>
+                <!--@todo not working with ng2 RC6-->
+				<!--<ng-select *ngSwitchCase="'EMBEDDEDLIST'" [allowClear]="true"-->
+				           <!--[items]="item.custom.type.split(',')"-->
+				           <!--(data)="crudService.model[item.property]"-->
+				           <!--(selected)="crudService.model[item.property] = $event.text"-->
+				           <!--placeholder="{{item.headerName}}">-->
+				<!--</ng-select>-->
 			</div>
 			<div class="wrapBtn">
 				<div class="formButtons">

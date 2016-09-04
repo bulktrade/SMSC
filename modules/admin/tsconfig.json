@@ -17,6 +17,7 @@
             "es5"
         ],
         "types": [
+            "core-js",
             "hammerjs",
             "jasmine",
             "node",
@@ -29,7 +30,8 @@
     },
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "typings"
     ],
     "awesomeTypescriptLoaderOptions": {
         "forkChecker": true,

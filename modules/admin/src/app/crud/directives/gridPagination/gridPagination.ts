@@ -16,7 +16,7 @@ const squel = require('squel');
     template: require('./gridPagination.html'),
     styles: [
         require('./gridPagination.scss'),
-        require('ng2-select/components/css/ng2-select.css')
+        // require('ng2-select/components/css/ng2-select.css') @todo not working with ng2 RC6
     ],
     outputs: [
         'rowData',

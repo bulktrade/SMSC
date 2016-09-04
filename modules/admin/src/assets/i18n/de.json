@@ -1,4 +1,7 @@
 {
+    "404_PAGE_TITLE": "Oops! You're lost.",
+    "404_PAGE_TEXT": "We can not find the page you're looking for.",
+    "404_PAGE_LINK_TITLE": "Return home",
     "project.title": "SMSC",
     "login.title": "SMSC Admin",
     "login.username": "Username",
