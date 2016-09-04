@@ -13,7 +13,7 @@ import { CrudView } from "./crud/crudView/crud.view.component";
 import { CrudDelete } from "./crud/crudDelete/crud.delete.component";
 import { Dashboard } from "./dashboard/dashboard.component";
 import { NotFound } from "./notFound/notFound.component";
-import { TranslateModule, TranslateStaticLoader, TranslateLoader, TranslatePipe } from "ng2-translate/ng2-translate";
+import { TranslateModule, TranslateStaticLoader, TranslateLoader } from "ng2-translate/ng2-translate";
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
 import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
 import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
@@ -24,7 +24,6 @@ import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
 import { RouterModule } from "@angular/router";
 import { LocalStorageService } from "angular2-localstorage/LocalStorageEmitter";
 import { AppState } from "./app.service";
-import { TranslateService } from "ng2-translate/ng2-translate";
 import { DashboardGuard } from "./dashboard/dashboard.guard";
 import { COMMON_PROVIDERS } from "./common";
 import { AuthService } from "./services/auth/auth.service";
@@ -50,7 +49,6 @@ import { LoadingGrid } from "./common/loadingGrid";
 import { GridPagination } from "./crud/directives/gridPagination/gridPagination";
 import { MdSelect } from "./common/material/select/select";
 import { MultipleSelect } from "./crud/directives/multipleSelect/multipleSelect.component";
-import { SELECT_DIRECTIVES } from "ng2-select";
 
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -64,13 +62,7 @@ const APP_PROVIDERS = [
     DashboardGuard,
     AppState,
     LocalStorageService,
-    TranslateService,
-    ServiceNotifications,
-    {
-        provide: TranslateLoader, useFactory: (http: Http) => {
-            new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json');
-        }, deps: [Http]
-    },
+    ServiceNotifications
 ];
 
 @NgModule({
@@ -110,7 +102,11 @@ const APP_PROVIDERS = [
         HttpModule,
         RouterModule.forRoot(ROUTES, { useHash: true }),
         MdModule.forRoot(),
-        TranslateModule,
+        TranslateModule.forRoot({
+            provide: TranslateLoader,
+            useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
+            deps: [Http]
+        }),
         SimpleNotificationsModule
     ],
     providers: [

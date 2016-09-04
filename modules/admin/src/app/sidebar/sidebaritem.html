@@ -1,6 +1,5 @@
 <div *ngIf="showInSubNavigation" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav"
-     [ngClass]="{'item-menu-short': showmininav.showNav}" #isIcon
-    >
+     [ngClass]="{'item-menu-short': showmininav.showNav}" #isIcon>
 	<a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
 	   class="{{nameItem.toLowerCase()}} sub-task clear" [routerLink]="[path]"
 	   (click)="setToggle(toggle);">

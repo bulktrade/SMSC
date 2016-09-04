@@ -3,7 +3,8 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 
 @Component({
     selector: 'app',
-    providers: [],
+    providers: [
+    ],
     template: '<router-outlet></router-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
