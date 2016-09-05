@@ -19,7 +19,6 @@ import { GridPagination } from "./directives/gridPagination/gridPagination";
 import { LoadingGrid } from "../common/loadingGrid";
 import { FormsModule } from "@angular/forms";
 import { MultipleSelect } from "./directives/multipleSelect/multipleSelect.component";
-import { CRUD_ROUTE_PROVIDER } from "./crud.routes";
 
 const CRUD_DECLARATIONS = [
     Crud,
@@ -41,7 +40,7 @@ const CRUD_MODULES = [
     FormsModule,
     MdModule.forRoot(),
     BrowserModule,
-    RouterModule.forChild(CRUD_ROUTE_PROVIDER),
+    RouterModule,
     TranslateModule.forRoot({
         provide: TranslateLoader,
         useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
