@@ -3,10 +3,11 @@ import { Injectable } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
-import { CrudModel } from "./crud.model";
+import { CrudModel } from "./model/crud.model";
 import { GridOptions } from "ag-grid";
 import { NotificationService } from "../services/notificationService";
 import { LoadingGridService } from "../services/loadingGrid.service";
+import { ColumnModel } from "./model/crud.column.model";
 
 const squel = require('squel');
 
@@ -312,7 +313,7 @@ export class CrudService {
     }
 
     getColumnDefs(className, readOnly) {
-        let columnDefs = {
+        let columnDefs: ColumnModel = {
             grid: [],
             form: []
         };
@@ -321,7 +322,7 @@ export class CrudService {
         this.addRIDColumn(columnDefs.grid);
 
         if (readOnly) {
-            this.btnRenderer(columnDefs, 'Edit', 30, 'mode_edit',  (clickEvent) => {
+            this.btnRenderer(columnDefs, 'Edit', 30, 'mode_edit', (clickEvent) => {
                 this.navigateToEdit();
             });
             this.btnRenderer(columnDefs, 'Delete', 30, 'delete', (clickEvent) => {
@@ -343,7 +344,7 @@ export class CrudService {
 
                 return this.databaseService.query(queryCrudMetaGridData.toString())
                     .then((res: Response) => {
-                        let isExistColumn = res.json()['result'].length;
+                        let isExistColumn: boolean = res.json()['result'].length ? true : false;
                         let columnsGrid = [];
                         let result = isExistColumn ? res.json()['result'] : properties; // add try / catch, can throws an error
 
@@ -367,16 +368,18 @@ export class CrudService {
                                     }
                                 }
 
-                                return Promise.resolve({
-                                    columnsGrid: columnsGrid,
-                                    isExistColumn: isExistColumn,
-                                })
+                                let gridColumnModel: ColumnModel = {
+                                    grid: columnsGrid,
+                                    isExistGridColumn: isExistColumn,
+                                };
+
+                                return Promise.resolve(gridColumnModel);
                             });
                     }, (error) => {
                         this.dataNotFound = true;
                         this.errorMessage = 'orientdb.dataNotFound';
                     })
-                    .then((gridDefs) => {
+                    .then((gridColumnModel: ColumnModel) => {
                         return this.databaseService.query(queryCrudMetaFormData.toString())
                             .then((res: Response) => {
                                 let isExistForm = res.json()['result'].length;
@@ -403,13 +406,15 @@ export class CrudService {
                                             }
                                         }
 
-                                        return Promise.resolve({
-                                            columnsGrid: gridDefs.columnsGrid, // @todo fix me, use model class
-                                            isExistColumn: gridDefs.isExistColumn, // @todo fix me, use model class
-                                            columnsForm: columnsForm,
-                                            isExistForm: isExistForm,
+                                        let columnModel: ColumnModel = {
+                                            grid: gridColumnModel.grid,
+                                            isExistGridColumn: gridColumnModel.isExistGridColumn,
+                                            form: columnsForm,
+                                            isExistFormColumn: isExistForm,
                                             columnDefs: columnDefs,
-                                        });
+                                        };
+
+                                        return Promise.resolve(columnModel);
                                     });
                             }, (error) => {
                                 this.dataNotFound = true;
@@ -473,19 +478,19 @@ export class CrudService {
 
     initColumnDefs(className, isGrid: boolean): Promise<any> {
         return this.initGridData = this.getColumnDefs(className, true)
-            .then((result) => {
+            .then((result: ColumnModel) => {
                 let columnDefs = result.columnDefs;
 
-                if (result.isExistForm) {
-                    result.columnsForm.sort(this.compare);
+                if (result.isExistFormColumn) {
+                    result.form.sort(this.compare);
                 }
 
-                if (result.isExistColumn) {
-                    result.columnsGrid.sort(this.compare);
+                if (result.isExistGridColumn) {
+                    result.grid.sort(this.compare);
                 }
 
-                columnDefs.form = columnDefs.form.concat(result.columnsForm);
-                columnDefs.grid = columnDefs.grid.concat(result.columnsGrid);
+                columnDefs.form = columnDefs.form.concat(result.form);
+                columnDefs.grid = columnDefs.grid.concat(result.grid);
 
                 return Promise.resolve(isGrid ? columnDefs.grid : columnDefs.form);
             })

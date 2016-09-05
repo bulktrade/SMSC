@@ -5,10 +5,10 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
 import { RequestGetParameters } from "./orientdb.requestGetParameters";
-import { AuthHttp } from "angular2-jwt/angular2-jwt";
 import { BatchType } from "./orientdb.batchType";
+import { AuthHttp } from "angular2-jwt";
 
-declare var sprintf: any;
+const sprintf = require('sprintf-js').sprintf;
 
 @Injectable()
 export class ODatabaseService {
@@ -120,7 +120,7 @@ export class ODatabaseService {
 
     batchFormatter(properties, type: string|BatchType): string {
         let batch = sprintf('{"transaction": true, "operations": [{"type": "%s", "record": {', type);
-        
+
         for (let i in properties) {
             let value: string = '';
 

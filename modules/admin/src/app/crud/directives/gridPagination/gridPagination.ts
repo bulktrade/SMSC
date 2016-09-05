@@ -7,8 +7,8 @@ import { NotificationService } from "../../../services/notificationService";
 import { GridOptions } from "ag-grid";
 import { GridService } from "../../../services/grid.service";
 
-declare let sprintf;
 const squel = require('squel');
+const sprintf = require('sprintf-js').sprintf;
 
 @Component({
     selector: 'grid-pagination',

@@ -28,7 +28,7 @@ export const COMMON_PROVIDERS = [
     {
         provide: ODatabaseService,
         useFactory: (authHttp) => {
-            new ODatabaseService('/orientdb/smsc', authHttp);
+            return new ODatabaseService('/orientdb/smsc', authHttp);
         },
         deps: [AuthHttp]
     }

@@ -38,7 +38,7 @@ import { SimpleNotificationsModule } from "angular2-notifications";
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate";
 import { Ng2BootstrapModule } from "ng2-bootstrap";
 import { AUTH_PROVIDERS } from "angular2-jwt";
-// import { GridService } from "./services/grid.service";
+import { GridService } from "./services/grid.service";
 import { Sidebar } from "./sidebar/sidebar.component";
 import { SidebarItem } from "./sidebar/sidebaritem.component";
 import { LoadingRouterOutlet } from "./common/loadingRouterOutlet";
@@ -55,7 +55,7 @@ const APP_PROVIDERS = [
     ...COMMON_PROVIDERS,
     LoadingGridService,
     CrudService,
-    // GridService,
+    GridService,
     TokenService,
     AuthService,
     CrudViewResolve,
