@@ -7,30 +7,30 @@ import { Breadcrumb } from "./breadcrumb/breadcrumb.component";
 import { ROUTES } from "./app.routes";
 import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
-// import { Customers } from "./customers/customers.components";
-// import { Crud } from "./crud/crud.component";
-// import { CrudView } from "./crud/crudView/crud.view.component";
-// import { CrudDelete } from "./crud/crudDelete/crud.delete.component";
+import { Customers } from "./customers/customers.components";
+import { Crud } from "./crud/crud.component";
+import { CrudView } from "./crud/crudView/crud.view.component";
+import { CrudDelete } from "./crud/crudDelete/crud.delete.component";
 import { Dashboard } from "./dashboard/dashboard.component";
 import { NotFound } from "./notFound/notFound.component";
-// import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
-// import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
-// import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
-// import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
-// import { CrudCreate } from "./crud/crudCreate/crud.create.component";
-// import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
-// import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
+import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
+import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
+import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
+import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
+import { CrudCreate } from "./crud/crudCreate/crud.create.component";
+import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
+import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
 import { RouterModule } from "@angular/router";
 // import { LocalStorageService } from "angular2-localstorage/LocalStorageEmitter";
 import { AppState } from "./app.service";
 import { COMMON_PROVIDERS } from "./common";
 import { AuthService } from "./services/auth/auth.service";
 import { TokenService } from "./services/auth/token.service";
-// import { CrudService } from "./crud/crud.service";
+import { CrudService } from "./crud/crud.service";
 import { AuthGuard } from "./common/authGuard";
-// import { ServiceNotifications } from "./services/serviceNotification"; // @todo rename to NotificationService
-// import { LoadingGridService } from "./services/loadingGrid.service";
-// import { APP_RESOLVER_PROVIDERS } from "./app.resolver";
+import { NotificationService } from "./services/notificationService"; // @todo rename to NotificationService
+import { LoadingGridService } from "./services/loadingGrid.service";
+import { APP_RESOLVER_PROVIDERS } from "./app.resolver";
 import { createNewHosts, removeNgStyles } from "@angularclass/hmr";
 import { ENV_PROVIDERS } from "./environment";
 import { MdModule } from "./md.module";
@@ -43,35 +43,37 @@ import { Sidebar } from "./sidebar/sidebar.component";
 import { SidebarItem } from "./sidebar/sidebaritem.component";
 import { LoadingRouterOutlet } from "./common/loadingRouterOutlet";
 import { CubeGridComponent } from "./common/spinner/cubeGrid/cubeGrid.component";
-// import { AgGridNg2 } from "ag-grid-ng2";
-// import { LoadingGrid } from "./common/loadingGrid";
-// import { GridPagination } from "./crud/directives/gridPagination/gridPagination";
+import { AgGridNg2 } from "ag-grid-ng2";
+import { LoadingGrid } from "./common/loadingGrid";
+import { GridPagination } from "./crud/directives/gridPagination/gridPagination";
 // import { MdSelect } from "./common/material/select/select";
-// import { MultipleSelect } from "./crud/directives/multipleSelect/multipleSelect.component";
+import { MultipleSelect } from "./crud/directives/multipleSelect/multipleSelect.component";
+import { CrudViewResolve } from "./crud/crudView/crud.view.resolve";
 
 const APP_PROVIDERS = [
-    // ...APP_RESOLVER_PROVIDERS,
+    ...APP_RESOLVER_PROVIDERS,
     ...COMMON_PROVIDERS,
-    // LoadingGridService,
-    // CrudService,
+    LoadingGridService,
+    CrudService,
     // GridService,
     TokenService,
     AuthService,
+    CrudViewResolve,
+    NotificationService,
     AuthGuard,
     // DashboardGuard, @todo not yet implemented? No needs?
     AppState,
     // LocalStorageService,
-    // ServiceNotifications
 ];
 
 @NgModule({
     bootstrap: [App],
     declarations: [
-        // MultipleSelect,
+        MultipleSelect,
         // MdSelect,
-        // GridPagination,
-        // LoadingGrid,
-        // AgGridNg2,
+        GridPagination,
+        LoadingGrid,
+        AgGridNg2,
         CubeGridComponent,
         LoadingRouterOutlet,
         Sidebar,
@@ -79,20 +81,20 @@ const APP_PROVIDERS = [
         App,
         Login,
         Navigation,
-        // Customers,
-        // Crud,
-        // CrudView,
-        // CrudEdit,
-        // CrudLinkset,
-        // CrudDelete,
-        // CrudCreate,
+        Customers,
+        Crud,
+        CrudView,
+        CrudEdit,
+        CrudLinkset,
+        CrudDelete,
+        CrudCreate,
         NotFound,
         Dashboard,
         Breadcrumb,
-        // CrudMetaData,
-        // CrudMetaFormData,
-        // CrudClassMetaData,
-        // CrudMetaGridData
+        CrudMetaData,
+        CrudMetaFormData,
+        CrudClassMetaData,
+        CrudMetaGridData
     ],
     imports: [
         Ng2BootstrapModule,

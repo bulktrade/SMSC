@@ -4,7 +4,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { Response } from "@angular/http";
 
 @Injectable()
-export class ServiceNotifications {
+export class NotificationService {
     constructor(public translate:TranslateService,
                 public notificationsService:NotificationsService) {
     }

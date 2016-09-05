@@ -3,7 +3,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { Response } from "@angular/http";
 import { EventEmitter } from "@angular/common/src/facade/async";
 import { ODatabaseService } from "../../../orientdb/orientdb.service";
-import { ServiceNotifications } from "../../../services/serviceNotification";
+import { NotificationService } from "../../../services/notificationService";
 import { GridOptions } from "ag-grid";
 import { GridService } from "../../../services/grid.service";
 
@@ -39,7 +39,7 @@ export class GridPagination {
     constructor(public translate: TranslateService,
                 public gridService: GridService,
                 public databaseService: ODatabaseService,
-                public serviceNotifications: ServiceNotifications) {
+                public serviceNotifications: NotificationService) {
     }
 
     ngOnInit() {

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ODatabaseService } from "../orientdb/orientdb.service";
-import { ServiceNotifications } from "./serviceNotification";
+import { NotificationService } from "./notificationService";
 
 const squel = require('squel');
 
@@ -8,7 +8,7 @@ const squel = require('squel');
 export class GridService {
 
     constructor(public database: ODatabaseService,
-                public serviceNotifications: ServiceNotifications) {
+                public serviceNotifications: NotificationService) {
     }
 
     selectLinksetProperties(columnDefs, rowData) {

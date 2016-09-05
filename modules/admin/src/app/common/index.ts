@@ -31,5 +31,5 @@ export const COMMON_PROVIDERS = [
             new ODatabaseService('/orientdb/smsc', authHttp);
         },
         deps: [AuthHttp]
-    },
+    }
 ];

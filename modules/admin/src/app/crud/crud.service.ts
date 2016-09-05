@@ -5,7 +5,7 @@ import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./crud.model";
 import { GridOptions } from "ag-grid";
-import { ServiceNotifications } from "../services/serviceNotification";
+import { NotificationService } from "../services/notificationService";
 import { LoadingGridService } from "../services/loadingGrid.service";
 
 const squel = require('squel');
@@ -45,7 +45,7 @@ export class CrudService {
                 public router: Router,
                 public route: ActivatedRoute,
                 public translate: TranslateService,
-                public serviceNotifications: ServiceNotifications,
+                public serviceNotifications: NotificationService,
                 public loadingService: LoadingGridService) {
     }
 
