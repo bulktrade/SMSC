@@ -1,39 +1,40 @@
-<div class="content rectangle" [ngClass]="{fullscreen: fullscreenMode}"
+<div class="content rectangle" [ngClass]="{fullscreen: fullscreenMode, 'crudOpen': crudOpen}"
 >
     <div class="innerWrap">
+        <div class="closeTool">
+            <i class="material-icons" (click)="crudOpen = false">clear</i>
+        </div>
         <div class="crud">
-            <div class="wrap" [ngClass]="{'crudOpen': crudOpen}">
-                <div class="icon" (click)="crudOpen = !crudOpen">
+            <div class="wrap">
+                <div class="icon" (click)="crudOpen = true">
                     <div>
                         <i class="material-icons">more_vert</i>
                     </div>
                 </div>
-                <md-button class="add">
-                    <i class="material-icons">add</i>
-                </md-button>
-                <md-button class="reomve">
-                    <i class="material-icons">delete_forever</i>
-                </md-button>
+                <i class="material-icons button remove">delete_forever</i>
             </div>
         </div>
         <div class="view-width">
             <div class="wrap" [ngClass]="{'view-width-open': viewWidth}">
-                <div class="icon" (click)="viewWidth = !viewWidth">
-                    <div>
-                        <i class="material-icons">more_vert</i>
-                    </div>
-                </div>
                 <md-button (click)="emitResizeBox(25)">
-                    1/4
+                    <span>
+                        1/4
+                    </span>
                 </md-button>
                 <md-button  (click)="emitResizeBox(50)">
-                    2/4
+                    <span>
+                        2/4
+                    </span>
                 </md-button>
                 <md-button  (click)="emitResizeBox(75)">
-                    3/4
+                    <span>
+                        3/4
+                    </span>
                 </md-button>
                 <md-button  (click)="emitResizeBox(100)">
-                    4/4
+                    <span>
+                        4/4
+                    </span>
                 </md-button>
             </div>
         </div>

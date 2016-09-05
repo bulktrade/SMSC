@@ -4,6 +4,9 @@ $color-3: #f36a5a;
 $color-4: #5C9BD1;
 $color-5: #8877a9;
 $color-6: #AAB5BC;
+$color-7: #e1e1e1;
+$color-8: #009688;
+$color-9: #adc1d0;
 
 md-card.status {
     position: relative;
@@ -14,7 +17,7 @@ md-card.status {
     .icon {
         position: absolute;
         top: 12px;
-        right: 12px;
+        right: 23px;
         font-size: 32px;
         color: $color-1;
     }
@@ -103,24 +106,25 @@ md-card.status {
     min-width: 100%;
     height: 100%;
     position: relative;
+    border: 1px solid transparent;
     .innerWrap {
         min-width: 100%;
         height: 100%;
         position: relative;
     }
-    .view-width{
+    .view-width {
         position: absolute;
-        top: 0;
+        top: calc(20% - 35px);
         left: 0;
-        z-index: 1;
-        text-align: right;
-        padding: 10px;
-        padding-right: 20px;
-        padding-left: 0px;
+        right: 0;
+        margin: 0 auto;
+        z-index: 1000;
+        text-align: center;
         overflow: hidden;
+        opacity: 0;
+        transition: all .4s ease-in;
         .wrap {
             position: relative;
-            left: -100%;
             transition: left 300ms ease;
             &.view-width-open {
                 left: 0%;
@@ -132,7 +136,7 @@ md-card.status {
                 bottom: 0px;
                 margin: auto 0px;
                 height: 100%;
-                color: #adc1d0;
+                color: $color-9;
                 cursor: pointer;
                 div {
                     display: table;
@@ -146,20 +150,34 @@ md-card.status {
                 }
             }
             md-button {
-                color: $color-1;
-                padding-right: 5px;
+                display: inline-table;
+                background-color: #009688;
+                width: 35px;
+                height: 35px;
+                border-radius: 100%;
+                position: relative;
+                margin-left: 7px;
                 cursor: pointer;
-                &:hover{
-                    color: #8d969c;
+                transition: background 200ms ease;
+                color: #fff;
+                cursor: pointer;
+                &:hover {
+                    background: #000;
+                }
+                span {
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                    line-height: 1px;
                 }
             }
         }
     }
     .crud {
         position: absolute;
-        top: 5px;
+        top: 0px;
         right: 0;
-        z-index: 1;
+        z-index: 2000;
         text-align: right;
         padding: 10px;
         padding-left: 20px;
@@ -171,6 +189,7 @@ md-card.status {
             transition: right 300ms ease;
             &.crudOpen {
                 right: 0%;
+                padding-right: 10px;
             }
             .icon {
                 position: absolute;
@@ -179,47 +198,77 @@ md-card.status {
                 bottom: 0px;
                 margin: auto 0px;
                 height: 100%;
-                color: #adc1d0;
                 cursor: pointer;
                 div {
                     display: table;
                     width: 100%;
                     height: 100%;
+                    padding-bottom: 7px;
                     i {
                         display: table-cell;
                         vertical-align: middle;
                         font-size: 27px;
+                        color: #adc1d0;
                     }
                 }
             }
-            md-button {
+            i {
                 display: inline-block;
-                background-color: #009688;
-                width: 45px;
-                height: 45px;
-                border-radius: 100%;
-                position: relative;
-                margin-left: 7px;
+                color: $color-8;
+                font-size: 24px;
+                line-height: initial;
+                width: 24px;
+                height: 26px;
                 cursor: pointer;
-                transition: box-shadow 200ms ease;
-                &:hover {
-                    box-shadow: 0 0 10px 6px rgba(0, 150, 136, 0.22);
-                }
-                i {
-                    position: absolute;
-                    display: block;
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
-                    margin: auto;
-                    color: #fff;
-                    font-size: 28px;
-                    line-height: initial;
-                    width: 28px;
-                    height: 27px;
-                }
             }
+        }
+    }
+    .closeTool{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        visibility: hidden;
+        opacity: 0;
+        -webkit-transition: opacity 300ms ease-in;
+        -moz-transition:  opacity 300ms ease-in;
+        -ms-transition:  opacity 300ms ease-in;
+        -o-transition:  opacity 300ms ease-in;
+        transition:  opacity 300ms ease-in;
+        i{
+            color: $color-1;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    }
+    &.crudOpen {
+        overflow: hidden;
+        border: 1px solid $color-7;
+
+        .closeTool{
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .crud .wrap {
+            right: 0%;
+            padding-right: 10px;
+            > .icon{
+                display: none;
+            }
+        }
+
+        .view-width{
+            top: calc(50% - 17.5px) !important;
+            opacity: 1;
+        }
+
+        md-card {
+            -webkit-filter: blur(6px);
+            -moz-filter: blur(6px);
+            -o-filter: blur(6px);
+            -ms-filter: blur(6px);
+            filter: blur(6px);
         }
     }
     div.chart {
@@ -257,6 +306,10 @@ md-card.status {
                 }
             }
         }
+    }
+
+    md-card {
+        transition: all 400ms ease-in;
     }
 }
 
