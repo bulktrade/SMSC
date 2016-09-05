@@ -344,7 +344,8 @@ export class CrudService {
 
                 return this.databaseService.query(queryCrudMetaGridData.toString())
                     .then((res: Response) => {
-                        let isExistColumn: boolean = res.json()['result'].length ? true : false;
+                        let isExistColumn: boolean = res.json()['result'].length > 0 ? true : false;
+
                         let columnsGrid = [];
                         let result = isExistColumn ? res.json()['result'] : properties; // add try / catch, can throws an error
 
@@ -382,7 +383,7 @@ export class CrudService {
                     .then((gridColumnModel: ColumnModel) => {
                         return this.databaseService.query(queryCrudMetaFormData.toString())
                             .then((res: Response) => {
-                                let isExistForm = res.json()['result'].length;
+                                let isExistForm = res.json()['result'].length > 0 ? true : false;
                                 let columnsForm = [];
                                 let result = isExistForm ? res.json()['result'] : properties;
 

@@ -51,11 +51,7 @@
         "webdriver:start": "npm run webdriver-manager start",
         "webdriver:update": "npm run webdriver-manager update",
         "webpack-dev-server": "webpack-dev-server",
-        "webpack": "webpack",
-        "orientdb:dev:clean": "docker rm -fv testAdminOrientDB || true",
-        "orientdb:dev": "docker run -d --name testAdminOrientDB -p 2424:2424 -p 2480:2480 -e ORIENTDB_ROOT_PASSWORD=123test -v $(pwd)/docker/orientdb/config/orientdb-server-config.xml:/orientdb/config/orientdb-server-config.xml orientdb:latest",
-        "presstart:hmr": "npm run orientdb:dev:clean && npm run orientdb:dev",
-        "poststart:hmr": "npm run orientdb:dev:clean"
+        "webpack": "webpack"
     },
     "dependencies": {
         "@angular/common": "2.0.0-rc.6",
