@@ -17,10 +17,10 @@ describe('Auth service', () => {
                 BaseRequestOptions,
                 MockBackend,
                 {
-                    provide: Http, useFactory: (backend:ConnectionBackend,
-                                                defaultOptions:BaseRequestOptions) => {
+                    provide: Http, useFactory: (backend: ConnectionBackend,
+                                                defaultOptions: BaseRequestOptions) => {
                     return new Http(backend, defaultOptions);
-                }, deps: [ MockBackend, BaseRequestOptions ]
+                }, deps: [MockBackend, BaseRequestOptions]
                 }
             ],
             imports: [
@@ -29,7 +29,7 @@ describe('Auth service', () => {
         });
     });
 
-    it('should be defined response of the open', inject([ MockBackend, AuthService ], (backend:MockBackend, service:AuthService) => {
+    it('should be defined response of the open', inject([MockBackend, AuthService], (backend: MockBackend, service: AuthService) => {
         let path = '/orientdb/token/smsc';
         let model = new LoginModel('test', '12t', false);
 
