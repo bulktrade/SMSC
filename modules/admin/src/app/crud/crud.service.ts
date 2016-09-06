@@ -497,6 +497,16 @@ export class CrudService {
             })
     }
 
+    getSelectOptions(columnDefsItem) {
+        if (typeof columnDefsItem !== 'undefined') {
+            if (columnDefsItem.hasOwnProperty('custom')) {
+                return columnDefsItem.custom.type.split(',');
+            }
+        }
+
+        return [];
+    }
+
     setClassName(className) {
         this.className = className;
     }

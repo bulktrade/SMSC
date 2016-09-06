@@ -19,6 +19,7 @@ import { GridPagination } from "./directives/gridPagination/gridPagination";
 import { LoadingGrid } from "../common/loadingGrid";
 import { FormsModule } from "@angular/forms";
 import { MultipleSelect } from "./directives/multipleSelect/multipleSelect.component";
+import { MdSelect } from "../common/material/select/select";
 
 const CRUD_DECLARATIONS = [
     Crud,
@@ -32,7 +33,8 @@ const CRUD_DECLARATIONS = [
     AgGridNg2,
     GridPagination,
     LoadingGrid,
-    MultipleSelect
+    MultipleSelect,
+    MdSelect
 ];
 
 const CRUD_MODULES = [

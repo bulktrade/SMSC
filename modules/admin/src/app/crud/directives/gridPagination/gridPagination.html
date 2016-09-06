@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="page-size">
-        <!--<md-select options="stepPageSize" placeholder="Page Size" [(model)]="pageSize"-->
-                   <!--(change)="changePageSize()"></md-select>-->
+        <md-select [options]="stepPageSize" placeholder="Page Size" [(model)]="pageSize"
+                   (change)="changePageSize()"></md-select>
     </div>
 </div>

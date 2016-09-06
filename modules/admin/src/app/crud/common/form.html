@@ -33,8 +33,9 @@
                              [align]="alignment">
                     {{item.headerName}}
                 </md-checkbox>
-                <!--<md-select [options]="item.custom.type.split(',')" placeholder="{{item.headerName}}"-->
-                <!--[(model)]="crudService.model[item.property]"></md-select>-->
+                <md-select *ngSwitchCase="'EMBEDDEDLIST'" [options]="crudService.getSelectOptions(item)"
+                           placeholder="item.headerName"
+                           [(model)]="crudService.model[item.property]"></md-select>
             </div>
             <div class="wrapBtn">
                 <div class="formButtons">
