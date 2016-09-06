@@ -47,7 +47,6 @@ export const APP_PROVIDERS = [
     CrudViewResolve,
     NotificationService,
     AuthGuard,
-    // DashboardGuard, @todo not yet implemented? No needs?
     AppState,
 ];
 
