@@ -36,7 +36,7 @@ import { SidebarItem } from "./sidebar/sidebaritem.component";
 import { CrudViewResolve } from "./crud/crudView/crud.view.resolve";
 import { CrudModule } from "./crud/crud.module";
 
-const APP_PROVIDERS = [
+export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     ...COMMON_PROVIDERS,
     LoadingGridService,

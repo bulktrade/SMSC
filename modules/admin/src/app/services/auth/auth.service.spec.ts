@@ -2,11 +2,11 @@ import { inject, TestBed } from '@angular/core/testing';
 import { HttpModule, BaseRequestOptions, Http, ConnectionBackend, ResponseOptions, Response } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { CRUD_PROVIDERS } from "../../crud/common/crudProviders";
-import { ODatabaseService } from "../../orientdb/orientdb.service";
 import { AuthService } from "./auth.service";
 import { LoginModel } from "../../login/login.model";
+import { APP_PROVIDERS } from "../../app.module";
 
-describe('ODatabaseService', () => {
+describe('Auth service', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
