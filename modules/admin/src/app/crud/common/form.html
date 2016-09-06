@@ -3,10 +3,15 @@
         <form class="form" (submit)="onSubmit()" #addingForm="ngForm">
             <div *ngFor="let item of crudService.gridOptions.columnDefs" [ngSwitch]="item.type">
                 <md-input *ngSwitchCase="'STRING'" [placeholder]="item.headerName" [name]="item.headerName"
-                          class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
+                          class="{{item.headerName}}" [readonly]="item.editable" [hidden]="!item.visible"
                           [required]="item.mandatory"
+                          (blur)="crudService.handleBlur(item.property, item.mandatory)"
                           type="text" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
-                          class="form-control"></md-input>
+                          class="form-control">
+                    <md-hint *ngIf="crudService.hintModel[item.property]"
+                             align="start">{{ 'FIELD_NOT_FILLED' | translate}}
+                    </md-hint>
+                </md-input>
                 <md-input
                     *ngIf='item.type === "DOUBLE" || item.type === "INTEGER" || item.type === "FLOAT" || item.type === "BYTE" || item.type === "DECIMAL"'
                     [placeholder]="item.headerName" [name]="item.headerName"
@@ -43,7 +48,8 @@
                     <button md-raised-button color="primary" type="button"
                             (click)="back()" id="back">{{'BACK' | translate}}
                     </button>
-                    <button [disabled]="crudService.multipleSelectValid || !addingForm.valid" md-raised-button color="primary"
+                    <button [disabled]="crudService.multipleSelectValid || !addingForm.valid" md-raised-button
+                            color="primary"
                             id="modify">{{btnName | translate}}
                     </button>
                 </div>

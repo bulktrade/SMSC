@@ -17,6 +17,7 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 @Injectable()
 export class CrudService {
     public crudModel = new CrudModel([], []);
+    public hintModel = [];
     public isEditForm: boolean = false;
     public modifiedRecord: any = {};
     public focusedRow: any;
@@ -48,6 +49,20 @@ export class CrudService {
                 public translate: TranslateService,
                 public serviceNotifications: NotificationService,
                 public loadingService: LoadingGridService) {
+    }
+
+    handleBlur(property, mandatory) {
+        let inputModel = this.model[property];
+        console.log(this.model[property]);
+
+        if (mandatory) {
+            if (inputModel === '' ||
+                typeof inputModel === 'undefined') {
+                this.hintModel[property] = true;
+            } else {
+                this.hintModel[property] = false;
+            }
+        }
     }
 
     onFilterChanged(value, gridOptions) {
@@ -400,7 +415,7 @@ export class CrudService {
                                             } else {
                                                 column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
                                                 column['property'] = result[i]['name'];
-                                                column['editable'] = result[i]['mandatory'];
+                                                column['editable'] = result[i]['readonly'];
                                                 column['visible'] = true;
 
                                                 columnsForm.push(column);

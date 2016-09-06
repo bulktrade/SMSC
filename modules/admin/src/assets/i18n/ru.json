@@ -87,5 +87,6 @@
     "PREVIOUS": "Previous",
     "NEXT": "Next",
     "LAST": "Last",
-    "ALL_RECORDS": "All records"
+    "ALL_RECORDS": "All records",
+    "FIELD_NOT_FILLED": "The field is not filled"
 }
