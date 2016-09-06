@@ -57,7 +57,7 @@ const CRUD_MODULES = [
 export class CrudModule {
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: CrudModule,
+            ngModule: CrudModule
         };
     }
 }

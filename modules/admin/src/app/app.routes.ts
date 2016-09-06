@@ -6,11 +6,11 @@ import { Dashboard } from "./dashboard/dashboard.component";
 import { Customers } from "./customers/customers.components";
 import { Crud } from "./crud/crud.component";
 import { NotFound } from "./notFound/notFound.component";
-// import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
+import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
 import { CRUD_ROUTE_PROVIDER } from "./crud/crud.routes";
-// import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
-// import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
-// import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
+import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
+import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
+import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
 
 export const ROUTES: Routes = [
     {
@@ -30,7 +30,7 @@ export const ROUTES: Routes = [
                     icon: 'layers'
                 }
             },
-            { //@todo not working fix crud stuff
+            {
                 path: 'customers',
                 component: Customers,
                 data: {
@@ -47,68 +47,68 @@ export const ROUTES: Routes = [
                     }
                 ]
             },
-            // {
-            //     path: 'metadata',
-            //     component: CrudMetaData,
-            //     data: {
-            //         showInSubNavigation: true,
-            //         paramsAsDefault: '',
-            //         icon: 'perm_contact_calendar'
-            //     },
-            //     children: [
-            //         {
-            //             path: '',
-            //             component: CrudClassMetaData,
-            //             data: {
-            //                 showInSubNavigation: true,
-            //                 paramsAsDefault: '',
-            //                 icon: 'perm_data_setting',
-            //                 crudClass: 'CrudClassMetaData'
-            //             },
-            //             children: [
-            //                 {
-            //                     path: '',
-            //                     component: Crud,
-            //                     children: CRUD_ROUTE_PROVIDER
-            //                 }
-            //             ]
-            //         },
-            //         {
-            //             path: 'grid',
-            //             component: CrudMetaGridData,
-            //             data: {
-            //                 showInSubNavigation: true,
-            //                 paramsAsDefault: '',
-            //                 icon: 'grid_on',
-            //                 crudClass: 'CrudMetaGridData'
-            //             },
-            //             children: [
-            //                 {
-            //                     path: '',
-            //                     component: Crud,
-            //                     children: CRUD_ROUTE_PROVIDER
-            //                 }
-            //             ]
-            //         },
-            //         {
-            //             path: 'form',
-            //             component: CrudMetaFormData,
-            //             data: {
-            //                 showInSubNavigation: true,
-            //                 paramsAsDefault: '',
-            //                 icon: 'format_shapes',
-            //                 crudClass: 'CrudMetaFormData'
-            //             },
-            //             children: [
-            //                 {
-            //                     path: '',
-            //                     component: Crud,
-            //                     children: CRUD_ROUTE_PROVIDER
-            //                 }
-            //             ]
-            //         }
-            //     ]
-            // }
+            {
+                path: 'metadata',
+                component: CrudMetaData,
+                data: {
+                    showInSubNavigation: true,
+                    paramsAsDefault: '',
+                    icon: 'perm_contact_calendar'
+                },
+                children: [
+                    {
+                        path: '',
+                        component: CrudClassMetaData,
+                        data: {
+                            showInSubNavigation: true,
+                            paramsAsDefault: '',
+                            icon: 'perm_data_setting',
+                            crudClass: 'CrudClassMetaData'
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: Crud,
+                                children: CRUD_ROUTE_PROVIDER
+                            }
+                        ]
+                    },
+                    {
+                        path: 'grid',
+                        component: CrudMetaGridData,
+                        data: {
+                            showInSubNavigation: true,
+                            paramsAsDefault: '',
+                            icon: 'grid_on',
+                            crudClass: 'CrudMetaGridData'
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: Crud,
+                                children: CRUD_ROUTE_PROVIDER
+                            }
+                        ]
+                    },
+                    {
+                        path: 'form',
+                        component: CrudMetaFormData,
+                        data: {
+                            showInSubNavigation: true,
+                            paramsAsDefault: '',
+                            icon: 'format_shapes',
+                            crudClass: 'CrudMetaFormData'
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: Crud,
+                                children: CRUD_ROUTE_PROVIDER
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     },
     {
