@@ -1,6 +1,6 @@
 <div class="addingForm">
     <loading-grid>
-        <form class="form" (submit)="onSubmit()">
+        <form class="form" (submit)="onSubmit()" #addingForm="ngForm">
             <div *ngFor="let item of crudService.gridOptions.columnDefs" [ngSwitch]="item.type">
                 <md-input *ngSwitchCase="'STRING'" [placeholder]="item.headerName" [name]="item.headerName"
                           class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
@@ -10,7 +10,7 @@
                 <md-input
                     *ngIf='item.type === "DOUBLE" || item.type === "INTEGER" || item.type === "FLOAT" || item.type === "BYTE" || item.type === "DECIMAL"'
                     [placeholder]="item.headerName" [name]="item.headerName"
-                    class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
+                    class="{{item.headerName}}" [readonly]="item.editable" [hidden]="!item.visible"
                     [required]="item.mandatory"
                     type="number" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
                     class="form-control"></md-input>
@@ -19,7 +19,8 @@
                           [required]="item.mandatory"
                           type="datetime" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
                           class="form-control"></md-input>
-                <md-input *ngSwitchCase="'DATE'" [placeholder]="item.headerName" [name]="item.headerName"
+                <md-input *ngSwitchCase="
+                'DATE'" [placeholder]="item.headerName" [name]="item.headerName"
                           class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
                           [required]="item.mandatory"
                           type="date" autocomplete="off" [(ngModel)]="crudService.model[item.property]"
@@ -42,7 +43,7 @@
                     <button md-raised-button color="primary" type="button"
                             (click)="back()" id="back">{{'BACK' | translate}}
                     </button>
-                    <button md-raised-button color="primary"
+                    <button [disabled]="crudService.multipleSelectValid || !addingForm.valid" md-raised-button color="primary"
                             id="modify">{{btnName | translate}}
                     </button>
                 </div>

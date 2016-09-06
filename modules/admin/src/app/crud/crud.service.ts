@@ -20,7 +20,7 @@ export class CrudService {
     public isEditForm: boolean = false;
     public modifiedRecord: any = {};
     public focusedRow: any;
-    public addingFormValid = false;
+    public multipleSelectValid = false;
     public querySelectors = null;
     public embeddedList = null;
     public rowSelectionLinkset = null;
@@ -60,7 +60,7 @@ export class CrudService {
 
     isRequired(event) {
         if (event) {
-            this.addingFormValid = true;
+            this.multipleSelectValid = true;
             return;
         }
     }
@@ -400,7 +400,7 @@ export class CrudService {
                                             } else {
                                                 column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
                                                 column['property'] = result[i]['name'];
-                                                column['editable'] = !result[i]['mandatory'];
+                                                column['editable'] = result[i]['mandatory'];
                                                 column['visible'] = true;
 
                                                 columnsForm.push(column);
