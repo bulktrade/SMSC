@@ -53,7 +53,6 @@ export class CrudService {
 
     handleBlur(property, mandatory) {
         let inputModel = this.model[property];
-        console.log(this.model[property]);
 
         if (mandatory) {
             if (inputModel === '' ||
