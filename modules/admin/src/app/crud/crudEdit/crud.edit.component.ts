@@ -6,9 +6,9 @@ import { Location } from "@angular/common";
 
 @Component({
     selector: 'crud-edit',
-    template: require('../common/form.html'),
+    template: require('../common/form/form.html'),
     styles: [
-        require('../common/form.scss'),
+        require('../common/form/form.scss'),
         require('../common/style.scss')
     ],
     providers: [Location]

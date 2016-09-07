@@ -8,6 +8,7 @@ import { GridOptions } from "ag-grid";
 import { NotificationService } from "../services/notificationService";
 import { LoadingGridService } from "../services/loadingGrid.service";
 import { ColumnModel } from "./model/crud.column.model";
+import { INPUT_TYPES } from "./common/form/form.inputTypes";
 
 const squel = require('squel');
 
@@ -18,6 +19,7 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 export class CrudService {
     public crudModel = new CrudModel([], []);
     public hintModel = [];
+    public hintMessage: string;
     public isEditForm: boolean = false;
     public modifiedRecord: any = {};
     public focusedRow: any;
@@ -51,25 +53,57 @@ export class CrudService {
                 public loadingService: LoadingGridService) {
     }
 
-    handleBlur(property, mandatory) {
-        let inputModel = this.model[property];
-
-        if (mandatory) {
-            if (inputModel === '' ||
-                typeof inputModel === 'undefined') {
-                this.hintModel[property] = true;
-            } else {
-                this.hintModel[property] = false;
-            }
-        }
-    }
-
     onFilterChanged(value, gridOptions) {
         gridOptions.api.setQuickFilter(value);
     }
 
     cellValueChanged(value) {
         this.updateRecord(value.data);
+    }
+
+    typeForInput(type) {
+        let types = INPUT_TYPES;
+        let result: string = null;
+
+        result = types.find((i) => {
+            if (i === type) {
+                return true;
+            }
+
+            return false;
+        });
+
+        result = this.inputType(result);
+
+        return result;
+    }
+
+    inputType(type) {
+        let result: string;
+
+        switch (type) {
+            case 'STRING':
+                result = 'text';
+                break;
+            case 'DATE':
+                result = 'date';
+                break;
+            case 'DATETIME':
+                result = 'datetime';
+                break;
+            case 'DOUBLE':
+            case 'INTEGER':
+            case 'FLOAT':
+            case 'BYTE':
+            case 'DECIMAL':
+                result = 'number';
+                break;
+            default:
+                result = null;
+                break;
+        }
+
+        return result;
     }
 
     isRequired(event) {
