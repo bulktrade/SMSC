@@ -28,6 +28,11 @@ describe('Crud Service', () => {
         });
     });
 
+    it('the type should be text', inject([CrudService], (crudService: CrudService) => {
+        expect(crudService.inputType('STRING')).toEqual('text');
+        expect(crudService.inputType('TEST')).toBeNull();
+    }));
+
     it('should return a columnDefs with options for grid and form', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
         backend.connections.subscribe(c => {
             let response = new ResponseOptions({ body: '{"properties":[{"name":"test","headerName":"test","field":"test","editable":true,"required":true,"type":"test","linkedClass":"test","custom":"test"}]}' });
