@@ -28,7 +28,7 @@ import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
 import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
 import { Dashboards } from "./dashboards/dashboards.components";
 import { DashboardView } from "./dashboards/dashboard.view.component";
-import { DashboardBox } from "./dashboards/dashboard.box.component";
+import { DashboardBoxComponent } from "./dashboards/dashboard.box.component";
 import {ResizableModule} from 'angular2-resizable';
 
 @NgModule({
@@ -71,7 +71,7 @@ import {ResizableModule} from 'angular2-resizable';
         Dashboard,
         Dashboards,
         DashboardView,
-        DashboardBox,
+        DashboardBoxComponent,
         Breadcrumb,
         CrudMetaData,
         CrudMetaFormData,

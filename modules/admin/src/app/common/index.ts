@@ -17,7 +17,11 @@ export const COMMON_PROVIDERS = [
                 headerName: 'Authorization',
                 headerPrefix: 'Bearer',
                 tokenName: AUTH_TOKEN_NAME,
-                tokenGetter: tokenService.getToken,
+                tokenGetter: () => {
+                    return new Promise((resolve) => {
+                        resolve(tokenService.getToken());
+                    });
+                },
                 noJwtError: true,
                 noTokenScheme: true
             }), http);

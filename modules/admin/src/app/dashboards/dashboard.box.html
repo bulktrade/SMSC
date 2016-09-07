@@ -11,31 +11,45 @@
                         <i class="material-icons">more_vert</i>
                     </div>
                 </div>
-                <i class="material-icons button remove">delete_forever</i>
+                <i class="material-icons button remove" (click)="emitRemoveBox()">delete_forever</i>
             </div>
         </div>
         <div class="view-width">
             <div class="wrap" [ngClass]="{'view-width-open': viewWidth}">
-                <md-button (click)="emitResizeBox(25)">
-                    <span>
-                        1/4
-                    </span>
-                </md-button>
-                <md-button  (click)="emitResizeBox(50)">
-                    <span>
-                        2/4
-                    </span>
-                </md-button>
-                <md-button  (click)="emitResizeBox(75)">
-                    <span>
-                        3/4
-                    </span>
-                </md-button>
-                <md-button  (click)="emitResizeBox(100)">
-                    <span>
-                        4/4
-                    </span>
-                </md-button>
+                <div *ngIf="config.type == 'status'">
+                    <md-button (click)="emitResizeBox(25)" [ngClass]="{'active': statusBoxWidth == 25}">
+                        <span>
+                            1/4
+                        </span>
+                    </md-button>
+                    <md-button  (click)="emitResizeBox(50)" [ngClass]="{'active': statusBoxWidth == 50}">
+                        <span>
+                            2/4
+                        </span>
+                    </md-button>
+                    <md-button  (click)="emitResizeBox(75)" [ngClass]="{'active': statusBoxWidth == 75}">
+                        <span>
+                            3/4
+                        </span>
+                    </md-button>
+                    <md-button  (click)="emitResizeBox(100)" [ngClass]="{'active': statusBoxWidth == 100}">
+                        <span>
+                            4/4
+                        </span>
+                    </md-button>
+                </div>
+                <div *ngIf="config.type == 'chart'">
+                    <md-button (click)="emitResizeBox(50)" [ngClass]="{'active': statusBoxWidth == 25}">
+                        <span>
+                            1/2
+                        </span>
+                    </md-button>
+                    <md-button  (click)="emitResizeBox(100)" [ngClass]="{'active': statusBoxWidth == 50}">
+                        <span>
+                            2/2
+                        </span>
+                    </md-button>
+                </div>
             </div>
         </div>
         <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}">

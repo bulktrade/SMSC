@@ -7,6 +7,7 @@ $color-6: #AAB5BC;
 $color-7: #e1e1e1;
 $color-8: #009688;
 $color-9: #adc1d0;
+$color-10: #D32F2F;
 
 md-card.status {
     position: relative;
@@ -161,6 +162,9 @@ md-card.status {
                 transition: background 200ms ease;
                 color: #fff;
                 cursor: pointer;
+                &.active{
+                    background: #000;
+                }
                 &:hover {
                     background: #000;
                 }
@@ -180,6 +184,7 @@ md-card.status {
         z-index: 2000;
         text-align: right;
         padding: 10px;
+        padding-top: 1px;
         padding-left: 20px;
         padding-right: 0px;
         overflow: hidden;
@@ -214,11 +219,12 @@ md-card.status {
             }
             i {
                 display: inline-block;
-                color: $color-8;
+                color: $color-10;
                 font-size: 24px;
                 line-height: initial;
                 width: 24px;
                 height: 26px;
+                margin-top: 9px;
                 cursor: pointer;
             }
         }
@@ -236,7 +242,8 @@ md-card.status {
         -o-transition:  opacity 300ms ease-in;
         transition:  opacity 300ms ease-in;
         i{
-            color: $color-1;
+            color: $color-10;
+            font-weight: 700;
             font-size: 16px;
             cursor: pointer;
         }

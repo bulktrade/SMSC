@@ -16,12 +16,14 @@ import { CrudLinksetResolve } from "./crud/crudLinkset/crud.linkset.resolve";
 import { CrudCreateResolve } from "./crud/crudCreate/crud.create.resolve";
 import { CrudEditResolve } from "./crud/crudEdit/crud.edit.resolve";
 import { SidebarService } from "./sidebar/sidebarService";
+import { DashboardService } from "./dashboards/dashboardService"
 
 export * from './app.component';
 export * from './app.service';
 
 export const APP_PROVIDERS = [
     SidebarService,
+    DashboardService,
     CrudEditResolve,
     CrudCreateResolve,
     CrudLinksetResolve,

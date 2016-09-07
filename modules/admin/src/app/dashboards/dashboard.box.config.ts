@@ -3,6 +3,7 @@ export interface DashboardBoxConfig {
     name: String;
     header: String;
     subHeader: String,
+    width: number;
     icon: String,
     customData: Object;
 }
