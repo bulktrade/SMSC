@@ -447,7 +447,7 @@ export class CrudService {
                                             } else {
                                                 column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
                                                 column['property'] = result[i]['name'];
-                                                column['editable'] = result[i]['readonly'];
+                                                column['editable'] = !result[i]['readonly'];
                                                 column['visible'] = true;
 
                                                 columnsForm.push(column);

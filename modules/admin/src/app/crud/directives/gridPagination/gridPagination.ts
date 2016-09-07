@@ -19,18 +19,12 @@ const sprintf = require('sprintf-js').sprintf;
     template: require('./gridPagination.html'),
     styles: [
         require('./gridPagination.scss'),
-    ],
-    outputs: [
-        'rowData',
-        'initRowData',
     ]
 })
 
 export class GridPagination {
     @Input('className') public className: string;
     @Input('gridOptions') public gridOptions: GridOptions;
-    public rowData = new EventEmitter();
-    public initRowData = new EventEmitter();
 
     public rowsThisPage = [];
     public stepPageSize: any = [25, 50, 150, 200, 300];
