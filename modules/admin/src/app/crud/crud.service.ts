@@ -18,7 +18,6 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 @Injectable()
 export class CrudService {
     public crudModel = new CrudModel([], []);
-    public hintModel = [];
     public hintMessage: string;
     public isEditForm: boolean = false;
     public modifiedRecord: any = {};
