@@ -7,19 +7,18 @@ import { CrudCreate } from "./crudCreate/crud.create.component";
 import { CrudDelete } from "./crudDelete/crud.delete.component";
 import { CrudService } from "./crud.service";
 import { MdModule } from "../md.module";
-import { LoadingRouterOutlet } from "../common/loadingRouterOutlet";
+import { LoadingRouterOutletModule } from "../common/loadingRouterOutlet";
 import { TranslateModule, TranslateLoader, TranslateStaticLoader, TranslateService } from "ng2-translate";
 import { Http } from "@angular/http";
 import { BrowserModule } from "@angular/platform-browser";
-import { RouterModule } from "@angular/router";
-import { CubeGridComponent } from "../common/spinner/cubeGrid/cubeGrid.component";
+import { CubeGridModule } from "../common/spinner/cubeGrid/cubeGrid.component";
 import { AlertModule } from "ng2-bootstrap";
 import { AgGridNg2 } from "ag-grid-ng2";
-import { GridPagination } from "./directives/gridPagination/gridPagination";
-import { LoadingGrid } from "../common/loadingGrid";
+import { GridPaginationModule } from "./directives/gridPagination/gridPagination";
+import { LoadingGridModule } from "../common/loadingGrid";
 import { FormsModule } from "@angular/forms";
 import { MultipleSelect } from "./directives/multipleSelect/multipleSelect.component";
-import { MdSelect } from "../common/material/select/select";
+import { MdSelectModule } from "../common/material/select/select";
 
 const CRUD_DECLARATIONS = [
     Crud,
@@ -28,21 +27,20 @@ const CRUD_DECLARATIONS = [
     CrudLinkset,
     CrudDelete,
     CrudCreate,
-    LoadingRouterOutlet,
-    CubeGridComponent,
     AgGridNg2,
-    GridPagination,
-    LoadingGrid,
     MultipleSelect,
-    MdSelect
 ];
 
 const CRUD_MODULES = [
+    MdSelectModule,
+    GridPaginationModule,
+    LoadingRouterOutletModule,
+    CubeGridModule,
+    LoadingGridModule,
     AlertModule,
     FormsModule,
     MdModule.forRoot(),
     BrowserModule,
-    RouterModule,
     TranslateModule.forRoot({
         provide: TranslateLoader,
         useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),

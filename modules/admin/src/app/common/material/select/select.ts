@@ -1,5 +1,7 @@
-import { Component, Input, Output } from "@angular/core";
+import { Component, Input, Output, NgModule, ModuleWithProviders } from "@angular/core";
 import { EventEmitter } from "@angular/common/src/facade/async";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'md-select',
@@ -19,5 +21,19 @@ export class MdSelect {
 
     onChange(event) {
         this.modelChange.emit(event.target.value);
+    }
+}
+
+@NgModule({
+    imports: [CommonModule, FormsModule],
+    exports: [MdSelect],
+    declarations: [MdSelect]
+})
+export class MdSelectModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: MdSelectModule,
+            providers: []
+        };
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, NgModule, ModuleWithProviders } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Response } from "@angular/http";
 import { EventEmitter } from "@angular/common/src/facade/async";
@@ -6,6 +6,9 @@ import { ODatabaseService } from "../../../orientdb/orientdb.service";
 import { NotificationService } from "../../../services/notificationService";
 import { GridOptions } from "ag-grid";
 import { GridService } from "../../../services/grid.service";
+import { CommonModule } from "@angular/common";
+import { MdSelectModule } from "../../../common/material/select/select";
+import { MdModule } from "../../../md.module";
 
 const squel = require('squel');
 const sprintf = require('sprintf-js').sprintf;
@@ -214,5 +217,19 @@ export class GridPagination {
 
     setToRecord(numberRecords) {
         this.toRecord = this.currentPage * this.pageSize + numberRecords;
+    }
+}
+
+@NgModule({
+    imports: [CommonModule, MdSelectModule, MdModule.forRoot()],
+    exports: [GridPagination],
+    declarations: [GridPagination]
+})
+export class GridPaginationModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: GridPaginationModule,
+            providers: []
+        };
     }
 }

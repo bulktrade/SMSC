@@ -35,6 +35,7 @@ import { Sidebar } from "./sidebar/sidebar.component";
 import { SidebarItem } from "./sidebar/sidebaritem.component";
 import { CrudViewResolve } from "./crud/crudView/crud.view.resolve";
 import { CrudModule } from "./crud/crud.module";
+import { LoadingRouterOutletModule } from "./common/loadingRouterOutlet";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -68,6 +69,7 @@ export const APP_PROVIDERS = [
         CrudMetaGridData
     ],
     imports: [
+        LoadingRouterOutletModule,
         Ng2BootstrapModule,
         BrowserModule,
         FormsModule,

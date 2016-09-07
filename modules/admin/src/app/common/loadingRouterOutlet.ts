@@ -1,4 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, ModuleWithProviders, NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { CubeGridModule } from "./spinner/cubeGrid/cubeGrid.component";
 
 @Component({
     selector: ' loading-router-outlet',
@@ -17,5 +20,19 @@ export class LoadingRouterOutlet {
 
     stop() {
         this.loading = false;
+    }
+}
+
+@NgModule({
+    imports: [CommonModule, CubeGridModule, RouterModule],
+    exports: [LoadingRouterOutlet],
+    declarations: [LoadingRouterOutlet]
+})
+export class LoadingRouterOutletModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: LoadingRouterOutletModule,
+            providers: []
+        };
     }
 }
