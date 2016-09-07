@@ -19,11 +19,11 @@ import { BreadcrumbService } from "./breadcrumb.service";
 
 @Injectable()
 export class Breadcrumb {
-    public breadcrumb:BreadcrumbService;
+    public breadcrumb: BreadcrumbService;
 
-    constructor(public translate:TranslateService,
-                public router:Router,
-                public route:ActivatedRoute) {
+    constructor(public translate: TranslateService,
+                public router: Router,
+                public route: ActivatedRoute) {
     }
 
     ngOnInit() {
