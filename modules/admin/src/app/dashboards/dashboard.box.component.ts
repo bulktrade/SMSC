@@ -32,7 +32,9 @@ export class DashboardBoxComponent {
     }
 
     ngOnInit(){
-        this.statusBoxWidth = this.config.width;
+        if(this.config.width != undefined){
+            this.statusBoxWidth = this.config.width;
+        }
     }
 
     /**

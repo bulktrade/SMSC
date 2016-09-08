@@ -13,8 +13,7 @@ if ($DashboardBox.size() == 0) {
   ALTER PROPERTY Dashboard.icon MANDATORY true
   ALTER PROPERTY Dashboard.icon MANDATORY true
 
-  CREATE INDEX Dashboard.name UNIQUE
-  CREATE INDEX Dashboard.user UNIQUE
+  CREATE INDEX UNIQUE_NAME_USER ON Dashboard (name, user) UNIQUE
 
   let defaultDashboard = INSERT INTO Dashboard SET name = 'default', icon = 'user', user = $OUserRID
 
@@ -25,7 +24,6 @@ if ($DashboardBox.size() == 0) {
   if (DashboardBoxType.size() == 0) {
     console.log "DashboardBoxType class not exists! Start creating process."
 
-    //  Create unique index for name
     CREATE Class DashboardBoxType
 
     CREATE PROPERTY DashboardBoxType.name STRING
@@ -36,10 +34,10 @@ if ($DashboardBox.size() == 0) {
     ALTER PROPERTY DashboardBoxType.code MANDATORY true
     ALTER PROPERTY DashboardBoxType.codeLanguage CUSTOM type='SQL,JavaScript'
 
-    CREATE INDEX Dashboard.name UNIQUE
+    CREATE INDEX UNIQUE_NAME ON DashboardBoxType name UNIQUE
 
-    INSERT INTO DashboardBoxType SET name = 'status', code = '', codeLanguage = 'SQL'
-    INSERT INTO DashboardBoxType SET name = 'chart', code = '', codeLanguage = 'SQL'
+    let statusType = INSERT INTO DashboardBoxType SET name = 'status', code = '', codeLanguage = 'SQL'
+    let chartType = INSERT INTO DashboardBoxType SET name = 'chart', code = '', codeLanguage = 'SQL'
 
     console.log "Creating process for DashboardBoxType class is done."
   }
@@ -50,6 +48,7 @@ if ($DashboardBox.size() == 0) {
     console.log "DashboardBox class not exists! Start creating process."
 
     CREATE Class DashboardBox
+
     CREATE PROPERTY DashboardBox.size INTEGER
     CREATE PROPERTY DashboardBox.order INTEGER
     CREATE PROPERTY DashboardBox.name STRING
@@ -64,7 +63,15 @@ if ($DashboardBox.size() == 0) {
     ALTER PROPERTY DashboardBox.dashboard MANDATORY true
     ALTER PROPERTY DashboardBox.type MANDATORY true
 
-    INSERT INTO DashboardBox SET size = 0, order = 0, dashboard = $defaultDashboard['@rid']
+    CREATE INDEX UNIQUE_DASHBOARD_ORDER ON DashboardBox (dashboard, order) UNIQUE
+
+    INSERT INTO DashboardBox SET size = 25, order = 1, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid']
+    INSERT INTO DashboardBox SET size = 25, order = 2, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid']
+    INSERT INTO DashboardBox SET size = 25, order = 3, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid']
+    INSERT INTO DashboardBox SET size = 25, order = 4, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid']
+
+    INSERT INTO DashboardBox SET size = 50, order = 5, dashboard = $defaultDashboard['@rid'], type = $chartType['@rid']
+    INSERT INTO DashboardBox SET size = 50, order = 6, dashboard = $defaultDashboard['@rid'], type = $chartType['@rid']
 
     console.log "Creating process for DashboardBox class is done."
   }

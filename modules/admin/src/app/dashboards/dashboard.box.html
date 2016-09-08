@@ -39,14 +39,24 @@
                     </md-button>
                 </div>
                 <div *ngIf="config.type == 'chart'">
-                    <md-button (click)="emitResizeBox(50)" [ngClass]="{'active': statusBoxWidth == 25}">
+                    <md-button (click)="emitResizeBox(25)" [ngClass]="{'active': statusBoxWidth == 25}">
                         <span>
-                            1/2
+                            1/4
                         </span>
                     </md-button>
-                    <md-button  (click)="emitResizeBox(100)" [ngClass]="{'active': statusBoxWidth == 50}">
+                    <md-button  (click)="emitResizeBox(50)" [ngClass]="{'active': statusBoxWidth == 50}">
                         <span>
-                            2/2
+                            2/4
+                        </span>
+                    </md-button>
+                    <md-button  (click)="emitResizeBox(75)" [ngClass]="{'active': statusBoxWidth == 75}">
+                        <span>
+                            3/4
+                        </span>
+                    </md-button>
+                    <md-button  (click)="emitResizeBox(100)" [ngClass]="{'active': statusBoxWidth == 100}">
+                        <span>
+                            4/4
                         </span>
                     </md-button>
                 </div>

@@ -307,6 +307,7 @@ md-card.status {
                 position: absolute;
                 top: 0px;
                 right: 0px;
+                z-index: 2000;
                 .icon {
                     color: $color-1;
                     cursor: pointer;

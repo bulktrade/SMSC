@@ -49,6 +49,16 @@ $color-6: #AAB5BC;
                     height: 100%;
                     width: 100%;
                     display: block;
+                    transition: opacity 300ms ease-in;
+                    &.status{
+                        height: 175px;
+                    }
+                    &.chart{
+                        min-height: 500px;
+                    }
+                    &.removeBox{
+                        opacity: 0;
+                    }
                 }
             }
         }

@@ -2,7 +2,6 @@ import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { DashboardBox } from "./services/dashboard.box";
-import { RequestGetParameters } from "../orientdb/orientdb.requestGetParameters";
 
 const squel = require('squel');
 
@@ -12,18 +11,22 @@ export class DashboardService {
 
     }
 
-        //  Get dashboard boxes
-    public getDashboardBoxes(type:string):Promise<Array<DashboardBox>> {
+    /**
+     * Get dashboard boxes
+     *
+     * @returns {any}
+     */
+    public getDashboardBoxes():Promise<Array<DashboardBox>> {
         let query = squel.select()
             .from('DashboardBox')
             .field('*')
             .field('type.*')
-            .where(`type.name = ?`, type)
+            //.where(`type.name = ?`, type)
             .toString();
 
         return this.databaseService.query(query).then((res:Response) => {
             let result = res.json().result;
-            //console.log(result);)
+
             return Promise.resolve(result);
         }).catch((ex) => {
             throw new Error(ex);
@@ -37,25 +40,53 @@ export class DashboardService {
      * rid - @rid
      */
     public updateBoxWidth(width:number, item:any){
-        console.log(item);
         let property: any = {};
         property['@rid'] = item['@rid'];
         property['@version'] = item['@version'];
-        //property['@class'] = '@DashboardBox';
         property.name = item.name;
         property.size = width;
         property.order = item.order;
         property.description = item.description;
         property.type = item.type;
         property.dashboard = item.dashboard;
-        this.databaseService.update(property).then((res) => {
-            console.log(res);
+
+        this.databaseService.update(property).catch((ex) => {
+            throw new Error(ex);
         });
     }
 
+    /**
+     * Delete one box
+     * @param rid - box @rid
+     */
     public deleteBox(rid:string){
         let property: any = {};
         property['@rid'] = rid;
-        //this.databaseService.delete(property);
+        this.databaseService.delete(property);
+    }
+
+    /**
+     * Batch update
+     * @param list - list of boxes
+     */
+    public batchUpdate(list:Array<any>){
+        let operations:Array<Object> = new Array();
+
+        for(let key in list){
+            delete list[key]['@type'];
+            let tmp:Object = {
+                type: 'u',//    Operation what we do('u' - update)
+                record: list[key]
+            };
+            operations.push(tmp);
+        }
+
+            //  Create object for batchRequest function
+        let data:Object = {
+            transaction: true,
+            operations: operations
+        };
+
+        this.databaseService.batchRequest(data);
     }
 }
