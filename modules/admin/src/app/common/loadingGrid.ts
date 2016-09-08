@@ -1,6 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, NgModule, ModuleWithProviders } from "@angular/core";
 import { LoadingGridService } from "../services/loadingGrid.service";
 import { CrudService } from "../crud/crud.service";
+import { CubeGridModule } from "./spinner/cubeGrid/cubeGrid.component";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: 'loading-grid',
@@ -25,5 +27,19 @@ export class LoadingGrid implements OnInit {
             }, (error) => {
                 this.service.stop();
             })
+    }
+}
+
+@NgModule({
+    imports: [CommonModule, CubeGridModule],
+    exports: [LoadingGrid],
+    declarations: [LoadingGrid]
+})
+export class LoadingGridModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: LoadingGridModule,
+            providers: []
+        };
     }
 }

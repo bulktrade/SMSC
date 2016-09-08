@@ -1,5 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { LoadingRouterOutlet } from "./loadingRouterOutlet";
+import { LoadingRouterOutlet } from "../loadingRouterOutlet";
 import { HttpModule } from "@angular/http";
 
 describe('Loading RouterOutlet', () => {

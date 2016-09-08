@@ -3,17 +3,16 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class BreadcrumbService {
-    public name:string;
-    public childs:Array<any>;
+    public name: string;
+    public childs: Array<any> = [];
 
-    constructor(public router:Router,
-                public route:ActivatedRoute) {
-        this.childs = new Array();
+    constructor(public router: Router,
+                public route: ActivatedRoute) {
         this.name = this.route.component['name'];
         this.chainBreadcrumbItems(this.route);
     }
 
-    chainBreadcrumbItems(route:ActivatedRoute) {
+    chainBreadcrumbItems(route: ActivatedRoute) {
         if (route.component['name'] === 'Navigation') {
             return;
         }
@@ -27,7 +26,7 @@ export class BreadcrumbService {
     }
 
     chainPaths(paths): string {
-        let result:string = '';
+        let result: string = '';
 
         for (let i = 2; i < paths.length; i++) {
             if (paths[i].routeConfig.path !== '') {

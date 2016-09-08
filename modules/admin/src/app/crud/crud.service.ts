@@ -8,6 +8,7 @@ import { GridOptions } from "ag-grid";
 import { NotificationService } from "../services/notificationService";
 import { LoadingGridService } from "../services/loadingGrid.service";
 import { ColumnModel } from "./model/crud.column.model";
+import { INPUT_TYPES } from "./common/form/form.inputTypes";
 
 const squel = require('squel');
 
@@ -17,10 +18,11 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 @Injectable()
 export class CrudService {
     public crudModel = new CrudModel([], []);
+    public hintMessage: string;
     public isEditForm: boolean = false;
     public modifiedRecord: any = {};
     public focusedRow: any;
-    public addingFormValid = false;
+    public multipleSelectValid = false;
     public querySelectors = null;
     public embeddedList = null;
     public rowSelectionLinkset = null;
@@ -58,9 +60,54 @@ export class CrudService {
         this.updateRecord(value.data);
     }
 
+    typeForInput(type) {
+        let types = INPUT_TYPES;
+        let result: string = null;
+
+        result = types.find((i) => {
+            if (i === type) {
+                return true;
+            }
+
+            return false;
+        });
+
+        result = this.inputType(result);
+
+        return result;
+    }
+
+    inputType(type) {
+        let result: string;
+
+        switch (type) {
+            case 'STRING':
+                result = 'text';
+                break;
+            case 'DATE':
+                result = 'date';
+                break;
+            case 'DATETIME':
+                result = 'datetime';
+                break;
+            case 'DOUBLE':
+            case 'INTEGER':
+            case 'FLOAT':
+            case 'BYTE':
+            case 'DECIMAL':
+                result = 'number';
+                break;
+            default:
+                result = null;
+                break;
+        }
+
+        return result;
+    }
+
     isRequired(event) {
         if (event) {
-            this.addingFormValid = true;
+            this.multipleSelectValid = true;
             return;
         }
     }
@@ -344,7 +391,8 @@ export class CrudService {
 
                 return this.databaseService.query(queryCrudMetaGridData.toString())
                     .then((res: Response) => {
-                        let isExistColumn: boolean = res.json()['result'].length ? true : false;
+                        let isExistColumn: boolean = res.json()['result'].length > 0 ? true : false;
+
                         let columnsGrid = [];
                         let result = isExistColumn ? res.json()['result'] : properties; // add try / catch, can throws an error
 
@@ -382,7 +430,7 @@ export class CrudService {
                     .then((gridColumnModel: ColumnModel) => {
                         return this.databaseService.query(queryCrudMetaFormData.toString())
                             .then((res: Response) => {
-                                let isExistForm = res.json()['result'].length;
+                                let isExistForm = res.json()['result'].length > 0 ? true : false;
                                 let columnsForm = [];
                                 let result = isExistForm ? res.json()['result'] : properties;
 
@@ -399,7 +447,7 @@ export class CrudService {
                                             } else {
                                                 column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
                                                 column['property'] = result[i]['name'];
-                                                column['editable'] = !result[i]['mandatory'];
+                                                column['editable'] = !result[i]['readonly'];
                                                 column['visible'] = true;
 
                                                 columnsForm.push(column);
@@ -494,6 +542,16 @@ export class CrudService {
 
                 return Promise.resolve(isGrid ? columnDefs.grid : columnDefs.form);
             })
+    }
+
+    getSelectOptions(columnDefsItem) {
+        if (typeof columnDefsItem !== 'undefined') {
+            if (columnDefsItem.hasOwnProperty('custom')) {
+                return columnDefsItem.custom.type.split(',');
+            }
+        }
+
+        return [];
     }
 
     setClassName(className) {
