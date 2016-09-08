@@ -9,6 +9,7 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 /**
  * Webpack Plugins
  */
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 
@@ -97,6 +98,11 @@ module.exports = webpackMerge(commonConfig, {
     },
 
     plugins: [
+
+        new CopyWebpackPlugin([{
+            from: 'src/app/config/config.dev.json',
+            to: 'config.json'
+        }]),
 
         /**
          * Plugin: DefinePlugin
