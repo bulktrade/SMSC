@@ -9,6 +9,7 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 /**
  * Webpack Plugins
  */
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
@@ -91,8 +92,12 @@ module.exports = webpackMerge(commonConfig, {
          *
          * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
          */
-        chunkFilename: '[id].[chunkhash].chunk.js'
+        chunkFilename: '[id].[chunkhash].chunk.js',
 
+        /**
+         * Public path.
+         */
+        publicPath: "/resources/admin/"
     },
 
     /**
@@ -101,6 +106,11 @@ module.exports = webpackMerge(commonConfig, {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
+
+        new CopyWebpackPlugin([{
+            from: 'src/app/config/config.prod.json',
+            to: 'config.json'
+        }]),
 
         /**
          * Plugin: WebpackMd5Hash

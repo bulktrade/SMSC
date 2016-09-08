@@ -36,6 +36,7 @@ import { SidebarItem } from "./sidebar/sidebaritem.component";
 import { CrudViewResolve } from "./crud/crudView/crud.view.resolve";
 import { CrudModule } from "./crud/crud.module";
 import { LoadingRouterOutletModule } from "./common/loadingRouterOutlet";
+import { ConfigService } from "./config/configService";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -45,6 +46,7 @@ export const APP_PROVIDERS = [
     GridService,
     TokenService,
     AuthService,
+    ConfigService,
     CrudViewResolve,
     NotificationService,
     AuthGuard,
@@ -78,8 +80,10 @@ export const APP_PROVIDERS = [
         MdModule.forRoot(),
         TranslateModule.forRoot({
             provide: TranslateLoader,
-            useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
-            deps: [Http]
+            useFactory: (http: Http, configService: ConfigService) => {
+                return new TranslateStaticLoader(http, configService.config.i18nPath, '.json');
+            },
+            deps: [Http, ConfigService]
         }),
         SimpleNotificationsModule,
         CrudModule.forRoot()

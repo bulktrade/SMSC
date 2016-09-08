@@ -2,6 +2,7 @@ import { AuthHttp, AuthConfig } from "angular2-jwt";
 import { AUTH_TOKEN_NAME, TokenService } from "../services/auth/token.service";
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Http } from "@angular/http";
+import { ConfigService } from "../config/configService";
 
 export const COMMON_PROVIDERS = [
     {
@@ -27,9 +28,9 @@ export const COMMON_PROVIDERS = [
     },
     {
         provide: ODatabaseService,
-        useFactory: (authHttp) => {
-            return new ODatabaseService('/orientdb/smsc', authHttp);
+        useFactory: (authHttp: AuthHttp, configService: ConfigService) => {
+            return new ODatabaseService(configService.config.orientDBUrl + '/' + configService.config.orientDBDatabase, authHttp);
         },
-        deps: [AuthHttp]
+        deps: [AuthHttp, ConfigService]
     }
 ];

@@ -7,6 +7,7 @@ const helpers = require('./helpers');
 /**
  * Webpack Plugins
  */
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 
@@ -229,6 +230,11 @@ module.exports = {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
+
+        new CopyWebpackPlugin([{
+            from: 'src/app/config/config.test.json',
+            to: 'config.json'
+        }]),
 
         /**
          * Plugin: DefinePlugin
