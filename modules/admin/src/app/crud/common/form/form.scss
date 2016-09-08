@@ -17,6 +17,8 @@ $colorHint: #A94442;
         margin-bottom: 50px;
 
         md-hint {
+            position: relative;
+            top: 8px;
             color: $colorHint;
         }
     }
