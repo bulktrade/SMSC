@@ -101,7 +101,7 @@ export class ODatabaseService {
                     return Promise.resolve(res);
                 },
                 error => {
-                    this.setErrorMessage('Command error: ' + error.responseText)
+                    this.setErrorMessage('Command error: ' + error.responseText);
                     return Promise.reject(error);
                 });
     };

@@ -27,13 +27,24 @@ export class CrudLinkset {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data[0];
-
+        this.resolveData = this.route.snapshot.data['linkset'];
         this.crudService.gridOptions.columnDefs = this.resolveData;
     }
 
     back() {
         this.location.back();
+    }
+
+    navigateToCreate() {
+        this.crudService.setModel({});
+        this.router.navigate([this.crudService.parentPath, 'create', this.crudService.getLinkedClass()]);
+    }
+
+    navigateToDelete() {
+        let id = this.crudService.getSelectedRID(this.crudService.gridOptions);
+
+        this.router.navigate([this.crudService.parentPath, 'delete',
+            id.join().replace(/\[|\]/gi, '')]);
     }
 
     addLink(gridOptions) {
@@ -64,9 +75,15 @@ export class CrudLinkset {
 
         return this.gridService.getTitleColumns(this.crudService.getLinkedClass())
             .then((columnName) => {
-                for (let item = 0; item < focusedRows.length; item++) {
-                    result['_' + item] = focusedRows[item]['@rid'];
-                    result.push(focusedRows[item][columnName]);
+                for (let i = 0; i < focusedRows.length; i++) {
+                    result['_' + i] = focusedRows[i]['@rid'];
+
+                    if (focusedRows[i].hasOwnProperty(columnName) &&
+                        typeof columnName !== 'undefined') {
+                        result.push(focusedRows[i][columnName]);
+                    } else {
+                        result.push(focusedRows[i]['@rid'])
+                    }
                 }
 
                 return result;

@@ -42,6 +42,10 @@ export class NotificationService {
                 this.createNotification('error', 'ERROR', 'orientdb.unregistered');
                 break;
 
+            case 404:
+                this.createNotification('error', 'ERROR', 'orientdb.dataNotFound');
+                break;
+
             case 500:
                 this.createNotification('error', 'ERROR', 'orientdb.dataNotCorrect');
                 break;

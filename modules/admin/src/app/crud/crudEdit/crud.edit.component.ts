@@ -26,7 +26,7 @@ export class CrudEdit {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data[0];
+        this.resolveData = this.route.snapshot.data['edit'];
 
         if (this.resolveData.model) {
             this.crudService.setModel(this.resolveData.model);

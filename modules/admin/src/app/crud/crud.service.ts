@@ -112,8 +112,8 @@ export class CrudService {
         }
     }
 
-    createRecord(properties): Promise<any> {
-        properties['@class'] = this.getClassName();
+    createRecord(properties, className): Promise<any> {
+        properties['@class'] = className;
 
         this.loadingService.start();
 

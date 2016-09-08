@@ -23,14 +23,13 @@ export class CrudView {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data[0];
-
+        this.resolveData = this.route.snapshot.data['view'];
         this.crudService.gridOptions.columnDefs = this.resolveData;
     }
 
     navigateToCreate() {
         this.crudService.setModel({});
-        this.router.navigateByUrl(this.crudService.parentPath + '/create');
+        this.router.navigate([this.crudService.parentPath, 'create', this.crudService.getClassName()]);
     }
 
     navigateToDelete() {
