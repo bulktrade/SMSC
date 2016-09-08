@@ -41,11 +41,7 @@ const CRUD_MODULES = [
     FormsModule,
     MdModule.forRoot(),
     BrowserModule,
-    TranslateModule.forRoot({
-        provide: TranslateLoader,
-        useFactory: (http: Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
-        deps: [Http]
-    })
+    TranslateModule
 ];
 
 @NgModule({

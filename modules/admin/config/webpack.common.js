@@ -257,12 +257,6 @@ module.exports = {
             to: 'assets'
         }]),
 
-        new CopyWebpackPlugin([{
-            from: 'src/app/config/config.json',
-            to: 'config.json'
-        }]),
-
-
         /*
          * Plugin: HtmlWebpackPlugin
          * Description: Simplifies creation of HTML files to serve your webpack bundles.

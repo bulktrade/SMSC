@@ -2,5 +2,5 @@
     "orientDBUrl": "/orientdb",
     "orientDBDatabase": "smsc",
     "i18nPath": "assets/i18n",
-    "debug": true
+    "debug": false
 }
