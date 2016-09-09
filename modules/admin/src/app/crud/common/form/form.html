@@ -9,7 +9,7 @@
                           [type]="crudService.typeForInput(item.type)" autocomplete="off"
                           [(ngModel)]="crudService.model[item.property]"
                           class="form-control">
-                    <md-hint [hidden]="column.valid || column.pristine"
+                    <md-hint [hidden]="column.valid"
                              align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
                     </md-hint>
                 </md-input>
