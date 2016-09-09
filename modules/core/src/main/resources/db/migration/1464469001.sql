@@ -122,65 +122,83 @@ if ($crudMetaFormData.size() == 0) {
 
 INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudMetaGridData', 'columnWidth', true);
 INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudMetaFormData', 'fieldLayoutGridPosition', true);
-INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudClassMetaData', 'Class', true);
+INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('CrudClassMetaData', 'class', true);
 INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('Customer', 'customerId', true);
 INSERT INTO CrudClassMetaData (class, titleColumns, editable) VALUES ('OUser', 'name', true);
 
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('columnWidth', true, true, 1, '25:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, '25:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 3, '25:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 4, '25:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, '25:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, '25:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, '25:0');
+let getCrudMetaGridDataRID = select * from CrudClassMetaData where class = 'CrudMetaGridData' LIMIT 1
+let getCrudMetaFormDataRID = select * from CrudClassMetaData where class = 'CrudMetaFormData' LIMIT 1
+let getCrudClassMetaDataRID = select * from CrudClassMetaData where class = 'CrudClassMetaData' LIMIT 1
+let getCustomerRID = select * from CrudClassMetaData where class = 'Customer' LIMIT 1
+let getOUserRID = select * from CrudClassMetaData where class = 'OUser' LIMIT 1
 
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('fieldLayoutGridPosition', true, true, 1, '26:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, '26:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 3, '26:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 4, '26:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, '26:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, '26:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, '26:0');
+/*
+Declared properties for a class CrudMetaGridData
+*/
 
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('customerId', true, true, 1, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('companyName', true, true, 2, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('street', true, true, 3, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('street2', true, true, 4, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('postcode', true, true, 5, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('country', true, true, 6, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('city', true, true, 7, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('vatid', true, true, 8, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('contacts', true, true, 9, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('users', true, true, 10, '28:0');
-INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('parentCustomer', true, true, 11, '28:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('columnWidth', true, true, 1, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 3, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 4, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, $getCrudMetaGridDataRID.@rid[0]);
 
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('columnWidth', true, true, 1, '25:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, '25:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 3, '25:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 4, '25:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, '25:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, '25:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, '25:0');
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('columnWidth', true, true, 1, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 3, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 4, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, $getCrudMetaGridDataRID.@rid[0]);
 
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('fieldLayoutGridPosition', true, true, 1, '26:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, '26:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 3, '26:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 4, '26:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, '26:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, '26:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, '26:0');
+/*
+Declared properties for a class CrudMetaFormData
+*/
 
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('customerId', true, true, 1, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('companyName', true, true, 2, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('street', true, true, 3, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('street2', true, true, 4, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('postcode', true, true, 5, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('country', true, true, 6, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('city', true, true, 7, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('vatid', true, true, 8, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('contacts', true, true, 9, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('users', true, true, 10, '28:0');
-INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('parentCustomer', true, true, 11, '28:0');
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('fieldLayoutGridPosition', true, true, 1, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 3, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 4, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, $getCrudMetaFormDataRID.@rid[0]);
+
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('fieldLayoutGridPosition', true, true, 1, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('editable', true, true, 3, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('visible', true, true, 4, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, $getCrudMetaFormDataRID.@rid[0]);
+
+/*
+Declared properties for a class Customer
+*/
+
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('customerId', true, true, 1, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('companyName', true, true, 2, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('street', true, true, 3, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('street2', true, true, 4, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('postcode', true, true, 5, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('country', true, true, 6, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('city', true, true, 7, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('vatid', true, true, 8, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('contacts', true, true, 9, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('users', true, true, 10, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('parentCustomer', true, true, 11, $getCustomerRID.@rid[0]);
+
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('customerId', true, true, 1, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('companyName', true, true, 2, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('street', true, true, 3, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('street2', true, true, 4, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('postcode', true, true, 5, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('country', true, true, 6, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('city', true, true, 7, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('vatid', true, true, 8, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('contacts', true, true, 9, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('users', true, true, 10, $getCustomerRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('parentCustomer', true, true, 11, $getCustomerRID.@rid[0]);
 
 let customerIdSeqOSequence = SELECT FROM OSequence WHERE name = 'customerIdSeq';
 
