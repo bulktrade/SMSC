@@ -46,7 +46,6 @@ export const APP_PROVIDERS = [
     GridService,
     TokenService,
     AuthService,
-    ConfigService,
     CrudViewResolve,
     NotificationService,
     AuthGuard,
@@ -89,6 +88,7 @@ export const APP_PROVIDERS = [
         CrudModule.forRoot()
     ],
     providers: [
+        ConfigService,
         ENV_PROVIDERS,
         APP_PROVIDERS
     ]
