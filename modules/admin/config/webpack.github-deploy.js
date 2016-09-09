@@ -51,8 +51,8 @@ module.exports = webpackMerge(webpackConfig, {
     },
 
     plugins: [
-        function() {
-            this.plugin('done', function(stats) {
+        function () {
+            this.plugin('done', function (stats) {
                 console.log('Starting deployment to GitHub.');
 
                 const logger = function (msg) {
@@ -65,7 +65,7 @@ module.exports = webpackMerge(webpackConfig, {
                     message: COMMIT_MESSAGE
                 };
 
-                ghpages.publish(webpackConfig.output.path, options, function(err) {
+                ghpages.publish(webpackConfig.output.path, options, function (err) {
                     if (err) {
                         console.log('GitHub deployment done. STATUS: ERROR.');
                         throw err;
