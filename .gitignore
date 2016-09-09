@@ -1,19 +1,17 @@
 *.iml
-modules/core/target
-/modules/admin/node_modules
-modules/.idea
-modules/admin/.idea
-modules/admin/.com.google.Chrome.*
-modules/admin/target
-modules/admin/src/bower_components
-modules/admin/src/.sass-cache
-modules/admin/src/assets/css/.sass-cache
-modules/admin/src/app/components/.sass-cache
+/modules/core/target/
+/modules/admin/node_modules/
+/modules/.idea
+/modules/admin/.idea/
+/modules/admin/.com.google.Chrome.*
+/modules/admin/target/
+/modules/admin/src/.sass-cache
+/modules/admin/src/assets/css/.sass-cache
+/modules/admin/src/app/components/.sass-cache
 npm-debug.log
-modules/admin/dist
-modules/admin/typings
-databases
-smsc
+/modules/admin/dist/
+databases/
+/smsc/
 
 # Logs
 logs
@@ -46,8 +44,8 @@ Icon?
 Thumbs.db
 
 # Node Files #
-*/node_modules
-*/bower_components
+*/node_modules/
+*/bower_components/
 
 # Coverage #
 */coverage/
@@ -58,7 +56,7 @@ Thumbs.db
 */tsd_typings/
 
 # Dist #
-*/dist
+*/dist/
 */public/__build__/
 */src/*/__build__/
 */__build__/**
