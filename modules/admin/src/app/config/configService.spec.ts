@@ -13,7 +13,7 @@ describe('Config Service', () => {
         });
     });
 
-    it('SERVICE', inject([ConfigService], (configService: ConfigService) => {
+    it('should get the parameters config.json', inject([ConfigService], (configService: ConfigService) => {
         let config: Config = {
             orientDBUrl: "/orientdb",
             orientDBDatabase: "smsc",
