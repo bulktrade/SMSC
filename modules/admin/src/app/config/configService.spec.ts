@@ -3,6 +3,9 @@ import { ConfigService } from "./configService";
 import { ConfigServiceMock } from "../common/mock/configServiceMock";
 import { Config } from "./config";
 
+
+// @todo test is not right. You are not testing ConfigService. You are testing ConfigServiceMock.
+// Mock XHR instance. Here is an example: http://jsfiddle.net/eitanp461/tkSRC/
 describe('Config Service', () => {
 
     beforeEach(() => {

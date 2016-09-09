@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, Observer } from "rxjs";
 import { Config } from "../../config/config";
 
+// @todo not necessary mock. Mock XHR instance simply.
 @Injectable()
 export class ConfigServiceMock {
     private static _configStream: Observable<Config> = null;
