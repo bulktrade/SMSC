@@ -19,6 +19,7 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 export class CrudService {
     public crudModel = new CrudModel([], []);
     public hintMessage: string;
+    public isHint: Array<boolean> = [];
     public isEditForm: boolean = false;
     public modifiedRecord: any = {};
     public focusedRow: any;

@@ -16,7 +16,11 @@
                 <multiple-select *ngIf="item.type === 'LINKSET' || item.type === 'LINK'"
                                  [property]="item"
                                  [rowSelectionLinkset]="'single'"
-                                 (isRequired)="crudService.isRequired($event)"></multiple-select>
+                                 (isRequired)="crudService.isRequired($event); crudService.isHint[item.property] = $event">
+                    <md-hint [hidden]="!crudService.isHint[item.property]"
+                             align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
+                    </md-hint>
+                </multiple-select>
                 <md-checkbox *ngSwitchCase="'BOOLEAN'"
                              [(ngModel)]="crudService.model[item.property]" [name]="item.headerName"
                              [align]="alignment">

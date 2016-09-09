@@ -1,52 +1,55 @@
 #multipleSelect {
-    border: 1px solid rgba(0, 0, 0, 0.38);
-    color: rgba(0, 0, 0, 0.38);
-    font-size: 14px;
-    padding: 5px;
-    min-height: 75px;
-    margin: 7px 0 10px 0;
+    margin-bottom: 25px;
 
-    .title {
-        margin: 0;
-    }
+    #multipleSelectComponent {
+        border: 1px solid rgba(0, 0, 0, 0.38);
+        color: rgba(0, 0, 0, 0.38);
+        font-size: 14px;
+        padding: 5px;
+        min-height: 75px;
+        margin-top: 7px;
 
-    hr {
-        padding: 0;
-        margin: 6px;
-    }
+        .title {
+            margin: 0;
+        }
 
-    .items {
-        display: inline-block;
-        float: left;
-        margin-right: 10px;
-    }
+        hr {
+            padding: 0;
+            margin: 6px;
+        }
 
-    md-icon {
-        float: left;
-        cursor: pointer;
-        font-size: 20px;
-        margin: auto;
+        .items {
+            display: inline-block;
+            float: left;
+            margin-right: 10px;
+        }
 
-        &:hover {
-            color: red;
+        md-icon {
+            float: left;
+            cursor: pointer;
+            font-size: 20px;
+            margin: auto;
+
+            &:hover {
+                color: red;
+            }
+        }
+
+        .item {
+            padding-top: 2px;
+        }
+
+        .items,
+        .item {
+            display: flex;
+        }
+
+        #add {
+            margin-bottom: 6px;
+
+            &:hover {
+                color: green;
+            }
         }
     }
-
-    .item {
-        padding-top: 2px;
-    }
-
-    .items,
-    .item {
-        display: flex;
-    }
-
-    #add {
-        margin-bottom: 6px;
-
-        &:hover {
-            color: green;
-        }
-    }
-
 }
