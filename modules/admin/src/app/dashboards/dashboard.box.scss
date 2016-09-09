@@ -9,6 +9,10 @@ $color-8: #009688;
 $color-9: #adc1d0;
 $color-10: #D32F2F;
 
+md-card{
+    height: 100%;
+}
+
 md-card.status {
     position: relative;
     margin-right: 5px;
@@ -39,6 +43,10 @@ md-card.status {
     }
     .progress-container {
         margin-top: 15px;
+        position: absolute;
+        width: 100%;
+        bottom: 22px;
+        padding-right: 48px;
         .progress-bar {
             height: 4px;
             margin-bottom: 10px;
@@ -115,7 +123,7 @@ md-card.status {
     }
     .view-width {
         position: absolute;
-        top: calc(20% - 35px);
+        top: calc(20% - 45px);
         left: 0;
         right: 0;
         margin: 0 auto;
@@ -153,8 +161,8 @@ md-card.status {
             md-button {
                 display: inline-table;
                 background-color: #009688;
-                width: 35px;
-                height: 35px;
+                width: 45px;
+                height: 45px;
                 border-radius: 100%;
                 position: relative;
                 margin-left: 7px;
@@ -173,6 +181,7 @@ md-card.status {
                     vertical-align: middle;
                     text-align: center;
                     line-height: 1px;
+                    font-size: 13px;
                 }
             }
         }
@@ -266,7 +275,7 @@ md-card.status {
         }
 
         .view-width{
-            top: calc(50% - 17.5px) !important;
+            top: calc(50% - 45px) !important;
             opacity: 1;
         }
 

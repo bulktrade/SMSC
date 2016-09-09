@@ -16,47 +16,42 @@
         </div>
         <div class="view-width">
             <div class="wrap" [ngClass]="{'view-width-open': viewWidth}">
-                <div *ngIf="config.type == 'status'">
-                    <md-button (click)="emitResizeBox(25)" [ngClass]="{'active': statusBoxWidth == 25}">
+                <div>
+                    <md-button (click)="emitResizeBox({val: 25, type: 'height'})" [ngClass]="{'active': statusBoxHeight == 25}">
                         <span>
-                            1/4
+                           S
                         </span>
                     </md-button>
-                    <md-button  (click)="emitResizeBox(50)" [ngClass]="{'active': statusBoxWidth == 50}">
+                    <md-button  (click)="emitResizeBox({val: 50, type: 'height'})" [ngClass]="{'active': statusBoxHeight == 50}">
                         <span>
-                            2/4
+                            L
                         </span>
                     </md-button>
-                    <md-button  (click)="emitResizeBox(75)" [ngClass]="{'active': statusBoxWidth == 75}">
+                    <md-button  (click)="emitResizeBox({val: 75, type: 'height'})" [ngClass]="{'active': statusBoxHeight == 75}">
                         <span>
-                            3/4
-                        </span>
-                    </md-button>
-                    <md-button  (click)="emitResizeBox(100)" [ngClass]="{'active': statusBoxWidth == 100}">
-                        <span>
-                            4/4
+                            X
                         </span>
                     </md-button>
                 </div>
-                <div *ngIf="config.type == 'chart'">
-                    <md-button (click)="emitResizeBox(25)" [ngClass]="{'active': statusBoxWidth == 25}">
+                <div>
+                    <md-button (click)="emitResizeBox({val: 25, type: 'width'})" [ngClass]="{'active': statusBoxWidth == 25}">
                         <span>
-                            1/4
+                           25%
                         </span>
                     </md-button>
-                    <md-button  (click)="emitResizeBox(50)" [ngClass]="{'active': statusBoxWidth == 50}">
+                    <md-button  (click)="emitResizeBox({val: 50, type: 'width'})" [ngClass]="{'active': statusBoxWidth == 50}">
                         <span>
-                            2/4
+                            50%
                         </span>
                     </md-button>
-                    <md-button  (click)="emitResizeBox(75)" [ngClass]="{'active': statusBoxWidth == 75}">
+                    <md-button  (click)="emitResizeBox({val: 75, type: 'width'})" [ngClass]="{'active': statusBoxWidth == 75}">
                         <span>
-                            3/4
+                            75%
                         </span>
                     </md-button>
-                    <md-button  (click)="emitResizeBox(100)" [ngClass]="{'active': statusBoxWidth == 100}">
+                    <md-button  (click)="emitResizeBox({val: 100, type: 'width'})" [ngClass]="{'active': statusBoxWidth == 100}">
                         <span>
-                            4/4
+                            100%
                         </span>
                     </md-button>
                 </div>

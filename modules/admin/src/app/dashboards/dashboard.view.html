@@ -3,75 +3,19 @@
 
 <div id="dashboard" class="wrapper">
     <router-outlet></router-outlet>
-
     <md-content class="status container" [dragula]='"status-bag"'>
-        <!--<div [ngClass]="boxes.box1">
-            <dashboard-box [config]="{
-                'type': 'status',
-                'name': 'profit',
-                'header': '7001 <span>$</span>',
-                'sub-head': 'Total profit',
-                'icon': 'account_balance_wallet',
-                'customData': {
-                    'processStatus': 'Progress',
-                    'percent': '75'
-                }
-            }" (resizeBox)="reiszeBox($event, 'box1')"
-            ></dashboard-box>
-        </div>
-        <div [ngClass]="boxes.box2">
-            <dashboard-box [config]="{
-                'type': 'status',
-                'name': 'feedback',
-                'header': '1349',
-                'sub-head': 'New feedback',
-                'icon': 'message',
-                'customData': {
-                    'processStatus': 'Change',
-                    'percent': '35'
-                }
-            }" (resizeBox)="reiszeBox($event, 'box2')"
-            ></dashboard-box>
-        </div>
-        <div [ngClass]="boxes.box3">
-            <dashboard-box [config]="{
-                'type': 'status',
-                'name': 'orders',
-                'header': '1941',
-                'sub-head': 'New orders',
-                'icon': 'message',
-                'customData': {
-                    'processStatus': 'Grow',
-                    'percent': '60'
-                }
-            }" (resizeBox)="reiszeBox($event, 'box3')"
-            ></dashboard-box>
-        </div>
-        <div [ngClass]="boxes.box4">
-            <dashboard-box [config]="{
-                'type': 'status',
-                'name': 'users',
-                'header': '2184',
-                'sub-head': 'New users',
-                'icon': 'supervisor_account',
-                'customData': {
-                    'processStatus': 'Change',
-                    'percent': '88'
-                }
-            }" (resizeBox)="reiszeBox($event, 'box4')"
-            ></dashboard-box>
-        </div>-->
+        <div *ngFor="let item of boxesArr | orderby : {key: 'order', direction: 'ascending'}; let i = index; let last = last" class="box"
+             [ngClass]="boxes['box' + i]" [ngStyle]="{'flex-basis': item.width + '%'}" attr.data-boxrid="{{item['@rid']}}">
 
-        <div *ngFor="let item of boxesArr | orderby : {key: 'order', direction: 'ascending'}; let i = index;" class="box"
-             [ngClass]="boxes['box' + i]" [ngStyle]="{'flex-basis': item.size + '%'}" attr.data-boxRid="{{item['@rid']}}">
             <dashboard-box [ngClass]="boxes['boxRemove' + i]" class="status" *ngIf="item.typename == 'status'"
-                           (resizeBox)="resizeBox($event, 'box' + i, item)"
+                           (resizeBox)="resizeBox($event, 'box' + i, item, i)"
                            [config]="{
                                 'type': 'status',
                                 'name': 'profit',
                                 'header': '7001 ',
                                 'subHeader': item.name,
-                                'width': item.size,
+                                'width': item.width,
+                                'height': item.height,
                                 'icon': 'account_balance_wallet',
                                 'customData': {
                                     'processStatus': 'Progress',
@@ -83,37 +27,11 @@
                 'type': 'chart',
                 'header': item.name,
                 'subHeader': item.description,
-                'width': item.size
-            }" (resizeBox)="resizeBox($event, 'box' + i, item)" (removeBox)="removeBox(item['@rid'], i, 'boxRemove' + i)"
+                'width': item.width,
+                'height': item.height
+            }" (resizeBox)="resizeBox($event, 'box' + i, item, i)" (removeBox)="removeBox(item['@rid'], i, 'boxRemove' + i)"
             ></dashboard-box>
+            <span *ngIf='last'>{{hello(last)}}</span>
         </div>
     </md-content>
-    <!--<md-content class="graphics container" [dragula]='"chart-bag"'>
-        <dashboard-box *ngFor="let item of boxesArr.chart | orderby : {key: 'order'}; let i = index"
-                       [ngStyle]="{'flex-basis': item.size + '%'}"
-            [ngClass]="boxes['chartBox' + i]" [config]="{
-            'type': 'chart',
-            'header': item.name,
-            'subHeader': item.description,
-            'width': item.size
-        }" (resizeBox)="resizeBox($event, 'chartBox' + i, item)" (removeBox)="removeBox(item['@rid'])"
-        ></dashboard-box>
-
-        &lt;!&ndash;<dashboard-box [ngClass]="boxes['chartBox' + 0]" [config]="{
-            'type': 'chart',
-            'header': 'Revenue',
-            'subHeader': 'distance stats...'
-        }" (resizeBox)="resizeBox($event, 'chartBox' + 0)"
-        ></dashboard-box>
-        <dashboard-box [config]="{
-            'type': 'chart',
-            'header': 'Finance',
-            'subHeader': 'distance stats...'
-        }"></dashboard-box>
-        <dashboard-box [config]="{
-            'type': 'chart',
-            'header': 'Profit',
-            'subHeader': 'distance stats...'
-        }"></dashboard-box>&ndash;&gt;
-    </md-content>-->
 </div>

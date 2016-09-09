@@ -27,6 +27,7 @@ export class DashboardBoxComponent {
     public viewWidthOpen:boolean = false;
     public fullscreenMode:boolean = false;
     public statusBoxWidth:number = 25;
+    public statusBoxHeight:number = 25;
 
     constructor(private sidebarService:SidebarService) {
     }
@@ -34,6 +35,11 @@ export class DashboardBoxComponent {
     ngOnInit(){
         if(this.config.width != undefined){
             this.statusBoxWidth = this.config.width;
+        }
+
+        if(this.config.height != undefined){
+            this.statusBoxHeight = this.config.height;
+            console.log(this.config.height);
         }
     }
 
@@ -47,9 +53,26 @@ export class DashboardBoxComponent {
         });
     }
 
-    emitResizeBox(width:number):void {
-        this.statusBoxWidth = width;
-        this.resizeBox.emit(width);
+    emitResizeBox(data:void) {
+        let res:Object = {
+            type: data.type
+        }
+
+        if(data.type == 'width'){
+            res.width = data.val;
+            res.height = this.statusBoxHeight;
+
+            this.statusBoxWidth = data.val;
+        }
+
+        if(data.type == 'height'){
+            res.width = this.statusBoxWidth;
+            res.height = data.val;
+
+            this.statusBoxHeight = data.val;
+        }
+
+        this.resizeBox.emit(res);
     }
 
     emitRemoveBox(){

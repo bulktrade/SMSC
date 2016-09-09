@@ -39,18 +39,18 @@ export class DashboardService {
      * width - box width(25/50/75/100)
      * rid - @rid
      */
-    public updateBoxWidth(width:number, item:any){
-        let property: any = {};
-        property['@rid'] = item['@rid'];
-        property['@version'] = item['@version'];
-        property.name = item.name;
-        property.size = width;
-        property.order = item.order;
-        property.description = item.description;
-        property.type = item.type;
-        property.dashboard = item.dashboard;
+    public updateBoxSize(size:Object, item):Promise {
+        delete item['@type'];
 
-        this.databaseService.update(property).catch((ex) => {
+        item.width = size.width;
+        item.height = size.height;
+
+        return this.databaseService.update(item).then((res) => {
+            let result = JSON.parse(res._body);
+
+            return Promise.resolve(result.result[0]);
+        })
+        .catch((ex) => {
             throw new Error(ex);
         });
     }
@@ -69,7 +69,7 @@ export class DashboardService {
      * Batch update
      * @param list - list of boxes
      */
-    public batchUpdate(list:Array<any>){
+    public batchUpdate(list:Array<any>):Promise{
         let operations:Array<Object> = new Array();
 
         for(let key in list){
@@ -87,6 +87,12 @@ export class DashboardService {
             operations: operations
         };
 
-        this.databaseService.batchRequest(data);
+        return this.databaseService.batchRequest(data).then(() => {
+            let result = this.getDashboardBoxes();
+
+            return Promise.resolve(result);
+        }).catch((ex) => {
+            throw new Error(ex);
+        });
     }
 }

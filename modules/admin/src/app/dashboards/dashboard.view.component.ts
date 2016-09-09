@@ -31,6 +31,7 @@ export class DashboardView {
        private drakes:Array<string> = ["status-bag", "chart-bag"];
     public boxes:Object = {};
     public boxesArr:Array<any> = new Array();
+    private firstAdd:boolean = false;
 
     constructor(public translate:TranslateService,
                 public breadcrumb:Breadcrumb,
@@ -50,9 +51,16 @@ export class DashboardView {
 
         this.dashboardService.getDashboardBoxes().then((res) => {
             this.boxesArr = res;
+
+            //this.updateClasses();
         });
     }
 
+    /**
+     * Update boxes order
+     *
+     * @param $event
+     */
     onDrop($event){
         let dom:BrowserDomAdapter = new BrowserDomAdapter();
 
@@ -71,30 +79,119 @@ export class DashboardView {
             }
         }
 
-        this.dashboardService.batchUpdate(this.boxesArr);
+            //  Update boxes order and update @version of current box array
+        this.dashboardService.batchUpdate(this.boxesArr).then((res) => {
+            for(let originKey in this.boxesArr){
+                for(let item of res){
+                    if(this.boxesArr[originKey]['@rid'] == item['@rid']){
+                        console.log('Hello');
+                        this.boxesArr[originKey]['@version'] = item['@version'];
+                    }
+                }
+            }
+        });
     }
 
-    resizeBox(width:number, boxName:string, item:any){
-        switch(width){
+    hello(a){
+        if(a==true){
+            this.firstAdd = true;
+            this.updateClasses();
+        }
+    }
+
+    /**
+     * Resize box, add width class to box element, update DB and update @version boxes array
+     * @param width
+     * @param boxName
+     * @param item
+     * @param index
+     */
+    resizeBox(val:Object, boxName:string, item:any, index:number){
+        let dom:BrowserDomAdapter = new BrowserDomAdapter();
+        let box = dom.query('#dashboard div.box[data-boxrid="'+ this.boxesArr[index]['@rid'] +'"]');
+        console.log(box);
+        dom.removeAttribute(box, 'class');
+
+        let widthClass, heightClass:string;
+
+        if(val.type == 'width'){
+            widthClass = this.getBoxClass(val.width, val.type);
+            heightClass = this.getBoxClass(val.height, 'height');
+        }
+
+        if(val.type == 'height'){
+            heightClass = this.getBoxClass(val.height, val.type);
+            widthClass = this.getBoxClass(val.width, 'width');
+        }
+
+        this.boxes[boxName] = `${widthClass} ${heightClass}`;
+
+        if(item != undefined){
+            this.dashboardService.updateBoxSize({width: val.width, height: val.height}, item).then((res) => {
+                this.boxesArr[index]['@version'] = res['@version'];
+            });
+        }
+    }
+
+    getBoxClass(val:number, type:string){
+        switch(val){
             case 25:
-                this.boxes[boxName] = 'width-0';
+                return type + '-0';
 
                 break;
             case 50:
-                this.boxes[boxName] = 'width-1';
+                return type + '-1';
 
                 break;
             case 75:
-                this.boxes[boxName] = 'width-2';
+                return type + '-2';
 
                 break;
             case 100:
-                this.boxes[boxName] = 'width-3';
+                return type + '-3';
 
                 break;
         }
+    }
 
-        if(item != undefined) this.dashboardService.updateBoxWidth(width, item);
+    updateClasses(){
+        let dom:BrowserDomAdapter = new BrowserDomAdapter();
+        for(let key in this.boxesArr){
+            let classes:string = '';//this.boxes['box' + key];
+            let height:number = this.boxesArr[key].height;
+
+            switch(height){
+                case 25:
+                    classes = 'height-0';
+
+                    break;
+                case 50:
+                    classes = 'height-1';
+
+                    break;
+                case 75:
+                    classes = 'height-2';
+
+                    break;
+            }
+
+            let dom:BrowserDomAdapter = new BrowserDomAdapter();
+            let box = dom.query('#dashboard div.box[data-boxrid="'+ this.boxesArr[key]['@rid'] +'"]');
+
+            if(box != null){
+                dom.addClass(box, classes);
+            }
+        }
+    }
+
+    addClass(currClass:string, addClass:string){
+        if(currClass == undefined){
+            currClass = '';
+        }
+
+        currClass += ` ${addClass}`;
+
+        return currClass;
     }
 
     /**
@@ -105,7 +202,7 @@ export class DashboardView {
     removeBox(rid:string, index:number, boxName:string){
         let dom:BrowserDomAdapter = new BrowserDomAdapter();
         let removedObject = dom.querySelector(dom.query('#dashboard'), 'div.box[data-boxRid="'+ rid +'"]');
-        console.log(removedObject);
+
         dom.on(removedObject, 'transitionend', (e) => {
             this.boxes[boxName] = '';
             this.boxesArr.splice(index, 1);
@@ -113,7 +210,6 @@ export class DashboardView {
         });
         this.boxes[boxName] = 'removeBox';
 
-        //this.boxesArr.splice(index, 1);
         //this.dashboardService.deleteBox(rid);
     }
 }

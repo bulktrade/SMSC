@@ -27,6 +27,24 @@ $color-6: #AAB5BC;
     .width-3{
         flex-basis: 100% !important;
     }
+    .height-0{
+        height: 175px;
+        dashboard-box.chart{
+            height: 350px !important;
+        }
+    }
+    .height-1{
+        height: 250px;
+        dashboard-box.chart{
+            height: 350px !important;
+        }
+    }
+    .height-2{
+        height: 275px;
+        dashboard-box.chart{
+            height: 400px !important;
+        }
+    }
     > md-content {
         display: flex;
         max-width: 100%;
@@ -51,10 +69,10 @@ $color-6: #AAB5BC;
                     display: block;
                     transition: opacity 300ms ease-in;
                     &.status{
-                        height: 175px;
+                        //height: 175px;
                     }
                     &.chart{
-                        min-height: 500px;
+                        //min-height: 500px;
                     }
                     &.removeBox{
                         opacity: 0;
