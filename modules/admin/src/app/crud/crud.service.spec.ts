@@ -34,15 +34,27 @@ describe('Crud Service', () => {
     }));
 
     it('should return a columnDefs with options for grid and form', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
+        let bodyResponse = {
+            "properties": [{
+                "name": "test",
+                "headerName": "test",
+                "field": "test",
+                "editable": true,
+                "required": true,
+                "type": "test",
+                "linkedClass": "test",
+                "custom": "test"
+            }]
+        };
+
         backend.connections.subscribe(c => {
-            let response = new ResponseOptions({ body: '{"properties":[{"name":"test","headerName":"test","field":"test","editable":true,"required":true,"type":"test","linkedClass":"test","custom":"test"}]}' });
+            let response = new ResponseOptions({ body: JSON.stringify(bodyResponse) });
             c.mockRespond(new Response(response));
         });
 
-        crudService.getColumnDefs('Customers', false)
-            .then(res => {
-                expect(res).toBeDefined();
-            });
+        spyOn(crudService, 'getColumnDefs');
+        crudService.getColumnDefs('Customers', false);
+        expect(crudService.getColumnDefs).toHaveBeenCalledWith('Customers', false);
     }));
 
     it('should return a successful result after the record is created', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
@@ -59,10 +71,9 @@ describe('Crud Service', () => {
             c.mockRespond(new Response(response));
         });
 
-        crudService.className = className;
         crudService.initGridData = Promise.resolve();
 
-        crudService.createRecord(colsValue)
+        crudService.createRecord(colsValue, className)
             .then(res => {
                 expect(res.json().result).toEqual('success');
             });
