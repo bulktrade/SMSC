@@ -85,7 +85,12 @@ module.exports = function(env) {
              *
              * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
              */
-            chunkFilename: '[id].[chunkhash].chunk.js'
+            chunkFilename: '[id].[chunkhash].chunk.js',
+
+            /**
+             * Public path.
+             */
+            publicPath: "/resources/admin/"
 
         },
 
