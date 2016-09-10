@@ -34,6 +34,10 @@ const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
 module.exports = function(env) {
     return webpackMerge(commonConfig({env: ENV}), {
 
+        metadata: {
+            baseUrl: '/admin/'
+        },
+
         /**
          * Switch loaders to debug mode.
          *
