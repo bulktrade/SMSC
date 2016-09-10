@@ -32,12 +32,12 @@ export class DashboardBoxComponent {
     constructor(private sidebarService:SidebarService) {
     }
 
-    ngOnInit() {
-        if (this.config.width != undefined) {
+    ngOnInit(){
+        if(this.config.width != undefined){
             this.statusBoxWidth = this.config.width;
         }
 
-        if (this.config.height != undefined) {
+        if(this.config.height != undefined){
             this.statusBoxHeight = this.config.height;
             console.log(this.config.height);
         }
@@ -55,17 +55,17 @@ export class DashboardBoxComponent {
 
     emitResizeBox(data:void) {
         let res:Object = {
-            type: data.type;
+            type: data.type
         }
 
-        if (data.type == 'width') {
+        if(data.type == 'width'){
             res.width = data.val;
             res.height = this.statusBoxHeight;
 
             this.statusBoxWidth = data.val;
         }
 
-        if (data.type == 'height') {
+        if(data.type == 'height'){
             res.width = this.statusBoxWidth;
             res.height = data.val;
 
@@ -75,7 +75,7 @@ export class DashboardBoxComponent {
         this.resizeBox.emit(res);
     }
 
-    emitRemoveBox() {
+    emitRemoveBox(){
         this.removeBox.emit();
     }
 }

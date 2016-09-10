@@ -15,7 +15,7 @@ import { Customers } from "./customers/customers.components";
 import { Crud } from "./crud/crud.component";
 import { CrudView } from "./crud/crudView/crud.view.component";
 import { CrudDelete } from "./crud/crudDelete/crud.delete.component";
-import { DashboardComponent } from "./dashboards/dashboard.component";
+import { Dashboard } from "./dashboards/dashboard.component";
 import { NotFound } from "./notFound/notFound.component";
 import { TranslateLoader, TranslateStaticLoader } from "ng2-translate/ng2-translate";
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
@@ -68,7 +68,7 @@ import {ResizableModule} from 'angular2-resizable';
         CrudDelete,
         CrudCreate,
         NotFound,
-        DashboardComponent,
+        Dashboard,
         Dashboards,
         DashboardView,
         DashboardBoxComponent,

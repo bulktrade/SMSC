@@ -1,13 +1,13 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
-import { DashboardBox } from "./models/dashboardBox.ts";
+import { DashboardBox } from "./services/dashboard.box";
 
 const squel = require('squel');
 
 @Injectable()
 export class DashboardService {
-    constructor(private databaseService: ODatabaseService) {
+    constructor(private databaseService:ODatabaseService) {
 
     }
 
@@ -16,22 +16,20 @@ export class DashboardService {
      *
      * @returns {any}
      */
-    public getDashboardBoxes(): Promise<Array<DashboardBox>> {
+    public getDashboardBoxes():Promise<Array<DashboardBox>> {
         let query = squel.select()
             .from('DashboardBox')
             .field('*')
+            .field('type.*')
+            //.where(`type.name = ?`, type)
             .toString();
 
-        return this.databaseService.query(query, 50, '*:3').then((res: Response) => {
-            let result: Array = [];
-
-            for (let item of res.json().result) {
-                result.push(new DashboardBox(item));
-            }
+        return this.databaseService.query(query).then((res:Response) => {
+            let result = res.json().result;
 
             return Promise.resolve(result);
         }).catch((ex) => {
-            return Promise.reject(ex);
+            throw new Error(ex);
         });
     }
 
@@ -39,10 +37,9 @@ export class DashboardService {
      * Update box width
      *
      * width - box width(25/50/75/100)
-     * height - box height(25/50/75/100)
      * rid - @rid
      */
-    public updateBoxSize(size: Object, item): Promise {
+    public updateBoxSize(size:Object, item):Promise {
         delete item['@type'];
 
         item.width = size.width;
@@ -53,16 +50,16 @@ export class DashboardService {
 
             return Promise.resolve(result.result[0]);
         })
-            .catch((ex) => {
-                return Promise.reject(ex);
-            });
+        .catch((ex) => {
+            throw new Error(ex);
+        });
     }
 
     /**
      * Delete one box
      * @param rid - box @rid
      */
-    public deleteBox(rid: string) {
+    public deleteBox(rid:string){
         let property: any = {};
         property['@rid'] = rid;
         this.databaseService.delete(property);
@@ -70,24 +67,22 @@ export class DashboardService {
 
     /**
      * Batch update
-     *
      * @param list - list of boxes
      */
-    // @todo Rename batchUpdate -> batchUpdateDashboardBox
-    public batchUpdate(list: Array<any>): Promise {
-        let operations: Array<Object> = [];
+    public batchUpdate(list:Array<any>):Promise{
+        let operations:Array<Object> = new Array();
 
-        for (let key in list) {
+        for(let key in list){
             delete list[key]['@type'];
-            let tmp: Object = {
+            let tmp:Object = {
                 type: 'u',//    Operation what we do('u' - update)
                 record: list[key]
             };
             operations.push(tmp);
         }
 
-        //  Create object for batchRequest function
-        let data: Object = {
+            //  Create object for batchRequest function
+        let data:Object = {
             transaction: true,
             operations: operations
         };
@@ -97,7 +92,7 @@ export class DashboardService {
 
             return Promise.resolve(result);
         }).catch((ex) => {
-            return Promise.reject(ex);
+            throw new Error(ex);
         });
     }
 }
