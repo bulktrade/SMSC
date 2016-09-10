@@ -29,9 +29,16 @@ import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser
 })
 export class DashboardView {
        private drakes:Array<string> = ["status-bag", "chart-bag"];
-    public boxes:Object = {};
+    public boxes:Object = {
+        container: {
+            width: new Array(),
+            height: new Array()
+        },
+        remove: new Array()
+    };
     public boxesArr:Array<any> = new Array();
     private firstAdd:boolean = false;
+    private testArr:Array = new Array('', '');
 
     constructor(public translate:TranslateService,
                 public breadcrumb:Breadcrumb,
@@ -45,14 +52,16 @@ export class DashboardView {
         });
 
         dragulaService.drop.subscribe((value) => {
-            console.log(value);
             this.onDrop(value.slice(1));
         });
 
         this.dashboardService.getDashboardBoxes().then((res) => {
+
             this.boxesArr = res;
 
-            //this.updateClasses();
+            this.updateClasses();
+            //this.boxes.container.height[0] = 'height-0';
+            //this.boxes.container.width[0] = 'width-3';
         });
     }
 
@@ -84,19 +93,11 @@ export class DashboardView {
             for(let originKey in this.boxesArr){
                 for(let item of res){
                     if(this.boxesArr[originKey]['@rid'] == item['@rid']){
-                        console.log('Hello');
                         this.boxesArr[originKey]['@version'] = item['@version'];
                     }
                 }
             }
         });
-    }
-
-    hello(a){
-        if(a==true){
-            this.firstAdd = true;
-            this.updateClasses();
-        }
     }
 
     /**
@@ -106,12 +107,7 @@ export class DashboardView {
      * @param item
      * @param index
      */
-    resizeBox(val:Object, boxName:string, item:any, index:number){
-        let dom:BrowserDomAdapter = new BrowserDomAdapter();
-        let box = dom.query('#dashboard div.box[data-boxrid="'+ this.boxesArr[index]['@rid'] +'"]');
-        console.log(box);
-        dom.removeAttribute(box, 'class');
-
+    resizeBox(val:Object, index:number, item:any){
         let widthClass, heightClass:string;
 
         if(val.type == 'width'){
@@ -124,7 +120,8 @@ export class DashboardView {
             widthClass = this.getBoxClass(val.width, 'width');
         }
 
-        this.boxes[boxName] = `${widthClass} ${heightClass}`;
+        this.boxes.container.width[index] = widthClass;
+        this.boxes.container.height[index] = heightClass;
 
         if(item != undefined){
             this.dashboardService.updateBoxSize({width: val.width, height: val.height}, item).then((res) => {
@@ -155,43 +152,15 @@ export class DashboardView {
     }
 
     updateClasses(){
-        let dom:BrowserDomAdapter = new BrowserDomAdapter();
+        console.log(this.boxesArr);
         for(let key in this.boxesArr){
-            let classes:string = '';//this.boxes['box' + key];
-            let height:number = this.boxesArr[key].height;
+            let width:number = this.getBoxClass(this.boxesArr[key].width, 'width');
+            let height:number = this.getBoxClass(this.boxesArr[key].height, 'height');
 
-            switch(height){
-                case 25:
-                    classes = 'height-0';
-
-                    break;
-                case 50:
-                    classes = 'height-1';
-
-                    break;
-                case 75:
-                    classes = 'height-2';
-
-                    break;
-            }
-
-            let dom:BrowserDomAdapter = new BrowserDomAdapter();
-            let box = dom.query('#dashboard div.box[data-boxrid="'+ this.boxesArr[key]['@rid'] +'"]');
-
-            if(box != null){
-                dom.addClass(box, classes);
-            }
+            this.boxes.container.width[key] = width;
+            this.boxes.container.height[key] = height;
+            this.boxes.remove[key] = '';
         }
-    }
-
-    addClass(currClass:string, addClass:string){
-        if(currClass == undefined){
-            currClass = '';
-        }
-
-        currClass += ` ${addClass}`;
-
-        return currClass;
     }
 
     /**
@@ -199,16 +168,19 @@ export class DashboardView {
      *
      * @param rid
      */
-    removeBox(rid:string, index:number, boxName:string){
+    removeBox(rid:string, index:number){
         let dom:BrowserDomAdapter = new BrowserDomAdapter();
         let removedObject = dom.querySelector(dom.query('#dashboard'), 'div.box[data-boxRid="'+ rid +'"]');
+        this.boxesArr.splice(index, 1);
+        this.boxes.container.width.splice(index, 1);
+        this.boxes.container.height.splice(index, 1);
+        this.boxes.remove.splice(index, 1);
 
         dom.on(removedObject, 'transitionend', (e) => {
-            this.boxes[boxName] = '';
-            this.boxesArr.splice(index, 1);
-            console.log('remove');
+            //this.boxes.remove[index] = '';
+
         });
-        this.boxes[boxName] = 'removeBox';
+        //this.boxes.remove[index] = 'removeBox';
 
         //this.dashboardService.deleteBox(rid);
     }

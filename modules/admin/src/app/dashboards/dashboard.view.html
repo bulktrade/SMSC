@@ -3,12 +3,17 @@
 
 <div id="dashboard" class="wrapper">
     <router-outlet></router-outlet>
+    <div *ngFor="let item of [0, 1]; let i = index;">
+        <div [ngClass]="[testArr[i]]">
+            Hello
+        </div>
+    </div>
     <md-content class="status container" [dragula]='"status-bag"'>
         <div *ngFor="let item of boxesArr | orderby : {key: 'order', direction: 'ascending'}; let i = index; let last = last" class="box"
-             [ngClass]="boxes['box' + i]" [ngStyle]="{'flex-basis': item.width + '%'}" attr.data-boxrid="{{item['@rid']}}">
-
-            <dashboard-box [ngClass]="boxes['boxRemove' + i]" class="status" *ngIf="item.typename == 'status'"
-                           (resizeBox)="resizeBox($event, 'box' + i, item, i)"
+             [ngClass]="[boxes.container.height[i], boxes.container.width[i]]" [ngStyle]="{'flex-basis': item.width + '%'}" attr.data-boxrid="{{item['@rid']}}">
+            Hi
+            <dashboard-box [ngClass]="boxes.remove[i]" class="status" *ngIf="item.typename == 'status'"
+                           (resizeBox)="resizeBox($event, i, item)"
                            [config]="{
                                 'type': 'status',
                                 'name': 'profit',
@@ -21,17 +26,17 @@
                                     'processStatus': 'Progress',
                                     'percent': '75'
                                 }
-                            }" (removeBox)="removeBox(item['@rid'], i, 'boxRemove' + i)"
+                            }" (removeBox)="removeBox(item['@rid'], i)"
             ></dashboard-box>
-            <dashboard-box class="chart" [ngClass]="boxes['boxRemove' + i]" *ngIf="item.typename == 'chart'" [config]="{
+            <dashboard-box class="chart" [ngClass]="boxes.remove[i]" *ngIf="item.typename == 'chart'" [config]="{
                 'type': 'chart',
                 'header': item.name,
                 'subHeader': item.description,
                 'width': item.width,
                 'height': item.height
-            }" (resizeBox)="resizeBox($event, 'box' + i, item, i)" (removeBox)="removeBox(item['@rid'], i, 'boxRemove' + i)"
+            }" (resizeBox)="resizeBox($event, i, item)" (removeBox)="removeBox(item['@rid'], i)"
             ></dashboard-box>
-            <span *ngIf='last'>{{hello(last)}}</span>
+            <!--<span *ngIf='last'>{{hello(last)}}</span>-->
         </div>
     </md-content>
 </div>

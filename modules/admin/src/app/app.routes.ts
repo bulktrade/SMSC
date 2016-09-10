@@ -1,8 +1,8 @@
-import { provideRouter, Routes } from "@angular/router";
+import { provideRouter } from "@angular/router";
 import { AuthGuard } from "./common/authGuard";
 import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
-import { Dashboard } from "./dashboards/dashboard.component";
+import { DashboardComponent } from "./dashboards/dashboard.component";
 import { Customers } from "./customers/customers.components";
 import { Crud } from "./crud/crud.component";
 import { NotFound } from "./notFound/notFound.component";
@@ -11,11 +11,9 @@ import { CRUD_ROUTE_PROVIDER } from "./crud/crud.routes";
 import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
 import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
-import { CrudView } from "./crud/crudView/crud.view.component";
 import { CrudDelete } from "./crud/crudDelete/crud.delete.component";
 import { CrudCreate } from "./crud/crudCreate/crud.create.component";
 import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
-import { CrudViewResolve } from "./crud/crudView/crud.view.resolve";
 import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
 import { CrudLinksetResolve } from "./crud/crudLinkset/crud.linkset.resolve";
 import { CrudCreateResolve } from "./crud/crudCreate/crud.create.resolve";
@@ -26,7 +24,7 @@ import { DashboardView } from "./dashboards/dashboard.view.component";
 const DASHBOARD_ROUTER_PROVIDER = [
     {
         path: '',
-        component: Dashboard,
+        component: DashboardComponent,
         data: {
             showInSubNavigation: true,
             icon: 'layers',
@@ -43,7 +41,7 @@ const DASHBOARD_ROUTER_PROVIDER = [
     },
     {
         path: ':dashboard',
-        component: Dashboard,
+        component: DashboardComponent,
         data: {
             crudClass: 'Dashboard'
         },
