@@ -17,7 +17,7 @@ import { LoadingRouterOutlet } from "../common/loadingRouterOutlet";
     ],
     pipes: [TranslatePipe],
 })
-export class Dashboards {
+export class DashboardComponent {
     constructor() {
     }
 }

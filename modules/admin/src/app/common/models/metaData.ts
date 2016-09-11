@@ -3,6 +3,7 @@ export class MetaData {
     rid: string;
     version: string;
 
+
     constructor(className: string, rid: string, version: string) {
         this.className = className;
         this.rid = rid;

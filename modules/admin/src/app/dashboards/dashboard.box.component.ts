@@ -39,7 +39,6 @@ export class DashboardBoxComponent {
 
         if(this.config.height != undefined){
             this.statusBoxHeight = this.config.height;
-            console.log(this.config.height);
         }
     }
 

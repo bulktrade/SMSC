@@ -6,13 +6,13 @@ import { Pipe } from "@angular/core";
 export class OrderBy{
     transform(array:Array<any>, args?:Object):Array<any>{
         array.sort((a: any, b:any) => {
-            if(args.key != undefined){
-                a = a[args.key];
-                b = b[args.key];
+            if(args['key'] != undefined){
+                a = a[args['key']];
+                b = b[args['key']];
             }
 
                 //  Default direction - descending
-            switch(args.direction){
+            switch(args['direction']){
                 case 'ascending':
                     if(a < b){
                         return -1;

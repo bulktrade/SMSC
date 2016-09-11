@@ -26,7 +26,7 @@ import { SimpleNotificationsModule } from "angular2-notifications/components";
 import { CrudCreate } from "./crud/crudCreate/crud.create.component";
 import { CrudEdit } from "./crud/crudEdit/crud.edit.component";
 import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
-import { Dashboards } from "./dashboards/dashboards.components";
+import { DashboardComponent } from "./dashboards/dashboards.components";
 import { DashboardView } from "./dashboards/dashboard.view.component";
 import { DashboardBoxComponent } from "./dashboards/dashboard.box.component";
 import {ResizableModule} from 'angular2-resizable';
@@ -69,7 +69,7 @@ import {ResizableModule} from 'angular2-resizable';
         CrudCreate,
         NotFound,
         Dashboard,
-        Dashboards,
+        DashboardComponent,
         DashboardView,
         DashboardBoxComponent,
         Breadcrumb,
