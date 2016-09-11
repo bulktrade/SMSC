@@ -9,6 +9,7 @@ const helpers = require('./helpers');
  * Webpack Plugins
  */
 // problem with copy-webpack-plugin
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
@@ -214,7 +215,7 @@ module.exports = function (options) {
 
                 // Bootstrap 4
                 {
-                    test: /bootstrap\/dist\/js\/umd\//,
+                    test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
                     loader: 'imports?jQuery=jquery'
                 }
             ]
@@ -304,6 +305,11 @@ module.exports = function (options) {
                 headTags: require('./head-config.common')
             }),
 
+            new ExtractTextPlugin({
+                filename: 'css/[name].css',
+                disable: false,
+                allChunks: true
+            }),
             new webpack.ProvidePlugin({
                 jQuery: 'jquery',
                 $: 'jquery',

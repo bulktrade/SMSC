@@ -28,6 +28,7 @@ import 'rxjs/add/operator/mergeMap';
 
 // Other
 import 'jquery';
+import 'tether';
 import 'bootstrap-loader';
 import 'webpack-material-design-icons';
 
