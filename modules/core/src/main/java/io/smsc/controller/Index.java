@@ -33,9 +33,11 @@ public class Index {
 
 	@RequestMapping(
 		value = {
-			"/admin/**",
-			"/admin/",
 			"/admin",
+			"/admin/",
+			"/admin/*",
+			"/admin/**",
+			"/admin/**/**"
 		}
 	)
 	@ResponseBody
