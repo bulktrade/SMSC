@@ -9,6 +9,7 @@ import { GridService } from "../../../services/grid.service";
 import { CommonModule } from "@angular/common";
 import { MdSelectModule } from "../../../common/material/select/select";
 import { MdModule } from "../../../md.module";
+import { LoadingGridService } from "../../../services/loading/loadingGrid.service";
 
 const squel = require('squel');
 const sprintf = require('sprintf-js').sprintf;
@@ -36,6 +37,7 @@ export class GridPagination {
     constructor(public translate: TranslateService,
                 public gridService: GridService,
                 public databaseService: ODatabaseService,
+                public loadingGridService: LoadingGridService,
                 public serviceNotifications: NotificationService) {
     }
 

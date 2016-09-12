@@ -1,12 +1,14 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { LoadingRouterOutlet } from "../loadingRouterOutlet";
 import { HttpModule } from "@angular/http";
+import { LoadingRouterOutletService } from "../../services/loading/loadingRouterOutlet.service";
 
 describe('Loading RouterOutlet', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                LoadingRouterOutlet
+                LoadingRouterOutlet,
+                LoadingRouterOutletService
             ],
             imports: [
                 HttpModule

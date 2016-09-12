@@ -6,7 +6,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { CrudModel } from "./model/crud.model";
 import { GridOptions } from "ag-grid";
 import { NotificationService } from "../services/notificationService";
-import { LoadingGridService } from "../services/loadingGrid.service";
+import { LoadingGridService } from "../services/loading/loadingGrid.service";
 import { ColumnModel } from "./model/crud.column.model";
 import { INPUT_TYPES } from "./common/form/form.inputTypes";
 
