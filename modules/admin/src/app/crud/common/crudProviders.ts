@@ -10,7 +10,7 @@ import { TokenService } from "../../services/auth/token.service";
 import { COMMON_PROVIDERS } from "../../common/index";
 import { NotificationService } from "../../services/notificationService";
 import { NotificationsService } from "angular2-notifications/components";
-import { LoadingGridService } from "../../services/loadingGrid.service";
+import { LoadingGridService } from "../../services/loading/loadingGrid.service";
 import { ConfigService } from "../../config/configService";
 
 class MockActivatedRoute {};

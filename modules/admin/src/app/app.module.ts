@@ -22,7 +22,7 @@ import { TokenService } from "./services/auth/token.service";
 import { CrudService } from "./crud/crud.service";
 import { AuthGuard } from "./common/authGuard";
 import { NotificationService } from "./services/notificationService";
-import { LoadingGridService } from "./services/loadingGrid.service";
+import { LoadingGridService } from "./services/loading/loadingGrid.service";
 import { APP_RESOLVER_PROVIDERS } from "./app.resolver";
 import { createNewHosts, removeNgStyles } from "@angularclass/hmr";
 import { ENV_PROVIDERS } from "./environment";
@@ -37,11 +37,15 @@ import { CrudViewResolve } from "./crud/crudView/crud.view.resolve";
 import { CrudModule } from "./crud/crud.module";
 import { LoadingRouterOutletModule } from "./common/loadingRouterOutlet";
 import { ConfigService } from "./config/configService";
+import { LoadingRouterOutletService } from "./services/loading/loadingRouterOutlet.service";
+import { LoadingService } from "./services/loading/loading.service";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     ...COMMON_PROVIDERS,
     LoadingGridService,
+    LoadingService,
+    LoadingRouterOutletService,
     CrudService,
     GridService,
     TokenService,

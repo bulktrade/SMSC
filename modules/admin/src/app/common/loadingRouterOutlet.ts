@@ -2,9 +2,10 @@ import { Component, ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { CubeGridModule } from "./spinner/cubeGrid/cubeGrid.component";
+import { LoadingRouterOutletService } from "../services/loading/loadingRouterOutlet.service";
 
 @Component({
-    selector: ' loading-router-outlet',
+    selector: 'loading-router-outlet',
     template: `
         <router-outlet *ngIf="!loading" (activate)="stop()" (deactivate)="start()"></router-outlet>
         <sk-cube-grid [isRunning]="loading"></sk-cube-grid>
@@ -13,6 +14,9 @@ import { CubeGridModule } from "./spinner/cubeGrid/cubeGrid.component";
 
 export class LoadingRouterOutlet {
     public loading = false;
+
+    constructor(public loadingService: LoadingRouterOutletService) {
+    }
 
     start() {
         this.loading = true;
