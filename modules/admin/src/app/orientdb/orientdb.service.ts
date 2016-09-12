@@ -157,14 +157,12 @@ export class ODatabaseService {
     }
 
     getInfoClass(className) {
-        this.urlSuffix = '/';
-
         let headers = new Headers({
             'content-Type': 'application/json'
         });
 
         return this.authHttp.get(this.urlPrefix + 'class/' + this.encodedDatabaseName
-            + this.urlSuffix + className + this.urlSuffix, headers)
+            + '/' + className, headers)
             .toPromise()
             .then(
                 res => {
