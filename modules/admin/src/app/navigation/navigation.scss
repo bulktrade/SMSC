@@ -86,7 +86,7 @@ md-content {
     main {
         position: relative;
         height: 100%;
-        padding: 94px 22px 40px 22px;
+        padding: 94px 22px 12px 22px;
         min-height: 525px;
 
         & + loading-router-outlet {

@@ -1,12 +1,9 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
-import { ROUTER_DIRECTIVES } from "@angular/router";
+import { TranslateService } from "ng2-translate";
 
 @Component({
     selector: 'app',
-    pipes: [TranslatePipe],
     providers: [],
-    directives: [ROUTER_DIRECTIVES],
     template: '<router-outlet></router-outlet>',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
@@ -15,17 +12,11 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-material.css'),
         require('bootstrap-material-design/dist/css/bootstrap-material-design.css'),
-        require('ng2-select/components/css/ng2-select.css')
-    ],
-    styles: [
         require('./app.scss')
     ]
 })
-
 export class App {
-    url = 'http://www.smsc.io/';
-
-    constructor(translate:TranslateService) {
+    constructor(private translate: TranslateService) {
         var userLang = navigator.language.split('-')[0]; // use navigator lang if available
         userLang = /(de|ru|en)/gi.test(userLang) ? userLang : 'en';
 

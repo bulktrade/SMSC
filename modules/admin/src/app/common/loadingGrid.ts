@@ -1,15 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { ROUTER_DIRECTIVES } from "@angular/router";
-import { CubeGridComponent } from "./spinner/cubeGrid/cubeGrid.component";
+import { Component, OnInit, NgModule, ModuleWithProviders } from "@angular/core";
 import { LoadingGridService } from "../services/loadingGrid.service";
 import { CrudService } from "../crud/crud.service";
+import { CubeGridModule } from "./spinner/cubeGrid/cubeGrid.component";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: 'loading-grid',
-    directives: [
-        ROUTER_DIRECTIVES,
-        CubeGridComponent
-    ],
     template: `
         <sk-cube-grid [isRunning]="service.loadingGridData"></sk-cube-grid>
         <ng-content *ngIf="!service.loadingGridData"></ng-content>
@@ -31,5 +27,19 @@ export class LoadingGrid implements OnInit {
             }, (error) => {
                 this.service.stop();
             })
+    }
+}
+
+@NgModule({
+    imports: [CommonModule, CubeGridModule],
+    exports: [LoadingGrid],
+    declarations: [LoadingGrid]
+})
+export class LoadingGridModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: LoadingGridModule,
+            providers: []
+        };
     }
 }

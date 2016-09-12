@@ -2,8 +2,7 @@ import { Http, Request, RequestOptionsArgs, Response, RequestOptions, Connection
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Injectable } from "@angular/core";
-import "lodash";
-declare var _;
+import * as _ from "lodash";
 
 @Injectable()
 export class HttpInterceptor extends Http {

@@ -3,7 +3,7 @@ import { HttpModule, BaseRequestOptions, Http, ConnectionBackend, ResponseOption
 import { MockBackend } from "@angular/http/testing";
 import { GridPagination } from "./gridPagination";
 import { CRUD_PROVIDERS } from "../../common/crudProviders";
-import { APP_PROVIDERS } from "../../../index";
+import { APP_PROVIDERS } from "../../../app.module";
 
 describe('Grid Pagination', () => {
 

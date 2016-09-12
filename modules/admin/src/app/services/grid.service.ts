@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ODatabaseService } from "../orientdb/orientdb.service";
-import { ServiceNotifications } from "./serviceNotification";
+import { NotificationService } from "./notificationService";
 
 const squel = require('squel');
 
@@ -8,7 +8,7 @@ const squel = require('squel');
 export class GridService {
 
     constructor(public database: ODatabaseService,
-                public serviceNotifications: ServiceNotifications) {
+                public serviceNotifications: NotificationService) {
     }
 
     selectLinksetProperties(columnDefs, rowData) {
@@ -49,17 +49,18 @@ export class GridService {
             .then((res) => {
 
                 return this.getTitleColumns(className)
-                    .then(colunmName => {
+                    .then(columnName => {
                         let record = res.json();
 
                         linkset['_' + keyLink] = linkset[keyLink];
 
-                        if (colunmName) {
-                            linkset[keyLink] = record[colunmName];
+                        if (record.hasOwnProperty(columnName)
+                            && typeof columnName !== 'undefined') {
+                            linkset[keyLink] = record[columnName];
                         }
                     });
             }, (error) => {
-                this.serviceNotifications.createNotificationOnResponse(error);
+                this.serviceNotifications.createNotification('error', 'ERROR', 'orientdb.dataNotFound');
                 return Promise.reject(error);
             })
     }

@@ -1,22 +1,17 @@
 import { Component } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { Location } from "@angular/common";
-import { LoadingGrid } from "../../common/loadingGrid";
 
 @Component({
     selector: 'crud-delete',
     template: require('./crud.delete.html'),
-    styles: [
+    styleUrls: [
         require('./crud.delete.scss'),
         require('../common/style.scss')
     ],
-    providers: [],
-    directives: [
-        LoadingGrid
-    ],
-    pipes: [TranslatePipe]
+    providers: []
 })
 
 export class CrudDelete {

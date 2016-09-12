@@ -5,6 +5,9 @@
 # smsc.io
 SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API support.
 
+# Start with OrientDB
+
+    EMBEDDED_ORIENTDB_ENABLED = 1
 
 # OrientDB Environment Variables
 	

@@ -1,27 +1,17 @@
 import { Component } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import { AgGridNg2 } from "ag-grid-ng2/main";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
-import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
-import { LoadingGrid } from "../../common/loadingGrid";
-import { GridPagination } from "../directives/gridPagination/gridPagination";
 
 @Component({
     selector: 'crud-view',
     template: require('./crud.view.html'),
-    styles: [
+    styleUrls: [
+        require('./crud.view.scss'),
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],
     providers: [],
-    directives: [
-        AgGridNg2,
-        AlertComponent,
-        LoadingGrid,
-        GridPagination
-    ],
-    pipes: [TranslatePipe]
 })
 
 export class CrudView {
@@ -34,14 +24,13 @@ export class CrudView {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data[0];
-
+        this.resolveData = this.route.snapshot.data['view'];
         this.crudService.gridOptions.columnDefs = this.resolveData;
     }
 
     navigateToCreate() {
         this.crudService.setModel({});
-        this.router.navigateByUrl(this.crudService.parentPath + '/create');
+        this.router.navigate([this.crudService.parentPath, 'create', this.crudService.getClassName()]);
     }
 
     navigateToDelete() {
@@ -62,7 +51,7 @@ export class CrudView {
                 from: this.route.component['name']
             });
 
-            this.router.navigateByUrl(this.crudService.parentPath + '/linkset');
+            this.crudService.navigateToLinkset();
         }
     }
 }

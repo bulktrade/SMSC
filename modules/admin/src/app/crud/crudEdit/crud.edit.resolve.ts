@@ -19,18 +19,19 @@ export class CrudEditResolve extends CrudResolve {
         let id = route.params['id'];
 
         this.crudService.setParentPath(route.parent.parent.routeConfig.path);
-        this.crudService.setClassName(route.parent.parent.data['crudClass']);
 
-        return this.crudService.initColumnDefs(this.crudService.getClassName(), false)
-            .then((initGridData) => {
-                return this.crudService.databaseService.load(id)
-                    .then((res: Response) => {
-                        let model = [];
+        return this.crudService.databaseService.load(id)
+            .then((res: Response) => {
+                let result = res.json();
+                let className = result['@class'];
+                let model = [];
 
-                        if (!Object.keys(this.crudService.model).length) {
-                            model.push(res.json());
-                        }
+                if (!Object.keys(this.crudService.model).length) {
+                    model.push(result);
+                }
 
+                return this.crudService.initColumnDefs(className, false, false)
+                    .then((initGridData) => {
                         return this.gridService.selectLinksetProperties(initGridData, model)
                             .then(() => {
                                 return Promise.resolve({
@@ -38,14 +39,15 @@ export class CrudEditResolve extends CrudResolve {
                                     model: model[0]
                                 });
                             });
-                    }, error => {
+                    }, (error) => {
                         this.crudService.serviceNotifications.createNotificationOnResponse(error);
-                        this.location.back();
-                    })
-            }, (error) => {
+                        return Promise.reject(error);
+                    });
+            }, error => {
                 this.crudService.serviceNotifications.createNotificationOnResponse(error);
-                return Promise.reject(error);
+                this.location.back();
             });
+
     }
 
 }

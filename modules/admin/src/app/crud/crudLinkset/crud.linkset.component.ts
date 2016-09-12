@@ -1,29 +1,19 @@
 import { Component } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import { AgGridNg2 } from "ag-grid-ng2/main";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
-import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
-import { LoadingGrid } from "../../common/loadingGrid";
 import { Location } from "@angular/common";
-import { GridPagination } from "../directives/gridPagination/gridPagination";
 import { GridService } from "../../services/grid.service";
 
 @Component({
     selector: 'crud-linkset',
     template: require('./crud.linkset.html'),
-    styles: [
+    styleUrls: [
+        require('./crud.linkset.scss'),
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],
-    providers: [],
-    directives: [
-        AgGridNg2,
-        AlertComponent,
-        LoadingGrid,
-        GridPagination
-    ],
-    pipes: [TranslatePipe]
+    providers: []
 })
 
 export class CrudLinkset {
@@ -38,13 +28,25 @@ export class CrudLinkset {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data[0];
-
+        this.resolveData = this.route.snapshot.data['linkset'];
         this.crudService.gridOptions.columnDefs = this.resolveData;
     }
 
     back() {
+        this.crudService.previousCrudLevel();
         this.location.back();
+    }
+
+    navigateToCreate() {
+        this.crudService.setModel({});
+        this.router.navigate([this.crudService.parentPath, 'create', this.crudService.getLinkedClass()]);
+    }
+
+    navigateToDelete() {
+        let id = this.crudService.getSelectedRID(this.crudService.gridOptions);
+
+        this.router.navigate([this.crudService.parentPath, 'delete',
+            id.join().replace(/\[|\]/gi, '')]);
     }
 
     addLink(gridOptions) {
@@ -75,9 +77,15 @@ export class CrudLinkset {
 
         return this.gridService.getTitleColumns(this.crudService.getLinkedClass())
             .then((columnName) => {
-                for (let item = 0; item < focusedRows.length; item++) {
-                    result['_' + item] = focusedRows[item]['@rid'];
-                    result.push(focusedRows[item][columnName]);
+                for (let i = 0; i < focusedRows.length; i++) {
+                    result['_' + i] = focusedRows[i]['@rid'];
+
+                    if (focusedRows[i].hasOwnProperty(columnName) &&
+                        typeof columnName !== 'undefined') {
+                        result.push(focusedRows[i][columnName]);
+                    } else {
+                        result.push(focusedRows[i]['@rid'])
+                    }
                 }
 
                 return result;
