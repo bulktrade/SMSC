@@ -11,25 +11,24 @@ import { COMMON_PROVIDERS } from "../../common/index";
 import { NotificationService } from "../../services/notificationService";
 import { NotificationsService } from "angular2-notifications/components";
 import { LoadingGridService } from "../../services/loadingGrid.service";
-import { ConfigServiceMock } from "../../common/mock/configServiceMock";
 import { ConfigService } from "../../config/configService";
 
 class MockActivatedRoute {};
 
 export const CRUD_PROVIDERS = [
     ...COMMON_PROVIDERS,
-    { provide: ConfigService, useClass: ConfigServiceMock },
     LoadingGridService,
     NotificationsService,
     NotificationService,
-    { provide: ActivatedRoute, useClass: MockActivatedRoute },
-    { provide: Router, useClass: MockActivatedRoute },
     CrudService,
     TokenService,
     TranslateService,
+    ConfigService,
+    { provide: ActivatedRoute, useClass: MockActivatedRoute },
+    { provide: Router, useClass: MockActivatedRoute },
     {
         provide: TranslateLoader, useFactory: (http: Http, configService: ConfigService) => {
         return new TranslateStaticLoader(http, configService.config.i18nPath, '.json');
-        }, deps: [Http, ConfigService]
+    }, deps: [Http, ConfigService]
     }
 ];

@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
 import { Config } from "./config";
 
 describe('Config Service', () => {
+    let mockXHR = new XMLHttpRequestMock();
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -16,6 +17,8 @@ describe('Config Service', () => {
                 HttpModule
             ]
         });
+
+        spyOn(window, "XMLHttpRequest").and.returnValue(mockXHR);
     });
 
     it('should get config.json settings', inject([ConfigService], (configService) => {
@@ -25,11 +28,7 @@ describe('Config Service', () => {
             "i18nPath": "assets/i18n",
             "debug": false
         };
-
-        let mockXHR = new XMLHttpRequestMock();
         mockXHR.responseText = JSON.stringify(responseText);
-        spyOn(window, "XMLHttpRequest").and.returnValue(mockXHR);
-
         expect(configService.configStream instanceof Observable).toBeTruthy();
 
         configService.configStream.subscribe((res: Config) => {
@@ -50,10 +49,8 @@ describe('Config Service', () => {
 
         let notFound: string = 'Not found!';
 
-        let mockXHR = new XMLHttpRequestMock();
         mockXHR.responseText = JSON.stringify(responseText);
         mockXHR.status = 404;
-        spyOn(window, "XMLHttpRequest").and.returnValue(mockXHR);
 
         expect(configService.configStream instanceof Observable).toBeTruthy();
 

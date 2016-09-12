@@ -47,6 +47,7 @@ testing.TestBed.initTestEnvironment(
  * any file that ends with spec.ts and get its path. By passing in true
  * we say do this recursively
  */
+var firstTestContext = require.context('../src/app/config', false, /configService\.spec\.ts/);
 var testContext = require.context('../src', true, /\.spec\.ts/);
 
 /*
@@ -59,4 +60,4 @@ function requireAll(requireContext) {
 }
 
 // requires and returns all modules that match
-var modules = requireAll(testContext);
+var modules = requireAll(firstTestContext).concat(requireAll(testContext));
