@@ -19,13 +19,13 @@ describe('Loading Grid', () => {
     it('loading spinner should be true', inject([LoadingGrid], (loadingGrid) => {
         loadingGrid.service.start();
 
-        expect(loadingGrid.service.loadingGridData).toBeTruthy();
+        expect(loadingGrid.service.loading).toBeTruthy();
     }));
 
     it('loading spinner should be false', inject([LoadingGrid], (loadingGrid) => {
         loadingGrid.service.stop();
 
-        expect(loadingGrid.service.loadingGridData).toBeFalsy();
+        expect(loadingGrid.service.loading).toBeFalsy();
     }));
 
 });
