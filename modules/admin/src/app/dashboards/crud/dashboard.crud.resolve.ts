@@ -14,13 +14,13 @@ export class DashboardCrudEditResolve extends CrudResolve {
         super();
     }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Promise<any> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let id = route.params['id'];
 
         this.crudService.setParentPath(route.parent.parent.routeConfig.path);
         this.crudService.setClassName('DashboardBox');
 
-       return this.crudService.initColumnDefs(this.crudService.getClassName(), false)
+       return  this.crudService.initColumnDefs(this.crudService.getClassName(), false)
             .then((initGridData) => {
                 return this.crudService.databaseService.load(id)
                     .then((res: Response) => {
@@ -32,6 +32,7 @@ export class DashboardCrudEditResolve extends CrudResolve {
 
                         return this.gridService.selectLinksetProperties(initGridData, model)
                             .then(() => {
+                                return '';
                                 /*console.log({
                                     initGridData: initGridData,
                                     model: model[0]
@@ -49,7 +50,5 @@ export class DashboardCrudEditResolve extends CrudResolve {
                 this.crudService.serviceNotifications.createNotificationOnResponse(error);
                 return Promise.reject(error);
             });
-
-
     }
 }

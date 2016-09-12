@@ -28,25 +28,25 @@ const DASHBOARD_ROUTER_PROVIDER = [
         path: '',
         component: Dashboard,
         data: {
-            showInSubNavigation: true,
+            showInSubNavigation: false,
             icon: 'layers',
             crudClass: 'Dashboard',
             dashboard: 'default'
         },
         children: [
             { path: '', component: DashboardView },
-            /*{ path: 'delete/:id', component: CrudDelete },
+            { path: 'delete/:id', component: CrudDelete },
             { path: 'edit/:id', component: CrudEdit, resolve: { edit: CrudEditResolve } },
             { path: 'create', component: CrudCreate, resolve: { create: CrudCreateResolve } },
-            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }*/
+            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } },
+            { path: 'edit/:id', component: DashboardCrudEdit, resolve: { edit: DashboardCrudEditResolve } }
         ]
     },
     {
         path: ':dashboard',
         component: Dashboard,
         data: {
-            crudClass: 'Dashboard',
-            showInSubNavigation: true
+            crudClass: 'Dashboard'
         },
         children: [
             { path: '', component: DashboardView },
@@ -54,7 +54,7 @@ const DASHBOARD_ROUTER_PROVIDER = [
             { path: 'edit/:id', component: CrudEdit, resolve: { edit: CrudEditResolve } },
             { path: 'create', component: CrudCreate, resolve: { create: CrudCreateResolve } },
             { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }*/
-            { path: 'edit/:id', component: DashboardCrudEdit, resolve: { edit: DashboardCrudEditResolve } },
+            { path: 'edit/:id', component: DashboardCrudEdit, resolve: { edit: DashboardCrudEditResolve } }
         ]
     }
 ];

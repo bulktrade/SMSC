@@ -26,7 +26,7 @@ export class DashboardCrudEdit {
     }
 
     ngOnInit(){
-        console.log(this.route.data);
+        console.log(this.route.snapshot.data['edit']);
         /*this.dashboardService.getDashboardBox(this.route.snapshot.data['edit']).then((res:DashboardBox) => {
             console.log(res);
         });*/

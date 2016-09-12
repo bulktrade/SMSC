@@ -198,7 +198,6 @@ export class DashboardView {
      * Open edit page to corresponding edit box
      */
     editBox(rid:string) {
-        console.log('open page');
-        this.router.navigate(['/dashboard/edit', rid]);
+        this.router.navigate(['/dashboard/edit', '46:1']);
     }
 }
