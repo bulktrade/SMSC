@@ -1,0 +1,47 @@
+@media all and (min-width: 712px) {
+    .buttonsPanel {
+        padding: 6px 14px 0 0;
+        justify-content: flex-end;
+    }
+
+    ag-grid-ng2 {
+        height: calc(100% - 118px);
+        padding-bottom: 15px;
+    }
+}
+
+@media all and (max-width: 712px) {
+    #windowGrid {
+        .opionPanel {
+            flex-direction: column;
+        }
+
+        ag-grid-ng2 {
+            height: calc(100% - 157px);
+            padding-bottom: 15px;
+        }
+
+        .linksetButtons,
+        .viewButtons {
+            display: flex;
+        }
+
+        .viewButtons {
+            margin-right: 7px;
+        }
+
+        button {
+            flex-grow: 1;
+        }
+    }
+}
+
+@media all and (max-width: 467px) {
+    .buttonsPanel {
+        flex-direction: column;
+
+        .linksetButtons {
+            padding: 0 4px 10px 0;
+        }
+    }
+}

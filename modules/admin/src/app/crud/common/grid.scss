@@ -1,11 +1,6 @@
 #windowGrid {
     height: 100%;
 
-    ag-grid-ng2 {
-        height: calc(100% - 118px);
-        padding-bottom: 15px;
-    }
-
     .opionPanel {
         display: flex;
         padding-bottom: 16px;
@@ -30,6 +25,15 @@
         display: flex;
         font-size: 14px;
 
+        .linksetButtons,
+        .viewButtons {
+            flex-grow: 1;
+        }
+
+        .linksetButtons {
+            margin-right: 3px;
+        }
+
         button {
             margin-left: 7px;
         }
@@ -37,35 +41,6 @@
 
     alert {
         text-align: center;
-    }
-}
-
-@media all and (min-width: 550px) {
-    .buttonsPanel {
-        padding: 6px 14px 0 0;
-        justify-content: flex-end;
-    }
-}
-
-@media all and (max-width: 550px) {
-    #windowGrid {
-        .opionPanel {
-            flex-direction: column;
-        }
-
-        ag-grid-ng2 {
-            height: calc(100% - 157px);
-            padding-bottom: 15px;
-        }
-
-        .buttonsPanel {
-            justify-content: center;
-            padding: 0 14px 0 7px;
-
-            button {
-                flex-grow: 1;
-            }
-        }
     }
 }
 

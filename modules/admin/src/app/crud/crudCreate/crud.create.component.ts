@@ -11,18 +11,18 @@ import { Location } from "@angular/common";
         require('../common/form/form.scss'),
         require('../common/style.scss')
     ],
-    providers: [ Location ]
+    providers: [Location]
 })
 
 export class CrudCreate {
     public resolveData: any;
-    public btnName:string = 'CREATE';
+    public btnName: string = 'CREATE';
 
-    constructor(public translate:TranslateService,
-                public crudService:CrudService,
-                public router:Router,
-                public route:ActivatedRoute,
-                public location:Location) {
+    constructor(public translate: TranslateService,
+                public crudService: CrudService,
+                public router: Router,
+                public route: ActivatedRoute,
+                public location: Location) {
     }
 
     ngOnInit() {
@@ -36,7 +36,6 @@ export class CrudCreate {
 
     ngOnDestroy() {
         this.crudService.multipleSelectValid = false;
-        this.crudService.isEditForm = false;
         this.crudService.setModel({});
     }
 

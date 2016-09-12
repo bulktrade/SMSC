@@ -7,6 +7,7 @@ import { CrudService } from "../crud.service";
     selector: 'crud-view',
     template: require('./crud.view.html'),
     styles: [
+        require('./crud.view.scss'),
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],
@@ -50,7 +51,7 @@ export class CrudView {
                 from: this.route.component['name']
             });
 
-            this.router.navigateByUrl(this.crudService.parentPath + '/linkset');
+            this.crudService.navigateToLinkset();
         }
     }
 }

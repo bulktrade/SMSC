@@ -17,10 +17,11 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 
 @Injectable()
 export class CrudService {
+    private _currentCrudLevel: number = 1;
+    private limitCrudLevel: number = 3;
     public crudModel = new CrudModel([], []);
     public hintMessage: string;
     public isHint: Array<boolean> = [];
-    public isEditForm: boolean = false;
     public modifiedRecord: any = {};
     public focusedRow: any;
     public multipleSelectValid = false;
@@ -325,6 +326,11 @@ export class CrudService {
         this.router.navigate([this.parentPath, 'delete', id]);
     }
 
+    navigateToLinkset() {
+        this.nextCrudLevel();
+        this.router.navigate([this.parentPath, 'linkset']);
+    }
+
     getSelectedRID(gridOptions) {
         let id = [];
 
@@ -525,8 +531,8 @@ export class CrudService {
         this.successExecute = false;
     }
 
-    initColumnDefs(className, isGrid: boolean): Promise<any> {
-        return this.initGridData = this.getColumnDefs(className, true)
+    initColumnDefs(className, isGrid: boolean, readOnly: boolean): Promise<any> {
+        return this.initGridData = this.getColumnDefs(className, readOnly)
             .then((result: ColumnModel) => {
                 let columnDefs = result.columnDefs;
 
@@ -553,6 +559,30 @@ export class CrudService {
         }
 
         return [];
+    }
+
+    isLimitCrudLevel() {
+        if (this.currentCrudLevel >= this.limitCrudLevel) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    nextCrudLevel() {
+        this._currentCrudLevel += 1;
+    }
+
+    previousCrudLevel() {
+        this._currentCrudLevel -= 1;
+    }
+
+    get currentCrudLevel(): number {
+        return this._currentCrudLevel;
+    }
+
+    set currentCrudLevel(value: number) {
+        this._currentCrudLevel = value;
     }
 
     setClassName(className) {
