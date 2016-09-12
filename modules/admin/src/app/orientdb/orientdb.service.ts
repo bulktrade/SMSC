@@ -68,16 +68,61 @@ export class ODatabaseService {
                 });
     };
 
-    insert(params: RequestGetParameters) {
-        return this.batchRequest(this.batchFormatter(params, BatchType.Create));
+    /**
+     *
+     * ### Example
+     *
+     * The following example creates record in the current database.
+     *
+     * let record = {
+     *  "@class" : "City",
+     *  "name" : "Venice"
+     * }
+     *
+     * createRecord(record);
+     *
+     */
+
+    createRecord(record: RequestGetParameters) {
+        return this.batchRequest(this.batchFormatter(record, BatchType.Create));
     };
 
-    update(params: RequestGetParameters) {
-        return this.batchRequest(this.batchFormatter(params, BatchType.Update));
+    /**
+     *
+     * ### Example
+     *
+     * The following example updates record in the current database.
+     *
+     * let record = {
+     *  "@rid" : "#14:122",
+     *  "name" : "Luca",
+     *  "vehicle" : "Car"
+     * }
+     *
+     * updateRecord(record);
+     *
+     */
+
+    updateRecord(record) {
+        return this.batchRequest(this.batchFormatter(record, BatchType.Update));
     };
 
-    delete(rid) {
-        return this.batchRequest(this.batchFormatter(rid, BatchType.Delete));
+    /**
+     *
+     * ### Example
+     *
+     * The following example deletes record in the current database.
+     *
+     * let record = {
+     *  "@rid" : "#14:100"
+     * }
+     *
+     * deleteRecord(record);
+     *
+     */
+
+    deleteRecord(record) {
+        return this.batchRequest(this.batchFormatter(record, BatchType.Delete));
     };
 
     batchFormatter(properties, type: string|BatchType): string {
