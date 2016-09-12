@@ -35,6 +35,22 @@ export class DashboardService {
         });
     }
 
+    public getDashboardBox(rid: string): Promise<DashboardBox> {
+        let query = squel.select()
+            .from('DashboardBox')
+            .field('*')
+            .where('@rid = ?', rid)
+            .toString();
+
+        return this.databaseService.query(query, 1, '*:3').then((res: Response) => {
+            let result:DashboardBox new DashboardBox(res.json().result[0])
+
+            return Promise.resolve(result);
+        }).catch((ex) => {
+            return Promise.reject(ex);
+        });
+    }
+
     /**
      * Update box width
      *
@@ -72,12 +88,11 @@ export class DashboardService {
      *
      * @param list - list of boxes
      */
-    // @todo Rename batchUpdate -> batchUpdateDashboardBox
     public batchUpdateDashboardBox(list: Array<DashboardBox>): Promise {
         let operations: Array<Object> = [];
 
         for (let key in list) {
-            let oRecord:Object = list[key].getORecord();
+            let oRecord: Object = list[key].getORecord();
 
             let tmp: Object = {
                 type: 'u',//    Operation what we do('u' - update)

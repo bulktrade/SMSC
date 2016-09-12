@@ -17,6 +17,7 @@ import { CrudCreateResolve } from "./crud/crudCreate/crud.create.resolve";
 import { CrudEditResolve } from "./crud/crudEdit/crud.edit.resolve";
 import { SidebarService } from "./sidebar/sidebarService";
 import { DashboardService } from "./dashboards/dashboardService"
+import { DashboardCrudEditResolve } from "./dashboards/crud/dashboard.crud.resolve";
 
 export * from './app.component';
 export * from './app.service';
@@ -24,6 +25,7 @@ export * from './app.service';
 export const APP_PROVIDERS = [
     SidebarService,
     DashboardService,
+    DashboardCrudEditResolve,
     CrudEditResolve,
     CrudCreateResolve,
     CrudLinksetResolve,

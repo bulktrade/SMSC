@@ -15,29 +15,32 @@ import { OrderBy } from "./sorts/orderby";
 })
 export class DashboardBoxComponent {
     @Input('config')
-    public config:DashboardBoxConfig;
+    public config: DashboardBoxConfig;
 
     @Output('resizeBox')
-    public resizeBox:EventEmitter<number> = new EventEmitter();
+    public resizeBox: EventEmitter<Object> = new EventEmitter();
 
     @Output('removeBox')
-    public removeBox:EventEmitter<number> = new EventEmitter();
+    public removeBox: EventEmitter<number> = new EventEmitter();
 
-    public crudOpen:boolean = false;
-    public viewWidthOpen:boolean = false;
-    public fullscreenMode:boolean = false;
-    public statusBoxWidth:number = 25;
-    public statusBoxHeight:number = 25;
+    @Output('editBox')
+    public editBox: EventEmitter<number> = new EventEmitter();
 
-    constructor(private sidebarService:SidebarService) {
+    public crudOpen: boolean = false;
+    public viewWidthOpen: boolean = false;
+    public fullscreenMode: boolean = false;
+    public statusBoxWidth: number = 25;
+    public statusBoxHeight: number = 25;
+
+    constructor(private sidebarService: SidebarService) {
     }
 
-    ngOnInit(){
-        if(this.config.width != undefined){
+    ngOnInit() {
+        if (this.config.width != undefined) {
             this.statusBoxWidth = this.config.width;
         }
 
-        if(this.config.height != undefined){
+        if (this.config.height != undefined) {
             this.statusBoxHeight = this.config.height;
         }
     }
@@ -52,19 +55,23 @@ export class DashboardBoxComponent {
         });
     }
 
-    emitResizeBox(data:void) {
-        let res:Object = {
+    /**
+     * Emit resize box event
+     * @param data
+     */
+    emitResizeBox(data: void) {
+        let res: Object = {
             type: data.type
         }
 
-        if(data.type == 'width'){
+        if (data.type == 'width') {
             res.width = data.val;
             res.height = this.statusBoxHeight;
 
             this.statusBoxWidth = data.val;
         }
 
-        if(data.type == 'height'){
+        if (data.type == 'height') {
             res.width = this.statusBoxWidth;
             res.height = data.val;
 
@@ -74,7 +81,17 @@ export class DashboardBoxComponent {
         this.resizeBox.emit(res);
     }
 
-    emitRemoveBox(){
+    /**
+     * Emit remove box event
+     */
+    emitRemoveBox() {
         this.removeBox.emit();
+    }
+
+    /**
+     * Emit edit box event
+     */
+    emitEditBox() {
+        this.editBox.emit();
     }
 }

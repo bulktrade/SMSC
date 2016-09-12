@@ -4,6 +4,9 @@ $color-3: #f36a5a;
 $color-4: #5C9BD1;
 $color-5: #8877a9;
 $color-6: #AAB5BC;
+$color-7: #009688;
+$color-8: #fff;
+$color-9: #000;
 
 #dashboard {
     margin-bottom: 15px;
@@ -15,39 +18,39 @@ $color-6: #AAB5BC;
         color: #121621;
     }
 
-    .width-0{
+    .width-0 {
         flex-basis: 25% !important;
     }
-    .width-1{
+    .width-1 {
         flex-basis: 50% !important;
     }
-    .width-2{
+    .width-2 {
         flex-basis: 75% !important;
     }
-    .width-3{
+    .width-3 {
         flex-basis: 100% !important;
     }
-    .height-0{
-        &.chart{
+    .height-0 {
+        &.chart {
             height: 300px !important;
         }
-        &.status{
+        &.status {
             height: 175px !important;
         }
     }
-    .height-1{
-        &.chart{
+    .height-1 {
+        &.chart {
             height: 350px !important;
         }
-        &.status{
+        &.status {
             height: 250px !important;
         }
     }
-    .height-2{
-        &.chart{
+    .height-2 {
+        &.chart {
             height: 400px !important;
         }
-        &.status{
+        &.status {
             height: 300px !important;
         }
     }
@@ -58,7 +61,7 @@ $color-6: #AAB5BC;
         &.status {
             flex-wrap: wrap;
             margin-bottom: 15px;
-            > div{
+            > div {
                 flex-basis: 25%;
                 min-width: 25%;
                 display: inline-block;
@@ -74,13 +77,13 @@ $color-6: #AAB5BC;
                     width: 100%;
                     display: block;
                     transition: all 300ms ease-in;
-                    &.status{
+                    &.status {
                         //height: 175px;
                     }
-                    &.chart{
+                    &.chart {
                         //min-height: 500px;
                     }
-                    &.removeBox{
+                    &.removeBox {
                         opacity: 0;
                     }
                 }
@@ -100,8 +103,36 @@ $color-6: #AAB5BC;
             }
         }
     }
+
+        //  Top toolbar(add)
+    .topToolbar{
+        text-align: right;
+        margin-bottom: 30px;
+        padding-right: 30px;
+    }
+
+    .toolButton {
+        position: relative;
+        display: inline-table;
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+        background: $color-7;
+        text-align: center;
+        cursor: pointer;
+        transition: all 150ms ease-in;
+        &:hover{
+            background: $color-9;
+        }
+        i{
+            display: table-cell;
+            vertical-align: middle;
+            color: $color-8;
+        }
+    }
 }
 
+//  Dragula
 .gu-mirror {
     position: fixed !important;
     margin: 0 !important;
@@ -128,49 +159,36 @@ $color-6: #AAB5BC;
     filter: alpha(opacity=20);
 }
 
-@media(max-width: 1200px) {
+@media (max-width: 1280px) {
     #dashboard {
-        > md-content {
-            &.graphics {
-                flex-wrap: wrap;
-                padding-right: 0px !important;
-                > dashboard-box {
-                    flex-basis: 100%;
-                    margin-bottom: 10px;
-                    margin-right: 0px;
-                }
-            }
+        .width-0 {
+            flex-basis: 50% !important;
         }
-    }
-}
-
-@media (max-width: 1110px) {
-    #dashboard {
-        > md-content {
-            flex-wrap: wrap;
-            &.status {
-                > dashboard-box {
-                    flex-basis: calc(50% - 2.5px);
-                    margin-bottom: 5px;
-                    &:nth-child(even) {
-                        margin-right: -5px;
-                    }
-                }
-            }
+        .width-1 {
+            flex-basis: 50% !important;
+        }
+        .width-2 {
+            flex-basis: 100% !important;
+        }
+        .width-3 {
+            flex-basis: 100% !important;
         }
     }
 }
 
 @media (max-width: 780px) {
     #dashboard {
-        > md-content {
-            &.status {
-                > dashboard-box {
-                    flex-basis: 100%;
-                    margin-bottom: 5px;
-                    margin-right: 0px;
-                }
-            }
+        .width-0 {
+            flex-basis: 100% !important;
+        }
+        .width-1 {
+            flex-basis: 100% !important;
+        }
+        .width-2 {
+            flex-basis: 100% !important;
+        }
+        .width-3 {
+            flex-basis: 100% !important;
         }
     }
 }

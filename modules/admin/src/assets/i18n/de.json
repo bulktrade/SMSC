@@ -84,5 +84,11 @@
     "PREVIOUS": "Previous",
     "NEXT": "Next",
     "LAST": "Last",
-    "ALL_RECORDS": "All records"
+    "ALL_RECORDS": "All records",
+    "DASHBOARD": "Dashboard linkset",
+    "DESCRIPTION": "Description",
+    "HEIGHT": "Height",
+    "NAME": "Name",
+    "ORDER": "Order",
+    "WIDTH": "Width"
 }

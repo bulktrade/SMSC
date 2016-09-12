@@ -30,6 +30,8 @@ import { DashboardComponent } from "./dashboards/dashboards.components";
 import { DashboardView } from "./dashboards/dashboard.view.component";
 import { DashboardBoxComponent } from "./dashboards/dashboard.box.component";
 import {ResizableModule} from 'angular2-resizable';
+import { DashboardCrudEdit } from "./dashboards/crud/dashboard.box.edit";
+import { GridService } from "./services/grid.service";
 
 @NgModule({
     imports: [
@@ -54,7 +56,8 @@ import {ResizableModule} from 'angular2-resizable';
             useFactory: (http:Http) => new TranslateStaticLoader(http, (typeof PUBLIC_PATH !== 'undefined' ? PUBLIC_PATH : '') + 'assets/i18n', '.json'),
             deps: [ Http ]
         }),
-        APP_ROUTE_PROVIDER
+        APP_ROUTE_PROVIDER,
+        GridService
     ],
     declarations: [
         App,
@@ -72,6 +75,7 @@ import {ResizableModule} from 'angular2-resizable';
         DashboardComponent,
         DashboardView,
         DashboardBoxComponent,
+        DashboardCrudEdit,
         Breadcrumb,
         CrudMetaData,
         CrudMetaFormData,

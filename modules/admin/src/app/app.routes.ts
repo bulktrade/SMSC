@@ -20,6 +20,8 @@ import { CrudCreateResolve } from "./crud/crudCreate/crud.create.resolve";
 import { CrudEditResolve } from "./crud/crudEdit/crud.edit.resolve";
 import { DashboardComponent } from "./dashboards/dashboards.components";
 import { DashboardView } from "./dashboards/dashboard.view.component";
+import { DashboardCrudEdit } from "./dashboards/crud/dashboard.box.edit";
+import { DashboardCrudEditResolve } from "./dashboards/crud/dashboard.crud.resolve";
 
 const DASHBOARD_ROUTER_PROVIDER = [
     {
@@ -33,24 +35,26 @@ const DASHBOARD_ROUTER_PROVIDER = [
         },
         children: [
             { path: '', component: DashboardView },
-            { path: 'delete/:id', component: CrudDelete },
+            /*{ path: 'delete/:id', component: CrudDelete },
             { path: 'edit/:id', component: CrudEdit, resolve: { edit: CrudEditResolve } },
             { path: 'create', component: CrudCreate, resolve: { create: CrudCreateResolve } },
-            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
+            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }*/
         ]
     },
     {
         path: ':dashboard',
         component: Dashboard,
         data: {
-            crudClass: 'Dashboard'
+            crudClass: 'Dashboard',
+            showInSubNavigation: true
         },
         children: [
             { path: '', component: DashboardView },
-            { path: 'delete/:id', component: CrudDelete },
+            /*{ path: 'delete/:id', component: CrudDelete },
             { path: 'edit/:id', component: CrudEdit, resolve: { edit: CrudEditResolve } },
             { path: 'create', component: CrudCreate, resolve: { create: CrudCreateResolve } },
-            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
+            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }*/
+            { path: 'edit/:id', component: DashboardCrudEdit, resolve: { edit: DashboardCrudEditResolve } },
         ]
     }
 ];

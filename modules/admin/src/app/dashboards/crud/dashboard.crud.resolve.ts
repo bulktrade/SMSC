@@ -1,27 +1,26 @@
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Injectable } from "@angular/core";
-import { CrudResolve } from "../common/crudResolve";
-import { CrudService } from "../crud.service";
 import { Response } from "@angular/http";
 import { Location } from "@angular/common";
 import { GridService } from "../../services/grid.service";
+import { CrudService } from "../../crud/crud.service";
+import { CrudResolve } from "../../crud/common/crudResolve";
 
 @Injectable()
-export class CrudEditResolve extends CrudResolve {
-
+export class DashboardCrudEditResolve extends CrudResolve {
     constructor(public crudService: CrudService,
                 public location: Location,
                 public gridService: GridService) {
         super();
     }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Promise<any> {
         let id = route.params['id'];
 
         this.crudService.setParentPath(route.parent.parent.routeConfig.path);
-        this.crudService.setClassName(route.parent.parent.data['crudClass']);
+        this.crudService.setClassName('DashboardBox');
 
-        return this.crudService.initColumnDefs(this.crudService.getClassName(), false)
+       return this.crudService.initColumnDefs(this.crudService.getClassName(), false)
             .then((initGridData) => {
                 return this.crudService.databaseService.load(id)
                     .then((res: Response) => {
@@ -33,6 +32,10 @@ export class CrudEditResolve extends CrudResolve {
 
                         return this.gridService.selectLinksetProperties(initGridData, model)
                             .then(() => {
+                                /*console.log({
+                                    initGridData: initGridData,
+                                    model: model[0]
+                                });*/
                                 return Promise.resolve({
                                     initGridData: initGridData,
                                     model: model[0]
@@ -46,6 +49,7 @@ export class CrudEditResolve extends CrudResolve {
                 this.crudService.serviceNotifications.createNotificationOnResponse(error);
                 return Promise.reject(error);
             });
-    }
 
+
+    }
 }
