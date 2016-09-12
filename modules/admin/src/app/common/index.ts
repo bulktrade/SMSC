@@ -29,7 +29,7 @@ export const COMMON_PROVIDERS = [
     {
         provide: ODatabaseService,
         useFactory: (authHttp: AuthHttp, configService: ConfigService) => {
-            return new ODatabaseService(configService.config.orientDBUrl + '/' + configService.config.orientDBDatabase, authHttp);
+            return new ODatabaseService(configService.config.orientDBUrl, configService.config.orientDBDatabase, authHttp);
         },
         deps: [AuthHttp, ConfigService]
     }

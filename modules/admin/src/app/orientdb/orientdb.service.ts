@@ -26,10 +26,10 @@ export class ODatabaseService {
     private urlSuffix;
     private authorization: String = null;
 
-    constructor(databasePath: string, public authHttp: AuthHttp) {
-        this.databaseUrl = '';
-        this.databaseName = '';
-        this.encodedDatabaseName = '';
+    constructor(databaseUrl: string, databaseName: string, public authHttp: AuthHttp) {
+        this.databaseUrl = databaseUrl;
+        this.databaseName = databaseName;
+        this.encodedDatabaseName = encodeURI(databaseName);
         this.databaseInfo = undefined;
         this.commandResult = undefined;
         this.commandResponse = undefined;
@@ -37,46 +37,8 @@ export class ODatabaseService {
         this.evalResponse = true;
         this.parseResponseLink = true;
         this.removeObjectCircleReferences = true;
-        this.urlPrefix = '/';
+        this.urlPrefix = this.databaseUrl + '/';
         this.urlSuffix = '';
-
-        if (databasePath) {
-            let pos = databasePath.indexOf('orientdb_proxy', 8); // JUMP HTTP
-            if (pos > -1) {
-                pos = databasePath.lastIndexOf('/'); // END OF PROXY
-            } else {
-                pos = databasePath.lastIndexOf('/');
-            }
-
-            if (pos > -1) {
-                this.databaseUrl = databasePath.substring(0, pos + 1);
-                this.databaseName = databasePath.substring(pos + 1);
-            } else {
-                this.databaseUrl = databasePath;
-                this.databaseName = undefined;
-            }
-
-            if (this.databaseName !== undefined && this.databaseName.indexOf('/') > -1) {
-                this.encodedDatabaseName = '';
-                let parts = this.databaseName.split('/');
-                for (let p in parts) {
-                    if (!parts.hasOwnProperty(p)) {
-                        continue;
-                    }
-
-                    if (this.encodedDatabaseName.length > 0) {
-                        this.encodedDatabaseName += '$';
-                    }
-
-                    this.encodedDatabaseName += parts[p];
-                }
-            } else {
-                this.encodedDatabaseName = this.databaseName;
-            }
-
-            this.urlPrefix = this.databaseUrl + '/';
-        }
-
     }
 
     batchRequest(data): Promise<any> {
