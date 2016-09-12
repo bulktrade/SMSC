@@ -46,9 +46,10 @@ public class Index {
 		HttpServletRequest request
 	) {
 		Optional<Object> filePath = Optional.of(request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
+		Integer prefixLength = "/admin/".length();
 
-		if (filePath.isPresent()) {
-			String realFilePath = filePath.get().toString().substring("/admin/".length());
+		if (filePath.isPresent() && filePath.get().toString().length() > prefixLength) {
+			String realFilePath = filePath.get().toString().substring(prefixLength);
 			byte[] content = staticResourceService.getBinarayContent("classpath:META-INF/resources/io.smsc.admin/" + realFilePath);
 
 			if (content != null) {
