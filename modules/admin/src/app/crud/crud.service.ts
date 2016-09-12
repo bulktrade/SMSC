@@ -114,12 +114,12 @@ export class CrudService {
         }
     }
 
-    createRecord(properties, className): Promise<any> {
-        properties['@class'] = className;
+    createRecord(record, className): Promise<any> {
+        record['@class'] = className;
 
         this.loadingService.start();
 
-        this.crud = this.databaseService.insert(properties)
+        this.crud = this.databaseService.createRecord(record)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
@@ -133,10 +133,10 @@ export class CrudService {
         return this.crud;
     }
 
-    updateRecord(properties) {
+    updateRecord(record) {
         this.loadingService.start();
 
-        this.crud = this.databaseService.update(properties)
+        this.crud = this.databaseService.updateRecord(record)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.updateSuccessful', 'orientdb.successUpdate');
@@ -151,12 +151,12 @@ export class CrudService {
     }
 
     deleteRecord(rid): Promise<any> {
-        let property: any = {};
-        property['@rid'] = rid;
+        let record: any = {};
+        record['@rid'] = rid;
 
         this.loadingService.start();
 
-        this.crud = this.databaseService.delete(property)
+        this.crud = this.databaseService.deleteRecord(record)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.deleteSuccessful', 'orientdb.successDelete');
