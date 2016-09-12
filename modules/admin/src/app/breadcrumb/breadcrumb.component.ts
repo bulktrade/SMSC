@@ -12,7 +12,7 @@ import { BreadcrumbService } from "./breadcrumb.service";
         'parents'
     ],
     providers: [],
-    styles: [
+    styleUrls: [
         require('./breadcrumb.scss')
     ]
 })

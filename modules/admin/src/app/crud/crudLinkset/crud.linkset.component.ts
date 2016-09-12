@@ -8,7 +8,7 @@ import { GridService } from "../../services/grid.service";
 @Component({
     selector: 'crud-linkset',
     template: require('./crud.linkset.html'),
-    styles: [
+    styleUrls: [
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],

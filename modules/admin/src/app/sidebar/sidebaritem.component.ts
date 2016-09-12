@@ -16,7 +16,7 @@ declare var Reflect;
             transition('open => closed', [ animate('200ms ease-out') ])
         ]),
     ],
-    styles: [
+    styleUrls: [
         require('./sidebaritem.scss')
     ]
 })

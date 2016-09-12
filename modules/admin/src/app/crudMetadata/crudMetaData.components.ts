@@ -5,7 +5,7 @@ import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
 @Component({
     selector: 'crud-metadata',
     template: require('./crudMetaData.html'),
-    styles: [
+    styleUrls: [
         require('./crudMetaData.scss')
     ],
     providers: [Breadcrumb]

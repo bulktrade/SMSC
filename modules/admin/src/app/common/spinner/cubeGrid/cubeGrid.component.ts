@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 
 @Component({
     selector: 'sk-cube-grid',
-    styles: [
+    styleUrls: [
         require('./cubeGrid.scss')
     ],
     template: require('./cubeGrid.html')

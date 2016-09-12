@@ -4,7 +4,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 @Component({
     selector: 'crudMetaGridData',
     template: '<loading-router-outlet></loading-router-outlet>',
-    styles: [],
+    styleUrls: [],
     providers: []
 })
 

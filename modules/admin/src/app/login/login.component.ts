@@ -10,7 +10,7 @@ import { Response } from "@angular/http";
         AuthService
     ],
     template: require('./login.html'),
-    styles: [
+    styleUrls: [
         require('./login.scss')
     ]
 })

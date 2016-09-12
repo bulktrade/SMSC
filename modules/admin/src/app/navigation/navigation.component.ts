@@ -8,7 +8,7 @@ import { NOTIFICATION_OPTIONS } from "../common/notificationOptions";
     selector: 'navigation',
     providers: [],
     template: require('./navigation.html'),
-    styles: [
+    styleUrls: [
         require('./navigation.scss')
     ]
 })

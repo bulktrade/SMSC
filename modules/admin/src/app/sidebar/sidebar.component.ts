@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
     selector: 'sidebar',
     template: require('./sidebar.html'),
     providers: [],
-    styles: [
+    styleUrls: [
         require('./sidebar.scss')
     ]
 })

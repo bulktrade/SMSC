@@ -6,11 +6,13 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @Controller(
 	value = "IndexController"
@@ -30,24 +32,29 @@ public class Index {
 
 	@RequestMapping(
 		value = {
-			"/admin",
+			"/admin/{file:.+}",
 			"/admin/",
-			"/admin/*",
-			"/admin/**",
-			"/admin/**/**",
-		},
-		produces = {
-			MediaType.TEXT_HTML_VALUE
+			"/admin",
 		}
 	)
 	@ResponseBody
-	public String adminAction(HttpServletResponse response) {
+	public byte[] adminAction(
+		HttpServletResponse response,
+		@PathVariable Optional<String> file
+	) {
+		if (file.isPresent()) {
+			byte[] content = staticResourceService.getBinarayContent("classpath:META-INF/resources/io.smsc.admin/" + file.get());
+
+			if (content != null) {
+				return content;
+			}
+		}
+
 		response.setContentType(MediaType.TEXT_HTML_VALUE);
 		response.setCharacterEncoding("UTF-8");
 
-		return staticResourceService.getContent("classpath:META-INF/resources/io.smsc.admin/index.html");
+		return staticResourceService.getBinarayContent("classpath:META-INF/resources/io.smsc.admin/index.html");
 	}
-
 
 	@RequestMapping(
 		value = {

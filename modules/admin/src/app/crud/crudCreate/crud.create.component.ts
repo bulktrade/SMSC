@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 @Component({
     selector: 'crud-create',
     template: require('../common/form/form.html'),
-    styles: [
+    styleUrls: [
         require('../common/form/form.scss'),
         require('../common/style.scss')
     ],

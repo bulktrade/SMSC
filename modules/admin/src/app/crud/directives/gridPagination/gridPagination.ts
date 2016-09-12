@@ -17,7 +17,7 @@ const sprintf = require('sprintf-js').sprintf;
     selector: 'grid-pagination',
     providers: [],
     template: require('./gridPagination.html'),
-    styles: [
+    styleUrls: [
         require('./gridPagination.scss'),
     ]
 })

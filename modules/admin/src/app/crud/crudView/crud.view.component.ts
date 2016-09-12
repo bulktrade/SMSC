@@ -6,7 +6,7 @@ import { CrudService } from "../crud.service";
 @Component({
     selector: 'crud-view',
     template: require('./crud.view.html'),
-    styles: [
+    styleUrls: [
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],

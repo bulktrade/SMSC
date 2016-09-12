@@ -7,7 +7,7 @@ import { FormsModule } from "@angular/forms";
     selector: 'md-select',
     providers: [],
     template: require('./select.html'),
-    styles: [
+    styleUrls: [
         require('./select.scss'),
     ]
 })

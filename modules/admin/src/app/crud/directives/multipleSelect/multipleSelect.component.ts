@@ -8,7 +8,7 @@ import { CrudService } from "../../crud.service";
 @Component({
     selector: 'multiple-select',
     template: require('./multipleSelect.html'),
-    styles: [
+    styleUrls: [
         require('./multipleSelect.scss')
     ],
     providers: [],

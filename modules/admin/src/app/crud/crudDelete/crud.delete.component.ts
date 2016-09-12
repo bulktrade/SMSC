@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
 @Component({
     selector: 'crud-delete',
     template: require('./crud.delete.html'),
-    styles: [
+    styleUrls: [
         require('./crud.delete.scss'),
         require('../common/style.scss')
     ],
