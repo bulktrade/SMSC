@@ -6,10 +6,11 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.HandlerMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
@@ -32,7 +33,7 @@ public class Index {
 
 	@RequestMapping(
 		value = {
-			"/admin/{file:.+}",
+			"/admin/**",
 			"/admin/",
 			"/admin",
 		}
@@ -40,10 +41,13 @@ public class Index {
 	@ResponseBody
 	public byte[] adminAction(
 		HttpServletResponse response,
-		@PathVariable Optional<String> file
+		HttpServletRequest request
 	) {
-		if (file.isPresent()) {
-			byte[] content = staticResourceService.getBinarayContent("classpath:META-INF/resources/io.smsc.admin/" + file.get());
+		Optional<Object> filePath = Optional.of(request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
+
+		if (filePath.isPresent()) {
+			String realFilePath = filePath.get().toString().substring("/admin/".length());
+			byte[] content = staticResourceService.getBinarayContent("classpath:META-INF/resources/io.smsc.admin/" + realFilePath);
 
 			if (content != null) {
 				return content;
