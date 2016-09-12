@@ -175,7 +175,7 @@ export class GridPagination {
                         if (this.gridOptions.api) {
                             this.gridOptions.api.setRowData(this.rowsThisPage);
                             this.gridOptions.rowData = this.rowsThisPage;
-                            // this.gridOptions.api.hideOverlay();
+                            this.gridOptions.api.hideOverlay();
                         }
 
                         return Promise.resolve(this.rowsThisPage);
