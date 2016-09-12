@@ -37,10 +37,10 @@ export class DashboardCrudEditResolve extends CrudResolve {
                                     initGridData: initGridData,
                                     model: model[0]
                                 });*/
-                                return Promise.resolve({
-                                    initGridData: initGridData,
-                                    model: model[0]
-                                });
+                                // return Promise.resolve({
+                                //     initGridData: initGridData,
+                                //     model: model[0]
+                                // });
                             });
                     }, error => {
                         this.crudService.serviceNotifications.createNotificationOnResponse(error);

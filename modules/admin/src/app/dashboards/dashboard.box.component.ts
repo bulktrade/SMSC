@@ -1,8 +1,6 @@
 import { Component, Input, ViewEncapsulation, Output, EventEmitter } from "@angular/core";
-import { TranslatePipe } from "ng2-translate/ng2-translate";
 import { DashboardBoxConfig } from "./dashboard.box.config";
 import { SidebarService } from "../sidebar/sidebarService";
-import { OrderBy } from "./sorts/orderby";
 
 @Component({
     selector: 'dashboard-box',
@@ -10,7 +8,6 @@ import { OrderBy } from "./sorts/orderby";
     styles: [
         require('./dashboard.box.scss')
     ],
-    pipes: [TranslatePipe, OrderBy],
     encapsulation: ViewEncapsulation.None
 })
 export class DashboardBoxComponent {

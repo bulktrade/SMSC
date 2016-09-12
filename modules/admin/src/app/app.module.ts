@@ -8,7 +8,6 @@ import { ROUTES } from "./app.routes";
 import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
 import { Customers } from "./customers/customers.components";
-import { Dashboard } from "./dashboard/dashboard.component";
 import { NotFound } from "./notFound/notFound.component";
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
 import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
@@ -66,7 +65,6 @@ export const APP_PROVIDERS = [
         Navigation,
         Customers,
         NotFound,
-        Dashboard,
         DashboardComponent,
         DashboardView,
         DashboardBoxComponent,

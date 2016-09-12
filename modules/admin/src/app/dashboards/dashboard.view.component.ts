@@ -1,49 +1,35 @@
-import { Component, ViewEncapsulation, Input } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import { CORE_DIRECTIVES } from "@angular/common";
-import { ROUTER_DIRECTIVES, ActivatedRoute } from "@angular/router";
-import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
-import { Dragula, DragulaService } from "ng2-dragula/ng2-dragula";
-import { DropdownDirective } from "ng2-bootstrap/components/dropdown";
-import { DashboardService } from "./dashboardService";
-import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
-import { OrderBy } from "./sorts/orderby";
+import { Component } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router } from "@angular/router";
+import { DragulaService } from "ng2-dragula/ng2-dragula";
+import { DashboardService } from "./dashboardService";
+import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
+import { OrderBy } from "./sorts/orderby";
 
 @Component({
     selector: 'dashboard-view',
-    providers: [Breadcrumb],
     template: require('./dashboard.view.html'),
-    styles: [
+    styleUrls: [
         require('./dashboard.view.scss')
-    ],
-    directives: [
-        ROUTER_DIRECTIVES,
-        CORE_DIRECTIVES,
-        Breadcrumb,
-        Dragula,
-        DropdownDirective
     ],
     viewProviders: [
         DragulaService
-    ],
-    pipes: [TranslatePipe]
+    ]
 })
 export class DashboardView {
     private drakes: Array<string> = ["status-bag", "chart-bag"];
     public boxes: Object = {
         container: {
-            width: new Array(),
-            height: new Array()
+            width: [],
+            height: []
         },
-        remove: new Array()
+        remove: []
     };
-    public boxesArr: Array<any> = new Array();
+    public boxesArr: Array<any> = [];
     private firstAdd: boolean = false;
-    private testArr: Array = new Array('', '');
+    private testArr: Array<String> = ['', ''];
 
     constructor(public translate: TranslateService,
-                public breadcrumb: Breadcrumb,
                 private dragulaService: DragulaService,
                 private  dashboardService: DashboardService,
                 private router: Router) {
@@ -197,7 +183,7 @@ export class DashboardView {
      *
      * Open edit page to corresponding edit box
      */
-    editBox(rid:string) {
+    editBox(rid: string) {
         this.router.navigate(['/dashboard/edit', '46:1']);
     }
 }

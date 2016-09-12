@@ -2,14 +2,10 @@ import { Component } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router } from "@angular/router";
 declare var Reflect;
-import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'sidebar',
     template: require('./sidebar.html'),
-    providers: [],
     styleUrls: [
         require('./sidebar.scss')
     ]
@@ -18,8 +14,8 @@ import { Router } from '@angular/router';
 export class Sidebar {
     public dataNavItems = [];
 
-    constructor(public translate:TranslateService,
-                public router:Router) {
+    constructor(public translate: TranslateService,
+                public router: Router) {
         this.initDataNavItems(this.router);
     }
 
