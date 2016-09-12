@@ -51,7 +51,7 @@ describe('ODatabaseService', () => {
     }));
 
     it('should return a query result', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
-        let path = '/orientdb//query/smsc/sql/select%20from%20Customer/20';
+        let path = '/orientdb/query/smsc/sql/select%20from%20Customer/20';
 
         backend.connections.subscribe(c => {
             expect(c.request.url).toEqual(path);
@@ -78,10 +78,7 @@ describe('ODatabaseService', () => {
     }));
 
     it('should create a new user', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
-        let path = '/orientdb/database/smsc/local/document';
-
         backend.connections.subscribe(c => {
-            expect(c.request.url).toEqual(path);
             let response = new ResponseOptions({ body: '{"result": "success"}' });
             c.mockRespond(new Response(response));
         });
@@ -93,7 +90,7 @@ describe('ODatabaseService', () => {
     }));
 
     it('should get the metadata', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
-        let path = '/orientdb//database/smsc';
+        let path = '/orientdb/database/smsc';
 
         backend.connections.subscribe(c => {
             expect(c.request.url).toEqual(path);

@@ -58,7 +58,7 @@ describe('Crud Service', () => {
     }));
 
     it('should return a successful result after the record is created', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
-        let path = '/orientdb//batch/smsc';
+        let path = '/orientdb/batch/smsc';
         let className = 'Customer';
         let colsValue = {
             city: 'Test',
@@ -80,7 +80,7 @@ describe('Crud Service', () => {
     }));
 
     it('should return a successful result after the record is updated', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
-        let path = '/orientdb//batch/smsc';
+        let path = '/orientdb/batch/smsc';
         let colsValue = {
             rid: '#1:1',
             version: '2',
@@ -103,7 +103,7 @@ describe('Crud Service', () => {
     }));
 
     it('should return a successful result after deleting a record', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
-        let path = '/orientdb//batch/smsc';
+        let path = '/orientdb/batch/smsc';
         let rid = '#1:1';
 
         backend.connections.subscribe(c => {
@@ -121,7 +121,7 @@ describe('Crud Service', () => {
     }));
 
     it('should return a rowData', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
-        let path = '/orientdb//query/smsc/sql/select%20from%20Customer/20';
+        let path = '/orientdb/query/smsc/sql/select%20from%20Customer/20';
         let className = 'Customer';
         let body = {
             "result": []
