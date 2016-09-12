@@ -41,7 +41,6 @@ export class CrudEdit {
 
     ngOnDestroy() {
         this.crudService.multipleSelectValid = false;
-        this.crudService.isEditForm = false;
         this.crudService.setModel({});
     }
 

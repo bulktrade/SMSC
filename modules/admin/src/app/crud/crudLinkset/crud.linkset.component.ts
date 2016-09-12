@@ -9,6 +9,7 @@ import { GridService } from "../../services/grid.service";
     selector: 'crud-linkset',
     template: require('./crud.linkset.html'),
     styleUrls: [
+        require('./crud.linkset.scss'),
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],
@@ -32,6 +33,7 @@ export class CrudLinkset {
     }
 
     back() {
+        this.crudService.previousCrudLevel();
         this.location.back();
     }
 

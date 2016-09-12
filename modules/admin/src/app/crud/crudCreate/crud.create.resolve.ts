@@ -10,11 +10,11 @@ export class CrudCreateResolve extends CrudResolve {
         super();
     }
 
-    resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let className = route.params['className'];
         this.crudService.setParentPath(route.parent.parent.routeConfig.path);
 
-        return this.crudService.initColumnDefs(className, false);
+        return this.crudService.initColumnDefs(className, false, false);
     }
 
 }

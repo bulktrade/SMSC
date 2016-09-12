@@ -11,16 +11,21 @@
                 </button>
             </div>
             <div class="buttonsPanel">
-                <button md-raised-button color="primary" (click)="back()">{{'BACK' | translate}}</button>
-                <button md-raised-button color="primary" (click)="addLink(crudService.gridOptions)">{{'ADDLINK'
-                    | translate}}
-                </button>
-                <button md-raised-button color="primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
-                    translate}}
-                </button>
-                <button md-raised-button color="warn" [disabled]="!crudService.gridOptions.api.getSelectedRows().length"
-                        (click)="navigateToDelete()" id="deleteRow">{{'DELETE' | translate}}
-                </button>
+                <div class="linksetButtons">
+                    <button md-raised-button color="primary" (click)="back()">{{'BACK' | translate}}</button>
+                    <button md-raised-button color="primary" (click)="addLink(crudService.gridOptions)">{{'ADDLINK'
+                        | translate}}
+                    </button>
+                </div>
+                <div class="viewButtons" *ngIf="!crudService.isLimitCrudLevel()">
+                    <button md-raised-button color="primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
+                        translate}}
+                    </button>
+                    <button md-raised-button color="warn"
+                            [disabled]="!crudService.gridOptions.api.getSelectedRows().length"
+                            (click)="navigateToDelete()" id="deleteRow">{{'DELETE' | translate}}
+                    </button>
+                </div>
             </div>
         </div>
         <alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true"

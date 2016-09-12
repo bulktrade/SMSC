@@ -29,7 +29,7 @@ export class CrudEditResolve extends CrudResolve {
                     model.push(result);
                 }
 
-                return this.crudService.initColumnDefs(className, false)
+                return this.crudService.initColumnDefs(className, false, false)
                     .then((initGridData) => {
                         return this.gridService.selectLinksetProperties(initGridData, model)
                             .then(() => {

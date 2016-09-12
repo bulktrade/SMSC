@@ -114,7 +114,7 @@ export class MultipleSelect {
             from: this.route.component['name']
         });
 
-        this.navigateToLinkset();
+        this.crudService.navigateToLinkset();
     }
 
     resetParams(): void {
@@ -122,9 +122,5 @@ export class MultipleSelect {
         this.crudService.model[this.property.property] = [];
         this.crudService.titleColumns = [];
         this.ridItems = [];
-    }
-
-    navigateToLinkset() {
-        this.router.navigateByUrl(this.crudService.parentPath + '/linkset');
     }
 }
