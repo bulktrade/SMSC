@@ -9,9 +9,9 @@ import { CrudCreateResolve } from "./crudCreate/crud.create.resolve";
 import { CrudEditResolve } from "./crudEdit/crud.edit.resolve";
 
 export const CRUD_ROUTE_PROVIDER = [
-    { path: '', component: CrudView, resolve: [CrudViewResolve] },
+    { path: '', component: CrudView, resolve: { view: CrudViewResolve } },
     { path: 'delete/:id', component: CrudDelete },
-    { path: 'edit/:id', component: CrudEdit, resolve: [CrudEditResolve] },
-    { path: 'create', component: CrudCreate, resolve: [CrudCreateResolve] },
-    { path: 'linkset', component: CrudLinkset, resolve: [CrudLinksetResolve] },
+    { path: 'edit/:id', component: CrudEdit, resolve: { edit: CrudEditResolve } },
+    { path: 'create/:className', component: CrudCreate, resolve: { create: CrudCreateResolve } },
+    { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } },
 ];

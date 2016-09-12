@@ -3,10 +3,12 @@ import { Injectable } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
-import { CrudModel } from "./crud.model";
+import { CrudModel } from "./model/crud.model";
 import { GridOptions } from "ag-grid";
-import { ServiceNotifications } from "../services/serviceNotification";
+import { NotificationService } from "../services/notificationService";
 import { LoadingGridService } from "../services/loadingGrid.service";
+import { ColumnModel } from "./model/crud.column.model";
+import { INPUT_TYPES } from "./common/form/form.inputTypes";
 
 const squel = require('squel');
 
@@ -15,11 +17,14 @@ let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 
 @Injectable()
 export class CrudService {
+    private _currentCrudLevel: number = 1;
+    private limitCrudLevel: number = 3;
     public crudModel = new CrudModel([], []);
-    public isEditForm: boolean = false;
+    public hintMessage: string;
+    public isHint: Array<boolean> = [];
     public modifiedRecord: any = {};
     public focusedRow: any;
-    public addingFormValid = false;
+    public multipleSelectValid = false;
     public querySelectors = null;
     public embeddedList = null;
     public rowSelectionLinkset = null;
@@ -45,7 +50,7 @@ export class CrudService {
                 public router: Router,
                 public route: ActivatedRoute,
                 public translate: TranslateService,
-                public serviceNotifications: ServiceNotifications,
+                public serviceNotifications: NotificationService,
                 public loadingService: LoadingGridService) {
     }
 
@@ -57,19 +62,64 @@ export class CrudService {
         this.updateRecord(value.data);
     }
 
+    typeForInput(type) {
+        let types = INPUT_TYPES;
+        let result: string = null;
+
+        result = types.find((i) => {
+            if (i === type) {
+                return true;
+            }
+
+            return false;
+        });
+
+        result = this.inputType(result);
+
+        return result;
+    }
+
+    inputType(type) {
+        let result: string;
+
+        switch (type) {
+            case 'STRING':
+                result = 'text';
+                break;
+            case 'DATE':
+                result = 'date';
+                break;
+            case 'DATETIME':
+                result = 'datetime';
+                break;
+            case 'DOUBLE':
+            case 'INTEGER':
+            case 'FLOAT':
+            case 'BYTE':
+            case 'DECIMAL':
+                result = 'number';
+                break;
+            default:
+                result = null;
+                break;
+        }
+
+        return result;
+    }
+
     isRequired(event) {
         if (event) {
-            this.addingFormValid = true;
+            this.multipleSelectValid = true;
             return;
         }
     }
 
-    createRecord(properties): Promise<any> {
-        properties['@class'] = this.getClassName();
+    createRecord(record, className): Promise<any> {
+        record['@class'] = className;
 
         this.loadingService.start();
 
-        this.crud = this.databaseService.insert(properties)
+        this.crud = this.databaseService.createRecord(record)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
@@ -83,10 +133,10 @@ export class CrudService {
         return this.crud;
     }
 
-    updateRecord(properties) {
+    updateRecord(record) {
         this.loadingService.start();
 
-        this.crud = this.databaseService.update(properties)
+        this.crud = this.databaseService.updateRecord(record)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.updateSuccessful', 'orientdb.successUpdate');
@@ -101,12 +151,12 @@ export class CrudService {
     }
 
     deleteRecord(rid): Promise<any> {
-        let property: any = {};
-        property['@rid'] = rid;
+        let record: any = {};
+        record['@rid'] = rid;
 
         this.loadingService.start();
 
-        this.crud = this.databaseService.delete(property)
+        this.crud = this.databaseService.deleteRecord(record)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.deleteSuccessful', 'orientdb.successDelete');
@@ -276,6 +326,11 @@ export class CrudService {
         this.router.navigate([this.parentPath, 'delete', id]);
     }
 
+    navigateToLinkset() {
+        this.nextCrudLevel();
+        this.router.navigate([this.parentPath, 'linkset']);
+    }
+
     getSelectedRID(gridOptions) {
         let id = [];
 
@@ -312,7 +367,7 @@ export class CrudService {
     }
 
     getColumnDefs(className, readOnly) {
-        let columnDefs = {
+        let columnDefs: ColumnModel = {
             grid: [],
             form: []
         };
@@ -321,7 +376,7 @@ export class CrudService {
         this.addRIDColumn(columnDefs.grid);
 
         if (readOnly) {
-            this.btnRenderer(columnDefs, 'Edit', 30, 'mode_edit',  (clickEvent) => {
+            this.btnRenderer(columnDefs, 'Edit', 30, 'mode_edit', (clickEvent) => {
                 this.navigateToEdit();
             });
             this.btnRenderer(columnDefs, 'Delete', 30, 'delete', (clickEvent) => {
@@ -343,7 +398,8 @@ export class CrudService {
 
                 return this.databaseService.query(queryCrudMetaGridData.toString())
                     .then((res: Response) => {
-                        let isExistColumn = res.json()['result'].length;
+                        let isExistColumn: boolean = res.json()['result'].length > 0 ? true : false;
+
                         let columnsGrid = [];
                         let result = isExistColumn ? res.json()['result'] : properties; // add try / catch, can throws an error
 
@@ -367,19 +423,21 @@ export class CrudService {
                                     }
                                 }
 
-                                return Promise.resolve({
-                                    columnsGrid: columnsGrid,
-                                    isExistColumn: isExistColumn,
-                                })
+                                let gridColumnModel: ColumnModel = {
+                                    grid: columnsGrid,
+                                    isExistGridColumn: isExistColumn,
+                                };
+
+                                return Promise.resolve(gridColumnModel);
                             });
                     }, (error) => {
                         this.dataNotFound = true;
                         this.errorMessage = 'orientdb.dataNotFound';
                     })
-                    .then((gridDefs) => {
+                    .then((gridColumnModel: ColumnModel) => {
                         return this.databaseService.query(queryCrudMetaFormData.toString())
                             .then((res: Response) => {
-                                let isExistForm = res.json()['result'].length;
+                                let isExistForm = res.json()['result'].length > 0 ? true : false;
                                 let columnsForm = [];
                                 let result = isExistForm ? res.json()['result'] : properties;
 
@@ -396,20 +454,22 @@ export class CrudService {
                                             } else {
                                                 column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
                                                 column['property'] = result[i]['name'];
-                                                column['editable'] = !result[i]['mandatory'];
+                                                column['editable'] = !result[i]['readonly'];
                                                 column['visible'] = true;
 
                                                 columnsForm.push(column);
                                             }
                                         }
 
-                                        return Promise.resolve({
-                                            columnsGrid: gridDefs.columnsGrid,
-                                            isExistColumn: gridDefs.isExistColumn,
-                                            columnsForm: columnsForm,
-                                            isExistForm: isExistForm,
+                                        let columnModel: ColumnModel = {
+                                            grid: gridColumnModel.grid,
+                                            isExistGridColumn: gridColumnModel.isExistGridColumn,
+                                            form: columnsForm,
+                                            isExistFormColumn: isExistForm,
                                             columnDefs: columnDefs,
-                                        });
+                                        };
+
+                                        return Promise.resolve(columnModel);
                                     });
                             }, (error) => {
                                 this.dataNotFound = true;
@@ -471,24 +531,58 @@ export class CrudService {
         this.successExecute = false;
     }
 
-    initColumnDefs(className, isGrid: boolean): Promise<any> {
-        return this.initGridData = this.getColumnDefs(className, true)
-            .then((result) => {
+    initColumnDefs(className, isGrid: boolean, readOnly: boolean): Promise<any> {
+        return this.initGridData = this.getColumnDefs(className, readOnly)
+            .then((result: ColumnModel) => {
                 let columnDefs = result.columnDefs;
 
-                if (result.isExistForm) {
-                    result.columnsForm.sort(this.compare);
+                if (result.isExistFormColumn) {
+                    result.form.sort(this.compare);
                 }
 
-                if (result.isExistColumn) {
-                    result.columnsGrid.sort(this.compare);
+                if (result.isExistGridColumn) {
+                    result.grid.sort(this.compare);
                 }
 
-                columnDefs.form = columnDefs.form.concat(result.columnsForm);
-                columnDefs.grid = columnDefs.grid.concat(result.columnsGrid);
+                columnDefs.form = columnDefs.form.concat(result.form);
+                columnDefs.grid = columnDefs.grid.concat(result.grid);
 
                 return Promise.resolve(isGrid ? columnDefs.grid : columnDefs.form);
             })
+    }
+
+    getSelectOptions(columnDefsItem) {
+        if (typeof columnDefsItem !== 'undefined') {
+            if (columnDefsItem.hasOwnProperty('custom')) {
+                return columnDefsItem.custom.type.split(',');
+            }
+        }
+
+        return [];
+    }
+
+    isLimitCrudLevel() {
+        if (this.currentCrudLevel >= this.limitCrudLevel) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    nextCrudLevel() {
+        this._currentCrudLevel += 1;
+    }
+
+    previousCrudLevel() {
+        this._currentCrudLevel -= 1;
+    }
+
+    get currentCrudLevel(): number {
+        return this._currentCrudLevel;
+    }
+
+    set currentCrudLevel(value: number) {
+        this._currentCrudLevel = value;
     }
 
     setClassName(className) {

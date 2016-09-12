@@ -1,37 +1,30 @@
-import { Component, Input } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
+import { Component, Input, NgModule, ModuleWithProviders } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
 import { Response } from "@angular/http";
 import { EventEmitter } from "@angular/common/src/facade/async";
 import { ODatabaseService } from "../../../orientdb/orientdb.service";
-import { ServiceNotifications } from "../../../services/serviceNotification";
-import { MdSelect } from "../../../common/material/select/select";
+import { NotificationService } from "../../../services/notificationService";
 import { GridOptions } from "ag-grid";
 import { GridService } from "../../../services/grid.service";
+import { CommonModule } from "@angular/common";
+import { MdSelectModule } from "../../../common/material/select/select";
+import { MdModule } from "../../../md.module";
 
-declare let sprintf;
 const squel = require('squel');
+const sprintf = require('sprintf-js').sprintf;
 
 @Component({
     selector: 'grid-pagination',
     providers: [],
     template: require('./gridPagination.html'),
-    styles: [
+    styleUrls: [
         require('./gridPagination.scss'),
-        require('ng2-select/components/css/ng2-select.css')
-    ],
-    directives: [MdSelect],
-    pipes: [TranslatePipe],
-    outputs: [
-        'rowData',
-        'initRowData',
     ]
 })
 
 export class GridPagination {
     @Input('className') public className: string;
     @Input('gridOptions') public gridOptions: GridOptions;
-    public rowData = new EventEmitter();
-    public initRowData = new EventEmitter();
 
     public rowsThisPage = [];
     public stepPageSize: any = [25, 50, 150, 200, 300];
@@ -43,7 +36,7 @@ export class GridPagination {
     constructor(public translate: TranslateService,
                 public gridService: GridService,
                 public databaseService: ODatabaseService,
-                public serviceNotifications: ServiceNotifications) {
+                public serviceNotifications: NotificationService) {
     }
 
     ngOnInit() {
@@ -218,5 +211,19 @@ export class GridPagination {
 
     setToRecord(numberRecords) {
         this.toRecord = this.currentPage * this.pageSize + numberRecords;
+    }
+}
+
+@NgModule({
+    imports: [CommonModule, MdSelectModule, MdModule.forRoot()],
+    exports: [GridPagination],
+    declarations: [GridPagination]
+})
+export class GridPaginationModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: GridPaginationModule,
+            providers: []
+        };
     }
 }

@@ -5,10 +5,10 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
 import { RequestGetParameters } from "./orientdb.requestGetParameters";
-import { AuthHttp } from "angular2-jwt/angular2-jwt";
 import { BatchType } from "./orientdb.batchType";
+import { AuthHttp } from "angular2-jwt";
 
-declare var sprintf: any;
+const sprintf = require('sprintf-js').sprintf;
 
 @Injectable()
 export class ODatabaseService {
@@ -26,10 +26,10 @@ export class ODatabaseService {
     private urlSuffix;
     private authorization: String = null;
 
-    constructor(databasePath: string, public authHttp: AuthHttp) {
-        this.databaseUrl = '';
-        this.databaseName = '';
-        this.encodedDatabaseName = '';
+    constructor(databaseUrl: string, databaseName: string, public authHttp: AuthHttp) {
+        this.databaseUrl = databaseUrl;
+        this.databaseName = databaseName;
+        this.encodedDatabaseName = encodeURI(databaseName);
         this.databaseInfo = undefined;
         this.commandResult = undefined;
         this.commandResponse = undefined;
@@ -37,46 +37,8 @@ export class ODatabaseService {
         this.evalResponse = true;
         this.parseResponseLink = true;
         this.removeObjectCircleReferences = true;
-        this.urlPrefix = '/';
+        this.urlPrefix = this.databaseUrl + '/';
         this.urlSuffix = '';
-
-        if (databasePath) {
-            let pos = databasePath.indexOf('orientdb_proxy', 8); // JUMP HTTP
-            if (pos > -1) {
-                pos = databasePath.lastIndexOf('/'); // END OF PROXY
-            } else {
-                pos = databasePath.lastIndexOf('/');
-            }
-
-            if (pos > -1) {
-                this.databaseUrl = databasePath.substring(0, pos + 1);
-                this.databaseName = databasePath.substring(pos + 1);
-            } else {
-                this.databaseUrl = databasePath;
-                this.databaseName = undefined;
-            }
-
-            if (this.databaseName !== undefined && this.databaseName.indexOf('/') > -1) {
-                this.encodedDatabaseName = '';
-                let parts = this.databaseName.split('/');
-                for (let p in parts) {
-                    if (!parts.hasOwnProperty(p)) {
-                        continue;
-                    }
-
-                    if (this.encodedDatabaseName.length > 0) {
-                        this.encodedDatabaseName += '$';
-                    }
-
-                    this.encodedDatabaseName += parts[p];
-                }
-            } else {
-                this.encodedDatabaseName = this.databaseName;
-            }
-
-            this.urlPrefix = this.databaseUrl + '/';
-        }
-
     }
 
     batchRequest(data): Promise<any> {
@@ -101,26 +63,71 @@ export class ODatabaseService {
                     return Promise.resolve(res);
                 },
                 error => {
-                    this.setErrorMessage('Command error: ' + error.responseText)
+                    this.setErrorMessage('Command error: ' + error.responseText);
                     return Promise.reject(error);
                 });
     };
 
-    insert(params: RequestGetParameters) {
-        return this.batchRequest(this.batchFormatter(params, BatchType.Create));
+    /**
+     *
+     * ### Example
+     *
+     * The following example creates record in the current database.
+     *
+     * let record = {
+     *  "@class" : "City",
+     *  "name" : "Venice"
+     * }
+     *
+     * createRecord(record);
+     *
+     */
+
+    createRecord(record: RequestGetParameters) {
+        return this.batchRequest(this.batchFormatter(record, BatchType.Create));
     };
 
-    update(params: RequestGetParameters) {
-        return this.batchRequest(this.batchFormatter(params, BatchType.Update));
+    /**
+     *
+     * ### Example
+     *
+     * The following example updates record in the current database.
+     *
+     * let record = {
+     *  "@rid" : "#14:122",
+     *  "name" : "Luca",
+     *  "vehicle" : "Car"
+     * }
+     *
+     * updateRecord(record);
+     *
+     */
+
+    updateRecord(record) {
+        return this.batchRequest(this.batchFormatter(record, BatchType.Update));
     };
 
-    delete(rid) {
-        return this.batchRequest(this.batchFormatter(rid, BatchType.Delete));
+    /**
+     *
+     * ### Example
+     *
+     * The following example deletes record in the current database.
+     *
+     * let record = {
+     *  "@rid" : "#14:100"
+     * }
+     *
+     * deleteRecord(record);
+     *
+     */
+
+    deleteRecord(record) {
+        return this.batchRequest(this.batchFormatter(record, BatchType.Delete));
     };
 
     batchFormatter(properties, type: string|BatchType): string {
         let batch = sprintf('{"transaction": true, "operations": [{"type": "%s", "record": {', type);
-        
+
         for (let i in properties) {
             let value: string = '';
 
@@ -150,14 +157,12 @@ export class ODatabaseService {
     }
 
     getInfoClass(className) {
-        this.urlSuffix = '/';
-
         let headers = new Headers({
             'content-Type': 'application/json'
         });
 
         return this.authHttp.get(this.urlPrefix + 'class/' + this.encodedDatabaseName
-            + this.urlSuffix + className + this.urlSuffix, headers)
+            + '/' + className, headers)
             .toPromise()
             .then(
                 res => {

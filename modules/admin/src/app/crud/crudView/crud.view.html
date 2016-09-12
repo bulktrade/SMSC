@@ -3,7 +3,7 @@
         <div class="opionPanel">
             <div class="searchPanel">
                 <md-input placeholder="{{ 'SEARCH' | translate }}"
-                          type="text" autocomplete="off" name="search" style=""
+                          type="text" autocomplete="off" name="search"
                           #db (keydown)="crudService.onFilterChanged(db.value, crudService.gridOptions)"
                           (keyup)="crudService.onFilterChanged(db.value, crudService.gridOptions)"></md-input>
                 <button md-icon-button color="primary" class="searchBtn">

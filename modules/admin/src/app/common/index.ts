@@ -1,19 +1,14 @@
-import { Http, XHRBackend, RequestOptions } from "@angular/http";
-import { provide } from "@angular/core";
 import { AuthHttp, AuthConfig } from "angular2-jwt";
-import { Router } from "@angular/router";
-import {AUTH_TOKEN_NAME, TokenService} from "../services/auth/token.service";
-import {ODatabaseService} from "../orientdb/orientdb.service";
-import {HttpInterceptor} from "./httpInterceptor";
+import { AUTH_TOKEN_NAME, TokenService } from "../services/auth/token.service";
+import { ODatabaseService } from "../orientdb/orientdb.service";
+import { Http } from "@angular/http";
+import { ConfigService } from "../config/configService";
 
 export const COMMON_PROVIDERS = [
-    provide(Http, {
-        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) => new HttpInterceptor(xhrBackend, requestOptions, router),
-        deps: [XHRBackend, RequestOptions, Router]
-    }),
-    provide(AuthHttp, {
-        useFactory: (http, tokenService) => {
-            return new AuthHttp(new AuthConfig({
+    {
+        provide: AuthHttp,
+        useFactory: (http: Http, tokenService: TokenService) => {
+            let config: AuthConfig = new AuthConfig({
                 headerName: 'Authorization',
                 headerPrefix: 'Bearer',
                 tokenName: AUTH_TOKEN_NAME,
@@ -23,13 +18,19 @@ export const COMMON_PROVIDERS = [
                     });
                 },
                 noJwtError: true,
-                noTokenScheme: true
-            }), http);
+                noTokenScheme: true,
+                globalHeaders: [{'Content-Type':'application/json'}]
+            });
+
+            return new AuthHttp(config, http);
         },
         deps: [Http, TokenService]
-    }),
-    provide(ODatabaseService, {
-        useFactory: (authHttp) => new ODatabaseService('/orientdb/smsc', authHttp),
-        deps: [AuthHttp]
-    })
+    },
+    {
+        provide: ODatabaseService,
+        useFactory: (authHttp: AuthHttp, configService: ConfigService) => {
+            return new ODatabaseService(configService.config.orientDBUrl, configService.config.orientDBDatabase, authHttp);
+        },
+        deps: [AuthHttp, ConfigService]
+    }
 ];

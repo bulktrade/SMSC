@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { TranslatePipe, TranslateService } from "ng2-translate/ng2-translate";
-import { ROUTER_DIRECTIVES, ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { ActivatedRoute, Router } from "@angular/router";
 import { EventEmitter } from "@angular/common/src/facade/async";
 import { Location } from "@angular/common";
 import { CrudService } from "../../crud.service";
@@ -8,14 +8,10 @@ import { CrudService } from "../../crud.service";
 @Component({
     selector: 'multiple-select',
     template: require('./multipleSelect.html'),
-    styles: [
+    styleUrls: [
         require('./multipleSelect.scss')
     ],
     providers: [],
-    directives: [
-        ROUTER_DIRECTIVES,
-    ],
-    pipes: [TranslatePipe],
     outputs: ['isRequired']
 })
 
@@ -35,7 +31,7 @@ export class MultipleSelect {
     }
 
     ngOnInit() {
-        if (this.property.required) {
+        if (this.property.mandatory) {
             this.requiredSymb += '*';
         }
 
@@ -57,7 +53,7 @@ export class MultipleSelect {
                     }
                 });
 
-                if (this.property.required) {
+                if (this.property.mandatory) {
                     if (linkset.length) {
                         this.isRequired.emit(false);
                     } else {
@@ -66,7 +62,7 @@ export class MultipleSelect {
                 } else {
                     this.isRequired.emit(false);
                 }
-            } else if (this.property.required) {
+            } else if (this.property.mandatory) {
                 this.isRequired.emit(true);
             } else {
                 this.isRequired.emit(false);
@@ -75,7 +71,7 @@ export class MultipleSelect {
     }
 
     removeItem(): void {
-        this.crudService.addingFormValid = false;
+        this.crudService.multipleSelectValid = false;
         let linkset = Array.isArray(this.crudService.model[this.property.property]) ?
             this.crudService.model[this.property.property] : this.crudService.model[this.property.property].split(',');
         let model = [];
@@ -87,8 +83,8 @@ export class MultipleSelect {
             }
         }
 
-        if (this.property.required) {
-            if (linkset.length) {
+        if (this.property.mandatory) {
+            if (model.length) {
                 this.isRequired.emit(false);
             } else {
                 this.isRequired.emit(true);
@@ -103,12 +99,12 @@ export class MultipleSelect {
     clearAll(): void {
         this.resetParams();
 
-        this.crudService.addingFormValid = true;
+        this.crudService.multipleSelectValid = true;
     }
 
     addLinkset(): void {
         this.resetParams();
-        this.crudService.addingFormValid = false;
+        this.crudService.multipleSelectValid = false;
         this.crudService.setLinkedClass(this.property.linkedClass);
 
         this.crudService.setModifiedRecord({
@@ -118,7 +114,7 @@ export class MultipleSelect {
             from: this.route.component['name']
         });
 
-        this.navigateToLinkset();
+        this.crudService.navigateToLinkset();
     }
 
     resetParams(): void {
@@ -126,9 +122,5 @@ export class MultipleSelect {
         this.crudService.model[this.property.property] = [];
         this.crudService.titleColumns = [];
         this.ridItems = [];
-    }
-
-    navigateToLinkset() {
-        this.router.navigateByUrl(this.crudService.parentPath + '/linkset');
     }
 }

@@ -28,20 +28,37 @@ describe('Crud Service', () => {
         });
     });
 
+    it('the type should be text', inject([CrudService], (crudService: CrudService) => {
+        expect(crudService.inputType('STRING')).toEqual('text');
+        expect(crudService.inputType('TEST')).toBeNull();
+    }));
+
     it('should return a columnDefs with options for grid and form', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
+        let bodyResponse = {
+            "properties": [{
+                "name": "test",
+                "headerName": "test",
+                "field": "test",
+                "editable": true,
+                "required": true,
+                "type": "test",
+                "linkedClass": "test",
+                "custom": "test"
+            }]
+        };
+
         backend.connections.subscribe(c => {
-            let response = new ResponseOptions({ body: '{"properties":[{"name":"test","headerName":"test","field":"test","editable":true,"required":true,"type":"test","linkedClass":"test","custom":"test"}]}' });
+            let response = new ResponseOptions({ body: JSON.stringify(bodyResponse) });
             c.mockRespond(new Response(response));
         });
 
-        crudService.getColumnDefs('Customers', false)
-            .then(res => {
-                expect(res).toBeDefined();
-            });
+        spyOn(crudService, 'getColumnDefs');
+        crudService.getColumnDefs('Customers', false);
+        expect(crudService.getColumnDefs).toHaveBeenCalledWith('Customers', false);
     }));
 
     it('should return a successful result after the record is created', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
-        let path = '/orientdb//batch/smsc';
+        let path = '/orientdb/batch/smsc';
         let className = 'Customer';
         let colsValue = {
             city: 'Test',
@@ -54,17 +71,16 @@ describe('Crud Service', () => {
             c.mockRespond(new Response(response));
         });
 
-        crudService.className = className;
         crudService.initGridData = Promise.resolve();
 
-        crudService.createRecord(colsValue)
+        crudService.createRecord(colsValue, className)
             .then(res => {
                 expect(res.json().result).toEqual('success');
             });
     }));
 
     it('should return a successful result after the record is updated', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
-        let path = '/orientdb//batch/smsc';
+        let path = '/orientdb/batch/smsc';
         let colsValue = {
             rid: '#1:1',
             version: '2',
@@ -87,7 +103,7 @@ describe('Crud Service', () => {
     }));
 
     it('should return a successful result after deleting a record', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
-        let path = '/orientdb//batch/smsc';
+        let path = '/orientdb/batch/smsc';
         let rid = '#1:1';
 
         backend.connections.subscribe(c => {
@@ -105,7 +121,7 @@ describe('Crud Service', () => {
     }));
 
     it('should return a rowData', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
-        let path = '/orientdb//query/smsc/sql/select%20from%20Customer/20';
+        let path = '/orientdb/query/smsc/sql/select%20from%20Customer/20';
         let className = 'Customer';
         let body = {
             "result": []

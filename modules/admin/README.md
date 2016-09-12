@@ -2,6 +2,8 @@
 ```bash
 # install the repo with npm
 $ npm install
+# Lock down dependency versions
+$ npm shrinkwrap
 # install dependencies listed in bower.json
 $ bower install
 # start the server

@@ -1,13 +1,6 @@
 import { Component, Input, Injectable, trigger, style, animate, state, transition } from "@angular/core";
-import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
-import { AnimateBox } from "./directives/animate";
-import { NgClass, NgFor } from "@angular/common";
-import { ActiveItem } from "./directives/active";
-import { FaAngleLeft } from "./directives/FaAngleLeft";
-import { ShowMiniNav } from "./ShowMiniNav";
-import { LocalStorage } from "angular2-localstorage/WebStorage";
-import { MdIcon } from "@angular2-material/icon/icon";
-import { Router, ROUTER_DIRECTIVES } from "@angular/router";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router } from "@angular/router";
 
 declare var Reflect;
 
@@ -15,12 +8,6 @@ declare var Reflect;
     selector: 'sidebar-item',
     template: require('./sidebaritem.html'),
     providers: [],
-    directives: [
-        ActiveItem,
-        FaAngleLeft,
-        ROUTER_DIRECTIVES
-    ],
-    pipes: [ TranslatePipe ],
     animations: [
         trigger('state', [
             state('closed', style({ height: 0 })),
@@ -29,18 +16,13 @@ declare var Reflect;
             transition('open => closed', [ animate('200ms ease-out') ])
         ]),
     ],
-    styles: [
+    styleUrls: [
         require('./sidebaritem.scss')
     ]
 })
 
 @Injectable()
 export class SidebarItem {
-    public store = localStorage;
-
-    @LocalStorage('icnDsh') public icnDsh:boolean;
-    @LocalStorage('icnGsm') public icnGsm:boolean;
-
     @Input('icon') public icon;
     @Input('path') public path;
     @Input('paramsAsDefault') public paramsAsDefault;
@@ -50,7 +32,6 @@ export class SidebarItem {
     @Input('toggle') public toggle;
 
     constructor(public translate:TranslateService,
-                public showmininav:ShowMiniNav,
                 public router:Router) {
     }
 

@@ -28,4 +28,17 @@ public class StaticResourceServiceImpl implements StaticResourceService {
 
 		return null;
 	}
+
+	@Override
+	public byte[] getBinarayContent(String path) {
+		Resource resource = appContext.getResource(path);
+
+		try {
+			return IOUtils.toByteArray(resource.getInputStream());
+		} catch (IOException e) {
+			log.error(e);
+		}
+
+		return null;
+	}
 }

@@ -1,20 +1,16 @@
 import { Component } from "@angular/core";
-import { TranslateService, TranslatePipe } from "ng2-translate/ng2-translate";
-import { Router, ROUTER_DIRECTIVES } from "@angular/router";
-import { SidebarItem } from "./sidebaritem.component";
-
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router } from "@angular/router";
 declare var Reflect;
+import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'sidebar',
     template: require('./sidebar.html'),
     providers: [],
-    directives: [
-        ROUTER_DIRECTIVES,
-        SidebarItem
-    ],
-    pipes: [TranslatePipe],
-    styles: [
+    styleUrls: [
         require('./sidebar.scss')
     ]
 })
