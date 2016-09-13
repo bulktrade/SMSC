@@ -5,8 +5,9 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
 import { RequestGetParameters } from "./orientdb.requestGetParameters";
-import { BatchType } from "./orientdb.batchType";
 import { AuthHttp } from "angular2-jwt";
+import { Batch } from "./model/batch";
+import { Operation } from "./model/operation";
 
 const sprintf = require('sprintf-js').sprintf;
 
@@ -41,7 +42,7 @@ export class ODatabaseService {
         this.urlSuffix = '';
     }
 
-    batchRequest(data): Promise<any> {
+    batchRequest(data): Promise<Response> {
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -72,88 +73,54 @@ export class ODatabaseService {
      *
      * ### Example
      *
-     * The following example creates record in the current database.
-     *
-     * let record = {
-     *  "@class" : "City",
-     *  "name" : "Venice"
-     * }
-     *
-     * createRecord(record);
-     *
-     */
-
-    createRecord(record: RequestGetParameters) {
-        return this.batchRequest(this.batchFormatter(record, BatchType.Create));
-    };
-
-    /**
-     *
-     * ### Example
-     *
-     * The following example updates record in the current database.
-     *
-     * let record = {
-     *  "@rid" : "#14:122",
-     *  "name" : "Luca",
-     *  "vehicle" : "Car"
-     * }
-     *
-     * updateRecord(record);
-     *
-     */
-
-    updateRecord(record) {
-        return this.batchRequest(this.batchFormatter(record, BatchType.Update));
-    };
-
-    /**
-     *
-     * ### Example
+     * Content: { "transaction" : , "operations" : [ { "type" : "" }* ] }
      *
      * The following example deletes record in the current database.
      *
-     * let record = {
-     *  "@rid" : "#14:100"
-     * }
+     * let options: Array<Option> = [{
+     *      "type": BatchType.Update,
+     *      "record": {
+     *          "@rid": "#14:122",
+     *          "name": "Luca",
+     *          "vehicle": "Car"
+     *      }
+     *  }, {
+     *      "type": BatchType.Delete,
+     *      "record": {
+     *          "@rid": "#14:100"
+     *      }
+     *  }, {
+     *      "type": BatchType.Create,
+     *      "record": {
+     *          "@class": "City",
+     *          "name": "Venice"
+     *      }
+     *  }]
      *
-     * deleteRecord(record);
+     * batch(options);
+     *
+     *
+     * for more information look here http://orientdb.com/docs/2.1/OrientDB-REST.html
      *
      */
 
-    deleteRecord(record) {
-        return this.batchRequest(this.batchFormatter(record, BatchType.Delete));
-    };
+    batch(operations: Array<Operation>): Promise<Response> {
+        let batch: Batch = {
+            transaction: true,
+            operations: operations
+        };
 
-    batchFormatter(properties, type: string|BatchType): string {
-        let batch = sprintf('{"transaction": true, "operations": [{"type": "%s", "record": {', type);
-
-        for (let i in properties) {
-            let value: string = '';
-
-            if (Array.isArray(properties[i])) {
-                let link = properties[i];
-                let linkset = [];
-
-                for (let prop in link) {
-                    if (prop.charAt(0) === '_') {
-                        linkset.push(link[prop]);
+        batch.operations.forEach(item => {
+            for (let i in item.record) {
+                if (Array.isArray(item.record[i])) {
+                    for (let form = 0; form < item.record[i]['length']; form++) {
+                        item.record[i][form] = item.record[i]['_' + form];
                     }
                 }
-
-                value = sprintf('[%s]', linkset.join());
-            } else if (i === '@version') {
-                value = sprintf('%s', properties[i]);
-            } else {
-                value = sprintf('"%s"', properties[i]);
             }
+        });
 
-            let property = '"' + i + '" :' + value + ', ';
-
-            batch += property;
-        }
-
-        return batch.substring(0, batch.length - 2) + '}}]}';
+        return this.batchRequest(JSON.stringify(batch));
     }
 
     getInfoClass(className) {

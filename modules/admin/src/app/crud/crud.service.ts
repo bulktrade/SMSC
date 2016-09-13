@@ -9,6 +9,8 @@ import { LoadingGridService } from "../services/loading/loadingGrid.service";
 import { ColumnModel } from "./model/crud.column.model";
 import { INPUT_TYPES } from "./common/form/form.inputTypes";
 import { ColumnDefsModel } from "./model/columnDefs.model";
+import { Operation } from "../orientdb/model/operation";
+import { BatchType } from "../orientdb/orientdb.batchType";
 
 const squel = require('squel');
 
@@ -114,10 +116,16 @@ export class CrudService {
 
     createRecord(record, className): Promise<any> {
         record['@class'] = className;
-
         this.loadingService.start();
 
-        this.crud = this.databaseService.createRecord(record)
+        let operations: Array<Operation> = [
+            {
+                type: BatchType.Create,
+                record: record
+            }
+        ];
+
+        this.crud = this.databaseService.batch(operations)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
@@ -134,7 +142,14 @@ export class CrudService {
     updateRecord(record) {
         this.loadingService.start();
 
-        this.crud = this.databaseService.updateRecord(record)
+        let operations: Array<Operation> = [
+            {
+                type: BatchType.Update,
+                record: record
+            }
+        ];
+
+        this.crud = this.databaseService.batch(operations)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.updateSuccessful', 'orientdb.successUpdate');
@@ -151,10 +166,16 @@ export class CrudService {
     deleteRecord(rid): Promise<any> {
         let record: any = {};
         record['@rid'] = rid;
-
         this.loadingService.start();
 
-        this.crud = this.databaseService.deleteRecord(record)
+        let operations: Array<Operation> = [
+            {
+                type: BatchType.Delete,
+                record: record
+            }
+        ];
+
+        this.crud = this.databaseService.batch(operations)
             .then((res) => {
                 this.loadingService.stop();
                 this.serviceNotifications.createNotification('success', 'message.deleteSuccessful', 'orientdb.successDelete');
