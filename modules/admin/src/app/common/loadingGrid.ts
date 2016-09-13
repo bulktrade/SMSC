@@ -19,14 +19,6 @@ export class LoadingGrid implements OnInit {
     }
 
     ngOnInit(): void {
-        this.service.start();
-
-        this.crudService.initGridData
-            .then((res) => {
-                this.service.stop();
-            }, (error) => {
-                this.service.stop();
-            })
     }
 }
 

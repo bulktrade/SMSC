@@ -3,23 +3,21 @@ import { Injectable } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
-import { CrudModel } from "./model/crud.model";
 import { GridOptions } from "ag-grid";
 import { NotificationService } from "../services/notificationService";
 import { LoadingGridService } from "../services/loading/loadingGrid.service";
 import { ColumnModel } from "./model/crud.column.model";
 import { INPUT_TYPES } from "./common/form/form.inputTypes";
+import { ColumnDefsModel } from "./model/columnDefs.model";
 
 const squel = require('squel');
 
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
-let cubeGridStyle = require('../common/spinner/cubeGrid/cubeGrid.scss');
 
 @Injectable()
 export class CrudService {
     private _currentCrudLevel: number = 1;
     private limitCrudLevel: number = 3;
-    public crudModel = new CrudModel([], []);
     public hintMessage: string;
     public isHint: Array<boolean> = [];
     public modifiedRecord: any = {};
@@ -216,7 +214,7 @@ export class CrudService {
     }
 
     overlayLoadingTemplate() {
-        return cubeGridHtml + '<style>' + cubeGridStyle + '</style>';
+        return cubeGridHtml;
     }
 
     addColumnCheckbox(columnDefs, gridOptions) {
@@ -367,7 +365,7 @@ export class CrudService {
     }
 
     getColumnDefs(className, readOnly) {
-        let columnDefs: ColumnModel = {
+        let columnDefs: ColumnDefsModel = {
             grid: [],
             form: []
         };
@@ -431,8 +429,7 @@ export class CrudService {
                                 return Promise.resolve(gridColumnModel);
                             });
                     }, (error) => {
-                        this.dataNotFound = true;
-                        this.errorMessage = 'orientdb.dataNotFound';
+                        return Promise.reject(error);
                     })
                     .then((gridColumnModel: ColumnModel) => {
                         return this.databaseService.query(queryCrudMetaFormData.toString())
@@ -472,17 +469,37 @@ export class CrudService {
                                         return Promise.resolve(columnModel);
                                     });
                             }, (error) => {
-                                this.dataNotFound = true;
-                                this.errorMessage = 'orientdb.dataNotFound';
+                                return Promise.reject(error);
                             })
                     }, (error) => {
-                        this.dataNotFound = true;
-                        this.errorMessage = 'orientdb.dataNotFound';
+                        return Promise.reject(error);
                     })
             }, (error) => {
-                this.serviceNotifications.createNotificationOnResponse(error);
                 return Promise.reject(error);
             });
+    }
+
+    initColumnDefs(className, isGrid: boolean, readOnly: boolean): Promise<any> {
+        return this.getColumnDefs(className, readOnly)
+            .then((result: ColumnModel) => {
+                let columnDefs: ColumnDefsModel = result.columnDefs;
+
+                if (result.isExistFormColumn) {
+                    result.form.sort(this.compare);
+                }
+
+                if (result.isExistGridColumn) {
+                    result.grid.sort(this.compare);
+                }
+
+                columnDefs.form = columnDefs.form.concat(result.form);
+                columnDefs.grid = columnDefs.grid.concat(result.grid);
+
+                return Promise.resolve(isGrid ? columnDefs.grid : columnDefs.form);
+            }, err => {
+                this.serviceNotifications.createNotificationOnResponse(err);
+                return Promise.reject(err);
+            })
     }
 
     // to get additional metadata for the property. As the type linkedClass, mandatory, etc.
@@ -529,26 +546,6 @@ export class CrudService {
     hideAllMessageBoxes() {
         this.dataNotFound = false;
         this.successExecute = false;
-    }
-
-    initColumnDefs(className, isGrid: boolean, readOnly: boolean): Promise<any> {
-        return this.initGridData = this.getColumnDefs(className, readOnly)
-            .then((result: ColumnModel) => {
-                let columnDefs = result.columnDefs;
-
-                if (result.isExistFormColumn) {
-                    result.form.sort(this.compare);
-                }
-
-                if (result.isExistGridColumn) {
-                    result.grid.sort(this.compare);
-                }
-
-                columnDefs.form = columnDefs.form.concat(result.form);
-                columnDefs.grid = columnDefs.grid.concat(result.grid);
-
-                return Promise.resolve(isGrid ? columnDefs.grid : columnDefs.form);
-            })
     }
 
     getSelectOptions(columnDefsItem) {

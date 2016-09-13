@@ -6,7 +6,7 @@ import { LoadingRouterOutletService } from "../services/loading/loadingRouterOut
 
 @Component({
     selector: 'loading-router-outlet',
-    encapsulation: ViewEncapsulation.Native,
+    encapsulation: ViewEncapsulation.None,
     styles: [
         `
         router-outlet.hide + * {

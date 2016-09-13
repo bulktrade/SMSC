@@ -12,7 +12,8 @@ import { TranslateService } from "ng2-translate";
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-material.css'),
         require('bootstrap-material-design/dist/css/bootstrap-material-design.css'),
-        require('./app.scss')
+        require('./app.scss'),
+        require('./common/spinner/cubeGrid/cubeGrid.scss')
     ]
 })
 export class App {

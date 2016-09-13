@@ -1,7 +1,6 @@
 import { Component, Input, NgModule, ModuleWithProviders } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Response } from "@angular/http";
-import { EventEmitter } from "@angular/common/src/facade/async";
 import { ODatabaseService } from "../../../orientdb/orientdb.service";
 import { NotificationService } from "../../../services/notificationService";
 import { GridOptions } from "ag-grid";
@@ -37,7 +36,6 @@ export class GridPagination {
     constructor(public translate: TranslateService,
                 public gridService: GridService,
                 public databaseService: ODatabaseService,
-                public loadingGridService: LoadingGridService,
                 public serviceNotifications: NotificationService) {
     }
 

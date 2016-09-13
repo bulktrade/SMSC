@@ -1,7 +1,7 @@
-export interface ColumnModel {
-    grid?: Array<any>,
-    form?: Array<any>,
-    isExistGridColumn?: boolean,
-    isExistFormColumn?: boolean,
-    columnDefs?: ColumnModel
+import { ColumnDefsModel } from "./columnDefs.model";
+
+export class ColumnModel extends ColumnDefsModel {
+    public isExistGridColumn?: boolean;
+    public isExistFormColumn?: boolean;
+    public columnDefs?: ColumnDefsModel;
 }
