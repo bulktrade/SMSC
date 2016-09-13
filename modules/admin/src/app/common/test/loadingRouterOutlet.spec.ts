@@ -17,15 +17,15 @@ describe('Loading RouterOutlet', () => {
     });
 
     it('loading spinner should be true', inject([ LoadingRouterOutlet ], (loadingRouterOutlet) => {
-        loadingRouterOutlet.start();
+        loadingRouterOutlet.loadingService.start();
 
-        expect(loadingRouterOutlet.loading).toBeTruthy();
+        expect(loadingRouterOutlet.loadingService.loading).toBeTruthy();
     }));
 
     it('loading spinner should be false', inject([ LoadingRouterOutlet ], (loadingRouterOutlet) => {
-        loadingRouterOutlet.stop();
+        loadingRouterOutlet.loadingService.stop();
 
-        expect(loadingRouterOutlet.loading).toBeFalsy();
+        expect(loadingRouterOutlet.loadingService.loading).toBeFalsy();
     }));
 
 });
