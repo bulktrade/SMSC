@@ -10,7 +10,7 @@ import { ColumnModel } from "./model/crud.column.model";
 import { INPUT_TYPES } from "./common/form/form.inputTypes";
 import { ColumnDefsModel } from "./model/columnDefs.model";
 import { Operation } from "../orientdb/model/operation";
-import { BatchType } from "../orientdb/orientdb.batchType";
+import { BatchType } from "../orientdb/model/batchType";
 
 const squel = require('squel');
 

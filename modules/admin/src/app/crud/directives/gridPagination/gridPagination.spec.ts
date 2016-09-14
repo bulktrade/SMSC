@@ -30,6 +30,7 @@ describe('Grid Pagination', () => {
 
     it('should go to the first page', inject([MockBackend, GridPagination], (backend: MockBackend, gp: GridPagination) => {
         gp.setCurrentPage(5);
+        gp.className = 'GridPagination';
         gp.gridOptions = {
             rowSelection: 'multiple',
             rowHeight: 30,
@@ -51,6 +52,7 @@ describe('Grid Pagination', () => {
 
     it('should go to the previous page', inject([MockBackend, GridPagination], (backend: MockBackend, gp: GridPagination) => {
         gp.setCurrentPage(5);
+        gp.className = 'GridPagination';
         gp.gridOptions = {
             rowSelection: 'multiple',
             rowHeight: 30,

@@ -8,10 +8,8 @@ import { GridService } from "../../../services/grid.service";
 import { CommonModule } from "@angular/common";
 import { MdSelectModule } from "../../../common/material/select/select";
 import { MdModule } from "../../../md.module";
-import { LoadingGridService } from "../../../services/loading/loadingGrid.service";
 
 const squel = require('squel');
-const sprintf = require('sprintf-js').sprintf;
 
 @Component({
     selector: 'grid-pagination',
@@ -140,21 +138,23 @@ export class GridPagination {
     }
 
     createNewDatasource(skip?, limit?) {
-        let pagination = "select * from %s SKIP %s LIMIT %s";
-        let allRecords = "select * from %s";
         let sql;
 
         if (skip === undefined && limit === undefined) {
-            sql = sprintf(allRecords, this.className);
+            sql = squel.select()
+                .from(this.className);
         } else {
-            sql = sprintf(pagination, this.className, skip, limit);
+            sql = squel.select()
+                .from(this.className)
+                .offset(skip)
+                .limit(limit);
         }
 
         if (this.gridOptions.api) {
             this.gridOptions.api.showLoadingOverlay();
         }
 
-        return this.databaseService.query(sql)
+        return this.databaseService.query(sql.toString())
             .then((res: Response) => {
                 this.rowsThisPage = res.json().result;
 

@@ -1,4 +1,4 @@
-import { BatchType } from "../orientdb.batchType";
+import { BatchType } from "./batchType";
 
 export interface Operation {
     type: string|BatchType,

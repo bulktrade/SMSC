@@ -78,7 +78,7 @@ export class MultipleSelect {
 
         for (let i in this.ridItems) {
             if (this.ridItems[i].visible) {
-                model['_' + i] = linkset['_' + i];
+                model['_' + model.length] = linkset['_' + model.length];
                 model.push(linkset[i]);
             }
         }

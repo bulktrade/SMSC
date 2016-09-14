@@ -4,12 +4,9 @@ import "rxjs/add/operator/map";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
-import { RequestGetParameters } from "./orientdb.requestGetParameters";
 import { AuthHttp } from "angular2-jwt";
 import { Batch } from "./model/batch";
 import { Operation } from "./model/operation";
-
-const sprintf = require('sprintf-js').sprintf;
 
 @Injectable()
 export class ODatabaseService {
@@ -142,21 +139,6 @@ export class ODatabaseService {
                     return Promise.reject(error);
                 });
     }
-
-    getRowMetadata(params: RequestGetParameters) {
-        let sql = 'select from %(nameClass)s where';
-
-        for (let key in params.colsValue) {
-            sql += ' ' + key + ' = "%(colsValue.' + key + ')s" and';
-        }
-
-        sql = sql.substring(0, sql.length - 4);
-
-        return this.query(sprintf(sql, params))
-            .then((res: Response) => {
-                return res.json().result[0];
-            });
-    };
 
     executeCommand(iCommand?, iLanguage?, iLimit?,
                    iFetchPlan?) {
