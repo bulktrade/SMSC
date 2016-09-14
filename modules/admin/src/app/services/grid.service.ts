@@ -15,10 +15,12 @@ export class GridService {
         let linksetProperties = [];
 
         columnDefs.filter((obj) => {
-            if (obj.type === 'LINKSET') {
+            if (obj.type === 'LINKSET' ||
+                obj.type === 'LINK') {
                 linksetProperties.push({
                     name: obj.property,
-                    linkedClass: obj.linkedClass
+                    linkedClass: obj.linkedClass,
+                    type: obj.type
                 });
             }
         });
@@ -33,9 +35,14 @@ export class GridService {
             rowData.forEach((row) => {
                 let linkset = row[i['name']];
 
-                if (linkset) {
+                if (typeof linkset !== 'undefined' && i['type'] === 'LINKSET') {
                     for (let keyLink = 0; keyLink < linkset.length; keyLink++) {
-                        promises.push(this.getLinksetName(linkset, keyLink, i['linkedClass']));
+                        promises.push(this.getLinksetName(linkset, keyLink, i['linkedClass'], i['type']));
+                    }
+                    linkset['type'] = i['type'];
+                } else if (i['type'] === 'LINK') {
+                    if (typeof row[i['name']] !== 'undefined') {
+                        promises.push(this.getLinksetName(row, i['name'], i['linkedClass'], i['type']));
                     }
                 }
             });
@@ -44,19 +51,30 @@ export class GridService {
         return Promise.all(promises);
     }
 
-    getLinksetName(linkset, keyLink, className) {
+    getLinksetName(linkset, keyLink, className, type) {
         return this.database.load(linkset[keyLink])
             .then((res) => {
-
                 return this.getTitleColumns(className)
                     .then(columnName => {
                         let record = res.json();
 
-                        linkset['_' + keyLink] = linkset[keyLink];
+                        switch (type) {
+                            case 'LINKSET':
+                                linkset['_' + keyLink] = linkset[keyLink];
 
-                        if (record.hasOwnProperty(columnName)
-                            && typeof columnName !== 'undefined') {
-                            linkset[keyLink] = record[columnName];
+                                if (record.hasOwnProperty(columnName)
+                                    && typeof columnName !== 'undefined') {
+                                    linkset[keyLink] = record[columnName];
+                                }
+                                break;
+                            case 'LINK':
+                                let rid = linkset[keyLink];
+
+                                linkset[keyLink] = [];
+                                linkset[keyLink][0] = record[columnName];
+                                linkset[keyLink]['rid'] = rid;
+                                linkset[keyLink]['type'] = type;
+                                break;
                         }
                     });
             }, (error) => {

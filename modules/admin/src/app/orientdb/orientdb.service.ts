@@ -110,8 +110,12 @@ export class ODatabaseService {
         batch.operations.forEach(item => {
             for (let i in item.record) {
                 if (Array.isArray(item.record[i])) {
-                    for (let form = 0; form < item.record[i]['length']; form++) {
-                        item.record[i][form] = item.record[i]['_' + form];
+                    if (item.record[i]['type'] === 'LINKSET') {
+                        for (let k = 0; k < item.record[i]['length']; k++) {
+                            item.record[i][k] = item.record[i]['_' + k];
+                        }
+                    } else if (item.record[i]['type'] === 'LINK') {
+                        item.record[i] = item.record[i]['rid'];
                     }
                 }
             }
