@@ -72,9 +72,7 @@ export class ODatabaseService {
      *
      * Content: { "transaction" : , "operations" : [ { "type" : "" }* ] }
      *
-     * The following example deletes record in the current database.
-     *
-     * let options: Array<Option> = [{
+     * let operations: Array<operations> = [{
      *      "type": BatchType.Update,
      *      "record": {
      *          "@rid": "#14:122",
