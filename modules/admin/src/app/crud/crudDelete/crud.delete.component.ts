@@ -35,8 +35,8 @@ export class CrudDelete {
     }
 
     deleteRecords() {
-        this.crudService.multipleDeleteRecords(this.id)
-            .then(() => {
+        this.crudService.deleteRecord(this.id.split(','))
+            .subscribe(() => {
                 this.back();
             }, (error) => {
                 this.crudService.serviceNotifications.createNotificationOnResponse(error);

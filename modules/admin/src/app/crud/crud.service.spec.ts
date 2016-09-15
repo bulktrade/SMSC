@@ -114,8 +114,8 @@ describe('Crud Service', () => {
 
         crudService.initGridData = Promise.resolve();
 
-        crudService.deleteRecord(rid)
-            .then(res => {
+        crudService.deleteRecord([rid])
+            .subscribe(res => {
                 expect(res.json().result).toEqual('success');
             });
     }));

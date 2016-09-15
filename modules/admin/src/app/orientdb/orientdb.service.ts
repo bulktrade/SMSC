@@ -39,7 +39,7 @@ export class ODatabaseService {
         this.urlSuffix = '';
     }
 
-    batchRequest(data): Promise<Response> {
+    batchRequest(data): Observable<Response> {
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -50,20 +50,23 @@ export class ODatabaseService {
             body: data
         });
 
-        return this.authHttp.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
-            + this.urlSuffix,
-            requestOptions)
-            .toPromise()
-            .then(
-                res => {
-                    this.setErrorMessage(undefined);
-                    this.handleResponse(res);
-                    return Promise.resolve(res);
-                },
-                error => {
-                    this.setErrorMessage('Command error: ' + error.responseText);
-                    return Promise.reject(error);
-                });
+        return Observable.create((observer: Observer<Response>) => {
+            this.authHttp.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
+                + this.urlSuffix,
+                requestOptions)
+                .subscribe(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        observer.next(res);
+                        observer.complete();
+                    },
+                    error => {
+                        this.setErrorMessage('Command error: ' + error.responseText);
+                        observer.error(error);
+                        observer.complete();
+                    });
+        });
     };
 
     /**
@@ -99,7 +102,7 @@ export class ODatabaseService {
      *
      */
 
-    batch(operations: Array<Operation>): Promise<Response> {
+    batch(operations: Array<Operation>): Observable<Response> {
         let batch: Batch = {
             transaction: true,
             operations: operations

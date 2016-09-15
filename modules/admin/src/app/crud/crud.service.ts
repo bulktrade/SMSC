@@ -62,8 +62,15 @@ export class CrudService {
     }
 
     cellValueChanged(value) {
-        this.updateRecord(value.data)
-            .then(res => {
+        let operations: Array<Operation> = [
+            {
+                type: BatchType.Update,
+                record: value.data
+            }
+        ];
+
+        this.databaseService.batch(operations)
+            .subscribe(res => {
                 this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: 'none' }, value);
                 return Promise.resolve(res);
             }, err => {
@@ -137,7 +144,7 @@ export class CrudService {
         }
     }
 
-    createRecord(record, className): Promise<any> {
+    createRecord(record, className): Promise<Response> {
         record['@class'] = className;
         this.loadingService.start();
 
@@ -148,21 +155,21 @@ export class CrudService {
             }
         ];
 
-        this.crud = this.databaseService.batch(operations)
-            .then((res) => {
-                this.loadingService.stop();
-                this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
-                return Promise.resolve(res);
-            }, (error) => {
-                this.loadingService.stop();
-                this.serviceNotifications.createNotificationOnResponse(error);
-                return Promise.reject(error);
-            });
-
-        return this.crud;
+        return new Promise((resolve, reject) => {
+            this.databaseService.batch(operations)
+                .subscribe((res) => {
+                    this.loadingService.stop();
+                    this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
+                    resolve(res);
+                }, (error) => {
+                    this.loadingService.stop();
+                    this.serviceNotifications.createNotificationOnResponse(error);
+                    reject(error);
+                });
+        });
     }
 
-    updateRecord(record) {
+    updateRecord(record): Promise<Response> {
         this.loadingService.start();
 
         let operations: Array<Operation> = [
@@ -172,56 +179,50 @@ export class CrudService {
             }
         ];
 
-        this.crud = this.databaseService.batch(operations)
-            .then((res) => {
-                this.loadingService.stop();
-                this.serviceNotifications.createNotification('success', 'message.updateSuccessful', 'orientdb.successUpdate');
-                return Promise.resolve(res);
-            }, (error) => {
-                this.serviceNotifications.createNotificationOnResponse(error);
-                this.loadingService.stop();
-                return Promise.reject(error);
-            });
-
-        return this.crud;
+        return new Promise((resolve, reject) => {
+            this.databaseService.batch(operations)
+                .subscribe((res) => {
+                    this.loadingService.stop();
+                    this.serviceNotifications.createNotification('success', 'message.updateSuccessful', 'orientdb.successUpdate');
+                    resolve(res);
+                }, (error) => {
+                    this.serviceNotifications.createNotificationOnResponse(error);
+                    this.loadingService.stop();
+                    reject(error);
+                });
+        });
     }
 
-    deleteRecord(rid): Promise<any> {
+    deleteRecord(rid: Array<string>): Observable<Response> {
         let record: any = {};
         record['@rid'] = rid;
         this.loadingService.start();
 
-        let operations: Array<Operation> = [
-            {
-                type: BatchType.Delete,
-                record: record
-            }
-        ];
+        let operations: Array<Operation> = [];
 
-        this.crud = this.databaseService.batch(operations)
-            .then((res) => {
-                this.loadingService.stop();
-                this.serviceNotifications.createNotification('success', 'message.deleteSuccessful', 'orientdb.successDelete');
-                return Promise.resolve(res);
-            }, (error) => {
-                this.serviceNotifications.createNotificationOnResponse(error);
-                this.loadingService.stop();
-                return Promise.reject(error);
-            });
+        rid.forEach(i => {
+           let operation: Operation = {
+               type: BatchType.Delete,
+               record: {
+                   "@rid": i
+               }
+           };
 
-        return this.crud;
-    }
-
-    multipleDeleteRecords(id): Promise<any> {
-        let result: Promise<any>;
-
-        let rid = id.split(',');
-
-        rid.forEach((i) => {
-            result = this.deleteRecord(i);
+           operations.push(operation);
         });
 
-        return result;
+        return Observable.create((observer: Observer<Response>) => {
+            this.databaseService.batch(operations)
+                .subscribe((res) => {
+                    this.loadingService.stop();
+                    this.serviceNotifications.createNotification('success', 'message.deleteSuccessful', 'orientdb.successDelete');
+                    observer.next(res);
+                    observer.complete();
+                }, (error) => {
+                    this.serviceNotifications.createNotificationOnResponse(error);
+                    this.loadingService.stop();
+                });
+        })
     }
 
     clickOnCell(event) {
