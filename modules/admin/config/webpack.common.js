@@ -188,16 +188,8 @@ module.exports = function (options) {
                 {
                     test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
                     loader: 'imports?jQuery=jquery'
-                },
-
-                {
-                    test: /bootstrap\/js\/dist\/popover\.js$/,
-                    loader: 'string-replace-loader',
-                    query: {
-                        search: '//# sourceMappingURL=popover.js.map',
-                        replace: 'import Tooltip from "../src/tooltip";'
-                    }
                 }
+
             ]
 
         },
