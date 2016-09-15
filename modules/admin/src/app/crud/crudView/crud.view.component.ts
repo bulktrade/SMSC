@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
+import { ColumnDefsModel } from "../model/columnDefs.model";
 
 @Component({
     selector: 'crud-view',
@@ -15,7 +16,7 @@ import { CrudService } from "../crud.service";
 })
 
 export class CrudView {
-    public resolveData: any;
+    public resolveData: ColumnDefsModel = null;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -25,7 +26,7 @@ export class CrudView {
 
     ngOnInit() {
         this.resolveData = this.route.snapshot.data['view'];
-        this.crudService.gridOptions.columnDefs = this.resolveData;
+        this.crudService.gridOptions.columnDefs = this.resolveData.grid;
     }
 
     navigateToCreate() {

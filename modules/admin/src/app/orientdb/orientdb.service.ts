@@ -2,7 +2,7 @@
 
 import "rxjs/add/operator/map";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Rx";
+import { Observable, Observer } from "rxjs/Rx";
 import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
 import { AuthHttp } from "angular2-jwt";
 import { Batch } from "./model/batch";
@@ -260,7 +260,7 @@ export class ODatabaseService {
      * @param iFetchPlan
      * @returns {Promise<T>}
      */
-    query(iQuery?, iLimit?, iFetchPlan?) {
+    query(iQuery?, iLimit?, iFetchPlan?): Observable<Response> {
         if (iLimit === undefined || iLimit === '') {
             iLimit = '20';
         }
@@ -276,15 +276,7 @@ export class ODatabaseService {
             'Content-Type': 'application/json'
         });
 
-        return this.authHttp.get(this.urlPrefix + url + this.urlSuffix,
-            headers)
-            .toPromise()
-            .then((res: Response) => {
-                    return Promise.resolve(res);
-                }, (error) => {
-                    return Promise.reject(new Error('Query error: ' + error.responseText));
-                }
-            );
+        return this.authHttp.get(this.urlPrefix + url + this.urlSuffix, headers);
     }
 
     close() {

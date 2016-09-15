@@ -11,6 +11,9 @@ import { INPUT_TYPES } from "./common/form/form.inputTypes";
 import { ColumnDefsModel } from "./model/columnDefs.model";
 import { Operation } from "../orientdb/model/operation";
 import { BatchType } from "../orientdb/model/batchType";
+import { Observable, Observer } from "rxjs";
+import { GridPropertyModel } from "./model/gridProperty.model";
+import { FormPropertyModel } from "./model/formProperty.model";
 
 const squel = require('squel');
 
@@ -245,13 +248,18 @@ export class CrudService {
         }
     }
 
-    getStore(className) {
-        return this.databaseService.query('select from ' + className)
-            .then((res: Response) => {
-                let result = res.json()['result'];
-
-                return Promise.resolve(result);
-            })
+    getStore(className): Observable<Response> {
+        return Observable.create((observer: Observer<Response>) => {
+            this.databaseService.query('select from ' + className)
+                .subscribe((res: Response) => {
+                    observer.next(res);
+                    observer.complete();
+                }, (err: Response) => {
+                    observer.error(err);
+                    observer.complete();
+                    this.serviceNotifications.createNotificationOnResponse(err);
+                });
+        });
     }
 
     overlayLoadingTemplate() {
@@ -405,7 +413,7 @@ export class CrudService {
             });
     }
 
-    getColumnDefs(className, readOnly) {
+    getColumnDefs(className, readOnly): Observable<ColumnDefsModel> {
         let columnDefs: ColumnDefsModel = {
             grid: [],
             form: []
@@ -423,124 +431,139 @@ export class CrudService {
             });
         }
 
-        let queryCrudMetaGridData = squel.select()
-            .from('CrudMetaGridData')
-            .where('crudClassMetaData.class = ?', className);
+        return Observable.create((observer: Observer<ColumnModel>) => {
+            this.databaseService.getInfoClass(className)
+                .then((res: Response) => {
+                    let properties = res.json().properties;
 
+                    this.setPropertiesMetaGridData(properties, className)
+                        .subscribe((gridProperties: Array<GridPropertyModel>) => {
+                            this.setPropertiesMetaFormData(properties, className)
+                                .subscribe((formProperties: Array<FormPropertyModel>) => {
+                                    columnDefs.form = columnDefs.form.concat(formProperties);
+                                    columnDefs.grid = columnDefs.grid.concat(gridProperties);
+
+                                    observer.next(columnDefs);
+                                    observer.complete();
+                                }, (err: Response) => {
+                                    observer.error(err);
+                                    observer.complete();
+                                });
+                        }, (err: Response) => {
+                            observer.error(err);
+                            observer.complete();
+                        });
+                }, (err: Response) => {
+                    observer.error(err);
+                    observer.complete();
+                });
+        });
+    }
+
+    setPropertiesMetaFormData(properties, className): Observable<ColumnModel> {
         let queryCrudMetaFormData = squel.select()
             .from('CrudMetaFormData')
             .where('crudClassMetaData.class = ?', className);
 
-        return this.databaseService.getInfoClass(className)
-            .then((res: Response) => {
-                let properties = res.json().properties;
+        return Observable.create((observer: Observer<ColumnModel>) => {
+            this.databaseService.query(queryCrudMetaFormData.toString())
+                .subscribe((res: Response) => {
+                    let isExistForm: boolean;
+                    let columnsForm: Array<FormPropertyModel> = [];
+                    let result: Array<FormPropertyModel>;
 
-                return this.databaseService.query(queryCrudMetaGridData.toString())
-                    .then((res: Response) => {
-                        let isExistColumn: boolean = res.json()['result'].length > 0 ? true : false;
+                    try {
+                        isExistForm = res.json()['result'].length > 0 ? true : false;
+                        result = isExistForm ? res.json()['result'] : properties;
+                    } catch (ex) {
+                        observer.error(ex);
+                    }
 
-                        let columnsGrid = [];
-                        let result = isExistColumn ? res.json()['result'] : properties; // add try / catch, can throws an error
+                    this.translateColumnsName(result, isExistForm ? 'property' : 'name')
+                        .then((columnsName) => {
+                            for (let i in result) {
+                                let column: FormPropertyModel = result[i];
 
-                        return this.translateColumnsName(result, isExistColumn ? 'property' : 'name')
-                            .then((columnsName) => {
-                                for (let i in result) {
-                                    let column = result[i];
+                                if (isExistForm) {
+                                    column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
 
-                                    if (isExistColumn) {
-                                        column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
-                                        column['field'] = result[i]['property'];
-                                        column['hide'] = !result[i]['visible'];
-                                        column['width'] = result[i]['columnWidth'];
+                                    this.getPropertyMetadata(column, false, properties);
+                                    columnsForm.push(column);
+                                } else {
+                                    column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
+                                    column['property'] = result[i]['name'];
+                                    column['editable'] = !result[i]['readonly'];
+                                    column['visible'] = true;
 
-                                        this.getPropertyMetadata(column, true, properties);
-                                        columnsGrid.push(column);
-                                    } else {
-                                        column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
-                                        column['field'] = result[i]['name'];
-                                        columnsGrid.push(column);
-                                    }
+                                    columnsForm.push(column);
                                 }
+                            }
 
-                                let gridColumnModel: ColumnModel = {
-                                    grid: columnsGrid,
-                                    isExistGridColumn: isExistColumn,
-                                };
+                            if (isExistForm) {
+                                columnsForm.sort(this.compare);
+                            }
 
-                                return Promise.resolve(gridColumnModel);
-                            });
-                    }, (error) => {
-                        return Promise.reject(error);
-                    })
-                    .then((gridColumnModel: ColumnModel) => {
-                        return this.databaseService.query(queryCrudMetaFormData.toString())
-                            .then((res: Response) => {
-                                let isExistForm = res.json()['result'].length > 0 ? true : false;
-                                let columnsForm = [];
-                                let result = isExistForm ? res.json()['result'] : properties;
-
-                                return this.translateColumnsName(result, isExistForm ? 'property' : 'name')
-                                    .then((columnsName) => {
-                                        for (let i in result) {
-                                            let column = result[i];
-
-                                            if (isExistForm) {
-                                                column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
-
-                                                this.getPropertyMetadata(column, false, properties);
-                                                columnsForm.push(column);
-                                            } else {
-                                                column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
-                                                column['property'] = result[i]['name'];
-                                                column['editable'] = !result[i]['readonly'];
-                                                column['visible'] = true;
-
-                                                columnsForm.push(column);
-                                            }
-                                        }
-
-                                        let columnModel: ColumnModel = {
-                                            grid: gridColumnModel.grid,
-                                            isExistGridColumn: gridColumnModel.isExistGridColumn,
-                                            form: columnsForm,
-                                            isExistFormColumn: isExistForm,
-                                            columnDefs: columnDefs,
-                                        };
-
-                                        return Promise.resolve(columnModel);
-                                    });
-                            }, (error) => {
-                                return Promise.reject(error);
-                            })
-                    }, (error) => {
-                        return Promise.reject(error);
-                    })
-            }, (error) => {
-                return Promise.reject(error);
-            });
+                            observer.next(columnsForm);
+                            observer.complete();
+                        });
+                }, (err) => {
+                    observer.error(err);
+                    observer.complete();
+                })
+        });
     }
 
-    initColumnDefs(className, isGrid: boolean, readOnly: boolean): Promise<any> {
-        return this.getColumnDefs(className, readOnly)
-            .then((result: ColumnModel) => {
-                let columnDefs: ColumnDefsModel = result.columnDefs;
+    setPropertiesMetaGridData(properties, className): Observable<ColumnModel> {
+        let queryCrudMetaGridData = squel.select()
+            .from('CrudMetaGridData')
+            .where('crudClassMetaData.class = ?', className);
 
-                if (result.isExistFormColumn) {
-                    result.form.sort(this.compare);
-                }
+        return Observable.create((observer: Observer<ColumnModel>) => {
+            this.databaseService.query(queryCrudMetaGridData.toString())
+                .subscribe((res: Response) => {
+                    let isExistColumn: boolean;
+                    let columnsGrid: Array<GridPropertyModel> = [];
+                    let result: Array<GridPropertyModel>;
 
-                if (result.isExistGridColumn) {
-                    result.grid.sort(this.compare);
-                }
+                    try {
+                        isExistColumn = res.json()['result'].length > 0 ? true : false;
+                        result = isExistColumn ? res.json()['result'] : properties;
+                    } catch (ex) {
+                        observer.error(ex);
+                    }
 
-                columnDefs.form = columnDefs.form.concat(result.form);
-                columnDefs.grid = columnDefs.grid.concat(result.grid);
+                    return this.translateColumnsName(result, isExistColumn ? 'property' : 'name')
+                        .then((columnsName) => {
+                            for (let i in result) {
+                                let column: GridPropertyModel = result[i];
 
-                return Promise.resolve(isGrid ? columnDefs.grid : columnDefs.form);
-            }, err => {
-                this.serviceNotifications.createNotificationOnResponse(err);
-                return Promise.reject(err);
-            })
+                                if (isExistColumn) {
+                                    column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
+                                    column['field'] = result[i]['property'];
+                                    column['hide'] = !result[i]['visible'];
+                                    column['width'] = result[i]['columnWidth'];
+
+                                    this.getPropertyMetadata(column, true, properties);
+                                    columnsGrid.push(column);
+                                } else {
+                                    column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
+                                    column['field'] = result[i]['name'];
+                                    columnsGrid.push(column);
+                                }
+                            }
+
+                            if (isExistColumn) {
+                                columnsGrid.sort(this.compare);
+                            }
+
+                            observer.next(columnsGrid);
+                            observer.complete();
+                        });
+                }, (error) => {
+                    observer.error(error);
+                    observer.complete();
+                })
+        });
     }
 
     // to get additional metadata for the property. As the type linkedClass, mandatory, etc.

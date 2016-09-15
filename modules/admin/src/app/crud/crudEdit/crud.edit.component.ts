@@ -3,6 +3,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { Location } from "@angular/common";
+import { EditModel } from "./crud.edit.model";
 
 @Component({
     selector: 'crud-edit',
@@ -15,7 +16,7 @@ import { Location } from "@angular/common";
 })
 
 export class CrudEdit {
-    public resolveData: any;
+    public resolveData: EditModel;
     public btnName: string = 'UPDATE';
 
     constructor(public translate: TranslateService,
@@ -28,11 +29,11 @@ export class CrudEdit {
     ngOnInit() {
         this.resolveData = this.route.snapshot.data['edit'];
 
-        if (this.resolveData.model) {
-            this.crudService.setModel(this.resolveData.model);
+        if (this.resolveData.inputModel) {
+            this.crudService.setModel(this.resolveData.inputModel);
         }
 
-        this.crudService.gridOptions.columnDefs = this.resolveData.initGridData;
+        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs.form;
     }
 
     back() {

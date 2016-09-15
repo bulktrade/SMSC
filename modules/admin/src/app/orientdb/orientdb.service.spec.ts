@@ -60,7 +60,7 @@ describe('ODatabaseService', () => {
         });
 
         db.query('select from Customer')
-            .then((res: Response) => {
+            .subscribe((res: Response) => {
                 expect(res.json().result).toEqual('success');
             });
     }));

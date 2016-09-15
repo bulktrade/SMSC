@@ -41,7 +41,7 @@ export class GridService {
                     }
                     linkset['type'] = i['type'];
                 } else if (i['type'] === 'LINK') {
-                    if (typeof row[i['name']] !== 'undefined') {
+                    if (typeof row[i['name']] !== 'undefined' && row[i['name']] !== null) {
                         promises.push(this.getLinksetName(row, i['name'], i['linkedClass'], i['type']));
                     }
                 }
@@ -68,12 +68,15 @@ export class GridService {
                                 }
                                 break;
                             case 'LINK':
-                                let rid = linkset[keyLink];
+                                if (record.hasOwnProperty(columnName)
+                                    && typeof columnName !== 'undefined') {
+                                    let rid = linkset[keyLink];
 
-                                linkset[keyLink] = [];
-                                linkset[keyLink][0] = record[columnName];
-                                linkset[keyLink]['rid'] = rid;
-                                linkset[keyLink]['type'] = type;
+                                    linkset[keyLink] = [];
+                                    linkset[keyLink][0] = record[columnName];
+                                    linkset[keyLink]['rid'] = rid;
+                                    linkset[keyLink]['type'] = type;
+                                }
                                 break;
                         }
                     });
@@ -83,24 +86,25 @@ export class GridService {
             })
     }
 
-    getTitleColumns(className) {
+    getTitleColumns(className): Promise<string> {
         let queryCrudClassMetaData = squel.select()
             .from('CrudClassMetaData')
             .where('class = ?', className);
 
-        return this.database.query(
-            queryCrudClassMetaData.toString())
-            .then((res) => {
-                let result = null;
+        return new Promise((resolve, reject) => {
+            this.database.query(
+                queryCrudClassMetaData.toString())
+                .subscribe((res) => {
+                    let result = null;
 
-                if (res.json().result.length) {
-                    result = res.json().result[0].titleColumns;
-                }
-                return Promise.resolve(result);
-            })
-            .catch((error) => {
-                this.serviceNotifications.createNotificationOnResponse(error);
-                return Promise.reject(error);
-            });
+                    if (res.json().result.length) {
+                        result = res.json().result[0].titleColumns;
+                    }
+
+                    resolve(result);
+                }, err => {
+                    reject(err);
+                })
+        });
     }
 }

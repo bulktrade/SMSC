@@ -134,7 +134,7 @@ describe('Crud Service', () => {
         });
 
         crudService.getStore(className)
-            .then(res => {
+            .subscribe(res => {
                 expect(res).toBeDefined();
             });
     }));

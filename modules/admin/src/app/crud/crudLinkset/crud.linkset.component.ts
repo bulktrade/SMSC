@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { Location } from "@angular/common";
 import { GridService } from "../../services/grid.service";
+import { ColumnDefsModel } from "../model/columnDefs.model";
 
 @Component({
     selector: 'crud-linkset',
@@ -17,7 +18,7 @@ import { GridService } from "../../services/grid.service";
 })
 
 export class CrudLinkset {
-    public resolveData: any;
+    public resolveData: ColumnDefsModel = null;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -29,7 +30,7 @@ export class CrudLinkset {
 
     ngOnInit() {
         this.resolveData = this.route.snapshot.data['linkset'];
-        this.crudService.gridOptions.columnDefs = this.resolveData;
+        this.crudService.gridOptions.columnDefs = this.resolveData.grid;
     }
 
     back() {

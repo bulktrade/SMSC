@@ -8,6 +8,7 @@ import { GridService } from "../../../services/grid.service";
 import { CommonModule } from "@angular/common";
 import { MdSelectModule } from "../../../common/material/select/select";
 import { MdModule } from "../../../md.module";
+import { Observable, Observer } from "rxjs";
 
 const squel = require('squel');
 
@@ -48,15 +49,15 @@ export class GridPagination {
 
     changePageSize() {
         if (this.pageSize === 'All records') {
-            return this.createNewDatasource();
+            this.createNewDatasource();
         } else {
-            return this.getSizeClass(this.className)
-                .then(size => {
+            this.getSizeClass(this.className)
+                .subscribe(size => {
                     if (this.currentPage * this.pageSize <= size) {
                         let skip = this.currentPage * this.pageSize;
                         let limit = this.pageSize;
 
-                        return this.createNewDatasource(skip, limit);
+                        this.createNewDatasource(skip, limit);
                     } else {
                         let lastRows = size - this.currentPage * this.pageSize;
 
@@ -64,25 +65,25 @@ export class GridPagination {
                             let skip = this.currentPage * this.pageSize;
                             let limit = lastRows;
 
-                            return this.createNewDatasource(skip, limit);
+                            this.createNewDatasource(skip, limit);
                         }
                     }
                 });
         }
     }
 
-    first(): Promise<any> {
+    first() {
         this.setCurrentPage(0);
 
         let skip = this.currentPage * this.pageSize;
         let limit = this.pageSize;
 
-        return this.createNewDatasource(skip, limit);
+        this.createNewDatasource(skip, limit);
     }
 
     last() {
-        return this.getSizeClass(this.className)
-            .then(size => {
+        this.getSizeClass(this.className)
+            .subscribe(size => {
                 let remainderRows = size % this.pageSize;
                 this.setCurrentPage(Math.floor(size / this.pageSize));
 
@@ -101,43 +102,60 @@ export class GridPagination {
             });
     }
 
-    previous(): Promise<any> {
+    previous() {
         if ((this.currentPage - 1) * this.pageSize >= 0) {
             this.currentPage -= 1;
 
             let skip = this.currentPage * this.pageSize;
             let limit = this.pageSize;
 
-            return this.createNewDatasource(skip, limit);
-        } else {
-            return Promise.resolve();
+            this.createNewDatasource(skip, limit);
         }
     }
 
-    next() {
-        this.getSizeClass(this.className)
-            .then(size => {
-                if ((this.currentPage + 1) * this.pageSize < size) {
-                    this.currentPage += 1;
+    next(): Observable<Array<any>> {
+        return Observable.create((observer: Observer<Array<any>>) => {
+            this.getSizeClass(this.className)
+                .subscribe(size => {
+                    if ((this.currentPage + 1) * this.pageSize < size) {
+                        this.currentPage += 1;
 
-                    let skip = this.currentPage * this.pageSize;
-                    let limit = this.pageSize;
-
-                    this.createNewDatasource(skip, limit);
-                } else {
-                    let lastRows = size - this.currentPage * this.pageSize;
-
-                    if (lastRows) {
                         let skip = this.currentPage * this.pageSize;
-                        let limit = lastRows;
+                        let limit = this.pageSize;
 
-                        this.createNewDatasource(skip, limit);
+                        return this.createNewDatasource(skip, limit)
+                            .then(res => {
+                                observer.next(res);
+                                observer.complete();
+                            }, err => {
+                                observer.error(err);
+                                observer.complete();
+                            });
+                    } else {
+                        let lastRows = size - this.currentPage * this.pageSize;
+
+                        if (lastRows) {
+                            let skip = this.currentPage * this.pageSize;
+                            let limit = lastRows;
+
+                            return this.createNewDatasource(skip, limit)
+                                .then(res => {
+                                    observer.next(res);
+                                    observer.complete();
+                                }, err => {
+                                    observer.error(err);
+                                    observer.complete();
+                                });
+                        }
                     }
-                }
-            });
+                }, error => {
+                    observer.error(error);
+                    observer.complete();
+                });
+        });
     }
 
-    createNewDatasource(skip?, limit?) {
+    createNewDatasource(skip?, limit?): Promise<Array<any>> {
         let sql;
 
         if (skip === undefined && limit === undefined) {
@@ -154,47 +172,53 @@ export class GridPagination {
             this.gridOptions.api.showLoadingOverlay();
         }
 
-        return this.databaseService.query(sql.toString())
-            .then((res: Response) => {
-                this.rowsThisPage = res.json().result;
+        return new Promise((resolve, reject) => {
+            this.databaseService.query(sql.toString())
+                .subscribe((res: Response) => {
+                    this.rowsThisPage = res.json().result;
 
-                if (skip === undefined && limit === undefined) {
-                    this.fromRecord = 0;
-                    this.toRecord = this.rowsThisPage.length;
-                } else {
-                    this.setFromRecord();
-                    this.setToRecord(this.rowsThisPage.length);
-                }
+                    if (skip === undefined && limit === undefined) {
+                        this.fromRecord = 0;
+                        this.toRecord = this.rowsThisPage.length;
+                    } else {
+                        this.setFromRecord();
+                        this.setToRecord(this.rowsThisPage.length);
+                    }
 
-                return this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
-                    this.rowsThisPage)
-                    .then(() => {
+                    this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
+                        this.rowsThisPage)
+                        .then(() => {
 
-                        if (this.gridOptions.api) {
-                            this.gridOptions.api.setRowData(this.rowsThisPage);
-                            this.gridOptions.rowData = this.rowsThisPage;
-                            this.gridOptions.api.hideOverlay();
-                        }
+                            if (this.gridOptions.api) {
+                                this.gridOptions.api.setRowData(this.rowsThisPage);
+                                this.gridOptions.rowData = this.rowsThisPage;
+                                this.gridOptions.api.hideOverlay();
+                            }
 
-                        return Promise.resolve(this.rowsThisPage);
-                    });
-            }, (error) => {
-                this.serviceNotifications.createNotificationOnResponse(error);
-                return Promise.reject(error);
-            })
+                            resolve(this.rowsThisPage);
+                        });
+                }, (error) => {
+                    this.serviceNotifications.createNotificationOnResponse(error);
+                    reject(error);
+                })
+        });
     }
 
-    getSizeClass(className) {
+    getSizeClass(className): Observable<number> {
         let classSize = squel.select()
             .from(className);
 
-        return this.databaseService.query(classSize.toString())
-            .then((res: Response) => {
-                return Promise.resolve(res.json().result.length);
-            }, (error) => {
-                this.serviceNotifications.createNotificationOnResponse(error);
-                return Promise.reject(error);
-            })
+        return Observable.create((observer: Observer<number>) => {
+            this.databaseService.query(classSize.toString())
+                .subscribe((res: Response) => {
+                    observer.next(res.json().result.length);
+                    observer.complete();
+                }, (error) => {
+                    this.serviceNotifications.createNotificationOnResponse(error);
+                    observer.error(error);
+                    observer.complete();
+                })
+        });
     }
 
     getCurrentPage(): number {

@@ -14,7 +14,7 @@ export class CrudCreateResolve extends CrudResolve {
         let className = route.params['className'];
         this.crudService.setParentPath(route.parent.parent.routeConfig.path);
 
-        return this.crudService.initColumnDefs(className, false, false);
+        return this.crudService.getColumnDefs(className, false);
     }
 
 }

@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { CrudResolve } from "../common/crudResolve";
 import { CrudService } from "../crud.service";
 import { LoadingGridService } from "../../services/loading/loadingGrid.service";
+import { ColumnDefsModel } from "../model/columnDefs.model";
+import { Observer, Observable } from "rxjs";
 
 @Injectable()
 export class CrudViewResolve extends CrudResolve {
@@ -18,14 +20,18 @@ export class CrudViewResolve extends CrudResolve {
 
         this.loadingGridService.start();
 
-        return this.crudService.initColumnDefs(this.crudService.getClassName(), true, true)
-            .then(initColumnDefs => {
-                this.loadingGridService.stop();
-                return Promise.resolve(initColumnDefs);
-            }, err => {
-                this.loadingGridService.stop();
-                return Promise.reject(err);
-            });
+        return Observable.create((observer: Observer<ColumnDefsModel>) => {
+            this.crudService.getColumnDefs(this.crudService.getClassName(), true)
+                .subscribe((res: ColumnDefsModel) => {
+                    this.loadingGridService.stop();
+                    observer.next(res);
+                    observer.complete();
+                }, err => {
+                    this.loadingGridService.stop();
+                    observer.error(err);
+                    observer.complete();
+                });
+        });
     }
 
 }
