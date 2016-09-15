@@ -59,7 +59,27 @@ export class CrudService {
     }
 
     cellValueChanged(value) {
-        this.updateRecord(value.data);
+        this.updateRecord(value.data)
+            .then(res => {
+                this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: 'none' }, value);
+                return Promise.resolve(res);
+            }, err => {
+                this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: '#ffccba' }, value);
+                return Promise.reject(err);
+            });
+    }
+
+    setCellStyleWhenDataIncorrect(gridOptions: GridOptions, style: Object, changeCell) {
+        gridOptions.columnDefs.filter(i => {
+            if (i.property === changeCell.colDef.property) {
+                i.cellStyle = (params) => {
+                    if (params.data['@rid'] === changeCell.data['@rid']) {
+                        return style;
+                    }
+                }
+            }
+        });
+        gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
     }
 
     typeForInput(type) {
