@@ -77,7 +77,7 @@ export class CrudService {
                 return Promise.resolve(res);
             }, err => {
                 this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: '#ffccba' }, value);
-                this.serviceNotifications.createNotificationOnResponse(err);
+                this.serviceNotifications.incorrectData(err.json().errors[0].content);
                 return Promise.reject(err);
             });
     }

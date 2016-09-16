@@ -4,7 +4,7 @@ export const NOTIFICATION_OPTIONS = {
     clickToClose: true,
     maxLength: 0,
     maxStack: 7,
-    showProgressBar: false,
+    showProgressBar: true,
     pauseOnHover: true,
     preventDuplicates: false,
     preventLastDuplicates: "visible",

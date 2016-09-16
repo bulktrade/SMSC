@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { NotificationsService } from "angular2-notifications/components";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Response } from "@angular/http";
+import { Error } from "./error";
 
 @Injectable()
 export class NotificationService {
@@ -9,7 +10,7 @@ export class NotificationService {
                 public notificationsService:NotificationsService) {
     }
 
-    createNotification(type, title, content) {
+    createNotification(type: string, title: string, content: string) {
         this.translate.get(title).subscribe((title) => {
             this.translate.get(content).subscribe((content) => {
                 switch (type) {
@@ -54,4 +55,21 @@ export class NotificationService {
                 break;
         }
     }
+
+    incorrectData(errMessage: string) {
+       let content: string = errMessage;
+
+        let error: Error = {
+            numberFormatException: 'NumberFormatException'
+        };
+
+        for (let i in error) {
+            if(errMessage.match(error[i])) {
+                content = errMessage.substring(errMessage.match(error[i]).index);
+            }
+        }
+
+        this.createNotification('error', 'ERROR', content);
+    }
+
 }
