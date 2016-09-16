@@ -36,10 +36,6 @@ export class CrudEdit {
         this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs.form;
     }
 
-    back() {
-        this.location.back();
-    }
-
     ngOnDestroy() {
         this.crudService.multipleSelectValid = false;
         this.crudService.setModel({});

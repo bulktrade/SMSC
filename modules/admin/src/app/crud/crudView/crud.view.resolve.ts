@@ -16,7 +16,7 @@ export class CrudViewResolve extends CrudResolve {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         this.crudService.setClassName(route.parent.parent.data['crudClass']);
-        this.crudService.setParentPath(route.pathFromRoot);
+        this.crudService.setParentPath(route.parent.parent.pathFromRoot);
 
         this.loadingGridService.start();
 

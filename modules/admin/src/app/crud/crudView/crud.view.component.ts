@@ -3,6 +3,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { ColumnDefsModel } from "../model/columnDefs.model";
+import { LinksetProperty } from "../model/linksetProperty";
 
 @Component({
     selector: 'crud-view',
@@ -45,14 +46,13 @@ export class CrudView {
         if (event.colDef.type === 'LINK' ||
             event.colDef.type === 'LINKSET') {
             this.crudService.setLinkedClass(event.colDef.linkedClass);
-            this.crudService.setModifiedRecord({
-                data: event.data,
-                modifiedLinkset: event.colDef.field,
+            let linsetProperty: LinksetProperty = {
+                name: event.colDef.property,
                 type: event.colDef.type,
-                from: this.route.component['name']
-            });
+                data: event.data
+            };
 
-            this.crudService.navigateToLinkset();
+            this.crudService.navigateToLinkset(linsetProperty);
         }
     }
 }

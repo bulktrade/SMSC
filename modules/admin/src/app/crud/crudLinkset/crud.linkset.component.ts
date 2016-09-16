@@ -5,6 +5,8 @@ import { CrudService } from "../crud.service";
 import { Location } from "@angular/common";
 import { GridService } from "../../services/grid.service";
 import { ColumnDefsModel } from "../model/columnDefs.model";
+import { CrudLevel } from "../model/crudLevel";
+import { RouterOutletService } from "../../services/routerOutletService";
 
 @Component({
     selector: 'crud-linkset',
@@ -25,7 +27,8 @@ export class CrudLinkset {
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public gridService: GridService) {
+                public gridService: GridService,
+                public roService: RouterOutletService) {
     }
 
     ngOnInit() {
@@ -51,32 +54,30 @@ export class CrudLinkset {
     }
 
     addLink(gridOptions) {
-        let params: any = this.crudService.modifiedRecord.data;
+        let className = this.crudService.getLinkedClass();
+        let previousCrudLevel: CrudLevel = this.crudService.previousCrudLevel();
+        let params: any = previousCrudLevel.linksetProperty.data;
 
-        return this.getLinkset(gridOptions, this.crudService.modifiedRecord.type)
+        return this.getLinkset(gridOptions, previousCrudLevel.linksetProperty.type, className)
             .then(linkSet => {
-                if (this.crudService.modifiedRecord.type === 'LINK') {
-                    params[this.crudService.modifiedRecord.modifiedLinkset] = linkSet;
-                } else {
-                    params[this.crudService.modifiedRecord.modifiedLinkset] = linkSet;
-                }
+                params[previousCrudLevel.linksetProperty.name] = linkSet;
 
-                if (this.crudService.modifiedRecord.from === 'CrudView') {
+                if (this.roService.isPreviousRoute('CrudView')) {
                     this.crudService.updateRecord(params);
-                    this.back();
+                    this.location.back();
                 } else {
                     this.crudService.model = params;
-                    this.back();
+                    this.location.back();
                 }
 
             });
     }
 
-    getLinkset(gridOptions, type) {
+    getLinkset(gridOptions, type, className) {
         let focusedRows = gridOptions.api.getSelectedRows();
         let result = [];
 
-        return this.gridService.getTitleColumns(this.crudService.getLinkedClass())
+        return this.gridService.getTitleColumns(className)
             .then((columnName) => {
                 for (let i = 0; i < focusedRows.length; i++) {
                     switch (type) {

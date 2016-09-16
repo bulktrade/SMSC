@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { CubeGridModule } from "./spinner/cubeGrid/cubeGrid.component";
 import { LoadingRouterOutletService } from "../services/loading/loadingRouterOutlet.service";
+import { RouterOutletService } from "../services/routerOutletService";
 
 @Component({
     selector: 'loading-router-outlet',
@@ -27,12 +28,21 @@ import { LoadingRouterOutletService } from "../services/loading/loadingRouterOut
     ],
     template: `
         <div class="cubeGrid" *ngIf="loadingService.loading"><sk-cube-grid></sk-cube-grid></div>
-        <router-outlet [ngClass]="{hide: loadingService.loading}"></router-outlet>
+        <router-outlet [ngClass]="{hide: loadingService.loading}" (activate)='onActivate($event)' (deactivate)='onDeactivate($event)'></router-outlet>
     `
 })
 
 export class LoadingRouterOutlet {
-    constructor(public loadingService: LoadingRouterOutletService) {
+    constructor(public loadingService: LoadingRouterOutletService,
+                public roService: RouterOutletService) {
+    }
+
+    onActivate(event) {
+        this.roService.currentRoute = event;
+    }
+
+    onDeactivate(event) {
+        this.roService.previousRoute = event;
     }
 }
 

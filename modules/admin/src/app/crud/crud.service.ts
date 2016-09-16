@@ -14,24 +14,25 @@ import { BatchType } from "../orientdb/model/batchType";
 import { Observable, Observer } from "rxjs";
 import { GridPropertyModel } from "./model/gridProperty.model";
 import { FormPropertyModel } from "./model/formProperty.model";
+import { CrudLevel } from "./model/crudLevel";
+import { Location } from "@angular/common";
+import { LinksetProperty } from "./model/linksetProperty";
 
 const squel = require('squel');
-
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
 
 @Injectable()
 export class CrudService {
-    private _currentCrudLevel: number = 1;
     private limitCrudLevel: number = 3;
     public hintMessage: string;
+    public crudLevel: Array<CrudLevel> = [];
     public isHint: Array<boolean> = [];
-    public modifiedRecord: any = {};
     public focusedRow: any;
     public multipleSelectValid = false;
     public querySelectors = null;
     public embeddedList = null;
     public rowSelectionLinkset = null;
-    public linkedClass = null;
+    public linkedClass: string = null;
     public initGridData: Promise<any> = Promise.resolve();
     public crud: Promise<any> = Promise.resolve();
     public parentPath = null;
@@ -72,9 +73,11 @@ export class CrudService {
         this.databaseService.batch(operations)
             .subscribe(res => {
                 this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: 'none' }, value);
+                this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
                 return Promise.resolve(res);
             }, err => {
                 this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: '#ffccba' }, value);
+                this.serviceNotifications.createNotificationOnResponse(err);
                 return Promise.reject(err);
             });
     }
@@ -90,58 +93,6 @@ export class CrudService {
             }
         });
         gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
-    }
-
-    typeForInput(type) {
-        let types = INPUT_TYPES;
-        let result: string = null;
-
-        result = types.find((i) => {
-            if (i === type) {
-                return true;
-            }
-
-            return false;
-        });
-
-        result = this.inputType(result);
-
-        return result;
-    }
-
-    inputType(type) {
-        let result: string;
-
-        switch (type) {
-            case 'STRING':
-                result = 'text';
-                break;
-            case 'DATE':
-                result = 'date';
-                break;
-            case 'DATETIME':
-                result = 'datetime';
-                break;
-            case 'DOUBLE':
-            case 'INTEGER':
-            case 'FLOAT':
-            case 'BYTE':
-            case 'DECIMAL':
-                result = 'number';
-                break;
-            default:
-                result = null;
-                break;
-        }
-
-        return result;
-    }
-
-    isRequired(event) {
-        if (event) {
-            this.multipleSelectValid = true;
-            return;
-        }
     }
 
     createRecord(record, className): Promise<Response> {
@@ -374,9 +325,32 @@ export class CrudService {
         this.router.navigate([this.parentPath, 'delete', id]);
     }
 
-    navigateToLinkset() {
-        this.nextCrudLevel();
+    navigateToLinkset(linsetProperty?: LinksetProperty) {
+        this.nextCrudLevel(linsetProperty);
         this.router.navigate([this.parentPath, 'linkset']);
+    }
+
+    nextCrudLevel(linsetProperty?: LinksetProperty) {
+        let crudLevel: CrudLevel = {
+            className: this.getLinkedClass(),
+            inputModel: this.model,
+            linksetProperty: linsetProperty
+        };
+
+        this.crudLevel.push(crudLevel);
+    }
+
+    previousCrudLevel(): CrudLevel {
+        let previousLevel: CrudLevel = this.crudLevel.pop();
+
+        this.setLinkedClass(previousLevel.className);
+        this.setModel(previousLevel.inputModel);
+
+        return previousLevel;
+    }
+
+    backFromForm(location: Location) {
+        location.back();
     }
 
     getSelectedRID(gridOptions) {
@@ -624,10 +598,62 @@ export class CrudService {
     }
 
     isLimitCrudLevel() {
-        if (this.currentCrudLevel >= this.limitCrudLevel) {
+        if (this.crudLevel.length >= this.limitCrudLevel - 1) {
             return true;
         } else {
             return false;
+        }
+    }
+
+    typeForInput(type) {
+        let types = INPUT_TYPES;
+        let result: string = null;
+
+        result = types.find((i) => {
+            if (i === type) {
+                return true;
+            }
+
+            return false;
+        });
+
+        result = this.inputType(result);
+
+        return result;
+    }
+
+    inputType(type) {
+        let result: string;
+
+        switch (type) {
+            case 'STRING':
+                result = 'text';
+                break;
+            case 'DATE':
+                result = 'date';
+                break;
+            case 'DATETIME':
+                result = 'datetime';
+                break;
+            case 'DOUBLE':
+            case 'INTEGER':
+            case 'FLOAT':
+            case 'BYTE':
+            case 'DECIMAL':
+                result = 'number';
+                break;
+            default:
+                result = null;
+                break;
+        }
+
+        return result;
+    }
+
+    isRequired(event) {
+        if (event) {
+            this.multipleSelectValid = true;
+            return;
         }
     }
 
@@ -644,36 +670,12 @@ export class CrudService {
         this.parentPath = pathFromRoot;
     }
 
-    nextCrudLevel() {
-        this._currentCrudLevel += 1;
-    }
-
-    previousCrudLevel() {
-        this._currentCrudLevel -= 1;
-    }
-
-    get currentCrudLevel(): number {
-        return this._currentCrudLevel;
-    }
-
-    set currentCrudLevel(value: number) {
-        this._currentCrudLevel = value;
-    }
-
     setClassName(className) {
         this.className = className;
     }
 
     getClassName() {
         return this.className;
-    }
-
-    setModifiedRecord(ridModifiedRecord) {
-        this.modifiedRecord = ridModifiedRecord;
-    }
-
-    getModifiedRecord() {
-        return this.modifiedRecord;
     }
 
     setLinkedClass(linkedClass) {

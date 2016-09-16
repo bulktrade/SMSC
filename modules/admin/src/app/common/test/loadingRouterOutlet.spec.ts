@@ -1,14 +1,18 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { LoadingRouterOutlet } from "../loadingRouterOutlet";
 import { HttpModule } from "@angular/http";
+import { LoadingGridService } from "../../services/loading/loadingGrid.service";
+import { CRUD_PROVIDERS } from "../../crud/common/crudProviders";
 import { LoadingRouterOutletService } from "../../services/loading/loadingRouterOutlet.service";
 
 describe('Loading RouterOutlet', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
+                ...CRUD_PROVIDERS,
+                LoadingRouterOutletService,
                 LoadingRouterOutlet,
-                LoadingRouterOutletService
+                LoadingGridService
             ],
             imports: [
                 HttpModule

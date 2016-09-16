@@ -39,6 +39,7 @@ import { LoadingRouterOutletModule } from "./common/loadingRouterOutlet";
 import { ConfigService } from "./config/configService";
 import { LoadingRouterOutletService } from "./services/loading/loadingRouterOutlet.service";
 import { LoadingService } from "./services/loading/loading.service";
+import { RouterOutletService } from "./services/routerOutletService";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -47,6 +48,7 @@ export const APP_PROVIDERS = [
     LoadingService,
     LoadingRouterOutletService,
     CrudService,
+    RouterOutletService,
     GridService,
     TokenService,
     AuthService,

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { EventEmitter } from "@angular/common/src/facade/async";
 import { Location } from "@angular/common";
 import { CrudService } from "../../crud.service";
+import { LinksetProperty } from "../../model/linksetProperty";
 
 @Component({
     selector: 'multiple-select',
@@ -105,16 +106,15 @@ export class MultipleSelect {
     addLinkset(): void {
         this.resetParams();
         this.crudService.multipleSelectValid = false;
-        this.crudService.setLinkedClass(this.property.linkedClass);
 
-        this.crudService.setModifiedRecord({
-            data: this.crudService.model,
-            modifiedLinkset: this.property.property,
+        let linsetProperty: LinksetProperty = {
+            name: this.property.property,
             type: this.property.type,
-            from: this.route.component['name']
-        });
+            data: this.crudService.model
+        };
 
-        this.crudService.navigateToLinkset();
+        this.crudService.navigateToLinkset(linsetProperty);
+        this.crudService.setLinkedClass(this.property.linkedClass);
     }
 
     resetParams(): void {

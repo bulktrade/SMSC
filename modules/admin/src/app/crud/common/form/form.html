@@ -33,7 +33,7 @@
             <div class="wrapBtn">
                 <div class="formButtons">
                     <button md-raised-button color="primary" type="button"
-                            (click)="back()" id="back">{{'BACK' | translate}}
+                            (click)="crudService.backFromForm(location)" id="back">{{'BACK' | translate}}
                     </button>
                     <button [disabled]="crudService.multipleSelectValid || !addingForm.valid" md-raised-button
                             color="primary"
