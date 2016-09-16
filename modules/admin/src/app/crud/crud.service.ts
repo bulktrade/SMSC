@@ -631,6 +631,19 @@ export class CrudService {
         }
     }
 
+    setParentPath(parent: Array<ActivatedRouteSnapshot>) {
+        let pathFromRoot: string = '';
+        let urlSuffix: string = '/';
+
+        for (let i in parent) {
+            if (parent[i].routeConfig !== null && parent[i].routeConfig.path !== '') {
+                pathFromRoot += parent[i].routeConfig.path + urlSuffix;
+            }
+        }
+
+        this.parentPath = pathFromRoot;
+    }
+
     nextCrudLevel() {
         this._currentCrudLevel += 1;
     }
@@ -669,19 +682,6 @@ export class CrudService {
 
     getLinkedClass() {
         return this.linkedClass;
-    }
-
-    setParentPath(parent: Array<ActivatedRouteSnapshot>) {
-        let pathFromRoot: string = '';
-        let urlSuffix: string = '/';
-
-        for (let i in parent) {
-            if (parent[i].routeConfig !== null && parent[i].routeConfig.path !== '') {
-                pathFromRoot += parent[i].routeConfig.path + urlSuffix;
-            }
-        }
-
-        this.parentPath = pathFromRoot;
     }
 
     setModel(model) {

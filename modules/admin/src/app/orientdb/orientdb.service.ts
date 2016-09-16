@@ -259,7 +259,7 @@ export class ODatabaseService {
      * @param iQuery
      * @param iLimit
      * @param iFetchPlan
-     * @returns {Promise<T>}
+     * @returns {Observable<Response>}
      */
     query(iQuery?, iLimit?, iFetchPlan?): Observable<Response> {
         if (iLimit === undefined || iLimit === '') {
@@ -602,20 +602,22 @@ export class ODatabaseService {
             method: RequestMethod.Post
         });
 
-        return new Promise((resolve, reject) => {
+        return Observable.create((observer: Observer<Response>) => {
             this.authHttp.request(this.urlPrefix + 'database/' + this.encodedDatabaseName + '/' +
                 type + '/' + databaseType + this.urlSuffix,
                 requestOptions)
-                .toPromise()
-                .then(
+                .subscribe(
                     res => {
                         this.setErrorMessage(undefined);
                         this.setDatabaseInfo(this.transformResponse(res));
-                        resolve(this.getDatabaseInfo());
+                        observer.next(res);
+                        observer.complete();
                     },
-                    error => {
-                        this.setErrorMessage('Connect error: ' + error.responseText);
+                    err => {
+                        this.setErrorMessage('Connect error: ' + err.responseText);
                         this.setDatabaseInfo(undefined);
+                        observer.error(err);
+                        observer.complete();
                     }
                 );
         });
@@ -712,11 +714,10 @@ export class ODatabaseService {
             body: body
         });
 
-        return new Promise((resolve, reject) => {
+        return Observable.create((observer: Observer<Response>) => {
             this.authHttp.request(url + this.urlSuffix,
                 requestOptions)
-                .toPromise()
-                .then(
+                .subscribe(
                     res => {
                         this.setErrorMessage(undefined);
                         this.setCommandResponse(res);
@@ -724,7 +725,8 @@ export class ODatabaseService {
                         if (successCallback) {
                             successCallback(res);
                         }
-                        resolve(this.getCommandResult());
+                        observer.next(this.getCommandResult());
+                        observer.complete();
                     },
                     error => {
                         this.handleResponse(undefined);
@@ -732,6 +734,8 @@ export class ODatabaseService {
                         if (errorCallback) {
                             errorCallback(error.responseText);
                         }
+                        observer.error(this.getCommandResult());
+                        observer.complete();
                     }
                 );
         });
@@ -762,18 +766,20 @@ export class ODatabaseService {
             method: RequestMethod.Put
         });
 
-        return new Promise((resolve, reject) => {
+        return Observable.create((observer: Observer<Response>) => {
             this.authHttp.request(req + this.urlSuffix,
                 requestOptions)
-                .toPromise()
-                .then(
+                .subscribe(
                     res => {
                         this.setErrorMessage(undefined);
-                        resolve(this.getCommandResult());
+                        observer.next(res);
+                        observer.complete()
                     },
                     error => {
                         this.handleResponse(undefined);
                         this.setErrorMessage('Index put error: ' + error.responseText);
+                        observer.error(error);
+                        observer.complete();
                     }
                 );
         });
