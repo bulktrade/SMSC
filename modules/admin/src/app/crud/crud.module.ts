@@ -12,7 +12,7 @@ import { TranslateModule, TranslateService } from "ng2-translate";
 import { BrowserModule } from "@angular/platform-browser";
 import { CubeGridModule } from "../common/spinner/cubeGrid/cubeGrid.component";
 import { AlertModule } from "ng2-bootstrap";
-import { AgGridNg2 } from "ag-grid-ng2";
+import { AgGridModule } from "ag-grid-ng2";
 import { GridPaginationModule } from "./directives/gridPagination/gridPagination";
 import { LoadingGridModule } from "../common/loadingGrid";
 import { FormsModule } from "@angular/forms";
@@ -26,7 +26,6 @@ const CRUD_DECLARATIONS = [
     CrudLinkset,
     CrudDelete,
     CrudCreate,
-    AgGridNg2,
     MultipleSelect,
 ];
 
@@ -35,6 +34,7 @@ const CRUD_MODULES = [
     GridPaginationModule,
     LoadingRouterOutletModule,
     CubeGridModule,
+    AgGridModule,
     LoadingGridModule,
     AlertModule,
     FormsModule,
