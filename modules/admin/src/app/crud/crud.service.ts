@@ -1,6 +1,6 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
 import { Response } from "@angular/http";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { GridOptions } from "ag-grid";
@@ -201,14 +201,14 @@ export class CrudService {
         let operations: Array<Operation> = [];
 
         rid.forEach(i => {
-           let operation: Operation = {
-               type: BatchType.Delete,
-               record: {
-                   "@rid": i
-               }
-           };
+            let operation: Operation = {
+                type: BatchType.Delete,
+                record: {
+                    "@rid": i
+                }
+            };
 
-           operations.push(operation);
+            operations.push(operation);
         });
 
         return Observable.create((observer: Observer<Response>) => {
@@ -671,8 +671,17 @@ export class CrudService {
         return this.linkedClass;
     }
 
-    setParentPath(parentPath) {
-        this.parentPath = parentPath;
+    setParentPath(parent: Array<ActivatedRouteSnapshot>) {
+        let pathFromRoot: string = '';
+        let urlSuffix: string = '/';
+
+        for (let i in parent) {
+            if (parent[i].routeConfig !== null && parent[i].routeConfig.path !== '') {
+                pathFromRoot += parent[i].routeConfig.path + urlSuffix;
+            }
+        }
+
+        this.parentPath = pathFromRoot;
     }
 
     setModel(model) {

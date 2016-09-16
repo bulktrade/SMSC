@@ -19,7 +19,7 @@ export class CrudEditResolve extends CrudResolve {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let id = route.params['id'];
-        this.crudService.setParentPath(route.parent.parent.routeConfig.path);
+        this.crudService.setParentPath(route.parent.parent.pathFromRoot);
 
         return Observable.create((observer: Observer<EditModel>) => {
             this.crudService.databaseService.load(id)
