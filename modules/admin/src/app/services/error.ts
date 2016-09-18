@@ -1,3 +1,4 @@
 export class Error {
-    public numberFormatException: string;
+    public type: string;
+    public content: string;
 }

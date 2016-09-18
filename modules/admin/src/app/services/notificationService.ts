@@ -6,8 +6,8 @@ import { Error } from "./error";
 
 @Injectable()
 export class NotificationService {
-    constructor(public translate:TranslateService,
-                public notificationsService:NotificationsService) {
+    constructor(public translate: TranslateService,
+                public notificationsService: NotificationsService) {
     }
 
     createNotification(type: string, title: string, content: string) {
@@ -33,7 +33,7 @@ export class NotificationService {
         });
     }
 
-    createNotificationOnResponse(response:Response) {
+    createNotificationOnResponse(response: Response) {
         switch (response.status) {
             case 0:
                 this.createNotification('error', 'ERROR', 'NO_INTERNET_CONNECTION');
@@ -57,19 +57,28 @@ export class NotificationService {
     }
 
     incorrectData(errMessage: string) {
-       let content: string = errMessage;
-
-        let error: Error = {
-            numberFormatException: 'NumberFormatException'
-        };
-
-        for (let i in error) {
-            if(errMessage.match(error[i])) {
-                content = errMessage.substring(errMessage.match(error[i]).index);
+        let notificationContent: string = errMessage;
+        let errors: Array<Error> = [
+            {
+                type: 'NumberFormatException',
+                content: 'cell.numberFormatException'
+            },
+            {
+                type: 'mandatory',
+                content: 'cell.mandatoryException'
             }
-        }
+        ];
 
-        this.createNotification('error', 'ERROR', content);
+        errors.forEach((i) => {
+            if (errMessage.match(i.type)) {
+                this.translate.get(i.content)
+                    .subscribe((res: string) => {
+                        notificationContent = res;
+                    });
+            }
+        });
+
+        this.createNotification('error', 'ERROR', notificationContent);
     }
 
 }

@@ -89,5 +89,7 @@
     "LAST": "Last",
     "ALL_RECORDS": "All records",
     "FIELD_NOT_FILLED": "The field is not filled",
-    "IS_REQUIRED": "is required"
+    "IS_REQUIRED": "is required",
+    "cell.mandatoryException": "The fields are not filled",
+    "cell.numberFormatException": "Number format exception"
 }
