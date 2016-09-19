@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router } from '@angular/router';
+import { SidebarModel } from "./model/Sidebar";
 
 @Component({
     selector: 'sidebar',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 
 export class Sidebar {
-    public dataNavItems = [];
+    public dataNavItems: Array<SidebarModel> = [];
 
     constructor(public translate:TranslateService,
                 public router:Router) {
@@ -23,7 +24,7 @@ export class Sidebar {
     }
 
     initDataNavItems(router) {
-        let result = [];
+        let result: Array<SidebarModel> = [];
         let decoratorValue;
 
         let routeConfig = router.config;
@@ -45,11 +46,13 @@ export class Sidebar {
                                     subItem.data.hasOwnProperty('showInSubNavigation') &&
                                     subItem.data.showInSubNavigation
                                 ) {
-                                    result.push({
+                                    let submenu: SidebarModel = {
                                         name: subItem.component.name.toLowerCase(),
                                         path: subItem.path,
                                         icon: subItem.data.icon
-                                    });
+                                    };
+
+                                    result.push(submenu);
                                 }
                             });
                         }
@@ -58,16 +61,16 @@ export class Sidebar {
                             result = undefined;
                         }
 
-                        this.dataNavItems.push({
+                        let sidebarItem: SidebarModel = {
                             name: item.component.name.toLowerCase(),
                             path: item.path ? '/' + item.path : '/',
-                            paramsAsDefault: item.data.paramsAsDefault,
                             icon: item.data.icon,
                             toggle: item.data.toggle,
                             submenu: result,
                             showInSubNavigation: item.data.showInSubNavigation
-                        });
+                        };
 
+                        this.dataNavItems.push(sidebarItem);
                         result = [];
                     }
                 });
