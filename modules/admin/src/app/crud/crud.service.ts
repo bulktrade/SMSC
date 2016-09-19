@@ -17,6 +17,7 @@ import { FormPropertyModel } from "./model/formProperty.model";
 import { CrudLevel } from "./model/crudLevel";
 import { Location } from "@angular/common";
 import { LinksetProperty } from "./model/linksetProperty";
+import { GridService } from "../services/grid.service";
 
 const squel = require('squel');
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
@@ -55,7 +56,8 @@ export class CrudService {
                 public route: ActivatedRoute,
                 public translate: TranslateService,
                 public serviceNotifications: NotificationService,
-                public loadingService: LoadingGridService) {
+                public loadingService: LoadingGridService,
+                public gridService: GridService) {
     }
 
     onFilterChanged(value, gridOptions) {
@@ -74,6 +76,13 @@ export class CrudService {
             .subscribe(res => {
                 this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: 'none' }, value);
                 this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
+
+                this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
+                    [this.gridOptions.rowData[value.node.childIndex]])
+                    .then(() => {
+                        this.gridOptions.api.setRowData(this.gridOptions.rowData);
+                    });
+
                 return Promise.resolve(res);
             }, err => {
                 this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: '#ffccba' }, value);
