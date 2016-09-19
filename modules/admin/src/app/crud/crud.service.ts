@@ -377,7 +377,7 @@ export class CrudService {
             headerName: "RID",
             field: "@rid",
             hideInForm: true,
-            width: 45
+            width: 55
         });
     }
 
