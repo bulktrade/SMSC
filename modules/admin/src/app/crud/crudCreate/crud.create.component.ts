@@ -4,12 +4,12 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { Location } from "@angular/common";
 import { ColumnDefsModel } from "../model/columnDefs.model";
+import { BtnTypes } from "../../dynamicForm/btn.types";
 
 @Component({
     selector: 'crud-create',
-    template: require('../common/form/form.html'),
+    template: '<dynamic-form [btnName]="btnName"></dynamic-form>',
     styleUrls: [
-        require('../common/form/form.scss'),
         require('../common/style.scss')
     ],
     providers: [Location]
@@ -17,7 +17,7 @@ import { ColumnDefsModel } from "../model/columnDefs.model";
 
 export class CrudCreate {
     public resolveData: ColumnDefsModel = null;
-    public btnName: string = 'CREATE';
+    public btnName: BtnTypes = BtnTypes.CREATE;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,

@@ -1,0 +1,46 @@
+<div class="addingForm">
+	<loading-grid>
+		<form class="form" (submit)="onSubmit()" #addingForm="ngForm">
+			<div *ngFor="let item of crudService.gridOptions.columnDefs" [ngSwitch]="item.type">
+				<md-input *ngIf="crudService.typeForInput(item.type)" [placeholder]="item.headerName"
+				          [name]="item.headerName"
+				          class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
+				          [required]="item.mandatory" #column="ngModel"
+				          [type]="crudService.typeForInput(item.type)" autocomplete="off"
+				          [(ngModel)]="crudService.model[item.property]"
+				          class="form-control">
+					<md-hint [hidden]="column.valid"
+					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
+					</md-hint>
+				</md-input>
+				<multiple-select *ngIf="item.type === 'LINKSET' || item.type === 'LINK'"
+				                 [property]="item"
+				                 [rowSelectionLinkset]="'single'"
+				                 (isRequired)="crudService.isRequired($event); crudService.isHint[item.property] = $event">
+					<md-hint [hidden]="!crudService.isHint[item.property]"
+					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
+					</md-hint>
+				</multiple-select>
+				<md-checkbox *ngSwitchCase="'BOOLEAN'"
+				             [(ngModel)]="crudService.model[item.property]" [name]="item.headerName"
+				             [align]="alignment">
+					{{item.headerName}}
+				</md-checkbox>
+				<md-select *ngSwitchCase="'EMBEDDEDLIST'" [options]="crudService.getSelectOptions(item)"
+				           [placeholder]="item.headerName"
+				           [(model)]="crudService.model[item.property]"></md-select>
+			</div>
+			<div class="wrapBtn">
+				<div class="formButtons">
+					<button md-raised-button color="primary" type="button"
+					        (click)="back()" id="back">{{'BACK' | translate}}
+					</button>
+					<button [disabled]="crudService.multipleSelectValid || !addingForm.valid" md-raised-button
+					        color="primary"
+					        id="modify">{{btnName | translate}}
+					</button>
+				</div>
+			</div>
+		</form>
+	</loading-grid>
+</div>

@@ -18,6 +18,7 @@ import { LoadingGridModule } from "../common/loadingGrid";
 import { FormsModule } from "@angular/forms";
 import { MultipleSelect } from "./directives/multipleSelect/multipleSelect.component";
 import { MdSelectModule } from "../common/material/select/select";
+import { DynamicForm } from "../dynamicForm/dynamic.form";
 
 const CRUD_DECLARATIONS = [
     Crud,
@@ -25,6 +26,7 @@ const CRUD_DECLARATIONS = [
     CrudEdit,
     CrudLinkset,
     CrudDelete,
+    DynamicForm,
     CrudCreate,
     MultipleSelect,
 ];

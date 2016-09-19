@@ -4,12 +4,12 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { Location } from "@angular/common";
 import { EditModel } from "./crud.edit.model";
+import { BtnTypes } from "../../dynamicForm/btn.types";
 
 @Component({
     selector: 'crud-edit',
-    template: require('../common/form/form.html'),
+    template: '<dynamic-form [btnName]="btnName"></dynamic-form>',
     styleUrls: [
-        require('../common/form/form.scss'),
         require('../common/style.scss')
     ],
     providers: [Location]
@@ -17,7 +17,7 @@ import { EditModel } from "./crud.edit.model";
 
 export class CrudEdit {
     public resolveData: EditModel;
-    public btnName: string = 'UPDATE';
+    public btnName: BtnTypes = BtnTypes.UPDATE;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
