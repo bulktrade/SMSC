@@ -79,6 +79,23 @@ if ($crudClassMetaData.size() == 0) {
   console.log "Creating process for CrudClassMetaData class is done."
 }
 
+let metadataPropertyBindingParameter = SELECT FROM (SELECT expand(classes) FROM metadata:schema) WHERE name = 'MetadataPropertyBindingParameter';
+
+if ($metadataPropertyBindingParameter.size() == 0) {
+  console.log "MetadataPropertyBindingParameter class not exists! Start creating process."
+
+  CREATE Class MetadataPropertyBindingParameter
+  CREATE PROPERTY MetadataPropertyBindingParameter.fromProperty STRING
+  CREATE PROPERTY MetadataPropertyBindingParameter.toProperty STRING
+  CREATE PROPERTY MetadataPropertyBindingParameter.combineOperator STRING
+  CREATE PROPERTY MetadataPropertyBindingParameter.operator STRING
+
+  ALTER PROPERTY CustomerContact.operator CUSTOM type='=,>,<,>=,<=,<>,like,BETWEEN,is,INSTANCEOF,MATCHES'
+  ALTER PROPERTY CustomerContact.combineOperator CUSTOM type='AND,OR,NOT'
+
+  console.log "Creating process for MetadataPropertyBindingParameter class is done."
+}
+
 let crudPropertyMetaData = SELECT FROM (SELECT expand(classes) FROM metadata:schema) WHERE name = 'CrudPropertyMetaData';
 
 if ($crudPropertyMetaData.size() == 0) {
@@ -90,8 +107,8 @@ if ($crudPropertyMetaData.size() == 0) {
   CREATE PROPERTY CrudPropertyMetaData.visible BOOLEAN
   CREATE PROPERTY CrudPropertyMetaData.decorator STRING
   CREATE PROPERTY CrudPropertyMetaData.order DOUBLE
-
   CREATE PROPERTY CrudPropertyMetaData.crudClassMetaData LINK CrudClassMetaData
+  CREATE PROPERTY CrudPropertyMetaData.bingingProperties LINKSET MetadataPropertyBindingParameter
 
   console.log "Creating process for CrudPropertyMetaData class is done."
 }
@@ -143,6 +160,7 @@ INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaD
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, $getCrudMetaGridDataRID.@rid[0]);
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, $getCrudMetaGridDataRID.@rid[0]);
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('bingingProperties', true, true, 8, $getCrudMetaGridDataRID.@rid[0]);
 
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('columnWidth', true, true, 1, $getCrudMetaGridDataRID.@rid[0]);
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, $getCrudMetaGridDataRID.@rid[0]);
@@ -151,6 +169,7 @@ INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaD
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, $getCrudMetaGridDataRID.@rid[0]);
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, $getCrudMetaGridDataRID.@rid[0]);
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, $getCrudMetaGridDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('bingingProperties', true, true, 8, $getCrudMetaGridDataRID.@rid[0]);
 
 /*
 Declared properties for a class CrudMetaFormData
@@ -163,6 +182,7 @@ INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaD
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, $getCrudMetaFormDataRID.@rid[0]);
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, $getCrudMetaFormDataRID.@rid[0]);
 INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaGridData (property, editable, visible, order, crudClassMetaData) VALUES ('bingingProperties', true, true, 8, $getCrudMetaFormDataRID.@rid[0]);
 
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('fieldLayoutGridPosition', true, true, 1, $getCrudMetaFormDataRID.@rid[0]);
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('property', true, true, 2, $getCrudMetaFormDataRID.@rid[0]);
@@ -171,6 +191,7 @@ INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaD
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('decorator', true, true, 5, $getCrudMetaFormDataRID.@rid[0]);
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('order', true, true, 6, $getCrudMetaFormDataRID.@rid[0]);
 INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('crudClassMetaData', true, true, 7, $getCrudMetaFormDataRID.@rid[0]);
+INSERT INTO CrudMetaFormData (property, editable, visible, order, crudClassMetaData) VALUES ('bingingProperties', true, true, 8, $getCrudMetaFormDataRID.@rid[0]);
 
 /*
 Declared properties for a class Customer
