@@ -552,8 +552,8 @@ export class CrudService {
 
     // to get additional metadata for the property. As the type linkedClass, mandatory, etc.
     getPropertyMetadata(column, isGrid: boolean, properties) {
-        let metadataGridProperty = ['linkedClass', 'type'];
-        let metadataFormProperty = ['mandatory', 'type', 'linkedClass'];
+        let metadataGridProperty = ['linkedClass', 'type', 'custom'];
+        let metadataFormProperty = ['mandatory', 'type', 'linkedClass', 'custom'];
         let property;
 
         if (isGrid) {

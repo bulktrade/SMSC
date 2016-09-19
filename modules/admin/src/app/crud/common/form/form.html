@@ -27,7 +27,7 @@
                     {{item.headerName}}
                 </md-checkbox>
                 <md-select *ngSwitchCase="'EMBEDDEDLIST'" [options]="crudService.getSelectOptions(item)"
-                           placeholder="item.headerName"
+                           [placeholder]="item.headerName"
                            [(model)]="crudService.model[item.property]"></md-select>
             </div>
             <div class="wrapBtn">
