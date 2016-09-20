@@ -679,6 +679,16 @@ export class CrudService {
         this.parentPath = pathFromRoot;
     }
 
+    setEmbeddedType(propertyName: string, event?) {
+        if (!this.model[propertyName]) {
+            this.model[propertyName] = [];
+        } else if (typeof event !== 'undefined') {
+            this.model[propertyName] = [event];
+        }
+
+        return this.model[propertyName];
+    }
+
     setClassName(className) {
         this.className = className;
     }
