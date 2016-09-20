@@ -158,14 +158,11 @@ export class GridPagination {
     }
 
     createNewDatasource(skip?, limit?): Promise<Array<any>> {
-        let sql;
+        let sql = squel.select()
+            .from(this.className);
 
-        if (skip === undefined && limit === undefined) {
-            sql = squel.select()
-                .from(this.className);
-        } else {
-            sql = squel.select()
-                .from(this.className)
+        if (skip !== undefined && limit !== undefined) {
+            sql
                 .offset(skip)
                 .limit(limit);
         }

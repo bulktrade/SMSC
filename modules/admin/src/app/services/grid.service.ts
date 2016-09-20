@@ -123,6 +123,7 @@ export class GridService {
                     this.database.load(rid)
                         .then(res => {
                             let result: MetaDataPropertyBindingParameterModel = res.json();
+                            let fromComponent: string = result.fromProperty + ' ' + result.operator[0] + ' ?';
                             parameterModels.push(result);
 
                             if (Number(i) > 0) {
@@ -131,21 +132,21 @@ export class GridService {
                                 switch (previousOperation.combineOperator[0]) {
                                     case 'AND':
                                         expression
-                                            .and(result.fromProperty + ' ' + result.operator[0] + ' ?', result.toProperty);
+                                            .and(fromComponent, result.toProperty);
                                         break;
                                     case 'OR':
                                         expression
-                                            .or(result.fromProperty + ' ' + result.operator[0] + ' ?', result.toProperty);
+                                            .or(fromComponent, result.toProperty);
                                         break;
                                     case 'NOT':
                                         expression
-                                            .not(result.fromProperty + ' ' + result.operator[0] + ' ?', result.toProperty);
+                                            .not(fromComponent, result.toProperty);
                                         break;
                                 }
 
                             } else {
                                 expression = expression
-                                    .and(result.fromProperty + ' ' + result.operator[0] + ' ?', result.toProperty);
+                                    .and(fromComponent, result.toProperty);
                             }
                         })
                 );
