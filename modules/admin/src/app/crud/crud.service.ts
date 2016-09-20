@@ -689,6 +689,10 @@ export class CrudService {
         return this.model[propertyName];
     }
 
+    resetCrudLevels() {
+        this.crudLevel = [];
+    }
+
     setClassName(className) {
         this.className = className;
     }
