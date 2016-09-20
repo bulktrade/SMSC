@@ -110,7 +110,8 @@ export class MultipleSelect {
         let linsetProperty: LinksetProperty = {
             name: this.property.property,
             type: this.property.type,
-            data: this.crudService.model
+            data: this.crudService.model,
+            bingingProperties: this.property.bingingProperties
         };
 
         this.crudService.navigateToLinkset(linsetProperty);

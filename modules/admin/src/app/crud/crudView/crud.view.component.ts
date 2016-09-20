@@ -49,6 +49,7 @@ export class CrudView {
             let linsetProperty: LinksetProperty = {
                 name: event.colDef.property,
                 type: event.colDef.type,
+                bingingProperties: event.colDef.bingingProperties,
                 data: event.data
             };
 

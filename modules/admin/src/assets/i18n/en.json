@@ -91,5 +91,10 @@
     "FIELD_NOT_FILLED": "The field is not filled",
     "IS_REQUIRED": "is required",
     "cell.mandatoryException": "The fields are not filled",
-    "cell.numberFormatException": "Number format exception"
+    "cell.numberFormatException": "Number format exception",
+    "METADATAPROPERTYBINDINGPARAMETER": "Binding Parameter",
+    "FROMPROPERTY": "From property",
+    "TOPROPERTY": "To property",
+    "OPERATOR": "Operator",
+    "COMBINEOPERATOR": "Combine operator"
 }

@@ -9,6 +9,7 @@ import { CommonModule } from "@angular/common";
 import { MdSelectModule } from "../../../common/material/select/select";
 import { MdModule } from "../../../md.module";
 import { Observable, Observer } from "rxjs";
+import { CrudLevel } from "../../model/crudLevel";
 
 const squel = require('squel');
 
@@ -24,6 +25,7 @@ const squel = require('squel');
 export class GridPagination {
     @Input('className') public className: string;
     @Input('gridOptions') public gridOptions: GridOptions;
+    @Input('currentCrudLevel') public currentCrudLevel: CrudLevel;
 
     public rowsThisPage = [];
     public stepPageSize: any = [25, 50, 150, 200, 300];
@@ -168,40 +170,47 @@ export class GridPagination {
                 .limit(limit);
         }
 
-        if (this.gridOptions.api) {
-            this.gridOptions.api.showLoadingOverlay();
-        }
+        return this.gridService.combineOperators(this.currentCrudLevel)
+            .then(res => {
+                if (res !== null) {
+                    sql.where(res);
+                }
 
-        return new Promise((resolve, reject) => {
-            this.databaseService.query(sql.toString())
-                .subscribe((res: Response) => {
-                    this.rowsThisPage = res.json().result;
+                if (this.gridOptions.api) {
+                    this.gridOptions.api.showLoadingOverlay();
+                }
 
-                    if (skip === undefined && limit === undefined) {
-                        this.fromRecord = 0;
-                        this.toRecord = this.rowsThisPage.length;
-                    } else {
-                        this.setFromRecord();
-                        this.setToRecord(this.rowsThisPage.length);
-                    }
+                return new Promise((resolve, reject) => {
+                    this.databaseService.query(sql.toString())
+                        .subscribe((res: Response) => {
+                            this.rowsThisPage = res.json().result;
 
-                    this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
-                        this.rowsThisPage)
-                        .then(() => {
-
-                            if (this.gridOptions.api) {
-                                this.gridOptions.api.setRowData(this.rowsThisPage);
-                                this.gridOptions.rowData = this.rowsThisPage;
-                                this.gridOptions.api.hideOverlay();
+                            if (skip === undefined && limit === undefined) {
+                                this.fromRecord = 0;
+                                this.toRecord = this.rowsThisPage.length;
+                            } else {
+                                this.setFromRecord();
+                                this.setToRecord(this.rowsThisPage.length);
                             }
 
-                            resolve(this.rowsThisPage);
-                        });
-                }, (error) => {
-                    this.serviceNotifications.createNotificationOnResponse(error);
-                    reject(error);
-                })
-        });
+                            this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
+                                this.rowsThisPage)
+                                .then(() => {
+
+                                    if (this.gridOptions.api) {
+                                        this.gridOptions.api.setRowData(this.rowsThisPage);
+                                        this.gridOptions.rowData = this.rowsThisPage;
+                                        this.gridOptions.api.hideOverlay();
+                                    }
+
+                                    resolve(this.rowsThisPage);
+                                });
+                        }, (error) => {
+                            this.serviceNotifications.createNotificationOnResponse(error);
+                            reject(error);
+                        })
+                });
+            });
     }
 
     getSizeClass(className): Observable<number> {

@@ -11,6 +11,7 @@ import { CRUD_ROUTE_PROVIDER } from "./crud/crud.routes";
 import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
 import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
+import { MetaDataPropertyBindingParameter } from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter";
 
 export const ROUTES: Routes = [
     {
@@ -35,7 +36,6 @@ export const ROUTES: Routes = [
                 component: Customers,
                 data: {
                     showInSubNavigation: true,
-                    paramsAsDefault: '',
                     icon: 'perm_contact_calendar',
                     crudClass: 'Customer'
                 },
@@ -52,7 +52,6 @@ export const ROUTES: Routes = [
                 component: CrudMetaData,
                 data: {
                     showInSubNavigation: true,
-                    paramsAsDefault: '',
                     icon: 'perm_contact_calendar'
                 },
                 children: [
@@ -61,9 +60,24 @@ export const ROUTES: Routes = [
                         component: CrudClassMetaData,
                         data: {
                             showInSubNavigation: true,
-                            paramsAsDefault: '',
                             icon: 'perm_data_setting',
                             crudClass: 'CrudClassMetaData'
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: Crud,
+                                children: CRUD_ROUTE_PROVIDER
+                            }
+                        ]
+                    },
+                    {
+                        path: 'binding',
+                        component: MetaDataPropertyBindingParameter,
+                        data: {
+                            showInSubNavigation: true,
+                            icon: 'perm_data_setting',
+                            crudClass: 'MetaDataPropertyBindingParameter'
                         },
                         children: [
                             {
@@ -78,7 +92,6 @@ export const ROUTES: Routes = [
                         component: CrudMetaGridData,
                         data: {
                             showInSubNavigation: true,
-                            paramsAsDefault: '',
                             icon: 'grid_on',
                             crudClass: 'CrudMetaGridData'
                         },
@@ -95,7 +108,6 @@ export const ROUTES: Routes = [
                         component: CrudMetaFormData,
                         data: {
                             showInSubNavigation: true,
-                            paramsAsDefault: '',
                             icon: 'format_shapes',
                             crudClass: 'CrudMetaFormData'
                         },

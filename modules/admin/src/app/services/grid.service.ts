@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { NotificationService } from "./notificationService";
+import { CrudLevel } from "../crud/model/crudLevel";
+import { MetaDataPropertyBindingParameterModel } from "../crudMetadata/metaDataBindingParameter/metaDataBindingParameter.model";
 
 const squel = require('squel');
 
@@ -106,5 +108,55 @@ export class GridService {
                     reject(err);
                 })
         });
+    }
+
+    combineOperators(currentCrudLevel: CrudLevel) {
+        if (typeof currentCrudLevel !== 'undefined') {
+            let promises: Array<Promise<string>> = [];
+            let parameterModels: Array<MetaDataPropertyBindingParameterModel> = [];
+            let expression = squel.expr();
+
+            for (let i in currentCrudLevel.linksetProperty.bingingProperties) {
+                let rid = currentCrudLevel.linksetProperty.bingingProperties[i];
+
+                promises.push(
+                    this.database.load(rid)
+                        .then(res => {
+                            let result: MetaDataPropertyBindingParameterModel = res.json();
+                            parameterModels.push(result);
+
+                            if (Number(i) > 0) {
+                                let previousOperation = parameterModels[Number(i) - 1];
+
+                                switch (previousOperation.combineOperator[0]) {
+                                    case 'AND':
+                                        expression
+                                            .and(result.fromProperty + ' ' + result.operator[0] + ' ?', result.toProperty);
+                                        break;
+                                    case 'OR':
+                                        expression
+                                            .or(result.fromProperty + ' ' + result.operator[0] + ' ?', result.toProperty);
+                                        break;
+                                    case 'NOT':
+                                        expression
+                                            .not(result.fromProperty + ' ' + result.operator[0] + ' ?', result.toProperty);
+                                        break;
+                                }
+
+                            } else {
+                                expression = expression
+                                    .and(result.fromProperty + ' ' + result.operator[0] + ' ?', result.toProperty);
+                            }
+                        })
+                );
+            }
+
+            return Promise.all(promises)
+                .then(() => {
+                    return Promise.resolve(expression);
+                });
+        } else {
+            return Promise.resolve(null);
+        }
     }
 }

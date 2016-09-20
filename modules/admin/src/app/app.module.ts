@@ -40,6 +40,7 @@ import { ConfigService } from "./config/configService";
 import { LoadingRouterOutletService } from "./services/loading/loadingRouterOutlet.service";
 import { LoadingService } from "./services/loading/loading.service";
 import { RouterOutletService } from "./services/routerOutletService";
+import { MetaDataPropertyBindingParameter } from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -73,7 +74,8 @@ export const APP_PROVIDERS = [
         CrudMetaData,
         CrudMetaFormData,
         CrudClassMetaData,
-        CrudMetaGridData
+        CrudMetaGridData,
+        MetaDataPropertyBindingParameter
     ],
     imports: [
         LoadingRouterOutletModule,
