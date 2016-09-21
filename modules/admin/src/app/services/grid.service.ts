@@ -113,7 +113,6 @@ export class GridService {
     combineOperators(currentCrudLevel: CrudLevel) {
         if (typeof currentCrudLevel !== 'undefined') {
             let promises: Array<Promise<string>> = [];
-            let parameterModels: Array<MetaDataPropertyBindingParameterModel> = [];
             let expression = squel.expr();
 
             for (let i in currentCrudLevel.linksetProperty.bingingProperties) {
@@ -124,30 +123,22 @@ export class GridService {
                         .then(res => {
                             let result: MetaDataPropertyBindingParameterModel = res.json();
                             let fromComponent: string = result.fromProperty + ' ' + result.operator[0] + ' ?';
-                            parameterModels.push(result);
 
-                            if (Number(i) > 0) {
-                                let previousOperation = parameterModels[Number(i) - 1];
-
-                                switch (previousOperation.combineOperator[0]) {
-                                    case 'AND':
-                                        expression
-                                            .and(fromComponent, result.toProperty);
-                                        break;
-                                    case 'OR':
-                                        expression
-                                            .or(fromComponent, result.toProperty);
-                                        break;
-                                    case 'NOT':
-                                        expression
-                                            .not(fromComponent, result.toProperty);
-                                        break;
-                                }
-
-                            } else {
-                                expression = expression
-                                    .and(fromComponent, result.toProperty);
+                            switch (result.combineOperator[0]) {
+                                case 'AND':
+                                    expression
+                                        .and(fromComponent, result.toProperty);
+                                    break;
+                                case 'OR':
+                                    expression
+                                        .or(fromComponent, result.toProperty);
+                                    break;
+                                case 'NOT':
+                                    expression
+                                        .not(fromComponent, result.toProperty);
+                                    break;
                             }
+
                         })
                 );
             }
