@@ -1,4 +1,5 @@
-import {AppTest} from './app.page.ts';
+import {AppTest} from './pages/app.page.ts';
+import { WaitUntilReady } from "./pages/common/waitUntilReady";
 
 describe('App', () => {
   let ptor = protractor.wrapDriver(browser.driver);
@@ -16,21 +17,15 @@ describe('App', () => {
   });
 
   it('should have input username', () => {
-    this.apptest.waitUntilReady(this.apptest.elemUsername, ptor);
+    WaitUntilReady.waitUntilReady(this.apptest.elemUsername, ptor);
     let result  = true;
     expect(this.apptest.isPresentUsername()).toEqual(result);
   });
 
   it('should have input password', () => {
-    this.apptest.waitUntilReady(this.apptest.elemPassword, ptor);
+    WaitUntilReady.waitUntilReady(this.apptest.elemPassword, ptor);
     let result  = true;
     expect(this.apptest.isPresentPassword()).toEqual(result);
-  });
-
-  it('should have button submit', () => {
-    this.apptest.waitUntilReady(this.apptest.elemBtn, ptor);
-    let result  = true;
-    expect(this.apptest.isPresentBtn()).toEqual(result);
   });
 
 });

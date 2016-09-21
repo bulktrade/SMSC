@@ -1,4 +1,5 @@
-import {LoginPage} from './login.page';
+import {LoginPage} from '../pages/login.page';
+import { WaitUntilReady } from "../pages/common/waitUntilReady";
 
 describe('Login page', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -6,10 +7,12 @@ describe('Login page', () => {
     beforeEach(() => {
         this.page = new LoginPage();
         ptor = protractor.wrapDriver(browser.driver);
+        protractor
     });
 
     it('validation for empty fields', () => {
         this.page.get();
+        WaitUntilReady.waitUntilReady(this.page.btnSubmit, ptor);
         expect(this.page.btnSubmit.isEnabled()).toBeFalsy();
     });
 
