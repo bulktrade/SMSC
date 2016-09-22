@@ -7,15 +7,15 @@ export class LoginPage {
     btnSubmit = element(by.id('submitButton'));
 
     get() {
-        browser.get('/');
+        browser.get('/admin');
     }
 
     getNavigation() {
-        browser.get('/navigation');
+        browser.get('/admin/navigation');
     }
 
     getNotFound() {
-        browser.get('/noContent');
+        browser.get('/admin/noContent');
     }
 
     isPresentMainContent() {

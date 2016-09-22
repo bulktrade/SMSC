@@ -7,7 +7,7 @@ export class AppTest {
     }
 
     get() {
-        browser.get('/');
+        browser.get('/admin');
     }
 
     isPresentUsername() {
