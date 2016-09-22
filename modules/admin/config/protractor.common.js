@@ -2,7 +2,7 @@ require('ts-node/register');
 var helpers = require('./helpers');
 
 exports.config = {
-    baseUrl: 'http://localhost:8080/',
+    baseUrl: 'http://localhost:' + (process.env.TOMCAT_HTTP_PORT ? process.env.TOMCAT_HTTP_PORT : '8080') + '/',
 
     // use `npm run e2e`
     specs: [
