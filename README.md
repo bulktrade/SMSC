@@ -60,3 +60,10 @@ Example XML File: https://github.com/orientechnologies/orientdb/blob/master/grap
 # OrientDB Studio
 	
 	http://localhost:2480/studio/index.html
+	
+
+# Admin module credentials
+	
+	Username: admin
+	Password: admin
+	URL: /admin
