@@ -4,7 +4,7 @@
 			<div *ngFor="let item of crudService.gridOptions.columnDefs" [ngSwitch]="item.type">
 				<md-input *ngIf="crudService.typeForInput(item.type)" [placeholder]="item.headerName"
 				          [name]="item.headerName"
-				          class="{{item.headerName}}" [readonly]="!item.editable" [hidden]="!item.visible"
+				          class="{{item.property}}" [readonly]="!item.editable" [hidden]="!item.visible"
 				          [required]="item.mandatory" #column="ngModel"
 				          [type]="crudService.typeForInput(item.type)" autocomplete="off"
 				          [(ngModel)]="crudService.model[item.property]"
@@ -14,7 +14,7 @@
 					</md-hint>
 				</md-input>
 				<multiple-select *ngIf="item.type === 'LINKSET' || item.type === 'LINK'"
-				                 [property]="item"
+				                 [property]="item" class="{{item.property}}"
 				                 [rowSelectionLinkset]="'single'"
 				                 (isRequired)="crudService.isRequired($event); crudService.isHint[item.property] = $event">
 					<md-hint [hidden]="!crudService.isHint[item.property]"
