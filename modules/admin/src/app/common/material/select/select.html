@@ -3,4 +3,5 @@
         <option value="" disabled selected>{{placeholder}}</option>
         <option *ngFor="let option of options">{{option}}</option>
     </select>
+    <ng-content select="md-hint" id="hint"></ng-content>
 </div>

@@ -7,7 +7,6 @@ describe('Login page', () => {
     beforeEach(() => {
         this.page = new LoginPage();
         ptor = protractor.wrapDriver(browser.driver);
-        protractor
     });
 
     it('validation for empty fields', () => {

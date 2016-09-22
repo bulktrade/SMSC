@@ -7,7 +7,7 @@ export class LoginPage {
     btnSubmit = element(by.id('submitButton'));
 
     get() {
-        browser.get('/admin');
+        browser.get('/');
     }
 
     getNavigation() {
