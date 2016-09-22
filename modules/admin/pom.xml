@@ -98,20 +98,21 @@
                             <goal>exec</goal>
                         </goals>
                     </execution>
-                    <!--<execution>-->
-                    <!--<id>e2e-app</id>-->
-                    <!--<phase>integration-test</phase>-->
-                    <!--<configuration>-->
-                    <!--<executable>sh</executable>-->
-                    <!--<workingDirectory>${project.basedir}</workingDirectory>-->
-                    <!--<arguments>-->
-                    <!--<argument>bin/e2e-ci.sh</argument>-->
-                    <!--</arguments>-->
-                    <!--</configuration>-->
-                    <!--<goals>-->
-                    <!--<goal>exec</goal>-->
-                    <!--</goals>-->
-                    <!--</execution>-->
+                    <execution>
+                        <id>e2e-app</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <executable>npm</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>e2e</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
