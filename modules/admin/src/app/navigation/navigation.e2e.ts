@@ -10,7 +10,7 @@ describe('Navigation', () => {
     });
 
     it('should have a title', () => {
-        this.navigator.getRoot();
+        this.navigator.get();
         let result = 'SMSC Admin';
         expect(this.navigator.getTitle()).toBe(result);
     });
