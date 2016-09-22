@@ -27,11 +27,12 @@
 					{{item.headerName}}
 				</md-checkbox>
 				<md-select *ngSwitchCase="'EMBEDDEDLIST'" [options]="crudService.getSelectOptions(item)"
-				           [placeholder]="item.headerName" [required]="true"
+				           [placeholder]="item.headerName" [required]="item.mandatory"
 				           (valid)="crudService.isHint[item.property] = $event"
 				           (modelChange)="crudService.setEmbeddedList(item.property, $event)"
 				           [model]="crudService.setEmbeddedList(item.property)">
-					<md-hint [hidden]="!crudService.isHint[item.property]" align="start">Test hint
+					<md-hint [hidden]="!crudService.isHint[item.property]"
+					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
 					</md-hint>
 				</md-select>
 			</div>

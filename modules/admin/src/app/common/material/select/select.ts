@@ -43,7 +43,7 @@ export class MdSelect implements OnInit {
                 this.valid.emit(true);
             }
         } else {
-            this.valid.emit(true);
+            this.valid.emit(false);
         }
     }
 }
