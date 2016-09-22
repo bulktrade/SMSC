@@ -55,7 +55,6 @@ if ($customerClass.size() == 0) {
   ALTER PROPERTY Customer.city MANDATORY true
   ALTER PROPERTY Customer.contacts MANDATORY true
   ALTER PROPERTY Customer.users MANDATORY true
-  ALTER PROPERTY Customer.parentCustomer MANDATORY true
 
   CREATE INDEX Customer.customerId UNIQUE
 
