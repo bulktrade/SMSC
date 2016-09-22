@@ -135,9 +135,10 @@
                                 <argument>--server.port=${tomcat.http.port}</argument>
                             </arguments>
                             <environmentVariables>
-                                <ADMIN_ORIENTDB_URL>http://localhost:2480</ADMIN_ORIENTDB_URL>
+                                <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
                                 <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
                                 <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
+                                <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
                             </environmentVariables>
                         </configuration>
                     </execution>
@@ -217,6 +218,18 @@
                         <configuration>
                             <portNames>
                                 <portName>tomcat.http.port</portName>
+                            </portNames>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>reserve-orientdb-port</id>
+                        <goals>
+                            <goal>reserve-network-port</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <portNames>
+                                <portName>orientdb.http.port</portName>
                             </portNames>
                         </configuration>
                     </execution>
