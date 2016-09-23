@@ -145,26 +145,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <executions>
-                  <execution>
-                    <goals>
-                      <goal>integration-test</goal>
-                      <goal>verify</goal>
-                    </goals>
-                    <phase>pre-integration-test</phase>
-                    <configuration>
-                        <systemPropertyVariables>
-                            <test.server.port>${tomcat.http.port}</test.server.port>
-                        </systemPropertyVariables>
-                        <environmentVariables>
-                            <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
-                            <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
-                            <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
-                            <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
-                        </environmentVariables>
-                    </configuration>
-                  </execution>
-                </executions>
+                <configuration>
+                    <systemPropertyVariables>
+                        <test.server.port>${tomcat.http.port}</test.server.port>
+                        <admin.orientdb.url>http://localhost:${orientdb.http.port}</admin.orientdb.url>
+                        <admin.orientdb.database>smsc</admin.orientdb.database>
+                        <embedded.orientdb.enabled>1</embedded.orientdb.enabled>
+                        <orientdb.http.port.range>${orientdb.http.port}-${orientdb.http.port}</orientdb.http.port.range>
+                    </systemPropertyVariables>
+                    <environmentVariables>
+                        <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
+                        <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
+                        <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
+                        <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
+                    </environmentVariables>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
