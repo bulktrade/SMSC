@@ -29,6 +29,7 @@ describe('Login page', () => {
         let width = 330,
             height = 1300;
         ptor.manage().window().setSize(width, height);
+        WaitUntilReady.waitUntilReady(this.page.details, ptor);
         this.page.details.getCssValue('text-align')
             .then(value => {
                 expect(value).toEqual('center');
