@@ -21,7 +21,7 @@ exports.config = objectMerge(commonConfig.config, {
             browserName: 'chrome',
             platform: 'OS X 10.11',
             name: "chrome-osx-tests",
-            build: 'build-' + process.env.TRAVIS_BUILD_NUMBER + '-' + process.env.BUILD_TAG,
+            build: 'build-' + process.env.TRAVIS_BUILD_ID,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         } /* ,
         {
