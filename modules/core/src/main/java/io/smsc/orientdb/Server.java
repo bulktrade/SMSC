@@ -7,9 +7,7 @@ import com.orientechnologies.orient.server.config.*;
 import com.orientechnologies.orient.server.network.protocol.binary.ONetworkProtocolBinary;
 import com.orientechnologies.orient.server.network.protocol.http.ONetworkProtocolHttpDb;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.*;
 
 public class Server {
 	/**
@@ -164,7 +162,7 @@ public class Server {
 		httpListener.portRange = System.getenv("ORIENTDB_HTTP_PORT_RANGE") != null ? System.getenv("ORIENTDB_HTTP_PORT_RANGE") : "2480-2490";
 
 		System.out.println("OrientDB Port Range: " + System.getenv("ORIENTDB_HTTP_PORT_RANGE"));
-	/*	
+
 		Properties p = System.getProperties();
 		Enumeration keys = p.keys();
 		while (keys.hasMoreElements()) {
@@ -172,7 +170,7 @@ public class Server {
 		    String value = (String)p.get(key);
 		    System.out.println(key + ": " + value);
 		}
-*/
+
 		httpListener.parameters = new OServerParameterConfiguration[] {
 			new OServerParameterConfiguration("network.http.maxLength", "10000000"),
 			new OServerParameterConfiguration("network.http.charset", "utf-8"),
