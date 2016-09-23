@@ -11,7 +11,7 @@ exports.config = {
     ],
     exclude: [],
 
-    framework: 'jasmine2',
+    framework: 'jasmine',
 
     allScriptsTimeout: 110000,
 
