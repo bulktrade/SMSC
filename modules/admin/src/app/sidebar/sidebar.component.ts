@@ -29,9 +29,13 @@ export class Sidebar {
 
         let routeConfig = router.config;
 
-        routeConfig.forEach((route) => {
+        for (let l in routeConfig) {
+            let route = routeConfig[l];
+
             if (route.hasOwnProperty('children')) {
-                route.children.forEach((item) => {
+                for (var i in route.children) {
+                    let item = route.children[i];
+
                     if (
                         item.hasOwnProperty('data') &&
                         item.data.hasOwnProperty('showInSubNavigation') &&
@@ -40,7 +44,9 @@ export class Sidebar {
                         if (item.hasOwnProperty('children')) {
                             decoratorValue = item.children;
 
-                            decoratorValue.forEach((subItem) => {
+                            for (let k in decoratorValue) {
+                                let subItem = decoratorValue[k];
+
                                 if (
                                     subItem.hasOwnProperty('data') &&
                                     subItem.data.hasOwnProperty('showInSubNavigation') &&
@@ -54,7 +60,7 @@ export class Sidebar {
 
                                     result.push(submenu);
                                 }
-                            });
+                            }
                         }
 
                         if (result.length === 0) {
@@ -73,9 +79,8 @@ export class Sidebar {
                         this.dataNavItems.push(sidebarItem);
                         result = [];
                     }
-                });
+                }
             }
-
-        });
+        }
     }
 }
