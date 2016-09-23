@@ -39,7 +39,7 @@ export class CrudPage {
     }
 
     get() {
-        browser.get('/');
+        browser.get('/admin');
     }
 
     isEnabledDeleteButton() {
