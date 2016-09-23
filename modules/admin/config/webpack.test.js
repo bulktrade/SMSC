@@ -128,7 +128,7 @@ module.exports = function (options) {
                     exclude: [/\.e2e\.ts$/]
                 },
 
-                /*
+                /**
                  * Json loader support for *.json files.
                  *
                  * See: https://github.com/webpack/json-loader
