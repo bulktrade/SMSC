@@ -2,6 +2,7 @@ import { LoginPage } from "./login.page";
 import { WaitUntilReady } from "./common/waitUntilReady";
 import { CreatePage } from "./crud/crud.create.page";
 import { DeletePage } from "./crud/crud.delete.page";
+import { InputElement } from "./model/inputElement";
 
 export class CrudPage {
     public login: LoginPage = new LoginPage();
@@ -12,30 +13,12 @@ export class CrudPage {
     public logo = element(by.id('logo'));
     public customersItem = element(by.className('customers'));
     public customersTag = element(by.tagName('customers'));
-    public crudCreateTag = element(by.tagName('crud-create'));
     public btnAddRecord = element(by.id('addRow'));
-    public formBtn = element(by.id('modify'));
+    public crudCreateTag = element(by.tagName('crud-create'));
     public btnDeleteRow = element(by.id('deleteRow'));
     public backBtn = element(by.id('back'));
 
     constructor() {
-    }
-
-    fillInputFields() {
-        let inputData = {
-            customersId: 1,
-            companyName: 'SMSC',
-            street2: 'Pastera',
-            city: 'Tennistaya',
-            postcode: 65000,
-            street: 'Ukraine',
-            country: 'Odessa',
-            vatid: 465787
-        };
-
-        for (let i in this.crudCreate.inputElements) {
-            this.crudCreate.inputElements[i].sendKeys(inputData[i]);
-        }
     }
 
     get() {
@@ -60,11 +43,6 @@ export class CrudPage {
     clickOnCustomers() {
         WaitUntilReady.waitUntilReady(this.customersItem, this.ptor);
         this.customersItem.click();
-    }
-
-    clickOnFormBtn() {
-        WaitUntilReady.waitUntilReady(this.formBtn, this.ptor);
-        this.formBtn.click();
     }
 
     clickOnBtnAddRecord() {

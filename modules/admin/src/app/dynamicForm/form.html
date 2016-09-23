@@ -28,7 +28,7 @@
 				</md-checkbox>
 				<md-select *ngSwitchCase="'EMBEDDEDLIST'" [options]="crudService.getSelectOptions(item)"
 				           [placeholder]="item.headerName" [required]="item.mandatory"
-				           (valid)="crudService.isHint[item.property] = $event"
+				           (valid)="crudService.isHint[item.property] = $event" class="{{item.property}}"
 				           (modelChange)="crudService.setEmbeddedList(item.property, $event)"
 				           [model]="crudService.setEmbeddedList(item.property)">
 					<md-hint [hidden]="!crudService.isHint[item.property]"

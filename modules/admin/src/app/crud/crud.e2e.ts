@@ -33,13 +33,13 @@ describe('CRUD', () => {
             .then(css => {
                 expect(css).toEqual('inline');
             });
-        crudPage.fillInputFields();
+        crudPage.crudCreate.fillInputFields(crudPage.crudCreate.inputElementsOnFirstLevel);
         crudPage.crudCreate.isVisibleHint()
             .then(css => {
                 expect(css).toEqual('none');
             });
         crudPage.crudCreate.fillLinkset();
-        crudPage.clickOnFormBtn();
+        crudPage.crudCreate.clickOnFormBtn();
         expect(crudPage.isPresentCustomers()).toBeTruthy();
     });
 

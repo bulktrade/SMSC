@@ -21,6 +21,7 @@ if ($customerContactClass.size() == 0) {
   ALTER PROPERTY CustomerContact.mobilePhone MANDATORY true
   ALTER PROPERTY CustomerContact.emailAddress MANDATORY true
   ALTER PROPERTY CustomerContact.type CUSTOM type='CEO,technical,primary'
+  ALTER PROPERTY CustomerContact.salutation CUSTOM type='CEO,technical,primary'
 
   CREATE INDEX CustomerContact.emailAddress UNIQUE
 
