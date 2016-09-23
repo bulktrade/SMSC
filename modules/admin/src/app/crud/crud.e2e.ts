@@ -59,6 +59,14 @@ describe('CRUD', () => {
         expect(crudPage.isPresentCustomers()).toBeTruthy();
     });
 
+    it('should be delete records on second level', () => {
+        crudPage.clickOnBtnAddRecord();
+        crudPage.crudCreate.clickOnContactsLinksetBtn();
+        crudPage.crudCreate.clickOnSelectAll();
+        crudPage.clickOnDeleteButton();
+        crudPage.crudDelete.clickOnOkBtn();
+    });
+
     it('should logout', () => {
         WaitUntilReady.logout(ptor);
         expect(true).toBeTruthy();

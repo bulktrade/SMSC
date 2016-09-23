@@ -91,6 +91,11 @@ export class CreatePage {
         this.clickOnBackBtn();
     }
 
+    clickOnContactsLinksetBtn() {
+        WaitUntilReady.waitUntilReady(this.selectElements.contacts, this._ptor);
+        this.selectElements.contacts.click();
+    }
+
     clickOnBackBtn() {
         WaitUntilReady.waitUntilReady(this.backBtn, this.ptor);
         this.backBtn.click();
