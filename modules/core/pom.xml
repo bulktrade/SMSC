@@ -148,10 +148,6 @@
                 <configuration>
                     <systemPropertyVariables>
                         <test.server.port>${tomcat.http.port}</test.server.port>
-                        <admin.orientdb.url>http://localhost:${orientdb.http.port}</admin.orientdb.url>
-                        <admin.orientdb.database>smsc</admin.orientdb.database>
-                        <embedded.orientdb.enabled>1</embedded.orientdb.enabled>
-                        <orientdb.http.port.range>${orientdb.http.port}-${orientdb.http.port}</orientdb.http.port.range>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -177,6 +173,10 @@
                         <configuration>
                             <arguments>
                                 <argument>--server.port=${tomcat.http.port}</argument>
+                                <argument>-Dorientdb.http.port.range=${orientdb.http.port}-${orientdb.http.port}</argument>
+                                <argument>-Dembedded.orientdb.enabled=1</argument>
+                                <argument>-Dadmin.orientdb.database=smsc</argument>
+                                <argument>-Dadmin.orientdb.url=http://localhost:${orientdb.http.port}</argument>
                             </arguments>
                         </configuration>
                     </execution>
