@@ -128,18 +128,6 @@
                             </portNames>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>reserve-orientdb-port</id>
-                        <goals>
-                            <goal>reserve-network-port</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <portNames>
-                                <portName>orientdb.http.port</portName>
-                            </portNames>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -173,10 +161,6 @@
                         <configuration>
                             <arguments>
                                 <argument>--server.port=${tomcat.http.port}</argument>
-                                <argument>-Dorientdb.http.port.range=${orientdb.http.port}-${orientdb.http.port}</argument>
-                                <argument>-Dembedded.orientdb.enabled=1</argument>
-                                <argument>-Dadmin.orientdb.database=smsc</argument>
-                                <argument>-Dadmin.orientdb.url=http://localhost:${orientdb.http.port}</argument>
                             </arguments>
                         </configuration>
                     </execution>
