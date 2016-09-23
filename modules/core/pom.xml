@@ -153,12 +153,6 @@
                         <embedded.orientdb.enabled>1</embedded.orientdb.enabled>
                         <orientdb.http.port.range>${orientdb.http.port}-${orientdb.http.port}</orientdb.http.port.range>
                     </systemPropertyVariables>
-                    <environmentVariables>
-                        <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
-                        <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
-                        <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
-                        <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
-                    </environmentVariables>
                 </configuration>
             </plugin>
             <plugin>
@@ -231,7 +225,7 @@
                 <executions>
                     <execution>
                         <id>build-image</id>
-                        <phase>package</phase>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>build</goal>
                         </goals>

@@ -83,10 +83,14 @@ public class Index {
 
 		if (System.getenv("ADMIN_ORIENTDB_URL") != null) {
 			config.orientDBUrl = System.getenv("ADMIN_ORIENTDB_URL");
+		} else if (System.getProperty("admin.orientdb.url") != null) {
+			config.orientDBUrl = System.getProperty("admin.orientdb.url");
 		}
 
 		if (System.getenv("ADMIN_ORIENTDB_DATABASE") != null) {
 			config.orientDBDatabase = System.getenv("ADMIN_ORIENTDB_DATABASE");
+		} else if (System.getProperty("admin.orientdb.database") != null) {
+			config.orientDBDatabase = System.getProperty("admin.orientdb.database");
 		}
 
 		if (System.getenv("ADMIN_I18N_PATH") != null) {
@@ -97,8 +101,6 @@ public class Index {
 			config.debug = System.getenv("ADMIN_DEBUG").equals("true");
 		}
 		
-		System.out.println("ADMIN_ORIENTDB_URL: " + System.getenv("ADMIN_ORIENTDB_URL"));
-
 		return config;
 	}
 }
