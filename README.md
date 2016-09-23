@@ -35,6 +35,7 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
 	ORIENTDB_BINARY_SSL_KEY_STORE_PASSWORD = 123password
 	ORIENTDB_BINARY_SSL_TRUST_STORE = config/cert/orientdb.ks
 	ORIENTDB_BINARY_SSL_TRUST_STORE_PASSWORD = 123password
+	ORIENTDB_HTTP_PORT_RANGE = 2480-2490
 	
 more info: http://orientdb.com/docs/last/Configuration.html
 

@@ -134,6 +134,12 @@
                             <arguments>
                                 <argument>--server.port=${tomcat.http.port}</argument>
                             </arguments>
+                            <environmentVariables>
+                                <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
+                                <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
+                                <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
+                                <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
+                            </environmentVariables>
                         </configuration>
                     </execution>
                     <execution>
@@ -215,6 +221,18 @@
                             </portNames>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>reserve-orientdb-port</id>
+                        <goals>
+                            <goal>reserve-network-port</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <portNames>
+                                <portName>orientdb.http.port</portName>
+                            </portNames>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -224,6 +242,30 @@
                 <configuration>
                     <skip>true</skip>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>e2e-app</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <executable>npm</executable>
+                            <workingDirectory>../admin</workingDirectory>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>e2e</argument>
+                            </arguments>
+                            <environmentVariables>
+                                <TOMCAT_HTTP_PORT>${tomcat.http.port}</TOMCAT_HTTP_PORT>
+                            </environmentVariables>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
