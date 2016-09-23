@@ -112,6 +112,19 @@
         <finalName>smsc</finalName>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <forkMode>always</forkMode>
+                    <environmentVariables>
+                        <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
+                        <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
+                        <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
+                        <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -134,12 +147,6 @@
                             <arguments>
                                 <argument>--server.port=${tomcat.http.port}</argument>
                             </arguments>
-                            <environmentVariables>
-                                <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
-                                <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
-                                <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
-                                <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
-                            </environmentVariables>
                         </configuration>
                     </execution>
                     <execution>
