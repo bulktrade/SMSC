@@ -21,9 +21,9 @@ exports.config = objectMerge(commonConfig.config, {
             browserName: 'chrome',
             platform: 'OS X 10.11',
             name: "chrome-osx-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
+            build: 'build-' + process.env.TRAVIS_BUILD_NUMBER + '-' + process.env.BUILD_TAG,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
+        } /* ,
         {
             browserName: 'firefox',
             platform: 'OS X 10.11',
@@ -96,6 +96,6 @@ exports.config = objectMerge(commonConfig.config, {
          	deviceName: 'Android Emulator',
          	build: process.env.TRAVIS_BUILD_NUMBER,
          	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        }
+        } */
     ]
 });
