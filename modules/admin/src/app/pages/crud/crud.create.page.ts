@@ -4,7 +4,7 @@ export class CreatePage {
     private _ptor;
 
     public hint = element(by.css('.companyName md-hint'));
-    public selectAll = element(by.id('select-all'));
+    public selectAll = element(by.css('.ag-body-container > div:first-of-type .ag-selection-checkbox'));
     public addLinkBtn = element(by.id('addLink'));
     public btnAddRecord = element(by.id('addRow'));
     public formBtn = element(by.id('modify'));
@@ -12,7 +12,6 @@ export class CreatePage {
 
     public selectElements = {
         contacts: element(by.css('.contacts #add')),
-        parentCustomer: element(by.css('.parentCustomer #add')),
         users: element(by.css('.users #add'))
     };
 
