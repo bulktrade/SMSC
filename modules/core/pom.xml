@@ -112,6 +112,61 @@
         <finalName>smsc</finalName>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <id>reserve-tomcat-port</id>
+                        <goals>
+                            <goal>reserve-network-port</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <portNames>
+                                <portName>tomcat.http.port</portName>
+                            </portNames>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>reserve-orientdb-port</id>
+                        <goals>
+                            <goal>reserve-network-port</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <portNames>
+                                <portName>orientdb.http.port</portName>
+                            </portNames>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.19.1</version>
+                <executions>
+                  <execution>
+                    <goals>
+                      <goal>pre-integration-test</goal>
+                      <goal>verify</goal>
+                    </goals>
+                  </execution>
+                </executions>
+                <configuration>
+                    <systemPropertyVariables>
+                        <test.server.port>${tomcat.http.port}</test.server.port>
+                    </systemPropertyVariables>
+                    <environmentVariables>
+                        <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
+                        <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
+                        <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
+                        <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
+                    </environmentVariables>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -185,53 +240,6 @@
                         <goals>
                             <goal>build</goal>
                         </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <test.server.port>${tomcat.http.port}</test.server.port>
-                    </systemPropertyVariables>
-                    <environmentVariables>
-                        <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
-                        <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
-                        <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
-                        <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
-                    </environmentVariables>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.10</version>
-                <executions>
-                    <execution>
-                        <id>reserve-tomcat-port</id>
-                        <goals>
-                            <goal>reserve-network-port</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <portNames>
-                                <portName>tomcat.http.port</portName>
-                            </portNames>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>reserve-orientdb-port</id>
-                        <goals>
-                            <goal>reserve-network-port</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <portNames>
-                                <portName>orientdb.http.port</portName>
-                            </portNames>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
