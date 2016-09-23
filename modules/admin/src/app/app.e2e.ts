@@ -1,5 +1,5 @@
-import { AppTest } from './pages/app.page.ts';
-import { WaitUntilReady } from "./pages/common/waitUntilReady";
+import { AppTest } from './pages/app.page';
+import { WaitUntilReady } from './pages/common/waitUntilReady';
 
 describe('App', () => {
     let ptor = protractor.wrapDriver(browser.driver);
