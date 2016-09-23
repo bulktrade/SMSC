@@ -21,9 +21,9 @@ exports.config = objectMerge(commonConfig.config, {
             browserName: 'chrome',
             platform: 'OS X 10.11',
             name: "chrome-osx-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
+            build: 'build-' + process.env.TRAVIS_BUILD_ID,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        } /*,
+        } /* ,
         {
             browserName: 'firefox',
             platform: 'OS X 10.11',
@@ -82,9 +82,9 @@ exports.config = objectMerge(commonConfig.config, {
         	platform: 'OS X 10.10',
          	browserName: 'iphone',
          	name: 'ios-tests',
-         	varsion: '9.2',
+         	varsion: '9.3',
          	app: 'safari',
-         	deviceName: 'iPhone 6',
+         	deviceName: 'iPhone 6s',
          	deviceOrientation: 'portrait',
          	build: process.env.TRAVIS_BUILD_NUMBER,
          	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER

@@ -7,9 +7,7 @@ import com.orientechnologies.orient.server.config.*;
 import com.orientechnologies.orient.server.network.protocol.binary.ONetworkProtocolBinary;
 import com.orientechnologies.orient.server.network.protocol.http.ONetworkProtocolHttpDb;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.*;
 
 public class Server {
 	/**
@@ -161,9 +159,16 @@ public class Server {
 		OServerNetworkListenerConfiguration httpListener = new OServerNetworkListenerConfiguration();
 		httpListener.protocol = "http";
 		httpListener.ipAddress = "0.0.0.0";
-		httpListener.portRange = System.getenv("ORIENTDB_HTTP_PORT_RANGE") != null ? System.getenv("ORIENTDB_HTTP_PORT_RANGE") : "2480-2490";
 
-		System.out.println("OrientDB Port Range: " + System.getenv("ORIENTDB_HTTP_PORT_RANGE"));
+		String httpPortRange = "2480-2490";
+
+		if (System.getenv("ORIENTDB_HTTP_PORT_RANGE") != null) {
+			httpPortRange = System.getenv("ORIENTDB_HTTP_PORT_RANGE");
+		} else if (System.getProperty("orientdb.http.port.range") != null) {
+			httpPortRange = System.getProperty("orientdb.http.port.range");
+		}
+
+		httpListener.portRange = httpPortRange;
 
 		httpListener.parameters = new OServerParameterConfiguration[] {
 			new OServerParameterConfiguration("network.http.maxLength", "10000000"),

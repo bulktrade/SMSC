@@ -9,33 +9,36 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ServerListener implements ApplicationListener<ApplicationReadyEvent>, Ordered {
-	private static Logger log = Logger.getLogger(ServerListener.class);
+    private static Logger log = Logger.getLogger(ServerListener.class);
 
-	Server server;
+    Server server;
 
-	@Override
-	public void onApplicationEvent(ApplicationReadyEvent contextEvent) {
-		log.info("Start OrientDB.");
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent contextEvent) {
+        log.info("Start OrientDB.");
 
-		if (System.getenv("EMBEDDED_ORIENTDB_ENABLED") != null && System.getenv("EMBEDDED_ORIENTDB_ENABLED").equals("1")) {
-			try {
-				server = Server.start();
+        if (
+            System.getenv("EMBEDDED_ORIENTDB_ENABLED") != null && System.getenv("EMBEDDED_ORIENTDB_ENABLED").equals("1") ||
+            System.getProperty("embedded.orientdb.enabled") != null && System.getProperty("embedded.orientdb.enabled").equals("1")
+        ) {
+            try {
+                server = Server.start();
 
-				Runtime.getRuntime().addShutdownHook(new Thread() {
-					@Override
-					public void run() {
-						log.info("Stop OrientDB.");
-						server.getInstance().shutdown();
-					}
-				});
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+                Runtime.getRuntime().addShutdownHook(new Thread() {
+                    @Override
+                    public void run() {
+                        log.info("Stop OrientDB.");
+                        server.getInstance().shutdown();
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	@Override
-	public int getOrder() {
-		return HIGHEST_PRECEDENCE;
-	}
+    @Override
+    public int getOrder() {
+        return HIGHEST_PRECEDENCE;
+    }
 }
