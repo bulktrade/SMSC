@@ -96,6 +96,8 @@ public class Index {
 		if (System.getenv("ADMIN_DEBUG") != null) {
 			config.debug = System.getenv("ADMIN_DEBUG").equals("true");
 		}
+		
+		System.out.println("ADMIN_ORIENTDB_URL: " + System.getenv("ADMIN_ORIENTDB_URL"));
 
 		return config;
 	}

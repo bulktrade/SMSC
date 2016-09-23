@@ -134,12 +134,6 @@
                             <arguments>
                                 <argument>--server.port=${tomcat.http.port}</argument>
                             </arguments>
-                            <environmentVariables>
-                                <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
-                                <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
-                                <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
-                                <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
-                            </environmentVariables>
                         </configuration>
                     </execution>
                     <execution>
@@ -202,6 +196,12 @@
                     <systemPropertyVariables>
                         <test.server.port>${tomcat.http.port}</test.server.port>
                     </systemPropertyVariables>
+                    <environmentVariables>
+                        <ADMIN_ORIENTDB_URL>http://localhost:${orientdb.http.port}</ADMIN_ORIENTDB_URL>
+                        <ADMIN_ORIENTDB_DATABASE>smsc</ADMIN_ORIENTDB_DATABASE>
+                        <EMBEDDED_ORIENTDB_ENABLED>1</EMBEDDED_ORIENTDB_ENABLED>
+                        <ORIENTDB_HTTP_PORT_RANGE>${orientdb.http.port}-${orientdb.http.port}</ORIENTDB_HTTP_PORT_RANGE>
+                    </environmentVariables>
                 </configuration>
             </plugin>
             <plugin>
