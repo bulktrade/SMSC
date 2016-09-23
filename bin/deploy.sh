@@ -2,8 +2,6 @@
 set -x
 set -e
 
-export EMBEDDED_ORIENTDB_ENABLED=1
-
 mvn clean install
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
