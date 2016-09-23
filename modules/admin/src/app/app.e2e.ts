@@ -7,10 +7,10 @@ describe('App', () => {
     beforeEach(() => {
         this.apptest = new AppTest();
         ptor = protractor.wrapDriver(browser.driver);
-        this.apptest.get();
     });
 
     it('should have a title', () => {
+        this.apptest.get();
         let subject = browser.getTitle();
         let result = 'SMSC Admin';
         expect(subject).toEqual(result);
