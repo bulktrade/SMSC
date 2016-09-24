@@ -2,6 +2,7 @@
 
 import {Injectable} from "@angular/core";
 import {ODatabaseService} from "../orientdb/orientdb.service";
+import { Observable } from "rxjs";
 
 const squel = require('squel');
 
@@ -16,15 +17,17 @@ export class ProfileService {
             .from('OUser')
             .where('name = ?', username);
 
-        return new Promise((resolve, reject) => {
-            this.database.query(query.toString(), 1)
-                .then(
-                    res => {
-                        resolve();
-                    },
-                    error => {
-                    }
-                );
+        return Observable.create((obs) => {
+            this.database.query(query.toString(), 1).subscribe(
+                (result) => {
+                    obs.next(result);
+                    obs.complete();
+                },
+                (error) => {
+                    obs.error(error);
+                    obs.complete();
+                }
+            );
         });
     }
 }
