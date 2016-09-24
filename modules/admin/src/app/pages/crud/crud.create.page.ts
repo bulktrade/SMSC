@@ -65,7 +65,7 @@ export class CreatePage {
                 this.createRecordOnSecondLevel();
             }
 
-            browser.sleep(1000);
+            browser.sleep(300);
             this.clickOnSelectAll();
             this.clickOnAddLinkBtn();
         }
