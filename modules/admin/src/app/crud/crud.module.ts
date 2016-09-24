@@ -13,7 +13,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { CubeGridModule } from "../common/spinner/cubeGrid/cubeGrid.component";
 import { AlertModule } from "ng2-bootstrap";
 import { AgGridModule } from "ag-grid-ng2";
-import { Ng2FrameworkFactory } from "ag-grid-ng2/lib/ng2FrameworkFactory";
 import { GridPaginationModule } from "./directives/gridPagination/gridPagination";
 import { LoadingGridModule } from "../common/loadingGrid";
 import { FormsModule } from "@angular/forms";
