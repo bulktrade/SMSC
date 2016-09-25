@@ -191,7 +191,8 @@
                         <expose>2434</expose>
                     </exposes>
                     <volumes>
-                        <volume>/orientdb/databases</volume>
+                        <volume>/orientdb</volume>
+                        <volume>/databases</volume>
                     </volumes>
                     <resources>
                         <resource>

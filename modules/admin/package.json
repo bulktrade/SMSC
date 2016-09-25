@@ -97,7 +97,6 @@
         "zone.js": "~0.6.21"
     },
     "devDependencies": {
-        "@types/core-js": "^0.9.34",
         "@types/hammerjs": "^2.0.33",
         "@types/jasmine": "^2.2.34",
         "@types/lodash": "^4.14.34",
