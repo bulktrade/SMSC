@@ -60,6 +60,8 @@ export class DashboardView {
 
             this.updateClasses();
         });
+
+        alert();
     }
 
     /**
