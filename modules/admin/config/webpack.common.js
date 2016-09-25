@@ -197,6 +197,10 @@ module.exports = function (options) {
          * See: http://webpack.github.io/docs/configuration.html#plugins
          */
         plugins: [
+            new webpack.ProvidePlugin({
+                Tooltip: "exports?Tooltip!bootstrap/js/dist/tooltip"
+            }),
+
             new AssetsPlugin({
                 path: helpers.root('dist'),
                 filename: 'webpack-assets.json',
