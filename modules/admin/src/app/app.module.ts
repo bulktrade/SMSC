@@ -8,7 +8,6 @@ import { ROUTES } from "./app.routes";
 import { Login } from "./login/login.component";
 import { Navigation } from "./navigation/navigation.component";
 import { Customers } from "./customers/customers.components";
-import { Dashboard } from "./dashboard/dashboard.component";
 import { NotFound } from "./notFound/notFound.component";
 import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
 import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
@@ -41,6 +40,21 @@ import { LoadingRouterOutletService } from "./services/loading/loadingRouterOutl
 import { LoadingService } from "./services/loading/loading.service";
 import { RouterOutletService } from "./services/routerOutletService";
 import { MetaDataPropertyBindingParameter } from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter";
+import { DragulaModule } from "ng2-dragula/ng2-dragula";
+import { DashboardComponent } from "./dashboards/dashboards.components";
+import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard.crud.create.resolve";
+import { DashboardCrudUpdateResolve } from "./dashboards/crud/dashboard.crud.update.resolve";
+import { OrderBy } from "./dashboards/sorts/orderby";
+import { Dashboard } from "./dashboards/dashboard.component";
+import { DashboardBoxComponent } from "./dashboards/dashboard.box.component";
+import { DashboardView } from "./dashboards/dashboard.view.component";
+import { DashboardCrudUpdate } from "./dashboards/crud/dashboard.box.update";
+import { DashboardCrudCreate } from "./dashboards/crud/dashboard.box.create";
+import { MdSelectModule } from "./common/material/select/select";
+import { MultipleSelectModule } from "./crud/directives/multipleSelect/multipleSelect.component";
+import { DynamicFormModule } from "./dynamicForm/dynamic.form";
+import { DashboardService } from "./dashboards/dashboardService";
+import { SidebarService } from "./sidebar/sidebarService";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -57,6 +71,10 @@ export const APP_PROVIDERS = [
     NotificationService,
     AuthGuard,
     AppState,
+    DashboardCrudUpdateResolve,
+    DashboardCrudCreateResolve,
+    DashboardService,
+    SidebarService
 ];
 
 @NgModule({
@@ -69,13 +87,19 @@ export const APP_PROVIDERS = [
         Navigation,
         Customers,
         NotFound,
-        Dashboard,
         Breadcrumb,
         CrudMetaData,
         CrudMetaFormData,
         CrudClassMetaData,
         CrudMetaGridData,
-        MetaDataPropertyBindingParameter
+        MetaDataPropertyBindingParameter,
+        OrderBy,
+        Dashboard,
+        DashboardComponent,
+        DashboardView,
+        DashboardBoxComponent,
+        DashboardCrudUpdate,
+        DashboardCrudCreate
     ],
     imports: [
         LoadingRouterOutletModule,
@@ -93,7 +117,11 @@ export const APP_PROVIDERS = [
             deps: [Http, ConfigService]
         }),
         SimpleNotificationsModule,
-        CrudModule.forRoot()
+        CrudModule.forRoot(),
+        DragulaModule,
+        MdSelectModule,
+        MultipleSelectModule,
+        DynamicFormModule
     ],
     providers: [
         ConfigService,

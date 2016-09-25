@@ -55,15 +55,15 @@ export class NavigationTest {
     };
 
     clickOnItemNavDashboard(ptor) {
-        return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000)
-                .then(function (el: webdriver.IWebElement) {
-                    resolve(el.click());
-                }).thenCatch((errback) => {
-                reject(errback);
-            });
+    return new Promise((resolve, reject) => {
+        ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000)
+            .then(function (el: webdriver.IWebElement) {
+                resolve(el.click());
+            }).thenCatch((errback) => {
+            reject(errback);
         });
-    }
+    });
+}
 
     getDashboard() {
         return this.dashboard.isPresent();

@@ -1,10 +1,12 @@
-import { Component, Input } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
+import { Component, Input, ModuleWithProviders, NgModule } from "@angular/core";
+import { TranslateService, TranslateModule } from "ng2-translate/ng2-translate";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EventEmitter } from "@angular/common/src/facade/async";
-import { Location } from "@angular/common";
+import { Location, CommonModule } from "@angular/common";
 import { CrudService } from "../../crud.service";
 import { LinksetProperty } from "../../model/linksetProperty";
+import { MdModule } from "../../../md.module";
+import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'multiple-select',
@@ -123,5 +125,24 @@ export class MultipleSelect {
         this.crudService.model[this.property.property] = [];
         this.crudService.titleColumns = [];
         this.ridItems = [];
+    }
+}
+
+@NgModule({
+    imports: [
+        CommonModule,
+        FormsModule,
+        MdModule.forRoot(),
+        TranslateModule
+    ],
+    exports: [MultipleSelect],
+    declarations: [MultipleSelect]
+})
+export class MultipleSelectModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: MultipleSelectModule,
+            providers: []
+        };
     }
 }

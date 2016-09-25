@@ -1,8 +1,14 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, ModuleWithProviders, NgModule } from "@angular/core";
 import { CrudService } from "../crud/crud.service";
-import { Location } from "@angular/common";
+import { Location, CommonModule } from "@angular/common";
 import { BtnTypes } from "./btn.types";
 import { Router, ActivatedRoute } from "@angular/router";
+import { MdSelectModule } from "../common/material/select/select";
+import { MdModule } from "../md.module";
+import { TranslateModule } from "ng2-translate/ng2-translate";
+import { FormsModule } from "@angular/forms";
+import { MultipleSelectModule } from "../crud/directives/multipleSelect/multipleSelect.component";
+import { LoadingGridModule } from "../common/loadingGrid";
 
 @Component({
     selector: 'dynamic-form',
@@ -17,10 +23,12 @@ export class DynamicForm {
     @Input('btnName')
     public btnName: BtnTypes;
 
+    @Input('crudService')
+    public crudService: CrudService;
+
     constructor(public router: Router,
                 public route: ActivatedRoute,
-                public location: Location,
-                public crudService: CrudService){
+                public location: Location){
     }
 
     onSubmit(){
@@ -43,5 +51,27 @@ export class DynamicForm {
 
     back() {
         this.location.back();
+    }
+}
+
+@NgModule({
+    imports: [
+        CommonModule,
+        FormsModule,
+        MdSelectModule.forRoot(),
+        MultipleSelectModule.forRoot(),
+        MdModule.forRoot(),
+        TranslateModule,
+        LoadingGridModule
+    ],
+    exports: [DynamicForm],
+    declarations: [DynamicForm]
+})
+export class DynamicFormModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: DynamicFormModule,
+            providers: []
+        };
     }
 }
