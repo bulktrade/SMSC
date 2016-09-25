@@ -43,8 +43,12 @@ const CRUD_MODULES = [
     BrowserModule,
     TranslateModule,
     MultipleSelectModule,
+<<<<<<< Updated upstream
     DynamicFormModule,
     AgGridModule.forRoot()
+=======
+    DynamicFormModule
+>>>>>>> Stashed changes
 ];
 
 @NgModule({

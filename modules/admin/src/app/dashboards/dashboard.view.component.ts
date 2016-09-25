@@ -62,7 +62,6 @@ export class DashboardView {
         });
 
         alert();
-        console.log();
     }
 
     /**

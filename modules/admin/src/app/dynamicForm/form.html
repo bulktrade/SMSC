@@ -33,6 +33,7 @@
 				             [align]="alignment">
 					{{item.headerName}}
 				</md-checkbox>
+<<<<<<< Updated upstream
 				<md-select *ngSwitchCase="'EMBEDDEDLIST'" [options]="crudService.getSelectOptions(item)"
 				           [placeholder]="item.headerName" [required]="item.mandatory"
 				           (valid)="crudService.isHint[item.property] = $event" class="{{item.property}}"
@@ -42,6 +43,17 @@
 					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
 					</md-hint>
 				</md-select>
+=======
+                <md-select *ngSwitchCase="'EMBEDDEDLIST'" [options]="crudService.getSelectOptions(item)"
+                           [placeholder]="item.headerName" [required]="item.mandatory"
+                           (valid)="crudService.isHint[item.property] = $event"
+                           (modelChange)="crudService.setEmbeddedList(item.property, $event)"
+                           [model]="crudService.setEmbeddedList(item.property)">
+                    <md-hint [hidden]="!crudService.isHint[item.property]" align="start">
+                        {{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
+                    </md-hint>
+                </md-select>
+>>>>>>> Stashed changes
 			</div>
 			<div class="wrapBtn">
 				<div class="formButtons">

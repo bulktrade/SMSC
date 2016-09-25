@@ -43,7 +43,11 @@ export class MdSelect implements OnInit {
                 this.valid.emit(true);
             }
         } else {
+<<<<<<< Updated upstream
             this.valid.emit(false);
+=======
+            this.valid.emit(true);
+>>>>>>> Stashed changes
         }
     }
 }

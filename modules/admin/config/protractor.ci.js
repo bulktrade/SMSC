@@ -14,7 +14,7 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'ci';
 exports.config = objectMerge(commonConfig.config, {
     sauceUser: process.env.SAUCE_USERNAME,
     sauceKey: process.env.SAUCE_ACCESS_KEY,
-    sauceSeleniumAddress: 'localhost:4445/wd/hub',
+    sauceSeleniumAddress: 'http://127.0.0.1:4444/wd/hub',
 
     multiCapabilities: [
         {

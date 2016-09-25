@@ -1,7 +1,11 @@
 import {Injectable} from '@angular/core';
 import { MdSidenav } from "@angular2-material/sidenav";
 
+<<<<<<< Updated upstream
 @Injectable()
+=======
+//@Injectable()
+>>>>>>> Stashed changes
 export class SidebarService {
     private _sidenav:MdSidenav;
     private _fullScreenMode:boolean = false;
@@ -23,7 +27,10 @@ export class SidebarService {
     }
 
     public toggleSidenav():Promise<void> {
+<<<<<<< Updated upstream
         console.log(this._sidenav);
+=======
+>>>>>>> Stashed changes
         return this._sidenav.toggle();
     }
 }
