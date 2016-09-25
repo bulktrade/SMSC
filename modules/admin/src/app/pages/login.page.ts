@@ -1,5 +1,8 @@
+import { WaitUntilReady } from "./common/waitUntilReady";
+
 export class LoginPage {
-    elemMainContent = element(by.className('user-name'));
+    private _ptor;
+
     usernameField = element(by.className('username'));
     elemNotFound = element(by.tagName('notfound'));
     dangerMessage = element(by.className('alert-danger'));
@@ -7,26 +10,29 @@ export class LoginPage {
     btnSubmit = element(by.id('submitButton'));
 
     get() {
-        browser.get('/');
+        browser.get('/admin');
     }
 
-    getNavigation() {
-        browser.get('/navigation');
+    getCustomers() {
+        browser.get('/admin/customers');
     }
 
     getNotFound() {
-        browser.get('/noContent');
+        browser.get('/admin/noContent');
     }
 
-    isPresentMainContent() {
-        return this.elemMainContent.isPresent();
+    isPresentUsernameField() {
+        WaitUntilReady.waitUntilReady(this.usernameField, this._ptor);
+        return this.usernameField.isPresent();
     }
 
     isPresentNotFound() {
+        WaitUntilReady.waitUntilReady(this.elemNotFound, this._ptor);
         return this.elemNotFound.isPresent();
     }
 
     ifPresentDangerMsg() {
+        WaitUntilReady.waitUntilReady(this.dangerMessage, this._ptor);
         return this.dangerMessage.isPresent();
     }
 
@@ -55,5 +61,15 @@ export class LoginPage {
                             });
                     });
             });
+    }
+
+    /** getters and setter **/
+
+    get ptor() {
+        return this._ptor;
+    }
+
+    set ptor(value) {
+        this._ptor = value;
     }
 }

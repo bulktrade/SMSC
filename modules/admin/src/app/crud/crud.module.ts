@@ -27,8 +27,12 @@ const CRUD_DECLARATIONS = [
     CrudLinkset,
     CrudDelete,
     CrudCreate,
+<<<<<<< HEAD
     //DynamicForm,
     //MultipleSelect,
+=======
+    MultipleSelect
+>>>>>>> origin/master
 ];
 
 const CRUD_MODULES = [
@@ -36,15 +40,18 @@ const CRUD_MODULES = [
     GridPaginationModule,
     LoadingRouterOutletModule,
     CubeGridModule,
-    AgGridModule,
     LoadingGridModule,
     AlertModule,
     FormsModule,
     MdModule.forRoot(),
     BrowserModule,
     TranslateModule,
+<<<<<<< HEAD
     MultipleSelectModule,
     DynamicFormModule
+=======
+    AgGridModule.forRoot(),
+>>>>>>> origin/master
 ];
 
 @NgModule({

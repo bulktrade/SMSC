@@ -1,4 +1,5 @@
 <div class="wrapper">
+<<<<<<< HEAD
     <md-sidenav-layout class="sidenav-root" fullscreen>
         <md-sidenav #sidenav mode="side" opened>
             <md-nav-list>
@@ -9,24 +10,36 @@
             <loading-router-outlet></loading-router-outlet>
         </main>
     </md-sidenav-layout>
+=======
+	<md-sidenav-layout class="sidenav-root" fullscreen>
+		<md-sidenav #start mode="side" opened>
+			<md-nav-list>
+				<sidebar></sidebar>
+			</md-nav-list>
+		</md-sidenav>
+		<main class="main">
+			<loading-router-outlet></loading-router-outlet>
+		</main>
+	</md-sidenav-layout>
+>>>>>>> origin/master
 
-    <div class="header">
-        <md-toolbar color="primary">
-            <button [disableRipple]="true" id="btn-menu" md-icon-button (click)="start.toggle()">
-                <md-icon class="md-24" >menu</md-icon>
-            </button>
-            <div class="toolbar">
-                <h1 [routerLink]="['/']">{{ 'project.title' | translate }}</h1>
-                <div style="width: 100%"></div>
-                <button [disableRipple]="true" md-icon-button class="pull-right">
-                    <md-icon class="md-24" >person</md-icon>
-                </button>
-                <button [disableRipple]="true" md-icon-button (click)="logout()" class="pull-right">
-                    <md-icon class="md-24" >subdirectory_arrow_left</md-icon>
-                </button>
-            </div>
-        </md-toolbar>
-    </div>
+	<div class="header">
+		<md-toolbar color="primary">
+			<button [disableRipple]="true" id="btn-menu" md-icon-button (click)="start.toggle()">
+				<md-icon class="md-24">menu</md-icon>
+			</button>
+			<div class="toolbar">
+				<h1 [routerLink]="['/']" id="logo">{{ 'project.title' | translate }}</h1>
+				<div style="width: 100%"></div>
+				<button [disableRipple]="true" md-icon-button class="pull-right">
+					<md-icon class="md-24">person</md-icon>
+				</button>
+				<button [disableRipple]="true" md-icon-button (click)="logout()" id="logout" class="pull-right">
+					<md-icon class="md-24">subdirectory_arrow_left</md-icon>
+				</button>
+			</div>
+		</md-toolbar>
+	</div>
 
-    <simple-notifications [options]="notificationOptions"></simple-notifications>
+	<simple-notifications [options]="notificationOptions"></simple-notifications>
 </div>
