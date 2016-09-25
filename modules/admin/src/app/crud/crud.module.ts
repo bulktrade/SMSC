@@ -42,7 +42,7 @@ const CRUD_MODULES = [
     MdModule.forRoot(),
     BrowserModule,
     TranslateModule,
-    AgGridModule,
+    AgGridModule.forRoot(),
 ];
 
 @NgModule({
