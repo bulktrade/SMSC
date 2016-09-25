@@ -202,10 +202,10 @@ module.exports = function(env) {
              * See: https://github.com/webpack/compression-webpack-plugin
              */
             //  install compression-webpack-plugin
-            // new CompressionPlugin({
-            //   regExp: /\.css$|\.html$|\.js$|\.map$/,
-            //   threshold: 2 * 1024
-            // })
+            new CompressionPlugin({
+              regExp: /\.css$|\.html$|\.js$|\.map$/,
+              threshold: 2 * 1024
+            })
 
         ],
 
