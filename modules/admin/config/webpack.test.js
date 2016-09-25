@@ -21,7 +21,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function(options) {
+module.exports = function (options) {
     return {
 
         /**
@@ -91,7 +91,8 @@ module.exports = function(options) {
                         // these packages have problems with their sourcemaps
                         helpers.root('node_modules/rxjs'),
                         helpers.root('node_modules/@angular')
-                    ]}
+                    ]
+                }
 
             ],
 
@@ -114,8 +115,10 @@ module.exports = function(options) {
                     test: /\.ts$/,
                     loader: 'awesome-typescript-loader',
                     query: {
+                        // use inline sourcemaps for "karma-remap-coverage" reporter
+                        sourceMap: false,
+                        inlineSourceMap: true,
                         compilerOptions: {
-
                             // Remove TypeScript helpers to be injected
                             // below by DefinePlugin
                             removeComments: true
@@ -125,7 +128,7 @@ module.exports = function(options) {
                     exclude: [/\.e2e\.ts$/]
                 },
 
-                /*
+                /**
                  * Json loader support for *.json files.
                  *
                  * See: https://github.com/webpack/json-loader

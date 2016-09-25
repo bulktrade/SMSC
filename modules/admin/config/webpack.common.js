@@ -79,11 +79,8 @@ module.exports = function (options) {
              */
             extensions: ['', '.ts', '.js', '.json'],
 
-            // Make sure root is src
-            root: helpers.root('src'),
-
-            // remove other default values
-            modulesDirectories: ['node_modules'],
+            // An array of directory names to be resolved to the current directory
+            modules: [helpers.root('src'), 'node_modules']
 
         },
 
@@ -93,6 +90,8 @@ module.exports = function (options) {
          * See: http://webpack.github.io/docs/configuration.html#module
          */
         module: {
+
+            exprContextCritical: false,
 
             /*
              * An array of applied pre and post loaders.
@@ -109,7 +108,7 @@ module.exports = function (options) {
                         flags: 'g'
                     },
                     include: [helpers.root('src')]
-                },
+                }
 
             ],
 
@@ -282,12 +281,24 @@ module.exports = function (options) {
                 disable: false,
                 allChunks: true
             }),
+
             new webpack.ProvidePlugin({
-                jQuery: 'jquery',
-                $: 'jquery',
-                jquery: 'jquery',
-                "Tether": 'tether',
-                "window.Tether": "tether"
+                $: "jquery",
+                jQuery: "jquery",
+                "window.jQuery": "jquery",
+                Tether: "tether",
+                "window.Tether": "tether",
+                Alert: "exports?Alert!bootstrap/js/dist/alert",
+                Button: "exports?Button!bootstrap/js/dist/button",
+                Carousel: "exports?Carousel!bootstrap/js/dist/carousel",
+                Collapse: "exports?Collapse!bootstrap/js/dist/collapse",
+                Dropdown: "exports?Dropdown!bootstrap/js/dist/dropdown",
+                Modal: "exports?Modal!bootstrap/js/dist/modal",
+                Popover: "exports?Popover!bootstrap/js/dist/popover",
+                Scrollspy: "exports?Scrollspy!bootstrap/js/dist/scrollspy",
+                Tab: "exports?Tab!bootstrap/js/dist/tab",
+                Tooltip: "exports?Tooltip!bootstrap/js/dist/tooltip",
+                Util: "exports?Util!bootstrap/js/dist/util",
             })
         ],
 

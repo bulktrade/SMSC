@@ -39,17 +39,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--<plugin>-->
-            <!--<groupId>org.apache.maven.plugins</groupId>-->
-            <!--<artifactId>maven-failsafe-plugin</artifactId>-->
-            <!--<executions>-->
-            <!--<execution>-->
-            <!--<goals>-->
-            <!--<goal>integration-test</goal>-->
-            <!--</goals>-->
-            <!--</execution>-->
-            <!--</executions>-->
-            <!--</plugin>-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -98,21 +87,6 @@
                             <goal>exec</goal>
                         </goals>
                     </execution>
-                    <!--<execution>-->
-                        <!--<id>e2e-app</id>-->
-                        <!--<phase>integration-test</phase>-->
-                        <!--<configuration>-->
-                            <!--<executable>npm</executable>-->
-                            <!--<workingDirectory>${project.basedir}</workingDirectory>-->
-                            <!--<arguments>-->
-                                <!--<argument>run</argument>-->
-                                <!--<argument>e2e</argument>-->
-                            <!--</arguments>-->
-                        <!--</configuration>-->
-                        <!--<goals>-->
-                            <!--<goal>exec</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
                 </executions>
             </plugin>
             <plugin>
