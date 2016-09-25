@@ -27,12 +27,8 @@ const CRUD_DECLARATIONS = [
     CrudLinkset,
     CrudDelete,
     CrudCreate,
-<<<<<<< HEAD
     //DynamicForm,
     //MultipleSelect,
-=======
-    MultipleSelect
->>>>>>> origin/master
 ];
 
 const CRUD_MODULES = [
@@ -46,12 +42,9 @@ const CRUD_MODULES = [
     MdModule.forRoot(),
     BrowserModule,
     TranslateModule,
-<<<<<<< HEAD
     MultipleSelectModule,
-    DynamicFormModule
-=======
-    AgGridModule.forRoot(),
->>>>>>> origin/master
+    DynamicFormModule,
+    AgGridModule.forRoot()
 ];
 
 @NgModule({
