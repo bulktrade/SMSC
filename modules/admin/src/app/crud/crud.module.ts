@@ -36,7 +36,6 @@ const CRUD_MODULES = [
     GridPaginationModule,
     LoadingRouterOutletModule,
     CubeGridModule,
-    AgGridModule,
     LoadingGridModule,
     AlertModule,
     FormsModule,
@@ -44,7 +43,9 @@ const CRUD_MODULES = [
     BrowserModule,
     TranslateModule,
     MultipleSelectModule,
-    DynamicFormModule
+    DynamicFormModule,
+    TranslateModule,
+    AgGridModule.forRoot(),
 ];
 
 @NgModule({

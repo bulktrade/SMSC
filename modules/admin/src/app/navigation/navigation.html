@@ -10,23 +10,23 @@
         </main>
     </md-sidenav-layout>
 
-    <div class="header">
-        <md-toolbar color="primary">
-            <button [disableRipple]="true" id="btn-menu" md-icon-button (click)="start.toggle()">
-                <md-icon class="md-24" >menu</md-icon>
-            </button>
-            <div class="toolbar">
-                <h1 [routerLink]="['/']">{{ 'project.title' | translate }}</h1>
-                <div style="width: 100%"></div>
-                <button [disableRipple]="true" md-icon-button class="pull-right">
-                    <md-icon class="md-24" >person</md-icon>
-                </button>
-                <button [disableRipple]="true" md-icon-button (click)="logout()" class="pull-right">
-                    <md-icon class="md-24" >subdirectory_arrow_left</md-icon>
-                </button>
-            </div>
-        </md-toolbar>
-    </div>
+	<div class="header">
+		<md-toolbar color="primary">
+			<button [disableRipple]="true" id="btn-menu" md-icon-button (click)="start.toggle()">
+				<md-icon class="md-24">menu</md-icon>
+			</button>
+			<div class="toolbar">
+				<h1 [routerLink]="['/']" id="logo">{{ 'project.title' | translate }}</h1>
+				<div style="width: 100%"></div>
+				<button [disableRipple]="true" md-icon-button class="pull-right">
+					<md-icon class="md-24">person</md-icon>
+				</button>
+				<button [disableRipple]="true" md-icon-button (click)="logout()" id="logout" class="pull-right">
+					<md-icon class="md-24">subdirectory_arrow_left</md-icon>
+				</button>
+			</div>
+		</md-toolbar>
+	</div>
 
     <simple-notifications [options]="notificationOptions"></simple-notifications>
 </div>
