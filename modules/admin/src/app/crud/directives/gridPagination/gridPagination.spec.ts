@@ -75,27 +75,6 @@ describe('Grid Pagination', () => {
             expect(gp.getCurrentPage()).toEqual(4);
         }));
 
-    it('should get a class size', inject([MockBackend, GridPagination],
-        (backend: MockBackend, gp: GridPagination) => {
-            gp.setCurrentPage(5);
-            gp.gridOptions = {
-                rowSelection: 'multiple',
-                rowHeight: 30,
-                columnDefs: [],
-                rowData: []
-            };
-
-            backend.connections.subscribe(c => {
-                let response = new ResponseOptions({ body: '{"result": "[]"}' });
-                c.mockRespond(new Response(response));
-            });
-
-            gp.getSizeClass('Test')
-                .subscribe((res) => {
-                    expect(res).toEqual(2);
-                });
-        }));
-
     it('should go to the last page', inject([MockBackend, GridPagination],
         (backend: MockBackend, gp: GridPagination) => {
             gp.className = 'Test';
@@ -111,8 +90,9 @@ describe('Grid Pagination', () => {
                 c.mockRespond(new Response(response));
             });
 
+            spyOn(gp, 'last');
             gp.last();
-            expect(gp.getCurrentPage()).toEqual(0);
+            expect(gp.last).toHaveBeenCalled();
         }));
 
     it('should to get a rows data', inject([MockBackend, GridPagination],

@@ -8,7 +8,6 @@ import { GridService } from '../../../services/grid.service';
 import { CommonModule } from '@angular/common';
 import { MdSelectModule } from '../../../common/material/select/select';
 import { MdModule } from '../../../md.module';
-import { Observable, Observer } from 'rxjs';
 import { CrudLevel } from '../../model/crudLevel';
 
 const squel = require('squel');
@@ -51,7 +50,14 @@ export class GridPagination {
 
     changePageSize() {
         if (this.pageSize === 'All records') {
-            this.createNewDatasource();
+            this.gridService.getSizeClass(this.className)
+                .subscribe(classSize => {
+
+                    this.currentPage = 0;
+                    this.pageSize = classSize;
+
+                    this.createNewDatasource(0, this.pageSize);
+                });
         } else {
             this.gridService.getSizeClass(this.className)
                 .subscribe(size => {
@@ -116,33 +122,40 @@ export class GridPagination {
     }
 
     next() {
-        this.gridService.getSizeClass(this.className)
-            .subscribe(size => {
-                if ((this.currentPage + 1) * this.pageSize < size) {
-                    this.currentPage += 1;
+        return new Promise((resolve, reject) => {
+            this.gridService.getSizeClass(this.className)
+                .subscribe(size => {
+                    if ((this.currentPage + 1) * this.pageSize < size) {
+                        this.currentPage += 1;
 
-                    let skip = this.currentPage * this.pageSize;
-                    let limit = this.pageSize;
-
-                    return this.createNewDatasource(skip, limit)
-                        .then(res => {
-                        }, err => {
-                        });
-                } else {
-                    let lastRows = size - this.currentPage * this.pageSize;
-
-                    if (lastRows) {
                         let skip = this.currentPage * this.pageSize;
-                        let limit = lastRows;
+                        let limit = this.pageSize;
 
                         return this.createNewDatasource(skip, limit)
                             .then(res => {
+                                resolve(res);
                             }, err => {
+                                reject(err);
                             });
+                    } else {
+                        let lastRows = size - this.currentPage * this.pageSize;
+
+                        if (lastRows) {
+                            let skip = this.currentPage * this.pageSize;
+                            let limit = lastRows;
+
+                            return this.createNewDatasource(skip, limit)
+                                .then(res => {
+                                    resolve(res);
+                                }, err => {
+                                    reject(err);
+                                });
+                        }
                     }
-                }
-            }, error => {
-            });
+                }, error => {
+                    reject(error);
+                });
+        })
     }
 
     createNewDatasource(skip?, limit?): Promise<Array<any>> {
