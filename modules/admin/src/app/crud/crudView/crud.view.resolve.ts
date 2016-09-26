@@ -1,10 +1,10 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { Injectable } from "@angular/core";
-import { CrudResolve } from "../common/crudResolve";
-import { CrudService } from "../crud.service";
-import { LoadingGridService } from "../../services/loading/loadingGrid.service";
-import { ColumnDefsModel } from "../model/columnDefs.model";
-import { Observer, Observable } from "rxjs";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CrudResolve } from '../common/crudResolve';
+import { CrudService } from '../crud.service';
+import { LoadingGridService } from '../../services/loading/loadingGrid.service';
+import { ColumnDefsModel } from '../model/columnDefs.model';
+import { Observer, Observable } from 'rxjs';
 
 @Injectable()
 export class CrudViewResolve extends CrudResolve {

@@ -1,5 +1,5 @@
-import { Component, Input, NgModule, ModuleWithProviders } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, Input, NgModule, ModuleWithProviders } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'sk-cube-grid',
@@ -11,13 +11,13 @@ import { CommonModule } from "@angular/common";
 
 export class CubeGridComponent {
     @Input()
-    public delay:number = 0;
+    public delay: number = 0;
 
     @Input()
-    public backgroundColor:string = '#009688';
+    public backgroundColor: string = '#009688';
 
     @Input()
-    public isRunning:boolean = true;
+    public isRunning: boolean = true;
 
 }
 

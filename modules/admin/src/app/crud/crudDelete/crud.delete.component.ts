@@ -1,8 +1,8 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, ActivatedRoute } from "@angular/router";
-import { CrudService } from "../crud.service";
-import { Location } from "@angular/common";
+import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CrudService } from '../crud.service';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'crud-delete',
@@ -27,7 +27,7 @@ export class CrudDelete {
     ngOnInit() {
         this.route.params.subscribe((params) => {
             this.id = params['id'];
-        })
+        });
     }
 
     back() {

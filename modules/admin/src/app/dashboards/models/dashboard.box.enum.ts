@@ -1,9 +1,9 @@
 export enum BoxType {
-    Statuc,
-    Chart
+    status,
+    chart
 }
 
 export enum BoxResize {
-    Width = 'width',
-    Height = 'height'
+    width,
+    height
 }

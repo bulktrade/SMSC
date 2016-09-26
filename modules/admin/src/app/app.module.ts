@@ -1,60 +1,61 @@
-import { NgModule, ApplicationRef } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { Http, HttpModule } from "@angular/http";
-import { FormsModule } from "@angular/forms";
-import { App } from "./app.component";
-import { Breadcrumb } from "./breadcrumb/breadcrumb.component";
-import { ROUTES } from "./app.routes";
-import { Login } from "./login/login.component";
-import { Navigation } from "./navigation/navigation.component";
-import { Customers } from "./customers/customers.components";
-import { NotFound } from "./notFound/notFound.component";
-import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
-import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
-import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
-import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
-import { RouterModule } from "@angular/router";
-import { AppState } from "./app.service";
-import { COMMON_PROVIDERS } from "./common";
-import { AuthService } from "./services/auth/auth.service";
-import { TokenService } from "./services/auth/token.service";
-import { CrudService } from "./crud/crud.service";
-import { AuthGuard } from "./common/authGuard";
-import { NotificationService } from "./services/notificationService";
-import { LoadingGridService } from "./services/loading/loadingGrid.service";
-import { APP_RESOLVER_PROVIDERS } from "./app.resolver";
-import { createNewHosts, removeNgStyles } from "@angularclass/hmr";
-import { ENV_PROVIDERS } from "./environment";
-import { MdModule } from "./md.module";
-import { SimpleNotificationsModule } from "angular2-notifications";
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate";
-import { Ng2BootstrapModule } from "ng2-bootstrap";
-import { GridService } from "./services/grid.service";
-import { Sidebar } from "./sidebar/sidebar.component";
-import { SidebarItem } from "./sidebar/sidebaritem.component";
-import { CrudViewResolve } from "./crud/crudView/crud.view.resolve";
-import { CrudModule } from "./crud/crud.module";
-import { LoadingRouterOutletModule } from "./common/loadingRouterOutlet";
-import { ConfigService } from "./config/configService";
-import { LoadingRouterOutletService } from "./services/loading/loadingRouterOutlet.service";
-import { LoadingService } from "./services/loading/loading.service";
-import { RouterOutletService } from "./services/routerOutletService";
-import { MetaDataPropertyBindingParameter } from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter";
-import { DragulaModule } from "ng2-dragula/ng2-dragula";
-import { DashboardComponent } from "./dashboards/dashboards.components";
-import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard.crud.create.resolve";
+import { NgModule, ApplicationRef } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { Http, HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
+import { App } from './app.component';
+import { Breadcrumb } from './breadcrumb/breadcrumb.component';
+import { ROUTES } from './app.routes';
+import { Login } from './login/login.component';
+import { Navigation } from './navigation/navigation.component';
+import { Customers } from './customers/customers.components';
+import { NotFound } from './notFound/notFound.component';
+import { CrudMetaFormData } from './crudMetadata/crudMetaFormData/crudMetaFormData.component';
+import { CrudMetaData } from './crudMetadata/crudMetaData.components';
+import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
+import { CrudMetaGridData } from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
+import { RouterModule } from '@angular/router';
+import { AppState } from './app.service';
+import { COMMON_PROVIDERS } from './common';
+import { AuthService } from './services/auth/auth.service';
+import { TokenService } from './services/auth/token.service';
+import { CrudService } from './crud/crud.service';
+import { AuthGuard } from './common/authGuard';
+import { NotificationService } from './services/notificationService';
+import { LoadingGridService } from './services/loading/loadingGrid.service';
+import { APP_RESOLVER_PROVIDERS } from './app.resolver';
+import { createNewHosts, removeNgStyles } from '@angularclass/hmr';
+import { ENV_PROVIDERS } from './environment';
+import { MdModule } from './md.module';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import { Ng2BootstrapModule } from 'ng2-bootstrap';
+import { GridService } from './services/grid.service';
+import { Sidebar } from './sidebar/sidebar.component';
+import { SidebarItem } from './sidebar/sidebaritem.component';
+import { CrudViewResolve } from './crud/crudView/crud.view.resolve';
+import { CrudModule } from './crud/crud.module';
+import { LoadingRouterOutletModule } from './common/loadingRouterOutlet';
+import { ConfigService } from './config/configService';
+import { LoadingRouterOutletService } from './services/loading/loadingRouterOutlet.service';
+import { LoadingService } from './services/loading/loading.service';
+import { RouterOutletService } from './services/routerOutletService';
+import {
+    MetaDataPropertyBindingParameter
+} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
 import { DashboardCrudUpdateResolve } from "./dashboards/crud/dashboard.crud.update.resolve";
+import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard.crud.create.resolve";
+import { DashboardService } from "./dashboards/dashboardService";
+import { SidebarService } from "./sidebar/sidebarService";
 import { OrderBy } from "./dashboards/sorts/orderby";
-import { Dashboard } from "./dashboards/dashboard.component";
-import { DashboardBoxComponent } from "./dashboards/dashboard.box.component";
+import { Dashboards } from "./dashboards/dashboards.components";
 import { DashboardView } from "./dashboards/dashboard.view.component";
+import { DashboardBoxComponent } from "./dashboards/dashboard.box.component";
 import { DashboardCrudUpdate } from "./dashboards/crud/dashboard.box.update";
 import { DashboardCrudCreate } from "./dashboards/crud/dashboard.box.create";
 import { MdSelectModule } from "./common/material/select/select";
-import { MultipleSelectModule } from "./crud/directives/multipleSelect/multipleSelect.component";
 import { DynamicFormModule } from "./dynamicForm/dynamic.form";
-import { DashboardService } from "./dashboards/dashboardService";
-import { SidebarService } from "./sidebar/sidebarService";
+import { DragulaModule } from "ng2-dragula/ng2-dragula";
+import { Dashboard } from "./dashboards/dashboard.component";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -95,7 +96,7 @@ export const APP_PROVIDERS = [
         MetaDataPropertyBindingParameter,
         OrderBy,
         Dashboard,
-        DashboardComponent,
+        Dashboards,
         DashboardView,
         DashboardBoxComponent,
         DashboardCrudUpdate,
@@ -120,7 +121,6 @@ export const APP_PROVIDERS = [
         CrudModule.forRoot(),
         DragulaModule,
         MdSelectModule,
-        MultipleSelectModule,
         DynamicFormModule
     ],
     providers: [

@@ -1,7 +1,7 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { ActivatedRoute, Router, NavigationStart } from "@angular/router";
-import { CrudService } from "./crud.service";
+import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { CrudService } from './crud.service';
 
 @Component({
     selector: 'crud',

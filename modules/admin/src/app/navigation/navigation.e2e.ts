@@ -1,5 +1,5 @@
-import {NavigationTest} from '../pages/navigation.page';
-import { WaitUntilReady } from "../pages/common/waitUntilReady";
+import { NavigationTest } from '../pages/navigation.page';
+import { WaitUntilReady } from '../pages/common/waitUntilReady';
 
 describe('Navigation', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -54,7 +54,7 @@ describe('Navigation', () => {
     });
 
     it('responsive navigation', () => {
-        let width  = 900,
+        let width = 900,
             height = 1300;
         ptor.manage().window().setSize(width, height);
         this.navigator.sidebarDirective.getCssValue('width')

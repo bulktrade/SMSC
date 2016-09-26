@@ -1,11 +1,13 @@
 export class DashboardListItem<T> {
-    private list:Array<T> = [];
+    private list: Array<T> = [];
 
-    constructor(len?:number){
-        if(len){
-            for(let i = 0; i < len; i++)
-                this.list.push('');
-        }
+    constructor(len?: number) {
+        // @fix it
+        // if (len) {
+        //     for (let i = 0; i < len; i++) {
+        //         this.list.push('');
+        //     }
+        // }
     }
 
     /**
@@ -15,8 +17,8 @@ export class DashboardListItem<T> {
      * @param index - index to set in target position or add to the end of list
      * @returns {null} - return Null if property not exist
      */
-    public setItem(value:T, index?:number){
-        if(index != undefined){
+    public setItem(value: T, index?: number) {
+        if (index != undefined) {
             this.list[index] = value;
         } else {
             this.list.push(value);
@@ -29,8 +31,8 @@ export class DashboardListItem<T> {
      * @param index - index get needed item
      * @returns {any} - string if item exist or null if not
      */
-    public getItem(index:number):T{
-        if(index != undefined){
+    public getItem(index: string): T {
+        if (index != undefined) {
             return this.list[index];
         }
 
@@ -42,11 +44,11 @@ export class DashboardListItem<T> {
      *
      * @param index - item position
      */
-    public removeItem(index:number){
-        this.list.splice(index, 1);
+    public removeItem(index: string) {
+        this.list.splice(Number(index), 1);
     }
 
-    public getAll():Array<T>{
+    public getAll(): Array<T> {
         return this.list;
     }
 
@@ -55,7 +57,7 @@ export class DashboardListItem<T> {
      *
      * @param list
      */
-    public merge(list:Array<T>){
+    public merge(list: Array<T>) {
         this.list = this.list.concat(list);
     }
 }

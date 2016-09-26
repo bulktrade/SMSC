@@ -1,19 +1,19 @@
-import { Http } from "@angular/http";
+import { Http } from '@angular/http';
 import {
     TranslateService,
     TranslateLoader,
     TranslateStaticLoader,
 } from 'ng2-translate/ng2-translate';
-import { ActivatedRoute, Router } from "@angular/router";
-import { CrudService } from "../crud.service";
-import { TokenService } from "../../services/auth/token.service";
-import { COMMON_PROVIDERS } from "../../common/index";
-import { NotificationService } from "../../services/notificationService";
-import { NotificationsService } from "angular2-notifications/components";
-import { LoadingGridService } from "../../services/loading/loadingGrid.service";
-import { ConfigService } from "../../config/configService";
-import { RouterOutletService } from "../../services/routerOutletService";
-import { GridService } from "../../services/grid.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { CrudService } from '../crud.service';
+import { TokenService } from '../../services/auth/token.service';
+import { COMMON_PROVIDERS } from '../../common/index';
+import { NotificationService } from '../../services/notificationService';
+import { NotificationsService } from 'angular2-notifications/components';
+import { LoadingGridService } from '../../services/loading/loadingGrid.service';
+import { ConfigService } from '../../config/configService';
+import { RouterOutletService } from '../../services/routerOutletService';
+import { GridService } from '../../services/grid.service';
 
 class MockActivatedRoute {};
 

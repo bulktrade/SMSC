@@ -1,8 +1,8 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { CrudCreate } from "./crud.create.component";
-import { CRUD_PROVIDERS } from "../common/crudProviders";
-import { Location } from "@angular/common";
-import { HttpModule } from "@angular/http";
+import { CrudCreate } from './crud.create.component';
+import { CRUD_PROVIDERS } from '../common/crudProviders';
+import { Location } from '@angular/common';
+import { HttpModule } from '@angular/http';
 
 class MockLocation {};
 

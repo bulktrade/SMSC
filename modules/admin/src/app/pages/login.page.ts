@@ -1,13 +1,16 @@
-import { WaitUntilReady } from "./common/waitUntilReady";
+import { WaitUntilReady } from './common/waitUntilReady';
 
 export class LoginPage {
+    public elemNotFound = element(by.tagName('notfound'));
+    public dangerMessage = element(by.className('alert-danger'));
+    public details = element(by.className('details'));
+    public btnSubmit = element(by.id('submitButton'));
+    public usernameField = element(by.className('username'));
+
     private _ptor;
 
-    usernameField = element(by.className('username'));
-    elemNotFound = element(by.tagName('notfound'));
-    dangerMessage = element(by.className('alert-danger'));
-    details = element(by.className('details'));
-    btnSubmit = element(by.id('submitButton'));
+    constructor() {
+    }
 
     get() {
         browser.get('/admin');
@@ -38,9 +41,10 @@ export class LoginPage {
 
     clickOnBtnSend(ptor) {
         return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('btn')), 5000).then(function (el: webdriver.IWebElement) {
-                resolve(el.click());
-            }).thenCatch((errback) => {
+            ptor.wait(protractor.until.elementLocated(by.className('btn')), 5000)
+                .then(function (el: webdriver.IWebElement) {
+                    resolve(el.click());
+                }).thenCatch((errback) => {
                 reject(errback);
             });
         });
@@ -63,7 +67,7 @@ export class LoginPage {
             });
     }
 
-    /** getters and setter **/
+    // getters and setter
 
     get ptor() {
         return this._ptor;
@@ -73,3 +77,4 @@ export class LoginPage {
         this._ptor = value;
     }
 }
+

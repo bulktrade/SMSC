@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
+import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Breadcrumb } from '../breadcrumb/breadcrumb.component';
 
 @Component({
     selector: 'customers',
@@ -12,7 +12,7 @@ import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
 })
 
 export class Customers {
-    constructor(public translate:TranslateService) {
+    constructor(public translate: TranslateService) {
     }
 
     ngOnInit() {

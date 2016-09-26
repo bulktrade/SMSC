@@ -1,10 +1,10 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from "@angular/router";
-import { Injectable } from "@angular/core";
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from '@angular/router';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CrudResolve implements Resolve<any> {
 
-    resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     }
 
 }

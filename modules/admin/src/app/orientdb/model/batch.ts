@@ -1,6 +1,6 @@
-import { Operation } from "./operation";
+import { Operation } from './operation';
 
-export interface Batch {
-    transaction: boolean,
-    operations: Array<Operation>
+export class Batch {
+    public transaction: boolean;
+    public operations: Array<Operation>;
 }

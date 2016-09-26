@@ -1,13 +1,13 @@
-import { Component, OnInit, NgModule, ModuleWithProviders } from "@angular/core";
-import { LoadingGridService } from "../services/loading/loadingGrid.service";
-import { CrudService } from "../crud/crud.service";
-import { CubeGridModule } from "./spinner/cubeGrid/cubeGrid.component";
-import { CommonModule } from "@angular/common";
+import { Component, OnInit, NgModule, ModuleWithProviders } from '@angular/core';
+import { LoadingGridService } from '../services/loading/loadingGrid.service';
+import { CrudService } from '../crud/crud.service';
+import { CubeGridModule } from './spinner/cubeGrid/cubeGrid.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'loading-grid',
     template: `
-        <sk-cube-grid [isRunning]="service.loading"></sk-cube-grid>
+        <sk-cube-grid [isRunning]='service.loading'></sk-cube-grid>
         <ng-content *ngIf="!service.loading"></ng-content>
     `
 })

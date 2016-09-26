@@ -1,7 +1,7 @@
-import { Component, Input, Output, NgModule, ModuleWithProviders, OnInit } from "@angular/core";
-import { EventEmitter } from "@angular/common/src/facade/async";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { Component, Input, Output, NgModule, ModuleWithProviders, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/common/src/facade/async';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'md-select',
@@ -43,11 +43,7 @@ export class MdSelect implements OnInit {
                 this.valid.emit(true);
             }
         } else {
-<<<<<<< Updated upstream
             this.valid.emit(false);
-=======
-            this.valid.emit(true);
->>>>>>> Stashed changes
         }
     }
 }

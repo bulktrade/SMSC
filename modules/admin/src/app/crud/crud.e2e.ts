@@ -1,5 +1,5 @@
-import { CrudPage } from "../pages/crud.page";
-import { WaitUntilReady } from "../pages/common/waitUntilReady";
+import { CrudPage } from '../pages/crud.page';
+import { WaitUntilReady } from '../pages/common/waitUntilReady';
 
 describe('CRUD', () => {
     let ptor = protractor.wrapDriver(browser.driver);

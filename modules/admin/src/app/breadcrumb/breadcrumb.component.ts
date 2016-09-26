@@ -1,7 +1,7 @@
-import { Component, Injectable } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, ActivatedRoute } from "@angular/router";
-import { BreadcrumbService } from "./breadcrumb.service";
+import { Component, Injectable } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Router, ActivatedRoute } from '@angular/router';
+import { BreadcrumbService } from './breadcrumb.service';
 
 @Component({
     selector: 'breadcrumb',

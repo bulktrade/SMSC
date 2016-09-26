@@ -97,6 +97,7 @@
         "zone.js": "~0.6.21"
     },
     "devDependencies": {
+        "ng2-dragula": "^1.2.1",
         "@types/hammerjs": "^2.0.33",
         "@types/jasmine": "^2.2.34",
         "@types/lodash": "^4.14.34",

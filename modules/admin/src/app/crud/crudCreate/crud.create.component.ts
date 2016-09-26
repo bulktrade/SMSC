@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, ActivatedRoute } from "@angular/router";
-import { CrudService } from "../crud.service";
-import { Location } from "@angular/common";
-import { ColumnDefsModel } from "../model/columnDefs.model";
-import { BtnTypes } from "../../dynamicForm/btn.types";
+import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CrudService } from '../crud.service';
+import { Location } from '@angular/common';
+import { ColumnDefsModel } from '../model/columnDefs.model';
+import { BtnTypes } from '../../dynamicForm/btn.types';
 
 @Component({
     selector: 'crud-create',
@@ -37,7 +37,8 @@ export class CrudCreate {
     }
 
     onSubmit() {
-        this.crudService.createRecord(this.crudService.model, this.route.snapshot.params['className']);
+        this.crudService.createRecord(this.crudService.model,
+            this.route.snapshot.params['className']);
     }
 
 }

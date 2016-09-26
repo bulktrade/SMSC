@@ -1,6 +1,6 @@
-import { BatchType } from "./batchType";
+import { BatchType } from './batchType';
 
-export interface Operation {
-    type: string|BatchType,
-    record: Object
+export class Operation {
+    public type: string|BatchType;
+    public record: Object;
 }

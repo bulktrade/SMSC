@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { LoginModel } from "./login.model";
-import { AuthService } from "../services/auth/auth.service";
-import { Response } from "@angular/http";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginModel } from './login.model';
+import { AuthService } from '../services/auth/auth.service';
+import { Response } from '@angular/http';
 
 @Component({
     selector: 'login',

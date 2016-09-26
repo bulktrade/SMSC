@@ -7,8 +7,8 @@ import { MdSelectModule } from "../common/material/select/select";
 import { MdModule } from "../md.module";
 import { TranslateModule } from "ng2-translate/ng2-translate";
 import { FormsModule } from "@angular/forms";
-import { MultipleSelectModule } from "../crud/directives/multipleSelect/multipleSelect.component";
 import { LoadingGridModule } from "../common/loadingGrid";
+import { MultipleSelectModule } from "../crud/directives/multipleSelect/multipleSelect.component";
 
 @Component({
     selector: 'dynamic-form',
@@ -28,10 +28,10 @@ export class DynamicForm {
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
-                public location: Location){
+                public location: Location) {
     }
 
-    onSubmit(){
+    onSubmit() {
         switch (this.btnName) {
             case BtnTypes.UPDATE:
                 this.crudService.updateRecord(this.crudService.model);

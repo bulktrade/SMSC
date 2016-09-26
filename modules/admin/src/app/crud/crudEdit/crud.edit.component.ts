@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, ActivatedRoute } from "@angular/router";
-import { CrudService } from "../crud.service";
-import { Location } from "@angular/common";
-import { EditModel } from "./crud.edit.model";
-import { BtnTypes } from "../../dynamicForm/btn.types";
+import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CrudService } from '../crud.service';
+import { Location } from '@angular/common';
+import { EditModel } from './crud.edit.model';
+import { BtnTypes } from '../../dynamicForm/btn.types';
 
 @Component({
     selector: 'crud-edit',
