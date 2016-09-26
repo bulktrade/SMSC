@@ -1,17 +1,19 @@
-import { Routes } from "@angular/router";
-import { AuthGuard } from "./common/authGuard";
-import { Login } from "./login/login.component";
-import { Navigation } from "./navigation/navigation.component";
-import { Dashboard } from "./dashboard/dashboard.component";
-import { Customers } from "./customers/customers.components";
-import { Crud } from "./crud/crud.component";
-import { NotFound } from "./notFound/notFound.component";
-import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
-import { CRUD_ROUTE_PROVIDER } from "./crud/crud.routes";
-import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
-import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
-import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
-import { MetaDataPropertyBindingParameter } from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter";
+import { Routes } from '@angular/router';
+import { AuthGuard } from './common/authGuard';
+import { Login } from './login/login.component';
+import { Navigation } from './navigation/navigation.component';
+import { Dashboard } from './dashboard/dashboard.component';
+import { Customers } from './customers/customers.components';
+import { Crud } from './crud/crud.component';
+import { NotFound } from './notFound/notFound.component';
+import { CrudMetaData } from './crudMetadata/crudMetaData.components';
+import { CRUD_ROUTE_PROVIDER } from './crud/crud.routes';
+import { CrudMetaGridData } from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
+import { CrudMetaFormData } from './crudMetadata/crudMetaFormData/crudMetaFormData.component';
+import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
+import {
+    MetaDataPropertyBindingParameter
+} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
 
 export const ROUTES: Routes = [
     {

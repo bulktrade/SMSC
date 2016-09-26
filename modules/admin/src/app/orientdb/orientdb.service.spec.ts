@@ -1,9 +1,16 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { ODatabaseService } from './orientdb.service';
-import { CRUD_PROVIDERS } from "../crud/common/crudProviders";
-import { HttpModule, BaseRequestOptions, Http, ConnectionBackend, ResponseOptions, Response } from "@angular/http";
-import { MockBackend } from "@angular/http/testing";
-import { APP_PROVIDERS } from "../app.module";
+import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
+import {
+    HttpModule,
+    BaseRequestOptions,
+    Http,
+    ConnectionBackend,
+    ResponseOptions,
+    Response
+} from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { APP_PROVIDERS } from '../app.module';
 
 describe('ODatabaseService', () => {
 
@@ -35,7 +42,8 @@ describe('ODatabaseService', () => {
         expect(db.evalResponse).toBeTruthy();
     }));
 
-    it('should to connect to orientdb', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
+    it('should to connect to orientdb', inject([MockBackend, Http, ODatabaseService],
+        (backend: MockBackend, http: Http, db: ODatabaseService) => {
         let path = '/orientdb/connect/smsc';
 
         backend.connections.subscribe(c => {
@@ -50,7 +58,8 @@ describe('ODatabaseService', () => {
             });
     }));
 
-    it('should return a query result', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
+    it('should return a query result', inject([MockBackend, Http, ODatabaseService],
+        (backend: MockBackend, http: Http, db: ODatabaseService) => {
         let path = '/orientdb/query/smsc/sql/select%20from%20Customer/20';
 
         backend.connections.subscribe(c => {
@@ -65,7 +74,8 @@ describe('ODatabaseService', () => {
             });
     }));
 
-    it('should execute the command', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
+    it('should execute the command', inject([MockBackend, Http, ODatabaseService],
+        (backend: MockBackend, http: Http, db: ODatabaseService) => {
         backend.connections.subscribe(c => {
             let response = new ResponseOptions({ body: '{"result": "success"}' });
             c.mockRespond(new Response(response));
@@ -77,7 +87,8 @@ describe('ODatabaseService', () => {
             });
     }));
 
-    it('should create a new user', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
+    it('should create a new user', inject([MockBackend, Http, ODatabaseService],
+        (backend: MockBackend, http: Http, db: ODatabaseService) => {
         backend.connections.subscribe(c => {
             let response = new ResponseOptions({ body: '{"result": "success"}' });
             c.mockRespond(new Response(response));
@@ -89,7 +100,8 @@ describe('ODatabaseService', () => {
             });
     }));
 
-    it('should get the metadata', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
+    it('should get the metadata', inject([MockBackend, Http, ODatabaseService],
+        (backend: MockBackend, http: Http, db: ODatabaseService) => {
         let path = '/orientdb/database/smsc';
 
         backend.connections.subscribe(c => {
@@ -104,13 +116,14 @@ describe('ODatabaseService', () => {
             });
     }));
 
-    it('should return the record informations', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
+    it('should return the record informations', inject([MockBackend, Http, ODatabaseService],
+        (backend: MockBackend, http: Http, db: ODatabaseService) => {
         let body = {
-            "@rid": "1:1",
-            "@class": "Address",
-            "street": "Piazza Navona, 1",
-            "type": "Residence",
-            "city": "#13:0"
+            '@rid': '1:1',
+            '@class': 'Address',
+            'street': 'Piazza Navona, 1',
+            'type': 'Residence',
+            'city': '#13:0'
         };
 
         backend.connections.subscribe(c => {
@@ -124,11 +137,12 @@ describe('ODatabaseService', () => {
             });
     }));
 
-    it('should save the record', inject([MockBackend, Http, ODatabaseService], (backend: MockBackend, http: Http, db: ODatabaseService) => {
+    it('should save the record', inject([MockBackend, Http, ODatabaseService],
+        (backend: MockBackend, http: Http, db: ODatabaseService) => {
         let obj = JSON.stringify({
-            "@rid": "#1:1",
-            "@version": "1",
-            "@class": "Customer"
+            '@rid': '#1:1',
+            '@version': '1',
+            '@class': 'Customer'
         });
 
         backend.connections.subscribe(c => {

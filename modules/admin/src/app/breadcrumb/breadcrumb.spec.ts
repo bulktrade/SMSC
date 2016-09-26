@@ -1,9 +1,9 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { HttpModule } from "@angular/http";
-import { Breadcrumb } from "./breadcrumb.component";
-import { BreadcrumbService } from "./breadcrumb.service";
-import { RouterModule } from "@angular/router";
-import { CRUD_PROVIDERS } from "../crud/common/crudProviders";
+import { HttpModule } from '@angular/http';
+import { Breadcrumb } from './breadcrumb.component';
+import { BreadcrumbService } from './breadcrumb.service';
+import { RouterModule } from '@angular/router';
+import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 
 describe('Breadcrumb', () => {
     beforeEach(() => {

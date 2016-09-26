@@ -1,9 +1,9 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, ActivatedRoute } from "@angular/router";
-import { CrudService } from "../crud.service";
-import { ColumnDefsModel } from "../model/columnDefs.model";
-import { LinksetProperty } from "../model/linksetProperty";
+import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CrudService } from '../crud.service';
+import { ColumnDefsModel } from '../model/columnDefs.model';
+import { LinksetProperty } from '../model/linksetProperty';
 
 @Component({
     selector: 'crud-view',
@@ -32,7 +32,8 @@ export class CrudView {
 
     navigateToCreate() {
         this.crudService.setModel({});
-        this.router.navigate([this.crudService.parentPath, 'create', this.crudService.getClassName()]);
+        this.router.navigate([this.crudService.parentPath,
+            'create', this.crudService.getClassName()]);
     }
 
     navigateToDelete() {

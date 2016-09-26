@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, NavigationStart, NavigationEnd } from "@angular/router";
-import { TokenService } from "../services/auth/token.service";
-import { NOTIFICATION_OPTIONS } from "../common/notificationOptions";
-import { LoadingRouterOutletService } from "../services/loading/loadingRouterOutlet.service";
-import { LoadingGridService } from "../services/loading/loadingGrid.service";
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { TokenService } from '../services/auth/token.service';
+import { NOTIFICATION_OPTIONS } from '../common/notificationOptions';
+import { LoadingRouterOutletService } from '../services/loading/loadingRouterOutlet.service';
+import { LoadingGridService } from '../services/loading/loadingGrid.service';
 
 @Component({
     selector: 'navigation',

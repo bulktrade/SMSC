@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation } from "@angular/core";
-import { TranslateService } from "ng2-translate";
+import { Component, ViewEncapsulation } from '@angular/core';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
     selector: 'app',
@@ -19,10 +19,11 @@ import { TranslateService } from "ng2-translate";
 })
 export class App {
     constructor(private translate: TranslateService) {
-        var userLang = navigator.language.split('-')[0]; // use navigator lang if available
+        let userLang = navigator.language.split('-')[0]; // use navigator lang if available
         userLang = /(de|ru|en)/gi.test(userLang) ? userLang : 'en';
 
-        // this language will be used as a fallback when a translation isn't found in the current language
+        // this language will be used as a fallback when a translation isn't found
+        // in the current language
         translate.setDefaultLang('en');
 
         // the lang to use, if the lang isn't available, it will use the current loader to get them

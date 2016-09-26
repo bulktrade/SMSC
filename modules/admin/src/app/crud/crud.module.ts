@@ -1,24 +1,24 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { Crud } from "./crud.component";
-import { CrudView } from "./crudView/crud.view.component";
-import { CrudEdit } from "./crudEdit/crud.edit.component";
-import { CrudLinkset } from "./crudLinkset/crud.linkset.component";
-import { CrudCreate } from "./crudCreate/crud.create.component";
-import { CrudDelete } from "./crudDelete/crud.delete.component";
-import { CrudService } from "./crud.service";
-import { MdModule } from "../md.module";
-import { LoadingRouterOutletModule } from "../common/loadingRouterOutlet";
-import { TranslateModule, TranslateService } from "ng2-translate";
-import { BrowserModule } from "@angular/platform-browser";
-import { CubeGridModule } from "../common/spinner/cubeGrid/cubeGrid.component";
-import { AlertModule } from "ng2-bootstrap";
-import { AgGridModule } from "ag-grid-ng2";
-import { GridPaginationModule } from "./directives/gridPagination/gridPagination";
-import { LoadingGridModule } from "../common/loadingGrid";
-import { FormsModule } from "@angular/forms";
-import { MultipleSelect } from "./directives/multipleSelect/multipleSelect.component";
-import { MdSelectModule } from "../common/material/select/select";
-import { DynamicForm } from "../dynamicForm/dynamic.form";
+import { Crud } from './crud.component';
+import { CrudView } from './crudView/crud.view.component';
+import { CrudEdit } from './crudEdit/crud.edit.component';
+import { CrudLinkset } from './crudLinkset/crud.linkset.component';
+import { CrudCreate } from './crudCreate/crud.create.component';
+import { CrudDelete } from './crudDelete/crud.delete.component';
+import { CrudService } from './crud.service';
+import { MdModule } from '../md.module';
+import { LoadingRouterOutletModule } from '../common/loadingRouterOutlet';
+import { TranslateModule, TranslateService } from 'ng2-translate';
+import { BrowserModule } from '@angular/platform-browser';
+import { CubeGridModule } from '../common/spinner/cubeGrid/cubeGrid.component';
+import { AlertModule } from 'ng2-bootstrap';
+import { AgGridModule } from 'ag-grid-ng2';
+import { GridPaginationModule } from './directives/gridPagination/gridPagination';
+import { LoadingGridModule } from '../common/loadingGrid';
+import { FormsModule } from '@angular/forms';
+import { MultipleSelect } from './directives/multipleSelect/multipleSelect.component';
+import { MdSelectModule } from '../common/material/select/select';
+import { DynamicForm } from '../dynamicForm/dynamic.form';
 
 const CRUD_DECLARATIONS = [
     Crud,

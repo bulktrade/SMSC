@@ -1,7 +1,7 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { Injectable } from "@angular/core";
-import { CrudResolve } from "../common/crudResolve";
-import { CrudService } from "../crud.service";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CrudResolve } from '../common/crudResolve';
+import { CrudService } from '../crud.service';
 
 @Injectable()
 export class CrudCreateResolve extends CrudResolve {

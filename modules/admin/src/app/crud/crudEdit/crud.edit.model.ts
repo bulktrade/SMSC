@@ -1,4 +1,4 @@
-import { ColumnDefsModel } from "../model/columnDefs.model";
+import { ColumnDefsModel } from '../model/columnDefs.model';
 
 export class EditModel {
     public columnDefs: ColumnDefsModel;

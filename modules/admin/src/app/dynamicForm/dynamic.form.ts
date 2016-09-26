@@ -1,8 +1,8 @@
-import { Component, Input } from "@angular/core";
-import { CrudService } from "../crud/crud.service";
-import { Location } from "@angular/common";
-import { BtnTypes } from "./btn.types";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, Input } from '@angular/core';
+import { CrudService } from '../crud/crud.service';
+import { Location } from '@angular/common';
+import { BtnTypes } from './btn.types';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'dynamic-form',
@@ -20,18 +20,22 @@ export class DynamicForm {
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public crudService: CrudService){
+                public crudService: CrudService) {
     }
 
-    onSubmit(){
+    onSubmit() {
         switch (this.btnName) {
             case BtnTypes.UPDATE:
                 this.crudService.updateRecord(this.crudService.model);
 
                 break;
             case BtnTypes.CREATE:
-                this.crudService.createRecord(this.crudService.model, this.route.snapshot.params['className']);
+                this.crudService.createRecord(this.crudService.model,
+                    this.route.snapshot.params['className']);
 
+                break;
+
+            default:
                 break;
         }
     }

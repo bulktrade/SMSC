@@ -1,15 +1,15 @@
-import { Component, Input, NgModule, ModuleWithProviders } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Response } from "@angular/http";
-import { ODatabaseService } from "../../../orientdb/orientdb.service";
-import { NotificationService } from "../../../services/notificationService";
-import { GridOptions } from "ag-grid";
-import { GridService } from "../../../services/grid.service";
-import { CommonModule } from "@angular/common";
-import { MdSelectModule } from "../../../common/material/select/select";
-import { MdModule } from "../../../md.module";
-import { Observable, Observer } from "rxjs";
-import { CrudLevel } from "../../model/crudLevel";
+import { Component, Input, NgModule, ModuleWithProviders } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Response } from '@angular/http';
+import { ODatabaseService } from '../../../orientdb/orientdb.service';
+import { NotificationService } from '../../../services/notificationService';
+import { GridOptions } from 'ag-grid';
+import { GridService } from '../../../services/grid.service';
+import { CommonModule } from '@angular/common';
+import { MdSelectModule } from '../../../common/material/select/select';
+import { MdModule } from '../../../md.module';
+import { Observable, Observer } from 'rxjs';
+import { CrudLevel } from '../../model/crudLevel';
 
 const squel = require('squel');
 
@@ -179,8 +179,8 @@ export class GridPagination {
 
                 return new Promise((resolve, reject) => {
                     this.databaseService.query(sql.toString())
-                        .subscribe((res: Response) => {
-                            this.rowsThisPage = res.json().result;
+                        .subscribe((queryRes: Response) => {
+                            this.rowsThisPage = queryRes.json().result;
 
                             if (skip === undefined && limit === undefined) {
                                 this.fromRecord = 0;
@@ -205,7 +205,7 @@ export class GridPagination {
                         }, (error) => {
                             this.serviceNotifications.createNotificationOnResponse(error);
                             reject(error);
-                        })
+                        });
                 });
             });
     }
@@ -223,7 +223,7 @@ export class GridPagination {
                     this.serviceNotifications.createNotificationOnResponse(error);
                     observer.error(error);
                     observer.complete();
-                })
+                });
         });
     }
 

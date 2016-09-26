@@ -1,9 +1,13 @@
-import { WaitUntilReady } from "../common/waitUntilReady";
-export class DeletePage {
-    private _ptor;
+import { WaitUntilReady } from '../common/waitUntilReady';
 
+export class DeletePage {
     public crudDelete = element(by.tagName('crud-delete'));
     public okBtn = element(by.id('ok'));
+
+    private _ptor;
+
+    constructor() {
+    }
 
     isPresentCrudDelete() {
         WaitUntilReady.waitUntilReady(this.crudDelete, this._ptor);
@@ -15,11 +19,12 @@ export class DeletePage {
         return this.okBtn.click();
     }
 
-    /** getters and setters **/
+    // getters and setters
 
     get ptor() {
         return this._ptor;
     }
+
     set ptor(value) {
         this._ptor = value;
     }

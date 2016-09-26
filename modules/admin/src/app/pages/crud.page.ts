@@ -1,14 +1,12 @@
-import { LoginPage } from "./login.page";
-import { WaitUntilReady } from "./common/waitUntilReady";
-import { CreatePage } from "./crud/crud.create.page";
-import { DeletePage } from "./crud/crud.delete.page";
-import { InputElement } from "./model/inputElement";
+import { LoginPage } from './login.page';
+import { WaitUntilReady } from './common/waitUntilReady';
+import { CreatePage } from './crud/crud.create.page';
+import { DeletePage } from './crud/crud.delete.page';
 
 export class CrudPage {
     public login: LoginPage = new LoginPage();
     public crudCreate: CreatePage = new CreatePage();
     public crudDelete: DeletePage = new DeletePage();
-    private _ptor;
 
     public logo = element(by.id('logo'));
     public customersItem = element(by.className('customers'));
@@ -17,6 +15,8 @@ export class CrudPage {
     public crudCreateTag = element(by.tagName('crud-create'));
     public btnDeleteRow = element(by.id('deleteRow'));
     public backBtn = element(by.id('back'));
+
+    private _ptor;
 
     constructor() {
     }
@@ -65,7 +65,7 @@ export class CrudPage {
         return this.customersTag.isPresent();
     }
 
-    /** getters and setters **/
+    // getters and setters
 
     get ptor() {
         return this._ptor;

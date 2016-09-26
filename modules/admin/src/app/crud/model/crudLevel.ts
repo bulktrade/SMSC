@@ -1,4 +1,4 @@
-import { LinksetProperty } from "./linksetProperty";
+import { LinksetProperty } from './linksetProperty';
 
 export class CrudLevel {
     public className: string;

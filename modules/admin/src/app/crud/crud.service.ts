@@ -1,31 +1,29 @@
-import { ODatabaseService } from "../orientdb/orientdb.service";
-import { Injectable } from "@angular/core";
-import { Router, ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
-import { Response } from "@angular/http";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { GridOptions } from "ag-grid";
-import { NotificationService } from "../services/notificationService";
-import { LoadingGridService } from "../services/loading/loadingGrid.service";
-import { ColumnModel } from "./model/crud.column.model";
-import { INPUT_TYPES } from "./common/form/form.inputTypes";
-import { ColumnDefsModel } from "./model/columnDefs.model";
-import { Operation } from "../orientdb/model/operation";
-import { BatchType } from "../orientdb/model/batchType";
-import { Observable, Observer } from "rxjs";
-import { GridPropertyModel } from "./model/gridProperty.model";
-import { FormPropertyModel } from "./model/formProperty.model";
-import { CrudLevel } from "./model/crudLevel";
-import { Location } from "@angular/common";
-import { LinksetProperty } from "./model/linksetProperty";
-import { GridService } from "../services/grid.service";
+import { ODatabaseService } from '../orientdb/orientdb.service';
+import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Response } from '@angular/http';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { GridOptions } from 'ag-grid';
+import { NotificationService } from '../services/notificationService';
+import { LoadingGridService } from '../services/loading/loadingGrid.service';
+import { ColumnModel } from './model/crud.column.model';
+import { INPUT_TYPES } from './common/form/form.inputTypes';
+import { ColumnDefsModel } from './model/columnDefs.model';
+import { Operation } from '../orientdb/model/operation';
+import { BatchType } from '../orientdb/model/batchType';
+import { Observable, Observer } from 'rxjs';
+import { GridPropertyModel } from './model/gridProperty.model';
+import { FormPropertyModel } from './model/formProperty.model';
+import { CrudLevel } from './model/crudLevel';
+import { Location } from '@angular/common';
+import { LinksetProperty } from './model/linksetProperty';
+import { GridService } from '../services/grid.service';
 
 const squel = require('squel');
 let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
 
 @Injectable()
 export class CrudService {
-    private limitCrudLevel: number = 3;
-    public hintMessage: string;
     public crudLevel: Array<CrudLevel> = [];
     public isHint: Array<boolean> = [];
     public focusedRow: any;
@@ -40,16 +38,16 @@ export class CrudService {
     public className = null;
     public dataNotFound = false;
     public successExecute = false;
-    public errorMessage = '';
     public titleColumns = {};
     public model = {};
-
     public gridOptions: GridOptions = {
         rowSelection: 'multiple',
         rowHeight: 30,
         columnDefs: [],
         rowData: []
     };
+
+    private limitCrudLevel: number = 3;
 
     constructor(public databaseService: ODatabaseService,
                 public router: Router,
@@ -67,15 +65,17 @@ export class CrudService {
     cellValueChanged(value) {
         let operations: Array<Operation> = [
             {
-                type: BatchType.Update,
+                type: BatchType.UPDATE,
                 record: value.data
             }
         ];
 
         this.databaseService.batch(operations)
             .subscribe(res => {
-                this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: 'none' }, value);
-                this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
+                this.setCellStyleWhenDataIncorrect(this.gridOptions,
+                    { backgroundColor: 'none' }, value);
+                this.serviceNotifications.createNotification('success',
+                    'message.createSuccessful', 'orientdb.successCreate');
 
                 this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
                     [this.gridOptions.rowData[value.node.childIndex]])
@@ -85,7 +85,8 @@ export class CrudService {
 
                 return Promise.resolve(res);
             }, err => {
-                this.setCellStyleWhenDataIncorrect(this.gridOptions, { backgroundColor: '#ffccba' }, value);
+                this.setCellStyleWhenDataIncorrect(this.gridOptions,
+                    { backgroundColor: '#ffccba' }, value);
                 this.serviceNotifications.incorrectData(err.json().errors[0].content);
                 return Promise.reject(err);
             });
@@ -98,7 +99,7 @@ export class CrudService {
                     if (params.data['@rid'] === changeCell.data['@rid']) {
                         return style;
                     }
-                }
+                };
             }
         });
         gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
@@ -110,7 +111,7 @@ export class CrudService {
 
         let operations: Array<Operation> = [
             {
-                type: BatchType.Create,
+                type: BatchType.CREATE,
                 record: record
             }
         ];
@@ -119,7 +120,8 @@ export class CrudService {
             this.databaseService.batch(operations)
                 .subscribe((res) => {
                     this.loadingService.stop();
-                    this.serviceNotifications.createNotification('success', 'message.createSuccessful', 'orientdb.successCreate');
+                    this.serviceNotifications.createNotification('success',
+                        'message.createSuccessful', 'orientdb.successCreate');
                     resolve(res);
                 }, (error) => {
                     this.loadingService.stop();
@@ -134,7 +136,7 @@ export class CrudService {
 
         let operations: Array<Operation> = [
             {
-                type: BatchType.Update,
+                type: BatchType.UPDATE,
                 record: record
             }
         ];
@@ -143,7 +145,8 @@ export class CrudService {
             this.databaseService.batch(operations)
                 .subscribe((res) => {
                     this.loadingService.stop();
-                    this.serviceNotifications.createNotification('success', 'message.updateSuccessful', 'orientdb.successUpdate');
+                    this.serviceNotifications.createNotification('success',
+                        'message.updateSuccessful', 'orientdb.successUpdate');
                     resolve(res);
                 }, (error) => {
                     this.serviceNotifications.createNotificationOnResponse(error);
@@ -162,9 +165,9 @@ export class CrudService {
 
         rid.forEach(i => {
             let operation: Operation = {
-                type: BatchType.Delete,
+                type: BatchType.DELETE,
                 record: {
-                    "@rid": i
+                    '@rid': i
                 }
             };
 
@@ -175,26 +178,30 @@ export class CrudService {
             this.databaseService.batch(operations)
                 .subscribe((res) => {
                     this.loadingService.stop();
-                    this.serviceNotifications.createNotification('success', 'message.deleteSuccessful', 'orientdb.successDelete');
+                    this.serviceNotifications.createNotification('success',
+                        'message.deleteSuccessful', 'orientdb.successDelete');
                     observer.next(res);
                     observer.complete();
                 }, (error) => {
                     this.serviceNotifications.createNotificationOnResponse(error);
                     this.loadingService.stop();
                 });
-        })
+        });
     }
 
     clickOnCell(event) {
         let columnDefs = event.colDef;
 
         switch (columnDefs.type) {
-            case "LINKSET":
-            case "LINK":
+            case 'LINKSET':
+            case 'LINK':
                 break;
 
-            case "EMBEDDEDLIST":
+            case 'EMBEDDEDLIST':
                 this.embeddedList = columnDefs.custom['type'] || '';
+                break;
+
+            default:
                 break;
         }
     }
@@ -229,8 +236,8 @@ export class CrudService {
 
     addColumnCheckbox(columnDefs, gridOptions) {
         columnDefs.grid.unshift({
-            headerName: " ",
-            field: "checkboxSel",
+            headerName: ' ',
+            field: 'checkboxSel',
             width: 45,
             hideInForm: true,
             checkboxSelection: true,
@@ -238,11 +245,76 @@ export class CrudService {
                 let that = this;
                 let eCell = document.createElement('span');
                 eCell.innerHTML =
-                    '<div colid="checkboxSel" tabindex="-1" class="ag-cell-no-focus ag-cell ag-cell-not-inline-editing" style="left: 0px; width: 45px;"><span class="ag-cell-wrapper">' +
+                    '<div colid="checkboxSel" tabindex="-1" class="ag-cell-no-focus ag-cell ' +
+                    'ag-cell-not-inline-editing" style="left: 0px; width: 45px;"><span class="' +
+                    'ag-cell-wrapper">' +
                     '   <span class="ag-selection-checkbox" id="select-all">' +
-                    '       <img id="all-selected" style="display: none;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpFQ0VGQkU3ODM4MTFFNjExQjlCQzhERUVDNkNGMzFDMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBRkJCRDU1MTEyM0ExMUU2ODE4MUUyOTNBNTRGQkIxNyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBRkJCRDU1MDEyM0ExMUU2ODE4MUUyOTNBNTRGQkIxNyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjIzMkM4M0M1M0MxMUU2MTFCOUJDOERFRUM2Q0YzMUMzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkVDRUZCRTc4MzgxMUU2MTFCOUJDOERFRUM2Q0YzMUMzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+riMaEQAAAL5JREFUeNqUks0JhDAQhSd7tgtLMDUIyTXF2IdNWIE3c0ruYg9LtgcPzvpEF8SfHR8MGR75hpcwRERmrjQXCyutDKUQAkuFu2AUpsyiJ1JK0UtycRgGMsbsPBFYVRVZaw/+7Zu895znOY/j+PPWT7oGp2lirTU3TbPz/4IAAGLALeic47Ztlx7RELHrusPAAwgoy7LlrOuay7I8TXIadYOLouC+7+XgBiP2lTbw0crFGAF9ANq1kS75G8xXgAEAiqu9OeWZ/voAAAAASUVORK5CYII=">' +
-                    '       <img id="not-selected" style="display: inline;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpFQ0VGQkU3ODM4MTFFNjExQjlCQzhERUVDNkNGMzFDMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo2MkU1Rjk1NDExNDExMUU2ODhEQkMyRTJGOUNGODYyQyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2MkU1Rjk1MzExNDExMUU2ODhEQkMyRTJGOUNGODYyQyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjI1MkM4M0M1M0MxMUU2MTFCOUJDOERFRUM2Q0YzMUMzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkVDRUZCRTc4MzgxMUU2MTFCOUJDOERFRUM2Q0YzMUMzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+t+CXswAAAFBJREFUeNrsksENwDAIA023a9YGNqlItkixlAFIn1VOMv5wvACAOxOZWUwsB6Gqswp36QivJNhBRHDhI0f8j9jNrCy4O2twNMobT/7QeQUYAFaKU1yE2OfhAAAAAElFTkSuQmCC">' +
-                    '       <img id="not-all-selected" style="display: none;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpFQ0VGQkU3ODM4MTFFNjExQjlCQzhERUVDNkNGMzFDMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpGMjU4MzhGQjEyM0ExMUU2QjAxM0Q2QjZFQ0IzNzM4NiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpGMjU4MzhGQTEyM0ExMUU2QjAxM0Q2QjZFQ0IzNzM4NiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjIzMkM4M0M1M0MxMUU2MTFCOUJDOERFRUM2Q0YzMUMzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkVDRUZCRTc4MzgxMUU2MTFCOUJDOERFRUM2Q0YzMUMzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+2Xml2QAAAGBJREFUeNpiYGBg8ATiZ0D8n0j8DKqH4dnhw4f/EwtAakF6GEGmAAEDKYCRkZGBiYFMQH+NLNjcjw2ghwMLIQWDx48Do/H5kSNHiNZw9OhREPUCRHiBNJOQyJ+A9AAEGACqkFldNkPUwwAAAABJRU5ErkJggg==">' +
+                    '       <img id="all-selected" style="display: none;" src="data:image/png;' +
+                    'base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQ' +
+                    'BBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHB' +
+                    'hY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4Onht' +
+                    'cG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlI' +
+                    'DUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZj' +
+                    'pSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXg' +
+                    'tbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6' +
+                    'Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvY' +
+                    'mUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy' +
+                    '5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDp' +
+                    'FQ0VGQkU3ODM4MTFFNjExQjlCQzhERUVDNkNGMzFDMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1w' +
+                    'LmRpZDpBRkJCRDU1MTEyM0ExMUU2ODE4MUUyOTNBNTRGQkIxNyIgeG1wTU06SW5zdGFuY2VJR' +
+                    'D0ieG1wLmlpZDpBRkJCRDU1MDEyM0ExMUU2ODE4MUUyOTNBNTRGQkIxNyIgeG1wOkNyZWF0b3' +
+                    'JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJ' +
+                    'vbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjIzMkM4M0M1M0MxMUU2MTFCOUJDOERFRUM2' +
+                    'Q0YzMUMzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkVDRUZCRTc4MzgxMUU2MTFCOUJDO' +
+                    'ERFRUM2Q0YzMUMzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZX' +
+                    'RhPiA8P3hwYWNrZXQgZW5kPSJyIj8+riMaEQAAAL5JREFUeNqUks0JhDAQhSd7tgtLMDUIyTX' +
+                    'F2IdNWIE3c0ruYg9LtgcPzvpEF8SfHR8MGR75hpcwRERmrjQXCyutDKUQAkuFu2AUpsyiJ1JK' +
+                    '0UtycRgGMsbsPBFYVRVZaw/+7Zu895znOY/j+PPWT7oGp2lirTU3TbPz/4IAAGLALeic47Ztl' +
+                    'x7RELHrusPAAwgoy7LlrOuay7I8TXIadYOLouC+7+XgBiP2lTbw0crFGAF9ANq1kS75G8xXgA' +
+                    'EAiqu9OeWZ/voAAAAASUVORK5CYII=">' +
+                    '       <img id="not-selected" style="display: inline;" src="data:image/png;' +
+                    'base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQ' +
+                    'BBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHB' +
+                    'hY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4Onht' +
+                    'cG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlI' +
+                    'DUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZj' +
+                    'pSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXg' +
+                    'tbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6' +
+                    'Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvY' +
+                    'mUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy' +
+                    '5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDp' +
+                    'FQ0VGQkU3ODM4MTFFNjExQjlCQzhERUVDNkNGMzFDMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1w' +
+                    'LmRpZDo2MkU1Rjk1NDExNDExMUU2ODhEQkMyRTJGOUNGODYyQyIgeG1wTU06SW5zdGFuY2VJR' +
+                    'D0ieG1wLmlpZDo2MkU1Rjk1MzExNDExMUU2ODhEQkMyRTJGOUNGODYyQyIgeG1wOkNyZWF0b3' +
+                    'JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJ' +
+                    'vbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjI1MkM4M0M1M0MxMUU2MTFCOUJDOERFRUM2' +
+                    'Q0YzMUMzIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkVDRUZCRTc4MzgxMUU2MTFCOUJDO' +
+                    'ERFRUM2Q0YzMUMzIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZX' +
+                    'RhPiA8P3hwYWNrZXQgZW5kPSJyIj8+t+CXswAAAFBJREFUeNrsksENwDAIA023a9YGNqlItki' +
+                    'xlAFIn1VOMv5wvACAOxOZWUwsB6Gqswp36QivJNhBRHDhI0f8j9jNrCy4O2twNMobT/7QeQUY' +
+                    'AFaKU1yE2OfhAAAAAElFTkSuQmCC">' +
+                    '       <img id="not-all-selected" style="display: none;" src="data:image/' +
+                    'png;' +
+                    'base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQB' +
+                    'BZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY' +
+                    '2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1' +
+                    'ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuM' +
+                    'y1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREY' +
+                    'geG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjI' +
+                    'j4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5' +
+                    'hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL' +
+                    '3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5' +
+                    'jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpFQ0VGQkU3O' +
+                    'DM4MTFFNjExQjlCQzhERUVDNkNGMzFDMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpGMjU' +
+                    '4MzhGQjEyM0ExMUU2QjAxM0Q2QjZFQ0IzNzM4NiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZ' +
+                    'DpGMjU4MzhGQTEyM0ExMUU2QjAxM0Q2QjZFQ0IzNzM4NiIgeG1wOkNyZWF0b3JUb29sPSJBZG9' +
+                    'iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppb' +
+                    'nN0YW5jZUlEPSJ4bXAuaWlkOjIzMkM4M0M1M0MxMUU2MTFCOUJDOERFRUM2Q0YzMUMzIiBzdFJ' +
+                    'lZjpkb2N1bWVudElEPSJ4bXAuZGlkOkVDRUZCRTc4MzgxMUU2MTFCOUJDOERFRUM2Q0YzMUMzI' +
+                    'i8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQ' +
+                    'gZW5kPSJyIj8+2Xml2QAAAGBJREFUeNpiYGBg8ATiZ0D8n0j8DKqH4dnhw4f/EwtAakF6GEGmA' +
+                    'AEDKYCRkZGBiYFMQH+NLNjcjw2ghwMLIQWDx48Do/H5kSNHiNZw9OhREPUCRHiBNJOQyJ+A9AA' +
+                    'EGACqkFldNkPUwwAAAABJRU5ErkJggg==">' +
                     '   </span>' +
                     '   <span class="ag-cell-value"></span></span>' +
                     '</div>';
@@ -294,12 +366,15 @@ export class CrudService {
                 this.querySelectors.notSelected.setAttribute('style', 'display: none;');
                 this.querySelectors.notAllSelected.setAttribute('style', 'display: inline;');
                 break;
+
+            default:
+                break;
         }
     }
 
     btnRenderer(columnDefs, nameBtn, width, iconName, clickEvent?: (event) => void) {
         columnDefs.grid.push({
-            headerName: " ",
+            headerName: ' ',
             field: nameBtn.toLowerCase(),
             width: width,
             hideInForm: true,
@@ -312,7 +387,7 @@ export class CrudService {
                         button.setAttribute('title', title);
                     });
                 button.innerHTML = iconName;
-                button.setAttribute('style', "font-size: 18px; color: #009688; cursor: pointer;");
+                button.setAttribute('style', 'font-size: 18px; color: #009688; cursor: pointer;');
                 button.addEventListener('click', (event) => {
                     if (clickEvent) {
                         clickEvent(event);
@@ -374,8 +449,8 @@ export class CrudService {
 
     addRIDColumn(columnDefs) {
         columnDefs.push({
-            headerName: "RID",
-            field: "@rid",
+            headerName: 'RID',
+            field: '@rid',
             hideInForm: true,
             width: 55
         });
@@ -385,7 +460,9 @@ export class CrudService {
         let headersName = [];
 
         for (let i in columnDefs) {
-            headersName.push(columnDefs[i][name].toUpperCase());
+            if (columnDefs.hasOwnProperty(i)) {
+                headersName.push(columnDefs[i][name].toUpperCase());
+            }
         }
 
         return this.translate.get(headersName).toPromise()
@@ -466,20 +543,24 @@ export class CrudService {
                     this.translateColumnsName(result, isExistForm ? 'property' : 'name')
                         .then((columnsName) => {
                             for (let i in result) {
-                                let column: FormPropertyModel = result[i];
+                                if (result.hasOwnProperty(i)) {
+                                    let column: FormPropertyModel = result[i];
 
-                                if (isExistForm) {
-                                    column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
+                                    if (isExistForm) {
+                                        column['headerName'] =
+                                            columnsName[result[i]['property'].toUpperCase()];
 
-                                    this.getPropertyMetadata(column, false, properties);
-                                    columnsForm.push(column);
-                                } else {
-                                    column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
-                                    column['property'] = result[i]['name'];
-                                    column['editable'] = !result[i]['readonly'];
-                                    column['visible'] = true;
+                                        this.getPropertyMetadata(column, false, properties);
+                                        columnsForm.push(column);
+                                    } else {
+                                        column['headerName'] =
+                                            columnsName[result[i]['name'].toUpperCase()];
+                                        column['property'] = result[i]['name'];
+                                        column['editable'] = !result[i]['readonly'];
+                                        column['visible'] = true;
 
-                                    columnsForm.push(column);
+                                        columnsForm.push(column);
+                                    }
                                 }
                             }
 
@@ -493,7 +574,7 @@ export class CrudService {
                 }, (err) => {
                     observer.error(err);
                     observer.complete();
-                })
+                });
         });
     }
 
@@ -519,20 +600,24 @@ export class CrudService {
                     return this.translateColumnsName(result, isExistColumn ? 'property' : 'name')
                         .then((columnsName) => {
                             for (let i in result) {
-                                let column: GridPropertyModel = result[i];
+                                if (result.hasOwnProperty(i)) {
+                                    let column: GridPropertyModel = result[i];
 
-                                if (isExistColumn) {
-                                    column['headerName'] = columnsName[result[i]['property'].toUpperCase()];
-                                    column['field'] = result[i]['property'];
-                                    column['hide'] = !result[i]['visible'];
-                                    column['width'] = result[i]['columnWidth'];
+                                    if (isExistColumn) {
+                                        column['headerName'] =
+                                            columnsName[result[i]['property'].toUpperCase()];
+                                        column['field'] = result[i]['property'];
+                                        column['hide'] = !result[i]['visible'];
+                                        column['width'] = result[i]['columnWidth'];
 
-                                    this.getPropertyMetadata(column, true, properties);
-                                    columnsGrid.push(column);
-                                } else {
-                                    column['headerName'] = columnsName[result[i]['name'].toUpperCase()];
-                                    column['field'] = result[i]['name'];
-                                    columnsGrid.push(column);
+                                        this.getPropertyMetadata(column, true, properties);
+                                        columnsGrid.push(column);
+                                    } else {
+                                        column['headerName'] =
+                                            columnsName[result[i]['name'].toUpperCase()];
+                                        column['field'] = result[i]['name'];
+                                        columnsGrid.push(column);
+                                    }
                                 }
                             }
 
@@ -546,7 +631,7 @@ export class CrudService {
                 }, (error) => {
                     observer.error(error);
                     observer.complete();
-                })
+                });
         });
     }
 

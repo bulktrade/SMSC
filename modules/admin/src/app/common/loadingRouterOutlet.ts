@@ -1,9 +1,9 @@
-import { Component, ModuleWithProviders, NgModule, ViewEncapsulation } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
-import { CubeGridModule } from "./spinner/cubeGrid/cubeGrid.component";
-import { LoadingRouterOutletService } from "../services/loading/loadingRouterOutlet.service";
-import { RouterOutletService } from "../services/routerOutletService";
+import { Component, ModuleWithProviders, NgModule, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { CubeGridModule } from './spinner/cubeGrid/cubeGrid.component';
+import { LoadingRouterOutletService } from '../services/loading/loadingRouterOutlet.service';
+import { RouterOutletService } from '../services/routerOutletService';
 
 @Component({
     selector: 'loading-router-outlet',
@@ -28,7 +28,8 @@ import { RouterOutletService } from "../services/routerOutletService";
     ],
     template: `
         <div class="cubeGrid" *ngIf="loadingService.loading"><sk-cube-grid></sk-cube-grid></div>
-        <router-outlet [ngClass]="{hide: loadingService.loading}" (activate)='onActivate($event)' (deactivate)='onDeactivate($event)'></router-outlet>
+        <router-outlet [ngClass]="{hide: loadingService.loading}" (activate)='onActivate($event)'
+         (deactivate)='onDeactivate($event)'></router-outlet>
     `
 })
 

@@ -1,12 +1,12 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { Injectable } from "@angular/core";
-import { CrudResolve } from "../common/crudResolve";
-import { CrudService } from "../crud.service";
-import { Response } from "@angular/http";
-import { Location } from "@angular/common";
-import { GridService } from "../../services/grid.service";
-import { Observable, Observer } from "rxjs";
-import { EditModel } from "./crud.edit.model";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CrudResolve } from '../common/crudResolve';
+import { CrudService } from '../crud.service';
+import { Response } from '@angular/http';
+import { Location } from '@angular/common';
+import { GridService } from '../../services/grid.service';
+import { Observable, Observer } from 'rxjs';
+import { EditModel } from './crud.edit.model';
 
 @Injectable()
 export class CrudEditResolve extends CrudResolve {
@@ -45,7 +45,8 @@ export class CrudEditResolve extends CrudResolve {
                                     observer.complete();
                                 });
                         }, (error) => {
-                            this.crudService.serviceNotifications.createNotificationOnResponse(error);
+                            this.crudService.serviceNotifications.createNotificationOnResponse(
+                                error);
                             observer.error(error);
                             observer.complete();
                         });

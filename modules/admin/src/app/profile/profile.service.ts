@@ -1,18 +1,18 @@
 'use strict';
 
-import {Injectable} from "@angular/core";
-import {ODatabaseService} from "../orientdb/orientdb.service";
-import { Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { ODatabaseService } from '../orientdb/orientdb.service';
+import { Observable } from 'rxjs';
 
 const squel = require('squel');
 
 @Injectable()
 export class ProfileService {
-    constructor(public database?:ODatabaseService) {
+    constructor(public database?: ODatabaseService) {
 
     }
 
-    public getProfile(username:String) {
+    public getProfile(username: String) {
         let query = squel.select()
             .from('OUser')
             .where('name = ?', username);
