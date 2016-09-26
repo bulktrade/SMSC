@@ -13,6 +13,7 @@ export class CrudPage {
     public customersTag = element(by.tagName('customers'));
     public btnAddRecord = element(by.id('addRow'));
     public crudCreateTag = element(by.tagName('crud-create'));
+    public crudViewTag = element(by.tagName('crud-view'));
     public btnDeleteRow = element(by.id('deleteRow'));
     public backBtn = element(by.id('back'));
 
@@ -58,6 +59,11 @@ export class CrudPage {
     isPresentCrudCreateTag() {
         WaitUntilReady.waitUntilReady(this.crudCreateTag, this.ptor);
         return this.crudCreateTag.isPresent();
+    }
+
+    isPresentCrudViewTag() {
+        WaitUntilReady.waitUntilReady(this.crudViewTag, this.ptor);
+        return this.crudViewTag.isPresent();
     }
 
     isPresentCustomers() {
