@@ -1,7 +1,6 @@
 import { CrudPage } from "../../../pages/crud.page";
 import { GridPaginationPage } from "../../../pages/gridPagination.page";
 import { WaitUntilReady } from "../../../pages/common/waitUntilReady";
-import { count } from "rxjs/operator/count";
 
 describe('Grid pagination', () => {
     let ptor = protractor.wrapDriver(browser.driver);
