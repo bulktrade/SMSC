@@ -5,6 +5,8 @@ import { CrudLevel } from '../crud/model/crudLevel';
 import {
     MetaDataPropertyBindingParameterModel
 } from '../crudMetadata/metaDataBindingParameter/metaDataBindingParameter.model';
+import { Response } from "@angular/http";
+import { Observable } from "rxjs";
 
 const squel = require('squel');
 
@@ -164,5 +166,19 @@ export class GridService {
         } else {
             return Promise.resolve(null);
         }
+    }
+
+    getSizeClass(className: string): Observable<number> {
+        return Observable.create((obs) => {
+            this.database.getInfoClass(className)
+                .then((res: Response) => {
+                    obs.next(res.json().records);
+                    obs.complete();
+                }, (error) => {
+                    this.serviceNotifications.createNotificationOnResponse(error);
+                    obs.error(error);
+                    obs.complete();
+                });
+        });
     }
 }

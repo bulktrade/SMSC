@@ -53,7 +53,7 @@ export class GridPagination {
         if (this.pageSize === 'All records') {
             this.createNewDatasource();
         } else {
-            this.getSizeClass(this.className)
+            this.gridService.getSizeClass(this.className)
                 .subscribe(size => {
                     if (this.currentPage * this.pageSize <= size) {
                         let skip = this.currentPage * this.pageSize;
@@ -84,7 +84,7 @@ export class GridPagination {
     }
 
     last() {
-        this.getSizeClass(this.className)
+        this.gridService.getSizeClass(this.className)
             .subscribe(size => {
                 let remainderRows = size % this.pageSize;
                 this.setCurrentPage(Math.floor(size / this.pageSize));
@@ -115,46 +115,34 @@ export class GridPagination {
         }
     }
 
-    next(): Observable<Array<any>> {
-        return Observable.create((observer: Observer<Array<any>>) => {
-            this.getSizeClass(this.className)
-                .subscribe(size => {
-                    if ((this.currentPage + 1) * this.pageSize < size) {
-                        this.currentPage += 1;
+    next() {
+        this.gridService.getSizeClass(this.className)
+            .subscribe(size => {
+                if ((this.currentPage + 1) * this.pageSize < size) {
+                    this.currentPage += 1;
 
+                    let skip = this.currentPage * this.pageSize;
+                    let limit = this.pageSize;
+
+                    return this.createNewDatasource(skip, limit)
+                        .then(res => {
+                        }, err => {
+                        });
+                } else {
+                    let lastRows = size - this.currentPage * this.pageSize;
+
+                    if (lastRows) {
                         let skip = this.currentPage * this.pageSize;
-                        let limit = this.pageSize;
+                        let limit = lastRows;
 
                         return this.createNewDatasource(skip, limit)
                             .then(res => {
-                                observer.next(res);
-                                observer.complete();
                             }, err => {
-                                observer.error(err);
-                                observer.complete();
                             });
-                    } else {
-                        let lastRows = size - this.currentPage * this.pageSize;
-
-                        if (lastRows) {
-                            let skip = this.currentPage * this.pageSize;
-                            let limit = lastRows;
-
-                            return this.createNewDatasource(skip, limit)
-                                .then(res => {
-                                    observer.next(res);
-                                    observer.complete();
-                                }, err => {
-                                    observer.error(err);
-                                    observer.complete();
-                                });
-                        }
                     }
-                }, error => {
-                    observer.error(error);
-                    observer.complete();
-                });
-        });
+                }
+            }, error => {
+            });
     }
 
     createNewDatasource(skip?, limit?): Promise<Array<any>> {
@@ -163,8 +151,7 @@ export class GridPagination {
 
         if (skip !== undefined && limit !== undefined) {
             sql
-                .offset(skip)
-                .limit(limit);
+                .offset(skip);
         }
 
         return this.gridService.combineOperators(this.currentCrudLevel)
@@ -178,7 +165,7 @@ export class GridPagination {
                 }
 
                 return new Promise((resolve, reject) => {
-                    this.databaseService.query(sql.toString())
+                    this.databaseService.query(sql.toString(), limit)
                         .subscribe((queryRes: Response) => {
                             this.rowsThisPage = queryRes.json().result;
 
@@ -208,23 +195,6 @@ export class GridPagination {
                         });
                 });
             });
-    }
-
-    getSizeClass(className): Observable<number> {
-        let classSize = squel.select()
-            .from(className);
-
-        return Observable.create((observer: Observer<number>) => {
-            this.databaseService.query(classSize.toString())
-                .subscribe((res: Response) => {
-                    observer.next(res.json().result.length);
-                    observer.complete();
-                }, (error) => {
-                    this.serviceNotifications.createNotificationOnResponse(error);
-                    observer.error(error);
-                    observer.complete();
-                });
-        });
     }
 
     getCurrentPage(): number {

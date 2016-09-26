@@ -99,13 +99,13 @@ export class CreatePage {
         });
     }
 
-    fillLinkset() {
+    fillLinkset(createContacts?: boolean) {
         for (let i in this.selectElements) {
             if (this.selectElements.hasOwnProperty(i)) {
                 WaitUntilReady.waitUntilReady(this.selectElements[i], this._ptor);
                 this.selectElements[i].click();
 
-                if (i === 'contacts') {
+                if (i === 'contacts' && createContacts) {
                     this.createRecordOnSecondLevel();
                 }
 
