@@ -41,7 +41,7 @@ import { LoadingService } from "./services/loading/loading.service";
 import { RouterOutletService } from "./services/routerOutletService";
 import { MetaDataPropertyBindingParameter } from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter";
 import { DragulaModule } from "ng2-dragula/ng2-dragula";
-import { DashboardComponent } from "./dashboards/dashboards.components";
+import { DashboardsComponent } from "./dashboards/dashboards.components";
 import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard.crud.create.resolve";
 import { DashboardCrudUpdateResolve } from "./dashboards/crud/dashboard.crud.update.resolve";
 import { OrderBy } from "./dashboards/sorts/orderby";
@@ -95,7 +95,7 @@ export const APP_PROVIDERS = [
         MetaDataPropertyBindingParameter,
         OrderBy,
         Dashboard,
-        DashboardComponent,
+        DashboardsComponent,
         DashboardView,
         DashboardBoxComponent,
         DashboardCrudUpdate,

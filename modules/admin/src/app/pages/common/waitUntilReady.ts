@@ -1,5 +1,7 @@
 export class WaitUntilReady {
-    public static logoutBtn = element(by.id('logout'));
+    //  Dont commit
+    //public static logoutBtn = element(by.id('logout'));
+    public static logoutBtn = $('#logout');
 
     static waitUntilReady(elm, ptor) {
         ptor.wait(() => {

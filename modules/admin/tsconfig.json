@@ -28,13 +28,8 @@
         ]
     },
     "exclude": [
-<<<<<<< Updated upstream
-        "node_modules",
-        "dist"
-=======
         "dist",
         "typings"
->>>>>>> Stashed changes
     ],
     "awesomeTypescriptLoaderOptions": {
         "forkChecker": true,

@@ -1,3 +1,4 @@
+//@todo rename Statuc to Status
 export enum BoxType {
     Statuc,
     Chart

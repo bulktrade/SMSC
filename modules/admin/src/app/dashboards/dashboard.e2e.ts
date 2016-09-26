@@ -1,49 +1,70 @@
 import {Dashboard} from './dashboard.page';
 
 describe('Navigation', () => {
-    let ptor = protractor.wrapDriver(browser.driver);
+    let prot = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
         this.dashboard = new Dashboard();
         this.dashboard.get();
-        ptor = protractor.wrapDriver(browser.driver);
+        prot = protractor.wrapDriver(browser.driver);
     });
 
-     it('Try to login login', () => {
-         this.dashboard.login_();
-     });
+    //  Sign in
+    it('Try to login login', () => {
+        this.dashboard.login_();
+    });
 
-     it('Test title', () => {
-         let result = 'SMSC Admin';
+    //  Check page title
+    it('Test title', () => {
+        let result = 'SMSC Admin';
 
-         console.log('Trace title');
-
-         this.dashboard.getTitle().then((res) => {
+        this.dashboard.getTitle().then((res) => {
             expect(this.dashboard.getTitle()).toBe(result);
-         });
-     });
+        });
+    });
 
-     it('Should have dashboard', () => {
-         this.dashboard.clickOnItemNavDashboard(ptor).then(() => {
-            expect(this.dashboard.getDashboard()).toBeTruthy();
-         });
-     });
+    //  Check by existing dashboard
+    it('Check by existing dashboard', () => {
+        this.dashboard.clickOnItemNavDashboard(prot).then(() => {
+    expect(this.dashboard.getDashboard()).toBeTruthy();
+    });
+    });
 
-    it('Shoud have fullscreen icon', () => {
+    //  Switch to fullscreen mode
+    /*it('Click on fullscreen icon', () => {
        this.dashboard.clickOnFullscreenIcon(prot).then(() => {
            expect(this.dashboard.getFullscreenIcon()).toBeTruthy();
        });
-    });
+    });*/
 
-    it('Should have crud icon', () => {
-        this.dashboard.clickOnCrudIcon(ptor).then(() => {
-            expect(this.dashboard.getCrudIcon).toBeTruthy();
+    //  Open box crud tool and go to edit form
+    it('Click on crud icon', () => {
+        this.dashboard.clickOnCrudIcon(prot).then(() => {
+            expect(this.dashboard.getCrudIcon()).toBeTruthy();
         })
     });
 
-    it('Should have edit icon', () => {
-        this.dashboard.clickOnCrudIcon(ptor).then(() => {
+    //  Switch off fullscreen mode by press Escape key
+    /*it('Press ESC key', () => {
+       this.dashboard.pressCloseFullscreenESC(prot);
+    });*/
+
+    //  Check height mode
+    /*it('Switch height box mode', () => {
+        this.dashboard.clickOnSizeButtons(prot);
+    });*/
+
+    //  Close box crud tool
+    /*it('Click have close icon', () => {
+        this.dashboard.clickOnCloseIcon().then(() => {
+            expect(this.dashboard.getCloseIcon()).toBeTruthy();
+        });
+    });
+
+    //  Click on edit box
+    it('Click on box edit icon', () => {
+        this.dashboard.clickOnCrudIcon(prot).then(() => {
             expect(this.dashboard.getCrudIcon).toBeTruthy();
         })
-    });
+    });*/
 });

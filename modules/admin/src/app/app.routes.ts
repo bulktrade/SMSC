@@ -19,7 +19,7 @@ import { Dashboard } from "./dashboards/dashboard.component";
 import { DashboardCrudCreate } from "./dashboards/crud/dashboard.box.create";
 import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard.crud.create.resolve";
 import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
-import { DashboardComponent } from "./dashboards/dashboards.components";
+import { DashboardsComponent } from "./dashboards/dashboards.components";
 
 const DASHBOARD_ROUTER_PROVIDER = [
     {
@@ -65,7 +65,7 @@ export const ROUTES: Routes = [
         children: [
             {
                 path: '',
-                component: DashboardComponent,
+                component: DashboardsComponent,
                 children: DASHBOARD_ROUTER_PROVIDER,
                 data: {
                     similarPath: 'dasboards'//@todo Impement in sidenav
@@ -73,7 +73,7 @@ export const ROUTES: Routes = [
             },
             {
                 path: 'dashboards',
-                component: DashboardComponent,
+                component: DashboardsComponent,
                 data: {
                     showInSubNavigation: true,
                     icon: 'layers'
