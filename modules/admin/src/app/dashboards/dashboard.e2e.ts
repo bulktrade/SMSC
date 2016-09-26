@@ -1,7 +1,5 @@
 import {Dashboard} from './dashboard.page';
 
-//import by = protractor.By;
-
 describe('Navigation', () => {
     let ptor = protractor.wrapDriver(browser.driver);
 
@@ -30,6 +28,12 @@ describe('Navigation', () => {
             expect(this.dashboard.getDashboard()).toBeTruthy();
          });
      });
+
+    it('Shoud have fullscreen icon', () => {
+       this.dashboard.clickOnFullscreenIcon(prot).then(() => {
+           expect(this.dashboard.getFullscreenIcon()).toBeTruthy();
+       });
+    });
 
     it('Should have crud icon', () => {
         this.dashboard.clickOnCrudIcon(ptor).then(() => {
