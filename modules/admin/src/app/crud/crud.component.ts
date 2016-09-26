@@ -14,10 +14,10 @@ import { CrudService } from "./crud.service";
 
 export class Crud {
 
-    constructor(public translate:TranslateService,
-                public route:ActivatedRoute,
-                public router:Router,
-                public crudService:CrudService) {
+    constructor(public translate: TranslateService,
+                public route: ActivatedRoute,
+                public router: Router,
+                public crudService: CrudService) {
     }
 
     ngOnInit() {
@@ -26,6 +26,10 @@ export class Crud {
                 this.crudService.hideAllMessageBoxes();
             }
         });
+    }
+
+    ngOnDestroy() {
+        this.crudService.resetCrudLevels();
     }
 
 }

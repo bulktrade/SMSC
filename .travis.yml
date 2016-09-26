@@ -3,6 +3,9 @@ services:
   - docker
 
 addons:
+  sonarqube: true
+
+addons:
 apt:
   packages:
     - oracle-java8-installer

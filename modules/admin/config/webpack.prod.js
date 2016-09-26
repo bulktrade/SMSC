@@ -9,6 +9,7 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 /**
  * Webpack Plugins
  */
+const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
@@ -202,10 +203,10 @@ module.exports = function(env) {
              * See: https://github.com/webpack/compression-webpack-plugin
              */
             //  install compression-webpack-plugin
-            // new CompressionPlugin({
-            //   regExp: /\.css$|\.html$|\.js$|\.map$/,
-            //   threshold: 2 * 1024
-            // })
+            new CompressionPlugin({
+              regExp: /\.css$|\.html$|\.js$|\.map$/,
+              threshold: 2 * 1024
+            })
 
         ],
 

@@ -10,7 +10,7 @@ $color-9: #000;
 
 #dashboard {
     margin-bottom: 15px;
-    position: relative;
+    //position: relative;
 
     .rectangle {
         background-color: #FD4140;
@@ -18,47 +18,41 @@ $color-9: #000;
         color: #121621;
     }
 
-    .width-0 {
+    .width-m {
         flex-basis: 25% !important;
     }
-    .width-1 {
+    .width-s {
         flex-basis: 50% !important;
     }
-    .width-2 {
+    .width-l {
         flex-basis: 75% !important;
     }
-    .width-3 {
+    .width-xl {
         flex-basis: 100% !important;
     }
-    .height-0 {
-        &.chart {
-            height: 300px !important;
-        }
-        &.status {
-            height: 175px !important;
-        }
+    //  @todo height-0 rename to height-s/m/l/xl
+    //  @todo bottom block full height when XL
+    .height-m {
+        height: 250px !important;
     }
-    .height-1 {
-        &.chart {
-            height: 350px !important;
-        }
-        &.status {
-            height: 250px !important;
-        }
+    .height-s {
+        height: 350px !important;
     }
-    .height-2 {
-        &.chart {
-            height: 400px !important;
-        }
-        &.status {
-            height: 300px !important;
-        }
+    .height-l {
+        height: 500px !important;
     }
-    > md-content {
+    .height-xl {
+        height: 82vh !important;
+    }
+    > div.boxes-container {
         display: flex;
         max-width: 100%;
         padding: 0px;
-        &.status {
+        > .box{
+            padding-right: 10px;
+            transition: all 300ms ease-in;
+        }
+        &.boxes-container {
             flex-wrap: wrap;
             margin-bottom: 15px;
             > div {
@@ -89,26 +83,15 @@ $color-9: #000;
                 }
             }
         }
-        &.graphics {
-            flex-wrap: wrap;
-            max-width: 100% !important;
-            dashboard-box {
-                flex-basis: 50%;
-                min-height: 500px;
-                display: inline-block;
-                position: relative;
-                padding-right: 5px;
-                padding-bottom: 5px;
-                transition: all 300ms ease-in;
-            }
-        }
     }
 
         //  Top toolbar(add)
     .topToolbar{
         text-align: right;
-        margin-bottom: 30px;
         padding-right: 30px;
+        position: absolute;
+        top: 100px;
+        right: 0px;
     }
 
     .toolButton {

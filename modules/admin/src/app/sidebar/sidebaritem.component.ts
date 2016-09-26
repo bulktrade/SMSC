@@ -2,8 +2,6 @@ import { Component, Input, Injectable, trigger, style, animate, state, transitio
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router } from "@angular/router";
 
-declare var Reflect;
-
 @Component({
     selector: 'sidebar-item',
     template: require('./sidebaritem.html'),

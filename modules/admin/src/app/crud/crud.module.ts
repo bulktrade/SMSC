@@ -12,12 +12,13 @@ import { TranslateModule, TranslateService } from "ng2-translate";
 import { BrowserModule } from "@angular/platform-browser";
 import { CubeGridModule } from "../common/spinner/cubeGrid/cubeGrid.component";
 import { AlertModule } from "ng2-bootstrap";
-import { AgGridNg2 } from "ag-grid-ng2";
+import { AgGridModule } from "ag-grid-ng2";
 import { GridPaginationModule } from "./directives/gridPagination/gridPagination";
 import { LoadingGridModule } from "../common/loadingGrid";
 import { FormsModule } from "@angular/forms";
-import { MultipleSelect } from "./directives/multipleSelect/multipleSelect.component";
+import { MultipleSelect, MultipleSelectModule } from "./directives/multipleSelect/multipleSelect.component";
 import { MdSelectModule } from "../common/material/select/select";
+import { DynamicForm, DynamicFormModule } from "../dynamicForm/dynamic.form";
 
 const CRUD_DECLARATIONS = [
     Crud,
@@ -26,8 +27,8 @@ const CRUD_DECLARATIONS = [
     CrudLinkset,
     CrudDelete,
     CrudCreate,
-    AgGridNg2,
-    MultipleSelect,
+    //DynamicForm,
+    //MultipleSelect,
 ];
 
 const CRUD_MODULES = [
@@ -40,7 +41,14 @@ const CRUD_MODULES = [
     FormsModule,
     MdModule.forRoot(),
     BrowserModule,
-    TranslateModule
+    TranslateModule,
+    MultipleSelectModule,
+<<<<<<< Updated upstream
+    DynamicFormModule,
+    AgGridModule.forRoot()
+=======
+    DynamicFormModule
+>>>>>>> Stashed changes
 ];
 
 @NgModule({

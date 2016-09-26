@@ -2,9 +2,9 @@ export interface DashboardBoxConfig {
     type: String;
     name: String;
     header: String;
-    subHeader: String,
+    subHeader: String;
     width: number;
     height: number;
-    icon: String,
+    icon: String;
     customData: Object;
 }

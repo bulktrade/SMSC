@@ -2,12 +2,25 @@ import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
 import { DashboardBox } from "./models/dashboardBox.ts";
+import { CrudService } from "../crud/crud.service";
+import { GridService } from "../services/grid.service";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { Location } from "@angular/common";
+import { Observable } from "rxjs/Observable";
+import { ColumnDefsModel } from "../crud/model/columnDefs.model";
+import { Observer } from "rxjs/Observer";
+import { BatchType } from "../orientdb/model/batchType";
+import { Operation } from "../orientdb/model/operation";
+import { EditModel } from "../crud/crudEdit/crud.edit.model";
 
 const squel = require('squel');
 
 @Injectable()
 export class DashboardService {
-    constructor(private databaseService: ODatabaseService) {
+    constructor(private databaseService: ODatabaseService,
+                public crudService: CrudService,
+                public location: Location,
+                public gridService: GridService) {
 
     }
 
@@ -16,38 +29,58 @@ export class DashboardService {
      *
      * @returns {any}
      */
-    public getDashboardBoxes(): Promise<Array<DashboardBox>> {
+    public getDashboardBoxes(): Observable<Array<DashboardBox>> {
+        this.databaseService.query("select codeLanguage['type'] from DashboardBoxType").subscribe((res) => {
+            console.log(res);
+        });
+
         let query = squel.select()
             .from('DashboardBox')
             .field('*')
             .toString();
 
-        return this.databaseService.query(query, 50, '*:3').then((res: Response) => {
-            let result: Array = [];
+        return Observable.create((observer: Observer<Array<DashboardBox>>) => {
+            this.databaseService.query(query, 50, '*:3').subscribe((res: Response) => {
+                let result: Array = [];
 
-            for (let item of res.json().result) {
-                result.push(new DashboardBox(item));
-            }
+                for (let item of res.json().result) {
+                    item.width = parseInt(item.width[0]);
+                    item.height = parseInt(item.height[0]);
+                    result.push(new DashboardBox(item));
+                }
 
-            return Promise.resolve(result);
-        }).catch((ex) => {
-            return Promise.reject(ex);
+                observer.next(result);
+                observer.complete();
+            }, (ex) => {
+                observer.error(ex);
+                observer.complete();
+            })
         });
     }
 
-    public getDashboardBox(rid: string): Promise<DashboardBox> {
+    /**
+     * Get single dashboard box
+     *
+     * @param rid - dashboard rid
+     * @returns {Promise<DashboardBox>|Promise<TResult|DashboardBox>|Promise<U>}
+     */
+    public getDashboardBox(rid: string): Observable<DashboardBox> {
         let query = squel.select()
             .from('DashboardBox')
             .field('*')
             .where('@rid = ?', rid)
             .toString();
 
-        return this.databaseService.query(query, 1, '*:3').then((res: Response) => {
-            let result:DashboardBox new DashboardBox(res.json().result[0])
+        return Observable.create((observer: Observer<DashboardBox>) => {
+            this.databaseService.query(query, 1, '*:3').subscribe((res: Response) => {
+                let result:DashboardBox = new DashboardBox(res.json().result[0])
 
-            return Promise.resolve(result);
-        }).catch((ex) => {
-            return Promise.reject(ex);
+                observer.next(result);
+                observer.complete();
+            }, (ex) => {
+                observer.error(ex);
+                observer.complete();
+            })
         });
     }
 
@@ -58,29 +91,40 @@ export class DashboardService {
      * height - box height(25/50/75/100)
      * rid - @rid
      */
-    public updateBoxSize(size: Object, item: DashboardBox): Promise {
+    public updateBoxSize(size: Object, item: DashboardBox): Observable<Object> {
         let send: Object = item.getORecord();
         send['width'] = size['width'];
         send['height'] = size['height'];
+        let obj:any = {
+            type: BatchType.Update,
+            record: send
+        };
+        let options: Array<Operation> = [obj];
 
-        return this.databaseService.update(send).then((res) => {
-            let result = JSON.parse(res._body);
+        return Observable.create((observer: Observer<Object>) => {
+            this.databaseService.batch(options).subscribe((res) => {
+                let result = JSON.parse(res['_body']);
 
-            return Promise.resolve(result.result[0]);
-        })
-            .catch((ex) => {
-                return Promise.reject(ex);
+                observer.next(result.result[0]);
+                observer.complete();
             });
+        });
     }
 
     /**
      * Delete one box
      * @param rid - box @rid
      */
-    public deleteBox(rid: string) {
-        let property: any = {};
-        property['@rid'] = rid;
-        this.databaseService.delete(property);
+    public deleteBox(box: DashboardBox) {
+        let obj:any = {
+            type: BatchType.Delete,
+            record: box.getORecord()
+        };
+        let options: Array<Operation> = [obj];
+
+        this.databaseService.batch(options).subscribe((res) => {
+            console.log(res);
+        });
     }
 
     /**
@@ -88,31 +132,80 @@ export class DashboardService {
      *
      * @param list - list of boxes
      */
-    public batchUpdateDashboardBox(list: Array<DashboardBox>): Promise {
-        let operations: Array<Object> = [];
+    public batchUpdateDashboardBox(list: Array<DashboardBox>): Observable<Array<DashboardBox>> {
+        let operations: Array<Operation> = [];
 
         for (let key in list) {
             let oRecord: Object = list[key].getORecord();
 
-            let tmp: Object = {
-                type: 'u',//    Operation what we do('u' - update)
+            let tmp: any = {
+                type: BatchType.Update,//    Operation what we do('u' - update)
                 record: oRecord
             };
+
             operations.push(tmp);
         }
 
-        //  Create object for batchRequest function
-        let data: Object = {
-            transaction: true,
-            operations: operations
-        };
+        return Observable.create((observer: Observer<Array<DashboardBox>>) => {
+            this.databaseService.batch(operations).subscribe((res) => {
+                this.getDashboardBoxes().subscribe((res) => {
+                    observer.next(res);
+                    observer.complete();
+                }, (ex) => {
+                    observer.error(ex);
+                    observer.complete();
+                });
+            });
+        });
+    }
 
-        return this.databaseService.batchRequest(data).then(() => {
-            let result = this.getDashboardBoxes();
+    /**
+     * Get dashboard box class columns
+     *
+     * @param route
+     * @param state
+     * @param id
+     * @param className
+     * @returns {Subscription}
+     */
+    public getBoxFormColumns(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, id: string, className: string): Observer<EditModel>{
+        this.crudService.setParentPath(route.parent.pathFromRoot);
+        this.crudService.setClassName(className);
 
-            return Promise.resolve(result);
-        }).catch((ex) => {
-            return Promise.reject(ex);
+        return Observable.create((observer: Observer<EditModel>) => {
+            this.crudService.databaseService.load(id)
+                .then((res: Response) => {
+                    let result = JSON.parse(res['_body']);
+                    let model = [];
+                    this.crudService.model = this.crudService.model || {};
+
+                    if (!Object.keys(this.crudService.model).length) {
+                        model.push(result);
+                    }
+
+                    this.crudService.getColumnDefs(className, false)
+                        .subscribe((columnDefs) => {
+                            return this.gridService.selectLinksetProperties(columnDefs.form, model)
+                                .then(() => {
+                                    let editModel: EditModel = {
+                                        columnDefs: columnDefs,
+                                        inputModel: model[0]
+                                    };
+
+                                    observer.next(editModel);
+                                    observer.complete();
+                                });
+                        }, (error) => {
+                            this.crudService.serviceNotifications.createNotificationOnResponse(error);
+                            observer.error(error);
+                            observer.complete();
+                        });
+                }, error => {
+                    this.crudService.serviceNotifications.createNotificationOnResponse(error);
+                    this.location.back();
+                    observer.error(error);
+                    observer.complete();
+                });
         });
     }
 }

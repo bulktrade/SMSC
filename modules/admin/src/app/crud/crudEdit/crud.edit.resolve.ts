@@ -5,6 +5,8 @@ import { CrudService } from "../crud.service";
 import { Response } from "@angular/http";
 import { Location } from "@angular/common";
 import { GridService } from "../../services/grid.service";
+import { Observable, Observer } from "rxjs";
+import { EditModel } from "./crud.edit.model";
 
 @Injectable()
 export class CrudEditResolve extends CrudResolve {
@@ -17,36 +19,43 @@ export class CrudEditResolve extends CrudResolve {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let id = route.params['id'];
+        this.crudService.setParentPath(route.parent.parent.pathFromRoot);
 
-        this.crudService.setParentPath(route.parent.parent.routeConfig.path);
+        return Observable.create((observer: Observer<EditModel>) => {
+            this.crudService.databaseService.load(id)
+                .then((res: Response) => {
+                    let result = res.json();
+                    let className = result['@class'];
+                    let model = [];
 
-        return this.crudService.databaseService.load(id)
-            .then((res: Response) => {
-                let result = res.json();
-                let className = result['@class'];
-                let model = [];
+                    if (!Object.keys(this.crudService.model).length) {
+                        model.push(result);
+                    }
 
-                if (!Object.keys(this.crudService.model).length) {
-                    model.push(result);
-                }
+                    this.crudService.getColumnDefs(className, false)
+                        .subscribe((columnDefs) => {
+                            return this.gridService.selectLinksetProperties(columnDefs.form, model)
+                                .then(() => {
+                                    let editModel: EditModel = {
+                                        columnDefs: columnDefs,
+                                        inputModel: model[0]
+                                    };
 
-                return this.crudService.initColumnDefs(className, false, false)
-                    .then((initGridData) => {
-                        return this.gridService.selectLinksetProperties(initGridData, model)
-                            .then(() => {
-                                return Promise.resolve({
-                                    initGridData: initGridData,
-                                    model: model[0]
+                                    observer.next(editModel);
+                                    observer.complete();
                                 });
-                            });
-                    }, (error) => {
-                        this.crudService.serviceNotifications.createNotificationOnResponse(error);
-                        return Promise.reject(error);
-                    });
-            }, error => {
-                this.crudService.serviceNotifications.createNotificationOnResponse(error);
-                this.location.back();
-            });
+                        }, (error) => {
+                            this.crudService.serviceNotifications.createNotificationOnResponse(error);
+                            observer.error(error);
+                            observer.complete();
+                        });
+                }, error => {
+                    this.crudService.serviceNotifications.createNotificationOnResponse(error);
+                    this.location.back();
+                    observer.error(error);
+                    observer.complete();
+                });
+        });
 
     }
 

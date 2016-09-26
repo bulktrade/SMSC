@@ -60,7 +60,7 @@ describe('ODatabaseService', () => {
         });
 
         db.query('select from Customer')
-            .then((res: Response) => {
+            .subscribe((res: Response) => {
                 expect(res.json().result).toEqual('success');
             });
     }));
@@ -84,7 +84,7 @@ describe('ODatabaseService', () => {
         });
 
         db.create('root', '12t')
-            .then((res: Response) => {
+            .subscribe((res: Response) => {
                 expect(res.json().result).toEqual('success');
             });
     }));
@@ -137,7 +137,7 @@ describe('ODatabaseService', () => {
         });
 
         db.save(obj)
-            .then((res: Response) => {
+            .subscribe((res: Response) => {
                 expect(res.json().result).toEqual('success');
             });
     }));

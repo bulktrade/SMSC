@@ -1,18 +1,21 @@
-import { Component, Input, ViewEncapsulation, Output, EventEmitter } from "@angular/core";
+import { Component, Input, ViewEncapsulation, Output, EventEmitter, HostListener } from "@angular/core";
 import { DashboardBoxConfig } from "./dashboard.box.config";
 import { SidebarService } from "../sidebar/sidebarService";
+import { BoxResize } from "./models/dashboard.box.enum.ts";
+import { DashboardResizeConfig } from "./dashboard.resize.config";
+import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
 
 @Component({
     selector: 'dashboard-box',
     template: require('./dashboard.box.html'),
-    styles: [
+    styleUrls: [
         require('./dashboard.box.scss')
     ],
     encapsulation: ViewEncapsulation.None
 })
 export class DashboardBoxComponent {
     @Input('config')
-    public config: DashboardBoxConfig;
+    public config: DashboardBoxConfig = null;
 
     @Output('resizeBox')
     public resizeBox: EventEmitter<Object> = new EventEmitter();
@@ -28,8 +31,10 @@ export class DashboardBoxComponent {
     public fullscreenMode: boolean = false;
     public statusBoxWidth: number = 25;
     public statusBoxHeight: number = 25;
+    public boxResize: BoxResize;
 
     constructor(private sidebarService: SidebarService) {
+        this.boxResize = BoxResize;
     }
 
     ngOnInit() {
@@ -42,11 +47,30 @@ export class DashboardBoxComponent {
         }
     }
 
+    @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        event.stopImmediatePropagation();
+
+        if(event.key == 'Escape' && this.fullscreenMode == true){
+            this.toggleFullscreen();
+        }
+    }
+
     /**
      * Toggle fullscreen for dashboard box.
      */
     toggleFullscreen() {
         this.sidebarService.toggleSidenav().then(() => {
+            let dom: BrowserDomAdapter = new BrowserDomAdapter();
+
+            if (this.fullscreenMode) {
+                dom.removeStyle(dom.query('.md-sidenav-content'), 'overflow');
+                dom.removeClass(dom.query('.header'), 'fullscreen-header');
+            } else {
+                dom.setStyle(dom.query('.md-sidenav-content'), 'overflow', 'hidden');
+                dom.addClass(dom.query('.header'), 'fullscreen-header');
+            }
+
             this.fullscreenMode = !this.fullscreenMode;
             this.sidebarService.fullScreenMode = this.fullscreenMode;
         });
@@ -54,25 +78,29 @@ export class DashboardBoxComponent {
 
     /**
      * Emit resize box event
-     * @param data
+     *
+     * @param data - object data
+     * {
+     *  val - resize value
+     *  type - resize direction(width, height)
+     * }
      */
-    emitResizeBox(data: void) {
-        let res: Object = {
-            type: data.type
-        }
+    emitResizeBox(data: Object) {
+        let res: DashboardResizeConfig = <DashboardResizeConfig>{};
+        res.type = data['type'];
 
-        if (data.type == 'width') {
-            res.width = data.val;
+        if (data['type'] == BoxResize.Width) {
+            res.width = data['val'];
             res.height = this.statusBoxHeight;
 
-            this.statusBoxWidth = data.val;
+            this.statusBoxWidth = data['val'];
         }
 
-        if (data.type == 'height') {
+        if (data['type'] == BoxResize.Height) {
             res.width = this.statusBoxWidth;
-            res.height = data.val;
+            res.height = data['val'];
 
-            this.statusBoxHeight = data.val;
+            this.statusBoxHeight = data['val'];
         }
 
         this.resizeBox.emit(res);

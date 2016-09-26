@@ -12,12 +12,16 @@ import { NotificationService } from "../../services/notificationService";
 import { NotificationsService } from "angular2-notifications/components";
 import { LoadingGridService } from "../../services/loading/loadingGrid.service";
 import { ConfigService } from "../../config/configService";
+import { RouterOutletService } from "../../services/routerOutletService";
+import { GridService } from "../../services/grid.service";
 
 class MockActivatedRoute {};
 
 export const CRUD_PROVIDERS = [
     ...COMMON_PROVIDERS,
     LoadingGridService,
+    GridService,
+    RouterOutletService,
     NotificationsService,
     NotificationService,
     CrudService,

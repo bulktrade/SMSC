@@ -2,13 +2,11 @@
 
 import "rxjs/add/operator/map";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Rx";
+import { Observable, Observer } from "rxjs/Rx";
 import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
-import { RequestGetParameters } from "./orientdb.requestGetParameters";
-import { BatchType } from "./orientdb.batchType";
 import { AuthHttp } from "angular2-jwt";
-
-const sprintf = require('sprintf-js').sprintf;
+import { Batch } from "./model/batch";
+import { Operation } from "./model/operation";
 
 @Injectable()
 export class ODatabaseService {
@@ -41,7 +39,7 @@ export class ODatabaseService {
         this.urlSuffix = '';
     }
 
-    batchRequest(data): Promise<any> {
+    batchRequest(data): Observable<Response> {
         let headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -52,108 +50,79 @@ export class ODatabaseService {
             body: data
         });
 
-        return this.authHttp.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
-            + this.urlSuffix,
-            requestOptions)
-            .toPromise()
-            .then(
-                res => {
-                    this.setErrorMessage(undefined);
-                    this.handleResponse(res);
-                    return Promise.resolve(res);
-                },
-                error => {
-                    this.setErrorMessage('Command error: ' + error.responseText);
-                    return Promise.reject(error);
-                });
+        return Observable.create((observer: Observer<Response>) => {
+            this.authHttp.request(this.urlPrefix + 'batch/' + this.encodedDatabaseName
+                + this.urlSuffix,
+                requestOptions)
+                .subscribe(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        observer.next(res);
+                        observer.complete();
+                    },
+                    error => {
+                        this.setErrorMessage('Command error: ' + error.responseText);
+                        observer.error(error);
+                        observer.complete();
+                    });
+        });
     };
 
     /**
      *
      * ### Example
      *
-     * The following example creates record in the current database.
+     * Content: { "transaction" : , "operations" : [ { "type" : "" }* ] }
      *
-     * let record = {
-     *  "@class" : "City",
-     *  "name" : "Venice"
-     * }
+     * let operations: Array<operations> = [{
+     *      "type": BatchType.Update,
+     *      "record": {
+     *          "@rid": "#14:122",
+     *          "name": "Luca",
+     *          "vehicle": "Car"
+     *      }
+     *  }, {
+     *      "type": BatchType.Delete,
+     *      "record": {
+     *          "@rid": "#14:100"
+     *      }
+     *  }, {
+     *      "type": BatchType.Create,
+     *      "record": {
+     *          "@class": "City",
+     *          "name": "Venice"
+     *      }
+     *  }]
      *
-     * createRecord(record);
+     * batch(options);
      *
-     */
-
-    createRecord(record: RequestGetParameters) {
-        return this.batchRequest(this.batchFormatter(record, BatchType.Create));
-    };
-
-    /**
      *
-     * ### Example
-     *
-     * The following example updates record in the current database.
-     *
-     * let record = {
-     *  "@rid" : "#14:122",
-     *  "name" : "Luca",
-     *  "vehicle" : "Car"
-     * }
-     *
-     * updateRecord(record);
+     * for more information look here http://orientdb.com/docs/2.1/OrientDB-REST.html
      *
      */
 
-    updateRecord(record) {
-        return this.batchRequest(this.batchFormatter(record, BatchType.Update));
-    };
+    batch(operations: Array<Operation>): Observable<Response> {
+        let batch: Batch = {
+            transaction: true,
+            operations: operations
+        };
 
-    /**
-     *
-     * ### Example
-     *
-     * The following example deletes record in the current database.
-     *
-     * let record = {
-     *  "@rid" : "#14:100"
-     * }
-     *
-     * deleteRecord(record);
-     *
-     */
-
-    deleteRecord(record) {
-        return this.batchRequest(this.batchFormatter(record, BatchType.Delete));
-    };
-
-    batchFormatter(properties, type: string|BatchType): string {
-        let batch = sprintf('{"transaction": true, "operations": [{"type": "%s", "record": {', type);
-
-        for (let i in properties) {
-            let value: string = '';
-
-            if (Array.isArray(properties[i])) {
-                let link = properties[i];
-                let linkset = [];
-
-                for (let prop in link) {
-                    if (prop.charAt(0) === '_') {
-                        linkset.push(link[prop]);
+        batch.operations.forEach(item => {
+            for (let i in item.record) {
+                if (Array.isArray(item.record[i])) {
+                    if (item.record[i]['type'] === 'LINKSET') {
+                        for (let k = 0; k < item.record[i]['length']; k++) {
+                            item.record[i][k] = item.record[i]['_' + k];
+                        }
+                    } else if (item.record[i]['type'] === 'LINK') {
+                        item.record[i] = item.record[i]['rid'];
                     }
                 }
-
-                value = sprintf('[%s]', linkset.join());
-            } else if (i === '@version') {
-                value = sprintf('%s', properties[i]);
-            } else {
-                value = sprintf('"%s"', properties[i]);
             }
+        });
 
-            let property = '"' + i + '" :' + value + ', ';
-
-            batch += property;
-        }
-
-        return batch.substring(0, batch.length - 2) + '}}]}';
+        return this.batchRequest(JSON.stringify(batch));
     }
 
     getInfoClass(className) {
@@ -171,24 +140,10 @@ export class ODatabaseService {
                     return Promise.resolve((this.getCommandResponse()));
                 },
                 error => {
-                    return Promise.reject(this.setErrorMessage('Command error: ' + error.responseText));
+                    this.setErrorMessage('Command error: ' + error.responseText);
+                    return Promise.reject(error);
                 });
     }
-
-    getRowMetadata(params: RequestGetParameters) {
-        let sql = 'select from %(nameClass)s where';
-
-        for (let key in params.colsValue) {
-            sql += ' ' + key + ' = "%(colsValue.' + key + ')s" and';
-        }
-
-        sql = sql.substring(0, sql.length - 4);
-
-        return this.query(sprintf(sql, params))
-            .then((res: Response) => {
-                return res.json().result[0];
-            });
-    };
 
     executeCommand(iCommand?, iLanguage?, iLimit?,
                    iFetchPlan?) {
@@ -304,9 +259,9 @@ export class ODatabaseService {
      * @param iQuery
      * @param iLimit
      * @param iFetchPlan
-     * @returns {Promise<T>}
+     * @returns {Observable<Response>}
      */
-    query(iQuery?, iLimit?, iFetchPlan?) {
+    query(iQuery?, iLimit?, iFetchPlan?): Observable<Response> {
         if (iLimit === undefined || iLimit === '') {
             iLimit = '20';
         }
@@ -322,15 +277,7 @@ export class ODatabaseService {
             'Content-Type': 'application/json'
         });
 
-        return this.authHttp.get(this.urlPrefix + url + this.urlSuffix,
-            headers)
-            .toPromise()
-            .then((res: Response) => {
-                    return Promise.resolve(res);
-                }, (error) => {
-                    return Promise.reject(new Error('Query error: ' + error.responseText));
-                }
-            );
+        return this.authHttp.get(this.urlPrefix + url + this.urlSuffix, headers);
     }
 
     close() {
@@ -655,20 +602,22 @@ export class ODatabaseService {
             method: RequestMethod.Post
         });
 
-        return new Promise((resolve, reject) => {
+        return Observable.create((observer: Observer<Response>) => {
             this.authHttp.request(this.urlPrefix + 'database/' + this.encodedDatabaseName + '/' +
                 type + '/' + databaseType + this.urlSuffix,
                 requestOptions)
-                .toPromise()
-                .then(
+                .subscribe(
                     res => {
                         this.setErrorMessage(undefined);
                         this.setDatabaseInfo(this.transformResponse(res));
-                        resolve(this.getDatabaseInfo());
+                        observer.next(res);
+                        observer.complete();
                     },
-                    error => {
-                        this.setErrorMessage('Connect error: ' + error.responseText);
+                    err => {
+                        this.setErrorMessage('Connect error: ' + err.responseText);
                         this.setDatabaseInfo(undefined);
+                        observer.error(err);
+                        observer.complete();
                     }
                 );
         });
@@ -765,11 +714,10 @@ export class ODatabaseService {
             body: body
         });
 
-        return new Promise((resolve, reject) => {
+        return Observable.create((observer: Observer<Response>) => {
             this.authHttp.request(url + this.urlSuffix,
                 requestOptions)
-                .toPromise()
-                .then(
+                .subscribe(
                     res => {
                         this.setErrorMessage(undefined);
                         this.setCommandResponse(res);
@@ -777,7 +725,8 @@ export class ODatabaseService {
                         if (successCallback) {
                             successCallback(res);
                         }
-                        resolve(this.getCommandResult());
+                        observer.next(this.getCommandResult());
+                        observer.complete();
                     },
                     error => {
                         this.handleResponse(undefined);
@@ -785,6 +734,8 @@ export class ODatabaseService {
                         if (errorCallback) {
                             errorCallback(error.responseText);
                         }
+                        observer.error(this.getCommandResult());
+                        observer.complete();
                     }
                 );
         });
@@ -815,18 +766,20 @@ export class ODatabaseService {
             method: RequestMethod.Put
         });
 
-        return new Promise((resolve, reject) => {
+        return Observable.create((observer: Observer<Response>) => {
             this.authHttp.request(req + this.urlSuffix,
                 requestOptions)
-                .toPromise()
-                .then(
+                .subscribe(
                     res => {
                         this.setErrorMessage(undefined);
-                        resolve(this.getCommandResult());
+                        observer.next(res);
+                        observer.complete()
                     },
                     error => {
                         this.handleResponse(undefined);
                         this.setErrorMessage('Index put error: ' + error.responseText);
+                        observer.error(error);
+                        observer.complete();
                     }
                 );
         });

@@ -1,9 +1,12 @@
-import { Component, Input } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
+import { Component, Input, ModuleWithProviders, NgModule } from "@angular/core";
+import { TranslateService, TranslateModule } from "ng2-translate/ng2-translate";
 import { ActivatedRoute, Router } from "@angular/router";
 import { EventEmitter } from "@angular/common/src/facade/async";
-import { Location } from "@angular/common";
+import { Location, CommonModule } from "@angular/common";
 import { CrudService } from "../../crud.service";
+import { LinksetProperty } from "../../model/linksetProperty";
+import { MdModule } from "../../../md.module";
+import { FormsModule } from "@angular/forms";
 
 @Component({
     selector: 'multiple-select',
@@ -78,7 +81,7 @@ export class MultipleSelect {
 
         for (let i in this.ridItems) {
             if (this.ridItems[i].visible) {
-                model['_' + i] = linkset['_' + i];
+                model['_' + model.length] = linkset['_' + model.length];
                 model.push(linkset[i]);
             }
         }
@@ -105,16 +108,16 @@ export class MultipleSelect {
     addLinkset(): void {
         this.resetParams();
         this.crudService.multipleSelectValid = false;
-        this.crudService.setLinkedClass(this.property.linkedClass);
 
-        this.crudService.setModifiedRecord({
-            data: this.crudService.model,
-            modifiedLinkset: this.property.property,
+        let linsetProperty: LinksetProperty = {
+            name: this.property.property,
             type: this.property.type,
-            from: this.route.component['name']
-        });
+            data: this.crudService.model,
+            bingingProperties: this.property.bingingProperties
+        };
 
-        this.crudService.navigateToLinkset();
+        this.crudService.navigateToLinkset(linsetProperty);
+        this.crudService.setLinkedClass(this.property.linkedClass);
     }
 
     resetParams(): void {
@@ -122,5 +125,24 @@ export class MultipleSelect {
         this.crudService.model[this.property.property] = [];
         this.crudService.titleColumns = [];
         this.ridItems = [];
+    }
+}
+
+@NgModule({
+    imports: [
+        CommonModule,
+        FormsModule,
+        MdModule.forRoot(),
+        TranslateModule
+    ],
+    exports: [MultipleSelect],
+    declarations: [MultipleSelect]
+})
+export class MultipleSelectModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: MultipleSelectModule,
+            providers: []
+        };
     }
 }

@@ -14,16 +14,17 @@ const ENV = process.env.NODE_ENV = process.env.ENV = 'ci';
 exports.config = objectMerge(commonConfig.config, {
     sauceUser: process.env.SAUCE_USERNAME,
     sauceKey: process.env.SAUCE_ACCESS_KEY,
-    sauceSeleniumAddress: 'localhost:4445/wd/hub',
+    sauceSeleniumAddress: 'http://127.0.0.1:4444/wd/hub',
 
     multiCapabilities: [
         {
             browserName: 'chrome',
             platform: 'OS X 10.11',
             name: "chrome-osx-tests",
+            shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        } /*,
+        } /* ,
         {
             browserName: 'firefox',
             platform: 'OS X 10.11',
@@ -82,9 +83,9 @@ exports.config = objectMerge(commonConfig.config, {
         	platform: 'OS X 10.10',
          	browserName: 'iphone',
          	name: 'ios-tests',
-         	varsion: '9.2',
+         	varsion: '9.3',
          	app: 'safari',
-         	deviceName: 'iPhone 6',
+         	deviceName: 'iPhone 6s',
          	deviceOrientation: 'portrait',
          	build: process.env.TRAVIS_BUILD_NUMBER,
          	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER

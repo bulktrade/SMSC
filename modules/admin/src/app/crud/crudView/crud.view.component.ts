@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
+import { ColumnDefsModel } from "../model/columnDefs.model";
+import { LinksetProperty } from "../model/linksetProperty";
 
 @Component({
     selector: 'crud-view',
@@ -15,7 +17,7 @@ import { CrudService } from "../crud.service";
 })
 
 export class CrudView {
-    public resolveData: any;
+    public resolveData: ColumnDefsModel = null;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -25,7 +27,7 @@ export class CrudView {
 
     ngOnInit() {
         this.resolveData = this.route.snapshot.data['view'];
-        this.crudService.gridOptions.columnDefs = this.resolveData;
+        this.crudService.gridOptions.columnDefs = this.resolveData.grid;
     }
 
     navigateToCreate() {
@@ -44,14 +46,14 @@ export class CrudView {
         if (event.colDef.type === 'LINK' ||
             event.colDef.type === 'LINKSET') {
             this.crudService.setLinkedClass(event.colDef.linkedClass);
-            this.crudService.setModifiedRecord({
-                data: event.data,
-                modifiedLinkset: event.colDef.field,
+            let linsetProperty: LinksetProperty = {
+                name: event.colDef.property,
                 type: event.colDef.type,
-                from: this.route.component['name']
-            });
+                bingingProperties: event.colDef.bingingProperties,
+                data: event.data
+            };
 
-            this.crudService.navigateToLinkset();
+            this.crudService.navigateToLinkset(linsetProperty);
         }
     }
 }

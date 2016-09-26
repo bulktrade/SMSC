@@ -4,16 +4,16 @@
 <div id="dashboard" class="wrapper">
     <router-outlet></router-outlet>
     <div class="topToolbar">
-        <div class="add toolButton">
+        <div class="add toolButton" (click)="createBox()">
             <i class="material-icons">add</i>
         </div>
     </div>
-    <md-content class="status container" [dragula]='"status-bag"'>
-        <div *ngFor="let item of boxesArr | orderby : {key: 'order', direction: 'ascending'}; let i = index; let last = last"
-             [ngClass]="[boxes.container.height[i], boxes.container.width[i]]" attr.data-boxrid="{{item.metaData.rid}}"
+    <div class="boxes-container container" [dragula]='"status-bag"'>
+        <div *ngFor="let item of boxesArr.getAll() | orderby : {key: 'order', direction: 'ascending'}; let i = index; let last = last"
+             [ngClass]="[boxes.height.getItem(i), boxes.width.getItem(i)]" attr.data-boxrid="{{item.metaData.rid}}"
              class="box {{item.type.name}}"
         >
-            <dashboard-box class="status" [ngClass]="boxes.remove[i]" *ngIf="item.type.name == 'status'"
+            <dashboard-box class="status" [ngClass]="boxes.remove.getItem(i)" *ngIf="item.type.name == 'status'"
                            (resizeBox)="resizeBox($event, i, item)"
                            [config]="{
                                 'type': 'status',
@@ -27,16 +27,18 @@
                                     'processStatus': 'Progress',
                                     'percent': '75'
                                 }
-                            }" (removeBox)="removeBox(item.metaData.rid, i)" (editBox)="editBox(item.metaData.rid)"
+                            }" (removeBox)="removeBox(item, i)" (editBox)="editBox(item.metaData.rid)"
             ></dashboard-box>
-            <dashboard-box class="chart" [ngClass]="boxes.remove[i]" *ngIf="item.type.name == 'chart'" [config]="{
-                'type': 'chart',
-                'header': item.name,
-                'subHeader': item.description,
-                'width': item.width,
-                'height': item.height
-            }" (resizeBox)="resizeBox($event, i, item)" (removeBox)="removeBox(item.metaData.rid, i)"
+            <dashboard-box class="chart" [ngClass]="boxes.remove.getItem(i)" *ngIf="item.type.name == 'chart'"
+                           [config]="{
+                                'type': 'chart',
+                                'header': item.name,
+                                'subHeader': item.description,
+                                'width': item.width,
+                                'height': item.height
+                            }" (resizeBox)="resizeBox($event, i, item)" (removeBox)="removeBox(item, i)"
+                           (editBox)="editBox(item.metaData.rid)"
             ></dashboard-box>
         </div>
-    </md-content>
+    </div>
 </div>

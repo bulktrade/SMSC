@@ -18,54 +18,64 @@
         <div class="view-width">
             <div class="wrap" [ngClass]="{'view-width-open': viewWidth}">
                 <div>
-                    <md-button (click)="emitResizeBox({val: 25, type: 'height'})" [ngClass]="{'active': statusBoxHeight == 25}">
+                    <button (click)="emitResizeBox({val: 25, type: boxResize.Height})" [ngClass]="{'active': statusBoxHeight == 25}">
                         <span>
-                           S
+                           M
                         </span>
-                    </md-button>
-                    <md-button  (click)="emitResizeBox({val: 50, type: 'height'})" [ngClass]="{'active': statusBoxHeight == 50}">
+                    </button>
+                    <button  (click)="emitResizeBox({val: 50, type: boxResize.Height})" [ngClass]="{'active': statusBoxHeight == 50}">
+                        <span>
+                            S
+                        </span>
+                    </button>
+                    <button  (click)="emitResizeBox({val: 75, type: boxResize.Height})" [ngClass]="{'active': statusBoxHeight == 75}">
                         <span>
                             L
                         </span>
-                    </md-button>
-                    <md-button  (click)="emitResizeBox({val: 75, type: 'height'})" [ngClass]="{'active': statusBoxHeight == 75}">
+                    </button>
+                    <button  (click)="emitResizeBox({val: 100, type: boxResize.Height})" [ngClass]="{'active': statusBoxHeight == 100}">
                         <span>
-                            X
+                            XL
                         </span>
-                    </md-button>
+                    </button>
                 </div>
                 <div>
-                    <md-button (click)="emitResizeBox({val: 25, type: 'width'})" [ngClass]="{'active': statusBoxWidth == 25}">
+                    <button (click)="emitResizeBox({val: 25, type: boxResize.Width})" [ngClass]="{'active': statusBoxWidth == 25}">
                         <span>
                            25%
                         </span>
-                    </md-button>
-                    <md-button  (click)="emitResizeBox({val: 50, type: 'width'})" [ngClass]="{'active': statusBoxWidth == 50}">
+                    </button>
+                    <button  (click)="emitResizeBox({val: 50, type: boxResize.Width})" [ngClass]="{'active': statusBoxWidth == 50}">
                         <span>
                             50%
                         </span>
-                    </md-button>
-                    <md-button  (click)="emitResizeBox({val: 75, type: 'width'})" [ngClass]="{'active': statusBoxWidth == 75}">
+                    </button>
+                    <button  (click)="emitResizeBox({val: 75, type: boxResize.Width})" [ngClass]="{'active': statusBoxWidth == 75}">
                         <span>
                             75%
                         </span>
-                    </md-button>
-                    <md-button  (click)="emitResizeBox({val: 100, type: 'width'})" [ngClass]="{'active': statusBoxWidth == 100}">
+                    </button>
+                    <button  (click)="emitResizeBox({val: 100, type: boxResize.Width})" [ngClass]="{'active': statusBoxWidth == 100}">
                         <span>
                             100%
                         </span>
-                    </md-button>
+                    </button>
                 </div>
             </div>
+        </div>
+        <div class="toolbar">
+            <i class="material-icons icon fullscreen-icon" (click)="toggleFullscreen()">
+                {{ fullscreenMode ? 'fullscreen' : 'fullscreen_exit' }}
+            </i>
         </div>
         <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}">
             <i class="material-icons icon">
                 {{ config.icon }}
             </i>
-            <md-card-header-text class="md-title" [innerHTML]="config.header"></md-card-header-text>
-            <md-card-header-text class="md-subhead">
+            <div class="md-header md-title" [innerHTML]="config.header"></div>
+            <div class="md-header md-subhead">
                 {{ config.subHeader }}
-            </md-card-header-text>
+            </div>
             <div class="progress-container">
                 <div class="progress-bar">
                     <span class="active-progress"></span>
@@ -83,19 +93,14 @@
 
         <div *ngIf="config.type == 'chart'" class="chart">
             <md-card>
-                <md-header>
-                    <md-card-header-text class="md-title">
+                <div class="md-header">
+                    <div class="md-header-title">
                         {{ config.header }}
-                    </md-card-header-text>
-                    <md-card-header-text class="md-subhead">
-                        {{ config.subHeader }}
-                    </md-card-header-text>
-                    <div class="toolbar">
-                        <i class="material-icons icon " (click)="toggleFullscreen()">
-                            {{ fullscreenMode ? 'fullscreen' : 'fullscreen_exit' }}
-                        </i>
                     </div>
-                </md-header>
+                    <div class="md-header-subhead">
+                        {{ config.subHeader }}
+                    </div>
+                </div>
             </md-card>
         </div>
     </div>

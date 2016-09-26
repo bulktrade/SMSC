@@ -14,19 +14,11 @@ import { CommonModule } from "@angular/common";
 
 export class LoadingGrid implements OnInit {
 
-    constructor(public service:LoadingGridService,
+    constructor(public service: LoadingGridService,
                 public crudService: CrudService) {
     }
 
-    ngOnInit():void {
-        this.service.start();
-
-        this.crudService.initGridData
-            .then((res) => {
-                this.service.stop();
-            }, (error) => {
-                this.service.stop();
-            })
+    ngOnInit(): void {
     }
 }
 

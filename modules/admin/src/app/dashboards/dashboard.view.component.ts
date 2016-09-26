@@ -5,6 +5,16 @@ import { DragulaService } from "ng2-dragula/ng2-dragula";
 import { DashboardService } from "./dashboardService";
 import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
 import { OrderBy } from "./sorts/orderby";
+import { DropdownDirective } from "ng2-bootstrap/ng2-bootstrap";
+import { DashboardList } from "./models/dashboard.list";
+import { DashboardBoxConfig } from "./dashboard.box.config";
+import { DashboardBox } from "./models/dashboardBox";
+import { DashboardListItem } from "./models/dashboard.list.item.ts";
+import { BoxResize } from "./models/dashboard.box.enum";
+import { DashboardResizeConfig } from "./dashboard.resize.config";
+import { CrudService } from "../crud/crud.service";
+import { Response } from "@angular/http";
+import { BoxSizes } from "./models/dashboard.box.sizes";
 
 @Component({
     selector: 'dashboard-view',
@@ -12,27 +22,25 @@ import { OrderBy } from "./sorts/orderby";
     styleUrls: [
         require('./dashboard.view.scss')
     ],
+    directives: [
+        DropdownDirective
+    ],
+    pipes: [OrderBy],
     viewProviders: [
         DragulaService
     ]
 })
 export class DashboardView {
     private drakes: Array<string> = ["status-bag", "chart-bag"];
-    public boxes: Object = {
-        container: {
-            width: [],
-            height: []
-        },
-        remove: []
-    };
-    public boxesArr: Array<any> = [];
-    private firstAdd: boolean = false;
+    public boxes: DashboardList<string> = new DashboardList<string>(0);
+    public boxesArr: DashboardListItem<DashboardBox> = new DashboardListItem<DashboardBox>();
     private testArr: Array<String> = ['', ''];
 
     constructor(public translate: TranslateService,
                 private dragulaService: DragulaService,
                 private  dashboardService: DashboardService,
-                private router: Router) {
+                private router: Router,
+                public crudService: CrudService) {
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal'
         });
@@ -44,12 +52,13 @@ export class DashboardView {
             this.onDrop(value.slice(1));
         });
 
-        this.dashboardService.getDashboardBoxes().then((res) => {
+        this.dashboardService.getDashboardBoxes().subscribe((res) => {
+            this.boxes = new DashboardList<string>(res.length);
+            this.boxesArr = new DashboardListItem();
             let orderBy: OrderBy = new OrderBy();
-            this.boxesArr = orderBy.transform(res, { key: 'order', direction: 'ascending' });
+            this.boxesArr.merge(orderBy.transform(res, { key: 'order', direction: 'ascending' }));
+
             this.updateClasses();
-            //this.boxes.container.height[0] = 'height-0';
-            //this.boxes.container.width[0] = 'width-3';
         });
     }
 
@@ -59,7 +68,6 @@ export class DashboardView {
      * @param $event
      */
     onDrop($event) {
-        //this.updateClasses();
         let dom: BrowserDomAdapter = new BrowserDomAdapter();
 
         let boxList: Array<any> = dom.querySelectorAll(dom.query('#dashboard'), 'div.box');
@@ -68,22 +76,21 @@ export class DashboardView {
         for (let item of boxList) {
             let boxRid: string = dom.getData(item, 'boxRid');
 
-            for (let originItemKey in this.boxesArr) {
-                if (this.boxesArr[originItemKey]['metaData']['rid'] == boxRid) {
+            for (let originItemKey:number in this.boxesArr.getAll()) {
+                if (this.boxesArr.getItem(originItemKey)['metaData']['rid'] == boxRid) {
                     let domBoxIndex: number = boxList_.indexOf(item);
 
-                    this.boxesArr[originItemKey].order = domBoxIndex;
+                    this.boxesArr.getItem(originItemKey).order = domBoxIndex;
                 }
             }
         }
 
         //  Update boxes order and update @version of current box array
-        this.dashboardService.batchUpdateDashboardBox(this.boxesArr).then((res) => {
-            console.log(res);
-            for (let originKey in this.boxesArr) {
+        this.dashboardService.batchUpdateDashboardBox(this.boxesArr.getAll()).subscribe((res) => {
+            for (let originKey:number in this.boxesArr.getAll()) {
                 for (let item of res) {
-                    if (this.boxesArr[originKey]['metaData']['rid'] == item['metaData']['rid']) {
-                        this.boxesArr[originKey]['metaData']['version'] = item['metaData']['version'];
+                    if (this.boxesArr.getItem(originKey)['metaData']['rid'] == item['metaData']['rid']) {
+                        this.boxesArr.getItem(originKey)['metaData']['version'] = item['metaData']['version'];
                     }
                 }
             }
@@ -92,66 +99,81 @@ export class DashboardView {
 
     /**
      * Resize box, add width class to box element, update DB and update @version boxes array
+     *
      * @param width
      * @param boxName
      * @param item
      * @param index
      */
-    resizeBox(val: Object, index: number, item: any) {
-        let widthClass, heightClass: string;
+    resizeBox(val: DashboardResizeConfig, index: number, item: any) {
+        let widthClass, heightClass, type: string;
 
-        if (val.type == 'width') {
-            widthClass = this.getBoxClass(val.width, val.type);
+        type = <string>val.type;
+
+        if (val.type == BoxResize.Width) {
+            widthClass = this.getBoxClass(val.width, type);
             heightClass = this.getBoxClass(val.height, 'height');
         }
 
-        if (val.type == 'height') {
-            heightClass = this.getBoxClass(val.height, val.type);
+        if (val.type == BoxResize.Height) {
+            heightClass = this.getBoxClass(val.height, type);
             widthClass = this.getBoxClass(val.width, 'width');
         }
 
-        this.boxes.container.width[index] = widthClass;
-        this.boxes.container.height[index] = heightClass;
+        this.boxes.width.setItem(widthClass, index);
+        this.boxes.height.setItem(heightClass, index);
 
         if (item != undefined) {
-            this.dashboardService.updateBoxSize({ width: val.width, height: val.height }, item).then((res) => {
-                this.boxesArr[index]['metaData']['version'] = res['@version'];
-                this.boxesArr[index]['width'] = res['width'];
-                this.boxesArr[index]['height'] = res['height'];
+            this.dashboardService.updateBoxSize({ width: val.width, height: val.height }, item).subscribe((res) => {
+                this.boxesArr.getItem(index)['metaData']['version'] = res['@version'];
+                this.boxesArr.getItem(index)['width'] = res['width'];
+                this.boxesArr.getItem(index)['height'] = res['height'];
             });
         }
     }
 
-    getBoxClass(val: number, type: string) {
+    /**
+     * Get box class by it size(height or width)
+     *
+     * height = 25 -> height-m
+     * width = 100 -> width-xl
+     *
+     * @param val
+     * @param type
+     * @returns {string}
+     */
+    getBoxClass(val: number, type: string):string {
         switch (val) {
             case 25:
-                return type + '-0';
+                return type + '-' + BoxSizes.M;
 
                 break;
             case 50:
-                return type + '-1';
+                return type + '-' + BoxSizes.S;
 
                 break;
             case 75:
-                return type + '-2';
+                return type + '-' + BoxSizes.L;
 
                 break;
             case 100:
-                return type + '-3';
+                return type + '-' + BoxSizes.XL;
 
                 break;
         }
     }
 
+    /**
+     * Update box classes
+     */
     updateClasses() {
-        for (let key in this.boxesArr) {
-            //continue;
-            let width: number = this.getBoxClass(this.boxesArr[key].width, 'width');
-            let height: number = this.getBoxClass(this.boxesArr[key].height, 'height');
+        for (let key:number in this.boxesArr.getAll()) {
+            let width: string = this.getBoxClass(this.boxesArr.getItem(key).width, 'width');
+            let height: string = this.getBoxClass(this.boxesArr.getItem(key).height, 'height');
 
-            this.boxes.container.width[key] = width;
-            this.boxes.container.height[key] = height;
-            this.boxes.remove[key] = '';
+            this.boxes.width.setItem(width, key);
+            this.boxes.height.setItem(height, key);
+            this.boxes.remove.setItem('', key);
         }
     }
 
@@ -160,22 +182,23 @@ export class DashboardView {
      *
      * @param rid
      */
-    removeBox(rid: string, index: number) {
+    removeBox(box: DashboardBox, index: number) {
         //  Set listener for deleted box
         let dom: BrowserDomAdapter = new BrowserDomAdapter();
-        let removedObject = dom.querySelector(dom.query('#dashboard'), 'div.box[data-boxRid="' + rid + '"]');
+        let removedObject = dom.querySelector(dom.query('#dashboard'), 'div.box[data-boxRid="' + box.metaData.rid + '"]');
 
         //  Update current boxes list after end of transition
         dom.on(removedObject, 'transitionend', (e) => {
-            this.boxesArr.splice(index, 1);
-            this.boxes.container.width.splice(index, 1);
-            this.boxes.container.height.splice(index, 1);
-            this.boxes.remove.splice(index, 1);
+            this.boxesArr.removeItem(index);
+            this.boxes.width.removeItem(index);
+            this.boxes.height.removeItem(index);
+            this.boxes.remove.removeItem(index);
+
+            //  Remove box
+            this.dashboardService.deleteBox(box);
 
         });
-        this.boxes.remove[index] = 'removeBox';
-
-        //this.dashboardService.deleteBox(rid);
+        this.boxes.remove.setItem('removeBox', index);
     }
 
     /**
@@ -184,6 +207,13 @@ export class DashboardView {
      * Open edit page to corresponding edit box
      */
     editBox(rid: string) {
-        this.router.navigate(['/dashboard/edit', '46:1']);
+        this.router.navigate(['/dashboard/edit', rid]);
+    }
+
+    /**
+     * Navigate to create page
+     */
+    createBox(){
+        this.router.navigate(['/dashboard/create', 'DashboardBox']);
     }
 }
