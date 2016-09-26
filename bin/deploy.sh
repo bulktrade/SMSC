@@ -7,7 +7,7 @@ export ADMIN_ORIENTDB_DATABASE=smsc
 export EMBEDDED_ORIENTDB_ENABLED=1
 export ORIENTDB_HTTP_PORT_RANGE=24080-24080
 
-mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.login=$SONAR_TOKEN
+mvn clean install
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
 	mvn heroku:deploy -Dmaven.test.skip=true -Dmaven.integration-test.skip=true -Dmaven.javadoc.skip=true
