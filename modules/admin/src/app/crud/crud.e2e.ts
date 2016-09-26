@@ -50,8 +50,10 @@ describe('CRUD', () => {
 
     // @todo fix it
     it('delete button should be enabled', () => {
-        crudPage.clickOnDeleteIcon();
-        expect(crudPage.isPresentCrudViewTag()).toBeTruthy();
+        crudPage.getCrudView();
+        crudPage.crudCreate.clickOnSelectAll();
+        crudPage.clickOnDeleteButton();
+        expect(crudPage.crudDelete.isPresentCrudDelete()).toBeTruthy();
     });
 
     it('should be delete records', () => {
