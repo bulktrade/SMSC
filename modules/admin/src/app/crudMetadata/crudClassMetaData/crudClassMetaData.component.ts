@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
+import { Component } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'crudClassMetaData',
@@ -9,7 +9,7 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 })
 
 export class CrudClassMetaData {
-    constructor(public translate:TranslateService) {
+    constructor(public translate: TranslateService) {
     }
 
     ngOnInit() {

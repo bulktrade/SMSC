@@ -1,5 +1,5 @@
 import { LoginPage } from '../pages/login.page';
-import { WaitUntilReady } from "../pages/common/waitUntilReady";
+import { WaitUntilReady } from '../pages/common/waitUntilReady';
 
 describe('Login page', () => {
     let ptor = protractor.wrapDriver(browser.driver);

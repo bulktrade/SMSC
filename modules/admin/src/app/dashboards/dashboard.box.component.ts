@@ -1,9 +1,9 @@
 import { Component, Input, ViewEncapsulation, Output, EventEmitter, HostListener } from "@angular/core";
 import { DashboardBoxConfig } from "./dashboard.box.config";
 import { SidebarService } from "../sidebar/sidebarService";
-import { BoxResize } from "./models/dashboard.box.enum.ts";
 import { DashboardResizeConfig } from "./dashboard.resize.config";
 import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
+import { BoxResize } from "./models/dashboard.box.enum";
 
 @Component({
     selector: 'dashboard-box',
@@ -18,13 +18,13 @@ export class DashboardBoxComponent {
     public config: DashboardBoxConfig = null;
 
     @Output('resizeBox')
-    public resizeBox: EventEmitter<Object> = new EventEmitter();
+    public resizeBox: EventEmitter<Object> = new EventEmitter<Object>();
 
     @Output('removeBox')
-    public removeBox: EventEmitter<number> = new EventEmitter();
+    public removeBox: EventEmitter<number> = new EventEmitter<number>();
 
     @Output('editBox')
-    public editBox: EventEmitter<number> = new EventEmitter();
+    public editBox: EventEmitter<number> = new EventEmitter<number>();
 
     public crudOpen: boolean = false;
     public viewWidthOpen: boolean = false;
@@ -34,7 +34,6 @@ export class DashboardBoxComponent {
     public boxResize: BoxResize;
 
     constructor(private sidebarService: SidebarService) {
-        this.boxResize = BoxResize;
     }
 
     ngOnInit() {
@@ -51,7 +50,7 @@ export class DashboardBoxComponent {
     handleKeyboardEvent(event: KeyboardEvent) {
         event.stopImmediatePropagation();
 
-        if(event.key == 'Escape' && this.fullscreenMode == true){
+        if (event.key == 'Escape' && this.fullscreenMode == true) {
             this.toggleFullscreen();
         }
     }

@@ -28,8 +28,8 @@
         ]
     },
     "exclude": [
-        "dist",
-        "typings"
+        "node_modules",
+        "dist"
     ],
     "awesomeTypescriptLoaderOptions": {
         "forkChecker": true,

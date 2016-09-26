@@ -1,22 +1,22 @@
-import { JwtHelper } from "angular2-jwt";
-import { Injectable } from "@angular/core";
+import { JwtHelper } from 'angular2-jwt';
+import { Injectable } from '@angular/core';
 
-export const AUTH_TOKEN_NAME:string = 'OAccessAdminToken';
+export const AUTH_TOKEN_NAME: string = 'OAccessAdminToken';
 
 @Injectable()
 export class TokenService {
+    public jwtHelper: JwtHelper = new JwtHelper();
+
     constructor() {
 
     }
-
-    jwtHelper:JwtHelper = new JwtHelper();
 
     /**
      * Get token from local storage.
      *
      * @returns {any}
      */
-    getToken():string {
+    getToken(): string {
         return localStorage.getItem(AUTH_TOKEN_NAME);
     }
 
@@ -25,14 +25,14 @@ export class TokenService {
      *
      * @param token
      */
-    setToken(token:string):void {
+    setToken(token: string): void {
         localStorage.setItem(AUTH_TOKEN_NAME, token);
     }
 
     /**
      * Reset token.
      */
-    resetToken():void {
+    resetToken(): void {
         localStorage.removeItem(AUTH_TOKEN_NAME);
     }
 
@@ -41,11 +41,11 @@ export class TokenService {
      *
      * @returns {boolean}
      */
-    isTokenExpired():boolean {
+    isTokenExpired(): boolean {
         if (!this.getToken()) {
             return true;
         }
 
-        return this.jwtHelper.isTokenExpired(this.getToken())
+        return this.jwtHelper.isTokenExpired(this.getToken());
     }
 }

@@ -7,7 +7,7 @@ export const NOTIFICATION_OPTIONS = {
     showProgressBar: true,
     pauseOnHover: true,
     preventDuplicates: false,
-    preventLastDuplicates: "visible",
+    preventLastDuplicates: 'visible',
     rtl: false,
-    position: ["left", "bottom"]
+    position: ['left', 'bottom']
 };

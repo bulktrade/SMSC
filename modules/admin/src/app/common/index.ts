@@ -1,8 +1,8 @@
-import { AuthHttp, AuthConfig } from "angular2-jwt";
-import { AUTH_TOKEN_NAME, TokenService } from "../services/auth/token.service";
-import { ODatabaseService } from "../orientdb/orientdb.service";
-import { Http } from "@angular/http";
-import { ConfigService } from "../config/configService";
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { AUTH_TOKEN_NAME, TokenService } from '../services/auth/token.service';
+import { ODatabaseService } from '../orientdb/orientdb.service';
+import { Http } from '@angular/http';
+import { ConfigService } from '../config/configService';
 
 export const COMMON_PROVIDERS = [
     {
@@ -19,7 +19,7 @@ export const COMMON_PROVIDERS = [
                 },
                 noJwtError: true,
                 noTokenScheme: true,
-                globalHeaders: [{'Content-Type':'application/json'}]
+                globalHeaders: [{ 'Content-Type': 'application/json' }]
             });
 
             return new AuthHttp(config, http);
@@ -29,7 +29,8 @@ export const COMMON_PROVIDERS = [
     {
         provide: ODatabaseService,
         useFactory: (authHttp: AuthHttp, configService: ConfigService) => {
-            return new ODatabaseService(configService.config.orientDBUrl, configService.config.orientDBDatabase, authHttp);
+            return new ODatabaseService(configService.config.orientDBUrl,
+                configService.config.orientDBDatabase, authHttp);
         },
         deps: [AuthHttp, ConfigService]
     }

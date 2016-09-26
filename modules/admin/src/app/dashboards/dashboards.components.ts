@@ -6,7 +6,7 @@ import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
     providers: [Breadcrumb],
     template: '<loading-router-outlet></loading-router-outlet>'
 })
-export class DashboardsComponent {
+export class Dashboards {
     constructor() {
     }
 }

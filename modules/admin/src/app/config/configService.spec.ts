@@ -1,9 +1,9 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { ConfigService } from "./configService";
-import { HttpModule } from "@angular/http";
-import { XMLHttpRequestMock } from "../common/mock/XMLHttpRequestMock";
-import { Observable } from "rxjs";
-import { Config } from "./config";
+import { ConfigService } from './configService';
+import { HttpModule } from '@angular/http';
+import { XMLHttpRequestMock } from '../common/mock/XMLHttpRequestMock';
+import { Observable } from 'rxjs';
+import { Config } from './config';
 
 describe('Config Service', () => {
     let mockXHR = new XMLHttpRequestMock();
@@ -18,15 +18,15 @@ describe('Config Service', () => {
             ]
         });
 
-        spyOn(window, "XMLHttpRequest").and.returnValue(mockXHR);
+        spyOn(window, 'XMLHttpRequest').and.returnValue(mockXHR);
     });
 
     it('should get config.json settings', inject([ConfigService], (configService) => {
         let responseText = {
-            "orientDBUrl": "/orientdb",
-            "orientDBDatabase": "smsc",
-            "i18nPath": "assets/i18n",
-            "debug": false
+            'orientDBUrl': '/orientdb',
+            'orientDBDatabase': 'smsc',
+            'i18nPath': 'assets/i18n',
+            'debug': false
         };
         mockXHR.responseText = JSON.stringify(responseText);
         expect(configService.configStream instanceof Observable).toBeTruthy();
@@ -41,10 +41,10 @@ describe('Config Service', () => {
 
     it('should get an error on non-existent path', inject([ConfigService], (configService) => {
         let responseText = {
-            "orientDBUrl": "/orientdb",
-            "orientDBDatabase": "smsc",
-            "i18nPath": "assets/i18n",
-            "debug": false
+            'orientDBUrl': '/orientdb',
+            'orientDBDatabase': 'smsc',
+            'i18nPath': 'assets/i18n',
+            'debug': false
         };
 
         let notFound: string = 'Not found!';

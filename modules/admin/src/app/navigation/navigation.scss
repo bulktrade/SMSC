@@ -1,6 +1,14 @@
 .header {
     font-family: 'Open Sans', sans-serif;
-    position: relative;
+    position: absolute;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    //position: relative; @todo check problem with fullscreen dashboard boxes
+
+    &.fullscreen-mode {
+        z-index: -1;
+    }
 
     h1 {
         margin: 0 0 0 5px;
@@ -26,6 +34,11 @@
     }
 }
 
+md-content {
+    color: red;
+    margin-left: 0 !important;
+}
+
 .sidenav-root {
     font-family: Roboto, 'Helvetica Neue', sans-serif;
     overflow: auto;
@@ -39,6 +52,7 @@
 
     md-sidenav {
         min-width: 230px;
+        transition: transform 0.001s ease !important;
 
         ul > li {
             list-style-type: none;

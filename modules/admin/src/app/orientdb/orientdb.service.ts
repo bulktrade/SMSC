@@ -1,12 +1,12 @@
 'use strict';
 
-import "rxjs/add/operator/map";
-import { Injectable } from "@angular/core";
-import { Observable, Observer } from "rxjs/Rx";
-import { RequestMethod, RequestOptions, Headers, Response } from "@angular/http";
-import { AuthHttp } from "angular2-jwt";
-import { Batch } from "./model/batch";
-import { Operation } from "./model/operation";
+import 'rxjs/add/operator/map';
+import { Injectable } from '@angular/core';
+import { Observable, Observer } from 'rxjs/Rx';
+import { RequestMethod, RequestOptions, Headers, Response } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
+import { Batch } from './model/batch';
+import { Operation } from './model/operation';
 
 @Injectable()
 export class ODatabaseService {
@@ -76,19 +76,19 @@ export class ODatabaseService {
      * Content: { "transaction" : , "operations" : [ { "type" : "" }* ] }
      *
      * let operations: Array<operations> = [{
-     *      "type": BatchType.Update,
+     *      "type": BatchType.UPDATE,
      *      "record": {
      *          "@rid": "#14:122",
      *          "name": "Luca",
      *          "vehicle": "Car"
      *      }
      *  }, {
-     *      "type": BatchType.Delete,
+     *      "type": BatchType.DELETE,
      *      "record": {
      *          "@rid": "#14:100"
      *      }
      *  }, {
-     *      "type": BatchType.Create,
+     *      "type": BatchType.CREATE,
      *      "record": {
      *          "@class": "City",
      *          "name": "Venice"
@@ -773,7 +773,7 @@ export class ODatabaseService {
                     res => {
                         this.setErrorMessage(undefined);
                         observer.next(res);
-                        observer.complete()
+                        observer.complete();
                     },
                     error => {
                         this.handleResponse(undefined);

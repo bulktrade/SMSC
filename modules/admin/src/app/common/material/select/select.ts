@@ -1,7 +1,7 @@
-import { Component, Input, Output, NgModule, ModuleWithProviders, OnInit } from "@angular/core";
-import { EventEmitter } from "@angular/common/src/facade/async";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { Component, Input, Output, NgModule, ModuleWithProviders, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/common/src/facade/async';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'md-select',

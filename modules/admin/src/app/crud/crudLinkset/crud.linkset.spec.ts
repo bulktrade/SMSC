@@ -1,9 +1,9 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { CRUD_PROVIDERS } from "../common/crudProviders";
-import { HttpModule } from "@angular/http";
-import { CrudLinkset } from "./crud.linkset.component";
-import { Location } from "@angular/common";
-import { GridService } from "../../services/grid.service";
+import { CRUD_PROVIDERS } from '../common/crudProviders';
+import { HttpModule } from '@angular/http';
+import { CrudLinkset } from './crud.linkset.component';
+import { Location } from '@angular/common';
+import { GridService } from '../../services/grid.service';
 
 class MockLocation {};
 

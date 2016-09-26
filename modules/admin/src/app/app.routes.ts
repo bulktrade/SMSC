@@ -1,25 +1,27 @@
-import { Routes } from "@angular/router";
-import { AuthGuard } from "./common/authGuard";
-import { Login } from "./login/login.component";
-import { Navigation } from "./navigation/navigation.component";
-import { Customers } from "./customers/customers.components";
-import { Crud } from "./crud/crud.component";
-import { NotFound } from "./notFound/notFound.component";
-import { CrudMetaData } from "./crudMetadata/crudMetaData.components";
-import { CRUD_ROUTE_PROVIDER } from "./crud/crud.routes";
-import { CrudMetaGridData } from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
-import { CrudMetaFormData } from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
-import { CrudClassMetaData } from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
-import { MetaDataPropertyBindingParameter } from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter";
-import { CrudLinksetResolve } from "./crud/crudLinkset/crud.linkset.resolve";
-import { DashboardCrudUpdateResolve } from "./dashboards/crud/dashboard.crud.update.resolve";
-import { DashboardCrudUpdate } from "./dashboards/crud/dashboard.box.update";
+import { Routes } from '@angular/router';
+import { AuthGuard } from './common/authGuard';
+import { Login } from './login/login.component';
+import { Navigation } from './navigation/navigation.component';
+import { Customers } from './customers/customers.components';
+import { Crud } from './crud/crud.component';
+import { NotFound } from './notFound/notFound.component';
+import { CrudMetaData } from './crudMetadata/crudMetaData.components';
+import { CRUD_ROUTE_PROVIDER } from './crud/crud.routes';
+import { CrudMetaGridData } from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
+import { CrudMetaFormData } from './crudMetadata/crudMetaFormData/crudMetaFormData.component';
+import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
+import {
+    MetaDataPropertyBindingParameter
+} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
 import { DashboardView } from "./dashboards/dashboard.view.component";
-import { Dashboard } from "./dashboards/dashboard.component";
+import { DashboardCrudUpdate } from "./dashboards/crud/dashboard.box.update";
+import { DashboardCrudUpdateResolve } from "./dashboards/crud/dashboard.crud.update.resolve";
 import { DashboardCrudCreate } from "./dashboards/crud/dashboard.box.create";
 import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard.crud.create.resolve";
 import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
-import { DashboardsComponent } from "./dashboards/dashboards.components";
+import { CrudLinksetResolve } from "./crud/crudLinkset/crud.linkset.resolve";
+import { Dashboards } from "./dashboards/dashboards.components";
+import { Dashboard } from "./dashboards/dashboard.component";
 
 const DASHBOARD_ROUTER_PROVIDER = [
     {
@@ -65,7 +67,7 @@ export const ROUTES: Routes = [
         children: [
             {
                 path: '',
-                component: DashboardsComponent,
+                component: Dashboards,
                 children: DASHBOARD_ROUTER_PROVIDER,
                 data: {
                     similarPath: 'dasboards'//@todo Impement in sidenav
@@ -73,7 +75,7 @@ export const ROUTES: Routes = [
             },
             {
                 path: 'dashboards',
-                component: DashboardsComponent,
+                component: Dashboards,
                 data: {
                     showInSubNavigation: true,
                     icon: 'layers'

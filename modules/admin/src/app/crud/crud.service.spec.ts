@@ -1,11 +1,17 @@
 import {
     inject, TestBed
 } from '@angular/core/testing';
-import { CRUD_PROVIDERS } from "./common/crudProviders";
-import { BaseRequestOptions, Http, ResponseOptions, Response, HttpModule, ConnectionBackend } from "@angular/http";
-import { MockBackend } from "@angular/http/testing";
-import { CrudService } from "./crud.service";
-import { GridOptions } from "ag-grid";
+import { CRUD_PROVIDERS } from './common/crudProviders';
+import {
+    BaseRequestOptions,
+    Http,
+    ResponseOptions,
+    Response,
+    HttpModule,
+    ConnectionBackend
+} from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { CrudService } from './crud.service';
 
 describe('Crud Service', () => {
     beforeEach(() => {
@@ -33,17 +39,18 @@ describe('Crud Service', () => {
         expect(crudService.inputType('TEST')).toBeNull();
     }));
 
-    it('should return a columnDefs with options for grid and form', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
+    it('should return a columnDefs with options for grid and form',
+        inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
         let bodyResponse = {
-            "properties": [{
-                "name": "test",
-                "headerName": "test",
-                "field": "test",
-                "editable": true,
-                "required": true,
-                "type": "test",
-                "linkedClass": "test",
-                "custom": "test"
+            'properties': [{
+                'name': 'test',
+                'headerName': 'test',
+                'field': 'test',
+                'editable': true,
+                'required': true,
+                'type': 'test',
+                'linkedClass': 'test',
+                'custom': 'test'
             }]
         };
 
@@ -57,7 +64,8 @@ describe('Crud Service', () => {
         expect(crudService.getColumnDefs).toHaveBeenCalledWith('Customers', false);
     }));
 
-    it('should return a successful result after the record is created', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
+    it('should return a successful result after the record is created',
+        inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
         let path = '/orientdb/batch/smsc';
         let className = 'Customer';
         let colsValue = {
@@ -79,7 +87,8 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should return a successful result after the record is updated', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
+    it('should return a successful result after the record is updated',
+        inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
         let path = '/orientdb/batch/smsc';
         let colsValue = {
             rid: '#1:1',
@@ -102,7 +111,8 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should return a successful result after deleting a record', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
+    it('should return a successful result after deleting a record',
+        inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
         let path = '/orientdb/batch/smsc';
         let rid = '#1:1';
 
@@ -120,11 +130,12 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should return a rowData', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
+    it('should return a rowData',
+        inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
         let path = '/orientdb/query/smsc/sql/select%20from%20Customer/20';
         let className = 'Customer';
         let body = {
-            "result": []
+            'result': []
         };
 
         backend.connections.subscribe(c => {
@@ -139,12 +150,13 @@ describe('Crud Service', () => {
             });
     }));
 
-    it('should return a metadata', inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
+    it('should return a metadata',
+        inject([MockBackend, CrudService], (backend: MockBackend, crudService: CrudService) => {
         let className = 'Customer';
         let properties = [
             {
-                linkedClass: "Test",
-                type: "STRING",
+                linkedClass: 'Test',
+                type: 'STRING',
                 mandatory: true,
             }
         ];
@@ -156,7 +168,7 @@ describe('Crud Service', () => {
         crudService.getPropertyMetadata(columnGrid, true, properties);
         expect(columnGrid.hasOwnProperty('type'));
 
-        crudService.getPropertyMetadata(columnForm, false, properties)
+        crudService.getPropertyMetadata(columnForm, false, properties);
         expect(columnForm.hasOwnProperty('type'));
     }));
 
