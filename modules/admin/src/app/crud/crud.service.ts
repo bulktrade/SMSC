@@ -381,7 +381,7 @@ export class CrudService {
             cellRenderer: () => {
                 let that = this;
                 let button = document.createElement('i');
-                button.setAttribute('class', 'material-icons');
+                button.setAttribute('class', 'material-icons ' + nameBtn.toLowerCase() + 'Icon');
                 that.translate.get(nameBtn.toUpperCase())
                     .subscribe(title => {
                         button.setAttribute('title', title);

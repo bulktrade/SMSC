@@ -16,6 +16,8 @@ export class CrudPage {
     public crudViewTag = element(by.tagName('crud-view'));
     public btnDeleteRow = element(by.id('deleteRow'));
     public backBtn = element(by.id('back'));
+    public deleteIcon = element(by.css(
+        '.ag-body-container > div:first-of-type .deleteIcon'));
 
     private _ptor;
 
@@ -29,6 +31,11 @@ export class CrudPage {
     isEnabledDeleteButton() {
         WaitUntilReady.waitUntilReady(this.btnDeleteRow, this.ptor);
         return this.btnDeleteRow.isEnabled();
+    }
+
+    clickOnDeleteIcon() {
+        WaitUntilReady.waitUntilReady(this.deleteIcon, this.ptor);
+        return this.deleteIcon.click();
     }
 
     clickOnDeleteButton() {
