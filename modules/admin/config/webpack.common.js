@@ -91,6 +91,8 @@ module.exports = function (options) {
          */
         module: {
 
+            exprContextCritical: false,
+
             /*
              * An array of applied pre and post loaders.
              *
@@ -106,7 +108,7 @@ module.exports = function (options) {
                         flags: 'g'
                     },
                     include: [helpers.root('src')]
-                },
+                }
 
             ],
 
