@@ -54,5 +54,5 @@ notifications:
     on_failure: always
 
 addons:
-  sauce_connect: true
+  browserstack: true
   
