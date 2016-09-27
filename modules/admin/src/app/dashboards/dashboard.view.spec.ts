@@ -13,9 +13,7 @@ import { ODatabaseService } from "../orientdb/orientdb.service";
 import { CRUD_PROVIDERS } from "../crud/common/crudProviders";
 import { GridService } from "../services/grid.service";
 
-class MockLocation {
-}
-;
+class MockLocation {};
 
 describe('Dashboard view', () => {
     beforeEach(() => {

@@ -166,14 +166,12 @@ export class Dashboard {
                 this.clickBySelector(prot, 'md-select[ng-reflect-class-name="width"] select', 2);
                 //  Select height option
                 this.clickBySelector(prot, 'md-select[ng-reflect-class-name="height"] select', 2);
-                browser.sleep(1000);
 
                 //  Select "type"
                 this.selectLinkset(prot, 'multiple-select[ng-reflect-class-name="type"] md-icon#add');
                 browser.sleep(1000);
                 //  Select "description"
                 this.selectLinkset(prot, 'multiple-select[ng-reflect-class-name="dashboard"] md-icon#add');
-                browser.sleep(1000);
 
                 //  Update
                 prot.wait(protractor.until.elementLocated(by.css('#modify')), 5000).then((el: webdriver.IWebElement) => {

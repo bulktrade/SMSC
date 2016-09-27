@@ -30,10 +30,6 @@ export class DashboardService {
      * @returns {any}
      */
     public getDashboardBoxes(): Observable<Array<DashboardBox>> {
-        this.databaseService.query("select codeLanguage['type'] from DashboardBoxType").subscribe((res) => {
-            console.log(res);
-        });
-
         let query = squel.select()
             .from('DashboardBox')
             .field('*')
