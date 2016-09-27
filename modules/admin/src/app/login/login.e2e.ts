@@ -1,5 +1,5 @@
 import { LoginPage } from '../pages/login.page';
-import { WaitUntilReady } from '../pages/common/waitUntilReady';
+import { WaitUntil } from '../pages/common/waitUntilReady';
 
 describe('Login page', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -12,7 +12,7 @@ describe('Login page', () => {
 
     it('validation for empty fields', () => {
         loginPage.get();
-        WaitUntilReady.waitUntilReady(loginPage.btnSubmit, ptor);
+        WaitUntil.waitUntil(loginPage.btnSubmit, ptor);
         expect(loginPage.btnSubmit.isEnabled()).toBeFalsy();
     });
 
@@ -30,7 +30,7 @@ describe('Login page', () => {
         let width = 330,
             height = 1300;
         ptor.manage().window().setSize(width, height);
-        WaitUntilReady.waitUntilReady(loginPage.details, ptor);
+        WaitUntil.waitUntil(loginPage.details, ptor);
         loginPage.details.getCssValue('text-align')
             .then(value => {
                 expect(value).toEqual('center');

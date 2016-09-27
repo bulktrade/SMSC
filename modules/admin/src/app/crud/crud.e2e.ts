@@ -1,5 +1,5 @@
 import { CrudPage } from '../pages/crud.page';
-import { WaitUntilReady } from '../pages/common/waitUntilReady';
+import { WaitUntil } from '../pages/common/waitUntilReady';
 import { GridPaginationPage } from "../pages/gridPagination.page";
 
 describe('CRUD', () => {
@@ -44,50 +44,53 @@ describe('CRUD', () => {
             });
         crudPage.crudCreate.fillLinkset();
         crudPage.crudCreate.clickOnFormBtn();
-        expect(crudPage.isPresentCustomers()).toBeTruthy();
     });
 
-    it('should create users', () => {
-        paginationPage.createUsers();
-        crudPage.clickOnBackBtn();
-        expect(crudPage.isPresentCrudViewTag()).toBeTruthy();
+    it('should navigate to the grid meta data', () => {
+        let width = 1980,
+            height = 1020;
+        ptor.manage().window().setSize(width, height);
+
+        crudPage.clickOnMetaData();
+        crudPage.clickOnGridMetaData();
+        expect(crudPage.isPresentGridMetaData()).toBeTruthy();
     });
 
-    // it('should be the next page', () => {
-    //     paginationPage.clickOnNextBtn();
-    //     paginationPage.getCurrentPage()
-    //         .then(currenPage => {
-    //             let result: number = 2;
-    //             expect(Number(currenPage)).toEqual(result);
-    //         });
-    // });
-    //
-    // it('should be the previous page', () => {
-    //     paginationPage.clickOnPreviousBtn();
-    //     paginationPage.getCurrentPage()
-    //         .then(currenPage => {
-    //             let result: number = 1;
-    //             expect(Number(currenPage)).toEqual(result);
-    //         });
-    // });
-    //
-    // it('should be the last page', () => {
-    //     paginationPage.clickOnLastBtn();
-    //     paginationPage.getCurrentPage()
-    //         .then(currenPage => {
-    //             let result: number = 3;
-    //             expect(Number(currenPage)).toEqual(result);
-    //         });
-    // });
-    //
-    // it('should be the first page', () => {
-    //     paginationPage.clickOnFirstBtn();
-    //     paginationPage.getCurrentPage()
-    //         .then(currenPage => {
-    //             let result: number = 1;
-    //             expect(Number(currenPage)).toEqual(result);
-    //         });
-    // });
+    it('should be the next page', () => {
+        paginationPage.clickOnNextBtn();
+        paginationPage.getCurrentPage()
+            .then(currenPage => {
+                let result: number = 2;
+                expect(Number(currenPage)).toEqual(result);
+            });
+    });
+
+    it('should be the previous page', () => {
+        paginationPage.clickOnPreviousBtn();
+        paginationPage.getCurrentPage()
+            .then(currenPage => {
+                let result: number = 1;
+                expect(Number(currenPage)).toEqual(result);
+            });
+    });
+
+    it('should be the last page', () => {
+        paginationPage.clickOnLastBtn();
+        paginationPage.getCurrentPage()
+            .then(currenPage => {
+                let result: number = 2;
+                expect(Number(currenPage)).toEqual(result);
+            });
+    });
+
+    it('should be the first page', () => {
+        paginationPage.clickOnFirstBtn();
+        paginationPage.getCurrentPage()
+            .then(currenPage => {
+                let result: number = 1;
+                expect(Number(currenPage)).toEqual(result);
+            });
+    });
 
     // @todo fix it
     // it('delete button should be enabled', () => {
@@ -112,7 +115,7 @@ describe('CRUD', () => {
 
     // @todo not right place. crud.e2e has include only crud tests.
     it('should logout', () => {
-        WaitUntilReady.logout(ptor);
+        WaitUntil.logout(ptor);
         expect(true).toBeTruthy();
     });
 

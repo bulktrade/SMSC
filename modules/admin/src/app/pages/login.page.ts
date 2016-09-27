@@ -1,4 +1,4 @@
-import { WaitUntilReady } from './common/waitUntilReady';
+import { WaitUntil } from './common/waitUntilReady';
 
 export class LoginPage {
     public elemNotFound = element(by.tagName('notfound'));
@@ -25,17 +25,17 @@ export class LoginPage {
     }
 
     isPresentUsernameField() {
-        WaitUntilReady.waitUntilReady(this.usernameField, this._ptor);
+        WaitUntil.waitUntil(this.usernameField, this._ptor);
         return this.usernameField.isPresent();
     }
 
     isPresentNotFound() {
-        WaitUntilReady.waitUntilReady(this.elemNotFound, this._ptor);
+        WaitUntil.waitUntil(this.elemNotFound, this._ptor);
         return this.elemNotFound.isPresent();
     }
 
     ifPresentDangerMsg() {
-        WaitUntilReady.waitUntilReady(this.dangerMessage, this._ptor);
+        WaitUntil.waitUntil(this.dangerMessage, this._ptor);
         return this.dangerMessage.isPresent();
     }
 

@@ -1,10 +1,9 @@
 import { CreatePage } from './crud/crud.create.page';
-import { WaitUntilReady } from './common/waitUntilReady';
+import { WaitUntil } from './common/waitUntilReady';
 import { LoginPage } from './login.page';
 
 export class GridPaginationPage {
     public login: LoginPage = new LoginPage();
-    public numberUsers: number = 55;
     public crudPage: CreatePage = new CreatePage();
 
     public firstBtn = element(by.id('firstPage'));
@@ -23,51 +22,40 @@ export class GridPaginationPage {
     }
 
     getCurrentPage() {
-        WaitUntilReady.waitUntilReady(this.currentPage, this._ptor);
+        WaitUntil.waitUntil(this.currentPage, this._ptor);
         return this.currentPage.getText();
     }
 
     clickOnFirstBtn() {
-        WaitUntilReady.waitUntilReady(this.firstBtn, this._ptor);
+        WaitUntil.waitUntil(this.firstBtn, this._ptor);
         return this.firstBtn.click();
     }
 
     clickOnPreviousBtn() {
-        WaitUntilReady.waitUntilReady(this.previousBtn, this._ptor);
+        WaitUntil.waitUntil(this.previousBtn, this._ptor);
         return this.previousBtn.click();
     }
 
     clickOnNextBtn() {
-        WaitUntilReady.waitUntilReady(this.nextBtn, this._ptor);
+        WaitUntil.waitUntil(this.nextBtn, this._ptor);
         return this.nextBtn.click();
     }
 
     clickOnLastBtn() {
-        WaitUntilReady.waitUntilReady(this.lastBtn, this._ptor);
+        WaitUntil.waitUntil(this.lastBtn, this._ptor);
         return this.lastBtn.click();
     }
 
     selectSizePage(option) {
-        WaitUntilReady.waitUntilReady(this.sizePage, this._ptor);
+        WaitUntil.waitUntil(this.sizePage, this._ptor);
         this.sizePage.click();
 
-        WaitUntilReady.waitUntilReady(option, this._ptor);
+        WaitUntil.waitUntil(option, this._ptor);
         option.click();
     }
 
     getCountRows() {
         return this.rows.count();
-    }
-
-    createUsers() {
-        for (let i = 2; i < this.numberUsers; i++) {
-            WaitUntilReady.waitUntilReady(
-                this.crudPage.inputElementsOnFirstLevel[0].element, this._ptor);
-            this.crudPage.inputElementsOnFirstLevel[0].element.clear();
-            this.crudPage.inputElementsOnFirstLevel[0].element.sendKeys(i);
-
-            this.crudPage.clickOnFormBtn();
-        }
     }
 
     get ptor() {

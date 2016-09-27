@@ -1,5 +1,5 @@
 import { LoginPage } from './login.page';
-import { WaitUntilReady } from './common/waitUntilReady';
+import { WaitUntil } from './common/waitUntilReady';
 import { CreatePage } from './crud/crud.create.page';
 import { DeletePage } from './crud/crud.delete.page';
 
@@ -11,6 +11,9 @@ export class CrudPage {
     public logo = element(by.id('logo'));
     public customersItem = element(by.className('customers'));
     public customersTag = element(by.tagName('customers'));
+    public metaDataItem = element(by.className('crudmetadata'));
+    public gridMetaDataItem = element(by.className('crudmetagriddata'));
+    public gridMetaDataTag = element(by.tagName('crudMetaGridData'));
     public btnAddRecord = element(by.id('addRow'));
     public crudCreateTag = element(by.tagName('crud-create'));
     public crudViewTag = element(by.tagName('crud-view'));
@@ -31,47 +34,62 @@ export class CrudPage {
     }
 
     isEnabledDeleteButton() {
-        WaitUntilReady.waitUntilReady(this.btnDeleteRow, this.ptor);
+        WaitUntil.waitUntil(this.btnDeleteRow, this.ptor);
         return this.btnDeleteRow.isEnabled();
     }
 
     clickOnDeleteButton() {
-        WaitUntilReady.waitUntilReady(this.btnDeleteRow, this.ptor);
+        WaitUntil.waitUntil(this.btnDeleteRow, this.ptor);
         return this.btnDeleteRow.click();
     }
 
     clickOnBackBtn() {
-        WaitUntilReady.waitUntilReady(this.backBtn, this.ptor);
+        WaitUntil.waitUntil(this.backBtn, this.ptor);
         this.backBtn.click();
     }
 
+    clickOnGridMetaData() {
+        WaitUntil.waitUntil(this.gridMetaDataItem, this.ptor);
+        this.gridMetaDataItem.click();
+    }
+
+    clickOnMetaData() {
+        WaitUntil.waitUntil(this.metaDataItem, this.ptor);
+        this.metaDataItem.click();
+    }
+
     clickOnCustomers() {
-        WaitUntilReady.waitUntilReady(this.customersItem, this.ptor);
+        WaitUntil.waitUntil(this.customersItem, this.ptor);
         this.customersItem.click();
     }
 
     clickOnBtnAddRecord() {
-        WaitUntilReady.waitUntilReady(this.btnAddRecord, this.ptor);
+        WaitUntil.waitUntil(this.btnAddRecord, this.ptor);
         this.btnAddRecord.click();
     }
 
+    isPresentGridMetaData() {
+        WaitUntil.waitUntil(this.gridMetaDataTag, this.ptor);
+        return this.gridMetaDataTag.isPresent();
+    }
+
     isPresentLogo() {
-        WaitUntilReady.waitUntilReady(this.logo, this.ptor);
+        WaitUntil.waitUntil(this.logo, this.ptor);
         return this.logo.isPresent();
     }
 
     isPresentCrudCreateTag() {
-        WaitUntilReady.waitUntilReady(this.crudCreateTag, this.ptor);
+        WaitUntil.waitUntil(this.crudCreateTag, this.ptor);
         return this.crudCreateTag.isPresent();
     }
 
     isPresentCrudViewTag() {
-        WaitUntilReady.waitUntilReady(this.crudViewTag, this.ptor);
+        WaitUntil.waitUntil(this.crudViewTag, this.ptor);
         return this.crudViewTag.isPresent();
     }
 
     isPresentCustomers() {
-        WaitUntilReady.waitUntilReady(this.customersTag, this.ptor);
+        WaitUntil.waitUntil(this.customersTag, this.ptor);
         return this.customersTag.isPresent();
     }
 
