@@ -24,7 +24,7 @@ import { DashboardListItem } from "./models/dashboard.list.item";
     ]
 })
 export class DashboardView {
-    public boxesCss: DashboardList<string> = new DashboardList<string>(0);
+    public boxesCss: DashboardList<string> = new DashboardList<string>();
     public boxes: DashboardListItem<DashboardBox> = new DashboardListItem<DashboardBox>();
 
     constructor(public translate: TranslateService,
@@ -44,7 +44,7 @@ export class DashboardView {
         });
 
         this.dashboardService.getDashboardBoxes().subscribe((res) => {
-            this.boxesCss = new DashboardList<string>(res.length);
+            this.boxesCss = new DashboardList<string>();
             this.boxes = new DashboardListItem<DashboardBox>();
             let orderBy: OrderBy = new OrderBy();
             this.boxes.merge(orderBy.transform(res, { key: 'order', direction: 'ascending' }));
@@ -98,10 +98,8 @@ export class DashboardView {
      */
     resizeBox(val: DashboardResizeConfig, index: number, item: any) {
         let widthClass, heightClass: string;
-
         let type: BoxResize = val.type;
 
-        // @todo fix it
         if (val.type == BoxResize.WIDTH) {
             widthClass = this.getBoxClass(val.width, <string>type);
             heightClass = this.getBoxClass(val.height, 'height');

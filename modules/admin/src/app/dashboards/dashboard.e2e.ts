@@ -37,34 +37,30 @@ describe('Navigation', () => {
        });
     });*/
 
-    //  Open box crud tool and go to edit form
-    it('Click on crud icon', () => {
-        this.dashboard.clickOnCrudIcon(prot).then(() => {
-            expect(this.dashboard.getCrudIcon()).toBeTruthy();
-        })
-    });
-
     //  Switch off fullscreen mode by press Escape key
     /*it('Press ESC key', () => {
-       this.dashboard.pressCloseFullscreenESC(prot);
-    });*/
+     this.dashboard.pressCloseFullscreenESC(prot);
+     });*/
 
-    //  Check height mode
-    /*it('Switch height box mode', () => {
-        this.dashboard.clickOnSizeButtons(prot);
-    });*/
-
-    //  Close box crud tool
-    /*it('Click have close icon', () => {
-        this.dashboard.clickOnCloseIcon().then(() => {
-            expect(this.dashboard.getCloseIcon()).toBeTruthy();
+    //  Open box crud tool and go to edit form
+    /*it('Open edit form and save', () => {
+        this.dashboard.clickOnCrudIcon(prot, this.dashboard.fillForm).then(() => {
+            expect(this.dashboard.getCrudIcon()).toBeTruthy();
         });
+    });*/
+
+    //  Remove box
+    it('Remove box', () => {
+       this.dashboard.removeBox(prot);
     });
 
-    //  Click on edit box
-    it('Click on box edit icon', () => {
-        this.dashboard.clickOnCrudIcon(prot).then(() => {
-            expect(this.dashboard.getCrudIcon).toBeTruthy();
-        })
+    //  Create box
+    /*it('Create box', () => {
+        this.dashboard.createBox(prot);
     });*/
+
+    //  Change size mode
+    /*it('Switch height box mode', () => {
+        this.dashboard.clickOnSizeButtons(prot);
+     });*/
 });

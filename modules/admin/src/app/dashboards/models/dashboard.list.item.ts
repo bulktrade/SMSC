@@ -1,13 +1,7 @@
 export class DashboardListItem<T> {
     private list: Array<T> = [];
 
-    constructor(len?: number) {
-        // @fix it
-        // if (len) {
-        //     for (let i = 0; i < len; i++) {
-        //         this.list.push('');
-        //     }
-        // }
+    constructor() {
     }
 
     /**
