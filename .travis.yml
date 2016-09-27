@@ -39,13 +39,11 @@ after_success:
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push smscio/smsc;
     fi
+  - mvn clean -DrepoToken=$COVERALLS_REPO_TOKEN cobertura:cobertura coveralls:report
 
 script:
   - ./bin/deploy.sh
  
-#after_success:
-#  - mvn clean cobertura:cobertura coveralls:report
-
 notifications:
   email:
     recipients:
