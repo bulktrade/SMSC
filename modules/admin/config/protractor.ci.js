@@ -12,7 +12,7 @@ const commonConfig = require('./protractor.common'); // the settings that are co
 const ENV = process.env.NODE_ENV = process.env.ENV = 'ci';
 
 exports.config = objectMerge(commonConfig.config, {
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    seleniumAddress: 'http://hub.browserstack.com/wd/hub',
     browserstackUser: process.env.BROWSER_STACK_USER,
     browserstackKey: process.env.BROWSER_STACK_KEY,
 
