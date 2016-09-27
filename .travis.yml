@@ -56,4 +56,6 @@ notifications:
 addons:
   browserstack:
     forcelocal: true
+    username: $BROWSER_STACK_USER
+    access_key: $BROWSER_STACK_KEY
 
