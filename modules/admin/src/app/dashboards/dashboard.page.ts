@@ -166,17 +166,24 @@ export class Dashboard {
                 this.clickBySelector(prot, 'md-select[ng-reflect-class-name="width"] select', 2);
                 //  Select height option
                 this.clickBySelector(prot, 'md-select[ng-reflect-class-name="height"] select', 2);
+                browser.sleep(1000);
 
                 //  Select "type"
                 this.selectLinkset(prot, 'multiple-select[ng-reflect-class-name="type"] md-icon#add');
+                browser.sleep(1000);
                 //  Select "description"
                 this.selectLinkset(prot, 'multiple-select[ng-reflect-class-name="dashboard"] md-icon#add');
+                browser.sleep(1000);
 
                 //  Update
                 prot.wait(protractor.until.elementLocated(by.css('#modify')), 5000).then((el: webdriver.IWebElement) => {
                     el.click();
                 });
-                //browser.sleep(100000);
+                browser.sleep(1000);
+                prot.wait(protractor.until.elementLocated(by.css('.back.md-primary')), 50000).then((el: webdriver.IWebElement) => {
+                    el.click();
+                });
+                browser.sleep(10000);
             });
         });
     }
@@ -184,15 +191,18 @@ export class Dashboard {
     selectLinkset(prot, selector) {
         prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
             el.click();
+            browser.sleep(1000);
 
-            prot.wait(protractor.until.elementLocated(by.css('.ag-body-container .ag-row.ag-row-no-focus.ag-row-even.ag-row-level-0:first-child')), 5000)
+            prot.wait(protractor.until.elementLocated(by.css('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)')), 5000)
                 .then((el: webdriver.IWebElement) => {
                     el.click();
 
                     prot.wait(protractor.until.elementLocated(by.css('#addLink')), 5000).then((el: webdriver.IWebElement) => {
                         el.click();
+                    }).catch((ex) => {
+                        console.log('#addLink Bamiza error');
                     });
-            });
+            })
         });
     }
 
