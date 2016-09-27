@@ -1,7 +1,7 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
 import { Response } from "@angular/http";
-import { DashboardBox } from "./models/dashboardBox.ts";
+import { DashboardBox } from "./models/dashboardBox";
 import { CrudService } from "../crud/crud.service";
 import { GridService } from "../services/grid.service";
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
@@ -41,7 +41,7 @@ export class DashboardService {
 
         return Observable.create((observer: Observer<Array<DashboardBox>>) => {
             this.databaseService.query(query, 50, '*:3').subscribe((res: Response) => {
-                let result: Array = [];
+                let result: Array<DashboardBox> = [];
 
                 for (let item of res.json().result) {
                     item.width = parseInt(item.width[0]);
@@ -73,7 +73,7 @@ export class DashboardService {
 
         return Observable.create((observer: Observer<DashboardBox>) => {
             this.databaseService.query(query, 1, '*:3').subscribe((res: Response) => {
-                let result:DashboardBox = new DashboardBox(res.json().result[0])
+                let result: DashboardBox = new DashboardBox(res.json().result[0])
 
                 observer.next(result);
                 observer.complete();
@@ -95,8 +95,8 @@ export class DashboardService {
         let send: Object = item.getORecord();
         send['width'] = size['width'];
         send['height'] = size['height'];
-        let obj:any = {
-            type: BatchType.Update,
+        let obj: any = {
+            type: BatchType.UPDATE,
             record: send
         };
         let options: Array<Operation> = [obj];
@@ -116,8 +116,8 @@ export class DashboardService {
      * @param rid - box @rid
      */
     public deleteBox(box: DashboardBox) {
-        let obj:any = {
-            type: BatchType.Delete,
+        let obj: any = {
+            type: BatchType.DELETE,
             record: box.getORecord()
         };
         let options: Array<Operation> = [obj];
@@ -139,7 +139,7 @@ export class DashboardService {
             let oRecord: Object = list[key].getORecord();
 
             let tmp: any = {
-                type: BatchType.Update,//    Operation what we do('u' - update)
+                type: BatchType.UPDATE,//    Operation what we do('u' - update)
                 record: oRecord
             };
 
@@ -168,7 +168,7 @@ export class DashboardService {
      * @param className
      * @returns {Subscription}
      */
-    public getBoxFormColumns(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, id: string, className: string): Observer<EditModel>{
+    public getBoxFormColumns(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, id: string, className: string): Observer<EditModel> {
         this.crudService.setParentPath(route.parent.pathFromRoot);
         this.crudService.setClassName(className);
 

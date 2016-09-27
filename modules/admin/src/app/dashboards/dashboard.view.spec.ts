@@ -13,7 +13,9 @@ import { ODatabaseService } from "../orientdb/orientdb.service";
 import { CRUD_PROVIDERS } from "../crud/common/crudProviders";
 import { GridService } from "../services/grid.service";
 
-class MockLocation {};
+class MockLocation {
+}
+;
 
 describe('Dashboard view', () => {
     beforeEach(() => {
@@ -30,21 +32,18 @@ describe('Dashboard view', () => {
                 { provide: Location, useClass: MockLocation },
                 CrudService
             ],
-            directives: [
-                DropdownDirective
-            ],
-            pipes: [OrderBy],
+            //pipes: [OrderBy],
             imports: [
                 HttpModule
             ]
         });
     });
 
-    it('should be defined boxes', inject([ DashboardView ], (box) => {
-        expect(box.boxes).toBeDefined();
+    it('should be defined CSS boxes', inject([DashboardView], (box) => {
+        expect(box.boxesCss).toBeDefined();
     }));
 
-    it('should be defined boxes list', inject([ DashboardView ], (box) => {
-        expect(box.boxesArr).toBeDefined();
+    it('should be defined boxes list', inject([DashboardView], (box) => {
+        expect(box.boxes).toBeDefined();
     }));
 });

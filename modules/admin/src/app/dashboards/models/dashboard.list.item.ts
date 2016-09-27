@@ -17,7 +17,7 @@ export class DashboardListItem<T> {
      * @param index - index to set in target position or add to the end of list
      * @returns {null} - return Null if property not exist
      */
-    public setItem(value: T, index?: number) {
+    public setItem(value: T, index?) {
         if (index != undefined) {
             this.list[index] = value;
         } else {
@@ -31,7 +31,7 @@ export class DashboardListItem<T> {
      * @param index - index get needed item
      * @returns {any} - string if item exist or null if not
      */
-    public getItem(index: string): T {
+    public getItem(index): T {
         if (index != undefined) {
             return this.list[index];
         }
@@ -44,7 +44,7 @@ export class DashboardListItem<T> {
      *
      * @param index - item position
      */
-    public removeItem(index: string) {
+    public removeItem(index) {
         this.list.splice(Number(index), 1);
     }
 

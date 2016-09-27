@@ -39,9 +39,7 @@ import { ConfigService } from './config/configService';
 import { LoadingRouterOutletService } from './services/loading/loadingRouterOutlet.service';
 import { LoadingService } from './services/loading/loading.service';
 import { RouterOutletService } from './services/routerOutletService';
-import {
-    MetaDataPropertyBindingParameter
-} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
+import { MetaDataPropertyBindingParameter } from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
 import { DashboardCrudUpdateResolve } from "./dashboards/crud/dashboard.crud.update.resolve";
 import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard.crud.create.resolve";
 import { DashboardService } from "./dashboards/dashboardService";
@@ -56,6 +54,7 @@ import { MdSelectModule } from "./common/material/select/select";
 import { DynamicFormModule } from "./dynamicForm/dynamic.form";
 import { DragulaModule } from "ng2-dragula/ng2-dragula";
 import { Dashboard } from "./dashboards/dashboard.component";
+import { DashboardBox } from './dashboards/models/dashboardBox';
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -75,7 +74,8 @@ export const APP_PROVIDERS = [
     DashboardCrudUpdateResolve,
     DashboardCrudCreateResolve,
     DashboardService,
-    SidebarService
+    SidebarService,
+    //DashboardBox
 ];
 
 @NgModule({
@@ -120,8 +120,8 @@ export const APP_PROVIDERS = [
         SimpleNotificationsModule,
         CrudModule.forRoot(),
         DragulaModule,
-        MdSelectModule,
-        DynamicFormModule
+        //MdSelectModule,
+        //DynamicFormModule
     ],
     providers: [
         ConfigService,

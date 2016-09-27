@@ -31,10 +31,6 @@ describe('Dashboard box', () => {
                 { provide: Location, useClass: MockLocation },
                 CrudService
             ],
-            directives: [
-                DropdownDirective
-            ],
-            pipes: [OrderBy],
             imports: [
                 HttpModule
             ]

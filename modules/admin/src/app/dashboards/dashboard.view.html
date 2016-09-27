@@ -9,11 +9,11 @@
         </div>
     </div>
     <div class="boxes-container container" [dragula]='"status-bag"'>
-        <div *ngFor="let item of boxesArr.getAll() | orderby : {key: 'order', direction: 'ascending'}; let i = index; let last = last"
-             [ngClass]="[boxes.height.getItem(i), boxes.width.getItem(i)]" attr.data-boxrid="{{item.metaData.rid}}"
+        <div *ngFor="let item of boxes.getAll() | orderby : {key: 'order', direction: 'ascending'}; let i = index; let last = last"
+             [ngClass]="[boxesCss.height.getItem(i), boxesCss.width.getItem(i)]" attr.data-boxrid="{{item.metaData.rid}}"
              class="box {{item.type.name}}"
         >
-            <dashboard-box class="status" [ngClass]="boxes.remove.getItem(i)" *ngIf="item.type.name == 'status'"
+            <dashboard-box class="status" [ngClass]="boxesCss.remove.getItem(i)" *ngIf="item.type.name == 'status'"
                            (resizeBox)="resizeBox($event, i, item)"
                            [config]="{
                                 'type': 'status',
@@ -29,7 +29,7 @@
                                 }
                             }" (removeBox)="removeBox(item, i)" (editBox)="editBox(item.metaData.rid)"
             ></dashboard-box>
-            <dashboard-box class="chart" [ngClass]="boxes.remove.getItem(i)" *ngIf="item.type.name == 'chart'"
+            <dashboard-box class="chart" [ngClass]="boxesCss.remove.getItem(i)" *ngIf="item.type.name == 'chart'"
                            [config]="{
                                 'type': 'chart',
                                 'header': item.name,

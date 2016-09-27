@@ -24,10 +24,8 @@ import { DashboardListItem } from "./models/dashboard.list.item";
     ]
 })
 export class DashboardView {
-    private drakes: Array<string> = ["status-bag", "chart-bag"];
-    public boxes: DashboardList<string> = new DashboardList<string>(0);
-    public boxesArr: DashboardListItem<DashboardBox> = new DashboardListItem<DashboardBox>();
-    private testArr: Array<String> = ['', ''];
+    public boxesCss: DashboardList<string> = new DashboardList<string>(0);
+    public boxes: DashboardListItem<DashboardBox> = new DashboardListItem<DashboardBox>();
 
     constructor(public translate: TranslateService,
                 private dragulaService: DragulaService,
@@ -46,10 +44,10 @@ export class DashboardView {
         });
 
         this.dashboardService.getDashboardBoxes().subscribe((res) => {
-            this.boxes = new DashboardList<string>(res.length);
-            this.boxesArr = new DashboardListItem<DashboardBox>();
+            this.boxesCss = new DashboardList<string>(res.length);
+            this.boxes = new DashboardListItem<DashboardBox>();
             let orderBy: OrderBy = new OrderBy();
-            this.boxesArr.merge(orderBy.transform(res, { key: 'order', direction: 'ascending' }));
+            this.boxes.merge(orderBy.transform(res, { key: 'order', direction: 'ascending' }));
 
             this.updateClasses();
         });
@@ -69,21 +67,21 @@ export class DashboardView {
         for (let item of boxList) {
             let boxRid: string = dom.getData(item, 'boxRid');
 
-            for (let originItemKey in this.boxesArr.getAll()) {
-                if (this.boxesArr.getItem(originItemKey)['metaData']['rid'] == boxRid) {
+            for (let originItemKey in this.boxes.getAll()) {
+                if (this.boxes.getItem(originItemKey)['metaData']['rid'] == boxRid) {
                     let domBoxIndex: number = boxList_.indexOf(item);
 
-                    this.boxesArr.getItem(originItemKey).order = domBoxIndex;
+                    this.boxes.getItem(originItemKey).order = domBoxIndex;
                 }
             }
         }
 
         //  Update boxes order and update @version of current box array
-        this.dashboardService.batchUpdateDashboardBox(this.boxesArr.getAll()).subscribe((res) => {
-            for (let originKey in this.boxesArr.getAll()) {
+        this.dashboardService.batchUpdateDashboardBox(this.boxes.getAll()).subscribe((res) => {
+            for (let originKey in this.boxes.getAll()) {
                 for (let item of res) {
-                    if (this.boxesArr.getItem(originKey)['metaData']['rid'] == item['metaData']['rid']) {
-                        this.boxesArr.getItem(originKey)['metaData']['version'] = item['metaData']['version'];
+                    if (this.boxes.getItem(originKey)['metaData']['rid'] == item['metaData']['rid']) {
+                        this.boxes.getItem(originKey)['metaData']['version'] = item['metaData']['version'];
                     }
                 }
             }
@@ -98,30 +96,30 @@ export class DashboardView {
      * @param item
      * @param index
      */
-    resizeBox(val: DashboardResizeConfig, index: string, item: any) {
-        let widthClass, heightClass, type: string;
+    resizeBox(val: DashboardResizeConfig, index: number, item: any) {
+        let widthClass, heightClass: string;
 
-        // type = <string>val.type;
+        let type: BoxResize = val.type;
 
         // @todo fix it
-        // if (val.type == BoxResize.width) {
-        //     widthClass = this.getBoxClass(val.width, type);
-        //     heightClass = this.getBoxClass(val.height, 'height');
-        // }
-        //
-        // if (val.type == BoxResize.height) {
-        //     heightClass = this.getBoxClass(val.height, type);
-        //     widthClass = this.getBoxClass(val.width, 'width');
-        // }
-        //
-        // this.boxes.width.setItem(widthClass, index);
-        // this.boxes.height.setItem(heightClass, index);
+        if (val.type == BoxResize.WIDTH) {
+            widthClass = this.getBoxClass(val.width, <string>type);
+            heightClass = this.getBoxClass(val.height, 'height');
+        }
+
+        if (val.type == BoxResize.HEIGHT) {
+            heightClass = this.getBoxClass(val.height, <string>type);
+            widthClass = this.getBoxClass(val.width, 'width');
+        }
+
+        this.boxesCss.width.setItem(widthClass, index);
+        this.boxesCss.height.setItem(heightClass, index);
 
         if (item != undefined) {
             this.dashboardService.updateBoxSize({ width: val.width, height: val.height }, item).subscribe((res) => {
-                this.boxesArr.getItem(index)['metaData']['version'] = res['@version'];
-                this.boxesArr.getItem(index)['width'] = res['width'];
-                this.boxesArr.getItem(index)['height'] = res['height'];
+                this.boxes.getItem(index)['metaData']['version'] = res['@version'];
+                this.boxes.getItem(index)['width'] = res['width'];
+                this.boxes.getItem(index)['height'] = res['height'];
             });
         }
     }
@@ -153,13 +151,13 @@ export class DashboardView {
      * Update box classes
      */
     updateClasses() {
-        for (let key in this.boxesArr.getAll()) {
-            let width: string = this.getBoxClass(this.boxesArr.getItem(key).width, 'width');
-            let height: string = this.getBoxClass(this.boxesArr.getItem(key).height, 'height');
+        for (let key in this.boxes.getAll()) {
+            let width: string = this.getBoxClass(this.boxes.getItem(key).width, 'width');
+            let height: string = this.getBoxClass(this.boxes.getItem(key).height, 'height');
 
-            this.boxes.width.setItem(width, key);
-            this.boxes.height.setItem(height, key);
-            this.boxes.remove.setItem('', key);
+            this.boxesCss.width.setItem(width, key);
+            this.boxesCss.height.setItem(height, key);
+            this.boxesCss.remove.setItem('', key);
         }
     }
 
@@ -175,16 +173,16 @@ export class DashboardView {
 
         //  Update current boxes list after end of transition
         dom.on(removedObject, 'transitionend', (e) => {
-            this.boxesArr.removeItem(index);
-            this.boxes.width.removeItem(index);
-            this.boxes.height.removeItem(index);
-            this.boxes.remove.removeItem(index);
+            this.boxes.removeItem(index);
+            this.boxesCss.width.removeItem(index);
+            this.boxesCss.height.removeItem(index);
+            this.boxesCss.remove.removeItem(index);
 
             //  Remove box
             this.dashboardService.deleteBox(box);
 
         });
-        this.boxes.remove.setItem('removeBox', index);
+        this.boxesCss.remove.setItem('removeBox', index);
     }
 
     /**

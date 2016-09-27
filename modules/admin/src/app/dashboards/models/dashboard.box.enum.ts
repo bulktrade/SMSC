@@ -1,10 +1,9 @@
-//@todo rename Statuc to Status
 export enum BoxType {
     status,
     chart
 }
 
-export enum BoxResize {
-    width,
-    height
+export class BoxResize {
+    public static WIDTH: string = 'width';
+    public static HEIGHT: string = 'height';
 }

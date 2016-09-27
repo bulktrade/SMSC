@@ -31,7 +31,7 @@ export class DashboardBoxComponent {
     public fullscreenMode: boolean = false;
     public statusBoxWidth: number = 25;
     public statusBoxHeight: number = 25;
-    public boxResize: BoxResize;
+    public boxResize: BoxResize = BoxResize;
 
     constructor(private sidebarService: SidebarService) {
     }
@@ -88,14 +88,14 @@ export class DashboardBoxComponent {
         let res: DashboardResizeConfig = <DashboardResizeConfig>{};
         res.type = data['type'];
 
-        if (data['type'] == BoxResize.Width) {
+        if (data['type'] == BoxResize.WIDTH) {
             res.width = data['val'];
             res.height = this.statusBoxHeight;
 
             this.statusBoxWidth = data['val'];
         }
 
-        if (data['type'] == BoxResize.Height) {
+        if (data['type'] == BoxResize.HEIGHT) {
             res.width = this.statusBoxWidth;
             res.height = data['val'];
 

@@ -28,9 +28,6 @@ describe('Dashboard crud create', () => {
                 { provide: Location, useClass: MockLocation },
                 CrudService
             ],
-            directives: [
-                DropdownDirective
-            ],
             imports: [
                 HttpModule
             ]
