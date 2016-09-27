@@ -31,36 +31,41 @@ describe('Navigation', () => {
     });
 
     //  Switch to fullscreen mode
-    /*it('Click on fullscreen icon', () => {
+    it('Click on fullscreen icon', () => {
        this.dashboard.clickOnFullscreenIcon(prot).then(() => {
            expect(this.dashboard.getFullscreenIcon()).toBeTruthy();
        });
-    });*/
+    });
 
     //  Switch off fullscreen mode by press Escape key
-    /*it('Press ESC key', () => {
-     this.dashboard.pressCloseFullscreenESC(prot);
-     });*/
+    it('Press ESC key', () => {
+        this.dashboard.pressCloseFullscreenESC(prot);
+    });
 
-    //  Open box crud tool and go to edit form
-    /*it('Open edit form and save', () => {
-        this.dashboard.clickOnCrudIcon(prot, this.dashboard.fillForm).then(() => {
-            expect(this.dashboard.getCrudIcon()).toBeTruthy();
-        });
-    });*/
-
-    //  Remove box
-    it('Remove box', () => {
-       this.dashboard.removeBox(prot);
+    //  Open/Close crud box tool
+    it('Open/Close crud box tool', () => {
+       this.dashboard.clickOnCloseIcon(prot);
     });
 
     //  Create box
-    /*it('Create box', () => {
+    it('Create box', () => {
         this.dashboard.createBox(prot);
-    });*/
+    });
+
+    //  Open box crud tool and go to edit form
+    it('Open edit form and save', () => {
+        this.dashboard.clickOnCrudIcon(prot, this.dashboard.fillForm).then(() => {
+            expect(this.dashboard.getCrudIcon()).toBeTruthy();
+        });
+    });
 
     //  Change size mode
-    /*it('Switch height box mode', () => {
+    it('Switch height box mode', () => {
         this.dashboard.clickOnSizeButtons(prot);
-     });*/
+    });
+
+    //  Remove box
+    it('Remove box', () => {
+        this.dashboard.removeBox(prot);
+    });
 });

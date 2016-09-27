@@ -59,14 +59,12 @@ export class Dashboard {
      * @param ptor
      * @returns {Promise}
      */
-    clickOnFullscreenIcon(ptor) {
-        return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('.fullscreen-icon')), 5000)
+    clickOnFullscreenIcon(prot) {
+        return new Promise((resolve) => {
+            prot.wait(protractor.until.elementLocated(by.css('.box .fullscreen-icon')), 5000)
                 .then(function (el: webdriver.IWebElement) {
                     resolve(el.click());
-                }).thenCatch((errback) => {
-                reject(errback);
-            });
+                })
         });
     }
 
@@ -107,7 +105,9 @@ export class Dashboard {
      * @param prot
      */
     pressCloseFullscreenESC(prot) {
-        prot.actions().sendKeys(protractor.Key.ESCAPE).perform();
+        $('body').sendKeys(protractor.Key.ESCAPE);
+        browser.sleep(3000);
+        //prot.actions().sendKeys(protractor.Key.ESCAPE).perform();
     }
 
     /**
@@ -115,32 +115,17 @@ export class Dashboard {
      * @param prot
      */
     clickOnSizeButtons(prot) {
+        this.clickBySelector(prot, '.box:first-child .crud .icon');
+        browser.sleep(1000);
+
         try{
-            $$('.view-width button:not(.active)').each((element, i) => {
+            $$('.box:first-child .view-width button:last-child').each((element, i) => {
                 element.click();
+                browser.sleep(700);
             });
         } catch(ex) {
             console.log(ex);
         }
-    }
-
-    /**
-     * Clink on edit icon, go to edit form
-     * @param prot
-     * @returns {Promise}
-     */
-    clickOnEditIcon(prot) {
-        return new Promise((resolve) => {
-            prot.wait(protractor.until.elementLocated(by.css('.box:first-child .crud .edit')), 5000)
-                .then(function (el: webdriver.IWebElement) {
-                    resolve(el.click());
-                    browser.sleep(10000);
-                })
-        });
-    }
-
-    getEditIcon() {
-        return this.crudEditBox.isPresent();
     }
 
     /**
@@ -264,6 +249,10 @@ export class Dashboard {
         });
     }
 
+    /**
+     * Remove box
+     * @param prot
+     */
     removeBox(prot) {
         this.clickBySelector(prot, '.box:first-child .crud .icon');
         browser.sleep(1000);
@@ -276,18 +265,10 @@ export class Dashboard {
      * @param ptor
      * @returns {Promise}
      */
-    clickOnCloseIcon(ptor) {
-        return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('.closeTool .material-icons')), 5000)
-                .then(function (el: webdriver.IWebElement) {
-                    resolve(el.click());
-                }).thenCatch((errback) => {
-                reject(errback);
-            });
-        });
-    }
-
-    getCloseIcon() {
-        return this.closeIcon.isPresent();
+    clickOnCloseIcon(prot) {
+        this.clickBySelector(prot, '.box:first-child .crud .icon');
+        browser.sleep(1000);
+        this.clickBySelector(prot, '.box:first-child .closeTool .material-icons');
+        browser.sleep(1000);
     }
 }
