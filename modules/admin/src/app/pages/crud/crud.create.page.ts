@@ -110,7 +110,6 @@ export class CreatePage {
                     this.createRecordOnSecondLevel();
                 }
 
-                this.isHideOverlay();
                 this.clickOnSelectAll();
                 this.clickOnAddLinkBtn();
             }
