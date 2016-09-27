@@ -53,41 +53,41 @@ describe('CRUD', () => {
         expect(crudPage.isPresentCrudViewTag()).toBeTruthy();
     });
 
-    it('should be the next page', () => {
-        paginationPage.clickOnNextBtn();
-        paginationPage.getCurrentPage()
-            .then(currenPage => {
-                let result: number = 2;
-                expect(Number(currenPage)).toEqual(result);
-            });
-    });
-
-    it('should be the previous page', () => {
-        paginationPage.clickOnPreviousBtn();
-        paginationPage.getCurrentPage()
-            .then(currenPage => {
-                let result: number = 1;
-                expect(Number(currenPage)).toEqual(result);
-            });
-    });
-
-    it('should be the last page', () => {
-        paginationPage.clickOnLastBtn();
-        paginationPage.getCurrentPage()
-            .then(currenPage => {
-                let result: number = 3;
-                expect(Number(currenPage)).toEqual(result);
-            });
-    });
-
-    it('should be the first page', () => {
-        paginationPage.clickOnFirstBtn();
-        paginationPage.getCurrentPage()
-            .then(currenPage => {
-                let result: number = 1;
-                expect(Number(currenPage)).toEqual(result);
-            });
-    });
+    // it('should be the next page', () => {
+    //     paginationPage.clickOnNextBtn();
+    //     paginationPage.getCurrentPage()
+    //         .then(currenPage => {
+    //             let result: number = 2;
+    //             expect(Number(currenPage)).toEqual(result);
+    //         });
+    // });
+    //
+    // it('should be the previous page', () => {
+    //     paginationPage.clickOnPreviousBtn();
+    //     paginationPage.getCurrentPage()
+    //         .then(currenPage => {
+    //             let result: number = 1;
+    //             expect(Number(currenPage)).toEqual(result);
+    //         });
+    // });
+    //
+    // it('should be the last page', () => {
+    //     paginationPage.clickOnLastBtn();
+    //     paginationPage.getCurrentPage()
+    //         .then(currenPage => {
+    //             let result: number = 3;
+    //             expect(Number(currenPage)).toEqual(result);
+    //         });
+    // });
+    //
+    // it('should be the first page', () => {
+    //     paginationPage.clickOnFirstBtn();
+    //     paginationPage.getCurrentPage()
+    //         .then(currenPage => {
+    //             let result: number = 1;
+    //             expect(Number(currenPage)).toEqual(result);
+    //         });
+    // });
 
     // @todo fix it
     // it('delete button should be enabled', () => {
