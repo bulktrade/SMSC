@@ -2,10 +2,6 @@ sudo: true
 services:
   - docker
 
-addons:
-  sonarqube: true
-
-addons:
 apt:
   packages:
     - oracle-java8-installer
@@ -54,6 +50,7 @@ notifications:
     on_failure: always
 
 addons:
+  sonarqube: true
   browserstack:
     forcelocal: true
     username: "sergejkunz1"
