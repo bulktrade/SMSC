@@ -19,6 +19,7 @@ exports.config = objectMerge(commonConfig.config, {
     commonCapabilities: {
         'browserstack.debug': 'true',
         'browserstack.local' : 'true',
+        'browserstack.localIdentifier' : process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
         build: process.env.TRAVIS_BUILD_NUMBER || 'smsc',
         name: process.env.TRAVIS_JOB_NUMBER || 'test',
         browserName: 'Chrome'
