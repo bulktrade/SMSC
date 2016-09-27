@@ -26,15 +26,4 @@ describe('Login page', () => {
         expect(loginPage.isPresentNotFound).toBeTruthy();
     });
 
-    it('responsive navigation', () => {
-        let width = 330,
-            height = 1300;
-        ptor.manage().window().setSize(width, height);
-        WaitUntil.waitUntil(loginPage.details, ptor);
-        loginPage.details.getCssValue('text-align')
-            .then(value => {
-                expect(value).toEqual('center');
-            });
-    });
-
 });

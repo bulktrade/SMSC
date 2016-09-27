@@ -46,6 +46,27 @@ describe('CRUD', () => {
         crudPage.crudCreate.clickOnFormBtn();
     });
 
+    // @todo fix it
+    it('delete button should be enabled', () => {
+        crudPage.getCrudView();
+        crudPage.crudCreate.clickOnSelectAll();
+        crudPage.clickOnDeleteButton();
+        expect(crudPage.crudDelete.isPresentCrudDelete()).toBeTruthy();
+    });
+
+    it('should be delete records', () => {
+        crudPage.crudDelete.clickOnOkBtn();
+        expect(crudPage.isPresentCustomers()).toBeTruthy();
+    });
+
+    it('should be delete records on second level', () => {
+        crudPage.clickOnBtnAddRecord();
+        crudPage.crudCreate.clickOnContactsLinksetBtn();
+        crudPage.crudCreate.clickOnSelectAll();
+        crudPage.clickOnDeleteButton();
+        crudPage.crudDelete.clickOnOkBtn();
+    });
+
     it('should navigate to the grid meta data', () => {
         let width = 1980,
             height = 1020;
@@ -91,27 +112,6 @@ describe('CRUD', () => {
                 expect(Number(currenPage)).toEqual(result);
             });
     });
-
-    // @todo fix it
-    // it('delete button should be enabled', () => {
-    //     crudPage.getCrudView();
-    //     crudPage.crudCreate.clickOnSelectAll();
-    //     crudPage.clickOnDeleteButton();
-    //     expect(crudPage.crudDelete.isPresentCrudDelete()).toBeTruthy();
-    // });
-    //
-    // it('should be delete records', () => {
-    //     crudPage.crudDelete.clickOnOkBtn();
-    //     expect(crudPage.isPresentCustomers()).toBeTruthy();
-    // });
-    //
-    // it('should be delete records on second level', () => {
-    //     crudPage.clickOnBtnAddRecord();
-    //     crudPage.crudCreate.clickOnContactsLinksetBtn();
-    //     crudPage.crudCreate.clickOnSelectAll();
-    //     crudPage.clickOnDeleteButton();
-    //     crudPage.crudDelete.clickOnOkBtn();
-    // });
 
     // @todo not right place. crud.e2e has include only crud tests.
     it('should logout', () => {
