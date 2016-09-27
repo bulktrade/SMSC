@@ -12,21 +12,23 @@ const commonConfig = require('./protractor.common'); // the settings that are co
 const ENV = process.env.NODE_ENV = process.env.ENV = 'ci';
 
 exports.config = objectMerge(commonConfig.config, {
-    seleniumAddress: 'http://hub.browserstack.com/wd/hub',
+    seleniumAddress: 'http://localhost:4444/wd/hub',
+    browserstackUser: process.env.BROWSER_STACK_USER,
+    browserstackKey: process.env.BROWSER_STACK_KEY,
 
     commonCapabilities: {
-        'browserstack.user': process.env.BROWSER_STACK_USER,
-        'browserstack.key': process.env.BROWSER_STACK_KEY,
         'browserstack.debug': 'true',
-        build: 'smsc',
-        name: 'parallel_test',
+        'browserstack.local' : 'true',
+        build: process.env.TRAVIS_BUILD_NUMBER || 'smsc',
+        name: process.env.TRAVIS_JOB_NUMBER || 'test',
         browserName: 'Chrome'
     },
 
     multiCapabilities: [
         {
             browserName: 'Chrome',
-            os: 'OS X'
+            os: 'OS X',
+            name: 'Chrome on OS X'
         },
         // {
         //     'browserName': 'Safari'

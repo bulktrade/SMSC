@@ -54,5 +54,6 @@ notifications:
     on_failure: always
 
 addons:
-  browserstack: true
-  
+  browserstack:
+    forcelocal: true
+
