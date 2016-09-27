@@ -155,7 +155,7 @@ export class GridPagination {
                 }, error => {
                     reject(error);
                 });
-        })
+        });
     }
 
     createNewDatasource(skip?, limit?): Promise<Array<any>> {

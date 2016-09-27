@@ -1,6 +1,6 @@
-import { CreatePage } from "./crud/crud.create.page";
-import { WaitUntilReady } from "./common/waitUntilReady";
-import { LoginPage } from "./login.page";
+import { CreatePage } from './crud/crud.create.page';
+import { WaitUntilReady } from './common/waitUntilReady';
+import { LoginPage } from './login.page';
 
 export class GridPaginationPage {
     public login: LoginPage = new LoginPage();
@@ -61,7 +61,8 @@ export class GridPaginationPage {
 
     createUsers() {
         for (let i = 2; i < this.numberUsers; i++) {
-            WaitUntilReady.waitUntilReady(this.crudPage.inputElementsOnFirstLevel[0].element, this._ptor);
+            WaitUntilReady.waitUntilReady(
+                this.crudPage.inputElementsOnFirstLevel[0].element, this._ptor);
             this.crudPage.inputElementsOnFirstLevel[0].element.clear();
             this.crudPage.inputElementsOnFirstLevel[0].element.sendKeys(i);
 

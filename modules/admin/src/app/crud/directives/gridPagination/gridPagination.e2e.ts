@@ -1,6 +1,6 @@
-import { CrudPage } from "../../../pages/crud.page";
-import { GridPaginationPage } from "../../../pages/gridPagination.page";
-import { WaitUntilReady } from "../../../pages/common/waitUntilReady";
+import { CrudPage } from '../../../pages/crud.page';
+import { GridPaginationPage } from '../../../pages/gridPagination.page';
+import { WaitUntilReady } from '../../../pages/common/waitUntilReady';
 
 describe('Grid pagination', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -56,7 +56,7 @@ describe('Grid pagination', () => {
             .then(currenPage => {
                 let result: number = 2;
                 expect(Number(currenPage)).toEqual(result);
-            })
+            });
     });
 
     it('should be the first page', () => {
@@ -65,7 +65,7 @@ describe('Grid pagination', () => {
             .then(currenPage => {
                 let result: number = 1;
                 expect(Number(currenPage)).toEqual(result);
-            })
+            });
     });
 
     it('should be the last page', () => {
@@ -74,7 +74,7 @@ describe('Grid pagination', () => {
             .then(currenPage => {
                 let result: number = 3;
                 expect(Number(currenPage)).toEqual(result);
-            })
+            });
     });
 
     it('should be the first page', () => {
@@ -83,7 +83,7 @@ describe('Grid pagination', () => {
             .then(currenPage => {
                 let result: number = 1;
                 expect(Number(currenPage)).toEqual(result);
-            })
+            });
     });
 
     it('should logout', () => {

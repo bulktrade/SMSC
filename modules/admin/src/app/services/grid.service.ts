@@ -5,8 +5,8 @@ import { CrudLevel } from '../crud/model/crudLevel';
 import {
     MetaDataPropertyBindingParameterModel
 } from '../crudMetadata/metaDataBindingParameter/metaDataBindingParameter.model';
-import { Response } from "@angular/http";
-import { Observable } from "rxjs";
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs';
 
 const squel = require('squel');
 
