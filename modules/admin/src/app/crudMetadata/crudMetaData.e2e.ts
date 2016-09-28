@@ -31,14 +31,14 @@ describe('CrudMetaData', () => {
     });
 
     it('readonly should be false', () => {
-        crudMetaDataPage.companyNameField.getAttribute('readonly')
+        crudMetaDataPage.customerIdField.getAttribute('readonly')
             .then(readonly => {
                 expect(readonly).toBeNull();
             });
     });
 
-    it('country field should be displayed', () => {
-        expect(crudMetaDataPage.isPresentCountryField(false)).toBeTruthy();
+    it('city field should be displayed', () => {
+        expect(crudMetaDataPage.isPresentCityField(false)).toBeTruthy();
     });
 
     it('order should be descending', () => {
@@ -54,18 +54,19 @@ describe('CrudMetaData', () => {
         expect(crudMetaDataPage.isPresentFormMetaData()).toBeTruthy();
     });
 
+    it('should navigate to the formMetaData', () => {
+        crudMetaDataPage.clickOnFormMetaData();
+        expect(crudMetaDataPage.isPresentFormMetaData()).toBeTruthy();
+    });
+
     it('should be change visible property', () => {
         crudMetaDataPage.hideProperty();
         expect(crudMetaDataPage.isPresentFormMetaData()).toBeTruthy();
     });
 
-    it('should be change editable property', () => {
-        crudMetaDataPage.readonlyProperty();
+    it('should be change editable and order properties', () => {
+        crudMetaDataPage.orderReadonlyProperty('3');
         expect(crudMetaDataPage.isPresentFormMetaData()).toBeTruthy();
-    });
-
-    it('should be change order property', () => {
-        crudMetaDataPage.orderProperty('3');
     });
 
     it('should navigate to the customer', () => {
@@ -79,14 +80,14 @@ describe('CrudMetaData', () => {
     });
 
     it('readonly should be true', () => {
-        crudMetaDataPage.companyNameField.getAttribute('readonly')
+        crudMetaDataPage.customerIdField.getAttribute('readonly')
             .then(readonly => {
                 expect(readonly).toBeTruthy();
             });
     });
 
-    it('country field should be hidden', () => {
-        crudMetaDataPage.countryField.isDisplayed()
+    it('city field should be hidden', () => {
+        crudMetaDataPage.cityField.isDisplayed()
             .then(isDisplayed => {
                 expect(isDisplayed).toBeFalsy();
             });
@@ -109,13 +110,9 @@ describe('CrudMetaData', () => {
         expect(crudMetaDataPage.isPresentFormMetaData()).toBeTruthy();
     });
 
-    it('should be change editable property', () => {
-        crudMetaDataPage.readonlyProperty();
+    it('should be change editable and order properties', () => {
+        crudMetaDataPage.orderReadonlyProperty('1');
         expect(crudMetaDataPage.isPresentFormMetaData()).toBeTruthy();
-    });
-
-    it('should be change order property', () => {
-        crudMetaDataPage.orderProperty('1');
     });
 
     it('should logout', () => {

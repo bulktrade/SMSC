@@ -15,14 +15,13 @@ export class CrudMetaDataPage {
     public crudCreateTag = element(by.tagName('crud-create'));
     public backBtn = element(by.id('back'));
 
-    public companyNameField = element(by.css('.companyName input'));
-    public countryField = element(by.css('.country input'));
+    public customerIdField = element(by.css('.customerId input'));
+    public cityField = element(by.css('.city input'));
 
     // check order property
     public firstFieldInForm = element(by.css('#dynamicForm > div:nth-of-type(1) md-input'));
 
-    public countryEdit = element.all(by.xpath('.//*[.="country"]/preceding-sibling::div')).get(2);
-    public companyNameEdit = element.all(by.xpath('.//*[.="companyName"]/preceding-sibling::div')).get(2);
+    public cityEdit = element.all(by.xpath('.//*[.="city"]/preceding-sibling::div')).get(2);
     public customerIdEdit = element.all(by.xpath('.//*[.="customerId"]/preceding-sibling::div')).get(2);
 
     public visibleInput = element(by.css('.visible'));
@@ -43,23 +42,17 @@ export class CrudMetaDataPage {
     }
 
     hideProperty() {
-        this.clickOnCountryEdit();
+        this.clickOnCityEdit();
         this.changeVisibleProperty();
         this.clickOnFormBtn();
         this.clickOnBackBtn();
     }
 
-    readonlyProperty() {
-        this.clickOnCompanyNameEdit();
-        this.changeEditableProperty();
-        this.clickOnFormBtn();
-        this.clickOnBackBtn();
-    }
-
-    orderProperty(value: string) {
+    orderReadonlyProperty(value: string) {
         this.clickOnCustomerIdEdit();
         this.clearOrderInput();
         this.orderInput.sendKeys(value);
+        this.changeEditableProperty();
         this.clickOnFormBtn();
         this.clickOnBackBtn();
     }
@@ -69,9 +62,9 @@ export class CrudMetaDataPage {
         this.orderInput.clear();
     }
 
-    isPresentCountryField(ready: boolean) {
-        WaitUntil.waitUntil(this.countryField, this._ptor, ready);
-        return this.countryField.isPresent();
+    isPresentCityField(ready: boolean) {
+        WaitUntil.waitUntil(this.cityField, this._ptor, ready);
+        return this.cityField.isPresent();
     }
 
     isExistClass(str: string, className: string) {
@@ -83,14 +76,9 @@ export class CrudMetaDataPage {
         this.formBtn.click();
     }
 
-    clickOnCountryEdit() {
-        WaitUntil.waitUntil(this.countryEdit, this._ptor);
-        this.countryEdit.click();
-    }
-
-    clickOnCompanyNameEdit() {
-        WaitUntil.waitUntil(this.companyNameEdit, this._ptor);
-        this.companyNameEdit.click();
+    clickOnCityEdit() {
+        WaitUntil.waitUntil(this.cityEdit, this._ptor);
+        this.cityEdit.click();
     }
 
     clickOnCustomerIdEdit() {
