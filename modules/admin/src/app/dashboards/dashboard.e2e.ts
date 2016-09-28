@@ -7,6 +7,7 @@ describe('Navigation', () => {
         this.dashboard = new Dashboard();
         this.dashboard.get();
         prot = protractor.wrapDriver(browser.driver);
+        this.dashboard.prot = prot;
     });
 
     //  Sign in
@@ -26,46 +27,42 @@ describe('Navigation', () => {
     //  Check by existing dashboard
     it('Check by existing dashboard', () => {
         this.dashboard.clickOnItemNavDashboard(prot).then(() => {
-    expect(this.dashboard.getDashboard()).toBeTruthy();
-    });
+            expect(this.dashboard.getDashboard()).toBeTruthy();
+        });
     });
 
     //  Switch to fullscreen mode
     it('Click on fullscreen icon', () => {
-       this.dashboard.clickOnFullscreenIcon(prot).then(() => {
-           expect(this.dashboard.getFullscreenIcon()).toBeTruthy();
-       });
+       this.dashboard.clickOnFullscreenIcon(prot);
     });
 
     //  Switch off fullscreen mode by press Escape key
     it('Press ESC key', () => {
-        this.dashboard.pressCloseFullscreenESC(prot);
+        this.dashboard.pressCloseFullscreenESC();
     });
 
     //  Open/Close crud box tool
     it('Open/Close crud box tool', () => {
-       this.dashboard.clickOnCloseIcon(prot);
+       this.dashboard.toggleCloseIcon();
     });
 
     //  Create box
     it('Create box', () => {
-        this.dashboard.createBox(prot);
+        this.dashboard.createBox();
     });
 
     //  Open box crud tool and go to edit form
     it('Open edit form and save', () => {
-        this.dashboard.clickOnCrudIcon(prot, this.dashboard.fillForm).then(() => {
-            expect(this.dashboard.getCrudIcon()).toBeTruthy();
-        });
+        this.dashboard.editBox();
     });
 
     //  Change size mode
     it('Switch height box mode', () => {
-        this.dashboard.clickOnSizeButtons(prot);
+        this.dashboard.clickOnSizeButtons();
     });
 
     //  Remove box
     it('Remove box', () => {
-        this.dashboard.removeBox(prot);
+        this.dashboard.removeBox();
     });
 });
