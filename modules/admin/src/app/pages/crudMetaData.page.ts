@@ -22,7 +22,8 @@ export class CrudMetaDataPage {
     public firstFieldInForm = element(by.css('#dynamicForm > div:nth-of-type(1) md-input'));
 
     public cityEdit = element.all(by.xpath('.//*[.="city"]/preceding-sibling::div')).get(2);
-    public customerIdEdit = element.all(by.xpath('.//*[.="customerId"]/preceding-sibling::div')).get(2);
+    public customerIdEdit = element.all(by.xpath(
+        './/*[.="customerId"]/preceding-sibling::div')).get(2);
 
     public visibleInput = element(by.css('.visible'));
     public editableInput = element(by.css('.editable'));
