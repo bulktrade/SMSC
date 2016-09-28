@@ -18,6 +18,7 @@ export class CrudPage {
     public crudCreateTag = element(by.tagName('crud-create'));
     public crudViewTag = element(by.tagName('crud-view'));
     public btnDeleteRow = element(by.id('deleteRow'));
+    public deleteIcon = element(by.css('.ag-body-container > div:first-of-type .deleteIcon'));
     public backBtn = element(by.id('back'));
 
     private _ptor;
@@ -41,6 +42,11 @@ export class CrudPage {
     clickOnDeleteButton() {
         WaitUntil.waitUntil(this.btnDeleteRow, this.ptor);
         return this.btnDeleteRow.click();
+    }
+
+    clickOnDeleteIcon() {
+        WaitUntil.waitUntil(this.deleteIcon, this.ptor);
+        return this.deleteIcon.click();
     }
 
     clickOnBackBtn() {

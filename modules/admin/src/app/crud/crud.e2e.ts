@@ -44,12 +44,12 @@ describe('CRUD', () => {
             });
         crudPage.crudCreate.fillLinkset();
         crudPage.crudCreate.clickOnFormBtn();
+        crudPage.crudCreate.clickOnBackBtn();
     });
 
     it('delete button should be enabled', () => {
-        crudPage.getCrudView();
         crudPage.crudCreate.clickOnSelectAll();
-        crudPage.clickOnDeleteButton();
+        crudPage.clickOnDeleteIcon();
         expect(crudPage.crudDelete.isPresentCrudDelete()).toBeTruthy();
     });
 
