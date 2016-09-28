@@ -1,4 +1,4 @@
-import { WaitUntilReady } from '../common/waitUntilReady';
+import { WaitUntil } from '../common/waitUntilReady';
 import { InputElement } from '../model/inputElement';
 export class CreatePage {
     public hint = element(by.css('.companyName md-hint'));
@@ -8,6 +8,7 @@ export class CreatePage {
     public btnAddRecord = element(by.id('addRow'));
     public formBtn = element(by.id('modify'));
     public backBtn = element(by.id('back'));
+    public overlay = element(by.id('overlay'));
 
     public selectElements = {
         contacts: element(by.css('.contacts #add')),
@@ -93,7 +94,7 @@ export class CreatePage {
 
     fillInputFields(inputElements: Array<InputElement>) {
         inputElements.forEach(i => {
-            WaitUntilReady.waitUntilReady(i.element, this._ptor);
+            WaitUntil.waitUntil(i.element, this._ptor);
 
             i.element.sendKeys(i.data);
         });
@@ -102,29 +103,33 @@ export class CreatePage {
     fillLinkset() {
         for (let i in this.selectElements) {
             if (this.selectElements.hasOwnProperty(i)) {
-                WaitUntilReady.waitUntilReady(this.selectElements[i], this._ptor);
+                WaitUntil.waitUntil(this.selectElements[i], this._ptor);
                 this.selectElements[i].click();
 
                 if (i === 'contacts') {
                     this.createRecordOnSecondLevel();
                 }
 
-                browser.sleep(300);
                 this.clickOnSelectAll();
                 this.clickOnAddLinkBtn();
             }
         }
     }
 
+    isHideOverlay() {
+        WaitUntil.waitUntil(this.overlay, this._ptor, true);
+        return !this.overlay.isPresent();
+    }
+
     fillEmbeddedList() {
         for (let i in this.embeddedListElements) {
             if (this.embeddedListElements.hasOwnProperty(i)) {
-                WaitUntilReady.waitUntilReady(this.embeddedListElements[i], this._ptor);
+                WaitUntil.waitUntil(this.embeddedListElements[i], this._ptor);
                 this.embeddedListElements[i].click();
 
                 let lastOptionElement = element(by.css('.' + i + ' option:last-of-type'));
 
-                WaitUntilReady.waitUntilReady(lastOptionElement, this._ptor);
+                WaitUntil.waitUntil(lastOptionElement, this._ptor);
                 lastOptionElement.click();
             }
         }
@@ -139,32 +144,32 @@ export class CreatePage {
     }
 
     clickOnContactsLinksetBtn() {
-        WaitUntilReady.waitUntilReady(this.selectElements.contacts, this._ptor);
+        WaitUntil.waitUntil(this.selectElements.contacts, this._ptor);
         this.selectElements.contacts.click();
     }
 
     clickOnBackBtn() {
-        WaitUntilReady.waitUntilReady(this.backBtn, this.ptor);
+        WaitUntil.waitUntil(this.backBtn, this.ptor);
         this.backBtn.click();
     }
 
     clickOnAddLinkBtn() {
-        WaitUntilReady.waitUntilReady(this.addLinkBtn, this._ptor);
+        WaitUntil.waitUntil(this.addLinkBtn, this._ptor);
         this.addLinkBtn.click();
     }
 
     clickOnSelectAll() {
-        WaitUntilReady.waitUntilReady(this.selectAll, this._ptor);
+        WaitUntil.waitUntil(this.selectAll, this._ptor);
         this.selectAll.click();
     }
 
     clickOnBtnAddRecord() {
-        WaitUntilReady.waitUntilReady(this.btnAddRecord, this.ptor);
+        WaitUntil.waitUntil(this.btnAddRecord, this.ptor);
         this.btnAddRecord.click();
     }
 
     clickOnFormBtn() {
-        WaitUntilReady.waitUntilReady(this.formBtn, this.ptor);
+        WaitUntil.waitUntil(this.formBtn, this.ptor);
         this.formBtn.click();
     }
 

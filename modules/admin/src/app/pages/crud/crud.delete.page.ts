@@ -1,4 +1,4 @@
-import { WaitUntilReady } from '../common/waitUntilReady';
+import { WaitUntil } from '../common/waitUntilReady';
 
 export class DeletePage {
     public crudDelete = element(by.tagName('crud-delete'));
@@ -10,12 +10,12 @@ export class DeletePage {
     }
 
     isPresentCrudDelete() {
-        WaitUntilReady.waitUntilReady(this.crudDelete, this._ptor);
+        WaitUntil.waitUntil(this.crudDelete, this._ptor);
         return this.crudDelete.isPresent();
     }
 
     clickOnOkBtn() {
-        WaitUntilReady.waitUntilReady(this.okBtn, this._ptor);
+        WaitUntil.waitUntil(this.okBtn, this._ptor);
         return this.okBtn.click();
     }
 

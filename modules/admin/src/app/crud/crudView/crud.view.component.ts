@@ -28,6 +28,7 @@ export class CrudView {
     ngOnInit() {
         this.resolveData = this.route.snapshot.data['view'];
         this.crudService.gridOptions.columnDefs = this.resolveData.grid;
+        this.crudService.gridOptions.rowData = [];
     }
 
     navigateToCreate() {
