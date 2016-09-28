@@ -1,6 +1,6 @@
 <div class="addingForm">
 	<loading-grid>
-		<form class="form" (submit)="onSubmit()" #addingForm="ngForm">
+		<form class="form" id="dynamicForm" (submit)="onSubmit()" #addingForm="ngForm">
 			<div *ngFor="let item of crudService.gridOptions.columnDefs" [ngSwitch]="item.type">
 				<md-input *ngIf="crudService.typeForInput(item.type)" [placeholder]="item.headerName"
 				          [name]="item.headerName"
@@ -21,7 +21,7 @@
 					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
 					</md-hint>
 				</multiple-select>
-				<md-checkbox *ngSwitchCase="'BOOLEAN'"
+				<md-checkbox *ngSwitchCase="'BOOLEAN'" class="{{item.property}}"
 				             [(ngModel)]="crudService.model[item.property]" [name]="item.headerName"
 				             [align]="alignment">
 					{{item.headerName}}

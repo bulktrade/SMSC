@@ -1,4 +1,4 @@
-import { CrudPage } from '../pages/crud.page';
+import { CrudPage } from '../pages/crud/crud.page';
 import { WaitUntil } from '../pages/common/waitUntilReady';
 import { GridPaginationPage } from "../pages/gridPagination.page";
 
@@ -46,7 +46,6 @@ describe('CRUD', () => {
         crudPage.crudCreate.clickOnFormBtn();
     });
 
-    // @todo fix it
     it('delete button should be enabled', () => {
         crudPage.getCrudView();
         crudPage.crudCreate.clickOnSelectAll();

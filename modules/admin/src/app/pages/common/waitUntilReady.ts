@@ -1,5 +1,6 @@
 export class WaitUntil {
     public static logoutBtn = element(by.id('logout'));
+    public static loginComponent = element(by.tagName('login'));
 
     static waitUntil(elm, ptor, isHide?: boolean) {
         ptor.wait(() => {
@@ -27,5 +28,10 @@ export class WaitUntil {
     static logout(ptor) {
         WaitUntil.waitUntil(WaitUntil.logoutBtn, ptor);
         WaitUntil.logoutBtn.click();
+    }
+
+    static isPresentLogin(ptor) {
+        WaitUntil.waitUntil(WaitUntil.loginComponent, ptor);
+        return WaitUntil.loginComponent.isPresent();
     }
 }
