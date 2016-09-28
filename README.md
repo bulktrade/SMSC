@@ -1,6 +1,7 @@
 [![Heroku](http://heroku-badge.herokuapp.com/?app=smsc&style=flat&svg=1)](http://staging.smsc.io)
 [![Build Status](https://travis-ci.org/bulktrade/SMSC.svg?branch=master)](https://travis-ci.org/bulktrade/SMSC)
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Coverage Status](https://coveralls.io/repos/github/bulktrade/SMSC/badge.svg?branch=master)](https://coveralls.io/github/bulktrade/SMSC?branch=master)
 
 # smsc.io
 SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API support.
@@ -61,10 +62,14 @@ Example XML File: https://github.com/orientechnologies/orientdb/blob/master/grap
 # OrientDB Studio
 	
 	http://localhost:2480/studio/index.html
-	
 
 # Admin module credentials
 	
 	Username: admin
 	Password: admin
 	URL: /admin
+
+## Thanks
+
+[<img src="https://www.browserstack.com/images/mail/browserstack-logo-footer.png" width="120">](https://www.browserstack.com/)
+Thank you to [BrowserStack](https://www.browserstack.com/) for providing the infrastructure that allows us to test our project in real browsers.

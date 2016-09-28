@@ -155,6 +155,7 @@
         "postcss": "^5.2.0",
         "postcss-loader": "^0.13.0",
         "protractor": "^4.0.4",
+        "browserstack-local": "^1.1.0",
         "raw-loader": "0.5.1",
         "resolve-url-loader": "^1.6.0",
         "rimraf": "^2.5.2",

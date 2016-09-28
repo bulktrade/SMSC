@@ -12,91 +12,37 @@ const commonConfig = require('./protractor.common'); // the settings that are co
 const ENV = process.env.NODE_ENV = process.env.ENV = 'ci';
 
 exports.config = objectMerge(commonConfig.config, {
-    sauceUser: process.env.SAUCE_USERNAME,
-    sauceKey: process.env.SAUCE_ACCESS_KEY,
-    sauceSeleniumAddress: 'http://127.0.0.1:4444/wd/hub',
+    seleniumAddress: 'http://hub.browserstack.com/wd/hub',
+
+    commonCapabilities: {
+        'browserstack.user': process.env.BROWSER_STACK_USER,
+        'browserstack.key': process.env.BROWSER_STACK_KEY,
+        'browserstack.debug': 'true',
+        'browserstack.local' : 'true',
+        'browserstack.localIdentifier' : process.env.BROWSERSTACK_LOCAL_IDENTIFIER,
+        build: process.env.TRAVIS_BUILD_NUMBER || 'smsc',
+        name: process.env.TRAVIS_JOB_NUMBER || 'test',
+        browserName: 'Chrome'
+    },
 
     multiCapabilities: [
         {
-            browserName: 'chrome',
-            platform: 'OS X 10.11',
-            name: "chrome-osx-tests",
-            shardTestFiles: true,
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        } /* ,
-        {
-            browserName: 'firefox',
-            platform: 'OS X 10.11',
-            name: "firefox-osx-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            browserName: 'Chrome',
+            os: 'OS X',
+            name: 'Chrome on OS X'
         },
-        {
-            browserName: 'chrome',
-            platform: 'Linux',
-            name: "chrome-linux-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
-        {
-            browserName: 'firefox',
-            platform: 'Linux',
-            name: "firefox-linux-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
-        {
-            browserName: 'chrome',
-            platform: 'Windows 10',
-            name: "chrome-windows-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
-        {
-            browserName: 'firefox',
-            platform: 'Windows 10',
-            name: "firefox-windows-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
-        {
-            browserName: 'safari',
-            platform: 'OS X 10.11',
-            name: "safari-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
-        {
-            browserName: 'MicrosoftEdge',
-            name: "edge-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
-        {
-            browserName: 'opera',
-            name: "opera-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
-        {
-        	platform: 'OS X 10.10',
-         	browserName: 'iphone',
-         	name: 'ios-tests',
-         	varsion: '9.3',
-         	app: 'safari',
-         	deviceName: 'iPhone 6s',
-         	deviceOrientation: 'portrait',
-         	build: process.env.TRAVIS_BUILD_NUMBER,
-         	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        },
-        {
-         	platformName: 'Android',
-         	browserName: 'Browser',
-         	name: "android-tests",
-         	deviceName: 'Android Emulator',
-         	build: process.env.TRAVIS_BUILD_NUMBER,
-         	'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        } */
+        // {
+        //     'browserName': 'Safari'
+        // },
+        // {
+        //     'browserName': 'Firefox'
+        // },
+        // {
+        //     'browserName': 'IE'
+        // }
     ]
+});
+
+exports.config.multiCapabilities.forEach(function(caps){
+    for(var i in exports.config.commonCapabilities) caps[i] = caps[i] || exports.config.commonCapabilities[i];
 });

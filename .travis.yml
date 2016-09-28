@@ -2,10 +2,6 @@ sudo: true
 services:
   - docker
 
-addons:
-  sonarqube: true
-
-addons:
 apt:
   packages:
     - oracle-java8-installer
@@ -39,13 +35,11 @@ after_success:
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push smscio/smsc;
     fi
+  - mvn clean -DrepoToken=$COVERALLS_REPO_TOKEN cobertura:cobertura coveralls:report
 
 script:
   - ./bin/deploy.sh
  
-#after_success:
-#  - mvn clean cobertura:cobertura coveralls:report
-
 notifications:
   email:
     recipients:
@@ -56,5 +50,9 @@ notifications:
     on_failure: always
 
 addons:
-  sauce_connect: true
-  
+  sonarqube: true
+  browserstack:
+    forcelocal: true
+    username: "sergejkunz1"
+    access_key:
+      secure: "afZSzYihhl2Z7cSn95RZqSGYIu1Y6nya6bX8KJInFYPSN9g/bwlTqOnCiQRNlMxoDBiem4aXIuekbGhcq7kg0lrXp05GKV4NM4tUkVgwvf1rvmLTIECrygsdGNuoPqZR4XyouNtwu5WlVuZ3qeripT9C14oFGCiNZf/LKCAP76JxEGtfwN4ZJc6pIFNnY7BQIVtGx915ENLiUtG8d54/QT2WDRR/dShJMJK9qEUthkGzCwKznrQd7UZXC+u/Lf3lmLRXp2NgtuCWMWvrINN67UOLRP6wOTUV33a/4G0VMb3m0KBdNpBQLFOIsy93kKw/1h/mMOq3IswETfRHIRKDXBpuEZMHzivzLBIFv9s3FZkokbIHlyu8G4rgF3B6NvwPGRwCZKMflXyAUlTwKCPpJtCl4h9kEX+iGnZ7Lj7q1ygqViHAtYtW8cYn+QYCBwDqvsLVlNGVWSO+g8f7bLlqw0853ecoQQ9d4LChlET1bsXVHWWADlVGWuf3oqIeP/C65osdwAwIMjP/jtmOVqhrzSXq2r/IFxGBQg3rv3D/QySTATLRrdLJKSyFApbN32vtEJli577IcdP8P5Ks7ZYhzl2nCo3WH1ZCGVNra9ByvX+blh+4T6K2n3K9j/GJ3nM0w/nvq13nh7EAUaZ96TPPFpYZecm7meL2ASTU5yVnf/4="
