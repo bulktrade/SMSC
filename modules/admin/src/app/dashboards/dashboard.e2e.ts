@@ -31,6 +31,11 @@ describe('Navigation', () => {
         });
     });
 
+    //  Drag and drop box
+    it('Drag and drop box', () => {
+       this.dashboard.dragAndDrop();
+    });
+
     //  Switch to fullscreen mode
     it('Click on fullscreen icon', () => {
        this.dashboard.clickOnFullscreenIcon(prot);

@@ -1,3 +1,4 @@
+import { browser } from "protractor/built/index";
 export class Dashboard {
     public dashboard = $('.dashboard');
     public prot = null;
@@ -91,6 +92,29 @@ export class Dashboard {
         } catch (ex) {
             console.log(ex);
         }
+    }
+
+    dragAndDrop() {
+        this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000).then((el) => {
+            el.getLocation().then((location) => {
+                this.prot.manage().window().getSize().then((size) => {
+                    console.log(size);
+                    let targetPosition = {
+                        x: size.width-20,
+                        y: location.y
+                    }
+
+                    console.log(targetPosition);
+                    console.log(location);
+
+                    browser.actions().mouseDown(el).perform();
+                    browser.actions().mouseMove(targetPosition).perform();
+                    browser.actions().mouseUp().perform();
+
+                    browser.sleep(1000);
+                });
+            });
+        });
     }
 
     /**
