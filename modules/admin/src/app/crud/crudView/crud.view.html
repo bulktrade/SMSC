@@ -15,7 +15,7 @@
 					translate}}
 				</button>
 				<button md-raised-button color="warn" [disabled]="!crudService.gridOptions.api.getSelectedRows().length"
-				        (click)="navigateToDelete()" id="deleteRow">{{'DELETE' | translate}}
+				        (click)="navigateToDelete(crudService.focusedRow.data['@rid'])" id="deleteRow">{{'DELETE' | translate}}
 				</button>
 			</div>
 		</div>
