@@ -1,7 +1,7 @@
 import { WaitUntil } from '../pages/common/waitUntilReady';
 import { CrudMetaDataPage } from "../pages/crudMetaData.page";
 
-describe('CRUD', () => {
+describe('CrudMetaData', () => {
     let ptor = protractor.wrapDriver(browser.driver);
     let crudMetaDataPage: CrudMetaDataPage = new CrudMetaDataPage();
 
@@ -65,7 +65,7 @@ describe('CRUD', () => {
     });
 
     it('should be change order property', () => {
-        crudMetaDataPage.orderProperty();
+        crudMetaDataPage.orderProperty("3");
     });
 
     it('should navigate to the customer', () => {
@@ -97,6 +97,25 @@ describe('CRUD', () => {
             .then(classes => {
                 expect(crudMetaDataPage.isExistClass(classes, 'companyName')).toBeTruthy();
             });
+    });
+
+    it('should navigate to the formMetaData', () => {
+        crudMetaDataPage.clickOnFormMetaData();
+        expect(crudMetaDataPage.isPresentFormMetaData()).toBeTruthy();
+    });
+
+    it('should be change visible property', () => {
+        crudMetaDataPage.hideProperty();
+        expect(crudMetaDataPage.isPresentFormMetaData()).toBeTruthy();
+    });
+
+    it('should be change editable property', () => {
+        crudMetaDataPage.readonlyProperty();
+        expect(crudMetaDataPage.isPresentFormMetaData()).toBeTruthy();
+    });
+
+    it('should be change order property', () => {
+        crudMetaDataPage.orderProperty("1");
     });
 
     it('should logout', () => {

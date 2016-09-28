@@ -56,10 +56,10 @@ export class CrudMetaDataPage {
         this.clickOnBackBtn();
     }
 
-    orderProperty() {
+    orderProperty(value: string) {
         this.clickOnCustomerIdEdit();
         this.clearOrderInput();
-        this.orderInput.sendKeys('3');
+        this.orderInput.sendKeys(value);
         this.clickOnFormBtn();
         this.clickOnBackBtn();
     }
