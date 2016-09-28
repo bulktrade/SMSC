@@ -21,9 +21,9 @@ export class CrudMetaDataPage {
     // check order property
     public firstFieldInForm = element(by.css('#dynamicForm > div:nth-of-type(1) md-input'));
 
-    public countryEdit = element(by.css('.ag-body-container > div:nth-of-type(7) .editIcon'));
-    public companyNameEdit = element(by.css('.ag-body-container > div:nth-of-type(5) .editIcon'));
-    public customerIdEdit = element(by.css('.ag-body-container > div:nth-of-type(10) .editIcon'));
+    public countryEdit = element.all(by.xpath('.//*[.="country"]/preceding-sibling::div')).get(2);
+    public companyNameEdit = element.all(by.xpath('.//*[.="companyName"]/preceding-sibling::div')).get(2);
+    public customerIdEdit = element.all(by.xpath('.//*[.="customerId"]/preceding-sibling::div')).get(2);
 
     public visibleInput = element(by.css('.visible'));
     public editableInput = element(by.css('.editable'));
