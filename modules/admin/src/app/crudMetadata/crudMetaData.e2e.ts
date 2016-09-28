@@ -1,5 +1,5 @@
 import { WaitUntil } from '../pages/common/waitUntilReady';
-import { CrudMetaDataPage } from "../pages/crudMetaData.page";
+import { CrudMetaDataPage } from '../pages/crudMetaData.page';
 
 describe('CrudMetaData', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -34,7 +34,7 @@ describe('CrudMetaData', () => {
         crudMetaDataPage.companyNameField.getAttribute('readonly')
             .then(readonly => {
                 expect(readonly).toBeNull();
-            })
+            });
     });
 
     it('country field should be displayed', () => {
@@ -65,7 +65,7 @@ describe('CrudMetaData', () => {
     });
 
     it('should be change order property', () => {
-        crudMetaDataPage.orderProperty("3");
+        crudMetaDataPage.orderProperty('3');
     });
 
     it('should navigate to the customer', () => {
@@ -82,7 +82,7 @@ describe('CrudMetaData', () => {
         crudMetaDataPage.companyNameField.getAttribute('readonly')
             .then(readonly => {
                 expect(readonly).toBeTruthy();
-            })
+            });
     });
 
     it('country field should be hidden', () => {
@@ -115,7 +115,7 @@ describe('CrudMetaData', () => {
     });
 
     it('should be change order property', () => {
-        crudMetaDataPage.orderProperty("1");
+        crudMetaDataPage.orderProperty('1');
     });
 
     it('should logout', () => {

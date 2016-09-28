@@ -1,5 +1,5 @@
-import { LoginPage } from "./login.page";
-import { WaitUntil } from "./common/waitUntilReady";
+import { LoginPage } from './login.page';
+import { WaitUntil } from './common/waitUntilReady';
 
 export class CrudMetaDataPage {
     public login: LoginPage = new LoginPage();
