@@ -23,5 +23,6 @@ exports.config = objectMerge(commonConfig.config, {
         'chromeOptions': {
             'args': ['show-fps-counter=true']
         }
-    }
+    },
+    baseUrl: 'http://localhost:3000'
 });

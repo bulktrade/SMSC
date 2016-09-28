@@ -12,7 +12,7 @@ describe('Navigation', () => {
 
     //  Sign in
     it('Try to login login', () => {
-        this.dashboard.login_();
+        this.dashboard.login.login();
     });
 
     //  Check page title

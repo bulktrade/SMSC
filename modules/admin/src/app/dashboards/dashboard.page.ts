@@ -1,11 +1,12 @@
 import { browser } from "protractor/built/index";
+import { LoginPage } from '../pages/login.page'
+
 export class Dashboard {
     public dashboard = $('.dashboard');
     public prot = null;
+    public login:LoginPage = new LoginPage();
 
-    constructor() {
-
-    }
+    constructor() { }
 
     get() {
         browser.get('/');
@@ -13,23 +14,6 @@ export class Dashboard {
 
     getTitle() {
         return browser.getTitle();
-    }
-
-    login_() {
-        let ptor = protractor.wrapDriver(browser.driver);
-
-        ptor.wait(protractor.until.elementLocated(by.css('.username input')), 5000)
-            .then(function (el: webdriver.IWebElement) {
-                el.sendKeys('admin');
-                ptor.wait(protractor.until.elementLocated(by.css('.password input')), 5000)
-                    .then(function (elem: webdriver.IWebElement) {
-                        elem.sendKeys('admin');
-                        ptor.wait(protractor.until.elementLocated(by.id('submitButton')), 5000)
-                            .then(function (element: webdriver.IWebElement) {
-                                element.submit();
-                            });
-                    });
-            });
     }
 
     clickOnItemNavDashboard(ptor) {
