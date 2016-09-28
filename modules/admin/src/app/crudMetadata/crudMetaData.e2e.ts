@@ -37,8 +37,8 @@ describe('CrudMetaData', () => {
             })
     });
 
-    it('postcode field should be displayed', () => {
-        expect(crudMetaDataPage.isPresentPostcodeField(false)).toBeTruthy();
+    it('country field should be displayed', () => {
+        expect(crudMetaDataPage.isPresentCountryField(false)).toBeTruthy();
     });
 
     it('order should be descending', () => {
@@ -85,8 +85,8 @@ describe('CrudMetaData', () => {
             })
     });
 
-    it('postcode field should be hidden', () => {
-        crudMetaDataPage.postcodeField.isDisplayed()
+    it('country field should be hidden', () => {
+        crudMetaDataPage.countryField.isDisplayed()
             .then(isDisplayed => {
                 expect(isDisplayed).toBeFalsy();
             });

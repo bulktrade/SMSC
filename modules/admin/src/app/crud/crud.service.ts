@@ -26,7 +26,9 @@ let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
 export class CrudService {
     public crudLevel: Array<CrudLevel> = [];
     public isHint: Array<boolean> = [];
-    public focusedRow: any;
+    public focusedRow;
+    public clickOnDeleteBtn: boolean;
+    public clickOnEditBtn: boolean;
     public multipleSelectValid = false;
     public querySelectors = null;
     public embeddedList = null;
@@ -44,7 +46,8 @@ export class CrudService {
         rowSelection: 'multiple',
         rowHeight: 30,
         columnDefs: [],
-        rowData: []
+        rowData: [],
+        enableSorting: true
     };
 
     private limitCrudLevel: number = 3;
@@ -78,7 +81,7 @@ export class CrudService {
                     'message.createSuccessful', 'orientdb.successCreate');
 
                 this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
-                    [this.gridOptions.rowData[value.node.childIndex]])
+                    [this.focusedRow.data])
                     .then(() => {
                         this.gridOptions.api.setRowData(this.gridOptions.rowData);
                     });
@@ -399,13 +402,23 @@ export class CrudService {
         });
     }
 
-    navigateToEdit() {
-        let id = this.gridOptions.rowData[this.focusedRow]['@rid'];
+    rowClicked(event) {
+        this.focusedRow = event;
+
+        if (this.clickOnDeleteBtn) {
+            this.navigateToDelete(event.data['@rid']);
+            this.clickOnDeleteBtn = false;
+        } else if (this.clickOnEditBtn) {
+            this.navigateToEdit(event.data['@rid']);
+            this.clickOnEditBtn = false;
+        }
+    }
+
+    navigateToEdit(id: number) {
         this.router.navigate([this.parentPath, 'edit', id]);
     }
 
-    navigateToDelete() {
-        let id = this.gridOptions.rowData[this.focusedRow]['@rid'];
+    navigateToDelete(id: number) {
         this.router.navigate([this.parentPath, 'delete', id]);
     }
 
@@ -485,10 +498,10 @@ export class CrudService {
 
         if (readOnly) {
             this.btnRenderer(columnDefs, 'Edit', 30, 'mode_edit', (clickEvent) => {
-                this.navigateToEdit();
+                this.clickOnEditBtn = true;
             });
             this.btnRenderer(columnDefs, 'Delete', 30, 'delete', (clickEvent) => {
-                this.navigateToDelete();
+                this.clickOnDeleteBtn = true;
             });
         }
 
@@ -609,6 +622,7 @@ export class CrudService {
                                         column['field'] = result[i]['property'];
                                         column['hide'] = !result[i]['visible'];
                                         column['width'] = result[i]['columnWidth'];
+                                        column['sort'] = 'asc';
 
                                         this.getPropertyMetadata(column, true, properties);
                                         columnsGrid.push(column);
@@ -616,6 +630,7 @@ export class CrudService {
                                         column['headerName'] =
                                             columnsName[result[i]['name'].toUpperCase()];
                                         column['field'] = result[i]['name'];
+                                        column['sort'] = 'asc';
                                         columnsGrid.push(column);
                                     }
                                 }

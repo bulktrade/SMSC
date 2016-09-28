@@ -16,14 +16,14 @@ export class CrudMetaDataPage {
     public backBtn = element(by.id('back'));
 
     public companyNameField = element(by.css('.companyName input'));
-    public postcodeField = element(by.css('.postcode input'));
+    public countryField = element(by.css('.country input'));
 
     // check order property
     public firstFieldInForm = element(by.css('#dynamicForm > div:nth-of-type(1) md-input'));
 
-    public postcodeEdit = element(by.css('.ag-body-container > div:nth-of-type(7) .editIcon'));
-    public companyNameEdit = element(by.css('.ag-body-container > div:nth-of-type(14) .editIcon'));
-    public customerIdEdit = element(by.css('.ag-body-container > div:nth-of-type(6) .editIcon'));
+    public countryEdit = element(by.css('.ag-body-container > div:nth-of-type(6) .editIcon'));
+    public companyNameEdit = element(by.css('.ag-body-container > div:nth-of-type(4) .editIcon'));
+    public customerIdEdit = element(by.css('.ag-body-container > div:nth-of-type(9) .editIcon'));
 
     public visibleInput = element(by.css('.visible'));
     public editableInput = element(by.css('.editable'));
@@ -43,7 +43,7 @@ export class CrudMetaDataPage {
     }
 
     hideProperty() {
-        this.clickOnPostcodeEdit();
+        this.clickOnCountryEdit();
         this.changeVisibleProperty();
         this.clickOnFormBtn();
         this.clickOnBackBtn();
@@ -69,9 +69,9 @@ export class CrudMetaDataPage {
         this.orderInput.clear();
     }
 
-    isPresentPostcodeField(ready: boolean) {
-        WaitUntil.waitUntil(this.postcodeField, this._ptor, ready);
-        return this.postcodeField.isPresent();
+    isPresentCountryField(ready: boolean) {
+        WaitUntil.waitUntil(this.countryField, this._ptor, ready);
+        return this.countryField.isPresent();
     }
 
     isExistClass(str: string, className: string) {
@@ -83,9 +83,9 @@ export class CrudMetaDataPage {
         this.formBtn.click();
     }
 
-    clickOnPostcodeEdit() {
-        WaitUntil.waitUntil(this.postcodeEdit, this._ptor);
-        this.postcodeEdit.click();
+    clickOnCountryEdit() {
+        WaitUntil.waitUntil(this.countryEdit, this._ptor);
+        this.countryEdit.click();
     }
 
     clickOnCompanyNameEdit() {
