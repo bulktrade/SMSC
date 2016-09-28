@@ -13,8 +13,6 @@ export class CrudMetaDataPage {
     public formMetaDataTag = element(by.tagName('crudMetaFormData'));
     public btnAddRecord = element(by.id('addRow'));
     public crudCreateTag = element(by.tagName('crud-create'));
-    public crudViewTag = element(by.tagName('crud-view'));
-    public btnDeleteRow = element(by.id('deleteRow'));
     public backBtn = element(by.id('back'));
 
     public companyNameField = element(by.css('.companyName input'));
@@ -110,74 +108,51 @@ export class CrudMetaDataPage {
         this.editableInput.click();
     }
 
-    // isEnabledDeleteButton() {
-    //     WaitUntil.waitUntil(this.btnDeleteRow, this.ptor);
-    //     return this.btnDeleteRow.isEnabled();
-    // }
-    //
-    // clickOnDeleteButton() {
-    //     WaitUntil.waitUntil(this.btnDeleteRow, this.ptor);
-    //     return this.btnDeleteRow.click();
-    // }
-    //
     clickOnBackBtn() {
         WaitUntil.waitUntil(this.backBtn, this.ptor);
         this.backBtn.click();
     }
-    //
+
     clickOnFormMetaData() {
         WaitUntil.waitUntil(this.formMetaDataItem, this.ptor);
         this.formMetaDataItem.click();
     }
 
-    //
+
     clickOnMetaData() {
         WaitUntil.waitUntil(this.metaDataItem, this.ptor);
         this.metaDataItem.click();
     }
 
-    //
     clickOnCustomers() {
         WaitUntil.waitUntil(this.customersItem, this.ptor);
         this.customersItem.click();
     }
 
-    //
     clickOnBtnAddRecord() {
         WaitUntil.waitUntil(this.btnAddRecord, this.ptor);
         this.btnAddRecord.click();
     }
 
-    //
     isPresentFormMetaData() {
         WaitUntil.waitUntil(this.formMetaDataTag, this.ptor);
         return this.formMetaDataTag.isPresent();
     }
 
-    //
     isPresentLogo() {
         WaitUntil.waitUntil(this.logo, this.ptor);
         return this.logo.isPresent();
     }
 
-    //
     isPresentCrudCreateTag() {
         WaitUntil.waitUntil(this.crudCreateTag, this.ptor);
         return this.crudCreateTag.isPresent();
     }
 
-    //
-    // isPresentCrudViewTag() {
-    //     WaitUntil.waitUntil(this.crudViewTag, this.ptor);
-    //     return this.crudViewTag.isPresent();
-    // }
-    //
     isPresentCustomers() {
         WaitUntil.waitUntil(this.customersTag, this.ptor);
         return this.customersTag.isPresent();
     }
-
-    // getters and setters
 
     get ptor() {
         return this._ptor;
