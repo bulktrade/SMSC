@@ -2,7 +2,7 @@ import { browser } from "protractor/built/index";
 import { LoginPage } from '../pages/login.page'
 
 export class Dashboard {
-    public dashboard = $('.dashboard');
+    public dashboard = element(by.css('.dashboard'));
     public prot = null;
     public login:LoginPage = new LoginPage();
 
@@ -57,7 +57,7 @@ export class Dashboard {
      * @param prot
      */
     pressCloseFullscreenESC() {
-        $('body').sendKeys(protractor.Key.ESCAPE);
+        element(by.css('body')).sendKeys(protractor.Key.ESCAPE);
         browser.sleep(3000);
     }
 
@@ -69,7 +69,7 @@ export class Dashboard {
         this.clickOnCrudIcon();
 
         try {
-            $$('.box:first-child .view-width button:last-child').each((element, i) => {
+            element.all(by.css('.box:first-child .view-width button:last-child')).each((element, i) => {
                 element.click();
                 browser.sleep(700);
             });
