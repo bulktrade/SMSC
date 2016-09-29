@@ -13,11 +13,11 @@ import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMet
 import {
     MetaDataPropertyBindingParameter
 } from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
-import { DashboardView } from "./dashboards/dashboard.view.component";
-import { DashboardCrudUpdate } from "./dashboards/crud/dashboard.box.update";
-import { DashboardCrudUpdateResolve } from "./dashboards/crud/dashboard.crud.update.resolve";
-import { DashboardCrudCreate } from "./dashboards/crud/dashboard.box.create";
-import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard.crud.create.resolve";
+import { DashboardView } from "./dashboards/dashboard_view.component";
+import { DashboardCrudUpdate } from "./dashboards/crud/dashboard_box_update";
+import { DashboardCrudUpdateResolve } from "./dashboards/crud/dashboard_crud_update.resolve";
+import { DashboardCrudCreate } from "./dashboards/crud/dashboard_box_create";
+import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard_crud_create.resolve";
 import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
 import { CrudLinksetResolve } from "./crud/crudLinkset/crud.linkset.resolve";
 import { Dashboards } from "./dashboards/dashboards.components";
