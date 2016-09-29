@@ -134,26 +134,23 @@ export class GridService {
                         this.database.load(rid)
                             .then(res => {
                                 let result: MetaDataPropertyBindingParameterModel = res.json();
-                                let fromComponent: string =
-                                    result.fromProperty + ' ' + result.operator[0] + ' ?';
+                                let linksetPromises = [];
 
-                                switch (result.combineOperator[0]) {
-                                    case 'AND':
-                                        expression
-                                            .and(fromComponent, result.toProperty);
-                                        break;
-                                    case 'OR':
-                                        expression
-                                            .or(fromComponent, result.toProperty);
-                                        break;
-                                    case 'NOT':
-                                        expression
-                                            .not(fromComponent, result.toProperty);
-                                        break;
-                                    default:
-                                        break;
+                                if (currentCrudLevel.linksetProperty.data.hasOwnProperty('@rid')) {
+                                    if (currentCrudLevel.linksetProperty.data['@rid'] === result.toProperty) {
+                                        linksetPromises.push(this.database.load(currentCrudLevel.linksetProperty.data['@rid'])
+                                            .then(response => {
+                                                let customer = response.json();
+
+                                                customer[currentCrudLevel.linksetProperty.name].forEach(link => {
+                                                    expression
+                                                        .or('@rid = ?', link);
+                                                });
+                                            })
+                                        );
+                                    }
                                 }
-
+                                return Promise.all(linksetPromises);
                             })
                     );
                 }
