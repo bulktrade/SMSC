@@ -112,7 +112,6 @@ export class GridService {
                     if (res.json().result.length) {
                         result = res.json().result[0].titleColumns;
                     }
-                    ;
 
                     resolve(result);
                 }, err => {

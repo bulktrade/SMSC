@@ -9,17 +9,17 @@ export class CrudPage {
     public crudDelete: DeletePage = new DeletePage();
 
     public logo = element(by.id('logo'));
-    public customersItem = element(by.className('customers'));
+    public customersItem = by.className('customers');
     public customersTag = element(by.tagName('customers'));
-    public metaDataItem = element(by.className('crudmetadata'));
-    public gridMetaDataItem = element(by.className('crudmetagriddata'));
+    public metaDataItem = by.className('crudmetadata');
+    public gridMetaDataItem = by.className('crudmetagriddata');
     public gridMetaDataTag = element(by.tagName('crudMetaGridData'));
-    public btnAddRecord = element(by.id('addRow'));
+    public btnAddRecord = by.id('addRow');
     public crudCreateTag = element(by.tagName('crud-create'));
     public crudViewTag = element(by.tagName('crud-view'));
-    public btnDeleteRow = element(by.id('deleteRow'));
-    public deleteIcon = element(by.css('.ag-body-container > div:first-of-type .deleteIcon'));
-    public backBtn = element(by.id('back'));
+    public btnDeleteRow = by.id('deleteRow');
+    public deleteIcon = by.css('.ag-body-container > div:first-of-type .deleteIcon');
+    public backBtn = by.id('back');
 
     private _ptor;
 
@@ -34,44 +34,81 @@ export class CrudPage {
         browser.get('/admin/customers');
     }
 
+    deleteRecordsOnSecondLevel() {
+        return new Promise((resolve, reject) => {
+            this.clickOnBtnAddRecord()
+                .then(() => {
+                    this.crudCreate.clickOnContactsLinksetBtn()
+                        .then(() => {
+                            this.crudCreate.clickOnSelectAll()
+                                .then(() => {
+                                    this.clickOnDeleteButton()
+                                        .then(() => {
+                                            this.crudDelete.clickOnOkBtn()
+                                                .then((res) => {
+                                                    resolve(res);
+                                                }, err => {
+                                                    reject(err);
+                                                });
+                                        });
+                                });
+                        });
+                });
+        });
+    }
+
     isEnabledDeleteButton() {
         WaitUntil.waitUntil(this.btnDeleteRow, this.ptor);
-        return this.btnDeleteRow.isEnabled();
+        return element(this.btnDeleteRow).isEnabled();
     }
 
     clickOnDeleteButton() {
-        WaitUntil.waitUntil(this.btnDeleteRow, this.ptor);
-        return this.btnDeleteRow.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.btnDeleteRow), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnDeleteIcon() {
-        WaitUntil.waitUntil(this.deleteIcon, this.ptor);
-        return this.deleteIcon.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.deleteIcon), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnBackBtn() {
-        WaitUntil.waitUntil(this.backBtn, this.ptor);
-        this.backBtn.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.backBtn), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnGridMetaData() {
-        WaitUntil.waitUntil(this.gridMetaDataItem, this.ptor);
-        this.gridMetaDataItem.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.gridMetaDataItem), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnMetaData() {
-        WaitUntil.waitUntil(this.metaDataItem, this.ptor);
-        this.metaDataItem.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.metaDataItem), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnCustomers() {
-        WaitUntil.waitUntil(this.customersItem, this.ptor);
-        this.customersItem.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.customersItem), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnBtnAddRecord() {
-        WaitUntil.waitUntil(this.btnAddRecord, this.ptor);
-        this.btnAddRecord.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.btnAddRecord), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     isPresentGridMetaData() {
@@ -98,8 +135,6 @@ export class CrudPage {
         WaitUntil.waitUntil(this.customersTag, this.ptor);
         return this.customersTag.isPresent();
     }
-
-    // getters and setters
 
     get ptor() {
         return this._ptor;
