@@ -78,6 +78,7 @@ export class MultipleSelect {
             this.crudService.model[this.property.property] :
             this.crudService.model[this.property.property].split(',');
         let model = [];
+        model['type'] = this.property.type;
 
         for (let i in this.ridItems) {
             if (this.ridItems[i].visible) {

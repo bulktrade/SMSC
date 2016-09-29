@@ -10,6 +10,10 @@ describe('App', () => {
     });
 
     it('should have a title', () => {
+        let width = 1980,
+            height = 1020;
+        ptor.manage().window().setSize(width, height);
+
         this.apptest.get();
         let subject = browser.getTitle();
         let result = 'SMSC Admin';
