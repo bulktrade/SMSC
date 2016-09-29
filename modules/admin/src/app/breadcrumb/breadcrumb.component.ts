@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BreadcrumbService } from './breadcrumb.service';
@@ -17,7 +17,6 @@ import { BreadcrumbService } from './breadcrumb.service';
     ]
 })
 
-@Injectable()
 export class Breadcrumb {
     public breadcrumb: BreadcrumbService;
 
