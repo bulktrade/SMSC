@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, NgModule } from "@angular/core";
 import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
 
 @Component({

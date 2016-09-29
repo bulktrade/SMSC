@@ -58,6 +58,8 @@ export class DynamicForm {
     imports: [
         CommonModule,
         FormsModule,
+        TranslateModule,
+        LoadingGridModule,
         MdSelectModule.forRoot(),
         MultipleSelectModule.forRoot(),
         MdModule.forRoot(),
@@ -68,10 +70,10 @@ export class DynamicForm {
     declarations: [DynamicForm]
 })
 export class DynamicFormModule {
-    static forRoot(): ModuleWithProviders {
+    /*static forRoot(): ModuleWithProviders {
         return {
             ngModule: DynamicFormModule,
             providers: []
         };
-    }
+    }*/
 }

@@ -3,12 +3,12 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Breadcrumb } from '../breadcrumb/breadcrumb.component';
 
 @Component({
+    providers: [Breadcrumb],
     selector: 'customers',
     template: require('./customers.html'),
     styleUrls: [
         require('./customers.scss')
-    ],
-    providers: [Breadcrumb]
+    ]
 })
 
 export class Customers {

@@ -16,7 +16,6 @@ export class DashboardCrudUpdate {
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
-                private dashboardService: DashboardService,
                 public crudService: CrudService,
                 public location: Location) {
 

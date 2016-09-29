@@ -12,6 +12,7 @@ import { DashboardResizeConfig } from "./dashboard.resize.config";
 import { CrudService } from "../crud/crud.service";
 import { BoxSizes } from "./models/dashboard.box.sizes";
 import { DashboardListItem } from "./models/dashboard.list.item";
+import {Breadcrumb} from "../breadcrumb/breadcrumb.component";
 
 @Component({
     selector: 'dashboard-view',
@@ -21,7 +22,7 @@ import { DashboardListItem } from "./models/dashboard.list.item";
     ],
     viewProviders: [
         DragulaService
-    ]
+    ],
 })
 export class DashboardView {
     public boxesCss: DashboardList<string> = new DashboardList<string>();
@@ -32,6 +33,7 @@ export class DashboardView {
                 private  dashboardService: DashboardService,
                 private router: Router,
                 public crudService: CrudService) {
+        console.log(Breadcrumb);
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal'
         });

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Http, HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { App } from './app.component';
-import { Breadcrumb } from './breadcrumb/breadcrumb.component';
+import {Breadcrumb, BreadcrumbModule} from './breadcrumb/breadcrumb.component';
 import { ROUTES } from './app.routes';
 import { Login } from './login/login.component';
 import { Navigation } from './navigation/navigation.component';
@@ -45,13 +45,13 @@ import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard.crud.cre
 import { DashboardService } from "./dashboards/dashboardService";
 import { SidebarService } from "./sidebar/sidebarService";
 import { OrderBy } from "./dashboards/sorts/orderby";
-import { Dashboards } from "./dashboards/dashboards.components";
+import {DashboardModule} from "./dashboards/dashboard.module";
 import { DashboardView } from "./dashboards/dashboard.view.component";
 import { DashboardBoxComponent } from "./dashboards/dashboard.box.component";
 import { DashboardCrudUpdate } from "./dashboards/crud/dashboard.box.update";
 import { DashboardCrudCreate } from "./dashboards/crud/dashboard.box.create";
 import { MdSelectModule } from "./common/material/select/select";
-import { DynamicFormModule } from "./dynamicForm/dynamic.form";
+import { DynamicForm} from "./dynamicForm/dynamic.form";
 import { DragulaModule } from "ng2-dragula/ng2-dragula";
 import { Dashboard } from "./dashboards/dashboard.component";
 import { DashboardBox } from './dashboards/models/dashboardBox';
@@ -73,7 +73,6 @@ export const APP_PROVIDERS = [
     AppState,
     DashboardCrudUpdateResolve,
     DashboardCrudCreateResolve,
-    DashboardService,
     SidebarService,
     //DashboardBox
 ];
@@ -88,19 +87,11 @@ export const APP_PROVIDERS = [
         Navigation,
         Customers,
         NotFound,
-        Breadcrumb,
         CrudMetaData,
         CrudMetaFormData,
         CrudClassMetaData,
         CrudMetaGridData,
         MetaDataPropertyBindingParameter,
-        OrderBy,
-        Dashboard,
-        Dashboards,
-        DashboardView,
-        DashboardBoxComponent,
-        DashboardCrudUpdate,
-        DashboardCrudCreate
     ],
     imports: [
         LoadingRouterOutletModule,
@@ -118,10 +109,9 @@ export const APP_PROVIDERS = [
             deps: [Http, ConfigService]
         }),
         SimpleNotificationsModule,
-        CrudModule.forRoot(),
-        DragulaModule,
-        //MdSelectModule,
-        //DynamicFormModule
+        CrudModule,
+        DashboardModule,
+        BreadcrumbModule.forRoot()
     ],
     providers: [
         ConfigService,

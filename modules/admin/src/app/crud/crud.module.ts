@@ -16,9 +16,9 @@ import { AgGridModule } from 'ag-grid-ng2';
 import { GridPaginationModule } from './directives/gridPagination/gridPagination';
 import { LoadingGridModule } from '../common/loadingGrid';
 import { FormsModule } from '@angular/forms';
-import { MultipleSelect } from './directives/multipleSelect/multipleSelect.component';
+import {MultipleSelectModule} from './directives/multipleSelect/multipleSelect.component';
 import { MdSelectModule } from '../common/material/select/select';
-import { DynamicForm } from '../dynamicForm/dynamic.form';
+import {DynamicFormModule} from '../dynamicForm/dynamic.form';
 
 const CRUD_DECLARATIONS = [
     Crud,
@@ -26,9 +26,7 @@ const CRUD_DECLARATIONS = [
     CrudEdit,
     CrudLinkset,
     CrudDelete,
-    DynamicForm,
-    CrudCreate,
-    MultipleSelect
+    CrudCreate
 ];
 
 const CRUD_MODULES = [
@@ -43,10 +41,14 @@ const CRUD_MODULES = [
     BrowserModule,
     TranslateModule,
     AgGridModule.forRoot(),
+    DynamicFormModule,
+    MultipleSelectModule
 ];
 
 @NgModule({
-    imports: [CRUD_MODULES],
+    imports: [
+        CRUD_MODULES,
+    ],
     exports: [CRUD_DECLARATIONS],
     declarations: [CRUD_DECLARATIONS],
     providers: [CrudService, TranslateService]
