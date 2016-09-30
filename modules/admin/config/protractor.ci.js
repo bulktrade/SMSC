@@ -28,8 +28,8 @@ exports.config = objectMerge(commonConfig.config, {
     multiCapabilities: [
         {
             browserName: 'Chrome',
-            os: 'OS X',
-            name: 'Chrome on OS X'
+            os: 'Linux',
+            name: 'Chrome on Linux'
         },
         // {
         //     'browserName': 'Safari'
