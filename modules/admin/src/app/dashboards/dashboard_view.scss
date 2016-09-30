@@ -1,0 +1,175 @@
+$color-1: #AAB5BC;
+$color-2: #2ab4c0;
+$color-3: #f36a5a;
+$color-4: #5C9BD1;
+$color-5: #8877a9;
+$color-6: #AAB5BC;
+$color-7: #009688;
+$color-8: #fff;
+$color-9: #000;
+
+#dashboard {
+    margin-bottom: 15px;
+    //position: relative;
+
+    .rectangle {
+        background-color: #FD4140;
+        border: solid 1px #121621;
+        color: #121621;
+    }
+
+    .width-m {
+        flex-basis: 25% !important;
+    }
+    .width-s {
+        flex-basis: 50% !important;
+    }
+    .width-l {
+        flex-basis: 75% !important;
+    }
+    .width-xl {
+        flex-basis: 100% !important;
+    }
+    .height-m {
+        height: 250px !important;
+    }
+    .height-s {
+        height: 350px !important;
+    }
+    .height-l {
+        height: 500px !important;
+    }
+    .height-xl {
+        height: 82vh !important;
+    }
+    > div.boxes-container {
+        display: flex;
+        max-width: 100%;
+        padding: 0px;
+        > .box{
+            padding-right: 10px;
+            transition: all 300ms ease-in;
+        }
+        &.boxes-container {
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            > div {
+                flex-basis: 25%;
+                min-width: 25%;
+                display: inline-block;
+                position: relative;
+                padding-right: 5px;
+                padding-bottom: 5px;
+                transition: all 300ms ease-in;
+                &:last-child {
+                    margin-right: 0px;
+                }
+                dashboard-box {
+                    height: 100%;
+                    width: 100%;
+                    display: block;
+                    transition: all 300ms ease-in;
+                    &.status {
+                        //height: 175px;
+                    }
+                    &.chart {
+                        //min-height: 500px;
+                    }
+                    &.removeBox {
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+    }
+
+        //  Top toolbar(add)
+    .topToolbar{
+        text-align: right;
+        padding-right: 30px;
+        position: absolute;
+        top: 100px;
+        right: 0px;
+    }
+
+    .toolButton {
+        position: relative;
+        display: inline-table;
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+        background: $color-7;
+        text-align: center;
+        cursor: pointer;
+        transition: all 150ms ease-in;
+        &:hover{
+            background: $color-9;
+        }
+        i{
+            display: table-cell;
+            vertical-align: middle;
+            color: $color-8;
+        }
+    }
+}
+
+//  Dragula
+.gu-mirror {
+    position: fixed !important;
+    margin: 0 !important;
+    z-index: 9999 !important;
+    opacity: .8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+}
+
+.gu-hide {
+    display: none !important;
+}
+
+.gu-unselectable {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+
+.gu-transit {
+    opacity: .2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+}
+
+@media (max-width: 1280px) {
+    #dashboard {
+        .width-m {
+            flex-basis: 50% !important;
+        }
+        .width-s {
+            flex-basis: 50% !important;
+        }
+        .width-l {
+            flex-basis: 100% !important;
+        }
+        .width-xl {
+            flex-basis: 100% !important;
+        }
+    }
+}
+
+@media (max-width: 780px) {
+    #dashboard {
+        .width-m {
+            flex-basis: 100% !important;
+        }
+        .width-s {
+            flex-basis: 100% !important;
+        }
+        .width-l {
+            flex-basis: 100% !important;
+        }
+        .width-xl {
+            flex-basis: 100% !important;
+        }
+    }
+}

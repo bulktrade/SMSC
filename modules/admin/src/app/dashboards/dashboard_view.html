@@ -1,0 +1,45 @@
+<breadcrumb></breadcrumb>
+<loading-router-outlet></loading-router-outlet>
+
+<div id="dashboard" class="wrapper">
+    <!--<router-outlet></router-outlet>-->
+    <loading-router-outlet></loading-router-outlet>
+    <div class="topToolbar">
+        <div class="add toolButton" (click)="createBox()">
+            <i class="material-icons">add</i>
+        </div>
+    </div>
+    <div class="boxes-container container" [dragula]='"status-bag"'>
+        <div *ngFor="let item of boxes.getAll() | orderby : {key: 'order', direction: 'ascending'}; let i = index; let last = last"
+             [ngClass]="[boxesCss.height.getItem(i), boxesCss.width.getItem(i)]" attr.data-boxrid="{{item.metaData.rid}}"
+             class="box {{item.type.name}}"
+        >
+            <dashboard-box class="status" [ngClass]="boxesCss.remove.getItem(i)" *ngIf="item.type.name == 'status'"
+                           (resizeBox)="resizeBox($event, i, item)"
+                           [config]="{
+                                'type': 'status',
+                                'name': 'profit',
+                                'header': '7001 ',
+                                'subHeader': item.name,
+                                'width': item.width,
+                                'height': item.height,
+                                'icon': 'account_balance_wallet',
+                                'customData': {
+                                    'processStatus': 'Progress',
+                                    'percent': '75'
+                                }
+                            }" (removeBox)="removeBox(item, i)" (editBox)="editBox(item.metaData.rid)"
+            ></dashboard-box>
+            <dashboard-box class="chart" [ngClass]="boxesCss.remove.getItem(i)" *ngIf="item.type.name == 'chart'"
+                           [config]="{
+                                'type': 'chart',
+                                'header': item.name,
+                                'subHeader': item.description,
+                                'width': item.width,
+                                'height': item.height
+                            }" (resizeBox)="resizeBox($event, i, item)" (removeBox)="removeBox(item, i)"
+                           (editBox)="editBox(item.metaData.rid)"
+            ></dashboard-box>
+        </div>
+    </div>
+</div>
