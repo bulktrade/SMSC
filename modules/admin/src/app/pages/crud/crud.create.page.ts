@@ -11,8 +11,8 @@ export class CreatePage {
     public overlay = element(by.id('overlay'));
 
     public selectElements = {
-        contacts: element(by.css('.contacts #add')),
-        users: element(by.css('.users #add'))
+        contacts: by.css('.contacts #add'),
+        users: by.css('.users #add')
     };
 
     public embeddedListElements = {
@@ -104,43 +104,44 @@ export class CreatePage {
         return Promise.all(promises);
     }
 
+    chooseContacts() {
+        return this._ptor.wait(protractor.until.elementLocated(this.selectElements.contacts), 5000)
+            .then((el: webdriver.IWebElement) => {
+                el.click();
+
+                return this.createRecordOnSecondLevel()
+                    .then(() => {
+                        return this.clickOnSelectAll()
+                            .then(() => {
+                                return this.clickOnAddLinkBtn();
+                            });
+                    });
+            });
+    }
+
+    chooseUsers() {
+        return this._ptor.wait(protractor.until.elementLocated(this.selectElements.users), 5000)
+            .then((el: webdriver.IWebElement) => {
+                el.click();
+
+                return this.clickOnSelectAll()
+                    .then(() => {
+                        this.clickOnAddLinkBtn()
+                            .then(() => {
+                                this.clickOnFormBtn()
+                                    .then(() => {
+                                        this.clickOnBackBtn();
+                                    });
+                            });
+                    });
+            });
+    }
+
     fillLinkset() {
-        let promises = [];
-
-        for (let i in this.selectElements) {
-            if (this.selectElements.hasOwnProperty(i)) {
-                promises.push(
-                    this._ptor.wait(this.selectElements[i], 5000)
-                        .then((el: webdriver.IWebElement) => {
-                            el.click();
-
-                            if (i === 'contacts') {
-                                this.createRecordOnSecondLevel()
-                                    .then(() => {
-                                        this.clickOnSelectAll()
-                                            .then(() => {
-                                                this.clickOnAddLinkBtn();
-                                                browser.sleep(1000);
-                                            });
-                                    });
-                            } else {
-                                this.clickOnSelectAll()
-                                    .then(() => {
-                                        this.clickOnAddLinkBtn()
-                                            .then(() => {
-                                                this.clickOnFormBtn()
-                                                    .then(() => {
-                                                        this.clickOnBackBtn();
-                                                    });
-                                            });
-                                    });
-                            }
-                        })
-                );
-            }
-        }
-
-        return Promise.all(promises);
+        return this.chooseContacts()
+            .then(() => {
+                return this.chooseUsers();
+            })
     }
 
     isHideOverlay() {
