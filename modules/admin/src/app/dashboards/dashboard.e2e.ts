@@ -33,6 +33,11 @@ describe('Navigation', () => {
         });
     });
 
+    //  Create box
+    it('Create box', () => {
+        this.dashboard.createBox();
+    });
+
     //  Drag and drop box
     it('Drag and drop box', () => {
        //this.dashboard.dragAndDrop();
@@ -51,11 +56,6 @@ describe('Navigation', () => {
     //  Open/Close crud box tool
     it('Open/Close crud box tool', () => {
        this.dashboard.toggleCloseIcon();
-    });
-
-    //  Create box
-    it('Create box', () => {
-        this.dashboard.createBox();
     });
 
     //  Open box crud tool and go to edit form
