@@ -17,14 +17,14 @@ exports.config = objectMerge(commonConfig.config, {
     sauceSeleniumAddress: 'localhost:4445/wd/hub',
 
     multiCapabilities: [
-        /* {
-         browserName: 'chrome',
-         platform: 'OS X 10.11',
-         name: "chrome-osx-tests",
-         shardTestFiles: true,
-         build: process.env.TRAVIS_BUILD_NUMBER,
-         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-         } ,
+        {
+            browserName: 'chrome',
+            platform: 'OS X 10.11',
+            name: "chrome-osx-tests",
+            shardTestFiles: true,
+            build: process.env.TRAVIS_BUILD_NUMBER,
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+        } /*,
          {
          browserName: 'firefox',
          platform: 'OS X 10.11',
@@ -32,14 +32,13 @@ exports.config = objectMerge(commonConfig.config, {
          build: process.env.TRAVIS_BUILD_NUMBER,
          'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
          },
-         */
-        {
-            browserName: 'chrome',
-            platform: 'Linux',
-            name: "chrome-linux-tests",
-            build: process.env.TRAVIS_BUILD_NUMBER,
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        } /*,
+         {
+         browserName: 'chrome',
+         platform: 'Linux',
+         name: "chrome-linux-tests",
+         build: process.env.TRAVIS_BUILD_NUMBER,
+         'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+         } /*,
          {
          browserName: 'firefox',
          platform: 'Linux',
