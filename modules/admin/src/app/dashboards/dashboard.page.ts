@@ -200,7 +200,6 @@ export class Dashboard {
      * @param prot
      */
     removeBox() {
-        this.clickOnCrudIcon();
         this.clickBySelector('.box:first-child .crud .remove', 1000);
     }
 

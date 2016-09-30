@@ -3,6 +3,7 @@ import {Dashboard} from './dashboard.page';
 describe('Navigation', () => {
     let prot = protractor.wrapDriver(browser.driver);
 
+    //browser.get('/');
     browser.get('/admin/');
 
     beforeEach(() => {
@@ -38,36 +39,36 @@ describe('Navigation', () => {
         this.dashboard.createBox();
     });
 
-    //  Drag and drop box
-    it('Drag and drop box', () => {
-       //this.dashboard.dragAndDrop();
-    });
+    /*//  Drag and drop box
+     it('Drag and drop box', () => {
+     //this.dashboard.dragAndDrop();
+     });
 
-    //  Switch to fullscreen mode
-    it('Click on fullscreen icon', () => {
-       this.dashboard.clickOnFullscreenIcon(prot);
-    });
+     //  Switch to fullscreen mode
+     it('Click on fullscreen icon', () => {
+     this.dashboard.clickOnFullscreenIcon(prot);
+     });
 
-    //  Switch off fullscreen mode by press Escape key
-    it('Press ESC key', () => {
-        this.dashboard.pressCloseFullscreenESC();
-    });
+     //  Switch off fullscreen mode by press Escape key
+     it('Press ESC key', () => {
+     this.dashboard.pressCloseFullscreenESC();
+     });
 
-    //  Open/Close crud box tool
-    it('Open/Close crud box tool', () => {
-       this.dashboard.toggleCloseIcon();
-    });
+     //  Open/Close crud box tool
+     it('Open/Close crud box tool', () => {
+     this.dashboard.toggleCloseIcon();
+     });
 
-    //  Open box crud tool and go to edit form
-    it('Open edit form and save', () => {
-        this.dashboard.editBox();
-    });
+     //  Open box crud tool and go to edit form
+     it('Open edit form and save', () => {
+     this.dashboard.editBox();
+     });
 
-    //  Change size mode
-    it('Switch height box mode', () => {
-        this.dashboard.clickOnSizeButtons();
-    });
-
+     //  Change size mode
+     it('Switch height box mode', () => {
+     this.dashboard.clickOnSizeButtons();
+     });
+     */
     //  Remove box
     it('Remove box', () => {
         this.dashboard.removeBox();
