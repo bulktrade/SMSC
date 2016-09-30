@@ -9,7 +9,7 @@ export class Dashboard {
     constructor() { }
 
     get() {
-        browser.get('/');
+        browser.get('/admin');
     }
 
     getTitle() {
