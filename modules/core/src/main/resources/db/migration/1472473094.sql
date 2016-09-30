@@ -11,7 +11,7 @@ if ($DashboardBox.size() == 0) {
 
   ALTER PROPERTY Dashboard.name MANDATORY true
   ALTER PROPERTY Dashboard.icon MANDATORY true
-  ALTER PROPERTY Dashboard.icon MANDATORY true
+  ALTER PROPERTY Dashboard.user MANDATORY true
 
   CREATE INDEX UNIQUE_NAME_USER ON Dashboard (name, user) UNIQUE
 
@@ -34,7 +34,7 @@ if ($DashboardBox.size() == 0) {
     ALTER PROPERTY DashboardBoxType.code MANDATORY true
     ALTER PROPERTY DashboardBoxType.codeLanguage CUSTOM type='SQL,JavaScript'
 
-    CREATE INDEX UNIQUE_NAME ON DashboardBoxType name UNIQUE
+    CREATE INDEX DashboardBoxType.name UNIQUE
 
     let statusType = INSERT INTO DashboardBoxType SET name = 'status', code = '', codeLanguage = 'SQL'
     let chartType = INSERT INTO DashboardBoxType SET name = 'chart', code = '', codeLanguage = 'SQL'
