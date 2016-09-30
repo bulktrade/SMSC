@@ -48,7 +48,8 @@ testing.TestBed.initTestEnvironment(
  * we say do this recursively
  */
 var firstTestContext = require.context('../src/app/config', false, /configService\.spec\.ts/);
-var testContext = require.context('../src', true, /dashboard_box_create\.spec\.ts/);
+//var testContext = require.context('../src', true, /dashboard_box_create\.spec\.ts/);
+var testContext = require.context('../src', true, /\.spec\.ts/);
 
 /*
  * get all the files, for each file, call the context function
