@@ -78,7 +78,7 @@ export class Dashboard {
         }
     }
 
-    dragAndDrop() {
+    /*dragAndDrop() {
         this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000).then((el) => {
             el.getLocation().then((location) => {
                 this.prot.manage().window().getSize().then((size) => {
@@ -99,7 +99,7 @@ export class Dashboard {
                 });
             });
         });
-    }
+    }*/
 
     /**
      * Fill edit/create form
