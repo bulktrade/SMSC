@@ -23,10 +23,6 @@ export class DashboardService {
 
     }
 
-    public test() {
-        return true;
-    }
-
     /**
      * Get dashboard boxes
      *
