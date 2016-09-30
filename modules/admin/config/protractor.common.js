@@ -9,7 +9,6 @@ exports.config = {
         //helpers.root('src/**/**.e2e.ts'),
         //helpers.root('src/**/*.e2e.ts')
         helpers.root('src/**/dashboard.e2e.ts')
-        //helpers.root('src/**/app.e2e.ts')
     ],
     exclude: [],
 

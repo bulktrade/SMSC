@@ -1,7 +1,6 @@
 import {NgModule, ModuleWithProviders} from "@angular/core";
-import {CommonModule} from '@angular/common/index';
 import {FormsModule} from "@angular/forms";
-import {MdSelect, MdSelectModule} from "../common/material/select/select";
+import {MdSelectModule} from "../common/material/select/select";
 import {DashboardService} from "./dashboardService";
 import {OrderBy} from "./sorts/orderby";
 import {Dashboard} from "./dashboard.component";
@@ -19,7 +18,7 @@ import {CubeGridModule} from "../common/spinner/cubeGrid/cubeGrid.component";
 import {LoadingGridModule} from "../common/loadingGrid";
 import {AlertModule} from "ng2-bootstrap";
 import {CrudService} from "../crud/crud.service";
-import {Breadcrumb, BreadcrumbModule} from "../breadcrumb/breadcrumb.component";
+import {BreadcrumbModule} from "../breadcrumb/breadcrumb.component";
 import {DragulaModule} from "ng2-dragula/ng2-dragula";
 import {DynamicFormModule} from "../dynamicForm/dynamic.form";
 import {Dashboards} from "./dashboards.components";
