@@ -3,9 +3,11 @@ import {Dashboard} from './dashboard.page';
 describe('Navigation', () => {
     let prot = protractor.wrapDriver(browser.driver);
 
+    browser.get('/admin/');
+
     beforeEach(() => {
         this.dashboard = new Dashboard();
-        this.dashboard.get();
+        //this.dashboard.get();
         prot = protractor.wrapDriver(browser.driver);
         this.dashboard.prot = prot;
     });
