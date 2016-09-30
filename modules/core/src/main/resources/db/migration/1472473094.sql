@@ -49,14 +49,16 @@ if ($DashboardBox.size() == 0) {
 
     CREATE Class DashboardBox
 
-    CREATE PROPERTY DashboardBox.size INTEGER
+    CREATE PROPERTY DashboardBox.width INTEGER
+    CREATE PROPERTY DashboardBox.height INTEGER
     CREATE PROPERTY DashboardBox.order INTEGER
     CREATE PROPERTY DashboardBox.name STRING
     CREATE PROPERTY DashboardBox.description STRING
     CREATE PROPERTY DashboardBox.dashboard LINK Dashboard
     CREATE PROPERTY DashboardBox.type LINK DashboardBoxType
 
-    ALTER PROPERTY DashboardBox.size MANDATORY true
+    ALTER PROPERTY DashboardBox.width MANDATORY true
+    ALTER PROPERTY DashboardBox.height MANDATORY true
     ALTER PROPERTY DashboardBox.order MANDATORY true
     ALTER PROPERTY DashboardBox.name MANDATORY true
     ALTER PROPERTY DashboardBox.description MANDATORY true
@@ -65,13 +67,13 @@ if ($DashboardBox.size() == 0) {
 
     CREATE INDEX UNIQUE_DASHBOARD_ORDER ON DashboardBox (dashboard, order) UNIQUE
 
-    INSERT INTO DashboardBox SET size = 25, order = 1, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid']
-    INSERT INTO DashboardBox SET size = 25, order = 2, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid']
-    INSERT INTO DashboardBox SET size = 25, order = 3, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid']
-    INSERT INTO DashboardBox SET size = 25, order = 4, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid']
+    INSERT INTO DashboardBox SET width = 25, height = 25, order = 1, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid'], name = 'Box 1', description = 'Box 1 desc'
+    INSERT INTO DashboardBox SET width = 25, height = 25, order = 2, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid'], name = 'Box 2', description = 'Box 2 desc'
+    INSERT INTO DashboardBox SET width = 25, height = 25, order = 3, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid'], name = 'Box 3', description = 'Box 3 desc'
+    INSERT INTO DashboardBox SET width = 25, height = 25, order = 4, dashboard = $defaultDashboard['@rid'], type = $statusType['@rid'], name = 'Box 4', description = 'Box 4 desc'
 
-    INSERT INTO DashboardBox SET size = 50, order = 5, dashboard = $defaultDashboard['@rid'], type = $chartType['@rid']
-    INSERT INTO DashboardBox SET size = 50, order = 6, dashboard = $defaultDashboard['@rid'], type = $chartType['@rid']
+    INSERT INTO DashboardBox SET width = 50, height = 25, order = 5, dashboard = $defaultDashboard['@rid'], type = $chartType['@rid'], name = 'Box 5', description = 'Box 5 desc'
+    INSERT INTO DashboardBox SET width = 50, height = 25, order = 6, dashboard = $defaultDashboard['@rid'], type = $chartType['@rid'], name = 'Box 6', description = 'Box 6 desc'
 
     console.log "Creating process for DashboardBox class is done."
   }
