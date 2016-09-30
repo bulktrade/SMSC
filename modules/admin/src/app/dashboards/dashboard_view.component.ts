@@ -33,6 +33,7 @@ export class DashboardView {
                 private  dashboardService: DashboardService,
                 private router: Router,
                 public crudService: CrudService) {
+        console.log(Breadcrumb);
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal'
         });
@@ -197,7 +198,6 @@ export class DashboardView {
      * Navigate to create page
      */
     createBox() {
-        this.router.navigateByUrl('/dashboard/create/DashboardBox');
-        //this.router.navigate(['/dashboard/create', 'DashboardBox']);
+        this.router.navigate(['/dashboard/create', 'DashboardBox']);
     }
 }
