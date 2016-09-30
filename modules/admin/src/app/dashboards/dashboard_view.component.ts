@@ -198,6 +198,7 @@ export class DashboardView {
      * Navigate to create page
      */
     createBox() {
-        this.router.navigate(['/dashboard/create', 'DashboardBox']);
+        this.router.navigateByUrl('/dashboard/create/DashboardBox');
+        //this.router.navigate(['/dashboard/create', 'DashboardBox']);
     }
 }
