@@ -117,11 +117,13 @@ export class Dashboard {
         this.inputText('DESCRIPTION', 'Box description');
         //  Enter order field
         this.inputText('ORDER', '0');
-
+        browser.sleep(1000);
         //  Select width option
         this.clickSelectOption('md-select[ng-reflect-class-name="width"] select', 2);
+        browser.sleep(1000);
         //  Select height option
         this.clickSelectOption('md-select[ng-reflect-class-name="height"] select', 2);
+        browser.sleep(1000);
 
         //  Select "type"
         this.selectLinkset('multiple-select[ng-reflect-class-name="type"] md-icon#add');
