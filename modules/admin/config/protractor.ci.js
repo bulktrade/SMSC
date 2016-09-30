@@ -17,21 +17,21 @@ exports.config = objectMerge(commonConfig.config, {
     sauceSeleniumAddress: 'localhost:4445/wd/hub',
 
     multiCapabilities: [
-        /*{
+        {
             browserName: 'chrome',
             platform: 'OS X 10.11',
             name: "chrome-osx-tests",
             shardTestFiles: true,
             build: process.env.TRAVIS_BUILD_NUMBER,
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-        } ,
+        } /*,
          {
          browserName: 'firefox',
          platform: 'OS X 10.11',
          name: "firefox-osx-tests",
          build: process.env.TRAVIS_BUILD_NUMBER,
          'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
-         },*/
+         },
          {
          browserName: 'chrome',
          platform: 'Linux',
