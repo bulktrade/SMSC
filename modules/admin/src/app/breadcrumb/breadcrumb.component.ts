@@ -1,4 +1,4 @@
-import {Component, Injectable, ModuleWithProviders} from '@angular/core';
+import {Component, ModuleWithProviders} from '@angular/core';
 import {TranslateService, TranslateModule} from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BreadcrumbService } from './breadcrumb.service';

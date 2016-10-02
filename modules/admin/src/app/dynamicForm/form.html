@@ -1,13 +1,6 @@
 <div class="addingForm">
 	<loading-grid>
-        <md-toolbar _ngcontent-gmm-27="" class="title md-primary" color="primary" ng-reflect-color="primary">
-            <div class="md-toolbar-layout">
-                <md-toolbar-row>
-                    {{btnName | translate}}
-                </md-toolbar-row>
-            </div>
-        </md-toolbar>
-		<form class="form" (submit)="onSubmit()" #addingForm="ngForm">
+		<form class="form" id="dynamicForm" (submit)="onSubmit()" #addingForm="ngForm">
 			<div *ngFor="let item of crudService.gridOptions.columnDefs" [ngSwitch]="item.type">
 				<md-input *ngIf="crudService.typeForInput(item.type)" [placeholder]="item.headerName"
 				          [name]="item.headerName"
@@ -28,7 +21,7 @@
 					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
 					</md-hint>
 				</multiple-select>
-				<md-checkbox *ngSwitchCase="'BOOLEAN'"
+				<md-checkbox *ngSwitchCase="'BOOLEAN'" class="{{item.property}}"
 				             [(ngModel)]="crudService.model[item.property]" [name]="item.headerName"
 				             [align]="alignment">
 					{{item.headerName}}
@@ -46,7 +39,7 @@
 			<div class="wrapBtn">
 				<div class="formButtons">
 					<button md-raised-button color="primary" type="button" class="back"
-					        (click)="back()">{{'BACK' | translate}}
+					        (click)="back()" id="back">{{'BACK' | translate}}
 					</button>
 					<button [disabled]="crudService.multipleSelectValid || !addingForm.valid" md-raised-button
 					        color="primary"

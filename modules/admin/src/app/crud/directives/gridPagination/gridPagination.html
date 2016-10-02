@@ -11,7 +11,7 @@
                 <md-icon class="md-24">chevron_left</md-icon>
             </button>
         </div>
-        <div class="page-info">Page {{currentPage + 1}} of more</div>
+        <div class="page-info">Page <span id="currentPage">{{currentPage + 1}}</span> of more</div>
         <div class="next-panel">
             <button [disableRipple]="true" md-icon-button color="primary" id="nextPage" (click)="next()">
                 <md-icon class="md-24">chevron_right</md-icon>
