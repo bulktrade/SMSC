@@ -3,8 +3,8 @@ import {Dashboard} from './dashboard.page';
 describe('Navigation', () => {
     let prot = protractor.wrapDriver(browser.driver);
 
-    //browser.get('/');
-    browser.get('/admin/');
+    browser.get('/');
+    //browser.get('/admin/');
 
     beforeEach(() => {
         this.dashboard = new Dashboard();
