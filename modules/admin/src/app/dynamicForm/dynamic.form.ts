@@ -29,7 +29,7 @@ export class DynamicForm {
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public crudService: CrudService) {
+                public crudService: CrudService) { // @todo solve that problem with duplicate crudService.
     }
 
     onSubmit() {
