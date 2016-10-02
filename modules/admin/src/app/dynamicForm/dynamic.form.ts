@@ -1,4 +1,4 @@
-import { Component, Input, ModuleWithProviders, NgModule } from "@angular/core";
+import { Component, Input, NgModule } from "@angular/core";
 import { CrudService } from "../crud/crud.service";
 import { Location, CommonModule } from "@angular/common";
 import { BtnTypes } from "./btn.types";
@@ -28,7 +28,8 @@ export class DynamicForm {
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
-                public location: Location) {
+                public location: Location,
+                public crudService: CrudService) {
     }
 
     onSubmit() {
@@ -67,13 +68,10 @@ export class DynamicForm {
         LoadingGridModule
     ],
     exports: [DynamicForm],
-    declarations: [DynamicForm]
+    declarations: [DynamicForm],
+    providers: [
+        CrudService
+    ]
 })
 export class DynamicFormModule {
-    /*static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: DynamicFormModule,
-            providers: []
-        };
-    }*/
 }

@@ -15,7 +15,7 @@ export class NavigationTest {
     }
 
     get() {
-        browser.get('/admin');
+        browser.get(browser.baseUrl + '/');
     }
 
     getTitle() {

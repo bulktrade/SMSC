@@ -65,8 +65,8 @@ describe('CRUD', () => {
     });
 
     it('should navigate to the grid meta data', () => {
-        let width = 1980,
-            height = 1020;
+        let width = 1024,
+            height = 768;
 
         ptor.manage().window().setSize(width, height)
             .then(() => {

@@ -3,7 +3,7 @@ import {Dashboard} from './dashboard.page';
 describe('Dashboard', () => {
     let prot = protractor.wrapDriver(browser.driver);
 
-    prot.manage().window().setSize(1024, 1020);
+    prot.manage().window().setSize(1024, 768);
     browser.get(browser.baseUrl + '/');
 
     beforeEach(() => {

@@ -87,23 +87,6 @@ export const ROUTES: Routes = [
                 component: Customers,
                 data: {
                     showInSubNavigation: true,
-                    paramsAsDefault: '',
-                    icon: 'perm_contact_calendar',
-                    crudClass: 'Customer'
-                },
-                children: [
-                    {
-                        path: '',
-                        component: Crud,
-                        children: CRUD_ROUTE_PROVIDER
-                    }
-                ]
-            },
-            {
-                path: 'customers',
-                component: Customers,
-                data: {
-                    showInSubNavigation: true,
                     icon: 'perm_contact_calendar',
                     crudClass: 'Customer'
                 },

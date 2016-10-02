@@ -74,7 +74,7 @@ if ($crudClassMetaData.size() == 0) {
   CREATE PROPERTY CrudClassMetaData.query STRING
 
   CREATE INDEX CrudClassMetaData.class UNIQUE
-  /*CREATE INDEX CrudClassMetaData.titleColumns UNIQUE*/
+  CREATE INDEX CrudClassMetaData.titleColumns UNIQUE
 
   console.log "Creating process for CrudClassMetaData class is done."
 }

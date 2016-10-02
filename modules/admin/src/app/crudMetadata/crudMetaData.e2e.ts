@@ -22,8 +22,8 @@ describe('CrudMetaData', () => {
     });
 
     it('should navigate to the create', () => {
-        let width = 1980,
-            height = 1020;
+        let width = 1024,
+            height = 768;
         ptor.manage().window().setSize(width, height);
 
         crudMetaDataPage.clickOnBtnAddRecord();

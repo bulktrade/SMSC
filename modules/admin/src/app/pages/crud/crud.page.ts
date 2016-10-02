@@ -27,11 +27,11 @@ export class CrudPage {
     }
 
     get() {
-        browser.get('/admin');
+        browser.get(browser.baseUrl + '/');
     }
 
     getCrudView() {
-        browser.get('/admin/customers');
+        browser.get(browser.baseUrl + '/customers');
     }
 
     deleteRecordsOnSecondLevel() {

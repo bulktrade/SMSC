@@ -13,15 +13,15 @@ export class LoginPage {
     }
 
     get() {
-        browser.get('/admin');
+        browser.get(browser.baseUrl + '/');
     }
 
     getCustomers() {
-        browser.get('/admin/customers');
+        browser.get(browser.baseUrl + '/customers');
     }
 
     getNotFound() {
-        browser.get('/admin/noContent');
+        browser.get(browser.baseUrl + '/noContent');
     }
 
     isPresentUsernameField() {
