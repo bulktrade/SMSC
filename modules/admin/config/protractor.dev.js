@@ -17,12 +17,12 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 
 exports.config = objectMerge(commonConfig.config, {
+    baseUrl: 'http://localhost:3000',
     directConnect: true,
     capabilities: {
         'browserName': 'chrome',
         'chromeOptions': {
             'args': ['show-fps-counter=true']
         }
-    },
-    //baseUrl: 'http://localhost:3000'
+    }
 });
