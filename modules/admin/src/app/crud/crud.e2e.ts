@@ -43,8 +43,21 @@ describe('CRUD', () => {
             });
     });
 
+    it('form button should be enabled', () => {
+        crudPage.crudCreate.isEnabledFormButton()
+            .then(isEnabled => {
+                expect(isEnabled).toBeTruthy();
+            });
+    });
+
     it('should be displayed new record', () => {
-        expect(crudPage.isPresentRecord()).toBeTruthy();
+        crudPage.crudCreate.clickOnFormBtn()
+            .then(() => {
+                crudPage.crudCreate.clickOnBackBtn()
+                    .then(() => {
+                        expect(crudPage.isPresentRecord()).toBeTruthy();
+                    })
+            });
     });
 
     it('should navigate to the delete', () => {

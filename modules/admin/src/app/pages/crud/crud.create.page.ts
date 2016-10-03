@@ -106,7 +106,7 @@ export class CreatePage {
         return this._ptor.wait(protractor.until.elementLocated(
             this.selectElements.contacts), 5000)
             .then((el: webdriver.IWebElement) => {
-                el.click()
+                return el.click()
                     .then(() => {
                         return this.createRecordOnSecondLevel()
                             .then(() => {
@@ -122,17 +122,11 @@ export class CreatePage {
     chooseUsers() {
         return this._ptor.wait(protractor.until.elementLocated(this.selectElements.users), 5000)
             .then((el: webdriver.IWebElement) => {
-                el.click()
+                return el.click()
                     .then(() => {
                         return this.clickOnSelectAll()
                             .then(() => {
-                                this.clickOnAddLinkBtn()
-                                    .then(() => {
-                                        this.clickOnFormBtn()
-                                            .then(() => {
-                                                this.clickOnBackBtn();
-                                            });
-                                    });
+                                return this.clickOnAddLinkBtn();
                             });
                     });
             });
@@ -245,6 +239,13 @@ export class CreatePage {
         return this._ptor.wait(protractor.until.elementLocated(this.btnAddRecord), 5000)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
+            });
+    }
+
+    isEnabledFormButton() {
+        return this._ptor.wait(protractor.until.elementLocated(this.formBtn), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isEnabled());
             });
     }
 
