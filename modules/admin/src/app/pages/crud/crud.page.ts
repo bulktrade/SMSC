@@ -64,7 +64,10 @@ export class CrudPage {
     clickOnDeleteButton() {
         return this._ptor.wait(protractor.until.elementLocated(this.btnDeleteRow), 5000)
             .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
+                return WaitUntil.waitUntilEnabled(element(this.btnDeleteRow), this._ptor)
+                    .then(() => {
+                        return Promise.resolve(el.click());
+                    });
             });
     }
 

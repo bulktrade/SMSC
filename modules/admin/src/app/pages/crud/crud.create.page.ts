@@ -7,7 +7,6 @@ export class CreatePage {
     public btnAddRecord = by.id('addRow');
     public formBtn = by.id('modify');
     public backBtn = by.id('back');
-    public overlay = element(by.id('overlay'));
 
     public selectElements = {
         contacts: by.css('.contacts #add'),
@@ -22,8 +21,8 @@ export class CreatePage {
     // first CRUD level
     public inputElementsOnFirstLevel: Array<InputElement> = [
         {
-            nameElement: 'customersId',
-            element: element(by.css('.customerId input')), data: 1
+            nameElement: 'customerId',
+            element: element(by.css('.customerId input')), data: '1'
         },
         {
             nameElement: 'companyName',
@@ -39,7 +38,7 @@ export class CreatePage {
         },
         {
             nameElement: 'postcode',
-            element: element(by.css('.postcode input')), data: 65000
+            element: element(by.css('.postcode input')), data: '65000'
         },
         {
             nameElement: 'street',
@@ -51,7 +50,7 @@ export class CreatePage {
         },
         {
             nameElement: 'vatid',
-            element: element(by.css('.vatid input')), data: 465787
+            element: element(by.css('.vatid input')), data: '465787'
         }
     ];
 

@@ -26,6 +26,12 @@ export class WaitUntil {
         }, 10000);
     };
 
+    static waitUntilEnabled(elm, ptor) {
+        return ptor.wait(() => {
+            return elm.isEnabled();
+        }, 10000);
+    };
+
     static logout(ptor) {
         WaitUntil.waitUntil(WaitUntil.logoutBtn, ptor);
         WaitUntil.logoutBtn.click();
