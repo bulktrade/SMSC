@@ -5,20 +5,19 @@ import { DragulaService } from "ng2-dragula/ng2-dragula";
 import { DashboardService } from "./dashboardService";
 import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
 import { OrderBy } from "./sorts/orderby";
-import { DashboardList } from "./models/dashboard_list";
+import { DashboardList } from "./models/dashboardList";
 import { DashboardBox } from "./models/dashboardBox";
-import { BoxResize } from "./models/dashboard_box.enum";
-import { DashboardResizeConfig } from "./dashboard_resize.config";
+import { BoxResize } from "./models/dashboardBox.enum";
+import { DashboardResizeConfig } from "./dashboardResize.config";
 import { CrudService } from "../crud/crud.service";
-import { BoxSizes } from "./models/dashboard_box.sizes";
-import { DashboardListItem } from "./models/dashboard_list_item";
-import {Breadcrumb} from "../breadcrumb/breadcrumb.component";
+import { BoxSizes } from "./models/dashboardBox.sizes";
+import { DashboardListItem } from "./models/dashboardListItem";
 
 @Component({
     selector: 'dashboard-view',
-    template: require('./dashboard_view.html'),
+    template: require('./dashboardView.html'),
     styleUrls: [
-        require('./dashboard_view.scss')
+        require('./dashboardView.scss')
     ],
     viewProviders: [
         DragulaService

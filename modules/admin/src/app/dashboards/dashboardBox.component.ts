@@ -1,15 +1,15 @@
 import { Component, Input, ViewEncapsulation, Output, EventEmitter, HostListener } from "@angular/core";
-import { DashboardBoxConfig } from "./dashboard_box.config";
+import { DashboardBoxConfig } from "./dashboardBox.config";
 import { SidebarService } from "../sidebar/sidebarService";
-import { DashboardResizeConfig } from "./dashboard_resize.config";
+import { DashboardResizeConfig } from "./dashboardResize.config";
 import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
-import { BoxResize } from "./models/dashboard_box.enum";
+import { BoxResize } from "./models/dashboardBox.enum";
 
 @Component({
     selector: 'dashboard-box',
-    template: require('./dashboard_box.html'),
+    template: require('./dashboardBox.html'),
     styleUrls: [
-        require('./dashboard_box.scss')
+        require('./dashboardBox.scss')
     ],
     encapsulation: ViewEncapsulation.None
 })

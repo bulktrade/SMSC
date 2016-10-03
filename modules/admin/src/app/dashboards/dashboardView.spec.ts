@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import { HttpModule, BaseRequestOptions, Http, ConnectionBackend } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { APP_PROVIDERS } from "../app.module";
-import { DashboardView } from "./dashboard_view.component";
+import { DashboardView } from "./dashboardView.component";
 import { TranslateService, TranslateLoader } from "ng2-translate/ng2-translate";
 import { DashboardService } from "./dashboardService";
 import { DragulaService } from "ng2-dragula/ng2-dragula";
