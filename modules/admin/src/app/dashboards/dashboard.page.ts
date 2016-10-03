@@ -115,13 +115,13 @@ export class Dashboard {
                         //  Enter order field
                         this.inputText('ORDER', '0').then(() => {
                             //  Select width option
-                            this.clickSelectOption('md-select[ng-reflect-class-name="width"] select', 2).then(() => {
+                            this.clickSelectOption('*[ng-reflect-class-name="width"] select', 2).then(() => {
                                 //  Select height option
-                                this.clickSelectOption('md-select[ng-reflect-class-name="height"] select', 2).then(() => {
+                                this.clickSelectOption('*[ng-reflect-class-name="height"] select', 2).then(() => {
                                     //  Select "type"
-                                    this.selectLinkset('multiple-select[ng-reflect-class-name="type"] md-icon#add').then(() => {
+                                    this.selectLinkset('*[ng-reflect-class-name="type"] #add').then(() => {
                                         //  Select "description"
-                                        this.selectLinkset('multiple-select[ng-reflect-class-name="dashboard"] md-icon#add').then(() => {
+                                        this.selectLinkset('*[ng-reflect-class-name="dashboard"] #add').then(() => {
                                             //  Update
                                             this.clickBySelector('#modify').then(() => {
                                                 //  Back
