@@ -114,7 +114,13 @@ export class Dashboard {
                     this.inputText('DESCRIPTION', 'Box description').then(() => {
                         //  Enter order field
                         this.inputText('ORDER', '0').then(() => {
-                            //  Select width option
+                            element.all(by.css('select option:nth-child(2)')).each((element) => {
+                                this.prot.wait(protractor.until.elementLocated(element), 5000).then((el: webdriver.IWebElement) => {
+                                    element.click();
+                                });
+                            });
+
+                            /*//  Select width option
                             this.clickSelectOption('*[ng-reflect-class-name="width"] select', 2).then(() => {
                                 //  Select height option
                                 this.clickSelectOption('*[ng-reflect-class-name="height"] select', 2).then(() => {
@@ -132,7 +138,7 @@ export class Dashboard {
                                         });
                                     });
                                 });
-                            });
+                            });*/
                         });
                     });
                 });
