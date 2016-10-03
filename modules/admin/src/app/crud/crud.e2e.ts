@@ -37,18 +37,21 @@ describe('CRUD', () => {
     });
 
     it('should be create the new record', () => {
-        crudPage.crudCreate.fillInputFields(crudPage.crudCreate.inputElementsOnFirstLevel)
+        crudPage.crudCreate.fillInputFields(crudPage.crudCreate.inputElementsOnFirstLevel);
+    });
+
+    it('should add contacts', () => {
+        crudPage.crudCreate.chooseContacts()
             .then(() => {
-                crudPage.crudCreate.fillLinkset();
+                expect(crudPage.crudCreate.isPresentContactsHint()).toBeFalsy();
             });
     });
 
-    it('contacts hint should be hidden', () => {
-        expect(crudPage.crudCreate.isPresentContactsHint()).toBeFalsy();
-    });
-
-    it('users hint should be hidden', () => {
-        expect(crudPage.crudCreate.isPresentUsersHint()).toBeFalsy();
+    it('should add users', () => {
+        crudPage.crudCreate.chooseUsers()
+            .then(() => {
+                expect(crudPage.crudCreate.isPresentUsersHint()).toBeFalsy();
+            });
     });
 
     it('form button should be enabled', () => {
