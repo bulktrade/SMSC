@@ -21,6 +21,7 @@ export class CrudPage {
     public backBtn = by.id('back');
     public record = element(by.css('.ag-body-container > div:first-of-type'));
     public searchPanel = by.className('searchPanel');
+    public chooseFirstLinkElement = by.css('.ag-body-container > div:first-of-type .ag-selection-checkbox');
 
     private _ptor;
 
@@ -45,7 +46,7 @@ export class CrudPage {
             .then(() => {
                 return this.crudCreate.clickOnContactsLinksetBtn()
                     .then(() => {
-                        return this.crudCreate.clickOnSelectAll()
+                        return this.crudCreate.chooseFirstLink()
                             .then(() => {
                                 return this.clickOnDeleteButton()
                                     .then(() => {
@@ -68,6 +69,13 @@ export class CrudPage {
                     .then(() => {
                         return Promise.resolve(el.click());
                     });
+            });
+    }
+
+    chooseFirstLink() {
+        return this._ptor.wait(protractor.until.elementLocated(this.chooseFirstLinkElement), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
             });
     }
 
