@@ -109,24 +109,33 @@ export class Dashboard {
         this.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
             .then(function (el: webdriver.IWebElement) {
                 //  Enter Name field
-                this.inputText('NAME', 'My box name');
-                //  Enter Description field
-                this.inputText('DESCRIPTION', 'Box description');
-                //  Enter order field
-                this.inputText('ORDER', '0');
-                //  Select width option
-                this.clickSelectOption('md-select[ng-reflect-class-name="width"] select', 2);
-                //  Select height option
-                this.clickSelectOption('md-select[ng-reflect-class-name="height"] select', 2);
-
-                //  Select "type"
-                this.selectLinkset('multiple-select[ng-reflect-class-name="type"] md-icon#add');
-                //  Select "description"
-                this.selectLinkset('multiple-select[ng-reflect-class-name="dashboard"] md-icon#add');
-
-                //  Update
-                this.clickBySelector('#modify', 1000);
-                this.clickBySelector('.back.md-primary', 1000);
+                this.inputText('NAME', 'My box name').then(() => {
+                    //  Enter Description field
+                    this.inputText('DESCRIPTION', 'Box description').then(() => {
+                        //  Enter order field
+                        this.inputText('ORDER', '0').then(() => {
+                            //  Select width option
+                            this.clickSelectOption('md-select[ng-reflect-class-name="width"] select', 2).then(() => {
+                                //  Select height option
+                                this.clickSelectOption('md-select[ng-reflect-class-name="height"] select', 2).then(() => {
+                                    //  Select "type"
+                                    this.selectLinkset('multiple-select[ng-reflect-class-name="type"] md-icon#add').then(() => {
+                                        //  Select "description"
+                                        this.selectLinkset('multiple-select[ng-reflect-class-name="dashboard"] md-icon#add').then(() => {
+                                            //  Update
+                                            this.clickBySelector('#modify').then(() => {
+                                                //  Back
+                                                this.clickBySelector('.back.md-primary').then(() => {
+                                                    return true;
+                                                })
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
             })
             .thenCatch((error) => {
                 throw error; // @todo check for better solution.
@@ -139,10 +148,12 @@ export class Dashboard {
      * @param inputName
      * @param text
      */
-    inputText(inputName, text: string) {
-        this.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000).then((el: webdriver.IWebElement) => {
-            el.clear();
-            el.sendKeys(text);
+    inputText(inputName, text: string): Promise<Object> {
+        return new Promise((resolve) => {
+            this.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000).then((el: webdriver.IWebElement) => {
+                el.clear();
+                resolve(el.sendKeys(text));
+            });
         });
     }
 
@@ -151,10 +162,16 @@ export class Dashboard {
      * @param prot
      * @param selector
      */
-    selectLinkset(selector) {
-        this.clickBySelector(selector, 1000);
-        this.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)', 1000);
-        this.clickBySelector('#addLink', 1000);
+    selectLinkset(selector): Promise<Object> {
+        return new Promise((resolve) => {
+            this.clickBySelector(selector).then(() => {
+                this.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)').then(() => {
+                    this.clickBySelector('#addLink').then(() => {
+                        resolve(true);
+                    });
+                });
+            });
+        });
     }
 
     /**
@@ -164,10 +181,15 @@ export class Dashboard {
      * @param selector - selector to "select" tag
      * @param num - option index
      */
-    clickSelectOption(selector, num) {
-        this.clickBySelector(selector, 1000);
-        selector += ' option:nth-child(' + num + ')';
-        this.clickBySelector(selector, 1000);
+    clickSelectOption(selector, num): Promise<Object> {
+        return new Promise((resolve) => {
+            this.clickBySelector(selector).then(() => {
+                selector += ' option:nth-child(' + num + ')';
+                this.clickBySelector(selector).then(() => {
+                    resolve(true);
+                });
+            });
+        });
     };
 
     /**
@@ -175,13 +197,18 @@ export class Dashboard {
      * @param prot
      * @param selector
      */
-    clickBySelector(selector: string, delay?: number) {
-        this.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-            el.click();
+    clickBySelector(selector: string, delay?: number): Promise<Object> {
+        return new Promise((resolve) => {
+            this.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+                el.click();
 
-            if (delay != undefined && delay > 100) {
-                browser.sleep(delay);
-            }
+                if (delay != undefined && delay > 100) {
+                    browser.sleep(delay);
+                }
+
+                //  @todo fix - return click value
+                resolve(true);
+            });
         });
     }
 
@@ -198,7 +225,7 @@ export class Dashboard {
      * Remove box
      */
     removeBox() {
-        this.clickBySelector('.box:first-child .crud .remove', 1000);
+        this.clickBySelector('.box:first-child .crud .remove');
     }
 
     /**
