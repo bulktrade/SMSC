@@ -9,6 +9,7 @@ export class CreatePage {
     public btnAddRecord = by.id('addRow');
     public formBtn = by.id('modify');
     public backBtn = by.id('back');
+    public chooseFirstLink = by.css('.ag-body-container > div:first-of-type .ag-selection-checkbox');
 
     public selectElements = {
         contacts: by.css('.contacts #add'),
@@ -127,7 +128,7 @@ export class CreatePage {
             .then((el: webdriver.IWebElement) => {
                 return el.click()
                     .then(() => {
-                        return this.clickOnSelectAll()
+                        return this.clickOnChooseFirstLink()
                             .then(() => {
                                 return this.clickOnAddLinkBtn();
                             });
@@ -254,6 +255,13 @@ export class CreatePage {
 
     clickOnFormBtn() {
         return this._ptor.wait(protractor.until.elementLocated(this.formBtn), this.timeWait)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
+    }
+
+    clickOnChooseFirstLink() {
+        return this._ptor.wait(protractor.until.elementLocated(this.chooseFirstLink), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
             });
