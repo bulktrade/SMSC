@@ -37,7 +37,7 @@ exports.config = objectMerge(commonConfig.config, {
             platform: 'Linux',
             name: 'chrome-linux-tests',
             build: process.env.TRAVIS_BUILD_NUMBER,
-            screenResolution: '1280x960',
+            screenResolution: '1024x768',
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
         } /*,
          {
