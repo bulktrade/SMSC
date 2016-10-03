@@ -7,7 +7,7 @@ import {BtnTypes} from "../../dynamicForm/btn.types";
 
 @Component({
     selector: 'dashboard-crud-edit',
-    template: '<dynamic-form [crudService]="crudService" [btnName]="btnName"></dynamic-form>'
+    template: '<dynamic-form [btnName]="btnName"></dynamic-form>'
 })
 export class DashboardCrudUpdate {
     public resolveData: EditModel = new EditModel();
