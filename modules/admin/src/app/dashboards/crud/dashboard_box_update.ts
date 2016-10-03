@@ -28,8 +28,6 @@ export class DashboardCrudUpdate {
         if (this.resolveData.inputModel) {
             this.crudService.setModel(this.resolveData.inputModel);
         }
-
-        console.log(this.crudService.gridOptions.columnDefs);
     }
 
     onSubmit(){

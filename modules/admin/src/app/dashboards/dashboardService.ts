@@ -117,9 +117,7 @@ export class DashboardService {
         };
         let options: Array<Operation> = [obj];
 
-        this.databaseService.batch(options).subscribe((res) => {
-            console.log(res);
-        });
+        return this.databaseService.batch(options);
     }
 
     /**

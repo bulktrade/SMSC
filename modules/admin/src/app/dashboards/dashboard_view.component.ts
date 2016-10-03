@@ -33,7 +33,6 @@ export class DashboardView {
                 private  dashboardService: DashboardService,
                 private router: Router,
                 public crudService: CrudService) {
-        console.log(Breadcrumb);
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal'
         });
