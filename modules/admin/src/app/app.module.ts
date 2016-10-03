@@ -1,6 +1,6 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Http, HttpModule } from '@angular/http';
+import { Http, HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { App } from './app.component';
 import { BreadcrumbModule } from './breadcrumb/breadcrumb.component';
@@ -13,7 +13,7 @@ import { CrudMetaFormData } from './crudMetadata/crudMetaFormData/crudMetaFormDa
 import { CrudMetaData } from './crudMetadata/crudMetaData.components';
 import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
 import { CrudMetaGridData } from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { AppState } from './app.service';
 import { COMMON_PROVIDERS } from './common';
 import { AuthService } from './services/auth/auth.service';
@@ -46,6 +46,7 @@ import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboardCrudUpdat
 import { DashboardCrudCreateResolve } from './dashboards/crud/dashboardCrudCreate.resolve';
 import { SidebarService } from './sidebar/sidebarService';
 import { DashboardModule } from './dashboards/dashboard.module';
+import { HttpInterceptor } from "./common/httpInterceptor";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -64,8 +65,12 @@ export const APP_PROVIDERS = [
     AppState,
     DashboardCrudUpdateResolve,
     DashboardCrudCreateResolve,
-    SidebarService
-    // DashboardBox
+    SidebarService,
+    {
+        provide: Http,
+        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) => new HttpInterceptor(xhrBackend, requestOptions, router),
+        deps: [XHRBackend, RequestOptions, Router]
+    }
 ];
 
 @NgModule({
