@@ -19,6 +19,7 @@ export class CrudPage {
     public crudViewTag = element(by.tagName('crud-view'));
     public btnDeleteRow = by.id('deleteRecord');
     public backBtn = by.id('back');
+    public record = element(by.css('.ag-body-container > div:first-of-type'));
 
     private _ptor;
 
@@ -31,6 +32,11 @@ export class CrudPage {
 
     getCrudView() {
         browser.get(browser.baseUrl + '/customers');
+    }
+
+    isPresentRecord() {
+        WaitUntil.waitUntil(this.record, this._ptor);
+        return this.record.isPresent();
     }
 
     deleteRecordsOnSecondLevel() {

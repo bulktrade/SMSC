@@ -43,6 +43,10 @@ describe('CRUD', () => {
             });
     });
 
+    it('should be displayed new record', () => {
+        expect(crudPage.isPresentRecord()).toBeTruthy();
+    });
+
     it('should navigate to the delete', () => {
         crudPage.crudCreate.clickOnSelectAll()
             .then(() => {
