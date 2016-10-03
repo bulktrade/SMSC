@@ -1,16 +1,16 @@
-import {inject, TestBed} from "@angular/core/testing";
-import {Location} from "@angular/common";
-import {HttpModule} from "@angular/http";
-import {TranslateService, TranslateLoader} from "ng2-translate/ng2-translate";
-import {DragulaService} from "ng2-dragula/ng2-dragula";
-import {Router} from "@angular/router";
-import {CrudService} from "../../crud/crud.service";
-import {GridService} from "../../services/grid.service";
-import {CRUD_PROVIDERS} from "../../crud/common/crudProviders";
-import {DashboardService} from "../dashboardService";
-import {DashboardCrudCreate} from "./dashboardBoxCreate";
+import { inject, TestBed } from '@angular/core/testing';
+import { Location } from '@angular/common';
+import { HttpModule } from '@angular/http';
+import { TranslateService, TranslateLoader } from 'ng2-translate/ng2-translate';
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { Router } from '@angular/router';
+import { CrudService } from '../../crud/crud.service';
+import { GridService } from '../../services/grid.service';
+import { CRUD_PROVIDERS } from '../../crud/common/crudProviders';
+import { DashboardService } from '../dashboardService';
+import { DashboardCrudCreate } from './dashboardBoxCreate';
 
-class MockLocation {};
+class MockLocation {}
 
 describe('Dashboard crud create', () => {
     beforeEach(() => {
@@ -33,11 +33,11 @@ describe('Dashboard crud create', () => {
         });
     });
 
-    it('should be defined resolveData', inject([ DashboardCrudCreate ], (box) => {
+    it('should be defined resolveData', inject([DashboardCrudCreate], (box) => {
         expect(box.resolveData).toBeDefined();
     }));
 
-    it('should be defined btnName', inject([ DashboardCrudCreate ], (box) => {
+    it('should be defined btnName', inject([DashboardCrudCreate], (box) => {
         expect(box.btnName).toBeDefined();
     }));
 });

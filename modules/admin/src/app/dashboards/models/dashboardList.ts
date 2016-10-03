@@ -1,4 +1,4 @@
-import { DashboardListItem } from "./dashboardListItem";
+import { DashboardListItem } from './dashboardListItem';
 
 export class DashboardList<T> {
     //  Box width

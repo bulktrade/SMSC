@@ -1,6 +1,5 @@
-import { WaitUntil } from '../common/waitUntilReady';
 import { InputElement } from '../model/inputElement';
-import { Observable } from "rxjs";
+
 export class CreatePage {
     public hint = element(by.css('.companyName md-hint'));
     public selectAll = by.id('select-all');
@@ -105,7 +104,8 @@ export class CreatePage {
     }
 
     chooseContacts() {
-        return this._ptor.wait(protractor.until.elementLocated(this.selectElements.contacts), 5000)
+        return this._ptor.wait(protractor.until.elementLocated(
+            this.selectElements.contacts), 5000)
             .then((el: webdriver.IWebElement) => {
                 el.click();
 
@@ -141,12 +141,7 @@ export class CreatePage {
         return this.chooseContacts()
             .then(() => {
                 return this.chooseUsers();
-            })
-    }
-
-    isHideOverlay() {
-        WaitUntil.waitUntil(this.overlay, this._ptor, true);
-        return !this.overlay.isPresent();
+            });
     }
 
     fillEmbeddedList() {
@@ -155,15 +150,17 @@ export class CreatePage {
         for (let i in this.embeddedListElements) {
             if (this.embeddedListElements.hasOwnProperty(i)) {
                 promises.push(
-                    this._ptor.wait(protractor.until.elementLocated(this.embeddedListElements[i]), 5000)
+                    this._ptor.wait(protractor.until.elementLocated(
+                        this.embeddedListElements[i]), 5000)
                         .then((el: webdriver.IWebElement) => {
                             el.click();
 
                             let lastOptionElement = by.css('.' + i + ' option:last-of-type');
 
-                            this._ptor.wait(protractor.until.elementLocated(lastOptionElement), 5000)
-                                .then((el: webdriver.IWebElement) => {
-                                    el.click();
+                            this._ptor.wait(protractor.until.elementLocated(
+                                lastOptionElement), 5000)
+                                .then((lastOptionElement: webdriver.IWebElement) => {
+                                    lastOptionElement.click();
                                 });
                         })
                 );
@@ -182,7 +179,7 @@ export class CreatePage {
                     .then((el: webdriver.IWebElement) => {
                         return Promise.resolve(el.sendKeys(i.data));
                     })
-            )
+            );
         });
 
         return Promise.all(promises);

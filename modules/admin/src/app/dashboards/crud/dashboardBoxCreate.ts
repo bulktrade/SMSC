@@ -1,9 +1,9 @@
-import { Component } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { CrudService } from "../../crud/crud.service";
-import { Location } from "@angular/common";
-import { EditModel } from "../../crud/crudEdit/crud.edit.model";
-import { BtnTypes } from "../../dynamicForm/btn.types";
+import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CrudService } from '../../crud/crud.service';
+import { Location } from '@angular/common';
+import { EditModel } from '../../crud/crudEdit/crud.edit.model';
+import { BtnTypes } from '../../dynamicForm/btn.types';
 
 @Component({
     selector: 'dashboard-crud-edit',
@@ -34,6 +34,7 @@ export class DashboardCrudCreate {
     }
 
     onSubmit() {
-        this.crudService.createRecord(this.crudService.model, this.route.snapshot.params['className']);
+        this.crudService.createRecord(this.crudService.model,
+            this.route.snapshot.params['className']);
     }
 }

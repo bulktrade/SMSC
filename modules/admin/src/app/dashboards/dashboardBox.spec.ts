@@ -1,17 +1,17 @@
-import {inject, TestBed} from "@angular/core/testing";
-import {Location} from "@angular/common";
-import {HttpModule} from "@angular/http";
-import {TranslateService, TranslateLoader} from "ng2-translate/ng2-translate";
-import {DashboardService} from "./dashboardService";
-import {DragulaService} from "ng2-dragula/ng2-dragula";
-import {CrudService} from "../crud/crud.service";
-import {Router} from "@angular/router";
-import {CRUD_PROVIDERS} from "../crud/common/crudProviders";
-import {GridService} from "../services/grid.service";
-import {SidebarService} from "../sidebar/sidebarService";
-import {DashboardBoxComponent} from "./dashboardBox.component";
+import { inject, TestBed } from '@angular/core/testing';
+import { Location } from '@angular/common';
+import { HttpModule } from '@angular/http';
+import { TranslateService, TranslateLoader } from 'ng2-translate/ng2-translate';
+import { DashboardService } from './dashboardService';
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { CrudService } from '../crud/crud.service';
+import { Router } from '@angular/router';
+import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
+import { GridService } from '../services/grid.service';
+import { SidebarService } from '../sidebar/sidebarService';
+import { DashboardBoxComponent } from './dashboardBox.component';
 
-class MockLocation {};
+class MockLocation {}
 
 describe('Dashboard box', () => {
     beforeEach(() => {
@@ -35,7 +35,7 @@ describe('Dashboard box', () => {
         });
     });
 
-    it('should be defined config', inject([ DashboardBoxComponent ], (box) => {
+    it('should be defined config', inject([DashboardBoxComponent], (box) => {
         expect(box.config).toBeDefined();
     }));
 });

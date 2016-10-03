@@ -1,5 +1,5 @@
-import { browser } from "protractor/built/index";
-import { LoginPage } from "../pages/login.page";
+import { browser } from 'protractor/built/index';
+import { LoginPage } from '../pages/login.page';
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));
@@ -70,7 +70,8 @@ export class Dashboard {
         this.clickOnCrudIcon();
 
         try {
-            element.all(by.css('.box:first-child .view-width button:last-child')).each((element, i) => {
+            element.all(by.css(
+                '.box:first-child .view-width button:last-child')).each((element, i) => {
                 element.click();
                 browser.sleep(700);
             });
@@ -80,7 +81,8 @@ export class Dashboard {
     }
 
     /*dragAndDrop() {
-     this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000).then((el) => {
+     this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000)
+     .then((el) => {
      el.getLocation().then((location) => {
      this.prot.manage().window().getSize().then((size) => {
      console.log(size);
@@ -122,7 +124,8 @@ export class Dashboard {
                 //  Select "type"
                 this.selectLinkset('multiple-select[ng-reflect-class-name="type"] md-icon#add');
                 //  Select "description"
-                this.selectLinkset('multiple-select[ng-reflect-class-name="dashboard"] md-icon#add');
+                this.selectLinkset(
+                    'multiple-select[ng-reflect-class-name="dashboard"] md-icon#add');
 
                 //  Update
                 this.clickBySelector('#modify', 1000);
@@ -140,10 +143,11 @@ export class Dashboard {
      * @param text
      */
     inputText(inputName, text: string) {
-        this.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000).then((el: webdriver.IWebElement) => {
-            el.clear();
-            el.sendKeys(text);
-        });
+        this.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000)
+            .then((el: webdriver.IWebElement) => {
+                el.clear();
+                el.sendKeys(text);
+            });
     }
 
     /**
@@ -153,7 +157,8 @@ export class Dashboard {
      */
     selectLinkset(selector) {
         this.clickBySelector(selector, 1000);
-        this.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)', 1000);
+        this.clickBySelector(
+            '.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)', 1000);
         this.clickBySelector('#addLink', 1000);
     }
 
@@ -176,13 +181,14 @@ export class Dashboard {
      * @param selector
      */
     clickBySelector(selector: string, delay?: number) {
-        this.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-            el.click();
+        this.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000)
+            .then((el: webdriver.IWebElement) => {
+                el.click();
 
-            if (delay != undefined && delay > 100) {
-                browser.sleep(delay);
-            }
-        });
+                if (delay !== undefined && delay > 100) {
+                    browser.sleep(delay);
+                }
+            });
     }
 
     /**

@@ -1,12 +1,12 @@
-import { Component, Input, ModuleWithProviders, NgModule } from "@angular/core";
-import { TranslateService, TranslateModule } from "ng2-translate/ng2-translate";
-import { ActivatedRoute, Router } from "@angular/router";
-import { EventEmitter } from "@angular/common/src/facade/async";
-import { Location, CommonModule } from "@angular/common";
-import { CrudService } from "../../crud.service";
-import { LinksetProperty } from "../../model/linksetProperty";
-import { MdModule } from "../../../md.module";
-import { FormsModule } from "@angular/forms";
+import { Component, Input, ModuleWithProviders, NgModule } from '@angular/core';
+import { TranslateService, TranslateModule } from 'ng2-translate/ng2-translate';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EventEmitter } from '@angular/common/src/facade/async';
+import { Location, CommonModule } from '@angular/common';
+import { CrudService } from '../../crud.service';
+import { LinksetProperty } from '../../model/linksetProperty';
+import { MdModule } from '../../../md.module';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'multiple-select',
@@ -44,7 +44,8 @@ export class MultipleSelect {
 
             if (this.crudService.model[this.property.property]) {
                 linkset = (Array.isArray(this.crudService.model[this.property.property]) ?
-                    this.crudService.model[this.property.property] : this.crudService.model[this.property.property].split(','));
+                    this.crudService.model[this.property.property] :
+                    this.crudService.model[this.property.property].split(','));
             }
 
             if (linkset) {
@@ -76,7 +77,8 @@ export class MultipleSelect {
     removeItem(): void {
         this.crudService.multipleSelectValid = false;
         let linkset = Array.isArray(this.crudService.model[this.property.property]) ?
-            this.crudService.model[this.property.property] : this.crudService.model[this.property.property].split(',');
+            this.crudService.model[this.property.property] :
+            this.crudService.model[this.property.property].split(',');
         let model = [];
         model['type'] = this.property.type;
 

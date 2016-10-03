@@ -136,12 +136,15 @@ export class GridService {
                                 let linksetPromises = [];
 
                                 if (currentCrudLevel.linksetProperty.data.hasOwnProperty('@rid')) {
-                                    if (currentCrudLevel.linksetProperty.data['@rid'] === result.toProperty) {
-                                        linksetPromises.push(this.database.load(currentCrudLevel.linksetProperty.data['@rid'])
+                                    if (currentCrudLevel.linksetProperty.data['@rid'] ===
+                                        result.toProperty) {
+                                        linksetPromises.push(this.database.load(
+                                            currentCrudLevel.linksetProperty.data['@rid'])
                                             .then(response => {
                                                 let customer = response.json();
 
-                                                customer[currentCrudLevel.linksetProperty.name].forEach(link => {
+                                                customer[currentCrudLevel.linksetProperty.name]
+                                                    .forEach(link => {
                                                     expression
                                                         .or('@rid = ?', link);
                                                 });

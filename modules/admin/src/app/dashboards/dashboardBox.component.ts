@@ -1,9 +1,16 @@
-import { Component, Input, ViewEncapsulation, Output, EventEmitter, HostListener } from "@angular/core";
-import { DashboardBoxConfig } from "./dashboardBox.config";
-import { SidebarService } from "../sidebar/sidebarService";
-import { DashboardResizeConfig } from "./dashboardResize.config";
-import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
-import { BoxResize } from "./models/dashboardBox.enum";
+import {
+    Component,
+    Input,
+    ViewEncapsulation,
+    Output,
+    EventEmitter,
+    HostListener
+} from '@angular/core';
+import { DashboardBoxConfig } from './dashboardBox.config';
+import { SidebarService } from '../sidebar/sidebarService';
+import { DashboardResizeConfig } from './dashboardResize.config';
+import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
+import { BoxResize } from './models/dashboardBox.enum';
 
 @Component({
     selector: 'dashboard-box',
@@ -37,11 +44,11 @@ export class DashboardBoxComponent {
     }
 
     ngOnInit() {
-        if (this.config.width != undefined) {
+        if (this.config.width !== undefined) {
             this.statusBoxWidth = this.config.width;
         }
 
-        if (this.config.height != undefined) {
+        if (this.config.height !== undefined) {
             this.statusBoxHeight = this.config.height;
         }
     }
@@ -50,7 +57,7 @@ export class DashboardBoxComponent {
     handleKeyboardEvent(event: KeyboardEvent) {
         event.stopImmediatePropagation();
 
-        if (event.key == 'Escape' && this.fullscreenMode == true) {
+        if (event.key === 'Escape' && this.fullscreenMode === true) {
             this.toggleFullscreen();
         }
     }
@@ -88,14 +95,14 @@ export class DashboardBoxComponent {
         let res: DashboardResizeConfig = <DashboardResizeConfig>{};
         res.type = data['type'];
 
-        if (data['type'] == BoxResize.WIDTH) {
+        if (data['type'] === BoxResize.WIDTH) {
             res.width = data['val'];
             res.height = this.statusBoxHeight;
 
             this.statusBoxWidth = data['val'];
         }
 
-        if (data['type'] == BoxResize.HEIGHT) {
+        if (data['type'] === BoxResize.HEIGHT) {
             res.width = this.statusBoxWidth;
             res.height = data['val'];
 

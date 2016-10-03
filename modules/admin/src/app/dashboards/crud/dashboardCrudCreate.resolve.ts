@@ -1,10 +1,10 @@
-import {ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {Injectable} from "@angular/core";
-import {Location} from "@angular/common";
-import {GridService} from "../../services/grid.service";
-import {CrudService} from "../../crud/crud.service";
-import {CrudResolve} from "../../crud/common/crudResolve";
-import {DashboardService} from "../dashboardService";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
+import { GridService } from '../../services/grid.service';
+import { CrudService } from '../../crud/crud.service';
+import { CrudResolve } from '../../crud/common/crudResolve';
+import { DashboardService } from '../dashboardService';
 
 @Injectable()
 export class DashboardCrudCreateResolve extends CrudResolve {
