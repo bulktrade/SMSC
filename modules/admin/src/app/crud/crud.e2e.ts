@@ -84,7 +84,7 @@ describe('CRUD', () => {
     it('should be delete records', () => {
         crudPage.crudDelete.clickOnOkBtn()
             .then(() => {
-                expect(crudPage.isPresentCustomers()).toBeTruthy();
+                expect(crudPage.isDisplayedSearchPanel()).toBeTruthy();
             });
     });
 
