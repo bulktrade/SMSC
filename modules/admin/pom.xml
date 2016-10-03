@@ -47,7 +47,7 @@
                         <id>build-app</id>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <executable>npm.cmd</executable>
+                            <executable>npm</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>run</argument>
@@ -62,7 +62,7 @@
                         <id>exec-npm-install</id>
                         <phase>initialize</phase>
                         <configuration>
-                            <executable>npm.cmd</executable>
+                            <executable>npm</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
@@ -76,7 +76,7 @@
                         <id>test-app</id>
                         <phase>test</phase>
                         <configuration>
-                            <executable>npm.cmd</executable>
+                            <executable>npm</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>run</argument>
