@@ -46,7 +46,7 @@ describe('CRUD', () => {
     it('delete button should be enabled', () => {
         crudPage.crudCreate.clickOnSelectAll()
             .then(() => {
-                crudPage.clickOnDeleteIcon()
+                crudPage.clickOnDeleteButton()
                     .then(() => {
                         expect(crudPage.crudDelete.isPresentCrudDelete()).toBeTruthy();
                     });

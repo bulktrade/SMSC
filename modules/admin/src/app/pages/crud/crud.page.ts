@@ -17,8 +17,7 @@ export class CrudPage {
     public btnAddRecord = by.id('addRow');
     public crudCreateTag = element(by.tagName('crud-create'));
     public crudViewTag = element(by.tagName('crud-view'));
-    public btnDeleteRow = by.id('deleteRow');
-    public deleteIcon = by.css('.ag-body-container > div:first-of-type .deleteIcon');
+    public btnDeleteRow = by.id('deleteRecord');
     public backBtn = by.id('back');
 
     private _ptor;
@@ -64,13 +63,6 @@ export class CrudPage {
 
     clickOnDeleteButton() {
         return this._ptor.wait(protractor.until.elementLocated(this.btnDeleteRow), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
-    }
-
-    clickOnDeleteIcon() {
-        return this._ptor.wait(protractor.until.elementLocated(this.deleteIcon), 5000)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
             });
