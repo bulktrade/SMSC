@@ -4,7 +4,7 @@ export class NavigationTest {
     public login: LoginPage = new LoginPage();
 
     public dashboardTitle = element(by.className('dashboard-item'));
-    public dashboardItem = element(by.className('dashboard'));
+    public dashboardItem = element(by.className('dashboards'));
     public sidebarDirective = element(by.tagName('sidebar'));
 
     public dashboard = element(by.css('dashboard .wrap-breadcrumb'));

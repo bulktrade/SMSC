@@ -84,17 +84,10 @@ export const ROUTES: Routes = [
                 component: Dashboards,
                 children: DASHBOARD_ROUTER_PROVIDER,
                 data: {
-                    similarPath: 'dasboards' // @todo Impement in sidenav
-                }
-            },
-            {
-                path: 'dashboards',
-                component: Dashboards,
-                data: {
+                    similarPath: 'dasboards', // @todo Impement in sidenav
                     showInSubNavigation: true,
                     icon: 'layers'
-                },
-                children: DASHBOARD_ROUTER_PROVIDER
+                }
             },
             {
                 path: 'customers',

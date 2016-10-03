@@ -26,15 +26,15 @@ describe('Navigation', () => {
         });
     });
 
-    it('AngularJS Translations', () => {
-        let lang = this.navigator.getLanguage();
-
-        WaitUntil.waitUntil(this.navigator.dashboardTitle, ptor);
-        this.navigator.getDashboardText()
-            .then((text) => {
-                expect(lang).toEqual(text);
-            });
-    });
+    // it('AngularJS Translations', () => {
+    //     let lang = this.navigator.getLanguage();
+    //
+    //     WaitUntil.waitUntil(this.navigator.dashboardTitle, ptor);
+    //     this.navigator.getDashboardText()
+    //         .then((text) => {
+    //             expect(lang).toEqual(text);
+    //         });
+    // });
 
     it('marked sub and main item navigation like active', () => {
         WaitUntil.waitUntil(this.navigator.dashboardItem, ptor);
