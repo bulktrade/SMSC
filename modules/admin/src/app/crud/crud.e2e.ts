@@ -43,7 +43,7 @@ describe('CRUD', () => {
             });
     });
 
-    it('delete button should be enabled', () => {
+    it('should navigate to the delete', () => {
         crudPage.crudCreate.clickOnSelectAll()
             .then(() => {
                 crudPage.clickOnDeleteButton()

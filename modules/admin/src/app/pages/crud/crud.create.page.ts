@@ -106,13 +106,14 @@ export class CreatePage {
         return this._ptor.wait(protractor.until.elementLocated(
             this.selectElements.contacts), 5000)
             .then((el: webdriver.IWebElement) => {
-                el.click();
-
-                return this.createRecordOnSecondLevel()
+                el.click()
                     .then(() => {
-                        return this.clickOnSelectAll()
+                        return this.createRecordOnSecondLevel()
                             .then(() => {
-                                return this.clickOnAddLinkBtn();
+                                return this.clickOnSelectAll()
+                                    .then(() => {
+                                        return this.clickOnAddLinkBtn();
+                                    });
                             });
                     });
             });
@@ -121,15 +122,16 @@ export class CreatePage {
     chooseUsers() {
         return this._ptor.wait(protractor.until.elementLocated(this.selectElements.users), 5000)
             .then((el: webdriver.IWebElement) => {
-                el.click();
-
-                return this.clickOnSelectAll()
+                el.click()
                     .then(() => {
-                        this.clickOnAddLinkBtn()
+                        return this.clickOnSelectAll()
                             .then(() => {
-                                this.clickOnFormBtn()
+                                this.clickOnAddLinkBtn()
                                     .then(() => {
-                                        this.clickOnBackBtn();
+                                        this.clickOnFormBtn()
+                                            .then(() => {
+                                                this.clickOnBackBtn();
+                                            });
                                     });
                             });
                     });
@@ -143,30 +145,38 @@ export class CreatePage {
             });
     }
 
-    fillEmbeddedList() {
-        let promises = [];
+    fillEmbeddedType() {
+        return this._ptor.wait(protractor.until.elementLocated(
+            this.embeddedListElements.type), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return el.click()
+                    .then(() => {
+                        let lastElement = by.css('.type option:last-of-type');
 
-        for (let i in this.embeddedListElements) {
-            if (this.embeddedListElements.hasOwnProperty(i)) {
-                promises.push(
-                    this._ptor.wait(protractor.until.elementLocated(
-                        this.embeddedListElements[i]), 5000)
-                        .then((el: webdriver.IWebElement) => {
-                            el.click();
+                        return this._ptor.wait(protractor.until.elementLocated(
+                            lastElement), 5000)
+                            .then((lastOptionElement: webdriver.IWebElement) => {
+                                return lastOptionElement.click();
+                            });
+                    });
+            });
+    }
 
-                            let lastOptionElement = by.css('.' + i + ' option:last-of-type');
+    fillEmbeddedSalutationType() {
+        return this._ptor.wait(protractor.until.elementLocated(
+            this.embeddedListElements.salutation), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return el.click()
+                    .then(() => {
+                        let lastElement = by.css('.salutation option:last-of-type');
 
-                            this._ptor.wait(protractor.until.elementLocated(
-                                lastOptionElement), 5000)
-                                .then((lastOptionElement: webdriver.IWebElement) => {
-                                    lastOptionElement.click();
-                                });
-                        })
-                );
-            }
-        }
-
-        return Promise.all(promises);
+                        return this._ptor.wait(protractor.until.elementLocated(
+                            lastElement), 5000)
+                            .then((lastOptionElement: webdriver.IWebElement) => {
+                                return lastOptionElement.click();
+                            });
+                    });
+            });
     }
 
     fillInputFieldsOnSecondLevel() {
@@ -189,11 +199,14 @@ export class CreatePage {
             .then(() => {
                 return this.fillInputFieldsOnSecondLevel()
                     .then(() => {
-                        return this.fillEmbeddedList()
+                        return this.fillEmbeddedType()
                             .then(() => {
-                                return this.clickOnFormBtn()
+                                return this.fillEmbeddedSalutationType()
                                     .then(() => {
-                                        return this.clickOnBackBtn();
+                                        return this.clickOnFormBtn()
+                                            .then(() => {
+                                                return this.clickOnBackBtn();
+                                            });
                                     });
                             });
                     });
