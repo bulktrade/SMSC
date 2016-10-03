@@ -507,7 +507,7 @@ export class CrudService {
 
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.getInfoClass(className)
-                .then((res: Response) => {
+                .subscribe((res: Response) => {
                     let properties = res.json().properties;
 
                     this.setPropertiesMetaGridData(properties, className)

@@ -125,24 +125,27 @@ export class ODatabaseService {
         return this.batchRequest(JSON.stringify(batch));
     }
 
-    getInfoClass(className) {
+    getInfoClass(className): Observable<Response> {
         let headers = new Headers({
             'content-Type': 'application/json'
         });
 
-        return this.authHttp.get(this.urlPrefix + 'class/' + this.encodedDatabaseName
-            + '/' + className, headers)
-            .toPromise()
-            .then(
-                res => {
-                    this.setErrorMessage(undefined);
-                    this.handleResponse(res);
-                    return Promise.resolve((this.getCommandResponse()));
-                },
-                error => {
-                    this.setErrorMessage('Command error: ' + error.responseText);
-                    return Promise.reject(error);
-                });
+        return Observable.create((obs) => {
+            this.authHttp.get(this.urlPrefix + 'class/' + this.encodedDatabaseName
+                + '/' + className, headers)
+                .subscribe(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        obs.next(this.getCommandResponse());
+                        obs.complete();
+                    },
+                    error => {
+                        this.setErrorMessage('Command error: ' + error.responseText);
+                        obs.error(error);
+                        obs.complete();
+                    });
+        });
     }
 
     executeCommand(iCommand?, iLanguage?, iLimit?,

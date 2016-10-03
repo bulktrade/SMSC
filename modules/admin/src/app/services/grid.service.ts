@@ -170,7 +170,7 @@ export class GridService {
     getSizeClass(className: string): Observable<number> {
         return Observable.create((obs) => {
             this.database.getInfoClass(className)
-                .then((res: Response) => {
+                .subscribe((res: Response) => {
                     obs.next(res.json().records);
                     obs.complete();
                 }, (error) => {

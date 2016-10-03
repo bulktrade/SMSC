@@ -46,7 +46,7 @@ import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboardCrudUpdat
 import { DashboardCrudCreateResolve } from './dashboards/crud/dashboardCrudCreate.resolve';
 import { SidebarService } from './sidebar/sidebarService';
 import { DashboardModule } from './dashboards/dashboard.module';
-import { HttpInterceptor } from "./common/httpInterceptor";
+import { HttpInterceptor } from './common/httpInterceptor';
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -68,7 +68,8 @@ export const APP_PROVIDERS = [
     SidebarService,
     {
         provide: Http,
-        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) => new HttpInterceptor(xhrBackend, requestOptions, router),
+        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) =>
+            new HttpInterceptor(xhrBackend, requestOptions, router),
         deps: [XHRBackend, RequestOptions, Router]
     }
 ];
