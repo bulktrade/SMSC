@@ -171,7 +171,7 @@ export class Dashboard {
     selectLinkset(selector): Promise<Object> {
         return new Promise((resolve) => {
             this.clickBySelector(selector).then(() => {
-                this.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)').then(() => {
+                this.clickBySelector('.ag-body-container > div:first-child').then(() => {
                     this.clickBySelector('#addLink').then(() => {
                         resolve(true);
                     });
