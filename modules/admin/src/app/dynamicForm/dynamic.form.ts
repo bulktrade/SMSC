@@ -23,13 +23,10 @@ export class DynamicForm {
     @Input('btnName')
     public btnName: BtnTypes;
 
-    @Input('crudService')
-    public crudService: CrudService;
-
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public crudService: CrudService) { // @todo solve that problem with duplicate crudService.
+                public crudService: CrudService) {
     }
 
     onSubmit() {
