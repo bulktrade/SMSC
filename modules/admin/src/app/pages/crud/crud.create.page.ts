@@ -2,11 +2,14 @@ import { InputElement } from '../model/inputElement';
 
 export class CreatePage {
     public hint = element(by.css('.companyName md-hint'));
+    public contactsHint = by.css('.contacts .md-hint');
+    public usersHint = by.css('.users .md-hint');
     public selectAll = by.id('select-all');
     public addLinkBtn = by.id('addLink');
     public btnAddRecord = by.id('addRow');
     public formBtn = by.id('modify');
     public backBtn = by.id('back');
+    public chooseFirstLinkElement = by.css('.ag-body-container > div:first-of-type .ag-selection-checkbox');
 
     public selectElements = {
         contacts: by.css('.contacts #add'),
@@ -79,6 +82,7 @@ export class CreatePage {
     ];
 
     private _ptor;
+    private timeWait: number = 10000;
 
     constructor() {
     }
@@ -92,7 +96,7 @@ export class CreatePage {
 
         inputElements.forEach(i => {
             promises.push(
-                this._ptor.wait(i.element, 5000)
+                this._ptor.wait(i.element, this.timeWait)
                     .then((el: webdriver.IWebElement) => {
                         return Promise.resolve(el.sendKeys(i.data));
                     })
@@ -104,13 +108,13 @@ export class CreatePage {
 
     chooseContacts() {
         return this._ptor.wait(protractor.until.elementLocated(
-            this.selectElements.contacts), 5000)
+            this.selectElements.contacts), this.timeWait)
             .then((el: webdriver.IWebElement) => {
-                el.click()
+                return el.click()
                     .then(() => {
                         return this.createRecordOnSecondLevel()
                             .then(() => {
-                                return this.clickOnSelectAll()
+                                return this.chooseFirstLink()
                                     .then(() => {
                                         return this.clickOnAddLinkBtn();
                                     });
@@ -120,41 +124,35 @@ export class CreatePage {
     }
 
     chooseUsers() {
-        return this._ptor.wait(protractor.until.elementLocated(this.selectElements.users), 5000)
+        return this._ptor.wait(protractor.until.elementLocated(this.selectElements.users), this.timeWait)
             .then((el: webdriver.IWebElement) => {
-                el.click()
+                return el.click()
                     .then(() => {
-                        return this.clickOnSelectAll()
+                        return this.chooseFirstLink()
                             .then(() => {
-                                this.clickOnAddLinkBtn()
-                                    .then(() => {
-                                        this.clickOnFormBtn()
-                                            .then(() => {
-                                                this.clickOnBackBtn();
-                                            });
-                                    });
+                                return this.clickOnAddLinkBtn();
                             });
                     });
             });
     }
 
     fillLinkset() {
-        return this.chooseContacts()
+        return this.chooseUsers()
             .then(() => {
-                return this.chooseUsers();
+                return this.chooseContacts();
             });
     }
 
     fillEmbeddedType() {
         return this._ptor.wait(protractor.until.elementLocated(
-            this.embeddedListElements.type), 5000)
+            this.embeddedListElements.type), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return el.click()
                     .then(() => {
                         let lastElement = by.css('.type option:last-of-type');
 
                         return this._ptor.wait(protractor.until.elementLocated(
-                            lastElement), 5000)
+                            lastElement), this.timeWait)
                             .then((lastOptionElement: webdriver.IWebElement) => {
                                 return lastOptionElement.click();
                             });
@@ -164,14 +162,14 @@ export class CreatePage {
 
     fillEmbeddedSalutationType() {
         return this._ptor.wait(protractor.until.elementLocated(
-            this.embeddedListElements.salutation), 5000)
+            this.embeddedListElements.salutation), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return el.click()
                     .then(() => {
                         let lastElement = by.css('.salutation option:last-of-type');
 
                         return this._ptor.wait(protractor.until.elementLocated(
-                            lastElement), 5000)
+                            lastElement), this.timeWait)
                             .then((lastOptionElement: webdriver.IWebElement) => {
                                 return lastOptionElement.click();
                             });
@@ -184,7 +182,7 @@ export class CreatePage {
 
         this.inputElementsOnSecondLevel.forEach(i => {
             promises.push(
-                this._ptor.wait(protractor.until.elementLocated(i.element), 5000)
+                this._ptor.wait(protractor.until.elementLocated(i.element), this.timeWait)
                     .then((el: webdriver.IWebElement) => {
                         return Promise.resolve(el.sendKeys(i.data));
                     })
@@ -214,44 +212,72 @@ export class CreatePage {
     }
 
     clickOnContactsLinksetBtn() {
-        return this._ptor.wait(protractor.until.elementLocated(by.css('.contacts #add')), 5000)
+        return this._ptor.wait(protractor.until.elementLocated(by.css('.contacts #add')), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
             });
     }
 
     clickOnBackBtn() {
-        return this._ptor.wait(protractor.until.elementLocated(this.backBtn), 5000)
+        return this._ptor.wait(protractor.until.elementLocated(this.backBtn), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
             });
     }
 
     clickOnAddLinkBtn() {
-        return this._ptor.wait(protractor.until.elementLocated(this.addLinkBtn), 5000)
+        return this._ptor.wait(protractor.until.elementLocated(this.addLinkBtn), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
             });
     }
 
     clickOnSelectAll() {
-        return this._ptor.wait(protractor.until.elementLocated(this.selectAll), 5000)
+        return this._ptor.wait(protractor.until.elementLocated(this.selectAll), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
             });
     }
 
     clickOnBtnAddRecord() {
-        return this._ptor.wait(protractor.until.elementLocated(this.btnAddRecord), 5000)
+        return this._ptor.wait(protractor.until.elementLocated(this.btnAddRecord), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
             });
     }
 
+    isEnabledFormButton() {
+        return this._ptor.wait(protractor.until.elementLocated(this.formBtn), this.timeWait)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isEnabled());
+            });
+    }
+
     clickOnFormBtn() {
-        return this._ptor.wait(protractor.until.elementLocated(this.formBtn), 5000)
+        return this._ptor.wait(protractor.until.elementLocated(this.formBtn), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
+            });
+    }
+
+    chooseFirstLink() {
+        return this._ptor.wait(protractor.until.elementLocated(this.chooseFirstLinkElement), this.timeWait)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
+    }
+
+    isPresentContactsHint() {
+        return this._ptor.wait(protractor.until.elementLocated(this.contactsHint), this.timeWait)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isDisplayed());
+            });
+    }
+
+    isPresentUsersHint() {
+        return this._ptor.wait(protractor.until.elementLocated(this.usersHint), this.timeWait)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isDisplayed());
             });
     }
 

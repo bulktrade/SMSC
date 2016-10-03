@@ -37,9 +37,37 @@ describe('CRUD', () => {
     });
 
     it('should be create the new record', () => {
-        crudPage.crudCreate.fillInputFields(crudPage.crudCreate.inputElementsOnFirstLevel)
+        crudPage.crudCreate.fillInputFields(crudPage.crudCreate.inputElementsOnFirstLevel);
+    });
+
+    it('should add contacts', () => {
+        crudPage.crudCreate.chooseContacts()
             .then(() => {
-                crudPage.crudCreate.fillLinkset();
+                expect(crudPage.crudCreate.isPresentContactsHint()).toBeFalsy();
+            });
+    });
+
+    it('should add users', () => {
+        crudPage.crudCreate.chooseUsers()
+            .then(() => {
+                expect(crudPage.crudCreate.isPresentUsersHint()).toBeFalsy();
+            });
+    });
+
+    it('form button should be enabled', () => {
+        crudPage.crudCreate.isEnabledFormButton()
+            .then(isEnabled => {
+                expect(isEnabled).toBeTruthy();
+            });
+    });
+
+    it('should be displayed new record', () => {
+        crudPage.crudCreate.clickOnFormBtn()
+            .then(() => {
+                crudPage.crudCreate.clickOnBackBtn()
+                    .then(() => {
+                        expect(crudPage.isPresentRecord()).toBeTruthy();
+                    })
             });
     });
 
@@ -56,7 +84,7 @@ describe('CRUD', () => {
     it('should be delete records', () => {
         crudPage.crudDelete.clickOnOkBtn()
             .then(() => {
-                expect(crudPage.isPresentCustomers()).toBeTruthy();
+                expect(crudPage.isDisplayedSearchPanel()).toBeTruthy();
             });
     });
 

@@ -19,6 +19,9 @@ export class CrudPage {
     public crudViewTag = element(by.tagName('crud-view'));
     public btnDeleteRow = by.id('deleteRecord');
     public backBtn = by.id('back');
+    public record = element(by.css('.ag-body-container > div:first-of-type'));
+    public searchPanel = by.className('searchPanel');
+    public chooseFirstLinkElement = by.css('.ag-body-container > div:first-of-type .ag-selection-checkbox');
 
     private _ptor;
 
@@ -33,27 +36,25 @@ export class CrudPage {
         browser.get(browser.baseUrl + '/customers');
     }
 
+    isPresentRecord() {
+        WaitUntil.waitUntil(this.record, this._ptor);
+        return this.record.isPresent();
+    }
+
     deleteRecordsOnSecondLevel() {
-        return new Promise((resolve, reject) => {
-            this.clickOnBtnAddRecord()
-                .then(() => {
-                    this.crudCreate.clickOnContactsLinksetBtn()
-                        .then(() => {
-                            this.crudCreate.clickOnSelectAll()
-                                .then(() => {
-                                    this.clickOnDeleteButton()
-                                        .then(() => {
-                                            this.crudDelete.clickOnOkBtn()
-                                                .then((res) => {
-                                                    resolve(res);
-                                                }, err => {
-                                                    reject(err);
-                                                });
-                                        });
-                                });
-                        });
-                });
-        });
+        return this.clickOnBtnAddRecord()
+            .then(() => {
+                return this.crudCreate.clickOnContactsLinksetBtn()
+                    .then(() => {
+                        return this.crudCreate.chooseFirstLink()
+                            .then(() => {
+                                return this.clickOnDeleteButton()
+                                    .then(() => {
+                                        return this.crudDelete.clickOnOkBtn();
+                                    });
+                            });
+                    });
+            });
     }
 
     isEnabledDeleteButton() {
@@ -68,6 +69,13 @@ export class CrudPage {
                     .then(() => {
                         return Promise.resolve(el.click());
                     });
+            });
+    }
+
+    chooseFirstLink() {
+        return this._ptor.wait(protractor.until.elementLocated(this.chooseFirstLinkElement), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
             });
     }
 
@@ -129,6 +137,13 @@ export class CrudPage {
     isPresentCustomers() {
         WaitUntil.waitUntil(this.customersTag, this.ptor);
         return this.customersTag.isPresent();
+    }
+
+    isDisplayedSearchPanel() {
+        return this._ptor.wait(protractor.until.elementLocated(this.searchPanel), 10000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isDisplayed());
+            });
     }
 
     get ptor() {
