@@ -2,6 +2,8 @@ import { InputElement } from '../model/inputElement';
 
 export class CreatePage {
     public hint = element(by.css('.companyName md-hint'));
+    public contactsHint = by.css('.contacts .md-hint');
+    public usersHint = by.css('.users .md-hint');
     public selectAll = by.id('select-all');
     public addLinkBtn = by.id('addLink');
     public btnAddRecord = by.id('addRow');
@@ -253,6 +255,20 @@ export class CreatePage {
         return this._ptor.wait(protractor.until.elementLocated(this.formBtn), 5000)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
+            });
+    }
+
+    isPresentContactsHint() {
+        return this._ptor.wait(protractor.until.elementLocated(this.contactsHint), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isDisplayed());
+            });
+    }
+
+    isPresentUsersHint() {
+        return this._ptor.wait(protractor.until.elementLocated(this.usersHint), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isDisplayed());
             });
     }
 

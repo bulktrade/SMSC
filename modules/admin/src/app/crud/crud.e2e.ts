@@ -43,6 +43,14 @@ describe('CRUD', () => {
             });
     });
 
+    it('contacts hint should be hidden', () => {
+        expect(crudPage.crudCreate.isPresentContactsHint()).toBeFalsy();
+    });
+
+    it('users hint should be hidden', () => {
+        expect(crudPage.crudCreate.isPresentUsersHint()).toBeFalsy();
+    });
+
     it('form button should be enabled', () => {
         crudPage.crudCreate.isEnabledFormButton()
             .then(isEnabled => {
