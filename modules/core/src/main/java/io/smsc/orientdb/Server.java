@@ -61,6 +61,7 @@ public class Server {
         String classpath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         System.setProperty("orientdb.www.path", classpath + "db/orientdb/site");
         System.setProperty("network.http.useToken", "true");
+        System.setProperty("network.http.streaming", "false");
 
 		setInstance(OServerMain.create());
 		OServerConfiguration cfg = new OServerConfiguration();
@@ -184,7 +185,6 @@ public class Server {
 			new OServerEntryConfiguration("http.cache:*.htm *.html", "Cache-Control: no-cache, no-store, max-age=0, must-revalidate\r\nPragma: no-cache"),
 			new OServerEntryConfiguration("http.cache:default", "Cache-Control: max-age=120"),
 		};
-
 
 		OServerCommandConfiguration httpListenerCommand2 = new OServerCommandConfiguration();
 		httpListenerCommand2.pattern = "GET|gephi/*";

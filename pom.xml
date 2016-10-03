@@ -424,8 +424,8 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-zookeeper-dependencies</artifactId>
-                <version>1.0.1.RELEASE</version>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Angel.SR6</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

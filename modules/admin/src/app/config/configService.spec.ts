@@ -1,9 +1,9 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { ConfigService } from './configService';
-import { HttpModule } from '@angular/http';
-import { XMLHttpRequestMock } from '../common/mock/XMLHttpRequestMock';
-import { Observable } from 'rxjs';
-import { Config } from './config';
+import { inject, TestBed } from "@angular/core/testing";
+import { ConfigService } from "./configService";
+import { HttpModule } from "@angular/http";
+import { XMLHttpRequestMock } from "../common/mock/XMLHttpRequestMock";
+import { Observable } from "rxjs";
+import { Config } from "./config";
 
 describe('Config Service', () => {
     let mockXHR = new XMLHttpRequestMock();
@@ -46,8 +46,6 @@ describe('Config Service', () => {
             'i18nPath': 'assets/i18n',
             'debug': false
         };
-
-        let notFound: string = 'Not found!';
 
         mockXHR.responseText = JSON.stringify(responseText);
         mockXHR.status = 404;
