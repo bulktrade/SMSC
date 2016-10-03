@@ -1,15 +1,16 @@
 import { browser } from "protractor/built/index";
-import { LoginPage } from '../pages/login.page'
+import { LoginPage } from "../pages/login.page";
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));
-    public prot = null;
-    public login:LoginPage = new LoginPage();
+    public prot = protractor.wrapDriver(browser.driver);
+    public login: LoginPage = new LoginPage();
 
-    constructor() { }
+    constructor() {
+    }
 
     get() {
-        browser.get('/admin/');
+        browser.get(browser.baseUrl + '/');
     }
 
     getTitle() {
@@ -79,60 +80,57 @@ export class Dashboard {
     }
 
     /*dragAndDrop() {
-        this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000).then((el) => {
-            el.getLocation().then((location) => {
-                this.prot.manage().window().getSize().then((size) => {
-                    console.log(size);
-                    let targetPosition = {
-                        x: size.width-20,
-                        y: location.y
-                    }
+     this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000).then((el) => {
+     el.getLocation().then((location) => {
+     this.prot.manage().window().getSize().then((size) => {
+     console.log(size);
+     let targetPosition = {
+     x: size.width-20,
+     y: location.y
+     }
 
-                    console.log(targetPosition);
-                    console.log(location);
+     console.log(targetPosition);
+     console.log(location);
 
-                    browser.actions().mouseDown(el).perform();
-                    browser.actions().mouseMove(targetPosition).perform();
-                    browser.actions().mouseUp().perform();
+     browser.actions().mouseDown(el).perform();
+     browser.actions().mouseMove(targetPosition).perform();
+     browser.actions().mouseUp().perform();
 
-                    browser.sleep(1000);
-                });
-            });
-        });
-    }*/
+     browser.sleep(1000);
+     });
+     });
+     });
+     }*/
 
     /**
      * Fill edit/create form
-     * @param prot
      */
     fillForm() {
-        console.log('Current URL');
-        browser.getCurrentUrl().then((url) => {
-            console.log(url);
-        });
+        this.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
+            .then(function (el: webdriver.IWebElement) {
+                //  Enter Name field
+                this.inputText('NAME', 'My box name');
+                //  Enter Description field
+                this.inputText('DESCRIPTION', 'Box description');
+                //  Enter order field
+                this.inputText('ORDER', '0');
+                //  Select width option
+                this.clickSelectOption('md-select[ng-reflect-class-name="width"] select', 2);
+                //  Select height option
+                this.clickSelectOption('md-select[ng-reflect-class-name="height"] select', 2);
 
-        //  Enter Name field
-        this.inputText('NAME', 'My box name');
-        //  Enter Description field
-        this.inputText('DESCRIPTION', 'Box description');
-        //  Enter order field
-        this.inputText('ORDER', '0');
-        browser.sleep(1000);
-        //  Select width option
-        this.clickSelectOption('.width select', 2);
-        browser.sleep(1000);
-        //  Select height option
-        this.clickSelectOption('.height select', 2);
-        browser.sleep(1000);
+                //  Select "type"
+                this.selectLinkset('multiple-select[ng-reflect-class-name="type"] md-icon#add');
+                //  Select "description"
+                this.selectLinkset('multiple-select[ng-reflect-class-name="dashboard"] md-icon#add');
 
-        //  Select "type"
-        this.selectLinkset('*[ng-reflect-class-name="type"] *#add');
-        //  Select "description"
-        this.selectLinkset('*[ng-reflect-class-name="dashboard"] *#add');
-
-        //  Update
-        this.clickBySelector('#modify', 1000);
-        this.clickBySelector('.back.md-primary', 1000);
+                //  Update
+                this.clickBySelector('#modify', 1000);
+                this.clickBySelector('.back.md-primary', 1000);
+            })
+            .thenCatch((error) => {
+                throw error; // @todo check for better solution.
+            });
     }
 
     /**
@@ -189,17 +187,15 @@ export class Dashboard {
 
     /**
      * Create box
-     * @param prot
      * @returns {Promise<T>}
      */
     createBox() {
-        this.clickBySelector('#dashboard div.add.toolButton', 1000);
+        this.clickBySelector('#dashboard div.add.toolButton');
         this.fillForm();
     }
 
     /**
      * Remove box
-     * @param prot
      */
     removeBox() {
         this.clickBySelector('.box:first-child .crud .remove', 1000);
@@ -207,7 +203,6 @@ export class Dashboard {
 
     /**
      * Click on close crud box tool
-     * @param ptor
      * @returns {Promise}
      */
     toggleCloseIcon() {

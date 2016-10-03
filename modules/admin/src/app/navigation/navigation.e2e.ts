@@ -1,5 +1,5 @@
 import { NavigationTest } from '../pages/navigation.page';
-import { WaitUntilReady } from '../pages/common/waitUntilReady';
+import { WaitUntil } from '../pages/common/waitUntilReady';
 
 describe('Navigation', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -29,7 +29,7 @@ describe('Navigation', () => {
     it('AngularJS Translations', () => {
         let lang = this.navigator.getLanguage();
 
-        WaitUntilReady.waitUntilReady(this.navigator.dashboardTitle, ptor);
+        WaitUntil.waitUntil(this.navigator.dashboardTitle, ptor);
         this.navigator.getDashboardText()
             .then((text) => {
                 expect(lang).toEqual(text);
@@ -37,7 +37,7 @@ describe('Navigation', () => {
     });
 
     it('marked sub and main item navigation like active', () => {
-        WaitUntilReady.waitUntilReady(this.navigator.dashboardItem, ptor);
+        WaitUntil.waitUntil(this.navigator.dashboardItem, ptor);
         this.navigator.hasClass(this.navigator.dashboardItem, 'active').then((data) => {
             expect(data).toBeTruthy();
         });

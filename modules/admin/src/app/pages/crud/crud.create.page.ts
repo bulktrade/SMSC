@@ -1,22 +1,23 @@
-import { WaitUntilReady } from '../common/waitUntilReady';
+import { WaitUntil } from '../common/waitUntilReady';
 import { InputElement } from '../model/inputElement';
+import { Observable } from "rxjs";
 export class CreatePage {
     public hint = element(by.css('.companyName md-hint'));
-    public selectAll = element(by.css(
-        '.ag-body-container > div:first-of-type .ag-selection-checkbox'));
-    public addLinkBtn = element(by.id('addLink'));
-    public btnAddRecord = element(by.id('addRow'));
-    public formBtn = element(by.id('modify'));
-    public backBtn = element(by.id('back'));
+    public selectAll = by.id('select-all');
+    public addLinkBtn = by.id('addLink');
+    public btnAddRecord = by.id('addRow');
+    public formBtn = by.id('modify');
+    public backBtn = by.id('back');
+    public overlay = element(by.id('overlay'));
 
     public selectElements = {
-        contacts: element(by.css('.contacts #add')),
-        users: element(by.css('.users #add'))
+        contacts: by.css('.contacts #add'),
+        users: by.css('.users #add')
     };
 
     public embeddedListElements = {
-        type: element(by.className('type')),
-        salutation: element(by.className('salutation'))
+        type: by.className('type'),
+        salutation: by.className('salutation')
     };
 
     // first CRUD level
@@ -59,23 +60,23 @@ export class CreatePage {
     public inputElementsOnSecondLevel: Array<InputElement> = [
         {
             nameElement: 'firstname',
-            element: element(by.css('.firstname input')), data: 'Josh'
+            element: by.css('.firstname input'), data: 'Josh'
         },
         {
             nameElement: 'surename',
-            element: element(by.css('.surename input')), data: 'Tomas'
+            element: by.css('.surename input'), data: 'Tomas'
         },
         {
             nameElement: 'phone',
-            element: element(by.css('.phone input')), data: '43-458-05'
+            element: by.css('.phone input'), data: '43-458-05'
         },
         {
             nameElement: 'mobilePhone',
-            element: element(by.css('.mobilePhone input')), data: '0975486397'
+            element: by.css('.mobilePhone input'), data: '0975486397'
         },
         {
             nameElement: 'emailAddress',
-            element: element(by.css('.emailAddress input')), data: 'polin@gmail.com'
+            element: by.css('.emailAddress input'), data: 'polin@gmail.com'
         }
     ];
 
@@ -85,90 +86,165 @@ export class CreatePage {
     }
 
     isVisibleHint() {
-        return this.hint.getCssValue('display')
-            .then(res => {
-                return Promise.resolve(res);
-            });
+        return this.hint.isPresent();
     }
 
     fillInputFields(inputElements: Array<InputElement>) {
-        inputElements.forEach(i => {
-            WaitUntilReady.waitUntilReady(i.element, this._ptor);
+        let promises = [];
 
-            i.element.sendKeys(i.data);
+        inputElements.forEach(i => {
+            promises.push(
+                this._ptor.wait(i.element, 5000)
+                    .then((el: webdriver.IWebElement) => {
+                        return Promise.resolve(el.sendKeys(i.data));
+                    })
+            );
         });
+
+        return Promise.all(promises);
+    }
+
+    chooseContacts() {
+        return this._ptor.wait(protractor.until.elementLocated(this.selectElements.contacts), 5000)
+            .then((el: webdriver.IWebElement) => {
+                el.click();
+
+                return this.createRecordOnSecondLevel()
+                    .then(() => {
+                        return this.clickOnSelectAll()
+                            .then(() => {
+                                return this.clickOnAddLinkBtn();
+                            });
+                    });
+            });
+    }
+
+    chooseUsers() {
+        return this._ptor.wait(protractor.until.elementLocated(this.selectElements.users), 5000)
+            .then((el: webdriver.IWebElement) => {
+                el.click();
+
+                return this.clickOnSelectAll()
+                    .then(() => {
+                        this.clickOnAddLinkBtn()
+                            .then(() => {
+                                this.clickOnFormBtn()
+                                    .then(() => {
+                                        this.clickOnBackBtn();
+                                    });
+                            });
+                    });
+            });
     }
 
     fillLinkset() {
-        for (let i in this.selectElements) {
-            if (this.selectElements.hasOwnProperty(i)) {
-                WaitUntilReady.waitUntilReady(this.selectElements[i], this._ptor);
-                this.selectElements[i].click();
+        return this.chooseContacts()
+            .then(() => {
+                return this.chooseUsers();
+            })
+    }
 
-                if (i === 'contacts') {
-                    this.createRecordOnSecondLevel();
-                }
-
-                browser.sleep(300);
-                this.clickOnSelectAll();
-                this.clickOnAddLinkBtn();
-            }
-        }
+    isHideOverlay() {
+        WaitUntil.waitUntil(this.overlay, this._ptor, true);
+        return !this.overlay.isPresent();
     }
 
     fillEmbeddedList() {
+        let promises = [];
+
         for (let i in this.embeddedListElements) {
             if (this.embeddedListElements.hasOwnProperty(i)) {
-                WaitUntilReady.waitUntilReady(this.embeddedListElements[i], this._ptor);
-                this.embeddedListElements[i].click();
+                promises.push(
+                    this._ptor.wait(protractor.until.elementLocated(this.embeddedListElements[i]), 5000)
+                        .then((el: webdriver.IWebElement) => {
+                            el.click();
 
-                let lastOptionElement = element(by.css('.' + i + ' option:last-of-type'));
+                            let lastOptionElement = by.css('.' + i + ' option:last-of-type');
 
-                WaitUntilReady.waitUntilReady(lastOptionElement, this._ptor);
-                lastOptionElement.click();
+                            this._ptor.wait(protractor.until.elementLocated(lastOptionElement), 5000)
+                                .then((el: webdriver.IWebElement) => {
+                                    el.click();
+                                });
+                        })
+                );
             }
         }
+
+        return Promise.all(promises);
+    }
+
+    fillInputFieldsOnSecondLevel() {
+        let promises = [];
+
+        this.inputElementsOnSecondLevel.forEach(i => {
+            promises.push(
+                this._ptor.wait(protractor.until.elementLocated(i.element), 5000)
+                    .then((el: webdriver.IWebElement) => {
+                        return Promise.resolve(el.sendKeys(i.data));
+                    })
+            )
+        });
+
+        return Promise.all(promises);
     }
 
     createRecordOnSecondLevel() {
-        this.clickOnBtnAddRecord();
-        this.fillInputFields(this.inputElementsOnSecondLevel);
-        this.fillEmbeddedList();
-        this.clickOnFormBtn();
-        this.clickOnBackBtn();
+        return this.clickOnBtnAddRecord()
+            .then(() => {
+                return this.fillInputFieldsOnSecondLevel()
+                    .then(() => {
+                        return this.fillEmbeddedList()
+                            .then(() => {
+                                return this.clickOnFormBtn()
+                                    .then(() => {
+                                        return this.clickOnBackBtn();
+                                    });
+                            });
+                    });
+            });
     }
 
     clickOnContactsLinksetBtn() {
-        WaitUntilReady.waitUntilReady(this.selectElements.contacts, this._ptor);
-        this.selectElements.contacts.click();
+        return this._ptor.wait(protractor.until.elementLocated(by.css('.contacts #add')), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnBackBtn() {
-        WaitUntilReady.waitUntilReady(this.backBtn, this.ptor);
-        this.backBtn.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.backBtn), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnAddLinkBtn() {
-        WaitUntilReady.waitUntilReady(this.addLinkBtn, this._ptor);
-        this.addLinkBtn.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.addLinkBtn), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnSelectAll() {
-        WaitUntilReady.waitUntilReady(this.selectAll, this._ptor);
-        this.selectAll.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.selectAll), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnBtnAddRecord() {
-        WaitUntilReady.waitUntilReady(this.btnAddRecord, this.ptor);
-        this.btnAddRecord.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.btnAddRecord), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
 
     clickOnFormBtn() {
-        WaitUntilReady.waitUntilReady(this.formBtn, this.ptor);
-        this.formBtn.click();
+        return this._ptor.wait(protractor.until.elementLocated(this.formBtn), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
     }
-
-    // getters and setters
 
     get ptor() {
         return this._ptor;

@@ -22,6 +22,7 @@ export class Navigation implements OnInit {
     public sidenav:MdSidenav;
 
     public notificationOptions = NOTIFICATION_OPTIONS;
+    public openedSidenav: boolean;
 
     constructor(public router: Router,
                 public translate: TranslateService,
@@ -41,13 +42,24 @@ export class Navigation implements OnInit {
         });
     }
 
+    ngOnInit() {
+        this.hideSidenavInitiallyOnMobileDevice(window.innerWidth);
+    }
+
     logout() {
         this.tokenService.resetToken();
         this.router.navigateByUrl('/login');
     }
 
-    ngOnInit() {
-        console.log(this.sidenav);
+    hideSidenavInitiallyOnMobileDevice(width: number) {
+        let minWidth: number = 992;
+
+        if (width < minWidth) {
+            this.openedSidenav = false;
+        } else {
+            this.openedSidenav = true;
+        }
+
         this.sidebarService.sidenav = this.sidenav;
     }
 }

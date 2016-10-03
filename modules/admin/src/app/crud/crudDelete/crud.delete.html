@@ -1,11 +1,13 @@
 <div class="deleteRecords">
 	<loading-grid>
-		<alert type="warning" dismissible="true">
-			{{ 'warning.deleteRecords' | translate }}
-	    </alert>
+		<div id="deleteAlert">
+			<alert type="warning" dismissible="true">
+				{{ 'warning.deleteRecords' | translate }}
+			</alert>
+		</div>
 		<div class="formButtons">
-		    <button md-raised-button color="primary" (click)="back()" id="cancel">{{'CANCEL' | translate}}</button>
-		    <button md-raised-button color="primary" (click)="deleteRecords()" id="ok">{{'OK' | translate}}</button>
+			<button md-raised-button color="primary" (click)="back()" id="cancel">{{'CANCEL' | translate}}</button>
+			<button md-raised-button color="primary" (click)="deleteRecords()" id="ok">{{'OK' | translate}}</button>
 		</div>
 	</loading-grid>
 </div>

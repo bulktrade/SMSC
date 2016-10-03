@@ -1,14 +1,15 @@
 import {Dashboard} from './dashboard.page';
 
-describe('Navigation', () => {
+describe('Dashboard', () => {
     let prot = protractor.wrapDriver(browser.driver);
 
+    prot.manage().window().setSize(1024, 1020);
+    //browser.get(browser.baseUrl + '/');
     browser.get('/');
     //browser.get('/admin/');
 
     beforeEach(() => {
         this.dashboard = new Dashboard();
-        //this.dashboard.get();
         prot = protractor.wrapDriver(browser.driver);
         this.dashboard.prot = prot;
     });

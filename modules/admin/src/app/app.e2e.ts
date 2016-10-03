@@ -1,5 +1,5 @@
 import { AppTest } from './pages/app.page';
-import { WaitUntilReady } from './pages/common/waitUntilReady';
+import { WaitUntil } from './pages/common/waitUntilReady';
 
 describe('App', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -10,6 +10,10 @@ describe('App', () => {
     });
 
     it('should have a title', () => {
+        let width = 1980,
+            height = 1020;
+        ptor.manage().window().setSize(width, height);
+
         this.apptest.get();
         let subject = browser.getTitle();
         let result = 'SMSC Admin';
@@ -17,13 +21,13 @@ describe('App', () => {
     });
 
     it('should have input username', () => {
-        WaitUntilReady.waitUntilReady(this.apptest.elemUsername, ptor);
+        WaitUntil.waitUntil(this.apptest.elemUsername, ptor);
         let result = true;
         expect(this.apptest.isPresentUsername()).toEqual(result);
     });
 
     it('should have input password', () => {
-        WaitUntilReady.waitUntilReady(this.apptest.elemPassword, ptor);
+        WaitUntil.waitUntil(this.apptest.elemPassword, ptor);
         let result = true;
         expect(this.apptest.isPresentPassword()).toEqual(result);
     });

@@ -1,4 +1,4 @@
-.wrap-breadcrumb {
+#wrap-breadcrumb {
   .page-title {
     display: inline-block;
     padding: 5px 0 10px;
@@ -64,5 +64,11 @@
       font-size: 18px;
       margin: 0 7px 0 7px;
     }
+  }
+}
+
+@media all and (max-width: 992px) {
+  #wrap-breadcrumb {
+    display: none;
   }
 }
