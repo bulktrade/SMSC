@@ -12,7 +12,6 @@ if ($customerContactClass.size() == 0) {
   CREATE PROPERTY CustomerContact.mobilePhone STRING
   CREATE PROPERTY CustomerContact.fax STRING
   CREATE PROPERTY CustomerContact.emailAddress STRING
-  CREATE PROPERTY CustomerContact.customer LINK Customer
 
   ALTER PROPERTY CustomerContact.type MANDATORY true
   ALTER PROPERTY CustomerContact.salutation MANDATORY true
@@ -47,6 +46,8 @@ if ($customerClass.size() == 0) {
   CREATE PROPERTY Customer.contacts LINKSET CustomerContact
   CREATE PROPERTY Customer.users LINKSET OUser
   CREATE PROPERTY Customer.parentCustomer LINK Customer
+
+  CREATE PROPERTY CustomerContact.customer LINK Customer
 
   ALTER PROPERTY Customer.customerId MANDATORY true
   ALTER PROPERTY Customer.companyName MANDATORY true
