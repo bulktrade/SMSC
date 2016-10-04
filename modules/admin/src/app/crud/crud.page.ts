@@ -1,7 +1,7 @@
-import { LoginPage } from '../login.page';
+import { LoginPage } from '../login/login.page';
 import { WaitUntil } from '../common/waitUntilReady';
-import { CreatePage } from './crud.create.page';
-import { DeletePage } from './crud.delete.page';
+import { CreatePage } from './crudCreate/crud.create.page';
+import { DeletePage } from './crudDelete/crud.delete.page';
 
 export class CrudPage {
     public login: LoginPage = new LoginPage();

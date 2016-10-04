@@ -1,5 +1,5 @@
 import { browser } from 'protractor/built/index';
-import { LoginPage } from '../pages/login.page';
+import { LoginPage } from '../login/login.page';
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));

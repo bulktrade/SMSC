@@ -1,6 +1,6 @@
-import { CrudPage } from '../pages/crud/crud.page';
-import { WaitUntil } from '../pages/common/waitUntilReady';
-import { GridPaginationPage } from '../pages/gridPagination.page';
+import { CrudPage } from './crud.page';
+import { WaitUntil } from '../common/waitUntilReady';
+import { GridPaginationPage } from './directives/gridPagination/gridPagination.page';
 
 describe('CRUD', () => {
     let ptor = protractor.wrapDriver(browser.driver);

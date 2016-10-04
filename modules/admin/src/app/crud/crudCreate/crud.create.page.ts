@@ -1,4 +1,4 @@
-import { InputElement } from '../model/inputElement';
+import { InputElement } from '../../common/inputElement';
 
 export class CreatePage {
     public hint = element(by.css('.companyName md-hint'));

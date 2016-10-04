@@ -1,5 +1,5 @@
-import { WaitUntil } from './common/waitUntilReady';
-import { LoginModel } from "../login/login.model";
+import { WaitUntil } from '../common/waitUntilReady';
+import { LoginModel } from "./login.model";
 
 export class LoginPage {
     public loginModel = new LoginModel('admin', 'admin', false);

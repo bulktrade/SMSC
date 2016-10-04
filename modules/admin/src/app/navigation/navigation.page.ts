@@ -1,4 +1,4 @@
-import { LoginPage } from './login.page';
+import { LoginPage } from '../login/login.page';
 
 export class NavigationTest {
     public login: LoginPage = new LoginPage();

@@ -1,5 +1,5 @@
-import { NavigationTest } from '../pages/navigation.page';
-import { WaitUntil } from '../pages/common/waitUntilReady';
+import { NavigationTest } from './navigation.page';
+import { WaitUntil } from '../common/waitUntilReady';
 
 describe('Navigation', () => {
     let ptor = protractor.wrapDriver(browser.driver);

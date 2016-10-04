@@ -1,4 +1,4 @@
-import { WaitUntil } from '../common/waitUntilReady';
+import { WaitUntil } from '../../common/waitUntilReady';
 
 export class DeletePage {
     public crudDelete = element(by.tagName('crud-delete'));

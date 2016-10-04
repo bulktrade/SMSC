@@ -1,5 +1,5 @@
-import { WaitUntil } from '../pages/common/waitUntilReady';
-import { CrudMetaDataPage } from '../pages/crudMetaData.page';
+import { WaitUntil } from '../common/waitUntilReady';
+import { CrudMetaDataPage } from './crudMetaData.page';
 
 describe('CrudMetaData', () => {
     let ptor = protractor.wrapDriver(browser.driver);

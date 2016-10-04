@@ -1,4 +1,4 @@
-import { LoginPage } from '../pages/login.page';
+import { LoginPage } from './login.page';
 import { LoginModel } from "./login.model";
 
 describe('Login page', () => {

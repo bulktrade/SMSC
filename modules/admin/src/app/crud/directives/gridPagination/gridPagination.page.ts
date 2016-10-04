@@ -1,5 +1,5 @@
-import { CreatePage } from './crud/crud.create.page';
-import { LoginPage } from './login.page';
+import { CreatePage } from '../../crudCreate/crud.create.page';
+import { LoginPage } from '../../../login/login.page';
 
 export class GridPaginationPage {
     public login: LoginPage = new LoginPage();
