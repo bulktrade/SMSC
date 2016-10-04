@@ -39,8 +39,14 @@ export class Dashboard {
      * @param ptor
      * @returns {Promise}
      */
-    clickOnFullscreenIcon() {
-        this.clickBySelector('.box .fullscreen-icon');
+    clickOnFullscreenIcon(): Promise<Object> {
+        let this_ = this;
+
+        return new Promise((resolve) => {
+            this_.clickBySelector('.box:first-child .fullscreen-icon').then((el: webdriver.IWebElement) => {
+                this_.clickBySelector('.box:first-child .fullscreen-icon');
+            });
+        });
     }
 
     /**
@@ -48,19 +54,18 @@ export class Dashboard {
      * @param ptor
      * @returns {Promise}
      */
-    editBox() {
-        this.clickOnCrudIcon();
-        this.clickBySelector('.box:first-child .crud .edit');
-        this.fillForm();
-    }
+    editBox(): Promise<Object> {
+        let this_ = this;
 
-    /**
-     * Close fullscreen by press Escape key
-     * @param prot
-     */
-    pressCloseFullscreenESC() {
-        element(by.css('body')).sendKeys(protractor.Key.ESCAPE);
-        browser.sleep(3000);
+        return new Promise((resolve) => {
+            this_.clickOnCrudIcon().then(() => {
+                this_.clickBySelector('.box:first-child .crud .edit').then(() => {
+                    this_.fillForm().then(() => {
+                        resolve(true);
+                    });
+                });
+            });
+        });
     }
 
     /**
@@ -70,14 +75,12 @@ export class Dashboard {
     clickOnSizeButtons() {
         this.clickOnCrudIcon();
 
-        try {
-            element.all(by.css('.box:first-child .view-width button:last-child')).each((element, i) => {
-                element.click();
-                browser.sleep(700);
-            });
-        } catch (ex) {
-            console.log(ex);
-        }
+        element.all(by.css('.box:first-child .view-width button:last-child')).each((element, i) => {
+            element.click();
+            browser.sleep(700);
+        });
+
+        this.clickOnCloseIcon();
     }
 
     /*dragAndDrop() {
@@ -285,8 +288,14 @@ export class Dashboard {
      * @returns {Promise}
      */
     toggleCloseIcon() {
-        this.clickOnCrudIcon();
-        this.clickOnCloseIcon();
+        let this_ = this;
+
+        this_.clickOnCrudIcon().then(() => {
+            browser.sleep(1000);
+            this_.clickOnCloseIcon().then(() => {
+                browser.sleep(1000);
+            });
+        });
     }
 
     /**
@@ -305,8 +314,12 @@ export class Dashboard {
     /**
      * Click on close icon
      */
-    clickOnCloseIcon() {
-        this.clickBySelector('.box:first-child .closeTool .material-icons', 1000);
+    clickOnCloseIcon(): Promise<Object> {
+        return new Promise((resolve) => {
+            this.clickBySelector('.box:first-child .closeTool .material-icons').then(() => {
+                resolve(true);
+            });
+        });
     }
 
     finish() {
