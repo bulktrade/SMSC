@@ -21,7 +21,8 @@ export class CrudPage {
     public backBtn = by.id('back');
     public record = element(by.css('.ag-body-container > div:first-of-type'));
     public searchPanel = by.className('searchPanel');
-    public chooseFirstLinkElement = by.css('.ag-body-container > div:first-of-type .ag-selection-checkbox');
+    public chooseFirstLinkElement = by.css(
+        '.ag-body-container > div:first-of-type .ag-selection-checkbox');
 
     private _ptor;
 

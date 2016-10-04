@@ -67,7 +67,7 @@ describe('CRUD', () => {
                 crudPage.crudCreate.clickOnBackBtn()
                     .then(() => {
                         expect(crudPage.isPresentRecord()).toBeTruthy();
-                    })
+                    });
             });
     });
 

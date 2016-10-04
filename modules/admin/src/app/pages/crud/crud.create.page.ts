@@ -9,7 +9,8 @@ export class CreatePage {
     public btnAddRecord = by.id('addRow');
     public formBtn = by.id('modify');
     public backBtn = by.id('back');
-    public chooseFirstLinkElement = by.css('.ag-body-container > div:first-of-type .ag-selection-checkbox');
+    public chooseFirstLinkElement = by.css(
+        '.ag-body-container > div:first-of-type .ag-selection-checkbox');
 
     public selectElements = {
         contacts: by.css('.contacts #add'),
@@ -124,7 +125,8 @@ export class CreatePage {
     }
 
     chooseUsers() {
-        return this._ptor.wait(protractor.until.elementLocated(this.selectElements.users), this.timeWait)
+        return this._ptor.wait(protractor.until.elementLocated(
+            this.selectElements.users), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return el.click()
                     .then(() => {
@@ -212,7 +214,8 @@ export class CreatePage {
     }
 
     clickOnContactsLinksetBtn() {
-        return this._ptor.wait(protractor.until.elementLocated(by.css('.contacts #add')), this.timeWait)
+        return this._ptor.wait(protractor.until.elementLocated(
+            by.css('.contacts #add')), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
             });
@@ -261,7 +264,8 @@ export class CreatePage {
     }
 
     chooseFirstLink() {
-        return this._ptor.wait(protractor.until.elementLocated(this.chooseFirstLinkElement), this.timeWait)
+        return this._ptor.wait(protractor.until.elementLocated(
+            this.chooseFirstLinkElement), this.timeWait)
             .then((el: webdriver.IWebElement) => {
                 return Promise.resolve(el.click());
             });
