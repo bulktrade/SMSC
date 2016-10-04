@@ -113,10 +113,10 @@ export class Dashboard {
             this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
                 .then(function (el: webdriver.IWebElement) {
                     //  Select "type"
-                    this_.selectLinkset('*[ng-reflect-class-name="type"] #add').then(() => {
+                    this_.selectLinkset('.type #add').then(() => {
                         console.log('Good');
                         //  Select "description"
-                        this_.selectLinkset('*[ng-reflect-class-name="dashboard"] #add').then(() => {
+                        this_.selectLinkset('.dashboard #add').then(() => {
                             console.log('Good');
                             this_.inputText('NAME', 'My box name').then(() => {
                                 //  Enter Description field
