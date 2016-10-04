@@ -37,7 +37,13 @@ describe('Dashboard', () => {
 
     //  Create box
     it('Create box', () => {
-        this.dashboard.createBox();
+        let this_ = this;
+
+        this_.dashboard.createBox().then(() => {
+            this_.dashboard.removeBox().then(() => {
+                console.log('Remove box');
+            });
+        });
     });
 
     /*//  Drag and drop box
@@ -72,7 +78,7 @@ describe('Dashboard', () => {
      */
     //  Remove box
     it('Remove box', () => {
-        this.dashboard.removeBox();
+        //this.dashboard.removeBox();
     });
 
     it('Finish', () => {

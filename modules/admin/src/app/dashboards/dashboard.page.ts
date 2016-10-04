@@ -251,24 +251,31 @@ export class Dashboard {
      * Create box
      * @returns {Promise<T>}
      */
-    createBox() {
+    createBox(): Promise<Object> {
         let this_ = this;
 
-            this_.clickBySelector('#dashboard div.add.toolButton')
-            this_.fillForm();
-
+        return new Promise((resolve) => {
+            this_.clickBySelector('#dashboard div.add.toolButton').then(() => {
+                this_.fillForm().then(() => {
+                    resolve(true);
+                });
+            });
+        });
     }
 
     /**
      * Remove box
      */
-    removeBox() {
+    removeBox(): Promise<Object> {
         let this_ = this;
-        //this.clickBySelector('.box:first-child .crud .remove');
-        this_.clickBySelector('.box:first-child .crud .icon').then(() => {
-            browser.sleep(1000);
-            this_.clickBySelector('.box:first-child .crud .remove').then(() => {
+
+        return new Promise((resolve) => {
+            this_.clickBySelector('.box:first-child .crud .icon').then(() => {
                 browser.sleep(1000);
+                this_.clickBySelector('.box:first-child .crud .remove').then(() => {
+                    browser.sleep(1000);
+                    resolve(true);
+                });
             });
         });
     }
