@@ -1,5 +1,5 @@
 import { LoginPage } from './login.page';
-import { LoginModel } from "./login.model";
+import { LoginModel } from './login.model';
 
 describe('Login page', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -25,9 +25,9 @@ describe('Login page', () => {
                         loginPage.clickOnSubmitButton(ptor)
                             .then(() => {
                                 expect(loginPage.isPresentErrorAlert()).toBeTruthy();
-                            })
-                    })
-            })
+                            });
+                    });
+            });
     });
 
     it('is exist page 404 not found', () => {

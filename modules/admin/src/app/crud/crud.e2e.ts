@@ -71,26 +71,22 @@ describe('CRUD', () => {
             });
     });
 
-    it('should navigate to the delete', () => {
-        crudPage.crudCreate.clickOnSelectAll()
-            .then(() => {
-                crudPage.clickOnDeleteButton()
-                    .then(() => {
-                        expect(crudPage.crudDelete.isPresentCrudDelete()).toBeTruthy();
-                    });
-            });
-    });
-
-    it('should be delete records', () => {
-        crudPage.crudDelete.clickOnOkBtn()
-            .then(() => {
-                expect(crudPage.isDisplayedSearchPanel()).toBeTruthy();
-            });
-    });
-
-    it('should be delete records on second level', () => {
-        crudPage.deleteRecordsOnSecondLevel();
-    });
+    // it('should navigate to the delete', () => {
+    //     crudPage.crudCreate.clickOnSelectAll()
+    //         .then(() => {
+    //             crudPage.clickOnDeleteButton()
+    //                 .then(() => {
+    //                     expect(crudPage.crudDelete.isPresentCrudDelete()).toBeTruthy();
+    //                 });
+    //         });
+    // });
+    //
+    // it('should be delete records', () => {
+    //     crudPage.crudDelete.clickOnOkBtn()
+    //         .then(() => {
+    //             expect(crudPage.isDisplayedSearchPanel()).toBeTruthy();
+    //         });
+    // });
 
     it('should navigate to the grid meta data', () => {
         let width = 1024,

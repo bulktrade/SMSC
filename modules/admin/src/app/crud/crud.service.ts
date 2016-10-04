@@ -121,7 +121,10 @@ export class CrudService {
 
         return new Promise((resolve, reject) => {
             this.databaseService.batch(operations)
-                .subscribe((res) => {
+                .subscribe((res: Response) => {
+                    let result = res.json().result[0];
+
+                    this.gridService.addLinkToCreatedRecord(result, 'customer', ['contacts']);
                     this.loadingService.stop();
                     this.serviceNotifications.createNotification('success',
                         'message.createSuccessful', 'orientdb.successCreate');

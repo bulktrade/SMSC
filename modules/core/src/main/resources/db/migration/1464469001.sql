@@ -12,6 +12,7 @@ if ($customerContactClass.size() == 0) {
   CREATE PROPERTY CustomerContact.mobilePhone STRING
   CREATE PROPERTY CustomerContact.fax STRING
   CREATE PROPERTY CustomerContact.emailAddress STRING
+  CREATE PROPERTY CustomerContact.customer LINK Customer
 
   ALTER PROPERTY CustomerContact.type MANDATORY true
   ALTER PROPERTY CustomerContact.salutation MANDATORY true

@@ -104,7 +104,7 @@ export class MultipleSelect {
 
     clearAll(): void {
         this.resetParams();
-
+        this.crudService.model[this.property.property] = [];
         this.crudService.multipleSelectValid = true;
     }
 
@@ -125,7 +125,6 @@ export class MultipleSelect {
 
     resetParams(): void {
         this.crudService.titleColumns[this.property.property] = [];
-        this.crudService.model[this.property.property] = [];
         this.crudService.titleColumns = [];
         this.ridItems = [];
     }

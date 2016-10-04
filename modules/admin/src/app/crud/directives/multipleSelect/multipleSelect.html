@@ -1,22 +1,22 @@
 <div id="multipleSelect">
-    <div id="multipleSelectComponent">
-        <div class="title">{{property.property | uppercase | translate}}<span
-            class="requiredSymb">{{requiredSymb}}</span></div>
-        <hr>
-        <div *ngFor="let item of ridItems" class="items">
-            <div class="item" *ngIf="item.visible">
-                <div class="title">{{item.name}}</div>
-                <md-icon (click)="item.visible=!item.visible; removeItem()"
-                         class="md-24">remove_circle_outline
-                </md-icon>
-            </div>
-        </div>
-        <md-icon class="md-24" id="add" title="{{'ADD' | translate}}"
-                 (click)="addLinkset()">add_circle
-        </md-icon>
-        <md-icon class="md-24" title="{{'CLEARALL' | translate}}"
-                 (click)="clearAll()" id="clearAll">clear_all
-        </md-icon>
-    </div>
-    <ng-content select="md-hint" id="hint"></ng-content>
+	<div id="multipleSelectComponent">
+		<div class="title">{{property.property | uppercase | translate}}<span
+			class="requiredSymb">{{requiredSymb}}</span></div>
+		<hr>
+		<div *ngFor="let item of ridItems" class="items">
+			<div class="link" *ngIf="item.visible">
+				<div class="title">{{item.name}}</div>
+				<md-icon (click)="item.visible=!item.visible; removeItem()"
+				         class="md-24">remove_circle_outline
+				</md-icon>
+			</div>
+		</div>
+		<md-icon class="md-24" id="add" title="{{'ADD' | translate}}"
+		         (click)="addLinkset()">add_circle
+		</md-icon>
+		<md-icon class="md-24" title="{{'CLEARALL' | translate}}"
+		         (click)="clearAll()" id="clearAll">clear_all
+		</md-icon>
+	</div>
+	<ng-content select="md-hint" id="hint"></ng-content>
 </div>
