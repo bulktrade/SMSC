@@ -188,22 +188,22 @@ export class Dashboard {
         });
 
         /*return new Promise((resolve) => {
-            this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-                this_.clickBySelector(selector, 1000).then(() => {
-                    selector = '.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)';
-                    this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-                        this_.clickBySelector(selector).then(() => {
-                            /!*selector = '#addLink';
-                             this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-                             this_.clickBySelector(selector).then(() => {
-                             resolve(true);
-                             });
-                             });*!/
-                        });
-                    });
-                });
-            });
-        });*/
+         this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+         this_.clickBySelector(selector, 1000).then(() => {
+         selector = '.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)';
+         this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+         this_.clickBySelector(selector).then(() => {
+         /!*selector = '#addLink';
+         this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+         this_.clickBySelector(selector).then(() => {
+         resolve(true);
+         });
+         });*!/
+         });
+         });
+         });
+         });
+         });*/
     }
 
     /**
