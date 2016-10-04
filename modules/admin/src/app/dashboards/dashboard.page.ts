@@ -1,5 +1,6 @@
-import { browser } from 'protractor/built/index';
-import { LoginPage } from '../login/login.page';
+import { browser } from "protractor/built/index";
+import { LoginPage } from "../pages/login.page";
+import {WaitUntil} from "../pages/common/waitUntilReady";
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));
@@ -38,8 +39,14 @@ export class Dashboard {
      * @param ptor
      * @returns {Promise}
      */
-    clickOnFullscreenIcon() {
-        this.clickBySelector('.box .fullscreen-icon');
+    clickOnFullscreenIcon(): Promise<Object> {
+        let this_ = this;
+
+        return new Promise((resolve) => {
+            this_.clickBySelector('.box:first-child .fullscreen-icon').then((el: webdriver.IWebElement) => {
+                this_.clickBySelector('.box:first-child .fullscreen-icon');
+            });
+        });
     }
 
     /**
@@ -47,19 +54,18 @@ export class Dashboard {
      * @param ptor
      * @returns {Promise}
      */
-    editBox() {
-        this.clickOnCrudIcon();
-        this.clickBySelector('.box:first-child .crud .edit');
-        this.fillForm();
-    }
+    editBox(): Promise<Object> {
+        let this_ = this;
 
-    /**
-     * Close fullscreen by press Escape key
-     * @param prot
-     */
-    pressCloseFullscreenESC() {
-        element(by.css('body')).sendKeys(protractor.Key.ESCAPE);
-        browser.sleep(3000);
+        return new Promise((resolve) => {
+            this_.clickOnCrudIcon().then(() => {
+                this_.clickBySelector('.box:first-child .crud .edit').then(() => {
+                    this_.fillForm().then(() => {
+                        resolve(true);
+                    });
+                });
+            });
+        });
     }
 
     /**
@@ -69,20 +75,16 @@ export class Dashboard {
     clickOnSizeButtons() {
         this.clickOnCrudIcon();
 
-        try {
-            element.all(by.css(
-                '.box:first-child .view-width button:last-child')).each((element, i) => {
-                element.click();
-                browser.sleep(700);
-            });
-        } catch (ex) {
-            console.log(ex);
-        }
+        element.all(by.css('.box:first-child .view-width button:last-child')).each((element, i) => {
+            element.click();
+            browser.sleep(700);
+        });
+
+        this.clickOnCloseIcon();
     }
 
     /*dragAndDrop() {
-     this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000)
-     .then((el) => {
+     this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000).then((el) => {
      el.getLocation().then((location) => {
      this.prot.manage().window().getSize().then((size) => {
      console.log(size);
@@ -107,33 +109,45 @@ export class Dashboard {
     /**
      * Fill edit/create form
      */
-    fillForm() {
-        this.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
-            .then(function (el: webdriver.IWebElement) {
-                //  Enter Name field
-                this.inputText('NAME', 'My box name');
-                //  Enter Description field
-                this.inputText('DESCRIPTION', 'Box description');
-                //  Enter order field
-                this.inputText('ORDER', '0');
-                //  Select width option
-                this.clickSelectOption('md-select[ng-reflect-class-name="width"] select', 2);
-                //  Select height option
-                this.clickSelectOption('md-select[ng-reflect-class-name="height"] select', 2);
+    fillForm(): Promise<Object> {
+        let this_ = this;
 
-                //  Select "type"
-                this.selectLinkset('multiple-select[ng-reflect-class-name="type"] md-icon#add');
-                //  Select "description"
-                this.selectLinkset(
-                    'multiple-select[ng-reflect-class-name="dashboard"] md-icon#add');
-
-                //  Update
-                this.clickBySelector('#modify', 1000);
-                this.clickBySelector('.back.md-primary', 1000);
-            })
-            .thenCatch((error) => {
-                throw error; // @todo check for better solution.
+        return new Promise((resolve) => {
+            this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
+                .then(function (el: webdriver.IWebElement) {
+                    //  Select "type"
+                    this_.selectLinkset('.type #add').then(() => {
+                        console.log('Good');
+                        //  Select "description"
+                        this_.selectLinkset('.dashboard #add').then(() => {
+                            console.log('Good');
+                            this_.inputText('NAME', 'My box name').then(() => {
+                                //  Enter Description field
+                                this_.inputText('DESCRIPTION', 'Box description').then(() => {
+                                    //  Enter order field
+                                    this_.inputText('ORDER', '0').then(() => {
+                                        //  Select width option
+                                        this_.clickSelectOption('.width select', 2).then(() => {
+                                            //  Select height option
+                                            this_.clickSelectOption('.height select', 2).then(() => {
+                                                //  Save
+                                                this_.clickBySelector('#modify').then(() => {
+                                                    //  Close
+                                                    this_.clickBySelector('.back.md-primary').then(() => {
+                                                        resolve(true);
+                                                    });
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                }).thenCatch((error) => {
+                throw error;
             });
+        });
     }
 
     /**
@@ -142,12 +156,16 @@ export class Dashboard {
      * @param inputName
      * @param text
      */
-    inputText(inputName, text: string) {
-        this.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000)
-            .then((el: webdriver.IWebElement) => {
+    inputText(inputName, text: string): Promise<Object> {
+        let this_ = this;
+
+        return new Promise((resolve) => {
+            this_.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000).then((el: webdriver.IWebElement) => {
                 el.clear();
-                el.sendKeys(text);
+                el.sendKeys(text)
+                resolve(true);
             });
+        });
     }
 
     /**
@@ -155,11 +173,38 @@ export class Dashboard {
      * @param prot
      * @param selector
      */
-    selectLinkset(selector) {
-        this.clickBySelector(selector, 1000);
-        this.clickBySelector(
-            '.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)', 1000);
-        this.clickBySelector('#addLink', 1000);
+    selectLinkset(selector): Promise<Object> {
+        let this_ = this;
+
+        return new Promise((resolve) => {
+            this_.clickBySelector(selector).then(() => {
+                this_.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)').then(() => {
+                    this_.clickBySelector('#addLink').then(() => {
+                        this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000).then(() => {
+                            resolve(true);
+                        });
+                    });
+                });
+            });
+        });
+
+        /*return new Promise((resolve) => {
+            this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+                this_.clickBySelector(selector, 1000).then(() => {
+                    selector = '.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)';
+                    this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+                        this_.clickBySelector(selector).then(() => {
+                            /!*selector = '#addLink';
+                             this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+                             this_.clickBySelector(selector).then(() => {
+                             resolve(true);
+                             });
+                             });*!/
+                        });
+                    });
+                });
+            });
+        });*/
     }
 
     /**
@@ -169,10 +214,19 @@ export class Dashboard {
      * @param selector - selector to "select" tag
      * @param num - option index
      */
-    clickSelectOption(selector, num) {
-        this.clickBySelector(selector, 1000);
-        selector += ' option:nth-child(' + num + ')';
-        this.clickBySelector(selector, 1000);
+    clickSelectOption(selector, num): Promise<Object> {
+        let this_ = this;
+
+        return new Promise((resolve) => {
+            this_.clickBySelector(selector).then(() => {
+                selector += ' option:nth-child(' + num + ')';
+                this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000).then(() => {
+                    this_.clickBySelector(selector).then(() => {
+                        resolve(true);
+                    });
+                });
+            });
+        });
     };
 
     /**
@@ -180,31 +234,53 @@ export class Dashboard {
      * @param prot
      * @param selector
      */
-    clickBySelector(selector: string, delay?: number) {
-        this.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000)
-            .then((el: webdriver.IWebElement) => {
-                el.click();
+    clickBySelector(selector: string, delay?: number): Promise<Object> {
+        let this_ = this;
 
-                if (delay !== undefined && delay > 100) {
-                    browser.sleep(delay);
+        return new Promise((resolve) => {
+            this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+                resolve(el.click());
+
+                if (delay != undefined && delay > 100) {
+                    //browser.sleep(delay);
                 }
             });
+        }).catch((error) => {
+            throw error;
+        });
     }
 
     /**
      * Create box
      * @returns {Promise<T>}
      */
-    createBox() {
-        this.clickBySelector('#dashboard div.add.toolButton');
-        this.fillForm();
+    createBox(): Promise<Object> {
+        let this_ = this;
+
+        return new Promise((resolve) => {
+            this_.clickBySelector('#dashboard div.add.toolButton').then(() => {
+                this_.fillForm().then(() => {
+                    resolve(true);
+                });
+            });
+        });
     }
 
     /**
      * Remove box
      */
-    removeBox() {
-        this.clickBySelector('.box:first-child .crud .remove', 1000);
+    removeBox(): Promise<Object> {
+        let this_ = this;
+
+        return new Promise((resolve) => {
+            this_.clickBySelector('.box:first-child .crud .icon').then(() => {
+                browser.sleep(1000);
+                this_.clickBySelector('.box:first-child .crud .remove').then(() => {
+                    browser.sleep(1000);
+                    resolve(true);
+                });
+            });
+        });
     }
 
     /**
@@ -212,21 +288,41 @@ export class Dashboard {
      * @returns {Promise}
      */
     toggleCloseIcon() {
-        this.clickOnCrudIcon();
-        this.clickOnCloseIcon();
+        let this_ = this;
+
+        this_.clickOnCrudIcon().then(() => {
+            browser.sleep(1000);
+            this_.clickOnCloseIcon().then(() => {
+                browser.sleep(1000);
+            });
+        });
     }
 
     /**
      * Click on crud icon
      */
-    clickOnCrudIcon() {
-        this.clickBySelector('.box:first-child .crud .icon', 1000);
+    clickOnCrudIcon(): Promise<Object> {
+        let this_ = this;
+
+        return new Promise((resolve) => {
+            this_.clickBySelector('.box:first-child .crud .icon').then(() => {
+                resolve(true);
+            });
+        });
     }
 
     /**
      * Click on close icon
      */
-    clickOnCloseIcon() {
-        this.clickBySelector('.box:first-child .closeTool .material-icons', 1000);
+    clickOnCloseIcon(): Promise<Object> {
+        return new Promise((resolve) => {
+            this.clickBySelector('.box:first-child .closeTool .material-icons').then(() => {
+                resolve(true);
+            });
+        });
+    }
+
+    finish() {
+        browser.sleep(50000);
     }
 }

@@ -10,7 +10,7 @@ $color-9: #000;
 
 #dashboard {
     margin-bottom: 15px;
-    //position: relative;
+    margin-right: -2px;
 
     .rectangle {
         background-color: #FD4140;
@@ -31,7 +31,10 @@ $color-9: #000;
         flex-basis: 100% !important;
     }
     .height-m {
-        height: 250px !important;
+        height: 175px !important;
+        &.chart {
+            height: 250px !important;
+        }
     }
     .height-s {
         height: 350px !important;
@@ -153,6 +156,18 @@ $color-9: #000;
         }
         .width-xl {
             flex-basis: 100% !important;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    #dashboard {
+        .topToolbar{
+            text-align: right;
+            padding-right: 7px;
+            position: static !important;
+            margin-top: 10px;
+            margin-bottom: 30px;
         }
     }
 }
