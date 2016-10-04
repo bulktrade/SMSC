@@ -308,4 +308,8 @@ export class Dashboard {
     clickOnCloseIcon() {
         this.clickBySelector('.box:first-child .closeTool .material-icons', 1000);
     }
+
+    finish() {
+        browser.sleep(50000);
+    }
 }

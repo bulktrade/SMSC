@@ -82,8 +82,6 @@ describe('Dashboard', () => {
     });
 
     it('Finish', () => {
-        prot.wait(protractor.until.elementLocated(by.tagName('finishElement')), 50000).then(() => {
-
-        });
+        this.dashboard.finish();
     });
 });
