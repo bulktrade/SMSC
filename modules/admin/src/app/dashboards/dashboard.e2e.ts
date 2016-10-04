@@ -74,4 +74,10 @@ describe('Dashboard', () => {
     it('Remove box', () => {
         this.dashboard.removeBox();
     });
+
+    it('Finish', () => {
+        prot.wait(protractor.until.elementLocated(by.tagName('finishElement')), 50000).then(() => {
+
+        });
+    });
 });

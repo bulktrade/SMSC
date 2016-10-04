@@ -1,5 +1,6 @@
 import { browser } from "protractor/built/index";
 import { LoginPage } from "../pages/login.page";
+import {WaitUntil} from "../pages/common/waitUntilReady";
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));
@@ -105,47 +106,45 @@ export class Dashboard {
     /**
      * Fill edit/create form
      */
-    fillForm() {
-        this.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
-            .then(function (el: webdriver.IWebElement) {
-                //  Enter Name field
-                this.inputText('NAME', 'My box name').then(() => {
-                    //  Enter Description field
-                    this.inputText('DESCRIPTION', 'Box description').then(() => {
-                        //  Enter order field
-                        this.inputText('ORDER', '0').then(() => {
-                            element.all(by.css('select option:nth-child(2)')).each((element) => {
-                                this.prot.wait(protractor.until.elementLocated(element), 5000).then((el: webdriver.IWebElement) => {
-                                    element.click();
-                                });
-                            });
+    fillForm(): Promise<Object> {
+        let this_ = this;
 
-                            /*//  Select width option
-                            this.clickSelectOption('*[ng-reflect-class-name="width"] select', 2).then(() => {
-                                //  Select height option
-                                this.clickSelectOption('*[ng-reflect-class-name="height"] select', 2).then(() => {
-                                    //  Select "type"
-                                    this.selectLinkset('*[ng-reflect-class-name="type"] #add').then(() => {
-                                        //  Select "description"
-                                        this.selectLinkset('*[ng-reflect-class-name="dashboard"] #add').then(() => {
-                                            //  Update
-                                            this.clickBySelector('#modify').then(() => {
-                                                //  Back
-                                                this.clickBySelector('.back.md-primary').then(() => {
-                                                    return true;
-                                                })
+        return new Promise((resolve) => {
+            this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
+                .then(function (el: webdriver.IWebElement) {
+                    //  Select "type"
+                    this_.selectLinkset('multiple-select[ng-reflect-class-name="type"] #add').then(() => {
+                        console.log('Good');
+                        //  Select "description"
+                        this_.selectLinkset('multiple-select[ng-reflect-class-name="dashboard"] #add').then(() => {
+                            console.log('Good');
+                            this_.inputText('NAME', 'My box name').then(() => {
+                                //  Enter Description field
+                                this_.inputText('DESCRIPTION', 'Box description').then(() => {
+                                    //  Enter order field
+                                    this_.inputText('ORDER', '0').then(() => {
+                                        //  Select width option
+                                        this_.clickSelectOption('*[ng-reflect-class-name="width"] select', 2).then(() => {
+                                            //  Select height option
+                                            this_.clickSelectOption('*[ng-reflect-class-name="height"] select', 2).then(() => {
+                                                //  Save
+                                                this_.clickBySelector('#modify').then(() => {
+                                                    //  Close
+                                                    this_.clickBySelector('.back.md-primary').then(() => {
+                                                        resolve(true);
+                                                    });
+                                                });
                                             });
                                         });
                                     });
                                 });
-                            });*/
+                            });
                         });
                     });
-                });
-            })
-            .thenCatch((error) => {
-                throw error; // @todo check for better solution.
+                }).thenCatch((error) => {
+                throw error;
             });
+        });
     }
 
     /**
@@ -155,10 +154,13 @@ export class Dashboard {
      * @param text
      */
     inputText(inputName, text: string): Promise<Object> {
+        let this_ = this;
+
         return new Promise((resolve) => {
-            this.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000).then((el: webdriver.IWebElement) => {
+            this_.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000).then((el: webdriver.IWebElement) => {
                 el.clear();
-                resolve(el.sendKeys(text));
+                el.sendKeys(text)
+                resolve(true);
             });
         });
     }
@@ -169,15 +171,37 @@ export class Dashboard {
      * @param selector
      */
     selectLinkset(selector): Promise<Object> {
+        let this_ = this;
+
         return new Promise((resolve) => {
-            this.clickBySelector(selector).then(() => {
-                this.clickBySelector('.ag-body-container > div:first-child').then(() => {
-                    this.clickBySelector('#addLink').then(() => {
-                        resolve(true);
+            this_.clickBySelector(selector).then(() => {
+                this_.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)').then(() => {
+                    this_.clickBySelector('#addLink').then(() => {
+                        this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000).then(() => {
+                            resolve(true);
+                        });
                     });
                 });
             });
         });
+
+        /*return new Promise((resolve) => {
+            this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+                this_.clickBySelector(selector, 1000).then(() => {
+                    selector = '.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)';
+                    this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+                        this_.clickBySelector(selector).then(() => {
+                            /!*selector = '#addLink';
+                             this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+                             this_.clickBySelector(selector).then(() => {
+                             resolve(true);
+                             });
+                             });*!/
+                        });
+                    });
+                });
+            });
+        });*/
     }
 
     /**
@@ -188,11 +212,15 @@ export class Dashboard {
      * @param num - option index
      */
     clickSelectOption(selector, num): Promise<Object> {
+        let this_ = this;
+
         return new Promise((resolve) => {
-            this.clickBySelector(selector).then(() => {
+            this_.clickBySelector(selector).then(() => {
                 selector += ' option:nth-child(' + num + ')';
-                this.clickBySelector(selector).then(() => {
-                    resolve(true);
+                this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000).then(() => {
+                    this_.clickBySelector(selector).then(() => {
+                        resolve(true);
+                    });
                 });
             });
         });
@@ -204,17 +232,18 @@ export class Dashboard {
      * @param selector
      */
     clickBySelector(selector: string, delay?: number): Promise<Object> {
+        let this_ = this;
+
         return new Promise((resolve) => {
-            this.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-                el.click();
+            this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
+                resolve(el.click());
 
                 if (delay != undefined && delay > 100) {
-                    browser.sleep(delay);
+                    //browser.sleep(delay);
                 }
-
-                //  @todo fix - return click value
-                resolve(true);
             });
+        }).catch((error) => {
+            throw error;
         });
     }
 
@@ -223,15 +252,25 @@ export class Dashboard {
      * @returns {Promise<T>}
      */
     createBox() {
-        this.clickBySelector('#dashboard div.add.toolButton');
-        this.fillForm();
+        let this_ = this;
+
+            this_.clickBySelector('#dashboard div.add.toolButton')
+            this_.fillForm();
+
     }
 
     /**
      * Remove box
      */
     removeBox() {
-        this.clickBySelector('.box:first-child .crud .remove');
+        let this_ = this;
+        //this.clickBySelector('.box:first-child .crud .remove');
+        this_.clickBySelector('.box:first-child .crud .icon').then(() => {
+            browser.sleep(1000);
+            this_.clickBySelector('.box:first-child .crud .remove').then(() => {
+                browser.sleep(1000);
+            });
+        });
     }
 
     /**
@@ -246,8 +285,14 @@ export class Dashboard {
     /**
      * Click on crud icon
      */
-    clickOnCrudIcon() {
-        this.clickBySelector('.box:first-child .crud .icon', 1000);
+    clickOnCrudIcon(): Promise<Object> {
+        let this_ = this;
+
+        return new Promise((resolve) => {
+            this_.clickBySelector('.box:first-child .crud .icon').then(() => {
+                resolve(true);
+            });
+        });
     }
 
     /**
