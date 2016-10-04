@@ -124,9 +124,9 @@ export class Dashboard {
                                     //  Enter order field
                                     this_.inputText('ORDER', '0').then(() => {
                                         //  Select width option
-                                        this_.clickSelectOption('*[ng-reflect-class-name="width"] select', 2).then(() => {
+                                        this_.clickSelectOption('.width select', 2).then(() => {
                                             //  Select height option
-                                            this_.clickSelectOption('*[ng-reflect-class-name="height"] select', 2).then(() => {
+                                            this_.clickSelectOption('.height select', 2).then(() => {
                                                 //  Save
                                                 this_.clickBySelector('#modify').then(() => {
                                                     //  Close
