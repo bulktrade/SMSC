@@ -1,11 +1,14 @@
 import { WaitUntil } from './common/waitUntilReady';
+import { LoginModel } from "../login/login.model";
 
 export class LoginPage {
+    public loginModel = new LoginModel('admin', 'admin', false);
     public elemNotFound = element(by.tagName('notfound'));
-    public dangerMessage = element(by.className('alert-danger'));
-    public details = element(by.className('details'));
-    public btnSubmit = element(by.id('submitButton'));
-    public usernameField = element(by.className('username'));
+    public errorAlert = element(by.id('errorAlert'));
+    public submitButton = by.id('submitButton');
+    public loginWindow = element(by.id('login'));
+    public usernameField = by.css('.username input');
+    public passwordField = by.css('.password input');
 
     private _ptor;
 
@@ -16,17 +19,33 @@ export class LoginPage {
         browser.get(browser.baseUrl + '/');
     }
 
-    getCustomers() {
-        browser.get(browser.baseUrl + '/customers');
-    }
-
     getNotFound() {
         browser.get(browser.baseUrl + '/noContent');
     }
 
-    isPresentUsernameField() {
-        WaitUntil.waitUntil(this.usernameField, this._ptor);
-        return this.usernameField.isPresent();
+    fillUsernameField(data, ptor) {
+        return ptor.wait(protractor.until.elementLocated(this.usernameField), 5000)
+            .then((element) => {
+                element.clear()
+                    .then(() => {
+                        element.sendKeys(data);
+                    })
+            });
+    }
+
+    fillPasswordField(data, ptor) {
+        return ptor.wait(protractor.until.elementLocated(this.passwordField), 5000)
+            .then((element) => {
+                element.clear()
+                    .then(() => {
+                        element.sendKeys(data);
+                    })
+            });
+    }
+
+    isPresentLoginWindow() {
+        WaitUntil.waitUntil(this.loginWindow, this._ptor);
+        return this.loginWindow.isPresent();
     }
 
     isPresentNotFound() {
@@ -34,35 +53,26 @@ export class LoginPage {
         return this.elemNotFound.isPresent();
     }
 
-    ifPresentDangerMsg() {
-        WaitUntil.waitUntil(this.dangerMessage, this._ptor);
-        return this.dangerMessage.isPresent();
+    isPresentErrorAlert() {
+        WaitUntil.waitUntil(this.errorAlert, this._ptor);
+        return this.errorAlert.isPresent();
     }
 
-    clickOnBtnSend(ptor) {
-        return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('btn')), 5000)
-                .then(function (el: webdriver.IWebElement) {
-                    resolve(el.click());
-                }).thenCatch((errback) => {
-                reject(errback);
+    clickOnSubmitButton(ptor) {
+        return ptor.wait(protractor.until.elementLocated(this.submitButton), 5000)
+            .then((element) => {
+                element.click();
             });
-        });
     }
 
     login() {
         let ptor = protractor.wrapDriver(browser.driver);
 
-        ptor.wait(protractor.until.elementLocated(by.css('.username input')), 5000)
-            .then(function (el: webdriver.IWebElement) {
-                el.sendKeys('admin');
-                ptor.wait(protractor.until.elementLocated(by.css('.password input')), 5000)
-                    .then(function (elem: webdriver.IWebElement) {
-                        elem.sendKeys('admin');
-                        ptor.wait(protractor.until.elementLocated(by.id('submitButton')), 5000)
-                            .then(function (element: webdriver.IWebElement) {
-                                element.submit();
-                            });
+        return this.fillUsernameField(this.loginModel.username, ptor)
+            .then(() => {
+                return this.fillPasswordField(this.loginModel.password, ptor)
+                    .then(() => {
+                        return this.clickOnSubmitButton(ptor);
                     });
             });
     }
