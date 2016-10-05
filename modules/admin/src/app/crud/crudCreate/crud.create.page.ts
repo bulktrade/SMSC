@@ -107,19 +107,20 @@ export class CreatePage {
         return Promise.all(promises);
     }
 
-    chooseContacts() {
+    clickOnContacts() {
         return this._ptor.wait(protractor.until.elementLocated(
             this.selectElements.contacts), this.timeWait)
             .then((el: webdriver.IWebElement) => {
-                return el.click()
+                return Promise.resolve(el.click());
+            });
+    }
+
+    chooseContacts() {
+        return this.clickOnContacts()
+            .then(() => {
+                return this.createRecordOnSecondLevel()
                     .then(() => {
-                        return this.createRecordOnSecondLevel()
-                            .then(() => {
-                                return this.chooseFirstLink()
-                                    .then(() => {
-                                        return this.clickOnAddLinkBtn();
-                                    });
-                            });
+                        return this.chooseFirstLink();
                     });
             });
     }
@@ -135,13 +136,6 @@ export class CreatePage {
                                 return this.clickOnAddLinkBtn();
                             });
                     });
-            });
-    }
-
-    fillLinkset() {
-        return this.chooseUsers()
-            .then(() => {
-                return this.chooseContacts();
             });
     }
 
@@ -194,6 +188,19 @@ export class CreatePage {
         return Promise.all(promises);
     }
 
+    sendKeysToEmailField() {
+        let emailField = this.inputElementsOnSecondLevel[this.inputElementsOnSecondLevel.length - 1].element;
+        let data = 'lui@beet.com';
+
+        return this._ptor.wait(protractor.until.elementLocated(emailField), this.timeWait)
+            .then((el: webdriver.IWebElement) => {
+                el.clear()
+                    .then(() => {
+                        return Promise.resolve(el.sendKeys(data));
+                    })
+            })
+    }
+
     createRecordOnSecondLevel() {
         return this.clickOnBtnAddRecord()
             .then(() => {
@@ -205,7 +212,13 @@ export class CreatePage {
                                     .then(() => {
                                         return this.clickOnFormBtn()
                                             .then(() => {
-                                                return this.clickOnBackBtn();
+                                                return this.sendKeysToEmailField()
+                                                    .then(() => {
+                                                        return this.clickOnFormBtn()
+                                                            .then(() => {
+                                                                return this.clickOnBackBtn();
+                                                            });
+                                                    });
                                             });
                                     });
                             });

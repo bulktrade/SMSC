@@ -116,10 +116,8 @@ export class Dashboard {
                 .then(function (el: webdriver.IWebElement) {
                     //  Select "type"
                     this_.selectLinkset('.type #add').then(() => {
-                        console.log('Good');
                         //  Select "description"
                         this_.selectLinkset('.dashboard #add').then(() => {
-                            console.log('Good');
                             this_.inputText('NAME', 'My box name').then(() => {
                                 //  Enter Description field
                                 this_.inputText('DESCRIPTION', 'Box description').then(() => {

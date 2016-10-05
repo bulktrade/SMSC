@@ -1,11 +1,13 @@
 import { CrudPage } from './crud.page';
 import { WaitUntil } from '../common/waitUntilReady';
 import { GridPaginationPage } from './directives/gridPagination/gridPagination.page';
+import { BindingParameterPage } from "../crudMetadata/metaDataBindingParameter/metaDataBindingParameter.page";
 
 describe('CRUD', () => {
     let ptor = protractor.wrapDriver(browser.driver);
     let crudPage: CrudPage = new CrudPage();
     let paginationPage: GridPaginationPage = new GridPaginationPage();
+    let bngParam: BindingParameterPage = new BindingParameterPage();
 
     beforeEach(() => {
         ptor = protractor.wrapDriver(browser.driver);
@@ -14,6 +16,7 @@ describe('CRUD', () => {
         crudPage.crudDelete.ptor = ptor;
         paginationPage.crudPage.ptor = ptor;
         paginationPage.ptor = ptor;
+        bngParam.prot = ptor;
     });
 
     it('log in smsc.io', () => {
@@ -40,10 +43,18 @@ describe('CRUD', () => {
         crudPage.crudCreate.fillInputFields(crudPage.crudCreate.inputElementsOnFirstLevel);
     });
 
-    it('should add contacts', () => {
+    it('should add two contacts', () => {
         crudPage.crudCreate.chooseContacts()
             .then(() => {
-                expect(crudPage.crudCreate.isPresentContactsHint()).toBeFalsy();
+                crudPage.getSizeRecords()
+                    .then(size => {
+                        expect(size).toEqual(2);
+
+                        crudPage.crudCreate.clickOnAddLinkBtn()
+                            .then(() => {
+                                expect(crudPage.crudCreate.isPresentContactsHint()).toBeFalsy();
+                            });
+                    });
             });
     });
 
@@ -66,7 +77,10 @@ describe('CRUD', () => {
             .then(() => {
                 crudPage.crudCreate.clickOnBackBtn()
                     .then(() => {
-                        expect(crudPage.isPresentRecord()).toBeTruthy();
+                        crudPage.isPresentRecord()
+                            .then((isPresent) => {
+                                expect(isPresent).toBeTruthy();
+                            });
                     });
             });
     });
@@ -146,6 +160,86 @@ describe('CRUD', () => {
                         expect(Number(currenPage)).toEqual(result);
                     });
             });
+    });
+
+    // navigate to metaDataBindingParameter component
+    it('should be navigate to metaDataBindingParameter', () => {
+        bngParam.clickOnBindingParameterItem()
+            .then(() => {
+                expect(bngParam.isDisplayedBindingParameterDirective()).toBeTruthy();
+            })
+    });
+
+    // navigate to create form
+    it('should navigate to the create', () => {
+        crudPage.clickOnBtnAddRecord()
+            .then(() => {
+                expect(crudPage.isPresentCrudCreateTag()).toBeTruthy();
+            });
+    });
+
+    // create new record in metaDataBindingParameter class
+    it('should be create new record in metaDataBindingParameter', () => {
+        bngParam.fillForm()
+            .then(() => {
+                crudPage.crudCreate.clickOnFormBtn()
+                    .then(() => {
+                        crudPage.crudCreate.clickOnBackBtn()
+                            .then(() => {
+                                crudPage.isPresentRecord()
+                                    .then((isPresent) => {
+                                        expect(isPresent).toBeTruthy();
+                                    });
+                            });
+                    });
+            })
+    });
+
+    // navigate to mataFormData component
+    it('should navigate to mataFormData', () => {
+        crudPage.clickOnFormMetaData()
+            .then(() => {
+                expect(crudPage.isPresentFormMetaData()).toBeTruthy();
+            });
+    });
+
+    // add bindingParams to contacts field
+    it('should add bindingParams to contacts field', () => {
+        crudPage.isPresentRecord()
+            .then(() => {
+                bngParam.clickOnContactsEdit()
+                    .then(() => {
+                        bngParam.chooseBindingParameter()
+                            .then(() => {
+                                crudPage.crudCreate.clickOnFormBtn()
+                                    .then(() => {
+                                        expect(crudPage.isPresentNotification()).toBeTruthy();
+                                    })
+                            })
+                    })
+            });
+    });
+
+    // navigate to customer component
+    it('should navigate to the customer', () => {
+        crudPage.clickOnCustomers()
+            .then(() => {
+                expect(crudPage.isPresentCustomers()).toBeTruthy();
+            });
+    });
+
+    // navigate to edit component
+    it('should navigate to the create', () => {
+        crudPage.clickOnEditIcon()
+            .then(() => {
+                crudPage.crudCreate.clickOnContacts()
+                    .then(() => {
+                        crudPage.getSizeRecords()
+                            .then(size => {
+                                expect(size).toEqual(1);
+                            });
+                    })
+            })
     });
 
     // @todo not right place. crud.e2e has include only crud tests.

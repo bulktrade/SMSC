@@ -9,17 +9,22 @@ export class CrudPage {
     public crudDelete: DeletePage = new DeletePage();
 
     public logo = element(by.id('logo'));
+    public notification = by.id('notificationBox');
     public customersItem = by.className('customers');
     public customersTag = element(by.tagName('customers'));
     public metaDataItem = by.className('crudmetadata');
     public gridMetaDataItem = by.className('crudmetagriddata');
+    public formMetaDataItem = by.className('crudmetaformdata');
     public gridMetaDataTag = element(by.tagName('crudMetaGridData'));
+    public formMetaDataTag = by.tagName('crudMetaFormData');
     public btnAddRecord = by.id('addRow');
     public crudCreateTag = element(by.tagName('crud-create'));
     public crudViewTag = element(by.tagName('crud-view'));
     public btnDeleteRow = by.id('deleteRecord');
     public backBtn = by.id('back');
-    public record = element(by.css('.ag-body-container > div:first-of-type'));
+    public record = by.css('.ag-body-container > div:first-of-type');
+    public editIcon = by.css('.ag-body-container > div:first-of-type .editIcon');
+    public records = element.all(by.css('.ag-body-container > div'));
     public searchPanel = by.className('searchPanel');
     public chooseFirstLinkElement = by.css(
         '.ag-body-container > div:first-of-type .ag-selection-checkbox');
@@ -38,8 +43,17 @@ export class CrudPage {
     }
 
     isPresentRecord() {
-        WaitUntil.waitUntil(this.record, this._ptor);
-        return this.record.isPresent();
+        return this._ptor.wait(protractor.until.elementLocated(this.record), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isDisplayed());
+            });
+    }
+
+    getSizeRecords() {
+        return this._ptor.wait(protractor.until.elementLocated(this.record), 5000)
+            .then(() => {
+                return Promise.resolve(this.records.count());
+            });
     }
 
     deleteRecordsOnSecondLevel() {
@@ -94,6 +108,13 @@ export class CrudPage {
             });
     }
 
+    clickOnFormMetaData() {
+        return this._ptor.wait(protractor.until.elementLocated(this.formMetaDataItem), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
+    }
+
     clickOnMetaData() {
         return this._ptor.wait(protractor.until.elementLocated(this.metaDataItem), 5000)
             .then((el: webdriver.IWebElement) => {
@@ -115,9 +136,23 @@ export class CrudPage {
             });
     }
 
+    clickOnEditIcon() {
+        return this._ptor.wait(protractor.until.elementLocated(this.editIcon), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.click());
+            });
+    }
+
     isPresentGridMetaData() {
         WaitUntil.waitUntil(this.gridMetaDataTag, this.ptor);
         return this.gridMetaDataTag.isPresent();
+    }
+
+    isPresentFormMetaData() {
+        return this._ptor.wait(protractor.until.elementLocated(this.formMetaDataTag), 10000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isDisplayed());
+            });
     }
 
     isPresentLogo() {
@@ -133,6 +168,13 @@ export class CrudPage {
     isPresentCrudViewTag() {
         WaitUntil.waitUntil(this.crudViewTag, this.ptor);
         return this.crudViewTag.isPresent();
+    }
+
+    isPresentNotification() {
+        return this._ptor.wait(protractor.until.elementLocated(this.notification), 5000)
+            .then((el: webdriver.IWebElement) => {
+                return Promise.resolve(el.isDisplayed());
+            });
     }
 
     isPresentCustomers() {
