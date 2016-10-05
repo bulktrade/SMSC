@@ -7,7 +7,6 @@ describe('Login page', () => {
 
     beforeEach(() => {
         ptor = protractor.wrapDriver(browser.driver);
-        loginPage.ptor = ptor;
     });
 
     it('should display login window', () => {
@@ -16,18 +15,9 @@ describe('Login page', () => {
     });
 
     it('should display alert danger', () => {
-        let incorrectData = new LoginModel('root', '123t', false);
-
-        loginPage.fillUsernameField(incorrectData.username, ptor)
-            .then(() => {
-                loginPage.fillPasswordField(incorrectData.password, ptor)
-                    .then(() => {
-                        loginPage.clickOnSubmitButton(ptor)
-                            .then(() => {
-                                expect(loginPage.isPresentErrorAlert()).toBeTruthy();
-                            });
-                    });
-            });
+        let incorrectData: LoginModel = new LoginModel('root', '123t', false);
+        loginPage.fillLoginForm(incorrectData);
+        expect(loginPage.isPresentErrorAlert()).toBeTruthy();
     });
 
     it('is exist page 404 not found', () => {
