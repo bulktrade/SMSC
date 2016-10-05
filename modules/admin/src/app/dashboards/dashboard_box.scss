@@ -131,6 +131,7 @@ md-card.status {
         text-align: center;
         overflow: hidden;
         opacity: 0;
+        visibility: hidden;
         transition: all .4s ease-in;
         .wrap {
             position: relative;
@@ -300,6 +301,7 @@ md-card.status {
         }
 
         .view-width{
+            visibility: visible;
             top: calc(50% - 45px) !important;
             opacity: 1;
         }
@@ -321,10 +323,13 @@ md-card.status {
         }
         md-card {
             height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         .md-header {
             display: block;
             padding-bottom: 15px;
+            margin-bottom: 15px;
             border-bottom: 1px solid $color-6;
             .md-header-title {
                 font-size: 16px;
@@ -333,6 +338,18 @@ md-card.status {
             }
             .md-header-subhead {
                 color: $color-1;
+            }
+        }
+
+        .body {
+            display: flex;
+            flex: 1;
+
+            canvas {
+                display: flex;
+                flex: 1;
+                width: 100%;
+                height: 100%;
             }
         }
     }

@@ -1,4 +1,5 @@
-<div class="content rectangle" [ngClass]="{fullscreen: fullscreenMode, 'crudOpen': crudOpen}"
+<div class="content rectangle" attr.data-boxrid="{{config.rid}}"
+     [ngClass]="{fullscreen: fullscreenMode, 'crudOpen': crudOpen}"
 >
     <div class="innerWrap">
         <div class="closeTool">
@@ -100,6 +101,9 @@
                     <div class="md-header-subhead">
                         {{ config.subHeader | translate }}
                     </div>
+                </div>
+                <div class="body">
+                    <canvas class="chart-area"></canvas>
                 </div>
             </md-card>
         </div>

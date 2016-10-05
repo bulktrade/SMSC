@@ -32,6 +32,7 @@
             ></dashboard-box>
             <dashboard-box class="chart" [ngClass]="boxesCss.remove.getItem(i)" *ngIf="item.type.name == 'chart'"
                            [config]="{
+                                'rid': item.metaData.rid,
                                 'type': 'chart',
                                 'header': item.name,
                                 'subHeader': item.description,

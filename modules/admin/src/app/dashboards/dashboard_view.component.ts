@@ -1,17 +1,17 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router } from "@angular/router";
-import { DragulaService } from "ng2-dragula/ng2-dragula";
-import { DashboardService } from "./dashboardService";
-import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
-import { OrderBy } from "./sorts/orderby";
-import { DashboardList } from "./models/dashboard_list";
-import { DashboardBox } from "./models/dashboardBox";
-import { BoxResize } from "./models/dashboard_box.enum";
-import { DashboardResizeConfig } from "./dashboard_resize.config";
-import { CrudService } from "../crud/crud.service";
-import { BoxSizes } from "./models/dashboard_box.sizes";
-import { DashboardListItem } from "./models/dashboard_list_item";
+import {Component} from "@angular/core";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {Router} from "@angular/router";
+import {DragulaService} from "ng2-dragula/ng2-dragula";
+import {DashboardService} from "./dashboardService";
+import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
+import {OrderBy} from "./sorts/orderby";
+import {DashboardList} from "./models/dashboard_list";
+import {DashboardBox} from "./models/dashboardBox";
+import {BoxResize} from "./models/dashboard_box.enum";
+import {DashboardResizeConfig} from "./dashboard_resize.config";
+import {CrudService} from "../crud/crud.service";
+import {BoxSizes} from "./models/dashboard_box.sizes";
+import {DashboardListItem} from "./models/dashboard_list_item";
 import {Breadcrumb} from "../breadcrumb/breadcrumb.component";
 
 @Component({
@@ -28,12 +28,13 @@ export class DashboardView {
     public boxesCss: DashboardList<string> = new DashboardList<string>();
     public boxes: DashboardListItem<DashboardBox> = new DashboardListItem<DashboardBox>();
 
+    public doughnutData: Array<Object>;
+
     constructor(public translate: TranslateService,
                 private dragulaService: DragulaService,
                 private  dashboardService: DashboardService,
                 private router: Router,
                 public crudService: CrudService) {
-        console.log(Breadcrumb);
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal'
         });
@@ -50,7 +51,6 @@ export class DashboardView {
             this.boxes = new DashboardListItem<DashboardBox>();
             let orderBy: OrderBy = new OrderBy();
             this.boxes.merge(orderBy.transform(res, { key: 'order', direction: 'ascending' }));
-
             this.updateClasses();
         });
     }
@@ -120,6 +120,10 @@ export class DashboardView {
                 this.boxes.getItem(index)['metaData']['version'] = res['@version'];
                 this.boxes.getItem(index)['width'] = res['width'];
                 this.boxes.getItem(index)['height'] = res['height'];
+
+                $(`.box[data-boxrid="${item.metaData.rid}"]`).on('transitionend', () => {
+                    val.chart.resize();
+                });
             });
         }
     }
