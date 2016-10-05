@@ -39,25 +39,14 @@ describe('CRUD', () => {
         crudPage.crudCreate.fillInputFields(crudPage.crudCreate.inputElementsOnFirstLevel);
     });
 
-    it('should add two contacts', () => {
-        crudPage.crudCreate.chooseContacts()
-            .then(() => {
-                crudPage.getSizeRecords()
-                    .then(size => {
-                        expect(size).toEqual(2);
+    it('should add two contacts and user', () => {
+        crudPage.crudCreate.chooseContacts();
+        crudPage.getSizeRecords()
+            .then(size => {
+                crudPage.crudCreate.clickOnAddLinkBtn();
+                crudPage.crudCreate.chooseUsers();
 
-                        crudPage.crudCreate.clickOnAddLinkBtn()
-                            .then(() => {
-                                expect(crudPage.crudCreate.isPresentContactsHint()).toBeFalsy();
-                            });
-                    });
-            });
-    });
-
-    it('should add users', () => {
-        crudPage.crudCreate.chooseUsers()
-            .then(() => {
-                expect(crudPage.crudCreate.isPresentUsersHint()).toBeFalsy();
+                expect(size).toEqual(2);
             });
     });
 
@@ -69,15 +58,11 @@ describe('CRUD', () => {
     });
 
     it('should be displayed new record', () => {
-        crudPage.crudCreate.clickOnFormBtn()
-            .then(() => {
-                crudPage.crudCreate.clickOnBackBtn()
-                    .then(() => {
-                        crudPage.isPresentRecord()
-                            .then((isPresent) => {
-                                expect(isPresent).toBeTruthy();
-                            });
-                    });
+        crudPage.crudCreate.clickOnFormBtn();
+        crudPage.crudCreate.clickOnBackBtn();
+        crudPage.isPresentRecord()
+            .then((isPresent) => {
+                expect(isPresent).toBeTruthy();
             });
     });
 
@@ -172,15 +157,11 @@ describe('CRUD', () => {
     it('should be create new record in metaDataBindingParameter', () => {
         bngParam.fillForm()
             .then(() => {
-                crudPage.crudCreate.clickOnFormBtn()
-                    .then(() => {
-                        crudPage.crudCreate.clickOnBackBtn()
-                            .then(() => {
-                                crudPage.isPresentRecord()
-                                    .then((isPresent) => {
-                                        expect(isPresent).toBeTruthy();
-                                    });
-                            });
+                crudPage.crudCreate.clickOnFormBtn();
+                crudPage.crudCreate.clickOnBackBtn();
+                crudPage.isPresentRecord()
+                    .then((isPresent) => {
+                        expect(isPresent).toBeTruthy();
                     });
             })
     });
@@ -199,10 +180,8 @@ describe('CRUD', () => {
                     .then(() => {
                         bngParam.chooseBindingParameter()
                             .then(() => {
-                                crudPage.crudCreate.clickOnFormBtn()
-                                    .then(() => {
-                                        expect(crudPage.isPresentNotification()).toBeTruthy();
-                                    })
+                                crudPage.crudCreate.clickOnFormBtn();
+                                expect(crudPage.isPresentNotification()).toBeTruthy();
                             })
                     })
             });
@@ -217,13 +196,11 @@ describe('CRUD', () => {
     // navigate to edit component
     it('should navigate to the create', () => {
         crudPage.clickOnEditIcon();
-        crudPage.crudCreate.clickOnContacts()
-            .then(() => {
-                crudPage.getSizeRecords()
-                    .then(size => {
-                        expect(size).toEqual(1);
-                    });
-            })
+        crudPage.crudCreate.clickOnContacts();
+        crudPage.getSizeRecords()
+            .then(size => {
+                expect(size).toEqual(1);
+            });
     });
 
     // @todo not right place. crud.e2e has include only crud tests.

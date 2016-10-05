@@ -1,5 +1,4 @@
 import { LoginPage } from '../login/login.page';
-import { WaitUntil } from '../common/waitUntilReady';
 import { CreatePage } from './crudCreate/crud.create.page';
 import { DeletePage } from './crudDelete/crud.delete.page';
 import { EC } from "../common/expectedConditions";
@@ -55,12 +54,10 @@ export class CrudPage {
 
     deleteRecordsOnSecondLevel() {
         this.clickOnBtnAddRecord();
-        this.crudCreate.clickOnContactsLinksetBtn()
-            .then(() => {
-                this.crudCreate.chooseFirstLink();
-                this.clickOnDeleteButton();
-                this.crudDelete.clickOnOkBtn();
-            });
+        this.crudCreate.clickOnContactsLinksetBtn();
+        this.crudCreate.chooseFirstLink();
+        this.clickOnDeleteButton();
+        this.crudDelete.clickOnOkBtn();
     }
 
     isEnabledDeleteButton() {
