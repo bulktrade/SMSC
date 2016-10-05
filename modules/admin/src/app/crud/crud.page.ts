@@ -2,6 +2,7 @@ import { LoginPage } from '../login/login.page';
 import { WaitUntil } from '../common/waitUntilReady';
 import { CreatePage } from './crudCreate/crud.create.page';
 import { DeletePage } from './crudDelete/crud.delete.page';
+import { EC } from "../common/expectedConditions";
 
 export class CrudPage {
     public login: LoginPage = new LoginPage();
@@ -9,25 +10,25 @@ export class CrudPage {
     public crudDelete: DeletePage = new DeletePage();
 
     public logo = element(by.id('logo'));
-    public notification = by.id('notificationBox');
-    public customersItem = by.className('customers');
+    public notification = element(by.id('notificationBox'));
+    public customersItem = element(by.className('customers'));
     public customersTag = element(by.tagName('customers'));
-    public metaDataItem = by.className('crudmetadata');
-    public gridMetaDataItem = by.className('crudmetagriddata');
-    public formMetaDataItem = by.className('crudmetaformdata');
+    public metaDataItem = element(by.className('crudmetadata'));
+    public gridMetaDataItem = element(by.className('crudmetagriddata'));
+    public formMetaDataItem = element(by.className('crudmetaformdata'));
     public gridMetaDataTag = element(by.tagName('crudMetaGridData'));
-    public formMetaDataTag = by.tagName('crudMetaFormData');
-    public btnAddRecord = by.id('addRow');
+    public formMetaDataTag = element(by.tagName('crudMetaFormData'));
+    public btnAddRecord = element(by.id('addRow'));
     public crudCreateTag = element(by.tagName('crud-create'));
     public crudViewTag = element(by.tagName('crud-view'));
-    public btnDeleteRow = by.id('deleteRecord');
-    public backBtn = by.id('back');
-    public record = by.css('.ag-body-container > div:first-of-type');
-    public editIcon = by.css('.ag-body-container > div:first-of-type .editIcon');
+    public btnDeleteRow = element(by.id('deleteRecord'));
+    public backBtn = element(by.id('back'));
+    public record = element(by.css('.ag-body-container > div:first-of-type'));
+    public editIcon = element(by.css('.ag-body-container > div:first-of-type .editIcon'));
     public records = element.all(by.css('.ag-body-container > div'));
-    public searchPanel = by.className('searchPanel');
-    public chooseFirstLinkElement = by.css(
-        '.ag-body-container > div:first-of-type .ag-selection-checkbox');
+    public searchPanel = element(by.className('searchPanel'));
+    public chooseFirstLinkElement = element(by.css(
+        '.ag-body-container > div:first-of-type .ag-selection-checkbox'));
 
     private _ptor;
 
@@ -43,150 +44,113 @@ export class CrudPage {
     }
 
     isPresentRecord() {
-        return this._ptor.wait(protractor.until.elementLocated(this.record), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.isDisplayed());
-            });
+        browser.wait(EC.presenceOf(this.record), 5000);
+        return this.records.isDisplayed();
     }
 
     getSizeRecords() {
-        return this._ptor.wait(protractor.until.elementLocated(this.record), 5000)
-            .then(() => {
-                return Promise.resolve(this.records.count());
-            });
+        browser.wait(EC.presenceOf(this.record), 5000);
+        return this.records.count();
     }
 
     deleteRecordsOnSecondLevel() {
-        return this.clickOnBtnAddRecord()
+        this.clickOnBtnAddRecord();
+        this.crudCreate.clickOnContactsLinksetBtn()
             .then(() => {
-                return this.crudCreate.clickOnContactsLinksetBtn()
-                    .then(() => {
-                        return this.crudCreate.chooseFirstLink()
-                            .then(() => {
-                                return this.clickOnDeleteButton()
-                                    .then(() => {
-                                        return this.crudDelete.clickOnOkBtn();
-                                    });
-                            });
-                    });
+                this.crudCreate.chooseFirstLink();
+                this.clickOnDeleteButton();
+                this.crudDelete.clickOnOkBtn();
             });
     }
 
     isEnabledDeleteButton() {
-        WaitUntil.waitUntil(this.btnDeleteRow, this.ptor);
-        return element(this.btnDeleteRow).isEnabled();
+        browser.wait(EC.presenceOf(this.btnDeleteRow), 5000);
+        return this.btnDeleteRow.isEnabled();
     }
 
     clickOnDeleteButton() {
-        return this._ptor.wait(protractor.until.elementLocated(this.btnDeleteRow), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return WaitUntil.waitUntilEnabled(element(this.btnDeleteRow), this._ptor)
-                    .then(() => {
-                        return Promise.resolve(el.click());
-                    });
-            });
+        browser.wait(EC.presenceOf(this.btnDeleteRow), 5000);
+        this.btnDeleteRow.click();
     }
 
     chooseFirstLink() {
-        return this._ptor.wait(protractor.until.elementLocated(this.chooseFirstLinkElement), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.presenceOf(this.chooseFirstLinkElement), 5000);
+        this.chooseFirstLinkElement.click();
     }
 
     clickOnBackBtn() {
-        return this._ptor.wait(protractor.until.elementLocated(this.backBtn), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.presenceOf(this.backBtn), 5000);
+        this.backBtn.click();
     }
 
     clickOnGridMetaData() {
-        return this._ptor.wait(protractor.until.elementLocated(this.gridMetaDataItem), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.presenceOf(this.gridMetaDataItem), 5000);
+        this.gridMetaDataItem.click();
     }
 
     clickOnFormMetaData() {
-        return this._ptor.wait(protractor.until.elementLocated(this.formMetaDataItem), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.presenceOf(this.formMetaDataItem), 5000);
+        this.formMetaDataItem.click();
     }
 
     clickOnMetaData() {
-        return this._ptor.wait(protractor.until.elementLocated(this.metaDataItem), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.presenceOf(this.metaDataItem), 5000);
+        this.metaDataItem.click();
     }
 
     clickOnCustomers() {
-        return this._ptor.wait(protractor.until.elementLocated(this.customersItem), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.presenceOf(this.customersItem), 5000);
+        this.customersItem.click();
     }
 
     clickOnBtnAddRecord() {
-        return this._ptor.wait(protractor.until.elementLocated(this.btnAddRecord), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.presenceOf(this.btnAddRecord), 5000);
+        this.btnAddRecord.click();
     }
 
     clickOnEditIcon() {
-        return this._ptor.wait(protractor.until.elementLocated(this.editIcon), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.presenceOf(this.editIcon), 5000);
+        this.editIcon.click();
     }
 
     isPresentGridMetaData() {
-        WaitUntil.waitUntil(this.gridMetaDataTag, this.ptor);
+        browser.wait(EC.presenceOf(this.gridMetaDataTag), 5000);
         return this.gridMetaDataTag.isPresent();
     }
 
     isPresentFormMetaData() {
-        return this._ptor.wait(protractor.until.elementLocated(this.formMetaDataTag), 10000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.isDisplayed());
-            });
+        browser.wait(EC.presenceOf(this.formMetaDataTag), 5000);
+        return this.formMetaDataTag.isPresent();
     }
 
     isPresentLogo() {
-        WaitUntil.waitUntil(this.logo, this.ptor);
+        browser.wait(EC.presenceOf(this.logo), 5000);
         return this.logo.isPresent();
     }
 
     isPresentCrudCreateTag() {
-        WaitUntil.waitUntil(this.crudCreateTag, this.ptor);
+        browser.wait(EC.presenceOf(this.crudCreateTag), 5000);
         return this.crudCreateTag.isPresent();
     }
 
     isPresentCrudViewTag() {
-        WaitUntil.waitUntil(this.crudViewTag, this.ptor);
+        browser.wait(EC.presenceOf(this.crudViewTag), 5000);
         return this.crudViewTag.isPresent();
     }
 
     isPresentNotification() {
-        return this._ptor.wait(protractor.until.elementLocated(this.notification), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.isDisplayed());
-            });
+        browser.wait(EC.presenceOf(this.notification), 5000);
+        return this.notification.isPresent();
     }
 
     isPresentCustomers() {
-        WaitUntil.waitUntil(this.customersTag, this.ptor);
+        browser.wait(EC.presenceOf(this.customersTag), 5000);
         return this.customersTag.isPresent();
     }
 
     isDisplayedSearchPanel() {
-        return this._ptor.wait(protractor.until.elementLocated(this.searchPanel), 10000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.isDisplayed());
-            });
+        browser.wait(EC.presenceOf(this.searchPanel), 5000);
+        return this.searchPanel.isPresent();
     }
 
     get ptor() {

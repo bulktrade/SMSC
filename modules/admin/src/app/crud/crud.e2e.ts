@@ -26,17 +26,13 @@ describe('CRUD', () => {
     });
 
     it('should navigate to the customer', () => {
-        crudPage.clickOnCustomers()
-            .then(() => {
-                expect(crudPage.isPresentCustomers()).toBeTruthy();
-            });
+        crudPage.clickOnCustomers();
+        expect(crudPage.isPresentCustomers()).toBeTruthy();
     });
 
     it('should navigate to the create', () => {
-        crudPage.clickOnBtnAddRecord()
-            .then(() => {
-                expect(crudPage.isPresentCrudCreateTag()).toBeTruthy();
-            });
+        crudPage.clickOnBtnAddRecord();
+        expect(crudPage.isPresentCrudCreateTag()).toBeTruthy();
     });
 
     it('should be create the new record', () => {
@@ -108,13 +104,9 @@ describe('CRUD', () => {
 
         ptor.manage().window().setSize(width, height)
             .then(() => {
-                crudPage.clickOnMetaData()
-                    .then(() => {
-                        crudPage.clickOnGridMetaData()
-                            .then(() => {
-                                expect(crudPage.isPresentGridMetaData()).toBeTruthy();
-                            });
-                    });
+                crudPage.clickOnMetaData();
+                crudPage.clickOnGridMetaData();
+                expect(crudPage.isPresentGridMetaData()).toBeTruthy();
             });
     });
 
@@ -172,10 +164,8 @@ describe('CRUD', () => {
 
     // navigate to create form
     it('should navigate to the create', () => {
-        crudPage.clickOnBtnAddRecord()
-            .then(() => {
-                expect(crudPage.isPresentCrudCreateTag()).toBeTruthy();
-            });
+        crudPage.clickOnBtnAddRecord();
+        expect(crudPage.isPresentCrudCreateTag()).toBeTruthy();
     });
 
     // create new record in metaDataBindingParameter class
@@ -197,10 +187,8 @@ describe('CRUD', () => {
 
     // navigate to mataFormData component
     it('should navigate to mataFormData', () => {
-        crudPage.clickOnFormMetaData()
-            .then(() => {
-                expect(crudPage.isPresentFormMetaData()).toBeTruthy();
-            });
+        crudPage.clickOnFormMetaData();
+        expect(crudPage.isPresentFormMetaData()).toBeTruthy();
     });
 
     // add bindingParams to contacts field
@@ -222,23 +210,19 @@ describe('CRUD', () => {
 
     // navigate to customer component
     it('should navigate to the customer', () => {
-        crudPage.clickOnCustomers()
-            .then(() => {
-                expect(crudPage.isPresentCustomers()).toBeTruthy();
-            });
+        crudPage.clickOnCustomers();
+        expect(crudPage.isPresentCustomers()).toBeTruthy();
     });
 
     // navigate to edit component
     it('should navigate to the create', () => {
-        crudPage.clickOnEditIcon()
+        crudPage.clickOnEditIcon();
+        crudPage.crudCreate.clickOnContacts()
             .then(() => {
-                crudPage.crudCreate.clickOnContacts()
-                    .then(() => {
-                        crudPage.getSizeRecords()
-                            .then(size => {
-                                expect(size).toEqual(1);
-                            });
-                    })
+                crudPage.getSizeRecords()
+                    .then(size => {
+                        expect(size).toEqual(1);
+                    });
             })
     });
 
