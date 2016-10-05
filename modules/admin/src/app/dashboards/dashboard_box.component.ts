@@ -43,7 +43,9 @@ export class DashboardBoxComponent {
     }
 
     ngAfterViewInit() {
-        this._loadDoughnutCharts();
+        if(this.config.type == 'chart'){
+            this._loadDoughnutCharts();
+        }
     }
 
     private _loadDoughnutCharts() {
