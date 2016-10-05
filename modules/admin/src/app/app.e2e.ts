@@ -1,5 +1,5 @@
-import { AppTest } from './pages/app.page';
-import { WaitUntil } from './pages/common/waitUntilReady';
+import { AppTest } from './app.page';
+import { WaitUntil } from './common/waitUntilReady';
 
 describe('App', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -10,8 +10,8 @@ describe('App', () => {
     });
 
     it('should have a title', () => {
-        let width = 1980,
-            height = 1020;
+        let width = 1024,
+            height = 768;
         ptor.manage().window().setSize(width, height);
 
         this.apptest.get();

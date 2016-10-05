@@ -3,12 +3,11 @@ var helpers = require('./helpers');
 
 exports.config = {
     baseUrl: 'http://localhost:' + (process.env.TOMCAT_HTTP_PORT ? process.env.TOMCAT_HTTP_PORT : '8080') + '/admin',
-    //baseUrl: 'http://localhost:3000/',
 
     // use `npm run e2e`
     specs: [
         //helpers.root('src/**/**.e2e.ts'),
-        //helpers.root('src/**/*.e2e.ts')
+        //helpers.root('src/**/*.e2e.ts'),
         helpers.root('src/**/dashboard.e2e.ts')
     ],
     exclude: [],

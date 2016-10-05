@@ -47,8 +47,6 @@ describe('Config Service', () => {
             'debug': false
         };
 
-        let notFound: string = 'Not found!';
-
         mockXHR.responseText = JSON.stringify(responseText);
         mockXHR.status = 404;
 

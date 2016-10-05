@@ -1,5 +1,5 @@
-import { OUser } from "../../common/models/OUser";
-import { MetaData } from "../../common/models/metaData";
+import { OUser } from '../../common/models/OUser';
+import { MetaData } from '../../common/models/metaData';
 
 export class Dashboard {
     metaData: MetaData;
@@ -7,7 +7,7 @@ export class Dashboard {
     name: string;
     user: OUser;
 
-    constructor(metaData:MetaData, icon: string, name: string, user: OUser) {
+    constructor(metaData: MetaData, icon: string, name: string, user: OUser) {
         this.metaData = metaData;
         this.icon = icon;
         this.name = name;

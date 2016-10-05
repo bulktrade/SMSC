@@ -35,11 +35,6 @@ describe('Dashboard', () => {
         });
     });
 
-    //  Drag and drop box
-    it('Drag and drop box', () => {
-        //this.dashboard.dragAndDrop();
-    });
-
     //  Switch to fullscreen mode
     it('Click on fullscreen icon', () => {
         this.dashboard.clickOnFullscreenIcon(prot);
@@ -50,6 +45,11 @@ describe('Dashboard', () => {
     it('Open/Close crud box tool', () => {
         this.dashboard.toggleCloseIcon();
         browser.sleep(1000);
+    });
+
+    //  Drag and drop box
+    it('Drag and drop box', () => {
+        //this.dashboard.dragAndDrop();
     });
 
     //  Change size mode

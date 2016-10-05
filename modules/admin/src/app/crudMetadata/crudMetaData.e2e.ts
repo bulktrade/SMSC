@@ -1,5 +1,5 @@
-import { WaitUntil } from '../pages/common/waitUntilReady';
-import { CrudMetaDataPage } from '../pages/crudMetaData.page';
+import { WaitUntil } from '../common/waitUntilReady';
+import { CrudMetaDataPage } from './crudMetaData.page';
 
 describe('CrudMetaData', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -22,8 +22,8 @@ describe('CrudMetaData', () => {
     });
 
     it('should navigate to the create', () => {
-        let width = 1980,
-            height = 1020;
+        let width = 1024,
+            height = 768;
         ptor.manage().window().setSize(width, height);
 
         crudMetaDataPage.clickOnBtnAddRecord();

@@ -5,8 +5,8 @@ import { TokenService } from '../services/auth/token.service';
 import { NOTIFICATION_OPTIONS } from '../common/notificationOptions';
 import { LoadingRouterOutletService } from '../services/loading/loadingRouterOutlet.service';
 import { LoadingGridService } from '../services/loading/loadingGrid.service';
-import { MdSidenav } from "@angular2-material/sidenav";
-import { SidebarService } from "../sidebar/sidebarService";
+import { MdSidenav } from '@angular2-material/sidenav';
+import { SidebarService } from '../sidebar/sidebarService';
 
 @Component({
     selector: 'navigation',
@@ -19,7 +19,7 @@ import { SidebarService } from "../sidebar/sidebarService";
 
 export class Navigation implements OnInit {
     @ViewChild('sidenav')
-    public sidenav:MdSidenav;
+    public sidenav: MdSidenav;
 
     public notificationOptions = NOTIFICATION_OPTIONS;
     public openedSidenav: boolean;
@@ -29,7 +29,7 @@ export class Navigation implements OnInit {
                 public tokenService: TokenService,
                 public loadingROService: LoadingRouterOutletService,
                 public service: LoadingGridService,
-                public sidebarService:SidebarService) {
+                public sidebarService: SidebarService) {
 
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationStart) {

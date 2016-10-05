@@ -47,6 +47,8 @@ if ($customerClass.size() == 0) {
   CREATE PROPERTY Customer.users LINKSET OUser
   CREATE PROPERTY Customer.parentCustomer LINK Customer
 
+  CREATE PROPERTY CustomerContact.customer LINK Customer
+
   ALTER PROPERTY Customer.customerId MANDATORY true
   ALTER PROPERTY Customer.companyName MANDATORY true
   ALTER PROPERTY Customer.street MANDATORY true
@@ -74,7 +76,7 @@ if ($crudClassMetaData.size() == 0) {
   CREATE PROPERTY CrudClassMetaData.query STRING
 
   CREATE INDEX CrudClassMetaData.class UNIQUE
-  /*CREATE INDEX CrudClassMetaData.titleColumns UNIQUE*/
+  CREATE INDEX CrudClassMetaData.titleColumns UNIQUE
 
   console.log "Creating process for CrudClassMetaData class is done."
 }

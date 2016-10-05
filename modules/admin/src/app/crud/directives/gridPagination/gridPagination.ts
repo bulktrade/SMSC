@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MdSelectModule } from '../../../common/material/select/select';
 import { MdModule } from '../../../md.module';
 import { CrudLevel } from '../../model/crudLevel';
+import { Observable } from 'rxjs';
 
 const squel = require('squel');
 
@@ -32,6 +33,7 @@ export class GridPagination {
     private currentPage: number = 0;
     private fromRecord: number;
     private toRecord: number;
+    private sizeClass: number;
 
     constructor(public translate: TranslateService,
                 public gridService: GridService,
@@ -50,7 +52,7 @@ export class GridPagination {
 
     changePageSize() {
         if (this.pageSize === 'All records') {
-            this.gridService.getSizeClass(this.className)
+            this.getSizeClass(this.className)
                 .subscribe(classSize => {
 
                     this.currentPage = 0;
@@ -59,7 +61,7 @@ export class GridPagination {
                     this.createNewDatasource(0, this.pageSize);
                 });
         } else {
-            this.gridService.getSizeClass(this.className)
+            this.getSizeClass(this.className)
                 .subscribe(size => {
                     if (this.currentPage * this.pageSize <= size) {
                         let skip = this.currentPage * this.pageSize;
@@ -90,7 +92,7 @@ export class GridPagination {
     }
 
     last() {
-        this.gridService.getSizeClass(this.className)
+        this.getSizeClass(this.className)
             .subscribe(size => {
                 let remainderRows = size % this.pageSize;
                 this.setCurrentPage(Math.floor(size / this.pageSize));
@@ -123,7 +125,7 @@ export class GridPagination {
 
     next() {
         return new Promise((resolve, reject) => {
-            this.gridService.getSizeClass(this.className)
+            this.getSizeClass(this.className)
                 .subscribe(size => {
                     if ((this.currentPage + 1) * this.pageSize < size) {
                         this.currentPage += 1;
@@ -210,6 +212,21 @@ export class GridPagination {
             });
     }
 
+    getSizeClass(className): Observable<number> {
+        return Observable.create((obs) => {
+            this.gridService.getSizeClass(className)
+                .subscribe((size: number) => {
+                    this.sizeClass = size;
+
+                    obs.next(size);
+                    obs.complete();
+                }, err => {
+                    obs.error(err);
+                    obs.complete();
+                });
+        });
+    }
+
     getCurrentPage(): number {
         return this.currentPage;
     }
@@ -240,3 +257,4 @@ export class GridPaginationModule {
         };
     }
 }
+
