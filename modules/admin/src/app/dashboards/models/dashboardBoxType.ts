@@ -1,4 +1,4 @@
-import { MetaData } from '../../common/models/metaData';
+import { MetaData } from "../../common/models/metaData";
 export class DashboardBoxType {
     metaData: MetaData;
     code: string;

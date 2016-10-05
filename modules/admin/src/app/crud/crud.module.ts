@@ -16,9 +16,9 @@ import { AgGridModule } from 'ag-grid-ng2';
 import { GridPaginationModule } from './directives/gridPagination/gridPagination';
 import { LoadingGridModule } from '../common/loadingGrid';
 import { FormsModule } from '@angular/forms';
-import { MultipleSelectModule } from './directives/multipleSelect/multipleSelect.component';
+import {MultipleSelectModule} from './directives/multipleSelect/multipleSelect.component';
 import { MdSelectModule } from '../common/material/select/select';
-import { DynamicFormModule } from '../dynamicForm/dynamic.form';
+import {DynamicFormModule} from '../dynamicForm/dynamic.form';
 
 const CRUD_DECLARATIONS = [
     Crud,

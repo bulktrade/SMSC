@@ -14,6 +14,10 @@ body {
     height: 100%;
 }
 
+.ag-body-viewport {
+  overflow-y: hidden !important;
+}
+
 @media (max-width: 992px) {
     .md-sidenav-content {
         margin-left: 0 !important;

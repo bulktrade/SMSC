@@ -1,7 +1,7 @@
-import { DashboardBoxType } from './dashboardBoxType';
-import { MetaData } from '../../common/models/metaData';
-import { Dashboard } from './dashboard';
-import { OUser } from '../../common/models/OUser';
+import { DashboardBoxType } from "./dashboardBoxType";
+import { MetaData } from "../../common/models/metaData";
+import { Dashboard } from "./dashboard";
+import { OUser } from "../../common/models/OUser";
 
 export class DashboardBox {
     metaData: MetaData;

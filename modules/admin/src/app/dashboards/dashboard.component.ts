@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Breadcrumb } from '../breadcrumb/breadcrumb.component';
+import { Component } from "@angular/core";
+import { Breadcrumb } from "../breadcrumb/breadcrumb.component";
 
 @Component({
     selector: 'dashboard',

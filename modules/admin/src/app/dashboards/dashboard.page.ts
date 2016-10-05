@@ -1,5 +1,6 @@
 import { browser } from "protractor/built/index";
-import {LoginPage} from "../login/login.page";
+import { LoginPage } from "../pages/login.page";
+import {WaitUntil} from "../pages/common/waitUntilReady";
 import WebElement = webdriver.WebElement;
 
 export class Dashboard {
@@ -83,7 +84,7 @@ export class Dashboard {
         this.clickOnCloseIcon();
     }
 
-    /*dragAndDrop() {
+    dragAndDrop() {
         let this_ = this;
 
         this_.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000).then((draggable: WebElement) => {
@@ -105,17 +106,17 @@ export class Dashboard {
                         console.log(elementPos);
 
                         browser.actions().dragAndDrop(draggable, target).perform();
-                        /!*browser.actions().mouseMove(elementPos).perform();
+                        /*browser.actions().mouseMove(elementPos).perform();
                         browser.actions().mouseDown(protractor.Button.LEFT).perform();
                         browser.actions().mouseMove(targetPosition).perform();
-                        browser.actions().mouseUp().perform();*!/
+                        browser.actions().mouseUp().perform();*/
 
                         browser.sleep(1000);
                     });
                 });
             });
         });
-    }*/
+    }
 
     /**
      * Fill edit/create form

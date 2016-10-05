@@ -58,7 +58,6 @@ export class CrudLinkset {
     addLink(gridOptions) {
         let className = this.crudService.getLinkedClass();
         let previousCrudLevel: CrudLevel = this.crudService.previousCrudLevel();
-        this.crudService.model[previousCrudLevel.linksetProperty.name] = [];
         let params: any = previousCrudLevel.linksetProperty.data;
 
         return this.getLinkset(gridOptions, previousCrudLevel.linksetProperty.type, className)

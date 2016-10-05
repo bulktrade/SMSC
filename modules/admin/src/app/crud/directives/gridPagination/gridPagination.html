@@ -1,32 +1,28 @@
 <div class="grid-pagination">
-	<div class="row-summary-panel">{{fromRecord}} to {{toRecord}} of
-		more
-	</div>
-	<div class="page-summary-panel">
-		<div class="previous-panel">
-			<button [disableRipple]="true" md-icon-button color="primary" id="firstPage" (click)="first()"
-			        [disabled]="!currentPage">
-				<md-icon class="md-24">first_page</md-icon>
-			</button>
-			<button [disableRipple]="true" md-icon-button color="primary" id="previousPage" (click)="previous()"
-			        [disabled]="!currentPage">
-				<md-icon class="md-24">chevron_left</md-icon>
-			</button>
-		</div>
-		<div class="page-info">Page <span id="currentPage">{{currentPage + 1}}</span> of more</div>
-		<div class="next-panel">
-			<button [disableRipple]="true" md-icon-button color="primary" id="nextPage" (click)="next()"
-			        [disabled]="toRecord === sizeClass">
-				<md-icon class="md-24">chevron_right</md-icon>
-			</button>
-			<button [disableRipple]="true" md-icon-button color="primary" id="lastPage" (click)="last()"
-			        [disabled]="toRecord === sizeClass">
-				<md-icon class="md-24">last_page</md-icon>
-			</button>
-		</div>
-	</div>
-	<div class="page-size">
-		<md-select [options]="stepPageSize" placeholder="Page Size" [(model)]="pageSize"
-		           (change)="changePageSize()"></md-select>
-	</div>
+    <div class="row-summary-panel">{{fromRecord}} to {{toRecord}} of
+        more
+    </div>
+    <div class="page-summary-panel">
+        <div class="previous-panel">
+            <button [disableRipple]="true" md-icon-button color="primary" id="firstPage" (click)="first()">
+                <md-icon class="md-24">first_page</md-icon>
+            </button>
+            <button [disableRipple]="true" md-icon-button color="primary" id="previousPage" (click)="previous()">
+                <md-icon class="md-24">chevron_left</md-icon>
+            </button>
+        </div>
+        <div class="page-info">Page <span id="currentPage">{{currentPage + 1}}</span> of more</div>
+        <div class="next-panel">
+            <button [disableRipple]="true" md-icon-button color="primary" id="nextPage" (click)="next()">
+                <md-icon class="md-24">chevron_right</md-icon>
+            </button>
+            <button [disableRipple]="true" md-icon-button color="primary" id="lastPage" (click)="last()">
+                <md-icon class="md-24">last_page</md-icon>
+            </button>
+        </div>
+    </div>
+    <div class="page-size">
+        <md-select [options]="stepPageSize" placeholder="Page Size" [(model)]="pageSize"
+                   (change)="changePageSize()"></md-select>
+    </div>
 </div>

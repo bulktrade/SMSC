@@ -1,5 +1,5 @@
-import { NavigationTest } from './navigation.page';
-import { WaitUntil } from '../common/waitUntilReady';
+import { NavigationTest } from '../pages/navigation.page';
+import { WaitUntil } from '../pages/common/waitUntilReady';
 
 describe('Navigation', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -26,15 +26,15 @@ describe('Navigation', () => {
         });
     });
 
-    // it('AngularJS Translations', () => {
-    //     let lang = this.navigator.getLanguage();
-    //
-    //     WaitUntil.waitUntil(this.navigator.dashboardTitle, ptor);
-    //     this.navigator.getDashboardText()
-    //         .then((text) => {
-    //             expect(lang).toEqual(text);
-    //         });
-    // });
+    it('AngularJS Translations', () => {
+        let lang = this.navigator.getLanguage();
+
+        WaitUntil.waitUntil(this.navigator.dashboardTitle, ptor);
+        this.navigator.getDashboardText()
+            .then((text) => {
+                expect(lang).toEqual(text);
+            });
+    });
 
     it('marked sub and main item navigation like active', () => {
         WaitUntil.waitUntil(this.navigator.dashboardItem, ptor);

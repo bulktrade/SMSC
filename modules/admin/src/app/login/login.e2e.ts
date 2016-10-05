@@ -1,5 +1,5 @@
-import { LoginPage } from './login.page';
-import { LoginModel } from './login.model';
+import { LoginPage } from '../pages/login.page';
+import { WaitUntil } from '../pages/common/waitUntilReady';
 
 describe('Login page', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -10,24 +10,15 @@ describe('Login page', () => {
         loginPage.ptor = ptor;
     });
 
-    it('should display login window', () => {
+    it('validation for empty fields', () => {
         loginPage.get();
-        expect(loginPage.isPresentLoginWindow()).toBeTruthy();
+        WaitUntil.waitUntil(loginPage.btnSubmit, ptor);
+        expect(loginPage.btnSubmit.isEnabled()).toBeFalsy();
     });
 
-    it('should display alert danger', () => {
-        let incorrectData = new LoginModel('root', '123t', false);
-
-        loginPage.fillUsernameField(incorrectData.username, ptor)
-            .then(() => {
-                loginPage.fillPasswordField(incorrectData.password, ptor)
-                    .then(() => {
-                        loginPage.clickOnSubmitButton(ptor)
-                            .then(() => {
-                                expect(loginPage.isPresentErrorAlert()).toBeTruthy();
-                            });
-                    });
-            });
+    it('show navigation content', () => {
+        loginPage.getCustomers();
+        expect(loginPage.isPresentUsernameField()).toBeTruthy();
     });
 
     it('is exist page 404 not found', () => {

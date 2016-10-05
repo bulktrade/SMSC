@@ -1,4 +1,4 @@
-import { Pipe } from '@angular/core';
+import { Pipe } from "@angular/core";
 
 @Pipe({
     name: 'orderby'
@@ -6,7 +6,7 @@ import { Pipe } from '@angular/core';
 export class OrderBy {
     transform(array: Array<any>, args?: Object): Array<any> {
         array.sort((a: any, b: any) => {
-            if (args['key'] !== undefined) {
+            if (args['key'] != undefined) {
                 a = a[args['key']];
                 b = b[args['key']];
             }

@@ -1,6 +1,6 @@
-import { CrudPage } from './crud.page';
-import { WaitUntil } from '../common/waitUntilReady';
-import { GridPaginationPage } from './directives/gridPagination/gridPagination.page';
+import { CrudPage } from '../pages/crud/crud.page';
+import { WaitUntil } from '../pages/common/waitUntilReady';
+import { GridPaginationPage } from '../pages/gridPagination.page';
 
 describe('CRUD', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -37,60 +37,36 @@ describe('CRUD', () => {
     });
 
     it('should be create the new record', () => {
-        crudPage.crudCreate.fillInputFields(crudPage.crudCreate.inputElementsOnFirstLevel);
-    });
-
-    it('should add contacts', () => {
-        crudPage.crudCreate.chooseContacts()
+        crudPage.crudCreate.fillInputFields(crudPage.crudCreate.inputElementsOnFirstLevel)
             .then(() => {
-                expect(crudPage.crudCreate.isPresentContactsHint()).toBeFalsy();
+                crudPage.crudCreate.fillLinkset();
             });
     });
 
-    it('should add users', () => {
-        crudPage.crudCreate.chooseUsers()
+    it('delete button should be enabled', () => {
+        crudPage.crudCreate.clickOnSelectAll()
             .then(() => {
-                expect(crudPage.crudCreate.isPresentUsersHint()).toBeFalsy();
-            });
-    });
-
-    it('form button should be enabled', () => {
-        crudPage.crudCreate.isEnabledFormButton()
-            .then(isEnabled => {
-                expect(isEnabled).toBeTruthy();
-            });
-    });
-
-    it('should be displayed new record', () => {
-        crudPage.crudCreate.clickOnFormBtn()
-            .then(() => {
-                crudPage.crudCreate.clickOnBackBtn()
+                crudPage.clickOnDeleteIcon()
                     .then(() => {
-                        expect(crudPage.isPresentRecord()).toBeTruthy();
+                        expect(crudPage.crudDelete.isPresentCrudDelete()).toBeTruthy();
                     });
             });
     });
 
-    // it('should navigate to the delete', () => {
-    //     crudPage.crudCreate.clickOnSelectAll()
-    //         .then(() => {
-    //             crudPage.clickOnDeleteButton()
-    //                 .then(() => {
-    //                     expect(crudPage.crudDelete.isPresentCrudDelete()).toBeTruthy();
-    //                 });
-    //         });
-    // });
-    //
-    // it('should be delete records', () => {
-    //     crudPage.crudDelete.clickOnOkBtn()
-    //         .then(() => {
-    //             expect(crudPage.isDisplayedSearchPanel()).toBeTruthy();
-    //         });
-    // });
+    it('should be delete records', () => {
+        crudPage.crudDelete.clickOnOkBtn()
+            .then(() => {
+                expect(crudPage.isPresentCustomers()).toBeTruthy();
+            });
+    });
+
+    it('should be delete records on second level', () => {
+        crudPage.deleteRecordsOnSecondLevel();
+    });
 
     it('should navigate to the grid meta data', () => {
-        let width = 1024,
-            height = 768;
+        let width = 1980,
+            height = 1020;
 
         ptor.manage().window().setSize(width, height)
             .then(() => {

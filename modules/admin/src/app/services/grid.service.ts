@@ -7,8 +7,6 @@ import {
 } from '../crudMetadata/metaDataBindingParameter/metaDataBindingParameter.model';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import { BatchType } from '../orientdb/model/batchType';
-import { Operation } from '../orientdb/model/operation';
 
 const squel = require('squel');
 
@@ -135,14 +133,23 @@ export class GridService {
                         this.database.load(rid)
                             .then(res => {
                                 let result: MetaDataPropertyBindingParameterModel = res.json();
-                                let expr: string = result.fromProperty + '.' +
-                                    result.toProperty + ' ' + result.operator + ' ' +
-                                    currentCrudLevel.linksetProperty.data[result.toProperty];
+                                let linksetPromises = [];
 
-                                if (currentCrudLevel.linksetProperty.data[result.toProperty]) {
-                                    expression
-                                        .or(expr);
+                                if (currentCrudLevel.linksetProperty.data.hasOwnProperty('@rid')) {
+                                    if (currentCrudLevel.linksetProperty.data['@rid'] === result.toProperty) {
+                                        linksetPromises.push(this.database.load(currentCrudLevel.linksetProperty.data['@rid'])
+                                            .then(response => {
+                                                let customer = response.json();
+
+                                                customer[currentCrudLevel.linksetProperty.name].forEach(link => {
+                                                    expression
+                                                        .or('@rid = ?', link);
+                                                });
+                                            })
+                                        );
+                                    }
                                 }
+                                return Promise.all(linksetPromises);
                             })
                     );
                 }
@@ -160,7 +167,7 @@ export class GridService {
     getSizeClass(className: string): Observable<number> {
         return Observable.create((obs) => {
             this.database.getInfoClass(className)
-                .subscribe((res: Response) => {
+                .then((res: Response) => {
                     obs.next(res.json().records);
                     obs.complete();
                 }, (error) => {
@@ -169,60 +176,5 @@ export class GridService {
                     obs.complete();
                 });
         });
-    }
-
-    /**
-     * * This method add link to created record to LINK properties.
-     *
-     * Example: After created a new customer,
-     * the contact should have a link to the customer after creating
-     *
-     * addLinkToCreatedRecord('#22:3', 'customer', ['users', 'contacts']);
-     *
-     * @param result
-     * @param className
-     * @param nameProperty
-     * @param linkProperties
-     * @returns {Promise<Response>}
-     */
-    addLinkToCreatedRecord(result, nameProperty: string,
-                           linkProperties: Array<string>): Promise<Response> {
-        let promises: Array<Promise<Response>> = [];
-
-        linkProperties.forEach(i => {
-            let link = result[i];
-
-            for (let k in link) {
-                if (link.hasOwnProperty(k)) {
-                    let rid = link[k];
-
-                    promises.push(
-                        this.database.load(rid)
-                            .then((res: Response) => {
-                                let dataRow = res.json();
-                                dataRow[nameProperty] = result['@rid'];
-
-                                let operations: Array<Operation> = [
-                                    {
-                                        type: BatchType.UPDATE,
-                                        record: dataRow
-                                    }
-                                ];
-
-                                return new Promise((resolve, reject) => {
-                                    this.database.batch(operations)
-                                        .subscribe(response => {
-                                            resolve(response);
-                                        }, err => {
-                                            reject(err);
-                                        });
-                                });
-                            })
-                    );
-                }
-            }
-        });
-
-        return Promise.all(promises);
     }
 }

@@ -1,16 +1,16 @@
-import { ODatabaseService } from '../orientdb/orientdb.service';
-import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { DashboardBox } from './models/dashboardBox';
-import { CrudService } from '../crud/crud.service';
-import { GridService } from '../services/grid.service';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Location } from '@angular/common';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { BatchType } from '../orientdb/model/batchType';
-import { Operation } from '../orientdb/model/operation';
-import { EditModel } from '../crud/crudEdit/crud.edit.model';
+import {ODatabaseService} from "../orientdb/orientdb.service";
+import {Injectable} from "@angular/core";
+import {Response} from "@angular/http";
+import {DashboardBox} from "./models/dashboardBox";
+import {CrudService} from "../crud/crud.service";
+import {GridService} from "../services/grid.service";
+import {ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {Location} from "@angular/common";
+import {Observable} from "rxjs/Observable";
+import {Observer} from "rxjs/Observer";
+import {BatchType} from "../orientdb/model/batchType";
+import {Operation} from "../orientdb/model/operation";
+import {EditModel} from "../crud/crudEdit/crud.edit.model";
 
 const squel = require('squel');
 
@@ -39,8 +39,8 @@ export class DashboardService {
                 let result: Array<DashboardBox> = [];
 
                 for (let item of res.json().result) {
-                    item.width = Number(item.width[0]);
-                    item.height = Number(item.height[0]);
+                    item.width = parseInt(item.width[0]);
+                    item.height = parseInt(item.height[0]);
                     result.push(new DashboardBox(item));
                 }
 
@@ -49,7 +49,7 @@ export class DashboardService {
             }, (ex) => {
                 observer.error(ex);
                 observer.complete();
-            });
+            })
         });
     }
 
@@ -68,14 +68,14 @@ export class DashboardService {
 
         return Observable.create((observer: Observer<DashboardBox>) => {
             this.databaseService.query(query, 1, '*:3').subscribe((res: Response) => {
-                let result: DashboardBox = new DashboardBox(res.json().result[0]);
+                let result: DashboardBox = new DashboardBox(res.json().result[0])
 
                 observer.next(result);
                 observer.complete();
             }, (ex) => {
                 observer.error(ex);
                 observer.complete();
-            });
+            })
         });
     }
 
@@ -117,7 +117,9 @@ export class DashboardService {
         };
         let options: Array<Operation> = [obj];
 
-        return this.databaseService.batch(options);
+        this.databaseService.batch(options).subscribe((res) => {
+            console.log(res);
+        });
     }
 
     /**
@@ -129,20 +131,18 @@ export class DashboardService {
         let operations: Array<Operation> = [];
 
         for (let key in list) {
-            if (list.hasOwnProperty(key)) {
-                let oRecord: Object = list[key].getORecord();
+            let oRecord: Object = list[key].getORecord();
 
-                let tmp: any = {
-                    type: BatchType.UPDATE,
-                    record: oRecord
-                };
+            let tmp: any = {
+                type: BatchType.UPDATE,//    Operation what we do('u' - update)
+                record: oRecord
+            };
 
-                operations.push(tmp);
-            }
+            operations.push(tmp);
         }
 
         return Observable.create((observer: Observer<Array<DashboardBox>>) => {
-            this.databaseService.batch(operations).subscribe(() => {
+            this.databaseService.batch(operations).subscribe((res) => {
                 this.getDashboardBoxes().subscribe((res) => {
                     observer.next(res);
                     observer.complete();
@@ -163,8 +163,7 @@ export class DashboardService {
      * @param className
      * @returns {Subscription}
      */
-    public getBoxFormColumns(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,
-                             id: string, className: string): Observer<EditModel> {
+    public getBoxFormColumns(route: ActivatedRouteSnapshot, state: RouterStateSnapshot, id: string, className: string): Observer<EditModel> {
         this.crudService.setParentPath(route.parent.pathFromRoot);
         this.crudService.setClassName(className);
 
@@ -181,8 +180,7 @@ export class DashboardService {
 
                     this.crudService.getColumnDefs(className, false)
                         .subscribe((columnDefs) => {
-                            return this.gridService.selectLinksetProperties(
-                                columnDefs.form, model)
+                            return this.gridService.selectLinksetProperties(columnDefs.form, model)
                                 .then(() => {
                                     let editModel: EditModel = {
                                         columnDefs: columnDefs,
@@ -193,8 +191,7 @@ export class DashboardService {
                                     observer.complete();
                                 });
                         }, (error) => {
-                            this.crudService.serviceNotifications.createNotificationOnResponse(
-                                error);
+                            this.crudService.serviceNotifications.createNotificationOnResponse(error);
                             observer.error(error);
                             observer.complete();
                         });

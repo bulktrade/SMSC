@@ -121,10 +121,7 @@ export class CrudService {
 
         return new Promise((resolve, reject) => {
             this.databaseService.batch(operations)
-                .subscribe((res: Response) => {
-                    let result = res.json().result[0];
-
-                    this.gridService.addLinkToCreatedRecord(result, 'customer', ['contacts']);
+                .subscribe((res) => {
                     this.loadingService.stop();
                     this.serviceNotifications.createNotification('success',
                         'message.createSuccessful', 'orientdb.successCreate');
@@ -510,7 +507,7 @@ export class CrudService {
 
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.getInfoClass(className)
-                .subscribe((res: Response) => {
+                .then((res: Response) => {
                     let properties = res.json().properties;
 
                     this.setPropertiesMetaGridData(properties, className)
