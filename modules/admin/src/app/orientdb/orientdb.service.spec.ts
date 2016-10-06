@@ -3,14 +3,13 @@ import { ODatabaseService } from './orientdb.service';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 import {
     HttpModule,
-    BaseRequestOptions,
     Http,
-    ConnectionBackend,
     ResponseOptions,
     Response
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { APP_PROVIDERS } from '../app.module';
+import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
 
 describe('ODatabaseService', () => {
 
@@ -19,14 +18,7 @@ describe('ODatabaseService', () => {
             providers: [
                 ...CRUD_PROVIDERS,
                 ...APP_PROVIDERS,
-                BaseRequestOptions,
-                MockBackend,
-                {
-                    provide: Http, useFactory: (backend: ConnectionBackend,
-                                                defaultOptions: BaseRequestOptions) => {
-                    return new Http(backend, defaultOptions);
-                }, deps: [MockBackend, BaseRequestOptions]
-                }
+                ...HTTP_PROVIDERS
             ],
             imports: [
                 HttpModule

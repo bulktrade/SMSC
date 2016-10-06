@@ -3,13 +3,26 @@ import { Login } from './login.component';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 import { AuthService } from '../services/auth/auth.service';
 import { LoginModel } from './login.model';
-import { HttpModule } from '@angular/http';
+import { HttpModule, ResponseOptions, Response } from '@angular/http';
+import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
+import { MockBackend } from "@angular/http/testing";
+import { TokenService } from "../services/auth/token.service";
+
+class MockTokenService {
+    setToken(token: string) {
+    };
+
+    getToken() {
+    };
+}
 
 describe('Authentication', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 ...CRUD_PROVIDERS,
+                ...HTTP_PROVIDERS,
+                { provide: TokenService, useClass: MockTokenService },
                 Login,
                 AuthService
             ],
@@ -29,14 +42,30 @@ describe('Authentication', () => {
         expect(login.loading).toBeFalsy();
     }));
 
-    it('authentication method', inject([Login], (login) => {
-        let model = new LoginModel('', '', false);
+    it('authentication method', inject([Login, MockBackend],
+        (login: Login, backend: MockBackend) => {
+            let model = new LoginModel('admin', 'admin', false);
+            let path = '/orientdb/token/smsc';
+            let responseBody = {
+                "json": () => {
+                    return {
+                        "@type": "d",
+                        "@version": "0",
+                        "access_token": "eyJAdHlwZSI6ImQ=",
+                        "expires_in": "3600"
+                    }
+                }
+            };
 
-        spyOn(login, 'onSubmit');
-        login.onSubmit(model);
-        expect(login.onSubmit).toHaveBeenCalled();
+            backend.connections.subscribe(c => {
+                expect(c.request.url).toEqual(path);
+                let response = new ResponseOptions({ body: JSON.stringify(responseBody) });
+                c.mockRespond(new Response(response));
+            });
 
-        login.onSubmit(model);
-        expect(login.onSubmit).toHaveBeenCalledWith(model);
-    }));
+            spyOn(login, 'onSubmit');
+            login.onSubmit(model);
+            expect(login.onSubmit).toHaveBeenCalledWith(model);
+
+        }));
 });

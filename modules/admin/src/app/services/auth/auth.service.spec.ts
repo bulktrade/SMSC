@@ -1,9 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 import {
     HttpModule,
-    BaseRequestOptions,
-    Http,
-    ConnectionBackend,
     ResponseOptions,
     Response
 } from '@angular/http';
@@ -12,6 +9,7 @@ import { CRUD_PROVIDERS } from '../../crud/common/crudProviders';
 import { AuthService } from './auth.service';
 import { LoginModel } from '../../login/login.model';
 import { APP_PROVIDERS } from '../../app.module';
+import { HTTP_PROVIDERS } from "../../common/mock/httpProviders";
 
 describe('Auth service', () => {
 
@@ -20,15 +18,8 @@ describe('Auth service', () => {
             providers: [
                 ...CRUD_PROVIDERS,
                 ...APP_PROVIDERS,
+                ...HTTP_PROVIDERS,
                 AuthService,
-                BaseRequestOptions,
-                MockBackend,
-                {
-                    provide: Http, useFactory: (backend: ConnectionBackend,
-                                                defaultOptions: BaseRequestOptions) => {
-                    return new Http(backend, defaultOptions);
-                }, deps: [MockBackend, BaseRequestOptions]
-                }
             ],
             imports: [
                 HttpModule

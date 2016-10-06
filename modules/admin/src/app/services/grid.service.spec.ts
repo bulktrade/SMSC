@@ -1,9 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 import {
     HttpModule,
-    BaseRequestOptions,
-    Http,
-    ConnectionBackend,
     ResponseOptions,
     Response
 } from '@angular/http';
@@ -13,6 +10,7 @@ import { GridService } from './grid.service';
 import { APP_PROVIDERS } from '../app.module';
 import { CrudLevel } from '../crud/model/crudLevel';
 import { LinksetProperty } from '../crud/model/linksetProperty';
+import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
 
 describe('Grid Service', () => {
 
@@ -21,15 +19,8 @@ describe('Grid Service', () => {
             providers: [
                 ...CRUD_PROVIDERS,
                 ...APP_PROVIDERS,
-                BaseRequestOptions,
+                ...HTTP_PROVIDERS,
                 GridService,
-                MockBackend,
-                {
-                    provide: Http, useFactory: (backend: ConnectionBackend,
-                                                defaultOptions: BaseRequestOptions) => {
-                    return new Http(backend, defaultOptions);
-                }, deps: [MockBackend, BaseRequestOptions]
-                }
             ],
             imports: [
                 HttpModule
