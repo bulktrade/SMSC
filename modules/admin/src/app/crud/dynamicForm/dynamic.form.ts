@@ -1,14 +1,14 @@
 import { Component, Input, NgModule } from '@angular/core';
-import { CrudService } from '../crud/crud.service';
+import { CrudService } from '../crud.service';
 import { Location, CommonModule } from '@angular/common';
 import { BtnTypes } from './btn.types';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MdSelectModule } from '../common/material/select/select';
-import { MdModule } from '../md.module';
+import { MdSelectModule } from '../../common/material/select/select';
+import { MdModule } from '../../md.module';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 import { FormsModule } from '@angular/forms';
-import { LoadingGridModule } from '../common/loadingGrid';
-import { MultipleSelectModule } from '../crud/directives/multipleSelect/multipleSelect.component';
+import { LoadingGridModule } from '../../common/loadingGrid';
+import { MultipleSelectModule } from '../directives/multipleSelect/multipleSelect.component';
 
 @Component({
     selector: 'dynamic-form',
