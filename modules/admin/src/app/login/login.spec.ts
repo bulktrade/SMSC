@@ -42,7 +42,7 @@ describe('Authentication', () => {
         expect(login.loading).toBeFalsy();
     }));
 
-    it('authentication method', inject([Login, MockBackend],
+    it('should to login', inject([Login, MockBackend],
         (login: Login, backend: MockBackend) => {
             let model = new LoginModel('admin', 'admin', false);
             let path = '/orientdb/token/smsc';
@@ -63,9 +63,53 @@ describe('Authentication', () => {
                 c.mockRespond(new Response(response));
             });
 
-            spyOn(login, 'onSubmit');
-            login.onSubmit(model);
-            expect(login.onSubmit).toHaveBeenCalledWith(model);
+            login.onSubmit(model)
+                .then(res => {
+                    expect(login.isErrorMessage).toBeFalsy();
+                });
+        }));
 
+    it('should get an error message with text user not found', inject([Login, MockBackend],
+        (login: Login, backend: MockBackend) => {
+            let model = new LoginModel('admin', 'admin', false);
+            let path = '/orientdb/token/smsc';
+
+            backend.connections.subscribe(c => {
+                expect(c.request.url).toEqual(path);
+                c.mockError(new Response(new ResponseOptions({
+                    body: {},
+                    status: 400
+                })));
+            });
+
+            login.onSubmit(model)
+                .then(res => {
+                })
+                .catch((error) => {
+                    expect(login.isErrorMessage).toBeTruthy();
+                    expect(login.errorMessage).toEqual('login.userNotFound');
+                });
+        }));
+
+    it('should to get the common error message', inject([Login, MockBackend],
+        (login: Login, backend: MockBackend) => {
+            let model = new LoginModel('admin', 'admin', false);
+            let path = '/orientdb/token/smsc';
+
+            backend.connections.subscribe(c => {
+                expect(c.request.url).toEqual(path);
+                c.mockError(new Response(new ResponseOptions({
+                    body: {},
+                    status: 502
+                })));
+            });
+
+            login.onSubmit(model)
+                .then(res => {
+                })
+                .catch((error) => {
+                    expect(login.isErrorMessage).toBeTruthy();
+                    expect(login.errorMessage).toEqual('login.commonError');
+                });
         }));
 });

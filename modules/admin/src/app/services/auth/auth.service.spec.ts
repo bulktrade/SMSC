@@ -39,7 +39,7 @@ describe('Auth service', () => {
             });
 
             service.login(model.username, model.password)
-                .then((res) => {
+                .subscribe((res) => {
                     expect(res).toBeDefined();
                 }, (error) => {
                     expect(error).toBeDefined();
