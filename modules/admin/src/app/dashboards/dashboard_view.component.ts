@@ -12,7 +12,6 @@ import {DashboardResizeConfig} from "./dashboard_resize.config";
 import {CrudService} from "../crud/crud.service";
 import {BoxSizes} from "./models/dashboard_box.sizes";
 import {DashboardListItem} from "./models/dashboard_list_item";
-import {Breadcrumb} from "../breadcrumb/breadcrumb.component";
 
 @Component({
     selector: 'dashboard-view',
@@ -121,8 +120,10 @@ export class DashboardView {
                 this.boxes.getItem(index)['width'] = res['width'];
                 this.boxes.getItem(index)['height'] = res['height'];
 
-                $(`.box[data-boxrid="${item.metaData.rid}"]`).on('transitionend', () => {
-                    val.chart.resize();
+                let dom: BrowserDomAdapter = new BrowserDomAdapter();
+                let chart = dom.querySelector(dom.query('#dashboard'), `.box[data-boxrid="${item.metaData.rid}"]`);
+                dom.on(chart, 'transitionend', (e) => {
+                    val.chart['resize']();
                 });
             });
         }
