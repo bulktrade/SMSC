@@ -6,11 +6,11 @@ import {
     EventEmitter,
     HostListener
 } from '@angular/core';
-import { DashboardBoxConfig } from './dashboardBox.config';
+import { DashboardBoxConfig } from './dashboardBoxConfig';
 import { SidebarService } from '../sidebar/sidebarService';
-import { DashboardResizeConfig } from './dashboardResize.config';
+import { DashboardResizeConfig } from './dashboardResizeConfig';
 import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
-import { BoxResize } from './models/dashboardBox.enum';
+import { BoxResize } from './models/dashboardBoxEnum';
 
 @Component({
     selector: 'dashboard-box',

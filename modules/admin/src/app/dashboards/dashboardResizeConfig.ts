@@ -1,4 +1,4 @@
-import { BoxResize } from './models/dashboardBox.enum';
+import { BoxResize } from './models/dashboardBoxEnum';
 
 export interface DashboardResizeConfig {
     type: BoxResize;

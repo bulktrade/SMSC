@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
-import { ColumnDefsModel } from '../model/columnDefs.model';
+import { ColumnDefsModel } from '../model/columnDefs';
 import { LinksetProperty } from '../model/linksetProperty';
 
 @Component({

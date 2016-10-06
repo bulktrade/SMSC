@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router } from '@angular/router';
-import { SidebarModel } from './model/Sidebar';
+import { SidebarModel } from './sidebar.model';
 
 @Component({
     selector: 'sidebar',

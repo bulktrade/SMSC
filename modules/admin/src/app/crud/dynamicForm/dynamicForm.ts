@@ -1,7 +1,7 @@
 import { Component, Input, NgModule } from '@angular/core';
 import { CrudService } from '../crud.service';
 import { Location, CommonModule } from '@angular/common';
-import { BtnTypes } from './btn.types';
+import { BtnTypes } from './btnTypes';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MdSelectModule } from '../../common/material/select/select';
 import { MdModule } from '../../md.module';

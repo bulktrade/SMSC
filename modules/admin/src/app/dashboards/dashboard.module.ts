@@ -20,7 +20,7 @@ import { AlertModule } from 'ng2-bootstrap';
 import { CrudService } from '../crud/crud.service';
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
-import { DynamicFormModule } from '../crud/dynamicForm/dynamic.form';
+import { DynamicFormModule } from '../crud/dynamicForm/dynamicForm';
 import { Dashboards } from './dashboards.components';
 
 const DASHBOARD_DECLARATION = [

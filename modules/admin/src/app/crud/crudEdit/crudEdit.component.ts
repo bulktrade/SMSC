@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
 import { Location } from '@angular/common';
 import { EditModel } from './crudEdit.model';
-import { BtnTypes } from '../dynamicForm/btn.types';
+import { BtnTypes } from '../dynamicForm/btnTypes';
 
 @Component({
     selector: 'crud-edit',

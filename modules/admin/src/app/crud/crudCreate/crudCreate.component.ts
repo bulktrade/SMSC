@@ -3,8 +3,8 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
 import { Location } from '@angular/common';
-import { ColumnDefsModel } from '../model/columnDefs.model';
-import { BtnTypes } from '../dynamicForm/btn.types';
+import { ColumnDefsModel } from '../model/columnDefs';
+import { BtnTypes } from '../dynamicForm/btnTypes';
 
 @Component({
     selector: 'crud-create',

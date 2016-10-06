@@ -7,10 +7,10 @@ import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser
 import { OrderBy } from './sorts/orderby';
 import { DashboardList } from './models/dashboardList';
 import { DashboardBox } from './models/dashboardBox';
-import { BoxResize } from './models/dashboardBox.enum';
-import { DashboardResizeConfig } from './dashboardResize.config';
+import { BoxResize } from './models/dashboardBoxEnum';
+import { DashboardResizeConfig } from './dashboardResizeConfig';
 import { CrudService } from '../crud/crud.service';
-import { BoxSizes } from './models/dashboardBox.sizes';
+import { BoxSizes } from './models/dashboardBoxSizes';
 import { DashboardListItem } from './models/dashboardListItem';
 
 @Component({

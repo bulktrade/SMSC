@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
 import { Location } from '@angular/common';
 import { GridService } from '../../services/grid.service';
-import { ColumnDefsModel } from '../model/columnDefs.model';
+import { ColumnDefsModel } from '../model/columnDefs';
 import { CrudLevel } from '../model/crudLevel';
 import { RouterOutletService } from '../../services/routerOutletService';
 

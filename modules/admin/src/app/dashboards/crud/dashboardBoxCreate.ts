@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../../crud/crud.service';
 import { Location } from '@angular/common';
 import { EditModel } from '../../crud/crudEdit/crudEdit.model';
-import { BtnTypes } from '../../crud/dynamicForm/btn.types';
+import { BtnTypes } from '../../crud/dynamicForm/btnTypes';
 
 @Component({
     selector: 'dashboard-crud-edit',
