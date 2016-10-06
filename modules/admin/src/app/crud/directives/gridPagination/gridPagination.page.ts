@@ -1,4 +1,4 @@
-import { CreatePage } from '../../crudCreate/crud.create.page';
+import { CreatePage } from '../../crudCreate/crudCreate.page';
 import { LoginPage } from '../../../login/login.page';
 import { EC } from "../../../common/expectedConditions";
 

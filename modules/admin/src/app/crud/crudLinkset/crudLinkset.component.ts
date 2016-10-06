@@ -10,9 +10,9 @@ import { RouterOutletService } from '../../services/routerOutletService';
 
 @Component({
     selector: 'crud-linkset',
-    template: require('./crud.linkset.html'),
+    template: require('./crudLinkset.html'),
     styleUrls: [
-        require('./crud.linkset.scss'),
+        require('./crudLinkset.scss'),
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],

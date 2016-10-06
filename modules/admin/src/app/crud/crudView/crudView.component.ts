@@ -7,9 +7,9 @@ import { LinksetProperty } from '../model/linksetProperty';
 
 @Component({
     selector: 'crud-view',
-    template: require('./crud.view.html'),
+    template: require('./crudView.html'),
     styleUrls: [
-        require('./crud.view.scss'),
+        require('./crudView.scss'),
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],

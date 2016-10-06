@@ -32,7 +32,7 @@ import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { GridService } from './services/grid.service';
 import { Sidebar } from './sidebar/sidebar.component';
 import { SidebarItem } from './sidebar/sidebaritem.component';
-import { CrudViewResolve } from './crud/crudView/crud.view.resolve';
+import { CrudViewResolve } from './crud/crudView/crudView.resolve';
 import { CrudModule } from './crud/crud.module';
 import { LoadingRouterOutletModule } from './common/loadingRouterOutlet';
 import { ConfigService } from './config/configService';

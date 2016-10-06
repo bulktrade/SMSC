@@ -18,8 +18,8 @@ import { DashboardCrudUpdate } from './dashboards/crud/dashboardBoxUpdate';
 import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboardCrudUpdate.resolve';
 import { DashboardCrudCreate } from './dashboards/crud/dashboardBoxCreate';
 import { DashboardCrudCreateResolve } from './dashboards/crud/dashboardCrudCreate.resolve';
-import { CrudLinkset } from './crud/crudLinkset/crud.linkset.component';
-import { CrudLinksetResolve } from './crud/crudLinkset/crud.linkset.resolve';
+import { CrudLinkset } from './crud/crudLinkset/crudLinkset.component';
+import { CrudLinksetResolve } from './crud/crudLinkset/crudLinkset.resolve';
 import { Dashboards } from './dashboards/dashboards.components';
 import { Dashboard } from './dashboards/dashboard.component';
 

@@ -1,19 +1,17 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { CRUD_PROVIDERS } from '../common/crudProviders';
-import { HttpModule } from '@angular/http';
-import { CrudLinkset } from './crud.linkset.component';
+import { CrudDelete } from './crudDelete.component';
 import { Location } from '@angular/common';
-import { GridService } from '../../services/grid.service';
+import { HttpModule } from '@angular/http';
 
 class MockLocation {};
 
-describe('Crud Linkset', () => {
+describe('Crud Delete', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 ...CRUD_PROVIDERS,
-                CrudLinkset,
-                GridService,
+                CrudDelete,
                 { provide: Location, useClass: MockLocation }
             ],
             imports: [
@@ -22,8 +20,8 @@ describe('Crud Linkset', () => {
         });
     });
 
-    it('should be defined grid options', inject([ CrudLinkset ], (crudLinkset) => {
-        expect(crudLinkset.crudService.gridOptions).toBeDefined();
+    it('should be defined grid options', inject([ CrudDelete ], (crudDelete) => {
+        expect(crudDelete.crudService.gridOptions).toBeDefined();
     }));
 
 });

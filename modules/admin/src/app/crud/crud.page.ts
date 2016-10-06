@@ -1,6 +1,6 @@
 import { LoginPage } from '../login/login.page';
-import { CreatePage } from './crudCreate/crud.create.page';
-import { DeletePage } from './crudDelete/crud.delete.page';
+import { CreatePage } from './crudCreate/crudCreate.page';
+import { DeletePage } from './crudDelete/crudDelete.page';
 import { EC } from "../common/expectedConditions";
 
 export class CrudPage {
