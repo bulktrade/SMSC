@@ -1,5 +1,5 @@
 import { LoginPage } from '../login/login.page';
-import { WaitUntil } from '../common/waitUntilReady';
+import { EC } from "../common/expectedConditions";
 
 export class CrudMetaDataPage {
     public login: LoginPage = new LoginPage();
@@ -14,6 +14,7 @@ export class CrudMetaDataPage {
     public btnAddRecord = element(by.id('addRow'));
     public crudCreateTag = element(by.tagName('crud-create'));
     public backBtn = element(by.id('back'));
+    public record = element(by.css('.ag-body-container > div:first-of-type'));
 
     public customerIdField = element(by.css('.customerId input'));
     public cityField = element(by.css('.city input'));
@@ -28,8 +29,6 @@ export class CrudMetaDataPage {
     public visibleInput = element(by.css('.visible'));
     public editableInput = element(by.css('.editable'));
     public orderInput = element(by.css('.order input'));
-
-    private _ptor;
 
     constructor() {
     }
@@ -59,12 +58,12 @@ export class CrudMetaDataPage {
     }
 
     clearOrderInput() {
-        WaitUntil.waitUntil(this.orderInput, this._ptor);
+        browser.wait(EC.elementToBeClickable(this.orderInput), 5000, 'orderInput not available');
         this.orderInput.clear();
     }
 
-    isPresentCityField(ready: boolean) {
-        WaitUntil.waitUntil(this.cityField, this._ptor, ready);
+    isPresentCityField() {
+        browser.wait(EC.presenceOf(this.cityField), 5000, 'cityField not available');
         return this.cityField.isPresent();
     }
 
@@ -73,81 +72,72 @@ export class CrudMetaDataPage {
     }
 
     clickOnFormBtn() {
-        WaitUntil.waitUntil(this.formBtn, this.ptor);
+        browser.wait(EC.elementToBeClickable(this.formBtn), 5000, 'formBtn not available');
         this.formBtn.click();
     }
 
     clickOnCityEdit() {
-        WaitUntil.waitUntil(this.cityEdit, this._ptor);
+        browser.wait(EC.presenceOf(this.cityEdit), 5000, 'cityEdit not available');
         this.cityEdit.click();
     }
 
     clickOnCustomerIdEdit() {
-        WaitUntil.waitUntil(this.customerIdEdit, this._ptor);
+        browser.wait(EC.presenceOf(this.record), 5000, 'customerIdEdit not available');
         this.customerIdEdit.click();
     }
 
     changeVisibleProperty() {
-        WaitUntil.waitUntil(this.visibleInput, this._ptor);
+        browser.wait(EC.elementToBeClickable(this.visibleInput), 5000, 'visibleInput not available');
         this.visibleInput.click();
     }
 
     changeEditableProperty() {
-        WaitUntil.waitUntil(this.editableInput, this._ptor);
+        browser.wait(EC.elementToBeClickable(this.editableInput), 5000, 'editableInput not available');
         this.editableInput.click();
     }
 
     clickOnBackBtn() {
-        WaitUntil.waitUntil(this.backBtn, this.ptor);
+        browser.wait(EC.elementToBeClickable(this.backBtn), 5000, 'backBtn not available');
         this.backBtn.click();
     }
 
     clickOnFormMetaData() {
-        WaitUntil.waitUntil(this.formMetaDataItem, this.ptor);
+        browser.wait(EC.elementToBeClickable(this.formMetaDataItem), 5000, 'formMetaDataItem not available');
         this.formMetaDataItem.click();
     }
 
-
     clickOnMetaData() {
-        WaitUntil.waitUntil(this.metaDataItem, this.ptor);
+        browser.wait(EC.elementToBeClickable(this.metaDataItem), 5000, 'metaDataItem not available');
         this.metaDataItem.click();
     }
 
     clickOnCustomers() {
-        WaitUntil.waitUntil(this.customersItem, this.ptor);
+        browser.wait(EC.elementToBeClickable(this.customersItem), 5000, 'customersItem not available');
         this.customersItem.click();
     }
 
     clickOnBtnAddRecord() {
-        WaitUntil.waitUntil(this.btnAddRecord, this.ptor);
+        browser.wait(EC.elementToBeClickable(this.btnAddRecord), 5000, 'btnAddRecord not available');
         this.btnAddRecord.click();
     }
 
     isPresentFormMetaData() {
-        WaitUntil.waitUntil(this.formMetaDataTag, this.ptor);
+        browser.wait(EC.presenceOf(this.formMetaDataTag), 5000, 'formMetaDataTag not available');
         return this.formMetaDataTag.isPresent();
     }
 
     isPresentLogo() {
-        WaitUntil.waitUntil(this.logo, this.ptor);
+        browser.wait(EC.presenceOf(this.logo), 5000, 'logo not available');
         return this.logo.isPresent();
     }
 
     isPresentCrudCreateTag() {
-        WaitUntil.waitUntil(this.crudCreateTag, this.ptor);
+        browser.wait(EC.presenceOf(this.crudCreateTag), 5000, 'crudCreateTag not available');
         return this.crudCreateTag.isPresent();
     }
 
     isPresentCustomers() {
-        WaitUntil.waitUntil(this.customersTag, this.ptor);
+        browser.wait(EC.presenceOf(this.customersTag), 5000, 'customersTag not available');
         return this.customersTag.isPresent();
-    }
-
-    get ptor() {
-        return this._ptor;
-    }
-
-    set ptor(value) {
-        this._ptor = value;
     }
 }

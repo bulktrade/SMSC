@@ -7,7 +7,6 @@ describe('CrudMetaData', () => {
 
     beforeEach(() => {
         ptor = protractor.wrapDriver(browser.driver);
-        crudMetaDataPage.ptor = ptor;
     });
 
     it('log in smsc.io', () => {
@@ -38,7 +37,7 @@ describe('CrudMetaData', () => {
     });
 
     it('city field should be displayed', () => {
-        expect(crudMetaDataPage.isPresentCityField(false)).toBeTruthy();
+        expect(crudMetaDataPage.isPresentCityField()).toBeTruthy();
     });
 
     it('order should be descending', () => {
