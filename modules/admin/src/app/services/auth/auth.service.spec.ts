@@ -27,10 +27,10 @@ describe('Auth service', () => {
         });
     });
 
-    it('should be defined response of the open', inject([MockBackend, AuthService],
+    it('should to login', inject([MockBackend, AuthService],
         (backend: MockBackend, service: AuthService) => {
             let path = '/orientdb/token/smsc';
-            let model = new LoginModel('test', '12t', false);
+            let model = new LoginModel('admin', 'admin', false);
 
             backend.connections.subscribe(c => {
                 expect(c.request.url).toEqual(path);
@@ -41,8 +41,27 @@ describe('Auth service', () => {
             service.login(model.username, model.password)
                 .subscribe((res) => {
                     expect(res).toBeDefined();
-                }, (error) => {
-                    expect(error).toBeDefined();
+                });
+        }));
+
+    it('should get an error message', inject([MockBackend, AuthService],
+        (backend: MockBackend, service: AuthService) => {
+            let path = '/orientdb/token/smsc';
+            let model = new LoginModel('test', '12t', false);
+            let error: Error = {
+                name: 'Error',
+                message: 'Bad request'
+            };
+
+            backend.connections.subscribe(c => {
+                expect(c.request.url).toEqual(path);
+                c.mockError(error);
+            });
+
+            service.login(model.username, model.password)
+                .subscribe((res) => {
+                }, err => {
+                    expect(err).toBeDefined();
                 });
         }));
 
