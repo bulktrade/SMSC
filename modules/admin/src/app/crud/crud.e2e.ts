@@ -13,10 +13,7 @@ describe('CRUD', () => {
         ptor = protractor.wrapDriver(browser.driver);
         crudPage.ptor = ptor;
         crudPage.crudCreate.ptor = ptor;
-        crudPage.crudDelete.ptor = ptor;
         paginationPage.crudPage.ptor = ptor;
-        paginationPage.ptor = ptor;
-        bngParam.prot = ptor;
     });
 
     it('log in smsc.io', () => {
@@ -96,55 +93,45 @@ describe('CRUD', () => {
     });
 
     it('should be the next page', () => {
-        paginationPage.clickOnNextBtn()
-            .then(() => {
-                paginationPage.getCurrentPage()
-                    .then(currenPage => {
-                        let result: number = 2;
-                        expect(Number(currenPage)).toEqual(result);
-                    });
+        paginationPage.clickOnNextBtn();
+        paginationPage.getCurrentPage()
+            .then(currenPage => {
+                let result: number = 2;
+                expect(Number(currenPage)).toEqual(result);
             });
     });
 
     it('should be the previous page', () => {
-        paginationPage.clickOnPreviousBtn()
-            .then(() => {
-                paginationPage.getCurrentPage()
-                    .then(currenPage => {
-                        let result: number = 1;
-                        expect(Number(currenPage)).toEqual(result);
-                    });
+        paginationPage.clickOnPreviousBtn();
+        paginationPage.getCurrentPage()
+            .then(currenPage => {
+                let result: number = 1;
+                expect(Number(currenPage)).toEqual(result);
             });
     });
 
     it('should be the last page', () => {
-        paginationPage.clickOnLastBtn()
-            .then(() => {
-                paginationPage.getCurrentPage()
-                    .then(currenPage => {
-                        let result: number = 2;
-                        expect(Number(currenPage)).toEqual(result);
-                    });
+        paginationPage.clickOnLastBtn();
+        paginationPage.getCurrentPage()
+            .then(currenPage => {
+                let result: number = 2;
+                expect(Number(currenPage)).toEqual(result);
             });
     });
 
     it('should be the first page', () => {
-        paginationPage.clickOnFirstBtn()
-            .then(() => {
-                paginationPage.getCurrentPage()
-                    .then(currenPage => {
-                        let result: number = 1;
-                        expect(Number(currenPage)).toEqual(result);
-                    });
+        paginationPage.clickOnFirstBtn();
+        paginationPage.getCurrentPage()
+            .then(currenPage => {
+                let result: number = 1;
+                expect(Number(currenPage)).toEqual(result);
             });
     });
 
     // navigate to metaDataBindingParameter component
     it('should be navigate to metaDataBindingParameter', () => {
-        bngParam.clickOnBindingParameterItem()
-            .then(() => {
-                expect(bngParam.isDisplayedBindingParameterDirective()).toBeTruthy();
-            })
+        bngParam.clickOnBindingParameterItem();
+        expect(bngParam.isDisplayedBindingParameterDirective()).toBeTruthy();
     });
 
     // navigate to create form
@@ -155,15 +142,13 @@ describe('CRUD', () => {
 
     // create new record in metaDataBindingParameter class
     it('should be create new record in metaDataBindingParameter', () => {
-        bngParam.fillForm()
-            .then(() => {
-                crudPage.crudCreate.clickOnFormBtn();
-                crudPage.crudCreate.clickOnBackBtn();
-                crudPage.isPresentRecord()
-                    .then((isPresent) => {
-                        expect(isPresent).toBeTruthy();
-                    });
-            })
+        bngParam.fillForm();
+        crudPage.crudCreate.clickOnFormBtn();
+        crudPage.crudCreate.clickOnBackBtn();
+        crudPage.isPresentRecord()
+            .then((isPresent) => {
+                expect(isPresent).toBeTruthy();
+            });
     });
 
     // navigate to mataFormData component
@@ -178,11 +163,9 @@ describe('CRUD', () => {
             .then(() => {
                 bngParam.clickOnContactsEdit()
                     .then(() => {
-                        bngParam.chooseBindingParameter()
-                            .then(() => {
-                                crudPage.crudCreate.clickOnFormBtn();
-                                expect(crudPage.isPresentNotification()).toBeTruthy();
-                            })
+                        bngParam.chooseBindingParameter();
+                        crudPage.crudCreate.clickOnFormBtn();
+                        expect(crudPage.isPresentNotification()).toBeTruthy();
                     })
             });
     });

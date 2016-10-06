@@ -1,66 +1,47 @@
-export class BindingParameterPage {
-    public bindingParameterItem = by.className('metadatapropertybindingparameter');
-    public bindingParameterDirective = by.tagName('binding-parameter');
+import { EC } from "../../common/expectedConditions";
 
-    public fromPropertyField = by.css('.fromProperty input');
-    public toPropertyField = by.css('.toProperty input');
-    public combineOperatorSelect = by.className('combineOperator');
-    public operatorSelect = by.className('operator');
-    public bingingPropertiesSelect = by.css('.bingingProperties #add');
-    public chooseFirstLinkElement = by.css(
-        '.ag-body-container > div:first-of-type .ag-selection-checkbox');
-    public addLinkBtn = by.id('addLink');
+export class BindingParameterPage {
+    public bindingParameterItem = element(by.className('metadatapropertybindingparameter'));
+    public bindingParameterDirective = element(by.tagName('binding-parameter'));
+
+    public fromPropertyField = element(by.css('.fromProperty input'));
+    public toPropertyField = element(by.css('.toProperty input'));
+    public combineOperatorSelect = element(by.className('combineOperator'));
+    public operatorSelect = element(by.className('operator'));
+    public bingingPropertiesSelect = element(by.css('.bingingProperties #add'));
+    public chooseFirstLinkElement = element(by.css(
+        '.ag-body-container > div:first-of-type .ag-selection-checkbox'));
+    public addLinkBtn = element(by.id('addLink'));
 
     public contactsEdit = element.all(by.xpath('.//*[.="contacts"]/preceding-sibling::div')).get(2);
 
-    private _prot;
-    private _timeWait: number = 5000;
-
     fillForm() {
-        return this.sendKeysFromPropertyField('customer')
-            .then(() => {
-                return this.sendKeysToPropertyField('@rid')
-                    .then(() => {
-                        return this.chooseCombineOperatorSelect()
-                            .then(() => {
-                                return this.chooseOperatorSelect();
-                            })
-                    })
-            })
+        this.sendKeysFromPropertyField('customer');
+        this.sendKeysToPropertyField('@rid');
+        this.chooseCombineOperatorSelect();
+        this.chooseOperatorSelect();
     }
 
     chooseCombineOperatorSelect() {
-        return this._prot.wait(protractor.until.elementLocated(
-            this.combineOperatorSelect), this._timeWait)
-            .then((el: webdriver.IWebElement) => {
-                return el.click()
-                    .then(() => {
-                        let lastElement = by.css('.combineOperator option:nth-of-type(3)');
+        browser.wait(EC.elementToBeClickable(this.combineOperatorSelect), 5000);
+        this.combineOperatorSelect.click();
 
-                        return this._prot.wait(protractor.until.elementLocated(
-                            lastElement), this._timeWait)
-                            .then((lastOptionElement: webdriver.IWebElement) => {
-                                return lastOptionElement.click();
-                            });
-                    });
-            });
+
+        let lastElement = element(by.css('.combineOperator option:nth-of-type(2)'));
+
+        browser.wait(EC.elementToBeClickable(lastElement), 5000);
+        lastElement.click();
     }
 
     chooseOperatorSelect() {
-        return this._prot.wait(protractor.until.elementLocated(
-            this.operatorSelect), this._timeWait)
-            .then((el: webdriver.IWebElement) => {
-                return el.click()
-                    .then(() => {
-                        let lastElement = by.css('.operator option:nth-of-type(2)');
+        browser.wait(EC.elementToBeClickable(this.operatorSelect), 5000);
+        this.operatorSelect.click();
 
-                        return this._prot.wait(protractor.until.elementLocated(
-                            lastElement), this._timeWait)
-                            .then((lastOptionElement: webdriver.IWebElement) => {
-                                return lastOptionElement.click();
-                            });
-                    });
-            });
+
+        let lastElement = element(by.css('.operator option:nth-of-type(2)'));
+
+        browser.wait(EC.elementToBeClickable(lastElement), 5000);
+        lastElement.click();
     }
 
     clickOnContactsEdit() {
@@ -68,67 +49,39 @@ export class BindingParameterPage {
     }
 
     chooseBindingParameter() {
-        return this._prot.wait(protractor.until.elementLocated(
-            this.bingingPropertiesSelect), this._timeWait)
-            .then((el: webdriver.IWebElement) => {
-                return el.click()
-                    .then(() => {
-                        return this.chooseFirstLink()
-                            .then(() => {
-                                return this.clickOnAddLinkBtn();
-                            });
-                    });
-            });
+        browser.wait(EC.elementToBeClickable(this.bingingPropertiesSelect), 5000);
+        this.bingingPropertiesSelect.click();
+        this.chooseFirstLink();
+        this.clickOnAddLinkBtn();
     }
 
     clickOnAddLinkBtn() {
-        return this._prot.wait(protractor.until.elementLocated(this.addLinkBtn), this._timeWait)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.elementToBeClickable(this.addLinkBtn), 5000);
+        this.addLinkBtn.click();
     }
 
     chooseFirstLink() {
-        return this._prot.wait(protractor.until.elementLocated(
-            this.chooseFirstLinkElement), this._timeWait)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
+        browser.wait(EC.elementToBeClickable(this.chooseFirstLinkElement), 5000);
+        this.chooseFirstLinkElement.click();
     }
 
     sendKeysFromPropertyField(value) {
-        return this._prot.wait(protractor.until.elementLocated(this.fromPropertyField), this._timeWait)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.sendKeys(value));
-            });
+        browser.wait(EC.elementToBeClickable(this.fromPropertyField), 5000);
+        this.fromPropertyField.sendKeys(value);
     }
 
     sendKeysToPropertyField(value) {
-        return this._prot.wait(protractor.until.elementLocated(this.toPropertyField), this._timeWait)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.sendKeys(value));
-            });
+        browser.wait(EC.elementToBeClickable(this.toPropertyField), 5000);
+        this.toPropertyField.sendKeys(value);
     }
 
     isDisplayedBindingParameterDirective() {
-        return this._prot.wait(protractor.until.elementLocated(this.bindingParameterDirective), this._timeWait)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.isDisplayed());
-            });
+        browser.wait(EC.presenceOf(this.bindingParameterDirective), 5000);
+        return this.bindingParameterDirective.isPresent();
     }
 
     clickOnBindingParameterItem() {
-        return this._prot.wait(protractor.until.elementLocated(this.bindingParameterItem), this._timeWait)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
-    }
-
-    get prot() {
-        return this._prot;
-    }
-
-    set prot(value) {
-        this._prot = value;
+        browser.wait(EC.elementToBeClickable(this.bindingParameterItem), 5000);
+        this.bindingParameterItem.click();
     }
 }

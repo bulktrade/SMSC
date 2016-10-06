@@ -1,33 +1,19 @@
-import { WaitUntil } from '../../common/waitUntilReady';
+import { EC } from "../../common/expectedConditions";
 
 export class DeletePage {
     public crudDelete = element(by.tagName('crud-delete'));
-    public okBtn = by.id('ok');
-
-    private _ptor;
+    public okBtn = element(by.id('ok'));
 
     constructor() {
     }
 
     isPresentCrudDelete() {
-        WaitUntil.waitUntil(this.crudDelete, this._ptor);
+        browser.wait(EC.presenceOf(this.crudDelete), 5000);
         return this.crudDelete.isPresent();
     }
 
-    clickOnOkBtn(): Promise<any> {
-        return this._ptor.wait(protractor.until.elementLocated(this.okBtn), 5000)
-            .then((el: webdriver.IWebElement) => {
-                return Promise.resolve(el.click());
-            });
-    }
-
-    // getters and setters
-
-    get ptor() {
-        return this._ptor;
-    }
-
-    set ptor(value) {
-        this._ptor = value;
+    clickOnOkBtn() {
+        browser.wait(EC.elementToBeClickable(this.okBtn), 5000);
+        this.okBtn.click();
     }
 }
