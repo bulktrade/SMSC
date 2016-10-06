@@ -1,9 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 import {
     HttpModule,
-    BaseRequestOptions,
-    Http,
-    ConnectionBackend,
     ResponseOptions,
     Response
 } from '@angular/http';
@@ -11,6 +8,7 @@ import { MockBackend } from '@angular/http/testing';
 import { GridPagination } from './gridPagination';
 import { CRUD_PROVIDERS } from '../../common/crudProviders';
 import { APP_PROVIDERS } from '../../../app.module';
+import { HTTP_PROVIDERS } from "../../../common/mock/httpProviders";
 
 describe('Grid Pagination', () => {
 
@@ -19,15 +17,8 @@ describe('Grid Pagination', () => {
             providers: [
                 ...CRUD_PROVIDERS,
                 ...APP_PROVIDERS,
-                BaseRequestOptions,
-                MockBackend,
+                ...HTTP_PROVIDERS,
                 GridPagination,
-                {
-                    provide: Http, useFactory: (backend: ConnectionBackend,
-                                                defaultOptions: BaseRequestOptions) => {
-                    return new Http(backend, defaultOptions);
-                }, deps: [MockBackend, BaseRequestOptions]
-                }
             ],
             imports: [
                 HttpModule

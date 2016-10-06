@@ -20,10 +20,10 @@ import {AlertModule} from "ng2-bootstrap";
 import {CrudService} from "../crud/crud.service";
 import {BreadcrumbModule} from "../breadcrumb/breadcrumb.component";
 import {DragulaModule} from "ng2-dragula/ng2-dragula";
-import {DynamicFormModule} from "../dynamicForm/dynamic.form";
 import {Dashboards} from "./dashboards.components";
 import {TrafficChartService} from "./chart/chart.service";
 import {BaThemeConfigProvider} from "./chart/theme/theme.configProvider";
+import {DynamicFormModule} from "../crud/dynamicForm/dynamicForm";
 
 const DASHBOARD_DECLARATION = [
     OrderBy,

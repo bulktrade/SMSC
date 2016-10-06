@@ -13,15 +13,15 @@ import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMet
 import {
     MetaDataPropertyBindingParameter
 } from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
-import { DashboardView } from "./dashboards/dashboard_view.component";
-import { DashboardCrudUpdate } from "./dashboards/crud/dashboard_box_update";
-import { DashboardCrudUpdateResolve } from "./dashboards/crud/dashboard_crud_update.resolve";
-import { DashboardCrudCreate } from "./dashboards/crud/dashboard_box_create";
-import { DashboardCrudCreateResolve } from "./dashboards/crud/dashboard_crud_create.resolve";
-import { CrudLinkset } from "./crud/crudLinkset/crud.linkset.component";
-import { CrudLinksetResolve } from "./crud/crudLinkset/crud.linkset.resolve";
-import { Dashboards } from "./dashboards/dashboards.components";
-import { Dashboard } from "./dashboards/dashboard.component";
+import { CrudLinkset } from './crud/crudLinkset/crudLinkset.component';
+import { CrudLinksetResolve } from './crud/crudLinkset/crudLinkset.resolve';
+import { Dashboards } from './dashboards/dashboards.components';
+import { Dashboard } from './dashboards/dashboard.component';
+import {DashboardCrudCreate} from "./dashboards/crud/dashboard_box_create";
+import {DashboardCrudUpdateResolve} from "./dashboards/crud/dashboard_crud_update.resolve";
+import {DashboardCrudUpdate} from "./dashboards/crud/dashboard_box_update";
+import {DashboardView} from "./dashboards/dashboard_view.component";
+import {DashboardCrudCreateResolve} from "./dashboards/crud/dashboard_crud_create.resolve";
 
 const DASHBOARD_ROUTER_PROVIDER = [
     {
@@ -35,8 +35,15 @@ const DASHBOARD_ROUTER_PROVIDER = [
         },
         children: [
             { path: '', component: DashboardView },
-            { path: 'edit/:id', component: DashboardCrudUpdate, resolve: { edit: DashboardCrudUpdateResolve } },
-            { path: 'create/:className', component: DashboardCrudCreate, resolve: { create: DashboardCrudCreateResolve } },
+            {
+                path: 'edit/:id',
+                component: DashboardCrudUpdate,
+                resolve: { edit: DashboardCrudUpdateResolve } },
+            {
+                path: 'create/:className',
+                component: DashboardCrudCreate,
+                resolve: { create: DashboardCrudCreateResolve }
+            },
             { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
         ]
     },
@@ -48,8 +55,15 @@ const DASHBOARD_ROUTER_PROVIDER = [
         },
         children: [
             { path: '', component: DashboardView },
-            { path: 'edit/:id', component: DashboardCrudUpdate, resolve: { edit: DashboardCrudUpdateResolve } },
-            { path: 'create/:className', component: DashboardCrudCreate, resolve: { create: DashboardCrudCreateResolve } },
+            {
+                path: 'edit/:id',
+                component: DashboardCrudUpdate,
+                resolve: { edit: DashboardCrudUpdateResolve } },
+            {
+                path: 'create/:className',
+                component: DashboardCrudCreate,
+                resolve: { create: DashboardCrudCreateResolve }
+            },
             { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
         ]
     }
@@ -70,34 +84,10 @@ export const ROUTES: Routes = [
                 component: Dashboards,
                 children: DASHBOARD_ROUTER_PROVIDER,
                 data: {
-                    similarPath: 'dasboards'//@todo Impement in sidenav
-                }
-            },
-            {
-                path: 'dashboards',
-                component: Dashboards,
-                data: {
+                    similarPath: 'dasboards', // @todo Impement in sidenav
                     showInSubNavigation: true,
                     icon: 'layers'
-                },
-                children: DASHBOARD_ROUTER_PROVIDER
-            },
-            {
-                path: 'customers',
-                component: Customers,
-                data: {
-                    showInSubNavigation: true,
-                    paramsAsDefault: '',
-                    icon: 'perm_contact_calendar',
-                    crudClass: 'Customer'
-                },
-                children: [
-                    {
-                        path: '',
-                        component: Crud,
-                        children: CRUD_ROUTE_PROVIDER
-                    }
-                ]
+                }
             },
             {
                 path: 'customers',

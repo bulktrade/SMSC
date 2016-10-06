@@ -1,0 +1,38 @@
+$colorHint: #A94442;
+
+.addingForm {
+	width: 100%;
+
+	md-input {
+		background: transparent;
+		border: none;
+		width: 100%;
+        padding: 6px 0;
+        box-sizing: border-box;
+	}
+
+    .form {
+        padding: 0 15px;
+        background: #fff;
+        margin-bottom: 50px;
+
+        md-hint {
+            position: relative;
+            top: 5px;
+            color: $colorHint;
+        }
+    }
+
+    .wrapBtn {
+        display: flex;
+        justify-content: flex-end;
+
+        .formButtons {
+            padding: 5px 0 15px 0;
+        }
+    }
+
+    .back {
+        background: #000;
+    }
+}

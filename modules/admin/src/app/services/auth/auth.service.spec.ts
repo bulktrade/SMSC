@@ -1,9 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 import {
     HttpModule,
-    BaseRequestOptions,
-    Http,
-    ConnectionBackend,
     ResponseOptions,
     Response
 } from '@angular/http';
@@ -12,6 +9,7 @@ import { CRUD_PROVIDERS } from '../../crud/common/crudProviders';
 import { AuthService } from './auth.service';
 import { LoginModel } from '../../login/login.model';
 import { APP_PROVIDERS } from '../../app.module';
+import { HTTP_PROVIDERS } from "../../common/mock/httpProviders";
 
 describe('Auth service', () => {
 
@@ -20,15 +18,8 @@ describe('Auth service', () => {
             providers: [
                 ...CRUD_PROVIDERS,
                 ...APP_PROVIDERS,
+                ...HTTP_PROVIDERS,
                 AuthService,
-                BaseRequestOptions,
-                MockBackend,
-                {
-                    provide: Http, useFactory: (backend: ConnectionBackend,
-                                                defaultOptions: BaseRequestOptions) => {
-                    return new Http(backend, defaultOptions);
-                }, deps: [MockBackend, BaseRequestOptions]
-                }
             ],
             imports: [
                 HttpModule
@@ -36,10 +27,10 @@ describe('Auth service', () => {
         });
     });
 
-    it('should be defined response of the open', inject([MockBackend, AuthService],
+    it('should to login', inject([MockBackend, AuthService],
         (backend: MockBackend, service: AuthService) => {
             let path = '/orientdb/token/smsc';
-            let model = new LoginModel('test', '12t', false);
+            let model = new LoginModel('admin', 'admin', false);
 
             backend.connections.subscribe(c => {
                 expect(c.request.url).toEqual(path);
@@ -48,10 +39,29 @@ describe('Auth service', () => {
             });
 
             service.login(model.username, model.password)
-                .then((res) => {
+                .subscribe((res) => {
                     expect(res).toBeDefined();
-                }, (error) => {
-                    expect(error).toBeDefined();
+                });
+        }));
+
+    it('should get an error message', inject([MockBackend, AuthService],
+        (backend: MockBackend, service: AuthService) => {
+            let path = '/orientdb/token/smsc';
+            let model = new LoginModel('test', '12t', false);
+            let error: Error = {
+                name: 'Error',
+                message: 'Bad request'
+            };
+
+            backend.connections.subscribe(c => {
+                expect(c.request.url).toEqual(path);
+                c.mockError(error);
+            });
+
+            service.login(model.username, model.password)
+                .subscribe((res) => {
+                }, err => {
+                    expect(err).toBeDefined();
                 });
         }));
 

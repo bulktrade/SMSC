@@ -1,11 +1,11 @@
 import { Component, Input, ViewEncapsulation, Output, EventEmitter, HostListener } from "@angular/core";
-import { DashboardBoxConfig } from "./dashboard_box.config";
 import { SidebarService } from "../sidebar/sidebarService";
-import { DashboardResizeConfig } from "./dashboard_resize.config";
-import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
-import { BoxResize } from "./models/dashboard_box.enum";
 import {Chart} from "./chart/chart.loader";
 import {TrafficChartService} from "./chart/chart.service";
+import {DashboardBoxConfig} from "./dashboardBoxConfig";
+import {BoxResize} from "./models/dashboardBoxEnum";
+import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
+import {DashboardResizeConfig} from "./dashboardResizeConfig";
 
 @Component({
     selector: 'dashboard-box',

@@ -1,3 +1,14 @@
+$backgroundAddRecordButton: #0275d8;
+$backgroundBackButton: #000;
+
+#back {
+    background: $backgroundBackButton;
+}
+
+#addRow {
+    background: $backgroundAddRecordButton;
+}
+
 md-card-content {
     padding-bottom: 50px;
 }

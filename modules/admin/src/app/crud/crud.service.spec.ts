@@ -3,30 +3,21 @@ import {
 } from '@angular/core/testing';
 import { CRUD_PROVIDERS } from './common/crudProviders';
 import {
-    BaseRequestOptions,
-    Http,
     ResponseOptions,
     Response,
     HttpModule,
-    ConnectionBackend
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { CrudService } from './crud.service';
+import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
 
 describe('Crud Service', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 ...CRUD_PROVIDERS,
+                ...HTTP_PROVIDERS,
                 CrudService,
-                BaseRequestOptions,
-                MockBackend,
-                {
-                    provide: Http, useFactory: (backend: ConnectionBackend,
-                                                defaultOptions: BaseRequestOptions) => {
-                    return new Http(backend, defaultOptions);
-                }, deps: [MockBackend, BaseRequestOptions]
-                }
             ],
             imports: [
                 HttpModule

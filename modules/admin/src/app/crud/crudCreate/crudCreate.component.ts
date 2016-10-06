@@ -3,11 +3,11 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
 import { Location } from '@angular/common';
-import { EditModel } from './crud.edit.model';
-import { BtnTypes } from '../../dynamicForm/btn.types';
+import { ColumnDefsModel } from '../model/columnDefs';
+import { BtnTypes } from '../dynamicForm/btnTypes';
 
 @Component({
-    selector: 'crud-edit',
+    selector: 'crud-create',
     template: '<dynamic-form [btnName]="btnName"></dynamic-form>',
     styleUrls: [
         require('../common/style.scss')
@@ -15,9 +15,9 @@ import { BtnTypes } from '../../dynamicForm/btn.types';
     providers: [Location]
 })
 
-export class CrudEdit {
-    public resolveData: EditModel;
-    public btnName: BtnTypes = BtnTypes.UPDATE;
+export class CrudCreate {
+    public resolveData: ColumnDefsModel = null;
+    public btnName: BtnTypes = BtnTypes.CREATE;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -27,13 +27,8 @@ export class CrudEdit {
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data['edit'];
-
-        if (this.resolveData.inputModel) {
-            this.crudService.setModel(this.resolveData.inputModel);
-        }
-
-        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs.form;
+        this.resolveData = this.route.snapshot.data['create'];
+        this.crudService.gridOptions.columnDefs = this.resolveData.form;
     }
 
     ngOnDestroy() {
@@ -42,7 +37,8 @@ export class CrudEdit {
     }
 
     onSubmit() {
-        this.crudService.updateRecord(this.crudService.model);
+        this.crudService.createRecord(this.crudService.model,
+            this.route.snapshot.params['className']);
     }
 
 }

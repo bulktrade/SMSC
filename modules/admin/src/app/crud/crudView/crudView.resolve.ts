@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { CrudResolve } from '../common/crudResolve';
 import { CrudService } from '../crud.service';
 import { LoadingGridService } from '../../services/loading/loadingGrid.service';
-import { ColumnDefsModel } from '../model/columnDefs.model';
+import { ColumnDefsModel } from '../model/columnDefs';
 import { Observer, Observable } from 'rxjs';
 
 @Injectable()

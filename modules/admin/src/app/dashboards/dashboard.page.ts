@@ -1,12 +1,15 @@
 import { browser } from "protractor/built/index";
 import { LoginPage } from "../pages/login.page";
-import {WaitUntil} from "../pages/common/waitUntilReady";
 import WebElement = webdriver.WebElement;
+import {EC} from "../common/expectedConditions";
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));
     public prot = protractor.wrapDriver(browser.driver);
     public login: LoginPage = new LoginPage();
+
+    public createBoxIcon = element(by.css('#dashboard div.add.toolButton'));
+    public dynamicForm_addType = element(by.tagName('.type #add'));
 
     constructor() {
     }
@@ -40,33 +43,27 @@ export class Dashboard {
      * @param ptor
      * @returns {Promise}
      */
-    clickOnFullscreenIcon(): Promise<Object> {
-        let this_ = this;
-
-        return new Promise((resolve) => {
-            this_.clickBySelector('.box:first-child .fullscreen-icon').then((el: webdriver.IWebElement) => {
-                this_.clickBySelector('.box:first-child .fullscreen-icon');
-            });
-        });
+    clickOnFullscreenIcon() {
+        this.clickBySelector('.box:first-child .fullscreen-icon');
+        this.clickBySelector('.box:first-child .fullscreen-icon');
     }
 
     /**
      * Click on crud icon(open it) and edit form
-     * @param ptor
-     * @returns {Promise}
      */
-    editBox(): Promise<Object> {
-        let this_ = this;
+    editBox() {
+        this.clickOnCrudIcon();
+        this.clickBySelector('.box:first-child .crud .edit');
+        this.fillForm();
+    }
 
-        return new Promise((resolve) => {
-            this_.clickOnCrudIcon().then(() => {
-                this_.clickBySelector('.box:first-child .crud .edit').then(() => {
-                    this_.fillForm().then(() => {
-                        resolve(true);
-                    });
-                });
-            });
-        });
+    /**
+     * Create box
+     */
+    createBox() {
+        browser.wait(EC.presenceOf(this.createBoxIcon), 5000);
+        this.createBoxIcon.click();
+        this.fillForm();
     }
 
     /**
@@ -76,7 +73,8 @@ export class Dashboard {
     clickOnSizeButtons() {
         this.clickOnCrudIcon();
 
-        element.all(by.css('.box:first-child .view-width button:last-child')).each((element, i) => {
+        element.all(by.css('.box:first-child .view-width button:last-child')).each((element) => {
+            browser.wait(EC.presenceOf(element), 5000);
             element.click();
             browser.sleep(700);
         });
@@ -121,206 +119,85 @@ export class Dashboard {
     /**
      * Fill edit/create form
      */
-    fillForm(): Promise<Object> {
-        let this_ = this;
-
-        return new Promise((resolve) => {
-            this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
-                .then(function (el: webdriver.IWebElement) {
-                    //  Select "type"
-                    this_.selectLinkset('.type #add').then(() => {
-                        console.log('Good');
-                        //  Select "description"
-                        this_.selectLinkset('.dashboard #add').then(() => {
-                            console.log('Good');
-                            this_.inputText('NAME', 'My box name').then(() => {
-                                //  Enter Description field
-                                this_.inputText('DESCRIPTION', 'Box description').then(() => {
-                                    //  Enter order field
-                                    this_.inputText('ORDER', '0').then(() => {
-                                        //  Select width option
-                                        this_.clickSelectOption('.width select', 2).then(() => {
-                                            //  Select height option
-                                            this_.clickSelectOption('.height select', 2).then(() => {
-                                                //  Save
-                                                this_.clickBySelector('#modify').then(() => {
-                                                    //  Close
-                                                    this_.clickBySelector('.back.md-primary').then(() => {
-                                                        resolve(true);
-                                                    });
-                                                });
-                                            });
-                                        });
-                                    });
-                                });
-                            });
-                        });
-                    });
-                }).thenCatch((error) => {
-                throw error;
-            });
-        });
+    fillForm() {
+        this.selectLinkset('.type #add');
+        this.selectLinkset('.dashboard #add');
+        this.inputText('NAME', 'My box name');
+        this.inputText('DESCRIPTION', 'Box description');
+        this.inputText('ORDER', '0');
+        this.clickSelectOption('.width select', 2);
+        this.clickSelectOption('.height select', 2);
+        this.clickBySelector('#modify');
+        this.clickBySelector('.back.md-primary');
     }
 
     /**
      * Enter text to input field
-     * @param prot
      * @param inputName
      * @param text
      */
-    inputText(inputName, text: string): Promise<Object> {
-        let this_ = this;
-
-        return new Promise((resolve) => {
-            this_.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000).then((el: webdriver.IWebElement) => {
-                el.clear();
-                el.sendKeys(text)
-                resolve(true);
-            });
-        });
+    inputText(inputName, text: string) {
+        let el = element(by.name(inputName));
+        browser.wait(EC.presenceOf(el), 5000);
+        el.clear();
+        el.sendKeys(text);
     }
 
     /**
      * Click on linkset
-     * @param prot
      * @param selector
      */
-    selectLinkset(selector): Promise<Object> {
-        let this_ = this;
-
-        return new Promise((resolve) => {
-            this_.clickBySelector(selector).then(() => {
-                this_.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)').then(() => {
-                    this_.clickBySelector('#addLink').then(() => {
-                        this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000).then(() => {
-                            resolve(true);
-                        });
-                    });
-                });
-            });
-        });
-
-        /*return new Promise((resolve) => {
-            this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-                this_.clickBySelector(selector, 1000).then(() => {
-                    selector = '.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)';
-                    this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-                        this_.clickBySelector(selector).then(() => {
-                            /!*selector = '#addLink';
-                             this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-                             this_.clickBySelector(selector).then(() => {
-                             resolve(true);
-                             });
-                             });*!/
-                        });
-                    });
-                });
-            });
-        });*/
+    selectLinkset(selector) {
+        this.clickBySelector(selector);
+        this.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)');
+        this.clickBySelector('#addLink');
     }
 
     /**
      * Click "option"
      *
-     * @param prot
      * @param selector - selector to "select" tag
      * @param num - option index
      */
-    clickSelectOption(selector, num): Promise<Object> {
-        let this_ = this;
-
-        return new Promise((resolve) => {
-            this_.clickBySelector(selector).then(() => {
-                selector += ' option:nth-child(' + num + ')';
-                this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000).then(() => {
-                    this_.clickBySelector(selector).then(() => {
-                        resolve(true);
-                    });
-                });
-            });
-        });
+    clickSelectOption(selector, num) {
+        this.clickBySelector(selector);
+        selector += ' option:nth-child(' + num + ')';
+        this.clickBySelector(selector);
     };
 
     /**
      * Click element by selector
-     * @param prot
+     *
      * @param selector
      */
-    clickBySelector(selector: string, delay?: number): Promise<Object> {
-        let this_ = this;
-
-        return new Promise((resolve) => {
-            this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-                resolve(el.click());
-
-                if (delay != undefined && delay > 100) {
-                    //browser.sleep(delay);
-                }
-            });
-        }).catch((error) => {
-            throw error;
-        });
-    }
-
-    /**
-     * Create box
-     * @returns {Promise<T>}
-     */
-    createBox(): Promise<Object> {
-        let this_ = this;
-
-        return new Promise((resolve) => {
-            this_.clickBySelector('#dashboard div.add.toolButton').then(() => {
-                this_.fillForm().then(() => {
-                    resolve(true);
-                });
-            });
-        });
+    clickBySelector(selector: string) {
+        let el = element(by.css(selector));
+        browser.wait(EC.presenceOf(el), 5000);
+        el.click();
     }
 
     /**
      * Remove box
      */
-    removeBox(): Promise<Object> {
-        let this_ = this;
-
-        return new Promise((resolve) => {
-            this_.clickBySelector('.box:first-child .crud .icon').then(() => {
-                browser.sleep(1000);
-                this_.clickBySelector('.box:first-child .crud .remove').then(() => {
-                    browser.sleep(1000);
-                    resolve(true);
-                });
-            });
-        });
+    removeBox() {
+        this.clickBySelector('.box:first-child .crud .icon');
+        this.clickBySelector('.box:first-child .crud .remove');
     }
 
     /**
      * Click on close crud box tool
-     * @returns {Promise}
      */
     toggleCloseIcon() {
-        let this_ = this;
-
-        this_.clickOnCrudIcon().then(() => {
-            browser.sleep(1000);
-            this_.clickOnCloseIcon().then(() => {
-                browser.sleep(1000);
-            });
-        });
+        this.clickOnCrudIcon();
+        browser.sleep(700);
+        this.clickOnCloseIcon();
     }
 
     /**
      * Click on crud icon
      */
-    clickOnCrudIcon(): Promise<Object> {
-        let this_ = this;
-
-        return new Promise((resolve) => {
-            this_.clickBySelector('.box:first-child .crud .icon').then(() => {
-                resolve(true);
-            });
-        });
+    clickOnCrudIcon() {
+        this.clickBySelector('.box:first-child .crud .icon');
     }
 
     /**
@@ -328,9 +205,7 @@ export class Dashboard {
      */
     clickOnCloseIcon(): Promise<Object> {
         return new Promise((resolve) => {
-            this.clickBySelector('.box:first-child .closeTool .material-icons').then(() => {
-                resolve(true);
-            });
+            this.clickBySelector('.box:first-child .closeTool .material-icons');
         });
     }
 

@@ -32,27 +32,29 @@ export class Login implements OnInit {
         this.errorMessage = null;
         this.loading = true;
 
-        this.authService.login(model.username, model.password)
-            .then(
-                (res) => {
-                    this.router.navigateByUrl('/');
-                }
-            )
-            .catch(
-                (err: Response) => {
-                    switch (err.status) {
-                        case 400:
-                            this.errorMessage = 'login.userNotFound';
-                            break;
-                        default:
-                            console.log(err);
-                            this.errorMessage = 'login.commonError';
-                            break;
-                    }
+        return new Promise((resolve, reject) => {
+            this.authService.login(model.username, model.password)
+                .subscribe(
+                    (res) => {
+                        this.router.navigateByUrl('/');
+                        resolve(res);
+                    },
+                    (err: Response) => {
+                        switch (err.status) {
+                            case 400:
+                                this.errorMessage = 'login.userNotFound';
+                                break;
+                            default:
+                                console.log(err);
+                                this.errorMessage = 'login.commonError';
+                                break;
+                        }
 
-                    this.loading = false;
-                    this.isErrorMessage = true;
-                }
-            );
+                        this.loading = false;
+                        this.isErrorMessage = true;
+                        reject(err);
+                    }
+                );
+        });
     }
 }

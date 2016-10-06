@@ -1,5 +1,5 @@
-import { GridPropertyModel } from './gridProperty.model';
-import { FormPropertyModel } from './formProperty.model';
+import { GridPropertyModel } from './gridProperty';
+import { FormPropertyModel } from './formProperty';
 
 export class ColumnDefsModel {
     public grid?: Array<GridPropertyModel>;

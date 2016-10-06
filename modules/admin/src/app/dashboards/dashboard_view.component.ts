@@ -7,11 +7,11 @@ import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_a
 import {OrderBy} from "./sorts/orderby";
 import {DashboardList} from "./models/dashboard_list";
 import {DashboardBox} from "./models/dashboardBox";
-import {BoxResize} from "./models/dashboard_box.enum";
-import {DashboardResizeConfig} from "./dashboard_resize.config";
 import {CrudService} from "../crud/crud.service";
 import {BoxSizes} from "./models/dashboard_box.sizes";
 import {DashboardListItem} from "./models/dashboard_list_item";
+import {DashboardResizeConfig} from "./dashboardResizeConfig";
+import {BoxResize} from "./models/dashboardBoxEnum";
 
 @Component({
     selector: 'dashboard-view',
@@ -26,8 +26,6 @@ import {DashboardListItem} from "./models/dashboard_list_item";
 export class DashboardView {
     public boxesCss: DashboardList<string> = new DashboardList<string>();
     public boxes: DashboardListItem<DashboardBox> = new DashboardListItem<DashboardBox>();
-
-    public doughnutData: Array<Object>;
 
     constructor(public translate: TranslateService,
                 private dragulaService: DragulaService,

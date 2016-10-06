@@ -1,9 +1,9 @@
-import {Component} from "@angular/core";
-import {Router, ActivatedRoute} from "@angular/router";
-import {CrudService} from "../../crud/crud.service";
-import {Location} from "@angular/common";
-import {EditModel} from "../../crud/crudEdit/crud.edit.model";
-import {BtnTypes} from "../../dynamicForm/btn.types";
+import { Component } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CrudService } from '../../crud/crud.service';
+import { Location } from '@angular/common';
+import { EditModel } from '../../crud/crudEdit/crudEdit.model';
+import { BtnTypes } from '../../crud/dynamicForm/btnTypes';
 
 @Component({
     selector: 'dashboard-crud-edit',
@@ -28,11 +28,9 @@ export class DashboardCrudUpdate {
         if (this.resolveData.inputModel) {
             this.crudService.setModel(this.resolveData.inputModel);
         }
-
-        console.log(this.crudService.gridOptions.columnDefs);
     }
 
-    onSubmit(){
+    onSubmit() {
         this.crudService.updateRecord(this.crudService.model);
     }
 

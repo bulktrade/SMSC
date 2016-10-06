@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { TokenService } from './token.service';
 import { ConfigService } from '../../config/configService';
+import { Observable } from "rxjs";
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,7 @@ export class AuthService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        return new Promise((resolve, reject) => {
+        return Observable.create((observer) => {
             this.authHttp.post(
                 this.configService.config.orientDBUrl + '/token/' +
                 this.configService.config.orientDBDatabase,
@@ -26,10 +27,12 @@ export class AuthService {
             ).subscribe(
                 data => {
                     this.tokenService.setToken(data.json()['access_token']);
-                    resolve(this.tokenService.getToken());
+                    observer.next(this.tokenService.getToken());
+                    observer.complete();
                 },
                 err => {
-                    reject(err);
+                    observer.error(err);
+                    observer.complete();
                 }
             );
         });

@@ -1,6 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { CRUD_PROVIDERS } from '../common/crudProviders';
-import { CrudView } from './crud.view.component';
+import { CrudView } from './crudView.component';
 import { HttpModule } from '@angular/http';
 
 describe('Crud View', () => {

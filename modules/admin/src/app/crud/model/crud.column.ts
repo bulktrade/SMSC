@@ -1,4 +1,4 @@
-import { ColumnDefsModel } from './columnDefs.model';
+import { ColumnDefsModel } from './columnDefs';
 
 export class ColumnModel extends ColumnDefsModel {
     public isExistGridColumn?: boolean;

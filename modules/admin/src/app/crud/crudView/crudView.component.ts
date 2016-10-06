@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
-import { ColumnDefsModel } from '../model/columnDefs.model';
+import { ColumnDefsModel } from '../model/columnDefs';
 import { LinksetProperty } from '../model/linksetProperty';
 
 @Component({
     selector: 'crud-view',
-    template: require('./crud.view.html'),
+    template: require('./crudView.html'),
     styleUrls: [
-        require('./crud.view.scss'),
+        require('./crudView.scss'),
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],
@@ -29,6 +29,7 @@ export class CrudView {
         this.resolveData = this.route.snapshot.data['view'];
         this.crudService.gridOptions.columnDefs = this.resolveData.grid;
         this.crudService.gridOptions.rowData = [];
+        this.crudService.resetCrudLevels();
     }
 
     navigateToCreate() {

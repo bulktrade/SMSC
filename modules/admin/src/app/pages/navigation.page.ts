@@ -1,25 +1,62 @@
-import { LoginPage } from './login.page';
+import { LoginPage } from '../login/login.page';
+import { EC } from "../common/expectedConditions";
 
-export class NavigationTest {
+export class NavigationPage {
     public login: LoginPage = new LoginPage();
 
-    public dashboardTitle = element(by.className('dashboard-item'));
-    public dashboardItem = element(by.className('dashboard'));
+    public dashboardItem = element(by.className('dashboards'));
+    public customerdItem = element(by.className('customers'));
     public sidebarDirective = element(by.tagName('sidebar'));
+    public logo = element(by.id('logo'));
 
-    public dashboard = element(by.css('dashboard .wrap-breadcrumb'));
-    public customers = element(by.css('customers .wrap-breadcrumb'));
+    public dashboard = element(by.tagName('dashboard'));
+    public customers = element(by.tagName('customers'));
 
 
     constructor() {
     }
 
     get() {
-        browser.get('/admin');
+        browser.get(browser.baseUrl + '/');
     }
 
     getTitle() {
         return browser.getTitle();
+    }
+
+    hasClass(element, cls) {
+        return element.getAttribute('class').then((classes) => {
+            return classes.split(' ').indexOf(cls) !== -1;
+        });
+    };
+
+    clickOnItemNavDashboard() {
+        browser.wait(EC.elementToBeClickable(this.dashboardItem), 5000);
+        this.dashboardItem.click();
+    }
+
+    isPresentDashboard() {
+        browser.wait(EC.presenceOf(this.dashboard), 5000);
+        return this.dashboard.isPresent();
+    }
+
+    isPresentNavDirective() {
+        return this.sidebarDirective.isPresent();
+    }
+
+    clickOnItemNavCustomers() {
+        browser.wait(EC.presenceOf(this.customerdItem), 5000);
+        this.customerdItem.click();
+    }
+
+    isPresentCustomers() {
+        browser.wait(EC.presenceOf(this.customers), 5000);
+        return this.customers.isPresent();
+    }
+
+    isPresentLogo() {
+        browser.wait(EC.presenceOf(this.logo), 5000);
+        return this.logo.isPresent();
     }
 
     getLanguage() {
@@ -42,50 +79,6 @@ export class NavigationTest {
         }
 
         return result;
-    }
-
-    getDashboardText() {
-        return this.dashboardTitle.getText();
-    }
-
-    hasClass(element, cls) {
-        return element.getAttribute('class').then((classes) => {
-            return classes.split(' ').indexOf(cls) !== -1;
-        });
-    };
-
-    clickOnItemNavDashboard(ptor) {
-    return new Promise((resolve, reject) => {
-        ptor.wait(protractor.until.elementLocated(by.className('dashboard')), 5000)
-            .then(function (el: webdriver.IWebElement) {
-                resolve(el.click());
-            }).thenCatch((errback) => {
-            reject(errback);
-        });
-    });
-}
-
-    getDashboard() {
-        return this.dashboard.isPresent();
-    }
-
-    isPresentNavDirective() {
-        return this.sidebarDirective.isPresent();
-    }
-
-    clickOnItemNavCustomers(ptor) {
-        return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('customers')), 5000)
-                .then(function (el: webdriver.IWebElement) {
-                    resolve(el.click());
-                }).thenCatch((errback) => {
-                reject(errback);
-            });
-        });
-    }
-
-    getCustomers() {
-        return this.customers.isPresent();
     }
 
 }
