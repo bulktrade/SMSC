@@ -5,12 +5,14 @@ import { CrudService } from '../crud.service';
 import { LoadingGridService } from '../../services/loading/loadingGrid.service';
 import { ColumnDefsModel } from '../model/columnDefs';
 import { Observer, Observable } from 'rxjs';
+import { NotificationService } from '../../services/notificationService';
 
 @Injectable()
 export class CrudViewResolve extends CrudResolve {
 
     constructor(public crudService: CrudService,
-                public loadingGridService: LoadingGridService) {
+                public loadingGridService: LoadingGridService,
+                public notification: NotificationService) {
         super();
     }
 
@@ -28,6 +30,7 @@ export class CrudViewResolve extends CrudResolve {
                     observer.complete();
                 }, err => {
                     this.loadingGridService.stop();
+                    this.notification.createNotificationOnResponse(err);
                     observer.error(err);
                     observer.complete();
                 });

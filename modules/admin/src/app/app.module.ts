@@ -47,6 +47,7 @@ import { DashboardCrudCreateResolve } from './dashboards/crud/dashboardCrudCreat
 import { SidebarService } from './sidebar/sidebarService';
 import { DashboardModule } from './dashboards/dashboard.module';
 import { HttpInterceptor } from './common/httpInterceptor';
+import { NoInternetModule } from './common/noInternet/noInternet.component';
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -95,6 +96,7 @@ export const APP_PROVIDERS = [
         Ng2BootstrapModule,
         BrowserModule,
         FormsModule,
+        NoInternetModule,
         HttpModule,
         RouterModule.forRoot(ROUTES, { useHash: false }),
         MdModule.forRoot(),
