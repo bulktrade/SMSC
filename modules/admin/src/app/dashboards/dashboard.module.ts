@@ -24,6 +24,9 @@ import {Dashboards} from "./dashboards.components";
 import {TrafficChartService} from "./chart/chart.service";
 import {BaThemeConfigProvider} from "./chart/theme/theme.configProvider";
 import {DynamicFormModule} from "../crud/dynamicForm/dynamicForm";
+import {BaAmChart} from "./chart/theme/components/baAmChart/baAmChart.component";
+import {LineChartService} from "./chart/lineChart.service";
+import {LineChart} from "./chart/lineChart.component";
 
 const DASHBOARD_DECLARATION = [
     OrderBy,
@@ -32,7 +35,9 @@ const DASHBOARD_DECLARATION = [
     DashboardBoxComponent,
     DashboardCrudUpdate,
     DashboardCrudCreate,
-    Dashboards
+    Dashboards,
+    BaAmChart,
+    LineChart
 ]
 
 @NgModule({
@@ -62,6 +67,7 @@ const DASHBOARD_DECLARATION = [
         DashboardService,
         TrafficChartService,
         BaThemeConfigProvider,
+        LineChartService
         //Breadcrumb
     ]
 })

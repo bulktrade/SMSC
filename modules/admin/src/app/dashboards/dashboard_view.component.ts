@@ -13,6 +13,8 @@ import {DashboardListItem} from "./models/dashboard_list_item";
 import {DashboardResizeConfig} from "./dashboardResizeConfig";
 import {BoxResize} from "./models/dashboardBoxEnum";
 
+import {LineChartService} from './chart/lineChart.service';
+
 @Component({
     selector: 'dashboard-view',
     template: require('./dashboard_view.html'),
