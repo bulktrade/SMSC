@@ -41,7 +41,7 @@ describe('Dashboard', () => {
         //this.dashboard.dragAndDrop();
     });
     */
-    /*//  Switch to fullscreen mode
+    //  Switch to fullscreen mode
     it('Click on fullscreen icon', () => {
         this.dashboard.clickOnFullscreenIcon();
     });
@@ -67,7 +67,7 @@ describe('Dashboard', () => {
 
     it('Remove box', () => {
         this.dashboard.removeBox();
-    });*/
+    });
 
     it('should logout', () => {
         WaitUntil.logout(prot);

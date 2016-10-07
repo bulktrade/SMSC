@@ -17,7 +17,7 @@ import {DashboardResizeConfig} from "./dashboardResizeConfig";
 })
 export class DashboardBoxComponent {
     @Input('config')
-    public config: DashboardBoxConfig = null;
+    public config: DashboardBoxConfig = <DashboardBoxConfig>{};
 
     @Output('resizeBox')
     public resizeBox: EventEmitter<Object> = new EventEmitter<Object>();
@@ -34,7 +34,7 @@ export class DashboardBoxComponent {
     public statusBoxWidth: number = 25;
     public statusBoxHeight: number = 25;
     public boxResize: BoxResize = BoxResize;
-    public doughnutData: Array<Object>;
+    public doughnutData: Array<Object> = [];
     public chart: any;
 
     constructor(private sidebarService: SidebarService,
@@ -48,7 +48,7 @@ export class DashboardBoxComponent {
         }
     }
 
-    private _loadDoughnutCharts() {
+    public _loadDoughnutCharts() {
         let config = this.trafficChartService.getConfig('bubble')
         let el = $(`.content[data-boxrid="${this.config.rid}"] .chart-area`)[0];
         let ctx = el.getContext('2d');
@@ -104,7 +104,6 @@ export class DashboardBoxComponent {
      * }
      */
     emitResizeBox(data: Object) {
-        this.chart.update();
         let res: DashboardResizeConfig = <DashboardResizeConfig>{};
         res.type = data['type'];
         res.chart = this.chart;

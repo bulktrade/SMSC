@@ -10,6 +10,10 @@ import {CRUD_PROVIDERS} from "../crud/common/crudProviders";
 import {GridService} from "../services/grid.service";
 import {SidebarService} from "../sidebar/sidebarService";
 import {DashboardBoxComponent} from "./dashboard_box.component";
+import {TrafficChartService} from "./chart/chart.service";
+import {BaThemeConfigProvider} from "./chart/theme/theme.configProvider";
+import webpack = require("webpack");
+import {BoxResize} from "./models/dashboardBoxEnum";
 
 class MockLocation {};
 
@@ -27,7 +31,9 @@ describe('Dashboard box', () => {
                 SidebarService,
                 { provide: Router, useClass: MockLocation },
                 { provide: Location, useClass: MockLocation },
-                CrudService
+                CrudService,
+                TrafficChartService,
+                BaThemeConfigProvider
             ],
             imports: [
                 HttpModule
@@ -37,5 +43,29 @@ describe('Dashboard box', () => {
 
     it('should be defined config', inject([ DashboardBoxComponent ], (box) => {
         expect(box.config).toBeDefined();
+    }));
+
+    it('EventEmitter resize box', inject([DashboardBoxComponent], (box) => {
+        box.resizeBox.subscribe((res) => {
+            expect(res).toBeDefined();
+        });
+
+        box.emitResizeBox({val: 25, type: BoxResize.HEIGHT});
+    }));
+
+    it('EventEmitter remove box', inject([DashboardBoxComponent], (box) => {
+        box.resizeBox.subscribe((res) => {
+            expect(res).toBeDefined();
+        });
+
+        box.emitRemoveBox();
+    }));
+
+    it('EventEmitter edit box', inject([DashboardBoxComponent], (box) => {
+        box.resizeBox.subscribe((res) => {
+            expect(res).toBeDefined();
+        });
+
+        box.emitEditBox();
     }));
 });

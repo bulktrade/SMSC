@@ -77,4 +77,26 @@ describe('Dashboard service', () => {
             }
         });
     }));
+
+    it('Delete box', inject([DashboardService], (service) => {
+        boxes.subscribe((res) => {
+            if (res.length > 0) {
+                box = res[0];
+
+                let result = service.deleteBox(box);
+
+                expect(result instanceof Observable).toBeTruthy();
+            }
+        });
+    }));
+
+    it('Batch update dashboard box', inject([DashboardService], (service) => {
+        boxes.subscribe((res) => {
+            if (res.length > 0) {
+                let result = service.batchUpdateDashboardBox(res);
+
+                expect(result instanceof Observable).toBeTruthy();
+            }
+        });
+    }));
 });

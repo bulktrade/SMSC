@@ -19,6 +19,6 @@ export class DashboardCrudUpdateResolve extends CrudResolve {
         let id = route.params['id'];
         let className = route.parent.data['crudClass'];
 
-        return this.dashboardService.getBoxFormColumns(route, state, id, className);
+        return this.dashboardService.getBoxFormColumns(route, id, className);
     }
 }

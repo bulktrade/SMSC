@@ -40,4 +40,20 @@ describe('Dashboard crud create', () => {
     it('should be defined btnName', inject([ DashboardCrudCreate ], (box) => {
         expect(box.btnName).toBeDefined();
     }));
+
+    it('should be defined grid options', inject([ DashboardCrudCreate ], (crudEdit) => {
+        expect(crudEdit.crudService.gridOptions).toBeDefined();
+    }));
+
+    it('should be location', inject([ DashboardCrudCreate ], (crudEdit) => {
+        expect(!!crudEdit.location).toEqual(true);
+    }));
+
+    it('should be columnDefs', inject([ DashboardCrudCreate ], (crudEdit) => {
+        expect(crudEdit.crudService.gridOptions.hasOwnProperty('columnDefs')).toBeTruthy();
+    }));
+
+    it('should be rowData', inject([ DashboardCrudCreate ], (crudEdit) => {
+        expect(crudEdit.crudService.gridOptions.hasOwnProperty('rowData')).toBeTruthy();
+    }));
 });
