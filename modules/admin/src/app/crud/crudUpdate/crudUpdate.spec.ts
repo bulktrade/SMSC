@@ -1,5 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { CrudEdit } from './crudEdit.component';
+import { CrudUpdate } from './crudUpdate.component';
 import { CRUD_PROVIDERS } from '../common/crudProviders';
 import { Location } from '@angular/common';
 import { HttpModule } from '@angular/http';
@@ -11,7 +11,7 @@ describe('Crud Edit', () => {
         TestBed.configureTestingModule({
             providers: [
                 ...CRUD_PROVIDERS,
-                CrudEdit,
+                CrudUpdate,
                 { provide: Location, useClass: MockLocation }
             ],
             imports: [
@@ -20,19 +20,19 @@ describe('Crud Edit', () => {
         });
     });
 
-    it('should be defined grid options', inject([ CrudEdit ], (crudEdit) => {
+    it('should be defined grid options', inject([ CrudUpdate ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions).toBeDefined();
     }));
 
-    it('should be location', inject([ CrudEdit ], (crudEdit) => {
+    it('should be location', inject([ CrudUpdate ], (crudEdit) => {
         expect(!!crudEdit.location).toEqual(true);
     }));
 
-    it('should be columnDefs', inject([ CrudEdit ], (crudEdit) => {
+    it('should be columnDefs', inject([ CrudUpdate ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions.hasOwnProperty('columnDefs')).toBeTruthy();
     }));
 
-    it('should be rowData', inject([ CrudEdit ], (crudEdit) => {
+    it('should be rowData', inject([ CrudUpdate ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions.hasOwnProperty('rowData')).toBeTruthy();
     }));
 

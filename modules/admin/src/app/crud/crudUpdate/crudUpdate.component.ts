@@ -3,11 +3,11 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
 import { Location } from '@angular/common';
-import { EditModel } from './crudEdit.model';
+import { EditModel } from './crudUpdate.model';
 import { BtnTypes } from '../dynamicForm/btnTypes';
 
 @Component({
-    selector: 'crud-edit',
+    selector: 'crud-update',
     template: '<dynamic-form [btnName]="btnName"></dynamic-form>',
     styleUrls: [
         require('../common/style.scss')
@@ -15,7 +15,7 @@ import { BtnTypes } from '../dynamicForm/btnTypes';
     providers: [Location]
 })
 
-export class CrudEdit {
+export class CrudUpdate {
     public resolveData: EditModel;
     public btnName: BtnTypes = BtnTypes.UPDATE;
 

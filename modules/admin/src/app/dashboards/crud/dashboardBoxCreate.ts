@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../../crud/crud.service';
 import { Location } from '@angular/common';
-import { EditModel } from '../../crud/crudEdit/crudEdit.model';
+import { EditModel } from '../../crud/crudUpdate/crudUpdate.model';
 import { BtnTypes } from '../../crud/dynamicForm/btnTypes';
 
 @Component({

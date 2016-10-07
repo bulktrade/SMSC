@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Crud } from './crud.component';
 import { CrudView } from './crudView/crudView.component';
-import { CrudEdit } from './crudEdit/crudEdit.component';
+import { CrudUpdate } from './crudUpdate/crudUpdate.component';
 import { CrudLinkset } from './crudLinkset/crudLinkset.component';
 import { CrudCreate } from './crudCreate/crudCreate.component';
 import { CrudDelete } from './crudDelete/crudDelete.component';
@@ -23,7 +23,7 @@ import { DynamicFormModule } from './dynamicForm/dynamicForm';
 const CRUD_DECLARATIONS = [
     Crud,
     CrudView,
-    CrudEdit,
+    CrudUpdate,
     CrudLinkset,
     CrudDelete,
     CrudCreate

@@ -7,7 +7,7 @@ import { CrudResolve } from './crud/common/crudResolve';
 import { CrudViewResolve } from './crud/crudView/crudView.resolve';
 import { CrudLinksetResolve } from './crud/crudLinkset/crudLinkset.resolve';
 import { CrudCreateResolve } from './crud/crudCreate/crudCreate.resolve';
-import { CrudEditResolve } from './crud/crudEdit/crudEdit.resolve';
+import { CrudEditResolve } from './crud/crudUpdate/crudUpdate.resolve';
 
 @Injectable()
 export class DataResolver implements Resolve<any> {

@@ -6,7 +6,7 @@ import { Response } from '@angular/http';
 import { Location } from '@angular/common';
 import { GridService } from '../../services/grid.service';
 import { Observable, Observer } from 'rxjs';
-import { EditModel } from './crudEdit.model';
+import { EditModel } from './crudUpdate.model';
 
 @Injectable()
 export class CrudEditResolve extends CrudResolve {
