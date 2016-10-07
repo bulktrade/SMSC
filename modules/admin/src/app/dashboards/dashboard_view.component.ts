@@ -44,6 +44,7 @@ export class DashboardView {
         });
 
         this.dashboardService.getDashboardBoxes().subscribe((res) => {
+            console.log(res);
             this.boxesCss = new DashboardList<string>();
             this.boxes = new DashboardListItem<DashboardBox>();
             let orderBy: OrderBy = new OrderBy();
@@ -95,7 +96,7 @@ export class DashboardView {
      * @param item
      * @param index
      */
-    resizeBox(val: DashboardResizeConfig, index: number, item: any) {
+    public resizeBox(val: DashboardResizeConfig, index: number, item: any) {
         let widthClass, heightClass: string;
         let type: BoxResize = val.type;
 

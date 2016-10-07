@@ -12,6 +12,11 @@ import { GridService } from '../services/grid.service';
 import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
 import { Router } from "@angular/router";
 import {DashboardView} from "./dashboard_view.component";
+import {DashboardList} from "./models/dashboard_list";
+import {DashboardListItem} from "./models/dashboard_list_item";
+import {DashboardBox} from "./models/dashboardBox";
+import {BoxResize} from "./models/dashboardBoxEnum";
+import {DashboardResizeConfig} from "./dashboardResizeConfig";
 
 class MockLocation {}
 
@@ -39,6 +44,33 @@ describe('Dashboard view', () => {
         });
     });
 
+    let box;
+
+    it('Init box classes', inject([DashboardView], (box) => {
+        box.dashboardService.getDashboardBoxes().subscribe((res) => {
+            this.boxesCss = new DashboardList<string>();
+            this.boxes = new DashboardListItem<DashboardBox>();
+            this.boxes.merge(res);
+            box = res[0];
+            //this.updateClasses();
+        });
+    }));
+
+    it('Box resize', inject([DashboardView], (boxView) => {
+        boxView.dashboardService.getDashboardBoxes().subscribe((res) => {
+            let box: DashboardBox = res[0];
+
+            let config: DashboardResizeConfig = {
+                type: BoxResize.WIDTH,
+                width: 25,
+                height: 25,
+                chart: null
+            }
+
+            boxView.resizeBox(config, 0, box);
+        });
+    }))
+
     it('should be defined CSS boxes', inject([DashboardView], (box) => {
         expect(box.boxesCss).toBeDefined();
     }));
@@ -49,5 +81,9 @@ describe('Dashboard view', () => {
 
     it('Get box class name', inject([DashboardView], (box) => {
         expect(box.getBoxClass(25, 'chart')).toBeDefined('chart-m');
+    }));
+
+    it('Update classes', inject([DashboardView], (boxView) => {
+        boxView.updateClasses();
     }));
 });
