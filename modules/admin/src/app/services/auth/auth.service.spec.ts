@@ -9,7 +9,7 @@ import { CRUD_PROVIDERS } from '../../crud/common/crudProviders';
 import { AuthService } from './auth.service';
 import { LoginModel } from '../../login/login.model';
 import { APP_PROVIDERS } from '../../app.module';
-import { HTTP_PROVIDERS } from "../../common/mock/httpProviders";
+import { HTTP_PROVIDERS } from '../../common/mock/httpProviders';
 
 describe('Auth service', () => {
 

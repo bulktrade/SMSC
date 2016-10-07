@@ -1,5 +1,5 @@
 import { LoginPage } from '../login/login.page';
-import { EC } from "../common/expectedConditions";
+import { EC } from '../common/expectedConditions';
 
 export class NavigationPage {
     public login: LoginPage = new LoginPage();

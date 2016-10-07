@@ -1,4 +1,4 @@
-import { EC } from "../../common/expectedConditions";
+import { EC } from '../../common/expectedConditions';
 
 export class BindingParameterPage {
     public bindingParameterItem = element(by.className('metadatapropertybindingparameter'));

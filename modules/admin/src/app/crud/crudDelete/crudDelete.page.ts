@@ -1,4 +1,4 @@
-import { EC } from "../../common/expectedConditions";
+import { EC } from '../../common/expectedConditions';
 
 export class DeletePage {
     public crudDelete = element(by.tagName('crud-delete'));

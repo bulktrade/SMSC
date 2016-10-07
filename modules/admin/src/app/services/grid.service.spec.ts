@@ -6,11 +6,12 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
+
 import { GridService } from './grid.service';
 import { APP_PROVIDERS } from '../app.module';
 import { CrudLevel } from '../crud/model/crudLevel';
 import { LinksetProperty } from '../crud/model/linksetProperty';
-import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
+import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
 
 describe('Grid Service', () => {
 

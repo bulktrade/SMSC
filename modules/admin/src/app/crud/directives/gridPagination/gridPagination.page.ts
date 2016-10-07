@@ -1,6 +1,6 @@
 import { CreatePage } from '../../crudCreate/crudCreate.page';
 import { LoginPage } from '../../../login/login.page';
-import { EC } from "../../../common/expectedConditions";
+import { EC } from '../../../common/expectedConditions';
 
 export class GridPaginationPage {
     public login: LoginPage = new LoginPage();

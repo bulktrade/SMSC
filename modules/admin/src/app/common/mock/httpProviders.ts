@@ -1,5 +1,5 @@
-import { BaseRequestOptions, Http, ConnectionBackend } from "@angular/http";
-import { MockBackend } from "@angular/http/testing";
+import { BaseRequestOptions, Http, ConnectionBackend } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 export const HTTP_PROVIDERS = [
     BaseRequestOptions,

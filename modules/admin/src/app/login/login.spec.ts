@@ -4,9 +4,9 @@ import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 import { AuthService } from '../services/auth/auth.service';
 import { LoginModel } from './login.model';
 import { HttpModule, ResponseOptions, Response } from '@angular/http';
-import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
-import { MockBackend } from "@angular/http/testing";
-import { TokenService } from "../services/auth/token.service";
+import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
+import { MockBackend } from '@angular/http/testing';
+import { TokenService } from '../services/auth/token.service';
 
 class MockTokenService {
     setToken(token: string) {
@@ -47,13 +47,13 @@ describe('Authentication', () => {
             let model = new LoginModel('admin', 'admin', false);
             let path = '/orientdb/token/smsc';
             let responseBody = {
-                "json": () => {
+                'json': () => {
                     return {
-                        "@type": "d",
-                        "@version": "0",
-                        "access_token": "eyJAdHlwZSI6ImQ=",
-                        "expires_in": "3600"
-                    }
+                        '@type': 'd',
+                        '@version': '0',
+                        'access_token': 'eyJAdHlwZSI6ImQ=',
+                        'expires_in': '3600'
+                    };
                 }
             };
 

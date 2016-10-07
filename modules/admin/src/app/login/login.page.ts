@@ -1,5 +1,5 @@
 import { LoginModel } from './login.model';
-import { EC } from "../common/expectedConditions";
+import { EC } from '../common/expectedConditions';
 
 export class LoginPage {
     public elemNotFound = element(by.tagName('notfound'));
@@ -36,9 +36,9 @@ export class LoginPage {
     }
 
     fillLoginForm(loginModel: LoginModel) {
-        var isClickableUsername = EC.elementToBeClickable(this.usernameField);
-        var isClickablePassword = EC.elementToBeClickable(this.passwordField);
-        var isClickableSubmit = EC.elementToBeClickable(this.passwordField);
+        let isClickableUsername = EC.elementToBeClickable(this.usernameField);
+        let isClickablePassword = EC.elementToBeClickable(this.passwordField);
+        let isClickableSubmit = EC.elementToBeClickable(this.passwordField);
 
         browser.wait(EC.and(isClickableUsername, isClickablePassword, isClickableSubmit), 5000);
 
@@ -52,4 +52,3 @@ export class LoginPage {
         this.fillLoginForm(loginModel);
     }
 }
-

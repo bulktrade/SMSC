@@ -1,13 +1,13 @@
-import {Dashboard} from './dashboard.page';
-import { WaitUntil } from "../common/waitUntilReady";
+import { Dashboard } from './dashboard.page';
+import { WaitUntil } from '../common/waitUntilReady';
 
 describe('Dashboard', () => {
     let prot = protractor.wrapDriver(browser.driver);
 
     prot.manage().window().setSize(1024, 1020);
     browser.get(browser.baseUrl + '/');
-    //browser.get('/');
-    //browser.get('/admin/');
+    // browser.get('/');
+    // browser.get('/admin/');
 
     beforeEach(() => {
         this.dashboard = new Dashboard();
@@ -50,7 +50,7 @@ describe('Dashboard', () => {
 
     //  Drag and drop box
     it('Drag and drop box', () => {
-        //this.dashboard.dragAndDrop();
+        // this.dashboard.dragAndDrop();
     });
 
     //  Change size mode
@@ -61,13 +61,13 @@ describe('Dashboard', () => {
 
     //  Create box
     it('Create box', () => {
-        let this_ = this;
+        let that = this;
 
-        this_.dashboard.createBox().then(() => {
+        that.dashboard.createBox().then(() => {
             browser.sleep(2000);
-            this_.dashboard.editBox().then(() => {
+            that.dashboard.editBox().then(() => {
                 browser.sleep(2000);
-                this_.dashboard.removeBox().then(() => {
+                that.dashboard.removeBox().then(() => {
                     console.log('Remove box');
                 });
             });

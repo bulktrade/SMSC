@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { TokenService } from './token.service';
 import { ConfigService } from '../../config/configService';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {

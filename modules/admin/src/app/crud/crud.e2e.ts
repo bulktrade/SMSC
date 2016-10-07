@@ -1,7 +1,9 @@
 import { CrudPage } from './crud.page';
 import { WaitUntil } from '../common/waitUntilReady';
 import { GridPaginationPage } from './directives/gridPagination/gridPagination.page';
-import { BindingParameterPage } from "../crudMetadata/metaDataBindingParameter/metaDataBindingParameter.page";
+import {
+    BindingParameterPage
+} from '../crudMetadata/metaDataBindingParameter/metaDataBindingParameter.page';
 
 describe('CRUD', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -166,7 +168,7 @@ describe('CRUD', () => {
                         bngParam.chooseBindingParameter();
                         crudPage.crudCreate.clickOnFormBtn();
                         expect(crudPage.isPresentNotification()).toBeTruthy();
-                    })
+                    });
             });
     });
 

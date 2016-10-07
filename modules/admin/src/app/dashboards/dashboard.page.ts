@@ -1,5 +1,5 @@
-import { browser } from "protractor/built/index";
-import { LoginPage } from "../login/login.page";
+import { browser } from 'protractor/built/index';
+import { LoginPage } from '../login/login.page';
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));
@@ -39,12 +39,13 @@ export class Dashboard {
      * @returns {Promise}
      */
     clickOnFullscreenIcon(): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.clickBySelector('.box:first-child .fullscreen-icon').then((el: webdriver.IWebElement) => {
-                this_.clickBySelector('.box:first-child .fullscreen-icon');
-            });
+            that.clickBySelector('.box:first-child .fullscreen-icon')
+                .then((el: webdriver.IWebElement) => {
+                    that.clickBySelector('.box:first-child .fullscreen-icon');
+                });
         });
     }
 
@@ -54,12 +55,12 @@ export class Dashboard {
      * @returns {Promise}
      */
     editBox(): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.clickOnCrudIcon().then(() => {
-                this_.clickBySelector('.box:first-child .crud .edit').then(() => {
-                    this_.fillForm().then(() => {
+            that.clickOnCrudIcon().then(() => {
+                that.clickBySelector('.box:first-child .crud .edit').then(() => {
+                    that.fillForm().then(() => {
                         resolve(true);
                     });
                 });
@@ -74,16 +75,18 @@ export class Dashboard {
     clickOnSizeButtons() {
         this.clickOnCrudIcon();
 
-        element.all(by.css('.box:first-child .view-width button:last-child')).each((element, i) => {
-            element.click();
-            browser.sleep(700);
-        });
+        element.all(by.css('.box:first-child .view-width button:last-child'))
+            .each((element, i) => {
+                element.click();
+                browser.sleep(700);
+            });
 
         this.clickOnCloseIcon();
     }
 
     /*dragAndDrop() {
-     this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000).then((el) => {
+     this.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000)
+     .then((el) => {
      el.getLocation().then((location) => {
      this.prot.manage().window().getSize().then((size) => {
      console.log(size);
@@ -109,32 +112,34 @@ export class Dashboard {
      * Fill edit/create form
      */
     fillForm(): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
+            that.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
                 .then(function (el: webdriver.IWebElement) {
                     //  Select "type"
-                    this_.selectLinkset('.type #add').then(() => {
+                    that.selectLinkset('.type #add').then(() => {
                         //  Select "description"
-                        this_.selectLinkset('.dashboard #add').then(() => {
-                            this_.inputText('NAME', 'My box name').then(() => {
+                        that.selectLinkset('.dashboard #add').then(() => {
+                            that.inputText('NAME', 'My box name').then(() => {
                                 //  Enter Description field
-                                this_.inputText('DESCRIPTION', 'Box description').then(() => {
+                                that.inputText('DESCRIPTION', 'Box description').then(() => {
                                     //  Enter order field
-                                    this_.inputText('ORDER', '0').then(() => {
+                                    that.inputText('ORDER', '0').then(() => {
                                         //  Select width option
-                                        this_.clickSelectOption('.width select', 2).then(() => {
+                                        that.clickSelectOption('.width select', 2).then(() => {
                                             //  Select height option
-                                            this_.clickSelectOption('.height select', 2).then(() => {
-                                                //  Save
-                                                this_.clickBySelector('#modify').then(() => {
-                                                    //  Close
-                                                    this_.clickBySelector('.back.md-primary').then(() => {
-                                                        resolve(true);
+                                            that.clickSelectOption('.height select', 2)
+                                                .then(() => {
+                                                    //  Save
+                                                    that.clickBySelector('#modify').then(() => {
+                                                        //  Close
+                                                        that.clickBySelector('.back.md-primary')
+                                                            .then(() => {
+                                                                resolve(true);
+                                                            });
                                                     });
                                                 });
-                                            });
                                         });
                                     });
                                 });
@@ -154,14 +159,15 @@ export class Dashboard {
      * @param text
      */
     inputText(inputName, text: string): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000).then((el: webdriver.IWebElement) => {
-                el.clear();
-                el.sendKeys(text)
-                resolve(true);
-            });
+            that.prot.wait(protractor.until.elementLocated(by.name(inputName)), 5000)
+                .then((el: webdriver.IWebElement) => {
+                    el.clear();
+                    el.sendKeys(text);
+                    resolve(true);
+                });
         });
     }
 
@@ -171,13 +177,15 @@ export class Dashboard {
      * @param selector
      */
     selectLinkset(selector): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.clickBySelector(selector).then(() => {
-                this_.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)').then(() => {
-                    this_.clickBySelector('#addLink').then(() => {
-                        this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000).then(() => {
+            that.clickBySelector(selector).then(() => {
+                that.clickBySelector('.ag-body-container > div:first-child ' +
+                    '.ag-selection-checkbox img:nth-child(2)').then(() => {
+                    that.clickBySelector('#addLink').then(() => {
+                        that.prot.wait(protractor.until.elementLocated(
+                            by.tagName('dynamic-form')), 5000).then(() => {
                             resolve(true);
                         });
                     });
@@ -186,14 +194,17 @@ export class Dashboard {
         });
 
         /*return new Promise((resolve) => {
-         this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-         this_.clickBySelector(selector, 1000).then(() => {
+         that.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000)
+         .then((el: webdriver.IWebElement) => {
+         that.clickBySelector(selector, 1000).then(() => {
          selector = '.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)';
-         this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-         this_.clickBySelector(selector).then(() => {
+         that.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000)
+         .then((el: webdriver.IWebElement) => {
+         that.clickBySelector(selector).then(() => {
          /!*selector = '#addLink';
-         this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-         this_.clickBySelector(selector).then(() => {
+         that.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000)
+         .then((el: webdriver.IWebElement) => {
+         that.clickBySelector(selector).then(() => {
          resolve(true);
          });
          });*!/
@@ -212,16 +223,17 @@ export class Dashboard {
      * @param num - option index
      */
     clickSelectOption(selector, num): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.clickBySelector(selector).then(() => {
+            that.clickBySelector(selector).then(() => {
                 selector += ' option:nth-child(' + num + ')';
-                this_.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000).then(() => {
-                    this_.clickBySelector(selector).then(() => {
-                        resolve(true);
+                that.prot.wait(protractor.until.elementLocated(by.tagName('dynamic-form')), 5000)
+                    .then(() => {
+                        that.clickBySelector(selector).then(() => {
+                            resolve(true);
+                        });
                     });
-                });
             });
         });
     };
@@ -232,16 +244,17 @@ export class Dashboard {
      * @param selector
      */
     clickBySelector(selector: string, delay?: number): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000).then((el: webdriver.IWebElement) => {
-                resolve(el.click());
+            that.prot.wait(protractor.until.elementLocated(by.css(selector)), 5000)
+                .then((el: webdriver.IWebElement) => {
+                    resolve(el.click());
 
-                if (delay != undefined && delay > 100) {
-                    //browser.sleep(delay);
-                }
-            });
+                    if (delay !== undefined && delay > 100) {
+                        // browser.sleep(delay);
+                    }
+                });
         }).catch((error) => {
             throw error;
         });
@@ -252,11 +265,11 @@ export class Dashboard {
      * @returns {Promise<T>}
      */
     createBox(): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.clickBySelector('#dashboard div.add.toolButton').then(() => {
-                this_.fillForm().then(() => {
+            that.clickBySelector('#dashboard div.add.toolButton').then(() => {
+                that.fillForm().then(() => {
                     resolve(true);
                 });
             });
@@ -267,12 +280,12 @@ export class Dashboard {
      * Remove box
      */
     removeBox(): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.clickBySelector('.box:first-child .crud .icon').then(() => {
+            that.clickBySelector('.box:first-child .crud .icon').then(() => {
                 browser.sleep(1000);
-                this_.clickBySelector('.box:first-child .crud .remove').then(() => {
+                that.clickBySelector('.box:first-child .crud .remove').then(() => {
                     browser.sleep(1000);
                     resolve(true);
                 });
@@ -285,11 +298,11 @@ export class Dashboard {
      * @returns {Promise}
      */
     toggleCloseIcon() {
-        let this_ = this;
+        let that = this;
 
-        this_.clickOnCrudIcon().then(() => {
+        that.clickOnCrudIcon().then(() => {
             browser.sleep(1000);
-            this_.clickOnCloseIcon().then(() => {
+            that.clickOnCloseIcon().then(() => {
                 browser.sleep(1000);
             });
         });
@@ -299,10 +312,10 @@ export class Dashboard {
      * Click on crud icon
      */
     clickOnCrudIcon(): Promise<Object> {
-        let this_ = this;
+        let that = this;
 
         return new Promise((resolve) => {
-            this_.clickBySelector('.box:first-child .crud .icon').then(() => {
+            that.clickBySelector('.box:first-child .crud .icon').then(() => {
                 resolve(true);
             });
         });

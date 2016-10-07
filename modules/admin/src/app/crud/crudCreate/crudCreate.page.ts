@@ -1,5 +1,5 @@
 import { InputElement } from '../../common/inputElement';
-import { EC } from "../../common/expectedConditions";
+import { EC } from '../../common/expectedConditions';
 
 export class CreatePage {
     public hint = element(by.css('.companyName md-hint'));
@@ -146,7 +146,8 @@ export class CreatePage {
     }
 
     sendKeysToEmailField() {
-        let emailField = this.inputElementsOnSecondLevel[this.inputElementsOnSecondLevel.length - 1].element;
+        let emailField = this.inputElementsOnSecondLevel[
+            this.inputElementsOnSecondLevel.length - 1].element;
         let data = 'lui@beet.com';
 
         browser.wait(EC.elementToBeClickable(emailField), 5000);

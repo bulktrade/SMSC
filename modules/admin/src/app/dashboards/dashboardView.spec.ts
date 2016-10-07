@@ -10,8 +10,8 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { CrudService } from '../crud/crud.service';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 import { GridService } from '../services/grid.service';
-import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
-import { Router } from "@angular/router";
+import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
+import { Router } from '@angular/router';
 
 class MockLocation {}
 

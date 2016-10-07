@@ -1,7 +1,7 @@
 import { LoginPage } from '../login/login.page';
 import { CreatePage } from './crudCreate/crudCreate.page';
 import { DeletePage } from './crudDelete/crudDelete.page';
-import { EC } from "../common/expectedConditions";
+import { EC } from '../common/expectedConditions';
 
 export class CrudPage {
     public login: LoginPage = new LoginPage();

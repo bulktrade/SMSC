@@ -1,5 +1,5 @@
 import { LoginPage } from '../login/login.page';
-import { EC } from "../common/expectedConditions";
+import { EC } from '../common/expectedConditions';
 
 export class CrudMetaDataPage {
     public login: LoginPage = new LoginPage();
@@ -58,12 +58,14 @@ export class CrudMetaDataPage {
     }
 
     clearOrderInput() {
-        browser.wait(EC.elementToBeClickable(this.orderInput), 5000, 'orderInput not available');
+        browser.wait(EC.elementToBeClickable(this.orderInput), 5000,
+            'orderInput not available');
         this.orderInput.clear();
     }
 
     isPresentCityField() {
-        browser.wait(EC.presenceOf(this.cityField), 5000, 'cityField not available');
+        browser.wait(EC.presenceOf(this.cityField), 5000,
+            'cityField not available');
         return this.cityField.isPresent();
     }
 
@@ -72,72 +74,86 @@ export class CrudMetaDataPage {
     }
 
     clickOnFormBtn() {
-        browser.wait(EC.elementToBeClickable(this.formBtn), 5000, 'formBtn not available');
+        browser.wait(EC.elementToBeClickable(this.formBtn), 5000,
+            'formBtn not available');
         this.formBtn.click();
     }
 
     clickOnCityEdit() {
-        browser.wait(EC.presenceOf(this.cityEdit), 5000, 'cityEdit not available');
+        browser.wait(EC.presenceOf(this.cityEdit), 5000,
+            'cityEdit not available');
         this.cityEdit.click();
     }
 
     clickOnCustomerIdEdit() {
-        browser.wait(EC.presenceOf(this.record), 5000, 'customerIdEdit not available');
+        browser.wait(EC.presenceOf(this.record), 5000,
+            'customerIdEdit not available');
         this.customerIdEdit.click();
     }
 
     changeVisibleProperty() {
-        browser.wait(EC.elementToBeClickable(this.visibleInput), 5000, 'visibleInput not available');
+        browser.wait(EC.elementToBeClickable(this.visibleInput), 5000,
+            'visibleInput not available');
         this.visibleInput.click();
     }
 
     changeEditableProperty() {
-        browser.wait(EC.elementToBeClickable(this.editableInput), 5000, 'editableInput not available');
+        browser.wait(EC.elementToBeClickable(this.editableInput), 5000,
+            'editableInput not available');
         this.editableInput.click();
     }
 
     clickOnBackBtn() {
-        browser.wait(EC.elementToBeClickable(this.backBtn), 5000, 'backBtn not available');
+        browser.wait(EC.elementToBeClickable(this.backBtn), 5000,
+            'backBtn not available');
         this.backBtn.click();
     }
 
     clickOnFormMetaData() {
-        browser.wait(EC.elementToBeClickable(this.formMetaDataItem), 5000, 'formMetaDataItem not available');
+        browser.wait(EC.elementToBeClickable(this.formMetaDataItem), 5000,
+            'formMetaDataItem not available');
         this.formMetaDataItem.click();
     }
 
     clickOnMetaData() {
-        browser.wait(EC.elementToBeClickable(this.metaDataItem), 5000, 'metaDataItem not available');
+        browser.wait(EC.elementToBeClickable(this.metaDataItem), 5000,
+            'metaDataItem not available');
         this.metaDataItem.click();
     }
 
     clickOnCustomers() {
-        browser.wait(EC.elementToBeClickable(this.customersItem), 5000, 'customersItem not available');
+        browser.wait(EC.elementToBeClickable(this.customersItem), 5000,
+            'customersItem not available');
         this.customersItem.click();
     }
 
     clickOnBtnAddRecord() {
-        browser.wait(EC.elementToBeClickable(this.btnAddRecord), 5000, 'btnAddRecord not available');
+        browser.wait(EC.elementToBeClickable(this.btnAddRecord), 5000,
+            'btnAddRecord not available');
         this.btnAddRecord.click();
     }
 
     isPresentFormMetaData() {
-        browser.wait(EC.presenceOf(this.formMetaDataTag), 5000, 'formMetaDataTag not available');
+        browser.wait(EC.presenceOf(this.formMetaDataTag), 5000,
+            'formMetaDataTag not available');
         return this.formMetaDataTag.isPresent();
     }
 
     isPresentLogo() {
-        browser.wait(EC.presenceOf(this.logo), 5000, 'logo not available');
+        browser.wait(EC.presenceOf(this.logo), 5000,
+            'logo not available');
         return this.logo.isPresent();
     }
 
     isPresentCrudCreateTag() {
-        browser.wait(EC.presenceOf(this.crudCreateTag), 5000, 'crudCreateTag not available');
+        browser.wait(EC.presenceOf(this.crudCreateTag), 5000,
+            'crudCreateTag not available');
         return this.crudCreateTag.isPresent();
     }
 
     isPresentCustomers() {
-        browser.wait(EC.presenceOf(this.customersTag), 5000, 'customersTag not available');
+        browser.wait(EC.presenceOf(this.customersTag), 5000,
+            'customersTag not available');
         return this.customersTag.isPresent();
     }
 }
