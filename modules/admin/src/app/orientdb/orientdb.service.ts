@@ -184,21 +184,23 @@ export class ODatabaseService {
             method: RequestMethod.Post
         });
 
-        return new Promise((resolve, reject) => {
+        return Observable.create((obs) => {
             this.authHttp.request(this.urlPrefix + 'command/' + this.encodedDatabaseName + '/' +
                 iLanguage + '/' + iCommand + '/' + iLimit + iFetchPlan +
                 this.urlSuffix,
                 requestOptions)
-                .toPromise()
-                .then(
+                .subscribe(
                     res => {
                         this.setErrorMessage(undefined);
                         this.handleResponse(res);
-                        resolve(this.getCommandResponse());
+                        obs.next(this.getCommandResponse());
+                        obs.complete();
                     },
                     error => {
                         this.handleResponse(undefined);
                         this.setErrorMessage('Command error: ' + error.responseText);
+                        obs.error(error);
+                        obs.complete();
                     });
         });
     };
