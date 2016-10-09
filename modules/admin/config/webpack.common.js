@@ -298,7 +298,7 @@ module.exports = function (options) {
                 Scrollspy: "exports?Scrollspy!bootstrap/js/dist/scrollspy",
                 Tab: "exports?Tab!bootstrap/js/dist/tab",
                 Tooltip: "exports?Tooltip!bootstrap/js/dist/tooltip",
-                Util: "exports?Util!bootstrap/js/dist/util",
+                Util: "exports?Util!bootstrap/js/dist/util"
             })
         ],
 
