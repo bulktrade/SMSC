@@ -8,6 +8,9 @@ export class LoginPage {
     public loginWindow = element(by.id('login'));
     public usernameField = element(by.css('.username input'));
     public passwordField = element(by.css('.password input'));
+    public logoutBtn = element(by.id('logout'));
+    public loginComponent = element(by.tagName('login'));
+
 
     constructor() {
     }
@@ -50,5 +53,15 @@ export class LoginPage {
     login() {
         let loginModel: LoginModel = new LoginModel('admin', 'admin', false);
         this.fillLoginForm(loginModel);
+    }
+
+    logout() {
+        browser.wait(EC.elementToBeClickable(this.logoutBtn), 5000);
+        this.logoutBtn.click();
+    }
+
+    isPresentLogin() {
+        browser.wait(EC.presenceOf(this.loginComponent), 5000);
+        return this.loginComponent.isPresent();
     }
 }

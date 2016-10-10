@@ -1,5 +1,4 @@
 import { CrudPage } from './crud.page';
-import { WaitUntil } from '../common/waitUntilReady';
 import { GridPaginationPage } from './directives/gridPagination/gridPagination.page';
 import {
     BindingParameterPage
@@ -190,8 +189,8 @@ describe('CRUD', () => {
 
     // @todo not right place. crud.e2e has include only crud tests.
     it('should logout', () => {
-        WaitUntil.logout(ptor);
-        expect(true).toBeTruthy();
+        crudPage.login.logout();
+        expect(crudPage.login.isPresentLogin()).toBeTruthy();
     });
 
 });

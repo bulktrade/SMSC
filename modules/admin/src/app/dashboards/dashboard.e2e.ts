@@ -1,5 +1,4 @@
 import { Dashboard } from './dashboard.page';
-import { WaitUntil } from '../common/waitUntilReady';
 
 describe('Dashboard', () => {
     let prot = protractor.wrapDriver(browser.driver);
@@ -80,7 +79,7 @@ describe('Dashboard', () => {
     });
 
     it('should logout', () => {
-        WaitUntil.logout(prot);
-        expect(true).toBeTruthy();
+        this.dashboard.login.logout(prot);
+        expect(this.dashboard.login.isPresentLogin()).toBeTruthy();
     });
 });

@@ -1,4 +1,3 @@
-import { WaitUntil } from '../common/waitUntilReady';
 import { CrudMetaDataPage } from './crudMetaData.page';
 
 describe('CrudMetaData', () => {
@@ -115,8 +114,8 @@ describe('CrudMetaData', () => {
     });
 
     it('should logout', () => {
-        WaitUntil.logout(ptor);
-        expect(WaitUntil.isPresentLogin(ptor)).toBeTruthy();
+        crudMetaDataPage.login.logout();
+        expect(crudMetaDataPage.login.isPresentLogin()).toBeTruthy();
     });
 
 });
