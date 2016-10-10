@@ -9,7 +9,7 @@ $color-8: #009688;
 $color-9: #adc1d0;
 $color-10: #D32F2F;
 
-md-card{
+md-card {
     height: 100%;
 }
 
@@ -176,7 +176,7 @@ md-card.status {
                 color: #fff;
                 cursor: pointer;
                 border: none;
-                &.active{
+                &.active {
                     background: #000;
                 }
                 &:hover {
@@ -199,13 +199,19 @@ md-card.status {
         z-index: 2000;
         opacity: 0;
         -webkit-transition: opacity 300ms ease-in;
-        -moz-transition:  opacity 300ms ease-in;
-        -ms-transition:  opacity 300ms ease-in;
-        -o-transition:  opacity 300ms ease-in;
-        transition:  opacity 300ms ease-in;
+        -moz-transition: opacity 300ms ease-in;
+        -ms-transition: opacity 300ms ease-in;
+        -o-transition: opacity 300ms ease-in;
+        transition: opacity 300ms ease-in;
         .icon {
             color: $color-1;
             cursor: pointer;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
     }
     .crud {
@@ -260,7 +266,7 @@ md-card.status {
             }
         }
     }
-    .closeTool{
+    .closeTool {
         position: absolute;
         top: 10px;
         left: 10px;
@@ -268,11 +274,11 @@ md-card.status {
         visibility: hidden;
         opacity: 0;
         -webkit-transition: opacity 300ms ease-in;
-        -moz-transition:  opacity 300ms ease-in;
-        -ms-transition:  opacity 300ms ease-in;
-        -o-transition:  opacity 300ms ease-in;
-        transition:  opacity 300ms ease-in;
-        i{
+        -moz-transition: opacity 300ms ease-in;
+        -ms-transition: opacity 300ms ease-in;
+        -o-transition: opacity 300ms ease-in;
+        transition: opacity 300ms ease-in;
+        i {
             color: $color-10;
             font-weight: 700;
             font-size: 16px;
@@ -287,7 +293,7 @@ md-card.status {
             display: none;
         }
 
-        .closeTool{
+        .closeTool {
             visibility: visible;
             opacity: 1;
         }
@@ -295,12 +301,12 @@ md-card.status {
         .crud .wrap {
             right: 0%;
             padding-right: 10px;
-            > .icon{
+            > .icon {
                 display: none;
             }
         }
 
-        .view-width{
+        .view-width {
             visibility: visible;
             top: calc(50% - 45px) !important;
             opacity: 1;
@@ -356,6 +362,7 @@ md-card.status {
             line-chart {
                 width: 100%;
                 height: 100%;
+                position: relative;
             }
         }
     }

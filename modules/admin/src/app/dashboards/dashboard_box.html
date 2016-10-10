@@ -68,6 +68,7 @@
             <i class="material-icons icon fullscreen-icon" (click)="toggleFullscreen()">
                 {{ fullscreenMode ? 'fullscreen' : 'fullscreen_exit' }}
             </i>
+            <i class="material-icons icon dragIcon">dashboard</i>
         </div>
         <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}">
             <i class="material-icons icon">

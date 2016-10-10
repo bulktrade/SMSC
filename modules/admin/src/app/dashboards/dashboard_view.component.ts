@@ -1,19 +1,19 @@
-import {Component} from "@angular/core";
-import {TranslateService} from "ng2-translate/ng2-translate";
-import {Router} from "@angular/router";
-import {DragulaService} from "ng2-dragula/ng2-dragula";
-import {DashboardService} from "./dashboardService";
-import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
-import {OrderBy} from "./sorts/orderby";
-import {DashboardList} from "./models/dashboard_list";
-import {DashboardBox} from "./models/dashboardBox";
-import {CrudService} from "../crud/crud.service";
-import {BoxSizes} from "./models/dashboard_box.sizes";
-import {DashboardListItem} from "./models/dashboard_list_item";
-import {DashboardResizeConfig} from "./dashboardResizeConfig";
-import {BoxResize} from "./models/dashboardBoxEnum";
+import { Component } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router } from "@angular/router";
+import { DragulaService } from "ng2-dragula/ng2-dragula";
+import { DashboardService } from "./dashboardService";
+import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
+import { OrderBy } from "./sorts/orderby";
+import { DashboardList } from "./models/dashboard_list";
+import { DashboardBox } from "./models/dashboardBox";
+import { CrudService } from "../crud/crud.service";
+import { BoxSizes } from "./models/dashboard_box.sizes";
+import { DashboardListItem } from "./models/dashboard_list_item";
+import { DashboardResizeConfig } from "./dashboardResizeConfig";
+import { BoxResize } from "./models/dashboardBoxEnum";
 
-import {LineChartService} from './chart/lineChart.service';
+import { LineChartService } from './chart/lineChart.service';
 
 @Component({
     selector: 'dashboard-view',
@@ -35,10 +35,15 @@ export class DashboardView {
                 private router: Router,
                 public crudService: CrudService) {
         dragulaService.setOptions('status-bag', {
-            direction: 'horizontal'
-        });
-        dragulaService.setOptions('chart-bag', {
-            direction: 'horizontal'
+            direction: 'horizontal',
+            moves: function (el, container, handle) {
+                let className = new String(handle.className);
+
+                if (handle.className.indexOf == undefined)
+                    return false;
+
+                return handle.className.indexOf('dragIcon') !== -1;
+            }
         });
 
         dragulaService.drop.subscribe((value) => {
@@ -124,7 +129,7 @@ export class DashboardView {
                 let dom: BrowserDomAdapter = new BrowserDomAdapter();
                 let chart = dom.querySelector(dom.query('#dashboard'), `.box[data-boxrid="${item.metaData.rid}"]`);
                 dom.on(chart, 'transitionend', (e) => {
-                    val.chart['resize']();
+                    // val.chart['resize']();
                 });
             });
         }
