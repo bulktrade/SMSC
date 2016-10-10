@@ -35,7 +35,7 @@
 		             [gridOptions]="crudService.gridOptions" [rowData]="crudService.gridOptions.rowData"
 		             (cellValueChanged)="crudService.cellValueChanged($event)"
 		             (rowClicked)="crudService.rowClicked($event)"
-		             (cellClicked)="crudService.clickOnCell($event)"
+		             (cellClicked)="clickOnCell($event)"
 		             (rowSelected)="crudService.rowSelected(crudService.gridOptions)"
 		></ag-grid-ng2>
 		<grid-pagination [currentCrudLevel]="crudService.crudLevel[crudService.crudLevel.length - 1]"

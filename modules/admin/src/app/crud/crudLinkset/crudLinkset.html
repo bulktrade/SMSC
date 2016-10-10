@@ -38,6 +38,7 @@
 		             [rowGroupPanelShow]="always" [columnDefs]="crudService.gridOptions.columnDefs"
 		             [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
 		             [gridOptions]="crudService.gridOptions" [rowData]="crudService.gridOptions.rowData"
+		             (rowClicked)="crudService.rowClicked($event)"
 		             (rowSelected)="crudService.rowSelected(crudService.gridOptions)"
 		             (cellFocused)="crudService.focusedRow=$event.rowIndex"></ag-grid-ng2>
 		<grid-pagination [currentCrudLevel]="crudService.crudLevel[crudService.crudLevel.length - 1]" [className]="crudService.getLinkedClass()"

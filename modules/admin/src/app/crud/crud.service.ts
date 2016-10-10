@@ -519,7 +519,7 @@ export class CrudService {
     }
 
     /**
-     * Navigate to delete component and sets next level in crud system.
+     * Navigate to linkset component and sets next level in crud system.
      *
      * @param linsetProperty
      */
