@@ -1,7 +1,7 @@
 import { browser } from "protractor/built/index";
 import { LoginPage } from "../pages/login.page";
 import WebElement = webdriver.WebElement;
-import {EC} from "../common/expectedConditions";
+import { EC } from "../common/expectedConditions";
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));
@@ -96,7 +96,7 @@ export class Dashboard {
                         }
 
                         let targetPosition = {
-                            x: size.width-20,
+                            x: size.width - 20,
                             y: location.y
                         }
 
@@ -105,9 +105,9 @@ export class Dashboard {
 
                         browser.actions().dragAndDrop(draggable, target).perform();
                         /*browser.actions().mouseMove(elementPos).perform();
-                        browser.actions().mouseDown(protractor.Button.LEFT).perform();
-                        browser.actions().mouseMove(targetPosition).perform();
-                        browser.actions().mouseUp().perform();*/
+                         browser.actions().mouseDown(protractor.Button.LEFT).perform();
+                         browser.actions().mouseMove(targetPosition).perform();
+                         browser.actions().mouseUp().perform();*/
 
                         browser.sleep(1000);
                     });
@@ -120,6 +120,9 @@ export class Dashboard {
      * Fill edit/create form
      */
     fillForm() {
+        let el = element(by.css('dynamic-form'));
+        browser.wait(EC.presenceOf(el), 5000);
+
         this.selectLinkset('.type #add');
         this.selectLinkset('.dashboard #add');
         this.inputText('NAME', 'My box name');

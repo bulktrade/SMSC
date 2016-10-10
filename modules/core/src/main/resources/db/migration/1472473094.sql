@@ -71,7 +71,7 @@ if ($Dashboard.size() == 0) {
     ALTER PROPERTY DashboardBox.dashboard MANDATORY true
     ALTER PROPERTY DashboardBox.type MANDATORY true
 
-    CREATE INDEX UNIQUE_DASHBOARD_ORDER ON DashboardBox (dashboard, order) UNIQUE
+    CREATE INDEX UNIQUE_DASHBOARD_ORDER ON DashboardBox (dashboard) UNIQUE
 
     INSERT INTO DashboardBox SET width = 25, height = 25, order = 1, dashboard = $defaultDashboard['@rid'][0], type = $statusType['@rid'][0], name = 'Box 1', description = 'Box 1 desc'
     INSERT INTO DashboardBox SET width = 25, height = 25, order = 2, dashboard = $defaultDashboard['@rid'][0], type = $statusType['@rid'][0], name = 'Box 2', description = 'Box 2 desc'

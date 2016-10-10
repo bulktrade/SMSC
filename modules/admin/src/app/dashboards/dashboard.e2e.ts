@@ -72,6 +72,6 @@ describe('Dashboard', () => {
 
     it('should logout', () => {
         //WaitUntil.logout(prot);
-        expect(true).toBeTruthy();
+        //expect(true).toBeTruthy();
     });
 });
