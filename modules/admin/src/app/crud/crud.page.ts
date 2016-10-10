@@ -1,12 +1,8 @@
 import { LoginPage } from '../login/login.page';
-import { CreatePage } from './crudCreate/crudCreate.page';
-import { DeletePage } from './crudDelete/crudDelete.page';
 import { EC } from '../common/expectedConditions';
 
 export class CrudPage {
     public login: LoginPage = new LoginPage();
-    public crudCreate: CreatePage = new CreatePage();
-    public crudDelete: DeletePage = new DeletePage();
 
     public logo = element(by.id('logo'));
     public notification = element(by.id('notificationBox'));
@@ -50,14 +46,6 @@ export class CrudPage {
     getSizeRecords() {
         browser.wait(EC.presenceOf(this.record), 5000);
         return this.records.count();
-    }
-
-    deleteRecordsOnSecondLevel() {
-        this.clickOnBtnAddRecord();
-        this.crudCreate.clickOnContactsLinksetBtn();
-        this.crudCreate.chooseFirstLink();
-        this.clickOnDeleteButton();
-        this.crudDelete.clickOnOkBtn();
     }
 
     isEnabledDeleteButton() {

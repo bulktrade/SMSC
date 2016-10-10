@@ -1,6 +1,11 @@
 import { EC } from '../../common/expectedConditions';
+import { CrudPage } from '../../crud/crud.page';
+import { CreatePage } from '../../crud/crudCreate/crudCreate.page';
 
 export class BindingParameterPage {
+    public crudPage: CrudPage = new CrudPage();
+    public crudCreate: CreatePage = new CreatePage();
+
     public bindingParameterItem = element(by.className('metadatapropertybindingparameter'));
     public bindingParameterDirective = element(by.tagName('binding-parameter'));
 
