@@ -62,9 +62,9 @@ describe('Dashboard', () => {
         this.dashboard.createBox();
     });
 
-    /*it('Edit box', () => {
+    it('Edit box', () => {
         this.dashboard.editBox();
-    });*/
+    });
 
     it('Remove box', () => {
         this.dashboard.removeBox();
