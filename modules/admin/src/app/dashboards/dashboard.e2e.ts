@@ -41,7 +41,8 @@ describe('Dashboard', () => {
         //this.dashboard.dragAndDrop();
     });
     */
-    //  Switch to fullscreen mode
+
+    /*//  Switch to fullscreen mode
     it('Click on fullscreen icon', () => {
         this.dashboard.clickOnFullscreenIcon();
     });
@@ -54,16 +55,16 @@ describe('Dashboard', () => {
     //  Change size mode
     it('Switch height box mode', () => {
         this.dashboard.clickOnSizeButtons();
-    });
+    });*/
 
     //  Create box
     it('Create box', () => {
         this.dashboard.createBox();
     });
 
-    it('Edit box', () => {
+    /*it('Edit box', () => {
         this.dashboard.editBox();
-    });
+    });*/
 
     it('Remove box', () => {
         this.dashboard.removeBox();
