@@ -42,7 +42,7 @@ describe('Dashboard', () => {
     });
     */
 
-    /*//  Switch to fullscreen mode
+    //  Switch to fullscreen mode
     it('Click on fullscreen icon', () => {
         this.dashboard.clickOnFullscreenIcon();
     });
@@ -55,7 +55,7 @@ describe('Dashboard', () => {
     //  Change size mode
     it('Switch height box mode', () => {
         this.dashboard.clickOnSizeButtons();
-    });*/
+    });
 
     //  Create box
     it('Create box', () => {
