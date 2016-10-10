@@ -1,0 +1,2 @@
+// MetaDataBindingParameter
+export * from './metaDataBindingParameter';
