@@ -11,12 +11,15 @@ import { LineChartService } from './lineChart.service';
 export class LineChart {
 
     chartData: Object;
+    chart: any;
 
     constructor(private _lineChartService: LineChartService) {
         this.chartData = this._lineChartService.getData();
     }
 
     initChart(chart: any) {
+        this.chart = chart;
+
         let zoomChart = () => {
             chart.zoomToDates(new Date(2013, 3), new Date(2014, 0));
         };
@@ -27,5 +30,9 @@ export class LineChart {
         if (chart.zoomChart) {
             chart.zoomChart();
         }
+    }
+
+    public showAll() {
+        this.chart.zoomOut();
     }
 }

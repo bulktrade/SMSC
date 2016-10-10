@@ -96,6 +96,9 @@ export class LineChartService {
                     lineColor: 'rgba(183, 224, 33, 0.3)'
                 }
             ],
+            chartScrollbar: {
+                backgroundColor: 'rgba(255, 0, 0, 1)'
+            },
             chartCursor: {
                 categoryBalloonDateFormat: 'MM YYYY',
                 categoryBalloonColor: '#4285F4',
@@ -103,7 +106,8 @@ export class LineChartService {
                 cursorAlpha: 0,
                 valueLineEnabled: true,
                 valueLineBalloonEnabled: true,
-                valueLineAlpha: 0.5
+                valueLineAlpha: 0.5,
+                fullWidth: true
             },
             dataDateFormat: 'MM YYYY',
             export: {
