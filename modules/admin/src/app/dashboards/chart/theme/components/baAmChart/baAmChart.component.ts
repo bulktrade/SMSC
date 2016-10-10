@@ -5,44 +5,46 @@ import {BaThemePreloader} from '../../../theme/services';
 import './baAmChart.loader.ts';
 import {BaAmChartThemeService} from './baAmChartTheme.service';
 
+declare let AmCharts;
+
 @Component({
-  selector: 'ba-am-chart',
-  template: require('./baAmChart.html'),
-  encapsulation: ViewEncapsulation.None,
-  providers: [BaAmChartThemeService],
+    selector: 'ba-am-chart',
+    template: require('./baAmChart.html'),
+    encapsulation: ViewEncapsulation.None,
+    providers: [BaAmChartThemeService],
 })
 export class BaAmChart {
 
-  @Input() baAmChartConfiguration:Object;
-  @Input() baAmChartClass:string;
-  @Output() onChartReady = new EventEmitter<any>();
+    @Input() baAmChartConfiguration: Object;
+    @Input() baAmChartClass: string;
+    @Output() onChartReady = new EventEmitter<any>();
 
-  @ViewChild('baAmChart') private _selector:ElementRef;
+    @ViewChild('baAmChart') private _selector: ElementRef;
 
-  constructor (private _baAmChartThemeService:BaAmChartThemeService) {
-    this._loadChartsLib();
-  }
+    constructor(private _baAmChartThemeService: BaAmChartThemeService) {
+        this._loadChartsLib();
+    }
 
-  ngOnInit() {
-    AmCharts.themes.blur = this._baAmChartThemeService.getTheme();
-  }
+    ngOnInit() {
+        AmCharts.themes.blur = this._baAmChartThemeService.getTheme();
+    }
 
-  ngAfterViewInit() {
-    let chart = AmCharts.makeChart(this._selector.nativeElement, this.baAmChartConfiguration);
-    this.onChartReady.emit(chart);
-  }
+    ngAfterViewInit() {
+        let chart = AmCharts.makeChart(this._selector.nativeElement, this.baAmChartConfiguration);
+        this.onChartReady.emit(chart);
+    }
 
-  private _loadChartsLib():void {
-    BaThemePreloader.registerLoader(new Promise((resolve, reject) => {
-      let amChartsReadyMsg = 'AmCharts ready';
+    private _loadChartsLib(): void {
+        BaThemePreloader.registerLoader(new Promise((resolve, reject) => {
+            let amChartsReadyMsg = 'AmCharts ready';
 
-      if (AmCharts.isReady) {
-        resolve(amChartsReadyMsg);
-      } else {
-        AmCharts.ready(function () {
-          resolve(amChartsReadyMsg);
-        });
-      }
-    }));
-  }
+            if (AmCharts.isReady) {
+                resolve(amChartsReadyMsg);
+            } else {
+                AmCharts.ready(function () {
+                    resolve(amChartsReadyMsg);
+                });
+            }
+        }));
+    }
 }

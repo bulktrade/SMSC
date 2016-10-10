@@ -1,22 +1,22 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
-import {LineChartService} from './lineChart.service';
+import { LineChartService } from './lineChart.service';
 
 @Component({
     selector: 'line-chart',
-    //encapsulation: ViewEncapsulation.None,
-    styles: [require('./lineChart.scss')],
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: [require('./lineChart.scss')],
     template: require('./lineChart.html')
 })
 export class LineChart {
 
-    chartData:Object;
+    chartData: Object;
 
-    constructor(private _lineChartService:LineChartService) {
+    constructor(private _lineChartService: LineChartService) {
         this.chartData = this._lineChartService.getData();
     }
 
-    initChart(chart:any) {
+    initChart(chart: any) {
         let zoomChart = () => {
             chart.zoomToDates(new Date(2013, 3), new Date(2014, 0));
         };
