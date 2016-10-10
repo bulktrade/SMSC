@@ -208,11 +208,20 @@ export class GridService {
                         this.database.load(rid)
                             .then(res => {
                                 let result: MetaDataPropertyBindingParameterModel = res.json();
-                                let expr: string = result.fromProperty + '.' +
-                                    result.toProperty + ' ' + result.operator + ' ' +
-                                    currentCrudLevel.linksetProperty.data[result.toProperty];
 
-                                if (currentCrudLevel.linksetProperty.data[result.toProperty]) {
+                                if (currentCrudLevel.inputModel.hasOwnProperty('@rid')) {
+                                    let expr: string = result.fromProperty + '.' +
+                                        result.toProperty + ' ' + result.operator + ' ' +
+                                        currentCrudLevel.linksetProperty.data[result.toProperty];
+
+                                    if (currentCrudLevel.linksetProperty.data[result.toProperty]) {
+                                        expression
+                                            .or(expr);
+                                    }
+                                } else {
+                                    let expr: string = result.fromProperty + '.' +
+                                        result.toProperty + ' ' + 'IS NULL';
+
                                     expression
                                         .or(expr);
                                 }
