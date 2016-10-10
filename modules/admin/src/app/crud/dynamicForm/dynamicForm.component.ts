@@ -3,11 +3,11 @@ import { CrudService } from '../crud.service';
 import { Location, CommonModule } from '@angular/common';
 import { BtnTypes } from './btnTypes';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MdSelectModule } from '../../common/material/select/select';
+import { MdSelectModule } from '../../common/material/select/select.component';
 import { MdModule } from '../../md.module';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 import { FormsModule } from '@angular/forms';
-import { LoadingGridModule } from '../../common/loadingGrid';
+import { LoadingGridModule } from '../../common/loadingGrid.component';
 import { MultipleSelectModule } from '../directives/multipleSelect/multipleSelect.component';
 
 @Component({

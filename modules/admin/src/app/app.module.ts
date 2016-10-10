@@ -34,14 +34,14 @@ import { Sidebar } from './sidebar/sidebar.component';
 import { SidebarItem } from './sidebar/sidebaritem.component';
 import { CrudViewResolve } from './crud/crudView/crudView.resolve';
 import { CrudModule } from './crud/crud.module';
-import { LoadingRouterOutletModule } from './common/loadingRouterOutlet';
+import { LoadingRouterOutletModule } from './common/loadingRouterOutlet.component';
 import { ConfigService } from './config/configService';
 import { LoadingRouterOutletService } from './services/loading/loadingRouterOutlet.service';
 import { LoadingService } from './services/loading/loading.service';
 import { RouterOutletService } from './services/routerOutletService';
 import {
     MetaDataPropertyBindingParameter
-} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
+} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter.component';
 import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboardCrudUpdate.resolve';
 import { DashboardCrudCreateResolve } from './dashboards/crud/dashboardCrudCreate.resolve';
 import { SidebarService } from './sidebar/sidebarService';

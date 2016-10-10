@@ -1,2 +1,2 @@
 // DynamicForm
-export * from './dynamicForm';
+export * from './dynamicForm.component';

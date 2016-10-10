@@ -1,2 +1,2 @@
 // GridPagination
-export * from './gridPagination';
+export * from './gridPagination.component';

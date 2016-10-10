@@ -1,2 +1,2 @@
 // MetaDataBindingParameter
-export * from './metaDataBindingParameter';
+export * from './metaDataBindingParameter.component';

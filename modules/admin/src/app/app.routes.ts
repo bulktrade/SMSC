@@ -12,7 +12,7 @@ import { CrudMetaFormData } from './crudMetadata/crudMetaFormData/crudMetaFormDa
 import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
 import {
     MetaDataPropertyBindingParameter
-} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
+} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter.component';
 import { DashboardView } from './dashboards/dashboardView.component';
 import { DashboardCrudUpdate } from './dashboards/crud/dashboardBoxUpdate';
 import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboardCrudUpdate.resolve';

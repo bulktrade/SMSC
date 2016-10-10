@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdSelectModule } from '../common/material/select/select';
+import { MdSelectModule } from '../common/material/select/select.component';
 import { DashboardService } from './dashboardService';
 import { OrderBy } from './sorts/orderby';
 import { Dashboard } from './dashboard.component';
@@ -12,15 +12,15 @@ import { AgGridModule } from 'ag-grid-ng2';
 import { TranslateModule, TranslateService } from 'ng2-translate';
 import { BrowserModule } from '@angular/platform-browser';
 import { MdModule } from '../md.module';
-import { GridPaginationModule } from '../crud/directives/gridPagination/gridPagination';
-import { LoadingRouterOutletModule } from '../common/loadingRouterOutlet';
+import { GridPaginationModule } from '../crud/directives/gridPagination/gridPagination.component';
+import { LoadingRouterOutletModule } from '../common/loadingRouterOutlet.component';
 import { CubeGridModule } from '../common/spinner/cubeGrid/cubeGrid.component';
-import { LoadingGridModule } from '../common/loadingGrid';
+import { LoadingGridModule } from '../common/loadingGrid.component';
 import { AlertModule } from 'ng2-bootstrap';
 import { CrudService } from '../crud/crud.service';
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
-import { DynamicFormModule } from '../crud/dynamicForm/dynamicForm';
+import { DynamicFormModule } from '../crud/dynamicForm/dynamicForm.component';
 import { Dashboards } from './dashboards.components';
 
 const DASHBOARD_DECLARATION = [
