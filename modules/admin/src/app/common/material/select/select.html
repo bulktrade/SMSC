@@ -1,7 +1,11 @@
 <div class="mdl-selectfield">
-    <select class="browser-default" [(ngModel)]="model" (change)="onChange($event)">
-        <option value="" disabled selected>{{placeholder}}</option>
-        <option *ngFor="let option of options">{{option}}</option>
-    </select>
-    <ng-content select="md-hint" id="hint"></ng-content>
+	<div class="selectWrap">
+		<div class="mdLabel">{{placeholder}}</div>
+		<hr>
+		<select class="browser-default" [(ngModel)]="model" (change)="onChange($event)">
+			<option value="" disabled selected>{{placeholder}}</option>
+			<option *ngFor="let option of options">{{option}}</option>
+		</select>
+	</div>
+	<ng-content select="md-hint" id="hint"></ng-content>
 </div>
