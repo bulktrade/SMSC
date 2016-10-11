@@ -1,5 +1,5 @@
 import { LoginModel } from './login.model';
-import { EC } from "../common/expectedConditions";
+import { EC } from '../common/expectedConditions';
 
 export class LoginPage {
     public elemNotFound = element(by.tagName('notfound'));
@@ -8,6 +8,9 @@ export class LoginPage {
     public loginWindow = element(by.id('login'));
     public usernameField = element(by.css('.username input'));
     public passwordField = element(by.css('.password input'));
+    public logoutBtn = element(by.id('logout'));
+    public loginComponent = element(by.tagName('login'));
+
 
     constructor() {
     }
@@ -36,9 +39,9 @@ export class LoginPage {
     }
 
     fillLoginForm(loginModel: LoginModel) {
-        var isClickableUsername = EC.elementToBeClickable(this.usernameField);
-        var isClickablePassword = EC.elementToBeClickable(this.passwordField);
-        var isClickableSubmit = EC.elementToBeClickable(this.passwordField);
+        let isClickableUsername = EC.elementToBeClickable(this.usernameField);
+        let isClickablePassword = EC.elementToBeClickable(this.passwordField);
+        let isClickableSubmit = EC.elementToBeClickable(this.passwordField);
 
         browser.wait(EC.and(isClickableUsername, isClickablePassword, isClickableSubmit), 5000);
 
@@ -51,5 +54,14 @@ export class LoginPage {
         let loginModel: LoginModel = new LoginModel('admin', 'admin', false);
         this.fillLoginForm(loginModel);
     }
-}
 
+    logout() {
+        browser.wait(EC.elementToBeClickable(this.logoutBtn), 5000);
+        this.logoutBtn.click();
+    }
+
+    isPresentLogin() {
+        browser.wait(EC.presenceOf(this.loginComponent), 5000);
+        return this.loginComponent.isPresent();
+    }
+}

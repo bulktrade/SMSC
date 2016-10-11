@@ -1,80 +1,67 @@
-import { WaitUntil } from './common/waitUntilReady';
+import { LoginModel } from './login.model';
+import { EC } from '../common/expectedConditions';
 
 export class LoginPage {
     public elemNotFound = element(by.tagName('notfound'));
-    public dangerMessage = element(by.className('alert-danger'));
-    public details = element(by.className('details'));
-    public btnSubmit = element(by.id('submitButton'));
-    public usernameField = element(by.className('username'));
+    public errorAlert = element(by.id('errorAlert'));
+    public submitButton = element(by.id('submitButton'));
+    public loginWindow = element(by.id('login'));
+    public usernameField = element(by.css('.username input'));
+    public passwordField = element(by.css('.password input'));
+    public logoutBtn = element(by.id('logout'));
+    public loginComponent = element(by.tagName('login'));
 
-    private _ptor;
 
     constructor() {
     }
 
     get() {
-        browser.get('/admin');
-    }
-
-    getCustomers() {
-        browser.get('/admin/customers');
+        browser.get(browser.baseUrl + '/');
     }
 
     getNotFound() {
-        browser.get('/admin/noContent');
+        browser.get(browser.baseUrl + '/noContent');
     }
 
-    isPresentUsernameField() {
-        WaitUntil.waitUntil(this.usernameField, this._ptor);
-        return this.usernameField.isPresent();
+    isPresentLoginWindow() {
+        browser.wait(EC.presenceOf(this.loginWindow), 5000);
+        return this.loginWindow.isPresent();
     }
 
     isPresentNotFound() {
-        WaitUntil.waitUntil(this.elemNotFound, this._ptor);
+        browser.wait(EC.presenceOf(this.elemNotFound), 5000);
         return this.elemNotFound.isPresent();
     }
 
-    ifPresentDangerMsg() {
-        WaitUntil.waitUntil(this.dangerMessage, this._ptor);
-        return this.dangerMessage.isPresent();
+    isPresentErrorAlert() {
+        browser.wait(EC.presenceOf(this.errorAlert), 5000);
+        return this.errorAlert.isPresent();
     }
 
-    clickOnBtnSend(ptor) {
-        return new Promise((resolve, reject) => {
-            ptor.wait(protractor.until.elementLocated(by.className('btn')), 5000)
-                .then(function (el: webdriver.IWebElement) {
-                    resolve(el.click());
-                }).thenCatch((errback) => {
-                reject(errback);
-            });
-        });
+    fillLoginForm(loginModel: LoginModel) {
+        let isClickableUsername = EC.elementToBeClickable(this.usernameField);
+        let isClickablePassword = EC.elementToBeClickable(this.passwordField);
+        let isClickableSubmit = EC.elementToBeClickable(this.passwordField);
+
+        browser.wait(EC.and(isClickableUsername, isClickablePassword, isClickableSubmit), 5000);
+
+        this.usernameField.sendKeys(loginModel.username);
+        this.passwordField.sendKeys(loginModel.password);
+        this.submitButton.submit();
     }
 
     login() {
-        let ptor = protractor.wrapDriver(browser.driver);
-
-        ptor.wait(protractor.until.elementLocated(by.css('.username input')), 5000)
-            .then(function (el: webdriver.IWebElement) {
-                el.sendKeys('admin');
-                ptor.wait(protractor.until.elementLocated(by.css('.password input')), 5000)
-                    .then(function (elem: webdriver.IWebElement) {
-                        elem.sendKeys('admin');
-                        ptor.wait(protractor.until.elementLocated(by.id('submitButton')), 5000)
-                            .then(function (element: webdriver.IWebElement) {
-                                element.submit();
-                            });
-                    });
-            });
+        let loginModel: LoginModel = new LoginModel('admin', 'admin', false);
+        this.fillLoginForm(loginModel);
     }
 
-    // getters and setter
-
-    get ptor() {
-        return this._ptor;
+    logout() {
+        browser.wait(EC.elementToBeClickable(this.logoutBtn), 5000);
+        this.logoutBtn.click();
     }
 
-    set ptor(value) {
-        this._ptor = value;
+    isPresentLogin() {
+        browser.wait(EC.presenceOf(this.loginComponent), 5000);
+        return this.loginComponent.isPresent();
     }
 }
-

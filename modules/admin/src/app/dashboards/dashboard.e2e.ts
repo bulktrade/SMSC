@@ -71,7 +71,6 @@ describe('Dashboard', () => {
     });
 
     it('should logout', () => {
-        //WaitUntil.logout(prot);
-        //expect(true).toBeTruthy();
+        this.dashboard.login.logout();
     });
 });
