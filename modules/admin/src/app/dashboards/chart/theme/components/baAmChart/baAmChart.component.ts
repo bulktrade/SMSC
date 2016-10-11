@@ -6,6 +6,7 @@ import './baAmChart.loader.ts';
 import { BaAmChartThemeService } from './baAmChartTheme.service';
 
 declare let AmCharts;
+declare let AmPieChart;
 
 @Component({
     selector: 'ba-am-chart',
@@ -31,6 +32,7 @@ export class BaAmChart {
 
     ngAfterViewInit() {
         let chart = AmCharts.makeChart(this._selector.nativeElement, this.baAmChartConfiguration);
+        console.log(this.baAmChartConfiguration);
         this.onChartReady.emit(chart);
     }
 

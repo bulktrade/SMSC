@@ -158,7 +158,6 @@ export class DashboardService {
      * Get dashboard box class columns
      *
      * @param route
-     * @param state
      * @param id
      * @param className
      * @returns {Subscription}

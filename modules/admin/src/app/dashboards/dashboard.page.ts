@@ -22,6 +22,11 @@ export class Dashboard {
         return browser.getTitle();
     }
 
+    /**
+     *
+     * @param ptor - protractor
+     * @returns {Promise<T>|Promise}
+     */
     clickOnItemNavDashboard(ptor) {
         return new Promise((resolve, reject) => {
             ptor.wait(protractor.until.elementLocated(by.className('dashboardcomponent')), 5000)
@@ -39,9 +44,6 @@ export class Dashboard {
 
     /**
      * Click on fullscreen
-     *
-     * @param ptor
-     * @returns {Promise}
      */
     clickOnFullscreenIcon() {
         this.clickBySelector('.box:first-child .fullscreen-icon');
@@ -68,7 +70,6 @@ export class Dashboard {
 
     /**
      * Click on size buttons
-     * @param prot
      */
     clickOnSizeButtons() {
         this.clickOnCrudIcon();
@@ -136,6 +137,7 @@ export class Dashboard {
 
     /**
      * Enter text to input field
+     *
      * @param inputName
      * @param text
      */
@@ -148,7 +150,7 @@ export class Dashboard {
 
     /**
      * Click on linkset
-     * @param selector
+     * @param selector - selector to likset icon
      */
     selectLinkset(selector) {
         this.clickBySelector(selector);
@@ -210,9 +212,5 @@ export class Dashboard {
         return new Promise((resolve) => {
             this.clickBySelector('.box:first-child .closeTool .material-icons');
         });
-    }
-
-    finish() {
-        browser.sleep(50000);
     }
 }

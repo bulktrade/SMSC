@@ -299,7 +299,7 @@ module.exports = function (options) {
                 Tab: "exports?Tab!bootstrap/js/dist/tab",
                 Tooltip: "exports?Tooltip!bootstrap/js/dist/tooltip",
                 Util: "exports?Util!bootstrap/js/dist/util",
-                //AmCharts: 'amcharts3/amcharts/amcharts'
+                //AmPieChart : 'AmPieChart'
             })
         ],
 
