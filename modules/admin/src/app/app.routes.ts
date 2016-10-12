@@ -17,11 +17,11 @@ import { CrudLinkset } from './crud/crudLinkset/crudLinkset.component';
 import { CrudLinksetResolve } from './crud/crudLinkset/crudLinkset.resolve';
 import { Dashboards } from './dashboards/dashboards.components';
 import { Dashboard } from './dashboards/dashboard.component';
-import {DashboardCrudCreate} from "./dashboards/crud/dashboard_box_create";
-import {DashboardCrudUpdateResolve} from "./dashboards/crud/dashboard_crud_update.resolve";
-import {DashboardCrudUpdate} from "./dashboards/crud/dashboard_box_update";
-import {DashboardView} from "./dashboards/dashboard_view.component";
-import {DashboardCrudCreateResolve} from "./dashboards/crud/dashboard_crud_create.resolve";
+import {DashboardCrudCreate} from "./dashboards/crud/dashboardBoxCreate";
+import {DashboardCrudUpdateResolve} from "./dashboards/crud/dashboardCrudUpdate.resolve";
+import {DashboardCrudUpdate} from "./dashboards/crud/dashboardBoxUpdate";
+import {DashboardView} from "./dashboards/dashboardView.component";
+import {DashboardCrudCreateResolve} from "./dashboards/crud/dashboardCrudCreate.resolve";
 
 const DASHBOARD_ROUTER_PROVIDER = [
     {

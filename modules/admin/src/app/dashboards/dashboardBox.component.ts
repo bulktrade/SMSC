@@ -1,7 +1,5 @@
-import { Component, Input, ViewEncapsulation, Output, EventEmitter, HostListener } from "@angular/core";
-import { SidebarService } from "../sidebar/sidebarService";
-import {Chart} from "./chart/chart.loader";
-import {TrafficChartService} from "./chart/chart.service";
+import {Component, Input, ViewEncapsulation, Output, EventEmitter, HostListener} from "@angular/core";
+import {SidebarService} from "../sidebar/sidebarService";
 import {DashboardBoxConfig} from "./dashboardBoxConfig";
 import {BoxResize} from "./models/dashboardBoxEnum";
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
@@ -9,9 +7,9 @@ import {DashboardResizeConfig} from "./dashboardResizeConfig";
 
 @Component({
     selector: 'dashboard-box',
-    template: require('./dashboard_box.html'),
+    template: require('./dashboardBox.html'),
     styleUrls: [
-        require('./dashboard_box.scss')
+        require('./dashboardBox.scss')
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -37,22 +35,7 @@ export class DashboardBoxComponent {
     public doughnutData: Array<Object> = [];
     public chart: any;
 
-    constructor(private sidebarService: SidebarService,
-                private trafficChartService:TrafficChartService) {
-        this.doughnutData = trafficChartService.getData();
-    }
-
-    ngAfterViewInit() {
-        if(this.config.type == 'chart'){
-            //this._loadDoughnutCharts();
-        }
-    }
-
-    public _loadDoughnutCharts() {
-        let config = this.trafficChartService.getConfig('bubble')
-        let el = $(`.content[data-boxrid="${this.config.rid}"] .chart-area`)[0];
-        let ctx = el.getContext('2d');
-        this.chart = new Chart(ctx, config);
+    constructor(private sidebarService: SidebarService) {
     }
 
     ngOnInit() {

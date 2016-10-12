@@ -14,8 +14,8 @@ export class LineChart {
     chart: any;
 
     constructor(private _lineChartService: LineChartService) {
-        //this.chartData = this._lineChartService.getData();
-        this.chartData = this._lineChartService.getPie();
+        this.chartData = this._lineChartService.getData();
+        //this.chartData = this._lineChartService.getPie();
     }
 
     initChart(chart: any) {

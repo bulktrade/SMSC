@@ -45,8 +45,8 @@ import {
 import { SidebarService } from './sidebar/sidebarService';
 import { DashboardModule } from './dashboards/dashboard.module';
 import { HttpInterceptor } from './common/httpInterceptor';
-import {DashboardCrudUpdateResolve} from "./dashboards/crud/dashboard_crud_update.resolve";
-import {DashboardCrudCreateResolve} from "./dashboards/crud/dashboard_crud_create.resolve";
+import {DashboardCrudUpdateResolve} from "./dashboards/crud/dashboardCrudUpdate.resolve";
+import {DashboardCrudCreateResolve} from "./dashboards/crud/dashboardCrudCreate.resolve";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,

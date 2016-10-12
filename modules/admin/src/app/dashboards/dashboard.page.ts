@@ -83,40 +83,6 @@ export class Dashboard {
         this.clickOnCloseIcon();
     }
 
-    dragAndDrop() {
-        let this_ = this;
-
-        this_.prot.wait(protractor.until.elementLocated(by.css('.box:first-child')), 5000).then((draggable: WebElement) => {
-            this_.prot.wait(protractor.until.elementLocated(by.css('.box:last-child')), 5000).then((target: WebElement) => {
-                draggable.getLocation().then((location) => {
-                    this_.prot.manage().window().getSize().then((size) => {
-                        console.log(size);
-                        let elementPos = {
-                            x: location.x + 50,
-                            y: location.y + 50,
-                        }
-
-                        let targetPosition = {
-                            x: size.width - 20,
-                            y: location.y
-                        }
-
-                        console.log(targetPosition);
-                        console.log(elementPos);
-
-                        browser.actions().dragAndDrop(draggable, target).perform();
-                        /*browser.actions().mouseMove(elementPos).perform();
-                         browser.actions().mouseDown(protractor.Button.LEFT).perform();
-                         browser.actions().mouseMove(targetPosition).perform();
-                         browser.actions().mouseUp().perform();*/
-
-                        browser.sleep(1000);
-                    });
-                });
-            });
-        });
-    }
-
     /**
      * Fill edit/create form
      */

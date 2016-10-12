@@ -4,10 +4,10 @@ import { MdSelectModule } from '../common/material/select/select';
 import { DashboardService } from './dashboardService';
 import { OrderBy } from './sorts/orderby';
 import { Dashboard } from './dashboard.component';
-import { DashboardView } from './dashboard_view.component';
-import { DashboardBoxComponent } from './dashboard_box.component';
-import { DashboardCrudUpdate } from './crud/dashboard_box_update';
-import { DashboardCrudCreate } from './crud/dashboard_box_create';
+import { DashboardView } from './dashboardView.component';
+import { DashboardBoxComponent } from './dashboardBox.component';
+import { DashboardCrudUpdate } from './crud/dashboardBoxUpdate';
+import { DashboardCrudCreate } from './crud/dashboardBoxCreate';
 import { AgGridModule } from 'ag-grid-ng2';
 import { TranslateModule, TranslateService } from 'ng2-translate';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,7 +21,6 @@ import { CrudService } from '../crud/crud.service';
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { Dashboards } from './dashboards.components';
-import { TrafficChartService } from './chart/chart.service';
 import { BaThemeConfigProvider } from './chart/theme/theme.configProvider';
 import { DynamicFormModule } from '../crud/dynamicForm/dynamicForm';
 import { BaAmChart } from './chart/theme/components/baAmChart/baAmChart.component';
@@ -65,10 +64,8 @@ const DASHBOARD_DECLARATION = [
         CrudService,
         TranslateService,
         DashboardService,
-        TrafficChartService,
         BaThemeConfigProvider,
         LineChartService
-        // Breadcrumb
     ]
 })
 export class DashboardModule {

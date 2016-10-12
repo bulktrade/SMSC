@@ -9,8 +9,7 @@ import {Router} from "@angular/router";
 import {CRUD_PROVIDERS} from "../crud/common/crudProviders";
 import {GridService} from "../services/grid.service";
 import {SidebarService} from "../sidebar/sidebarService";
-import {DashboardBoxComponent} from "./dashboard_box.component";
-import {TrafficChartService} from "./chart/chart.service";
+import {DashboardBoxComponent} from "./dashboardBox.component";
 import {BaThemeConfigProvider} from "./chart/theme/theme.configProvider";
 import webpack = require("webpack");
 import {BoxResize} from "./models/dashboardBoxEnum";
@@ -32,7 +31,6 @@ describe('Dashboard box', () => {
                 { provide: Router, useClass: MockLocation },
                 { provide: Location, useClass: MockLocation },
                 CrudService,
-                TrafficChartService,
                 BaThemeConfigProvider
             ],
             imports: [

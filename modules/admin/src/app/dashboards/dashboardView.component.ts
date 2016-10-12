@@ -5,11 +5,11 @@ import { DragulaService } from "ng2-dragula/ng2-dragula";
 import { DashboardService } from "./dashboardService";
 import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
 import { OrderBy } from "./sorts/orderby";
-import { DashboardList } from "./models/dashboard_list";
+import { DashboardList } from "./models/dashboardList";
 import { DashboardBox } from "./models/dashboardBox";
 import { CrudService } from "../crud/crud.service";
-import { BoxSizes } from "./models/dashboard_box.sizes";
-import { DashboardListItem } from "./models/dashboard_list_item";
+import { BoxSizes } from "./models/dashboardBox.sizes";
+import { DashboardListItem } from "./models/dashboardListItem";
 import { DashboardResizeConfig } from "./dashboardResizeConfig";
 import { BoxResize } from "./models/dashboardBoxEnum";
 
@@ -17,9 +17,9 @@ import { LineChartService } from './chart/lineChart.service';
 
 @Component({
     selector: 'dashboard-view',
-    template: require('./dashboard_view.html'),
+    template: require('./dashboardView.html'),
     styleUrls: [
-        require('./dashboard_view.scss')
+        require('./dashboardView.scss')
     ],
     viewProviders: [
         DragulaService
@@ -42,7 +42,7 @@ export class DashboardView {
                 if (handle.className.indexOf == undefined)
                     return false;
 
-                return handle.className.indexOf('dragIcon') !== -1;
+                return handle.className.indexOf('md-header') !== -1;
             }
         });
 
@@ -51,7 +51,6 @@ export class DashboardView {
         });
 
         this.dashboardService.getDashboardBoxes().subscribe((res) => {
-            console.log(res);
             this.boxesCss = new DashboardList<string>();
             this.boxes = new DashboardListItem<DashboardBox>();
             let orderBy: OrderBy = new OrderBy();

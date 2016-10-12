@@ -9,29 +9,26 @@ import { BtnTypes } from '../../crud/dynamicForm/btnTypes';
     selector: 'dashboard-crud-edit',
     template: '<dynamic-form [crudService]="crudService" [btnName]="btnName"></dynamic-form>'
 })
-export class DashboardCrudUpdate {
+export class DashboardCrudCreate {
     public resolveData: EditModel = new EditModel();
-    public btnName: BtnTypes = BtnTypes.UPDATE;
+    public btnName: BtnTypes = BtnTypes.CREATE;
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public crudService: CrudService,
                 public location: Location) {
-
     }
 
     ngOnInit() {
-        this.resolveData = this.route.snapshot.data['edit'];
-
-        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs.form;
-
-        if (this.resolveData.inputModel) {
-            this.crudService.setModel(this.resolveData.inputModel);
-        }
+        this.resolveData = this.route.snapshot.data['create'];
+        this.crudService.gridOptions.columnDefs = this.resolveData['form'];
     }
 
-    onSubmit() {
-        this.crudService.updateRecord(this.crudService.model);
+    /**
+     * Back to dashboards
+     */
+    back() {
+        this.location.back();
     }
 
     ngOnDestroy() {
@@ -39,7 +36,8 @@ export class DashboardCrudUpdate {
         this.crudService.setModel({});
     }
 
-    back() {
-        this.location.back();
+    onSubmit() {
+        this.crudService.createRecord(this.crudService.model,
+            this.route.snapshot.params['className']);
     }
 }

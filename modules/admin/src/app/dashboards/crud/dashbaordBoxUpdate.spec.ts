@@ -4,19 +4,19 @@ import {HttpModule} from "@angular/http";
 import {TranslateService, TranslateLoader} from "ng2-translate/ng2-translate";
 import {DragulaService} from "ng2-dragula/ng2-dragula";
 import {Router} from "@angular/router";
-import {CrudService} from "../../crud/crud.service";
-import {GridService} from "../../services/grid.service";
-import {CRUD_PROVIDERS} from "../../crud/common/crudProviders";
+import {DashboardCrudUpdate} from "./dashboardBoxUpdate";
 import {DashboardService} from "../dashboardService";
-import {DashboardCrudCreate} from "./dashboard_box_create";
+import {CRUD_PROVIDERS} from "../../crud/common/crudProviders";
+import {GridService} from "../../services/grid.service";
+import {CrudService} from "../../crud/crud.service";
 
 class MockLocation {};
 
-describe('Dashboard crud create', () => {
+describe('Dashboard crud update', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                DashboardCrudCreate,
+                DashboardCrudUpdate,
                 TranslateService,
                 DragulaService,
                 DashboardService,
@@ -33,27 +33,27 @@ describe('Dashboard crud create', () => {
         });
     });
 
-    it('should be defined resolveData', inject([ DashboardCrudCreate ], (box) => {
+    it('should be defined resolveData', inject([ DashboardCrudUpdate ], (box) => {
         expect(box.resolveData).toBeDefined();
     }));
 
-    it('should be defined btnName', inject([ DashboardCrudCreate ], (box) => {
+    it('should be defined btnName', inject([ DashboardCrudUpdate ], (box) => {
         expect(box.btnName).toBeDefined();
     }));
 
-    it('should be defined grid options', inject([ DashboardCrudCreate ], (crudEdit) => {
+    it('should be defined grid options', inject([ DashboardCrudUpdate ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions).toBeDefined();
     }));
 
-    it('should be location', inject([ DashboardCrudCreate ], (crudEdit) => {
+    it('should be location', inject([ DashboardCrudUpdate ], (crudEdit) => {
         expect(!!crudEdit.location).toEqual(true);
     }));
 
-    it('should be columnDefs', inject([ DashboardCrudCreate ], (crudEdit) => {
+    it('should be columnDefs', inject([ DashboardCrudUpdate ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions.hasOwnProperty('columnDefs')).toBeTruthy();
     }));
 
-    it('should be rowData', inject([ DashboardCrudCreate ], (crudEdit) => {
+    it('should be rowData', inject([ DashboardCrudUpdate ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions.hasOwnProperty('rowData')).toBeTruthy();
     }));
 });
