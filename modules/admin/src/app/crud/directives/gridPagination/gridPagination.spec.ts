@@ -5,10 +5,10 @@ import {
     Response
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { GridPagination } from './gridPagination';
+import { GridPagination } from './gridPagination.component';
 import { CRUD_PROVIDERS } from '../../common/crudProviders';
 import { APP_PROVIDERS } from '../../../app.module';
-import { HTTP_PROVIDERS } from "../../../common/mock/httpProviders";
+import { HTTP_PROVIDERS } from '../../../common/mock/httpProviders';
 
 describe('Grid Pagination', () => {
 

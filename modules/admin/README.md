@@ -4,8 +4,6 @@
 $ npm install
 # Lock down dependency versions
 $ npm shrinkwrap
-# install dependencies listed in bower.json
-$ bower install
 # start the server
 $ npm start
 # start the server in dev mode 

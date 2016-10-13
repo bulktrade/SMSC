@@ -7,6 +7,8 @@ import {
 } from '../crudMetadata/metaDataBindingParameter/metaDataBindingParameter.model';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs';
+import { BatchType } from '../orientdb/model/batchType';
+import { Operation } from '../orientdb/model/operation';
 
 const squel = require('squel');
 
@@ -17,6 +19,42 @@ export class GridService {
                 public serviceNotifications: NotificationService) {
     }
 
+    /**
+     * Selects all linkset properties and replaces RID with title columns.
+     *
+     * @example
+     * let rowData = {
+     *  "name" : "Luca"
+     *  "users": [
+     *      "#25:0",
+     *      "#25:1"
+     *  ]
+     * };
+     *
+     * let columnDefs = [
+     *  { headerName: "Name", field: "name" },
+     *  { headerName: "Users", field: "users" }
+     * ];
+     *
+     * selectLinksetProperties(columnDefs, rowData).then(() => {
+     *  // rowData will be
+     *  //
+     *  // rowData = {
+     *  // "name" : "Luca"
+     *  // "users": [
+     *  //     "0": "admin",
+     *  //     "1": "reader",
+     *  //     "_0" "#25:0",
+     *  //     "_1" "#25:1",
+     *  //     "type": "LINKSET"
+     *  //   ]
+     *  // };
+     * });
+     *
+     * @param columnDefs
+     * @param rowData
+     * @returns {any}
+     */
     selectLinksetProperties(columnDefs, rowData) {
         let linksetProperties = [];
 
@@ -34,6 +72,13 @@ export class GridService {
         return this.replaceLinksetItemsWithName(linksetProperties, rowData);
     }
 
+    /**
+     * Replaces all link in grid with titleColumns.
+     *
+     * @param linksetProperties
+     * @param rowData
+     * @returns {any}
+     */
     replaceLinksetItemsWithName(linksetProperties, rowData) {
         let promises = [];
 
@@ -44,13 +89,15 @@ export class GridService {
                 if (typeof linkset !== 'undefined' && i['type'] === 'LINKSET') {
                     for (let keyLink = 0; keyLink < linkset.length; keyLink++) {
                         promises.push(
-                            this.getLinksetName(linkset, keyLink, i['linkedClass'], i['type']));
+                            this.setNameToLinksetProperty(linkset, keyLink,
+                                i['linkedClass'], i['type']));
                     }
                     linkset['type'] = i['type'];
                 } else if (i['type'] === 'LINK') {
                     if (typeof row[i['name']] !== 'undefined' && row[i['name']] !== null) {
                         promises.push(
-                            this.getLinksetName(row, i['name'], i['linkedClass'], i['type']));
+                            this.setNameToLinksetProperty(row, i['name'],
+                                i['linkedClass'], i['type']));
                     }
                 }
             });
@@ -59,7 +106,16 @@ export class GridService {
         return Promise.all(promises);
     }
 
-    getLinksetName(linkset, keyLink, className, type) {
+    /**
+     * Sets name to linkset property.
+     *
+     * @param linkset
+     * @param keyLink
+     * @param className
+     * @param type
+     * @returns {Promise<TResult>|Promise<TResult2|TResult1>|Promise<U>}
+     */
+    setNameToLinksetProperty(linkset, keyLink, className, type) {
         return this.database.load(linkset[keyLink])
             .then((res) => {
                 return this.getTitleColumns(className)
@@ -98,6 +154,12 @@ export class GridService {
             });
     }
 
+    /**
+     * Gets the name for column from the titleColumns property.
+     *
+     * @param className
+     * @return {Promise<T>}
+     */
     getTitleColumns(className): Promise<string> {
         let queryCrudClassMetaData = squel.select()
             .from('CrudClassMetaData')
@@ -120,6 +182,19 @@ export class GridService {
         });
     }
 
+    /**
+     * Generates the expression for filtering the links.
+     *
+     * @example
+     * let currentCrudLevel: CrudLevel = ...;
+     *
+     * combineOperators(currentCrudLevel).then((res) => {
+     *  console.log(res.toString()); // `@rid` = `#25:0` OR `@rid` = `#25:1`
+     * });
+     *
+     * @param currentCrudLevel
+     * @returns {any}
+     */
     combineOperators(currentCrudLevel: CrudLevel) {
         if (typeof currentCrudLevel !== 'undefined') {
             let promises: Array<Promise<string>> = [];
@@ -133,23 +208,23 @@ export class GridService {
                         this.database.load(rid)
                             .then(res => {
                                 let result: MetaDataPropertyBindingParameterModel = res.json();
-                                let linksetPromises = [];
 
-                                if (currentCrudLevel.linksetProperty.data.hasOwnProperty('@rid')) {
-                                    if (currentCrudLevel.linksetProperty.data['@rid'] === result.toProperty) {
-                                        linksetPromises.push(this.database.load(currentCrudLevel.linksetProperty.data['@rid'])
-                                            .then(response => {
-                                                let customer = response.json();
+                                if (currentCrudLevel.inputModel.hasOwnProperty('@rid')) {
+                                    let expr: string = result.fromProperty + '.' +
+                                        result.toProperty + ' ' + result.operator + ' ' +
+                                        currentCrudLevel.linksetProperty.data[result.toProperty];
 
-                                                customer[currentCrudLevel.linksetProperty.name].forEach(link => {
-                                                    expression
-                                                        .or('@rid = ?', link);
-                                                });
-                                            })
-                                        );
+                                    if (currentCrudLevel.linksetProperty.data[result.toProperty]) {
+                                        expression
+                                            .or(expr);
                                     }
+                                } else {
+                                    let expr: string = result.fromProperty + '.' +
+                                        result.toProperty + ' ' + 'IS NULL';
+
+                                    expression
+                                        .or(expr);
                                 }
-                                return Promise.all(linksetPromises);
                             })
                     );
                 }
@@ -164,10 +239,16 @@ export class GridService {
         }
     }
 
+    /**
+     * Returns the number records from class.
+     *
+     * @param className
+     * @returns {any}
+     */
     getSizeClass(className: string): Observable<number> {
         return Observable.create((obs) => {
             this.database.getInfoClass(className)
-                .then((res: Response) => {
+                .subscribe((res: Response) => {
                     obs.next(res.json().records);
                     obs.complete();
                 }, (error) => {
@@ -176,5 +257,60 @@ export class GridService {
                     obs.complete();
                 });
         });
+    }
+
+    /**
+     * Adds link to created record to LINK properties.
+     * After created a new customer,
+     * the contact should have a link to the customer after creating
+     *
+     * @example
+     * addLinkToCreatedRecord('#22:3', 'customer', ['users', 'contacts']);
+     *
+     * @param result
+     * @param className
+     * @param nameProperty
+     * @param linkProperties
+     * @returns {Promise<Response>}
+     */
+    addLinkToCreatedRecord(result, nameProperty: string,
+                           linkProperties: Array<string>): Promise<Response> {
+        let promises: Array<Promise<Response>> = [];
+
+        linkProperties.forEach(i => {
+            let link = result[i];
+
+            for (let k in link) {
+                if (link.hasOwnProperty(k)) {
+                    let rid = link[k];
+
+                    promises.push(
+                        this.database.load(rid)
+                            .then((res: Response) => {
+                                let dataRow = res.json();
+                                dataRow[nameProperty] = result['@rid'];
+
+                                let operations: Array<Operation> = [
+                                    {
+                                        type: BatchType.UPDATE,
+                                        record: dataRow
+                                    }
+                                ];
+
+                                return new Promise((resolve, reject) => {
+                                    this.database.batch(operations)
+                                        .subscribe(response => {
+                                            resolve(response);
+                                        }, err => {
+                                            reject(err);
+                                        });
+                                });
+                            })
+                    );
+                }
+            }
+        });
+
+        return Promise.all(promises);
     }
 }

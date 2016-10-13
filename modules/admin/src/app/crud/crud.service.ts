@@ -31,7 +31,6 @@ export class CrudService {
     public clickOnEditBtn: boolean;
     public multipleSelectValid = false;
     public querySelectors = null;
-    public embeddedList = null;
     public rowSelectionLinkset = null;
     public linkedClass: string = null;
     public initGridData: Promise<any> = Promise.resolve();
@@ -95,6 +94,13 @@ export class CrudService {
             });
     }
 
+    /**
+     * Sets the cell style if the entered incorrect data.
+     *
+     * @param gridOptions
+     * @param style
+     * @param changeCell
+     */
     setCellStyleWhenDataIncorrect(gridOptions: GridOptions, style: Object, changeCell) {
         gridOptions.columnDefs.filter(i => {
             if (i.property === changeCell.colDef.property) {
@@ -108,6 +114,23 @@ export class CrudService {
         gridOptions.api.setColumnDefs(this.gridOptions.columnDefs);
     }
 
+    /**
+     * Creates a new record in the database.
+     *
+     * @example
+     * let record = {
+     *  name: 'test',
+     *  foo: 'bar'
+     * };
+     *
+     * let className = 'Crud';
+     *
+     * createRecord(record, className);
+     *
+     * @param record
+     * @param className
+     * @returns {Promise<T>}
+     */
     createRecord(record, className): Promise<Response> {
         record['@class'] = className;
         this.loadingService.start();
@@ -134,6 +157,21 @@ export class CrudService {
         });
     }
 
+    /**
+     * Updates a record in the database.
+     *
+     * @example
+     * let record = {
+     *  "@rid" : "#14:122",
+     *  "name" : "Luca",
+     *  "vehicle" : "Car"
+     * };
+     *
+     * updateRecord(record);
+     *
+     * @param record
+     * @returns {Promise<T>}
+     */
     updateRecord(record): Promise<Response> {
         this.loadingService.start();
 
@@ -159,6 +197,17 @@ export class CrudService {
         });
     }
 
+    /**
+     * Removes one or more records from the database.
+     *
+     * @example
+     * let rids: Array<string> = ['#25:0', '#25:1'];
+     *
+     * updateRecord(rids);
+     *
+     * @param rid
+     * @returns {any}
+     */
     deleteRecord(rid: Array<string>): Observable<Response> {
         let record: any = {};
         record['@rid'] = rid;
@@ -192,23 +241,11 @@ export class CrudService {
         });
     }
 
-    clickOnCell(event) {
-        let columnDefs = event.colDef;
-
-        switch (columnDefs.type) {
-            case 'LINKSET':
-            case 'LINK':
-                break;
-
-            case 'EMBEDDEDLIST':
-                this.embeddedList = columnDefs.custom['type'] || '';
-                break;
-
-            default:
-                break;
-        }
-    }
-
+    /**
+     * Called when select the row and sets the style to checkbox.
+     *
+     * @param gridOptions
+     */
     rowSelected(gridOptions) {
         if (gridOptions.api.getSelectedRows().length === gridOptions.rowData.length) {
             this.changeCheckboxState('allSelected', gridOptions);
@@ -219,6 +256,12 @@ export class CrudService {
         }
     }
 
+    /**
+     * Returns a result set of records from table.
+     *
+     * @param className
+     * @returns {any}
+     */
     getStore(className): Observable<Response> {
         return Observable.create((observer: Observer<Response>) => {
             this.databaseService.query('select from ' + className)
@@ -233,10 +276,21 @@ export class CrudService {
         });
     }
 
+    /**
+     * Replaces overlay loading template.
+     *
+     * @returns {any|T}
+     */
     overlayLoadingTemplate() {
         return cubeGridHtml;
     }
 
+    /**
+     * The method adds checkbox selection to the columnDefs property.
+     *
+     * @param columnDefs
+     * @param gridOptions
+     */
     addColumnCheckbox(columnDefs, gridOptions) {
         columnDefs.grid.unshift({
             headerName: ' ',
@@ -346,6 +400,12 @@ export class CrudService {
         });
     }
 
+    /**
+     * Called when select the row or click on checkbox and sets the style to checkbox.
+     *
+     * @param isSelectCheckbox
+     * @param gridOptions
+     */
     changeCheckboxState(isSelectCheckbox, gridOptions) {
         switch (isSelectCheckbox) {
             case 'allSelected':
@@ -375,6 +435,24 @@ export class CrudService {
         }
     }
 
+    /**
+     * Renders the button in column.
+     *
+     * @example
+     * let columnDefs = [
+     *  { headerName: 'Employee', field: 'employee' }
+     * ];
+     *
+     * btnRenderer(columnDefs, 'Button', 200, 'done', (event) => {
+     *  // do something
+     * });
+     *
+     * @param columnDefs
+     * @param nameBtn
+     * @param width
+     * @param iconName
+     * @param clickEvent
+     */
     btnRenderer(columnDefs, nameBtn, width, iconName, clickEvent?: (event) => void) {
         columnDefs.grid.push({
             headerName: ' ',
@@ -402,6 +480,11 @@ export class CrudService {
         });
     }
 
+    /**
+     * Called when click on row.
+     *
+     * @param event
+     */
     rowClicked(event) {
         this.focusedRow = event;
 
@@ -414,19 +497,40 @@ export class CrudService {
         }
     }
 
+    /**
+     * Navigate to update component and send the id parameter.
+     *
+     * @param id
+     */
     navigateToEdit(id: number) {
         this.router.navigate([this.parentPath, 'edit', id]);
     }
 
+    /**
+     * Navigate to delete component and send the id parameter.
+     *
+     * @param id
+     */
     navigateToDelete(id: number) {
         this.router.navigate([this.parentPath, 'delete', id]);
     }
 
-    navigateToLinkset(linsetProperty?: LinksetProperty) {
-        this.nextCrudLevel(linsetProperty);
+    /**
+     * Navigate to linkset component and sets next level in crud system.
+     *
+     * @param linsetProperty
+     */
+    navigateToLinkset(linksetProperty?: LinksetProperty) {
+        this.nextCrudLevel(linksetProperty);
         this.router.navigate([this.parentPath, 'linkset']);
     }
 
+    /**
+     * Moves to the next level in crud system and saves the data like:
+     * class name, input model (from the dynamic form) and linksetProperty.
+     *
+     * @param linsetProperty
+     */
     nextCrudLevel(linsetProperty?: LinksetProperty) {
         let crudLevel: CrudLevel = {
             className: this.getLinkedClass(),
@@ -437,6 +541,11 @@ export class CrudService {
         this.crudLevel.push(crudLevel);
     }
 
+    /**
+     * Moves to the previous level in crud system and removes the last level.
+     *
+     * @returns {CrudLevel}
+     */
     previousCrudLevel(): CrudLevel {
         let previousLevel: CrudLevel = this.crudLevel.pop();
 
@@ -446,6 +555,11 @@ export class CrudService {
         return previousLevel;
     }
 
+    /**
+     * Navigates back in the platform's history.
+     *
+     * @param location
+     */
     backFromForm(location: Location) {
         location.back();
     }
@@ -460,6 +574,11 @@ export class CrudService {
         return id;
     }
 
+    /**
+     * Adds RID column.
+     *
+     * @param columnDefs
+     */
     addRIDColumn(columnDefs) {
         columnDefs.push({
             headerName: 'RID',
@@ -469,6 +588,13 @@ export class CrudService {
         });
     }
 
+    /**
+     * Translates the column names for grid
+     *
+     * @param columnDefs
+     * @param name
+     * @returns {Promise<TResult2|TResult1>|Promise<TResult>|Promise<U>}
+     */
     translateColumnsName(columnDefs, name): Promise<any> {
         let headersName = [];
 
@@ -487,6 +613,13 @@ export class CrudService {
             });
     }
 
+    /**
+     * Gets the column definitions with metaData for grid.
+     *
+     * @param className
+     * @param readOnly
+     * @returns {any}
+     */
     getColumnDefs(className, readOnly): Observable<ColumnDefsModel> {
         let columnDefs: ColumnDefsModel = {
             grid: [],
@@ -534,6 +667,14 @@ export class CrudService {
         });
     }
 
+    /**
+     * Sets the additional metaData to formProperties from metaData classes.
+     * Such as: editable, visible, readOnly, etc...
+     *
+     * @param properties
+     * @param className
+     * @returns {any}
+     */
     setPropertiesMetaFormData(properties, className): Observable<ColumnModel> {
         let queryCrudMetaFormData = squel.select()
             .from('CrudMetaFormData')
@@ -591,6 +732,14 @@ export class CrudService {
         });
     }
 
+    /**
+     * Sets the additional metaData to gridProperties from metaData classes.
+     * Such as: editable, visible, width, etc...
+     *
+     * @param properties
+     * @param className
+     * @returns {any}
+     */
     setPropertiesMetaGridData(properties, className): Observable<ColumnModel> {
         let queryCrudMetaGridData = squel.select()
             .from('CrudMetaGridData')
@@ -650,7 +799,13 @@ export class CrudService {
         });
     }
 
-    // to get additional metadata for the property. As the type linkedClass, mandatory, etc.
+    /**
+     * Gets the metadata for the property. Such as: linkedClass, mandatory, etc.
+     *
+     * @param column
+     * @param isGrid
+     * @param properties
+     */
     getPropertyMetadata(column, isGrid: boolean, properties) {
         let metadataGridProperty = ['linkedClass', 'type', 'custom'];
         let metadataFormProperty = ['mandatory', 'type', 'linkedClass', 'custom'];
@@ -683,6 +838,13 @@ export class CrudService {
         }
     }
 
+    /**
+     * Compares the order of the properties.
+     *
+     * @param a
+     * @param b
+     * @returns {number}
+     */
     compare(a, b) {
         if (a.order < b.order)
             return -1;
@@ -691,11 +853,20 @@ export class CrudService {
         return 0;
     }
 
+    /**
+     * Hides all messages.
+     */
     hideAllMessageBoxes() {
         this.dataNotFound = false;
         this.successExecute = false;
     }
 
+    /**
+     * Gets the select options from property.
+     *
+     * @param columnDefsItem
+     * @returns {any}
+     */
     getSelectOptions(columnDefsItem) {
         if (typeof columnDefsItem !== 'undefined') {
             if (columnDefsItem.hasOwnProperty('custom')) {
@@ -706,6 +877,11 @@ export class CrudService {
         return [];
     }
 
+    /**
+     * Checks the limit of crud levels.
+     *
+     * @returns {boolean}
+     */
     isLimitCrudLevel() {
         if (this.crudLevel.length >= this.limitCrudLevel - 1) {
             return true;
@@ -714,6 +890,12 @@ export class CrudService {
         }
     }
 
+    /**
+     * Renders input field depending on property type.
+     *
+     * @param type
+     * @returns {string}
+     */
     typeForInput(type) {
         let types = INPUT_TYPES;
         let result: string = null;
@@ -731,6 +913,12 @@ export class CrudService {
         return result;
     }
 
+    /**
+     * Sets the type for input field depending on property type.
+     *
+     * @param type
+     * @returns {string}
+     */
     inputType(type) {
         let result: string;
 
@@ -759,6 +947,11 @@ export class CrudService {
         return result;
     }
 
+    /**
+     * Checks whether a multiple select is filled
+     *
+     * @param event
+     */
     isRequired(event) {
         if (event) {
             this.multipleSelectValid = true;
@@ -766,6 +959,11 @@ export class CrudService {
         }
     }
 
+    /**
+     * Sets path from root component.
+     *
+     * @param parent
+     */
     setParentPath(parent: Array<ActivatedRouteSnapshot>) {
         let pathFromRoot: string = '';
         let urlSuffix: string = '/';
@@ -779,6 +977,13 @@ export class CrudService {
         this.parentPath = pathFromRoot;
     }
 
+    /**
+     * Sets the value in the model from property with EMBEDDEDLIST type.
+     *
+     * @param propertyName
+     * @param event
+     * @returns {any}
+     */
     setEmbeddedList(propertyName: string, event?: string) {
         if (!this.model[propertyName]) {
             this.model[propertyName] = [];

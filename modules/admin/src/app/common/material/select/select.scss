@@ -25,25 +25,37 @@ select:focus {
 }
 
 .mdl-selectfield select {
-    appearance: none
+    appearance: none;
 }
 
 .mdl-selectfield {
-    font-family: 'Open Sans', sans-serif;
-    position: relative;
-    padding-bottom: 20px;
-    &:after {
-        position: absolute;
-        top: 0.75em;
-        right: 0.5em;
-        width: 0;
-        height: 0;
-        padding: 0;
-        content: '';
-        border-left: .25em solid transparent;
-        border-right: .25em solid transparent;
-        border-top: .375em solid $select-border-color;
-        pointer-events: none;
+    padding-bottom: 10px;
+
+    .selectWrap {
+        border: 1px solid rgba(0, 0, 0, 0.38);
+        color: rgba(0, 0, 0, 0.38);
+        font-family: 'Open Sans', sans-serif;
+        position: relative;
+        padding: 5px 5px 20px 5px;
+
+        hr {
+            padding: 0;
+            margin: 6px 0 6px 0;
+        }
+
+        .md-select:after {
+            position: absolute;
+            top: 0.75em;
+            right: 0.5em;
+            width: 0;
+            height: 0;
+            padding: 0;
+            content: '';
+            border-left: .25em solid transparent;
+            border-right: .25em solid transparent;
+            border-top: .375em solid $select-border-color;
+            pointer-events: none;
+        }
     }
 }
 

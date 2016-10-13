@@ -9,7 +9,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { APP_PROVIDERS } from '../app.module';
-import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
+import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
 
 describe('ODatabaseService', () => {
 
@@ -50,6 +50,27 @@ describe('ODatabaseService', () => {
             });
     }));
 
+    it('should get an error when connecting to orientdb',
+        inject([MockBackend, Http, ODatabaseService],
+        (backend: MockBackend, http: Http, db: ODatabaseService) => {
+        let path = '/orientdb/connect/smsc';
+        let error: Error = {
+            name: 'Error',
+            message: 'Bad Gateway'
+        };
+
+        backend.connections.subscribe(c => {
+            expect(c.request.url).toEqual(path);
+            c.mockError(error);
+        });
+
+        db.open('test', 'test')
+            .then(() => {
+            }, (err: Error) => {
+                expect(err.name).toEqual('Error');
+            });
+    }));
+
     it('should return a query result', inject([MockBackend, Http, ODatabaseService],
         (backend: MockBackend, http: Http, db: ODatabaseService) => {
         let path = '/orientdb/query/smsc/sql/select%20from%20Customer/20';
@@ -66,6 +87,27 @@ describe('ODatabaseService', () => {
             });
     }));
 
+    it('should get an error when getting result the method query',
+        inject([MockBackend, Http, ODatabaseService],
+            (backend: MockBackend, http: Http, db: ODatabaseService) => {
+                let path = '/orientdb/query/smsc/sql/select%20from%20Customer/20';
+                let error: Error = {
+                    name: 'Error',
+                    message: 'Bad Gateway'
+                };
+
+                backend.connections.subscribe(c => {
+                    expect(c.request.url).toEqual(path);
+                    c.mockError(error);
+                });
+
+                db.query('select from Customer')
+                    .subscribe(() => {
+                    }, (err: Error) => {
+                        expect(err.name).toEqual('Error');
+                    });
+            }));
+
     it('should execute the command', inject([MockBackend, Http, ODatabaseService],
         (backend: MockBackend, http: Http, db: ODatabaseService) => {
         backend.connections.subscribe(c => {
@@ -74,7 +116,7 @@ describe('ODatabaseService', () => {
         });
 
         db.command()
-            .then((res: Response) => {
+            .subscribe((res: Response) => {
                 expect(res.json().result).toEqual('success');
             });
     }));
@@ -92,6 +134,25 @@ describe('ODatabaseService', () => {
             });
     }));
 
+    it('should get an error when creating the user',
+        inject([MockBackend, Http, ODatabaseService],
+            (backend: MockBackend, http: Http, db: ODatabaseService) => {
+                let error: Error = {
+                    name: 'Error',
+                    message: 'Bad Gateway'
+                };
+
+                backend.connections.subscribe(c => {
+                    c.mockError(error);
+                });
+
+                db.create('root', '12t')
+                    .subscribe(() => {
+                    }, (err: Error) => {
+                        expect(err.name).toEqual('Error');
+                    });
+            }));
+
     it('should get the metadata', inject([MockBackend, Http, ODatabaseService],
         (backend: MockBackend, http: Http, db: ODatabaseService) => {
         let path = '/orientdb/database/smsc';
@@ -107,6 +168,27 @@ describe('ODatabaseService', () => {
                 expect(res.json().result).toEqual('success');
             });
     }));
+
+    it('should get an error when getting the metadata',
+        inject([MockBackend, Http, ODatabaseService],
+            (backend: MockBackend, http: Http, db: ODatabaseService) => {
+                let path = '/orientdb/database/smsc';
+                let error: Error = {
+                    name: 'Error',
+                    message: 'Bad Gateway'
+                };
+
+                backend.connections.subscribe(c => {
+                    expect(c.request.url).toEqual(path);
+                    c.mockError(error);
+                });
+
+                db.metadata()
+                    .then(() => {
+                    }, (err: Error) => {
+                        expect(err.name).toEqual('Error');
+                    });
+            }));
 
     it('should return the record informations', inject([MockBackend, Http, ODatabaseService],
         (backend: MockBackend, http: Http, db: ODatabaseService) => {

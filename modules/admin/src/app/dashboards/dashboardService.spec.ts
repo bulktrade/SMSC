@@ -11,8 +11,8 @@ import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 import { GridService } from '../services/grid.service';
 import { Observable } from 'rxjs';
 import { DashboardBox } from './models/dashboardBox';
-import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
-import { Router } from "@angular/router";
+import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
+import { Router } from '@angular/router';
 
 class MockLocation {}
 

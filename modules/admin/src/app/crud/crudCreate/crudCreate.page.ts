@@ -1,7 +1,10 @@
 import { InputElement } from '../../common/inputElement';
-import { EC } from "../../common/expectedConditions";
+import { EC } from '../../common/expectedConditions';
+import { CrudPage } from '../crud.page';
 
 export class CreatePage {
+    public crudPage: CrudPage = new CrudPage();
+
     public hint = element(by.css('.companyName md-hint'));
     public contactsHint = element(by.css('.contacts .md-hint'));
     public usersHint = element(by.css('.users .md-hint'));
@@ -83,9 +86,6 @@ export class CreatePage {
         }
     ];
 
-    private _ptor;
-    private timeWait: number = 10000;
-
     constructor() {
     }
 
@@ -146,7 +146,8 @@ export class CreatePage {
     }
 
     sendKeysToEmailField() {
-        let emailField = this.inputElementsOnSecondLevel[this.inputElementsOnSecondLevel.length - 1].element;
+        let emailField = this.inputElementsOnSecondLevel[
+            this.inputElementsOnSecondLevel.length - 1].element;
         let data = 'lui@beet.com';
 
         browser.wait(EC.elementToBeClickable(emailField), 5000);
@@ -213,13 +214,5 @@ export class CreatePage {
     isPresentUsersHint() {
         browser.wait(EC.stalenessOf(this.usersHint), 5000);
         return this.usersHint.isPresent();
-    }
-
-    get ptor() {
-        return this._ptor;
-    }
-
-    set ptor(value) {
-        this._ptor = value;
     }
 }

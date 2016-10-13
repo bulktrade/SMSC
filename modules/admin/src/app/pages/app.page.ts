@@ -1,4 +1,4 @@
-import { EC } from "./common/expectedConditions";
+import { EC } from './common/expectedConditions';
 export class AppTest {
 
     public elemUsername = element(by.className('username'));

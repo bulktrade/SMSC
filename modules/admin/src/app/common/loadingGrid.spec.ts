@@ -1,5 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { LoadingGrid } from './loadingGrid';
+import { LoadingGrid } from './loadingGrid.component';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 import { HttpModule } from '@angular/http';
 

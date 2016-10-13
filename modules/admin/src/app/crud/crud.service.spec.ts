@@ -9,7 +9,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { CrudService } from './crud.service';
-import { HTTP_PROVIDERS } from "../common/mock/httpProviders";
+import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
 
 describe('Crud Service', () => {
     beforeEach(() => {

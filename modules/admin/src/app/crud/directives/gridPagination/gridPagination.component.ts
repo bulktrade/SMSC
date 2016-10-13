@@ -6,7 +6,7 @@ import { NotificationService } from '../../../services/notificationService';
 import { GridOptions } from 'ag-grid';
 import { GridService } from '../../../services/grid.service';
 import { CommonModule } from '@angular/common';
-import { MdSelectModule } from '../../../common/material/select/select';
+import { MdSelectModule } from '../../../common/material/select/select.component';
 import { MdModule } from '../../../md.module';
 import { CrudLevel } from '../../model/crudLevel';
 

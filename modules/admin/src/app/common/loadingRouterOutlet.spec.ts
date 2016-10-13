@@ -1,5 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { LoadingRouterOutlet } from './loadingRouterOutlet';
+import { LoadingRouterOutlet } from './loadingRouterOutlet.component';
 import { HttpModule } from '@angular/http';
 import { LoadingGridService } from '../services/loading/loadingGrid.service';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';

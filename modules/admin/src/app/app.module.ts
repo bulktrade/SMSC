@@ -34,7 +34,7 @@ import { Sidebar } from './sidebar/sidebar.component';
 import { SidebarItem } from './sidebar/sidebaritem.component';
 import { CrudViewResolve } from './crud/crudView/crudView.resolve';
 import { CrudModule } from './crud/crud.module';
-import { LoadingRouterOutletModule } from './common/loadingRouterOutlet';
+import { LoadingRouterOutletModule } from './common/loadingRouterOutlet.component';
 import { ConfigService } from './config/configService';
 import { LoadingRouterOutletService } from './services/loading/loadingRouterOutlet.service';
 import { LoadingService } from './services/loading/loading.service';
@@ -95,6 +95,7 @@ export const APP_PROVIDERS = [
         Ng2BootstrapModule,
         BrowserModule,
         FormsModule,
+        NoInternetModule,
         HttpModule,
         RouterModule.forRoot(ROUTES, { useHash: false }),
         MdModule.forRoot(),

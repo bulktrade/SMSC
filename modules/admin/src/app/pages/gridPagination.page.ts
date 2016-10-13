@@ -1,10 +1,10 @@
-import { CreatePage } from '../../crudCreate/crudCreate.page';
 import { LoginPage } from '../../../login/login.page';
-import { EC } from "../../../common/expectedConditions";
+import { EC } from '../../../common/expectedConditions';
+import { CrudPage } from '../../crud.page';
 
 export class GridPaginationPage {
     public login: LoginPage = new LoginPage();
-    public crudPage: CreatePage = new CreatePage();
+    public crudPage: CrudPage = new CrudPage();
 
     public firstBtn = element(by.id('firstPage'));
     public previousBtn = element(by.id('previousPage'));

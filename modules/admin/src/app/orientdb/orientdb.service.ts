@@ -39,6 +39,12 @@ export class ODatabaseService {
         this.urlSuffix = '';
     }
 
+    /**
+     * Executes a batch of operations in a single call.
+     *
+     * @param data
+     * @return {any}
+     */
     batchRequest(data): Observable<Response> {
         let headers = new Headers({
             'Content-Type': 'application/json'
@@ -70,11 +76,10 @@ export class ODatabaseService {
     };
 
     /**
-     *
-     * ### Example
-     *
+     * Executes a batch of operations in a single call.
      * Content: { "transaction" : , "operations" : [ { "type" : "" }* ] }
      *
+     * @example
      * let operations: Array<operations> = [{
      *      "type": BatchType.UPDATE,
      *      "record": {
@@ -97,11 +102,11 @@ export class ODatabaseService {
      *
      * batch(options);
      *
+     * more information: http://orientdb.com/docs/2.1/OrientDB-REST.html
      *
-     * for more information look here http://orientdb.com/docs/2.1/OrientDB-REST.html
-     *
+     * @param operations
+     * @return {Observable<Response>}
      */
-
     batch(operations: Array<Operation>): Observable<Response> {
         let batch: Batch = {
             transaction: true,
@@ -125,26 +130,62 @@ export class ODatabaseService {
         return this.batchRequest(JSON.stringify(batch));
     }
 
-    getInfoClass(className) {
+    /**
+     * Gets informations about requested class.
+     *
+     * HTTP response:
+     *   { "class": {
+     *       "name": "<class-name>"
+     *       "properties": [
+     *         { "name": <property-name>,
+     *           "type": <property-type>,
+     *           "mandatory": <mandatory>,
+     *           "notNull": <not-null>,
+     *           "min": <min>,
+     *           "max": <max>
+     *         }
+     *       ]
+     *     }
+     *   }
+     *
+     * @param className
+     * @return {any}
+     */
+    getInfoClass(className): Observable<Response> {
         let headers = new Headers({
             'content-Type': 'application/json'
         });
 
-        return this.authHttp.get(this.urlPrefix + 'class/' + this.encodedDatabaseName
-            + '/' + className, headers)
-            .toPromise()
-            .then(
-                res => {
-                    this.setErrorMessage(undefined);
-                    this.handleResponse(res);
-                    return Promise.resolve((this.getCommandResponse()));
-                },
-                error => {
-                    this.setErrorMessage('Command error: ' + error.responseText);
-                    return Promise.reject(error);
-                });
+        return Observable.create((obs) => {
+            this.authHttp.get(this.urlPrefix + 'class/' + this.encodedDatabaseName
+                + '/' + className, headers)
+                .subscribe(
+                    res => {
+                        this.setErrorMessage(undefined);
+                        this.handleResponse(res);
+                        obs.next(this.getCommandResponse());
+                        obs.complete();
+                    },
+                    error => {
+                        this.setErrorMessage('Command error: ' + error.responseText);
+                        obs.error(error);
+                        obs.complete();
+                    });
+        });
     }
 
+    /**
+     * Method that executes arbitrary commands, it returns command result in text format.
+     *
+     * @example
+     * executeCommand('insert into Address (street,type) values (\'Via test 1\',\'Tipo test\')');
+     *
+     * @param iCommand
+     * @param iLanguage
+     * @param iLimit
+     * @param iFetchPlan
+     * @return {any}
+     */
     executeCommand(iCommand?, iLanguage?, iLimit?,
                    iFetchPlan?) {
         return this.command(iCommand, iLanguage, iLimit, iFetchPlan);
@@ -181,25 +222,36 @@ export class ODatabaseService {
             method: RequestMethod.Post
         });
 
-        return new Promise((resolve, reject) => {
+        return Observable.create((obs) => {
             this.authHttp.request(this.urlPrefix + 'command/' + this.encodedDatabaseName + '/' +
                 iLanguage + '/' + iCommand + '/' + iLimit + iFetchPlan +
                 this.urlSuffix,
                 requestOptions)
-                .toPromise()
-                .then(
+                .subscribe(
                     res => {
                         this.setErrorMessage(undefined);
                         this.handleResponse(res);
-                        resolve(this.getCommandResponse());
+                        obs.next(this.getCommandResponse());
+                        obs.complete();
                     },
                     error => {
                         this.handleResponse(undefined);
                         this.setErrorMessage('Command error: ' + error.responseText);
+                        obs.error(error);
+                        obs.complete();
                     });
         });
     };
 
+    /**
+     * Method that connects to the server, it returns database information in JSON format.
+     *
+     * @param userName
+     * @param userPass
+     * @param authProxy
+     * @param type
+     * @return {Promise<T>}
+     */
     open(userName?, userPass?, authProxy?, type?: RequestMethod) {
         if (userName === undefined) {
             userName = '';
@@ -255,11 +307,30 @@ export class ODatabaseService {
     }
 
     /**
+     * Method that executes the query, it returns query results in JSON format.
+     *
+     * @example
+     * query('select from Address where city.country.name = \'Italy\'');
+     *
+     * Return Example:
+     *   { "result": [{
+     *         "@rid": "12:0", "@class": "Address",
+     *         "street": "Piazza Navona, 1",
+     *         "type": "Residence",
+     *         "city": "#13:0"
+     *       }, {
+     *         "@rid": "12:1", "@class": "Address",
+     *         "street": "Piazza di Spagna, 111",
+     *         "type": "Residence",
+     *         "city": "#13:0"
+     *       }
+     *     ]
+     *   }
      *
      * @param iQuery
      * @param iLimit
      * @param iFetchPlan
-     * @returns {Observable<Response>}
+     * @return {Observable<Response>}
      */
     query(iQuery?, iLimit?, iFetchPlan?): Observable<Response> {
         if (iLimit === undefined || iLimit === '') {
@@ -280,6 +351,11 @@ export class ODatabaseService {
         return this.authHttp.get(this.urlPrefix + url + this.urlSuffix, headers);
     }
 
+    /**
+     * Method that disconnects from the server.
+     *
+     * @return {Promise<T>}
+     */
     close() {
         if (this.databaseInfo !== undefined) {
 
@@ -566,6 +642,11 @@ export class ODatabaseService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
+    /**
+     * Gets user name.
+     *
+     * @return {any}
+     */
     getUserName() {
         if (!this.databaseInfo) {
             return undefined;
@@ -642,11 +723,30 @@ export class ODatabaseService {
                     error => {
                         this.setErrorMessage('Connect error: ' + error.responseText);
                         this.setDatabaseInfo(undefined);
+                        reject(error);
                     }
                 );
         });
     }
 
+    /**
+     * Method that loads a record from the record ID, it
+     * returns the record informations in JSON format.
+     *
+     * @example
+     * load('12:0');
+     *
+     * Return Example:
+     * { "@rid": "12:0", "@class": "Address",
+     *         "street": "Piazza Navona, 1",
+     *         "type": "Residence",
+     *         "city": "#13:0"
+     *       }
+     *
+     * @param iRID
+     * @param iFetchPlan
+     * @return {Promise<TResult>|Promise<U>|Promise<TResult2|TResult1>}
+     */
     load(iRID?, iFetchPlan?) {
         if (this.databaseInfo === undefined) {
             this.open();
