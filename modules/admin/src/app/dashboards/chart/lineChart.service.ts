@@ -8,16 +8,13 @@ export class LineChartService {
     constructor(private _baConfig: BaThemeConfigProvider) {
     }
 
-    getData(chartType: string) {
+    getData(chartType: string): Object {
         switch (chartType) {
             case 'serial':
                 return this.getSerial();
 
-                break;
             case 'pie':
                 return this.getPie();
-
-                break;
         }
     }
 
