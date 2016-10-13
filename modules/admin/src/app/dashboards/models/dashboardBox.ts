@@ -2,11 +2,13 @@ import { DashboardBoxType } from "./dashboardBoxType";
 import { MetaData } from "../../common/models/metaData";
 import { Dashboard } from "./dashboard";
 import { OUser } from "../../common/models/OUser";
+import {ChartType} from "./chartType";
 
 export class DashboardBox {
     metaData: MetaData;
     name: string;
     description: string;
+    chartType: ChartType;
     width: number;
     height: number;
     order: number;
@@ -38,6 +40,17 @@ export class DashboardBox {
                 data['dashboard']['user']['name']
             )
         );
+
+        if (data['chartType']) {
+            this.chartType = new ChartType(
+                new MetaData(
+                    data['chartType']['@class'],
+                    data['chartType']['@rid'],
+                    data['chartType']['@version']
+                ),
+                data['chartType']['name']
+            );
+        }
 
         this.type = new DashboardBoxType(
             new MetaData(

@@ -14,6 +14,7 @@ import { DashboardResizeConfig } from "./dashboardResizeConfig";
 import { BoxResize } from "./models/dashboardBoxEnum";
 
 import { LineChartService } from './chart/lineChart.service';
+import {Dashboard} from "./models/dashboard";
 
 @Component({
     selector: 'dashboard-view',
@@ -124,12 +125,6 @@ export class DashboardView {
                 this.boxes.getItem(index)['metaData']['version'] = res['@version'];
                 this.boxes.getItem(index)['width'] = res['width'];
                 this.boxes.getItem(index)['height'] = res['height'];
-
-                let dom: BrowserDomAdapter = new BrowserDomAdapter();
-                let chart = dom.querySelector(dom.query('#dashboard'), `.box[data-boxrid="${item.metaData.rid}"]`);
-                dom.on(chart, 'transitionend', (e) => {
-                    // val.chart['resize']();
-                });
             });
         }
     }
@@ -208,6 +203,8 @@ export class DashboardView {
      * Navigate to create page
      */
     createBox() {
-        this.router.navigate(['/dashboard/create', 'DashboardBox']);
+        this.dashboardService.getDashboard().subscribe((res) => {
+            this.router.navigate(['/dashboard/create', 'DashboardBox', res.metaData.rid]);
+        });
     }
 }

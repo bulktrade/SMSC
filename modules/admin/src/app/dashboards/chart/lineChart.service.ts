@@ -8,8 +8,20 @@ export class LineChartService {
     constructor(private _baConfig: BaThemeConfigProvider) {
     }
 
-    getData() {
+    getData(chartType: string) {
+        switch (chartType) {
+            case 'serial':
+                return this.getSerial();
 
+                break;
+            case 'pie':
+                return this.getPie();
+
+                break;
+        }
+    }
+
+    getSerial() {
         let layoutColors = this._baConfig.get().colors;
         let graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
 

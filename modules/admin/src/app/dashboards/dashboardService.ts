@@ -11,6 +11,9 @@ import { Observer } from 'rxjs/Observer';
 import { BatchType } from '../orientdb/model/batchType';
 import { Operation } from '../orientdb/model/operation';
 import { EditModel } from '../crud/crudUpdate/crudUpdate.model';
+import {Dashboard} from "./models/dashboard";
+import {MetaData} from "../common/models/metaData";
+import {OUser} from "../common/models/OUser";
 
 const squel = require('squel');
 
@@ -164,7 +167,6 @@ export class DashboardService {
      */
     public getBoxFormColumns(route: ActivatedRouteSnapshot, id: string, className: string): Observer<EditModel> {
         this.crudService.setParentPath(route.parent.pathFromRoot);
-        console.log(route.parent.pathFromRoot);
         this.crudService.setClassName(className);
 
         return Observable.create((observer: Observer<EditModel>) => {
@@ -201,6 +203,39 @@ export class DashboardService {
                     observer.error(error);
                     observer.complete();
                 });
+        });
+    }
+
+    // Temporary
+    /**
+     * Get Dashboard for DashboardBox for navigate to form without "Dashboard" field
+     */
+    public getDashboard(): Observable<DashboardBox> {
+        let query = squel.select()
+            .from('Dashboard')
+            .field('*')
+            .limit(1)
+            .toString();
+
+        return Observable.create((observer: Observer<Dashboard>) => {
+            this.databaseService.query(query, 50, '*:3').subscribe((res: Response) => {
+                let data = res.json().result[0];
+                let dashboard: Dashboard = new Dashboard(
+                    new MetaData(
+                        data['@class'],
+                        data['@rid'],
+                        data['@version']
+                    ),
+                    data['icon'],
+                    data['name'],
+                    new OUser(
+                        data['user']['name']
+                    )
+                );
+
+                observer.next(dashboard);
+                observer.complete();
+            })
         });
     }
 }

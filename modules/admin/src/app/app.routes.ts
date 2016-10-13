@@ -10,9 +10,6 @@ import { CRUD_ROUTE_PROVIDER } from './crud/crud.routes';
 import { CrudMetaGridData } from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
 import { CrudMetaFormData } from './crudMetadata/crudMetaFormData/crudMetaFormData.component';
 import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
-import {
-    MetaDataPropertyBindingParameter
-} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
 import { CrudLinkset } from './crud/crudLinkset/crudLinkset.component';
 import { CrudLinksetResolve } from './crud/crudLinkset/crudLinkset.resolve';
 import { Dashboards } from './dashboards/dashboards.components';
@@ -22,6 +19,7 @@ import {DashboardCrudUpdateResolve} from "./dashboards/crud/dashboardCrudUpdate.
 import {DashboardCrudUpdate} from "./dashboards/crud/dashboardBoxUpdate";
 import {DashboardView} from "./dashboards/dashboardView.component";
 import {DashboardCrudCreateResolve} from "./dashboards/crud/dashboardCrudCreate.resolve";
+import {MetaDataPropertyBindingParameter} from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter.component";
 
 const DASHBOARD_ROUTER_PROVIDER = [
     {
@@ -40,7 +38,7 @@ const DASHBOARD_ROUTER_PROVIDER = [
                 component: DashboardCrudUpdate,
                 resolve: { edit: DashboardCrudUpdateResolve } },
             {
-                path: 'create/:className',
+                path: 'create/:className/:dashboard',
                 component: DashboardCrudCreate,
                 resolve: { create: DashboardCrudCreateResolve }
             },
@@ -60,7 +58,7 @@ const DASHBOARD_ROUTER_PROVIDER = [
                 component: DashboardCrudUpdate,
                 resolve: { edit: DashboardCrudUpdateResolve } },
             {
-                path: 'create/:className',
+                path: 'create/:className/:dashboard',
                 component: DashboardCrudCreate,
                 resolve: { create: DashboardCrudCreateResolve }
             },

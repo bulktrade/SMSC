@@ -1,6 +1,4 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MdSelectModule } from '../common/material/select/select';
 import { DashboardService } from './dashboardService';
 import { OrderBy } from './sorts/orderby';
 import { Dashboard } from './dashboard.component';
@@ -12,20 +10,22 @@ import { AgGridModule } from 'ag-grid-ng2';
 import { TranslateModule, TranslateService } from 'ng2-translate';
 import { BrowserModule } from '@angular/platform-browser';
 import { MdModule } from '../md.module';
-import { GridPaginationModule } from '../crud/directives/gridPagination/gridPagination';
-import { LoadingRouterOutletModule } from '../common/loadingRouterOutlet';
 import { CubeGridModule } from '../common/spinner/cubeGrid/cubeGrid.component';
-import { LoadingGridModule } from '../common/loadingGrid';
 import { AlertModule } from 'ng2-bootstrap';
 import { CrudService } from '../crud/crud.service';
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { Dashboards } from './dashboards.components';
 import { BaThemeConfigProvider } from './chart/theme/theme.configProvider';
-import { DynamicFormModule } from '../crud/dynamicForm/dynamicForm';
-import { BaAmChart } from './chart/theme/components/baAmChart/baAmChart.component';
-import { LineChartService } from './chart/lineChart.service';
 import { LineChart } from './chart/lineChart.component';
+import {BaAmChart} from "./chart/theme/components/baAmChart/baAmChart.component";
+import {DynamicFormModule} from "../crud/dynamicForm/dynamicForm.component";
+import {LineChartService} from "./chart/lineChart.service";
+import {MdSelectModule} from "../common/material/select/select.component";
+import {FormsModule} from "@angular/forms";
+import {LoadingGridModule} from "../common/loadingGrid.component";
+import {LoadingRouterOutletModule} from "../common/loadingRouterOutlet.component";
+import {GridPaginationModule} from "../crud/directives/gridPagination/gridPagination.component";
 
 const DASHBOARD_DECLARATION = [
     OrderBy,

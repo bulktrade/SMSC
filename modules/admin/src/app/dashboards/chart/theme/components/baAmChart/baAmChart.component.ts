@@ -16,9 +16,14 @@ declare let AmPieChart;
 })
 export class BaAmChart {
 
-    @Input() baAmChartConfiguration: Object;
-    @Input() baAmChartClass: string;
-    @Output() onChartReady = new EventEmitter<any>();
+    @Input()
+    baAmChartConfiguration: Object;
+
+    @Input()
+    baAmChartClass: string;
+
+    @Output()
+    onChartReady = new EventEmitter<any>();
 
     @ViewChild('baAmChart') private _selector: ElementRef;
 

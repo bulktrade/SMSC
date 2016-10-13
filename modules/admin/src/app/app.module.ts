@@ -39,14 +39,13 @@ import { ConfigService } from './config/configService';
 import { LoadingRouterOutletService } from './services/loading/loadingRouterOutlet.service';
 import { LoadingService } from './services/loading/loading.service';
 import { RouterOutletService } from './services/routerOutletService';
-import {
-    MetaDataPropertyBindingParameter
-} from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter';
 import { SidebarService } from './sidebar/sidebarService';
 import { DashboardModule } from './dashboards/dashboard.module';
 import { HttpInterceptor } from './common/httpInterceptor';
 import {DashboardCrudUpdateResolve} from "./dashboards/crud/dashboardCrudUpdate.resolve";
 import {DashboardCrudCreateResolve} from "./dashboards/crud/dashboardCrudCreate.resolve";
+import {MetaDataPropertyBindingParameter} from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter.component";
+import {NoInternetModule} from "./common/noInternet/noInternet.component";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,

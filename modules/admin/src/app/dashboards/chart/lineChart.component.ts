@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { LineChartService } from './lineChart.service';
+import {Input} from "@angular/core/src/metadata/directives";
 
 @Component({
     selector: 'line-chart',
@@ -9,14 +10,34 @@ import { LineChartService } from './lineChart.service';
     template: require('./lineChart.html')
 })
 export class LineChart {
+    @Input()
+    chartType: string;
 
+    showAllBtn: boolean = false;
+    //  Chart type where can use "Show all" button
+    showAllBtnList: Array<string> = ['serial'];
     chartData: Object;
     chart: any;
 
     constructor(private _lineChartService: LineChartService) {
-        this.chartData = this._lineChartService.getData();
-        //this.chartData = this._lineChartService.getPie();
     }
+
+    ngOnInit() {
+        console.log(this.chartType);
+        this.chartData = this._lineChartService.getData(this.chartType);
+
+        let showAll = this.showAllBtnList.find((element) => {
+            if (this.chartType == element) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        if (showAll) {
+            this.showAllBtn = true;
+        }
+    };
 
     initChart(chart: any) {
         this.chart = chart;
