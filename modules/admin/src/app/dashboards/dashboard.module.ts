@@ -22,7 +22,7 @@ import {BaAmChart} from "./chart/theme/components/baAmChart/baAmChart.component"
 import {DynamicFormModule} from "../crud/dynamicForm/dynamicForm.component";
 import {LineChartService} from "./chart/lineChart.service";
 import {MdSelectModule} from "../common/material/select/select.component";
-import {FormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {LoadingGridModule} from "../common/loadingGrid.component";
 import {LoadingRouterOutletModule} from "../common/loadingRouterOutlet.component";
 import {GridPaginationModule} from "../crud/directives/gridPagination/gridPagination.component";
@@ -48,6 +48,7 @@ const DASHBOARD_DECLARATION = [
         LoadingGridModule,
         AlertModule,
         FormsModule,
+        ReactiveFormsModule,
         MdModule.forRoot(),
         BrowserModule,
         TranslateModule,

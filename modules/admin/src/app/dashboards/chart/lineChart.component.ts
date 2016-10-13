@@ -23,7 +23,6 @@ export class LineChart {
     }
 
     ngOnInit() {
-        console.log(this.chartType);
         this.chartData = this._lineChartService.getData(this.chartType);
 
         let showAll = this.showAllBtnList.find((element) => {
