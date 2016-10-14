@@ -91,7 +91,7 @@ export class Dashboard {
         browser.wait(EC.presenceOf(el), 5000);
 
         this.selectLinkset('.type #add');
-        this.selectLinkset('.dashboard #add');
+        //this.selectLinkset('.dashboard #add');
         this.inputText('NAME', 'My box name');
         this.inputText('DESCRIPTION', 'Box description');
         this.inputText('ORDER', '0');
