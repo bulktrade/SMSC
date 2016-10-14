@@ -90,13 +90,13 @@ export class Dashboard {
         let el = element(by.css('dynamic-form'));
         browser.wait(EC.presenceOf(el), 5000);
 
+        this.clickSelectOption('.width select', 2);
+        this.clickSelectOption('.height select', 2);
         this.selectLinkset('.type #add');
         //this.selectLinkset('.dashboard #add');
         this.inputText('NAME', 'My box name');
         this.inputText('DESCRIPTION', 'Box description');
         this.inputText('ORDER', '0');
-        this.clickSelectOption('.width select', 2);
-        this.clickSelectOption('.height select', 2);
         this.clickBySelector('#modify');
         this.clickBySelector('.back.md-primary');
     }
