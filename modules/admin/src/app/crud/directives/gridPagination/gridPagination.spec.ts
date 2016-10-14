@@ -49,6 +49,7 @@ describe('Grid Pagination', () => {
     it('should go to the previous page', inject([MockBackend, GridPagination],
         (backend: MockBackend, gp: GridPagination) => {
             gp.setCurrentPage(5);
+            gp.setPageSize(25);
             gp.className = 'GridPagination';
             gp.gridOptions = {
                 rowSelection: 'multiple',
@@ -102,7 +103,7 @@ describe('Grid Pagination', () => {
             });
 
             spyOn(gp, 'changePageSize');
-            gp.changePageSize();
+            gp.changePageSize(25);
             expect(gp.changePageSize).toHaveBeenCalled();
         }));
 

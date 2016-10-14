@@ -26,7 +26,15 @@
 		</div>
 	</div>
 	<div class="page-size">
-		<md-select [options]="stepPageSize" placeholder="Page Size" [(model)]="pageSize"
-		           (change)="changePageSize()"></md-select>
+		<div class="btn-group" dropdown>
+			<button id="single-button" type="button" class="btn btn-primary" dropdownToggle>
+				{{ 'PAGE_SIZE' | translate }} <span class="caret"></span>
+			</button>
+			<ul dropdownMenu role="menu" aria-labelledby="single-button">
+				<li role="menuitem"><a class="dropdown-item" href="javascript:void(0)"
+				                       *ngFor="let pageSize of stepPageSize"
+				                       (click)="changePageSize(pageSize)">{{pageSize}}</a></li>
+			</ul>
+		</div>
 	</div>
 </div>

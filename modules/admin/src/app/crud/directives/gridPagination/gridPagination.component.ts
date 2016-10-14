@@ -1,5 +1,5 @@
 import { Component, Input, NgModule, ModuleWithProviders } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
+import { TranslateService, TranslateModule } from 'ng2-translate/ng2-translate';
 import { Response } from '@angular/http';
 import { ODatabaseService } from '../../../orientdb/orientdb.service';
 import { NotificationService } from '../../../services/notificationService';
@@ -10,6 +10,7 @@ import { MdSelectModule } from '../../../common/material/select/select.component
 import { MdModule } from '../../../md.module';
 import { CrudLevel } from '../../model/crudLevel';
 import { Observable } from 'rxjs';
+import { DropdownModule } from 'ng2-bootstrap';
 
 const squel = require('squel');
 
@@ -29,7 +30,8 @@ export class GridPagination {
 
     public rowsThisPage = [];
     public stepPageSize: any = [25, 50, 150, 200, 300];
-    public pageSize: any = 25;
+    public defaultPageSize: number = 25;
+    public pageSize;
     private currentPage: number = 0;
     private fromRecord: number;
     private toRecord: number;
@@ -47,10 +49,12 @@ export class GridPagination {
                 this.stepPageSize.push(res);
             });
 
-        this.changePageSize();
+        this.changePageSize(this.defaultPageSize);
     }
 
-    changePageSize() {
+    changePageSize(pageSize) {
+        this.setPageSize(pageSize);
+
         if (this.pageSize === 'All records') {
             this.getSizeClass(this.className)
                 .subscribe(classSize => {
@@ -235,6 +239,10 @@ export class GridPagination {
         this.currentPage = value;
     }
 
+    setPageSize(value) {
+        this.pageSize = value;
+    }
+
     setFromRecord() {
         this.fromRecord = this.currentPage * this.pageSize;
     }
@@ -245,7 +253,7 @@ export class GridPagination {
 }
 
 @NgModule({
-    imports: [CommonModule, MdSelectModule, MdModule.forRoot()],
+    imports: [CommonModule, MdSelectModule, MdModule.forRoot(), DropdownModule, TranslateModule],
     exports: [GridPagination],
     declarations: [GridPagination]
 })

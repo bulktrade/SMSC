@@ -3,18 +3,17 @@
     justify-content: center;
     font-family: 'Open Sans';
 
+    button {
+        padding-top: 10px;
+    }
+
     .page-summary-panel,
     .page-size {
         display: flex;
     }
 
-    .row-summary-panel,
-    .page-size-label {
-        padding: 10px 10px 0 0;
-    }
-
-    .page-size {
-        padding: 6px 0 0 10px;
+    .row-summary-panel {
+        padding: 15px 10px 0 0;
     }
 
     .previous-panel,
@@ -23,7 +22,7 @@
     }
 
     .page-info {
-        padding: 10px 5px 0 5px;
+        padding: 15px 5px 0 5px;
     }
 }
 
@@ -31,10 +30,6 @@
     .grid-pagination {
         .row-summary-panel {
             display: none;
-        }
-
-        .page-size {
-            width: 50px;
         }
     }
 }

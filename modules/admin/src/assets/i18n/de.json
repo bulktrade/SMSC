@@ -92,5 +92,6 @@
     "IS_REQUIRED": "is required",
     "cell.mandatoryException": "The fields are not filled",
     "cell.numberFormatException": "Number format exception",
-    "METADATAPROPERTYBINDINGPARAMETER": "Binding Parameter"
+    "METADATAPROPERTYBINDINGPARAMETER": "Binding Parameter",
+    "PAGE_SIZE": "Page size"
 }

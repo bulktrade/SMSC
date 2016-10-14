@@ -96,5 +96,6 @@
     "FROMPROPERTY": "From property",
     "TOPROPERTY": "To property",
     "OPERATOR": "Operator",
-    "COMBINEOPERATOR": "Combine operator"
+    "COMBINEOPERATOR": "Combine operator",
+    "PAGE_SIZE": "Page size"
 }
