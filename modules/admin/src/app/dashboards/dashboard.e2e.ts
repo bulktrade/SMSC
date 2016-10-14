@@ -1,5 +1,4 @@
 import {Dashboard} from './dashboard.page';
-import { WaitUntil } from "../pages/common/waitUntilReady";
 
 describe('Dashboard', () => {
     let prot = protractor.wrapDriver(browser.driver);
