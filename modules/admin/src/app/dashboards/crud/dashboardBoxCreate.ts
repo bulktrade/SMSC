@@ -4,14 +4,16 @@ import { CrudService } from '../../crud/crud.service';
 import { Location } from '@angular/common';
 import { EditModel } from '../../crud/crudUpdate/crudUpdate.model';
 import { BtnTypes } from '../../crud/dynamicForm/btnTypes';
+import { FormPropertyModel } from '../../crud/model/formProperty';
 
 @Component({
     selector: 'dashboard-crud-edit',
-    template: '<dynamic-form [btnName]="btnName"></dynamic-form>'
+    template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>'
 })
 export class DashboardCrudCreate {
     public resolveData: EditModel = new EditModel();
     public btnName: BtnTypes = BtnTypes.CREATE;
+    public columnDefs: Array<FormPropertyModel> = null;
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
@@ -21,7 +23,7 @@ export class DashboardCrudCreate {
 
     ngOnInit() {
         this.resolveData = this.route.snapshot.data['create'];
-        this.crudService.gridOptions.columnDefs = this.resolveData['form'];
+        this.columnDefs = this.resolveData['form'];
     }
 
     back() {
