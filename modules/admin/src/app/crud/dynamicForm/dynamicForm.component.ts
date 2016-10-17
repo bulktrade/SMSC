@@ -9,6 +9,7 @@ import { TranslateModule } from 'ng2-translate/ng2-translate';
 import { FormsModule } from '@angular/forms';
 import { LoadingGridModule } from '../../common/loadingGrid.component';
 import { MultipleSelectModule } from '../directives/multipleSelect/multipleSelect.component';
+import { FormPropertyModel } from '../model/formProperty';
 
 @Component({
     selector: 'dynamic-form',
@@ -22,6 +23,8 @@ import { MultipleSelectModule } from '../directives/multipleSelect/multipleSelec
 export class DynamicForm {
     @Input('btnName')
     public btnName: BtnTypes;
+    @Input('columnDefs')
+    public columnDefs: Array<FormPropertyModel>;
 
     constructor(public router: Router,
                 public route: ActivatedRoute,

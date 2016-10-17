@@ -1,7 +1,7 @@
 <div class="addingForm">
 	<loading-grid>
 		<form class="form" id="dynamicForm" (submit)="onSubmit()" #addingForm="ngForm">
-			<div *ngFor="let item of crudService.gridOptions.columnDefs" [ngSwitch]="item.type">
+			<div *ngFor="let item of columnDefs" [ngSwitch]="item.type">
 				<md-input *ngIf="crudService.typeForInput(item.type)" [placeholder]="item.headerName"
 				          [name]="item.headerName"
 				          class="{{item.property}}" [readonly]="!item.editable" [hidden]="!item.visible"
@@ -42,7 +42,7 @@
 					        (click)="back()" id="back">{{'BACK' | translate}}
 					</button>
 					<button [disabled]="crudService.multipleSelectValid || !addingForm.valid" md-raised-button
-					        color="primary"
+					        color="primary" type="submit"
 					        id="modify">{{btnName | translate}}
 					</button>
 				</div>

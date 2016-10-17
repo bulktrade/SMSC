@@ -5,10 +5,11 @@ import { CrudService } from '../crud.service';
 import { Location } from '@angular/common';
 import { ColumnDefsModel } from '../model/columnDefs';
 import { BtnTypes } from '../dynamicForm/btnTypes';
+import { FormPropertyModel } from '../model/formProperty';
 
 @Component({
     selector: 'crud-create',
-    template: '<dynamic-form [btnName]="btnName"></dynamic-form>',
+    template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>',
     styleUrls: [
         require('../common/style.scss')
     ],
@@ -17,6 +18,7 @@ import { BtnTypes } from '../dynamicForm/btnTypes';
 
 export class CrudCreate {
     public resolveData: ColumnDefsModel = null;
+    public columnDefs: Array<FormPropertyModel> = null;
     public btnName: BtnTypes = BtnTypes.CREATE;
 
     constructor(public translate: TranslateService,
@@ -28,7 +30,7 @@ export class CrudCreate {
 
     ngOnInit() {
         this.resolveData = this.route.snapshot.data['create'];
-        this.crudService.gridOptions.columnDefs = this.resolveData.form;
+        this.columnDefs = this.resolveData.form;
     }
 
     ngOnDestroy() {

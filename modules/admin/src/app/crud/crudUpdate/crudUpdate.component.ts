@@ -5,10 +5,11 @@ import { CrudService } from '../crud.service';
 import { Location } from '@angular/common';
 import { EditModel } from './crudUpdate.model';
 import { BtnTypes } from '../dynamicForm/btnTypes';
+import { FormPropertyModel } from '../model/formProperty';
 
 @Component({
     selector: 'crud-update',
-    template: '<dynamic-form [btnName]="btnName"></dynamic-form>',
+    template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>',
     styleUrls: [
         require('../common/style.scss')
     ],
@@ -18,6 +19,7 @@ import { BtnTypes } from '../dynamicForm/btnTypes';
 export class CrudUpdate {
     public resolveData: EditModel;
     public btnName: BtnTypes = BtnTypes.UPDATE;
+    public columnDefs: Array<FormPropertyModel> = null;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -33,7 +35,7 @@ export class CrudUpdate {
             this.crudService.setModel(this.resolveData.inputModel);
         }
 
-        this.crudService.gridOptions.columnDefs = this.resolveData.columnDefs.form;
+        this.columnDefs = this.resolveData.columnDefs.form;
     }
 
     ngOnDestroy() {
