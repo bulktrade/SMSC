@@ -15,7 +15,7 @@ export class LineChart {
 
     showAllBtn: boolean = false;
     //  Chart type where can use "Show all" button
-    showAllBtnList: Array<string> = ['serial'];
+    showAllBtnList: Array<string> = ['Serial chart'];
     chartData: Object;
     chart: any;
 
@@ -23,6 +23,7 @@ export class LineChart {
     }
 
     ngOnInit() {
+        console.info(this.chartType);
         this.chartData = this._lineChartService.getData(this.chartType);
 
         let showAll = this.showAllBtnList.find((element) => {

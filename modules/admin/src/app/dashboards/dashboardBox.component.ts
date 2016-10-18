@@ -34,6 +34,7 @@ export class DashboardBoxComponent {
     public boxResize: BoxResize = BoxResize;
     public doughnutData: Array<Object> = [];
     public chart: any;
+    public kindClass: string;
 
     constructor(private sidebarService: SidebarService) {
     }
@@ -46,6 +47,8 @@ export class DashboardBoxComponent {
         if (this.config.height != undefined) {
             this.statusBoxHeight = this.config.height;
         }
+
+        this.kindClass = this.getBoxKindClass(this.config.kind);
     }
 
     @HostListener('document:keydown', ['$event'])
@@ -120,5 +123,29 @@ export class DashboardBoxComponent {
      */
     emitEditBox() {
         this.editBox.emit();
+    }
+
+    getBoxKindClass(kind: string): string {
+        switch (kind) {
+            case 'Feedback status':
+                this.config.icon = 'bug_report';
+
+                return 'feedback';
+
+            case 'Profit status':
+                this.config.icon = 'account_balance_wallet';
+
+                return 'profit';
+
+            case 'Orders status':
+                this.config.icon = 'compare_arrows';
+
+                return 'orders';
+
+            case 'Users status':
+                this.config.icon = 'accessibility';
+
+                return 'users';
+        }
     }
 }

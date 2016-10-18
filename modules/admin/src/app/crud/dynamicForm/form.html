@@ -42,7 +42,7 @@
 					        (click)="back()" id="back">{{'BACK' | translate}}
 					</button>
 					<button [disabled]="crudService.multipleSelectValid || !addingForm.valid" md-raised-button
-					        color="primary"
+					        color="primary" type="submit"
 					        id="modify">{{btnName | translate}}
 					</button>
 				</div>

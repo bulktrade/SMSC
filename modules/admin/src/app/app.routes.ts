@@ -1,71 +1,18 @@
-import { Routes } from '@angular/router';
-import { AuthGuard } from './common/authGuard';
-import { Login } from './login/login.component';
-import { Navigation } from './navigation/navigation.component';
-import { Customers } from './customers/customers.components';
-import { Crud } from './crud/crud.component';
-import { NotFound } from './notFound/notFound.component';
-import { CrudMetaData } from './crudMetadata/crudMetaData.components';
-import { CRUD_ROUTE_PROVIDER } from './crud/crud.routes';
-import { CrudMetaGridData } from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
-import { CrudMetaFormData } from './crudMetadata/crudMetaFormData/crudMetaFormData.component';
-import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
-import { CrudLinkset } from './crud/crudLinkset/crudLinkset.component';
-import { CrudLinksetResolve } from './crud/crudLinkset/crudLinkset.resolve';
-import { Dashboards } from './dashboards/dashboards.components';
-import { Dashboard } from './dashboards/dashboard.component';
-import {DashboardCrudCreate} from "./dashboards/crud/dashboardBoxCreate";
-import {DashboardCrudUpdateResolve} from "./dashboards/crud/dashboardCrudUpdate.resolve";
-import {DashboardCrudUpdate} from "./dashboards/crud/dashboardBoxUpdate";
-import {DashboardView} from "./dashboards/dashboardView.component";
-import {DashboardCrudCreateResolve} from "./dashboards/crud/dashboardCrudCreate.resolve";
+import {Routes} from "@angular/router";
+import {AuthGuard} from "./common/authGuard";
+import {Login} from "./login/login.component";
+import {Navigation} from "./navigation/navigation.component";
+import {Customers} from "./customers/customers.components";
+import {Crud} from "./crud/crud.component";
+import {NotFound} from "./notFound/notFound.component";
+import {CrudMetaData} from "./crudMetadata/crudMetaData.components";
+import {CRUD_ROUTE_PROVIDER} from "./crud/crud.routes";
+import {CrudMetaGridData} from "./crudMetadata/crudMetaGridData/crudMetaGridData.component";
+import {CrudMetaFormData} from "./crudMetadata/crudMetaFormData/crudMetaFormData.component";
+import {CrudClassMetaData} from "./crudMetadata/crudClassMetaData/crudClassMetaData.component";
+import {Dashboards} from "./dashboards/dashboards.components";
 import {MetaDataPropertyBindingParameter} from "./crudMetadata/metaDataBindingParameter/metaDataBindingParameter.component";
-
-const DASHBOARD_ROUTER_PROVIDER = [
-    {
-        path: '',
-        component: Dashboard,
-        data: {
-            showInSubNavigation: false,
-            icon: 'layers',
-            crudClass: 'DashboardBox',
-            dashboard: 'default'
-        },
-        children: [
-            { path: '', component: DashboardView },
-            {
-                path: 'edit/:id',
-                component: DashboardCrudUpdate,
-                resolve: { edit: DashboardCrudUpdateResolve } },
-            {
-                path: 'create/:className/:dashboard',
-                component: DashboardCrudCreate,
-                resolve: { create: DashboardCrudCreateResolve }
-            },
-            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
-        ]
-    },
-    {
-        path: 'dashboard',
-        component: Dashboard,
-        data: {
-            crudClass: 'DashboardBox'
-        },
-        children: [
-            { path: '', component: DashboardView },
-            {
-                path: 'edit/:id',
-                component: DashboardCrudUpdate,
-                resolve: { edit: DashboardCrudUpdateResolve } },
-            {
-                path: 'create/:className/:dashboard',
-                component: DashboardCrudCreate,
-                resolve: { create: DashboardCrudCreateResolve }
-            },
-            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
-        ]
-    }
-];
+import {DASHBOARD_ROUTER_PROVIDER} from './dashboards/dashboard.routes';
 
 export const ROUTES: Routes = [
     {

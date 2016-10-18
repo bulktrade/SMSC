@@ -27,17 +27,24 @@ if ($Dashboard.size() == 0) {
     CREATE Class DashboardBoxType
 
     CREATE PROPERTY DashboardBoxType.name STRING
-    CREATE PROPERTY DashboardBoxType.code STRING
+    CREATE PROPERTY DashboardBoxType.type STRING
+    CREATE PROPERTY DashboardBoxType.kind STRING
     CREATE PROPERTY DashboardBoxType.codeLanguage STRING
+    CREATE PROPERTY DashboardBoxType.code STRING
 
     ALTER PROPERTY DashboardBoxType.name MANDATORY true
-    ALTER PROPERTY DashboardBoxType.code MANDATORY true
+    ALTER PROPERTY DashboardBoxType.type MANDATORY true
+    ALTER PROPERTY DashboardBoxType.type CUSTOM type='status,chart'
+    ALTER PROPERTY DashboardBoxType.kind MANDATORY true
+    ALTER PROPERTY DashboardBoxType.kind CUSTOM type='Pie chart, Serial chart, Feedback status, Profit status, Orders status, Users status'
+    ALTER PROPERTY DashboardBoxType.codeLanguage MANDATORY true
     ALTER PROPERTY DashboardBoxType.codeLanguage CUSTOM type='SQL,JavaScript'
+    ALTER PROPERTY DashboardBoxType.code MANDATORY true
 
     CREATE INDEX DashboardBoxType.name UNIQUE
 
-    let statusType = INSERT INTO DashboardBoxType SET name = 'status', code = '', codeLanguage = 'SQL'
-    let chartType = INSERT INTO DashboardBoxType SET name = 'chart', code = '', codeLanguage = 'SQL'
+    let statusType = INSERT INTO DashboardBoxType SET name = 'Ivan feeds', type = 'status', kind = 'Feedback status', code = '', codeLanguage = 'SQL'
+    let chartType = INSERT INTO DashboardBoxType SET name = 'Petia profit', type = 'chart', kind = 'Pie chart', code = '', codeLanguage = 'SQL'
 
     console.log "Creating process for DashboardBoxType class is done."
   }
@@ -47,8 +54,8 @@ if ($Dashboard.size() == 0) {
   if ($DashboardBox.size() == 0) {
     console.log "DashboardBox class not exists! Start creating process."
 
-    let statusType = select * from DashboardBoxType where name = 'status'
-    let chartType = select * from DashboardBoxType where name = 'chart'
+    let statusType = select * from DashboardBoxType where name = 'Ivan feeds'
+    let chartType = select * from DashboardBoxType where name = 'Petia profit'
     let defaultDashboard = select * from Dashboard where name = 'default'
 
     CREATE Class DashboardBox
@@ -71,15 +78,13 @@ if ($Dashboard.size() == 0) {
     ALTER PROPERTY DashboardBox.dashboard MANDATORY true
     ALTER PROPERTY DashboardBox.type MANDATORY true
 
-    CREATE INDEX UNIQUE_DASHBOARD_ORDER ON DashboardBox (dashboard) UNIQUE
-
     INSERT INTO DashboardBox SET width = 25, height = 25, order = 1, dashboard = $defaultDashboard['@rid'][0], type = $statusType['@rid'][0], name = 'Box 1', description = 'Box 1 desc'
     INSERT INTO DashboardBox SET width = 25, height = 25, order = 2, dashboard = $defaultDashboard['@rid'][0], type = $statusType['@rid'][0], name = 'Box 2', description = 'Box 2 desc'
     INSERT INTO DashboardBox SET width = 25, height = 25, order = 3, dashboard = $defaultDashboard['@rid'][0], type = $statusType['@rid'][0], name = 'Box 3', description = 'Box 3 desc'
     INSERT INTO DashboardBox SET width = 25, height = 25, order = 4, dashboard = $defaultDashboard['@rid'][0], type = $statusType['@rid'][0], name = 'Box 4', description = 'Box 4 desc'
 
-    INSERT INTO DashboardBox SET width = 50, height = 25, order = 5, dashboard = $defaultDashboard['@rid'][0], type = $chartType['@rid'][0], name = 'Box 5', description = 'Box 5 desc'
-    INSERT INTO DashboardBox SET width = 50, height = 25, order = 6, dashboard = $defaultDashboard['@rid'][0], type = $chartType['@rid'][0], name = 'Box 6', description = 'Box 6 desc'
+    INSERT INTO DashboardBox SET width = 50, height = 50, order = 5, dashboard = $defaultDashboard['@rid'][0], type = $chartType['@rid'][0], name = 'Box 5', description = 'Box 5 desc'
+    INSERT INTO DashboardBox SET width = 50, height = 50, order = 6, dashboard = $defaultDashboard['@rid'][0], type = $chartType['@rid'][0], name = 'Box 6', description = 'Box 6 desc'
 
     console.log "Creating process for DashboardBox class is done."
   }
@@ -99,12 +104,16 @@ if ($Dashboard.size() == 0) {
   INSERT INTO CrudMetaFormData  SET property = 'name', editable = true, visible = true, order = 1, crudClassMetaData = $CrudClassMetaData_DashboardBox['@rid'][0]
   INSERT INTO CrudMetaFormData  SET property = 'description', editable = true, visible = true, order = 2, crudClassMetaData = $CrudClassMetaData_DashboardBox['@rid'][0]
   INSERT INTO CrudMetaFormData  SET property = 'type', editable = true, visible = true, order = 3, crudClassMetaData = $CrudClassMetaData_DashboardBox['@rid'][0]
-  INSERT INTO CrudMetaFormData  SET property = 'dashboard', editable = true, visible = true, order = 4, crudClassMetaData = $CrudClassMetaData_DashboardBox['@rid'][0]
+  INSERT INTO CrudMetaFormData  SET property = 'dashboard', editable = true, visible = false, order = 4, crudClassMetaData = $CrudClassMetaData_DashboardBox['@rid'][0]
   INSERT INTO CrudMetaFormData  SET property = 'width', editable = true, visible = true, order = 5, crudClassMetaData = $CrudClassMetaData_DashboardBox['@rid'][0]
   INSERT INTO CrudMetaFormData  SET property = 'height', editable = true, visible = true, order = 6, crudClassMetaData = $CrudClassMetaData_DashboardBox['@rid'][0]
   INSERT INTO CrudMetaFormData  SET property = 'order', editable = true, visible = true, order = 7, crudClassMetaData = $CrudClassMetaData_DashboardBox['@rid'][0]
 
   INSERT INTO CrudMetaFormData  SET property = 'name', editable = true, visible = true, order = 1, crudClassMetaData = $CrudClassMetaData_DashboardBoxType['@rid'][0]
+  INSERT INTO CrudMetaFormData  SET property = 'type', editable = true, visible = true, order = 2, crudClassMetaData = $CrudClassMetaData_DashboardBoxType['@rid'][0]
+  INSERT INTO CrudMetaFormData  SET property = 'kind', editable = true, visible = true, order = 3, crudClassMetaData = $CrudClassMetaData_DashboardBoxType['@rid'][0]
+  INSERT INTO CrudMetaFormData  SET property = 'codeLanguage', editable = true, visible = true, order = 4, crudClassMetaData = $CrudClassMetaData_DashboardBoxType['@rid'][0]
+  INSERT INTO CrudMetaFormData  SET property = 'code', editable = true, visible = true, order = 5, crudClassMetaData = $CrudClassMetaData_DashboardBoxType['@rid'][0]
 }
 
 return true

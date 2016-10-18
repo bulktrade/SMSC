@@ -2,7 +2,7 @@ export interface DashboardBoxConfig {
     rid: string;
     type: String;
     name: String;
-    chartType: String;
+    kind: string;
     header: String;
     subHeader: String;
     width: number;

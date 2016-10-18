@@ -70,7 +70,8 @@
             </i>
             <!--<i class="material-icons icon dragIcon">dashboard</i>-->
         </div>
-        <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}">
+        <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}"
+                 [ngClass]="kindClass">
             <i class="material-icons icon">
                 {{ config.icon }}
             </i>
@@ -104,7 +105,7 @@
                     </div>
                 </div>
                 <div class="body">
-                    <line-chart [chartType]="config.chartType"></line-chart>
+                    <line-chart [chartType]="config.kind"></line-chart>
                 </div>
             </md-card>
         </div>

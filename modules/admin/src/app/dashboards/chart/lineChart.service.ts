@@ -10,10 +10,10 @@ export class LineChartService {
 
     getData(chartType: string): Object {
         switch (chartType) {
-            case 'serial':
+            case 'Serial chart':
                 return this.getSerial();
 
-            case 'pie':
+            case 'Pie chart':
                 return this.getPie();
         }
     }

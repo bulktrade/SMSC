@@ -57,6 +57,7 @@ export class DashboardView {
             let orderBy: OrderBy = new OrderBy();
             this.boxes.merge(orderBy.transform(res, { key: 'order', direction: 'ascending' }));
             this.updateClasses();
+            console.log(this.boxes);
         });
     }
 

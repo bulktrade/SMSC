@@ -8,7 +8,6 @@ export class DashboardBox {
     metaData: MetaData;
     name: string;
     description: string;
-    chartType: ChartType;
     width: number;
     height: number;
     order: number;
@@ -41,23 +40,14 @@ export class DashboardBox {
             )
         );
 
-        if (data['chartType']) {
-            this.chartType = new ChartType(
-                new MetaData(
-                    data['chartType']['@class'],
-                    data['chartType']['@rid'],
-                    data['chartType']['@version']
-                ),
-                data['chartType']['name']
-            );
-        }
-
         this.type = new DashboardBoxType(
             new MetaData(
                 data['type']['@class'],
                 data['type']['@rid'],
                 data['type']['@version']
             ),
+            data['type']['type'],
+            data['type']['kind'],
             data['type']['code'],
             data['type']['codeLanguage'],
             data['type']['name']
