@@ -24,7 +24,16 @@ if ($Dashboard.size() == 0) {
   if ($DashboardBoxType.size() == 0) {
     console.log "DashboardBoxType class not exists! Start creating process."
 
-    CREATE Class DashboardBoxType
+    CREATE Class DashboardBoxType EXTENDS OTriggered
+
+      console.log "Create functions"
+
+      CREATE FUNCTION DashboardBoxTypeFunction "var boxTypeRid = doc.field('@rid'); boxTypeRid = String(boxTypeRid); var functionName = boxTypeRid.replace(/#/g, ''); functionName = functionName.replace(/:/g, '_'); functionName = 'DashboardBoxTypeFunction_' + functionName; db.executeCommand('DELETE FROM OFunction WHERE name = \"'+ functionName +'\"'); code = doc.field('code'); if (code != '') { code = code.replace(/'/g, \"\\'\"); code = code.replace(/\"/g, '\\\\\"'); db.executeCommand('CREATE FUNCTION '+ functionName +' \"'+ code +'\" IDEMPOTENT true LANGUAGE JavaScript'); db.executeCommand('UPDATE DashboardBoxType SET onAfterUpdate = \"'+ functionName +'\" WHERE @rid = '+ boxTypeRid); print('Update'); }" LANGUAGE Javascript
+
+      ALTER CLASS DashboardBoxType CUSTOM onAfterCreate = DashboardBoxTypeFunction;
+      ALTER CLASS DashboardBoxType CUSTOM onAfterUpdate = DashboardBoxTypeFunction;
+
+      console.log "End create functions"
 
     CREATE PROPERTY DashboardBoxType.name STRING
     CREATE PROPERTY DashboardBoxType.type STRING
@@ -44,7 +53,8 @@ if ($Dashboard.size() == 0) {
     CREATE INDEX DashboardBoxType.name UNIQUE
 
     let statusType = INSERT INTO DashboardBoxType SET name = 'Ivan feeds', type = 'status', kind = 'Feedback status', code = '', codeLanguage = 'SQL'
-    let chartType = INSERT INTO DashboardBoxType SET name = 'Petia profit', type = 'chart', kind = 'Pie chart', code = '', codeLanguage = 'SQL'
+    let pieChartType = INSERT INTO DashboardBoxType SET name = 'Petia profit', type = 'chart', kind = 'Pie chart', code = "return {data: \"[ { 'country': 'Lithuania', 'litres': 501.9 }, { 'country': 'Czech Republic', 'litres': 301.9 }, { 'country': 'Ireland', 'litres': 201.1 }, { 'country': 'Germany', 'litres': 165.8 }, { 'country': 'Australia', 'litres': 139.9 }, { 'country': 'Austria', 'litres': 128.3 }, { 'country': 'UK', 'litres': 99 }, { 'country': 'Belgium', 'litres': 60 }, { 'country': 'The Netherlands', 'litres': 50 } ]\"}", codeLanguage = 'JavaScript'
+    let serialChartType = INSERT INTO DashboardBoxType SET name = 'Rusia chart profit', type = 'chart', kind = 'Serial chart', code = "return {data: \"[{ date: new Date(2012, 11), value: 0, value0: 0 }, { date: new Date(2013, 0), value: 15000, value0: 19000 }, { date: new Date(2013, 1), value: 30000, value0: 20000 }, { date: new Date(2013, 2), value: 25000, value0: 22000 }, { date: new Date(2013, 3), value: 21000, value0: 25000 }, { date: new Date(2013, 4), value: 24000, value0: 29000 }, { date: new Date(2013, 5), value: 31000, value0: 26000 }, { date: new Date(2013, 6), value: 40000, value0: 25000 }, { date: new Date(2013, 7), value: 37000, value0: 20000 }, { date: new Date(2013, 8), value: 18000, value0: 22000 }, { date: new Date(2013, 9), value: 5000, value0: 26000 }, { date: new Date(2013, 10), value: 40000, value0: 30000 }, { date: new Date(2013, 11), value: 20000, value0: 25000 }, { date: new Date(2014, 0), value: 5000, value0: 13000 }, { date: new Date(2014, 1), value: 3000, value0: 13000 }, { date: new Date(2014, 2), value: 1800, value0: 13000 }, { date: new Date(2014, 3), value: 10400, value0: 13000 }, { date: new Date(2014, 4), value: 25500, value0: 13000 }, { date: new Date(2014, 5), value: 2100, value0: 13000 }, { date: new Date(2014, 6), value: 6500, value0: 13000 }, { date: new Date(2014, 7), value: 1100, value0: 13000 }, { date: new Date(2014, 8), value: 17200, value0: 13000 }, { date: new Date(2014, 9), value: 26900, value0: 13000 }, { date: new Date(2014, 10), value: 14100, value0: 13000 }, { date: new Date(2014, 11), value: 35300, value0: 13000 }, { date: new Date(2015, 0), value: 54800, value0: 13000 }, { date: new Date(2015, 1), value: 49800, value0: 13000 }]\"}", codeLanguage = 'JavaScript'
 
     console.log "Creating process for DashboardBoxType class is done."
   }
@@ -55,7 +65,8 @@ if ($Dashboard.size() == 0) {
     console.log "DashboardBox class not exists! Start creating process."
 
     let statusType = select * from DashboardBoxType where name = 'Ivan feeds'
-    let chartType = select * from DashboardBoxType where name = 'Petia profit'
+    let pieChartType = select * from DashboardBoxType where name = 'Petia profit'
+    let serialChartType = select * from DashboardBoxType where name = 'Rusia chart profit'
     let defaultDashboard = select * from Dashboard where name = 'default'
 
     CREATE Class DashboardBox
@@ -83,8 +94,8 @@ if ($Dashboard.size() == 0) {
     INSERT INTO DashboardBox SET width = 25, height = 25, order = 3, dashboard = $defaultDashboard['@rid'][0], type = $statusType['@rid'][0], name = 'Box 3', description = 'Box 3 desc'
     INSERT INTO DashboardBox SET width = 25, height = 25, order = 4, dashboard = $defaultDashboard['@rid'][0], type = $statusType['@rid'][0], name = 'Box 4', description = 'Box 4 desc'
 
-    INSERT INTO DashboardBox SET width = 50, height = 50, order = 5, dashboard = $defaultDashboard['@rid'][0], type = $chartType['@rid'][0], name = 'Box 5', description = 'Box 5 desc'
-    INSERT INTO DashboardBox SET width = 50, height = 50, order = 6, dashboard = $defaultDashboard['@rid'][0], type = $chartType['@rid'][0], name = 'Box 6', description = 'Box 6 desc'
+    INSERT INTO DashboardBox SET width = 50, height = 50, order = 5, dashboard = $defaultDashboard['@rid'][0], type = $pieChartType['@rid'][0], name = 'Box 5', description = 'Box 5 desc'
+    INSERT INTO DashboardBox SET width = 50, height = 50, order = 6, dashboard = $defaultDashboard['@rid'][0], type = $serialChartType['@rid'][0], name = 'Box 6', description = 'Box 6 desc'
 
     console.log "Creating process for DashboardBox class is done."
   }

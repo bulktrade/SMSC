@@ -1,6 +1,7 @@
 export interface DashboardBoxConfig {
     rid: string;
     type: String;
+    typeRid: string;
     name: String;
     kind: string;
     header: String;

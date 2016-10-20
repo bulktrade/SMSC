@@ -14,6 +14,7 @@ import { EditModel } from '../crud/crudUpdate/crudUpdate.model';
 import {Dashboard} from "./models/dashboard";
 import {MetaData} from "../common/models/metaData";
 import {OUser} from "../common/models/OUser";
+import {AuthHttp} from "angular2-jwt";
 
 const squel = require('squel');
 
@@ -22,7 +23,8 @@ export class DashboardService {
     constructor(private databaseService: ODatabaseService,
                 public crudService: CrudService,
                 public location: Location,
-                public gridService: GridService) {
+                public gridService: GridService,
+                private authHttp: AuthHttp) {
 
     }
 
@@ -203,6 +205,22 @@ export class DashboardService {
                     observer.error(error);
                     observer.complete();
                 });
+        });
+    }
+
+    public executeDbFunction(rid): Observable<Object> {
+        var functionName = rid.replace(/#/g, "");
+        functionName = functionName.replace(/:/g, "_");
+        functionName = 'DashboardBoxTypeFunction_' + functionName;
+
+        return Observable.create((observer: Observer<Object>) => {
+            this.authHttp.request('http://localhost:2480/function/smsc/' + functionName)
+                .subscribe((res) => {
+                    let result = JSON.parse(res['_body']);
+                    console.log(result);
+                    observer.next(eval(result.result[0].data));
+                    observer.complete();
+                })
         });
     }
 
