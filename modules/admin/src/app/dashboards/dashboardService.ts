@@ -15,6 +15,7 @@ import {Dashboard} from "./models/dashboard";
 import {MetaData} from "../common/models/metaData";
 import {OUser} from "../common/models/OUser";
 import {AuthHttp} from "angular2-jwt";
+import {ConfigService} from "../config/configService";
 
 const squel = require('squel');
 
@@ -24,7 +25,8 @@ export class DashboardService {
                 public crudService: CrudService,
                 public location: Location,
                 public gridService: GridService,
-                private authHttp: AuthHttp) {
+                private authHttp: AuthHttp,
+                private configService: ConfigService) {
 
     }
 
@@ -212,9 +214,10 @@ export class DashboardService {
         var functionName = rid.replace(/#/g, "");
         functionName = functionName.replace(/:/g, "_");
         functionName = 'DashboardBoxTypeFunction_' + functionName;
+        let url: string = this.configService.config.orientDBUrl + '/function/smsc/' + functionName;
 
         return Observable.create((observer: Observer<Object>) => {
-            this.authHttp.request('http://localhost:2480/function/smsc/' + functionName)
+            this.authHttp.request(url)
                 .subscribe((res) => {
                     let result = JSON.parse(res['_body']);
                     console.log(result);
