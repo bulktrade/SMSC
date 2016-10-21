@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { GridService } from '../../services/grid.service';
 import { CrudService } from '../../crud/crud.service';
 import { CrudResolve } from '../../crud/common/crudResolve';
-import { DashboardService } from '../dashboardService';
+import { DashboardService } from '../dashboard.service';
 
 @Injectable()
 export class DashboardCrudCreateResolve extends CrudResolve {

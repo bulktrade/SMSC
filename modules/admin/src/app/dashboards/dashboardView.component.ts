@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router } from '@angular/router';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { DashboardService } from './dashboardService';
+import { DashboardService } from './dashboard.service';
 import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
 import { OrderBy } from './sorts/orderby';
 import { DashboardList } from './models/dashboardList';
@@ -15,15 +15,15 @@ import { DashboardListItem } from './models/dashboardListItem';
 
 @Component({
     selector: 'dashboard-view',
-    template: require('./dashboardView.html'),
+    template: require('./dashboardView.component.html'),
     styleUrls: [
-        require('./dashboardView.scss')
+        require('./dashboardView.component.scss')
     ],
     viewProviders: [
         DragulaService
     ],
 })
-export class DashboardView {
+export class DashboardViewComponent {
     public boxesCss: DashboardList<string> = new DashboardList<string>();
     public boxes: DashboardListItem<DashboardBox> = new DashboardListItem<DashboardBox>();
 

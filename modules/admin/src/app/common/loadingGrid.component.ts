@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
     `
 })
 
-export class LoadingGrid implements OnInit {
+export class LoadingGridComponent implements OnInit {
 
     constructor(public service: LoadingGridService,
                 public crudService: CrudService) {
@@ -24,8 +24,8 @@ export class LoadingGrid implements OnInit {
 
 @NgModule({
     imports: [CommonModule, CubeGridModule],
-    exports: [LoadingGrid],
-    declarations: [LoadingGrid]
+    exports: [LoadingGridComponent],
+    declarations: [LoadingGridComponent]
 })
 export class LoadingGridModule {
     static forRoot(): ModuleWithProviders {

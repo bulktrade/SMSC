@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
 import { Location } from '@angular/common';
 import { EditModel } from './crudUpdate.model';
-import { BtnTypes } from '../dynamicForm/btnTypes';
+import { BtnTypes } from '../dynamicForm/model/btnTypes';
 import { FormPropertyModel } from '../model/formProperty';
 
 @Component({
@@ -16,7 +16,7 @@ import { FormPropertyModel } from '../model/formProperty';
     providers: [Location]
 })
 
-export class CrudUpdate {
+export class CrudUpdateComponent {
     public resolveData: EditModel;
     public btnName: BtnTypes = BtnTypes.UPDATE;
     public columnDefs: Array<FormPropertyModel> = null;

@@ -9,7 +9,7 @@ import { ProfileService } from './profile.service';
     providers: [],
     template: require('./user.html')
 })
-export class Profile implements OnInit {
+export class ProfileComponent implements OnInit {
     loading: boolean = false;
 
     model: ProfileModel;

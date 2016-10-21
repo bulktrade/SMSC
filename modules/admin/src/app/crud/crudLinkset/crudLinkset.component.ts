@@ -10,16 +10,16 @@ import { RouterOutletService } from '../../services/routerOutletService';
 
 @Component({
     selector: 'crud-linkset',
-    template: require('./crudLinkset.html'),
+    template: require('./crudLinkset.component.html'),
     styleUrls: [
-        require('./crudLinkset.scss'),
+        require('./crudLinkset.component.scss'),
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],
     providers: []
 })
 
-export class CrudLinkset {
+export class CrudLinksetComponent {
     public resolveData: ColumnDefsModel = null;
 
     constructor(public translate: TranslateService,
@@ -65,7 +65,7 @@ export class CrudLinkset {
             .then(linkSet => {
                 params[previousCrudLevel.linksetProperty.name] = linkSet;
 
-                if (this.roService.isPreviousRoute('CrudView')) {
+                if (this.roService.isPreviousRoute('CrudViewComponent')) {
                     this.crudService.updateRecord(params);
                     this.location.back();
                 } else {

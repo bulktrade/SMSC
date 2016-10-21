@@ -10,15 +10,15 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'multiple-select',
-    template: require('./multipleSelect.html'),
+    template: require('./multipleSelect.component.html'),
     styleUrls: [
-        require('./multipleSelect.scss')
+        require('./multipleSelect.component.scss')
     ],
     providers: [],
     outputs: ['isRequired']
 })
 
-export class MultipleSelect {
+export class MultipleSelectComponent {
     @Input('property') public property: any;
     @Input('rowSelectionLinkset') rowSelectionLinkset: string;
 
@@ -137,8 +137,8 @@ export class MultipleSelect {
         MdModule.forRoot(),
         TranslateModule
     ],
-    exports: [MultipleSelect],
-    declarations: [MultipleSelect]
+    exports: [MultipleSelectComponent],
+    declarations: [MultipleSelectComponent]
 })
 export class MultipleSelectModule {
     static forRoot(): ModuleWithProviders {

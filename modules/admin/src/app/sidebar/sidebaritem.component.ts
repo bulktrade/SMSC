@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'sidebar-item',
-    template: require('./sidebaritem.html'),
+    template: require('./sidebaritem.component.html'),
     providers: [],
     animations: [
         trigger('state', [
@@ -24,12 +24,12 @@ import { Router } from '@angular/router';
         ]),
     ],
     styleUrls: [
-        require('./sidebaritem.scss')
+        require('./sidebaritem.component.scss')
     ]
 })
 
 @Injectable()
-export class SidebarItem {
+export class SidebarItemComponent {
     @Input('icon') public icon;
     @Input('path') public path;
     @Input('paramsAsDefault') public paramsAsDefault;

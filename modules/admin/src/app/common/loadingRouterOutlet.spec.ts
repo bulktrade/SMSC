@@ -1,5 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { LoadingRouterOutlet } from './loadingRouterOutlet.component';
+import { LoadingRouterOutletComponent } from './loadingRouterOutlet.component';
 import { HttpModule } from '@angular/http';
 import { LoadingGridService } from '../services/loading/loadingGrid.service';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
@@ -11,7 +11,7 @@ describe('Loading RouterOutlet', () => {
             providers: [
                 ...CRUD_PROVIDERS,
                 LoadingRouterOutletService,
-                LoadingRouterOutlet,
+                LoadingRouterOutletComponent,
                 LoadingGridService
             ],
             imports: [
@@ -20,13 +20,13 @@ describe('Loading RouterOutlet', () => {
         });
     });
 
-    it('loading spinner should be true', inject([ LoadingRouterOutlet ], (loadingRouterOutlet) => {
+    it('loading spinner should be true', inject([ LoadingRouterOutletComponent ], (loadingRouterOutlet) => {
         loadingRouterOutlet.loadingService.start();
 
         expect(loadingRouterOutlet.loadingService.loading).toBeTruthy();
     }));
 
-    it('loading spinner should be false', inject([ LoadingRouterOutlet ], (loadingRouterOutlet) => {
+    it('loading spinner should be false', inject([ LoadingRouterOutletComponent ], (loadingRouterOutlet) => {
         loadingRouterOutlet.loadingService.stop();
 
         expect(loadingRouterOutlet.loadingService.loading).toBeFalsy();

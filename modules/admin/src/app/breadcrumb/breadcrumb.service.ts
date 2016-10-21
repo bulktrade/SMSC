@@ -13,7 +13,7 @@ export class BreadcrumbService {
     }
 
     chainBreadcrumbItems(route: ActivatedRoute) {
-        if (route.component['name'] === 'Navigation') {
+        if (route.component['name'] === 'NavigationComponent') {
             return;
         }
 

@@ -1,7 +1,7 @@
 import { Component, Input, NgModule } from '@angular/core';
 import { CrudService } from '../crud.service';
 import { Location, CommonModule } from '@angular/common';
-import { BtnTypes } from './btnTypes';
+import { BtnTypes } from './model/btnTypes';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MdSelectModule } from '../../common/material/select/select.component';
 import { MdModule } from '../../md.module';
@@ -13,14 +13,14 @@ import { FormPropertyModel } from '../model/formProperty';
 
 @Component({
     selector: 'dynamic-form',
-    template: require('./form.html'),
+    template: require('./dynamicForm.component.html'),
     styleUrls: [
-        require('./form.scss'),
-        require('./style.scss')
+        require('./dynamicForm.component.scss'),
+        require('../common/style.scss')
     ]
 })
 
-export class DynamicForm {
+export class DynamicFormComponent {
     @Input('btnName')
     public btnName: BtnTypes;
     @Input('columnDefs')
@@ -68,8 +68,8 @@ export class DynamicForm {
         TranslateModule,
         LoadingGridModule
     ],
-    exports: [DynamicForm],
-    declarations: [DynamicForm],
+    exports: [DynamicFormComponent],
+    declarations: [DynamicFormComponent],
     providers: [
         CrudService
     ]

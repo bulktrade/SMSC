@@ -6,15 +6,15 @@ import { Location } from '@angular/common';
 
 @Component({
     selector: 'crud-delete',
-    template: require('./crudDelete.html'),
+    template: require('./crudDelete.component.html'),
     styleUrls: [
-        require('./crudDelete.scss'),
+        require('./crudDelete.component.scss'),
         require('../common/style.scss')
     ],
     providers: []
 })
 
-export class CrudDelete {
+export class CrudDeleteComponent {
     public id;
 
     constructor(public translate: TranslateService,

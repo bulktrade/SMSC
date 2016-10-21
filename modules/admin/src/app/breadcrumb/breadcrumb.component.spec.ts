@@ -1,16 +1,16 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
-import { Breadcrumb } from './breadcrumb.component';
+import { BreadcrumbComponent } from './breadcrumb.component';
 import { BreadcrumbService } from './breadcrumb.service';
 import { RouterModule } from '@angular/router';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 
-describe('Breadcrumb', () => {
+describe('BreadcrumbComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 CRUD_PROVIDERS,
-                Breadcrumb,
+                BreadcrumbComponent,
                 BreadcrumbService
             ],
             imports: [
@@ -20,7 +20,7 @@ describe('Breadcrumb', () => {
         });
     });
 
-    it('loading spinner should be true', inject([Breadcrumb], (breadcrumb) => {
+    it('loading spinner should be true', inject([BreadcrumbComponent], (breadcrumb) => {
         expect(!!breadcrumb.translate).toEqual(true);
     }));
 

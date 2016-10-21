@@ -5,14 +5,14 @@ import { CrudService } from './crud.service';
 
 @Component({
     selector: 'crud',
-    template: require('./crud.html'),
+    template: require('./crud.component.html'),
     styleUrls: [
         require('./crud.scss')
     ],
     providers: []
 })
 
-export class Crud {
+export class CrudComponent {
 
     constructor(public translate: TranslateService,
                 public route: ActivatedRoute,

@@ -1,10 +1,10 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { Crud } from './crud.component';
-import { CrudView } from './crudView/crudView.component';
-import { CrudUpdate } from './crudUpdate/crudUpdate.component';
-import { CrudLinkset } from './crudLinkset/crudLinkset.component';
-import { CrudCreate } from './crudCreate/crudCreate.component';
-import { CrudDelete } from './crudDelete/crudDelete.component';
+import { CrudComponent } from './crud.component';
+import { CrudViewComponent } from './crudView/crudView.component';
+import { CrudUpdateComponent } from './crudUpdate/crudUpdate.component';
+import { CrudLinksetComponent } from './crudLinkset/crudLinkset.component';
+import { CrudCreateComponent } from './crudCreate/crudCreate.component';
+import { CrudDeleteComponent } from './crudDelete/crudDelete.component';
 import { CrudService } from './crud.service';
 import { MdModule } from '../md.module';
 import { LoadingRouterOutletModule } from '../common/loadingRouterOutlet.component';
@@ -21,12 +21,12 @@ import { MdSelectModule } from '../common/material/select/select.component';
 import { DynamicFormModule } from './dynamicForm/dynamicForm.component';
 
 const CRUD_DECLARATIONS = [
-    Crud,
-    CrudView,
-    CrudUpdate,
-    CrudLinkset,
-    CrudDelete,
-    CrudCreate
+    CrudComponent,
+    CrudViewComponent,
+    CrudUpdateComponent,
+    CrudLinksetComponent,
+    CrudDeleteComponent,
+    CrudCreateComponent
 ];
 
 const CRUD_MODULES = [

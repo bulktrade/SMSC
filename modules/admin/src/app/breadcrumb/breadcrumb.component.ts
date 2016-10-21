@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'breadcrumb',
-    template: require('./breadcrumb.html'),
+    template: require('./breadcrumb.component.html'),
     inputs: [
         'title',
         'description',
@@ -16,11 +16,11 @@ import { CommonModule } from '@angular/common';
     ],
     providers: [],
     styleUrls: [
-        require('./breadcrumb.scss')
+        require('./breadcrumb.component.scss')
     ]
 })
 
-export class Breadcrumb {
+export class BreadcrumbComponent {
     public breadcrumb: BreadcrumbService;
 
     constructor(public translate: TranslateService,
@@ -40,10 +40,10 @@ export class Breadcrumb {
         TranslateModule
     ],
     exports: [
-        Breadcrumb
+        BreadcrumbComponent
     ],
     declarations: [
-        Breadcrumb
+        BreadcrumbComponent
     ],
     providers: [
         BreadcrumbService,

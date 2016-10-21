@@ -1,2 +1,2 @@
-// CrudMetaFormData
+// CrudMetaFormDataComponent
 export * from './crudMetaFormData.component';

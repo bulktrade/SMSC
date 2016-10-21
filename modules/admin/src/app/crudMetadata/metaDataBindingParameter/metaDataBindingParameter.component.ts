@@ -8,7 +8,7 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
     providers: []
 })
 
-export class MetaDataPropertyBindingParameter {
+export class MetaDataPropertyBindingParameterComponent {
     constructor(public translate: TranslateService) {
     }
 

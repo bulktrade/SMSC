@@ -5,14 +5,14 @@ import { SidebarModel } from './sidebar.model';
 
 @Component({
     selector: 'sidebar',
-    template: require('./sidebar.html'),
+    template: require('./sidebar.component.html'),
     providers: [],
     styleUrls: [
-        require('./sidebar.scss')
+        require('./sidebar.component.scss')
     ]
 })
 
-export class Sidebar {
+export class SidebarComponent {
     public dataNavItems: Array<SidebarModel> = [];
 
     constructor(public translate: TranslateService,

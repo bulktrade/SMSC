@@ -1,7 +1,7 @@
 import { LoginPage } from './login.page';
 import { LoginModel } from './login.model';
 
-describe('Login page', () => {
+describe('LoginComponent page', () => {
     let ptor = protractor.wrapDriver(browser.driver);
     let loginPage = new LoginPage();
 

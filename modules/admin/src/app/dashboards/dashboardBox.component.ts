@@ -14,9 +14,9 @@ import { BoxResize } from './models/dashboardBoxEnum';
 
 @Component({
     selector: 'dashboard-box',
-    template: require('./dashboardBox.html'),
+    template: require('./dashboardBox.component.html'),
     styleUrls: [
-        require('./dashboardBox.scss')
+        require('./dashboardBox.component.scss')
     ],
     encapsulation: ViewEncapsulation.None
 })

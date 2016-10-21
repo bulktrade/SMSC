@@ -7,16 +7,16 @@ import { LinksetProperty } from '../model/linksetProperty';
 
 @Component({
     selector: 'crud-view',
-    template: require('./crudView.html'),
+    template: require('./crudView.component.html'),
     styleUrls: [
-        require('./crudView.scss'),
+        require('./crudView.component.scss'),
         require('../common/grid.scss'),
         require('../common/style.scss')
     ],
     providers: [],
 })
 
-export class CrudView {
+export class CrudViewComponent {
     public resolveData: ColumnDefsModel = null;
 
     constructor(public translate: TranslateService,

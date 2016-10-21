@@ -6,13 +6,13 @@ import { FormsModule } from '@angular/forms';
 @Component({
     selector: 'md-select',
     providers: [],
-    template: require('./select.html'),
+    template: require('./select.component.html'),
     styleUrls: [
-        require('./select.scss'),
+        require('./select.component.scss'),
     ]
 })
 
-export class MdSelect implements OnInit {
+export class MdSelectComponent implements OnInit {
     @Input('options') public options;
     @Input('placeholder') public placeholder: string;
     @Input('required') public required: boolean;
@@ -50,8 +50,8 @@ export class MdSelect implements OnInit {
 
 @NgModule({
     imports: [CommonModule, FormsModule],
-    exports: [MdSelect],
-    declarations: [MdSelect]
+    exports: [MdSelectComponent],
+    declarations: [MdSelectComponent]
 })
 export class MdSelectModule {
     static forRoot(): ModuleWithProviders {

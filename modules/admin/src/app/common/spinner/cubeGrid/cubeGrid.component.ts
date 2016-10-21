@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'sk-cube-grid',
     styleUrls: [
-        require('./cubeGrid.scss')
+        require('./cubeGrid.component.scss')
     ],
-    template: require('./cubeGrid.html')
+    template: require('./cubeGrid.component.html')
 })
 
 export class CubeGridComponent {

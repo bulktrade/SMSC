@@ -33,7 +33,7 @@ import { RouterOutletService } from '../services/routerOutletService';
     `
 })
 
-export class LoadingRouterOutlet {
+export class LoadingRouterOutletComponent {
     constructor(public loadingService: LoadingRouterOutletService,
                 public roService: RouterOutletService) {
     }
@@ -49,8 +49,8 @@ export class LoadingRouterOutlet {
 
 @NgModule({
     imports: [CommonModule, CubeGridModule, RouterModule],
-    exports: [LoadingRouterOutlet],
-    declarations: [LoadingRouterOutlet]
+    exports: [LoadingRouterOutletComponent],
+    declarations: [LoadingRouterOutletComponent]
 })
 export class LoadingRouterOutletModule {
     static forRoot(): ModuleWithProviders {

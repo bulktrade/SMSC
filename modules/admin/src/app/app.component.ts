@@ -13,8 +13,8 @@ import { TranslateService } from 'ng2-translate';
         require('ag-grid/dist/styles/theme-material.css'),
         require('bootstrap-material-design/dist/css/bootstrap-material-design.css'),
         require('bootstrap-material-design/dist/css/ripples.min.css'),
-        require('./app.scss'),
-        require('./common/spinner/cubeGrid/cubeGrid.scss')
+        require('./app.component.scss'),
+        require('./common/spinner/cubeGrid/cubeGrid.component.scss')
     ]
 })
 export class App {

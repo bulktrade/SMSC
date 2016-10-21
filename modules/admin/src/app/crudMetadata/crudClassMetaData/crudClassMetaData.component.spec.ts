@@ -1,14 +1,14 @@
 import { inject, TestBed } from '@angular/core/testing';
+import { CrudClassMetaDataComponent } from './crudClassMetaData.component';
 import { CRUD_PROVIDERS } from '../../crud/common/crudProviders';
-import { CrudMetaFormData } from './crudMetaFormData.component';
 import { HttpModule } from '@angular/http';
 
-describe('CrudMetaFormData', () => {
+describe('CrudClassMetaDataComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 ...CRUD_PROVIDERS,
-                CrudMetaFormData
+                CrudClassMetaDataComponent
             ],
             imports: [
                 HttpModule
@@ -16,7 +16,7 @@ describe('CrudMetaFormData', () => {
         });
     });
 
-    it('should be translate', inject([CrudMetaFormData], (crudMetaFormData) => {
-        expect(!!crudMetaFormData.translate).toEqual(true);
+    it('should be translate', inject([ CrudClassMetaDataComponent ], (crudClassMetaData) => {
+        expect(!!crudClassMetaData.translate).toEqual(true);
     }));
 });

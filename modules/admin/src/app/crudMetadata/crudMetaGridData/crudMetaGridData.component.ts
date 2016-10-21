@@ -8,7 +8,7 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
     providers: []
 })
 
-export class CrudMetaGridData {
+export class CrudMetaGridDataComponent {
     constructor(public translate: TranslateService) {
     }
 

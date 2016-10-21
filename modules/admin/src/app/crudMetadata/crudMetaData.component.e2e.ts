@@ -1,6 +1,6 @@
 import { CrudMetaDataPage } from './crudMetaData.page';
 
-describe('CrudMetaData', () => {
+describe('CrudMetaDataComponent', () => {
     let ptor = protractor.wrapDriver(browser.driver);
     let crudMetaDataPage: CrudMetaDataPage = new CrudMetaDataPage();
 

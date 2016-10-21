@@ -11,7 +11,7 @@ import { MockBackend } from '@angular/http/testing';
 import { CrudService } from './crud.service';
 import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
 
-describe('Crud Service', () => {
+describe('CrudComponent Service', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
@@ -51,8 +51,8 @@ describe('Crud Service', () => {
         });
 
         spyOn(crudService, 'getColumnDefs');
-        crudService.getColumnDefs('Customers', false);
-        expect(crudService.getColumnDefs).toHaveBeenCalledWith('Customers', false);
+        crudService.getColumnDefs('CustomersComponent', false);
+        expect(crudService.getColumnDefs).toHaveBeenCalledWith('CustomersComponent', false);
     }));
 
     it('should return a successful result after the record is created',

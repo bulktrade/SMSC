@@ -5,14 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { App } from './app.component';
 import { BreadcrumbModule } from './breadcrumb/breadcrumb.component';
 import { ROUTES } from './app.routes';
-import { Login } from './login/login.component';
-import { Navigation } from './navigation/navigation.component';
-import { Customers } from './customers/customers.components';
-import { NotFound } from './notFound/notFound.component';
-import { CrudMetaFormData } from './crudMetadata/crudMetaFormData/crudMetaFormData.component';
-import { CrudMetaData } from './crudMetadata/crudMetaData.components';
-import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
-import { CrudMetaGridData } from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
+import { LoginComponent } from './login/login.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { CustomersComponent } from './customers/customers.components';
+import { NotFoundComponent } from './notFound/notFound.component';
+import { CrudMetaDataComponent } from './crudMetadata/crudMetaData.components';
 import { RouterModule, Router } from '@angular/router';
 import { AppState } from './app.service';
 import { COMMON_PROVIDERS } from './common';
@@ -30,8 +27,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { GridService } from './services/grid.service';
-import { Sidebar } from './sidebar/sidebar.component';
-import { SidebarItem } from './sidebar/sidebaritem.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarItemComponent } from './sidebar/sidebaritem.component';
 import { CrudViewResolve } from './crud/crudView/crudView.resolve';
 import { CrudModule } from './crud/crud.module';
 import { LoadingRouterOutletModule } from './common/loadingRouterOutlet.component';
@@ -40,7 +37,7 @@ import { LoadingRouterOutletService } from './services/loading/loadingRouterOutl
 import { LoadingService } from './services/loading/loading.service';
 import { RouterOutletService } from './services/routerOutletService';
 import {
-    MetaDataPropertyBindingParameter
+    MetaDataPropertyBindingParameterComponent
 } from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter.component';
 import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboardCrudUpdate.resolve';
 import { DashboardCrudCreateResolve } from './dashboards/crud/dashboardCrudCreate.resolve';
@@ -48,6 +45,15 @@ import { SidebarService } from './sidebar/sidebarService';
 import { DashboardModule } from './dashboards/dashboard.module';
 import { HttpInterceptor } from './common/httpInterceptor';
 import { NoInternetModule } from './common/noInternet/noInternet.component';
+import {
+    CrudMetaFormDataComponent
+} from './crudMetadata/crudMetaFormData/crudMetaFormData.component';
+import {
+    CrudClassMetaDataComponent
+} from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
+import {
+    CrudMetaGridDataComponent
+} from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -78,18 +84,18 @@ export const APP_PROVIDERS = [
 @NgModule({
     bootstrap: [App],
     declarations: [
-        Sidebar,
-        SidebarItem,
+        SidebarComponent,
+        SidebarItemComponent,
         App,
-        Login,
-        Navigation,
-        Customers,
-        NotFound,
-        CrudMetaData,
-        CrudMetaFormData,
-        CrudClassMetaData,
-        CrudMetaGridData,
-        MetaDataPropertyBindingParameter,
+        LoginComponent,
+        NavigationComponent,
+        CustomersComponent,
+        NotFoundComponent,
+        CrudMetaDataComponent,
+        CrudMetaFormDataComponent,
+        CrudClassMetaDataComponent,
+        CrudMetaGridDataComponent,
+        MetaDataPropertyBindingParameterComponent,
     ],
     imports: [
         LoadingRouterOutletModule,

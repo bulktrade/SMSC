@@ -5,7 +5,7 @@ import {
     Response
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { GridPagination } from './gridPagination.component';
+import { GridPaginationComponent } from './gridPagination.component';
 import { CRUD_PROVIDERS } from '../../common/crudProviders';
 import { APP_PROVIDERS } from '../../../app.module';
 import { HTTP_PROVIDERS } from '../../../common/mock/httpProviders';
@@ -18,7 +18,7 @@ describe('Grid Pagination', () => {
                 ...CRUD_PROVIDERS,
                 ...APP_PROVIDERS,
                 ...HTTP_PROVIDERS,
-                GridPagination,
+                GridPaginationComponent,
             ],
             imports: [
                 HttpModule
@@ -26,10 +26,10 @@ describe('Grid Pagination', () => {
         });
     });
 
-    it('should go to the first page', inject([MockBackend, GridPagination],
-        (backend: MockBackend, gp: GridPagination) => {
+    it('should go to the first page', inject([MockBackend, GridPaginationComponent],
+        (backend: MockBackend, gp: GridPaginationComponent) => {
             gp.setCurrentPage(5);
-            gp.className = 'GridPagination';
+            gp.className = 'GridPaginationComponent';
             gp.gridOptions = {
                 rowSelection: 'multiple',
                 rowHeight: 30,
@@ -46,11 +46,11 @@ describe('Grid Pagination', () => {
             expect(gp.getCurrentPage()).toEqual(0);
         }));
 
-    it('should go to the previous page', inject([MockBackend, GridPagination],
-        (backend: MockBackend, gp: GridPagination) => {
+    it('should go to the previous page', inject([MockBackend, GridPaginationComponent],
+        (backend: MockBackend, gp: GridPaginationComponent) => {
             gp.setCurrentPage(5);
             gp.setPageSize(25);
-            gp.className = 'GridPagination';
+            gp.className = 'GridPaginationComponent';
             gp.gridOptions = {
                 rowSelection: 'multiple',
                 rowHeight: 30,
@@ -67,8 +67,8 @@ describe('Grid Pagination', () => {
             expect(gp.getCurrentPage()).toEqual(4);
         }));
 
-    it('should go to the last page', inject([MockBackend, GridPagination],
-        (backend: MockBackend, gp: GridPagination) => {
+    it('should go to the last page', inject([MockBackend, GridPaginationComponent],
+        (backend: MockBackend, gp: GridPaginationComponent) => {
             gp.className = 'Test';
             gp.gridOptions = {
                 rowSelection: 'multiple',
@@ -87,8 +87,8 @@ describe('Grid Pagination', () => {
             expect(gp.last).toHaveBeenCalled();
         }));
 
-    it('should to get a rows data', inject([MockBackend, GridPagination],
-        (backend: MockBackend, gp: GridPagination) => {
+    it('should to get a rows data', inject([MockBackend, GridPaginationComponent],
+        (backend: MockBackend, gp: GridPaginationComponent) => {
             gp.className = 'Test';
             gp.gridOptions = {
                 rowSelection: 'multiple',

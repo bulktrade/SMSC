@@ -1,2 +1,2 @@
-// CrudClassMetaData
+// CrudClassMetaDataComponent
 export * from './crudClassMetaData.component';

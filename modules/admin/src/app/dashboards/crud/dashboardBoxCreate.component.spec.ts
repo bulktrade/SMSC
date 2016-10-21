@@ -7,16 +7,16 @@ import { Router } from '@angular/router';
 import { CrudService } from '../../crud/crud.service';
 import { GridService } from '../../services/grid.service';
 import { CRUD_PROVIDERS } from '../../crud/common/crudProviders';
-import { DashboardService } from '../dashboardService';
-import { DashboardCrudCreate } from './dashboardBoxCreate';
+import { DashboardService } from '../dashboard.service';
+import { DashboardCrudCreateComponent } from './dashboardBoxCreate.component';
 
 class MockLocation {}
 
-describe('Dashboard crud create', () => {
+describe('DashboardComponent crud create', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                DashboardCrudCreate,
+                DashboardCrudCreateComponent,
                 TranslateService,
                 DragulaService,
                 DashboardService,
@@ -33,11 +33,11 @@ describe('Dashboard crud create', () => {
         });
     });
 
-    it('should be defined resolveData', inject([DashboardCrudCreate], (box) => {
+    it('should be defined resolveData', inject([DashboardCrudCreateComponent], (box) => {
         expect(box.resolveData).toBeDefined();
     }));
 
-    it('should be defined btnName', inject([DashboardCrudCreate], (box) => {
+    it('should be defined btnName', inject([DashboardCrudCreateComponent], (box) => {
         expect(box.btnName).toBeDefined();
     }));
 });

@@ -1,13 +1,13 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MdSelectModule } from '../common/material/select/select.component';
-import { DashboardService } from './dashboardService';
+import { DashboardService } from './dashboard.service';
 import { OrderBy } from './sorts/orderby';
-import { Dashboard } from './dashboard.component';
-import { DashboardView } from './dashboardView.component';
+import { DashboardComponent } from './dashboard.component';
+import { DashboardViewComponent } from './dashboardView.component';
 import { DashboardBoxComponent } from './dashboardBox.component';
-import { DashboardCrudUpdate } from './crud/dashboardBoxUpdate';
-import { DashboardCrudCreate } from './crud/dashboardBoxCreate';
+import { DashboardCrudUpdateComponent } from './crud/dashboardBoxUpdate.component';
+import { DashboardCrudCreateComponent } from './crud/dashboardBoxCreate.component';
 import { AgGridModule } from 'ag-grid-ng2';
 import { TranslateModule, TranslateService } from 'ng2-translate';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,16 +21,16 @@ import { CrudService } from '../crud/crud.service';
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { DynamicFormModule } from '../crud/dynamicForm/dynamicForm.component';
-import { Dashboards } from './dashboards.components';
+import { DashboardsComponent } from './dashboards.components';
 
 const DASHBOARD_DECLARATION = [
     OrderBy,
-    Dashboard,
-    DashboardView,
+    DashboardComponent,
+    DashboardViewComponent,
     DashboardBoxComponent,
-    DashboardCrudUpdate,
-    DashboardCrudCreate,
-    Dashboards
+    DashboardCrudUpdateComponent,
+    DashboardCrudCreateComponent,
+    DashboardsComponent
 ];
 
 @NgModule({
@@ -58,7 +58,7 @@ const DASHBOARD_DECLARATION = [
         CrudService,
         TranslateService,
         DashboardService,
-        // Breadcrumb
+        // BreadcrumbComponent
     ]
 })
 export class DashboardModule {

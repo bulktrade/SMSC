@@ -3,14 +3,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../../crud/crud.service';
 import { Location } from '@angular/common';
 import { EditModel } from '../../crud/crudUpdate/crudUpdate.model';
-import { BtnTypes } from '../../crud/dynamicForm/btnTypes';
+import { BtnTypes } from '../../crud/dynamicForm/model/btnTypes';
 import { FormPropertyModel } from '../../crud/model/formProperty';
 
 @Component({
     selector: 'dashboard-crud-edit',
     template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>'
 })
-export class DashboardCrudCreate {
+export class DashboardCrudCreateComponent {
     public resolveData: EditModel = new EditModel();
     public btnName: BtnTypes = BtnTypes.CREATE;
     public columnDefs: Array<FormPropertyModel> = null;

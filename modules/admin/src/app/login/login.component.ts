@@ -9,12 +9,12 @@ import { Response } from '@angular/http';
     providers: [
         AuthService
     ],
-    template: require('./login.html'),
+    template: require('./login.component.html'),
     styleUrls: [
-        require('./login.scss')
+        require('./login.component.scss')
     ]
 })
-export class Login implements OnInit {
+export class LoginComponent implements OnInit {
     errorMessage: string = null;
     isErrorMessage: boolean = false;
     loading: boolean = false;

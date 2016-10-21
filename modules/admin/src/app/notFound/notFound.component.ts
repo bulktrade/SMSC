@@ -2,14 +2,14 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'notFound',
-    template: require('./notFound.html'),
+    template: require('./notFound.component.html'),
     styleUrls: [
-        require('./notFound.scss')
+        require('./notFound.component.scss')
     ],
     encapsulation: ViewEncapsulation.None,
     providers: []
 })
-export class NotFound {
+export class NotFoundComponent {
     constructor() {
     }
 

@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Breadcrumb } from '../breadcrumb/breadcrumb.component';
+import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 
 @Component({
     selector: 'crud-metadata',
-    template: require('./crudMetaData.html'),
+    template: require('./crudMetaData.component.html'),
     styleUrls: [
-        require('./crudMetaData.scss')
+        require('./crudMetaData.component.scss')
     ],
-    providers: [Breadcrumb]
+    providers: [BreadcrumbComponent]
 })
-export class CrudMetaData {
+export class CrudMetaDataComponent {
     constructor(public translate: TranslateService) {
     }
 

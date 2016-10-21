@@ -17,13 +17,13 @@ const squel = require('squel');
 @Component({
     selector: 'grid-pagination',
     providers: [],
-    template: require('./gridPagination.html'),
+    template: require('./gridPagination.component.html'),
     styleUrls: [
-        require('./gridPagination.scss'),
+        require('./gridPagination.component.scss'),
     ]
 })
 
-export class GridPagination {
+export class GridPaginationComponent {
     @Input('className') public className: string;
     @Input('gridOptions') public gridOptions: GridOptions;
     @Input('currentCrudLevel') public currentCrudLevel: CrudLevel;
@@ -254,8 +254,8 @@ export class GridPagination {
 
 @NgModule({
     imports: [CommonModule, MdSelectModule, MdModule.forRoot(), DropdownModule, TranslateModule],
-    exports: [GridPagination],
-    declarations: [GridPagination]
+    exports: [GridPaginationComponent],
+    declarations: [GridPaginationComponent]
 })
 export class GridPaginationModule {
     static forRoot(): ModuleWithProviders {

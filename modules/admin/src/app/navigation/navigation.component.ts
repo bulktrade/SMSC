@@ -11,13 +11,13 @@ import { SidebarService } from '../sidebar/sidebarService';
 @Component({
     selector: 'navigation',
     providers: [],
-    template: require('./navigation.html'),
+    template: require('./navigation.component.html'),
     styleUrls: [
-        require('./navigation.scss')
+        require('./navigation.component.scss')
     ]
 })
 
-export class Navigation implements OnInit {
+export class NavigationComponent implements OnInit {
     @ViewChild('sidenav')
     public sidenav: MdSidenav;
 

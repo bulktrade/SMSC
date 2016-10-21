@@ -1,6 +1,6 @@
 import { NavigationPage } from './navigation.page';
 
-describe('Navigation', () => {
+describe('NavigationComponent', () => {
     let navigator = new NavigationPage();
     let ptor = protractor.wrapDriver(browser.driver);
 

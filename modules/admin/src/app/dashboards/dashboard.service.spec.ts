@@ -3,23 +3,27 @@ import { Location } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { APP_PROVIDERS } from '../app.module';
-import { DashboardView } from './dashboardView.component';
 import { TranslateService, TranslateLoader } from 'ng2-translate/ng2-translate';
-import { DashboardService } from './dashboardService';
+import { DashboardService } from './dashboard.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { CrudService } from '../crud/crud.service';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 import { GridService } from '../services/grid.service';
+import { Observable } from 'rxjs';
+import { DashboardBox } from './models/dashboardBox';
 import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
 import { Router } from '@angular/router';
 
 class MockLocation {}
 
-describe('Dashboard view', () => {
+describe('DashboardComponent service', () => {
+    let boxes;
+    let box: DashboardBox;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                DashboardView,
+                DashboardService,
                 TranslateService,
                 DragulaService,
                 DashboardService,
@@ -39,15 +43,38 @@ describe('Dashboard view', () => {
         });
     });
 
-    it('should be defined CSS boxes', inject([DashboardView], (box) => {
-        expect(box.boxesCss).toBeDefined();
+    it('Get dashboard boxes', inject([DashboardService], (service) => {
+        boxes = service.getDashboardBoxes();
+
+        expect(boxes instanceof Observable).toBeTruthy();
     }));
 
-    it('should be defined boxes list', inject([DashboardView], (box) => {
-        expect(box.boxes).toBeDefined();
+    it('Get dashboard box', inject([DashboardService], (service) => {
+        boxes.subscribe((res) => {
+            if (res.length > 0) {
+                box = res[0];
+
+                let resBox = service.getDashboardBox(box.metaData.rid);
+
+                expect(resBox instanceof Observable).toBeTruthy();
+            }
+        });
     }));
 
-    it('Get box class name', inject([DashboardView], (box) => {
-        expect(box.getBoxClass(25, 'chart')).toBeDefined('chart-m');
+    it('Update box size', inject([DashboardService], (service) => {
+        boxes.subscribe((res) => {
+            if (res.length > 0) {
+                box = res[0];
+
+                let size: Object = {
+                    width: 25,
+                    height: 25
+                };
+
+                let result = service.updateBoxSize(size, box);
+
+                expect(result instanceof Observable).toBeTruthy();
+            }
+        });
     }));
 });

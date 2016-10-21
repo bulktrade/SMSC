@@ -1,6 +1,6 @@
 import { Dashboard } from './dashboard.page';
 
-describe('Dashboard', () => {
+describe('DashboardComponent', () => {
     let prot = protractor.wrapDriver(browser.driver);
 
     prot.manage().window().setSize(1024, 1020);

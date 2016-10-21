@@ -1,5 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { Login } from './login.component';
+import { LoginComponent } from './login.component';
 import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
 import { AuthService } from '../services/auth/auth.service';
 import { LoginModel } from './login.model';
@@ -23,7 +23,7 @@ describe('Authentication', () => {
                 ...CRUD_PROVIDERS,
                 ...HTTP_PROVIDERS,
                 { provide: TokenService, useClass: MockTokenService },
-                Login,
+                LoginComponent,
                 AuthService
             ],
             imports: [
@@ -32,18 +32,18 @@ describe('Authentication', () => {
         });
     });
 
-    it('should be model', inject([Login], (login) => {
+    it('should be model', inject([LoginComponent], (login) => {
         let model = new LoginModel('', '', false);
 
         expect(login.model).toEqual(model);
     }));
 
-    it('loading should be is false', inject([Login], (login) => {
+    it('loading should be is false', inject([LoginComponent], (login) => {
         expect(login.loading).toBeFalsy();
     }));
 
-    it('should to login', inject([Login, MockBackend],
-        (login: Login, backend: MockBackend) => {
+    it('should to login', inject([LoginComponent, MockBackend],
+        (login: LoginComponent, backend: MockBackend) => {
             let model = new LoginModel('admin', 'admin', false);
             let path = '/orientdb/token/smsc';
             let responseBody = {
@@ -69,8 +69,8 @@ describe('Authentication', () => {
                 });
         }));
 
-    it('should get an error message with text user not found', inject([Login, MockBackend],
-        (login: Login, backend: MockBackend) => {
+    it('should get an error message with text user not found', inject([LoginComponent, MockBackend],
+        (login: LoginComponent, backend: MockBackend) => {
             let model = new LoginModel('admin', 'admin', false);
             let path = '/orientdb/token/smsc';
 
@@ -91,8 +91,8 @@ describe('Authentication', () => {
                 });
         }));
 
-    it('should to get the common error message', inject([Login, MockBackend],
-        (login: Login, backend: MockBackend) => {
+    it('should to get the common error message', inject([LoginComponent, MockBackend],
+        (login: LoginComponent, backend: MockBackend) => {
             let model = new LoginModel('admin', 'admin', false);
             let path = '/orientdb/token/smsc';
 

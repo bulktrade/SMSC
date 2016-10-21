@@ -1,14 +1,14 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
-import { CrudMetaData } from './crudMetaData.components';
+import { CRUD_PROVIDERS } from './common/crudProviders';
+import { CrudComponent } from './crud.component';
 import { HttpModule } from '@angular/http';
 
-describe('CrudMetaGridData', () => {
+describe('CrudComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 ...CRUD_PROVIDERS,
-                CrudMetaData
+                CrudComponent
             ],
             imports: [
                 HttpModule
@@ -16,7 +16,8 @@ describe('CrudMetaGridData', () => {
         });
     });
 
-    it('should be translate', inject([ CrudMetaData ], (crudMetaData) => {
-        expect(!!crudMetaData.translate).toEqual(true);
+    it('should be defined router', inject([CrudComponent], (crud) => {
+        expect(crud.router).toBeDefined();
     }));
+
 });

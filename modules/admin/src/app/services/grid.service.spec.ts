@@ -65,7 +65,7 @@ describe('Grid Service', () => {
             bingingProperties: ['#5:1', '#5:2']
         };
         let currentCrudLevel: CrudLevel = {
-            className: 'Dashboard',
+            className: 'DashboardComponent',
             inputModel: inputModel,
             linksetProperty: linksetProperty
         };

@@ -1,32 +1,38 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './common/authGuard';
-import { Login } from './login/login.component';
-import { Navigation } from './navigation/navigation.component';
-import { Customers } from './customers/customers.components';
-import { Crud } from './crud/crud.component';
-import { NotFound } from './notFound/notFound.component';
-import { CrudMetaData } from './crudMetadata/crudMetaData.components';
+import { LoginComponent } from './login/login.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { CustomersComponent } from './customers/customers.components';
+import { CrudComponent } from './crud/crud.component';
+import { NotFoundComponent } from './notFound/notFound.component';
+import { CrudMetaDataComponent } from './crudMetadata/crudMetaData.components';
 import { CRUD_ROUTE_PROVIDER } from './crud/crud.routes';
-import { CrudMetaGridData } from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
-import { CrudMetaFormData } from './crudMetadata/crudMetaFormData/crudMetaFormData.component';
-import { CrudClassMetaData } from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
 import {
-    MetaDataPropertyBindingParameter
+    CrudMetaGridDataComponent
+} from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
+import {
+    CrudMetaFormDataComponent
+} from './crudMetadata/crudMetaFormData/crudMetaFormData.component';
+import {
+    CrudClassMetaDataComponent
+} from './crudMetadata/crudClassMetaData/crudClassMetaData.component';
+import {
+    MetaDataPropertyBindingParameterComponent
 } from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter.component';
-import { DashboardView } from './dashboards/dashboardView.component';
-import { DashboardCrudUpdate } from './dashboards/crud/dashboardBoxUpdate';
+import { DashboardViewComponent } from './dashboards/dashboardView.component';
+import { DashboardCrudUpdateComponent } from './dashboards/crud/dashboardBoxUpdate.component';
 import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboardCrudUpdate.resolve';
-import { DashboardCrudCreate } from './dashboards/crud/dashboardBoxCreate';
+import { DashboardCrudCreateComponent } from './dashboards/crud/dashboardBoxCreate.component';
 import { DashboardCrudCreateResolve } from './dashboards/crud/dashboardCrudCreate.resolve';
-import { CrudLinkset } from './crud/crudLinkset/crudLinkset.component';
+import { CrudLinksetComponent } from './crud/crudLinkset/crudLinkset.component';
 import { CrudLinksetResolve } from './crud/crudLinkset/crudLinkset.resolve';
-import { Dashboards } from './dashboards/dashboards.components';
-import { Dashboard } from './dashboards/dashboard.component';
+import { DashboardsComponent } from './dashboards/dashboards.components';
+import { DashboardComponent } from './dashboards/dashboard.component';
 
 const DASHBOARD_ROUTER_PROVIDER = [
     {
         path: '',
-        component: Dashboard,
+        component: DashboardComponent,
         data: {
             showInSubNavigation: false,
             icon: 'layers',
@@ -34,37 +40,45 @@ const DASHBOARD_ROUTER_PROVIDER = [
             dashboard: 'default'
         },
         children: [
-            { path: '', component: DashboardView },
+            { path: '', component: DashboardViewComponent },
             {
                 path: 'edit/:id',
-                component: DashboardCrudUpdate,
+                component: DashboardCrudUpdateComponent,
                 resolve: { edit: DashboardCrudUpdateResolve } },
             {
                 path: 'create/:className',
-                component: DashboardCrudCreate,
+                component: DashboardCrudCreateComponent,
                 resolve: { create: DashboardCrudCreateResolve }
             },
-            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
+            {
+                path: 'linkset',
+                component: CrudLinksetComponent,
+                resolve: { linkset: CrudLinksetResolve }
+            }
         ]
     },
     {
         path: 'dashboard',
-        component: Dashboard,
+        component: DashboardComponent,
         data: {
             crudClass: 'DashboardBox'
         },
         children: [
-            { path: '', component: DashboardView },
+            { path: '', component: DashboardViewComponent },
             {
                 path: 'edit/:id',
-                component: DashboardCrudUpdate,
+                component: DashboardCrudUpdateComponent,
                 resolve: { edit: DashboardCrudUpdateResolve } },
             {
                 path: 'create/:className',
-                component: DashboardCrudCreate,
+                component: DashboardCrudCreateComponent,
                 resolve: { create: DashboardCrudCreateResolve }
             },
-            { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
+            {
+                path: 'linkset',
+                component: CrudLinksetComponent,
+                resolve: { linkset: CrudLinksetResolve }
+            }
         ]
     }
 ];
@@ -72,16 +86,16 @@ const DASHBOARD_ROUTER_PROVIDER = [
 export const ROUTES: Routes = [
     {
         path: 'login',
-        component: Login
+        component: LoginComponent
     },
     {
         path: '',
-        component: Navigation,
+        component: NavigationComponent,
         canActivate: [AuthGuard],
         children: [
             {
                 path: '',
-                component: Dashboards,
+                component: DashboardsComponent,
                 children: DASHBOARD_ROUTER_PROVIDER,
                 data: {
                     similarPath: 'dasboards', // @todo Impement in sidenav
@@ -91,7 +105,7 @@ export const ROUTES: Routes = [
             },
             {
                 path: 'customers',
-                component: Customers,
+                component: CustomersComponent,
                 data: {
                     showInSubNavigation: true,
                     icon: 'perm_contact_calendar',
@@ -100,14 +114,14 @@ export const ROUTES: Routes = [
                 children: [
                     {
                         path: '',
-                        component: Crud,
+                        component: CrudComponent,
                         children: CRUD_ROUTE_PROVIDER
                     }
                 ]
             },
             {
                 path: 'metadata',
-                component: CrudMetaData,
+                component: CrudMetaDataComponent,
                 data: {
                     showInSubNavigation: true,
                     icon: 'perm_contact_calendar'
@@ -115,7 +129,7 @@ export const ROUTES: Routes = [
                 children: [
                     {
                         path: '',
-                        component: CrudClassMetaData,
+                        component: CrudClassMetaDataComponent,
                         data: {
                             showInSubNavigation: true,
                             icon: 'perm_data_setting',
@@ -124,14 +138,14 @@ export const ROUTES: Routes = [
                         children: [
                             {
                                 path: '',
-                                component: Crud,
+                                component: CrudComponent,
                                 children: CRUD_ROUTE_PROVIDER
                             }
                         ]
                     },
                     {
                         path: 'binding',
-                        component: MetaDataPropertyBindingParameter,
+                        component: MetaDataPropertyBindingParameterComponent,
                         data: {
                             showInSubNavigation: true,
                             icon: 'perm_data_setting',
@@ -140,14 +154,14 @@ export const ROUTES: Routes = [
                         children: [
                             {
                                 path: '',
-                                component: Crud,
+                                component: CrudComponent,
                                 children: CRUD_ROUTE_PROVIDER
                             }
                         ]
                     },
                     {
                         path: 'grid',
-                        component: CrudMetaGridData,
+                        component: CrudMetaGridDataComponent,
                         data: {
                             showInSubNavigation: true,
                             icon: 'grid_on',
@@ -156,14 +170,14 @@ export const ROUTES: Routes = [
                         children: [
                             {
                                 path: '',
-                                component: Crud,
+                                component: CrudComponent,
                                 children: CRUD_ROUTE_PROVIDER
                             }
                         ]
                     },
                     {
                         path: 'form',
-                        component: CrudMetaFormData,
+                        component: CrudMetaFormDataComponent,
                         data: {
                             showInSubNavigation: true,
                             icon: 'format_shapes',
@@ -172,7 +186,7 @@ export const ROUTES: Routes = [
                         children: [
                             {
                                 path: '',
-                                component: Crud,
+                                component: CrudComponent,
                                 children: CRUD_ROUTE_PROVIDER
                             }
                         ]
@@ -183,6 +197,6 @@ export const ROUTES: Routes = [
     },
     {
         path: '**',
-        component: NotFound
+        component: NotFoundComponent
     }
 ];

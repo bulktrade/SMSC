@@ -7,7 +7,7 @@ import { GridOptions } from 'ag-grid';
 import { NotificationService } from '../services/notificationService';
 import { LoadingGridService } from '../services/loading/loadingGrid.service';
 import { ColumnModel } from './model/crud.column';
-import { INPUT_TYPES } from './common/form/formInputTypes';
+import { INPUT_TYPES } from './dynamicForm/model/formInputTypes';
 import { ColumnDefsModel } from './model/columnDefs';
 import { Operation } from '../orientdb/model/operation';
 import { BatchType } from '../orientdb/model/batchType';
@@ -20,7 +20,7 @@ import { LinksetProperty } from './model/linksetProperty';
 import { GridService } from '../services/grid.service';
 
 const squel = require('squel');
-let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.html');
+let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.component.html');
 
 @Injectable()
 export class CrudService {
@@ -123,7 +123,7 @@ export class CrudService {
      *  foo: 'bar'
      * };
      *
-     * let className = 'Crud';
+     * let className = 'CrudComponent';
      *
      * createRecord(record, className);
      *
@@ -681,7 +681,7 @@ export class CrudService {
     setPropertiesMetaFormData(properties, className): Observable<ColumnModel> {
         let queryCrudMetaFormData = squel.select()
             .from('CrudMetaFormData')
-            .where('crudClassMetaData.class = ?', className);
+            .where('CrudClassMetaData.class = ?', className);
 
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.query(queryCrudMetaFormData.toString())
@@ -746,7 +746,7 @@ export class CrudService {
     setPropertiesMetaGridData(properties, className): Observable<ColumnModel> {
         let queryCrudMetaGridData = squel.select()
             .from('CrudMetaGridData')
-            .where('crudClassMetaData.class = ?', className);
+            .where('CrudClassMetaData.class = ?', className);
 
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.query(queryCrudMetaGridData.toString())

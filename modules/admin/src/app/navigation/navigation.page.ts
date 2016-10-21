@@ -65,7 +65,7 @@ export class NavigationPage {
 
         switch (userLang) {
             case 'en':
-                result = 'Dashboard';
+                result = 'DashboardComponent';
                 break;
             case 'ru':
                 result = 'Приборная панель';
@@ -74,7 +74,7 @@ export class NavigationPage {
                 result = 'Armaturenbrett';
                 break;
             default:
-                result = 'Dashboard';
+                result = 'DashboardComponent';
                 break;
         }
 

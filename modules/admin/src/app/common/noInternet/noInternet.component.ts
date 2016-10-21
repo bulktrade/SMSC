@@ -20,7 +20,7 @@ import { TranslateModule } from 'ng2-translate';
 `
 })
 
-export class NoInternet {
+export class NoInternetComponent {
     private toggle: boolean = true;
 
     constructor() {
@@ -47,8 +47,8 @@ export class NoInternet {
 
 @NgModule({
     imports: [CommonModule, AlertModule, TranslateModule],
-    exports: [NoInternet],
-    declarations: [NoInternet]
+    exports: [NoInternetComponent],
+    declarations: [NoInternetComponent]
 })
 export class NoInternetModule {
     static forRoot(): ModuleWithProviders {
