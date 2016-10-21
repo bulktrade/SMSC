@@ -46,6 +46,8 @@ if ($Dashboard.size() == 0) {
     let statusType = INSERT INTO DashboardBoxType SET name = 'Ivan feeds', type = 'status', kind = 'Feedback status', code = '', codeLanguage = 'SQL'
     let pieChartType = INSERT INTO DashboardBoxType SET name = 'Petia profit', type = 'chart', kind = 'Pie chart', code = "return {data: \"function generateStr() { var text = ''; var possible = 'abcdefghijklmnopqrstuvwxyz'; for( var i=0; i < 5; i++ ) text += possible.charAt(Math.floor(Math.random() * possible.length)); return text; } var res = []; var len = Math.ceil(Math.random()*15); for(var i = 0; i < len; i++) { res.push({ country: generateStr(), litres: Math.ceil(Math.random()*100) }); } res;\"}", codeLanguage = 'JavaScript'
     let serialChartType = INSERT INTO DashboardBoxType SET name = 'Rusia chart profit', type = 'chart', kind = 'Serial chart', code = "return {data: \"let res = []; for (let i = 1; i <= 12; i++) { for (let y = 1; y <= 2; y++) { res.push({ date: new Date(2016, i, y*5), value: Math.ceil(Math.random()*1000), value0: Math.ceil(Math.random()*1000) }); } } res;\"}", codeLanguage = 'JavaScript'
+    let lineChartType = INSERT INTO DashboardBoxType SET name = 'Ivan chart profit', type = 'chart', kind = 'Line chart', code = "return {data: \"var res = []; for(let i = 1900; i < 2016; i++) { var single = Math.random()*10; single = single > 5 ? 1 : -1; res.push({ year: String(i), value: Math.ceil(Math.random()*100)*single }); } res;\"}", codeLanguage = 'JavaScript'
+    let barChartType = INSERT INTO DashboardBoxType SET name = 'Kolia chart profit', type = 'chart', kind = 'Bar chart', code = "return {data: \"var res = []; function getStr() { var text = ''; var possible = 'abcdefghijklmnopqrstuvwxyz'; for( var i=0; i < 5; i++ ) text += possible.charAt(Math.floor(Math.random() * possible.length)); return text; } var len = Math.ceil(Math.random()*50); for(var i = 0; i < len; i++) { res.push({ country: getStr(), visits: Math.ceil(Math.random()*10000) }); } res;\"}", codeLanguage = 'JavaScript'
 
     console.log "Creating process for DashboardBoxType class is done."
   }
@@ -58,6 +60,8 @@ if ($Dashboard.size() == 0) {
     let statusType = select * from DashboardBoxType where name = 'Ivan feeds'
     let pieChartType = select * from DashboardBoxType where name = 'Petia profit'
     let serialChartType = select * from DashboardBoxType where name = 'Rusia chart profit'
+    let lineChartType = select * from DashboardBoxType where name = 'Ivan chart profit'
+    let barChartType = select * from DashboardBoxType where name = 'Kolia chart profit'
     let defaultDashboard = select * from Dashboard where name = 'default'
 
     CREATE Class DashboardBox
@@ -87,6 +91,8 @@ if ($Dashboard.size() == 0) {
 
     INSERT INTO DashboardBox SET width = 50, height = 50, order = 5, dashboard = $defaultDashboard['@rid'][0], type = $pieChartType['@rid'][0], name = 'Box 5', description = 'Box 5 desc'
     INSERT INTO DashboardBox SET width = 50, height = 50, order = 6, dashboard = $defaultDashboard['@rid'][0], type = $serialChartType['@rid'][0], name = 'Box 6', description = 'Box 6 desc'
+    INSERT INTO DashboardBox SET width = 50, height = 50, order = 7, dashboard = $defaultDashboard['@rid'][0], type = $lineChartType['@rid'][0], name = 'Box 7', description = 'Box 7 desc'
+    INSERT INTO DashboardBox SET width = 50, height = 50, order = 8, dashboard = $defaultDashboard['@rid'][0], type = $barChartType['@rid'][0], name = 'Box 8', description = 'Box 8 desc'
 
     console.log "Creating process for DashboardBox class is done."
   }

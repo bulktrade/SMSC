@@ -15,6 +15,12 @@ export class LineChartService {
 
             case 'Pie chart':
                 return this.getPie(data);
+
+            case 'Line chart':
+                return this.getLine(data);
+
+            case 'Bar chart':
+                return this.getBar(data);
         }
     }
 
@@ -114,6 +120,100 @@ export class LineChartService {
             "export": {
                 "enabled": true
             }
+        }
+    }
+
+    getLine(data: Object) {
+        return {
+            "type": "serial",
+            "theme": "light",
+            "marginTop":0,
+            "marginRight": 80,
+            "dataProvider": data,
+            "valueAxes": [{
+                "axisAlpha": 0,
+                "position": "left"
+            }],
+            "graphs": [{
+                "id":"g1",
+                "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+                "bullet": "round",
+                "bulletSize": 8,
+                "lineColor": "#d1655d",
+                "lineThickness": 2,
+                "negativeLineColor": "#637bb6",
+                "type": "smoothedLine",
+                "valueField": "value"
+            }],
+            "chartScrollbar": {
+                "graph":"g1",
+                "gridAlpha":0,
+                "color":"#888888",
+                "scrollbarHeight":55,
+                "backgroundAlpha":0,
+                "selectedBackgroundAlpha":0.1,
+                "selectedBackgroundColor":"#888888",
+                "graphFillAlpha":0,
+                "autoGridCount":true,
+                "selectedGraphFillAlpha":0,
+                "graphLineAlpha":0.2,
+                "graphLineColor":"#c2c2c2",
+                "selectedGraphLineColor":"#888888",
+                "selectedGraphLineAlpha":1
+
+            },
+            "chartCursor": {
+                "categoryBalloonDateFormat": "YYYY",
+                "cursorAlpha": 0,
+                "valueLineEnabled":true,
+                "valueLineBalloonEnabled":true,
+                "valueLineAlpha":0.5,
+                "fullWidth":true
+            },
+            "dataDateFormat": "YYYY",
+            "categoryField": "year",
+            "categoryAxis": {
+                "minPeriod": "YYYY",
+                "parseDates": true,
+                "minorGridAlpha": 0.1,
+                "minorGridEnabled": true
+            },
+            "export": {
+                "enabled": true
+            }
+        }
+    }
+
+    getBar(data: Object) {
+        return {
+            "type": "serial",
+            "theme": "light",
+            "dataProvider": data,
+            "gridAboveGraphs": true,
+            "startDuration": 1,
+            "graphs": [ {
+                "balloonText": "[[category]]: <b>[[value]]</b>",
+                "fillAlphas": 0.8,
+                "lineAlpha": 0.2,
+                "type": "column",
+                "valueField": "visits"
+            } ],
+            "chartCursor": {
+                "categoryBalloonEnabled": false,
+                "cursorAlpha": 0,
+                "zoomable": false
+            },
+            "categoryField": "country",
+            "categoryAxis": {
+                "gridPosition": "start",
+                "gridAlpha": 0,
+                "tickPosition": "start",
+                "tickLength": 20
+            },
+            "export": {
+                "enabled": true
+            }
+
         }
     }
 }

@@ -58,8 +58,6 @@ export class LineChart {
                 chart.zoomChart();
             }
 
-            console.log(res);
-
             this.chart.dataProvider = res;
             this.chart.validateData();
         });
