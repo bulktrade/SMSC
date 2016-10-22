@@ -35,6 +35,7 @@ const DASHBOARD_ROUTER_PROVIDER = [
         component: DashboardComponent,
         data: {
             showInSubNavigation: false,
+            nameInSubNavigation: 'Dashboard',
             icon: 'layers',
             crudClass: 'DashboardBox',
             dashboard: 'default'
@@ -100,6 +101,7 @@ export const ROUTES: Routes = [
                 data: {
                     similarPath: 'dasboards', // @todo Impement in sidenav
                     showInSubNavigation: true,
+                    nameInSubNavigation: 'Dashboards',
                     icon: 'layers'
                 }
             },
@@ -108,6 +110,7 @@ export const ROUTES: Routes = [
                 component: CustomersComponent,
                 data: {
                     showInSubNavigation: true,
+                    nameInSubNavigation: 'Customers',
                     icon: 'perm_contact_calendar',
                     crudClass: 'Customer'
                 },
@@ -124,6 +127,7 @@ export const ROUTES: Routes = [
                 component: CrudMetaDataComponent,
                 data: {
                     showInSubNavigation: true,
+                    nameInSubNavigation: 'CrudMetaData',
                     icon: 'perm_contact_calendar'
                 },
                 children: [
@@ -132,6 +136,7 @@ export const ROUTES: Routes = [
                         component: CrudClassMetaDataComponent,
                         data: {
                             showInSubNavigation: true,
+                            nameInSubNavigation: 'CrudClassMetaData',
                             icon: 'perm_data_setting',
                             crudClass: 'CrudClassMetaData'
                         },
@@ -148,6 +153,7 @@ export const ROUTES: Routes = [
                         component: MetaDataPropertyBindingParameterComponent,
                         data: {
                             showInSubNavigation: true,
+                            nameInSubNavigation: 'MetaDataPropertyBindingParameter',
                             icon: 'perm_data_setting',
                             crudClass: 'MetaDataPropertyBindingParameter'
                         },
@@ -164,6 +170,7 @@ export const ROUTES: Routes = [
                         component: CrudMetaGridDataComponent,
                         data: {
                             showInSubNavigation: true,
+                            nameInSubNavigation: 'CrudMetaGridData',
                             icon: 'grid_on',
                             crudClass: 'CrudMetaGridData'
                         },
@@ -180,6 +187,7 @@ export const ROUTES: Routes = [
                         component: CrudMetaFormDataComponent,
                         data: {
                             showInSubNavigation: true,
+                            nameInSubNavigation: 'CrudMetaFormData',
                             icon: 'format_shapes',
                             crudClass: 'CrudMetaFormData'
                         },

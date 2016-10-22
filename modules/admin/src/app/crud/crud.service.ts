@@ -681,7 +681,7 @@ export class CrudService {
     setPropertiesMetaFormData(properties, className): Observable<ColumnModel> {
         let queryCrudMetaFormData = squel.select()
             .from('CrudMetaFormData')
-            .where('CrudClassMetaData.class = ?', className);
+            .where('crudClassMetaData.class = ?', className);
 
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.query(queryCrudMetaFormData.toString())
@@ -746,7 +746,7 @@ export class CrudService {
     setPropertiesMetaGridData(properties, className): Observable<ColumnModel> {
         let queryCrudMetaGridData = squel.select()
             .from('CrudMetaGridData')
-            .where('CrudClassMetaData.class = ?', className);
+            .where('crudClassMetaData.class = ?', className);
 
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.query(queryCrudMetaGridData.toString())
