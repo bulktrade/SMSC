@@ -21,6 +21,9 @@ export class LineChartService {
 
             case 'Bar chart':
                 return this.getBar(data);
+
+            case 'Bubble chart':
+                return this.getBubble(data);
         }
     }
 
@@ -214,6 +217,70 @@ export class LineChartService {
                 "enabled": true
             }
 
+        }
+    }
+
+    getBubble(data: Object) {
+        var res = [];
+
+        for(var i = 0; i < Math.ceil(Math.random()*30); i++) {
+
+            res.push({
+                y: Math.ceil(Math.random()*50),
+                x: Math.ceil(Math.random()*50),
+                value: Math.ceil(Math.random()*50),
+                y2: Math.ceil(Math.random()*50),
+                x2: Math.ceil(Math.random()*50),
+                value2: Math.ceil(Math.random()*50)
+            });
+        }
+
+        res;
+
+        return  {
+            "type": "xy",
+            "theme": "light",
+            "balloon":{
+                "fixedPosition":true,
+            },
+            "dataProvider": data,
+            "valueAxes": [ {
+                "position": "bottom",
+                "axisAlpha": 0
+            }, {
+                "minMaxMultiplier": 1.2,
+                "axisAlpha": 0,
+                "position": "left"
+            } ],
+            "startDuration": 1.5,
+            "graphs": [ {
+                "balloonText": "x:<b>[[x]]</b> y:<b>[[y]]</b><br>value:<b>[[value]]</b>",
+                "bullet": "circle",
+                "bulletBorderAlpha": 0.2,
+                "bulletAlpha": 0.8,
+                "lineAlpha": 0,
+                "fillAlphas": 0,
+                "valueField": "value",
+                "xField": "x",
+                "yField": "y",
+                "maxBulletSize": 100
+            }, {
+                "balloonText": "x:<b>[[x]]</b> y:<b>[[y]]</b><br>value:<b>[[value]]</b>",
+                "bullet": "diamond",
+                "bulletBorderAlpha": 0.2,
+                "bulletAlpha": 0.8,
+                "lineAlpha": 0,
+                "fillAlphas": 0,
+                "valueField": "value2",
+                "xField": "x2",
+                "yField": "y2",
+                "maxBulletSize": 100
+            } ],
+            "marginLeft": 46,
+            "marginBottom": 35,
+            "export": {
+                "enabled": true
+            }
         }
     }
 }

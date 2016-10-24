@@ -27,6 +27,7 @@
                                 'height': item.height,
                                 'icon': 'account_balance_wallet',
                                 'customData': {
+                                    'rid': item.metaData.rid,
                                     'processStatus': 'Progress',
                                     'percent': '75'
                                 }
@@ -41,7 +42,10 @@
                                 'kind': item.type.kind,
                                 'subHeader': item.description,
                                 'width': item.width,
-                                'height': item.height
+                                'height': item.height,
+                                'customData': {
+                                    'rid': item.metaData.rid
+                                }
                             }" (resizeBox)="resizeBox($event, i, item)" (removeBox)="removeBox(item, i)"
                            (editBox)="editBox(item.metaData.rid)"
             ></dashboard-box>

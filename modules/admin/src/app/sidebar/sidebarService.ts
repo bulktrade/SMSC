@@ -3,6 +3,8 @@ import { MdSidenav } from "@angular2-material/sidenav";
 
 @Injectable()
 export class SidebarService {
+    public prevLeftScroll: number;
+    public prevTopScroll: number;
     private _sidenav:MdSidenav;
     private _fullScreenMode:boolean = false;
 

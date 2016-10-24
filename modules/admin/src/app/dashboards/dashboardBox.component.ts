@@ -1,9 +1,10 @@
-import {Component, Input, ViewEncapsulation, Output, EventEmitter, HostListener} from "@angular/core";
+import {Component, Input, ViewEncapsulation, Output, EventEmitter, HostListener, Inject} from "@angular/core";
 import {SidebarService} from "../sidebar/sidebarService";
 import {DashboardBoxConfig} from "./dashboardBoxConfig";
 import {BoxResize} from "./models/dashboardBoxEnum";
 import {BrowserDomAdapter} from "@angular/platform-browser/src/browser/browser_adapter";
 import {DashboardResizeConfig} from "./dashboardResizeConfig";
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
     selector: 'dashboard-box',
@@ -11,7 +12,10 @@ import {DashboardResizeConfig} from "./dashboardResizeConfig";
     styleUrls: [
         require('./dashboardBox.scss')
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [
+        {provide: Window, useValue: window}
+    ]
 })
 export class DashboardBoxComponent {
     @Input('config')
@@ -36,7 +40,8 @@ export class DashboardBoxComponent {
     public chart: any;
     public kindClass: string;
 
-    constructor(private sidebarService: SidebarService) {
+    constructor(private sidebarService: SidebarService,
+                @Inject(DOCUMENT) private document: any) {
     }
 
     ngOnInit() {
@@ -55,28 +60,44 @@ export class DashboardBoxComponent {
     handleKeyboardEvent(event: KeyboardEvent) {
         event.stopImmediatePropagation();
 
-        if (event.key == 'Escape' && this.fullscreenMode == true) {
-            this.toggleFullscreen();
+        if (event.key == 'Escape' && this.sidebarService.fullScreenMode == true) {
+            this.toggleFullscreen(true);
+
+            let dom: BrowserDomAdapter = new BrowserDomAdapter();
+            dom.removeClass(dom.query('.box .fullscreen'), 'fullscreen');
         }
     }
 
     /**
      * Toggle fullscreen for dashboard box.
      */
-    toggleFullscreen() {
+    toggleFullscreen(esc?: boolean) {
         this.sidebarService.toggleSidenav().then(() => {
             let dom: BrowserDomAdapter = new BrowserDomAdapter();
 
-            if (this.fullscreenMode) {
+            if (this.sidebarService.fullScreenMode) {
+                dom.query('.md-sidenav-content').scrollTop = this.sidebarService.prevTopScroll;
+                dom.query('.md-sidenav-content').scrollLeft = this.sidebarService.prevLeftScroll;
+
                 dom.removeStyle(dom.query('.md-sidenav-content'), 'overflow');
                 dom.removeClass(dom.query('.header'), 'fullscreen-header');
-            } else {
+
+                if (esc == undefined) {
+                    dom.removeClass(dom.query('.box[data-boxrid="'+ this.config.customData.rid +'"] .content'), 'fullscreen');
+                }
+
+                this.sidebarService.fullScreenMode = false;
+            }else {
+                this.sidebarService.prevTopScroll = dom.query('.md-sidenav-content').scrollTop;
+                this.sidebarService.prevLeftScroll = dom.query('.md-sidenav-content').scrollLeft;
+                dom.query('.md-sidenav-content').scrollTop = 0;
+                dom.query('.md-sidenav-content').scrollLeft = 0;
+
                 dom.setStyle(dom.query('.md-sidenav-content'), 'overflow', 'hidden');
                 dom.addClass(dom.query('.header'), 'fullscreen-header');
+                dom.addClass(dom.query('.box[data-boxrid="'+ this.config.customData.rid +'"] .content'), 'fullscreen');
+                this.sidebarService.fullScreenMode = true;
             }
-
-            this.fullscreenMode = !this.fullscreenMode;
-            this.sidebarService.fullScreenMode = this.fullscreenMode;
         });
     }
 
