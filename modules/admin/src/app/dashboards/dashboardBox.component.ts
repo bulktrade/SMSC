@@ -83,7 +83,7 @@ export class DashboardBoxComponent {
                 dom.removeClass(dom.query('.header'), 'fullscreen-header');
 
                 if (esc == undefined) {
-                    dom.removeClass(dom.query('.box[data-boxrid="'+ this.config.customData.rid +'"] .content'), 'fullscreen');
+                    dom.removeClass(dom.query('.box[data-boxrid="'+ this.config.customData['rid'] +'"] .content'), 'fullscreen');
                 }
 
                 this.sidebarService.fullScreenMode = false;
@@ -95,7 +95,7 @@ export class DashboardBoxComponent {
 
                 dom.setStyle(dom.query('.md-sidenav-content'), 'overflow', 'hidden');
                 dom.addClass(dom.query('.header'), 'fullscreen-header');
-                dom.addClass(dom.query('.box[data-boxrid="'+ this.config.customData.rid +'"] .content'), 'fullscreen');
+                dom.addClass(dom.query('.box[data-boxrid="'+ this.config.customData['rid'] +'"] .content'), 'fullscreen');
                 this.sidebarService.fullScreenMode = true;
             }
         });
