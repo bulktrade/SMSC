@@ -28,7 +28,7 @@
         ]
     },
     "exclude": [
-        "_node_modules",
+        "node_modules",
         "dist"
     ],
     "awesomeTypescriptLoaderOptions": {
