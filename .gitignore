@@ -74,7 +74,9 @@ Thumbs.db
 
 pom.xml
 
-/modules/admin/src/app/dashboard/*.js
-/modules/admin/src/app/dashboard/*.js.map
-/modules/admin/src/app/dashboard/**/*.js
-/modules/admin/src/app/dashboard/**/*.js.map
+.gitignore
+
+/modules/admin/src/app/*.js
+/modules/admin/src/app/*.js.map
+/modules/admin/src/app/**/*.js
+/modules/admin/src/app/**/*.js.map
