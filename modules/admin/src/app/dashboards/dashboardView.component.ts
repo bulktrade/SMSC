@@ -51,7 +51,9 @@ export class DashboardView {
         dragulaService.drop.subscribe((value) => {
             this.onDrop(value.slice(1));
         });
+    }
 
+    ngOnInit() {
         this.route.data.subscribe((res) => {
             this.boxesCss = res['data'].boxesCss;
             this.boxes = res['data'].boxes;
