@@ -5,7 +5,7 @@ describe('Dashboard', () => {
 
     prot.manage().window().setSize(1024, 1020);
     browser.get(browser.baseUrl + '/');
-    browser.get('/');
+    //browser.get('/');
     //browser.get('/admin/');
 
     beforeEach(() => {
