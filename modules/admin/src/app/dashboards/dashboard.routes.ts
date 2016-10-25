@@ -7,6 +7,7 @@ import {DashboardView} from "./dashboardView.component";
 import {DashboardCrudDelete} from "./crud/dashboardBoxDelete";
 import {CrudLinkset} from "../crud/crudLinkset/crudLinkset.component";
 import {Dashboard} from "./dashboard.component";
+import {DashboardViewResolve} from "./dashboardView.resolve";
 
 export const DASHBOARD_ROUTER_PROVIDER = [
     {
@@ -20,7 +21,13 @@ export const DASHBOARD_ROUTER_PROVIDER = [
             dashboard: 'default'
         },
         children: [
-            { path: '', component: DashboardView },
+            {
+                path: '',
+                component: DashboardView,
+                resolve: {
+                    data: DashboardViewResolve
+                }
+            },
             {
                 path: 'edit/:id',
                 component: DashboardCrudUpdate,
@@ -51,7 +58,13 @@ export const DASHBOARD_ROUTER_PROVIDER = [
             crudTypeClass: 'DashboardBoxType'
         },
         children: [
-            { path: '', component: DashboardView },
+            {
+                path: '',
+                component: DashboardView,
+                resolve: {
+                    data: DashboardViewResolve
+                }
+            },
             {
                 path: 'edit/:id',
                 component: DashboardCrudUpdate,

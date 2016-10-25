@@ -29,6 +29,7 @@ import {GridPaginationModule} from "../crud/directives/gridPagination/gridPagina
 import {DashboardCrudDelete} from "./crud/dashboardBoxDelete";
 import {DashboardCrudUpdateResolve} from "./crud/dashboardCrudUpdate.resolve";
 import {DashboardCrudCreateResolve} from "./crud/dashboardCrudCreate.resolve";
+import {DashboardViewResolve} from "./dashboardView.resolve";
 
 const DASHBOARD_DECLARATION = [
     OrderBy,
@@ -73,6 +74,7 @@ const DASHBOARD_DECLARATION = [
         LineChartService,
         DashboardCrudUpdateResolve,
         DashboardCrudCreateResolve,
+        DashboardViewResolve
     ]
 })
 export class DashboardModule {

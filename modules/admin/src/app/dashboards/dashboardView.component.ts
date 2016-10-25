@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router } from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import { DragulaService } from "ng2-dragula/ng2-dragula";
 import { DashboardService } from "./dashboardService";
 import { BrowserDomAdapter } from "@angular/platform-browser/src/browser/browser_adapter";
@@ -34,7 +34,8 @@ export class DashboardView {
                 private dragulaService: DragulaService,
                 private  dashboardService: DashboardService,
                 private router: Router,
-                public crudService: CrudService) {
+                public crudService: CrudService,
+                private route: ActivatedRoute) {
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal',
             moves: function (el, container, handle) {
@@ -51,13 +52,10 @@ export class DashboardView {
             this.onDrop(value.slice(1));
         });
 
-        this.dashboardService.getDashboardBoxes().subscribe((res) => {
-            this.boxesCss = new DashboardList<string>();
-            this.boxes = new DashboardListItem<DashboardBox>();
-            let orderBy: OrderBy = new OrderBy();
-            this.boxes.merge(orderBy.transform(res, { key: 'order', direction: 'ascending' }));
+        this.route.data.subscribe((res) => {
+            this.boxesCss = res['data'].boxesCss;
+            this.boxes = res['data'].boxes;
             this.updateClasses();
-            console.log(this.boxes);
         });
     }
 

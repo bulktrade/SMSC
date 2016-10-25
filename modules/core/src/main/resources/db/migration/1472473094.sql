@@ -48,7 +48,7 @@ if ($Dashboard.size() == 0) {
     let serialChartType = INSERT INTO DashboardBoxType SET name = 'Rusia chart profit', type = 'chart', kind = 'Serial chart', code = "return {data: \"let res = []; for (let i = 1; i <= 12; i++) { for (let y = 1; y <= 2; y++) { res.push({ date: new Date(2016, i, y*5), value: Math.ceil(Math.random()*1000), value0: Math.ceil(Math.random()*1000) }); } } res;\"}", codeLanguage = 'JavaScript'
     let lineChartType = INSERT INTO DashboardBoxType SET name = 'Ivan chart profit', type = 'chart', kind = 'Line chart', code = "return {data: \"var res = []; for(let i = 1900; i < 2016; i++) { var single = Math.random()*10; single = single > 5 ? 1 : -1; res.push({ year: String(i), value: Math.ceil(Math.random()*100)*single }); } res;\"}", codeLanguage = 'JavaScript'
     let barChartType = INSERT INTO DashboardBoxType SET name = 'Kolia chart profit', type = 'chart', kind = 'Bar chart', code = "return {data: \"var res = []; function getStr() { var text = ''; var possible = 'abcdefghijklmnopqrstuvwxyz'; for( var i=0; i < 5; i++ ) text += possible.charAt(Math.floor(Math.random() * possible.length)); return text; } var len = Math.ceil(Math.random()*50); for(var i = 0; i < len; i++) { res.push({ country: getStr(), visits: Math.ceil(Math.random()*10000) }); } res;\"}", codeLanguage = 'JavaScript'
-    let barChartType = INSERT INTO DashboardBoxType SET name = 'Masha bubble chartаt', type = 'chart', kind = 'Bubble chart', code = "return {data: \"var res = []; for(var i = 0; i < Math.ceil(Math.random()*30); i++) { res.push({ y: Math.ceil(Math.random()*50), x: Math.ceil(Math.random()*50), value: Math.ceil(Math.random()*50), y2: Math.ceil(Math.random()*50), x2: Math.ceil(Math.random()*50), value2: Math.ceil(Math.random()*50) }); } res;\"}", codeLanguage = 'JavaScript'
+    let bubbleChartType = INSERT INTO DashboardBoxType SET name = 'Masha bubble chartаt', type = 'chart', kind = 'Bubble chart', code = "return {data: \"var res = []; for(var i = 0; i < Math.ceil(Math.random()*30); i++) { res.push({ y: Math.ceil(Math.random()*50), x: Math.ceil(Math.random()*50), value: Math.ceil(Math.random()*50), y2: Math.ceil(Math.random()*50), x2: Math.ceil(Math.random()*50), value2: Math.ceil(Math.random()*50) }); } res;\"}", codeLanguage = 'JavaScript'
 
     console.log "Creating process for DashboardBoxType class is done."
 
@@ -73,6 +73,7 @@ if ($Dashboard.size() == 0) {
     let serialChartType = select * from DashboardBoxType where name = 'Rusia chart profit'
     let lineChartType = select * from DashboardBoxType where name = 'Ivan chart profit'
     let barChartType = select * from DashboardBoxType where name = 'Kolia chart profit'
+    let bubbleChartType = select * from DashboardBoxType where name = 'Masha bubble chartаt'
     let defaultDashboard = select * from Dashboard where name = 'default'
 
     CREATE Class DashboardBox
@@ -104,6 +105,7 @@ if ($Dashboard.size() == 0) {
     INSERT INTO DashboardBox SET width = 50, height = 50, order = 6, dashboard = $defaultDashboard['@rid'][0], type = $serialChartType['@rid'][0], name = 'Box 6', description = 'Box 6 desc'
     INSERT INTO DashboardBox SET width = 50, height = 50, order = 7, dashboard = $defaultDashboard['@rid'][0], type = $lineChartType['@rid'][0], name = 'Box 7', description = 'Box 7 desc'
     INSERT INTO DashboardBox SET width = 50, height = 50, order = 8, dashboard = $defaultDashboard['@rid'][0], type = $barChartType['@rid'][0], name = 'Box 8', description = 'Box 8 desc'
+    INSERT INTO DashboardBox SET width = 50, height = 50, order = 8, dashboard = $defaultDashboard['@rid'][0], type = $bubbleChartType['@rid'][0], name = 'Box 9', description = 'Box 9 desc'
 
     console.log "Creating process for DashboardBox class is done."
   }
