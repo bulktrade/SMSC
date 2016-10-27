@@ -3,7 +3,10 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 
 @Component({
     selector: 'crudMetaFormData',
-    template: '<loading-router-outlet></loading-router-outlet>',
+    template: `
+        <breadcrumb></breadcrumb>
+        <loading-router-outlet></loading-router-outlet>
+`,
     styleUrls: [],
     providers: []
 })

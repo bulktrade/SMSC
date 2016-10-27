@@ -56,7 +56,7 @@ export class SidebarComponent {
                                                 && subItem.data.showInSubNavigation
                                             ) {
                                                 let submenu: SidebarModel = {
-                                                    name: subItem.data.nameInSubNavigation
+                                                    name: subItem.data.translationKey
                                                         .toLowerCase(),
                                                     path: subItem.path,
                                                     icon: subItem.data.icon
@@ -73,7 +73,7 @@ export class SidebarComponent {
                                 }
 
                                 let sidebarItem: SidebarModel = {
-                                    name: item.data.nameInSubNavigation.toLowerCase(),
+                                    name: item.data.translationKey.toLowerCase(),
                                     path: item.path ? '/' + item.path : '/',
                                     icon: item.data.icon,
                                     toggle: item.data.toggle,

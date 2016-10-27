@@ -8,24 +8,29 @@ export class BreadcrumbService {
 
     constructor(public router: Router,
                 public route: ActivatedRoute) {
-        this.name = this.route.component['name'];
         this.chainBreadcrumbItems(this.route);
+        this.name = this.childs[this.childs.length - 1].name || '';
     }
 
     chainBreadcrumbItems(route: ActivatedRoute) {
         if (route.component['name'] === 'NavigationComponent') {
+            this.childs.reverse();
             return;
         }
 
-        this.childs.push({
-            'name': route.component['name'],
-            'router': this.chainPaths(route.pathFromRoot),
-        });
+        if (route.data['value'].hasOwnProperty('showInBreadcrumb') &&
+            route.data['value']['showInBreadcrumb']) {
+            this.childs.push({
+                'name': route.data['value'].hasOwnProperty('translationKey') ?
+                    route.data['value']['translationKey'] : route.component['name'],
+                'router': this.generationPathFromRoot(route.pathFromRoot),
+            });
+        }
 
         this.chainBreadcrumbItems(route.parent);
     }
 
-    chainPaths(paths): string {
+    generationPathFromRoot(paths): string {
         let result: string = '';
 
         for (let i = 2; i < paths.length; i++) {

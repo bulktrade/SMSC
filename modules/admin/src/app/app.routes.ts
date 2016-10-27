@@ -19,68 +19,32 @@ import {
 import {
     MetaDataPropertyBindingParameterComponent
 } from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter.component';
-import { DashboardViewComponent } from './dashboards/dashboardView.component';
-import { DashboardCrudUpdateComponent } from './dashboards/crud/dashboardBoxUpdate.component';
-import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboardCrudUpdate.resolve';
-import { DashboardCrudCreateComponent } from './dashboards/crud/dashboardBoxCreate.component';
-import { DashboardCrudCreateResolve } from './dashboards/crud/dashboardCrudCreate.resolve';
-import { CrudLinksetComponent } from './crud/crudLinkset/crudLinkset.component';
-import { CrudLinksetResolve } from './crud/crudLinkset/crudLinkset.resolve';
 import { DashboardsComponent } from './dashboards/dashboards.components';
 import { DashboardComponent } from './dashboards/dashboard.component';
+import { DASHBOARD_CRUD_ROUTE_PROVIDER } from './dashboards/crud/dashboardCrudProviders';
 
 const DASHBOARD_ROUTER_PROVIDER = [
     {
         path: '',
         component: DashboardComponent,
         data: {
+            showInBreadcrumb: false,
             showInSubNavigation: false,
-            nameInSubNavigation: 'Dashboard',
+            translationKey: 'Dashboard',
             icon: 'layers',
             crudClass: 'DashboardBox',
             dashboard: 'default'
         },
-        children: [
-            { path: '', component: DashboardViewComponent },
-            {
-                path: 'edit/:id',
-                component: DashboardCrudUpdateComponent,
-                resolve: { edit: DashboardCrudUpdateResolve } },
-            {
-                path: 'create/:className',
-                component: DashboardCrudCreateComponent,
-                resolve: { create: DashboardCrudCreateResolve }
-            },
-            {
-                path: 'linkset',
-                component: CrudLinksetComponent,
-                resolve: { linkset: CrudLinksetResolve }
-            }
-        ]
+        children: DASHBOARD_CRUD_ROUTE_PROVIDER
     },
     {
         path: 'dashboard',
         component: DashboardComponent,
         data: {
-            crudClass: 'DashboardBox'
+            crudClass: 'DashboardBox',
+            showInBreadcrumb: false
         },
-        children: [
-            { path: '', component: DashboardViewComponent },
-            {
-                path: 'edit/:id',
-                component: DashboardCrudUpdateComponent,
-                resolve: { edit: DashboardCrudUpdateResolve } },
-            {
-                path: 'create/:className',
-                component: DashboardCrudCreateComponent,
-                resolve: { create: DashboardCrudCreateResolve }
-            },
-            {
-                path: 'linkset',
-                component: CrudLinksetComponent,
-                resolve: { linkset: CrudLinksetResolve }
-            }
-        ]
+        children: DASHBOARD_CRUD_ROUTE_PROVIDER
     }
 ];
 
@@ -93,6 +57,9 @@ export const ROUTES: Routes = [
         path: '',
         component: NavigationComponent,
         canActivate: [AuthGuard],
+        data: {
+            showInBreadcrumb: false
+        },
         children: [
             {
                 path: '',
@@ -101,16 +68,18 @@ export const ROUTES: Routes = [
                 data: {
                     similarPath: 'dasboards', // @todo Impement in sidenav
                     showInSubNavigation: true,
-                    nameInSubNavigation: 'Dashboards',
-                    icon: 'layers'
+                    translationKey: 'Dashboards',
+                    icon: 'layers',
+                    showInBreadcrumb: false
                 }
             },
             {
                 path: 'customers',
                 component: CustomersComponent,
                 data: {
+                    showInBreadcrumb: true,
+                    translationKey: 'Customers',
                     showInSubNavigation: true,
-                    nameInSubNavigation: 'Customers',
                     icon: 'perm_contact_calendar',
                     crudClass: 'Customer'
                 },
@@ -118,7 +87,10 @@ export const ROUTES: Routes = [
                     {
                         path: '',
                         component: CrudComponent,
-                        children: CRUD_ROUTE_PROVIDER
+                        children: CRUD_ROUTE_PROVIDER,
+                        data: {
+                            showInBreadcrumb: false,
+                        }
                     }
                 ]
             },
@@ -127,8 +99,9 @@ export const ROUTES: Routes = [
                 component: CrudMetaDataComponent,
                 data: {
                     showInSubNavigation: true,
-                    nameInSubNavigation: 'CrudMetaData',
-                    icon: 'perm_contact_calendar'
+                    translationKey: 'CrudMetaData',
+                    icon: 'perm_contact_calendar',
+                    showInBreadcrumb: true
                 },
                 children: [
                     {
@@ -136,15 +109,19 @@ export const ROUTES: Routes = [
                         component: CrudClassMetaDataComponent,
                         data: {
                             showInSubNavigation: true,
-                            nameInSubNavigation: 'CrudClassMetaData',
+                            translationKey: 'CrudClassMetaData',
                             icon: 'perm_data_setting',
-                            crudClass: 'CrudClassMetaData'
+                            crudClass: 'CrudClassMetaData',
+                            showInBreadcrumb: true,
                         },
                         children: [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                children: CRUD_ROUTE_PROVIDER
+                                children: CRUD_ROUTE_PROVIDER,
+                                data: {
+                                    showInBreadcrumb: false,
+                                }
                             }
                         ]
                     },
@@ -153,7 +130,8 @@ export const ROUTES: Routes = [
                         component: MetaDataPropertyBindingParameterComponent,
                         data: {
                             showInSubNavigation: true,
-                            nameInSubNavigation: 'MetaDataPropertyBindingParameter',
+                            showInBreadcrumb: true,
+                            translationKey: 'MetaDataPropertyBindingParameter',
                             icon: 'perm_data_setting',
                             crudClass: 'MetaDataPropertyBindingParameter'
                         },
@@ -161,7 +139,10 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                children: CRUD_ROUTE_PROVIDER
+                                children: CRUD_ROUTE_PROVIDER,
+                                data: {
+                                    showInBreadcrumb: true,
+                                }
                             }
                         ]
                     },
@@ -170,15 +151,19 @@ export const ROUTES: Routes = [
                         component: CrudMetaGridDataComponent,
                         data: {
                             showInSubNavigation: true,
-                            nameInSubNavigation: 'CrudMetaGridData',
+                            translationKey: 'CrudMetaGridData',
                             icon: 'grid_on',
-                            crudClass: 'CrudMetaGridData'
+                            crudClass: 'CrudMetaGridData',
+                            showInBreadcrumb: true
                         },
                         children: [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                children: CRUD_ROUTE_PROVIDER
+                                children: CRUD_ROUTE_PROVIDER,
+                                data: {
+                                    showInBreadcrumb: false,
+                                }
                             }
                         ]
                     },
@@ -187,15 +172,19 @@ export const ROUTES: Routes = [
                         component: CrudMetaFormDataComponent,
                         data: {
                             showInSubNavigation: true,
-                            nameInSubNavigation: 'CrudMetaFormData',
+                            translationKey: 'CrudMetaFormData',
                             icon: 'format_shapes',
-                            crudClass: 'CrudMetaFormData'
+                            crudClass: 'CrudMetaFormData',
+                            showInBreadcrumb: true
                         },
                         children: [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                children: CRUD_ROUTE_PROVIDER
+                                children: CRUD_ROUTE_PROVIDER,
+                                data: {
+                                    showInBreadcrumb: false,
+                                }
                             }
                         ]
                     }

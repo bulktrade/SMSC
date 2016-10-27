@@ -9,9 +9,42 @@ import { CrudCreateResolve } from './crudCreate/crudCreate.resolve';
 import { CrudEditResolve } from './crudUpdate/crudUpdate.resolve';
 
 export const CRUD_ROUTE_PROVIDER = [
-    { path: '', component: CrudViewComponent, resolve: { view: CrudViewResolve } },
-    { path: 'delete/:id', component: CrudDeleteComponent },
-    { path: 'edit/:id', component: CrudUpdateComponent, resolve: { edit: CrudEditResolve } },
-    { path: 'create/:className', component: CrudCreateComponent, resolve: { create: CrudCreateResolve } },
-    { path: 'linkset', component: CrudLinksetComponent, resolve: { linkset: CrudLinksetResolve } },
+    {
+        path: '',
+        component: CrudViewComponent,
+        resolve: { view: CrudViewResolve },
+        data: {
+            showInBreadcrumb: false,
+        }
+    },
+    {
+        path: 'delete/:id',
+        component: CrudDeleteComponent,
+        data: {
+            showInBreadcrumb: false,
+        }
+    },
+    {
+        path: 'edit/:id',
+        component: CrudUpdateComponent,
+        resolve: { edit: CrudEditResolve },
+        data: {
+            showInBreadcrumb: false,
+        }
+    },
+    {
+        path: 'create/:className',
+        component: CrudCreateComponent,
+        resolve: { create: CrudCreateResolve },
+        data: {
+            showInBreadcrumb: false,
+        }
+    },
+    {
+        path: 'linkset', component: CrudLinksetComponent,
+        resolve: { linkset: CrudLinksetResolve },
+        data: {
+            showInBreadcrumb: false,
+        }
+    }
 ];
