@@ -10,7 +10,6 @@ import { DashboardCrudUpdateComponent } from './crud/dashboardBoxUpdate.componen
 import { DashboardCrudCreateComponent } from './crud/dashboardBoxCreate.component';
 import { AgGridModule } from 'ag-grid-ng2';
 import { TranslateModule, TranslateService } from 'ng2-translate';
-import { BrowserModule } from '@angular/platform-browser';
 import { MdModule } from '../md.module';
 import { GridPaginationModule } from '../crud/directives/gridPagination/gridPagination.component';
 import { LoadingRouterOutletModule } from '../common/loadingRouterOutlet.component';
@@ -22,6 +21,10 @@ import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { DynamicFormModule } from '../crud/dynamicForm/dynamicForm.component';
 import { DashboardsComponent } from './dashboards.components';
+import { DASHBOARD_ROUTES } from './crud/dashboardRoutes';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { CrudLinksetModule } from '../crud/crudLinkset/crudLinkset.component';
 
 const DASHBOARD_DECLARATION = [
     OrderBy,
@@ -43,12 +46,14 @@ const DASHBOARD_DECLARATION = [
         AlertModule,
         FormsModule,
         MdModule.forRoot(),
-        BrowserModule,
+        CommonModule,
         TranslateModule,
         AgGridModule.forRoot(),
         DragulaModule,
         DynamicFormModule,
-        BreadcrumbModule
+        BreadcrumbModule,
+        CrudLinksetModule,
+        RouterModule.forChild(DASHBOARD_ROUTES)
     ],
     exports: [DASHBOARD_DECLARATION],
     declarations: [

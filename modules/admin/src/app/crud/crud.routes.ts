@@ -41,7 +41,7 @@ export const CRUD_ROUTE_PROVIDER = [
         }
     },
     {
-        path: 'linkset', component: CrudLinksetComponent,
+        path: 'linkset/:className', component: CrudLinksetComponent,
         resolve: { linkset: CrudLinksetResolve },
         data: {
             showInBreadcrumb: false,

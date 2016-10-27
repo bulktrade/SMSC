@@ -5,8 +5,9 @@ import { DashboardCrudCreateComponent } from './dashboardBoxCreate.component';
 import { DashboardCrudCreateResolve } from './dashboardCrudCreate.resolve';
 import { CrudLinksetComponent } from '../../crud/crudLinkset/crudLinkset.component';
 import { CrudLinksetResolve } from '../../crud/crudLinkset/crudLinkset.resolve';
+import { DashboardComponent } from '../dashboard.component';
 
-export const DASHBOARD_CRUD_ROUTE_PROVIDER = [
+export const DASHBOARD_CRUD_ROUTES = [
     {
         path: '',
         component: DashboardViewComponent,
@@ -20,7 +21,7 @@ export const DASHBOARD_CRUD_ROUTE_PROVIDER = [
         component: DashboardCrudUpdateComponent,
         resolve: { edit: DashboardCrudUpdateResolve },
         data: {
-            showInBreadcrumb: false,
+            showInBreadcrumb: true,
             translationKey: 'DashboardUpdate'
         }
     },
@@ -29,7 +30,7 @@ export const DASHBOARD_CRUD_ROUTE_PROVIDER = [
         component: DashboardCrudCreateComponent,
         resolve: { create: DashboardCrudCreateResolve },
         data: {
-            showInBreadcrumb: false,
+            showInBreadcrumb: true,
             translationKey: 'DashboardCreate'
         }
     },
@@ -38,8 +39,24 @@ export const DASHBOARD_CRUD_ROUTE_PROVIDER = [
         component: CrudLinksetComponent,
         resolve: { linkset: CrudLinksetResolve },
         data: {
-            showInBreadcrumb: false,
+            showInBreadcrumb: true,
             translationKey: 'DashboardLinkset'
         }
+    }
+];
+
+export const DASHBOARD_ROUTES = [
+    {
+        path: '',
+        component: DashboardComponent,
+        data: {
+            showInBreadcrumb: false,
+            showInSubNavigation: false,
+            translationKey: 'Dashboard',
+            icon: 'layers',
+            crudClass: 'DashboardBox',
+            dashboard: 'default'
+        },
+        children: DASHBOARD_CRUD_ROUTES
     }
 ];

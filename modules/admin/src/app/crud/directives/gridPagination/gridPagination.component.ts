@@ -29,7 +29,7 @@ export class GridPaginationComponent {
     @Input('currentCrudLevel') public currentCrudLevel: CrudLevel;
 
     public rowsThisPage = [];
-    public stepPageSize: any = [25, 50, 150, 200, 300];
+    public stepPageSize = [25, 50, 150, 200, 300];
     public defaultPageSize: number = 25;
     public pageSize;
     private currentPage: number = 0;

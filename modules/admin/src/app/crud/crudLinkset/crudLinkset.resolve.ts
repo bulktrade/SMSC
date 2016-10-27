@@ -11,10 +11,12 @@ export class CrudLinksetResolve extends CrudResolve {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        let className = route.params['className'];
+
         if (this.crudService.isLimitCrudLevel()) {
-            return this.crudService.getColumnDefs(this.crudService.getLinkedClass(), false);
+            return this.crudService.getColumnDefs(className, false);
         } else {
-            return this.crudService.getColumnDefs(this.crudService.getLinkedClass(), true);
+            return this.crudService.getColumnDefs(className, true);
         }
     }
 

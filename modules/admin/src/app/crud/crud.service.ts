@@ -294,8 +294,8 @@ export class CrudService {
      * @param columnDefs
      * @param gridOptions
      */
-    addColumnCheckbox(columnDefs, gridOptions) {
-        columnDefs.grid.unshift({
+    addColumnCheckbox(gridOptions: GridOptions) {
+        gridOptions.columnDefs.unshift({
             headerName: ' ',
             field: 'checkboxSel',
             width: 45,
@@ -456,8 +456,8 @@ export class CrudService {
      * @param iconName
      * @param clickEvent
      */
-    btnRenderer(columnDefs, nameBtn, width, iconName, clickEvent?: (event) => void) {
-        columnDefs.grid.push({
+    btnRenderer(gridOptions: GridOptions, nameBtn, width, iconName, clickEvent?: (event) => void) {
+        gridOptions.columnDefs.unshift({
             headerName: ' ',
             field: nameBtn.toLowerCase(),
             width: width,
@@ -523,9 +523,9 @@ export class CrudService {
      *
      * @param linsetProperty
      */
-    navigateToLinkset(linksetProperty?: LinksetProperty) {
+    navigateToLinkset(className: string, linksetProperty?: LinksetProperty) {
         this.nextCrudLevel(linksetProperty);
-        this.router.navigate([this.parentPath, 'linkset']);
+        this.router.navigate([this.parentPath, 'linkset', className]);
     }
 
     /**
@@ -582,8 +582,8 @@ export class CrudService {
      *
      * @param columnDefs
      */
-    addRIDColumn(columnDefs) {
-        columnDefs.push({
+    addRIDColumn(gridOptions: GridOptions) {
+        gridOptions.columnDefs.unshift({
             headerName: 'RID',
             field: '@rid',
             hideInForm: true,
@@ -617,6 +617,27 @@ export class CrudService {
     }
 
     /**
+     * Adds additional columns to grid like RID, checkbox selection, etc
+     */
+    addColumn(gridOptions) {
+        // add delete button to column
+        this.btnRenderer(gridOptions, 'Delete', 30, 'delete', () => {
+            this.clickOnDeleteBtn = true;
+        });
+
+        // add edit button to column
+        this.btnRenderer(gridOptions, 'Edit', 30, 'mode_edit', () => {
+            this.clickOnEditBtn = true;
+        });
+
+        // add column with RID
+        this.addRIDColumn(gridOptions);
+
+        // add column with checkbox selection
+        this.addColumnCheckbox(gridOptions);
+    }
+
+    /**
      * Gets the column definitions with metaData for grid.
      *
      * @param className
@@ -628,18 +649,6 @@ export class CrudService {
             grid: [],
             form: []
         };
-
-        this.addColumnCheckbox(columnDefs, this.gridOptions);
-        this.addRIDColumn(columnDefs.grid);
-
-        if (readOnly) {
-            this.btnRenderer(columnDefs, 'Edit', 30, 'mode_edit', (clickEvent) => {
-                this.clickOnEditBtn = true;
-            });
-            this.btnRenderer(columnDefs, 'Delete', 30, 'delete', (clickEvent) => {
-                this.clickOnDeleteBtn = true;
-            });
-        }
 
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.getInfoClass(className)

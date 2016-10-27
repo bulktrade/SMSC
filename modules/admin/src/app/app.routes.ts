@@ -6,7 +6,6 @@ import { CustomersComponent } from './customers/customers.components';
 import { CrudComponent } from './crud/crud.component';
 import { NotFoundComponent } from './notFound/notFound.component';
 import { CrudMetaDataComponent } from './crudMetadata/crudMetaData.components';
-import { CRUD_ROUTE_PROVIDER } from './crud/crud.routes';
 import {
     CrudMetaGridDataComponent
 } from './crudMetadata/crudMetaGridData/crudMetaGridData.component';
@@ -20,33 +19,8 @@ import {
     MetaDataPropertyBindingParameterComponent
 } from './crudMetadata/metaDataBindingParameter/metaDataBindingParameter.component';
 import { DashboardsComponent } from './dashboards/dashboards.components';
-import { DashboardComponent } from './dashboards/dashboard.component';
-import { DASHBOARD_CRUD_ROUTE_PROVIDER } from './dashboards/crud/dashboardCrudProviders';
-
-const DASHBOARD_ROUTER_PROVIDER = [
-    {
-        path: '',
-        component: DashboardComponent,
-        data: {
-            showInBreadcrumb: false,
-            showInSubNavigation: false,
-            translationKey: 'Dashboard',
-            icon: 'layers',
-            crudClass: 'DashboardBox',
-            dashboard: 'default'
-        },
-        children: DASHBOARD_CRUD_ROUTE_PROVIDER
-    },
-    {
-        path: 'dashboard',
-        component: DashboardComponent,
-        data: {
-            crudClass: 'DashboardBox',
-            showInBreadcrumb: false
-        },
-        children: DASHBOARD_CRUD_ROUTE_PROVIDER
-    }
-];
+import { CrudModule } from './crud/crud.module';
+import { DashboardModule } from './dashboards/dashboard.module';
 
 export const ROUTES: Routes = [
     {
@@ -62,9 +36,9 @@ export const ROUTES: Routes = [
         },
         children: [
             {
-                path: '',
+                path: 'dashboard',
                 component: DashboardsComponent,
-                children: DASHBOARD_ROUTER_PROVIDER,
+                loadChildren: () => DashboardModule,
                 data: {
                     similarPath: 'dasboards', // @todo Impement in sidenav
                     showInSubNavigation: true,
@@ -87,7 +61,7 @@ export const ROUTES: Routes = [
                     {
                         path: '',
                         component: CrudComponent,
-                        children: CRUD_ROUTE_PROVIDER,
+                        loadChildren: () => CrudModule,
                         data: {
                             showInBreadcrumb: false,
                         }
@@ -118,7 +92,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                children: CRUD_ROUTE_PROVIDER,
+                                loadChildren: () => CrudModule,
                                 data: {
                                     showInBreadcrumb: false,
                                 }
@@ -139,7 +113,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                children: CRUD_ROUTE_PROVIDER,
+                                loadChildren: () => CrudModule,
                                 data: {
                                     showInBreadcrumb: true,
                                 }
@@ -160,7 +134,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                children: CRUD_ROUTE_PROVIDER,
+                                loadChildren: () => CrudModule,
                                 data: {
                                     showInBreadcrumb: false,
                                 }
@@ -181,7 +155,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                children: CRUD_ROUTE_PROVIDER,
+                                loadChildren: () => CrudModule,
                                 data: {
                                     showInBreadcrumb: false,
                                 }

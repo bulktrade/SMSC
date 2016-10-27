@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
+import { Component, ModuleWithProviders, NgModule } from '@angular/core';
+import { TranslateService, TranslateModule } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
-import { Location } from '@angular/common';
+import { Location, CommonModule } from '@angular/common';
 import { GridService } from '../../services/grid.service';
 import { ColumnDefsModel } from '../model/columnDefs';
 import { CrudLevel } from '../model/crudLevel';
 import { RouterOutletService } from '../../services/routerOutletService';
+import { MdModule } from '../../md.module';
+import { MdSelectModule } from '../../common/material/select/select.component';
+import { GridPaginationModule } from '../directives/gridPagination/gridPagination.component';
+import { DropdownModule, AlertModule } from 'ng2-bootstrap';
+import { AgGridModule } from 'ag-grid-ng2';
+import { LoadingGridModule } from '../../common/loadingGrid.component';
 
 @Component({
     selector: 'crud-linkset',
@@ -35,6 +41,9 @@ export class CrudLinksetComponent {
         this.resolveData = this.route.snapshot.data['linkset'];
         this.crudService.gridOptions.columnDefs = this.resolveData.grid;
         this.crudService.gridOptions.rowData = [];
+
+        // adds additional columns
+        this.crudService.addColumn(this.crudService.gridOptions);
     }
 
     back() {
@@ -110,4 +119,28 @@ export class CrudLinksetComponent {
             });
     }
 
+}
+
+@NgModule({
+    imports: [
+        CommonModule,
+        MdSelectModule,
+        MdModule.forRoot(),
+        DropdownModule,
+        TranslateModule,
+        GridPaginationModule,
+        AlertModule,
+        AgGridModule,
+        LoadingGridModule
+    ],
+    exports: [CrudLinksetComponent],
+    declarations: [CrudLinksetComponent]
+})
+export class CrudLinksetModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: CrudLinksetModule,
+            providers: []
+        };
+    }
 }

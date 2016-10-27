@@ -26,9 +26,18 @@ export class CrudViewComponent {
     }
 
     ngOnInit() {
+        // sets crud class name
+        this.crudService.setClassName(this.route.parent.parent.data['value']['crudClass']);
+        // sets path from root component
+        this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
+
         this.resolveData = this.route.snapshot.data['view'];
         this.crudService.gridOptions.columnDefs = this.resolveData.grid;
         this.crudService.gridOptions.rowData = [];
+
+        // adds additional columns
+        this.crudService.addColumn(this.crudService.gridOptions);
+
         this.crudService.resetCrudLevels();
     }
 
@@ -56,7 +65,7 @@ export class CrudViewComponent {
                 data: event.data
             };
 
-            this.crudService.navigateToLinkset(linsetProperty);
+            this.crudService.navigateToLinkset(event.colDef.linkedClass, linsetProperty);
         }
     }
 }

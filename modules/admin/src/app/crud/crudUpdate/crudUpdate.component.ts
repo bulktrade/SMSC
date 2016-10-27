@@ -29,6 +29,9 @@ export class CrudUpdateComponent {
     }
 
     ngOnInit() {
+        // sets path from root component
+        this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
+
         this.resolveData = this.route.snapshot.data['edit'];
 
         if (this.resolveData.inputModel) {

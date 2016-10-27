@@ -119,7 +119,7 @@ export class MultipleSelectComponent {
             bingingProperties: this.property.bingingProperties
         };
 
-        this.crudService.navigateToLinkset(linsetProperty);
+        this.crudService.navigateToLinkset(this.property.linkedClass, linsetProperty);
         this.crudService.setLinkedClass(this.property.linkedClass);
     }
 
