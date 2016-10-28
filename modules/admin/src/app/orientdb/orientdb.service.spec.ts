@@ -1,6 +1,6 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { ODatabaseService } from './orientdb.service';
-import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
+import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
 import {
     HttpModule,
     Http,
@@ -9,7 +9,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { APP_PROVIDERS } from '../app.module';
-import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
+import { HTTP_PROVIDERS } from '../common/mock/http-providers';
 
 describe('ODatabaseService', () => {
 

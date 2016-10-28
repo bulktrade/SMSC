@@ -5,11 +5,11 @@ import {
     Response
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { CRUD_PROVIDERS } from '../../crud/common/crudProviders';
+import { CRUD_PROVIDERS } from '../../crud/common/crud-providers';
 import { AuthService } from './auth.service';
 import { LoginModel } from '../../login/login.model';
 import { APP_PROVIDERS } from '../../app.module';
-import { HTTP_PROVIDERS } from '../../common/mock/httpProviders';
+import { HTTP_PROVIDERS } from '../../common/mock/http-providers';
 
 describe('Auth service', () => {
 

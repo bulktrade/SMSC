@@ -7,11 +7,11 @@ import { TranslateService, TranslateLoader } from 'ng2-translate/ng2-translate';
 import { DashboardService } from './dashboard.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { CrudService } from '../crud/crud.service';
-import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
+import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
 import { GridService } from '../services/grid.service';
 import { Observable } from 'rxjs';
-import { DashboardBox } from './models/dashboardBox';
-import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
+import { DashboardBox } from './models/dashboard-box';
+import { HTTP_PROVIDERS } from '../common/mock/http-providers';
 import { Router } from '@angular/router';
 
 class MockLocation {}

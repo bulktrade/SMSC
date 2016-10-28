@@ -1,16 +1,16 @@
 import { ODatabaseService } from '../orientdb/orientdb.service';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { DashboardBox } from './models/dashboardBox';
+import { DashboardBox } from './models/dashboard-box';
 import { CrudService } from '../crud/crud.service';
 import { GridService } from '../services/grid.service';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { BatchType } from '../orientdb/model/batchType';
+import { BatchType } from '../orientdb/model/batch-type';
 import { Operation } from '../orientdb/model/operation';
-import { EditModel } from '../crud/crudUpdate/crudUpdate.model';
+import { EditModel } from '../crud/crud-update/crud-update.model';
 
 const squel = require('squel');
 

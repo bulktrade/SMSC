@@ -1,14 +1,14 @@
-import { CrudViewComponent } from './crudView/crudView.component';
-import { CrudDeleteComponent } from './crudDelete/crudDelete.component';
-import { CrudCreateComponent } from './crudCreate/crudCreate.component';
-import { CrudUpdateComponent } from './crudUpdate/crudUpdate.component';
-import { CrudViewResolve } from './crudView/crudView.resolve';
-import { CrudLinksetComponent } from './crudLinkset/crudLinkset.component';
-import { CrudLinksetResolve } from './crudLinkset/crudLinkset.resolve';
-import { CrudCreateResolve } from './crudCreate/crudCreate.resolve';
-import { CrudEditResolve } from './crudUpdate/crudUpdate.resolve';
-import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { CrudViewComponent } from './crud-view/crud-view.component';
+import { CrudDeleteComponent } from './crud-delete/crud-delete.component';
+import { CrudCreateComponent } from './crud-create/crud-create.component';
+import { CrudUpdateComponent } from './crud-update/crud-update.component';
+import { CrudViewResolve } from './crud-view/crud-view.resolve';
+import { CrudLinksetComponent } from './crud-linkset/crud-linkset.component';
+import { CrudLinksetResolve } from './crud-linkset/crud-linkset.resolve';
+import { CrudCreateResolve } from './crud-create/crud-create.resolve';
+import { CrudEditResolve } from './crud-update/crud-update.resolve';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 const CRUD_ROUTE_PROVIDER = [
     {

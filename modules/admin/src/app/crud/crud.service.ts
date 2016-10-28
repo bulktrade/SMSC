@@ -4,23 +4,23 @@ import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router'
 import { Response } from '@angular/http';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { GridOptions } from 'ag-grid';
-import { NotificationService } from '../services/notificationService';
-import { LoadingGridService } from '../services/loading/loadingGrid.service';
-import { ColumnModel } from './model/crud.column';
-import { INPUT_TYPES } from './dynamicForm/model/formInputTypes';
-import { ColumnDefsModel } from './model/columnDefs';
+import { NotificationService } from '../services/notification-service';
+import { LoadingGridService } from '../services/loading/loading-grid.service';
+import { ColumnModel } from './model/crud-column';
+import { INPUT_TYPES } from './dynamic-form/model/form-input-types';
+import { ColumnDefsModel } from './model/column-definitions';
 import { Operation } from '../orientdb/model/operation';
-import { BatchType } from '../orientdb/model/batchType';
+import { BatchType } from '../orientdb/model/batch-type';
 import { Observable, Observer } from 'rxjs';
-import { GridPropertyModel } from './model/gridProperty';
-import { FormPropertyModel } from './model/formProperty';
-import { CrudLevel } from './model/crudLevel';
+import { GridPropertyModel } from './model/grid-property';
+import { FormPropertyModel } from './model/form-property';
+import { CrudLevel } from './model/crud-level';
 import { Location } from '@angular/common';
-import { LinksetProperty } from './model/linksetProperty';
+import { LinksetProperty } from './model/linkset-property';
 import { GridService } from '../services/grid.service';
 
 const squel = require('squel');
-let cubeGridHtml = require('../common/spinner/cubeGrid/cubeGrid.component.html');
+let cubeGridHtml = require('../common/spinner/cube-grid/cube-grid.component.html');
 
 @Injectable()
 export class CrudService {

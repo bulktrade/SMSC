@@ -1,4 +1,4 @@
-import { BatchType } from './batchType';
+import { BatchType } from './batch-type';
 
 export class Operation {
     public type: string|BatchType;

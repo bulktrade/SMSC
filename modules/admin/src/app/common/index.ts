@@ -2,7 +2,7 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AUTH_TOKEN_NAME, TokenService } from '../services/auth/token.service';
 import { ODatabaseService } from '../orientdb/orientdb.service';
 import { Http } from '@angular/http';
-import { ConfigService } from '../config/configService';
+import { ConfigService } from '../config/config.service';
 
 export const COMMON_PROVIDERS = [
     {

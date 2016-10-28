@@ -1,2 +1,2 @@
 export * from './auth';
-export * from './notificationService';
+export * from './notification-service';

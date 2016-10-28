@@ -1,5 +1,5 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { CRUD_PROVIDERS } from './common/crudProviders';
+import { CRUD_PROVIDERS } from './common/crud-providers';
 import { CrudComponent } from './crud.component';
 import { HttpModule } from '@angular/http';
 

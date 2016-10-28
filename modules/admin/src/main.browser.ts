@@ -5,7 +5,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { decorateModuleRef } from './app/environment';
 import { bootloader } from '@angularclass/hmr';
 import { AppModule } from './app';
-import { ConfigService } from './app/config/configService';
+import { ConfigService } from './app/config/config.service';
 
 /*
  * App Module

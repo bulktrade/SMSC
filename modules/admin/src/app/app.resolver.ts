@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
-import { CrudResolve } from './crud/common/crudResolve';
-import { CrudViewResolve } from './crud/crudView/crudView.resolve';
-import { CrudLinksetResolve } from './crud/crudLinkset/crudLinkset.resolve';
-import { CrudCreateResolve } from './crud/crudCreate/crudCreate.resolve';
-import { CrudEditResolve } from './crud/crudUpdate/crudUpdate.resolve';
+import { CrudResolve } from './crud/common/crud-resolve';
+import { CrudViewResolve } from './crud/crud-view/crud-view.resolve';
+import { CrudLinksetResolve } from './crud/crud-linkset/crud-linkset.resolve';
+import { CrudCreateResolve } from './crud/crud-create/crud-create.resolve';
+import { CrudEditResolve } from './crud/crud-update/crud-update.resolve';
 
 @Injectable()
 export class DataResolver implements Resolve<any> {

@@ -1,10 +1,10 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
-import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
+import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
 import { AuthService } from '../services/auth/auth.service';
 import { LoginModel } from './login.model';
 import { HttpModule, ResponseOptions, Response } from '@angular/http';
-import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
+import { HTTP_PROVIDERS } from '../common/mock/http-providers';
 import { MockBackend } from '@angular/http/testing';
 import { TokenService } from '../services/auth/token.service';
 

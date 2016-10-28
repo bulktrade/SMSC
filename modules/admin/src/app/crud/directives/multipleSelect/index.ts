@@ -1,2 +1,2 @@
 // MultipleSelect
-export * from './multipleSelect.component';
+export * from './multiple-select.component';

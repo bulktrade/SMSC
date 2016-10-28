@@ -5,13 +5,13 @@ import {
     Response
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
+import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
 
 import { GridService } from './grid.service';
 import { APP_PROVIDERS } from '../app.module';
-import { CrudLevel } from '../crud/model/crudLevel';
-import { LinksetProperty } from '../crud/model/linksetProperty';
-import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
+import { CrudLevel } from '../crud/model/crud-level';
+import { LinksetProperty } from '../crud/model/linkset-property';
+import { HTTP_PROVIDERS } from '../common/mock/http-providers';
 
 describe('Grid Service', () => {
 

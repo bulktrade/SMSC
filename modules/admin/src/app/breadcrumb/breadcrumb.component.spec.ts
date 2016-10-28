@@ -2,25 +2,35 @@ import { inject, TestBed } from '@angular/core/testing';
 import { HttpModule } from '@angular/http';
 import { BreadcrumbComponent } from './breadcrumb.component';
 import { BreadcrumbService } from './breadcrumb.service';
-import { RouterModule } from '@angular/router';
-import { CRUD_PROVIDERS } from '../crud/common/crudProviders';
+import { RouterModule, UrlTree, NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
+import { TranslateModule, TranslateService, TranslateLoader } from 'ng2-translate';
+
+class MockActivatedRoute {
+    navigateByUrl(url: string | UrlTree, extras?: NavigationExtras) {};
+    navigate(commands: any[], extras?: NavigationExtras) {};
+}
 
 describe('BreadcrumbComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                CRUD_PROVIDERS,
+                { provide: ActivatedRoute, useClass: MockActivatedRoute },
+                { provide: Router, useClass: MockActivatedRoute },
                 BreadcrumbComponent,
+                TranslateService,
+                TranslateLoader,
                 BreadcrumbService
             ],
             imports: [
+                TranslateModule,
                 HttpModule,
-                RouterModule
+                RouterModule.forRoot([])
             ]
         });
     });
 
-    it('loading spinner should be true', inject([BreadcrumbComponent], (breadcrumb) => {
+    it('should have a translate', inject([BreadcrumbComponent], (breadcrumb) => {
         expect(!!breadcrumb.translate).toEqual(true);
     }));
 

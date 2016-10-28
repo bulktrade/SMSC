@@ -1,5 +1,5 @@
 // Dashboard
 export * from './dashboard.component';
-export * from './dashboardBox.component';
+export * from './dashboard-box.component';
 export * from './dashboards.components';
-export * from './dashboardView.component';
+export * from './dashboard-view.component';

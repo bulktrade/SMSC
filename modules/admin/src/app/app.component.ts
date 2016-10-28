@@ -14,7 +14,7 @@ import { TranslateService } from 'ng2-translate';
         require('bootstrap-material-design/dist/css/bootstrap-material-design.css'),
         require('bootstrap-material-design/dist/css/ripples.min.css'),
         require('./app.component.scss'),
-        require('./common/spinner/cubeGrid/cubeGrid.component.scss')
+        require('./common/spinner/cube-grid/cube-grid.component.scss')
     ]
 })
 export class App {

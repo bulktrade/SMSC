@@ -1,10 +1,10 @@
-import { DashboardViewComponent } from './dashboardView.component';
-import { DashboardCrudUpdateComponent } from './crud/dashboardBoxUpdate.component';
-import { DashboardCrudUpdateResolve } from './crud/dashboardCrudUpdate.resolve';
-import { DashboardCrudCreateComponent } from './crud/dashboardBoxCreate.component';
-import { DashboardCrudCreateResolve } from './crud/dashboardCrudCreate.resolve';
-import { CrudLinksetComponent } from '../crud/crudLinkset/crudLinkset.component';
-import { CrudLinksetResolve } from '../crud/crudLinkset/crudLinkset.resolve';
+import { DashboardViewComponent } from './dashboard-view.component';
+import { DashboardCrudUpdateComponent } from './crud/dashboard-box-update.component';
+import { DashboardCrudUpdateResolve } from './crud/dashboard-crud-update.resolve';
+import { DashboardCrudCreateComponent } from './crud/dashboard-box-create.component';
+import { DashboardCrudCreateResolve } from './crud/dashboard-crud-create.resolve';
+import { CrudLinksetComponent } from '../crud/crud-linkset/crud-linkset.component';
+import { CrudLinksetResolve } from '../crud/crud-linkset/crud-linkset.resolve';
 import { DashboardComponent } from './dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';

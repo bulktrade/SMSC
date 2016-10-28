@@ -1,5 +1,5 @@
 import { LoginModel } from './login.model';
-import { EC } from '../common/expectedConditions';
+import { EC } from '../common/expected-conditions';
 
 export class LoginPage {
     public elemNotFound = element(by.tagName('notfound'));

@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { TokenService } from '../services/auth/token.service';
-import { NOTIFICATION_OPTIONS } from '../common/notificationOptions';
-import { LoadingRouterOutletService } from '../services/loading/loadingRouterOutlet.service';
-import { LoadingGridService } from '../services/loading/loadingGrid.service';
+import { NOTIFICATION_OPTIONS } from '../common/notification-Options';
+import { LoadingRouterOutletService } from '../services/loading/loading-router-outlet.service';
+import { LoadingGridService } from '../services/loading/loading-grid.service';
 import { MdSidenav } from '@angular2-material/sidenav';
-import { SidebarService } from '../sidebar/sidebarService';
+import { SidebarService } from '../sidebar/sidebar.service';
 
 @Component({
     selector: 'navigation',

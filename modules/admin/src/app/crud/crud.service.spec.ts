@@ -1,7 +1,7 @@
 import {
     inject, TestBed
 } from '@angular/core/testing';
-import { CRUD_PROVIDERS } from './common/crudProviders';
+import { CRUD_PROVIDERS } from './common/crud-providers';
 import {
     ResponseOptions,
     Response,
@@ -9,7 +9,7 @@ import {
 } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { CrudService } from './crud.service';
-import { HTTP_PROVIDERS } from '../common/mock/httpProviders';
+import { HTTP_PROVIDERS } from '../common/mock/http-providers';
 
 describe('CrudComponent Service', () => {
     beforeEach(() => {

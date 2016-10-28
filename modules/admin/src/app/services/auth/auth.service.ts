@@ -2,7 +2,7 @@ import { AuthHttp } from 'angular2-jwt';
 import { Injectable } from '@angular/core';
 import { Headers } from '@angular/http';
 import { TokenService } from './token.service';
-import { ConfigService } from '../../config/configService';
+import { ConfigService } from '../../config/config.service';
 import { Observable } from 'rxjs';
 
 @Injectable()

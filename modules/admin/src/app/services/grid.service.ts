@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ODatabaseService } from '../orientdb/orientdb.service';
-import { NotificationService } from './notificationService';
-import { CrudLevel } from '../crud/model/crudLevel';
+import { NotificationService } from './notification-service';
+import { CrudLevel } from '../crud/model/crud-level';
 import {
     MetaDataPropertyBindingParameterModel
-} from '../crudMetadata/metaDataBindingParameter/metaDataBindingParameter.model';
+} from '../crud-meta-data/meta-data-binding-parameter/meta-data-binding-parameter.model';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs';
-import { BatchType } from '../orientdb/model/batchType';
+import { BatchType } from '../orientdb/model/batch-type';
 import { Operation } from '../orientdb/model/operation';
 
 const squel = require('squel');
