@@ -37,7 +37,7 @@ export const DASHBOARD_CRUD_ROUTES = [
         }
     },
     {
-        path: 'linkset',
+        path: 'linkset/:className',
         component: CrudLinksetComponent,
         resolve: { linkset: CrudLinksetResolve },
         data: {

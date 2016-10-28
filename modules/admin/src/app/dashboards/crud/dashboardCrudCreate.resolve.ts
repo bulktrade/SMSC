@@ -18,7 +18,6 @@ export class DashboardCrudCreateResolve extends CrudResolve {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let className = route.parent.data['crudClass'];
 
-        this.crudService.setParentPath(route.parent.pathFromRoot);
         return this.crudService.getColumnDefs(className, false);
     }
 }
