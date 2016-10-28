@@ -1,6 +1,6 @@
-import { BindingParameterPage } from './meta-data-binding-parameter.page';
+import { BindingParameterPage } from './binding-parameter.page';
 
-describe('MetaDataBindingParameter', () => {
+export const BINDING_PARAMETER_SPEC_DEFINITIONS = () => {
     let bindingParam: BindingParameterPage;
     let ptor = protractor.wrapDriver(browser.driver);
 
@@ -83,4 +83,4 @@ describe('MetaDataBindingParameter', () => {
         expect(bindingParam.crudPage.login.isPresentLogin()).toBeTruthy();
     });
 
-});
+};

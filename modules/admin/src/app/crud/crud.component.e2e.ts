@@ -1,4 +1,16 @@
 import { CrudPage } from './crud.page';
+import {
+    CRUD_CREATE_SPEC_DEFINITIONS
+} from './crud-create/crud-create.component.definitions';
+import {
+    CRUD_UPDATE_SPEC_DEFINITIONS
+} from './crud-update/crud-update.component.definitions';
+import {
+    CRUD_META_DATA_SPEC_DEFINITIONS
+} from '../crud-meta-data/crud-meta-data.component.definitions';
+import {
+    BINDING_PARAMETER_SPEC_DEFINITIONS
+} from '../crud-meta-data/binding-parameter/binding-parameter.component.definitions';
 
 describe('CRUD', () => {
     let ptor = protractor.wrapDriver(browser.driver);
@@ -32,4 +44,11 @@ describe('CRUD', () => {
         expect(crudPage.login.isPresentLogin()).toBeTruthy();
     });
 
+    describe('CRUD Create', CRUD_CREATE_SPEC_DEFINITIONS);
+
+    describe('CRUD Update', CRUD_UPDATE_SPEC_DEFINITIONS);
+
+    describe('CRUD MetaData', CRUD_META_DATA_SPEC_DEFINITIONS);
+
+    describe('CRUD MetaData binding parameter', BINDING_PARAMETER_SPEC_DEFINITIONS);
 });

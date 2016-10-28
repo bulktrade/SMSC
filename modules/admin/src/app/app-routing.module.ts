@@ -17,7 +17,7 @@ import {
 } from './crud-meta-data/crud-class-meta-data/crud-class-meta-data.component';
 import {
     MetaDataPropertyBindingParameterComponent
-} from './crud-meta-data/meta-data-binding-parameter/meta-data-binding-parameter.component';
+} from './crud-meta-data/binding-parameter/binding-parameter.component';
 import { DashboardsComponent } from './dashboards/dashboards.components';
 import { CrudModule } from './crud/crud.module';
 import { DashboardModule } from './dashboards/dashboard.module';

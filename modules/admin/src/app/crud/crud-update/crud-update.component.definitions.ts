@@ -1,6 +1,6 @@
 import { UpdatePage } from './crud-update.page';
 
-describe('CRUD Update', () => {
+export const CRUD_UPDATE_SPEC_DEFINITIONS = () => {
     let updatePage: UpdatePage;
     let ptor = protractor.wrapDriver(browser.driver);
 
@@ -55,4 +55,4 @@ describe('CRUD Update', () => {
         expect(updatePage.crudPage.login.isPresentLogin()).toBeTruthy();
     });
 
-});
+};

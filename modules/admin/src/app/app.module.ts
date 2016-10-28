@@ -38,7 +38,7 @@ import { LoadingService } from './services/loading/loading.service';
 import { RouterOutletService } from './services/router-outlet-service';
 import {
     MetaDataPropertyBindingParameterComponent
-} from './crud-meta-data/meta-data-binding-parameter/meta-data-binding-parameter.component';
+} from './crud-meta-data/binding-parameter/binding-parameter.component';
 import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboard-crud-update.resolve';
 import { DashboardCrudCreateResolve } from './dashboards/crud/dashboard-crud-create.resolve';
 import { SidebarService } from './sidebar/sidebar.service';

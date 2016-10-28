@@ -1,7 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { CRUD_PROVIDERS } from '../../crud/common/crud-providers';
 import { HttpModule } from '@angular/http';
-import { MetaDataPropertyBindingParameterComponent } from './meta-data-binding-parameter.component';
+import { MetaDataPropertyBindingParameterComponent } from './binding-parameter.component';
 
 describe('MetaDataPropertyBindingParameterComponent', () => {
     beforeEach(() => {

@@ -4,7 +4,7 @@ import { NotificationService } from './notification-service';
 import { CrudLevel } from '../crud/model/crud-level';
 import {
     MetaDataPropertyBindingParameterModel
-} from '../crud-meta-data/meta-data-binding-parameter/meta-data-binding-parameter.model';
+} from '../crud-meta-data/binding-parameter/binding-parameter.model';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { BatchType } from '../orientdb/model/batch-type';

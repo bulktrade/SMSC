@@ -1,6 +1,6 @@
 import { CrudMetaDataPage } from './crud-meta-data.page';
 
-describe('CrudMetaDataComponent', () => {
+export const CRUD_META_DATA_SPEC_DEFINITIONS = () => {
     let ptor = protractor.wrapDriver(browser.driver);
     let crudMetaDataPage: CrudMetaDataPage = new CrudMetaDataPage();
 
@@ -118,4 +118,4 @@ describe('CrudMetaDataComponent', () => {
         expect(crudMetaDataPage.login.isPresentLogin()).toBeTruthy();
     });
 
-});
+};

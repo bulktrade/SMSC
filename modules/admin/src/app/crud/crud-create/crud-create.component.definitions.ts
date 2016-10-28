@@ -1,6 +1,6 @@
 import { CreatePage } from './crud-create.page';
 
-describe('CRUD Create', () => {
+export const CRUD_CREATE_SPEC_DEFINITIONS = () => {
     let createPage: CreatePage;
     let ptor = protractor.wrapDriver(browser.driver);
 
@@ -66,4 +66,4 @@ describe('CRUD Create', () => {
         expect(createPage.crudPage.login.isPresentLogin()).toBeTruthy();
     });
 
-});
+};
