@@ -74,7 +74,7 @@ describe('MetaDataBindingParameter', () => {
         bindingParam.crudCreate.clickOnContacts();
         bindingParam.crudPage.getSizeRecords()
             .then(size => {
-                expect(size).toEqual(1);
+                expect(size).toEqual(2);
             });
     });
 
