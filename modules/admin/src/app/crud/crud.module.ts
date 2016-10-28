@@ -44,7 +44,7 @@ const CRUD_MODULES = [
     DynamicFormModule,
     MultipleSelectModule,
     CrudLinksetModule,
-    CrudRoutingModule,
+    CrudRoutingModule
 ];
 
 @NgModule({
