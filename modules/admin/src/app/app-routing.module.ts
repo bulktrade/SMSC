@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './common/authGuard';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -21,6 +21,7 @@ import {
 import { DashboardsComponent } from './dashboards/dashboards.components';
 import { CrudModule } from './crud/crud.module';
 import { DashboardModule } from './dashboards/dashboard.module';
+import { NgModule } from '@angular/core';
 
 export const ROUTES: Routes = [
     {
@@ -36,7 +37,7 @@ export const ROUTES: Routes = [
         },
         children: [
             {
-                path: 'dashboard',
+                path: '',
                 component: DashboardsComponent,
                 loadChildren: () => DashboardModule,
                 data: {
@@ -171,3 +172,13 @@ export const ROUTES: Routes = [
         component: NotFoundComponent
     }
 ];
+
+@NgModule({
+    imports: [
+        RouterModule.forRoot(ROUTES, {useHash: false})
+    ],
+    exports: [
+        RouterModule
+    ]
+})
+export class AppRoutingModule {}

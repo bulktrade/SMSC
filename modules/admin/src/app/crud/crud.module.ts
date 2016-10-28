@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CrudComponent } from './crud.component';
 import { CrudViewComponent } from './crudView/crudView.component';
 import { CrudUpdateComponent } from './crudUpdate/crudUpdate.component';
-import { CrudLinksetComponent, CrudLinksetModule } from './crudLinkset/crudLinkset.component';
+import { CrudLinksetModule } from './crudLinkset/crudLinkset.component';
 import { CrudCreateComponent } from './crudCreate/crudCreate.component';
 import { CrudDeleteComponent } from './crudDelete/crudDelete.component';
 import { CrudService } from './crud.service';
@@ -18,8 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { MultipleSelectModule } from './directives/multipleSelect/multipleSelect.component';
 import { MdSelectModule } from '../common/material/select/select.component';
 import { DynamicFormModule } from './dynamicForm/dynamicForm.component';
-import { RouterModule } from '@angular/router';
-import { CRUD_ROUTE_PROVIDER } from './crud.routes';
+import { CrudRoutingModule } from './crud-routing.module';
 import { CommonModule } from '@angular/common';
 
 const CRUD_DECLARATIONS = [
@@ -45,7 +44,7 @@ const CRUD_MODULES = [
     DynamicFormModule,
     MultipleSelectModule,
     CrudLinksetModule,
-    RouterModule.forChild(CRUD_ROUTE_PROVIDER)
+    CrudRoutingModule,
 ];
 
 @NgModule({

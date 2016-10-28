@@ -4,7 +4,7 @@ import { Http, HttpModule, XHRBackend, RequestOptions } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { App } from './app.component';
 import { BreadcrumbModule } from './breadcrumb/breadcrumb.component';
-import { ROUTES } from './app.routes';
+import { ROUTES, AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { CustomersComponent } from './customers/customers.components';
@@ -104,7 +104,7 @@ export const APP_PROVIDERS = [
         FormsModule,
         NoInternetModule,
         HttpModule,
-        RouterModule.forRoot(ROUTES, { useHash: false }),
+        AppRoutingModule,
         MdModule.forRoot(),
         TranslateModule.forRoot({
             provide: TranslateLoader,

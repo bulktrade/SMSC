@@ -21,8 +21,7 @@ import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { DynamicFormModule } from '../crud/dynamicForm/dynamicForm.component';
 import { DashboardsComponent } from './dashboards.components';
-import { DASHBOARD_ROUTES } from './crud/dashboardRoutes';
-import { RouterModule } from '@angular/router';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CommonModule } from '@angular/common';
 import { CrudLinksetModule } from '../crud/crudLinkset/crudLinkset.component';
 
@@ -53,7 +52,7 @@ const DASHBOARD_DECLARATION = [
         DynamicFormModule,
         BreadcrumbModule,
         CrudLinksetModule,
-        RouterModule.forChild(DASHBOARD_ROUTES)
+        DashboardRoutingModule,
     ],
     exports: [DASHBOARD_DECLARATION],
     declarations: [

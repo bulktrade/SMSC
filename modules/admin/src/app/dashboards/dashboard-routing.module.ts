@@ -1,11 +1,13 @@
-import { DashboardViewComponent } from '../dashboardView.component';
-import { DashboardCrudUpdateComponent } from './dashboardBoxUpdate.component';
-import { DashboardCrudUpdateResolve } from './dashboardCrudUpdate.resolve';
-import { DashboardCrudCreateComponent } from './dashboardBoxCreate.component';
-import { DashboardCrudCreateResolve } from './dashboardCrudCreate.resolve';
-import { CrudLinksetComponent } from '../../crud/crudLinkset/crudLinkset.component';
-import { CrudLinksetResolve } from '../../crud/crudLinkset/crudLinkset.resolve';
-import { DashboardComponent } from '../dashboard.component';
+import { DashboardViewComponent } from './dashboardView.component';
+import { DashboardCrudUpdateComponent } from './crud/dashboardBoxUpdate.component';
+import { DashboardCrudUpdateResolve } from './crud/dashboardCrudUpdate.resolve';
+import { DashboardCrudCreateComponent } from './crud/dashboardBoxCreate.component';
+import { DashboardCrudCreateResolve } from './crud/dashboardCrudCreate.resolve';
+import { CrudLinksetComponent } from '../crud/crudLinkset/crudLinkset.component';
+import { CrudLinksetResolve } from '../crud/crudLinkset/crudLinkset.resolve';
+import { DashboardComponent } from './dashboard.component';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 export const DASHBOARD_CRUD_ROUTES = [
     {
@@ -45,7 +47,7 @@ export const DASHBOARD_CRUD_ROUTES = [
     }
 ];
 
-export const DASHBOARD_ROUTES = [
+const DASHBOARD_ROUTES = [
     {
         path: '',
         component: DashboardComponent,
@@ -58,5 +60,23 @@ export const DASHBOARD_ROUTES = [
             dashboard: 'default'
         },
         children: DASHBOARD_CRUD_ROUTES
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: {
+            crudClass: 'DashboardBox'
+        },
+        children: DASHBOARD_CRUD_ROUTES
     }
 ];
+
+@NgModule({
+    imports: [
+        RouterModule.forChild(DASHBOARD_ROUTES)
+    ],
+    exports: [
+        RouterModule
+    ]
+})
+export class DashboardRoutingModule {}

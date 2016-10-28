@@ -7,8 +7,10 @@ import { CrudLinksetComponent } from './crudLinkset/crudLinkset.component';
 import { CrudLinksetResolve } from './crudLinkset/crudLinkset.resolve';
 import { CrudCreateResolve } from './crudCreate/crudCreate.resolve';
 import { CrudEditResolve } from './crudUpdate/crudUpdate.resolve';
+import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
 
-export const CRUD_ROUTE_PROVIDER = [
+const CRUD_ROUTE_PROVIDER = [
     {
         path: '',
         component: CrudViewComponent,
@@ -48,3 +50,13 @@ export const CRUD_ROUTE_PROVIDER = [
         }
     }
 ];
+
+@NgModule({
+    imports: [
+        RouterModule.forChild(CRUD_ROUTE_PROVIDER)
+    ],
+    exports: [
+        RouterModule
+    ]
+})
+export class CrudRoutingModule {}
