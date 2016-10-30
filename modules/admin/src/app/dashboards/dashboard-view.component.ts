@@ -18,7 +18,7 @@ import { Dashboard } from './models/dashboard';
 
 @Component({
     selector: 'dashboard-view',
-    template: '',
+    template: require('./dashboard-view.component.html'),
     styleUrls: [
         require('./dashboard-view.component.scss')
     ],
@@ -27,8 +27,8 @@ import { Dashboard } from './models/dashboard';
     ],
 })
 export class DashboardViewComponent {
-    public boxesCss: DashboardList<string> = new DashboardList<string>();
-    public boxes: DashboardListItem<DashboardBox> = new DashboardListItem<DashboardBox>();
+    public boxesCss: DashboardList<string> = null;
+    public boxes: DashboardListItem<DashboardBox> = null;
 
     constructor(public translate: TranslateService,
                 private dragulaService: DragulaService,
@@ -36,8 +36,6 @@ export class DashboardViewComponent {
                 private router: Router,
                 public crudService: CrudService,
                 private route: ActivatedRoute) {
-        console.log(this.boxesCss);
-
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal',
             moves: function (el, container, handle) {
@@ -57,9 +55,10 @@ export class DashboardViewComponent {
 
     ngOnInit() {
         this.route.data.subscribe((res) => {
-            console.log(res);
-            this.boxesCss = res['data'].boxesCss;
-            this.boxes = res['data'].boxes;
+            this.boxesCss = res.hasOwnProperty('boxesCss') ? res['data'].boxesCss :
+                new DashboardList<string>();
+            this.boxes = res.hasOwnProperty('boxes') ? res['data'].boxes :
+                new DashboardListItem<DashboardBox>();
             this.updateClasses();
         });
     }
