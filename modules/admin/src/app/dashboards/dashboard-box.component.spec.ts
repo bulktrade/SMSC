@@ -10,6 +10,8 @@ import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
 import { GridService } from '../services/grid.service';
 import { SidebarService } from '../sidebar/sidebar.service';
 import { DashboardBoxComponent } from './dashboard-box.component';
+import { BoxResize } from './models/dashboard-box-enum';
+import { BaThemeConfigProvider } from './chart/theme/theme.configProvider';
 
 class MockLocation {}
 

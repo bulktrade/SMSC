@@ -10,15 +10,16 @@ import { CrudService } from '../crud/crud.service';
 import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
 import { GridService } from '../services/grid.service';
 import { HTTP_PROVIDERS } from '../common/mock/http-providers';
-import { Router } from "@angular/router";
-import {DashboardView} from "./dashboardView.component";
-import {DashboardList} from "./models/dashboardList";
-import {DashboardListItem} from "./models/dashboardListItem";
-import {DashboardBox} from "./models/dashboardBox";
-import {BoxResize} from "./models/dashboardBoxEnum";
 import { Router } from '@angular/router';
+import { DashboardViewComponent } from './dashboard-view.component';
+import { DashboardList } from './models/dashboard-list';
+import { DashboardListItem } from './models/dashboard-list-item';
+import { DashboardBox } from './models/dashboard-box';
+import { BoxResize } from './models/dashboard-box-enum';
+import { DashboardResizeConfig } from './dashboard-resize-config';
 
-class MockLocation {}
+class MockLocation {
+}
 
 describe('DashboardComponent view', () => {
     beforeEach(() => {
@@ -46,7 +47,7 @@ describe('DashboardComponent view', () => {
 
     let box;
 
-    it('Init box classes', inject([DashboardView], (box) => {
+    it('Init box classes', inject([DashboardViewComponent], (box) => {
         box.dashboardService.getDashboardBoxes().subscribe((res) => {
             this.boxesCss = new DashboardList<string>();
             this.boxes = new DashboardListItem<DashboardBox>();
@@ -56,7 +57,7 @@ describe('DashboardComponent view', () => {
         });
     }));
 
-    it('Box resize', inject([DashboardView], (boxView) => {
+    it('Box resize', inject([DashboardViewComponent], (boxView) => {
         boxView.dashboardService.getDashboardBoxes().subscribe((res) => {
             let box: DashboardBox = res[0];
 
@@ -71,7 +72,7 @@ describe('DashboardComponent view', () => {
         });
     }))
 
-    it('should be defined CSS boxes', inject([DashboardView], (box) => {
+    it('should be defined CSS boxes', inject([DashboardViewComponent], (box) => {
         expect(box.boxesCss).toBeDefined();
     }));
 
@@ -83,7 +84,7 @@ describe('DashboardComponent view', () => {
         expect(box.getBoxClass(25, 'chart')).toBeDefined('chart-m');
     }));
 
-    it('Update classes', inject([DashboardView], (boxView) => {
+    it('Update classes', inject([DashboardViewComponent], (boxView) => {
         boxView.updateClasses();
     }));
 });

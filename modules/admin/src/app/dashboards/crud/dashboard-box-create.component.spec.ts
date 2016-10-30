@@ -33,27 +33,27 @@ describe('DashboardComponent crud create', () => {
         });
     });
 
-    it('should be defined resolveData', inject([ DashboardCrudCreate ], (box) => {
+    it('should be defined resolveData', inject([ DashboardCrudCreateComponent ], (box) => {
         expect(box.resolveData).toBeDefined();
     }));
 
-    it('should be defined btnName', inject([ DashboardCrudCreate ], (box) => {
+    it('should be defined btnName', inject([ DashboardCrudCreateComponent ], (box) => {
         expect(box.btnName).toBeDefined();
     }));
 
-    it('should be defined grid options', inject([ DashboardCrudCreate ], (crudEdit) => {
+    it('should be defined grid options', inject([ DashboardCrudCreateComponent ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions).toBeDefined();
     }));
 
-    it('should be location', inject([ DashboardCrudCreate ], (crudEdit) => {
+    it('should be location', inject([ DashboardCrudCreateComponent ], (crudEdit) => {
         expect(!!crudEdit.location).toEqual(true);
     }));
 
-    it('should be columnDefs', inject([ DashboardCrudCreate ], (crudEdit) => {
+    it('should be columnDefs', inject([ DashboardCrudCreateComponent ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions.hasOwnProperty('columnDefs')).toBeTruthy();
     }));
 
-    it('should be rowData', inject([ DashboardCrudCreate ], (crudEdit) => {
+    it('should be rowData', inject([ DashboardCrudCreateComponent ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions.hasOwnProperty('rowData')).toBeTruthy();
     }));
 });

@@ -41,19 +41,19 @@ describe('DashboardComponent crud update', () => {
         expect(box.btnName).toBeDefined();
     }));
 
-    it('should be defined grid options', inject([ DashboardCrudUpdate ], (crudEdit) => {
+    it('should be defined grid options', inject([ DashboardCrudUpdateComponent ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions).toBeDefined();
     }));
 
-    it('should be location', inject([ DashboardCrudUpdate ], (crudEdit) => {
+    it('should be location', inject([ DashboardCrudUpdateComponent ], (crudEdit) => {
         expect(!!crudEdit.location).toEqual(true);
     }));
 
-    it('should be columnDefs', inject([ DashboardCrudUpdate ], (crudEdit) => {
+    it('should be columnDefs', inject([ DashboardCrudUpdateComponent ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions.hasOwnProperty('columnDefs')).toBeTruthy();
     }));
 
-    it('should be rowData', inject([ DashboardCrudUpdate ], (crudEdit) => {
+    it('should be rowData', inject([ DashboardCrudUpdateComponent ], (crudEdit) => {
         expect(crudEdit.crudService.gridOptions.hasOwnProperty('rowData')).toBeTruthy();
     }));
 });
