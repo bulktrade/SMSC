@@ -1,6 +1,4 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MdSelectModule } from '../common/material/select/select.component';
 import { DashboardService } from './dashboard.service';
 import { OrderBy } from './sorts/orderby';
 import { DashboardComponent } from './dashboard.component';
@@ -11,19 +9,29 @@ import { DashboardCrudCreateComponent } from './crud/dashboard-box-create.compon
 import { AgGridModule } from 'ag-grid-ng2';
 import { TranslateModule, TranslateService } from 'ng2-translate';
 import { MdModule } from '../md.module';
-import { GridPaginationModule } from '../crud/directives/gridPagination/grid-pagination.component';
-import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
 import { CubeGridModule } from '../common/spinner/cube-grid/cube-grid.component';
-import { LoadingGridModule } from '../common/loading-grid.component';
 import { AlertModule } from 'ng2-bootstrap';
 import { CrudService } from '../crud/crud.service';
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
-import { DynamicFormModule } from '../crud/dynamic-form/dynamic-form.component';
 import { DashboardsComponent } from './dashboards.components';
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import { BaThemeConfigProvider } from './chart/theme/theme.configProvider';
+import { LineChart } from './chart/lineChart.component';
+import { BaAmChart } from './chart/theme/components/baAmChart/baAmChart.component';
+import { DynamicFormModule } from '../crud/dynamic-form/dynamic-form.component';
+import { LineChartService } from './chart/lineChart.service';
+import { MdSelectModule } from '../common/material/select/select.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingGridModule } from '../common/loading-grid.component';
+import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
+import { GridPaginationModule } from '../crud/directives/grid-pagination/grid-pagination.component';
+import { DashboardCrudDelete } from './crud/dashboardBoxDelete';
+import { DashboardCrudUpdateResolve } from './crud/dashboard-crud-update.resolve';
+import { DashboardCrudCreateResolve } from './crud/dashboard-crud-create.resolve';
+import { DashboardViewResolve } from './dashboard-view.resolve';
 import { CommonModule } from '@angular/common';
 import { CrudLinksetModule } from '../crud/crud-linkset/crud-linkset.component';
+import { DashboardRoutingModule } from './dashboard-routing.module';
 
 const DASHBOARD_DECLARATION = [
     OrderBy,
@@ -32,7 +40,10 @@ const DASHBOARD_DECLARATION = [
     DashboardBoxComponent,
     DashboardCrudUpdateComponent,
     DashboardCrudCreateComponent,
-    DashboardsComponent
+    DashboardCrudDelete,
+    DashboardsComponent,
+    BaAmChart,
+    LineChart
 ];
 
 @NgModule({
@@ -44,6 +55,7 @@ const DASHBOARD_DECLARATION = [
         LoadingGridModule,
         AlertModule,
         FormsModule,
+        ReactiveFormsModule,
         MdModule.forRoot(),
         CommonModule,
         TranslateModule,
@@ -62,7 +74,11 @@ const DASHBOARD_DECLARATION = [
         CrudService,
         TranslateService,
         DashboardService,
-        // BreadcrumbComponent
+        BaThemeConfigProvider,
+        LineChartService,
+        DashboardCrudUpdateResolve,
+        DashboardCrudCreateResolve,
+        DashboardViewResolve
     ]
 })
 export class DashboardModule {

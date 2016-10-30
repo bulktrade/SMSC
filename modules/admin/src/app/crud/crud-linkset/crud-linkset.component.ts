@@ -9,7 +9,7 @@ import { CrudLevel } from '../model/crud-level';
 import { RouterOutletService } from '../../services/router-outlet-service';
 import { MdModule } from '../../md.module';
 import { MdSelectModule } from '../../common/material/select/select.component';
-import { GridPaginationModule } from '../directives/gridPagination/grid-pagination.component';
+import { GridPaginationModule } from '../directives/grid-pagination/grid-pagination.component';
 import { DropdownModule, AlertModule } from 'ng2-bootstrap';
 import { AgGridModule } from 'ag-grid-ng2';
 import { LoadingGridModule } from '../../common/loading-grid.component';
@@ -67,7 +67,6 @@ export class CrudLinksetComponent {
     addLink(gridOptions) {
         let className = this.crudService.getLinkedClass();
         let previousCrudLevel: CrudLevel = this.crudService.previousCrudLevel();
-        this.crudService.model[previousCrudLevel.linksetProperty.name] = [];
         let params: any = previousCrudLevel.linksetProperty.data;
 
         return this.getLinkset(gridOptions, previousCrudLevel.linksetProperty.type, className)

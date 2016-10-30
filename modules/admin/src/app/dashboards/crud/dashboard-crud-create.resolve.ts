@@ -5,6 +5,8 @@ import { GridService } from '../../services/grid.service';
 import { CrudService } from '../../crud/crud.service';
 import { CrudResolve } from '../../crud/common/crud-resolve';
 import { DashboardService } from '../dashboard.service';
+import { ColumnModel } from '../../crud/model/crud-column';
+import { Observer, Observable } from 'rxjs';
 
 @Injectable()
 export class DashboardCrudCreateResolve extends CrudResolve {
@@ -16,8 +18,19 @@ export class DashboardCrudCreateResolve extends CrudResolve {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let className = route.parent.data['crudClass'];
+        let className = route.params['className'];
 
-        return this.crudService.getColumnDefs(className, false);
+        this.crudService.setParentPath(route.parent.pathFromRoot);
+
+        return Observable.create((observer: Observer<ColumnModel>) => {
+            this.crudService.getColumnDefs(className, false).subscribe((res) => {
+                this.crudService.model['dashboard'] = route.params['dashboard'];
+
+                observer.next(res);
+                observer.complete();
+            });
+        });
+
+        // return this.crudService.getColumnDefs(className, false);
     }
 }

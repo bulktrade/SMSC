@@ -15,7 +15,7 @@
 				</md-input>
 				<multiple-select *ngIf="item.type === 'LINKSET' || item.type === 'LINK'"
 				                 [property]="item" class="{{item.property}}"
-				                 [rowSelectionLinkset]="'single'"
+				                 [rowSelectionLinkset]="'single'" [hidden]="!item.visible"
 				                 (isRequired)="crudService.isRequired($event); crudService.isHint[item.property] = $event">
 					<md-hint [hidden]="!crudService.isHint[item.property]"
 					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}

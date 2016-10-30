@@ -11,6 +11,11 @@ import { Observer } from 'rxjs/Observer';
 import { BatchType } from '../orientdb/model/batch-type';
 import { Operation } from '../orientdb/model/operation';
 import { EditModel } from '../crud/crud-update/crud-update.model';
+import {Dashboard} from "./models/dashboard";
+import {MetaData} from "../common/models/meta-data";
+import {OUser} from "../common/models/OUser";
+import {AuthHttp} from "angular2-jwt";
+import {ConfigService} from "../config/config.service";
 
 const squel = require('squel');
 
@@ -19,7 +24,9 @@ export class DashboardService {
     constructor(private databaseService: ODatabaseService,
                 public crudService: CrudService,
                 public location: Location,
-                public gridService: GridService) {
+                public gridService: GridService,
+                private authHttp: AuthHttp,
+                private configService: ConfigService) {
 
     }
 
@@ -158,13 +165,11 @@ export class DashboardService {
      * Get dashboard box class columns
      *
      * @param route
-     * @param state
      * @param id
      * @param className
      * @returns {Subscription}
      */
-    public getBoxFormColumns(route: ActivatedRouteSnapshot, state: RouterStateSnapshot,
-                             id: string, className: string): Observer<EditModel> {
+    public getBoxFormColumns(route: ActivatedRouteSnapshot, id: string, className: string): Observer<EditModel> {
         this.crudService.setParentPath(route.parent.pathFromRoot);
         this.crudService.setClassName(className);
 
@@ -181,8 +186,7 @@ export class DashboardService {
 
                     this.crudService.getColumnDefs(className, false)
                         .subscribe((columnDefs) => {
-                            return this.gridService.selectLinksetProperties(
-                                columnDefs.form, model)
+                            return this.gridService.selectLinksetProperties(columnDefs.form, model)
                                 .then(() => {
                                     let editModel: EditModel = {
                                         columnDefs: columnDefs,
@@ -193,8 +197,7 @@ export class DashboardService {
                                     observer.complete();
                                 });
                         }, (error) => {
-                            this.crudService.serviceNotifications.createNotificationOnResponse(
-                                error);
+                            this.crudService.serviceNotifications.createNotificationOnResponse(error);
                             observer.error(error);
                             observer.complete();
                         });
@@ -204,6 +207,56 @@ export class DashboardService {
                     observer.error(error);
                     observer.complete();
                 });
+        });
+    }
+
+    public executeDbFunction(rid): Observable<Object> {
+        var functionName = rid.replace(/#/g, "");
+        functionName = functionName.replace(/:/g, "_");
+        functionName = 'DashboardBoxTypeFunction_' + functionName;
+        let url: string = this.configService.config.orientDBUrl + '/function/smsc/' + functionName;
+
+        return Observable.create((observer: Observer<Object>) => {
+            this.authHttp.request(url)
+                .subscribe((res) => {
+                    let result = JSON.parse(res['_body']);
+                    console.log(result);
+                    observer.next(eval(result.result[0].data));
+                    observer.complete();
+                })
+        });
+    }
+
+    // Temporary
+    /**
+     * Get Dashboard for DashboardBox for navigate to form without "Dashboard" field
+     */
+    public getDashboard(): Observable<DashboardBox> {
+        let query = squel.select()
+            .from('Dashboard')
+            .field('*')
+            .limit(1)
+            .toString();
+
+        return Observable.create((observer: Observer<Dashboard>) => {
+            this.databaseService.query(query, 50, '*:3').subscribe((res: Response) => {
+                let data = res.json().result[0];
+                let dashboard: Dashboard = new Dashboard(
+                    new MetaData(
+                        data['@class'],
+                        data['@rid'],
+                        data['@version']
+                    ),
+                    data['icon'],
+                    data['name'],
+                    new OUser(
+                        data['user']['name']
+                    )
+                );
+
+                observer.next(dashboard);
+                observer.complete();
+            })
         });
     }
 }

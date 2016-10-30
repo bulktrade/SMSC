@@ -71,3 +71,12 @@ Thumbs.db
 # IDE #
 .idea/
 *.swp
+
+pom.xml
+
+.gitignore
+
+/modules/admin/src/app/*.js
+/modules/admin/src/app/*.js.map
+/modules/admin/src/app/**/*.js
+/modules/admin/src/app/**/*.js.map

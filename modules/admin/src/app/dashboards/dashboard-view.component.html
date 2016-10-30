@@ -13,29 +13,38 @@
              [ngClass]="[boxesCss.height.getItem(i), boxesCss.width.getItem(i)]" attr.data-boxrid="{{item.metaData.rid}}"
              class="box {{item.type.name}}"
         >
-            <dashboard-box class="status" [ngClass]="boxesCss.remove.getItem(i)" *ngIf="item.type.name == 'status'"
+            <dashboard-box class="status" [ngClass]="boxesCss.remove.getItem(i)" *ngIf="item.type.type == 'status'"
                            (resizeBox)="resizeBox($event, i, item)"
                            [config]="{
                                 'type': 'status',
                                 'name': 'profit',
+                                'typeRid': item.type.metaData.rid,
                                 'header': '7001 ',
                                 'subHeader': item.name,
+                                'kind': item.type.kind,
                                 'width': item.width,
                                 'height': item.height,
                                 'icon': 'account_balance_wallet',
                                 'customData': {
+                                    'rid': item.metaData.rid,
                                     'processStatus': 'Progress',
                                     'percent': '75'
                                 }
                             }" (removeBox)="removeBox(item, i)" (editBox)="editBox(item.metaData.rid)"
             ></dashboard-box>
-            <dashboard-box class="chart" [ngClass]="boxesCss.remove.getItem(i)" *ngIf="item.type.name == 'chart'"
+            <dashboard-box class="chart" [ngClass]="boxesCss.remove.getItem(i)" *ngIf="item.type.type == 'chart'"
                            [config]="{
+                                'rid': item.metaData.rid,
                                 'type': 'chart',
+                                'typeRid': item.type.metaData.rid,
                                 'header': item.name,
+                                'kind': item.type.kind,
                                 'subHeader': item.description,
                                 'width': item.width,
-                                'height': item.height
+                                'height': item.height,
+                                'customData': {
+                                    'rid': item.metaData.rid
+                                }
                             }" (resizeBox)="resizeBox($event, i, item)" (removeBox)="removeBox(item, i)"
                            (editBox)="editBox(item.metaData.rid)"
             ></dashboard-box>

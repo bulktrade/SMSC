@@ -1,4 +1,5 @@
-<div id="dashboardBox" class="content rectangle" [ngClass]="{fullscreen: fullscreenMode, 'crudOpen': crudOpen}"
+<div class="content rectangle" attr.data-boxrid="{{config.rid}}"
+     [ngClass]="{'crudOpen': crudOpen}"
 >
     <div class="innerWrap">
         <div class="closeTool">
@@ -67,8 +68,10 @@
             <i class="material-icons icon fullscreen-icon" (click)="toggleFullscreen()">
                 {{ fullscreenMode ? 'fullscreen' : 'fullscreen_exit' }}
             </i>
+            <!--<i class="material-icons icon dragIcon">dashboard</i>-->
         </div>
-        <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}">
+        <md-card *ngIf="config.type == 'status'" class="status box {{ config.name }}"
+                 [ngClass]="kindClass">
             <i class="material-icons icon">
                 {{ config.icon }}
             </i>
@@ -100,6 +103,9 @@
                     <div class="md-header-subhead">
                         {{ config.subHeader | translate }}
                     </div>
+                </div>
+                <div class="body">
+                    <line-chart [chartType]="config.kind" [dashboardTypeRid]="config.typeRid"></line-chart>
                 </div>
             </md-card>
         </div>

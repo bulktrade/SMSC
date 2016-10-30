@@ -59,9 +59,10 @@ public class Server {
 
 	public void run() throws Exception {
         String classpath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-        System.setProperty("orientdb.www.path", classpath + "db/orientdb/site");
-        System.setProperty("network.http.useToken", "true");
-        System.setProperty("network.http.streaming", "false");
+        	System.setProperty("orientdb.www.path", classpath + "db/orientdb/site");
+        	System.setProperty("network.http.useToken", "true");
+        	System.setProperty("network.http.streaming", "false");
+		System.setProperty("script.pool.maxSize", "1000");
 
 		setInstance(OServerMain.create());
 		OServerConfiguration cfg = new OServerConfiguration();

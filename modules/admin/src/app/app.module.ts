@@ -70,8 +70,6 @@ export const APP_PROVIDERS = [
     NotificationService,
     AuthGuard,
     AppState,
-    DashboardCrudUpdateResolve,
-    DashboardCrudCreateResolve,
     SidebarService,
     {
         provide: Http,

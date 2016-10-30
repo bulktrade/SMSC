@@ -41,6 +41,9 @@ export class DashboardCrudUpdateComponent {
         this.crudService.setModel({});
     }
 
+    /**
+     * Back to dashboards
+     */
     back() {
         this.location.back();
     }

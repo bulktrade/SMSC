@@ -1,4 +1,4 @@
-import { AppTest } from './app.page';
+import {AppTest} from "./pages/app.page";
 
 describe('App', () => {
     let ptor = protractor.wrapDriver(browser.driver);

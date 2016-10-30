@@ -3,7 +3,6 @@ import { Location } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { APP_PROVIDERS } from '../app.module';
-import { DashboardViewComponent } from './dashboard-view.component';
 import { TranslateService, TranslateLoader } from 'ng2-translate/ng2-translate';
 import { DashboardService } from './dashboard.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -11,6 +10,12 @@ import { CrudService } from '../crud/crud.service';
 import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
 import { GridService } from '../services/grid.service';
 import { HTTP_PROVIDERS } from '../common/mock/http-providers';
+import { Router } from "@angular/router";
+import {DashboardView} from "./dashboardView.component";
+import {DashboardList} from "./models/dashboardList";
+import {DashboardListItem} from "./models/dashboardListItem";
+import {DashboardBox} from "./models/dashboardBox";
+import {BoxResize} from "./models/dashboardBoxEnum";
 import { Router } from '@angular/router';
 
 class MockLocation {}
@@ -39,7 +44,34 @@ describe('DashboardComponent view', () => {
         });
     });
 
-    it('should be defined CSS boxes', inject([DashboardViewComponent], (box) => {
+    let box;
+
+    it('Init box classes', inject([DashboardView], (box) => {
+        box.dashboardService.getDashboardBoxes().subscribe((res) => {
+            this.boxesCss = new DashboardList<string>();
+            this.boxes = new DashboardListItem<DashboardBox>();
+            this.boxes.merge(res);
+            box = res[0];
+            //this.updateClasses();
+        });
+    }));
+
+    it('Box resize', inject([DashboardView], (boxView) => {
+        boxView.dashboardService.getDashboardBoxes().subscribe((res) => {
+            let box: DashboardBox = res[0];
+
+            let config: DashboardResizeConfig = {
+                type: BoxResize.WIDTH,
+                width: 25,
+                height: 25,
+                chart: null
+            }
+
+            boxView.resizeBox(config, 0, box);
+        });
+    }))
+
+    it('should be defined CSS boxes', inject([DashboardView], (box) => {
         expect(box.boxesCss).toBeDefined();
     }));
 
@@ -49,5 +81,9 @@ describe('DashboardComponent view', () => {
 
     it('Get box class name', inject([DashboardViewComponent], (box) => {
         expect(box.getBoxClass(25, 'chart')).toBeDefined('chart-m');
+    }));
+
+    it('Update classes', inject([DashboardView], (boxView) => {
+        boxView.updateClasses();
     }));
 });

@@ -2,6 +2,7 @@ import { DashboardBoxType } from './dashboard-box-type';
 import { MetaData } from '../../common/models/meta-data';
 import { Dashboard } from './dashboard';
 import { OUser } from '../../common/models/OUser';
+import {ChartType} from "./chartType";
 
 export class DashboardBox {
     metaData: MetaData;
@@ -45,6 +46,8 @@ export class DashboardBox {
                 data['type']['@rid'],
                 data['type']['@version']
             ),
+            data['type']['type'],
+            data['type']['kind'],
             data['type']['code'],
             data['type']['codeLanguage'],
             data['type']['name']

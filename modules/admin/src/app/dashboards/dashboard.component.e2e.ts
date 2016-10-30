@@ -1,10 +1,12 @@
-import { Dashboard } from './dashboard.page';
+import {Dashboard} from './dashboard.page';
 
 describe('DashboardComponent', () => {
     let prot = protractor.wrapDriver(browser.driver);
 
     prot.manage().window().setSize(1024, 1020);
     browser.get(browser.baseUrl + '/');
+    //browser.get('/');
+    //browser.get('/admin/');
 
     beforeEach(() => {
         this.dashboard = new Dashboard();
@@ -35,49 +37,33 @@ describe('DashboardComponent', () => {
 
     //  Switch to fullscreen mode
     it('Click on fullscreen icon', () => {
-        this.dashboard.clickOnFullscreenIcon(prot);
-        browser.sleep(1000);
+        this.dashboard.clickOnFullscreenIcon();
     });
 
     //  Open/Close crud box tool
     it('Open/Close crud box tool', () => {
         this.dashboard.toggleCloseIcon();
-        browser.sleep(1000);
-    });
-
-    //  Drag and drop box
-    it('Drag and drop box', () => {
-        // this.dashboard.dragAndDrop();
     });
 
     //  Change size mode
     it('Switch height box mode', () => {
         this.dashboard.clickOnSizeButtons();
-        browser.sleep(2000);
     });
 
     //  Create box
     it('Create box', () => {
-        let that = this;
-
-        that.dashboard.createBox().then(() => {
-            browser.sleep(2000);
-            that.dashboard.editBox().then(() => {
-                browser.sleep(2000);
-                that.dashboard.removeBox().then(() => {
-                    console.log('Remove box');
-                });
-            });
-
-        });
+        this.dashboard.createBox();
     });
 
-    it('Finish', () => {
-        this.dashboard.finish();
+    it('Edit box', () => {
+        this.dashboard.editBox();
+    });
+
+    it('Remove box', () => {
+        this.dashboard.removeBox();
     });
 
     it('should logout', () => {
-        this.dashboard.login.logout(prot);
-        expect(this.dashboard.login.isPresentLogin()).toBeTruthy();
+        this.dashboard.login.logout();
     });
 });

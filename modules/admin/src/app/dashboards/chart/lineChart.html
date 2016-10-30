@@ -1,0 +1,4 @@
+<button class="primary showAll" (click)="showAll()" *ngIf="showAllBtn">Show all</button>
+<ba-am-chart baAmChartClass="dashboard-line-chart" [baAmChartConfiguration]="chartData"
+             (onChartReady)="initChart($event)" class="chart" *ngIf="chartType != ''"
+></ba-am-chart>

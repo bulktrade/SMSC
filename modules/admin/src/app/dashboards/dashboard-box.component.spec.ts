@@ -27,7 +27,8 @@ describe('DashboardComponent box', () => {
                 SidebarService,
                 { provide: Router, useClass: MockLocation },
                 { provide: Location, useClass: MockLocation },
-                CrudService
+                CrudService,
+                BaThemeConfigProvider
             ],
             imports: [
                 HttpModule
@@ -35,7 +36,31 @@ describe('DashboardComponent box', () => {
         });
     });
 
-    it('should be defined config', inject([DashboardBoxComponent], (box) => {
+    it('should be defined config', inject([ DashboardBoxComponent ], (box) => {
         expect(box.config).toBeDefined();
+    }));
+
+    it('EventEmitter resize box', inject([DashboardBoxComponent], (box) => {
+        box.resizeBox.subscribe((res) => {
+            expect(res).toBeDefined();
+        });
+
+        box.emitResizeBox({val: 25, type: BoxResize.HEIGHT});
+    }));
+
+    it('EventEmitter remove box', inject([DashboardBoxComponent], (box) => {
+        box.resizeBox.subscribe((res) => {
+            expect(res).toBeDefined();
+        });
+
+        box.emitRemoveBox();
+    }));
+
+    it('EventEmitter edit box', inject([DashboardBoxComponent], (box) => {
+        box.resizeBox.subscribe((res) => {
+            expect(res).toBeDefined();
+        });
+
+        box.emitEditBox();
     }));
 });

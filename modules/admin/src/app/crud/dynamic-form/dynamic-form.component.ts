@@ -8,7 +8,7 @@ import { MdModule } from '../../md.module';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 import { FormsModule } from '@angular/forms';
 import { LoadingGridModule } from '../../common/loading-grid.component';
-import { MultipleSelectModule } from '../directives/multipleSelect/multiple-select.component';
+import { MultipleSelectModule } from '../directives/multiple-select/multiple-select.component';
 import { FormPropertyModel } from '../model/form-property';
 
 @Component({
@@ -38,7 +38,7 @@ export class DynamicFormComponent {
                 this.crudService.updateRecord(this.crudService.model);
                 break;
             case BtnTypes.CREATE:
-                    this.crudService.createRecord(this.crudService.model,
+                this.crudService.createRecord(this.crudService.model,
                     this.route.snapshot.params['className']);
                 break;
             default:

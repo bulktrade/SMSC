@@ -15,7 +15,7 @@ export const DASHBOARD_CRUD_ROUTES = [
         component: DashboardViewComponent,
         data: {
             showInBreadcrumb: true,
-            translationKey: 'DashboardView'
+            translationKey: 'DashboardViewComponent'
         }
     },
     {
