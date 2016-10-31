@@ -220,7 +220,6 @@ export class DashboardService {
             this.authHttp.request(url)
                 .subscribe((res) => {
                     let result = JSON.parse(res['_body']);
-                    console.log(result);
                     observer.next(eval(result.result[0].data));
                     observer.complete();
                 })

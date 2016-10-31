@@ -25,7 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingGridModule } from '../common/loading-grid.component';
 import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
 import { GridPaginationModule } from '../crud/directives/grid-pagination/grid-pagination.component';
-import { DashboardCrudDelete } from './crud/dashboardBoxDelete';
+import { DashboardCrudDeleteComponent } from './crud/dashboard-box-delete.component';
 import { DashboardCrudUpdateResolve } from './crud/dashboard-crud-update.resolve';
 import { DashboardCrudCreateResolve } from './crud/dashboard-crud-create.resolve';
 import { DashboardViewResolve } from './dashboard-view.resolve';
@@ -40,7 +40,7 @@ const DASHBOARD_DECLARATION = [
     DashboardBoxComponent,
     DashboardCrudUpdateComponent,
     DashboardCrudCreateComponent,
-    DashboardCrudDelete,
+    DashboardCrudDeleteComponent,
     DashboardsComponent,
     BaAmChart,
     LineChart

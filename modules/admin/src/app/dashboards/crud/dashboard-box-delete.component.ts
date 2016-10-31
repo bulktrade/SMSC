@@ -2,19 +2,19 @@ import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import {CrudService} from "../../crud/crud.service";
+import { CrudService } from '../../crud/crud.service';
 
 @Component({
     selector: 'crud-delete',
-    template: require('./crudDelete.html'),
+    template: require('./dashboard-box-delete.component.html'),
     styleUrls: [
-        require('./crudDelete.scss'),
+        require('./dashboard-box-delete.component.scss'),
         require('../../crud/common/style.scss')
     ],
     providers: []
 })
 
-export class DashboardCrudDelete {
+export class DashboardCrudDeleteComponent {
     public id;
 
     constructor(public translate: TranslateService,

@@ -4,7 +4,7 @@ import {DashboardCrudCreate} from "./crud/dashboardBoxCreate";
 import {DashboardCrudUpdateResolve} from "./crud/dashboardCrudUpdate.resolve";
 import {DashboardCrudUpdate} from "./crud/dashboardBoxUpdate";
 import {DashboardView} from "./dashboardView.component";
-import {DashboardCrudDelete} from "./crud/dashboardBoxDelete";
+import {DashboardCrudDeleteComponent} from "./crud/dashboard-box-delete.component";
 import {CrudLinkset} from "../crud/crudLinkset/crudLinkset.component";
 import {Dashboard} from "./dashboard.component";
 import {DashboardViewResolve} from "./dashboard-view.resolve";
@@ -45,7 +45,7 @@ export const DASHBOARD_ROUTER_PROVIDER = [
             },
             {
                 path: 'delete/:id',
-                component: DashboardCrudDelete
+                component: DashboardCrudDeleteComponent
             },
             { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
         ]
@@ -81,7 +81,7 @@ export const DASHBOARD_ROUTER_PROVIDER = [
             },
             {
                 path: 'delete/:id',
-                component: DashboardCrudDelete
+                component: DashboardCrudDeleteComponent
             },
             { path: 'linkset', component: CrudLinkset, resolve: { linkset: CrudLinksetResolve } }
         ]

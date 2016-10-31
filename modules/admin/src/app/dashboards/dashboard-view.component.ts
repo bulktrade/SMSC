@@ -7,7 +7,7 @@ import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser
 import { DashboardList } from './models/dashboard-list';
 import { DashboardBox } from './models/dashboard-box';
 import { CrudService } from '../crud/crud.service';
-import { BoxSizes } from './models/dashboardBox.sizes';
+import { BoxSizes } from './models/dashboard-box-sizes';
 import { DashboardListItem } from './models/dashboard-list-item';
 import { DashboardResizeConfig } from './dashboard-resize-config';
 import { BoxResize } from './models/dashboard-box-enum';
@@ -51,7 +51,6 @@ export class DashboardViewComponent {
 
     ngOnInit() {
         this.route.data.subscribe((res) => {
-            console.log(res);
             this.boxesCss = res.hasOwnProperty('boxesCss') ? res['data'].boxesCss :
                 new DashboardList<string>();
             this.boxes = res.hasOwnProperty('boxes') ? res['data'].boxes :

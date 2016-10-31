@@ -9,7 +9,7 @@ import { DashboardComponent } from './dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DashboardViewResolve } from './dashboard-view.resolve';
-import { DashboardCrudDelete } from './crud/dashboardBoxDelete';
+import { DashboardCrudDeleteComponent } from './crud/dashboard-box-delete.component';
 
 const DASHBOARD_CRUD_ROUTES = [
     {
@@ -52,7 +52,7 @@ const DASHBOARD_CRUD_ROUTES = [
     },
     {
         path: 'delete/:id',
-        component: DashboardCrudDelete,
+        component: DashboardCrudDeleteComponent,
         data: {
             showInBreadcrumb: true,
             translationKey: 'DashboardDelete'
