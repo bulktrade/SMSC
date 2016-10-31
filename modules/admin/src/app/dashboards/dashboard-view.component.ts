@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { DashboardService } from './dashboard.service';
 import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
-import { OrderBy } from './sorts/orderby';
 import { DashboardList } from './models/dashboard-list';
 import { DashboardBox } from './models/dashboard-box';
 import { CrudService } from '../crud/crud.service';
@@ -12,9 +11,6 @@ import { BoxSizes } from './models/dashboardBox.sizes';
 import { DashboardListItem } from './models/dashboard-list-item';
 import { DashboardResizeConfig } from './dashboard-resize-config';
 import { BoxResize } from './models/dashboard-box-enum';
-
-import { LineChartService } from './chart/lineChart.service';
-import { Dashboard } from './models/dashboard';
 
 @Component({
     selector: 'dashboard-view',
@@ -39,9 +35,9 @@ export class DashboardViewComponent {
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal',
             moves: function (el, container, handle) {
-                let className = new String(handle.className);
+                let className = handle.className + '';
 
-                if (handle.className.indexOf == undefined)
+                if (handle.className.indexOf === undefined)
                     return false;
 
                 return handle.className.indexOf('md-header') !== -1;
@@ -72,14 +68,14 @@ export class DashboardViewComponent {
         let dom: BrowserDomAdapter = new BrowserDomAdapter();
 
         let boxList: Array<any> = dom.querySelectorAll(dom.query('#dashboard'), 'div.box');
-        let boxList_: Array<any> = Array.prototype.slice.call(boxList);
+        let _boxList: Array<any> = Array.prototype.slice.call(boxList);
 
         for (let item of boxList) {
             let boxRid: string = dom.getData(item, 'boxRid');
 
             for (let originItemKey in this.boxes.getAll()) {
-                if (this.boxes.getItem(originItemKey)['metaData']['rid'] == boxRid) {
-                    let domBoxIndex: number = boxList_.indexOf(item);
+                if (this.boxes.getItem(originItemKey)['metaData']['rid'] === boxRid) {
+                    let domBoxIndex: number = _boxList.indexOf(item);
 
                     this.boxes.getItem(originItemKey).order = domBoxIndex;
                 }
@@ -89,9 +85,15 @@ export class DashboardViewComponent {
         //  Update boxes order and update @version of current box array
         this.dashboardService.batchUpdateDashboardBox(this.boxes.getAll()).subscribe((res) => {
             for (let originKey in this.boxes.getAll()) {
-                for (let item of res) {
-                    if (this.boxes.getItem(originKey)['metaData']['rid'] == item['metaData']['rid']) {
-                        this.boxes.getItem(originKey)['metaData']['version'] = item['metaData']['version'];
+                if (this.boxes.getAll().hasOwnProperty(originKey)) {
+                    for (let item in res) {
+                        if (res.hasOwnProperty(item)) {
+                            if (this.boxes.getItem(originKey)['metaData']['rid'] ===
+                                item['metaData']['rid']) {
+                                this.boxes.getItem(originKey)['metaData']['version'] =
+                                    item['metaData']['version'];
+                            }
+                        }
                     }
                 }
             }
@@ -110,12 +112,12 @@ export class DashboardViewComponent {
         let widthClass, heightClass: string;
         let type: BoxResize = val.type;
 
-        if (val.type == BoxResize.WIDTH) {
+        if (val.type === BoxResize.WIDTH) {
             widthClass = this.getBoxClass(val.width, <string>type);
             heightClass = this.getBoxClass(val.height, 'height');
         }
 
-        if (val.type == BoxResize.HEIGHT) {
+        if (val.type === BoxResize.HEIGHT) {
             heightClass = this.getBoxClass(val.height, <string>type);
             widthClass = this.getBoxClass(val.width, 'width');
         }
@@ -123,8 +125,9 @@ export class DashboardViewComponent {
         this.boxesCss.width.setItem(widthClass, index);
         this.boxesCss.height.setItem(heightClass, index);
 
-        if (item != undefined) {
-            this.dashboardService.updateBoxSize({ width: val.width, height: val.height }, item).subscribe((res) => {
+        if (item !== undefined) {
+            this.dashboardService.updateBoxSize({ width: val.width, height: val.height },
+                item).subscribe((res) => {
                 this.boxes.getItem(index)['metaData']['version'] = res['@version'];
                 this.boxes.getItem(index)['width'] = res['width'];
                 this.boxes.getItem(index)['height'] = res['height'];
@@ -152,6 +155,8 @@ export class DashboardViewComponent {
                 return type + '-' + BoxSizes.L;
             case 100:
                 return type + '-' + BoxSizes.XL;
+            default:
+                break;
         }
     }
 
@@ -160,12 +165,14 @@ export class DashboardViewComponent {
      */
     updateClasses() {
         for (let key in this.boxes.getAll()) {
-            let width: string = this.getBoxClass(this.boxes.getItem(key).width, 'width');
-            let height: string = this.getBoxClass(this.boxes.getItem(key).height, 'height');
+            if (this.boxes.getAll().hasOwnProperty(key)) {
+                let width: string = this.getBoxClass(this.boxes.getItem(key).width, 'width');
+                let height: string = this.getBoxClass(this.boxes.getItem(key).height, 'height');
 
-            this.boxesCss.width.setItem(width, key);
-            this.boxesCss.height.setItem(height, key);
-            this.boxesCss.remove.setItem('', key);
+                this.boxesCss.width.setItem(width, key);
+                this.boxesCss.height.setItem(height, key);
+                this.boxesCss.remove.setItem('', key);
+            }
         }
     }
 
@@ -177,7 +184,8 @@ export class DashboardViewComponent {
     removeBox(box: DashboardBox, index: string) {
         //  Set listener for deleted box
         let dom: BrowserDomAdapter = new BrowserDomAdapter();
-        let removedObject = dom.querySelector(dom.query('#dashboard'), 'div.box[data-boxRid="' + box.metaData.rid + '"]');
+        let removedObject = dom.querySelector(dom.query('#dashboard'),
+            'div.box[data-boxRid="' + box.metaData.rid + '"]');
 
         //  Update current boxes list after end of transition
         dom.on(removedObject, 'transitionend', (e) => {

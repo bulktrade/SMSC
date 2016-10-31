@@ -1,4 +1,4 @@
-import { EC } from '../common/expected-conditions';
+import { EC } from './common/expected-conditions';
 
 export class AppTest {
 

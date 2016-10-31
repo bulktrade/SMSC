@@ -1,7 +1,7 @@
 import { browser } from "protractor/built/index";
 import WebElement = webdriver.WebElement;
-import { EC } from "../common/expectedConditions";
-import {LoginPage} from "../login/login.page";
+import { EC } from "../common/expected-conditions";
+import {LoginPage} from '../login/login.page';
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));

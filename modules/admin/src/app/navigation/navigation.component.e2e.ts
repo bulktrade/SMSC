@@ -1,4 +1,4 @@
-import {NavigationPage} from "../pages/navigation.page";
+import {NavigationPage} from "./navigation.page";
 
 describe('NavigationComponent', () => {
     let navigator = new NavigationPage();
