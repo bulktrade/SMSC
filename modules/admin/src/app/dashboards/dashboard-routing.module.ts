@@ -79,6 +79,7 @@ const DASHBOARD_ROUTES = [
             translationKey: 'Dashboard',
             icon: 'layers',
             crudClass: 'DashboardBox',
+            crudTypeClass: 'DashboardBoxType',
             dashboard: 'default'
         },
         children: DASHBOARD_CRUD_ROUTES
@@ -87,7 +88,8 @@ const DASHBOARD_ROUTES = [
         path: 'dashboard',
         component: DashboardComponent,
         data: {
-            crudClass: 'DashboardBox'
+            crudClass: 'DashboardBox',
+            crudTypeClass: 'DashboardBoxType'
         },
         children: DASHBOARD_CRUD_ROUTES
     }
