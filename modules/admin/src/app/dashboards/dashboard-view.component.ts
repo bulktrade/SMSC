@@ -27,8 +27,8 @@ import { Dashboard } from './models/dashboard';
     ],
 })
 export class DashboardViewComponent {
-    public boxesCss: DashboardList<string> = null;
-    public boxes: DashboardListItem<DashboardBox> = null;
+    public boxesCss: DashboardList<string> = new DashboardList<string>();
+    public boxes: DashboardListItem<DashboardBox> = new DashboardListItem<DashboardBox>();
 
     constructor(public translate: TranslateService,
                 private dragulaService: DragulaService,
