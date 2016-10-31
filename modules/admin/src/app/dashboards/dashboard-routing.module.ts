@@ -8,11 +8,16 @@ import { CrudLinksetResolve } from '../crud/crud-linkset/crud-linkset.resolve';
 import { DashboardComponent } from './dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DashboardViewResolve } from './dashboard-view.resolve';
+import { DashboardCrudDelete } from './crud/dashboardBoxDelete';
 
-export const DASHBOARD_CRUD_ROUTES = [
+const DASHBOARD_CRUD_ROUTES = [
     {
         path: '',
         component: DashboardViewComponent,
+        resolve: {
+            data: DashboardViewResolve
+        },
         data: {
             showInBreadcrumb: true,
             translationKey: 'DashboardViewComponent'
@@ -34,6 +39,23 @@ export const DASHBOARD_CRUD_ROUTES = [
         data: {
             showInBreadcrumb: true,
             translationKey: 'DashboardCreate'
+        }
+    },
+    {
+        path: 'create/:className/:dashboard',
+        component: DashboardCrudCreateComponent,
+        resolve: { create: DashboardCrudCreateResolve },
+        data: {
+            showInBreadcrumb: true,
+            translationKey: 'DashboardCreate'
+        }
+    },
+    {
+        path: 'delete/:id',
+        component: DashboardCrudDelete,
+        data: {
+            showInBreadcrumb: true,
+            translationKey: 'DashboardDelete'
         }
     },
     {

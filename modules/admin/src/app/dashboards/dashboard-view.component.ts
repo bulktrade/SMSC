@@ -51,6 +51,7 @@ export class DashboardViewComponent {
 
     ngOnInit() {
         this.route.data.subscribe((res) => {
+            console.log(res);
             this.boxesCss = res.hasOwnProperty('boxesCss') ? res['data'].boxesCss :
                 new DashboardList<string>();
             this.boxes = res.hasOwnProperty('boxes') ? res['data'].boxes :
