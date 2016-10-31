@@ -44,11 +44,11 @@ describe('CRUD', () => {
         expect(crudPage.login.isPresentLogin()).toBeTruthy();
     });
 
-    describe('CRUD Create', CRUD_CREATE_SPEC_DEFINITIONS);
+    describe('Create', CRUD_CREATE_SPEC_DEFINITIONS);
 
-    describe('CRUD Update', CRUD_UPDATE_SPEC_DEFINITIONS);
+    describe('Update', CRUD_UPDATE_SPEC_DEFINITIONS);
 
-    describe('CRUD MetaData', CRUD_META_DATA_SPEC_DEFINITIONS);
+    describe('MetaData', CRUD_META_DATA_SPEC_DEFINITIONS);
 
-    describe('CRUD MetaData binding parameter', BINDING_PARAMETER_SPEC_DEFINITIONS);
+    describe('MetaData binding parameter', BINDING_PARAMETER_SPEC_DEFINITIONS);
 });
