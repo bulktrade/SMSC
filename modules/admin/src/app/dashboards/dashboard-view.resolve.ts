@@ -21,12 +21,12 @@ export class DashboardViewResolve implements Resolve<any> {
                 let orderBy: OrderBy = new OrderBy();
                 boxes.merge(orderBy.transform(res, { key: 'order', direction: 'ascending' }));
 
-                let ressult = {
+                let result = {
                     boxesCss: boxesCss,
                     boxes: boxes
                 };
 
-                observer.next(ressult);
+                observer.next(result);
                 observer.complete();
             });
         });

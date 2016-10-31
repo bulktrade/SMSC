@@ -51,9 +51,9 @@ export class DashboardViewComponent {
 
     ngOnInit() {
         this.route.data.subscribe((res) => {
-            this.boxesCss = res.hasOwnProperty('boxesCss') ? res['data'].boxesCss :
+            this.boxesCss = res['data'].hasOwnProperty('boxesCss') ? res['data'].boxesCss :
                 new DashboardList<string>();
-            this.boxes = res.hasOwnProperty('boxes') ? res['data'].boxes :
+            this.boxes = res['data'].hasOwnProperty('boxes') ? res['data'].boxes :
                 new DashboardListItem<DashboardBox>();
             this.updateClasses();
         });
@@ -82,17 +82,14 @@ export class DashboardViewComponent {
             }
         }
 
-        //  Update boxes order and update @version of current box array
         this.dashboardService.batchUpdateDashboardBox(this.boxes.getAll()).subscribe((res) => {
             for (let originKey in this.boxes.getAll()) {
                 if (this.boxes.getAll().hasOwnProperty(originKey)) {
-                    for (let item in res) {
-                        if (res.hasOwnProperty(item)) {
-                            if (this.boxes.getItem(originKey)['metaData']['rid'] ===
-                                item['metaData']['rid']) {
-                                this.boxes.getItem(originKey)['metaData']['version'] =
-                                    item['metaData']['version'];
-                            }
+                    for (let item of res) {
+                        if (this.boxes.getItem(originKey)['metaData']['rid']
+                            === item['metaData']['rid']) {
+                            this.boxes.getItem(originKey)['metaData']['version'] =
+                                item['metaData']['version'];
                         }
                     }
                 }

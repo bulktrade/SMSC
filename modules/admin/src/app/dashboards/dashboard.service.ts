@@ -11,11 +11,11 @@ import { Observer } from 'rxjs/Observer';
 import { BatchType } from '../orientdb/model/batch-type';
 import { Operation } from '../orientdb/model/operation';
 import { EditModel } from '../crud/crud-update/crud-update.model';
-import {Dashboard} from "./models/dashboard";
-import {MetaData} from "../common/models/meta-data";
-import {OUser} from "../common/models/OUser";
-import {AuthHttp} from "angular2-jwt";
-import {ConfigService} from "../config/config.service";
+import { Dashboard } from './models/dashboard';
+import { MetaData } from '../common/models/meta-data';
+import { OUser } from '../common/models/OUser';
+import { AuthHttp } from 'angular2-jwt';
+import { ConfigService } from '../config/config.service';
 
 const squel = require('squel');
 
