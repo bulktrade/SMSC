@@ -1,4 +1,4 @@
-import { Component, Input, NgModule } from '@angular/core';
+import { Component, Input, NgModule, ModuleWithProviders } from '@angular/core';
 import { CrudService } from '../crud.service';
 import { Location, CommonModule } from '@angular/common';
 import { BtnTypes } from './model/button-types';
@@ -75,4 +75,10 @@ export class DynamicFormComponent {
     ]
 })
 export class DynamicFormModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: DynamicFormModule,
+            providers: []
+        };
+    }
 }
