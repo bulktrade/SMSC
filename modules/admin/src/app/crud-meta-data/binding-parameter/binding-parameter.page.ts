@@ -18,7 +18,8 @@ export class BindingParameterPage {
         '.ag-body-container > div:first-of-type .ag-selection-checkbox'));
     public addLinkBtn = element(by.id('addLink'));
 
-    public contactsEdit = element.all(by.xpath('.//*[.="contacts"]/preceding-sibling::div')).get(2);
+    public contactsEdit = element.all(by.xpath('.//*[.="contacts"]/preceding-sibling::div'))
+        .get(2).element(by.id('editIcon'));
 
     fillForm() {
         this.sendKeysFromPropertyField('customer');
