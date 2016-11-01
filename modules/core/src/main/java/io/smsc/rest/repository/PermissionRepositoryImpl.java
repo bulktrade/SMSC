@@ -4,7 +4,7 @@ import io.smsc.model.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Collection;
 
 @Repository
 public class PermissionRepositoryImpl {
@@ -13,7 +13,7 @@ public class PermissionRepositoryImpl {
     private PermissionRepository permissionRepository;
 
     public boolean delete(long id) {
-        return permissionRepository.delete(id) != 0;
+        return permissionRepository.deleteById(id) != 0;
     }
 
     public Permission save(Permission permission) {
@@ -24,7 +24,7 @@ public class PermissionRepositoryImpl {
         return permissionRepository.findOne(id);
     }
 
-    public List<Permission> getAll(){
+    public Collection<Permission> getAll(){
         return permissionRepository.findAll();
     }
 }

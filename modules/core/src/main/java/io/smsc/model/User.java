@@ -37,13 +37,13 @@ public class User
     @NotEmpty(message = "User's email cannot be empty")
     private String email;
 
-    @Column(name = "active", nullable = false)
+    @Column(name = "active", nullable = false, columnDefinition = "true")
     private boolean active = true;
 
     @Column(name = "created", columnDefinition = "timestamp default now()")
     private Date created = new Date();
 
-    @Column(name = "blocked", nullable = false)
+    @Column(name = "blocked", nullable = false, columnDefinition = "false")
     private boolean blocked = true;
 
     @ManyToMany
@@ -56,7 +56,7 @@ public class User
     public User() {
     }
 
-    public User(Long id, String username, String password, String firstName, String surName, String email, boolean active, Date created, boolean blocked) {
+    public User(Long id, String username, String password, String firstName, String surName, String email, boolean active, boolean blocked) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -64,7 +64,6 @@ public class User
         this.surName = surName;
         this.email = email;
         this.active = active;
-        this.created = created;
         this.blocked = blocked;
     }
 
@@ -170,7 +169,6 @@ public class User
                 ", surName='" + surName + '\'' +
                 ", email='" + email + '\'' +
                 ", active=" + active +
-                ", created=" + created +
                 ", blocked=" + blocked +
                 ", roles=" + roles +
                 '}';

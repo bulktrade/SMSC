@@ -5,7 +5,7 @@ import io.smsc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Collection;
 
 @Repository
 public class UserRepositoryImpl {
@@ -17,7 +17,7 @@ public class UserRepositoryImpl {
     private RoleRepository roleRepository;
 
     public boolean delete(long id) {
-        return userRepository.delete(id) != 0;
+        return userRepository.deleteById(id) != 0;
     }
 
 
@@ -36,7 +36,7 @@ public class UserRepositoryImpl {
     }
 
 
-    public List<User> getAll(){
+    public Collection<User> getAll(){
         return userRepository.findAll();
     }
 

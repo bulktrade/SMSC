@@ -5,7 +5,7 @@ import io.smsc.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Collection;
 
 @Repository
 public class RoleRepositoryImpl {
@@ -17,21 +17,18 @@ public class RoleRepositoryImpl {
     private PermissionRepository permissionRepository;
 
     public boolean delete(long id) {
-        return roleRepository.delete(id) != 0;
+        return roleRepository.deleteById(id) != 0;
     }
-
 
     public Role save(Role role){
         return roleRepository.save(role);
     }
 
-
     public Role get(long id){
         return roleRepository.findOne(id);
     }
 
-
-    public List<Role> getAll(){
+    public Collection<Role> getAll(){
         return roleRepository.findAll();
     }
 

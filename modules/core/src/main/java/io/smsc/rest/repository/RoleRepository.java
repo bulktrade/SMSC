@@ -14,8 +14,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM User u WHERE u.id=:id")
-    int delete(@Param("id") long id);
+    int deleteById(@Param("id") long id);
 
     @Override
     @Transactional

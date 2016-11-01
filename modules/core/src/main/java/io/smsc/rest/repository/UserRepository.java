@@ -14,8 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM User u WHERE u.id=:id")
-    int delete(@Param("id") long id);
+    int deleteById(@Param("id") long id);
 
     @Override
     @Transactional
@@ -31,4 +30,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Override
     @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles")
     List<User> findAll();
+
+
 }

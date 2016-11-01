@@ -3,7 +3,6 @@ package io.smsc.rest.repository;
 import io.smsc.model.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,8 +13,7 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Permission p WHERE p.id=:id")
-    int delete(@Param("id") long id);
+    int deleteById(@Param("id") long id);
 
     @Override
     @Transactional
@@ -26,7 +24,4 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
     @Override
     List<Permission> findAll();
-
-
-
 }
