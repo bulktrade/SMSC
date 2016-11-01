@@ -1,52 +1,32 @@
 package io.smsc.rest.repository;
 
 import io.smsc.model.Permission;
-import io.smsc.model.Role;
-import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
 @Transactional(readOnly = true)
-public class PermissionRepository {
+public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
+    @Modifying
     @Transactional
-    public Permission save(Permission permission, int roleId) {
-        permission.setRole(entityManager.getReference(Role.class, roleId));
-        if (permission.isNew()) {
-            entityManager.persist(permission);
-            return permission;
-        } else {
-            return entityManager.merge(permission);
-        }
-    }
+    @Query("DELETE FROM Permission p WHERE p.id=:id")
+    int delete(@Param("id") long id);
 
+    @Override
     @Transactional
-    public void delete(int id, int roleId) {
-        entityManager.createQuery("DELETE FROM Permission p WHERE p.id=:id AND p.role.id=:roleId")
-                .setParameter("id", id)
-                .setParameter("roleId", roleId)
-                .executeUpdate();
-    }
+    Permission save(Permission permission);
 
-    public Permission get(int id, int roleId) {
-        List<Permission> roles = entityManager.createQuery("SELECT p FROM Permission p WHERE p.id=:id AND p.role.id=:roleId", Permission.class)
-                .setParameter("id", id)
-                .setParameter("roleId", roleId)
-                .getResultList();
-        return DataAccessUtils.singleResult(roles);
-    }
+    @Override
+    Permission findOne(Long id);
 
-    public List<Permission> getAll(int roleId) {
-        return entityManager.createQuery("SELECT p FROM Permission p WHERE p.role.id=:roleId", Permission.class)
-                .setParameter("roleId", roleId)
-                .getResultList();
-    }
+    @Override
+    List<Permission> findAll();
+
+
+
 }

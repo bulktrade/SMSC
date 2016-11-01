@@ -14,7 +14,7 @@ public class User
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "username", nullable = false, unique = true)
     @NotEmpty(message = "User's name cannot be empty")
@@ -46,13 +46,17 @@ public class User
     @Column(name = "blocked", nullable = false)
     private boolean blocked = true;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "user")
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
     public User() {
     }
 
-    public User(Integer id, String username, String password, String firstName, String surName, String email, boolean active, Date created, boolean blocked) {
+    public User(Long id, String username, String password, String firstName, String surName, String email, boolean active, Date created, boolean blocked) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -64,11 +68,11 @@ public class User
         this.blocked = blocked;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -142,6 +146,14 @@ public class User
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean addRole(Role role){
+        return this.roles.add(role);
+    }
+
+    public boolean removeRole(Role role){
+        return this.roles.remove(role);
     }
 
     public boolean isNew() {

@@ -1,41 +1,34 @@
 package io.smsc.rest.repository;
 
 import io.smsc.model.User;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
 @Transactional(readOnly = true)
-public class UserRepository {
-
-    @PersistenceContext
-    private EntityManager entityManager;
+public interface UserRepository extends JpaRepository<User, Long> {
 
     @Transactional
-    public User save(User user) {
-        if (user.isNew()) {
-            entityManager.persist(user);
-            return user;
-        } else {
-            return entityManager.merge(user);
-        }
-    }
+    @Modifying
+    @Query("DELETE FROM User u WHERE u.id=:id")
+    int delete(@Param("id") long id);
 
-    public User get(int id) {
-        return entityManager.find(User.class, id);
-    }
-
+    @Override
     @Transactional
-    public void delete(int id) {
-        entityManager.createQuery("DELETE FROM User u WHERE u.id=:id").setParameter("id", id).executeUpdate();
-    }
+    User save(User user);
 
-    public List<User> getAll() {
-        return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
-    }
+    @Override
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.id=:id")
+    User findOne(@Param("id") Long id);
 
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=:email")
+    User findByEmail(@Param("email") String email);
+
+    @Override
+    @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles")
+    List<User> findAll();
 }

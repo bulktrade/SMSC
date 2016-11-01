@@ -7,39 +7,42 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "roles_unique_name_idx")})
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
     @NotEmpty(message = "Role name cannot be empty")
     @Pattern(regexp = "[A-Z_]", message = "Role's name can be only uppercase and contain '_' symbol")
     private String name;
 
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, mappedBy = "roles")
+    @ManyToMany
+    @JoinTable(
+            name = "roles_permissions",
+            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
     private List<Permission> permissions;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
     public Role() {
     }
 
-    public Role(Integer id, String name) {
+    public Role(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -59,12 +62,20 @@ public class Role {
         this.permissions = permissions;
     }
 
-    public User getUser() {
-        return user;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public boolean addPermission(Permission permission){
+        return this.permissions.add(permission);
+    }
+
+    public boolean removePermission(Permission permission){
+        return this.permissions.remove(permission);
     }
 
     public boolean isNew() {
@@ -77,7 +88,7 @@ public class Role {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", permissions=" + permissions +
-                ", user=" + user +
+                ", users=" + users +
                 '}';
     }
 }

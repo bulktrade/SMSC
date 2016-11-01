@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 @Table(name = "permissions", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "permissions_unique_name_idx")})
@@ -12,16 +13,15 @@ public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name", nullable = false)
     @NotEmpty(message = "Permission name cannot be empty")
     @Pattern(regexp = "[A-Z_]", message = "Permission's name can be only uppercase and contain '_' symbol")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id",nullable = false)
-    private Role role;
+    @ManyToMany(mappedBy = "permissions")
+    private List<Role> roles;
 
     public Permission() {
     }
@@ -30,20 +30,20 @@ public class Permission {
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Role getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public String getName() {
@@ -63,7 +63,7 @@ public class Permission {
         return "Permission{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", role=" + role +
+                ", roles=" + roles +
                 '}';
     }
 }

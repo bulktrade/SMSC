@@ -19,5 +19,9 @@
     <property name="show_sql">true</property>
     <!-- Drop and re-create the database schema on startup -->
     <property name="hibernate.hbm2ddl.auto">create</property>
+      <mapping package="io.smsc"/>
+      <mapping class="io.smsc.model.User"/>
+      <mapping class="io.smsc.model.Role"/>
+      <mapping class="io.smsc.model.Permission"/>
   </session-factory>
 </hibernate-configuration>
