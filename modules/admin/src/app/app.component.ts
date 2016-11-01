@@ -10,7 +10,7 @@ import { TranslateService } from 'ng2-translate';
         require('normalize.css/normalize.css'),
         require('webpack-material-design-icons/material-design-icons.css'),
         require('ag-grid/dist/styles/ag-grid.css'),
-        require('ag-grid/dist/styles/theme-material.css'),
+        require('ag-grid/dist/styles/theme-fresh.css'),
         require('bootstrap-material-design/dist/css/bootstrap-material-design.css'),
         require('bootstrap-material-design/dist/css/ripples.min.css'),
         require('./app.component.scss'),

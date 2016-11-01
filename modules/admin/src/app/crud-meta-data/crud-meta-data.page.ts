@@ -22,9 +22,10 @@ export class CrudMetaDataPage {
     // check order property
     public firstFieldInForm = element(by.css('#dynamicForm > div:nth-of-type(1) md-input'));
 
-    public cityEdit = element.all(by.xpath('.//*[.="city"]/preceding-sibling::div')).get(2);
+    public cityEdit = element.all(by.xpath('.//*[.="city"]/preceding-sibling::div'))
+        .get(2).element(by.id('editIcon'));
     public customerIdEdit = element.all(by.xpath(
-        './/*[.="customerId"]/preceding-sibling::div')).get(2);
+        './/*[.="customerId"]/preceding-sibling::div')).get(2).element(by.id('editIcon'));
 
     public visibleInput = element(by.css('.visible'));
     public editableInput = element(by.css('.editable'));

@@ -14,8 +14,10 @@ body {
     height: 100%;
 }
 
-.ag-body-viewport {
-  overflow-y: hidden !important;
+.ag-control-panel {
+    > i {
+        margin-right: 5px;
+    }
 }
 
 @media (max-width: 992px) {

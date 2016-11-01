@@ -18,6 +18,7 @@ import { CrudLevel } from './model/crud-level';
 import { Location } from '@angular/common';
 import { LinksetProperty } from './model/linkset-property';
 import { GridService } from '../services/grid.service';
+import { Button } from "./model/button";
 
 const squel = require('squel');
 let cubeGridHtml = require('../common/spinner/cube-grid/cube-grid.component.html');
@@ -298,7 +299,7 @@ export class CrudService {
         gridOptions.columnDefs.unshift({
             headerName: ' ',
             field: 'checkboxSel',
-            width: 45,
+            width: 25,
             hideInForm: true,
             checkboxSelection: true,
             headerCellTemplate: () => {
@@ -306,7 +307,7 @@ export class CrudService {
                 let eCell = document.createElement('span');
                 eCell.innerHTML =
                     '<div colid="checkboxSel" tabindex="-1" class="ag-cell-no-focus ag-cell ' +
-                    'ag-cell-not-inline-editing" style="left: 0px; width: 45px;"><span class="' +
+                    'ag-cell-not-inline-editing" style="left: 0px; width: 25px;"><span class="' +
                     'ag-cell-wrapper">' +
                     '   <span class="ag-selection-checkbox" id="select-all">' +
                     '       <img id="all-selected" style="display: none;" src="data:image/png;' +
@@ -456,29 +457,39 @@ export class CrudService {
      * @param iconName
      * @param clickEvent
      */
-    btnRenderer(gridOptions: GridOptions, nameBtn, width, iconName, clickEvent?: (event) => void) {
+    btnRenderer(gridOptions: GridOptions, buttons: Array<Button>, width) {
         gridOptions.columnDefs.unshift({
             headerName: ' ',
-            field: nameBtn.toLowerCase(),
+            field: 'controlPanel',
             width: width,
             hideInForm: true,
             cellRenderer: () => {
                 let that = this;
-                let button = document.createElement('i');
-                button.setAttribute('class', 'material-icons ' + nameBtn.toLowerCase() + 'Icon');
-                that.translate.get(nameBtn.toUpperCase())
-                    .subscribe(title => {
-                        button.setAttribute('title', title);
+                let buttonWrapper = document.createElement('div');
+                buttonWrapper.setAttribute('class', 'ag-control-panel');
+
+                buttons.forEach((i) => {
+                    let button = document.createElement('i');
+                    button.setAttribute('class', 'material-icons ' +
+                        i.nameButton.toLowerCase() + 'Icon');
+                    button.setAttribute('id', i.nameButton.toLowerCase() + 'Icon');
+                    that.translate.get(i.nameButton.toUpperCase())
+                        .subscribe(title => {
+                            button.setAttribute('title', title);
+                        });
+                    button.innerHTML = i.iconName;
+                    button.setAttribute(
+                        'style', 'font-size: 18px; color: #009688; cursor: pointer;');
+                    button.addEventListener('click', (event) => {
+                        if (i.clickEvent) {
+                            i.clickEvent(event);
+                        }
                     });
-                button.innerHTML = iconName;
-                button.setAttribute('style', 'font-size: 18px; color: #009688; cursor: pointer;');
-                button.addEventListener('click', (event) => {
-                    if (clickEvent) {
-                        clickEvent(event);
-                    }
+
+                    buttonWrapper.appendChild(button);
                 });
 
-                return button;
+                return buttonWrapper;
             }
         });
     }
@@ -620,15 +631,24 @@ export class CrudService {
      * Adds additional columns to grid like RID, checkbox selection, etc
      */
     addColumn(gridOptions) {
-        // add delete button to column
-        this.btnRenderer(gridOptions, 'Delete', 30, 'delete', () => {
-            this.clickOnDeleteBtn = true;
-        });
+        let deleteButton: Button = {
+            nameButton: 'Delete',
+            iconName: 'delete',
+            clickEvent: () => {
+                this.clickOnDeleteBtn = true;
+            }
+        };
 
-        // add edit button to column
-        this.btnRenderer(gridOptions, 'Edit', 30, 'mode_edit', () => {
-            this.clickOnEditBtn = true;
-        });
+        let editButton: Button = {
+            nameButton: 'Edit',
+            iconName: 'mode_edit',
+            clickEvent: () => {
+                this.clickOnEditBtn = true;
+            }
+        };
+
+        // add buttons
+        this.btnRenderer(gridOptions, [editButton, deleteButton], 50);
 
         // add column with RID
         this.addRIDColumn(gridOptions);
