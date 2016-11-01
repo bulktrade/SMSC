@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaThemeConfigProvider } from "./theme/theme.configProvider";
-import { colorHelper, layoutPaths } from "./theme/theme.constants";
+import { ColorHelper, layoutPaths } from "./theme/theme.constants";
 
 @Injectable()
 export class LineChartService {
@@ -60,7 +60,7 @@ export class LineChartService {
                     id: 'g0',
                     bullet: 'none',
                     useLineColorForBulletBorder: true,
-                    //lineColor: colorHelper.hexToRgbA(graphColor, 0.3),
+                    //lineColor: ColorHelper.hexToRgbA(graphColor, 0.3),
                     lineThickness: 1,
                     negativeLineColor: layoutColors.danger,
                     type: 'smoothedLine',
@@ -73,7 +73,7 @@ export class LineChartService {
                     id: 'g1',
                     bullet: 'none',
                     useLineColorForBulletBorder: true,
-                    //lineColor: colorHelper.hexToRgbA(graphColor, 0.15),
+                    //lineColor: ColorHelper.hexToRgbA(graphColor, 0.15),
                     lineThickness: 1,
                     negativeLineColor: layoutColors.danger,
                     type: 'smoothedLine',

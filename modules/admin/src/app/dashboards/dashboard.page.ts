@@ -1,7 +1,7 @@
-import { browser } from "protractor/built/index";
+import { browser } from 'protractor/built/index';
 import WebElement = webdriver.WebElement;
-import { EC } from "../common/expected-conditions";
-import {LoginPage} from '../login/login.page';
+import { EC } from '../common/expected-conditions';
+import { LoginPage } from '../login/login.page';
 
 export class Dashboard {
     public dashboard = element(by.css('.dashboard'));
@@ -9,7 +9,7 @@ export class Dashboard {
     public login: LoginPage = new LoginPage();
 
     public createBoxIcon = element(by.css('#dashboard div.add.toolButton'));
-    public dynamicForm_addType = element(by.tagName('.type #add'));
+    public dynamicFormAddType = element(by.tagName('.type #add'));
 
     constructor() {
     }
@@ -93,7 +93,7 @@ export class Dashboard {
         this.clickSelectOption('.width select', 2);
         this.clickSelectOption('.height select', 2);
         this.selectLinkset('.type #add');
-        //this.selectLinkset('.dashboard #add');
+        // this.selectLinkset('.dashboard #add');
         this.inputText('NAME', 'My box name');
         this.inputText('DESCRIPTION', 'Box description');
         this.inputText('ORDER', '0');
@@ -120,7 +120,8 @@ export class Dashboard {
      */
     selectLinkset(selector) {
         this.clickBySelector(selector);
-        this.clickBySelector('.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)');
+        this.clickBySelector(
+            '.ag-body-container > div:first-child .ag-selection-checkbox img:nth-child(2)');
         this.clickBySelector('#addLink');
     }
 

@@ -4,124 +4,112 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import {
-  BaThemeConfig
+    BaThemeConfig
 } from './theme.config';
 
 import {
-  BaThemeConfigProvider
+    BaThemeConfigProvider
 } from './theme.configProvider';
 
 import {
-  BaAmChart,
-  BaBackTop,
-  BaCard,
-  BaChartistChart,
-  BaCheckbox,
-  BaContentTop,
-  BaFullCalendar,
-  BaMenuItem,
-  BaMenu,
-  BaMsgCenter,
-  BaMultiCheckbox,
-  BaPageTop,
-  BaPictureUploader,
-  BaSidebar
+    BaAmChart,
+    BaBackTop,
+    BaCard,
+    BaChartistChart,
+    BaCheckbox,
+    BaFullCalendar,
+    BaMsgCenter,
+    BaMultiCheckbox,
 } from './components';
 
 import { BaCardBlur } from './components/baCard/baCardBlur.directive';
 
 import {
-  BaScrollPosition,
-  BaSlimScroll,
-  BaThemeRun
+    BaScrollPosition,
+    BaSlimScroll,
+    BaThemeRun
 } from './directives';
 
 import {
-  BaAppPicturePipe,
-  BaKameleonPicturePipe,
-  BaProfilePicturePipe
+    BaAppPicturePipe,
+    BaKameleonPicturePipe,
+    BaProfilePicturePipe
 } from './pipes';
 
 import {
-  BaImageLoaderService,
-  BaThemePreloader,
-  BaThemeSpinner
+    BaImageLoaderService,
+    BaThemePreloader,
+    BaThemeSpinner
 } from './services';
 
 import {
-  EmailValidator,
-  EqualPasswordsValidator
+    EmailValidator,
+    EqualPasswordsValidator
 } from './validators';
 
 const NGA_COMPONENTS = [
-  BaAmChart,
-  BaBackTop,
-  BaCard,
-  BaChartistChart,
-  BaCheckbox,
-  BaContentTop,
-  BaFullCalendar,
-  BaMenuItem,
-  BaMenu,
-  BaMsgCenter,
-  BaMultiCheckbox,
-  BaPageTop,
-  BaPictureUploader,
-  BaSidebar
+    BaAmChart,
+    BaBackTop,
+    BaCard,
+    BaChartistChart,
+    BaCheckbox,
+    BaFullCalendar,
+    BaMsgCenter,
+    BaMultiCheckbox
 ];
 
 const NGA_DIRECTIVES = [
-  BaScrollPosition,
-  BaSlimScroll,
-  BaThemeRun,
-  BaCardBlur
+    BaScrollPosition,
+    BaSlimScroll,
+    BaThemeRun,
+    BaCardBlur
 ];
 
 const NGA_PIPES = [
-  BaAppPicturePipe,
-  BaKameleonPicturePipe,
-  BaProfilePicturePipe
+    BaAppPicturePipe,
+    BaKameleonPicturePipe,
+    BaProfilePicturePipe
 ];
 
 const NGA_SERVICES = [
-  BaImageLoaderService,
-  BaThemePreloader,
-  BaThemeSpinner
+    BaImageLoaderService,
+    BaThemePreloader,
+    BaThemeSpinner
 ];
 
 const NGA_VALIDATORS = [
-  EmailValidator,
-  EqualPasswordsValidator
+    EmailValidator,
+    EqualPasswordsValidator
 ];
 
 @NgModule({
-  declarations: [
-    ...NGA_PIPES,
-    ...NGA_DIRECTIVES,
-    ...NGA_COMPONENTS
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
-  exports: [
-    ...NGA_PIPES,
-    ...NGA_DIRECTIVES,
-    ...NGA_COMPONENTS
-  ]
+    declarations: [
+        ...NGA_PIPES,
+        ...NGA_DIRECTIVES,
+        ...NGA_COMPONENTS
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
+    exports: [
+        ...NGA_PIPES,
+        ...NGA_DIRECTIVES,
+        ...NGA_COMPONENTS
+    ]
 })
 export class NgaModule {
-  static forRoot(): ModuleWithProviders {
-    return <ModuleWithProviders> {
-      ngModule: NgaModule,
-      providers: [
-        BaThemeConfigProvider,
-        BaThemeConfig,
-        ...NGA_VALIDATORS,
-        ...NGA_SERVICES
-      ],
-    };
-  }
+    static forRoot(): ModuleWithProviders {
+        return <ModuleWithProviders> {
+            ngModule: NgaModule,
+            providers: [
+                BaThemeConfigProvider,
+                BaThemeConfig,
+                ...NGA_VALIDATORS,
+                ...NGA_SERVICES
+            ],
+        };
+    }
 }

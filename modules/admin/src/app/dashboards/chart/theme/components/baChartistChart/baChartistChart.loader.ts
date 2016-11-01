@@ -1,1 +1,1 @@
-export const Chartist = require('chartist');
+export const charTist = require('chartist');

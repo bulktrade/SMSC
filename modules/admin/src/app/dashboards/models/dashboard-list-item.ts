@@ -12,7 +12,7 @@ export class DashboardListItem<T> {
      * @returns {null} - return Null if property not exist
      */
     public setItem(value: T, index?) {
-        if (index != undefined) {
+        if (index !== undefined) {
             this.list[index] = value;
         } else {
             this.list.push(value);
@@ -26,7 +26,7 @@ export class DashboardListItem<T> {
      * @returns {any} - string if item exist or null if not
      */
     public getItem(index): T {
-        if (index != undefined) {
+        if (index !== undefined) {
             return this.list[index];
         }
 

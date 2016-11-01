@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 import { DashboardBox } from './models/dashboard-box';
 import { CrudService } from '../crud/crud.service';
 import { GridService } from '../services/grid.service';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -169,7 +169,8 @@ export class DashboardService {
      * @param className
      * @returns {Subscription}
      */
-    public getBoxFormColumns(route: ActivatedRouteSnapshot, id: string, className: string): Observer<EditModel> {
+    public getBoxFormColumns(route: ActivatedRouteSnapshot,
+                             id: string, className: string): Observer<EditModel> {
         this.crudService.setParentPath(route.parent.pathFromRoot);
         this.crudService.setClassName(className);
 
@@ -197,7 +198,8 @@ export class DashboardService {
                                     observer.complete();
                                 });
                         }, (error) => {
-                            this.crudService.serviceNotifications.createNotificationOnResponse(error);
+                            this.crudService.serviceNotifications.createNotificationOnResponse(
+                                error);
                             observer.error(error);
                             observer.complete();
                         });
@@ -211,8 +213,8 @@ export class DashboardService {
     }
 
     public executeDbFunction(rid): Observable<Object> {
-        var functionName = rid.replace(/#/g, "");
-        functionName = functionName.replace(/:/g, "_");
+        let functionName = rid.replace(/#/g, '');
+        functionName = functionName.replace(/:/g, '_');
         functionName = 'DashboardBoxTypeFunction_' + functionName;
         let url: string = this.configService.config.orientDBUrl + '/function/smsc/' + functionName;
 
@@ -222,7 +224,7 @@ export class DashboardService {
                     let result = JSON.parse(res['_body']);
                     observer.next(eval(result.result[0].data));
                     observer.complete();
-                })
+                });
         });
     }
 
@@ -255,7 +257,7 @@ export class DashboardService {
 
                 observer.next(dashboard);
                 observer.complete();
-            })
+            });
         });
     }
 }

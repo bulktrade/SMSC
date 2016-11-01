@@ -7,7 +7,12 @@ export class DashboardBoxType {
     kind: string;
     name: string;
 
-    constructor(metaData: MetaData, type: string, kind: string, code: string, codeLanguage: string, name: string) {
+    constructor(metaData: MetaData,
+                type: string,
+                kind: string,
+                code: string,
+                codeLanguage: string,
+                name: string) {
         this.metaData = metaData;
         this.code = code;
         this.type = type;

@@ -1,10 +1,10 @@
-import {Component, ModuleWithProviders} from '@angular/core';
-import {TranslateService, TranslateModule} from 'ng2-translate/ng2-translate';
+import { Component, ModuleWithProviders } from '@angular/core';
+import { TranslateService, TranslateModule } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BreadcrumbService } from './breadcrumb.service';
-import {NgModule} from "@angular/core/src/metadata/ng_module";
-import {FormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
+import { NgModule } from '@angular/core/src/metadata/ng_module';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'breadcrumb',

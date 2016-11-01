@@ -1,43 +1,51 @@
-import {Component, Input, Self} from '@angular/core';
-import {ControlValueAccessor, NgModel} from '@angular/forms';
+import { Component, Input, Self } from '@angular/core';
+import { ControlValueAccessor, NgModel } from '@angular/forms';
 
 @Component({
-  selector: 'ba-multi-checkbox[ngModel]',
-  template: require('./baMultiCheckbox.html'),
+    selector: 'ba-multi-checkbox[ngModel]',
+    template: require('./baMultiCheckbox.html'),
 })
 export class BaMultiCheckbox implements ControlValueAccessor {
-  @Input() baMultiCheckboxClass:string;
-  @Input() propertiesMapping:any;
+    @Input() baMultiCheckboxClass: string;
+    @Input() propertiesMapping: any;
 
-  public model: NgModel;
-  public state: boolean;
+    public model: NgModel;
+    public state: boolean;
 
-  public constructor(@Self() state:NgModel) {
-    this.model = state;
-    state.valueAccessor = this;
-  }
-
-  public getProp(item: any, propName: string): string {
-    const prop = this.propertiesMapping[propName];
-
-    if (!prop) {
-      return item[propName];
-    } else if (typeof prop === 'function') {
-      return prop(item);
+    public constructor(@Self() state: NgModel) {
+        this.model = state;
+        state.valueAccessor = this;
     }
-    return item[prop];
-  }
-  public onChange(value: any): void {}
-  public onTouch(value: any): void {}
-  public writeValue(state: any): void {
-    this.state = state;
-  }
 
-  public registerOnChange(fn: any): void {
-    this.onChange = function(state: boolean) {
-      this.writeValue(state);
-      this.model.viewToModelUpdate(state);
+    public getProp(item: any, propName: string): string {
+        const prop = this.propertiesMapping[propName];
+
+        if (!prop) {
+            return item[propName];
+        } else if (typeof prop === 'function') {
+            return prop(item);
+        }
+        return item[prop];
     }
-  }
-  public registerOnTouched(fn: any): void { this.onTouch = fn; }
+
+    public onChange(value: any): void {
+    }
+
+    public onTouch(value: any): void {
+    }
+
+    public writeValue(state: any): void {
+        this.state = state;
+    }
+
+    public registerOnChange(fn: any): void {
+        this.onChange = function (state: boolean) {
+            this.writeValue(state);
+            this.model.viewToModelUpdate(state);
+        };
+    }
+
+    public registerOnTouched(fn: any): void {
+        this.onTouch = fn;
+    }
 }

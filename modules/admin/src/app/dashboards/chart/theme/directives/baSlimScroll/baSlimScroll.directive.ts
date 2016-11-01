@@ -1,31 +1,33 @@
-import {Directive, Input, Output, ElementRef, EventEmitter} from '@angular/core';
+import { Directive, Input, ElementRef } from '@angular/core';
 
 import './baSlimScroll.loader.ts';
 
+declare let jQuery;
+
 @Directive({
-  selector: '[baSlimScroll]'
+    selector: '[baSlimScroll]'
 })
 export class BaSlimScroll {
 
-  @Input() public baSlimScrollOptions:Object;
+    @Input() public baSlimScrollOptions: Object;
 
-  constructor(private _elementRef:ElementRef) {
-  }
+    constructor(private _elementRef: ElementRef) {
+    }
 
-  ngOnChanges(changes) {
-    this._scroll();
-  }
+    ngOnChanges(changes) {
+        this._scroll();
+    }
 
-  private _scroll() {
-    this._destroy();
-    this._init();
-  }
+    private _scroll() {
+        this._destroy();
+        this._init();
+    }
 
-  private _init() {
-    jQuery(this._elementRef.nativeElement).slimScroll(this.baSlimScrollOptions);
-  }
+    private _init() {
+        jQuery(this._elementRef.nativeElement).slimScroll(this.baSlimScrollOptions);
+    }
 
-  private _destroy() {
-    jQuery(this._elementRef.nativeElement).slimScroll({ destroy: true });
-  }
+    private _destroy() {
+        jQuery(this._elementRef.nativeElement).slimScroll({ destroy: true });
+    }
 }
