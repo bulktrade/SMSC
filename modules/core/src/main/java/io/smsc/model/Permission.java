@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
-@Table(name = "permissions", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "permissions_unique_name_idx")})
+@Table(name = "PERMISSIONS", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "permissions_unique_name_idx")})
 public class Permission {
 
     @Id
@@ -17,10 +17,10 @@ public class Permission {
 
     @Column(name = "name", nullable = false)
     @NotEmpty(message = "Permission name cannot be empty")
-    @Pattern(regexp = "[A-Z_]", message = "Permission's name can be only uppercase and contain '_' symbol")
+    @Pattern(regexp = "[A-Z_]+", message = "Permission's name can be only uppercase and contain '_' symbol")
     private String name;
 
-    @ManyToMany(mappedBy = "permissions")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "permissions")
     private List<Role> roles;
 
     public Permission() {

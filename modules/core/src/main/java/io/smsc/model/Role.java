@@ -1,13 +1,17 @@
 package io.smsc.model;
 
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
-@Table(name = "roles", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "roles_unique_name_idx")})
+@Table(name = "ROLES", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "roles_unique_name_idx")})
 public class Role {
 
     @Id
@@ -17,17 +21,17 @@ public class Role {
 
     @Column(name = "name", nullable = false)
     @NotEmpty(message = "Role name cannot be empty")
-    @Pattern(regexp = "[A-Z_]", message = "Role's name can be only uppercase and contain '_' symbol")
+    @Pattern(regexp = "[A-Z_]+", message = "Role's name can be only uppercase and contain '_' symbol")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "roles_permissions",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
     private List<Permission> permissions;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
 
     public Role() {

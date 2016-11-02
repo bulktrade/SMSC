@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username","email"}, name = "users_unique_username_email_idx")})
+@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"username","email"}, name = "users_unique_username_email_idx")})
 public class User
 {
     @Id
@@ -37,16 +37,16 @@ public class User
     @NotEmpty(message = "User's email cannot be empty")
     private String email;
 
-    @Column(name = "active", nullable = false, columnDefinition = "true")
+    @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
     private boolean active = true;
 
     @Column(name = "created", columnDefinition = "timestamp default now()")
     private Date created = new Date();
 
-    @Column(name = "blocked", nullable = false, columnDefinition = "false")
-    private boolean blocked = true;
+    @Column(name = "blocked", nullable = false, columnDefinition = "boolean default false")
+    private boolean blocked = false;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

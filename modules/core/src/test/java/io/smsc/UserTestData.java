@@ -7,8 +7,8 @@ import java.util.Objects;
 
 public class UserTestData {
 
-    public static final long USER_ID = 1;
-    public static final long ADMIN_ID = 2;
+    public static final long USER_ID = 50;
+    public static final long ADMIN_ID = 51;
 
     public static final User USER = new User(USER_ID,"user","password","userName","userSurname","user@gmail.com",true,false);
     public static final User ADMIN = new User(ADMIN_ID,"admin","admin","adminName","adminSurname","admin@gmail.com",true,false);

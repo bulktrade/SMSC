@@ -1,36 +1,19 @@
-package io.smsc.rest.repository;
+package io.smsc.rest.repository.role;
 
 import io.smsc.model.Permission;
 import io.smsc.model.Role;
+import io.smsc.rest.repository.permission.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-
 @Repository
-public class RoleRepositoryImpl {
+public class RoleRepositoryImpl implements RoleRepositoryCustom {
 
     @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
     private PermissionRepository permissionRepository;
-
-    public boolean delete(long id) {
-        return roleRepository.deleteById(id) != 0;
-    }
-
-    public Role save(Role role){
-        return roleRepository.save(role);
-    }
-
-    public Role get(long id){
-        return roleRepository.findOne(id);
-    }
-
-    public Collection<Role> getAll(){
-        return roleRepository.findAll();
-    }
 
     public Role addPermission(Long roleId, Long permissionId){
         Role role = roleRepository.findOne(roleId);
