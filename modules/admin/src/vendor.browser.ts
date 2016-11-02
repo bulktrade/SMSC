@@ -32,6 +32,13 @@ import 'tether';
 import 'bootstrap-loader';
 import 'webpack-material-design-icons';
 
+// Bootstrap material design
+import 'bootstrap-material-design/dist/js/ripples';
+import 'bootstrap-material-design/dist/js/material';
+// https://github.com/FezVrasta/bootstrap-material-design#arrivejs-support
+import 'arrive/src/arrive';
+import 'assets/material-init';
+
 if ('production' === ENV) {
     // Production
 } else {
