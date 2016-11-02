@@ -28,7 +28,7 @@
     }
     .childs:last-of-type {
       i {
-        display: none;
+        visibility: hidden;
       }
       a {
         color: #c5ccd5;
@@ -61,7 +61,7 @@
       position: relative;
       top: -3px;
       color: #C5CCD5;
-      font-size: 18px;
+      font-size: 7px;
       margin: 0 7px 0 7px;
     }
   }

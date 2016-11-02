@@ -6,8 +6,8 @@ export class LoginPage {
     public errorAlert = element(by.id('errorAlert'));
     public submitButton = element(by.id('submitButton'));
     public loginWindow = element(by.id('login'));
-    public usernameField = element(by.css('.username input'));
-    public passwordField = element(by.css('.password input'));
+    public usernameField = element(by.css('.username'));
+    public passwordField = element(by.css('.password'));
     public logoutBtn = element(by.id('logout'));
     public loginComponent = element(by.tagName('login'));
 
