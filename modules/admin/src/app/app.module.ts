@@ -39,8 +39,6 @@ import { RouterOutletService } from './services/router-outlet-service';
 import {
     MetaDataPropertyBindingParameterComponent
 } from './crud-meta-data/binding-parameter/binding-parameter.component';
-import { DashboardCrudUpdateResolve } from './dashboards/crud/dashboard-crud-update.resolve';
-import { DashboardCrudCreateResolve } from './dashboards/crud/dashboard-crud-create.resolve';
 import { SidebarService } from './sidebar/sidebar.service';
 import { DashboardModule } from './dashboards/dashboard.module';
 import { HttpInterceptor } from './common/http-interceptor';

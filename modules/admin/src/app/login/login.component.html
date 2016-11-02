@@ -1,44 +1,56 @@
 <div id="login">
-	<md-card id="login-card">
-		<md-toolbar class="title" color="primary">{{ 'login.title' | translate }}</md-toolbar>
-		<md-card-content>
-			<form role="form" (submit)="onSubmit(model)" #authenticationForm="ngForm" novalidate>
-				<alert *ngIf="errorMessage" type="danger" id="errorAlert" dismissible="true"
-				       (close)="errorMessage=false">
-					{{ errorMessage | translate }}
-				</alert>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-6">
-						<md-input class="username" placeholder="{{ 'login.username' | translate }}"
-						          [(ngModel)]="model.username" type="text"
-						          autocomplete="off" name="username" required></md-input>
+	<div id="login-card">
+		<div class="card">
+			<div class="card-block login-card-title">
+				<h5 class="card-title title">{{ 'login.title' | translate }}</h5>
+			</div>
+			<div class="card-block card-content">
+				<form role="form" (submit)="onSubmit(model)" #authenticationForm="ngForm" novalidate>
+					<div class="form-group">
+						<alert *ngIf="errorMessage" type="danger" id="errorAlert" dismissible="true"
+						       (close)="errorMessage=false">
+							{{ errorMessage | translate }}
+						</alert>
+						<div class="row input-panel">
+							<div class="col-xs-12 col-sm-12 col-md-6">
+								<label for="username">{{ 'login.username' | translate }}</label>
+								<input type="text" class="form-control username" id="username"
+								       placeholder="{{ 'login.username' | translate }}"
+								       required type="text"
+								       [(ngModel)]="model.username" name="username"
+								       #username="ngModel">
+
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6">
+								<label for="password">{{ 'login.password' | translate }}</label>
+								<input type="text" class="form-control password" id="password"
+								       placeholder="{{ 'login.password' | translate }}"
+								       required type="text"
+								       [(ngModel)]="model.password" name="password"
+								       #username="ngModel">
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-6">
+								<div class="checkbox">
+									<label class="rememberMe"><input type="checkbox" [(ngModel)]="model.rememberMe"
+									                                 [ngModelOptions]="{standalone: true}" value="">
+										<span>{{ 'login.rememberMe' | translate }}</span></label>
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6 right-align"
+							     [ngSwitch]="loading">
+								<button class="btn btn-primary" id="submitButton"
+								        [disabled]="!authenticationForm.form.valid || loading">
+									<div *ngSwitchCase="false">{{ 'login.btnLogin' | translate }}</div>
+									<i class="fa fa-spinner fa-pulse fa-2x fa-fw loader" *ngSwitchCase="true"></i>
+								</button>
+							</div>
+						</div>
 					</div>
-					<div class="col-xs-12 col-sm-12 col-md-6">
-						<md-input class="password" placeholder="{{ 'login.password' | translate }}"
-						          [(ngModel)]="model.password" type="password"
-						          autocomplete="off" name="password" required></md-input>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-6 right-align">
-						<md-slide-toggle color="primary"
-						                 [(ngModel)]="model.rememberMe"
-						                 class="rememberMe"
-						                 [ngModelOptions]="{standalone: true}">
-							{{ 'login.rememberMe' | translate }}
-						</md-slide-toggle>
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-6 right-align"
-					     [ngSwitch]="loading">
-						<button [disableRipple]="true" md-raised-button color="primary" id="submitButton"
-						        [disabled]="!authenticationForm.form.valid || loading">
-							<div *ngSwitchCase="false">{{ 'login.btnLogin' | translate }}</div>
-							<md-progress-circle class="loader" *ngSwitchCase="true"
-							                    mode="indeterminate"></md-progress-circle>
-						</button>
-					</div>
-				</div>
-			</form>
-		</md-card-content>
-	</md-card>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>

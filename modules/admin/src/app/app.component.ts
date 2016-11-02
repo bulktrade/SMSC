@@ -9,10 +9,9 @@ import { TranslateService } from 'ng2-translate';
     styleUrls: [
         require('normalize.css/normalize.css'),
         require('webpack-material-design-icons/material-design-icons.css'),
+        require('font-awesome/css/font-awesome.css'),
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-fresh.css'),
-        require('bootstrap-material-design/dist/css/bootstrap-material-design.css'),
-        require('bootstrap-material-design/dist/css/ripples.min.css'),
         require('./app.component.scss'),
         require('./common/spinner/cube-grid/cube-grid.component.scss')
     ]

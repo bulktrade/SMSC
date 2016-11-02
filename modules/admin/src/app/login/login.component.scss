@@ -34,8 +34,14 @@
         margin: auto;
         min-width: 420px;
 
+        .input-panel {
+            padding-bottom: 1rem;
+        }
+
         .title {
-            margin-bottom: 10px;
+            margin: 0;
+            align-items: center;
+            color: #fff;
         }
 
         .alert {
@@ -50,15 +56,32 @@
 
         .rememberMe {
             margin: 5px 0;
+            cursor: pointer;
         }
 
-        .loader {
-            margin: auto;
-            width: 35px;
-            height: 35px;
+        .login-card-title {
+            margin: 20px 20px 0 20px;
+            background-color: #0275d8;
         }
 
-        @media(max-width:48em) {
+        .form-group {
+            margin: 0;
+
+            label {
+                display: inline-block;
+                max-width: 100%;
+                margin-bottom: 5px;
+                font-weight: bold;
+                font-size: 14px;
+                color: rgb(136, 136, 136);
+            }
+        }
+
+        .card-content {
+            padding: 1rem 1.25rem 1.25rem 1.25rem;
+        }
+
+        @media(max-width: 48em) {
             width: auto;
             height: inherit;
             margin: inherit;
