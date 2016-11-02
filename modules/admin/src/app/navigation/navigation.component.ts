@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, animate, style, trigger, transition, state } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { TokenService } from '../services/auth/token.service';
@@ -12,8 +12,17 @@ import { SidebarService } from '../sidebar/sidebar.service';
     selector: 'navigation',
     providers: [],
     template: require('./navigation.component.html'),
+    animations: [
+        trigger('state', [
+            state('closed', style({ height: 0 })),
+            state('open', style({ height: '*' })),
+            transition('closed => open', [animate('200ms ease-out')]),
+            transition('open => closed', [animate('200ms ease-out')])
+        ]),
+    ],
     styleUrls: [
-        require('./navigation.component.scss')
+        require('./navigation.component.scss'),
+        require('./simple-sidebar.scss')
     ]
 })
 
