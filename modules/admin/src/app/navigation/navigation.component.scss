@@ -1,122 +1,101 @@
-.header {
-    font-family: 'Open Sans', sans-serif;
-    position: absolute;
-    width: 100vw;
-    top: 0;
-    left: 0;
+$primaryColor: #009688;
 
-    //position: relative; @todo check problem with fullscreen dashboard boxes
+#navigation-window {
+    height: 100%;
 
-    &.fullscreen-mode {
-        z-index: -1;
-    }
+    .header {
+        font-family: 'Open Sans', sans-serif;
+        background: $primaryColor;
+        border-radius: 0;
+        color: #fff;
+        z-index: 99999;
+        align-items: center;
+        position: absolute;
+        width: 100vw;
+        top: 0;
+        left: 0;
 
-    h1 {
-        margin: 0 0 0 5px;
-        font-size: 1.5rem;
-        line-height: 40px;
-        font-weight: 300;
-        cursor: pointer;
-    }
+        .toolbar {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
 
-    md-toolbar {
-        md-icon {
+            .left-panel,
+            .right-panel {
+                display: flex;
+                align-items: center;
+            }
+
+            i {
+                cursor: pointer;
+                padding-right: 5px;
+            }
+        }
+
+        //position: relative; @todo check problem with fullscreen dashboard boxes
+
+        &.fullscreen-mode {
+            z-index: -1;
+        }
+
+        h1 {
+            margin: 0 0 0 5px;
+            font-size: 1.5rem;
+            line-height: 40px;
+            font-weight: 300;
             cursor: pointer;
         }
 
-        .toolbar {
-            display: flex;
-            width: 100%;
+        #btn-menu:focus {
+            outline: 0;
         }
     }
 
-    #btn-menu:focus {
-        outline: 0;
-    }
-}
-
-.sidenav-root {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-    overflow: auto;
-
-    // Helps fonts on OSX looks more consistent with other systems
-    // Isn't currently in button styles due to performance concerns
-    * {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
-    md-sidenav {
-        min-width: 230px;
-        transition: transform 0.001s ease !important;
-
-        ul > li {
-            list-style-type: none;
-        }
-
-        .customer-card {
-            height: 100%;
-        }
-
-        a,
-        a:link,
-        a:active,
-        a:hover,
-        a:visited {
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        color: #000;
-        top: 85px !important;
-        bottom: initial !important;
-
-        [md-button] {
-            width: 100%;
-            position: relative;
-            bottom: 0;
-            margin: 24px 0;
-        }
-    }
-
-    main {
-        position: relative;
+    #wrapper {
         height: 100%;
-        min-height: 525px;
-        padding: 94px 22px 12px 22px;
+        font-family: Roboto, 'Helvetica Neue', sans-serif;
+        overflow: auto;
 
-        & + loading-router-outlet {
-            display: flex;
-            height: 100%;
+        // Helps fonts on OSX looks more consistent with other systems
+        // Isn't currently in button styles due to performance concerns
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-    }
 
+        main {
+            position: relative;
+            height: 100%;
+            min-height: 525px;
+            padding: 94px 22px 12px 22px;
+
+            & + loading-router-outlet {
+                display: flex;
+                height: 100%;
+            }
+        }
+
+    }
 }
 
 @media (min-width: 992px) {
-    md-sidenav {
-        top: 85px !important;
+    #desktopMenu {
+        display: block;
+    }
+
+    #mobileMenu {
+        display: none;
     }
 }
 
 @media (max-width: 992px) {
-    md-sidenav {
-        top: 65px !important;
+    #desktopMenu {
+        display: none;
     }
 
-    md-sidenav {
-        position: relative !important;
-    }
-
-    md-sidenav.md-sidenav-closed {
-        position: fixed !important;
-    }
-
-    md-content {
-        margin-left: 0 !important;
+    #mobileMenu {
+        display: block;
     }
 }
 
-.md-card {
-    height: 100%;
-}
