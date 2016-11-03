@@ -2,19 +2,18 @@
 	<div class="option-container">
 		<div class="opionPanel">
 			<div class="searchPanel">
-				<md-input placeholder="{{ 'SEARCH' | translate }}"
-				          type="text" autocomplete="off" name="search"
-				          #db (keydown)="crudService.onFilterChanged(db.value, crudService.gridOptions)"
-				          (keyup)="crudService.onFilterChanged(db.value, crudService.gridOptions)"></md-input>
-				<button md-icon-button color="primary" class="searchBtn">
-					<md-icon class="md-24">search</md-icon>
-				</button>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="{{ 'SEARCH' | translate }}">
+					<span class="input-group-btn">
+			            <button class="btn btn-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+			        </span>
+				</div>
 			</div>
 			<div class="buttonsPanel">
-				<button md-raised-button color="primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
+				<button class="btn btn-primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
 					translate}}
 				</button>
-				<button md-raised-button color="warn" [disabled]="!crudService.isDisableDeleteButton"
+				<button class="btn btn-danger" [disabled]="!crudService.isDisableDeleteButton"
 				        (click)="navigateToDelete()" id="deleteRecord">{{'DELETE' | translate}}
 				</button>
 			</div>

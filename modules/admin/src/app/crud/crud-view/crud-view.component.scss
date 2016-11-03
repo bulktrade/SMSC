@@ -1,6 +1,9 @@
+.opionPanel {
+    align-items: center;
+}
+
 @media all and (min-width: 550px) {
     .buttonsPanel {
-        padding: 6px 14px 0 0;
         justify-content: flex-end;
     }
 
@@ -12,6 +15,7 @@
 @media all and (max-width: 550px) {
     #windowGrid {
         .opionPanel {
+            width: 100%;
             flex-direction: column;
         }
 
@@ -20,9 +24,14 @@
             padding-bottom: 15px;
         }
 
+        .searchPanel {
+            width: 100%;
+            padding: 0 0 7px 0 !important;
+        }
+
         .buttonsPanel {
+            width: 100%;
             justify-content: center;
-            padding: 0 14px 0 7px;
 
             button {
                 flex-grow: 1;
