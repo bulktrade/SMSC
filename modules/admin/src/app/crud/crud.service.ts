@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Response } from '@angular/http';
 import { TranslateService } from 'ng2-translate/ng2-translate';
-import { GridOptions } from 'ag-grid';
+import { GridOptions, GridApi } from 'ag-grid';
 import { NotificationService } from '../services/notification-service';
 import { LoadingGridService } from '../services/loading/loading-grid.service';
 import { ColumnModel } from './model/crud-column';
@@ -18,7 +18,7 @@ import { CrudLevel } from './model/crud-level';
 import { Location } from '@angular/common';
 import { LinksetProperty } from './model/linkset-property';
 import { GridService } from '../services/grid.service';
-import { Button } from "./model/button";
+import { Button } from './model/button';
 
 const squel = require('squel');
 let cubeGridHtml = require('../common/spinner/cube-grid/cube-grid.component.html');
@@ -29,6 +29,7 @@ export class CrudService {
     public isHint: Array<boolean> = [];
     public focusedRow;
     public clickOnDeleteBtn: boolean;
+    public isDisableDeleteButton: boolean;
     public clickOnEditBtn: boolean;
     public multipleSelectValid = false;
     public querySelectors = null;
@@ -250,7 +251,7 @@ export class CrudService {
      *
      * @param gridOptions
      */
-    rowSelected(gridOptions) {
+    rowSelected(gridOptions: GridOptions) {
         if (gridOptions.api.getSelectedRows().length === gridOptions.rowData.length) {
             this.changeCheckboxState('allSelected', gridOptions);
         } else if (!gridOptions.api.getSelectedRows().length) {
@@ -258,6 +259,24 @@ export class CrudService {
         } else {
             this.changeCheckboxState('notAllSelected', gridOptions);
         }
+
+        this.disableDeleteButton(gridOptions.api);
+    }
+
+    /**
+     * Delete button enabled if the selected record
+     * @param api
+     */
+    disableDeleteButton(api: GridApi) {
+        if (api.getSelectedRows().length) {
+            this.isDisableDeleteButton = true;
+        } else {
+            this.isDisableDeleteButton = false;
+        }
+    }
+
+    onReady(event) {
+        this.disableDeleteButton(event.api);
     }
 
     /**

@@ -13,7 +13,8 @@
 			<div class="buttonsPanel">
 				<div class="linksetButtons">
 					<button md-raised-button color="primary" (click)="back()" id="back">{{'BACK' | translate}}</button>
-					<button md-raised-button color="primary" (click)="addLink(crudService.gridOptions)" id="addLink">{{'ADDLINK'
+					<button md-raised-button color="primary" (click)="addLink(crudService.gridOptions)" id="addLink">
+						{{'ADDLINK'
 						| translate}}
 					</button>
 				</div>
@@ -22,7 +23,7 @@
 						translate}}
 					</button>
 					<button md-raised-button color="warn"
-					        [disabled]="!crudService.gridOptions.api.getSelectedRows().length"
+					        [disabled]="!crudService.isDisableDeleteButton"
 					        (click)="navigateToDelete()" id="deleteRecord">{{'DELETE' | translate}}
 					</button>
 				</div>
@@ -40,8 +41,10 @@
 		             [gridOptions]="crudService.gridOptions" [rowData]="crudService.gridOptions.rowData"
 		             (rowClicked)="crudService.rowClicked($event)"
 		             (rowSelected)="crudService.rowSelected(crudService.gridOptions)"
-		             (cellFocused)="crudService.focusedRow=$event.rowIndex"></ag-grid-ng2>
-		<grid-pagination [currentCrudLevel]="crudService.crudLevel[crudService.crudLevel.length - 1]" [className]="crudService.getLinkedClass()"
+		             (cellFocused)="crudService.focusedRow=$event.rowIndex"
+		             (gridReady)="crudService.onReady($event)"></ag-grid-ng2>
+		<grid-pagination [currentCrudLevel]="crudService.crudLevel[crudService.crudLevel.length - 1]"
+		                 [className]="crudService.getLinkedClass()"
 		                 [gridOptions]="crudService.gridOptions"></grid-pagination>
 	</loading-grid>
 </div>

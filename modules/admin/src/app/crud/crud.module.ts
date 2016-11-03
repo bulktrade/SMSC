@@ -40,7 +40,7 @@ const CRUD_MODULES = [
     MdModule.forRoot(),
     CommonModule,
     TranslateModule,
-    AgGridModule.forRoot(),
+    AgGridModule.withNg2ComponentSupport(),
     DynamicFormModule,
     MultipleSelectModule,
     CrudLinksetModule,

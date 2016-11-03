@@ -14,7 +14,7 @@
 				<button md-raised-button color="primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
 					translate}}
 				</button>
-				<button md-raised-button color="warn" [disabled]="!crudService.gridOptions.api.getSelectedRows().length"
+				<button md-raised-button color="warn" [disabled]="!crudService.isDisableDeleteButton"
 				        (click)="navigateToDelete()" id="deleteRecord">{{'DELETE' | translate}}
 				</button>
 			</div>
@@ -37,6 +37,7 @@
 		             (rowClicked)="crudService.rowClicked($event)"
 		             (cellClicked)="clickOnCell($event)"
 		             (rowSelected)="crudService.rowSelected(crudService.gridOptions)"
+		             (gridReady)="crudService.onReady($event)"
 		></ag-grid-ng2>
 		<grid-pagination [currentCrudLevel]="crudService.crudLevel[crudService.crudLevel.length - 1]"
 		                 [className]="crudService.getClassName()"
