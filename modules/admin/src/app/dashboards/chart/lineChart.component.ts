@@ -30,7 +30,7 @@ export class LineChart {
     ngOnInit() {
         this.chartData = this._lineChartService.getData(this.chartType, []);
 
-        let showAll = this.showAllBtnList.find((element) => {
+        let showAll = this.showAllBtnList['find']((element) => {
             if (this.chartType === element) {
                 return true;
             } else {
@@ -44,23 +44,23 @@ export class LineChart {
     };
 
     initChart(chart: any) {
-        this.dashboardService.executeDbFunction(this.dashboardTypeRid).subscribe((res) => {
-            this.chart = chart;
+        this.chart = chart;
 
-            let zoomChart = () => {
-                // chart.zoomToDates(new Date(2013, 3), new Date(2014, 0));
-            };
+        let zoomChart = () => {
+            // chart.zoomToDates(new Date(2013, 3), new Date(2014, 0));
+        };
 
-            chart.addListener('rendered', zoomChart);
-            zoomChart();
+        chart.addListener('rendered', zoomChart);
+        zoomChart();
 
-            if (chart.zoomChart) {
-                chart.zoomChart();
-            }
+        if (chart.zoomChart) {
+            chart.zoomChart();
+        }
 
-            this.chart.dataProvider = res;
-            this.chart.validateData();
-        });
+        /*
+        //  Update data after load data from DB
+        this.chart.dataProvider = res;
+        this.chart.validateData();*/
     }
 
     public showAll() {

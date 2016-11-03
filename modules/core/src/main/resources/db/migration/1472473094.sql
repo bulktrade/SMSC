@@ -51,16 +51,6 @@ if ($Dashboard.size() == 0) {
     let bubbleChartType = INSERT INTO DashboardBoxType SET name = 'Masha bubble chartаt', type = 'chart', kind = 'Bubble chart', code = 'var res = []; for(var i = 0; i < Math.ceil(Math.random()*30); i++) { res.push({ y: Math.ceil(Math.random()*50), x: Math.ceil(Math.random()*50), value: Math.ceil(Math.random()*50), y2: Math.ceil(Math.random()*50), x2: Math.ceil(Math.random()*50), value2: Math.ceil(Math.random()*50) }); } return res;', codeLanguage = 'JavaScript'
 
     console.log "Creating process for DashboardBoxType class is done."
-
-    console.log "Create functions"
-
-    CREATE FUNCTION DashboardBoxTypeFunction "var boxTypeRid = doc.field('@rid'); boxTypeRid = String(boxTypeRid); var functionName = boxTypeRid.replace(/#/g, ''); functionName = functionName.replace(/:/g, '_'); functionName = 'DashboardBoxTypeFunction_' + functionName; db.executeCommand('DELETE FROM OFunction WHERE name = \"'+ functionName +'\"'); code = doc.field('code'); if (code != '') { code = code.replace(/'/g, \"\\'\"); code = code.replace(/\"/g, '\\\\\"'); db.executeCommand('CREATE FUNCTION '+ functionName +' \"'+ code +'\" IDEMPOTENT true LANGUAGE JavaScript'); print('Update'); }" LANGUAGE Javascript
-    CREATE FUNCTION DashboardBoxTypeDeleteFunction "var boxTypeRid = doc.field('@rid'); boxTypeRid = String(boxTypeRid); var functionName = boxTypeRid.replace(/#/g, ''); functionName = functionName.replace(/:/g, '_'); functionName = 'DashboardBoxTypeFunction_' + functionName; db.executeCommand('DELETE FROM OFunction WHERE name = \"'+ functionName +'\"');" LANGUAGE Javascript
-
-    ALTER CLASS DashboardBoxType CUSTOM onAfterUpdate = DashboardBoxTypeFunction;
-    ALTER CLASS DashboardBoxType CUSTOM onAfterDelete=DashboardBoxTypeDeleteFunction
-
-    console.log "End create functions"
   }
 
   let DashboardBox = SELECT FROM (SELECT expand(classes) FROM metadata:schema) WHERE name = 'DashboardBox';
