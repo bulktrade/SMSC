@@ -222,7 +222,14 @@ export class DashboardService {
             this.authHttp.request(url)
                 .subscribe((res) => {
                     let result = JSON.parse(res['_body']);
-                    observer.next(eval(result.result[0].data));
+
+                    if (result.result.length == 0) {
+                        result = [];
+                    } else {
+                        result = result.result[0].value;
+                    }
+
+                    observer.next(result);
                     observer.complete();
                 });
         });
