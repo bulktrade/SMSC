@@ -3,13 +3,7 @@ package io.smsc.rest.repository;
 import io.smsc.model.Permission;
 import io.smsc.rest.repository.permission.PermissionRepository;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,11 +11,7 @@ import java.util.Collections;
 
 import static io.smsc.PermissionTestData.*;
 
-@ContextConfiguration("classpath:spring/spring-db.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("postgres")
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class PermissionRepositoryTest {
+public class PermissionRepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private PermissionRepository repository;

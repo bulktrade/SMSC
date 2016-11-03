@@ -23,12 +23,17 @@ public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositor
     Role save(Role role);
 
     @Override
-//    @Query("SELECT r FROM Role r WHERE r.id=:id")
     Role findOne(Long id);
+
+    @Query("SELECT r FROM Role r LEFT JOIN  r.permissions WHERE r.id=:id")
+    Role findOneWithPermissions(Long id);
 
     @Override
     @Query("SELECT DISTINCT r FROM Role r")
     List<Role> findAll();
+
+    @Query("SELECT r FROM Role r LEFT JOIN r.permissions")
+    Role findAllWithPermissions(Long id);
 
 
 }

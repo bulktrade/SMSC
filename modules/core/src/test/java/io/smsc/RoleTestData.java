@@ -3,7 +3,11 @@ package io.smsc;
 import io.smsc.matcher.ModelMatcher;
 import io.smsc.model.Role;
 
+import java.util.Collections;
 import java.util.Objects;
+
+import static io.smsc.UserTestData.ADMIN;
+import static io.smsc.UserTestData.USER;
 
 public class RoleTestData {
 

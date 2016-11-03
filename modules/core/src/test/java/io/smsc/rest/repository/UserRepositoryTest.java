@@ -3,13 +3,7 @@ package io.smsc.rest.repository;
 import io.smsc.model.User;
 import io.smsc.rest.repository.user.UserRepository;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,11 +11,7 @@ import java.util.Collections;
 
 import static io.smsc.UserTestData.*;
 
-@ContextConfiguration("classpath:spring/spring-db.xml")
-@RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles("postgres")
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class UserRepositoryTest {
+public class UserRepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private UserRepository repository;
@@ -34,10 +24,11 @@ public class UserRepositoryTest {
 
     @Test
     public void save() throws Exception {
-        User newRole = new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
-        User created = repository.save(newRole);
-        newRole.setId(created.getId());
-        USER_MODEL_MATCHER.assertEquals(newRole,repository.findOne(newRole.getId()));
+        User newUser = new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
+        newUser.setRoles(Collections.emptyList());
+        User created = repository.save(newUser);
+        newUser.setId(created.getId());
+        USER_MODEL_MATCHER.assertEquals(newUser,repository.findOne(newUser.getId()));
     }
 
     @Test

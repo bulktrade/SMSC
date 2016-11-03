@@ -3,7 +3,11 @@ package io.smsc;
 import io.smsc.matcher.ModelMatcher;
 import io.smsc.model.User;
 
+import java.util.Collections;
 import java.util.Objects;
+
+import static io.smsc.RoleTestData.ROLE_ADMIN;
+import static io.smsc.RoleTestData.ROLE_USER;
 
 public class UserTestData {
 
@@ -12,6 +16,12 @@ public class UserTestData {
 
     public static final User USER = new User(USER_ID,"user","password","userName","userSurname","user@gmail.com",true,false);
     public static final User ADMIN = new User(ADMIN_ID,"admin","admin","adminName","adminSurname","admin@gmail.com",true,false);
+
+//    static
+//    {
+//        USER.setRoles(Collections.singletonList(ROLE_USER));
+//        ADMIN.setRoles(Collections.singletonList(ROLE_ADMIN));
+//    }
 
     public static final ModelMatcher<User> USER_MODEL_MATCHER = new ModelMatcher<>(
             (expected, actual) -> expected == actual ||

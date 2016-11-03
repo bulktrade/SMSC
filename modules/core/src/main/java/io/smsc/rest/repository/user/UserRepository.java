@@ -23,15 +23,16 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     User save(User user);
 
     @Override
-    @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.id=:id")
+    @Query("SELECT u FROM User u WHERE u.id=:id")
     User findOne(@Param("id") Long id);
 
-    @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=:email")
+    @Query("SELECT u FROM User u JOIN FETCH u.roles WHERE u.id=:id")
+    User findOneWithRoles(@Param("id") Long id);
+
+    @Query("SELECT u FROM User u JOIN FETCH u.roles WHERE u.email=:email")
     User findByEmail(@Param("email") String email);
 
-    @Override
-    @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles")
-    List<User> findAll();
-
+    @Query("SELECT DISTINCT u FROM User u JOIN FETCH u.roles")
+    List<User> findAllWithRoles();
 
 }

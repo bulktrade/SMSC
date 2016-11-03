@@ -8,7 +8,6 @@ INSERT INTO USERS (id, username, password, first_name, surName, email) VALUES
   (50, 'user', 'password', 'userName', 'userSurname', 'user@gmail.com'),
   (51, 'admin', 'admin', 'adminName', 'adminSurname', 'admin@gmail.com');
 
-
 INSERT INTO ROLES (id, name) VALUES
   (150, 'ROLE_USER'),
   (151, 'ROLE_ADMIN');
