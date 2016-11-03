@@ -20,6 +20,8 @@ import {
 } from './crud-meta-data/binding-parameter/binding-parameter.component';
 import { DashboardsComponent } from './dashboards/dashboards.components';
 import { NgModule } from '@angular/core';
+import { DashboardModule } from './dashboards/dashboard.module';
+import { CrudModule } from './crud/crud.module';
 
 export const ROUTES: Routes = [
     {
@@ -37,7 +39,7 @@ export const ROUTES: Routes = [
             {
                 path: '',
                 component: DashboardsComponent,
-                loadChildren: 'es6-promise!./dashboards/dashboard.module#DashboardModule',
+                loadChildren: () => DashboardModule,
                 data: {
                     similarPath: 'dasboards', // @todo Impement in sidenav
                     showInSubNavigation: true,
@@ -60,7 +62,7 @@ export const ROUTES: Routes = [
                     {
                         path: '',
                         component: CrudComponent,
-                        loadChildren: 'es6-promise!./crud/crud.module#CrudModule',
+                        loadChildren: () => CrudModule,
                         data: {
                             showInBreadcrumb: false,
                         }
@@ -91,7 +93,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: 'es6-promise!./crud/crud.module#CrudModule',
+                                loadChildren: () => CrudModule,
                                 data: {
                                     showInBreadcrumb: false,
                                 }
@@ -112,7 +114,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: 'es6-promise!./crud/crud.module#CrudModule',
+                                loadChildren: () => CrudModule,
                                 data: {
                                     showInBreadcrumb: true,
                                 }
@@ -133,7 +135,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: 'es6-promise!./crud/crud.module#CrudModule',
+                                loadChildren: () => CrudModule,
                                 data: {
                                     showInBreadcrumb: false,
                                 }
@@ -154,7 +156,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: 'es6-promise!./crud/crud.module#CrudModule',
+                                loadChildren: () => CrudModule,
                                 data: {
                                     showInBreadcrumb: false,
                                 }

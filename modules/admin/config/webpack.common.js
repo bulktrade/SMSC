@@ -133,8 +133,7 @@ module.exports = function (options) {
                     test: /\.ts$/,
                     loaders: [
                         '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd,
-                        'awesome-typescript-loader',
-                        "angular2-load-children-loader"
+                        'awesome-typescript-loader'
                     ],
                     exclude: [/\.(spec|e2e)\.ts$/]
                 },
