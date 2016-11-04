@@ -56,15 +56,6 @@ $primaryColor: #009688;
             float: left;
         }
 
-        .rememberMe {
-            cursor: pointer;
-
-            > input {
-                position: relative;
-                top: 1px;
-            }
-        }
-
         .login-card-title {
             margin: 20px 20px 0 20px;
             background-color: $primaryColor;

@@ -2,28 +2,28 @@
 	<div class="option-container">
 		<div class="opionPanel">
 			<div class="searchPanel">
-				<md-input placeholder="{{ 'SEARCH' | translate }}"
-				          type="text" autocomplete="off" name="search" style=""
-				          #db (keydown)="crudService.onFilterChanged(db.value, crudService.gridOptions)"
-				          (keyup)="crudService.onFilterChanged(db.value, crudService.gridOptions)"></md-input>
-				<button md-icon-button color="primary" class="searchBtn">
-					<md-icon class="md-24">search</md-icon>
-				</button>
+				<input type="text" class="form-control" [(ngModel)]="filter"
+				       (ngModelChange)="crudService.onFilterChanged($event, crudService.gridOptions)"
+				       placeholder="{{ 'SEARCH' | translate }}">
+				<span class="input-group-btn">
+					<button class="btn btn-secondary" type="button">
+						<i class="fa fa-search"
+						   aria-hidden="true"></i></button>
+				</span>
 			</div>
 			<div class="buttonsPanel">
 				<div class="linksetButtons">
-					<button md-raised-button color="primary" (click)="back()" id="back">{{'BACK' | translate}}</button>
-					<button md-raised-button color="primary" (click)="addLink(crudService.gridOptions)" id="addLink">
+					<button class="btn" (click)="back()" id="back">{{'BACK' | translate}}</button>
+					<button class="btn btn-success" (click)="addLink(crudService.gridOptions)" id="addLink">
 						{{'ADDLINK'
 						| translate}}
 					</button>
 				</div>
 				<div class="viewButtons" *ngIf="!crudService.isLimitCrudLevel()">
-					<button md-raised-button color="primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
+					<button class="btn btn-primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
 						translate}}
 					</button>
-					<button md-raised-button color="warn"
-					        [disabled]="!crudService.isDisableDeleteButton"
+					<button class="btn btn-danger" [disabled]="!crudService.isDisableDeleteButton"
 					        (click)="navigateToDelete()" id="deleteRecord">{{'DELETE' | translate}}
 					</button>
 				</div>

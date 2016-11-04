@@ -30,6 +30,11 @@ navigation {
     border-radius: 0;
 }
 
+.hint {
+    font-size: 12px;
+    color: #A94442;
+}
+
 .btn {
     border-radius: 3px;
 }
@@ -67,7 +72,7 @@ navigation {
     position: relative;
 
     input {
-        font-size: 18px;
+        font-size: 16px;
         padding: 10px 10px 10px 5px;
         display: block;
         width: 100%;
@@ -82,7 +87,7 @@ navigation {
     /* LABEL ======================================= */
     .label-input {
         color: #999;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: normal;
         position: absolute;
         pointer-events: none;
@@ -94,7 +99,7 @@ navigation {
     }
 
     /* active state */
-    input:focus ~ .label-input, input:valid ~ .label-input {
+    input:focus ~ .label-input, .in {
         top: -20px;
         font-size: 14px;
         color: $primaryColor;
@@ -208,6 +213,11 @@ $slideDuration: .4s;
     line-height: 135%;
 
     cursor: pointer;
+
+    > input {
+        position: relative;
+        top: 1px;
+    }
 }
 
 .checkbox {

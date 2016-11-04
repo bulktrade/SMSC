@@ -15,21 +15,23 @@
 							<div class="col-xs-12 col-sm-12 col-md-6">
 								<div class="group">
 									<input type="text" class="username" id="username" required
-									       [(ngModel)]="model.username" name="password"
+									       [(ngModel)]="model.username" name="username" autocomplete="on"
 									       #username="ngModel">
 									<span class="highlight"></span>
 									<span class="bar"></span>
-									<label class="label-input">{{ 'login.username' | translate }}</label>
+									<label class="label-input" [ngClass]="{in: model.username}">{{ 'login.username' |
+										translate }}</label>
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-12 col-md-6">
 								<div class="group">
 									<input type="password" class="password" id="password" required
-									       [(ngModel)]="model.password" name="password"
+									       [(ngModel)]="model.password" name="password" autocomplete="on"
 									       #password="ngModel">
 									<span class="highlight"></span>
 									<span class="bar"></span>
-									<label class="label-input">{{ 'login.password' | translate }}</label>
+									<label class="label-input" [ngClass]="{in: model.password}">{{ 'login.password' |
+										translate }}</label>
 								</div>
 							</div>
 						</div>

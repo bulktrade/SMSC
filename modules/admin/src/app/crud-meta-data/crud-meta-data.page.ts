@@ -16,11 +16,11 @@ export class CrudMetaDataPage {
     public backBtn = element(by.id('back'));
     public record = element(by.css('.ag-body-container > div:first-of-type'));
 
-    public customerIdField = element(by.css('.customerId input'));
-    public cityField = element(by.css('.city input'));
+    public customerIdField = element(by.css('.customerId'));
+    public cityField = element(by.css('.city'));
 
     // check order property
-    public firstFieldInForm = element(by.css('#dynamicForm > div:nth-of-type(1) md-input'));
+    public firstFieldInForm = element(by.css('#dynamicForm > div:nth-of-type(1) input'));
 
     public cityEdit = element.all(by.xpath('.//*[.="city"]/preceding-sibling::div'))
         .get(2).element(by.id('editIcon'));
@@ -29,7 +29,7 @@ export class CrudMetaDataPage {
 
     public visibleInput = element(by.css('.visible'));
     public editableInput = element(by.css('.editable'));
-    public orderInput = element(by.css('.order input'));
+    public orderInput = element(by.css('.order'));
 
     constructor() {
     }

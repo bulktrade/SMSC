@@ -13,6 +13,7 @@ import { GridPaginationModule } from '../directives/grid-pagination/grid-paginat
 import { DropdownModule, AlertModule } from 'ng2-bootstrap';
 import { AgGridModule } from 'ag-grid-ng2';
 import { LoadingGridModule } from '../../common/loading-grid.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'crud-linkset',
@@ -124,6 +125,7 @@ export class CrudLinksetComponent {
     imports: [
         CommonModule,
         MdSelectModule,
+        FormsModule,
         MdModule.forRoot(),
         DropdownModule,
         TranslateModule,
