@@ -28,6 +28,20 @@ export class LineChartService {
     }
 
     getSerial(data: Object) {
+        var res = [];
+
+        for (var i = 1; i <= 12; i++) {
+            for (var y = 1; y <= 2; y++) {
+                var date = new Date(2016, i, y*5);
+                var day = date.getDate(); var monthIndex = date.getMonth();
+                var year = date.getFullYear();
+                res.push({
+                    date: (monthIndex + " " + year),
+                    value: Math.ceil(Math.random()*1000),
+                    value0: Math.ceil(Math.random()*1000) });
+            }
+        }
+
         let layoutColors = this._baConfig.get().colors;
         let graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
 
@@ -39,7 +53,7 @@ export class LineChartService {
             responsive: {
                 'enabled': true
             },
-            dataProvider: data,
+            dataProvider: res,
             categoryField: 'date',
             categoryAxis: {
                 parseDates: true,
@@ -111,10 +125,27 @@ export class LineChartService {
     }
 
     getPie(data: Object) {
+        function getStr() {
+            var text = "";
+            var possible = "abcdefghijklmnopqrstuvwxyz";
+
+            for( var i=0; i < 5; i++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length)); return text;
+        }
+
+        var res = [];
+        var len = Math.ceil(Math.random()*15);
+
+        for(var i = 0; i < len; i++) {
+            res.push({
+                country: getStr(),
+                litres: Math.ceil(Math.random()*100) });
+        }
+
         return {
             "type": "pie",
             "theme": "light",
-            "dataProvider": data,
+            "dataProvider": res,
             "valueField": "litres",
             "titleField": "country",
             "balloon":{
@@ -127,12 +158,23 @@ export class LineChartService {
     }
 
     getLine(data: Object) {
+        var res = [];
+
+        for(var i = 1900; i < 2016; i++) {
+            var single = Math.random()*10;
+            single = single > 5 ? 1 : -1;
+            res.push({
+                year: String(i),
+                value: Math.ceil(Math.random()*100)*single
+            });
+        }
+
         return {
             "type": "serial",
             "theme": "light",
             "marginTop":0,
             "marginRight": 80,
-            "dataProvider": data,
+            "dataProvider": res,
             "valueAxes": [{
                 "axisAlpha": 0,
                 "position": "left"
@@ -188,10 +230,30 @@ export class LineChartService {
     }
 
     getBar(data: Object) {
+        function getStr() {
+            var text = "";
+            var possible = "abcdefghijklmnopqrstuvwxyz";
+
+            for( var i=0; i < 5; i++ )
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+            return text;
+        }
+
+        var res = [];
+        var len = Math.ceil(Math.random()*50);
+
+        for(var i = 0; i < len; i++) {
+            res.push({
+                country: getStr(),
+                visits: Math.ceil(Math.random()*10000)
+            });
+        }
+
         return {
             "type": "serial",
             "theme": "light",
-            "dataProvider": data,
+            "dataProvider": res,
             "gridAboveGraphs": true,
             "startDuration": 1,
             "graphs": [ {
@@ -243,7 +305,7 @@ export class LineChartService {
             "balloon":{
                 "fixedPosition":true,
             },
-            "dataProvider": data,
+            "dataProvider": res,
             "valueAxes": [ {
                 "position": "bottom",
                 "axisAlpha": 0

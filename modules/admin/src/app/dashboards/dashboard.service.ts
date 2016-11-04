@@ -212,22 +212,6 @@ export class DashboardService {
         });
     }
 
-    public executeDbFunction(rid): Observable<Object> {
-        let functionName = rid.replace(/#/g, '');
-        functionName = functionName.replace(/:/g, '_');
-        functionName = 'DashboardBoxTypeFunction_' + functionName;
-        let url: string = this.configService.config.orientDBUrl + '/function/smsc/' + functionName;
-
-        return Observable.create((observer: Observer<Object>) => {
-            this.authHttp.request(url)
-                .subscribe((res) => {
-                    let result = JSON.parse(res['_body']);
-                    observer.next(eval(result.result[0].data));
-                    observer.complete();
-                });
-        });
-    }
-
     // Temporary
     /**
      * Get Dashboard for DashboardBox for navigate to form without "Dashboard" field
