@@ -17,36 +17,32 @@ import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "io.smsc.rest.repository",
-        entityManagerFactoryRef = "entityManager",
-        transactionManagerRef = "transactionManager"
+        basePackages = "io.smsc.repository",
+        entityManagerFactoryRef = "entityManager"
 )
-@PropertySource("classpath:postgresql.properties")
-//@PropertySource(value = "classpath:${smsc.database}.properties")
-//@PropertySource("classpath:#{systemProperties['smsc.database']}.properties")
+@PropertySource(value = "classpath:${smsc.database:postgresql}.properties")
 public class SpringConfig {
 
     @Autowired
     private Environment env;
 
-    @Primary
-    @Bean
-    @DependsOn("flyway")
-    public LocalContainerEntityManagerFactoryBean entityManager() {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan("io.smsc.model");
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setShowSql(Boolean.getBoolean(env.getProperty("jpa.showSql")));
-        em.setJpaVendorAdapter(vendorAdapter);
-        HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.format_sql", env.getProperty("hibernate.format.sql"));
-        properties.put("hibernate.use_sql_comments", env.getProperty("hibernate.use.sql.comments"));
-        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-//        properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        em.setJpaPropertyMap(properties);
-        return em;
-    }
+//    @Primary
+//    @Bean
+//    @DependsOn("flyway")
+//    public LocalContainerEntityManagerFactoryBean entityManager() {
+//        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+//        em.setDataSource(dataSource());
+//        em.setPackagesToScan("io.smsc.model");
+//        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+//        vendorAdapter.setShowSql(Boolean.getBoolean(env.getProperty("jpa.showSql")));
+//        em.setJpaVendorAdapter(vendorAdapter);
+//        HashMap<String, Object> properties = new HashMap<>();
+//        properties.put("hibernate.format_sql", env.getProperty("hibernate.format.sql"));
+//        properties.put("hibernate.use_sql_comments", env.getProperty("hibernate.use.sql.comments"));
+//        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+//        em.setJpaPropertyMap(properties);
+//        return em;
+//    }
 
     @Primary
     @Bean
@@ -59,23 +55,22 @@ public class SpringConfig {
         return dataSource;
     }
 
-    @Primary
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManager().getObject());
-        return transactionManager;
-    }
+//    @Primary
+//    @Bean
+//    public PlatformTransactionManager transactionManager() {
+//        JpaTransactionManager transactionManager = new JpaTransactionManager();
+//        transactionManager.setEntityManagerFactory(entityManager().getObject());
+//        return transactionManager;
+//    }
 
     @Primary
     @Bean(initMethod = "migrate")
     public Flyway flyway(){
         Flyway flyway = new Flyway();
         flyway.setBaselineOnMigrate(true);
-        flyway.setLocations("classpath:/db/migration");
+//        flyway.setLocations("classpath:sql/common","classpath:sql/${smsc.database:postgresql}");
         flyway.setDataSource(dataSource());
         return flyway;
-
     }
 
 //    @Primary
