@@ -46,7 +46,7 @@ public class User
     @Column(name = "blocked", nullable = false, columnDefinition = "boolean default false")
     private boolean blocked = false;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany()
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
