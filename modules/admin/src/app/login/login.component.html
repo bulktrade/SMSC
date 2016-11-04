@@ -13,31 +13,33 @@
 						</alert>
 						<div class="row input-panel">
 							<div class="col-xs-12 col-sm-12 col-md-6">
-								<label for="username">{{ 'login.username' | translate }}</label>
-								<input type="text" class="form-control username" id="username"
-								       placeholder="{{ 'login.username' | translate }}"
-								       required type="text"
-								       [(ngModel)]="model.username" name="username"
-								       #username="ngModel">
-
+								<div class="group">
+									<input type="text" class="username" id="username" required
+									       [(ngModel)]="model.username" name="password"
+									       #username="ngModel">
+									<span class="highlight"></span>
+									<span class="bar"></span>
+									<label class="label-input">{{ 'login.username' | translate }}</label>
+								</div>
 							</div>
 							<div class="col-xs-12 col-sm-12 col-md-6">
-								<label for="password">{{ 'login.password' | translate }}</label>
-								<input type="text" class="form-control password" id="password"
-								       placeholder="{{ 'login.password' | translate }}"
-								       required type="text"
-								       [(ngModel)]="model.password" name="password"
-								       #username="ngModel">
-
+								<div class="group">
+									<input type="text" class="password" id="password" required
+									       [(ngModel)]="model.password" name="password"
+									       #password="ngModel">
+									<span class="highlight"></span>
+									<span class="bar"></span>
+									<label class="label-input">{{ 'login.password' | translate }}</label>
+								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-6">
-								<div class="checkbox">
-									<label class="rememberMe"><input type="checkbox" [(ngModel)]="model.rememberMe"
-									                                 [ngModelOptions]="{standalone: true}" value="">
-										<span>{{ 'login.rememberMe' | translate }}</span></label>
-								</div>
+								<label class="label-checkbox rememberMe">
+									<input type="checkbox" class="checkbox" [(ngModel)]="model.rememberMe"
+									       [ngModelOptions]="{standalone: true}">
+									{{ 'login.rememberMe' | translate }}
+								</label>
 							</div>
 							<div class="col-xs-12 col-sm-12 col-md-6 right-align"
 							     [ngSwitch]="loading">

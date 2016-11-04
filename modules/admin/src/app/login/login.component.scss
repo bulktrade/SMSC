@@ -1,3 +1,5 @@
+$primaryColor: #009688;
+
 #login {
     width: 100vw;
     height: 100vh;
@@ -55,13 +57,17 @@
         }
 
         .rememberMe {
-            margin: 5px 0;
             cursor: pointer;
+
+            > input {
+                position: relative;
+                top: 1px;
+            }
         }
 
         .login-card-title {
             margin: 20px 20px 0 20px;
-            background-color: #0275d8;
+            background-color: $primaryColor;
         }
 
         .form-group {
@@ -75,10 +81,15 @@
                 font-size: 14px;
                 color: rgb(136, 136, 136);
             }
+
+            #submitButton {
+                background: $primaryColor;
+                border-color: $primaryColor;
+            }
         }
 
         .card-content {
-            padding: 1rem 1.25rem 1.25rem 1.25rem;
+            padding: 1.25rem 1.25rem 1.25rem 1.25rem;
         }
 
         @media(max-width: 48em) {
@@ -87,6 +98,10 @@
             margin: inherit;
             min-width: inherit;
 
+            .group {
+                padding-bottom: 20px;
+            }
+
             #submitButton {
                 margin-top: 10px;
                 width: 100%;
@@ -94,10 +109,6 @@
 
             #input-panel {
                 flex-direction: column;
-
-                md-input:last-child {
-                    margin-left: 0;
-                }
             }
         }
     }

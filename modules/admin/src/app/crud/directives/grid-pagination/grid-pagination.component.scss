@@ -1,19 +1,12 @@
 .grid-pagination {
+    font-family: 'Open Sans';
     display: flex;
     justify-content: center;
-    font-family: 'Open Sans';
-
-    button {
-        padding-top: 10px;
-    }
+    align-items: center;
 
     .page-summary-panel,
     .page-size {
         display: flex;
-    }
-
-    .row-summary-panel {
-        padding: 15px 10px 0 0;
     }
 
     .previous-panel,
@@ -22,15 +15,16 @@
     }
 
     .page-info {
-        padding: 15px 5px 0 5px;
+        padding-top: 9px;
     }
 }
 
 @media all and (max-width: 550px) {
-    .grid-pagination {
-        .row-summary-panel {
-            display: none;
-        }
+    .row-summary-panel {
+        display: none;
+    }
+
+    .page-size {
+        display: none !important;
     }
 }
-
