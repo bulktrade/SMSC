@@ -94,11 +94,11 @@ export class Dashboard {
         this.clickSelectOption('.height select', 2);
         this.selectLinkset('.type #add');
         // this.selectLinkset('.dashboard #add');
-        this.inputText('NAME', 'My box name');
-        this.inputText('DESCRIPTION', 'Box description');
-        this.inputText('ORDER', '0');
+        this.inputText('name', 'My box name');
+        this.inputText('description', 'Box description');
+        this.inputText('order', '0');
         this.clickBySelector('#modify');
-        this.clickBySelector('.back.md-primary');
+        this.clickBySelector('.back');
     }
 
     /**
@@ -108,7 +108,7 @@ export class Dashboard {
      * @param text
      */
     inputText(inputName, text: string) {
-        let el = element(by.name(inputName));
+        let el = element(by.className(inputName));
         browser.wait(EC.presenceOf(el), 5000);
         el.clear();
         el.sendKeys(text);
