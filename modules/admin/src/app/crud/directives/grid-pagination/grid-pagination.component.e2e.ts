@@ -20,15 +20,9 @@ describe('Grid pagination', () => {
     });
 
     it('should navigate to the grid meta data', () => {
-        let width = 1024,
-            height = 768;
-
-        ptor.manage().window().setSize(width, height)
-            .then(() => {
-                paginationPage.crudPage.clickOnMetaData();
-                paginationPage.crudPage.clickOnGridMetaData();
-                expect(paginationPage.crudPage.isPresentGridMetaData()).toBeTruthy();
-            });
+        paginationPage.crudPage.clickOnMetaData();
+        paginationPage.crudPage.clickOnGridMetaData();
+        expect(paginationPage.crudPage.isPresentGridMetaData()).toBeTruthy();
     });
 
     it('should be the next page', () => {

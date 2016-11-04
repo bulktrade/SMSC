@@ -13,9 +13,8 @@
 				<i class="material-icons">chevron_left</i>
 			</button>
 		</div>
-		<div class="page-info">Page {{currentPage + 1}} of more</div>
+		<div class="page-info">Page <span id="currentPage">{{currentPage + 1}}</span> of more</div>
 		<div class="next-panel">
-
 			<button type="button" class="btn btn-default btn-icon" id="nextPage" (click)="next()"
 			        [disabled]="toRecord === sizeClass">
 				<i class="material-icons">chevron_right</i>
