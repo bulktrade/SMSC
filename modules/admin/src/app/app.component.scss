@@ -66,7 +66,7 @@ navigation {
 .group {
     position: relative;
 
-    input[type=text] {
+    input {
         font-size: 18px;
         padding: 10px 10px 10px 5px;
         display: block;
@@ -75,7 +75,7 @@ navigation {
         border-bottom: 1px solid #757575;
     }
 
-    input[type=text]:focus {
+    input:focus {
         outline: none;
     }
 
@@ -94,7 +94,7 @@ navigation {
     }
 
     /* active state */
-    input[type=text]:focus ~ .label-input, input[type=text]:valid ~ .label-input {
+    input:focus ~ .label-input, input:valid ~ .label-input {
         top: -20px;
         font-size: 14px;
         color: $primaryColor;
@@ -128,7 +128,7 @@ navigation {
     }
 
     /* active state */
-    input[type=text]:focus ~ .bar:before, input[type=text]:focus ~ .bar:after {
+    input:focus ~ .bar:before, input:focus ~ .bar:after {
         width: 50%;
     }
 
@@ -144,7 +144,7 @@ navigation {
     }
 
     /* active state */
-    input[type=text]:focus ~ .highlight {
+    input:focus ~ .highlight {
         -webkit-animation: inputHighlighter 0.3s ease;
         -moz-animation: inputHighlighter 0.3s ease;
         animation: inputHighlighter 0.3s ease;
