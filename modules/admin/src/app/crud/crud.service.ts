@@ -19,6 +19,7 @@ import { Location } from '@angular/common';
 import { LinksetProperty } from './model/linkset-property';
 import { GridService } from '../services/grid.service';
 import { Button } from './model/button';
+import { RouterOutletService } from '../services/router-outlet-service';
 
 const squel = require('squel');
 let cubeGridHtml = require('../common/spinner/cube-grid/cube-grid.component.html');
@@ -59,7 +60,9 @@ export class CrudService {
                 public translate: TranslateService,
                 public serviceNotifications: NotificationService,
                 public loadingService: LoadingGridService,
-                public gridService: GridService) {
+                public gridService: GridService,
+                public roService: RouterOutletService,
+                public location: Location) {
     }
 
     onFilterChanged(value, gridOptions) {
@@ -67,6 +70,7 @@ export class CrudService {
     }
 
     cellValueChanged(value) {
+        let focusedRow = this.focusedRow;
         let operations: Array<Operation> = [
             {
                 type: BatchType.UPDATE,
@@ -82,7 +86,7 @@ export class CrudService {
                     'message.createSuccessful', 'orientdb.successCreate');
 
                 this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
-                    [this.focusedRow.data])
+                    [focusedRow.data])
                     .then(() => {
                         this.gridOptions.api.setRowData(this.gridOptions.rowData);
                     });
@@ -522,30 +526,42 @@ export class CrudService {
         this.focusedRow = event;
 
         if (this.clickOnDeleteBtn) {
-            this.navigateToDelete(event.data['@rid']);
+            // navigate to delete component
+            this.router.navigate([this.parentPath, 'delete', event.data['@rid']]);
             this.clickOnDeleteBtn = false;
         } else if (this.clickOnEditBtn) {
-            this.navigateToEdit(event.data['@rid']);
+            // navigate to edit component
+            this.router.navigate([this.parentPath, 'edit', event.data['@rid']]);
             this.clickOnEditBtn = false;
         }
     }
 
     /**
-     * Navigate to update component and send the id parameter.
      *
-     * @param id
      */
-    navigateToEdit(id: number) {
-        this.router.navigate([this.parentPath, 'edit', id]);
+    back() {
+        this.previousCrudLevel();
+        this.location.back();
     }
 
     /**
-     * Navigate to delete component and send the id parameter.
-     *
-     * @param id
+     * Navigate to delete component
      */
-    navigateToDelete(id: number) {
-        this.router.navigate([this.parentPath, 'delete', id]);
+    navigateToDelete() {
+        let id = this.getSelectedRID(this.gridOptions);
+
+        this.router.navigate([this.parentPath, 'delete',
+            id.join().replace(/\[|\]/gi, '')]);
+    }
+
+    /**
+     * Navigate to create component
+     * @param className
+     */
+    navigateToCreate(className: string) {
+        this.setModel({});
+        this.router.navigate([this.parentPath,
+            'create', className]);
     }
 
     /**
@@ -572,6 +588,60 @@ export class CrudService {
         };
 
         this.crudLevel.push(crudLevel);
+    }
+
+    addLink(gridOptions) {
+        let className = this.getLinkedClass();
+        let previousCrudLevel: CrudLevel = this.previousCrudLevel();
+        let params: any = previousCrudLevel.linksetProperty.data;
+
+        return this.getLinkset(gridOptions, previousCrudLevel.linksetProperty.type, className)
+            .then(linkSet => {
+                params[previousCrudLevel.linksetProperty.name] = linkSet;
+
+                if (this.roService.isPreviousRoute('CrudViewComponent')) {
+                    this.updateRecord(params);
+                    this.location.back();
+                } else {
+                    this.model = params;
+                    this.location.back();
+                }
+
+            });
+    }
+
+    getLinkset(gridOptions, type, className) {
+        let focusedRows = gridOptions.api.getSelectedRows();
+        let result = [];
+
+        return this.gridService.getTitleColumns(className)
+            .then((columnName) => {
+                for (let i = 0; i < focusedRows.length; i++) {
+                    switch (type) {
+                        case 'LINKSET':
+                            result['_' + i] = focusedRows[i]['@rid'];
+
+                            if (focusedRows[i].hasOwnProperty(columnName) &&
+                                typeof columnName !== 'undefined') {
+                                result.push(focusedRows[i][columnName]);
+                            } else {
+                                result.push(focusedRows[i]['@rid']);
+                            }
+                            break;
+                        case 'LINK':
+                            result[0] = focusedRows[i][columnName];
+                            result['rid'] = focusedRows[i]['@rid'];
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                result['type'] = type;
+
+                return result;
+            });
     }
 
     /**
@@ -1043,6 +1113,14 @@ export class CrudService {
         }
 
         return this.model[propertyName];
+    }
+
+    /**
+     * Gets the current CRUD level
+     * @return {number}
+     */
+    getCurrentCrudLevel(): number {
+        return this.crudLevel.length;
     }
 
     resetCrudLevels() {

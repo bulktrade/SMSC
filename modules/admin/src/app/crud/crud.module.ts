@@ -20,6 +20,7 @@ import { MdSelectModule } from '../common/material/select/select.component';
 import { DynamicFormModule } from './dynamic-form/dynamic-form.component';
 import { CrudRoutingModule } from './crud-routing.module';
 import { CommonModule } from '@angular/common';
+import { DynamicViewModule } from './dynamic-view/dynamic-view.component';
 
 const CRUD_DECLARATIONS = [
     CrudComponent,
@@ -44,7 +45,8 @@ const CRUD_MODULES = [
     DynamicFormModule,
     MultipleSelectModule,
     CrudLinksetModule,
-    CrudRoutingModule
+    CrudRoutingModule,
+    DynamicViewModule
 ];
 
 @NgModule({

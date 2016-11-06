@@ -7,12 +7,8 @@ import { LinksetProperty } from '../model/linkset-property';
 
 @Component({
     selector: 'crud-view',
-    template: require('./crud-view.component.html'),
-    styleUrls: [
-        require('./crud-view.component.scss'),
-        require('../common/grid.scss'),
-        require('../common/style.scss')
-    ],
+    template: '<dynamic-view [crudClass]="crudService.getClassName()"></dynamic-view>',
+    styleUrls: [],
     providers: [],
 })
 

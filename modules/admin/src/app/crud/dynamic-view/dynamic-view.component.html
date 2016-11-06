@@ -12,19 +12,20 @@
 				</span>
 			</div>
 			<div class="buttonsPanel">
-				<div class="linksetButtons">
-					<button class="btn" (click)="back()" id="back">{{'BACK' | translate}}</button>
-					<button class="btn btn-success" (click)="addLink(crudService.gridOptions)" id="addLink">
+				<div class="linksetButtons" *ngIf="crudService.getCurrentCrudLevel()">
+					<button class="btn" (click)="crudService.back()" id="back">{{'BACK' | translate}}</button>
+					<button class="btn btn-success" (click)="crudService.addLink(crudService.gridOptions)" id="addLink">
 						{{'ADDLINK'
 						| translate}}
 					</button>
 				</div>
-				<div class="viewButtons" *ngIf="!crudService.isLimitCrudLevel()">
-					<button class="btn btn-primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
+				<div class="viewButtons"
+				     *ngIf="!crudService.getCurrentCrudLevel() || (!crudService.isLimitCrudLevel() && crudService.getCurrentCrudLevel())">
+					<button class="btn btn-primary" (click)="crudService.navigateToCreate(crudClass)" id="addRow">{{'NEWRECORD' |
 						translate}}
 					</button>
 					<button class="btn btn-danger" [disabled]="!crudService.isDisableDeleteButton"
-					        (click)="navigateToDelete()" id="deleteRecord">{{'DELETE' | translate}}
+					        (click)="crudService.navigateToDelete()" id="deleteRecord">{{'DELETE' | translate}}
 					</button>
 				</div>
 			</div>
@@ -39,12 +40,13 @@
 		             [rowGroupPanelShow]="always" [columnDefs]="crudService.gridOptions.columnDefs"
 		             [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
 		             [gridOptions]="crudService.gridOptions" [rowData]="crudService.gridOptions.rowData"
+		             (cellValueChanged)="crudService.cellValueChanged($event)"
 		             (rowClicked)="crudService.rowClicked($event)"
 		             (rowSelected)="crudService.rowSelected(crudService.gridOptions)"
 		             (cellFocused)="crudService.focusedRow=$event.rowIndex"
 		             (gridReady)="crudService.onReady($event)"></ag-grid-ng2>
 		<grid-pagination [currentCrudLevel]="crudService.crudLevel[crudService.crudLevel.length - 1]"
-		                 [className]="crudService.getLinkedClass()"
+		                 [className]="crudClass"
 		                 [gridOptions]="crudService.gridOptions"></grid-pagination>
 	</loading-grid>
 </div>
