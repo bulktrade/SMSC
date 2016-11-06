@@ -5,6 +5,7 @@ import {
     TranslateStaticLoader,
 } from 'ng2-translate/ng2-translate';
 import { ActivatedRoute, Router, NavigationExtras, UrlTree } from '@angular/router';
+import { Location } from '@angular/common';
 import { CrudService } from '../crud.service';
 import { TokenService } from '../../services/auth/token.service';
 import { COMMON_PROVIDERS } from '../../common/index';
@@ -29,6 +30,7 @@ export const CRUD_PROVIDERS = [
     NotificationService,
     CrudService,
     TokenService,
+    { provide: Location, useClass: MockActivatedRoute },
     TranslateService,
     ConfigService,
     { provide: ActivatedRoute, useClass: MockActivatedRoute },
