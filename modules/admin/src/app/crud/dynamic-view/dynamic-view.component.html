@@ -36,7 +36,7 @@
 		</alert>
 	</div>
 	<loading-grid>
-		<ag-grid-ng2 class="ag-fresh"
+		<ag-grid-ng2 class="ag-fresh" [ngClass]="{'grid-height': crudService.getCurrentCrudLevel()}"
 		             [rowGroupPanelShow]="always" [columnDefs]="crudService.gridOptions.columnDefs"
 		             [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
 		             [gridOptions]="crudService.gridOptions" [rowData]="crudService.gridOptions.rowData"

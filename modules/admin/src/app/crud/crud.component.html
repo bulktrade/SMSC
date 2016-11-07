@@ -1,6 +1,6 @@
 <div id="crud-window" class="card">
 	<div class="card-block crud-title">
-		<h5 class="card-title title">{{ route.component['name'] | uppercase | translate }}</h5>
+		<h5 class="card-title title">{{ route.data.value.translationKey | uppercase | translate }}</h5>
 	</div>
 	<div class="card-block card-content">
 		<loading-router-outlet></loading-router-outlet>

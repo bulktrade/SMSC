@@ -65,7 +65,7 @@
         }
     }
 
-    ag-grid-ng2 {
-        height: calc(100% - 195px);
+    .grid-height {
+        height: calc(100% - 195px) !important;
     }
 }
