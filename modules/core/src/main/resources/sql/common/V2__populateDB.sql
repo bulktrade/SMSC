@@ -1,9 +1,3 @@
--- DELETE FROM USERS;
--- DELETE FROM ROLES;
--- DELETE FROM PERMISSIONS;
--- DELETE FROM users_roles;
--- DELETE FROM roles_permissions;
-
 INSERT INTO USERS (id, username, password, first_name, surName, email) VALUES
 (1, 'user', 'password', 'userName', 'userSurname', 'user@gmail.com');
 

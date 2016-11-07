@@ -16,18 +16,29 @@ import java.util.HashMap;
 @Configuration
 @EnableJpaRepositories(
         basePackages = "io.smsc.repository",
-        entityManagerFactoryRef = "entityManager"
+        entityManagerFactoryRef = "entityManager",
+        transactionManagerRef = "transactionManager"
 )
 //@PropertySource(value = "classpath:application.properties")
-@PropertySource(value = "classpath:${smsc.database:postgresql}.properties")
+@PropertySource(value = "classpath:${smsc.database:hsqldb}.properties")
 public class ApplicationConfig {
 
     @Autowired
     private Environment env;
 
     @Primary
+    @Bean(initMethod = "migrate")
+    public Flyway flyway(){
+        Flyway flyway = new Flyway();
+        flyway.setBaselineOnMigrate(true);
+        flyway.setLocations("classpath:sql/common");
+        flyway.setDataSource(dataSource());
+        return flyway;
+    }
+
+    @Primary
     @Bean
-    @DependsOn("flyway")
+//    @DependsOn("flyway")
     public LocalContainerEntityManagerFactoryBean entityManager() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
@@ -36,9 +47,9 @@ public class ApplicationConfig {
         vendorAdapter.setShowSql(Boolean.getBoolean(env.getProperty("jpa.showSql")));
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.format_sql", env.getProperty("hibernate.format.sql"));
-        properties.put("hibernate.use_sql_comments", env.getProperty("hibernate.use.sql.comments"));
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+        properties.put("hibernate.use_sql_comments", env.getProperty("hibernate.use_sql_comments"));
         em.setJpaPropertyMap(properties);
         return em;
     }
@@ -53,7 +64,7 @@ public class ApplicationConfig {
         dataSource.setPassword(env.getProperty("database.password"));
         return dataSource;
     }
-//
+
     @Primary
     @Bean
     public PlatformTransactionManager transactionManager() {
@@ -61,17 +72,7 @@ public class ApplicationConfig {
         transactionManager.setEntityManagerFactory(entityManager().getObject());
         return transactionManager;
     }
-//
-    @Primary
-    @Bean(initMethod = "migrate")
-    public Flyway flyway(){
-        Flyway flyway = new Flyway();
-        flyway.setBaselineOnMigrate(true);
-        flyway.setLocations("classpath:sql/common");
-        flyway.setDataSource(dataSource());
-        return flyway;
-    }
-//
+
 //    @Primary
 //    @Bean
 //    public PropertyPlaceholderConfigurer placeholderConfigurer(){

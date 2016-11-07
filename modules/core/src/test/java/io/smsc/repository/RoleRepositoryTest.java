@@ -2,8 +2,11 @@ package io.smsc.repository;
 
 import io.smsc.model.Role;
 import io.smsc.repository.role.RoleRepository;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,14 +35,14 @@ public class RoleRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void get() throws Exception {
-        Role permission = repository.findOne(ROLE_USER_ID);
-        ROLE_MODEL_MATCHER.assertEquals(ROLE_USER,permission);
+        Role role = repository.findOne(ROLE_USER_ID);
+        ROLE_MODEL_MATCHER.assertEquals(ROLE_USER,role);
     }
 
     @Test
     public void getAll() throws Exception {
-        Collection<Role> permissions = repository.findAll();
-        ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(ROLE_USER, ROLE_ADMIN), permissions);
+        Collection<Role> roles = repository.findAll();
+        ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(ROLE_USER, ROLE_ADMIN), roles);
     }
 
     @Test
