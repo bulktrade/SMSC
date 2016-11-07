@@ -8,7 +8,6 @@ import { NotificationService } from '../services/notification-service';
 import { LoadingGridService } from '../services/loading/loading-grid.service';
 import { ColumnModel } from './model/crud-column';
 import { INPUT_TYPES } from './dynamic-form/model/form-input-types';
-import { ColumnDefsModel } from './model/column-definitions';
 import { Operation } from '../orientdb/model/operation';
 import { BatchType } from '../orientdb/model/batch-type';
 import { Observable, Observer } from 'rxjs';

@@ -9,6 +9,7 @@ import { Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { BatchType } from '../orientdb/model/batch-type';
 import { Operation } from '../orientdb/model/operation';
+import { LinksetProperty } from './model/linkset-property';
 
 const squel = require('squel');
 
@@ -56,16 +57,18 @@ export class GridService {
      * @returns {any}
      */
     selectLinksetProperties(columnDefs, rowData) {
-        let linksetProperties = [];
+        let linksetProperties: Array<LinksetProperty> = [];
 
         columnDefs.filter((obj) => {
             if (obj.type === 'LINKSET' ||
                 obj.type === 'LINK') {
-                linksetProperties.push({
+                let linksetProperty: LinksetProperty = {
                     name: obj.property,
                     linkedClass: obj.linkedClass,
                     type: obj.type
-                });
+                };
+
+                linksetProperties.push(linksetProperty);
             }
         });
 
@@ -79,28 +82,40 @@ export class GridService {
      * @param rowData
      * @returns {any}
      */
-    replaceLinksetItemsWithName(linksetProperties, rowData) {
+    replaceLinksetItemsWithName(linksetProperties: Array<LinksetProperty>, rowData) {
         let promises = [];
 
         linksetProperties.forEach((i) => {
-            rowData.forEach((row) => {
-                let linkset = row[i['name']];
+            let expr: string = squel.select()
+                .from(i.linkedClass);
 
-                if (typeof linkset !== 'undefined' && i['type'] === 'LINKSET') {
-                    for (let keyLink = 0; keyLink < linkset.length; keyLink++) {
-                        promises.push(
-                            this.setNameToLinksetProperty(linkset, keyLink,
-                                i['linkedClass'], i['type']));
-                    }
-                    linkset['type'] = i['type'];
-                } else if (i['type'] === 'LINK') {
-                    if (typeof row[i['name']] !== 'undefined' && row[i['name']] !== null) {
-                        promises.push(
-                            this.setNameToLinksetProperty(row, i['name'],
-                                i['linkedClass'], i['type']));
-                    }
-                }
-            });
+            this.getTitleColumns(i.linkedClass)
+                .then((titleColumns: string) => {
+                    this.database.query(expr.toString())
+                        .subscribe((res: Response) => {
+                            let records = res.json().result;
+
+                            rowData.forEach((row) => {
+                                let linkset = row[i['name']];
+
+                                if (typeof linkset !== 'undefined' && i['type'] === 'LINKSET') {
+                                    for (let keyLink = 0; keyLink < linkset.length; keyLink++) {
+                                        promises.push(
+                                            this.setNameToLinksetProperty(linkset, keyLink,
+                                                titleColumns, i['type'], records));
+                                    }
+                                    linkset['type'] = i['type'];
+                                } else if (i['type'] === 'LINK') {
+                                    if (typeof row[i['name']] !== 'undefined' &&
+                                        row[i['name']] !== null) {
+                                        promises.push(
+                                            this.setNameToLinksetProperty(row, i['name'],
+                                                titleColumns, i['type'], records));
+                                    }
+                                }
+                            });
+                        });
+                });
         });
 
         return Promise.all(promises);
@@ -115,43 +130,37 @@ export class GridService {
      * @param type
      * @returns {Promise<TResult>|Promise<TResult2|TResult1>|Promise<U>}
      */
-    setNameToLinksetProperty(linkset, keyLink, className, type) {
-        return this.database.load(linkset[keyLink])
-            .then((res) => {
-                return this.getTitleColumns(className)
-                    .then(columnName => {
-                        let record = res.json();
+    setNameToLinksetProperty(linkset, keyLink, titleColumns, type, records) {
+        records.filter((record) => {
+            if (record['@rid'] === linkset[keyLink]) {
 
-                        switch (type) {
-                            case 'LINKSET':
-                                linkset['_' + keyLink] = linkset[keyLink];
+                switch (type) {
+                    case 'LINKSET':
+                        linkset['_' + keyLink] = linkset[keyLink];
 
-                                if (record.hasOwnProperty(columnName)
-                                    && typeof columnName !== 'undefined') {
-                                    linkset[keyLink] = record[columnName];
-                                }
-                                break;
-                            case 'LINK':
-                                if (record.hasOwnProperty(columnName)
-                                    && typeof columnName !== 'undefined') {
-                                    let rid = linkset[keyLink];
-
-                                    linkset[keyLink] = [];
-                                    linkset[keyLink][0] = record[columnName];
-                                    linkset[keyLink]['rid'] = rid;
-                                    linkset[keyLink]['type'] = type;
-                                }
-                                break;
-
-                            default:
-                                break;
+                        if (record.hasOwnProperty(titleColumns)
+                            && typeof titleColumns !== 'undefined') {
+                            linkset[keyLink] = record[titleColumns];
                         }
-                    });
-            }, (error) => {
-                this.serviceNotifications.createNotification('error',
-                    'ERROR', 'orientdb.dataNotFound');
-                return Promise.reject(error);
-            });
+                        break;
+                    case 'LINK':
+                        if (record.hasOwnProperty(titleColumns)
+                            && typeof titleColumns !== 'undefined') {
+                            let rid = linkset[keyLink];
+
+                            linkset[keyLink] = [];
+                            linkset[keyLink][0] = record[titleColumns];
+                            linkset[keyLink]['rid'] = rid;
+                            linkset[keyLink]['type'] = type;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
 
     /**
