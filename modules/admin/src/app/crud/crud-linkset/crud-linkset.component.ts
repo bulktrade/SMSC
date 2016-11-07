@@ -5,7 +5,6 @@ import { CrudService } from '../crud.service';
 import { Location, CommonModule } from '@angular/common';
 import { GridService } from '../../services/grid.service';
 import { ColumnDefsModel } from '../model/column-definitions';
-import { MdModule } from '../../md.module';
 import { MdSelectModule } from '../../common/material/select/select.component';
 import { GridPaginationModule } from '../directives/grid-pagination/grid-pagination.component';
 import { DropdownModule, AlertModule } from 'ng2-bootstrap';
@@ -47,7 +46,6 @@ export class CrudLinksetComponent {
         CommonModule,
         MdSelectModule,
         FormsModule,
-        MdModule.forRoot(),
         DropdownModule,
         TranslateModule,
         GridPaginationModule,

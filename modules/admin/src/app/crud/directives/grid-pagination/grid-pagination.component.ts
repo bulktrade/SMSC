@@ -7,7 +7,6 @@ import { GridOptions } from 'ag-grid';
 import { GridService } from '../../../services/grid.service';
 import { CommonModule } from '@angular/common';
 import { MdSelectModule } from '../../../common/material/select/select.component';
-import { MdModule } from '../../../md.module';
 import { CrudLevel } from '../../model/crud-level';
 import { Observable } from 'rxjs';
 import { DropdownModule } from 'ng2-bootstrap';
@@ -253,7 +252,12 @@ export class GridPaginationComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, MdSelectModule, MdModule.forRoot(), DropdownModule, TranslateModule],
+    imports: [
+        CommonModule,
+        MdSelectModule,
+        DropdownModule,
+        TranslateModule
+    ],
     exports: [GridPaginationComponent],
     declarations: [GridPaginationComponent]
 })

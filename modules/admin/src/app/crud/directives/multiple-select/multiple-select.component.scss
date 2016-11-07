@@ -7,6 +7,15 @@
         min-height: 75px;
         margin-top: 7px;
 
+        i {
+            font-size: 21px;
+            cursor: pointer;
+
+            &:hover {
+                color: green;
+            }
+        }
+
         .title {
             margin: 0;
         }
@@ -43,11 +52,7 @@
         }
 
         #add {
-            margin-bottom: 6px;
-
-            &:hover {
-                color: green;
-            }
+            padding-top: 2px;
         }
     }
 }

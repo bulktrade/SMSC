@@ -64,6 +64,10 @@ $primaryColor: #009688;
             -moz-osx-font-smoothing: grayscale;
         }
 
+        #sidebar-wrapper {
+            overflow-y: hidden;
+        }
+
         main {
             position: relative;
             height: 100%;

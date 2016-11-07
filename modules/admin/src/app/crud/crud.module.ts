@@ -6,7 +6,6 @@ import { CrudLinksetModule } from './crud-linkset/crud-linkset.component';
 import { CrudCreateComponent } from './crud-create/crud-create.component';
 import { CrudDeleteComponent } from './crud-delete/crud-delete.component';
 import { CrudService } from './crud.service';
-import { MdModule } from '../md.module';
 import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
 import { TranslateModule, TranslateService } from 'ng2-translate';
 import { CubeGridModule } from '../common/spinner/cube-grid/cube-grid.component';
@@ -38,7 +37,6 @@ const CRUD_MODULES = [
     LoadingGridModule,
     AlertModule,
     FormsModule,
-    MdModule.forRoot(),
     CommonModule,
     TranslateModule,
     AgGridModule.withNg2ComponentSupport(),

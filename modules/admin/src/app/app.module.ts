@@ -22,7 +22,6 @@ import { LoadingGridService } from './services/loading/loading-grid.service';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { createNewHosts, removeNgStyles } from '@angularclass/hmr';
 import { ENV_PROVIDERS } from './environment';
-import { MdModule } from './md.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
@@ -101,7 +100,6 @@ export const APP_PROVIDERS = [
         NoInternetModule,
         HttpModule,
         AppRoutingModule,
-        MdModule.forRoot(),
         TranslateModule.forRoot({
             provide: TranslateLoader,
             useFactory: (http: Http, configService: ConfigService) => {
