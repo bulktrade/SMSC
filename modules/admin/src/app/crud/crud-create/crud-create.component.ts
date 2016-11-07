@@ -3,7 +3,6 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
 import { Location } from '@angular/common';
-import { ColumnDefsModel } from '../model/column-definitions';
 import { BtnTypes } from '../dynamic-form/model/button-types';
 import { FormPropertyModel } from '../model/form-property';
 
@@ -17,8 +16,7 @@ import { FormPropertyModel } from '../model/form-property';
 })
 
 export class CrudCreateComponent {
-    public resolveData: ColumnDefsModel = null;
-    public columnDefs: Array<FormPropertyModel> = null;
+    public columnDefs: Array<FormPropertyModel>;
     public btnName: BtnTypes = BtnTypes.CREATE;
 
     constructor(public translate: TranslateService,
@@ -32,8 +30,7 @@ export class CrudCreateComponent {
         // sets path from root component
         this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
 
-        this.resolveData = this.route.snapshot.data['create'];
-        this.columnDefs = this.resolveData.form;
+        this.columnDefs = this.route.snapshot.data['create'];
     }
 
     ngOnDestroy() {

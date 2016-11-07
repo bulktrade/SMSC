@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../../crud/crud.service';
 import { Location } from '@angular/common';
-import { EditModel } from '../../crud/crud-update/crud-update.model';
 import { BtnTypes } from '../../crud/dynamic-form/model/button-types';
 import { FormPropertyModel } from '../../crud/model/form-property';
 
@@ -11,7 +10,6 @@ import { FormPropertyModel } from '../../crud/model/form-property';
     template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>'
 })
 export class DashboardCrudCreateComponent {
-    public resolveData: EditModel = new EditModel();
     public btnName: BtnTypes = BtnTypes.CREATE;
     public columnDefs: Array<FormPropertyModel> = null;
 
@@ -25,8 +23,7 @@ export class DashboardCrudCreateComponent {
         // sets path from root component
         this.crudService.setParentPath(this.route.parent.snapshot.pathFromRoot);
 
-        this.resolveData = this.route.snapshot.data['create'];
-        this.columnDefs = this.resolveData['form'];
+        this.columnDefs = this.route.snapshot.data['create'];
     }
 
     /**

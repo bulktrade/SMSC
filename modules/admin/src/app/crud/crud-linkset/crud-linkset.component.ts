@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
 import { Location, CommonModule } from '@angular/common';
 import { GridService } from '../../services/grid.service';
-import { ColumnDefsModel } from '../model/column-definitions';
 import { MdSelectModule } from '../../common/material/select/select.component';
 import { GridPaginationModule } from '../directives/grid-pagination/grid-pagination.component';
 import { DropdownModule, AlertModule } from 'ng2-bootstrap';
@@ -12,6 +11,7 @@ import { AgGridModule } from 'ag-grid-ng2';
 import { LoadingGridModule } from '../../common/loading-grid.component';
 import { FormsModule } from '@angular/forms';
 import { DynamicViewModule } from '../dynamic-view/dynamic-view.component';
+import { GridPropertyModel } from '../model/grid-property';
 
 @Component({
     selector: 'crud-linkset',
@@ -21,7 +21,7 @@ import { DynamicViewModule } from '../dynamic-view/dynamic-view.component';
 })
 
 export class CrudLinksetComponent {
-    public resolveData: ColumnDefsModel = null;
+    public resolveData: Array<GridPropertyModel> = [];
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -33,7 +33,7 @@ export class CrudLinksetComponent {
 
     ngOnInit() {
         this.resolveData = this.route.snapshot.data['linkset'];
-        this.crudService.gridOptions.columnDefs = this.resolveData.grid;
+        this.crudService.gridOptions.columnDefs = this.resolveData;
         this.crudService.gridOptions.rowData = [];
 
         // adds additional columns

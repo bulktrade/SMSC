@@ -33,10 +33,6 @@ describe('DashboardComponent crud update', () => {
         });
     });
 
-    it('should be defined resolveData', inject([DashboardCrudUpdateComponent], (box) => {
-        expect(box.resolveData).toBeDefined();
-    }));
-
     it('should be defined btnName', inject([DashboardCrudUpdateComponent], (box) => {
         expect(box.btnName).toBeDefined();
     }));

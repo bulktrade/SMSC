@@ -33,10 +33,6 @@ describe('DashboardComponent crud create', () => {
         });
     });
 
-    it('should be defined resolveData', inject([ DashboardCrudCreateComponent ], (box) => {
-        expect(box.resolveData).toBeDefined();
-    }));
-
     it('should be defined btnName', inject([ DashboardCrudCreateComponent ], (box) => {
         expect(box.btnName).toBeDefined();
     }));

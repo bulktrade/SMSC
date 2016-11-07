@@ -185,9 +185,9 @@ export class DashboardService {
                         model.push(result);
                     }
 
-                    this.crudService.getColumnDefs(className, false)
+                    this.crudService.getFormColumnDefs(className)
                         .subscribe((columnDefs) => {
-                            return this.gridService.selectLinksetProperties(columnDefs.form, model)
+                            return this.gridService.selectLinksetProperties(columnDefs, model)
                                 .then(() => {
                                     let editModel: EditModel = {
                                         columnDefs: columnDefs,

@@ -747,18 +747,11 @@ export class CrudService {
     }
 
     /**
-     * Gets the column definitions with metaData for grid.
-     *
+     * Gets the column definitions with metaData for grid
      * @param className
-     * @param readOnly
-     * @returns {any}
+     * @return {any}
      */
-    getColumnDefs(className, readOnly): Observable<ColumnDefsModel> {
-        let columnDefs: ColumnDefsModel = {
-            grid: [],
-            form: []
-        };
-
+    getGridColumnDefs(className): Observable<Array<GridPropertyModel>> {
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.getInfoClass(className)
                 .subscribe((res: Response) => {
@@ -766,17 +759,34 @@ export class CrudService {
 
                     this.setPropertiesMetaGridData(properties, className)
                         .subscribe((gridProperties: Array<GridPropertyModel>) => {
-                            this.setPropertiesMetaFormData(properties, className)
-                                .subscribe((formProperties: Array<FormPropertyModel>) => {
-                                    columnDefs.form = columnDefs.form.concat(formProperties);
-                                    columnDefs.grid = columnDefs.grid.concat(gridProperties);
+                            observer.next(gridProperties);
+                            observer.complete();
+                        }, (err: Response) => {
+                            observer.error(err);
+                            observer.complete();
+                        });
+                }, (err: Response) => {
+                    observer.error(err);
+                    observer.complete();
+                });
+        });
+    }
 
-                                    observer.next(columnDefs);
-                                    observer.complete();
-                                }, (err: Response) => {
-                                    observer.error(err);
-                                    observer.complete();
-                                });
+    /**
+     * Gets the column definitions with metaData for form
+     * @param className
+     * @return {any}
+     */
+    getFormColumnDefs(className): Observable<Array<FormPropertyModel>> {
+        return Observable.create((observer: Observer<ColumnModel>) => {
+            this.databaseService.getInfoClass(className)
+                .subscribe((res: Response) => {
+                    let properties = res.json().properties;
+
+                    this.setPropertiesMetaFormData(properties, className)
+                        .subscribe((formProperties: Array<FormPropertyModel>) => {
+                            observer.next(formProperties);
+                            observer.complete();
                         }, (err: Response) => {
                             observer.error(err);
                             observer.complete();
@@ -804,13 +814,17 @@ export class CrudService {
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.query(queryCrudMetaFormData.toString())
                 .subscribe((res: Response) => {
+                    let response = res.json().hasOwnProperty('result') ?
+                        res.json()['result'] : null;
                     let isExistForm: boolean;
                     let columnsForm: Array<FormPropertyModel> = [];
                     let result: Array<FormPropertyModel>;
 
                     try {
-                        isExistForm = res.json()['result'].length > 0 ? true : false;
-                        result = isExistForm ? res.json()['result'] : properties;
+                        if (response) {
+                            isExistForm = res.json()['result'].length > 0 ? true : false;
+                            result = isExistForm ? res.json()['result'] : properties;
+                        }
                     } catch (ex) {
                         observer.error(ex);
                     }
@@ -869,13 +883,17 @@ export class CrudService {
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.query(queryCrudMetaGridData.toString())
                 .subscribe((res: Response) => {
+                    let response = res.json().hasOwnProperty('result') ?
+                        res.json()['result'] : null;
                     let isExistColumn: boolean;
                     let columnsGrid: Array<GridPropertyModel> = [];
                     let result: Array<GridPropertyModel>;
 
                     try {
-                        isExistColumn = res.json()['result'].length > 0 ? true : false;
-                        result = isExistColumn ? res.json()['result'] : properties;
+                        if (response) {
+                            isExistColumn = response.length > 0 ? true : false;
+                            result = isExistColumn ? response : properties;
+                        }
                     } catch (ex) {
                         observer.error(ex);
                     }

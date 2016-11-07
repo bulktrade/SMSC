@@ -1,12 +1,10 @@
-import {Dashboard} from './dashboard.page';
+import { Dashboard } from './dashboard.page';
 
 describe('DashboardComponent', () => {
     let prot = protractor.wrapDriver(browser.driver);
 
     prot.manage().window().setSize(1024, 1020);
     browser.get(browser.baseUrl + '/');
-    //browser.get('/');
-    //browser.get('/admin/');
 
     beforeEach(() => {
         this.dashboard = new Dashboard();

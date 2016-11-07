@@ -23,14 +23,12 @@ export class DashboardCrudCreateResolve extends CrudResolve {
         this.crudService.setParentPath(route.parent.pathFromRoot);
 
         return Observable.create((observer: Observer<ColumnModel>) => {
-            this.crudService.getColumnDefs(className, false).subscribe((res) => {
+            this.crudService.getFormColumnDefs(className).subscribe((res) => {
                 this.crudService.model['dashboard'] = route.params['dashboard'];
 
                 observer.next(res);
                 observer.complete();
             });
         });
-
-        // return this.crudService.getColumnDefs(className, false);
     }
 }

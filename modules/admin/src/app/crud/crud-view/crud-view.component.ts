@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudService } from '../crud.service';
-import { ColumnDefsModel } from '../model/column-definitions';
 import { LinksetProperty } from '../model/linkset-property';
+import { GridPropertyModel } from '../model/grid-property';
 
 @Component({
     selector: 'crud-view',
@@ -13,7 +13,7 @@ import { LinksetProperty } from '../model/linkset-property';
 })
 
 export class CrudViewComponent {
-    public resolveData: ColumnDefsModel = null;
+    public resolveData: Array<GridPropertyModel> = [];
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -28,7 +28,7 @@ export class CrudViewComponent {
         this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
 
         this.resolveData = this.route.snapshot.data['view'];
-        this.crudService.gridOptions.columnDefs = this.resolveData.grid;
+        this.crudService.gridOptions.columnDefs = this.resolveData;
         this.crudService.gridOptions.rowData = [];
 
         // adds additional columns

@@ -13,7 +13,7 @@ export class CrudCreateResolve extends CrudResolve {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let className = route.params['className'];
 
-        return this.crudService.getColumnDefs(className, false);
+        return this.crudService.getFormColumnDefs(className);
     }
 
 }

@@ -25,7 +25,7 @@ export class DashboardCrudUpdateComponent {
     ngOnInit() {
         this.resolveData = this.route.snapshot.data['edit'];
 
-        this.columnDefs = this.resolveData.columnDefs.form;
+        this.columnDefs = this.resolveData.columnDefs;
 
         if (this.resolveData.inputModel) {
             this.crudService.setModel(this.resolveData.inputModel);
