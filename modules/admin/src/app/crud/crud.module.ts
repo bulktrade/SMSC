@@ -7,7 +7,6 @@ import { CrudCreateComponent } from './crud-create/crud-create.component';
 import { CrudDeleteComponent } from './crud-delete/crud-delete.component';
 import { CrudService } from './crud.service';
 import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
-import { TranslateModule, TranslateService } from 'ng2-translate';
 import { CubeGridModule } from '../common/spinner/cube-grid/cube-grid.component';
 import { AlertModule } from 'ng2-bootstrap';
 import { AgGridModule } from 'ag-grid-ng2';
@@ -20,6 +19,7 @@ import { DynamicFormModule } from './dynamic-form/dynamic-form.component';
 import { CrudRoutingModule } from './crud-routing.module';
 import { CommonModule } from '@angular/common';
 import { DynamicViewModule } from './dynamic-view/dynamic-view.component';
+import { TranslateModule } from 'ng2-translate';
 
 const CRUD_DECLARATIONS = [
     CrudComponent,
@@ -53,7 +53,7 @@ const CRUD_MODULES = [
     ],
     exports: [CRUD_DECLARATIONS],
     declarations: [CRUD_DECLARATIONS],
-    providers: [CrudService, TranslateService]
+    providers: [CrudService]
 })
 export class CrudModule {
     static forRoot(): ModuleWithProviders {
