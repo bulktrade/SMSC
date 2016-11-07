@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <!-- To enable JMX Management -->
+    <jmxConfigurator/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%-5level %logger{0} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="io.smsc" level="debug"/>
+
+    <!--log hibernate showSql-->
+    <logger name="org.hibernate.SQL" level="debug"/>
+
+    <root level="info">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>

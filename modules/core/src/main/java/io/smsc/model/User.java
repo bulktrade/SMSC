@@ -1,16 +1,20 @@
 package io.smsc.model;
 
+import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"username","email"}, name = "users_unique_username_email_idx")})
-public class User
-{
+public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -46,11 +50,22 @@ public class User
     @Column(name = "blocked", nullable = false, columnDefinition = "boolean default false")
     private boolean blocked = false;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade =
+                    {
+                            CascadeType.DETACH,
+                            CascadeType.MERGE,
+                            CascadeType.REFRESH,
+                            CascadeType.PERSIST
+                    },
+            targetEntity = Role.class)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+    )
     private List<Role> roles;
 
     public User() {
@@ -160,6 +175,39 @@ public class User
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (active != user.active) return false;
+        if (blocked != user.blocked) return false;
+        if (!id.equals(user.id)) return false;
+        if (!username.equals(user.username)) return false;
+        if (!password.equals(user.password)) return false;
+        if (!firstName.equals(user.firstName)) return false;
+        if (!surName.equals(user.surName)) return false;
+        if (!email.equals(user.email)) return false;
+        return created.equals(user.created);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + username.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + surName.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + (active ? 1 : 0);
+        result = 31 * result + created.hashCode();
+        result = 31 * result + (blocked ? 1 : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -170,7 +218,6 @@ public class User
                 ", email='" + email + '\'' +
                 ", active=" + active +
                 ", blocked=" + blocked +
-                ", roles=" + roles +
                 '}';
     }
 }

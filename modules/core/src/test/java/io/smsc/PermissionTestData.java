@@ -12,11 +12,11 @@ import static io.smsc.RoleTestData.ROLE_USER;
 
 public class PermissionTestData {
 
-    public static final long PERMISSION_READ_ONLY_ID = 250;
-    public static final long PERMISSION_READ_WRITE_ID = 251;
+    public static final long PERMISSION_READ_ONLY_ID = 5;
+    public static final long PERMISSION_READ_WRITE_ID = 6;
 
     public static final Permission PERMISSION_READ_ONLY = new Permission(PERMISSION_READ_ONLY_ID,"PERMISSION_READ_ONLY");
-    public static final Permission PERMISSION_READ_WRITE = new Permission(PERMISSION_READ_WRITE_ID,"PERMISSION_READ_ONLY");
+    public static final Permission PERMISSION_READ_WRITE = new Permission(PERMISSION_READ_WRITE_ID,"PERMISSION_READ_WRITE");
 
     static
     {

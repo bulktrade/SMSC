@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "PERMISSIONS", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "permissions_unique_name_idx")})
-public class Permission {
+public class Permission{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,10 +20,21 @@ public class Permission {
     @Pattern(regexp = "[A-Z_]+", message = "Permission's name can be only uppercase and contain '_' symbol")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "permissions")
+    @ManyToMany(mappedBy = "permissions")
     private List<Role> roles;
 
+    @PreRemove
+    private void removePermissionsFromRoles() {
+        for (Role role : roles) {
+            role.getPermissions().remove(this);
+        }
+    }
+
     public Permission() {
+    }
+
+    public Permission(Permission permission){
+        this(permission.getId(),permission.getName());
     }
 
     public Permission(Long id, String name) {
@@ -59,12 +70,37 @@ public class Permission {
         return this.id == null;
     }
 
+    public boolean addRole(Role role){
+        return this.roles.add(role);
+    }
+
+    public boolean removeRole(Role role){
+        return this.roles.remove(role);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Permission that = (Permission) o;
+
+        if (!id.equals(that.id)) return false;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+
     @Override
     public String toString() {
         return "Permission{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", roles=" + roles +
                 '}';
     }
 }
