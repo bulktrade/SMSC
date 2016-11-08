@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CrudService } from '../../crud/crud.service';
+import { CrudService } from '../../../crud/crud.service';
 import { Location } from '@angular/common';
-import { EditModel } from '../../crud/crud-update/crud-update.model';
-import { BtnTypes } from '../../crud/dynamic-form/model/button-types';
-import { FormPropertyModel } from '../../crud/model/form-property';
+import { EditModel } from '../../../crud/crud-update/crud-update.model';
+import { BtnTypes } from '../../../crud/dynamic-form/model/button-types';
+import { FormPropertyModel } from '../../../crud/model/form-property';
 
 @Component({
     selector: 'dashboard-crud-edit',

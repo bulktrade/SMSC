@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
-import { DashboardList } from './models/dashboard-list';
-import { DashboardBox } from './models/dashboard-box';
-import { DashboardListItem } from './models/dashboard-list-item';
-import { OrderBy } from './sorts/orderby';
-import { DashboardService } from './dashboard.service';
+import { DashboardList } from '../models/dashboard-list';
+import { DashboardBox } from '../models/dashboard-box';
+import { DashboardListItem } from '../models/dashboard-list-item';
+import { OrderBy } from '../pipe/orderby';
+import { DashboardService } from '../dashboard.service';
 
 @Injectable()
 export class DashboardViewResolve implements Resolve<any> {

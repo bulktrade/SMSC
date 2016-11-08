@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { DashboardService } from './dashboard.service';
 import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
-import { DashboardList } from './models/dashboard-list';
-import { DashboardBox } from './models/dashboard-box';
-import { CrudService } from '../crud/crud.service';
-import { BoxSizes } from './models/dashboard-box-sizes';
-import { DashboardListItem } from './models/dashboard-list-item';
-import { DashboardResizeConfig } from './dashboard-resize-config';
-import { BoxResize } from './models/dashboard-box-enum';
+import { DashboardList } from '../models/dashboard-list';
+import { DashboardListItem } from '../models/dashboard-list-item';
+import { DashboardBox } from '../models/dashboard-box';
+import { DashboardService } from '../dashboard.service';
+import { CrudService } from '../../crud/crud.service';
+import { DashboardResizeConfig } from '../models/dashboard-resize-config';
+import { BoxResize } from '../models/dashboard-box-enum';
+import { BoxSizes } from '../models/dashboard-box-sizes';
 
 @Component({
     selector: 'dashboard-view',

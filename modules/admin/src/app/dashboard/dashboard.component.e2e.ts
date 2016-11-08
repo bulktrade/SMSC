@@ -1,4 +1,4 @@
-import { Dashboard } from './dashboard.page';
+import { Dashboard } from '../dashboard.page';
 
 describe('DashboardComponent', () => {
     let prot = protractor.wrapDriver(browser.driver);

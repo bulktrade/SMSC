@@ -2,21 +2,21 @@ import { inject, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { APP_PROVIDERS } from '../app.module';
 import { TranslateService, TranslateLoader } from 'ng2-translate/ng2-translate';
-import { DashboardService } from './dashboard.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { CrudService } from '../crud/crud.service';
-import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
-import { GridService } from '../services/grid.service';
-import { HTTP_PROVIDERS } from '../common/mock/http-providers';
 import { Router } from '@angular/router';
 import { DashboardViewComponent } from './dashboard-view.component';
-import { DashboardList } from './models/dashboard-list';
-import { DashboardListItem } from './models/dashboard-list-item';
-import { DashboardBox } from './models/dashboard-box';
-import { BoxResize } from './models/dashboard-box-enum';
-import { DashboardResizeConfig } from './dashboard-resize-config';
+import { DashboardService } from '../dashboard.service';
+import { CRUD_PROVIDERS } from '../../crud/common/crud-providers';
+import { GridService } from '../../services/grid.service';
+import { APP_PROVIDERS } from '../../app.module';
+import { HTTP_PROVIDERS } from '../../common/mock/http-providers';
+import { CrudService } from '../../crud/crud.service';
+import { DashboardList } from '../models/dashboard-list';
+import { DashboardListItem } from '../models/dashboard-list-item';
+import { DashboardBox } from '../models/dashboard-box';
+import { DashboardResizeConfig } from '../models/dashboard-resize-config';
+import { BoxResize } from '../models/dashboard-box-enum';
 
 class MockLocation {
 }
@@ -53,7 +53,7 @@ describe('DashboardComponent view', () => {
             this.boxes = new DashboardListItem<DashboardBox>();
             this.boxes.merge(res);
             box = res[0];
-            //this.updateClasses();
+            // this.updateClasses();
         });
     }));
 

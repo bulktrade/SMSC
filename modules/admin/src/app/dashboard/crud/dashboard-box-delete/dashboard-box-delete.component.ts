@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { CrudService } from '../../crud/crud.service';
+import { CrudService } from '../../../crud/crud.service';
 
 @Component({
     selector: 'crud-delete',
     template: require('./dashboard-box-delete.component.html'),
     styleUrls: [
         require('./dashboard-box-delete.component.scss'),
-        require('../../crud/common/style.scss')
+        require('../../../crud/common/style.scss')
     ],
     providers: []
 })

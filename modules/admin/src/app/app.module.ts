@@ -39,7 +39,7 @@ import {
     MetaDataPropertyBindingParameterComponent
 } from './crud-meta-data/binding-parameter/binding-parameter.component';
 import { SidebarService } from './sidebar/sidebar.service';
-import { DashboardModule } from './dashboards/dashboard.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { HttpInterceptor } from './common/http-interceptor';
 import { NoInternetModule } from './common/no-internet/no-internet.component';
 import {

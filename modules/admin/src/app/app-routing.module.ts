@@ -18,9 +18,9 @@ import {
 import {
     MetaDataPropertyBindingParameterComponent
 } from './crud-meta-data/binding-parameter/binding-parameter.component';
-import { DashboardsComponent } from './dashboards/dashboards.components';
+import { DashboardsComponent } from './dashboard/dashboards/dashboards.components';
 import { NgModule } from '@angular/core';
-import { DashboardModule } from './dashboards/dashboard.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { CrudModule } from './crud/crud.module';
 
 export const ROUTES: Routes = [

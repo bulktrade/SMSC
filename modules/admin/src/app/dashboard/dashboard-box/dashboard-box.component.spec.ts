@@ -2,16 +2,16 @@ import { inject, TestBed } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { TranslateService, TranslateLoader } from 'ng2-translate/ng2-translate';
-import { DashboardService } from './dashboard.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { CrudService } from '../crud/crud.service';
+import { CrudService } from '../../crud/crud.service';
 import { Router } from '@angular/router';
-import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
-import { GridService } from '../services/grid.service';
-import { SidebarService } from '../sidebar/sidebar.service';
+import { CRUD_PROVIDERS } from '../../crud/common/crud-providers';
+import { GridService } from '../../services/grid.service';
+import { SidebarService } from '../../sidebar/sidebar.service';
 import { DashboardBoxComponent } from './dashboard-box.component';
-import { BoxResize } from './models/dashboard-box-enum';
-import { BaThemeConfigProvider } from './chart/theme/theme.configProvider';
+import { BoxResize } from '../models/dashboard-box-enum';
+import { BaThemeConfigProvider } from '../chart/theme/theme.configProvider';
+import { DashboardService } from '../dashboard.service';
 
 class MockLocation {}
 

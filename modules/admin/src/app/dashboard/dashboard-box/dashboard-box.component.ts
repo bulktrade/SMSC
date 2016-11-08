@@ -7,11 +7,11 @@ import {
     HostListener, Inject
 } from '@angular/core';
 import { DashboardBoxConfig } from './dashboard-box-config';
-import { SidebarService } from '../sidebar/sidebar.service';
-import { DashboardResizeConfig } from './dashboard-resize-config';
+import { SidebarService } from '../../sidebar/sidebar.service';
+import { DashboardResizeConfig } from '../models/dashboard-resize-config';
 import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
 import { DOCUMENT } from '@angular/platform-browser';
-import { BoxResize } from './models/dashboard-box-enum';
+import { BoxResize } from '../models/dashboard-box-enum';
 
 @Component({
     selector: 'dashboard-box',

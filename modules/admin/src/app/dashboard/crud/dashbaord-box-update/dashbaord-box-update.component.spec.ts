@@ -5,10 +5,10 @@ import { TranslateService, TranslateLoader } from 'ng2-translate/ng2-translate';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Router } from '@angular/router';
 import { DashboardCrudUpdateComponent } from './dashboard-box-update.component';
-import { DashboardService } from '../dashboard.service';
-import { CRUD_PROVIDERS } from '../../crud/common/crud-providers';
-import { GridService } from '../../services/grid.service';
-import { CrudService } from '../../crud/crud.service';
+import { DashboardService } from '../../dashboard.service';
+import { CRUD_PROVIDERS } from '../../../crud/common/crud-providers';
+import { GridService } from '../../../services/grid.service';
+import { CrudService } from '../../../crud/crud.service';
 
 class MockLocation {}
 
