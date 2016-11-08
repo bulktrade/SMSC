@@ -283,6 +283,11 @@ export class CrudService {
         }
     }
 
+    /**
+     * Called when grid was initialized
+     *
+     * @param event
+     */
     onReady(event) {
         this.disableDeleteButton(event.api);
     }
@@ -561,7 +566,7 @@ export class CrudService {
     }
 
     /**
-     *
+     * Navigates back in the platform's history and reduces a crud level
      */
     back() {
         this.previousCrudLevel();
@@ -614,6 +619,12 @@ export class CrudService {
         this.crudLevel.push(crudLevel);
     }
 
+    /**
+     * Adds selected links to the multiple select component or updates a linkset property in record
+     *
+     * @param gridOptions
+     * @return {Promise<U>|Promise<TResult>}
+     */
     addLink(gridOptions) {
         let className = this.getLinkedClass();
         let previousCrudLevel: CrudLevel = this.previousCrudLevel();
@@ -634,6 +645,14 @@ export class CrudService {
             });
     }
 
+    /**
+     * Replaces a RID with title columns property
+     *
+     * @param gridOptions
+     * @param type
+     * @param className
+     * @return {Promise<Array<any>>|Promise<Array>}
+     */
     getLinkset(gridOptions, type, className) {
         let focusedRows = gridOptions.api.getSelectedRows();
         let result = [];
