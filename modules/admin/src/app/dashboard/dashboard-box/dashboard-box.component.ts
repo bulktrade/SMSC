@@ -78,7 +78,7 @@ export class DashboardBoxComponent {
     /**
      * Toggle fullscreen for dashboard box.
      */
-    toggleFullscreen(esc?: boolean) {
+    toggleFullscreen(esc?: boolean) { // @todo (Stas) Fix it
         this.sidebarService.toggleSidenav().then(() => {
             let dom: BrowserDomAdapter = new BrowserDomAdapter();
 

@@ -68,6 +68,11 @@ export class CrudService {
         gridOptions.api.setQuickFilter(value);
     }
 
+    /**
+     * Called when select the row and sets the style to checkbox.
+     *
+     * @param value
+     */
     cellValueChanged(value) {
         let focusedRow = this.focusedRow;
         let operations: Array<Operation> = [
