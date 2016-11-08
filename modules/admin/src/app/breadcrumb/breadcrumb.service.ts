@@ -9,7 +9,8 @@ export class BreadcrumbService {
     constructor(public router: Router,
                 public route: ActivatedRoute) {
         this.chainBreadcrumbItems(this.route);
-        this.name = this.childs[this.childs.length - 1].name || '';
+        this.name = this.childs.length && this.childs[this.childs.length - 1].name ||
+            this.route.data['value'].translationKey;
     }
 
     chainBreadcrumbItems(route: ActivatedRoute) {
