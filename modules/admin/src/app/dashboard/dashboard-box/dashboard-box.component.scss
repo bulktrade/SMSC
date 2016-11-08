@@ -9,11 +9,12 @@ $color-8: #009688;
 $color-9: #adc1d0;
 $color-10: #D32F2F;
 
-#dashboardBox md-card {
+#dashboardBox .card {
     height: 100%;
+    padding: 20px;
 }
 
-md-card.status {
+.card.status {
     position: relative;
     margin-right: 5px;
     &:last-child {
@@ -312,7 +313,7 @@ md-card.status {
             opacity: 1;
         }
 
-        md-card {
+        .card {
             -webkit-filter: blur(6px);
             -moz-filter: blur(6px);
             -o-filter: blur(6px);
@@ -327,7 +328,7 @@ md-card.status {
         &:last-child {
             margin-right: 0px;
         }
-        md-card {
+        .card {
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -337,7 +338,7 @@ md-card.status {
             padding-bottom: 15px;
             margin-bottom: 15px;
             border-bottom: 1px solid $color-6;
-            .md-header-title {
+            .card-title {
                 font-size: 16px;
                 font-weight: 600;
                 margin-right: 10px;
@@ -366,7 +367,7 @@ md-card.status {
             }
         }
     }
-    md-card {
+    .card {
         transition: all 400ms ease-in;
     }
 

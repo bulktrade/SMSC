@@ -11,7 +11,6 @@ import {
 } from './crud/dashboard-box-create/dashboard-box-create.component';
 import { AgGridModule } from 'ag-grid-ng2';
 import { TranslateModule, TranslateService } from 'ng2-translate';
-import { MdModule } from '../md.module';
 import { CubeGridModule } from '../common/spinner/cube-grid/cube-grid.component';
 import { AlertModule } from 'ng2-bootstrap';
 import { CrudService } from '../crud/crud.service';
@@ -28,7 +27,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingGridModule } from '../common/loading-grid.component';
 import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
 import { GridPaginationModule } from '../crud/directives/grid-pagination/grid-pagination.component';
-import { DashboardCrudDeleteComponent } from './crud/dashboard-box-delete/dashboard-box-delete.component';
+import {
+    DashboardCrudDeleteComponent
+} from './crud/dashboard-box-delete/dashboard-box-delete.component';
 import { DashboardCrudUpdateResolve } from './crud/dashboard-crud-update.resolve';
 import { DashboardCrudCreateResolve } from './crud/dashboard-crud-create.resolve';
 import { DashboardViewResolve } from './dashboard-view/dashboard-view.resolve';
@@ -60,7 +61,6 @@ const DASHBOARD_DECLARATION = [
         AlertModule,
         FormsModule,
         ReactiveFormsModule,
-        MdModule.forRoot(),
         CommonModule,
         TranslateModule,
         AgGridModule.forRoot(),
