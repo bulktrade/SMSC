@@ -517,6 +517,26 @@ export class CrudService {
     }
 
     /**
+     * Called when click on cell.
+     *
+     * @param event
+     */
+    clickOnCell(event) {
+        if (event.colDef.type === 'LINK' ||
+            event.colDef.type === 'LINKSET') {
+            this.setLinkedClass(event.colDef.linkedClass);
+            let linsetProperty: LinksetProperty = {
+                name: event.colDef.property,
+                type: event.colDef.type,
+                bingingProperties: event.colDef.bingingProperties,
+                data: event.data
+            };
+
+            this.navigateToLinkset(event.colDef.linkedClass, linsetProperty);
+        }
+    }
+
+    /**
      * Called when click on row.
      *
      * @param event

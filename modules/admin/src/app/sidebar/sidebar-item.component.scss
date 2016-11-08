@@ -100,6 +100,10 @@ ul {
     }
 }
 
+.show-nav {
+    display: flex;
+}
+
 /* MOBILE DEVICE (BEGIN)*/
 
 @media (max-width: 992px) {
@@ -109,7 +113,6 @@ ul {
         clear: both;
     }
     .show-nav {
-        display: block !important;
         width: 100%;
     }
     .item-menu {
@@ -131,7 +134,6 @@ ul {
 
 @media (min-width: 992px) {
     .show-nav {
-        display: flex;
         width: 100%;
     }
     .last {

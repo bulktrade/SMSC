@@ -49,19 +49,4 @@ export class CrudViewComponent {
         this.router.navigate([this.crudService.parentPath, 'delete',
             id.join().replace(/\[|\]/gi, '')]);
     }
-
-    clickOnCell(event) {
-        if (event.colDef.type === 'LINK' ||
-            event.colDef.type === 'LINKSET') {
-            this.crudService.setLinkedClass(event.colDef.linkedClass);
-            let linsetProperty: LinksetProperty = {
-                name: event.colDef.property,
-                type: event.colDef.type,
-                bingingProperties: event.colDef.bingingProperties,
-                data: event.data
-            };
-
-            this.crudService.navigateToLinkset(event.colDef.linkedClass, linsetProperty);
-        }
-    }
 }
