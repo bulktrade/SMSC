@@ -14,16 +14,16 @@ public class UserTestData {
     public static final long USER_ID = 1;
     public static final long ADMIN_ID = 2;
 
-    public static final User USER = new User(USER_ID,"user","password","userName","userSurname","user@gmail.com",true,false);
-    public static final User ADMIN = new User(ADMIN_ID,"admin","admin","adminName","adminSurname","admin@gmail.com",true,false);
+    public static final User USER = new User(USER_ID,"User","password","userName","userSurname","user@gmail.com",true,false);
+    public static final User ADMIN = new User(ADMIN_ID,"Admin","admin","adminName","adminSurname","admin@gmail.com",true,false);
 
-//    static
-//    {
-//        USER.setRoles(Collections.singletonList(ROLE_USER));
-//        ADMIN.setRoles(Collections.singletonList(ROLE_ADMIN));
-//    }
+    static
+    {
+        USER.setRoles(Collections.singletonList(ROLE_USER));
+        ADMIN.setRoles(Collections.singletonList(ROLE_ADMIN));
+    }
 
-    public static final ModelMatcher<User> USER_MODEL_MATCHER = new ModelMatcher<>(
+    public static final ModelMatcher<User> USER_MODEL_MATCHER = new ModelMatcher<>(User.class,
             (expected, actual) -> expected == actual ||
                     (Objects.equals(expected.getUsername(), actual.getUsername())
                             && Objects.equals(expected.getPassword(), actual.getPassword())
