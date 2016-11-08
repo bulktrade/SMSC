@@ -5,7 +5,6 @@ import { DashboardCrudUpdateResolve } from './crud/dashboard-crud-update.resolve
 import { DashboardCrudCreateResolve } from './crud/dashboard-crud-create.resolve';
 import { CrudLinksetComponent } from '../crud/crud-linkset/crud-linkset.component';
 import { CrudLinksetResolve } from '../crud/crud-linkset/crud-linkset.resolve';
-import { DashboardComponent } from './dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DashboardViewResolve } from './dashboard-view/dashboard-view.resolve';
@@ -75,35 +74,9 @@ const DASHBOARD_CRUD_ROUTES = [
     }
 ];
 
-const DASHBOARD_ROUTES = [
-    {
-        path: '',
-        component: DashboardComponent,
-        data: {
-            showInBreadcrumb: false,
-            showInSubNavigation: false,
-            translationKey: 'Dashboard',
-            icon: 'layers',
-            crudClass: 'DashboardBox',
-            crudTypeClass: 'DashboardBoxType',
-            dashboard: 'default'
-        },
-        children: DASHBOARD_CRUD_ROUTES
-    },
-    {
-        path: 'dashboard',
-        component: DashboardComponent,
-        data: {
-            crudClass: 'DashboardBox',
-            crudTypeClass: 'DashboardBoxType'
-        },
-        children: DASHBOARD_CRUD_ROUTES
-    }
-];
-
 @NgModule({
     imports: [
-        RouterModule.forChild(DASHBOARD_ROUTES)
+        RouterModule.forChild(DASHBOARD_CRUD_ROUTES)
     ],
     exports: [
         RouterModule

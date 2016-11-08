@@ -51,7 +51,7 @@ import {
 import {
     CrudMetaGridDataComponent
 } from './crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component';
-import { SharedModule } from "./shared.module";
+import { SharedModule } from './shared.module';
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,

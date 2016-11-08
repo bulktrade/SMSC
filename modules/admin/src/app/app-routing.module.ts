@@ -22,6 +22,7 @@ import { DashboardsComponent } from './dashboard/dashboards/dashboards.component
 import { NgModule } from '@angular/core';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { CrudModule } from './crud/crud.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const ROUTES: Routes = [
     {
@@ -46,7 +47,32 @@ export const ROUTES: Routes = [
                     translationKey: 'Dashboards',
                     icon: 'layers',
                     showInBreadcrumb: false
-                }
+                },
+                children: [
+                    {
+                        path: '',
+                        component: DashboardComponent,
+                        data: {
+                            showInBreadcrumb: true,
+                            showInSubNavigation: false,
+                            translationKey: 'Dashboards',
+                            icon: 'layers',
+                            crudClass: 'DashboardBox',
+                            crudTypeClass: 'DashboardBoxType',
+                            dashboard: 'default'
+                        },
+                        loadChildren: () => DashboardModule,
+                    },
+                    {
+                        path: 'dashboard',
+                        component: DashboardComponent,
+                        data: {
+                            crudClass: 'DashboardBox',
+                            crudTypeClass: 'DashboardBoxType'
+                        },
+                        loadChildren: () => DashboardModule,
+                    }
+                ]
             },
             {
                 path: 'customers',
@@ -175,10 +201,11 @@ export const ROUTES: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(ROUTES, {useHash: false})
+        RouterModule.forRoot(ROUTES, { useHash: false })
     ],
     exports: [
         RouterModule
     ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
