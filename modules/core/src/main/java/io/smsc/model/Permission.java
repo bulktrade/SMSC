@@ -8,15 +8,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "PERMISSIONS", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "permissions_unique_name_idx")})
-public class Permission{
+public class Permission extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "name", nullable = false)
-    @NotEmpty(message = "Permission name cannot be empty")
+    @Column(name = "name", nullable = false, unique = true)
+    @NotEmpty(message = "Permission's name cannot be empty")
     @Pattern(regexp = "[A-Z_]+", message = "Permission's name can be only uppercase and contain '_' symbol")
     private String name;
 
@@ -38,16 +33,8 @@ public class Permission{
     }
 
     public Permission(Long id, String name) {
-        this.id = id;
+        super(id);
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public List<Role> getRoles() {
@@ -66,34 +53,12 @@ public class Permission{
         this.name = name;
     }
 
-    public boolean isNew() {
-        return this.id == null;
-    }
-
     public boolean addRole(Role role){
         return this.roles.add(role);
     }
 
     public boolean removeRole(Role role){
         return this.roles.remove(role);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Permission that = (Permission) o;
-
-        if (!id.equals(that.id)) return false;
-        return name.equals(that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        return result;
     }
 
     @Override

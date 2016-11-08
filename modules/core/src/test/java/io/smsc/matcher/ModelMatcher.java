@@ -19,16 +19,18 @@ public class ModelMatcher<T> {
             (Object expected, Object actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual));
 
     private Comparator<T> comparator;
+    private Class<T> entityClass;
 
     public interface Comparator<T> {
         boolean compare(T expected, T actual);
     }
 
-    public ModelMatcher() {
-        this((Comparator<T>) DEFAULT_COMPARATOR);
+    public ModelMatcher(Class<T> entityClass) {
+        this(entityClass, (Comparator<T>) DEFAULT_COMPARATOR);
     }
 
-    public ModelMatcher(Comparator<T> comparator) {
+    public ModelMatcher(Class<T> entityClass, Comparator<T> comparator) {
+        this.entityClass = entityClass;
         this.comparator = comparator;
     }
 

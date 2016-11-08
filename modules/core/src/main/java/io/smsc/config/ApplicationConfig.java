@@ -19,7 +19,7 @@ import java.util.HashMap;
         entityManagerFactoryRef = "entityManager",
         transactionManagerRef = "transactionManager"
 )
-//@PropertySource(value = "classpath:application.properties")
+@PropertySource(value = "classpath:application.properties")
 @PropertySource(value = "classpath:${smsc.database:hsqldb}.properties")
 public class ApplicationConfig {
 
@@ -50,6 +50,7 @@ public class ApplicationConfig {
         properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         properties.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
         properties.put("hibernate.use_sql_comments", env.getProperty("hibernate.use_sql_comments"));
+        properties.put("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
         em.setJpaPropertyMap(properties);
         return em;
     }

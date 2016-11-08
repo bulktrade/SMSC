@@ -1,9 +1,7 @@
 package io.smsc.model;
 
-import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -13,12 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"username","email"}, name = "users_unique_username_email_idx")})
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+public class User extends BaseEntity{
 
     @Column(name = "username", nullable = false, unique = true)
     @NotEmpty(message = "User's name cannot be empty")
@@ -50,29 +43,23 @@ public class User {
     @Column(name = "blocked", nullable = false, columnDefinition = "boolean default false")
     private boolean blocked = false;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade =
-                    {
-                            CascadeType.DETACH,
-                            CascadeType.MERGE,
-                            CascadeType.REFRESH,
-                            CascadeType.PERSIST
-                    },
-            targetEntity = Role.class)
+    @ManyToMany()
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
-            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private List<Role> roles;
 
     public User() {
     }
 
+    public User(User user) {
+        this(user.getId(),user.getUsername(),user.getPassword(),user.getFirstName(),user.getSurName(),user.getEmail(),user.isActive(),user.isBlocked());
+    }
+
     public User(Long id, String username, String password, String firstName, String surName, String email, boolean active, boolean blocked) {
-        this.id = id;
+        super(id);
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -80,14 +67,6 @@ public class User {
         this.email = email;
         this.active = active;
         this.blocked = blocked;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -170,43 +149,6 @@ public class User {
         return this.roles.remove(role);
     }
 
-    public boolean isNew() {
-        return this.id == null;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (active != user.active) return false;
-        if (blocked != user.blocked) return false;
-        if (!id.equals(user.id)) return false;
-        if (!username.equals(user.username)) return false;
-        if (!password.equals(user.password)) return false;
-        if (!firstName.equals(user.firstName)) return false;
-        if (!surName.equals(user.surName)) return false;
-        if (!email.equals(user.email)) return false;
-        return created.equals(user.created);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + username.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + firstName.hashCode();
-        result = 31 * result + surName.hashCode();
-        result = 31 * result + email.hashCode();
-        result = 31 * result + (active ? 1 : 0);
-        result = 31 * result + created.hashCode();
-        result = 31 * result + (blocked ? 1 : 0);
-        return result;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -217,7 +159,9 @@ public class User {
                 ", surName='" + surName + '\'' +
                 ", email='" + email + '\'' +
                 ", active=" + active +
+                ", created=" + created +
                 ", blocked=" + blocked +
+                ", roles=" + roles +
                 '}';
     }
 }
