@@ -113,8 +113,8 @@ export class CrudService {
      */
     setCellStyleWhenDataIncorrect(gridOptions: GridOptions, style: Object, changeCell) {
         gridOptions.columnDefs.filter(i => {
-            if (i.property === changeCell.colDef.property) {
-                i.cellStyle = (params) => {
+            if (i['property'] === changeCell.colDef.property) {
+                i['cellStyle'] = (params) => {
                     if (params.data['@rid'] === changeCell.data['@rid']) {
                         return style;
                     }
@@ -332,7 +332,6 @@ export class CrudService {
             headerName: ' ',
             field: 'checkboxSel',
             width: 25,
-            hideInForm: true,
             checkboxSelection: true,
             headerCellTemplate: () => {
                 let that = this;
@@ -494,7 +493,6 @@ export class CrudService {
             headerName: ' ',
             field: 'controlPanel',
             width: width,
-            hideInForm: true,
             cellRenderer: () => {
                 let that = this;
                 let buttonWrapper = document.createElement('div');
@@ -729,7 +727,6 @@ export class CrudService {
         gridOptions.columnDefs.unshift({
             headerName: 'RID',
             field: '@rid',
-            hideInForm: true,
             width: 55
         });
     }
