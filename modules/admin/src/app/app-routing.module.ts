@@ -40,7 +40,6 @@ export const ROUTES: Routes = [
             {
                 path: '',
                 component: DashboardsComponent,
-                loadChildren: () => DashboardModule,
                 data: {
                     similarPath: 'dasboards', // @todo Impement in sidenav
                     showInSubNavigation: true,
@@ -53,7 +52,7 @@ export const ROUTES: Routes = [
                         path: '',
                         component: DashboardComponent,
                         data: {
-                            showInBreadcrumb: true,
+                            showInBreadcrumb: false,
                             showInSubNavigation: false,
                             translationKey: 'Dashboards',
                             icon: 'layers',

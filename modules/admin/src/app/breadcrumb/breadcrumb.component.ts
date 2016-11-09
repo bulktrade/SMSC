@@ -46,8 +46,7 @@ export class BreadcrumbComponent {
         BreadcrumbComponent
     ],
     providers: [
-        BreadcrumbService,
-        TranslateService
+        BreadcrumbService
     ]
 })
 export class BreadcrumbModule {

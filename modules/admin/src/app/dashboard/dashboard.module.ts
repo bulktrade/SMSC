@@ -76,7 +76,6 @@ const DASHBOARD_DECLARATION = [
     ],
     providers: [
         CrudService,
-        TranslateService,
         DashboardService,
         BaThemeConfigProvider,
         LineChartService,

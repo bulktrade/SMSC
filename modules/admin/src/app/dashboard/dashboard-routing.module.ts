@@ -25,7 +25,7 @@ const DASHBOARD_CRUD_ROUTES = [
         },
         data: {
             showInBreadcrumb: true,
-            translationKey: 'DashboardViewComponent'
+            translationKey: 'DashboardView'
         }
     },
     {
