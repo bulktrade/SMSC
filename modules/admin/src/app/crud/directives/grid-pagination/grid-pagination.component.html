@@ -1,6 +1,6 @@
 <div class="grid-pagination">
-	<div class="row-summary-panel">{{fromRecord}} to {{toRecord}} of
-		more
+	<div class="row-summary-panel">{{fromRecord}} {{'pagination.to' | translate}} {{toRecord}} {{'pagination.more' |
+		translate}}
 	</div>
 	<div class="page-summary-panel">
 		<div class="previous-panel">
@@ -13,7 +13,9 @@
 				<i class="material-icons">chevron_left</i>
 			</button>
 		</div>
-		<div class="page-info">Page <span id="currentPage">{{currentPage + 1}}</span> of more</div>
+		<div class="page-info">{{'pagination.page' | translate}} <span id="currentPage">{{currentPage + 1}}</span>
+			{{'pagination.more' | translate}}
+		</div>
 		<div class="next-panel">
 			<button type="button" class="btn btn-default btn-icon" id="nextPage" (click)="next()"
 			        [disabled]="toRecord === sizeClass">

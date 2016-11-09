@@ -94,5 +94,19 @@
     "cell.mandatoryException": "The fields are not filled",
     "cell.numberFormatException": "Number format exception",
     "METADATAPROPERTYBINDINGPARAMETER": "Binding Parameter",
-    "PAGE_SIZE": "Page size"
+    "PAGE_SIZE": "Page size",
+    "pagination.to": "to",
+    "pagination.more": "of more",
+    "pagination.page": "Page",
+    "CLASS": "Class",
+    "TITLECOLUMNS": "Title columns",
+    "EDITABLE": "Editable",
+    "QUERY": "Query",
+    "PROPERTY": "Property",
+    "VISIBLE": "Visible",
+    "DECORATOR": "Decorator",
+    "ORDER": "Order",
+    "BINGINGPROPERTIES": "Binging properties",
+    "COLUMNWIDTH": "Column width",
+    "FIELDLAYOUTGRIDPOSITION": "Field layout grid position"
 }
