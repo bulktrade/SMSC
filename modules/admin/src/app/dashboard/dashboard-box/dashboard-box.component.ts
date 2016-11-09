@@ -78,36 +78,29 @@ export class DashboardBoxComponent {
     /**
      * Toggle fullscreen for dashboard box.
      */
-    toggleFullscreen(esc?: boolean) { // @todo (Stas) Fix it
-        this.sidebarService.toggleSidenav().then(() => {
-            let dom: BrowserDomAdapter = new BrowserDomAdapter();
+    toggleFullscreen(esc?: boolean) {
+        this.sidebarService.toggleSidenav();
 
-            if (this.sidebarService.fullScreenMode) {
-                dom.query('.md-sidenav-content').scrollTop = this.sidebarService.prevTopScroll;
-                dom.query('.md-sidenav-content').scrollLeft = this.sidebarService.prevLeftScroll;
+        let dom: BrowserDomAdapter = new BrowserDomAdapter();
 
-                dom.removeStyle(dom.query('.md-sidenav-content'), 'overflow');
-                dom.removeClass(dom.query('.header'), 'fullscreen-header');
+        if (!this.sidebarService.toggle) {
+            dom.removeStyle(dom.query('#wrapper'), 'overflow');
+            dom.removeClass(dom.query('.header'), 'fullscreen-header');
 
-                if (esc === undefined) {
-                    dom.removeClass(dom.query('.box[data-boxrid="' +
-                        this.config.customData['rid'] + '"] .content'), 'fullscreen');
-                }
-
-                this.sidebarService.fullScreenMode = false;
-            } else {
-                this.sidebarService.prevTopScroll = dom.query('.md-sidenav-content').scrollTop;
-                this.sidebarService.prevLeftScroll = dom.query('.md-sidenav-content').scrollLeft;
-                dom.query('.md-sidenav-content').scrollTop = 0;
-                dom.query('.md-sidenav-content').scrollLeft = 0;
-
-                dom.setStyle(dom.query('.md-sidenav-content'), 'overflow', 'hidden');
-                dom.addClass(dom.query('.header'), 'fullscreen-header');
-                dom.addClass(dom.query('.box[data-boxrid="' +
+            if (esc === undefined) {
+                dom.removeClass(dom.query('.box[data-boxrid="' +
                     this.config.customData['rid'] + '"] .content'), 'fullscreen');
-                this.sidebarService.fullScreenMode = true;
             }
-        });
+
+            this.sidebarService.fullScreenMode = false;
+        } else {
+            dom.setStyle(dom.query('#wrapper'), 'overflow', 'hidden');
+            dom.addClass(dom.query('.header'), 'fullscreen-header');
+            dom.addClass(dom.query('.box[data-boxrid="' +
+                this.config.customData['rid'] + '"] .content'), 'fullscreen');
+
+            this.sidebarService.fullScreenMode = true;
+        }
     }
 
     /**

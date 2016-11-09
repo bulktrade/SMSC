@@ -39,14 +39,14 @@ describe('DashboardComponent', () => {
     });
 
     //  Open/Close crud box tool
-    // it('Open/Close crud box tool', () => {
-    //     this.dashboard.toggleCloseIcon();
-    // });
+    it('Open/Close crud box tool', () => {
+        this.dashboard.toggleCloseIcon();
+    });
 
     //  Change size mode
-    // it('Switch height box mode', () => {
-    //     this.dashboard.clickOnSizeButtons();
-    // });
+    it('Switch height box mode', () => {
+        this.dashboard.clickOnSizeButtons();
+    });
 
     //  Create box
     it('Create box', () => {
