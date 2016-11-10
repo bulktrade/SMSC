@@ -30,4 +30,9 @@ describe('Breadcrumb', () => {
         expect(breadcrumb.isPresentMainContent()).toBeTruthy();
         expect(breadcrumb.breadcrumbTag.isDisplayed()).toBeFalsy();
     });
+
+    it('should logout', () => {
+        breadcrumb.login.logout();
+        expect(breadcrumb.login.isPresentLogin()).toBeTruthy();
+    });
 });
