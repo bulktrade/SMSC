@@ -33,6 +33,7 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     User findByEmail(@Param("email") String email);
 
     @Override
+    @Query("SELECT u FROM User u ORDER BY u.id")
     List<User> findAll();
 
     @Query("SELECT DISTINCT u FROM User u JOIN FETCH u.roles")

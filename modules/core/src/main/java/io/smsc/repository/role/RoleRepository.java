@@ -30,6 +30,7 @@ public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositor
     Role findOneWithPermissions(Long id);
 
     @Override
+    @Query("SELECT r FROM Role r ORDER BY r.id")
     List<Role> findAll();
 
     @Query("SELECT r FROM Role r LEFT JOIN r.permissions")

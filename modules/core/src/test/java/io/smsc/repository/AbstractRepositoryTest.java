@@ -23,10 +23,15 @@ public abstract class AbstractRepositoryTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractRepositoryTest.class);
 
-    @Before
-    public void setDb(){
-        System.setProperty("smsc.database","postgresql");
+    static
+    {
+        System.setProperty("smsc.database","mysql");
     }
+
+//    @Before
+//    public void setDb(){
+//        System.setProperty("smsc.database","postgresql");
+//    }
 
     private static StringBuilder results = new StringBuilder();
 
