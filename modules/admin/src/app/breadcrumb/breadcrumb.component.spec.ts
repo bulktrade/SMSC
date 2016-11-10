@@ -3,7 +3,6 @@ import { HttpModule } from '@angular/http';
 import { BreadcrumbComponent } from './breadcrumb.component';
 import { BreadcrumbService } from './breadcrumb.service';
 import { RouterModule, UrlTree, NavigationExtras, ActivatedRoute, Router } from '@angular/router';
-import { CRUD_PROVIDERS } from '../crud/common/crud-providers';
 import { TranslateModule, TranslateService, TranslateLoader } from 'ng2-translate';
 
 class MockActivatedRoute {
@@ -25,7 +24,7 @@ describe('BreadcrumbComponent', () => {
             imports: [
                 TranslateModule,
                 HttpModule,
-                RouterModule.forRoot([])
+                RouterModule
             ]
         });
     });

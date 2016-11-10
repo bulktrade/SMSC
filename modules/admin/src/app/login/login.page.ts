@@ -11,7 +11,6 @@ export class LoginPage {
     public logoutBtn = element(by.id('logout'));
     public loginComponent = element(by.tagName('login'));
 
-
     constructor() {
     }
 

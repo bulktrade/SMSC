@@ -45,6 +45,12 @@ navigation {
     color: #fff;
 }
 
+@media all and (max-width: 992px) {
+    breadcrumb {
+        display: none;
+    }
+}
+
 /*-- STYLE FOR ICON BUTTON (BEGIN) --*/
 
 .btn-icon {

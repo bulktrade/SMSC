@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 })
 
 export class BreadcrumbComponent {
-    public breadcrumb: BreadcrumbService;
+    public breadcrumbService: BreadcrumbService;
 
     constructor(public translate: TranslateService,
                 public router: Router,
@@ -29,7 +29,7 @@ export class BreadcrumbComponent {
     }
 
     ngOnInit() {
-        this.breadcrumb = new BreadcrumbService(this.router, this.route);
+        this.breadcrumbService = new BreadcrumbService(this.router, this.route);
     }
 }
 
