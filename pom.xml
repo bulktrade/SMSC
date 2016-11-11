@@ -527,6 +527,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- Encoding -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.10</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

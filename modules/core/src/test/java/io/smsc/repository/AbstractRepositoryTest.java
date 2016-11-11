@@ -18,20 +18,15 @@ import java.util.concurrent.TimeUnit;
 
 @ContextConfiguration(classes = {ApplicationConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
+//@Transactional
 public abstract class AbstractRepositoryTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractRepositoryTest.class);
 
     static
     {
-        System.setProperty("smsc.database","mysql");
+        System.setProperty("smsc.database","postgresql");
     }
-
-//    @Before
-//    public void setDb(){
-//        System.setProperty("smsc.database","postgresql");
-//    }
 
     private static StringBuilder results = new StringBuilder();
 

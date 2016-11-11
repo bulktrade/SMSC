@@ -1,5 +1,6 @@
 package io.smsc.model;
 
+import io.smsc.converters.CryptoConverter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -19,6 +20,7 @@ public class User extends BaseEntity{
 
     @Column(name = "password", nullable = false)
     @NotEmpty(message = "User's password cannot be empty")
+    @Convert(converter = CryptoConverter.class)
     private String password;
 
     @Column(name = "first_name", nullable = false)
