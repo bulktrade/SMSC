@@ -2,7 +2,6 @@ package io.smsc.repository;
 
 import io.smsc.config.ApplicationConfig;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
@@ -23,10 +22,10 @@ public abstract class AbstractRepositoryTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractRepositoryTest.class);
 
-    @Before
-    public void setDb(){
-        System.setProperty("smsc.database","postgresql");
-    }
+//    static
+//    {
+//        System.setProperty("smsc.database","postgresql");
+//    }
 
     private static StringBuilder results = new StringBuilder();
 
