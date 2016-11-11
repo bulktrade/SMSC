@@ -2,11 +2,9 @@ package io.smsc.repository;
 
 import io.smsc.model.User;
 import io.smsc.repository.user.UserRepository;
-import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -67,12 +65,6 @@ public class UserRepositoryTest extends AbstractRepositoryTest {
         newUser.setId(null);
         userRepository.save(newUser);
         USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newUser,USER,ADMIN), userRepository.findAll());
-    }
-
-    @Test
-    public void testPasswordEquals() throws Exception {
-        User user = userRepository.findOne(Long.valueOf(11));
-        Assert.assertEquals("john123456",user.getPassword());
     }
 
 }
