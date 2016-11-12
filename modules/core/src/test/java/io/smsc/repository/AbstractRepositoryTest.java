@@ -1,6 +1,7 @@
 package io.smsc.repository;
 
-import io.smsc.config.ApplicationConfig;
+//import io.smsc.config.ApplicationConfig;
+import io.smsc.Application;
 import org.junit.AfterClass;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
@@ -15,17 +16,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.TimeUnit;
 
-@ContextConfiguration(classes = {ApplicationConfig.class})
+@ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public abstract class AbstractRepositoryTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractRepositoryTest.class);
 
-//    static
-//    {
-//        System.setProperty("smsc.database","postgresql");
-//    }
+    static
+    {
+        System.setProperty("smsc.database","postgresql");
+    }
 
     private static StringBuilder results = new StringBuilder();
 

@@ -4,12 +4,15 @@ import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public class BaseEntity implements Persistable<Long> {
+public class BaseEntity implements Persistable<Long>, Serializable {
 
-//    @Id
+    private static final long serialVersionUID = 1L;
+
+    //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    @Column(name = "id")
     @Id
