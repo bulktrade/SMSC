@@ -40,7 +40,7 @@ public class BaseEntity implements Persistable<Long>, Serializable {
 
     @Override
     public boolean isNew() {
-        return (this.id == null);
+        return (getId() == null);
     }
 
     @Override

@@ -1,12 +1,14 @@
-package io.smsc.repository;
+package io.smsc.repository.data_jpa;
 
 import io.smsc.model.Permission;
+import io.smsc.repository.AbstractRepositoryTest;
 import io.smsc.repository.permission.PermissionRepository;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.dao.DataIntegrityViolationException;
+
 import javax.validation.ConstraintViolationException;
 
 import java.util.Arrays;

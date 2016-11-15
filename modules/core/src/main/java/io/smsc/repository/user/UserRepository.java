@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "users", path = "rest/repository/users")
+@RepositoryRestResource(collectionResourceRel = "users", path = "users")
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
 

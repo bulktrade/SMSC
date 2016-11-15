@@ -1,6 +1,7 @@
-package io.smsc.repository;
+package io.smsc.repository.data_jpa;
 
 import io.smsc.model.Role;
+import io.smsc.repository.AbstractRepositoryTest;
 import io.smsc.repository.role.RoleRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

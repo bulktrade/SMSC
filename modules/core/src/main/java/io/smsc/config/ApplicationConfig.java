@@ -1,7 +1,6 @@
 package io.smsc.config;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
-import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.*;

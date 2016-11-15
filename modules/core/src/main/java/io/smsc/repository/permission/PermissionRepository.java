@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "permissions", path = "rest/repository/permission")
+@RepositoryRestResource(collectionResourceRel = "permissions", path = "permissions")
 @Transactional(readOnly = true)
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
