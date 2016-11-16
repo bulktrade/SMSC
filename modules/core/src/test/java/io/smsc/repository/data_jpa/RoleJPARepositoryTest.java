@@ -14,7 +14,7 @@ import java.util.Collections;
 
 import static io.smsc.RoleTestData.*;
 
-public class RoleRepositoryTest extends AbstractRepositoryTest {
+public class RoleJPARepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private RoleRepository roleRepository;
@@ -30,7 +30,7 @@ public class RoleRepositoryTest extends AbstractRepositoryTest {
         Role newRole = new Role(null,"ROLE_GOD");
         Role created = roleRepository.save(newRole);
         newRole.setId(created.getId());
-        ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(ROLE_USER,ROLE_ADMIN,newRole), roleRepository.findAll());
+        ROLE_MODEL_MATCHER.assertEquals(newRole, roleRepository.findOne(newRole.getId()));
     }
 
     @Test

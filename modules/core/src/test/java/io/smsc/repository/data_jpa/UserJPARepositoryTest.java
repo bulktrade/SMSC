@@ -13,7 +13,7 @@ import java.util.Collections;
 
 import static io.smsc.UserTestData.*;
 
-public class UserRepositoryTest extends AbstractRepositoryTest {
+public class UserJPARepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;

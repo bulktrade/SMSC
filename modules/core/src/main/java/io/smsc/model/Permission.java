@@ -7,7 +7,7 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
-@Table(name = "PERMISSIONS", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "permissions_unique_name_idx")})
+@Table(name = "PERMISSION", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "permissions_unique_name_idx")})
 public class Permission extends BaseEntity{
 
     @Column(name = "name", nullable = false, unique = true)
@@ -16,6 +16,7 @@ public class Permission extends BaseEntity{
     private String name;
 
     @ManyToMany(mappedBy = "permissions")
+    @OrderBy
     private List<Role> roles;
 
     @PreRemove

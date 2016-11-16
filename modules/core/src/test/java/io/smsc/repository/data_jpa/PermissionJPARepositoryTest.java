@@ -16,7 +16,7 @@ import java.util.Collection;
 
 import static io.smsc.PermissionTestData.*;
 
-public class PermissionRepositoryTest extends AbstractRepositoryTest {
+public class PermissionJPARepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private PermissionRepository permissionRepository;
