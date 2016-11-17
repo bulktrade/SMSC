@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "role", path = "rest/repository/role")
+@RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
 @Transactional(readOnly = true)
 public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositoryCustom {
 

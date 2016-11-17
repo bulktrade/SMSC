@@ -1,6 +1,7 @@
-package io.smsc.repository;
+package io.smsc.repository.data_jpa;
 
 import io.smsc.model.User;
+import io.smsc.repository.AbstractRepositoryTest;
 import io.smsc.repository.user.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.Collections;
 
 import static io.smsc.UserTestData.*;
 
-public class UserRepositoryTest extends AbstractRepositoryTest {
+public class UserJPARepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;

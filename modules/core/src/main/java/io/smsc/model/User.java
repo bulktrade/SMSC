@@ -1,5 +1,6 @@
 package io.smsc.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.smsc.converters.CryptoConverter;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -11,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "USERS", uniqueConstraints = {@UniqueConstraint(columnNames = {"username","email"}, name = "users_unique_username_email_idx")})
+@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"username","email"}, name = "users_unique_username_email_idx")})
 public class User extends BaseEntity{
 
     @Column(name = "username", nullable = false, unique = true)
@@ -40,14 +41,16 @@ public class User extends BaseEntity{
     private boolean active = true;
 
     @Column(name = "created", columnDefinition = "timestamp default now()")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="CET")
     private Date created = new Date();
 
     @Column(name = "blocked", nullable = false, columnDefinition = "boolean default false")
     private boolean blocked = false;
 
     @ManyToMany()
+    @OrderBy
     @JoinTable(
-            name = "users_roles",
+            name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )

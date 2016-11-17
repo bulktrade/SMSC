@@ -1,8 +1,8 @@
 INSERT INTO USERS (id, username, password, first_name, surName, email) VALUES
-  (1, 'User', 'password', 'userName', 'userSurname', 'user@gmail.com');
+  (1, 'User', 'ZulhwB27UKBqJPYk2f9UQg==', 'userName', 'userSurname', 'user@gmail.com');
 
 INSERT INTO USERS (id, username, password, first_name, surName, email) VALUES
-  (2, 'Admin', 'admin', 'adminName', 'adminSurname', 'admin@gmail.com');
+  (2, 'Admin', 'GmcYVu1XLNFLwfDvnrzJPw==', 'adminName', 'adminSurname', 'admin@gmail.com');
 
 INSERT INTO ROLES (id, name) VALUES
   (3, 'USER');

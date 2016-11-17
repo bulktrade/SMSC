@@ -7,7 +7,7 @@ import org.junit.Test;
 public class PasswordCryptTest {
 
     private static final CryptoConverter CONVERTER = new CryptoConverter();
-    private static final String PASSWORD = "qwerty1234567890";
+    private static final String PASSWORD = "qwerty123456";
 
     @Test
     public void testEncryptDecryptPassword(){

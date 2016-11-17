@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
-@Table(name = "ROLES", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "roles_unique_name_idx")})
+@Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "roles_unique_name_idx")})
 public class Role extends BaseEntity{
 
     @Column(name = "name", nullable = false, unique = true)
@@ -18,14 +18,16 @@ public class Role extends BaseEntity{
     private String name;
 
     @ManyToMany()
+    @OrderBy
     @JoinTable(
-            name = "roles_permissions",
+            name = "ROLE_PERMISSION",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
     )
     private List<Permission> permissions;
 
     @ManyToMany(mappedBy = "roles")
+    @OrderBy
     private List<User> users;
 
     @PreRemove
