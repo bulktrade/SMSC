@@ -103,7 +103,7 @@ describe('Grid Pagination', () => {
             });
 
             spyOn(gp, 'changePageSize');
-            gp.changePageSize(25);
+            gp.changePageSize();
             expect(gp.changePageSize).toHaveBeenCalled();
         }));
 

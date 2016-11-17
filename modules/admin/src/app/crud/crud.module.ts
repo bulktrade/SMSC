@@ -10,7 +10,6 @@ import { LoadingRouterOutletModule } from '../common/loading-router-outlet.compo
 import { CubeGridModule } from '../common/spinner/cube-grid/cube-grid.component';
 import { AlertModule } from 'ng2-bootstrap';
 import { AgGridModule } from 'ag-grid-ng2';
-import { GridPaginationModule } from './directives/grid-pagination/grid-pagination.component';
 import { LoadingGridModule } from '../common/loading-grid.component';
 import { FormsModule } from '@angular/forms';
 import { MultipleSelectModule } from './directives/multiple-select/multiple-select.component';
@@ -20,6 +19,7 @@ import { CrudRoutingModule } from './crud-routing.module';
 import { CommonModule } from '@angular/common';
 import { DynamicViewModule } from './dynamic-view/dynamic-view.component';
 import { TranslateModule } from 'ng2-translate';
+import { GridPaginationModule } from './directives/grid-pagination/grid-pagination.module';
 
 const CRUD_DECLARATIONS = [
     CrudComponent,

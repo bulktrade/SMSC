@@ -26,7 +26,7 @@ import { MdSelectModule } from '../common/material/select/select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingGridModule } from '../common/loading-grid.component';
 import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
-import { GridPaginationModule } from '../crud/directives/grid-pagination/grid-pagination.component';
+import { GridPaginationModule } from '../crud/directives/grid-pagination/grid-pagination.module';
 import {
     DashboardCrudDeleteComponent
 } from './crud/dashboard-box-delete/dashboard-box-delete.component';

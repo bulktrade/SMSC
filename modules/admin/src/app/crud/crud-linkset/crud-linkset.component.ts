@@ -5,7 +5,7 @@ import { CrudService } from '../crud.service';
 import { Location, CommonModule } from '@angular/common';
 import { GridService } from '../../services/grid.service';
 import { MdSelectModule } from '../../common/material/select/select.component';
-import { GridPaginationModule } from '../directives/grid-pagination/grid-pagination.component';
+import { GridPaginationModule } from '../directives/grid-pagination/grid-pagination.module';
 import { DropdownModule, AlertModule } from 'ng2-bootstrap';
 import { AgGridModule } from 'ag-grid-ng2';
 import { LoadingGridModule } from '../../common/loading-grid.component';
