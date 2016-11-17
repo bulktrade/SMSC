@@ -135,6 +135,7 @@
         "phantomjs": "^2.1.7",
         "postcss": "^5.2.0",
         "postcss-loader": "^0.13.0",
+        "primeng": "^1.0.0-rc.4",
         "protractor": "^4.0.10",
         "browserstack-local": "^1.1.0",
         "raw-loader": "0.5.1",
