@@ -40,22 +40,22 @@ public class UserRestRepositoryTest extends AbstractRepositoryTest {
         mockMvc.perform(get("/rest/repository/users"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.users", hasSize(2)));
-//                .andExpect(jsonPath("$._embedded.users[0].username", is(USER.getUsername())))
-//                .andExpect(jsonPath("$._embedded.users[0].password", is(USER.getPassword())))
-//                .andExpect(jsonPath("$._embedded.users[0].firstName", is(USER.getFirstName())))
-//                .andExpect(jsonPath("$._embedded.users[0].email", is(USER.getEmail())))
-//                .andExpect(jsonPath("$._embedded.users[0].active", is(USER.isActive())))
+                .andExpect(jsonPath("$._embedded.users", hasSize(2)))
+                .andExpect(jsonPath("$._embedded.users[0].username", is(USER.getUsername())))
+                .andExpect(jsonPath("$._embedded.users[0].password", is(USER.getPassword())))
+                .andExpect(jsonPath("$._embedded.users[0].firstName", is(USER.getFirstName())))
+                .andExpect(jsonPath("$._embedded.users[0].email", is(USER.getEmail())))
+                .andExpect(jsonPath("$._embedded.users[0].active", is(USER.isActive())))
 //                .andExpect(jsonPath("$._embedded.users[0].created", is(USER.getCreated().toString().substring(0,19))))
-//                .andExpect(jsonPath("$._embedded.users[0].blocked", is(USER.isBlocked())))
-//                .andExpect(jsonPath("$._embedded.users[1].username", is(ADMIN.getUsername())))
-//                .andExpect(jsonPath("$._embedded.users[1].password", is(ADMIN.getPassword())))
-//                .andExpect(jsonPath("$._embedded.users[1].firstName", is(ADMIN.getFirstName())))
-//                .andExpect(jsonPath("$._embedded.users[1].surName", is(ADMIN.getSurName())))
-//                .andExpect(jsonPath("$._embedded.users[1].email", is(ADMIN.getEmail())))
-//                .andExpect(jsonPath("$._embedded.users[1].active", is(ADMIN.isActive())))
+                .andExpect(jsonPath("$._embedded.users[0].blocked", is(USER.isBlocked())))
+                .andExpect(jsonPath("$._embedded.users[1].username", is(ADMIN.getUsername())))
+                .andExpect(jsonPath("$._embedded.users[1].password", is(ADMIN.getPassword())))
+                .andExpect(jsonPath("$._embedded.users[1].firstName", is(ADMIN.getFirstName())))
+                .andExpect(jsonPath("$._embedded.users[1].surName", is(ADMIN.getSurName())))
+                .andExpect(jsonPath("$._embedded.users[1].email", is(ADMIN.getEmail())))
+                .andExpect(jsonPath("$._embedded.users[1].active", is(ADMIN.isActive())))
 //                .andExpect(jsonPath("$._embedded.users[1].created", is(ADMIN.getCreated().toString().substring(0,19))))
-//                .andExpect(jsonPath("$._embedded.users[1].blocked", is(ADMIN.isBlocked())));
+                .andExpect(jsonPath("$._embedded.users[1].blocked", is(ADMIN.isBlocked())));
     }
 
     @Test

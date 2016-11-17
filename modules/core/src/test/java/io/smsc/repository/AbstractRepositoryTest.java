@@ -16,6 +16,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,8 +32,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
-//@SpringBootTest(classes = Application.class,webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+//@SpringBootTest(classes = Application.class,webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @WebAppConfiguration
+@TestPropertySource(properties = {"smsc.database = postgresql"})
 @Transactional
 public abstract class AbstractRepositoryTest {
 
@@ -45,11 +47,6 @@ public abstract class AbstractRepositoryTest {
     private HttpMessageConverter mappingJackson2HttpMessageConverter;
 
     protected MediaType contentType = MediaType.valueOf("application/hal+json;charset=UTF-8");
-
-    static
-    {
-        System.setProperty("smsc.database","postgresql");
-    }
 
     @Autowired
     void setConverters(HttpMessageConverter<?>[] converters) {

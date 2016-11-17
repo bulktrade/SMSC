@@ -484,11 +484,11 @@
                 <artifactId>h2</artifactId>
                 <version>1.4.192</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>com.oracle</groupId>-->
-                <!--<artifactId>ojdbc14</artifactId>-->
-                <!--<version>10.2.0.4.0</version>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>11.2.0.4</version>
+            </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
