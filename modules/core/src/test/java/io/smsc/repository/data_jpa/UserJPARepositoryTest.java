@@ -1,5 +1,6 @@
 package io.smsc.repository.data_jpa;
 
+import io.smsc.converters.CryptoConverter;
 import io.smsc.model.User;
 import io.smsc.repository.AbstractRepositoryTest;
 import io.smsc.repository.user.UserRepository;
@@ -21,26 +22,26 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
     @Test
     public void testDelete() throws Exception {
         userRepository.deleteById(USER_ID);
-        USER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), userRepository.findAll());
+        USER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), userRepository.getAllWithDecryptedPassword());
     }
 
     @Test
     public void testSave() throws Exception {
         User newUser = new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
-        User created = userRepository.save(newUser);
+        User created = userRepository.saveOneWithEncryptedPassword(newUser);
         newUser.setId(created.getId());
-        USER_MODEL_MATCHER.assertEquals(newUser, userRepository.findOne(newUser.getId()));
+//        USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithDecryptedPassword(newUser.getId()));
     }
 
     @Test
     public void testGet() throws Exception {
-        User user = userRepository.findOne(USER_ID);
+        User user = userRepository.getOneWithDecryptedPassword(USER_ID);
         USER_MODEL_MATCHER.assertEquals(USER,user);
     }
 
     @Test
     public void testGetAll() throws Exception {
-        Collection<User> users = userRepository.findAll();
+        Collection<User> users = userRepository.getAllWithDecryptedPassword();
         USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(USER, ADMIN), users);
     }
 
@@ -50,13 +51,14 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
         updated.setActive(false);
         updated.setBlocked(true);
         updated.setEmail("bot@gmail.com");
-        userRepository.save(updated);
-        USER_MODEL_MATCHER.assertEquals(updated, userRepository.findOne(USER_ID));
+        userRepository.saveOneWithEncryptedPassword(updated);
+        CryptoConverter.decryptPassword(updated);
+        USER_MODEL_MATCHER.assertEquals(updated, userRepository.getOneWithDecryptedPassword(USER_ID));
     }
 
     @Test
     public void testGetByEmail() throws Exception {
-        User user = userRepository.findByEmail("admin@gmail.com");
+        User user = userRepository.getOneByEmailWithDecryptedPassword("admin@gmail.com");
         USER_MODEL_MATCHER.assertEquals(ADMIN, user);
     }
 
@@ -64,8 +66,8 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
     public void testDuplicateUsernameMailSave() throws Exception {
         User newUser = new User(USER);
         newUser.setId(null);
-        userRepository.save(newUser);
-        USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newUser,USER,ADMIN), userRepository.findAll());
+        userRepository.saveOneWithEncryptedPassword(newUser);
+        USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newUser,USER,ADMIN), userRepository.getAllWithDecryptedPassword());
     }
 
 }

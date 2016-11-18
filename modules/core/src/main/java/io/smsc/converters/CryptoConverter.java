@@ -1,30 +1,28 @@
 package io.smsc.converters;
 
-import org.springframework.beans.factory.annotation.Value;
+import io.smsc.model.User;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.keygen.KeyGenerators;
-import org.springframework.stereotype.Component;
 
-import javax.persistence.AttributeConverter;
+public class CryptoConverter {
 
-@Component
-public class CryptoConverter implements AttributeConverter<String, String> {
+    private static final String SECRET_KEY = "smsc.io";
 
-    @Value("${encrypt.key}")
-    private String secretKey = "asdasd";
-
-    private String salt = KeyGenerators.string().generateKey();
-
-    private TextEncryptor encryptor = Encryptors.text(secretKey,salt);
-
-    @Override
-    public String convertToDatabaseColumn(String userPassword) {
-        return encryptor.encrypt(userPassword);
+    public static String encryptPassword(User user) {
+        String salt = KeyGenerators.string().generateKey();
+        String password = user.getPassword();
+        TextEncryptor encryptor = Encryptors.text(SECRET_KEY,salt);
+        user.setPassword(encryptor.encrypt(password));
+        user.setSalt(salt);
+        return encryptor.encrypt(password);
     }
 
-    @Override
-    public String convertToEntityAttribute(String dbData) {
-       return encryptor.decrypt(dbData);
+    public static String decryptPassword(User user) {
+       String salt = user.getSalt();
+       String password = user.getPassword();
+       TextEncryptor encryptor = Encryptors.text(SECRET_KEY,salt);
+       user.setPassword(encryptor.decrypt(password));
+       return encryptor.decrypt(password);
     }
 }

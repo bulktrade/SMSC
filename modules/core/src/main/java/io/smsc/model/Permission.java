@@ -11,8 +11,8 @@ import java.util.List;
 public class Permission extends BaseEntity{
 
     @Column(name = "name", nullable = false, unique = true)
-    @NotEmpty(message = "Permission's name cannot be empty")
-    @Pattern(regexp = "[A-Z_]+", message = "Permission's name can be only uppercase and contain '_' symbol")
+    @NotEmpty(message = "{permission.empty.validation}")
+    @Pattern(regexp = "[A-Z_]+", message = "{permission.name.validation}")
     private String name;
 
     @ManyToMany(mappedBy = "permissions")
