@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringJUnit4ClassRunner.class)
 //@SpringBootTest(classes = Application.class,webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = postgresql"})
+@TestPropertySource(properties = {"smsc.database = mysql"})
 @Transactional
 public abstract class AbstractRepositoryTest {
 

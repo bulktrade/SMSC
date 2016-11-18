@@ -17,13 +17,13 @@ public class PasswordCryptTest {
 
     @Test
     public void testEncryptDecryptPassword(){
-        String PASSWORD = "qwerty123456";
+        String password = "qwerty123456";
         CryptoConverter converter = new CryptoConverter();
-        String encryptedPassword = converter.convertToDatabaseColumn(PASSWORD);
+        String encryptedPassword = converter.convertToDatabaseColumn(password);
         String decryptedPassword = converter.convertToEntityAttribute(encryptedPassword);
-        Assert.assertEquals(PASSWORD,decryptedPassword);
-        System.out.println("Raw password: " + PASSWORD);
+        System.out.println("Raw password: " + password);
         System.out.println("Encrypted password: " + encryptedPassword);
         System.out.println("Decrypted password: " + decryptedPassword);
+        Assert.assertEquals(password,decryptedPassword);
     }
 }
