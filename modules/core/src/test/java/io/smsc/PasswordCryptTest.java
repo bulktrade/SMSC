@@ -1,7 +1,6 @@
 package io.smsc;
 
 import io.smsc.converters.CryptoConverter;
-import io.smsc.model.Role;
 import io.smsc.model.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,8 +24,8 @@ public class PasswordCryptTest {
     public void testEncryptDecryptPassword(){
         System.out.println(secretKey);
         User user = new User(99L,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
-        String encryptedPassword = CryptoConverter.encryptPassword(user,secretKey);
-        String decryptedPassword = CryptoConverter.decryptPassword(user,secretKey);
+        String encryptedPassword = CryptoConverter.encrypt(user,secretKey);
+        String decryptedPassword = CryptoConverter.decrypt(user,secretKey);
         System.out.println("Raw password: " + "john123456");
         System.out.println("Encrypted password: " + encryptedPassword);
         System.out.println("Decrypted password: " + decryptedPassword);

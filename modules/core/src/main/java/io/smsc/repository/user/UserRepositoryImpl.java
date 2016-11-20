@@ -7,7 +7,6 @@ import io.smsc.repository.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -43,26 +42,26 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     public User getOneWithDecryptedPassword(Long id){
         User user = userRepository.getOne(id);
-        CryptoConverter.decryptPassword(user,secretKey);
+        CryptoConverter.decrypt(user,secretKey);
         return user;
     }
 
     @Override
     public User getOneByEmailWithDecryptedPassword(String email) {
         User user = userRepository.findByEmail(email);
-        CryptoConverter.decryptPassword(user,secretKey);
+        CryptoConverter.decrypt(user,secretKey);
         return user;
     }
 
     @Override
     public List<User> getAllWithDecryptedPassword() {
         List<User> users = userRepository.findAll();
-        users.forEach(user -> CryptoConverter.decryptPassword(user,secretKey));
+        users.forEach(user -> CryptoConverter.decrypt(user,secretKey));
         return users;
     }
 
     public User saveOneWithEncryptedPassword(User user){
-        CryptoConverter.encryptPassword(user,secretKey);
+        CryptoConverter.encrypt(user,secretKey);
         return userRepository.save(user);
     }
 }
