@@ -52,7 +52,7 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
         updated.setBlocked(true);
         updated.setEmail("bot@gmail.com");
         userRepository.saveOneWithEncryptedPassword(updated);
-        CryptoConverter.decryptPassword(updated);
+        CryptoConverter.decryptPassword(updated,secretKey);
         USER_MODEL_MATCHER.assertEquals(updated, userRepository.getOneWithDecryptedPassword(USER_ID));
     }
 

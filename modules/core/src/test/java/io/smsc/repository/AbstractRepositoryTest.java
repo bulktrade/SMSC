@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -34,9 +35,12 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringJUnit4ClassRunner.class)
 //@SpringBootTest(classes = Application.class,webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = mysql"})
+@TestPropertySource(properties = {"smsc.database = hsqldb"})
 @Transactional
 public abstract class AbstractRepositoryTest {
+
+    @Value("${encrypt.key}")
+    protected String secretKey;
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractRepositoryTest.class);
 

@@ -20,6 +20,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Value("${encrypt.key}")
+    private String secretKey;
+
     public User addRole(Long userId, Long roleId){
         User user = userRepository.findOne(userId);
         Role role = roleRepository.findOne(roleId);
@@ -40,26 +43,26 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     public User getOneWithDecryptedPassword(Long id){
         User user = userRepository.getOne(id);
-        CryptoConverter.decryptPassword(user);
+        CryptoConverter.decryptPassword(user,secretKey);
         return user;
     }
 
     @Override
     public User getOneByEmailWithDecryptedPassword(String email) {
         User user = userRepository.findByEmail(email);
-        CryptoConverter.decryptPassword(user);
+        CryptoConverter.decryptPassword(user,secretKey);
         return user;
     }
 
     @Override
     public List<User> getAllWithDecryptedPassword() {
         List<User> users = userRepository.findAll();
-        users.forEach(CryptoConverter::decryptPassword);
+        users.forEach(user -> CryptoConverter.decryptPassword(user,secretKey));
         return users;
     }
 
     public User saveOneWithEncryptedPassword(User user){
-        CryptoConverter.encryptPassword(user);
+        CryptoConverter.encryptPassword(user,secretKey);
         return userRepository.save(user);
     }
 }
