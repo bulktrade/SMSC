@@ -127,6 +127,19 @@
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jdbc</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.geowarin</groupId>
+            <artifactId>docker-junit-rule</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.tdomzal</groupId>
+            <artifactId>junit-docker-rule</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!--<dependency>-->
             <!--<groupId>org.flywaydb</groupId>-->
             <!--<artifactId>flyway-core</artifactId>-->

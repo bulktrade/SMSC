@@ -34,8 +34,8 @@ public class User extends BaseEntity{
     private String surName;
 
     @Column(name = "email", nullable = false, unique = true)
-    @Email
-    @NotEmpty(message = "{user.email.validation}")
+    @Email(message = "{user.email.format.validation}")
+    @NotEmpty(message = "{user.email.empty.validation}")
     private String email;
 
     @Column(name = "active", nullable = false, columnDefinition = "boolean default true")

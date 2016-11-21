@@ -2,6 +2,7 @@ package io.smsc;
 
 import io.smsc.converters.CryptoConverter;
 import io.smsc.model.User;
+import io.smsc.repository.AbstractRepositoryTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,14 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-@ContextConfiguration(classes = {Application.class})
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = hsqldb"})
-public class PasswordCryptTest {
-
-    @Value("${encrypt.key}")
-    private String secretKey;
+public class PasswordCryptTest extends AbstractRepositoryTest {
 
     @Test
     public void testEncryptDecryptPassword(){

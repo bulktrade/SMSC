@@ -3,6 +3,7 @@ package io.smsc.repository;
 import io.smsc.Application;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
@@ -23,6 +24,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+import pl.domzal.junit.docker.rule.DockerRule;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -33,7 +35,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
-//@SpringBootTest(classes = Application.class,webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @WebAppConfiguration
 @TestPropertySource(properties = {"smsc.database = hsqldb"})
 @Transactional
@@ -41,6 +42,32 @@ public abstract class AbstractRepositoryTest {
 
     @Value("${encrypt.key}")
     protected String secretKey;
+
+//    @ClassRule
+//    public static DockerRule postgreSQLRule = DockerRule.builder()
+//            .imageName("orchardup/postgresql")
+//            .expose("5432","5432")
+//            .env("POSTGRESQL_USER","test")
+//            .env("POSTGRESQL_PASS","oe9jaacZLbR9pN")
+//            .env("POSTGRESQL_DB","smsc")
+//            .build();
+
+//    @ClassRule
+//    public static DockerRule mySQLRule = DockerRule.builder()
+//            .imageName("mysql:latest")
+//            .expose("3306","3306")
+//            .env("MYSQL_ROOT_PASSWORD","password")
+//            .env("MYSQL_DATABASE","smsc")
+//            .env("MYSQL_USER","user")
+//            .env("MYSQL_PASSWORD","password")
+//            .build();
+
+//    @ClassRule
+//    public static DockerRule oracleRule = DockerRule.builder()
+//            .imageName("alexeiled/docker-oracle-xe-11g")
+//            .expose("1521","1521")
+//            .expose("8080","8080")
+//            .build();
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractRepositoryTest.class);
 
@@ -74,9 +101,7 @@ public abstract class AbstractRepositoryTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Rule
-    // http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
     public Stopwatch stopwatch = new Stopwatch() {
-
         @Override
         protected void finished(long nanos, Description description) {
             String result = String.format("%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));

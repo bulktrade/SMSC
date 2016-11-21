@@ -30,7 +30,7 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
         User newUser = new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
         User created = userRepository.saveOneWithEncryptedPassword(newUser);
         newUser.setId(created.getId());
-//        USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithDecryptedPassword(newUser.getId()));
+        USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithDecryptedPassword(newUser.getId()));
     }
 
     @Test
@@ -69,5 +69,4 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
         userRepository.saveOneWithEncryptedPassword(newUser);
         USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newUser,USER,ADMIN), userRepository.getAllWithDecryptedPassword());
     }
-
 }

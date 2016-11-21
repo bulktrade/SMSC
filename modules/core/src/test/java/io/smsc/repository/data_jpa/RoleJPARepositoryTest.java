@@ -53,13 +53,6 @@ public class RoleJPARepositoryTest extends AbstractRepositoryTest {
         ROLE_MODEL_MATCHER.assertEquals(updated, roleRepository.findOne(ROLE_USER_ID));
     }
 
-    @Test(expected = ConstraintViolationException.class)
-    public void testInvalidNameSave() throws Exception {
-        Role newRole = new Role(null,"wrong_name_role");
-        Role created = roleRepository.save(newRole);
-        newRole.setId(created.getId());
-        ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newRole,ROLE_USER,ROLE_ADMIN), roleRepository.findAll());
-    }
 
     @Test(expected = DataIntegrityViolationException.class)
     public void testDuplicateNameSave() throws Exception {
