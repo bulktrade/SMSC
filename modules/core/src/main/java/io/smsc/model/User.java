@@ -2,6 +2,7 @@ package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class User extends BaseEntity{
     private String username;
 
     @Column(name = "password", nullable = false)
-    @NotEmpty(message = "{user.password.validation}")
+    @NotEmpty(message = "{user.password.empty.validation}")
     private String password;
 
     @Column(name="salt")

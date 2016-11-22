@@ -4,43 +4,28 @@ import io.smsc.model.User;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.keygen.KeyGenerators;
+import org.springframework.util.Assert;
 
 import javax.persistence.AttributeConverter;
 
-//public class CryptoConverter extends AttributeConverter<String, String> {
 public class CryptoConverter {
-
-//    private static final String SECRET_KEY = "smsc.io";
 
     public static String encrypt(User user, String secretKey) {
         String salt = KeyGenerators.string().generateKey();
         String password = user.getPassword();
         TextEncryptor encryptor = Encryptors.text(secretKey,salt);
-        user.setPassword(encryptor.encrypt(password));
+        String encryptedPassword = encryptor.encrypt(password);
+        user.setPassword(encryptedPassword);
         user.setSalt(salt);
-        return encryptor.encrypt(password);
+        return encryptedPassword;
     }
 
     public static String decrypt(User user, String secretKey) {
        String salt = user.getSalt();
        String password = user.getPassword();
        TextEncryptor encryptor = Encryptors.text(secretKey,salt);
-       user.setPassword(encryptor.decrypt(password));
-       return encryptor.decrypt(password);
+        String decryptedPassword = encryptor.decrypt(password);
+       user.setPassword(decryptedPassword);
+       return decryptedPassword;
     }
-
-//    @Override
-//    public String convertToDatabaseColumn(String password) {
-//        String salt = KeyGenerators.string().generateKey();
-//        TextEncryptor encryptor = Encryptors.text(SECRET_KEY,salt);
-//        user.setSalt(salt); ???
-//        return encryptor.encrypt(password);
-//    }
-//
-//    @Override
-//    public String convertToEntityAttribute(String password) {
-//        String salt = user.getSalt(); ???
-//        TextEncryptor encryptor = Encryptors.text(SECRET_KEY,salt);
-//        return encryptor.decrypt(password);
-//    }
 }
