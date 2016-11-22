@@ -66,6 +66,26 @@
         </repository>
     </repositories> -->
 
+    <repositories>
+
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+
+        <repository>
+            <id>ossrh</id>
+            <releases><enabled>false</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+
+    </repositories>
+
     <modules>
         <module>modules/admin</module>
         <module>modules/core</module>
@@ -484,11 +504,11 @@
                 <artifactId>h2</artifactId>
                 <version>1.4.192</version>
             </dependency>
-            <!--<dependency>-->
-                <!--<groupId>com.oracle</groupId>-->
-                <!--<artifactId>ojdbc14</artifactId>-->
-                <!--<version>10.2.0.4.0</version>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>11.2.0.4</version>
+            </dependency>
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
@@ -504,6 +524,21 @@
                 <artifactId>tomcat-jdbc</artifactId>
                 <version>8.0.33</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.github.geowarin</groupId>
+                <artifactId>docker-junit-rule</artifactId>
+                <version>1.1.0</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.tdomzal</groupId>
+                <artifactId>junit-docker-rule</artifactId>
+                <version>0.2</version>
+                <scope>test</scope>
+            </dependency>
+
             <!--<dependency>-->
                 <!--<groupId>org.flywaydb</groupId>-->
                 <!--<artifactId>flyway-core</artifactId>-->

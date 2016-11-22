@@ -1,8 +1,8 @@
 package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.smsc.converters.CryptoConverter;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -16,25 +16,27 @@ import java.util.List;
 public class User extends BaseEntity{
 
     @Column(name = "username", nullable = false, unique = true)
-    @NotEmpty(message = "User's name cannot be empty")
+    @NotEmpty(message = "{user.username.validation}")
     private String username;
 
     @Column(name = "password", nullable = false)
-    @NotEmpty(message = "User's password cannot be empty")
-    @Convert(converter = CryptoConverter.class)
+    @NotEmpty(message = "{user.password.empty.validation}")
     private String password;
 
+    @Column(name="salt")
+    private String salt;
+
     @Column(name = "first_name", nullable = false)
-    @NotEmpty(message = "User's first name cannot be empty")
+    @NotEmpty(message = "{user.firstname.validation}")
     private String firstName;
 
     @Column(name = "surname", nullable = false)
-    @NotEmpty(message = "User's surname cannot be empty")
+    @NotEmpty(message = "{user.surname.validation}")
     private String surName;
 
     @Column(name = "email", nullable = false, unique = true)
-    @Email
-    @NotEmpty(message = "User's email cannot be empty")
+    @Email(message = "{user.email.format.validation}")
+    @NotEmpty(message = "{user.email.empty.validation}")
     private String email;
 
     @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
@@ -136,6 +138,14 @@ public class User extends BaseEntity{
 
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public List<Role> getRoles() {

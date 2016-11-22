@@ -1,8 +1,8 @@
-INSERT INTO USER_ACCOUNT (id, username, password, first_name, surName, email) VALUES
-  (1, 'User', 'ZulhwB27UKBqJPYk2f9UQg==', 'userName', 'userSurname', 'user@gmail.com');
+INSERT INTO USER_ACCOUNT (id, username, password, salt, first_name, surName, email) VALUES
+  (1, 'User', '541338d92cd0dbf230d7e7666dd99adaea8da7a478f5456947c2445aecea0b1a', 'ad68dc115126d9d1', 'userName', 'userSurname', 'user@gmail.com');
 
-INSERT INTO USER_ACCOUNT (id, username, password, first_name, surName, email) VALUES
-  (2, 'Admin', 'GmcYVu1XLNFLwfDvnrzJPw==', 'adminName', 'adminSurname', 'admin@gmail.com');
+INSERT INTO USER_ACCOUNT (id, username, password, salt, first_name, surName, email) VALUES
+  (2, 'Admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com');
 
 INSERT INTO ROLE (id, name) VALUES
   (3, 'USER');

@@ -59,16 +59,6 @@ public class PermissionJPARepositoryTest extends AbstractRepositoryTest {
         PERMISSION_MODEL_MATCHER.assertEquals(updated, permissionRepository.findOne(PERMISSION_DELETE_USER_ID));
     }
 
-    @Test(expected = ConstraintViolationException.class)
-    public void testInvalidNameSave() throws Exception {
-        Permission newPermission = new Permission(null,"wrong_name_permission");
-        Permission created = permissionRepository.save(newPermission);
-        newPermission.setId(created.getId());
-        PERMISSION_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newPermission,PERMISSION_READ_USER,PERMISSION_UPDATE_USER,
-                PERMISSION_CREATE_USER,PERMISSION_DELETE_USER,PERMISSION_READ_OWN_USER,PERMISSION_UPDATE_OWN_USER),
-                permissionRepository.findAll());
-    }
-
     @Test(expected = DataIntegrityViolationException.class)
     public void testDuplicateNameSave() throws Exception {
         Permission newPermission = new Permission(PERMISSION_DELETE_USER);

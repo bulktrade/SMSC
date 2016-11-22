@@ -13,8 +13,8 @@ import java.util.List;
 public class Role extends BaseEntity{
 
     @Column(name = "name", nullable = false, unique = true)
-    @NotEmpty(message = "Role name cannot be empty")
-    @Pattern(regexp = "[A-Z_]+", message = "Role's name can be only uppercase and contain '_' symbol")
+    @NotEmpty(message = "{role.empty.validation}")
+    @Pattern(regexp = "[A-Z_]+", message = "{role.name.validation}")
     private String name;
 
     @ManyToMany()
