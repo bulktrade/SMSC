@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.ConstraintViolationException;
@@ -26,7 +27,7 @@ import static io.smsc.UserTestData.*;
 @ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-//@TestPropertySource(properties = {"smsc.database = postgresql"})
+@TestPropertySource(properties = {"smsc.database = h2"})
 public class ValidationTest {
 
     @Autowired
@@ -78,7 +79,7 @@ public class ValidationTest {
                 permissionRepository.findAll());
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test(expected = TransactionSystemException.class)
     public void testEmptyUserNameSave() throws Exception {
         User newUser = new User(null,"","john123456","John","Forrester","john@gmail.com",true,false);
         User created = userRepository.saveOneWithEncryptedPassword(newUser);
@@ -86,7 +87,7 @@ public class ValidationTest {
         USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithDecryptedPassword(newUser.getId()));
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test(expected = TransactionSystemException.class)
     public void testEmptyUserPasswordSave() throws Exception {
         User newUser = new User(null,"Old Johnny","","John","Forrester","john@gmail.com",true,false);
         User created = userRepository.save(newUser);
@@ -94,7 +95,7 @@ public class ValidationTest {
         USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithDecryptedPassword(newUser.getId()));
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test(expected = TransactionSystemException.class)
     public void testEmptyUserFirstNameSave() throws Exception {
         User newUser = new User(null,"Old Johnny","john123456","","Forrester","john@gmail.com",true,false);
         newUser.setSalt("24f9ed661baf5056");
@@ -103,7 +104,7 @@ public class ValidationTest {
         USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithDecryptedPassword(newUser.getId()));
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test(expected = TransactionSystemException.class)
     public void testEmptyUserSurNameSave() throws Exception {
         User newUser = new User(null,"Old Johnny","john123456","John","","john@gmail.com",true,false);
         User created = userRepository.saveOneWithEncryptedPassword(newUser);
@@ -111,7 +112,7 @@ public class ValidationTest {
         USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithDecryptedPassword(newUser.getId()));
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test(expected = TransactionSystemException.class)
     public void testEmptyUserEmailSave() throws Exception {
         User newUser = new User(null,"Old Johnny","john123456","John","Forrester","",true,false);
         User created = userRepository.saveOneWithEncryptedPassword(newUser);
@@ -119,7 +120,7 @@ public class ValidationTest {
         USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithDecryptedPassword(newUser.getId()));
     }
 
-    @Test(expected = ConstraintViolationException.class)
+    @Test(expected = TransactionSystemException.class)
     public void testInvalidUserEmailSave() throws Exception {
         User newUser = new User(null,"Old Johnny","john123456","John","Forrester","invalid_email",true,false);
         User created = userRepository.saveOneWithEncryptedPassword(newUser);

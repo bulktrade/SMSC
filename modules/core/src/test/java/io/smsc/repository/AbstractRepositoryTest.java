@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = hsqldb"})
+@TestPropertySource(properties = {"smsc.database = h2"})
 @Transactional
 public abstract class AbstractRepositoryTest {
 

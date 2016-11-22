@@ -17,7 +17,7 @@ public class PasswordCryptTest extends AbstractRepositoryTest {
     @Test
     public void testEncryptDecryptPassword(){
         System.out.println(secretKey);
-        User user = new User(99L,"Old Johnny","","John","Forrester","john@gmail.com",true,false);
+        User user = new User(99L,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
         String encryptedPassword = CryptoConverter.encrypt(user,secretKey);
         String decryptedPassword = CryptoConverter.decrypt(user,secretKey);
         System.out.println("Raw password: " + "john123456");
