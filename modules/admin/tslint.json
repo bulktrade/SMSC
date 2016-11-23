@@ -32,7 +32,6 @@
                 "variable-declaration": "space"
             }
         ],
-
         "ban": false,
         "curly": false,
         "forin": true,
@@ -87,7 +86,6 @@
                 "singleline": "never"
             }
         ],
-
         "align": false,
         "class-name": true,
         "comment-format": [
@@ -110,7 +108,10 @@
             "single",
             "avoid-escape"
         ],
-        "semicolon": [true, "always"],
+        "semicolon": [
+            true,
+            "always"
+        ],
         "variable-name": [
             true,
             "check-format",

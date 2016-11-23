@@ -260,14 +260,7 @@ export class CrudService {
      * @param gridOptions
      */
     rowSelected(gridOptions: GridOptions) {
-        if (gridOptions.api.getSelectedRows().length === gridOptions.rowData.length) {
-            this.changeCheckboxState('allSelected', gridOptions);
-        } else if (!gridOptions.api.getSelectedRows().length) {
-            this.changeCheckboxState('notSelected', gridOptions);
-        } else {
-            this.changeCheckboxState('notAllSelected', gridOptions);
-        }
-
+        this.changeCheckboxState(gridOptions);
         this.disableDeleteButton(gridOptions.api);
     }
 
@@ -322,7 +315,7 @@ export class CrudService {
     }
 
     /**
-     * The method adds checkbox selection to the columnDefs property.
+     * Adds checkbox selection to the columnDefs property.
      *
      * @param columnDefs
      * @param gridOptions
@@ -424,9 +417,9 @@ export class CrudService {
                     clicked = !clicked;
 
                     if (clicked) {
-                        that.changeCheckboxState('allSelected', gridOptions);
+                        that.changeCheckboxState(gridOptions, 'allSelected');
                     } else {
-                        that.changeCheckboxState('notSelected', gridOptions);
+                        that.changeCheckboxState(gridOptions, 'notSelected');
                     }
                 });
 
@@ -441,7 +434,17 @@ export class CrudService {
      * @param isSelectCheckbox
      * @param gridOptions
      */
-    changeCheckboxState(isSelectCheckbox, gridOptions) {
+    changeCheckboxState(gridOptions, isSelectCheckbox?: string) {
+        if (!isSelectCheckbox) {
+            if (gridOptions.api.getSelectedRows().length === gridOptions.rowData.length) {
+                isSelectCheckbox = 'allSelected';
+            } else if (!gridOptions.api.getSelectedRows().length) {
+                isSelectCheckbox = 'notSelected';
+            } else {
+                isSelectCheckbox = 'notAllSelected';
+            }
+        }
+
         switch (isSelectCheckbox) {
             case 'allSelected':
                 gridOptions.api.selectAll();
