@@ -54,6 +54,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
+    public User getOneByUserNameWithDecryptedPassword(String username) {
+        User user = userRepository.findByUserName(username);
+        CryptoConverter.decrypt(user,secretKey);
+        return user;
+    }
+
+    @Override
     public List<User> getAllWithDecryptedPassword() {
         List<User> users = userRepository.findAll();
         users.forEach(user -> CryptoConverter.decrypt(user,secretKey));

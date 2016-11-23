@@ -13,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"username","email"}, name = "users_unique_username_email_idx")})
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Column(name = "username", nullable = false, unique = true)
     @NotEmpty(message = "{user.username.validation}")
