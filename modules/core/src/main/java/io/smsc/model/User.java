@@ -12,41 +12,41 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"username","email"}, name = "users_unique_username_email_idx")})
+@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_unique_username_email_idx")})
 public class User extends BaseEntity {
 
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = "USERNAME", nullable = false, unique = true)
     @NotEmpty(message = "{user.username.validation}")
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
     private String password;
 
-    @Column(name="salt")
+    @Column(name="SALT")
     private String salt;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "FIRST_NAME", nullable = false)
     @NotEmpty(message = "{user.firstname.validation}")
     private String firstName;
 
-    @Column(name = "surname", nullable = false)
+    @Column(name = "SURNAME", nullable = false)
     @NotEmpty(message = "{user.surname.validation}")
     private String surName;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     @Email(message = "{user.email.format.validation}")
     @NotEmpty(message = "{user.email.empty.validation}")
     private String email;
 
-    @Column(name = "active", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "ACTIVE", nullable = false, columnDefinition = "boolean default true")
     private boolean active = true;
 
-    @Column(name = "created", columnDefinition = "timestamp default now()")
+    @Column(name = "CREATED", columnDefinition = "timestamp default now()")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="CET")
     private Date created = new Date();
 
-    @Column(name = "blocked", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "BLOCKED", nullable = false, columnDefinition = "boolean default false")
     private boolean blocked = false;
 
     @ManyToMany()
