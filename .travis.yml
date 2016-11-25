@@ -49,7 +49,6 @@ notifications:
     recipients:
       - info@smsc.io
       - dimakuba124@gmail.com
-      - stasbamiza3@gmail.com
     on_success: always
     on_failure: always
 
