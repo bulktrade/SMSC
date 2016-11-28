@@ -1,4 +1,4 @@
-package io.smsc.repository.data_jpa;
+package io.smsc.repository.role;
 
 import io.smsc.model.Role;
 import io.smsc.repository.AbstractRepositoryTest;
@@ -7,12 +7,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-import static io.smsc.RoleTestData.*;
+import static io.smsc.test_data.RoleTestData.*;
 
 public class RoleJPARepositoryTest extends AbstractRepositoryTest {
 
@@ -20,13 +19,13 @@ public class RoleJPARepositoryTest extends AbstractRepositoryTest {
     private RoleRepository roleRepository;
 
     @Test
-    public void testDelete() throws Exception {
+    public void testDeleteRole() throws Exception {
         roleRepository.deleteById(ROLE_USER_ID);
         ROLE_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ROLE_ADMIN), roleRepository.findAll());
     }
 
     @Test
-    public void testSave() throws Exception {
+    public void testSaveRole() throws Exception {
         Role newRole = new Role(null,"ROLE_GOD");
         Role created = roleRepository.save(newRole);
         newRole.setId(created.getId());
@@ -34,19 +33,19 @@ public class RoleJPARepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    public void testGet() throws Exception {
+    public void testGetSingleRole() throws Exception {
         Role role = roleRepository.findOne(ROLE_USER_ID);
         ROLE_MODEL_MATCHER.assertEquals(ROLE_USER,role);
     }
 
     @Test
-    public void testGetAll() throws Exception {
+    public void testGetAllRoles() throws Exception {
         Collection<Role> roles = roleRepository.findAll();
         ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(ROLE_USER, ROLE_ADMIN), roles);
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdateRole() throws Exception {
         Role updated = new Role(ROLE_USER);
         updated.setName("ROLE_GUEST");
         roleRepository.save(updated);
@@ -55,7 +54,7 @@ public class RoleJPARepositoryTest extends AbstractRepositoryTest {
 
 
     @Test(expected = DataIntegrityViolationException.class)
-    public void testDuplicateNameSave() throws Exception {
+    public void testDuplicateRoleNameSave() throws Exception {
         Role newRole = new Role(ROLE_USER);
         newRole.setId(null);
         roleRepository.save(newRole);

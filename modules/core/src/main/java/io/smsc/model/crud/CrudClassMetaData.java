@@ -10,22 +10,28 @@ import javax.persistence.*;
 public class CrudClassMetaData extends BaseEntity {
 
     @Column(name = "CLASS_NAME", nullable = false, unique = true)
-    @NotEmpty
+    @NotEmpty(message = "{crud.class.meta.data.classname.validation}")
     private String className;
 
     @Column(name = "TITLE_COLUMNS", nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "{crud.class.meta.data.titlecolumns.validation}")
     private String titleColumns;
 
     @Column(name = "EDITABLE", nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "{crud.class.meta.data.editable.validation}")
     private Boolean editable;
 
-    @Column(name = "QUERY", nullable = false, unique = true)
-    @NotEmpty
+    //Oracle isn't supporting column name "QUERY"
+    @Column(name = "QUERY_NAME")
+//    @NotEmpty(message = "{crud.class.meta.data.query.validation}")
     private String query;
 
     public CrudClassMetaData() {
+    }
+
+    public CrudClassMetaData(CrudClassMetaData crudClassMetaData) {
+        this(crudClassMetaData.getId(),crudClassMetaData.getClassName(),crudClassMetaData.getTitleColumns(),
+                crudClassMetaData.getEditable(), crudClassMetaData.getQuery());
     }
 
     public CrudClassMetaData(Long id, String className, String titleColumns, Boolean editable, String query) {

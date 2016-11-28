@@ -1,13 +1,10 @@
-package io.smsc;
+package io.smsc.test_data;
 
 import io.smsc.matcher.ModelMatcher;
 import io.smsc.model.User;
 
 import java.util.Collections;
 import java.util.Objects;
-
-import static io.smsc.RoleTestData.ROLE_ADMIN;
-import static io.smsc.RoleTestData.ROLE_USER;
 
 public class UserTestData {
 
@@ -19,8 +16,8 @@ public class UserTestData {
 
     static
     {
-        USER.setRoles(Collections.singletonList(ROLE_USER));
-        ADMIN.setRoles(Collections.singletonList(ROLE_ADMIN));
+        USER.setRoles(Collections.singletonList(RoleTestData.ROLE_USER));
+        ADMIN.setRoles(Collections.singletonList(RoleTestData.ROLE_ADMIN));
     }
 
     public static final ModelMatcher<User> USER_MODEL_MATCHER = new ModelMatcher<>(User.class,

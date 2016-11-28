@@ -1,4 +1,4 @@
-package io.smsc.repository.rest;
+package io.smsc.repository.user;
 
 import io.smsc.model.User;
 import io.smsc.repository.AbstractRepositoryTest;
@@ -8,7 +8,7 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static io.smsc.UserTestData.*;
+import static io.smsc.test_data.UserTestData.*;
 
 public class UserRestRepositoryTest extends AbstractRepositoryTest {
 
@@ -75,7 +75,7 @@ public class UserRestRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    public void testUpdatePermission() throws Exception {
+    public void testUpdateUser() throws Exception {
         User updated = new User(USER);
         updated.setActive(false);
         updated.setBlocked(true);

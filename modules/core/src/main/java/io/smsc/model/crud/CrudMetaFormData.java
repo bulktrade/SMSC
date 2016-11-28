@@ -11,12 +11,17 @@ import java.util.Set;
 @Table(name = "CRUD_META_FORM_DATA")
 public class CrudMetaFormData extends CrudPropertyMetaData {
 
-    @Column(name = "FIELD_LAYOUT_GRID_POSITION", nullable = false)
-    @NotEmpty
+    @Column(name = "FIELD_LAYOUT_GRID_POSITION")
+//    @NotEmpty(message = "{crud.meta.form.data.field.layout.grid.position.validation}")
     private String fieldLayoutGridPosition;
 
     public CrudMetaFormData() {
+    }
 
+    public CrudMetaFormData(CrudMetaFormData crudMetaFormData) {
+        this(crudMetaFormData.getId(), crudMetaFormData.getProperty(), crudMetaFormData.getEditable(), crudMetaFormData.getVisible(),
+                crudMetaFormData.getDecorator(), crudMetaFormData.getOrder(), crudMetaFormData.getCrudClassMetaData(),
+                crudMetaFormData.getBindingParameters(), crudMetaFormData.getFieldLayoutGridPosition());
     }
 
     public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,

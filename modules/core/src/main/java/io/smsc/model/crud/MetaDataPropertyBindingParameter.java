@@ -11,26 +11,31 @@ import java.util.List;
 public class MetaDataPropertyBindingParameter extends BaseEntity {
 
     @Column(name = "FROM_PROPERTY", nullable = false)
-    @NotEmpty(message = "{user.password.empty.validation}")
+    @NotEmpty(message = "{meta.data.property.binding.parameter.from.property.validation}")
     private String fromProperty;
 
     @Column(name = "TO_PROPERTY", nullable = false)
-    @NotEmpty(message = "{user.password.empty.validation}")
+    @NotEmpty(message = "{meta.data.property.binding.parameter.to.property.validation}")
     private String toProperty;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "meta_data_property_binding_parameter_combine_operator", joinColumns = @JoinColumn(name = "meta_data_property_binding_parameter_id"))
+    @CollectionTable(name = "META_DATA_PROPERTY_BINDING_PARAMETER_COMBINE_OPERATOR", joinColumns = @JoinColumn(name = "META_DATA_PROPERTY_BINDING_PARAMETER_ID"))
     @Column(name = "COMBINE_OPERATOR")
     @ElementCollection(fetch = FetchType.EAGER)
     private List<CombineOperator> combineOperator;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "meta_data_property_binding_parameter_operator", joinColumns = @JoinColumn(name = "meta_data_property_binding_parameter_id"))
+    @CollectionTable(name = "META_DATA_PROPERTY_BINDING_PARAMETER_OPERATOR", joinColumns = @JoinColumn(name = "META_DATA_PROPERTY_BINDING_PARAMETER_ID"))
     @Column(name = "OPERATOR")
     @ElementCollection()
     private List<Operator> operator;
 
     public MetaDataPropertyBindingParameter() {
+    }
+
+    public MetaDataPropertyBindingParameter(MetaDataPropertyBindingParameter metaDataPropertyBindingParameter) {
+        this(metaDataPropertyBindingParameter.getId(), metaDataPropertyBindingParameter.getFromProperty(), metaDataPropertyBindingParameter.getToProperty(),
+                metaDataPropertyBindingParameter.getCombineOperator(), metaDataPropertyBindingParameter.getOperator());
     }
 
     public MetaDataPropertyBindingParameter(Long id, String fromProperty, String toProperty, List<CombineOperator> combineOperator, List<Operator> operator) {

@@ -1,12 +1,10 @@
-package io.smsc;
+package io.smsc.test_data;
 
 import io.smsc.matcher.ModelMatcher;
 import io.smsc.model.Permission;
 
 import java.util.Arrays;
 import java.util.Collections;
-
-import static io.smsc.RoleTestData.*;
 
 public class PermissionTestData {
 
@@ -26,12 +24,12 @@ public class PermissionTestData {
 
     static
     {
-        PERMISSION_READ_USER.setRoles(Collections.singletonList(ROLE_ADMIN));
-        PERMISSION_UPDATE_USER.setRoles(Collections.singletonList(ROLE_ADMIN));
-        PERMISSION_CREATE_USER.setRoles(Collections.singletonList(ROLE_ADMIN));
-        PERMISSION_DELETE_USER.setRoles(Collections.singletonList(ROLE_ADMIN));
-        PERMISSION_READ_OWN_USER.setRoles(Arrays.asList(ROLE_ADMIN,ROLE_USER));
-        PERMISSION_UPDATE_OWN_USER.setRoles(Arrays.asList(ROLE_ADMIN,ROLE_USER));
+        PERMISSION_READ_USER.setRoles(Collections.singletonList(RoleTestData.ROLE_ADMIN));
+        PERMISSION_UPDATE_USER.setRoles(Collections.singletonList(RoleTestData.ROLE_ADMIN));
+        PERMISSION_CREATE_USER.setRoles(Collections.singletonList(RoleTestData.ROLE_ADMIN));
+        PERMISSION_DELETE_USER.setRoles(Collections.singletonList(RoleTestData.ROLE_ADMIN));
+        PERMISSION_READ_OWN_USER.setRoles(Arrays.asList(RoleTestData.ROLE_ADMIN, RoleTestData.ROLE_USER));
+        PERMISSION_UPDATE_OWN_USER.setRoles(Arrays.asList(RoleTestData.ROLE_ADMIN, RoleTestData.ROLE_USER));
     }
 
     public static final ModelMatcher<Permission> PERMISSION_MODEL_MATCHER = new ModelMatcher<>(Permission.class);

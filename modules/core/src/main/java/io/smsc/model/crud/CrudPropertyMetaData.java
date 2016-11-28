@@ -10,24 +10,24 @@ import java.util.Set;
 public class CrudPropertyMetaData extends BaseEntity {
 
     @Column(name = "PROPERTY", nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "{crud.property.meta.data.property.validation}")
     private String property;
 
     @Column(name = "EDITABLE", nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "{crud.property.meta.data.editable.validation}")
     private Boolean editable;
 
     @Column(name = "VISIBLE", nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "{crud.property.meta.data.visible.validation}")
     private Boolean visible;
 
-    @Column(name = "DECORATOR", nullable = false)
-    @NotEmpty
+    @Column(name = "DECORATOR")
+//    @NotEmpty(message = "{crud.property.meta.data.decorator.validation}")
     private String decorator;
 
     //PostgreSQL isn't supporting column name "ORDER"
     @Column(name = "ORDER_NUMBER", nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "{crud.property.meta.data.order.validation}")
     private Double order;
 
     @OneToOne
@@ -35,7 +35,7 @@ public class CrudPropertyMetaData extends BaseEntity {
     private CrudClassMetaData crudClassMetaData;
 
     @OneToMany
-    @JoinColumn(name="BINDING_PARAMETERS")
+    @JoinColumn(name="CRUD_PROPERTY_META_DATA")
     private Set<MetaDataPropertyBindingParameter> bindingParameters;
 
     public CrudPropertyMetaData() {

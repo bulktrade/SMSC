@@ -11,11 +11,17 @@ import java.util.Set;
 @Table(name = "CRUD_META_GRID_DATA")
 public class CrudMetaGridData extends CrudPropertyMetaData {
 
-    @Column(name = "COLUMN_WIDTH", nullable = false)
-    @NotEmpty
+    @Column(name = "COLUMN_WIDTH")
+//    @NotEmpty(message = "{crud.meta.grid.data.column.width.validation}")
     private Double columnWidth;
 
     public CrudMetaGridData() {
+    }
+
+    public CrudMetaGridData(CrudMetaGridData crudMetaGridData) {
+        this(crudMetaGridData.getId(), crudMetaGridData.getProperty(), crudMetaGridData.getEditable(), crudMetaGridData.getVisible(),
+                crudMetaGridData.getDecorator(), crudMetaGridData.getOrder(), crudMetaGridData.getCrudClassMetaData(),
+                crudMetaGridData.getBindingParameters(), crudMetaGridData.getColumnWidth());
     }
 
     public CrudMetaGridData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,

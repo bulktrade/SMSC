@@ -1,4 +1,4 @@
-package io.smsc.repository.rest;
+package io.smsc.repository.role;
 
 import io.smsc.model.Role;
 import io.smsc.repository.AbstractRepositoryTest;
@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import static io.smsc.RoleTestData.*;
+import static io.smsc.test_data.RoleTestData.*;
 
 public class RoleRestRepositoryTest extends AbstractRepositoryTest {
 

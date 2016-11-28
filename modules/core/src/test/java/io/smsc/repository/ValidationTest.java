@@ -20,9 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 
-import static io.smsc.PermissionTestData.*;
-import static io.smsc.RoleTestData.*;
-import static io.smsc.UserTestData.*;
+import static io.smsc.test_data.PermissionTestData.*;
+import static io.smsc.test_data.RoleTestData.*;
+import static io.smsc.test_data.UserTestData.*;
 
 @ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)

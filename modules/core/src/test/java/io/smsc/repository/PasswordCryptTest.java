@@ -15,7 +15,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class PasswordCryptTest extends AbstractRepositoryTest {
 
     @Test
-    public void testEncryptDecryptPassword(){
+    public void testEncryptDecryptUserPassword(){
         System.out.println(secretKey);
         User user = new User(99L,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
         String encryptedPassword = CryptoConverter.encrypt(user,secretKey);

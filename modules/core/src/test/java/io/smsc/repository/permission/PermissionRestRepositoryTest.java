@@ -1,10 +1,10 @@
-package io.smsc.repository.rest;
+package io.smsc.repository.permission;
 
 import io.smsc.model.Permission;
 import io.smsc.repository.AbstractRepositoryTest;
 import org.junit.Test;
 
-import static io.smsc.PermissionTestData.*;
+import static io.smsc.test_data.PermissionTestData.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
