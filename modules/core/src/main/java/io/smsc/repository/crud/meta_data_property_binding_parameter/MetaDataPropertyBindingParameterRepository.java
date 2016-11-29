@@ -1,4 +1,4 @@
-package io.smsc.repository.crud;
+package io.smsc.repository.crud.meta_data_property_binding_parameter;
 
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,7 +24,7 @@ public interface MetaDataPropertyBindingParameterRepository extends JpaRepositor
 
     @Override
     @Query("SELECT m FROM MetaDataPropertyBindingParameter m JOIN FETCH m.operator WHERE m.id=:id")
-    MetaDataPropertyBindingParameter findOne(Long id);
+    MetaDataPropertyBindingParameter findOne(@Param("id") Long id);
 
     @Override
     @Query("SELECT m FROM MetaDataPropertyBindingParameter m JOIN FETCH m.operator ORDER BY m.id")

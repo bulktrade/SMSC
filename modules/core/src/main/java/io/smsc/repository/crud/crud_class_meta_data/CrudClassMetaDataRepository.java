@@ -1,4 +1,4 @@
-package io.smsc.repository.crud;
+package io.smsc.repository.crud.crud_class_meta_data;
 
 import io.smsc.model.crud.CrudClassMetaData;
 import org.springframework.data.jpa.repository.JpaRepository;

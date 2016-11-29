@@ -1,10 +1,6 @@
 package io.smsc.model.crud;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -15,20 +11,37 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
 //    @NotEmpty(message = "{crud.meta.form.data.field.layout.grid.position.validation}")
     private String fieldLayoutGridPosition;
 
+    @OneToMany
+    @JoinColumn(name="CRUD_META_FORM_DATA", referencedColumnName = "ID")
+    private Set<MetaDataPropertyBindingParameter> bindingParameters;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CRUD_CLASS_META_DATA")
+    private CrudClassMetaData crudClassMetaData;
+
     public CrudMetaFormData() {
+    }
+
+    public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order) {
+        super(id, property, editable, visible, decorator, order);
     }
 
     public CrudMetaFormData(CrudMetaFormData crudMetaFormData) {
         this(crudMetaFormData.getId(), crudMetaFormData.getProperty(), crudMetaFormData.getEditable(), crudMetaFormData.getVisible(),
-                crudMetaFormData.getDecorator(), crudMetaFormData.getOrder(), crudMetaFormData.getCrudClassMetaData(),
-                crudMetaFormData.getBindingParameters(), crudMetaFormData.getFieldLayoutGridPosition());
+                crudMetaFormData.getDecorator(), crudMetaFormData.getOrder(), crudMetaFormData.getFieldLayoutGridPosition());
     }
 
     public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
-                            CrudClassMetaData crudClassMetaData, Set<MetaDataPropertyBindingParameter> bindingParameters,
                             String fieldLayoutGridPosition) {
-        super(id, property, editable, visible, decorator, order, crudClassMetaData, bindingParameters);
+        super(id, property, editable, visible, decorator, order);
         this.fieldLayoutGridPosition = fieldLayoutGridPosition;
+    }
+
+    @PreRemove
+    private void removeBindingParametersFromCrudMetaMetaData() {
+        for(MetaDataPropertyBindingParameter parameter : bindingParameters){
+            parameter.setCrudMetaFormDataId(null);
+        }
     }
 
     public String getFieldLayoutGridPosition() {
@@ -39,10 +52,36 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
         this.fieldLayoutGridPosition = fieldLayoutGridPosition;
     }
 
+    public Set<MetaDataPropertyBindingParameter> getBindingParameters() {
+        return bindingParameters;
+    }
+
+    public void setBindingParameters(Set<MetaDataPropertyBindingParameter> bindingParameters) {
+        this.bindingParameters = bindingParameters;
+    }
+
+    public CrudClassMetaData getCrudClassMetaData() {
+        return crudClassMetaData;
+    }
+
+    public void setCrudClassMetaData(CrudClassMetaData crudClassMetaData) {
+        this.crudClassMetaData = crudClassMetaData;
+    }
+
+    public boolean addBindingParameter(MetaDataPropertyBindingParameter parameter) {
+        return this.getBindingParameters().add(parameter);
+    }
+
+    public boolean removeBindingParameter(MetaDataPropertyBindingParameter parameter) {
+        return this.getBindingParameters().remove(parameter);
+    }
+
     @Override
     public String toString() {
         return "CrudMetaFormData{" +
                 "fieldLayoutGridPosition='" + fieldLayoutGridPosition + '\'' +
+                ", bindingParameters=" + bindingParameters +
+                ", crudClassMetaFormData=" + crudClassMetaData +
                 "} " + super.toString();
     }
 }

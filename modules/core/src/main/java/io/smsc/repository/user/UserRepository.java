@@ -33,7 +33,7 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     User findByEmail(@Param("email") String email);
 
     @Query("SELECT u FROM User u JOIN FETCH u.roles WHERE u.username=:username")
-    User findByUserName(String username);
+    User findByUserName(@Param("username")String username);
 
     @Override
     @Query("SELECT u FROM User u ORDER BY u.id")

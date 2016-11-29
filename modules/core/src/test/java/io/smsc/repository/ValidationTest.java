@@ -27,7 +27,7 @@ import static io.smsc.test_data.UserTestData.*;
 @ContextConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = h2"})
+@TestPropertySource(properties = {"smsc.database = hsqldb"})
 public class ValidationTest {
 
     @Autowired

@@ -3,7 +3,6 @@ package io.smsc.repository.user;
 import io.smsc.converters.CryptoConverter;
 import io.smsc.model.User;
 import io.smsc.repository.AbstractRepositoryTest;
-import io.smsc.repository.user.UserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import static io.smsc.test_data.RoleTestData.*;
 import static io.smsc.test_data.UserTestData.*;
 
 public class UserJPARepositoryTest extends AbstractRepositoryTest {
@@ -68,5 +68,17 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
         newUser.setId(null);
         userRepository.saveOneWithEncryptedPassword(newUser);
         USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newUser,USER,ADMIN), userRepository.getAllWithDecryptedPassword());
+    }
+
+    @Test
+    public void testAddRole() throws Exception {
+        User user = userRepository.addRole(USER_ID,ROLE_ADMIN_ID);
+        USER_MODEL_MATCHER.assertEquals(user, userRepository.getOneWithDecryptedPassword(USER_ID));
+    }
+
+    @Test
+    public void testRemoveRole() throws Exception {
+        User user = userRepository.removeRole(USER_ID,ROLE_USER_ID);
+        USER_MODEL_MATCHER.assertEquals(user, userRepository.getOneWithDecryptedPassword(USER_ID));
     }
 }

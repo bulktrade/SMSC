@@ -4,6 +4,7 @@ import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @MappedSuperclass
@@ -14,11 +15,11 @@ public class CrudPropertyMetaData extends BaseEntity {
     private String property;
 
     @Column(name = "EDITABLE", nullable = false)
-    @NotEmpty(message = "{crud.property.meta.data.editable.validation}")
+    @NotNull(message = "{crud.property.meta.data.editable.validation}")
     private Boolean editable;
 
     @Column(name = "VISIBLE", nullable = false)
-    @NotEmpty(message = "{crud.property.meta.data.visible.validation}")
+    @NotNull(message = "{crud.property.meta.data.visible.validation}")
     private Boolean visible;
 
     @Column(name = "DECORATOR")
@@ -27,29 +28,23 @@ public class CrudPropertyMetaData extends BaseEntity {
 
     //PostgreSQL isn't supporting column name "ORDER"
     @Column(name = "ORDER_NUMBER", nullable = false)
-    @NotEmpty(message = "{crud.property.meta.data.order.validation}")
+    @NotNull(message = "{crud.property.meta.data.order.validation}")
     private Double order;
 
-    @OneToOne
-    @JoinColumn(name="CRUD_CLASS_META_DATA")
-    private CrudClassMetaData crudClassMetaData;
-
-    @OneToMany
-    @JoinColumn(name="CRUD_PROPERTY_META_DATA")
-    private Set<MetaDataPropertyBindingParameter> bindingParameters;
+//    @OneToMany()
+//    @JoinColumn(name="CRUD_PROPERTY_META_DATA")
+//    private Set<MetaDataPropertyBindingParameter> bindingParameters;
 
     public CrudPropertyMetaData() {
     }
 
-    public CrudPropertyMetaData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order, CrudClassMetaData crudClassMetaData, Set<MetaDataPropertyBindingParameter> bindingParameters) {
+    public CrudPropertyMetaData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order) {
         super(id);
         this.property = property;
         this.editable = editable;
         this.visible = visible;
         this.decorator = decorator;
         this.order = order;
-        this.crudClassMetaData = crudClassMetaData;
-        this.bindingParameters = bindingParameters;
     }
 
     public String getProperty() {
@@ -92,22 +87,6 @@ public class CrudPropertyMetaData extends BaseEntity {
         this.order = order;
     }
 
-    public CrudClassMetaData getCrudClassMetaData() {
-        return crudClassMetaData;
-    }
-
-    public void setCrudClassMetaData(CrudClassMetaData crudClassMetaData) {
-        this.crudClassMetaData = crudClassMetaData;
-    }
-
-    public Set<MetaDataPropertyBindingParameter> getBindingParameters() {
-        return bindingParameters;
-    }
-
-    public void setBindingParameters(Set<MetaDataPropertyBindingParameter> bindingParameters) {
-        this.bindingParameters = bindingParameters;
-    }
-
     @Override
     public String toString() {
         return "CrudPropertyMetaData{" +
@@ -115,9 +94,6 @@ public class CrudPropertyMetaData extends BaseEntity {
                 ", editable=" + editable +
                 ", visible=" + visible +
                 ", decorator='" + decorator + '\'' +
-                ", order=" + order +
-                ", crudClassMetaData=" + crudClassMetaData +
-                ", bindingParameters=" + bindingParameters +
-                '}';
+                ", order=" + order + '}';
     }
 }

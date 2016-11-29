@@ -23,21 +23,23 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     private String secretKey;
 
     public User addRole(Long userId, Long roleId){
-        User user = userRepository.findOne(userId);
+        User user = userRepository.getOneWithDecryptedPassword(userId);
         Role role = roleRepository.findOne(roleId);
         user.addRole(role);
         role.addUser(user);
         roleRepository.save(role);
-        return userRepository.save(user);
+        userRepository.saveOneWithEncryptedPassword(user);
+        return user;
     }
 
     public User removeRole(Long userId, Long roleId){
-        User user = userRepository.findOne(userId);
+        User user = userRepository.getOneWithDecryptedPassword(userId);
         Role role = roleRepository.findOne(roleId);
         user.removeRole(role);
         role.removeUser(user);
         roleRepository.save(role);
-        return userRepository.save(user);
+        userRepository.saveOneWithEncryptedPassword(user);
+        return user;
     }
 
     public User getOneWithDecryptedPassword(Long id){

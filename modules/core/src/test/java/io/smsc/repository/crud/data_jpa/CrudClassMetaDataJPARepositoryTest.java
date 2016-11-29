@@ -2,7 +2,7 @@ package io.smsc.repository.crud.data_jpa;
 
 import io.smsc.model.crud.CrudClassMetaData;
 import io.smsc.repository.AbstractRepositoryTest;
-import io.smsc.repository.crud.CrudClassMetaDataRepository;
+import io.smsc.repository.crud.crud_class_meta_data.CrudClassMetaDataRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

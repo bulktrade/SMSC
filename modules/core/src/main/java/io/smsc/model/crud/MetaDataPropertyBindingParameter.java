@@ -30,6 +30,12 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
     @ElementCollection()
     private List<Operator> operator;
 
+    @Column(name="CRUD_META_FORM_DATA")
+    private Long crudMetaFormDataId;
+
+    @Column(name="CRUD_META_GRID_DATA")
+    private Long crudMetaGridDataId;
+
     public MetaDataPropertyBindingParameter() {
     }
 
@@ -76,6 +82,38 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
 
     public void setOperator(List<Operator> operator) {
         this.operator = operator;
+    }
+
+    public Long getCrudMetaFormDataId() {
+        return crudMetaFormDataId;
+    }
+
+    public void setCrudMetaFormDataId(Long crudMetaFormDataId) {
+        this.crudMetaFormDataId = crudMetaFormDataId;
+    }
+
+    public Long getCrudMetaGridDataId() {
+        return crudMetaGridDataId;
+    }
+
+    public void setCrudMetaGridDataId(Long crudMetaGridDataId) {
+        this.crudMetaGridDataId = crudMetaGridDataId;
+    }
+
+    public void addOperator(Operator operator){
+        this.operator.add(operator);
+    }
+
+    public void removeOperator(Operator operator){
+        this.operator.remove(operator);
+    }
+
+    public void addCombineOperator(CombineOperator combineOperator){
+        this.combineOperator.add(combineOperator);
+    }
+
+    public void removeCombineOperator(CombineOperator combineOperator){
+        this.combineOperator.remove(combineOperator);
     }
 
     @Override

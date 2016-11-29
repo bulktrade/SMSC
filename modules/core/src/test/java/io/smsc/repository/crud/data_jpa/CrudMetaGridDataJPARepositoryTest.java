@@ -3,14 +3,12 @@ package io.smsc.repository.crud.data_jpa;
 import io.smsc.model.crud.CrudMetaGridData;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
 import io.smsc.repository.AbstractRepositoryTest;
-import io.smsc.repository.crud.CrudMetaGridDataRepository;
+import io.smsc.repository.crud.crud_meta_grid_data.CrudMetaGridDataRepository;
+import io.smsc.repository.crud.meta_data_property_binding_parameter.MetaDataPropertyBindingParameterRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static io.smsc.test_data.CrudMetaGridDataTestData.*;
 import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
@@ -20,6 +18,9 @@ public class CrudMetaGridDataJPARepositoryTest extends AbstractRepositoryTest {
 
     @Autowired
     private CrudMetaGridDataRepository crudMetaGridDataRepository;
+
+    @Autowired
+    private MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository;
 
     @Test
     public void testDeleteCrudMetaGridData() throws Exception {
@@ -33,10 +34,9 @@ public class CrudMetaGridDataJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testSaveCrudMetaGridData() throws Exception {
-        Set<MetaDataPropertyBindingParameter> metaDataPropertyBindingParameters = new HashSet<>();
-        metaDataPropertyBindingParameters.addAll(Arrays.asList(META_DATA_PROPERTY_BINDING_PARAMETER_3,META_DATA_PROPERTY_BINDING_PARAMETER_4));
         CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"defaultProperty", true, true,
-        "newDecorator", 10.0, CRUD_CLASS_META_DATA_1, metaDataPropertyBindingParameters, 50.0);
+        "newDecorator", 10.0, 50.0);
+        newCrudMetaGridData.setCrudClassMetaData(CRUD_CLASS_META_DATA_1);
         CrudMetaGridData created = crudMetaGridDataRepository.save(newCrudMetaGridData);
         newCrudMetaGridData.setId(created.getId());
         CRUD_META_GRID_DATA_MODEL_MATCHER.assertEquals(newCrudMetaGridData, crudMetaGridDataRepository.findOne(newCrudMetaGridData.getId()));
@@ -69,5 +69,18 @@ public class CrudMetaGridDataJPARepositoryTest extends AbstractRepositoryTest {
         updated.setColumnWidth(30.0);
         crudMetaGridDataRepository.save(updated);
         CRUD_META_GRID_DATA_MODEL_MATCHER.assertEquals(updated, crudMetaGridDataRepository.findOne(CRUD_META_GRID_DATA_ID_1));
+    }
+
+    @Test
+    public void testAddAndRemoveBindingParameter() throws Exception {
+        CrudMetaGridData crudMetaGridData = crudMetaGridDataRepository.findOne(CRUD_META_GRID_DATA_ID_1);
+        MetaDataPropertyBindingParameter metaDataPropertyBindingParameter = metaDataPropertyBindingParameterRepository.findOne(META_DATA_PROPERTY_BINDING_PARAMETER_ID_1);
+        crudMetaGridData.addBindingParameter(metaDataPropertyBindingParameter);
+        crudMetaGridDataRepository.save(crudMetaGridData);
+        CRUD_META_GRID_DATA_1.setBindingParameters(Collections.singleton(metaDataPropertyBindingParameter));
+        CRUD_META_GRID_DATA_MODEL_MATCHER.assertEquals(CRUD_META_GRID_DATA_1,crudMetaGridData);
+        CRUD_META_GRID_DATA_1.setBindingParameters(Collections.emptySet());
+        crudMetaGridData.removeBindingParameter(metaDataPropertyBindingParameter);
+        CRUD_META_GRID_DATA_MODEL_MATCHER.assertEquals(CRUD_META_GRID_DATA_1,crudMetaGridData);
     }
 }

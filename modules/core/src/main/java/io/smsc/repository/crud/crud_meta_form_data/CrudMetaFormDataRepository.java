@@ -1,4 +1,4 @@
-package io.smsc.repository.crud;
+package io.smsc.repository.crud.crud_meta_form_data;
 
 import io.smsc.model.crud.CrudMetaFormData;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,9 +23,10 @@ public interface CrudMetaFormDataRepository extends JpaRepository<CrudMetaFormDa
     CrudMetaFormData save(CrudMetaFormData crudMetaGridData);
 
     @Override
-    CrudMetaFormData findOne(Long id);
+    @Query("SELECT c FROM CrudMetaFormData c LEFT JOIN FETCH c.bindingParameters WHERE c.id=:id")
+    CrudMetaFormData findOne(@Param("id") Long id);
 
     @Override
-    @Query("SELECT c FROM CrudMetaFormData c ORDER BY c.id")
+    @Query("SELECT c FROM CrudMetaFormData c LEFT JOIN FETCH c.bindingParameters ORDER BY c.id")
     List<CrudMetaFormData> findAll();
 }

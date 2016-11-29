@@ -7,6 +7,7 @@ import io.smsc.repository.AbstractRepositoryTest;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 
 import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
@@ -24,8 +25,8 @@ public class MetaDataPropertyBindingParameterRestRepositoryTest extends Abstract
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getFromProperty())))
                 .andExpect(jsonPath("$.toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getToProperty())))
-                .andExpect(jsonPath("$.combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getCombineOperator())))
-                .andExpect(jsonPath("$.operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getOperator())));
+                .andExpect(jsonPath("$.combineOperator", is(Collections.singletonList(CombineOperator.OR.toString()))))
+                .andExpect(jsonPath("$.operator", is(Collections.singletonList(Operator.EQUALS.toString()))));
     }
 
     @Test
@@ -41,23 +42,23 @@ public class MetaDataPropertyBindingParameterRestRepositoryTest extends Abstract
         mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameter"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter", hasSize(4)))
+                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter", hasSize(1)))
                 .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[0].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getFromProperty())))
                 .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[0].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getToProperty())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[0].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getCombineOperator())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[0].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getOperator())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getFromProperty())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getToProperty())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getCombineOperator())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getOperator())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getFromProperty())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getToProperty())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getCombineOperator())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getOperator())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getFromProperty())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getToProperty())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getCombineOperator())))
-                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getOperator())));
+                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[0].combineOperator", is(Collections.singletonList(CombineOperator.OR.toString()))))
+                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[0].operator", is(Collections.singletonList(Operator.EQUALS.toString()))));
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getFromProperty())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getToProperty())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getCombineOperator())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getOperator())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getFromProperty())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getToProperty())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getCombineOperator())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getOperator())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getFromProperty())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getToProperty())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getCombineOperator())))
+//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getOperator())));
     }
 
     @Test
@@ -92,9 +93,9 @@ public class MetaDataPropertyBindingParameterRestRepositoryTest extends Abstract
         mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameter/55"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getFromProperty())))
-                .andExpect(jsonPath("$.toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getToProperty())))
-                .andExpect(jsonPath("$.combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getCombineOperator())))
-                .andExpect(jsonPath("$.operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getOperator())));
+                .andExpect(jsonPath("$.fromProperty", is("from_updated_property")))
+                .andExpect(jsonPath("$.toProperty", is("to_updated_property")))
+                .andExpect(jsonPath("$.combineOperator", is(Arrays.asList(CombineOperator.AND.toString(),CombineOperator.NOT.toString()))))
+                .andExpect(jsonPath("$.operator", is(Arrays.asList(Operator.BETWEEN.toString(),Operator.INSTANCE_OF.toString(),Operator.LIKE.toString(), Operator.MORE_OR_LESS.toString()))));
     }
 }

@@ -1,4 +1,4 @@
-package io.smsc.repository.crud;
+package io.smsc.repository.crud.crud_meta_grid_data;
 
 import io.smsc.model.crud.CrudMetaGridData;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,9 +23,10 @@ public interface CrudMetaGridDataRepository extends JpaRepository<CrudMetaGridDa
     CrudMetaGridData save(CrudMetaGridData crudMetaGridData);
 
     @Override
-    CrudMetaGridData findOne(Long id);
+    @Query("SELECT c FROM CrudMetaGridData c LEFT JOIN FETCH c.bindingParameters WHERE c.id=:id")
+    CrudMetaGridData findOne(@Param("id") Long id);
 
     @Override
-    @Query("SELECT c FROM CrudClassMetaData c ORDER BY c.id")
+    @Query("SELECT c FROM CrudMetaGridData c LEFT JOIN FETCH c.bindingParameters ORDER BY c.id")
     List<CrudMetaGridData> findAll();
 }

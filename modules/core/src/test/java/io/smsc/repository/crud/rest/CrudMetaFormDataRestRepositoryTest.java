@@ -34,7 +34,7 @@ public class CrudMetaFormDataRestRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testCrudMetaFromDataNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/crud-class-meta-data/99")
+        mockMvc.perform(post("/rest/repository/crud-meta-form-data/99")
                 .content(this.json(new CrudMetaFormData()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
@@ -42,7 +42,7 @@ public class CrudMetaFormDataRestRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testGetAllCrudMetaFromDatas() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-class-meta-data"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data", hasSize(20)))
@@ -74,10 +74,8 @@ public class CrudMetaFormDataRestRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testCreateCrudMetaFromData() throws Exception {
-        Set<MetaDataPropertyBindingParameter> metaDataPropertyBindingParameters = new HashSet<>();
-        metaDataPropertyBindingParameters.addAll(Arrays.asList(META_DATA_PROPERTY_BINDING_PARAMETER_1,META_DATA_PROPERTY_BINDING_PARAMETER_2));
-        CrudMetaFormData newCrudClassMetaData = new CrudMetaFormData(null,"defaultProperty", true, true, null, 10.0,
-                CRUD_CLASS_META_DATA_1, metaDataPropertyBindingParameters,"newFieldLayoutGridPosition");
+        CrudMetaFormData newCrudClassMetaData = new CrudMetaFormData(null,"defaultProperty", true,
+                true, null, 10.0, "newFieldLayoutGridPosition");
         String crudClassMetaDataJson = json(newCrudClassMetaData);
         this.mockMvc.perform(post("/rest/repository/crud-meta-form-data")
                 .contentType(contentType)
@@ -109,11 +107,11 @@ public class CrudMetaFormDataRestRepositoryTest extends AbstractRepositoryTest {
         mockMvc.perform(get("/rest/repository/crud-meta-form-data/35"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.property", is(CRUD_META_FORM_DATA_1.getProperty())))
-                .andExpect(jsonPath("$.editable", is(CRUD_META_FORM_DATA_1.getEditable())))
-                .andExpect(jsonPath("$.visible", is(CRUD_META_FORM_DATA_1.getVisible())))
-                .andExpect(jsonPath("$.decorator", is(CRUD_META_FORM_DATA_1.getDecorator())))
-                .andExpect(jsonPath("$.order", is(CRUD_META_FORM_DATA_1.getOrder())))
-                .andExpect(jsonPath("$.fieldLayoutGridPosition", is(CRUD_META_FORM_DATA_1.getFieldLayoutGridPosition())));
+                .andExpect(jsonPath("$.property", is("newProperty")))
+                .andExpect(jsonPath("$.editable", is(false)))
+                .andExpect(jsonPath("$.visible", is(false)))
+                .andExpect(jsonPath("$.decorator", is("newDecorator")))
+                .andExpect(jsonPath("$.order", is(20.0)))
+                .andExpect(jsonPath("$.fieldLayoutGridPosition", is("newFieldLayoutGridPosition")));
     }
 }

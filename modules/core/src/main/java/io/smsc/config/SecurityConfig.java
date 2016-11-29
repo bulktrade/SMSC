@@ -109,7 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rest/repository/users").access("hasRole('ADMIN')")
                 .antMatchers("/rest/repository/roles").access("hasRole('ADMIN')")
                 .antMatchers("/rest/repository/permissions").access("hasRole('ADMIN')")
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/", false);
         // Custom JWT based security filter
         http
