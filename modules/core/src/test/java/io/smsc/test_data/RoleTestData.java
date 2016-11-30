@@ -12,8 +12,8 @@ public class RoleTestData {
     public static final long ROLE_USER_ID = 3;
     public static final long ROLE_ADMIN_ID = 4;
 
-    public static final Role ROLE_USER = new Role(ROLE_USER_ID,"USER");
-    public static final Role ROLE_ADMIN = new Role(ROLE_ADMIN_ID,"ADMIN");
+    public static final Role ROLE_USER = new Role(ROLE_USER_ID,"ROLE_USER");
+    public static final Role ROLE_ADMIN = new Role(ROLE_ADMIN_ID,"ROLE_ADMIN");
 
     static
     {

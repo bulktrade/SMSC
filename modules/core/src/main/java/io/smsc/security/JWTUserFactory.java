@@ -32,23 +32,24 @@ public final class JWTUserFactory {
     }
 
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
-        return getGrantedAuthorities(getPermissions(roles));
+        return getGrantedAuthorities(getRolesAndPermissions(roles));
     }
 
-    private static List<String> getPermissions(Collection<Role> roles) {
-        final List<String> permissions = new ArrayList<>();
+    private static List<String> getRolesAndPermissions(Collection<Role> roles) {
+        final List<String> authorities = new ArrayList<>();
         final List<Permission> collection = new ArrayList<>();
         for (final Role role : roles) {
             collection.addAll(role.getPermissions());
         }
-        permissions.addAll(collection.stream().map(Permission::getName).collect(Collectors.toList()));
-        return permissions;
+        authorities.addAll(collection.stream().map(Permission::getName).collect(Collectors.toList()));
+        authorities.addAll(roles.stream().map(Role::getName).collect(Collectors.toList()));
+        return authorities;
     }
 
-    private static List<GrantedAuthority> getGrantedAuthorities(List<String> permissions) {
+    private static List<GrantedAuthority> getGrantedAuthorities(List<String> rolesAndPermissions) {
         final List<GrantedAuthority> authorities = new ArrayList<>();
-        for (final String permission : permissions) {
-            authorities.add(new SimpleGrantedAuthority(permission));
+        for (final String authority : rolesAndPermissions) {
+            authorities.add(new SimpleGrantedAuthority(authority));
         }
         return authorities;
     }

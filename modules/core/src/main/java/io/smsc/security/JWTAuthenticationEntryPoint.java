@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
 
+/**
+ * Since our API only 'speaks' REST we give a HTTP 401 if user cannot be authenticated. There is no
+ * login page top redirect to.
+ */
 @Component
 public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
 

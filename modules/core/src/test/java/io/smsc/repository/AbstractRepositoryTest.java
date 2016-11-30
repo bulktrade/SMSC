@@ -1,6 +1,7 @@
 package io.smsc.repository;
 
 import io.smsc.Application;
+import io.smsc.config.SecurityConfig;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -22,18 +23,22 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import pl.domzal.junit.docker.rule.DockerRule;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ContextConfiguration(classes = {Application.class})
+@ContextConfiguration(classes = {Application.class, SecurityConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @TestPropertySource(properties = {"smsc.database = hsqldb"})
@@ -90,11 +95,12 @@ public abstract class AbstractRepositoryTest {
     }
 
     @Autowired
-    private WebApplicationContext webApplicationContext;
+    protected WebApplicationContext webApplicationContext;
 
     @Before
     public void setup() throws Exception {
-        this.mockMvc = webAppContextSetup(webApplicationContext).build();
+        this.mockMvc = webAppContextSetup(webApplicationContext)
+                .build();
     }
 
     @Rule

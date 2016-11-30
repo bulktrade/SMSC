@@ -3,6 +3,7 @@ package io.smsc.config;
 import io.smsc.security.JWTAuthenticationEntryPoint;
 import io.smsc.security.JWTAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 @Configuration
 @EnableWebSecurity
+@EnableAutoConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -91,33 +93,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/rest/repository").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/users").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/roles").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/permissions").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/roles/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/permissions/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/crud-class-meta-data").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/crud-meta-form-data").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/crud-meta-grid-data").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/meta_data_property_binding_parameter").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/crud-class-meta-data/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/crud-meta-form-data/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/crud-meta-grid-data/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/rest/repository/meta_data_property_binding_parameter/**").access("hasRole('ROLE_ADMIN')")
+                .anyRequest().authenticated()
+                .and()
+                // Call our errorHandler if authentication/authorisation fails
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
                 // don't create session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
-                // allow anonymous resource requests
-                .antMatchers(
-                        HttpMethod.GET,
-                        "/",
-                        "/*.html",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js"
-                ).permitAll()
-                .antMatchers("/login").anonymous()
-                .antMatchers("/rest/repository/users").access("hasRole('ADMIN')")
-                .antMatchers("/rest/repository/roles").access("hasRole('ADMIN')")
-                .antMatchers("/rest/repository/permissions").access("hasRole('ADMIN')")
-//                .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").defaultSuccessUrl("/", false);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // Custom JWT based security filter
         http
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-
         // disable page caching
         http.
                 headers()
-                .cacheControl().and();
+                .cacheControl();
     }
 }

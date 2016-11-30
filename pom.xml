@@ -387,12 +387,6 @@
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>4.2.4.RELEASE</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.orientechnologies</groupId>
                 <artifactId>orientdb-core</artifactId>
                 <version>${orientdb.version}</version>
@@ -570,6 +564,12 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>4.3.3.RELEASE</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-test</artifactId>
+                <version>4.2.0.RELEASE</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
