@@ -24,8 +24,15 @@ public class CryptoConverter {
        String salt = user.getSalt();
        String password = user.getPassword();
        TextEncryptor encryptor = Encryptors.text(secretKey,salt);
-        String decryptedPassword = encryptor.decrypt(password);
+       String decryptedPassword = encryptor.decrypt(password);
        user.setPassword(decryptedPassword);
        return decryptedPassword;
+    }
+
+    public static String generateSalt(String password, String secretKey) {
+        String salt = KeyGenerators.string().generateKey();
+        TextEncryptor encryptor = Encryptors.text(secretKey,salt);
+        String encryptedPassword = encryptor.encrypt(password);
+        return encryptedPassword + " " + salt;
     }
 }

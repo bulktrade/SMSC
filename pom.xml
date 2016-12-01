@@ -538,11 +538,11 @@
                 <scope>test</scope>
             </dependency>
 
-            <!--<dependency>-->
-                <!--<groupId>org.flywaydb</groupId>-->
-                <!--<artifactId>flyway-core</artifactId>-->
-                <!--<version>4.0.3</version>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>4.0.3</version>
+            </dependency>
             <!-- Spring -->
             <dependency>
                 <groupId>org.springframework</groupId>

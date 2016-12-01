@@ -1,6 +1,7 @@
 package io.smsc.repository;
 
 import io.smsc.Application;
+import io.smsc.config.SecurityConfig;
 import io.smsc.model.Permission;
 import io.smsc.model.Role;
 import io.smsc.model.User;
@@ -24,7 +25,7 @@ import static io.smsc.test_data.PermissionTestData.*;
 import static io.smsc.test_data.RoleTestData.*;
 import static io.smsc.test_data.UserTestData.*;
 
-@ContextConfiguration(classes = {Application.class})
+@ContextConfiguration(classes = {Application.class, SecurityConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @TestPropertySource(properties = {"smsc.database = hsqldb"})
