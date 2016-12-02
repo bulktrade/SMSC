@@ -1,4 +1,4 @@
-package io.smsc.repository.crud.meta_data_property_binding_parameter;
+package io.smsc.repository.crud.metaDataPropertyBindingParameter;
 
 import io.smsc.model.crud.CombineOperator;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;

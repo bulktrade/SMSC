@@ -52,6 +52,12 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
         this.operator = operator;
     }
 
+    public MetaDataPropertyBindingParameter(Long id, String fromProperty, String toProperty) {
+        super(id);
+        this.fromProperty = fromProperty;
+        this.toProperty = toProperty;
+    }
+
     public String getFromProperty() {
         return fromProperty;
     }

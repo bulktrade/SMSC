@@ -34,12 +34,6 @@ public class CrudClassMetaData extends BaseEntity {
     @OneToMany(mappedBy = "crudClassMetaData")
     private List<CrudMetaGridData> crudMetaGridDatas;
 
-//    @Column(name="CRUD_META_FORM_DATA")
-//    private Long crudMetaFormDataId;
-//
-//    @Column(name="CRUD_META_GRID_DATA")
-//    private Long crudMetaGridDataId;
-
     public CrudClassMetaData() {
     }
 

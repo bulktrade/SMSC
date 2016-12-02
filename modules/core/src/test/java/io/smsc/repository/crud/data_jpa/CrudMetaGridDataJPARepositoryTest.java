@@ -3,8 +3,8 @@ package io.smsc.repository.crud.data_jpa;
 import io.smsc.model.crud.CrudMetaGridData;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
 import io.smsc.repository.AbstractRepositoryTest;
-import io.smsc.repository.crud.crud_meta_grid_data.CrudMetaGridDataRepository;
-import io.smsc.repository.crud.meta_data_property_binding_parameter.MetaDataPropertyBindingParameterRepository;
+import io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository;
+import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

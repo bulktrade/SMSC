@@ -1,4 +1,4 @@
-package io.smsc.repository.crud.crud_meta_grid_data;
+package io.smsc.repository.crud.crudMetaGridData;
 
 import io.smsc.model.crud.CrudMetaGridData;
 import org.springframework.data.jpa.repository.JpaRepository;

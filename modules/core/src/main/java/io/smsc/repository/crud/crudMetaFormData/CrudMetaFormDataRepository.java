@@ -1,4 +1,4 @@
-package io.smsc.repository.crud.crud_meta_form_data;
+package io.smsc.repository.crud.crudMetaFormData;
 
 import io.smsc.model.crud.CrudMetaFormData;
 import org.springframework.data.jpa.repository.JpaRepository;

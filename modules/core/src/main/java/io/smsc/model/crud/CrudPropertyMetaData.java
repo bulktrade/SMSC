@@ -31,10 +31,6 @@ public class CrudPropertyMetaData extends BaseEntity {
     @NotNull(message = "{crud.property.meta.data.order.validation}")
     private Double order;
 
-//    @OneToMany()
-//    @JoinColumn(name="CRUD_PROPERTY_META_DATA")
-//    private Set<MetaDataPropertyBindingParameter> bindingParameters;
-
     public CrudPropertyMetaData() {
     }
 

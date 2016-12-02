@@ -1,10 +1,8 @@
-package io.smsc.repository.crud.meta_data_property_binding_parameter;
+package io.smsc.repository.crud.metaDataPropertyBindingParameter;
 
 import io.smsc.model.crud.CombineOperator;
-import io.smsc.model.crud.CrudMetaFormData;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
 import io.smsc.model.crud.Operator;
-import io.smsc.repository.crud.crud_meta_form_data.CrudMetaFormDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

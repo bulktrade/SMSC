@@ -4,7 +4,7 @@ import io.smsc.model.crud.CombineOperator;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
 import io.smsc.model.crud.Operator;
 import io.smsc.repository.AbstractRepositoryTest;
-import io.smsc.repository.crud.meta_data_property_binding_parameter.MetaDataPropertyBindingParameterRepository;
+import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
