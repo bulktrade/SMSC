@@ -16,7 +16,7 @@ public class BaseEntity implements Persistable<Long>, Serializable {
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    @Column(name = "id")
     @Id
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 11)
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 60)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

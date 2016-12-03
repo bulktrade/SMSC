@@ -9,10 +9,10 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
-@Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "roles_unique_name_idx")})
+@Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "roles_unique_name_idx")})
 public class Role extends BaseEntity{
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "NAME", nullable = false, unique = true)
     @NotEmpty(message = "{role.empty.validation}")
     @Pattern(regexp = "[A-Z_]+", message = "{role.name.validation}")
     private String name;

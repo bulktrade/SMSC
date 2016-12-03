@@ -6,6 +6,7 @@ import io.smsc.model.User;
 import io.smsc.repository.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,25 +20,33 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Autowired
     private RoleRepository roleRepository;
 
+    private final String INSERT = "INSERT INTO USER_ACCOUNT(ID, USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL) VALUES(?, ?, ?, ?, ?, ?, ?)";
+
     @Value("${encrypt.key}")
     private String secretKey;
 
+    public String getSecretKey() {
+        return secretKey;
+    }
+
     public User addRole(Long userId, Long roleId){
-        User user = userRepository.findOne(userId);
+        User user = userRepository.getOneWithDecryptedPassword(userId);
         Role role = roleRepository.findOne(roleId);
         user.addRole(role);
         role.addUser(user);
         roleRepository.save(role);
-        return userRepository.save(user);
+        userRepository.saveOneWithEncryptedPassword(user);
+        return user;
     }
 
     public User removeRole(Long userId, Long roleId){
-        User user = userRepository.findOne(userId);
+        User user = userRepository.getOneWithDecryptedPassword(userId);
         Role role = roleRepository.findOne(roleId);
         user.removeRole(role);
         role.removeUser(user);
         roleRepository.save(role);
-        return userRepository.save(user);
+        userRepository.saveOneWithEncryptedPassword(user);
+        return user;
     }
 
     public User getOneWithDecryptedPassword(Long id){
@@ -49,6 +58,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public User getOneByEmailWithDecryptedPassword(String email) {
         User user = userRepository.findByEmail(email);
+        CryptoConverter.decrypt(user,secretKey);
+        return user;
+    }
+
+    @Override
+    public User getOneByUserNameWithDecryptedPassword(String username) {
+        User user = userRepository.findByUserName(username);
         CryptoConverter.decrypt(user,secretKey);
         return user;
     }

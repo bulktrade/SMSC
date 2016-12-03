@@ -7,10 +7,10 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Entity
-@Table(name = "PERMISSION", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "permissions_unique_name_idx")})
+@Table(name = "PERMISSION", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "permissions_unique_name_idx")})
 public class Permission extends BaseEntity{
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "NAME", nullable = false, unique = true)
     @NotEmpty(message = "{permission.empty.validation}")
     @Pattern(regexp = "[A-Z_]+", message = "{permission.name.validation}")
     private String name;

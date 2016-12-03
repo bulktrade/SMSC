@@ -14,6 +14,8 @@ public interface UserRepositoryCustom {
 
     User getOneByEmailWithDecryptedPassword(String email);
 
+    User getOneByUserNameWithDecryptedPassword(String username);
+
     List<User> getAllWithDecryptedPassword();
 
     User saveOneWithEncryptedPassword(User user);
