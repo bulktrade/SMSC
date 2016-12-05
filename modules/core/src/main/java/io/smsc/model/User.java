@@ -2,7 +2,6 @@ package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)
     @NotEmpty(message = "{user.username.validation}")
-    private String username;
+    private String userName;
 
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
@@ -49,7 +48,7 @@ public class User extends BaseEntity {
     @Column(name = "BLOCKED", nullable = false, columnDefinition = "boolean default false")
     private boolean blocked = false;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY)
     @OrderBy
     @JoinTable(
             name = "USER_ROLE",
@@ -65,9 +64,9 @@ public class User extends BaseEntity {
         this(user.getId(),user.getUsername(),user.getPassword(),user.getFirstName(),user.getSurName(),user.getEmail(),user.isActive(),user.isBlocked());
     }
 
-    public User(Long id, String username, String password, String firstName, String surName, String email, boolean active, boolean blocked) {
+    public User(Long id, String userName, String password, String firstName, String surName, String email, boolean active, boolean blocked) {
         super(id);
-        this.username = username;
+        this.userName = userName;
         this.password = password;
         this.firstName = firstName;
         this.surName = surName;
@@ -77,11 +76,11 @@ public class User extends BaseEntity {
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -168,7 +167,7 @@ public class User extends BaseEntity {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", surName='" + surName + '\'' +

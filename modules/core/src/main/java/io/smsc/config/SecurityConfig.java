@@ -95,8 +95,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
                 .authorizeRequests()
-//                .antMatchers("/rest/repository/users/" + jwtUser.getId()).access("hasRole('ROLE_USER')")
-                .antMatchers("/rest/repository/users").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/login")
+                .permitAll();
+                http
+                        .csrf().disable()
+                        .authorizeRequests()
+                        .antMatchers("/rest/repository/users").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/rest/repository/roles").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/rest/repository/permissions").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/rest/repository/roles/**").access("hasRole('ROLE_ADMIN')")
@@ -110,10 +114,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rest/repository/crud-meta-grid-data/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/rest/repository/meta_data_property_binding_parameter/**").access("hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
                 .and()
                 // Call our errorHandler if authentication/authorization fails
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)

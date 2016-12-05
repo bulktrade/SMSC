@@ -5,7 +5,9 @@ import io.smsc.model.Role;
 import io.smsc.repository.permission.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class RoleRepositoryImpl implements RoleRepositoryCustom {
@@ -16,6 +18,7 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
     @Autowired
     private PermissionRepository permissionRepository;
 
+    @Override
     public Role addPermission(Long roleId, Long permissionId){
         Role role = roleRepository.findOne(roleId);
         Permission permission = permissionRepository.findOne(permissionId);
@@ -25,6 +28,7 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
         return roleRepository.save(role);
     }
 
+    @Override
     public Role removePermission(Long roleId, Long permissionId){
         Role role = roleRepository.findOne(roleId);
         Permission permission = permissionRepository.findOne(permissionId);
@@ -32,5 +36,12 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
         permission.removeRole(role);
         permissionRepository.save(permission);
         return roleRepository.save(role);
+    }
+
+    @Override
+    public Set<Role> findAllDistinct() {
+        Set<Role> roles = new HashSet<>();
+        roles.addAll(roleRepository.findAll());
+        return roles;
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "crud-meta-form-data", path = "crud-meta-form-data")
 @Transactional(readOnly = true)
-public interface CrudMetaFormDataRepository extends JpaRepository<CrudMetaFormData, Long> {
+public interface CrudMetaFormDataRepository extends JpaRepository<CrudMetaFormData, Long>, CrudMetaFormDataRepositoryCustom {
 
     @Modifying
     @Transactional

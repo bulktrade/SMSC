@@ -1,6 +1,7 @@
 package io.smsc.repository;
 
 import io.smsc.Application;
+import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.SecurityConfig;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,7 +39,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ContextConfiguration(classes = {Application.class, SecurityConfig.class})
+@ContextConfiguration(classes = {Application.class, SecurityConfig.class, FlywayConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @TestPropertySource(properties = {"smsc.database = hsqldb"})

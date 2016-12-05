@@ -12,7 +12,7 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "meta_data_property_binding_parameter", path = "meta_data_property_binding_parameter")
 @Transactional(readOnly = true)
-public interface MetaDataPropertyBindingParameterRepository extends JpaRepository<MetaDataPropertyBindingParameter, Long> {
+public interface MetaDataPropertyBindingParameterRepository extends JpaRepository<MetaDataPropertyBindingParameter, Long>, MetaDataPropertyBindingParameterRepositoryCustom {
 
     @Modifying
     @Transactional

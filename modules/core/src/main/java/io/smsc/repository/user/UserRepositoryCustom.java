@@ -12,11 +12,15 @@ public interface UserRepositoryCustom {
 
     User getOneWithDecryptedPassword(Long id);
 
+    User getOneWithRolesAndDecryptedPassword(Long id);
+
     User getOneByEmailWithDecryptedPassword(String email);
 
     User getOneByUserNameWithDecryptedPassword(String username);
 
     List<User> getAllWithDecryptedPassword();
+
+    List<User> getAllWithRolesAndDecryptedPassword();
 
     User saveOneWithEncryptedPassword(User user);
 }

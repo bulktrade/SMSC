@@ -21,8 +21,8 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testDeleteUser() throws Exception {
-        userRepository.deleteById(USER_ID);
-        USER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), userRepository.getAllWithDecryptedPassword());
+        userRepository.delete(USER_ID);
+        USER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), userRepository.getAllWithRolesAndDecryptedPassword());
     }
 
     @Test

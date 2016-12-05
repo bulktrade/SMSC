@@ -2,7 +2,6 @@ package io.smsc.repository.permission;
 
 import io.smsc.model.Permission;
 import io.smsc.repository.AbstractRepositoryTest;
-import io.smsc.repository.permission.PermissionRepository;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class PermissionJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testDeletePermission() throws Exception {
-        permissionRepository.deleteById(PERMISSION_DELETE_USER_ID);
+        permissionRepository.delete(PERMISSION_DELETE_USER_ID);
         PERMISSION_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(PERMISSION_READ_USER,PERMISSION_UPDATE_USER,
                 PERMISSION_CREATE_USER,PERMISSION_READ_OWN_USER,PERMISSION_UPDATE_OWN_USER),permissionRepository.findAll());
     }
@@ -31,8 +30,8 @@ public class PermissionJPARepositoryTest extends AbstractRepositoryTest {
         Permission newPermission = new Permission(null,"PERMISSION_UNLIMITED");
         Permission created = permissionRepository.save(newPermission);
         newPermission.setId(created.getId());
-        PERMISSION_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(PERMISSION_READ_USER,PERMISSION_UPDATE_USER,
-                PERMISSION_CREATE_USER,PERMISSION_DELETE_USER,PERMISSION_READ_OWN_USER,PERMISSION_UPDATE_OWN_USER,newPermission),
+        PERMISSION_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newPermission,PERMISSION_READ_USER,PERMISSION_UPDATE_USER,
+                PERMISSION_CREATE_USER,PERMISSION_DELETE_USER,PERMISSION_READ_OWN_USER,PERMISSION_UPDATE_OWN_USER),
                 permissionRepository.findAll());
     }
 

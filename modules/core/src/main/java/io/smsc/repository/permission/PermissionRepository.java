@@ -1,6 +1,7 @@
 package io.smsc.repository.permission;
 
 import io.smsc.model.Permission;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 
@@ -16,18 +17,15 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
-    @Modifying
-    @Transactional
-    int deleteById(@Param("id") long id);
+    @Override
+    void delete(Long id);
 
     @Override
-    @Transactional
     Permission save(Permission permission);
 
     @Override
     Permission findOne(Long id);
 
     @Override
-    @Query("SELECT p FROM Permission p ORDER BY p.id")
     List<Permission> findAll();
 }

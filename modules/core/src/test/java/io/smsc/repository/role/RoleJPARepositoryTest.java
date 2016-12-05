@@ -20,8 +20,8 @@ public class RoleJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testDeleteRole() throws Exception {
-        roleRepository.deleteById(ROLE_USER_ID);
-        ROLE_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ROLE_ADMIN), roleRepository.findAll());
+        roleRepository.delete(ROLE_USER_ID);
+        ROLE_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ROLE_ADMIN), roleRepository.findAllDistinct());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class RoleJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testGetAllRoles() throws Exception {
-        Collection<Role> roles = roleRepository.findAll();
+        Collection<Role> roles = roleRepository.findAllDistinct();
         ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(ROLE_USER, ROLE_ADMIN), roles);
     }
 

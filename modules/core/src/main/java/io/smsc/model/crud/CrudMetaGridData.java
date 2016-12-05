@@ -33,6 +33,13 @@ public class CrudMetaGridData extends CrudPropertyMetaData {
         this.columnWidth = columnWidth;
     }
 
+    public CrudMetaGridData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
+                            Double columnWidth, CrudClassMetaData crudClassMetaData) {
+        super(id, property, editable, visible, decorator, order);
+        this.columnWidth = columnWidth;
+        this.crudClassMetaData = crudClassMetaData;
+    }
+
     @PreRemove
     private void removeBindingParametersFromCrudMetaGridData() {
         for(MetaDataPropertyBindingParameter parameter : bindingParameters){

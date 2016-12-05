@@ -37,6 +37,13 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
         this.fieldLayoutGridPosition = fieldLayoutGridPosition;
     }
 
+    public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
+                            String fieldLayoutGridPosition, CrudClassMetaData crudClassMetaData) {
+        super(id, property, editable, visible, decorator, order);
+        this.fieldLayoutGridPosition = fieldLayoutGridPosition;
+        this.crudClassMetaData = crudClassMetaData;
+    }
+
     @PreRemove
     private void removeBindingParametersFromCrudMetaMetaData() {
         for(MetaDataPropertyBindingParameter parameter : bindingParameters){
