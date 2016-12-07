@@ -11,7 +11,7 @@ public class CrudMetaGridData extends CrudPropertyMetaData {
 //    @NotEmpty(message = "{crud.meta.grid.data.column.width.validation}")
     private Double columnWidth;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="CRUD_META_GRID_DATA", referencedColumnName = "ID")
     private Set<MetaDataPropertyBindingParameter> bindingParameters;
 

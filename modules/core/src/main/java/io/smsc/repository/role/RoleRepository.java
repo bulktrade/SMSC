@@ -15,7 +15,9 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
 @Transactional(readOnly = true)
-public interface RoleRepository extends JpaRepository<Role, Long>, CrudRepository<Role, Long>, RoleRepositoryCustom {
+public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositoryCustom {
+
+    //All query method resources are exposed under the resource 'search'.
 
     @Override
     void delete(Long id);
@@ -27,6 +29,10 @@ public interface RoleRepository extends JpaRepository<Role, Long>, CrudRepositor
     @EntityGraph(attributePaths = {"permissions"})
     Role findOne(Long id);
 
+    // /rest/repository/roles/search/findByName?name=...
     @EntityGraph(attributePaths = {"permissions"})
-    List<Role> findAll();
+    Role findByName(@Param("name")String name);
+
+    @EntityGraph(attributePaths = {"permissions"})
+    List<Role> findAllDistinctByOrderById();
 }

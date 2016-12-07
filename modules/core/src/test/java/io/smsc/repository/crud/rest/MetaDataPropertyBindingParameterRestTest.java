@@ -3,11 +3,11 @@ package io.smsc.repository.crud.rest;
 import io.smsc.model.crud.CombineOperator;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
 import io.smsc.model.crud.Operator;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import org.junit.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
@@ -16,11 +16,12 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class MetaDataPropertyBindingParameterRestRepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleMetaDataPropertyBindingParameter() throws Exception {
-        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameter/55"))
+        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameter/79"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getFromProperty())))
@@ -31,7 +32,7 @@ public class MetaDataPropertyBindingParameterRestRepositoryTest extends Abstract
 
     @Test
     public void testMetaDataPropertyBindingParameterNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameter/99")
+        mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameter/79")
                 .content(this.json(new MetaDataPropertyBindingParameter()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
@@ -73,8 +74,8 @@ public class MetaDataPropertyBindingParameterRestRepositoryTest extends Abstract
 
     @Test
     public void testDeleteMetaDataPropertyBindingParameter() throws Exception {
-        mockMvc.perform(delete("/rest/repository/meta_data_property_binding_parameter/55"));
-        mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameter/55"))
+        mockMvc.perform(delete("/rest/repository/meta_data_property_binding_parameter/79"));
+        mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameter/79"))
                 .andExpect(status().isNotFound());
     }
 
@@ -86,11 +87,11 @@ public class MetaDataPropertyBindingParameterRestRepositoryTest extends Abstract
         updated.setCombineOperator(Arrays.asList(CombineOperator.AND,CombineOperator.NOT));
         updated.setOperator(Arrays.asList(Operator.BETWEEN,Operator.INSTANCE_OF,Operator.LIKE, Operator.MORE_OR_LESS));
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/meta_data_property_binding_parameter/55")
+        mockMvc.perform(put("/rest/repository/meta_data_property_binding_parameter/79")
                 .contentType(contentType)
                 .content(permissionJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameter/55"))
+        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameter/79"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.fromProperty", is("from_updated_property")))

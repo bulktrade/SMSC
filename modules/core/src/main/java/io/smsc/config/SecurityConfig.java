@@ -52,43 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JWTAuthenticationTokenFilter();
     }
 
-//    @Override
-//    protected void configure(final HttpSecurity http) throws Exception {
-//            // @formatter:off
-//            http
-//                    .csrf().disable()
-//                    .authorizeRequests()
-//                    .antMatchers("/login*","/login*", "/logout*", "/signin/**", "/signup/**",
-//                            "/user/registration*", "/registrationConfirm*", "/expiredAccount*", "/registration*",
-//                            "/badUser*", "/user/resendRegistrationToken*" ,"/forgetPassword*", "/user/resetPassword*",
-//                            "/user/changePassword*", "/emailError*", "/resources/**","/old/user/registration*","/successRegister*","/qrcode*").permitAll()
-//                    .antMatchers("/invalidSession*").anonymous()
-//                    .anyRequest().authenticated()
-//                    .and()
-//                    .formLogin()
-//                    .loginPage("/login")
-//                    .defaultSuccessUrl("/homepage.html")
-//                    .failureUrl("/login?error=true")
-//                    .successHandler(myAuthenticationSuccessHandler)
-//                    .failureHandler(authenticationFailureHandler)
-//                    .authenticationDetailsSource(authenticationDetailsSource)
-//                    .permitAll()
-//                    .and()
-//                    .sessionManagement()
-//                    .invalidSessionUrl("/invalidSession.html")
-//                    .maximumSessions(1).sessionRegistry(sessionRegistry()).and()
-//                    .sessionFixation().none()
-//                    .and()
-//                    .logout()
-//                    .logoutSuccessHandler(myLogoutSuccessHandler)
-//                    .invalidateHttpSession(false)
-//                    .logoutSuccessUrl("/logout.html?logSucc=true")
-//                    .deleteCookies("JSESSIONID")
-//                    .permitAll();
-//            // @formatter:on
-//        }
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -97,22 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login")
                 .permitAll();
-                http
-                        .csrf().disable()
-                        .authorizeRequests()
-                        .antMatchers("/rest/repository/users").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/roles").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/permissions").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/roles/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/permissions/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/crud-class-meta-data").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/crud-meta-form-data").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/crud-meta-grid-data").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/meta_data_property_binding_parameter").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/crud-class-meta-data/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/crud-meta-form-data/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/crud-meta-grid-data/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/rest/repository/meta_data_property_binding_parameter/**").access("hasRole('ROLE_ADMIN')")
+        http
+                .csrf().disable()
+                .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
                 // Call our errorHandler if authentication/authorization fails
@@ -124,8 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
         // disable page caching
-        http.
-                headers()
+        http
+                .headers()
                 .cacheControl();
     }
 }

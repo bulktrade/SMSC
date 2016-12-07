@@ -1,27 +1,22 @@
 package io.smsc.repository.crud.rest;
 
 import io.smsc.model.crud.CrudMetaFormData;
-import io.smsc.model.crud.MetaDataPropertyBindingParameter;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static io.smsc.test_data.CrudMetaFormDataTestData.*;
-import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
-import static io.smsc.test_data.CrudClassMetaDataTestData.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class CrudMetaFormDataRestRepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
-    public void testGetSingleCrudMetaFromData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data/35"))
+    public void testGetSingleCrudMetaFormData() throws Exception {
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data/39"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is(CRUD_META_FORM_DATA_1.getProperty())))
@@ -33,15 +28,15 @@ public class CrudMetaFormDataRestRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    public void testCrudMetaFromDataNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/crud-meta-form-data/99")
+    public void testCrudMetaFormDataNotFound() throws Exception {
+        mockMvc.perform(post("/rest/repository/crud-meta-form-data/999")
                 .content(this.json(new CrudMetaFormData()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testGetAllCrudMetaFromDatas() throws Exception {
+    public void testGetAllCrudMetaFormDatas() throws Exception {
         mockMvc.perform(get("/rest/repository/crud-meta-form-data"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -73,7 +68,7 @@ public class CrudMetaFormDataRestRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    public void testCreateCrudMetaFromData() throws Exception {
+    public void testCreateCrudMetaFormData() throws Exception {
         CrudMetaFormData newCrudClassMetaData = new CrudMetaFormData(null,"defaultProperty", true,
                 true, null, 10.0, "newFieldLayoutGridPosition");
         String crudClassMetaDataJson = json(newCrudClassMetaData);
@@ -84,14 +79,14 @@ public class CrudMetaFormDataRestRepositoryTest extends AbstractRepositoryTest {
     }
 
     @Test
-    public void testDeleteCrudMetaFromData() throws Exception {
-        mockMvc.perform(delete("/rest/repository/crud-meta-form-data/35"));
-        mockMvc.perform(post("/rest/repository/crud-meta-form-data/35"))
+    public void testDeleteCrudMetaFormData() throws Exception {
+        mockMvc.perform(delete("/rest/repository/crud-meta-form-data/39"));
+        mockMvc.perform(post("/rest/repository/crud-meta-form-data/39"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testUpdateCrudMetaFromData() throws Exception {
+    public void testUpdateCrudMetaFormData() throws Exception {
         CrudMetaFormData updated = new CrudMetaFormData(CRUD_META_FORM_DATA_1);
         updated.setDecorator("newDecorator");
         updated.setEditable(false);
@@ -100,11 +95,11 @@ public class CrudMetaFormDataRestRepositoryTest extends AbstractRepositoryTest {
         updated.setVisible(false);
         updated.setFieldLayoutGridPosition("newFieldLayoutGridPosition");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-meta-form-data/35")
+        mockMvc.perform(put("/rest/repository/crud-meta-form-data/39")
                 .contentType(contentType)
                 .content(permissionJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data/35"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data/39"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is("newProperty")))

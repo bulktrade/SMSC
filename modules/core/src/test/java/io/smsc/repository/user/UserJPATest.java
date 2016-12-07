@@ -2,10 +2,11 @@ package io.smsc.repository.user;
 
 import io.smsc.converters.CryptoConverter;
 import io.smsc.model.User;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,8 +14,8 @@ import java.util.Collections;
 
 import static io.smsc.test_data.RoleTestData.*;
 import static io.smsc.test_data.UserTestData.*;
-
-public class UserJPARepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class UserJPATest extends AbstractTest {
 
     @Autowired
     private UserRepository userRepository;
@@ -41,7 +42,7 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testGetAllUsers() throws Exception {
-        Collection<User> users = userRepository.getAllWithDecryptedPassword();
+        Collection<User> users = userRepository.getAllWithRolesAndDecryptedPassword();
         USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(USER, ADMIN), users);
     }
 
@@ -67,7 +68,7 @@ public class UserJPARepositoryTest extends AbstractRepositoryTest {
         User newUser = new User(USER);
         newUser.setId(null);
         userRepository.saveOneWithEncryptedPassword(newUser);
-        USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newUser,USER,ADMIN), userRepository.getAllWithDecryptedPassword());
+        USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newUser,USER,ADMIN), userRepository.getAllWithRolesAndDecryptedPassword());
     }
 
     @Test

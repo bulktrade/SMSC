@@ -37,11 +37,4 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
         permissionRepository.save(permission);
         return roleRepository.save(role);
     }
-
-    @Override
-    public Set<Role> findAllDistinct() {
-        Set<Role> roles = new HashSet<>();
-        roles.addAll(roleRepository.findAll());
-        return roles;
-    }
 }

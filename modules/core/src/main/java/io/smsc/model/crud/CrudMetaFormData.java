@@ -11,7 +11,7 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
 //    @NotEmpty(message = "{crud.meta.form.data.field.layout.grid.position.validation}")
     private String fieldLayoutGridPosition;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="CRUD_META_FORM_DATA", referencedColumnName = "ID")
     private Set<MetaDataPropertyBindingParameter> bindingParameters;
 

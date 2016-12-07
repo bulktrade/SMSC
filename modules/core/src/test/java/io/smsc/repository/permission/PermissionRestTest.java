@@ -1,8 +1,9 @@
 package io.smsc.repository.permission;
 
 import io.smsc.model.Permission;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import org.junit.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static io.smsc.test_data.PermissionTestData.*;
 import static org.hamcrest.Matchers.*;
@@ -10,7 +11,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class PermissionRestRepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class PermissionRestTest extends AbstractTest {
 
     @Test
     public void testGetSinglePermission() throws Exception {
@@ -18,12 +20,12 @@ public class PermissionRestRepositoryTest extends AbstractRepositoryTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.name", is(PERMISSION_READ_USER.getName())));
+                .andExpect(jsonPath("$.name", is(PERMISSION_USER_READ.getName())));
     }
 
     @Test
     public void testPermissionNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/permissions/99")
+        mockMvc.perform(post("/rest/repository/permissions/999")
                 .content(json(new Permission()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
@@ -34,13 +36,9 @@ public class PermissionRestRepositoryTest extends AbstractRepositoryTest {
         mockMvc.perform(get("/rest/repository/permissions"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.permissions", hasSize(6)));
-//                .andExpect(jsonPath("$._embedded.permissions[0].name", is(PERMISSION_READ_USER.getName())))
-//                .andExpect(jsonPath("$._embedded.permissions[1].name", is(PERMISSION_UPDATE_USER.getName())))
-//                .andExpect(jsonPath("$._embedded.permissions[2].name", is(PERMISSION_CREATE_USER.getName())))
-//                .andExpect(jsonPath("$._embedded.permissions[3].name", is(PERMISSION_DELETE_USER.getName())))
-//                .andExpect(jsonPath("$._embedded.permissions[4].name", is(PERMISSION_READ_OWN_USER.getName())))
-//                .andExpect(jsonPath("$._embedded.permissions[5].name", is(PERMISSION_UPDATE_OWN_USER.getName())));
+                // paginating is showing 20 items by default
+                .andExpect(jsonPath("$._embedded.permissions", hasSize(20)))
+                .andExpect(jsonPath("$._embedded.permissions[0].name", is("USER_READ")));
     }
 
     @Test
@@ -62,7 +60,7 @@ public class PermissionRestRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testUpdatePermission() throws Exception {
-        Permission updated = new Permission(PERMISSION_READ_USER);
+        Permission updated = new Permission(PERMISSION_USER_READ);
         updated.setName("WITHOUT_ACCESS");
         String permissionJson = json(updated);
         mockMvc.perform(put("/rest/repository/permissions/5")

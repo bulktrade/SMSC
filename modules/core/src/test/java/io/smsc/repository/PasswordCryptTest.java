@@ -2,17 +2,11 @@ package io.smsc.repository;
 
 import io.smsc.converters.CryptoConverter;
 import io.smsc.model.User;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-public class PasswordCryptTest extends AbstractRepositoryTest {
+public class PasswordCryptTest extends AbstractTest {
 
     @Test
     public void testEncryptDecryptUserPassword(){

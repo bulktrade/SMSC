@@ -1,8 +1,9 @@
 package io.smsc.repository.role;
 
 import io.smsc.model.Role;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import org.junit.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
 
@@ -12,7 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import static io.smsc.test_data.RoleTestData.*;
 
-public class RoleRestRepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class RoleRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleRole() throws Exception {
@@ -25,7 +27,7 @@ public class RoleRestRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testRoleNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/roles/99")
+        mockMvc.perform(post("/rest/repository/roles/999")
                 .content(json(new Role()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
@@ -37,8 +39,6 @@ public class RoleRestRepositoryTest extends AbstractRepositoryTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.roles", hasSize(2)));
-//                .andExpect(jsonPath("$._embedded.roles[0].name", is(ROLE_USER.getName())))
-//                .andExpect(jsonPath("$._embedded.roles[1].name", is(ROLE_ADMIN.getName())));
     }
 
     @Test

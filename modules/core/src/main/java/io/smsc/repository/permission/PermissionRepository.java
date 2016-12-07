@@ -17,6 +17,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
+    //All query method resources are exposed under the resource 'search'.
+
     @Override
     void delete(Long id);
 
@@ -26,6 +28,5 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
     @Override
     Permission findOne(Long id);
 
-    @Override
-    List<Permission> findAll();
+    List<Permission> findAllDistinctByOrderById();
 }

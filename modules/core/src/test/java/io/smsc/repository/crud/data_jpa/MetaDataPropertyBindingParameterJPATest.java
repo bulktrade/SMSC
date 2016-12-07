@@ -3,10 +3,11 @@ package io.smsc.repository.crud.data_jpa;
 import io.smsc.model.crud.CombineOperator;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
 import io.smsc.model.crud.Operator;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,15 +15,16 @@ import java.util.Collections;
 
 import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
 
-public class MetaDataPropertyBindingParameterJPARepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class MetaDataPropertyBindingParameterJPATest extends AbstractTest {
 
     @Autowired
     private MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository;
 
     @Test
     public void testDeleteMetaDataPropertyBindingParameter() throws Exception {
-        metaDataPropertyBindingParameterRepository.deleteById(META_DATA_PROPERTY_BINDING_PARAMETER_ID_1);
-        META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), metaDataPropertyBindingParameterRepository.findAll());
+        metaDataPropertyBindingParameterRepository.delete(META_DATA_PROPERTY_BINDING_PARAMETER_ID_1);
+        META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), metaDataPropertyBindingParameterRepository.findAllDistinctByOrderById());
     }
 
     @Test
@@ -42,7 +44,7 @@ public class MetaDataPropertyBindingParameterJPARepositoryTest extends AbstractR
 
     @Test
     public void testGetAllMetaDataPropertyBindingParameters() throws Exception {
-        Collection<MetaDataPropertyBindingParameter> metaDataPropertyBindingParameter = metaDataPropertyBindingParameterRepository.findAll();
+        Collection<MetaDataPropertyBindingParameter> metaDataPropertyBindingParameter = metaDataPropertyBindingParameterRepository.findAllDistinctByOrderById();
         META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(META_DATA_PROPERTY_BINDING_PARAMETER_1), metaDataPropertyBindingParameter);
     }
 

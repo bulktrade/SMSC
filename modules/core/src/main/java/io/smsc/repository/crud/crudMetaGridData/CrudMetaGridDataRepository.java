@@ -1,6 +1,7 @@
 package io.smsc.repository.crud.crudMetaGridData;
 
 import io.smsc.model.crud.CrudMetaGridData;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,19 +15,16 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface CrudMetaGridDataRepository extends JpaRepository<CrudMetaGridData, Long>, CrudMetaGridDataRepositoryCustom {
 
-    @Modifying
-    @Transactional
-    int deleteById(@Param("id") long id);
+    @Override
+    void delete(Long id);
 
     @Override
-    @Transactional
     CrudMetaGridData save(CrudMetaGridData crudMetaGridData);
 
     @Override
-    @Query("SELECT c FROM CrudMetaGridData c LEFT JOIN FETCH c.bindingParameters WHERE c.id=:id")
-    CrudMetaGridData findOne(@Param("id") Long id);
+    @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
+    CrudMetaGridData findOne(Long id);
 
-    @Override
-    @Query("SELECT c FROM CrudMetaGridData c LEFT JOIN FETCH c.bindingParameters ORDER BY c.id")
-    List<CrudMetaGridData> findAll();
+    @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
+    List<CrudMetaGridData> findAllDistinctByOrderById();
 }

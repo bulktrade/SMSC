@@ -21,13 +21,13 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "META_DATA_PROPERTY_BINDING_PARAMETER_COMBINE_OPERATOR", joinColumns = @JoinColumn(name = "META_DATA_PROPERTY_BINDING_PARAMETER_ID"))
     @Column(name = "COMBINE_OPERATOR")
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     private List<CombineOperator> combineOperator;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "META_DATA_PROPERTY_BINDING_PARAMETER_OPERATOR", joinColumns = @JoinColumn(name = "META_DATA_PROPERTY_BINDING_PARAMETER_ID"))
     @Column(name = "OPERATOR")
-    @ElementCollection()
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Operator> operator;
 
     @Column(name="CRUD_META_FORM_DATA")

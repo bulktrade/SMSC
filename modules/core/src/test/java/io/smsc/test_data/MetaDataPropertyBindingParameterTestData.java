@@ -11,15 +11,9 @@ package io.smsc.test_data;
 
 public class MetaDataPropertyBindingParameterTestData {
 
-    public static final long META_DATA_PROPERTY_BINDING_PARAMETER_ID_1 = 55;
-//    public static final long META_DATA_PROPERTY_BINDING_PARAMETER_ID_2 = 56;
-//    public static final long META_DATA_PROPERTY_BINDING_PARAMETER_ID_3 = 57;
-//    public static final long META_DATA_PROPERTY_BINDING_PARAMETER_ID_4 = 58;
+    public static final long META_DATA_PROPERTY_BINDING_PARAMETER_ID_1 = 79;
 
     public static final MetaDataPropertyBindingParameter META_DATA_PROPERTY_BINDING_PARAMETER_1 = new MetaDataPropertyBindingParameter(META_DATA_PROPERTY_BINDING_PARAMETER_ID_1,"customer","@rid", Arrays.asList(CombineOperator.OR), Collections.singletonList(Operator.EQUALS));
-//    public static final MetaDataPropertyBindingParameter META_DATA_PROPERTY_BINDING_PARAMETER_2 = new MetaDataPropertyBindingParameter(META_DATA_PROPERTY_BINDING_PARAMETER_ID_2,"from_default_property_2","to_default_property_2", Arrays.asList(CombineOperator.NOT,CombineOperator.OR), Arrays.asList(Operator.BETWEEN,Operator.INSTANCE_OF));
-//    public static final MetaDataPropertyBindingParameter META_DATA_PROPERTY_BINDING_PARAMETER_3 = new MetaDataPropertyBindingParameter(META_DATA_PROPERTY_BINDING_PARAMETER_ID_3,"from_default_property_3","to_default_property_3", Collections.singletonList(CombineOperator.OR), Arrays.asList(Operator.IS,Operator.LIKE,Operator.MORE_OR_EQUALS));
-//    public static final MetaDataPropertyBindingParameter META_DATA_PROPERTY_BINDING_PARAMETER_4 = new MetaDataPropertyBindingParameter(META_DATA_PROPERTY_BINDING_PARAMETER_ID_4,"from_default_property_4","to_default_property_4", Arrays.asList(CombineOperator.AND,CombineOperator.OR), Arrays.asList(Operator.MORE,Operator.LESS_OR_EQUALS,Operator.MATCHES,Operator.MORE_OR_LESS,Operator.LESS));
 
     public static final ModelMatcher<MetaDataPropertyBindingParameter> META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER = new ModelMatcher<>(MetaDataPropertyBindingParameter.class,
             (expected, actual) -> expected == actual ||

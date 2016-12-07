@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -73,13 +74,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public List<User> getAllWithDecryptedPassword() {
-        List<User> users = userRepository.findAll();
-        users.forEach(user -> CryptoConverter.decrypt(user,secretKey));
-        return users;
-    }
-
-    @Override
     public List<User> getAllWithRolesAndDecryptedPassword() {
         List<User> users = userRepository.findAll();
         users.forEach(user -> CryptoConverter.decrypt(user,secretKey));
@@ -89,6 +83,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public User saveOneWithEncryptedPassword(User user){
         CryptoConverter.encrypt(user,secretKey);
+        if(user.isNew()) {
+            user.setRoles(new ArrayList<>());
+            Role role = roleRepository.findByName("USER");
+            user.addRole(role);
+            role.addUser(user);
+            roleRepository.save(role);
+        }
         return userRepository.save(user);
     }
 }

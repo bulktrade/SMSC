@@ -1,6 +1,7 @@
 package io.smsc.repository.crud.metaDataPropertyBindingParameter;
 
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,19 +15,16 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface MetaDataPropertyBindingParameterRepository extends JpaRepository<MetaDataPropertyBindingParameter, Long>, MetaDataPropertyBindingParameterRepositoryCustom {
 
-    @Modifying
-    @Transactional
-    int deleteById(@Param("id") long id);
+    @Override
+    void delete(Long id);
 
     @Override
-    @Transactional
     MetaDataPropertyBindingParameter save(MetaDataPropertyBindingParameter metaDataPropertyBindingParameter);
 
     @Override
-    @Query("SELECT m FROM MetaDataPropertyBindingParameter m JOIN FETCH m.operator WHERE m.id=:id")
-    MetaDataPropertyBindingParameter findOne(@Param("id") Long id);
+    @EntityGraph(attributePaths = {"combineOperator"})
+    MetaDataPropertyBindingParameter findOne(Long id);
 
-    @Override
-    @Query("SELECT m FROM MetaDataPropertyBindingParameter m JOIN FETCH m.operator ORDER BY m.id")
-    List<MetaDataPropertyBindingParameter> findAll();
+    @EntityGraph(attributePaths = {"combineOperator"})
+    List<MetaDataPropertyBindingParameter> findAllDistinctByOrderById();
 }

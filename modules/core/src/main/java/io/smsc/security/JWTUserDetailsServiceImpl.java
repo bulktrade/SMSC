@@ -1,4 +1,4 @@
-package io.smsc.security.service;
+package io.smsc.security;
 
 import io.smsc.model.User;
 import io.smsc.repository.user.UserRepository;

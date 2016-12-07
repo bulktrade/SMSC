@@ -1,27 +1,22 @@
 package io.smsc.repository.crud.rest;
 
 import io.smsc.model.crud.CrudMetaGridData;
-import io.smsc.model.crud.MetaDataPropertyBindingParameter;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static io.smsc.test_data.CrudMetaGridDataTestData.*;
-import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
-import static io.smsc.test_data.CrudClassMetaDataTestData.*;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class CrudMetaGridDataRestRepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class CrudMetaGridDataRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCrudMetaGridData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/15"))
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/59"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is(CRUD_META_GRID_DATA_1.getProperty())))
@@ -34,7 +29,7 @@ public class CrudMetaGridDataRestRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testCrudMetaGridDataNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/crud-meta-grid-data/99")
+        mockMvc.perform(post("/rest/repository/crud-meta-grid-data/999")
                 .content(this.json(new CrudMetaGridData()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
@@ -85,8 +80,8 @@ public class CrudMetaGridDataRestRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testDeleteCrudMetaGridData() throws Exception {
-        mockMvc.perform(delete("/rest/repository/crud-meta-grid-data/15"));
-        mockMvc.perform(post("/rest/repository/crud-meta-grid-data/15"))
+        mockMvc.perform(delete("/rest/repository/crud-meta-grid-data/59"));
+        mockMvc.perform(post("/rest/repository/crud-meta-grid-data/59"))
                 .andExpect(status().isNotFound());
     }
 
@@ -100,11 +95,11 @@ public class CrudMetaGridDataRestRepositoryTest extends AbstractRepositoryTest {
         updated.setVisible(false);
         updated.setColumnWidth(30.0);
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-meta-grid-data/15")
+        mockMvc.perform(put("/rest/repository/crud-meta-grid-data/59")
                 .contentType(contentType)
                 .content(permissionJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/15"))
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/59"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is("newProperty")))

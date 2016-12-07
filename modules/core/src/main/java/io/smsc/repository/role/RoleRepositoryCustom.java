@@ -8,6 +8,4 @@ public interface RoleRepositoryCustom {
 
     Role addPermission(Long roleId, Long permissionId);
     Role removePermission(Long roleId, Long permissionId);
-
-    Set<Role> findAllDistinct();
 }

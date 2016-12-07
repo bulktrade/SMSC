@@ -18,8 +18,6 @@ public interface UserRepositoryCustom {
 
     User getOneByUserNameWithDecryptedPassword(String username);
 
-    List<User> getAllWithDecryptedPassword();
-
     List<User> getAllWithRolesAndDecryptedPassword();
 
     User saveOneWithEncryptedPassword(User user);

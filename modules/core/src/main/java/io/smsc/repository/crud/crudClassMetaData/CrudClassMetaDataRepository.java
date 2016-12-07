@@ -14,18 +14,15 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface CrudClassMetaDataRepository extends JpaRepository<CrudClassMetaData, Long> {
 
-    @Modifying
-    @Transactional
-    int deleteById(@Param("id") long id);
+    @Override
+    void delete(Long id);
 
     @Override
-    @Transactional
     CrudClassMetaData save(CrudClassMetaData crudClassMetaData);
 
     @Override
     CrudClassMetaData findOne(Long id);
 
-    @Override
-    @Query("SELECT c FROM CrudClassMetaData c ORDER BY c.id")
-    List<CrudClassMetaData> findAll();
+
+    List<CrudClassMetaData> findAllDistinctByOrderById();
 }

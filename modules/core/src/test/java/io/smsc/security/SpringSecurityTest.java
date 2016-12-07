@@ -1,57 +1,26 @@
 package io.smsc.security;
 
 import io.smsc.model.User;
-import io.smsc.repository.AbstractRepositoryTest;
-import io.smsc.repository.user.UserRepository;
-import org.assertj.core.util.DateUtil;
+import io.smsc.AbstractTest;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.DevicePlatform;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.smsc.test_data.UserTestData.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-public class SpringSecurityTest extends AbstractRepositoryTest {
+public class SpringSecurityTest extends AbstractTest {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final String adminToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBZG1pbiIsImNyZWF0ZWQiOjE0ODExMjU0MDM0NzN9.gt9v1ayuZFu8xm4lPH92BQdtWG9N2BVu69Mt5ILLj3VaXwerD3I1zX-TgmG2JY84pr31trdjgWzI5ZqCGxTLHg";
 
-    @Autowired
-    private JWTTokenUtil jwtTokenUtil;
+    private final String userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyIiwiY3JlYXRlZCI6MTQ4MTEyNjgzMTg0Nn0.5lmGI6mkod0ulN10V1ggJO85CDKLmnjqmbltbH7YEvn0b0Mz6v5GyC4FwE3MO5vnfbNjNyiqKqd8asqfHoVC7A";
 
     @Value("${jwt.header}")
     private String tokenHeader;
-
-    @Before
-    public void setup() {
-        this.mockMvc = webAppContextSetup(webApplicationContext)
-                .apply(springSecurity())
-                .build();
-    }
-
-    @Test
-    public void testGenerateTokenGeneratesDifferentTokensForDifferentCreationDates() throws Exception {
-        final Map<String, Object> claims = createClaims("2016-09-08T03:00:00");
-        final String token = jwtTokenUtil.generateToken(claims);
-
-        final Map<String, Object> claimsForLaterToken = createClaims("2016-09-08T08:00:00");
-        final String laterToken = jwtTokenUtil.generateToken(claimsForLaterToken);
-
-        assertThat(token).isNotEqualTo(laterToken);
-    }
 
     @Test
     public void testGetUnauthorized() throws Exception {
@@ -60,101 +29,40 @@ public class SpringSecurityTest extends AbstractRepositoryTest {
     }
 
     @Test
-    public void testJwtUserAuthentication() throws Exception {
-        User user = userRepository.findByEmail("user@gmail.com");
-        JWTUser jwtUser = JWTUserFactory.create(user);
-        String token = jwtTokenUtil.generateToken(jwtUser, getNormalDevice());
-        mockMvc.perform(get("/")
-                .header(tokenHeader,token))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN));
-    }
-
-    @Test
     public void testJwtUserAccessGranted() throws Exception {
-        User user = userRepository.findByEmail("user@gmail.com");
-        JWTUser jwtUser = JWTUserFactory.create(user);
-        String token = jwtTokenUtil.generateToken(jwtUser, getNormalDevice());
-        mockMvc.perform(get("/rest/repository/users/" + USER_ID)
-                .header(tokenHeader,token))
+        mockMvc.perform(get("/rest/repository/users/search/findByEmail?email=user@gmail.com")
+                .header(tokenHeader,userToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType));
     }
 
     @Test
-    public void testJwtUserAccessForbidden() throws Exception {
-        User user = userRepository.findByEmail("user@gmail.com");
-        JWTUser jwtUser = JWTUserFactory.create(user);
-        String token = jwtTokenUtil.generateToken(jwtUser, getNormalDevice());
-        mockMvc.perform(get("/rest/repository/users")
-                .header(tokenHeader,token))
+    public void testJwtUserGetAllAccessForbidden() throws Exception {
+        mockMvc.perform(get("/rest/repository/users/search/findAll")
+                .header(tokenHeader,userToken))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    public void testJwtAdminAuthentication() throws Exception {
-        User admin = userRepository.findByEmail("admin@gmail.com");
-        JWTUser jwtAdmin = JWTUserFactory.create(admin);
-        String token = jwtTokenUtil.generateToken(jwtAdmin, getNormalDevice());
-        mockMvc.perform(get("/")
-                .header(tokenHeader,token))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_PLAIN));
+    public void testJwtUserDeleteAccessForbidden() throws Exception {
+        mockMvc.perform(delete("/rest/repository/users/1")
+                .header(tokenHeader,userToken))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testJwtUserSaveAccessForbidden() throws Exception {
+        mockMvc.perform(post("/rest/repository/users")
+                .header(tokenHeader,userToken)
+                .content(json(new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false))))
+                .andExpect(status().isForbidden());
     }
 
     @Test
     public void testJwtAdminFullAccess() throws Exception {
-        User admin = userRepository.findByEmail("admin@gmail.com");
-        JWTUser jwtAdmin = JWTUserFactory.create(admin);
-        String token = jwtTokenUtil.generateToken(jwtAdmin, getNormalDevice());
-        mockMvc.perform(get("/rest/repository/users")
-                .header(tokenHeader,token))
+        mockMvc.perform(get("/rest/repository/users/search/findAll")
+                .header(tokenHeader,adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType));
-    }
-
-    private Map<String, Object> createClaims(String creationDate) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put(JWTTokenUtil.CLAIM_KEY_USERNAME, "testUser");
-        claims.put(JWTTokenUtil.CLAIM_KEY_AUDIENCE, "testAudience");
-        claims.put(JWTTokenUtil.CLAIM_KEY_CREATED, DateUtil.parseDatetime(creationDate));
-        return claims;
-    }
-
-//    private static void mockAuthorize(JWTUser jwtUser) {
-//        SecurityContextHolder.getContext().setAuthentication(
-//                new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities()));
-//    }
-//
-//    private static RequestPostProcessor userHttpBasic(User user) {
-//        return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
-//    }
-//
-//    private static RequestPostProcessor userAuth(User user) {
-//        return SecurityMockMvcRequestPostProcessors.authentication(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-//    }
-
-    private static Device getNormalDevice(){
-        return new Device() {
-            @Override
-            public boolean isNormal() {
-                return true;
-            }
-
-            @Override
-            public boolean isMobile() {
-                return false;
-            }
-
-            @Override
-            public boolean isTablet() {
-                return false;
-            }
-
-            @Override
-            public DevicePlatform getDevicePlatform() {
-                return DevicePlatform.UNKNOWN;
-            }
-        };
     }
 }

@@ -1,8 +1,9 @@
 package io.smsc.repository.crud.rest;
 
 import io.smsc.model.crud.CrudClassMetaData;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import org.junit.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static io.smsc.test_data.CrudClassMetaDataTestData.*;
 
@@ -10,11 +11,12 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class CrudClassMetaDataRestRepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class CrudClassMetaDataRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCrudClassMetaData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-class-meta-data/11"))
+        mockMvc.perform(get("/rest/repository/crud-class-meta-data/35"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.className", is(CRUD_CLASS_META_DATA_1.getClassName())))
@@ -66,8 +68,8 @@ public class CrudClassMetaDataRestRepositoryTest extends AbstractRepositoryTest 
 
     @Test
     public void testDeleteCrudClassMetaData() throws Exception {
-        mockMvc.perform(delete("/rest/repository/crud-class-meta-data/11"));
-        mockMvc.perform(post("/rest/repository/crud-class-meta-data/11"))
+        mockMvc.perform(delete("/rest/repository/crud-class-meta-data/35"));
+        mockMvc.perform(post("/rest/repository/crud-class-meta-data/35"))
                 .andExpect(status().isNotFound());
     }
 
@@ -78,11 +80,11 @@ public class CrudClassMetaDataRestRepositoryTest extends AbstractRepositoryTest 
         updated.setEditable(false);
         updated.setQuery("newQuery");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-class-meta-data/11")
+        mockMvc.perform(put("/rest/repository/crud-class-meta-data/35")
                 .contentType(contentType)
                 .content(permissionJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/crud-class-meta-data/11"))
+        mockMvc.perform(get("/rest/repository/crud-class-meta-data/35"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.className", is(updated.getClassName())))

@@ -2,11 +2,12 @@ package io.smsc.repository.crud.data_jpa;
 
 import io.smsc.model.crud.CrudMetaFormData;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import io.smsc.repository.crud.crudMetaFormData.CrudMetaFormDataRepository;
 import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.*;
 
@@ -14,7 +15,8 @@ import static io.smsc.test_data.CrudMetaFormDataTestData.*;
 import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
 import static io.smsc.test_data.CrudClassMetaDataTestData.*;
 
-public class CrudMetaFormDataJPARepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class CrudMetaFormDataJPATest extends AbstractTest {
 
     @Autowired
     private CrudMetaFormDataRepository crudMetaFormDataRepository;
@@ -24,12 +26,12 @@ public class CrudMetaFormDataJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testDeleteCrudMetaFormData() throws Exception {
-        crudMetaFormDataRepository.deleteById(CRUD_META_FORM_DATA_ID_1);
+        crudMetaFormDataRepository.delete(CRUD_META_FORM_DATA_ID_1);
         CRUD_META_FORM_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_META_FORM_DATA_2,CRUD_META_FORM_DATA_3,
                 CRUD_META_FORM_DATA_4, CRUD_META_FORM_DATA_5, CRUD_META_FORM_DATA_6, CRUD_META_FORM_DATA_7, CRUD_META_FORM_DATA_8,
                 CRUD_META_FORM_DATA_9, CRUD_META_FORM_DATA_10, CRUD_META_FORM_DATA_11, CRUD_META_FORM_DATA_12, CRUD_META_FORM_DATA_13,
                 CRUD_META_FORM_DATA_14, CRUD_META_FORM_DATA_15, CRUD_META_FORM_DATA_16, CRUD_META_FORM_DATA_17, CRUD_META_FORM_DATA_18,
-                CRUD_META_FORM_DATA_19, CRUD_META_FORM_DATA_20), crudMetaFormDataRepository.findAll());
+                CRUD_META_FORM_DATA_19, CRUD_META_FORM_DATA_20), crudMetaFormDataRepository.findAllDistinctByOrderById());
     }
 
     @Test
@@ -50,7 +52,7 @@ public class CrudMetaFormDataJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testGetAllCrudMetaFormDatas() throws Exception {
-        Collection<CrudMetaFormData> crudClassMetaDatas = crudMetaFormDataRepository.findAll();
+        Collection<CrudMetaFormData> crudClassMetaDatas = crudMetaFormDataRepository.findAllDistinctByOrderById();
         CRUD_META_FORM_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_META_FORM_DATA_1, CRUD_META_FORM_DATA_2,
                 CRUD_META_FORM_DATA_3, CRUD_META_FORM_DATA_4, CRUD_META_FORM_DATA_5, CRUD_META_FORM_DATA_6, CRUD_META_FORM_DATA_7,
                 CRUD_META_FORM_DATA_8, CRUD_META_FORM_DATA_9, CRUD_META_FORM_DATA_10, CRUD_META_FORM_DATA_11, CRUD_META_FORM_DATA_12,

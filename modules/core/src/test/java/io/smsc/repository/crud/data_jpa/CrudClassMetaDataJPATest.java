@@ -1,27 +1,29 @@
 package io.smsc.repository.crud.data_jpa;
 
 import io.smsc.model.crud.CrudClassMetaData;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import static io.smsc.test_data.CrudClassMetaDataTestData.*;
 
-public class CrudClassMetaDataJPARepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class CrudClassMetaDataJPATest extends AbstractTest {
 
     @Autowired
     private CrudClassMetaDataRepository crudClassMetaDataRepository;
 
     @Test
     public void testDeleteCrudClassMetaData() throws Exception {
-        crudClassMetaDataRepository.deleteById(CRUD_CLASS_META_DATA_ID_1);
+        crudClassMetaDataRepository.delete(CRUD_CLASS_META_DATA_ID_1);
         CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_CLASS_META_DATA_2,CRUD_CLASS_META_DATA_3,
-                CRUD_CLASS_META_DATA_4), crudClassMetaDataRepository.findAll());
+                CRUD_CLASS_META_DATA_4), crudClassMetaDataRepository.findAllDistinctByOrderById());
     }
 
     @Test
@@ -40,7 +42,7 @@ public class CrudClassMetaDataJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testGetAllCrudClassMetaDatas() throws Exception {
-        Collection<CrudClassMetaData> crudClassMetaDatas = crudClassMetaDataRepository.findAll();
+        Collection<CrudClassMetaData> crudClassMetaDatas = crudClassMetaDataRepository.findAllDistinctByOrderById();
         CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_CLASS_META_DATA_1, CRUD_CLASS_META_DATA_2,
                 CRUD_CLASS_META_DATA_3, CRUD_CLASS_META_DATA_4), crudClassMetaDatas);
     }
@@ -61,6 +63,6 @@ public class CrudClassMetaDataJPARepositoryTest extends AbstractRepositoryTest {
         newCrudClassMetaData.setId(null);
         crudClassMetaDataRepository.save(newCrudClassMetaData);
         CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCrudClassMetaData,CRUD_CLASS_META_DATA_1,
-                CRUD_CLASS_META_DATA_2, CRUD_CLASS_META_DATA_3, CRUD_CLASS_META_DATA_4), crudClassMetaDataRepository.findAll());
+                CRUD_CLASS_META_DATA_2, CRUD_CLASS_META_DATA_3, CRUD_CLASS_META_DATA_4), crudClassMetaDataRepository.findAllDistinctByOrderById());
     }
 }

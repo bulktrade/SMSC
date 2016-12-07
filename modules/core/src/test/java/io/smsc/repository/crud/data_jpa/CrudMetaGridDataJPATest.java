@@ -2,11 +2,12 @@ package io.smsc.repository.crud.data_jpa;
 
 import io.smsc.model.crud.CrudMetaGridData;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository;
 import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.*;
 
@@ -14,7 +15,8 @@ import static io.smsc.test_data.CrudMetaGridDataTestData.*;
 import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
 import static io.smsc.test_data.CrudClassMetaDataTestData.*;
 
-public class CrudMetaGridDataJPARepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class CrudMetaGridDataJPATest extends AbstractTest {
 
     @Autowired
     private CrudMetaGridDataRepository crudMetaGridDataRepository;
@@ -24,18 +26,18 @@ public class CrudMetaGridDataJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testDeleteCrudMetaGridData() throws Exception {
-        crudMetaGridDataRepository.deleteById(CRUD_META_GRID_DATA_ID_1);
+        crudMetaGridDataRepository.delete(CRUD_META_GRID_DATA_ID_1);
         CRUD_META_GRID_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_META_GRID_DATA_2,CRUD_META_GRID_DATA_3,
                 CRUD_META_GRID_DATA_4, CRUD_META_GRID_DATA_5, CRUD_META_GRID_DATA_6, CRUD_META_GRID_DATA_7, CRUD_META_GRID_DATA_8,
                 CRUD_META_GRID_DATA_9, CRUD_META_GRID_DATA_10, CRUD_META_GRID_DATA_11, CRUD_META_GRID_DATA_12, CRUD_META_GRID_DATA_13,
                 CRUD_META_GRID_DATA_14, CRUD_META_GRID_DATA_15, CRUD_META_GRID_DATA_16, CRUD_META_GRID_DATA_17, CRUD_META_GRID_DATA_18,
-                CRUD_META_GRID_DATA_19, CRUD_META_GRID_DATA_20), crudMetaGridDataRepository.findAll());
+                CRUD_META_GRID_DATA_19, CRUD_META_GRID_DATA_20), crudMetaGridDataRepository.findAllDistinctByOrderById());
     }
 
     @Test
     public void testSaveCrudMetaGridData() throws Exception {
         CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"defaultProperty", true, true,
-        "newDecorator", 10.0, 50.0);
+                "newDecorator", 10.0, 50.0);
         newCrudMetaGridData.setCrudClassMetaData(CRUD_CLASS_META_DATA_1);
         CrudMetaGridData created = crudMetaGridDataRepository.save(newCrudMetaGridData);
         newCrudMetaGridData.setId(created.getId());
@@ -50,7 +52,7 @@ public class CrudMetaGridDataJPARepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testGetAllCrudMetaGridDatas() throws Exception {
-        Collection<CrudMetaGridData> crudMetaGridDatas = crudMetaGridDataRepository.findAll();
+        Collection<CrudMetaGridData> crudMetaGridDatas = crudMetaGridDataRepository.findAllDistinctByOrderById();
         CRUD_META_GRID_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_META_GRID_DATA_1, CRUD_META_GRID_DATA_2,
                 CRUD_META_GRID_DATA_3, CRUD_META_GRID_DATA_4, CRUD_META_GRID_DATA_5, CRUD_META_GRID_DATA_6, CRUD_META_GRID_DATA_7,
                 CRUD_META_GRID_DATA_8, CRUD_META_GRID_DATA_9, CRUD_META_GRID_DATA_10, CRUD_META_GRID_DATA_11, CRUD_META_GRID_DATA_12,

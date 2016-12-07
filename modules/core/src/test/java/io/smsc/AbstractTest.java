@@ -1,11 +1,9 @@
-package io.smsc.repository;
+package io.smsc;
 
-import io.smsc.Application;
 import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.SecurityConfig;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
@@ -24,13 +22,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
-import pl.domzal.junit.docker.rule.DockerRule;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -42,9 +36,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration(classes = {Application.class, SecurityConfig.class, FlywayConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = hsqldb"})
+@TestPropertySource(properties = {"smsc.database = h2"})
 @Transactional
-public abstract class AbstractRepositoryTest {
+public abstract class AbstractTest {
 
     @Value("${encrypt.key}")
     protected String secretKey;
@@ -75,7 +69,7 @@ public abstract class AbstractRepositoryTest {
 //            .expose("8080","8080")
 //            .build();
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractRepositoryTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
 
     private static StringBuilder results = new StringBuilder();
 
@@ -101,6 +95,7 @@ public abstract class AbstractRepositoryTest {
     @Before
     public void setup() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext)
+                .apply(springSecurity())
                 .build();
     }
 

@@ -1,16 +1,17 @@
 package io.smsc.repository.user;
 
 import io.smsc.model.User;
-import io.smsc.repository.AbstractRepositoryTest;
+import io.smsc.AbstractTest;
 import org.junit.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import static io.smsc.test_data.UserTestData.*;
-
-public class UserRestRepositoryTest extends AbstractRepositoryTest {
+@WithMockUser(username="Admin",roles = {"ADMIN"})
+public class UserRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleUser() throws Exception {
@@ -60,10 +61,10 @@ public class UserRestRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void testCreateUser() throws Exception {
-        String roleJson = json(new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false));
-        this.mockMvc.perform(post("/rest/repository/roles")
+        String userJson = json(new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false));
+        this.mockMvc.perform(post("/rest/repository/users")
                 .contentType(contentType)
-                .content(roleJson))
+                .content(userJson))
                 .andExpect(status().isCreated());
     }
 
