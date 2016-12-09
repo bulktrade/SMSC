@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "meta_data_property_binding_parameter", path = "meta_data_property_binding_parameter")
+@RepositoryRestResource(collectionResourceRel = "meta-data-property-binding-parameters", path = "meta-data-property-binding-parameters")
 @Transactional(readOnly = true)
 public interface MetaDataPropertyBindingParameterRepository extends JpaRepository<MetaDataPropertyBindingParameter, Long>, MetaDataPropertyBindingParameterRepositoryCustom {
 

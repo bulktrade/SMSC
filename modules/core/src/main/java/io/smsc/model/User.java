@@ -1,6 +1,7 @@
 package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.smsc.model.customer.Customer;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)
-    @NotEmpty(message = "{user.username.validation}")
+    @NotEmpty(message = "{user.userName.validation}")
     private String userName;
 
     @Column(name = "PASSWORD", nullable = false)
@@ -27,11 +28,11 @@ public class User extends BaseEntity {
     private String salt;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "{user.firstname.validation}")
+    @NotEmpty(message = "{user.firstName.validation}")
     private String firstName;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "{user.surname.validation}")
+    @NotEmpty(message = "{user.surName.validation}")
     private String surName;
 
     @Column(name = "EMAIL", nullable = false, unique = true)
@@ -58,11 +59,15 @@ public class User extends BaseEntity {
     )
     private List<Role> roles;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="CUSTOMER")
+    private Customer customer;
+
     public User() {
     }
 
     public User(User user) {
-        this(user.getId(),user.getUsername(),user.getPassword(),user.getFirstName(),user.getSurName(),user.getEmail(),user.isActive(),user.isBlocked());
+        this(user.getId(),user.getUserName(),user.getPassword(),user.getFirstName(),user.getSurName(),user.getEmail(),user.isActive(),user.isBlocked());
     }
 
     public User(Long id, String userName, String password, String firstName, String surName, String email, boolean active, boolean blocked) {
@@ -76,11 +81,11 @@ public class User extends BaseEntity {
         this.blocked = blocked;
     }
 
-    public String getUsername() {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUsername(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
@@ -164,6 +169,14 @@ public class User extends BaseEntity {
         return this.roles.remove(role);
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -177,6 +190,7 @@ public class User extends BaseEntity {
                 ", created=" + created +
                 ", blocked=" + blocked +
                 ", roles=" + roles +
+                ", customer=" + customer +
                 '}';
     }
 }

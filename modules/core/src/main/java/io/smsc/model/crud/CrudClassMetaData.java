@@ -12,11 +12,11 @@ import java.util.List;
 public class CrudClassMetaData extends BaseEntity {
 
     @Column(name = "CLASS_NAME", nullable = false, unique = true)
-    @NotEmpty(message = "{crud.class.meta.data.classname.validation}")
+    @NotEmpty(message = "{crud.class.meta.data.className.validation}")
     private String className;
 
     @Column(name = "TITLE_COLUMNS", nullable = false)
-    @NotEmpty(message = "{crud.class.meta.data.titlecolumns.validation}")
+    @NotEmpty(message = "{crud.class.meta.data.titleColumns.validation}")
     private String titleColumns;
 
     @Column(name = "EDITABLE", nullable = false)
