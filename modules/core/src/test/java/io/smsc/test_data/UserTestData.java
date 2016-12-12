@@ -22,7 +22,7 @@ public class UserTestData {
 
     public static final ModelMatcher<User> USER_MODEL_MATCHER = new ModelMatcher<>(User.class,
             (expected, actual) -> expected == actual ||
-                    (Objects.equals(expected.getUsername(), actual.getUsername())
+                    (Objects.equals(expected.getUserName(), actual.getUserName())
                             && Objects.equals(expected.getPassword(), actual.getPassword())
                             && Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getFirstName(), actual.getFirstName())

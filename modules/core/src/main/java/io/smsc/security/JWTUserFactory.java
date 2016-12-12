@@ -17,7 +17,7 @@ public final class JWTUserFactory {
     public static JWTUser create(User user) {
         return new JWTUser(
                 user.getId(),
-                user.getUsername(),
+                user.getUserName(),
                 user.getPassword(),
                 user.getSalt(),
                 user.getFirstName(),

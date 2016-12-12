@@ -41,14 +41,14 @@ public class CustomerContact extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "CUSTOMER_CONTACT_TYPE", joinColumns = @JoinColumn(name = "CUSTOMER_CONTACT_ID"))
     @Column(name = "TYPE")
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<Type> type;
+    @Embedded
+    private Type type;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "CUSTOMER_CONTACT_SALUTATION", joinColumns = @JoinColumn(name = "CUSTOMER_CONTACT_ID"))
     @Column(name = "SALUTATION")
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<Salutation> salutation;
+    @Embedded
+    private Salutation salutation;
 
     public CustomerContact() {
     }
@@ -124,19 +124,19 @@ public class CustomerContact extends BaseEntity {
         this.customer = customer;
     }
 
-    public List<Type> getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(List<Type> type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
-    public List<Salutation> getSalutation() {
+    public Salutation getSalutation() {
         return salutation;
     }
 
-    public void setSalutation(List<Salutation> salutation) {
+    public void setSalutation(Salutation salutation) {
         this.salutation = salutation;
     }
 

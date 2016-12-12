@@ -1,4 +1,4 @@
-package io.smsc.repository.customer;
+package io.smsc.repository.customer.customer;
 
 import io.smsc.model.Role;
 import io.smsc.model.customer.Customer;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "customers", path = "customers")
 @Transactional(readOnly = true)
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long>, CustomerRepositoryCustom {
 
     //All query method resources are exposed under the resource 'search'.
 
@@ -27,8 +27,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Customer findOne(Long id);
 
     @EntityGraph(attributePaths = {"parentCustomer","contacts","users"})
-    Role findByCustomerId(@Param("customerId")Double customerID);
+    Customer findByCustomerId(@Param("customerId")Double customerID);
 
     @EntityGraph(attributePaths = {"parentCustomer","contacts","users"})
-    List<Role> findAllDistinctByOrderById();
+    List<Customer> findAllDistinctByOrderById();
 }

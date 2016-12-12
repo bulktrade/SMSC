@@ -1,11 +1,13 @@
 package io.smsc.controller;
 
 import io.smsc.security.JWTAuthenticationRequest;
+import io.smsc.security.JWTAuthenticationResponse;
 import io.smsc.security.JWTTokenUtil;
 import io.smsc.security.JWTUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mobile.device.Device;
-import org.springframework.mobile.device.DevicePlatform;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.net.URI;
+
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RestController
-public class LoginController {
+public class AuthController {
 
     @Autowired
     private JWTTokenUtil jwtTokenUtil;
@@ -24,15 +28,17 @@ public class LoginController {
     @Autowired
     private JWTUserDetailsServiceImpl jwtUserDetailsService;
 
-    @PostMapping(path = "/login", consumes = APPLICATION_JSON_VALUE)
-    public void login(@RequestBody JWTAuthenticationRequest request, HttpServletResponse response) {
+    @PostMapping(path = "/rest/auth/token", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<JWTAuthenticationResponse> token(@RequestBody JWTAuthenticationRequest request, HttpServletResponse response) {
         try {
             UserDetails jwtUser = jwtUserDetailsService.loadUserByUsername(request.getUsername());
             if (jwtUser.getPassword().equals(request.getPassword())) {
-                response.setHeader("Token", jwtTokenUtil.generateToken(jwtUser));
+                JWTAuthenticationResponse token = new JWTAuthenticationResponse(jwtTokenUtil.generateAccessToken(jwtUser),jwtTokenUtil.generateRefreshToken(jwtUser));
+                return new ResponseEntity<>(token, HttpStatus.OK);
             }
-        } catch (NullPointerException ex) {
+        } catch (Exception ex) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
+        return null;
     }
 }

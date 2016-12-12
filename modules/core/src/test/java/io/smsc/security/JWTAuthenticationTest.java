@@ -20,35 +20,29 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 public class JWTAuthenticationTest extends AbstractTest {
 
-    @Autowired
-    private JWTTokenUtil jwtTokenUtil;
-
-    @Value("${jwt.header}")
-    private String tokenHeader;
-
     @Test
     public void testLoginUser() throws Exception {
-        MvcResult result = mockMvc.perform(post("/login")
+        MvcResult result = mockMvc.perform(post("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTAuthenticationRequest("User","password"))))
                 .andExpect(status().isOk())
                 .andReturn();
-        System.out.println("Token for user: " + result.getResponse().getHeader("Token"));
+        System.out.println("Token for user: " + result.getResponse().getContentAsString());
     }
 
     @Test
     public void testLoginAdmin() throws Exception {
-        MvcResult result = mockMvc.perform(post("/login")
+        MvcResult result = mockMvc.perform(post("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTAuthenticationRequest("Admin","admin"))))
                 .andExpect(status().isOk())
                 .andReturn();
-        System.out.println("Token for admin: " + result.getResponse().getHeader("Token"));
+        System.out.println("Token for admin: " + result.getResponse().getContentAsString());
     }
 
     @Test
     public void testLoginUnauthorized() throws Exception {
-        mockMvc.perform(post("/login")
+        mockMvc.perform(post("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTAuthenticationRequest("Unknown","unknown"))))
                 .andExpect(status().isUnauthorized());
@@ -57,10 +51,10 @@ public class JWTAuthenticationTest extends AbstractTest {
     @Test
     public void testGenerateTokenGeneratesDifferentTokensForDifferentCreationDates() throws Exception {
         final Map<String, Object> claims = createClaims("2016-09-08T03:00:00");
-        final String token = jwtTokenUtil.generateToken(claims);
+        final String token = jwtTokenUtil.generateAccessToken(claims);
 
         final Map<String, Object> claimsForLaterToken = createClaims("2016-09-08T08:00:00");
-        final String laterToken = jwtTokenUtil.generateToken(claimsForLaterToken);
+        final String laterToken = jwtTokenUtil.generateAccessToken(claimsForLaterToken);
 
         assertThat(token).isNotEqualTo(laterToken);
     }

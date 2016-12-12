@@ -49,7 +49,13 @@ public class Customer extends BaseEntity {
     @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
     private List<CustomerContact> contacts;
 
-    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @OrderBy
+    @JoinTable(
+            name = "CUSTOMER_USER",
+            joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+    )
     private List<User> users;
 
     public Customer() {
@@ -158,6 +164,22 @@ public class Customer extends BaseEntity {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public void addContact(CustomerContact customerContact){
+        this.contacts.add(customerContact);
+    }
+
+    public void removeContact(CustomerContact customerContact){
+        this.contacts.remove(customerContact);
+    }
+
+    public void addUser(User user){
+        this.users.add(user);
+    }
+
+    public void removeUser(User user){
+        this.users.remove(user);
     }
 
     @Override

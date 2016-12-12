@@ -2,6 +2,8 @@ package io.smsc;
 
 import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.SecurityConfig;
+import io.smsc.security.JWTTokenUtil;
+import io.smsc.security.JWTUserDetailsServiceImpl;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
@@ -42,6 +44,12 @@ public abstract class AbstractTest {
 
     @Value("${encrypt.key}")
     protected String secretKey;
+
+    @Value("${jwt.header}")
+    protected String tokenHeader;
+
+    @Value("${jwt.secret}")
+    protected String tokenSecret;
 
 //    @ClassRule
 //    public static DockerRule postgreSQLRule = DockerRule.builder()
@@ -91,6 +99,12 @@ public abstract class AbstractTest {
 
     @Autowired
     protected WebApplicationContext webApplicationContext;
+
+    @Autowired
+    protected JWTTokenUtil jwtTokenUtil;
+
+    @Autowired
+    protected JWTUserDetailsServiceImpl jwtUserDetailsService;
 
     @Before
     public void setup() throws Exception {

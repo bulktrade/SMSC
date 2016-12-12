@@ -2,6 +2,7 @@ package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.smsc.model.customer.Customer;
+import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -59,9 +60,14 @@ public class User extends BaseEntity {
     )
     private List<Role> roles;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CUSTOMER")
-    private Customer customer;
+    @ManyToMany(mappedBy = "users")
+    @OrderBy
+    private List<Customer> customers;
+
+    // not sure
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OrderBy
+    private List<Dashboard> dashboards;
 
     public User() {
     }
@@ -169,20 +175,44 @@ public class User extends BaseEntity {
         return this.roles.remove(role);
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public List<Customer> getCustomers() {
+        return customers;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public List<Dashboard> getDashboards() {
+        return dashboards;
+    }
+
+    public void setDashboards(List<Dashboard> dashboards) {
+        this.dashboards = dashboards;
+    }
+
+    public void addDashboard(Dashboard dashboard) {
+        this.dashboards.add(dashboard);
+    }
+
+    public void removeDashboard(Dashboard dashboard) {
+        this.dashboards.remove(dashboard);
+    }
+
+    public void addCustomer(Customer customer) {
+        this.customers.add(customer);
+    }
+
+    public void removeCustomer(Customer customer) {
+        this.customers.remove(customer);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", userName='" + userName + '\'' +
+                "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", surName='" + surName + '\'' +
                 ", email='" + email + '\'' +
@@ -190,7 +220,8 @@ public class User extends BaseEntity {
                 ", created=" + created +
                 ", blocked=" + blocked +
                 ", roles=" + roles +
-                ", customer=" + customer +
-                '}';
+                ", customers=" + customers +
+                ", dashboards=" + dashboards +
+                "} " + super.toString();
     }
 }

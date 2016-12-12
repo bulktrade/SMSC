@@ -10,6 +10,10 @@ public interface UserRepositoryCustom {
 
     User removeRole(Long userId, Long roleId);
 
+//    User addDashboard(Long userId, Long dashboardId);
+//
+//    User removeDashboard(Long userId, Long dashboardId);
+
     User getOneWithDecryptedPassword(Long id);
 
     User getOneWithRolesAndDecryptedPassword(Long id);

@@ -3,6 +3,7 @@ package io.smsc.repository.user;
 import io.smsc.converters.CryptoConverter;
 import io.smsc.model.Role;
 import io.smsc.model.User;
+import io.smsc.repository.dashboard.dashboard.DashboardRepository;
 import io.smsc.repository.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -85,6 +86,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         CryptoConverter.encrypt(user,secretKey);
         if(user.isNew()) {
             user.setRoles(new ArrayList<>());
+            user.setDashboards(new ArrayList<>());
             Role role = roleRepository.findByName("USER");
             user.addRole(role);
             role.addUser(user);

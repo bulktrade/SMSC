@@ -1,10 +1,21 @@
-package io.smsc.security;
+package io.smsc.repository.user;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.smsc.model.User;
 import io.smsc.AbstractTest;
+import io.smsc.security.JWTTokenUtil;
+import io.smsc.security.JWTUserFactory;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -13,11 +24,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-public class SpringSecurityTest extends AbstractTest {
+public class UserSpringSecurityTest extends AbstractTest {
 
-    private final String adminToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBZG1pbiIsImNyZWF0ZWQiOjE0ODExMjU0MDM0NzN9.gt9v1ayuZFu8xm4lPH92BQdtWG9N2BVu69Mt5ILLj3VaXwerD3I1zX-TgmG2JY84pr31trdjgWzI5ZqCGxTLHg";
+    @Autowired
+    private UserRepository userRepository;
 
-    private final String userToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVc2VyIiwiY3JlYXRlZCI6MTQ4MTEyNjgzMTg0Nn0.5lmGI6mkod0ulN10V1ggJO85CDKLmnjqmbltbH7YEvn0b0Mz6v5GyC4FwE3MO5vnfbNjNyiqKqd8asqfHoVC7A";
+    private String adminToken;
+
+    private String userToken;
+
+    @Before
+    public void generateTokens() throws Exception {
+        UserDetails user = JWTUserFactory.create(userRepository.findByUserName("User"));
+        UserDetails admin = JWTUserFactory.create(userRepository.findByUserName("Admin"));
+        userToken = jwtTokenUtil.generateAccessToken(user);
+        adminToken = jwtTokenUtil.generateAccessToken(admin);
+    }
 
     @Value("${jwt.header}")
     private String tokenHeader;
@@ -64,5 +86,20 @@ public class SpringSecurityTest extends AbstractTest {
                 .header(tokenHeader,adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType));
+    }
+
+    @Test
+    public void testJwtAccessWithExpiredToken() throws Exception {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("sub", "Admin");
+        claims.put("created", new Date(System.currentTimeMillis() - 100000));
+        String expiredToken = Jwts.builder()
+                .setClaims(claims)
+                .setExpiration(new Date(System.currentTimeMillis() - 100000 ))
+                .signWith(SignatureAlgorithm.HS512, tokenSecret)
+                .compact();
+        mockMvc.perform(get("/rest/repository/users/search/findAll")
+                .header(tokenHeader,expiredToken))
+                .andExpect(status().isUnauthorized());
     }
 }

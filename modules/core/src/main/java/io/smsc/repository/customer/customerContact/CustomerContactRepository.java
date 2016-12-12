@@ -1,4 +1,4 @@
-package io.smsc.repository.customer;
+package io.smsc.repository.customer.customerContact;
 
 import io.smsc.model.customer.CustomerContact;
 import org.springframework.data.jpa.repository.EntityGraph;
