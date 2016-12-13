@@ -1,15 +1,19 @@
 package io.smsc.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.smsc.model.Permission;
 import io.smsc.model.Role;
+import io.smsc.repository.role.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -101,7 +105,6 @@ public class JWTUser implements UserDetails {
     public Date getCreated() {
         return created;
     }
-
 
     //enabling causes a loop
     public List<Role> getRoles() {

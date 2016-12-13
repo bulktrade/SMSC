@@ -59,13 +59,29 @@ public class JWTTokenUtil implements Serializable {
         return claims;
     }
 
-    private Date generateExpirationDate() {
+    private Date generateExpirationDateForAccessToken() {
         return new Date(System.currentTimeMillis() + expiration * 1000);
+    }
+
+    private Date generateExpirationDateForRefreshToken() {
+        return new Date(System.currentTimeMillis() + expiration * 24 * 1000);
     }
 
     private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
+    }
+
+    public String refreshToken(String token) {
+        String refreshedToken;
+        try {
+            final Claims claims = getClaimsFromToken(token);
+            claims.put(CLAIM_KEY_CREATED, new Date());
+            refreshedToken = generateAccessToken(claims);
+        } catch (Exception e) {
+            refreshedToken = null;
+        }
+        return refreshedToken;
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
@@ -84,7 +100,7 @@ public class JWTTokenUtil implements Serializable {
     public String generateAccessToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setExpiration(generateExpirationDate())
+                .setExpiration(generateExpirationDateForAccessToken())
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
@@ -99,8 +115,7 @@ public class JWTTokenUtil implements Serializable {
     public String generateRefreshToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setId(UUID.randomUUID().toString())
-                .setExpiration(generateExpirationDate())
+                .setExpiration(generateExpirationDateForRefreshToken())
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }

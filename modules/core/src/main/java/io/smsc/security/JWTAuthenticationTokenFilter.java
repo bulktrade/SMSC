@@ -24,7 +24,7 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
     private static final Logger LOG = LoggerFactory.getLogger(JWTAuthenticationTokenFilter.class);
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private JWTUserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private JWTTokenUtil JWTTokenUtil;
@@ -39,12 +39,13 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
         String username = JWTTokenUtil.getUsernameFromToken(authToken);
         LOG.info("checking authentication for user " + username);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-            if (JWTTokenUtil.validateToken(authToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
+            if (JWTTokenUtil.validateToken(authToken, jwtUser)) {
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 LOG.info("authenticated user " + username + ", setting security context");
-                LOG.info(username + " has permissions: " + userDetails.getAuthorities());
+                LOG.info(username + " has roles: " + jwtUser.getRoles());
+                LOG.info(username + " has permissions: " + jwtUser.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

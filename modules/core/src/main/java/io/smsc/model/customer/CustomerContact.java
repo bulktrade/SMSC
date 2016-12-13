@@ -39,15 +39,9 @@ public class CustomerContact extends BaseEntity {
     private Customer customer;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "CUSTOMER_CONTACT_TYPE", joinColumns = @JoinColumn(name = "CUSTOMER_CONTACT_ID"))
-    @Column(name = "TYPE")
-    @Embedded
     private Type type;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "CUSTOMER_CONTACT_SALUTATION", joinColumns = @JoinColumn(name = "CUSTOMER_CONTACT_ID"))
-    @Column(name = "SALUTATION")
-    @Embedded
     private Salutation salutation;
 
     public CustomerContact() {

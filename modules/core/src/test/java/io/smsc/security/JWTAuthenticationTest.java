@@ -2,21 +2,17 @@ package io.smsc.security;
 
 import io.smsc.AbstractTest;
 import org.assertj.core.util.DateUtil;
-import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 public class JWTAuthenticationTest extends AbstractTest {
 
@@ -46,6 +42,19 @@ public class JWTAuthenticationTest extends AbstractTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTAuthenticationRequest("Unknown","unknown"))))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void testRefreshToken() throws Exception {
+        UserDetails admin = JWTUserFactory.create(userRepository.findByUserName("Admin"));
+        String expiredAccessToken = jwtTokenUtil.generateAccessToken(admin);
+        String refreshToken = jwtTokenUtil.generateRefreshToken(admin);
+        MvcResult result = mockMvc.perform(put("/rest/auth/token")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json(new JWTRefreshTokenRequest(expiredAccessToken,refreshToken))))
+                .andExpect(status().isOk())
+                .andReturn();
+        System.out.println("Refreshed token: " + result.getResponse().getContentAsString());
     }
 
     @Test

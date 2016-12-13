@@ -16,7 +16,7 @@ public class JWTUserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public JWTUser loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.getOneByUserNameWithDecryptedPassword(username);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
@@ -25,7 +25,7 @@ public class JWTUserDetailsServiceImpl implements UserDetailsService {
         }
     }
 
-    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+    public JWTUser loadUserByEmail(String email) throws UsernameNotFoundException {
         User user = userRepository.getOneByEmailWithDecryptedPassword(email);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with email '%s'.", email));

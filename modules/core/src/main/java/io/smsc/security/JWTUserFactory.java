@@ -26,8 +26,7 @@ public final class JWTUserFactory {
                 user.isActive(),
                 user.isBlocked(),
                 user.getRoles(),
-                mapToGrantedAuthorities(user.getRoles())
-        );
+                mapToGrantedAuthorities(user.getRoles()));
     }
 
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {

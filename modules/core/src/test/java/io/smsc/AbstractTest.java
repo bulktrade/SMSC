@@ -2,6 +2,9 @@ package io.smsc;
 
 import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.SecurityConfig;
+import io.smsc.repository.permission.PermissionRepository;
+import io.smsc.repository.role.RoleRepository;
+import io.smsc.repository.user.UserRepository;
 import io.smsc.security.JWTTokenUtil;
 import io.smsc.security.JWTUserDetailsServiceImpl;
 import org.junit.AfterClass;
@@ -38,7 +41,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration(classes = {Application.class, SecurityConfig.class, FlywayConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = h2"})
+@TestPropertySource(properties = {"smsc.database = postgresql"})
 @Transactional
 public abstract class AbstractTest {
 
@@ -105,6 +108,15 @@ public abstract class AbstractTest {
 
     @Autowired
     protected JWTUserDetailsServiceImpl jwtUserDetailsService;
+
+    @Autowired
+    protected UserRepository userRepository;
+
+    @Autowired
+    protected RoleRepository roleRepository;
+
+    @Autowired
+    protected PermissionRepository permissionRepository;
 
     @Before
     public void setup() throws Exception {

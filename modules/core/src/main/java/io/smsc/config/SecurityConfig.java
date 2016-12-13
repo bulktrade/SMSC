@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/rest/auth/token")
+                .antMatchers("/rest/auth/**")
                 .permitAll();
         http
                 .csrf().disable()
