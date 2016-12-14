@@ -21,8 +21,6 @@ import {
 import { DashboardsComponent } from './dashboard/dashboards/dashboards.components';
 import { NgModule } from '@angular/core';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { CrudModule } from './crud/crud.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const ROUTES: Routes = [
     {
@@ -50,7 +48,6 @@ export const ROUTES: Routes = [
                 children: [
                     {
                         path: '',
-                        component: DashboardComponent,
                         data: {
                             showInBreadcrumb: false,
                             showInSubNavigation: false,
@@ -64,7 +61,6 @@ export const ROUTES: Routes = [
                     },
                     {
                         path: 'dashboard',
-                        component: DashboardComponent,
                         data: {
                             crudClass: 'DashboardBox',
                             crudTypeClass: 'DashboardBoxType'
@@ -87,10 +83,10 @@ export const ROUTES: Routes = [
                     {
                         path: '',
                         component: CrudComponent,
-                        loadChildren: () => CrudModule,
+                        loadChildren: './crud/crud.module#CrudModule',
                         data: {
                             showInBreadcrumb: false,
-                        }
+                        },
                     }
                 ]
             },
@@ -118,7 +114,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: () => CrudModule,
+                                loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
                                 }
@@ -139,7 +135,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: () => CrudModule,
+                                loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: true,
                                 }
@@ -160,7 +156,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: () => CrudModule,
+                                loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
                                 }
@@ -181,7 +177,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: () => CrudModule,
+                                loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
                                 }

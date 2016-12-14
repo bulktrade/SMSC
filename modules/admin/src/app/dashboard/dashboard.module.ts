@@ -75,7 +75,6 @@ const DASHBOARD_DECLARATION = [
         DASHBOARD_DECLARATION
     ],
     providers: [
-        CrudService,
         DashboardService,
         BaThemeConfigProvider,
         LineChartService,

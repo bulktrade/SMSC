@@ -67,10 +67,7 @@ export class DynamicFormComponent {
         LoadingGridModule
     ],
     exports: [DynamicFormComponent],
-    declarations: [DynamicFormComponent],
-    providers: [
-        CrudService
-    ]
+    declarations: [DynamicFormComponent]
 })
 export class DynamicFormModule {
     static forRoot(): ModuleWithProviders {

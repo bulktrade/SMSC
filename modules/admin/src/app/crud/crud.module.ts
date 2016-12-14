@@ -5,7 +5,6 @@ import { CrudUpdateComponent } from './crud-update/crud-update.component';
 import { CrudLinksetModule } from './crud-linkset/crud-linkset.component';
 import { CrudCreateComponent } from './crud-create/crud-create.component';
 import { CrudDeleteComponent } from './crud-delete/crud-delete.component';
-import { CrudService } from './crud.service';
 import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
 import { CubeGridModule } from '../common/spinner/cube-grid/cube-grid.component';
 import { AlertModule } from 'ng2-bootstrap';
@@ -53,7 +52,7 @@ const CRUD_MODULES = [
     ],
     exports: [CRUD_DECLARATIONS],
     declarations: [CRUD_DECLARATIONS],
-    providers: [CrudService]
+    providers: []
 })
 export class CrudModule {
     static forRoot(): ModuleWithProviders {

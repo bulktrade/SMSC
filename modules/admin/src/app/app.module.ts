@@ -28,8 +28,6 @@ import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { GridService } from './services/grid.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarItemComponent } from './sidebar/sidebar-item.component';
-import { CrudViewResolve } from './crud/crud-view/crud-view.resolve';
-import { CrudModule } from './crud/crud.module';
 import { LoadingRouterOutletModule } from './common/loading-router-outlet.component';
 import { ConfigService } from './config/config.service';
 import { LoadingRouterOutletService } from './services/loading/loading-router-outlet.service';
@@ -44,6 +42,7 @@ import { CrudMetaFormDataComponent } from './crud-meta-data/crud-meta-form-data/
 import { CrudClassMetaDataComponent } from './crud-meta-data/crud-class-meta-data/crud-class-meta-data.component';
 import { CrudMetaGridDataComponent } from './crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component';
 import { SharedModule } from './shared.module';
+import { CrudModule } from "./crud/crud.module";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -51,12 +50,10 @@ export const APP_PROVIDERS = [
     LoadingGridService,
     LoadingService,
     LoadingRouterOutletService,
-    CrudService,
     RouterOutletService,
     GridService,
     TokenService,
     AuthService,
-    CrudViewResolve,
     NotificationService,
     AuthGuard,
     AppState,
@@ -107,6 +104,7 @@ export const APP_PROVIDERS = [
         BreadcrumbModule.forRoot()
     ],
     providers: [
+        CrudService,
         ConfigService,
         ENV_PROVIDERS,
         APP_PROVIDERS
