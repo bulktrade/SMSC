@@ -35,22 +35,14 @@ import { ConfigService } from './config/config.service';
 import { LoadingRouterOutletService } from './services/loading/loading-router-outlet.service';
 import { LoadingService } from './services/loading/loading.service';
 import { RouterOutletService } from './services/router-outlet-service';
-import {
-    MetaDataPropertyBindingParameterComponent
-} from './crud-meta-data/binding-parameter/binding-parameter.component';
+import { MetaDataPropertyBindingParameterComponent } from './crud-meta-data/binding-parameter/binding-parameter.component';
 import { SidebarService } from './sidebar/sidebar.service';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { HttpInterceptor } from './common/http-interceptor';
 import { NoInternetModule } from './common/no-internet/no-internet.component';
-import {
-    CrudMetaFormDataComponent
-} from './crud-meta-data/crud-meta-form-data/crud-meta-form-data.component';
-import {
-    CrudClassMetaDataComponent
-} from './crud-meta-data/crud-class-meta-data/crud-class-meta-data.component';
-import {
-    CrudMetaGridDataComponent
-} from './crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component';
+import { CrudMetaFormDataComponent } from './crud-meta-data/crud-meta-form-data/crud-meta-form-data.component';
+import { CrudClassMetaDataComponent } from './crud-meta-data/crud-class-meta-data/crud-class-meta-data.component';
+import { CrudMetaGridDataComponent } from './crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component';
 import { SharedModule } from './shared.module';
 
 export const APP_PROVIDERS = [

@@ -63,7 +63,7 @@ const DASHBOARD_DECLARATION = [
         ReactiveFormsModule,
         CommonModule,
         TranslateModule,
-        AgGridModule.forRoot(),
+        AgGridModule.withComponents([]),
         DragulaModule,
         DynamicFormModule,
         BreadcrumbModule,
