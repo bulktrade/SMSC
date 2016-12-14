@@ -7,15 +7,25 @@ import java.util.Objects;
 
 public class CrudClassMetaDataTestData {
 
-    public static final long CRUD_CLASS_META_DATA_ID_1 = 35;
-    public static final long CRUD_CLASS_META_DATA_ID_2 = 36;
-    public static final long CRUD_CLASS_META_DATA_ID_3 = 37;
-    public static final long CRUD_CLASS_META_DATA_ID_4 = 38;
+    public static final long CRUD_CLASS_META_DATA_ID_1 = 55;
+    public static final long CRUD_CLASS_META_DATA_ID_2 = 56;
+    public static final long CRUD_CLASS_META_DATA_ID_3 = 57;
+    public static final long CRUD_CLASS_META_DATA_ID_4 = 58;
+    public static final long CRUD_CLASS_META_DATA_ID_5 = 59;
+    public static final long CRUD_CLASS_META_DATA_ID_6 = 60;
+    public static final long CRUD_CLASS_META_DATA_ID_7 = 61;
+    public static final long CRUD_CLASS_META_DATA_ID_8 = 62;
+    public static final long CRUD_CLASS_META_DATA_ID_9 = 63;
 
     public static final CrudClassMetaData CRUD_CLASS_META_DATA_1 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_1,"CrudMetaGridData", "columnWidth", true, null);
     public static final CrudClassMetaData CRUD_CLASS_META_DATA_2 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_2,"CrudMetaFormData", "fieldLayoutGridPosition", true, null);
     public static final CrudClassMetaData CRUD_CLASS_META_DATA_3 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_3,"CrudClassMetaData", "class", true, null);
-    public static final CrudClassMetaData CRUD_CLASS_META_DATA_4 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_4,"MetaDataPropertyBindingParameter", "operator", true, null);
+    public static final CrudClassMetaData CRUD_CLASS_META_DATA_4 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_4,"Customer", "customerId", true, null);
+    public static final CrudClassMetaData CRUD_CLASS_META_DATA_5 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_5,"User", "name", true, null);
+    public static final CrudClassMetaData CRUD_CLASS_META_DATA_6 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_6,"MetaDataPropertyBindingParameter", "operator", true, null);
+    public static final CrudClassMetaData CRUD_CLASS_META_DATA_7 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_7,"Dashboard", "name", true, null);
+    public static final CrudClassMetaData CRUD_CLASS_META_DATA_8 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_8,"DashboardBox", "name", true, null);
+    public static final CrudClassMetaData CRUD_CLASS_META_DATA_9 = new CrudClassMetaData(CRUD_CLASS_META_DATA_ID_9,"DashboardBoxType", "name", true, null);
 
     public static final ModelMatcher<CrudClassMetaData> CRUD_CLASS_META_DATA_MODEL_MATCHER = new ModelMatcher<>(CrudClassMetaData.class,
             (expected, actual) -> expected == actual ||

@@ -15,15 +15,9 @@ public class DashboardBoxType extends BaseEntity {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "DASHBOARD_BOX_TYPE_TYPE", joinColumns = @JoinColumn(name = "DASHBOARD_BOX_TYPE_ID"))
-    @Column(name = "TYPE", nullable = false)
-    @Embedded
     private Type type;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "DASHBOARD_BOX_TYPE_KIND", joinColumns = @JoinColumn(name = "DASHBOARD_BOX_TYPE_ID"))
-    @Column(name = "KIND", nullable = false)
-    @Embedded
     private Kind kind;
 
     // not sure

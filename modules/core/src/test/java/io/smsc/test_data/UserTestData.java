@@ -6,6 +6,10 @@ import io.smsc.model.User;
 import java.util.Collections;
 import java.util.Objects;
 
+import static io.smsc.test_data.RoleTestData.*;
+import static io.smsc.test_data.DashboardTestData.*;
+import static io.smsc.test_data.CustomerTestData.*;
+
 public class UserTestData {
 
     public static final long USER_ID = 1;
@@ -16,8 +20,12 @@ public class UserTestData {
 
     static
     {
-        USER.setRoles(Collections.singletonList(RoleTestData.ROLE_USER));
-        ADMIN.setRoles(Collections.singletonList(RoleTestData.ROLE_ADMIN));
+        USER.setRoles(Collections.singletonList(ROLE_USER));
+        ADMIN.setRoles(Collections.singletonList(ROLE_ADMIN));
+        USER.setDashboards(Collections.singletonList(DASHBOARD_1));
+        ADMIN.setDashboards(Collections.emptyList());
+        USER.setCustomers(Collections.singletonList(CUSTOMER_1));
+        ADMIN.setCustomers(Collections.singletonList(CUSTOMER_1));
     }
 
     public static final ModelMatcher<User> USER_MODEL_MATCHER = new ModelMatcher<>(User.class,

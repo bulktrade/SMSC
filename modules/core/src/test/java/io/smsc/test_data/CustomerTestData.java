@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class CustomerTestData {
 
-    public static final long CUSTOMER_ID_1 = 80;
+    public static final long CUSTOMER_ID_1 = 138;
 
     public static final Customer CUSTOMER_1 = new Customer(CUSTOMER_ID_1, 1.0, "SMSC", "Amtsgericht", "Amtsgericht", "3254", "Germany", "Stuttgart", 5672394.0);
 

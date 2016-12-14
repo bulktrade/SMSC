@@ -2,6 +2,8 @@ package io.smsc;
 
 import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.SecurityConfig;
+import io.smsc.repository.customer.customer.CustomerRepository;
+import io.smsc.repository.customer.customerContact.CustomerContactRepository;
 import io.smsc.repository.permission.PermissionRepository;
 import io.smsc.repository.role.RoleRepository;
 import io.smsc.repository.user.UserRepository;
@@ -117,6 +119,12 @@ public abstract class AbstractTest {
 
     @Autowired
     protected PermissionRepository permissionRepository;
+
+    @Autowired
+    protected CustomerRepository customerRepository;
+
+    @Autowired
+    protected CustomerContactRepository customerContactRepository;
 
     @Before
     public void setup() throws Exception {

@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import static io.smsc.test_data.UserTestData.*;
+
 @WithMockUser(username="Admin",roles = {"ADMIN"})
 public class UserRestTest extends AbstractTest {
 
@@ -81,10 +82,10 @@ public class UserRestTest extends AbstractTest {
         updated.setActive(false);
         updated.setBlocked(true);
         updated.setEmail("bot@gmail.com");
-        String permissionJson = json(updated);
+        String userJson = json(updated);
         mockMvc.perform(put("/rest/repository/users/1")
                 .contentType(contentType)
-                .content(permissionJson))
+                .content(userJson))
                 .andExpect(status().isNoContent());
         mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isOk())

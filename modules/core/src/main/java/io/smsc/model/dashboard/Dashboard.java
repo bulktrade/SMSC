@@ -20,7 +20,7 @@ public class Dashboard extends BaseEntity {
     private String icon;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="USER", nullable = false, unique = true)
+    @JoinColumn(name="USER_ACCOUNT", nullable = false, unique = true)
     @NotEmpty(message = "{dashboard.user.validation}")
     private User user;
 

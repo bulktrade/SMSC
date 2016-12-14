@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,11 +24,12 @@ public interface CustomerContactRepository extends JpaRepository<CustomerContact
 
     @Override
     @EntityGraph(attributePaths = {"customer","type","salutation"})
-    CustomerContact findOne(Long id);
+    CustomerContact findOne(@Param("id") Long id);
 
     @EntityGraph(attributePaths = {"customer","type","salutation"})
-    CustomerContact findByEmailAddress(@Param("emailAddress")String emailAddress);
+    CustomerContact findByEmailAddress(@Param("emailAddress") String emailAddress);
 
     @EntityGraph(attributePaths = {"customer","type","salutation"})
+    @RestResource(path = "findAll")
     List<CustomerContact> findAllDistinctByOrderById();
 }

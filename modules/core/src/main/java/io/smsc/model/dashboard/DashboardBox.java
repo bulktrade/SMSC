@@ -10,20 +10,19 @@ import javax.persistence.*;
 public class DashboardBox extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "DASHBOARD_BOX_WIDTH", joinColumns = @JoinColumn(name = "DASHBOARD_BOX_ID"))
-    @Column(name = "WIDTH", nullable = false)
-    @Embedded
     private Width width;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "DASHBOARD_BOX_HEIGHT", joinColumns = @JoinColumn(name = "DASHBOARD_BOX_ID"))
-    @Column(name = "HEIGHT", nullable = false)
-    @Embedded
     private Height height;
 
-    @Column(name = "ORDER", nullable = false)
+    // order is reserved keyword in postgreSQL
+    @Column(name = "ORDER_NUMBER", nullable = false)
     @NotEmpty(message = "{dashboardBox.order.validation}")
     private Integer order;
+
+    @Column(name = "NAME", nullable = false)
+    @NotEmpty(message = "{dashboardBox.name.validation}")
+    private String name;
 
     @Column(name = "DESCRIPTION", nullable = false)
     @NotEmpty(message = "{dashboardBox.description.validation}")
@@ -40,11 +39,12 @@ public class DashboardBox extends BaseEntity {
     public DashboardBox() {
     }
 
-    public DashboardBox(Long id, Width width, Height height, Integer order, String description, Dashboard dashboard, DashboardBoxType dashboardBoxType) {
+    public DashboardBox(Long id, Width width, Height height, Integer order, String name, String description, Dashboard dashboard, DashboardBoxType dashboardBoxType) {
         super(id);
         this.width = width;
         this.height = height;
         this.order = order;
+        this.name = name;
         this.description = description;
         this.dashboard = dashboard;
         this.dashboardBoxType = dashboardBoxType;
@@ -72,6 +72,14 @@ public class DashboardBox extends BaseEntity {
 
     public void setOrder(Integer order) {
         this.order = order;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -104,6 +112,7 @@ public class DashboardBox extends BaseEntity {
                 "width=" + width +
                 ", height=" + height +
                 ", order=" + order +
+                ", name=" + name +
                 ", description='" + description + '\'' +
                 ", dashboard=" + dashboard +
                 ", dashboardBoxType=" + dashboardBoxType +
