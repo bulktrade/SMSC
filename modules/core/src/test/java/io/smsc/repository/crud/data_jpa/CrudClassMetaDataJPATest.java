@@ -16,9 +16,6 @@ import static io.smsc.test_data.CrudClassMetaDataTestData.*;
 @WithMockUser(username="Admin",roles = {"ADMIN"})
 public class CrudClassMetaDataJPATest extends AbstractTest {
 
-    @Autowired
-    private CrudClassMetaDataRepository crudClassMetaDataRepository;
-
     @Test
     public void testDeleteCrudClassMetaData() throws Exception {
         crudClassMetaDataRepository.delete(CRUD_CLASS_META_DATA_ID_1);

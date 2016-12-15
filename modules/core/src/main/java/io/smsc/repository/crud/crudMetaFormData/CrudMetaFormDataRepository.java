@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -16,15 +18,18 @@ import java.util.List;
 public interface CrudMetaFormDataRepository extends JpaRepository<CrudMetaFormData, Long>, CrudMetaFormDataRepositoryCustom {
 
     @Override
-    void delete(Long id);
+    @RestResource(path = "delete")
+    void delete(@Param("id") Long id);
 
     @Override
-    CrudMetaFormData save(CrudMetaFormData crudMetaGridData);
+    @RestResource(path = "save")
+    CrudMetaFormData save(@RequestBody CrudMetaFormData crudMetaGridData);
 
     @Override
     @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
-    CrudMetaFormData findOne(Long id);
+    CrudMetaFormData findOne(@Param("id") Long id);
 
     @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
+    @RestResource(path = "findAll")
     List<CrudMetaFormData> findAllDistinctByOrderById();
 }

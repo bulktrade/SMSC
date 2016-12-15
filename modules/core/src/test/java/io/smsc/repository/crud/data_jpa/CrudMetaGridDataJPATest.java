@@ -18,12 +18,6 @@ import static io.smsc.test_data.CrudClassMetaDataTestData.*;
 @WithMockUser(username="Admin",roles = {"ADMIN"})
 public class CrudMetaGridDataJPATest extends AbstractTest {
 
-    @Autowired
-    private CrudMetaGridDataRepository crudMetaGridDataRepository;
-
-    @Autowired
-    private MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository;
-
     @Test
     public void testDeleteCrudMetaGridData() throws Exception {
         crudMetaGridDataRepository.delete(CRUD_META_GRID_DATA_ID_1);

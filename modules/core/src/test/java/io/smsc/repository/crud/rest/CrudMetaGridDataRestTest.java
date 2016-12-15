@@ -16,7 +16,7 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCrudMetaGridData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/59"))
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/search/findOne?id=106"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is(CRUD_META_GRID_DATA_1.getProperty())))
@@ -29,7 +29,7 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
 
     @Test
     public void testCrudMetaGridDataNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/crud-meta-grid-data/999")
+        mockMvc.perform(post("/rest/repository/crud-meta-grid-data/search/findOne?id=999")
                 .content(this.json(new CrudMetaGridData()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
@@ -37,9 +37,10 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
 
     @Test
     public void testGetAllCrudMetaGridDatas() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data"))
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/search/findAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
+                // paginating is showing 20 items by default
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data", hasSize(20)))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].property", is(CRUD_META_GRID_DATA_1.getProperty())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].editable", is(CRUD_META_GRID_DATA_1.getEditable())))
@@ -72,7 +73,7 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
         CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"defaultProperty", true,
                 true, null, 10.0, 50.0);
         String crudMetaGridDataJson = json(newCrudMetaGridData);
-        this.mockMvc.perform(post("/rest/repository/crud-meta-grid-data")
+        this.mockMvc.perform(post("/rest/repository/crud-meta-grid-data/save")
                 .contentType(contentType)
                 .content(crudMetaGridDataJson))
                 .andExpect(status().isCreated());
@@ -80,8 +81,8 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCrudMetaGridData() throws Exception {
-        mockMvc.perform(delete("/rest/repository/crud-meta-grid-data/59"));
-        mockMvc.perform(post("/rest/repository/crud-meta-grid-data/59"))
+        mockMvc.perform(delete("/rest/repository/crud-meta-grid-data/delete?id=106"));
+        mockMvc.perform(post("/rest/repository/crud-meta-grid-data/search/findOne?id=106"))
                 .andExpect(status().isNotFound());
     }
 
@@ -95,11 +96,11 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
         updated.setVisible(false);
         updated.setColumnWidth(30.0);
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-meta-grid-data/59")
+        mockMvc.perform(put("/rest/repository/crud-meta-grid-data/save")
                 .contentType(contentType)
                 .content(permissionJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/59"))
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/search/findOne?id=106"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is("newProperty")))

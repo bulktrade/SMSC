@@ -7,7 +7,9 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -18,21 +20,27 @@ public interface DashboardBoxRepository extends JpaRepository<DashboardBox, Long
     //All query method resources are exposed under the resource 'search'.
 
     @Override
-    void delete(Long id);
+    @RestResource(path = "delete")
+    void delete(@Param("id") Long id);
 
     @Override
-    DashboardBox save(DashboardBox dashboardBox);
+    @RestResource(path = "delete")
+    DashboardBox save(@RequestBody DashboardBox dashboardBox);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
-    DashboardBox findOne(Long id);
+    DashboardBox findOne(@Param("id") Long id);
 
     @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
-    DashboardBox findByDashboard(@Param("dashboard")Dashboard dashboard);
+    List<DashboardBox> findAllByName(@Param("name") String name);
 
     @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
-    DashboardBox findByDashboardBoxType(@Param("dashboardBoxType")DashboardBoxType dashboardBoxType);
+    List<DashboardBox> findAllByDashboard(@Param("dashboard") Dashboard dashboard);
 
     @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
+    List<DashboardBox> findAllByDashboardBoxType(@Param("dashboardBoxType") DashboardBoxType dashboardBoxType);
+
+    @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
+    @RestResource(path = "findAll")
     List<DashboardBox> findAllDistinctByOrderById();
 }

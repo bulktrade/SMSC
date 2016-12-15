@@ -21,7 +21,7 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleMetaDataPropertyBindingParameter() throws Exception {
-        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameters/79"))
+        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameters/search/findOne?id=137"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getFromProperty())))
@@ -32,7 +32,7 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
 
     @Test
     public void testMetaDataPropertyBindingParameterNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameters/79")
+        mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameters/search/findOne?id=137")
                 .content(this.json(new MetaDataPropertyBindingParameter()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
@@ -40,7 +40,7 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
 
     @Test
     public void testGetAllMetaDataPropertyBindingParameters() throws Exception {
-        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameters"))
+        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameters/search/findAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameters", hasSize(1)))
@@ -48,25 +48,13 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
                 .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameters[0].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getToProperty())))
                 .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameters[0].combineOperator", is(Collections.singletonList(CombineOperator.OR.toString()))))
                 .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameters[0].operator", is(Collections.singletonList(Operator.EQUALS.toString()))));
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getFromProperty())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getToProperty())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getCombineOperator())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[1].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_2.getOperator())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getFromProperty())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getToProperty())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getCombineOperator())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[2].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_3.getOperator())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getFromProperty())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].toProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getToProperty())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].combineOperator", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getCombineOperator())))
-//                .andExpect(jsonPath("$._embedded.meta_data_property_binding_parameter[3].operator", is(META_DATA_PROPERTY_BINDING_PARAMETER_4.getOperator())));
     }
 
     @Test
     public void testCreateMetaDataPropertyBindingParameter() throws Exception {
         String metaDataPropertyBindingParameterJson = json(new MetaDataPropertyBindingParameter(null, "from_new_property",
                 "to_new_property", Collections.singletonList(CombineOperator.OR), Arrays.asList(Operator.IS,Operator.LIKE,Operator.MORE_OR_LESS)));
-        this.mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameters")
+        this.mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameters/save")
                 .contentType(contentType)
                 .content(metaDataPropertyBindingParameterJson))
                 .andExpect(status().isCreated());
@@ -74,8 +62,8 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
 
     @Test
     public void testDeleteMetaDataPropertyBindingParameter() throws Exception {
-        mockMvc.perform(delete("/rest/repository/meta_data_property_binding_parameters/79"));
-        mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameters/79"))
+        mockMvc.perform(delete("/rest/repository/meta_data_property_binding_parameters/delete?id=137"));
+        mockMvc.perform(post("/rest/repository/meta_data_property_binding_parameters/search/findOne?id=137"))
                 .andExpect(status().isNotFound());
     }
 
@@ -87,11 +75,11 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
         updated.setCombineOperator(Arrays.asList(CombineOperator.AND,CombineOperator.NOT));
         updated.setOperator(Arrays.asList(Operator.BETWEEN,Operator.INSTANCE_OF,Operator.LIKE, Operator.MORE_OR_LESS));
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/meta_data_property_binding_parameters/79")
+        mockMvc.perform(put("/rest/repository/meta_data_property_binding_parameters/save")
                 .contentType(contentType)
                 .content(permissionJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameters/79"))
+        mockMvc.perform(get("/rest/repository/meta_data_property_binding_parameters/search/findOne?id=137"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.fromProperty", is("from_updated_property")))

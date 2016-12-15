@@ -64,7 +64,6 @@ public class User extends BaseEntity {
     @OrderBy
     private List<Customer> customers;
 
-    // not sure
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
     @OrderBy
     private List<Dashboard> dashboards;

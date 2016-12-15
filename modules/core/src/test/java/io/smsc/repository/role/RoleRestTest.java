@@ -18,7 +18,7 @@ public class RoleRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleRole() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles/3"))
+        mockMvc.perform(get("/rest/repository/roles/search/findOne?id=3"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(contentType))
@@ -27,7 +27,7 @@ public class RoleRestTest extends AbstractTest {
 
     @Test
     public void testRoleNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/roles/999")
+        mockMvc.perform(post("/rest/repository/roles/search/findOne?id=999")
                 .content(json(new Role()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
@@ -35,7 +35,7 @@ public class RoleRestTest extends AbstractTest {
 
     @Test
     public void testGetAllRoles() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles"))
+        mockMvc.perform(get("/rest/repository/roles/search/findAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.roles", hasSize(2)));
@@ -44,7 +44,7 @@ public class RoleRestTest extends AbstractTest {
     @Test
     public void testCreateRole() throws Exception {
         String roleJson = json(new Role(null,"GOD"));
-        this.mockMvc.perform(post("/rest/repository/roles")
+        this.mockMvc.perform(post("/rest/repository/roles/save")
                 .contentType(contentType)
                 .content(roleJson))
                 .andExpect(status().isCreated());
@@ -52,9 +52,9 @@ public class RoleRestTest extends AbstractTest {
 
     @Test
     public void testDeleteRole() throws Exception {
-        mockMvc.perform(delete("/rest/repository/roles/3"))
+        mockMvc.perform(delete("/rest/repository/roles/delete?id=3"))
                 .andDo(print());
-        mockMvc.perform(post("/rest/repository/roles/3"))
+        mockMvc.perform(post("/rest/repository/roles/search/findOne?id=3"))
                 .andExpect(status().isNotFound());
     }
 
@@ -63,11 +63,11 @@ public class RoleRestTest extends AbstractTest {
         Role updated = new Role(ROLE_USER);
         updated.setName("GUEST");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/roles/3")
+        mockMvc.perform(put("/rest/repository/roles/search/save")
                 .contentType(contentType)
                 .content(permissionJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/roles/3"))
+        mockMvc.perform(get("/rest/repository/roles/search/findOne?id=3"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name",is(updated.getName())));

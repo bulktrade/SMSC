@@ -17,9 +17,6 @@ import static io.smsc.test_data.PermissionTestData.*;
 @WithMockUser(username="Admin",roles = {"ADMIN"})
 public class RoleJPATest extends AbstractTest {
 
-    @Autowired
-    private RoleRepository roleRepository;
-
     @Test
     public void testDeleteRole() throws Exception {
         roleRepository.delete(ROLE_USER_ID);

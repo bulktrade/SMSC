@@ -1,8 +1,5 @@
 package io.smsc.model.dashboard;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 public enum Kind {
     PIE_CHART,
     SERIAL_CHART,

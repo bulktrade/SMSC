@@ -167,12 +167,7 @@ public class PermissionTestData {
         PERMISSION_DASHBOARD_BOX_TYPE_DELETE.setRoles(Collections.singletonList(ROLE_ADMIN));
     }
 
-    public static final ModelMatcher<Permission> PERMISSION_MODEL_MATCHER = new ModelMatcher<>(Permission.class,
-            (expected, actual) -> expected == actual ||
-                    (Objects.equals(expected.getId(), actual.getId())
-                            && Objects.equals(expected.getName(), actual.getName())
-                            && Objects.equals(expected.getRoles(), actual.getRoles())
-                    )
-    );
+    public static final ModelMatcher<Permission> PERMISSION_MODEL_MATCHER = new ModelMatcher<>(Permission.class);
+
 
 }

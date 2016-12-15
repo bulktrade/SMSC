@@ -26,9 +26,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 public class UserSpringSecurityTest extends AbstractTest {
 
-    @Autowired
-    private UserRepository userRepository;
-
     private String adminToken;
 
     private String userToken;

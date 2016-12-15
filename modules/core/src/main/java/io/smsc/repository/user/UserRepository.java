@@ -8,6 +8,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -17,11 +18,13 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
 
     @Override
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_DELETE')")
-    void delete(Long id);
+    @RestResource(path = "delete")
+    void delete(@Param("id") Long id);
 
     @Override
     @PreAuthorize("hasRole('ADMIN') or (hasAuthority('USER_CREATE') and #user.id == null) or hasAuthority('USER_UPDATE')")
-    User save(User user);
+    @RestResource(path = "save")
+    User save(@RequestBody  User user);
 
     // /rest/repository/users/search/findOne?id=...
     @Override

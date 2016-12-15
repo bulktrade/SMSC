@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "DASHBOARD", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME","USER"}, name = "dashboards_unique_name_user_idx")})
+@Table(name = "DASHBOARD", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"}, name = "dashboards_unique_name_user_idx")})
 public class Dashboard extends BaseEntity {
 
     @Column(name = "NAME", nullable = false, unique = true)
@@ -20,7 +20,7 @@ public class Dashboard extends BaseEntity {
     private String icon;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="USER_ACCOUNT", nullable = false, unique = true)
+    @JoinColumn(name="USER_ACCOUNT", nullable = false)
     @NotEmpty(message = "{dashboard.user.validation}")
     private User user;
 

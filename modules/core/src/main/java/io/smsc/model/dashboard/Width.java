@@ -1,8 +1,5 @@
 package io.smsc.model.dashboard;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 public enum Width {
 
     WIDTH_25,

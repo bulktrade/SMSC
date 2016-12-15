@@ -16,7 +16,7 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCrudMetaFormData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data/39"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data/search/findOne?id=64"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is(CRUD_META_FORM_DATA_1.getProperty())))
@@ -29,7 +29,7 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
     public void testCrudMetaFormDataNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/crud-meta-form-data/999")
+        mockMvc.perform(post("/rest/repository/crud-meta-form-data/search/findOne?id=999")
                 .content(this.json(new CrudMetaFormData()))
                 .contentType(contentType))
                 .andExpect(status().isNotFound());
@@ -37,9 +37,10 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
     public void testGetAllCrudMetaFormDatas() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data/search/findAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
+                // paginating is showing 20 items by default
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data", hasSize(20)))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].property", is(CRUD_META_FORM_DATA_1.getProperty())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].editable", is(CRUD_META_FORM_DATA_1.getEditable())))
@@ -72,7 +73,7 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
         CrudMetaFormData newCrudClassMetaData = new CrudMetaFormData(null,"defaultProperty", true,
                 true, null, 10.0, "newFieldLayoutGridPosition");
         String crudClassMetaDataJson = json(newCrudClassMetaData);
-        this.mockMvc.perform(post("/rest/repository/crud-meta-form-data")
+        this.mockMvc.perform(post("/rest/repository/crud-meta-form-data/save")
                 .contentType(contentType)
                 .content(crudClassMetaDataJson))
                 .andExpect(status().isCreated());
@@ -80,8 +81,8 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCrudMetaFormData() throws Exception {
-        mockMvc.perform(delete("/rest/repository/crud-meta-form-data/39"));
-        mockMvc.perform(post("/rest/repository/crud-meta-form-data/39"))
+        mockMvc.perform(delete("/rest/repository/crud-meta-form-data/delete?id=64"));
+        mockMvc.perform(post("/rest/repository/crud-meta-form-data/search/findOne?id=64"))
                 .andExpect(status().isNotFound());
     }
 
@@ -95,11 +96,11 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
         updated.setVisible(false);
         updated.setFieldLayoutGridPosition("newFieldLayoutGridPosition");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-meta-form-data/39")
+        mockMvc.perform(put("/rest/repository/crud-meta-form-data/save")
                 .contentType(contentType)
                 .content(permissionJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data/39"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data/search/findOne?id=64"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is("newProperty")))

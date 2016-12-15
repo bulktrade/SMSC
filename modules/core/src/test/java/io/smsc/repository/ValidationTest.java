@@ -24,15 +24,6 @@ import static io.smsc.test_data.RoleTestData.*;
 
 public class ValidationTest extends AbstractTest {
 
-    @Autowired
-    private PermissionRepository permissionRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
     @Test(expected = ConstraintViolationException.class)
     public void testInvalidRoleNameSave() throws Exception {
         Role newRole = new Role(null,"wrong_name_role");

@@ -18,9 +18,6 @@ import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
 @WithMockUser(username="Admin",roles = {"ADMIN"})
 public class MetaDataPropertyBindingParameterJPATest extends AbstractTest {
 
-    @Autowired
-    private MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository;
-
     @Test
     public void testDeleteMetaDataPropertyBindingParameter() throws Exception {
         metaDataPropertyBindingParameterRepository.delete(META_DATA_PROPERTY_BINDING_PARAMETER_ID_1);

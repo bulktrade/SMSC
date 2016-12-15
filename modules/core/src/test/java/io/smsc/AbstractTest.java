@@ -2,8 +2,16 @@ package io.smsc;
 
 import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.SecurityConfig;
+import io.smsc.model.dashboard.Dashboard;
+import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
+import io.smsc.repository.crud.crudMetaFormData.CrudMetaFormDataRepository;
+import io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository;
+import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
 import io.smsc.repository.customer.customer.CustomerRepository;
 import io.smsc.repository.customer.customerContact.CustomerContactRepository;
+import io.smsc.repository.dashboard.dashboard.DashboardRepository;
+import io.smsc.repository.dashboard.dashboardBox.DashboardBoxRepository;
+import io.smsc.repository.dashboard.dashboardBoxType.DashboardBoxTypeRepository;
 import io.smsc.repository.permission.PermissionRepository;
 import io.smsc.repository.role.RoleRepository;
 import io.smsc.repository.user.UserRepository;
@@ -121,10 +129,31 @@ public abstract class AbstractTest {
     protected PermissionRepository permissionRepository;
 
     @Autowired
+    protected CrudClassMetaDataRepository crudClassMetaDataRepository;
+
+    @Autowired
+    protected CrudMetaFormDataRepository crudMetaFormDataRepository;
+
+    @Autowired
+    protected CrudMetaGridDataRepository crudMetaGridDataRepository;
+
+    @Autowired
+    protected MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository;
+
+    @Autowired
     protected CustomerRepository customerRepository;
 
     @Autowired
     protected CustomerContactRepository customerContactRepository;
+
+    @Autowired
+    protected DashboardRepository dashboardRepository;
+
+    @Autowired
+    protected DashboardBoxRepository dashboardBoxRepository;
+
+    @Autowired
+    protected DashboardBoxTypeRepository dashboardBoxTypeRepository;
 
     @Before
     public void setup() throws Exception {
