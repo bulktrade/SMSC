@@ -4,6 +4,11 @@
     justify-content: center;
     align-items: center;
 
+    .fa-fw {
+      width: initial !important;
+      margin-top: 8px !important;
+    }
+
     button {
         border: none;
     }

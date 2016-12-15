@@ -1,11 +1,9 @@
-import { GridPaginationPage } from './grid-pagination.page';
-
+import { GridPaginationPage } from "./grid-pagination.page";
 describe('Grid pagination', () => {
-    let paginationPage: GridPaginationPage;
+    let paginationPage: GridPaginationPage = new GridPaginationPage();
     let ptor = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
-        paginationPage = new GridPaginationPage();
         ptor = protractor.wrapDriver(browser.driver);
     });
 

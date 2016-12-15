@@ -18,7 +18,7 @@ const squel = require('squel');
     styleUrls: [
         require('./grid-pagination.component.scss'),
     ],
-    encapsulation: ViewEncapsulation.Native
+    encapsulation: ViewEncapsulation.None
 })
 
 export class GridPaginationComponent {
