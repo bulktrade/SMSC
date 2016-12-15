@@ -3,11 +3,11 @@ import { EC } from '../common/expected-conditions';
 
 export class LoginPage {
     public elemNotFound = element(by.tagName('notfound'));
-    public errorAlert = element(by.id('errorAlert'));
-    public submitButton = element(by.id('submitButton'));
-    public loginWindow = element(by.id('login'));
-    public usernameField = element(by.css('.username'));
-    public passwordField = element(by.css('.password'));
+    public errorAlert = element(by.id('growl'));
+    public submitButton = element(by.className('submitButton'));
+    public loginWindow = element(by.id('login-window'));
+    public usernameField = element(by.id('username'));
+    public passwordField = element(by.id('password'));
     public logoutBtn = element(by.id('logout'));
     public loginComponent = element(by.tagName('login'));
 

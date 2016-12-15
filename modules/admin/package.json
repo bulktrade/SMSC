@@ -133,6 +133,7 @@
     "ng2-bootstrap": "1.1.16",
     "ng2-dragula": "^1.2.1",
     "ng2-translate": "4.0.0",
+    "node-bourbon": "^4.2.8",
     "node-sass": "^3.8.0",
     "normalize.css": "^4.2.0",
     "object-merge": "^2.5.1",

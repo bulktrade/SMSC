@@ -1,60 +1,29 @@
-<div id="login">
-	<div id="login-card">
+<div id="login-window">
+	<div class="container">
+		<div class="card" style="display: none"></div>
 		<div class="card">
-			<div class="card-block login-card-title">
-				<h5 class="card-title title">{{ 'login.title' | translate }}</h5>
-			</div>
-			<div class="card-block card-content">
-				<form role="form" (submit)="onSubmit(model)" #authenticationForm="ngForm" novalidate>
-					<div class="form-group">
-						<alert *ngIf="errorMessage" type="danger" id="errorAlert" dismissible="true"
-						       (close)="errorMessage=false">
-							{{ errorMessage | translate }}
-						</alert>
-						<div class="row input-panel">
-							<div class="col-xs-12 col-sm-12 col-md-6">
-								<div class="group">
-									<input type="text" class="username" id="username" required
-									       [(ngModel)]="model.username" name="username" autocomplete="on"
-									       #username="ngModel">
-									<span class="highlight"></span>
-									<span class="bar"></span>
-									<label class="label-input" [ngClass]="{in: model.username}">{{ 'login.username' |
-										translate }}</label>
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-6">
-								<div class="group">
-									<input type="password" class="password" id="password" required
-									       [(ngModel)]="model.password" name="password" autocomplete="on"
-									       #password="ngModel">
-									<span class="highlight"></span>
-									<span class="bar"></span>
-									<label class="label-input" [ngClass]="{in: model.password}">{{ 'login.password' |
-										translate }}</label>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-6">
-								<label class="label-checkbox rememberMe">
-									<input type="checkbox" class="checkbox" [(ngModel)]="model.rememberMe"
-									       [ngModelOptions]="{standalone: true}">
-									{{ 'login.rememberMe' | translate }}
-								</label>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-6 right-align"
-							     [ngSwitch]="loading">
-								<button class="btn btn-primary" id="submitButton"
-								        [disabled]="!authenticationForm.form.valid || loading">
-									<div *ngSwitchCase="false">{{ 'login.btnLogin' | translate }}</div>
-									<i class="fa fa-spinner fa-pulse fa-2x fa-fw loader" *ngSwitchCase="true"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
+			<h1 class="title">{{'login.title' | translate}}</h1>
+			<form role="form" (ngSubmit)="onSubmit(model)" #loginForm="ngForm" novalidate>
+				<div class="input-container">
+					<input type="text" required
+					       [(ngModel)]="model.username" id="username" name="username"
+					       autocomplete="on" #username="ngModel"/>
+					<label for="Username">{{'login.username' | translate}}</label>
+					<div class="bar"></div>
+				</div>
+				<div class="input-container">
+					<input type="password" required id="password"
+					       maxlength="64" [(ngModel)]="model.password" name="password"
+					       autocomplete="on" #password="ngModel"/>
+					<label for="Password">{{"login.password" | translate}}</label>
+					<div class="bar"></div>
+				</div>
+				<div class="button-container">
+					<button type="submit" class="submitButton" [disabled]="loginForm.form.invalid">
+						<span>{{'login.btnLogin' | translate}}</span>
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

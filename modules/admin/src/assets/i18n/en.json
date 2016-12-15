@@ -6,6 +6,7 @@
     "login.title": "SMSC Admin",
     "login.username": "Username",
     "login.password": "Password",
+    "login.errorTitle": "Error",
     "login.btnLogin": "Log In",
     "login.rememberMe": "Remember Me",
     "login.userNotFound": "The credentials you supplied were not correct!",
