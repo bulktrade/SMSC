@@ -5,14 +5,16 @@ import io.smsc.model.User;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "CUSTOMER", uniqueConstraints = {@UniqueConstraint(columnNames = "CUSTOMER_ID", name = "customers_unique_customer_id_idx")})
 public class Customer extends BaseEntity {
 
     @Column(name = "CUSTOMER_ID", nullable = false, unique = true)
-    @NotEmpty(message = "{customer.customerId.validation}")
+    @NotNull(message = "{customer.customerId.validation}")
     private Double customerId;
 
     @Column(name = "COMPANY_NAME", nullable = false)
@@ -46,17 +48,24 @@ public class Customer extends BaseEntity {
     @JoinColumn(name="PARENT_CUSTOMER")
     private Customer parentCustomer;
 
-    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
-    private List<CustomerContact> contacts;
+    @OneToMany(mappedBy = "customer")
+    private Set<CustomerContact> contacts;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany()
     @OrderBy
     @JoinTable(
             name = "CUSTOMER_USER",
             joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
     )
-    private List<User> users;
+    private Set<User> users;
+
+    @PreRemove
+    private void removeCustomerFromContacts() {
+        for (CustomerContact contact : contacts) {
+            contact.setCustomer(null);
+        }
+    }
 
     public Customer() {
     }
@@ -150,19 +159,19 @@ public class Customer extends BaseEntity {
         this.parentCustomer = parentCustomer;
     }
 
-    public List<CustomerContact> getContacts() {
+    public Set<CustomerContact> getContacts() {
         return contacts;
     }
 
-    public void setContacts(List<CustomerContact> contacts) {
+    public void setContacts(Set<CustomerContact> contacts) {
         this.contacts = contacts;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 

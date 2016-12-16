@@ -5,7 +5,7 @@ import io.smsc.model.User;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "DASHBOARD", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"}, name = "dashboards_unique_name_user_idx")})
@@ -21,13 +21,10 @@ public class Dashboard extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="USER_ACCOUNT", nullable = false)
-    @NotEmpty(message = "{dashboard.user.validation}")
     private User user;
 
-    // not sure
-    @OneToMany(mappedBy = "dashboard", fetch = FetchType.LAZY, orphanRemoval = true)
-    @OrderBy
-    private List<DashboardBox> dashboardBoxes;
+    @OneToMany(mappedBy = "dashboard", orphanRemoval = true)
+    private Set<DashboardBox> dashboardBoxes;
 
     public Dashboard() {
     }
@@ -67,11 +64,11 @@ public class Dashboard extends BaseEntity {
         this.user = user;
     }
 
-    public List<DashboardBox> getDashboardBoxes() {
+    public Set<DashboardBox> getDashboardBoxes() {
         return dashboardBoxes;
     }
 
-    public void setDashboardBoxes(List<DashboardBox> dashboardBoxes) {
+    public void setDashboardBoxes(Set<DashboardBox> dashboardBoxes) {
         this.dashboardBoxes = dashboardBoxes;
     }
 
@@ -88,8 +85,7 @@ public class Dashboard extends BaseEntity {
         return "Dashboard{" +
                 "name='" + name + '\'' +
                 ", icon='" + icon + '\'' +
-                ", user=" + user +
-                ", dashboardBoxes=" + dashboardBoxes +
+                ", dashboardBoxes='" + dashboardBoxes + '\'' +
                 "} " + super.toString();
     }
 }

@@ -17,7 +17,7 @@ public class DashboardRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleDashboard() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboards/search/findOne?id=140"))
+        mockMvc.perform(get("/rest/repository/dashboards/140"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is(DASHBOARD_1.getName())))
@@ -26,9 +26,7 @@ public class DashboardRestTest extends AbstractTest {
 
     @Test
     public void testDashboardNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/dashboards/search/findOne?id=999")
-                .content(this.json(new Dashboard()))
-                .contentType(contentType))
+        mockMvc.perform(get("/rest/repository/dashboards/999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -45,7 +43,7 @@ public class DashboardRestTest extends AbstractTest {
     @Test
     public void testCreateDashboard() throws Exception {
         String dashboardJson = json(new Dashboard(null, "default_admin", "admin", ADMIN));
-        this.mockMvc.perform(post("/rest/repository/dashboards/save")
+        this.mockMvc.perform(post("/rest/repository/dashboards")
                 .contentType(contentType)
                 .content(dashboardJson))
                 .andExpect(status().isCreated());
@@ -53,8 +51,8 @@ public class DashboardRestTest extends AbstractTest {
 
     @Test
     public void testDeleteDashboard() throws Exception {
-        mockMvc.perform(delete("/rest/repository/dashboards/delete?id=140"));
-        mockMvc.perform(post("/rest/repository/dashboards/search/findOne?id=140"))
+        mockMvc.perform(delete("/rest/repository/dashboards/140"));
+        mockMvc.perform(get("/rest/repository/dashboards/140"))
                 .andExpect(status().isNotFound());
     }
 
@@ -65,11 +63,11 @@ public class DashboardRestTest extends AbstractTest {
         updated.setIcon("new icon");
         updated.setName("new name");
         String dashboardJson = json(updated);
-        mockMvc.perform(put("/rest/repository/dashboards/save")
+        mockMvc.perform(put("/rest/repository/dashboards/140")
                 .contentType(contentType)
                 .content(dashboardJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/dashboards/search/findOne?id=140"))
+        mockMvc.perform(get("/rest/repository/dashboards/140"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is(updated.getName())))

@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "CRUD_CLASS_META_DATA", uniqueConstraints = {@UniqueConstraint(columnNames = "CLASS_NAME", name = "crud_class_meta_data_unique_class_idx")})
@@ -25,14 +25,13 @@ public class CrudClassMetaData extends BaseEntity {
 
     //Oracle isn't supporting column name "QUERY"
     @Column(name = "QUERY_NAME")
-//    @NotEmpty(message = "{crud.class.meta.data.query.validation}")
     private String query;
 
     @OneToMany(mappedBy = "crudClassMetaData")
-    private List<CrudMetaFormData> crudMetaFormDatas;
+    private Set<CrudMetaFormData> crudMetaFormDatas;
 
     @OneToMany(mappedBy = "crudClassMetaData")
-    private List<CrudMetaGridData> crudMetaGridDatas;
+    private Set<CrudMetaGridData> crudMetaGridDatas;
 
     public CrudClassMetaData() {
     }
@@ -92,19 +91,19 @@ public class CrudClassMetaData extends BaseEntity {
         this.query = query;
     }
 
-    public List<CrudMetaFormData> getCrudMetaFormDatas() {
+    public Set<CrudMetaFormData> getCrudMetaFormDatas() {
         return crudMetaFormDatas;
     }
 
-    public void setCrudMetaFormDatas(List<CrudMetaFormData> crudMetaFormDatas) {
+    public void setCrudMetaFormDatas(Set<CrudMetaFormData> crudMetaFormDatas) {
         this.crudMetaFormDatas = crudMetaFormDatas;
     }
 
-    public List<CrudMetaGridData> getCrudMetaGridDatas() {
+    public Set<CrudMetaGridData> getCrudMetaGridDatas() {
         return crudMetaGridDatas;
     }
 
-    public void setCrudMetaGridDatas(List<CrudMetaGridData> crudMetaGridDatas) {
+    public void setCrudMetaGridDatas(Set<CrudMetaGridData> crudMetaGridDatas) {
         this.crudMetaGridDatas = crudMetaGridDatas;
     }
 

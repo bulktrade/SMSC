@@ -9,9 +9,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_unique_username_email_idx")})
@@ -51,22 +50,28 @@ public class User extends BaseEntity {
     @Column(name = "BLOCKED", nullable = false, columnDefinition = "boolean default false")
     private boolean blocked = false;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @OrderBy
+    @ManyToMany()
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private List<Role> roles;
+    private Set<Role> roles;
 
     @ManyToMany(mappedBy = "users")
     @OrderBy
-    private List<Customer> customers;
+    private Set<Customer> customers;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     @OrderBy
-    private List<Dashboard> dashboards;
+    private Set<Dashboard> dashboards;
+
+    @PreRemove
+    private void removeUsersFromCustomers() {
+        for (Customer customer : customers) {
+            customer.getUsers().remove(this);
+        }
+    }
 
     public User() {
     }
@@ -158,11 +163,11 @@ public class User extends BaseEntity {
         this.salt = salt;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -174,19 +179,19 @@ public class User extends BaseEntity {
         return this.roles.remove(role);
     }
 
-    public List<Customer> getCustomers() {
+    public Set<Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(List<Customer> customers) {
+    public void setCustomers(Set<Customer> customers) {
         this.customers = customers;
     }
 
-    public List<Dashboard> getDashboards() {
+    public Set<Dashboard> getDashboards() {
         return dashboards;
     }
 
-    public void setDashboards(List<Dashboard> dashboards) {
+    public void setDashboards(Set<Dashboard> dashboards) {
         this.dashboards = dashboards;
     }
 
@@ -219,7 +224,6 @@ public class User extends BaseEntity {
                 ", created=" + created +
                 ", blocked=" + blocked +
                 ", roles=" + roles +
-                ", customers=" + customers +
                 ", dashboards=" + dashboards +
                 "} " + super.toString();
     }

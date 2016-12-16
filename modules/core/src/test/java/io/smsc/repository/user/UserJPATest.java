@@ -14,6 +14,7 @@ import java.util.Collections;
 import static io.smsc.test_data.RoleTestData.*;
 import static io.smsc.test_data.UserTestData.*;
 import static io.smsc.test_data.DashboardTestData.*;
+import static io.smsc.test_data.DashboardBoxTestData.*;
 
 @WithMockUser(username="Admin",roles = {"ADMIN"})
 public class UserJPATest extends AbstractTest {
@@ -22,6 +23,8 @@ public class UserJPATest extends AbstractTest {
     public void testDeleteUser() throws Exception {
         userRepository.delete(USER_ID);
         USER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), userRepository.getAllWithRolesAndDecryptedPassword());
+        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(),dashboardRepository.findAllDistinctByOrderById());
+        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(),dashboardBoxRepository.findAllDistinctByOrderById());
     }
 
     @Test

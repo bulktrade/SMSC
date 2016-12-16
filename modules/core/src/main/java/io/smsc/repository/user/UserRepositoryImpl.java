@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Component
@@ -98,7 +98,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public List<User> getAllWithRolesAndDecryptedPassword() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAllDistinctByOrderById();
         users.forEach(user -> CryptoConverter.decrypt(user,secretKey));
         return users;
     }
@@ -107,8 +107,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public User saveOneWithEncryptedPassword(User user){
         CryptoConverter.encrypt(user,secretKey);
         if(user.isNew()) {
-            user.setRoles(new ArrayList<>());
-//            user.setDashboards(new ArrayList<>());
+            user.setRoles(new HashSet<>());
+            user.setDashboards(new HashSet<>());
+            user.setCustomers(new HashSet<>());
             Role role = roleRepository.findByName("USER");
             user.addRole(role);
             role.addUser(user);

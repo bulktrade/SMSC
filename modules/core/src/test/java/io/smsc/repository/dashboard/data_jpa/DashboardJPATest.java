@@ -65,7 +65,7 @@ public class DashboardJPATest extends AbstractTest {
 
     @Test
     public void testGetDashboardsByUser() throws Exception {
-        List<Dashboard> dashboards = dashboardRepository.findAllByUser(DASHBOARD_1.getUser());
+        List<Dashboard> dashboards = dashboardRepository.findAllDistinctByUser(DASHBOARD_1.getUser());
         DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(DASHBOARD_1), dashboards);
     }
 

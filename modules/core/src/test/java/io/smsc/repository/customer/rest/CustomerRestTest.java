@@ -16,7 +16,7 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCustomer() throws Exception {
-        mockMvc.perform(get("/rest/repository/customers/search/findOne?id=138"))
+        mockMvc.perform(get("/rest/repository/customers/138"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.customerId", is(CUSTOMER_1.getCustomerId())))
@@ -31,9 +31,7 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testCustomerNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/customers/search/findOne?id=999")
-                .content(this.json(new Customer()))
-                .contentType(contentType))
+        mockMvc.perform(get("/rest/repository/customers/999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -56,7 +54,7 @@ public class CustomerRestTest extends AbstractTest {
     @Test
     public void testCreateCustomer() throws Exception {
         String customerJson = json(new Customer(null,2.0,"newCompany","newStreet","newStreet2","79005", "Ukraine", "Lviv", 9999999.0));
-        this.mockMvc.perform(post("/rest/repository/customers/save")
+        this.mockMvc.perform(post("/rest/repository/customers")
                 .contentType(contentType)
                 .content(customerJson))
                 .andExpect(status().isCreated());
@@ -64,8 +62,8 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCustomer() throws Exception {
-        mockMvc.perform(delete("/rest/repository/customers/delete?id=138"));
-        mockMvc.perform(post("/rest/repository/customers/search/findOne?id=138"))
+        mockMvc.perform(delete("/rest/repository/customers/138"));
+        mockMvc.perform(get("/rest/repository/customers/138"))
                 .andExpect(status().isNotFound());
     }
 
@@ -77,11 +75,11 @@ public class CustomerRestTest extends AbstractTest {
         updated.setCountry("Monaco");
         updated.setCustomerId(5.0);
         String customerJson = json(updated);
-        mockMvc.perform(put("/rest/repository/customers/save")
+        mockMvc.perform(put("/rest/repository/customers/138")
                 .contentType(contentType)
                 .content(customerJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/customers/search/findOne?id=138"))
+        mockMvc.perform(get("/rest/repository/customers/138"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.customerId", is(updated.getCustomerId())))

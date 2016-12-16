@@ -5,6 +5,7 @@ import io.smsc.model.Role;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 
 import static io.smsc.test_data.PermissionTestData.*;
@@ -19,10 +20,10 @@ public class RoleTestData {
 
     static
     {
-        ROLE_USER.setUsers(Collections.singletonList(UserTestData.USER));
-        ROLE_ADMIN.setUsers(Collections.singletonList(UserTestData.ADMIN));
-        ROLE_USER.setPermissions(Arrays.asList(PERMISSION_USER_READ_OWN, PERMISSION_USER_UPDATE_OWN));
-        ROLE_ADMIN.setPermissions(Arrays.asList(PERMISSION_USER_READ,PERMISSION_USER_UPDATE,
+        ROLE_USER.setUsers(Collections.singleton(UserTestData.USER));
+        ROLE_ADMIN.setUsers(Collections.singleton(UserTestData.ADMIN));
+        ROLE_USER.setPermissions(new HashSet<>(Arrays.asList(PERMISSION_USER_READ_OWN, PERMISSION_USER_UPDATE_OWN)));
+        ROLE_ADMIN.setPermissions(new HashSet<>(Arrays.asList(PERMISSION_USER_READ,PERMISSION_USER_UPDATE,
                 PERMISSION_USER_CREATE,PERMISSION_USER_DELETE,PERMISSION_USER_READ_OWN,PERMISSION_USER_UPDATE_OWN,
                 PERMISSION_ROLE_READ,PERMISSION_ROLE_UPDATE,PERMISSION_ROLE_CREATE,PERMISSION_ROLE_DELETE,PERMISSION_PERMISSION_READ,
                 PERMISSION_PERMISSION_UPDATE,PERMISSION_PERMISSION_CREATE,PERMISSION_PERMISSION_DELETE,PERMISSION_CRUD_CLASS_META_DATA_READ,
@@ -37,7 +38,7 @@ public class RoleTestData {
                 PERMISSION_DASHBOARD_UPDATE, PERMISSION_DASHBOARD_CREATE, PERMISSION_DASHBOARD_DELETE, PERMISSION_DASHBOARD_BOX_READ,
                 PERMISSION_DASHBOARD_BOX_UPDATE, PERMISSION_DASHBOARD_BOX_CREATE, PERMISSION_DASHBOARD_BOX_DELETE,
                 PERMISSION_DASHBOARD_BOX_TYPE_READ, PERMISSION_DASHBOARD_BOX_TYPE_UPDATE, PERMISSION_DASHBOARD_BOX_TYPE_CREATE,
-                PERMISSION_DASHBOARD_BOX_TYPE_DELETE));
+                PERMISSION_DASHBOARD_BOX_TYPE_DELETE)));
     }
 
     public static final ModelMatcher<Role> ROLE_MODEL_MATCHER = new ModelMatcher<>(Role.class,

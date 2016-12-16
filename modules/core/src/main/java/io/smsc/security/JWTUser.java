@@ -1,19 +1,13 @@
 package io.smsc.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.smsc.model.Permission;
 import io.smsc.model.Role;
-import io.smsc.repository.role.RoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -41,11 +35,11 @@ public class JWTUser implements UserDetails {
 
     private final boolean blocked;
 
-    private final List<Role> roles;
+    private final Set<Role> roles;
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public JWTUser(Long id, String username, String password, String salt, String firstName, String surName, String email, boolean active, boolean blocked, List<Role> roles, Collection<? extends GrantedAuthority> authorities) {
+    public JWTUser(Long id, String username, String password, String salt, String firstName, String surName, String email, boolean active, boolean blocked, Set<Role> roles, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -107,7 +101,7 @@ public class JWTUser implements UserDetails {
     }
 
     //enabling causes a loop
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 

@@ -16,7 +16,7 @@ public class UserRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleUser() throws Exception {
-        mockMvc.perform(get("/rest/repository/users/search/findOne?id=1"))
+        mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.userName", is(USER.getUserName())))
@@ -31,9 +31,7 @@ public class UserRestTest extends AbstractTest {
 
     @Test
     public void testUserNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/users/search/findOne?id=999")
-                .content(this.json(new User()))
-                .contentType(contentType))
+        mockMvc.perform(get("/rest/repository/users/999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -71,8 +69,8 @@ public class UserRestTest extends AbstractTest {
 
     @Test
     public void testDeleteUser() throws Exception {
-        mockMvc.perform(delete("/rest/repository/users/delete?id=1"));
-        mockMvc.perform(post("/rest/repository/users/search/findOne?id=1"))
+        mockMvc.perform(delete("/rest/repository/users/1"));
+        mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isNotFound());
     }
 
@@ -83,11 +81,11 @@ public class UserRestTest extends AbstractTest {
         updated.setBlocked(true);
         updated.setEmail("bot@gmail.com");
         String userJson = json(updated);
-        mockMvc.perform(put("/rest/repository/users/save")
+        mockMvc.perform(put("/rest/repository/users/1")
                 .contentType(contentType)
                 .content(userJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/users/search/findOne?id=1"))
+        mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.userName",is(updated.getUserName())))

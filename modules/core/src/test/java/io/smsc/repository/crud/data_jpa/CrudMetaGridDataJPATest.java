@@ -3,10 +3,7 @@ package io.smsc.repository.crud.data_jpa;
 import io.smsc.model.crud.CrudMetaGridData;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
 import io.smsc.AbstractTest;
-import io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository;
-import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.*;
@@ -25,7 +22,9 @@ public class CrudMetaGridDataJPATest extends AbstractTest {
                 CRUD_META_GRID_DATA_4, CRUD_META_GRID_DATA_5, CRUD_META_GRID_DATA_6, CRUD_META_GRID_DATA_7, CRUD_META_GRID_DATA_8,
                 CRUD_META_GRID_DATA_9, CRUD_META_GRID_DATA_10, CRUD_META_GRID_DATA_11, CRUD_META_GRID_DATA_12, CRUD_META_GRID_DATA_13,
                 CRUD_META_GRID_DATA_14, CRUD_META_GRID_DATA_15, CRUD_META_GRID_DATA_16, CRUD_META_GRID_DATA_17, CRUD_META_GRID_DATA_18,
-                CRUD_META_GRID_DATA_19, CRUD_META_GRID_DATA_20), crudMetaGridDataRepository.findAllDistinctByOrderById());
+                CRUD_META_GRID_DATA_19, CRUD_META_GRID_DATA_20, CRUD_META_GRID_DATA_21, CRUD_META_GRID_DATA_22, CRUD_META_GRID_DATA_23,
+                CRUD_META_GRID_DATA_24, CRUD_META_GRID_DATA_25, CRUD_META_GRID_DATA_26, CRUD_META_GRID_DATA_27, CRUD_META_GRID_DATA_28,
+                CRUD_META_GRID_DATA_29, CRUD_META_GRID_DATA_30, CRUD_META_GRID_DATA_31), crudMetaGridDataRepository.findAllDistinctByOrderById());
     }
 
     @Test
@@ -47,11 +46,13 @@ public class CrudMetaGridDataJPATest extends AbstractTest {
     @Test
     public void testGetAllCrudMetaGridDatas() throws Exception {
         Collection<CrudMetaGridData> crudMetaGridDatas = crudMetaGridDataRepository.findAllDistinctByOrderById();
-        CRUD_META_GRID_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_META_GRID_DATA_1, CRUD_META_GRID_DATA_2,
-                CRUD_META_GRID_DATA_3, CRUD_META_GRID_DATA_4, CRUD_META_GRID_DATA_5, CRUD_META_GRID_DATA_6, CRUD_META_GRID_DATA_7,
-                CRUD_META_GRID_DATA_8, CRUD_META_GRID_DATA_9, CRUD_META_GRID_DATA_10, CRUD_META_GRID_DATA_11, CRUD_META_GRID_DATA_12,
-                CRUD_META_GRID_DATA_13, CRUD_META_GRID_DATA_14, CRUD_META_GRID_DATA_15, CRUD_META_GRID_DATA_16, CRUD_META_GRID_DATA_17,
-                CRUD_META_GRID_DATA_18, CRUD_META_GRID_DATA_19, CRUD_META_GRID_DATA_20), crudMetaGridDatas);
+        CRUD_META_GRID_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_META_GRID_DATA_1, CRUD_META_GRID_DATA_2, CRUD_META_GRID_DATA_3,
+                CRUD_META_GRID_DATA_4, CRUD_META_GRID_DATA_5, CRUD_META_GRID_DATA_6, CRUD_META_GRID_DATA_7, CRUD_META_GRID_DATA_8,
+                CRUD_META_GRID_DATA_9, CRUD_META_GRID_DATA_10, CRUD_META_GRID_DATA_11, CRUD_META_GRID_DATA_12, CRUD_META_GRID_DATA_13,
+                CRUD_META_GRID_DATA_14, CRUD_META_GRID_DATA_15, CRUD_META_GRID_DATA_16, CRUD_META_GRID_DATA_17, CRUD_META_GRID_DATA_18,
+                CRUD_META_GRID_DATA_19, CRUD_META_GRID_DATA_20, CRUD_META_GRID_DATA_21, CRUD_META_GRID_DATA_22, CRUD_META_GRID_DATA_23,
+                CRUD_META_GRID_DATA_24, CRUD_META_GRID_DATA_25, CRUD_META_GRID_DATA_26, CRUD_META_GRID_DATA_27, CRUD_META_GRID_DATA_28,
+                CRUD_META_GRID_DATA_29, CRUD_META_GRID_DATA_30, CRUD_META_GRID_DATA_31), crudMetaGridDatas);
     }
 
     @Test

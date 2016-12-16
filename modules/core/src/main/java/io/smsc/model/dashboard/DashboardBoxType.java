@@ -4,7 +4,7 @@ import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "DASHBOARD_BOX_TYPE", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"}, name = "dashboard_box_type's_unique_name_idx")})
@@ -20,10 +20,8 @@ public class DashboardBoxType extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Kind kind;
 
-    // not sure
     @OneToMany(mappedBy = "dashboardBoxType", fetch = FetchType.LAZY, orphanRemoval = true)
-    @OrderBy
-    private List<DashboardBox> dashboardBoxes;
+    private Set<DashboardBox> dashboardBoxes;
 
     public DashboardBoxType() {
     }
@@ -63,11 +61,11 @@ public class DashboardBoxType extends BaseEntity {
         this.kind = kind;
     }
 
-    public List<DashboardBox> getDashboardBoxes() {
+    public Set<DashboardBox> getDashboardBoxes() {
         return dashboardBoxes;
     }
 
-    public void setDashboardBoxes(List<DashboardBox> dashboardBoxes) {
+    public void setDashboardBoxes(Set<DashboardBox> dashboardBoxes) {
         this.dashboardBoxes = dashboardBoxes;
     }
 

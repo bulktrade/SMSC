@@ -29,7 +29,7 @@ public final class JWTUserFactory {
                 mapToGrantedAuthorities(user.getRoles()));
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
+    private static Set<GrantedAuthority> mapToGrantedAuthorities(Set<Role> roles) {
         return getGrantedAuthorities(getPermissions(roles));
     }
 
@@ -43,8 +43,8 @@ public final class JWTUserFactory {
         return authorities;
     }
 
-    private static List<GrantedAuthority> getGrantedAuthorities(Set<String> permissions) {
-        final List<GrantedAuthority> authorities = new ArrayList<>();
+    private static Set<GrantedAuthority> getGrantedAuthorities(Set<String> permissions) {
+        final Set<GrantedAuthority> authorities = new HashSet<>();
         for (final String authority : permissions) {
             authorities.add(new SimpleGrantedAuthority(authority));
         }

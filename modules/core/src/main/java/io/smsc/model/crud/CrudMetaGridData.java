@@ -8,14 +8,13 @@ import java.util.Set;
 public class CrudMetaGridData extends CrudPropertyMetaData {
 
     @Column(name = "COLUMN_WIDTH")
-//    @NotEmpty(message = "{crud.meta.grid.data.column.width.validation}")
     private Double columnWidth;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany()
     @JoinColumn(name="CRUD_META_GRID_DATA", referencedColumnName = "ID")
     private Set<MetaDataPropertyBindingParameter> bindingParameters;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CRUD_CLASS_META_DATA")
     private CrudClassMetaData crudClassMetaData;
 
@@ -84,7 +83,7 @@ public class CrudMetaGridData extends CrudPropertyMetaData {
         return "CrudMetaGridData{" +
                 "columnWidth=" + columnWidth +
                 ", bindingParameters=" + bindingParameters +
-                ", crudClassMetaGridData=" + crudClassMetaData +
+                ", crudClassMetaData=" + crudClassMetaData +
                 "} " + super.toString();
     }
 }

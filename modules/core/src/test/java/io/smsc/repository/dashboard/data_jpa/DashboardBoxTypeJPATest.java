@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static io.smsc.test_data.DashboardBoxTypeTestData.*;
+import static io.smsc.test_data.DashboardBoxTestData.*;
 
 @WithMockUser(username="Admin",roles = {"ADMIN"})
 public class DashboardBoxTypeJPATest extends AbstractTest {
@@ -21,6 +22,8 @@ public class DashboardBoxTypeJPATest extends AbstractTest {
         dashboardBoxTypeRepository.delete(DASHBOARD_BOX_TYPE_ID_1);
         DASHBOARD_BOX_TYPE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_TYPE_2,DASHBOARD_BOX_TYPE_3,
                 DASHBOARD_BOX_TYPE_4,DASHBOARD_BOX_TYPE_5,DASHBOARD_BOX_TYPE_6), dashboardBoxTypeRepository.findAllDistinctByOrderById());
+        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_5,DASHBOARD_BOX_6,DASHBOARD_BOX_7,DASHBOARD_BOX_8,
+                DASHBOARD_BOX_9),dashboardBoxRepository.findAllDistinctByOrderById());
     }
 
     @Test

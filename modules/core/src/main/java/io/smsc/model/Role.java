@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "roles_unique_name_idx")})
@@ -17,18 +17,18 @@ public class Role extends BaseEntity{
     @Pattern(regexp = "[A-Z_]+", message = "{role.name.validation}")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany()
     @OrderBy
     @JoinTable(
             name = "ROLE_PERMISSION",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
     )
-    private List<Permission> permissions;
+    private Set<Permission> permissions;
 
     @ManyToMany(mappedBy = "roles")
     @OrderBy
-    private List<User> users;
+    private Set<User> users;
 
     @PreRemove
     private void removeRolesFromUsers() {
@@ -65,19 +65,19 @@ public class Role extends BaseEntity{
         this.name = name;
     }
 
-    public List<Permission> getPermissions() {
+    public Set<Permission> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<Permission> permissions) {
+    public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 
@@ -102,7 +102,7 @@ public class Role extends BaseEntity{
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", permissions=" + permissions +
+                "permission'=" + permissions + '\'' +
                 '}';
     }
 }

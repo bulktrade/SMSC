@@ -1,6 +1,8 @@
 package io.smsc.repository.user;
 
 import io.smsc.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,34 +20,35 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
 
     @Override
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_DELETE')")
-    @RestResource(path = "delete")
-    void delete(@Param("id") Long id);
+    void delete(Long id);
 
     @Override
     @PreAuthorize("hasRole('ADMIN') or (hasAuthority('USER_CREATE') and #user.id == null) or hasAuthority('USER_UPDATE')")
-    @RestResource(path = "save")
     User save(@RequestBody  User user);
 
-    // /rest/repository/users/search/findOne?id=...
     @Override
-    @EntityGraph(attributePaths = {"roles"})
+    @EntityGraph(attributePaths = {"roles", "dashboards"})
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
-    User findOne(@Param("id") Long id);
+    User findOne(Long id);
 
-    // /rest/repository/users/search/findByEmail?email=...
-    @EntityGraph(attributePaths = {"roles"})
-//    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ') or hasAuthority('USER_READ_OWN')")
+    @EntityGraph(attributePaths = {"roles", "dashboards"})
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ') or hasAuthority('USER_READ_OWN')")
+//    @RestResource(exported = false)
     User findByEmail(@Param("email")String email);
 
-    // /rest/repository/users/search/findByUserName?username=...
-    @EntityGraph(attributePaths = {"roles"})
+    @EntityGraph(attributePaths = {"roles", "dashboards"})
 //    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
+    @RestResource(exported = false)
     User findByUserName(@Param("username")String username);
 
-    // /rest/repository/users/search/findAll
     @EntityGraph(attributePaths = {"roles"})
     @RestResource(path = "findAll")
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     List<User> findAllDistinctByOrderById();
+
+    // Prevents GET /users
+    @Override
+    @RestResource(exported = false)
+    Page<User> findAll(Pageable pageable);
 
 }

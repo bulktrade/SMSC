@@ -7,8 +7,6 @@ import io.smsc.model.dashboard.Width;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import java.util.Collections;
-
 import static io.smsc.test_data.DashboardBoxTypeTestData.*;
 import static io.smsc.test_data.DashboardTestData.*;
 import static org.hamcrest.Matchers.*;
@@ -22,11 +20,11 @@ public class DashboardBoxRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleDashboardBox() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboard-boxes/search/findOne?id=147"))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/147"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.width", is(Collections.singletonList(Width.WIDTH_25.toString()))))
-                .andExpect(jsonPath("$.height", is(Collections.singletonList(Height.HEIGHT_25.toString()))))
+                .andExpect(jsonPath("$.width", is(Width.WIDTH_25.toString())))
+                .andExpect(jsonPath("$.height", is(Height.HEIGHT_25.toString())))
                 .andExpect(jsonPath("$.order", is(DASHBOARD_BOX_1.getOrder())))
                 .andExpect(jsonPath("$.name", is(DASHBOARD_BOX_1.getName())))
                 .andExpect(jsonPath("$.description", is(DASHBOARD_BOX_1.getDescription())));
@@ -34,9 +32,7 @@ public class DashboardBoxRestTest extends AbstractTest {
 
     @Test
     public void testDashboardBoxNotFound() throws Exception {
-        mockMvc.perform(post("/rest/repository/dashboard-boxes/search/findOne?id=999")
-                .content(this.json(new DashboardBox()))
-                .contentType(contentType))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -46,13 +42,13 @@ public class DashboardBoxRestTest extends AbstractTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes", hasSize(9)))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes[0].width", is(Collections.singletonList(Width.WIDTH_25.toString()))))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes[0].height", is(Collections.singletonList(Height.HEIGHT_25.toString()))))
+                .andExpect(jsonPath("$._embedded.dashboard-boxes[0].width", is(Width.WIDTH_25.toString())))
+                .andExpect(jsonPath("$._embedded.dashboard-boxes[0].height", is(Height.HEIGHT_25.toString())))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[0].order", is(DASHBOARD_BOX_1.getOrder())))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[0].name", is(DASHBOARD_BOX_1.getName())))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[0].description", is(DASHBOARD_BOX_1.getDescription())))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes[8].width", is(Collections.singletonList(Width.WIDTH_50.toString()))))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes[8].height", is(Collections.singletonList(Height.HEIGHT_50.toString()))))
+                .andExpect(jsonPath("$._embedded.dashboard-boxes[8].width", is(Width.WIDTH_50.toString())))
+                .andExpect(jsonPath("$._embedded.dashboard-boxes[8].height", is(Height.HEIGHT_50.toString())))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[8].order", is(DASHBOARD_BOX_9.getOrder())))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[8].name", is(DASHBOARD_BOX_9.getName())))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[8].description", is(DASHBOARD_BOX_9.getDescription())));
@@ -62,7 +58,7 @@ public class DashboardBoxRestTest extends AbstractTest {
     public void testCreateDashboardBox() throws Exception {
         String dashboardBoxJson = json(new DashboardBox(null, Width.WIDTH_25, Height.HEIGHT_25, 50,
                 "new dashboardBox", "new dashboardBox desc", DASHBOARD_1, DASHBOARD_BOX_TYPE_1));
-        this.mockMvc.perform(post("/rest/repository/dashboard-boxes/save")
+        this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
                 .contentType(contentType)
                 .content(dashboardBoxJson))
                 .andExpect(status().isCreated());
@@ -70,8 +66,8 @@ public class DashboardBoxRestTest extends AbstractTest {
 
     @Test
     public void testDeleteDashboardBox() throws Exception {
-        mockMvc.perform(delete("/rest/repository/dashboard-boxes/delete?id=147"));
-        mockMvc.perform(post("/rest/repository/dashboard-box-types/search/findOne?id=147"))
+        mockMvc.perform(delete("/rest/repository/dashboard-boxes/147"));
+        mockMvc.perform(get("/rest/repository/dashboard-box-types/147"))
                 .andExpect(status().isNotFound());
     }
 
@@ -83,15 +79,15 @@ public class DashboardBoxRestTest extends AbstractTest {
         updated.setOrder(60);
         updated.setWidth(Width.WIDTH_100);
         String dashboardBoxJson = json(updated);
-        mockMvc.perform(put("/rest/repository/dashboard-boxes/save")
+        mockMvc.perform(put("/rest/repository/dashboard-boxes/147")
                 .contentType(contentType)
                 .content(dashboardBoxJson))
                 .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/dashboard-boxes/search/findOne?id=147"))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/147"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.width", is(Collections.singletonList(Width.WIDTH_100.toString()))))
-                .andExpect(jsonPath("$.height", is(Collections.singletonList(Height.HEIGHT_25.toString()))))
+                .andExpect(jsonPath("$.width", is(Width.WIDTH_100.toString())))
+                .andExpect(jsonPath("$.height", is(Height.HEIGHT_25.toString())))
                 .andExpect(jsonPath("$.order", is(updated.getOrder())))
                 .andExpect(jsonPath("$.name", is(updated.getName())))
                 .andExpect(jsonPath("$.description", is(updated.getDescription())));

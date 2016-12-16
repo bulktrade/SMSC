@@ -2,9 +2,7 @@ package io.smsc.repository.crud.data_jpa;
 
 import io.smsc.model.crud.CrudClassMetaData;
 import io.smsc.AbstractTest;
-import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -20,7 +18,8 @@ public class CrudClassMetaDataJPATest extends AbstractTest {
     public void testDeleteCrudClassMetaData() throws Exception {
         crudClassMetaDataRepository.delete(CRUD_CLASS_META_DATA_ID_1);
         CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_CLASS_META_DATA_2,CRUD_CLASS_META_DATA_3,
-                CRUD_CLASS_META_DATA_4), crudClassMetaDataRepository.findAllDistinctByOrderById());
+                CRUD_CLASS_META_DATA_4, CRUD_CLASS_META_DATA_5, CRUD_CLASS_META_DATA_6, CRUD_CLASS_META_DATA_7,
+                CRUD_CLASS_META_DATA_8, CRUD_CLASS_META_DATA_9), crudClassMetaDataRepository.findAllDistinctByOrderById());
     }
 
     @Test
@@ -40,8 +39,9 @@ public class CrudClassMetaDataJPATest extends AbstractTest {
     @Test
     public void testGetAllCrudClassMetaDatas() throws Exception {
         Collection<CrudClassMetaData> crudClassMetaDatas = crudClassMetaDataRepository.findAllDistinctByOrderById();
-        CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_CLASS_META_DATA_1, CRUD_CLASS_META_DATA_2,
-                CRUD_CLASS_META_DATA_3, CRUD_CLASS_META_DATA_4), crudClassMetaDatas);
+        CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_CLASS_META_DATA_1, CRUD_CLASS_META_DATA_2,CRUD_CLASS_META_DATA_3,
+                CRUD_CLASS_META_DATA_4, CRUD_CLASS_META_DATA_5, CRUD_CLASS_META_DATA_6, CRUD_CLASS_META_DATA_7,
+                CRUD_CLASS_META_DATA_8, CRUD_CLASS_META_DATA_9), crudClassMetaDatas);
     }
 
     @Test

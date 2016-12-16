@@ -3,6 +3,8 @@ package io.smsc.repository.dashboard.dashboardBox;
 import io.smsc.model.dashboard.Dashboard;
 import io.smsc.model.dashboard.DashboardBox;
 import io.smsc.model.dashboard.DashboardBoxType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
@@ -20,27 +22,31 @@ public interface DashboardBoxRepository extends JpaRepository<DashboardBox, Long
     //All query method resources are exposed under the resource 'search'.
 
     @Override
-    @RestResource(path = "delete")
-    void delete(@Param("id") Long id);
+    void delete(Long id);
 
     @Override
-    @RestResource(path = "delete")
-    DashboardBox save(@RequestBody DashboardBox dashboardBox);
+    DashboardBox save(DashboardBox dashboardBox);
 
     @Override
-    @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
-    DashboardBox findOne(@Param("id") Long id);
+    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
+    DashboardBox findOne(Long id);
 
-    @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
+    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
     List<DashboardBox> findAllByName(@Param("name") String name);
 
-    @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
-    List<DashboardBox> findAllByDashboard(@Param("dashboard") Dashboard dashboard);
+    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
+    List<DashboardBox> findAllByDashboard(@RequestBody Dashboard dashboard);
 
-    @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
-    List<DashboardBox> findAllByDashboardBoxType(@Param("dashboardBoxType") DashboardBoxType dashboardBoxType);
+    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
+    List<DashboardBox> findAllByDashboardBoxType(@RequestBody DashboardBoxType dashboardBoxType);
 
-    @EntityGraph(attributePaths = {"dashboardBoxType","dashboard","width","height"})
+    // /rest/repository/dashboard-boxes/search/findAll
+    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
     @RestResource(path = "findAll")
     List<DashboardBox> findAllDistinctByOrderById();
+
+    // Prevents GET /dashboard-boxes
+    @Override
+    @RestResource(exported = false)
+    Page<DashboardBox> findAll(Pageable pageable);
 }

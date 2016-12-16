@@ -4,7 +4,6 @@ import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "META_DATA_PROPERTY_BINDING_PARAMETER")
@@ -19,16 +18,12 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
     private String toProperty;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "META_DATA_PROPERTY_BINDING_PARAMETER_COMBINE_OPERATOR", joinColumns = @JoinColumn(name = "META_DATA_PROPERTY_BINDING_PARAMETER_ID"))
-    @Column(name = "COMBINE_OPERATOR")
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<CombineOperator> combineOperator;
+    @Column(name = "COMBINE_OPERATOR", nullable = false)
+    private CombineOperator combineOperator;
 
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "META_DATA_PROPERTY_BINDING_PARAMETER_OPERATOR", joinColumns = @JoinColumn(name = "META_DATA_PROPERTY_BINDING_PARAMETER_ID"))
-    @Column(name = "OPERATOR")
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Operator> operator;
+    @Column(name = "OPERATOR", nullable = false)
+    private Operator operator;
 
     @Column(name="CRUD_META_FORM_DATA")
     private Long crudMetaFormDataId;
@@ -44,7 +39,7 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
                 metaDataPropertyBindingParameter.getCombineOperator(), metaDataPropertyBindingParameter.getOperator());
     }
 
-    public MetaDataPropertyBindingParameter(Long id, String fromProperty, String toProperty, List<CombineOperator> combineOperator, List<Operator> operator) {
+    public MetaDataPropertyBindingParameter(Long id, String fromProperty, String toProperty, CombineOperator combineOperator, Operator operator) {
         super(id);
         this.fromProperty = fromProperty;
         this.toProperty = toProperty;
@@ -74,19 +69,19 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
         this.toProperty = toProperty;
     }
 
-    public List<CombineOperator> getCombineOperator() {
+    public CombineOperator getCombineOperator() {
         return combineOperator;
     }
 
-    public void setCombineOperator(List<CombineOperator> combineOperator) {
+    public void setCombineOperator(CombineOperator combineOperator) {
         this.combineOperator = combineOperator;
     }
 
-    public List<Operator> getOperator() {
+    public Operator getOperator() {
         return operator;
     }
 
-    public void setOperator(List<Operator> operator) {
+    public void setOperator(Operator operator) {
         this.operator = operator;
     }
 
@@ -104,22 +99,6 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
 
     public void setCrudMetaGridDataId(Long crudMetaGridDataId) {
         this.crudMetaGridDataId = crudMetaGridDataId;
-    }
-
-    public void addOperator(Operator operator){
-        this.operator.add(operator);
-    }
-
-    public void removeOperator(Operator operator){
-        this.operator.remove(operator);
-    }
-
-    public void addCombineOperator(CombineOperator combineOperator){
-        this.combineOperator.add(combineOperator);
-    }
-
-    public void removeCombineOperator(CombineOperator combineOperator){
-        this.combineOperator.remove(combineOperator);
     }
 
     @Override

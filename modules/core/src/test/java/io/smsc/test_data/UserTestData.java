@@ -20,12 +20,14 @@ public class UserTestData {
 
     static
     {
-        USER.setRoles(Collections.singletonList(ROLE_USER));
-        ADMIN.setRoles(Collections.singletonList(ROLE_ADMIN));
-        USER.setDashboards(Collections.singletonList(DASHBOARD_1));
-        ADMIN.setDashboards(Collections.emptyList());
-        USER.setCustomers(Collections.singletonList(CUSTOMER_1));
-        ADMIN.setCustomers(Collections.singletonList(CUSTOMER_1));
+        USER.setSalt("ad68dc115126d9d1");
+        ADMIN.setSalt("94bd6b18b8f70298");
+        USER.setRoles(Collections.singleton(ROLE_USER));
+        ADMIN.setRoles(Collections.singleton(ROLE_ADMIN));
+        USER.setDashboards(Collections.singleton(DASHBOARD_1));
+        ADMIN.setDashboards(Collections.emptySet());
+        USER.setCustomers(Collections.singleton(CUSTOMER_1));
+        ADMIN.setCustomers(Collections.singleton(CUSTOMER_1));
     }
 
     public static final ModelMatcher<User> USER_MODEL_MATCHER = new ModelMatcher<>(User.class,
@@ -39,6 +41,7 @@ public class UserTestData {
                             && Objects.equals(expected.isActive(), actual.isActive())
                             && Objects.equals(expected.isBlocked(), actual.isBlocked())
                             && Objects.equals(expected.getRoles(), actual.getRoles())
+                            && Objects.equals(expected.getDashboards(), actual.getDashboards())
                     )
     );
 }

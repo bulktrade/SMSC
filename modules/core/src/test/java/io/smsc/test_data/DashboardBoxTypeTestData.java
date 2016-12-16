@@ -7,6 +7,7 @@ import io.smsc.model.dashboard.Type;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 
 import static io.smsc.test_data.DashboardBoxTestData.*;
@@ -29,12 +30,12 @@ public class DashboardBoxTypeTestData {
 
     static
     {
-        DASHBOARD_BOX_TYPE_1.setDashboardBoxes(Arrays.asList(DASHBOARD_BOX_1,DASHBOARD_BOX_2,DASHBOARD_BOX_3,DASHBOARD_BOX_4));
-        DASHBOARD_BOX_TYPE_2.setDashboardBoxes(Collections.singletonList(DASHBOARD_BOX_5));
-        DASHBOARD_BOX_TYPE_3.setDashboardBoxes(Collections.singletonList(DASHBOARD_BOX_6));
-        DASHBOARD_BOX_TYPE_4.setDashboardBoxes(Collections.singletonList(DASHBOARD_BOX_7));
-        DASHBOARD_BOX_TYPE_5.setDashboardBoxes(Collections.singletonList(DASHBOARD_BOX_8));
-        DASHBOARD_BOX_TYPE_6.setDashboardBoxes(Collections.singletonList(DASHBOARD_BOX_9));
+        DASHBOARD_BOX_TYPE_1.setDashboardBoxes(new HashSet<>(Arrays.asList(DASHBOARD_BOX_1,DASHBOARD_BOX_2,DASHBOARD_BOX_3,DASHBOARD_BOX_4)));
+        DASHBOARD_BOX_TYPE_2.setDashboardBoxes(Collections.singleton(DASHBOARD_BOX_5));
+        DASHBOARD_BOX_TYPE_3.setDashboardBoxes(Collections.singleton(DASHBOARD_BOX_6));
+        DASHBOARD_BOX_TYPE_4.setDashboardBoxes(Collections.singleton(DASHBOARD_BOX_7));
+        DASHBOARD_BOX_TYPE_5.setDashboardBoxes(Collections.singleton(DASHBOARD_BOX_8));
+        DASHBOARD_BOX_TYPE_6.setDashboardBoxes(Collections.singleton(DASHBOARD_BOX_9));
     }
 
     public static final ModelMatcher<DashboardBoxType> DASHBOARD_BOX_TYPE_MODEL_MATCHER = new ModelMatcher<>(DashboardBoxType.class,

@@ -25,8 +25,8 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
         Customer customer = customerRepository.findOne(customerId);
         User user = userRepository.findOne(userId);
         customer.addUser(user);
-        user.addCustomer(customer);
-        userRepository.save(user);
+//        user.addCustomer(customer);
+//        userRepository.save(user);
         return customerRepository.save(customer);
     }
 

@@ -4,14 +4,13 @@ import io.smsc.model.crud.CombineOperator;
 import io.smsc.model.crud.MetaDataPropertyBindingParameter;
 import io.smsc.model.crud.Operator;
 import io.smsc.AbstractTest;
-import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 
 import static io.smsc.test_data.MetaDataPropertyBindingParameterTestData.*;
 
@@ -27,7 +26,7 @@ public class MetaDataPropertyBindingParameterJPATest extends AbstractTest {
     @Test
     public void testSaveMetaDataPropertyBindingParameter() throws Exception {
         MetaDataPropertyBindingParameter newMetaDataPropertyBindingParameter = new MetaDataPropertyBindingParameter(null, "from_new_property",
-                "to_new_property", Collections.singletonList(CombineOperator.OR), Arrays.asList(Operator.IS,Operator.LIKE,Operator.MORE_OR_LESS));
+                "to_new_property", CombineOperator.OR, Operator.MORE_OR_LESS);
         MetaDataPropertyBindingParameter created = metaDataPropertyBindingParameterRepository.save(newMetaDataPropertyBindingParameter);
         newMetaDataPropertyBindingParameter.setId(created.getId());
         META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertEquals(newMetaDataPropertyBindingParameter, metaDataPropertyBindingParameterRepository.findOne(newMetaDataPropertyBindingParameter.getId()));
@@ -50,8 +49,8 @@ public class MetaDataPropertyBindingParameterJPATest extends AbstractTest {
         MetaDataPropertyBindingParameter updated = new MetaDataPropertyBindingParameter(META_DATA_PROPERTY_BINDING_PARAMETER_1);
         updated.setFromProperty("from_updated_property");
         updated.setToProperty("to_updated_property");
-        updated.setCombineOperator(Arrays.asList(CombineOperator.AND,CombineOperator.NOT));
-        updated.setOperator(Arrays.asList(Operator.BETWEEN,Operator.INSTANCE_OF,Operator.LIKE, Operator.MORE_OR_LESS));
+        updated.setCombineOperator(CombineOperator.AND);
+        updated.setOperator(Operator.BETWEEN);
         metaDataPropertyBindingParameterRepository.save(updated);
         META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertEquals(updated, metaDataPropertyBindingParameterRepository.findOne(META_DATA_PROPERTY_BINDING_PARAMETER_ID_1));
     }
