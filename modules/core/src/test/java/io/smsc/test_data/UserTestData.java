@@ -6,6 +6,10 @@ import io.smsc.model.User;
 import java.util.Collections;
 import java.util.Objects;
 
+import static io.smsc.test_data.RoleTestData.*;
+import static io.smsc.test_data.DashboardTestData.*;
+import static io.smsc.test_data.CustomerTestData.*;
+
 public class UserTestData {
 
     public static final long USER_ID = 1;
@@ -16,13 +20,19 @@ public class UserTestData {
 
     static
     {
-        USER.setRoles(Collections.singletonList(RoleTestData.ROLE_USER));
-        ADMIN.setRoles(Collections.singletonList(RoleTestData.ROLE_ADMIN));
+        USER.setSalt("ad68dc115126d9d1");
+        ADMIN.setSalt("94bd6b18b8f70298");
+        USER.setRoles(Collections.singleton(ROLE_USER));
+        ADMIN.setRoles(Collections.singleton(ROLE_ADMIN));
+        USER.setDashboards(Collections.singleton(DASHBOARD_1));
+        ADMIN.setDashboards(Collections.emptySet());
+        USER.setCustomers(Collections.singleton(CUSTOMER_1));
+        ADMIN.setCustomers(Collections.singleton(CUSTOMER_1));
     }
 
     public static final ModelMatcher<User> USER_MODEL_MATCHER = new ModelMatcher<>(User.class,
             (expected, actual) -> expected == actual ||
-                    (Objects.equals(expected.getUsername(), actual.getUsername())
+                    (Objects.equals(expected.getUserName(), actual.getUserName())
                             && Objects.equals(expected.getPassword(), actual.getPassword())
                             && Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getFirstName(), actual.getFirstName())
@@ -31,6 +41,7 @@ public class UserTestData {
                             && Objects.equals(expected.isActive(), actual.isActive())
                             && Objects.equals(expected.isBlocked(), actual.isBlocked())
                             && Objects.equals(expected.getRoles(), actual.getRoles())
+                            && Objects.equals(expected.getDashboards(), actual.getDashboards())
                     )
     );
 }

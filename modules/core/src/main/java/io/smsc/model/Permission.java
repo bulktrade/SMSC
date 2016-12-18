@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "PERMISSION", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "permissions_unique_name_idx")})
@@ -17,7 +18,7 @@ public class Permission extends BaseEntity{
 
     @ManyToMany(mappedBy = "permissions")
     @OrderBy
-    private List<Role> roles;
+    private Set<Role> roles;
 
     @PreRemove
     private void removePermissionsFromRoles() {
@@ -38,11 +39,11 @@ public class Permission extends BaseEntity{
         this.name = name;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

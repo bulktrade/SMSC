@@ -8,14 +8,13 @@ import java.util.Set;
 public class CrudMetaFormData extends CrudPropertyMetaData {
 
     @Column(name = "FIELD_LAYOUT_GRID_POSITION")
-//    @NotEmpty(message = "{crud.meta.form.data.field.layout.grid.position.validation}")
     private String fieldLayoutGridPosition;
 
-    @OneToMany
+    @OneToMany()
     @JoinColumn(name="CRUD_META_FORM_DATA", referencedColumnName = "ID")
     private Set<MetaDataPropertyBindingParameter> bindingParameters;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CRUD_CLASS_META_DATA")
     private CrudClassMetaData crudClassMetaData;
 
@@ -35,6 +34,13 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
                             String fieldLayoutGridPosition) {
         super(id, property, editable, visible, decorator, order);
         this.fieldLayoutGridPosition = fieldLayoutGridPosition;
+    }
+
+    public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
+                            String fieldLayoutGridPosition, CrudClassMetaData crudClassMetaData) {
+        super(id, property, editable, visible, decorator, order);
+        this.fieldLayoutGridPosition = fieldLayoutGridPosition;
+        this.crudClassMetaData = crudClassMetaData;
     }
 
     @PreRemove
@@ -81,7 +87,7 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
         return "CrudMetaFormData{" +
                 "fieldLayoutGridPosition='" + fieldLayoutGridPosition + '\'' +
                 ", bindingParameters=" + bindingParameters +
-                ", crudClassMetaFormData=" + crudClassMetaData +
+                ", crudClassMetaData=" + crudClassMetaData +
                 "} " + super.toString();
     }
 }

@@ -1,13 +1,19 @@
 package io.smsc.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.smsc.model.Role;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
+
+import static java.util.Objects.requireNonNull;
 
 public class JWTUser implements UserDetails {
+
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -29,9 +35,11 @@ public class JWTUser implements UserDetails {
 
     private final boolean blocked;
 
+    private final Set<Role> roles;
+
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public JWTUser(Long id, String username, String password, String salt, String firstName, String surName, String email, boolean active, boolean blocked, Collection<? extends GrantedAuthority> authorities) {
+    public JWTUser(Long id, String username, String password, String salt, String firstName, String surName, String email, boolean active, boolean blocked, Set<Role> roles, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -41,10 +49,11 @@ public class JWTUser implements UserDetails {
         this.email = email;
         this.active = active;
         this.blocked = blocked;
+        this.roles = roles;
         this.authorities = authorities;
     }
 
-    @JsonIgnore
+    //    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -91,7 +100,11 @@ public class JWTUser implements UserDetails {
         return created;
     }
 
-    @JsonIgnore
+    //enabling causes a loop
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
     @Override
     public String getPassword() {
         return password;
@@ -107,6 +120,22 @@ public class JWTUser implements UserDetails {
         return active;
     }
 
+    private static JWTUser safeGet() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return null;
+        }
+        Object principal = auth.getPrincipal();
+        return (principal instanceof JWTUser) ? (JWTUser) principal : null;
+    }
 
+    public static JWTUser get() {
+        JWTUser user = safeGet();
+        requireNonNull(user, "No authorized user found");
+        return user;
+    }
 
+    public static Long id() {
+        return get().getId();
+    }
 }

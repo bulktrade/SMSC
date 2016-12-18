@@ -10,13 +10,19 @@ public interface UserRepositoryCustom {
 
     User removeRole(Long userId, Long roleId);
 
+    User addDashboard(Long userId, String dashboardName, String dashboardIcon);
+
+    User removeDashboard(Long userId, Long dashboardId);
+
     User getOneWithDecryptedPassword(Long id);
+
+    User getOneWithRolesAndDecryptedPassword(Long id);
 
     User getOneByEmailWithDecryptedPassword(String email);
 
     User getOneByUserNameWithDecryptedPassword(String username);
 
-    List<User> getAllWithDecryptedPassword();
+    List<User> getAllWithRolesAndDecryptedPassword();
 
     User saveOneWithEncryptedPassword(User user);
 }

@@ -1,13 +1,16 @@
 package io.smsc.repository.user;
 
 import io.smsc.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -15,30 +18,37 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
 
-    @Transactional
-    @Modifying
-    int deleteById(@Param("id") long id);
+    @Override
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_DELETE')")
+    void delete(Long id);
 
     @Override
-    @Transactional
-    User save(User user);
+    @PreAuthorize("hasRole('ADMIN') or (hasAuthority('USER_CREATE') and #user.id == null) or hasAuthority('USER_UPDATE')")
+    User save(@RequestBody  User user);
 
     @Override
-    User findOne(@Param("id") Long id);
+    @EntityGraph(attributePaths = {"roles", "dashboards"})
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
+    User findOne(Long id);
 
-    @Query("SELECT u FROM User u JOIN FETCH u.roles WHERE u.id=:id")
-    User findOneWithRoles(@Param("id") Long id);
+    @EntityGraph(attributePaths = {"roles", "dashboards"})
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ') or hasAuthority('USER_READ_OWN')")
+//    @RestResource(exported = false)
+    User findByEmail(@Param("email")String email);
 
-    @Query("SELECT u FROM User u JOIN FETCH u.roles WHERE u.email=:email")
-    User findByEmail(@Param("email") String email);
-
-    @Query("SELECT u FROM User u JOIN FETCH u.roles WHERE u.username=:username")
+    @EntityGraph(attributePaths = {"roles", "dashboards"})
+//    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
+    @RestResource(exported = false)
     User findByUserName(@Param("username")String username);
 
-    @Override
-    @Query("SELECT u FROM User u ORDER BY u.id")
-    List<User> findAll();
+    @EntityGraph(attributePaths = {"roles"})
+    @RestResource(path = "findAll")
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
+    List<User> findAllDistinctByOrderById();
 
-    @Query("SELECT DISTINCT u FROM User u JOIN FETCH u.roles")
-    List<User> findAllWithRoles();
+    // Prevents GET /users
+    @Override
+    @RestResource(exported = false)
+    Page<User> findAll(Pageable pageable);
+
 }

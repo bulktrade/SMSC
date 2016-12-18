@@ -1,13 +1,13 @@
 package io.smsc.repository.permission;
 
 import io.smsc.model.Permission;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -16,18 +16,25 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
-    @Modifying
-    @Transactional
-    int deleteById(@Param("id") long id);
+    //All query method resources are exposed under the resource 'search'.
 
     @Override
-    @Transactional
+    void delete(Long id);
+
+    @Override
     Permission save(Permission permission);
 
     @Override
     Permission findOne(Long id);
 
+    Permission findByName(@Param("name")String name);
+
+    // /rest/repository/permissions/search/findAll
+    @RestResource(path = "findAll")
+    List<Permission> findAllDistinctByOrderById();
+
+    // Prevents GET /permissions
     @Override
-    @Query("SELECT p FROM Permission p ORDER BY p.id")
-    List<Permission> findAll();
+    @RestResource(exported = false)
+    Page<Permission> findAll(Pageable pageable);
 }

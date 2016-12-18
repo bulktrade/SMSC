@@ -1,23 +1,24 @@
 package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.smsc.model.customer.Customer;
+import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_unique_username_email_idx")})
 public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)
-    @NotEmpty(message = "{user.username.validation}")
-    private String username;
+    @NotEmpty(message = "{user.userName.validation}")
+    private String userName;
 
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
@@ -27,11 +28,11 @@ public class User extends BaseEntity {
     private String salt;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "{user.firstname.validation}")
+    @NotEmpty(message = "{user.firstName.validation}")
     private String firstName;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "{user.surname.validation}")
+    @NotEmpty(message = "{user.surName.validation}")
     private String surName;
 
     @Column(name = "EMAIL", nullable = false, unique = true)
@@ -50,24 +51,38 @@ public class User extends BaseEntity {
     private boolean blocked = false;
 
     @ManyToMany()
-    @OrderBy
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private List<Role> roles;
+    private Set<Role> roles;
+
+    @ManyToMany(mappedBy = "users")
+    @OrderBy
+    private Set<Customer> customers;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @OrderBy
+    private Set<Dashboard> dashboards;
+
+    @PreRemove
+    private void removeUsersFromCustomers() {
+        for (Customer customer : customers) {
+            customer.getUsers().remove(this);
+        }
+    }
 
     public User() {
     }
 
     public User(User user) {
-        this(user.getId(),user.getUsername(),user.getPassword(),user.getFirstName(),user.getSurName(),user.getEmail(),user.isActive(),user.isBlocked());
+        this(user.getId(),user.getUserName(),user.getPassword(),user.getFirstName(),user.getSurName(),user.getEmail(),user.isActive(),user.isBlocked());
     }
 
-    public User(Long id, String username, String password, String firstName, String surName, String email, boolean active, boolean blocked) {
+    public User(Long id, String userName, String password, String firstName, String surName, String email, boolean active, boolean blocked) {
         super(id);
-        this.username = username;
+        this.userName = userName;
         this.password = password;
         this.firstName = firstName;
         this.surName = surName;
@@ -76,12 +91,12 @@ public class User extends BaseEntity {
         this.blocked = blocked;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -148,11 +163,11 @@ public class User extends BaseEntity {
         this.salt = salt;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -164,12 +179,44 @@ public class User extends BaseEntity {
         return this.roles.remove(role);
     }
 
+    public Set<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(Set<Customer> customers) {
+        this.customers = customers;
+    }
+
+    public Set<Dashboard> getDashboards() {
+        return dashboards;
+    }
+
+    public void setDashboards(Set<Dashboard> dashboards) {
+        this.dashboards = dashboards;
+    }
+
+    public void addDashboard(Dashboard dashboard) {
+        this.dashboards.add(dashboard);
+    }
+
+    public void removeDashboard(Dashboard dashboard) {
+        this.dashboards.remove(dashboard);
+    }
+
+    public void addCustomer(Customer customer) {
+        this.customers.add(customer);
+    }
+
+    public void removeCustomer(Customer customer) {
+        this.customers.remove(customer);
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", surName='" + surName + '\'' +
                 ", email='" + email + '\'' +
@@ -177,6 +224,7 @@ public class User extends BaseEntity {
                 ", created=" + created +
                 ", blocked=" + blocked +
                 ", roles=" + roles +
-                '}';
+                ", dashboards=" + dashboards +
+                "} " + super.toString();
     }
 }

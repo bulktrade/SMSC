@@ -1,32 +1,37 @@
 package io.smsc.repository.crud.crudMetaFormData;
 
 import io.smsc.model.crud.CrudMetaFormData;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "crud-meta-form-data", path = "crud-meta-form-data")
 @Transactional(readOnly = true)
-public interface CrudMetaFormDataRepository extends JpaRepository<CrudMetaFormData, Long> {
-
-    @Modifying
-    @Transactional
-    int deleteById(@Param("id") long id);
+public interface CrudMetaFormDataRepository extends JpaRepository<CrudMetaFormData, Long>, CrudMetaFormDataRepositoryCustom {
 
     @Override
-    @Transactional
+    void delete(Long id);
+
+    @Override
     CrudMetaFormData save(CrudMetaFormData crudMetaGridData);
 
     @Override
-    @Query("SELECT c FROM CrudMetaFormData c LEFT JOIN FETCH c.bindingParameters WHERE c.id=:id")
-    CrudMetaFormData findOne(@Param("id") Long id);
+    @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
+    CrudMetaFormData findOne(Long id);
 
+    // /rest/repository/crud-meta-form-data/search/findAll
+    @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
+    @RestResource(path = "findAll")
+    List<CrudMetaFormData> findAllDistinctByOrderById();
+
+    // Prevents GET /crud-meta-form-data
     @Override
-    @Query("SELECT c FROM CrudMetaFormData c LEFT JOIN FETCH c.bindingParameters ORDER BY c.id")
-    List<CrudMetaFormData> findAll();
+    @RestResource(exported = false)
+    Page<CrudMetaFormData> findAll(Pageable pageable);
 }
