@@ -21,8 +21,8 @@ public class CustomerContactRestTest extends AbstractTest {
         mockMvc.perform(get("/rest/repository/customer-contacts/139"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.firstName", is(CUSTOMER_CONTACT_1.getFirstName())))
-                .andExpect(jsonPath("$.surName", is(CUSTOMER_CONTACT_1.getSurName())))
+                .andExpect(jsonPath("$.firstname", is(CUSTOMER_CONTACT_1.getFirstname())))
+                .andExpect(jsonPath("$.surname", is(CUSTOMER_CONTACT_1.getSurname())))
                 .andExpect(jsonPath("$.phone", is(CUSTOMER_CONTACT_1.getPhone())))
                 .andExpect(jsonPath("$.mobilePhone", is(CUSTOMER_CONTACT_1.getMobilePhone())))
                 .andExpect(jsonPath("$.fax", is(CUSTOMER_CONTACT_1.getFax())))
@@ -43,8 +43,8 @@ public class CustomerContactRestTest extends AbstractTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.customer-contacts", hasSize(1)))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].firstName", is(CUSTOMER_CONTACT_1.getFirstName())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].surName", is(CUSTOMER_CONTACT_1.getSurName())))
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].firstname", is(CUSTOMER_CONTACT_1.getFirstname())))
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].surname", is(CUSTOMER_CONTACT_1.getSurname())))
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].phone", is(CUSTOMER_CONTACT_1.getPhone())))
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].mobilePhone", is(CUSTOMER_CONTACT_1.getMobilePhone())))
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].fax", is(CUSTOMER_CONTACT_1.getFax())))
@@ -76,7 +76,7 @@ public class CustomerContactRestTest extends AbstractTest {
         updated.setSalutation(Salutation.CEO);
         updated.setEmailAddress("new_email@gmial.com");
         updated.setMobilePhone("0971234567");
-        updated.setFirstName("newFirstName");
+        updated.setFirstname("newFirstName");
         String customerContactJson = json(updated);
         mockMvc.perform(put("/rest/repository/customer-contacts/139")
                 .contentType(contentType)
@@ -85,8 +85,8 @@ public class CustomerContactRestTest extends AbstractTest {
         mockMvc.perform(get("/rest/repository/customer-contacts/139"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.firstName", is(updated.getFirstName())))
-                .andExpect(jsonPath("$.surName", is(updated.getSurName())))
+                .andExpect(jsonPath("$.firstname", is(updated.getFirstname())))
+                .andExpect(jsonPath("$.surname", is(updated.getSurname())))
                 .andExpect(jsonPath("$.phone", is(updated.getPhone())))
                 .andExpect(jsonPath("$.mobilePhone", is(updated.getMobilePhone())))
                 .andExpect(jsonPath("$.fax", is(updated.getFax())))

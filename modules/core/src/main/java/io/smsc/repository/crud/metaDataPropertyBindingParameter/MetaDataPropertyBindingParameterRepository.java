@@ -16,9 +16,11 @@ import java.util.List;
 public interface MetaDataPropertyBindingParameterRepository extends JpaRepository<MetaDataPropertyBindingParameter, Long>{
 
     @Override
+    @Transactional
     void delete(Long id);
 
     @Override
+    @Transactional
     MetaDataPropertyBindingParameter save(MetaDataPropertyBindingParameter metaDataPropertyBindingParameter);
 
     @Override

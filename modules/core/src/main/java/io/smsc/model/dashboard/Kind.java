@@ -9,6 +9,5 @@ public enum Kind {
     FEEDBACK_STATUS,
     PROFIT_STATUS,
     ORDERS_STATUS,
-    USERS_STATUS,
-
+    USERS_STATUS
 }

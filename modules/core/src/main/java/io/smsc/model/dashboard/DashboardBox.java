@@ -4,6 +4,7 @@ import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "DASHBOARD_BOX")
@@ -17,7 +18,7 @@ public class DashboardBox extends BaseEntity {
 
     // order is reserved keyword in postgreSQL
     @Column(name = "ORDER_NUMBER", nullable = false)
-    @NotEmpty(message = "{dashboardBox.order.validation}")
+    @NotNull(message = "{dashboardBox.order.validation}")
     private Integer order;
 
     @Column(name = "NAME", nullable = false)

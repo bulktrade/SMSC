@@ -17,8 +17,8 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)
-    @NotEmpty(message = "{user.userName.validation}")
-    private String userName;
+    @NotEmpty(message = "{user.username.validation}")
+    private String username;
 
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
@@ -28,12 +28,12 @@ public class User extends BaseEntity {
     private String salt;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "{user.firstName.validation}")
-    private String firstName;
+    @NotEmpty(message = "{user.firstname.validation}")
+    private String firstname;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "{user.surName.validation}")
-    private String surName;
+    @NotEmpty(message = "{user.surname.validation}")
+    private String surname;
 
     @Column(name = "EMAIL", nullable = false, unique = true)
     @Email(message = "{user.email.format.validation}")
@@ -77,26 +77,26 @@ public class User extends BaseEntity {
     }
 
     public User(User user) {
-        this(user.getId(),user.getUserName(),user.getPassword(),user.getFirstName(),user.getSurName(),user.getEmail(),user.isActive(),user.isBlocked());
+        this(user.getId(),user.getUsername(),user.getPassword(),user.getFirstname(),user.getSurname(),user.getEmail(),user.isActive(),user.isBlocked());
     }
 
-    public User(Long id, String userName, String password, String firstName, String surName, String email, boolean active, boolean blocked) {
+    public User(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked) {
         super(id);
-        this.userName = userName;
+        this.username = username;
         this.password = password;
-        this.firstName = firstName;
-        this.surName = surName;
+        this.firstname = firstname;
+        this.surname = surname;
         this.email = email;
         this.active = active;
         this.blocked = blocked;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getPassword() {
@@ -107,20 +107,20 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstName) {
+        this.firstname = firstName;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setSurname(String surName) {
+        this.surname = surName;
     }
 
     public String getEmail() {
@@ -214,11 +214,11 @@ public class User extends BaseEntity {
     @Override
     public String toString() {
         return "User{" +
-                "userName='" + userName + '\'' +
+                "userName='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", surName='" + surName + '\'' +
+                ", firstName='" + firstname + '\'' +
+                ", surName='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", active=" + active +
                 ", created=" + created +

@@ -1,5 +1,6 @@
 package io.smsc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.Hibernate;
 import org.springframework.data.domain.Persistable;
 
@@ -39,6 +40,7 @@ public class BaseEntity implements Persistable<Long>, Serializable {
     }
 
     @Override
+    @JsonIgnore
     public boolean isNew() {
         return (getId() == null);
     }

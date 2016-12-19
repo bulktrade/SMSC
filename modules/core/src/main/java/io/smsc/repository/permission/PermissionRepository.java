@@ -19,9 +19,11 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
     //All query method resources are exposed under the resource 'search'.
 
     @Override
+    @Transactional
     void delete(Long id);
 
     @Override
+    @Transactional
     Permission save(Permission permission);
 
     @Override

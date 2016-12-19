@@ -28,10 +28,10 @@ public class CrudClassMetaData extends BaseEntity {
     private String query;
 
     @OneToMany(mappedBy = "crudClassMetaData")
-    private Set<CrudMetaFormData> crudMetaFormDatas;
+    private Set<CrudMetaFormData> crudMetaFormData;
 
     @OneToMany(mappedBy = "crudClassMetaData")
-    private Set<CrudMetaGridData> crudMetaGridDatas;
+    private Set<CrudMetaGridData> crudMetaGridData;
 
     public CrudClassMetaData() {
     }
@@ -51,10 +51,10 @@ public class CrudClassMetaData extends BaseEntity {
 
     @PreRemove
     private void removeCrudMetaFormGridDataFromCrudClassMetaData() {
-        for(CrudMetaFormData crudMetaFormData : crudMetaFormDatas){
+        for(CrudMetaFormData crudMetaFormData : crudMetaFormData){
             crudMetaFormData.setCrudClassMetaData(null);
         }
-        for(CrudMetaGridData crudMetaGridData : crudMetaGridDatas){
+        for(CrudMetaGridData crudMetaGridData : crudMetaGridData){
             crudMetaGridData.setCrudClassMetaData(null);
         }
     }
@@ -91,20 +91,20 @@ public class CrudClassMetaData extends BaseEntity {
         this.query = query;
     }
 
-    public Set<CrudMetaFormData> getCrudMetaFormDatas() {
-        return crudMetaFormDatas;
+    public Set<CrudMetaFormData> getCrudMetaFormData() {
+        return crudMetaFormData;
     }
 
-    public void setCrudMetaFormDatas(Set<CrudMetaFormData> crudMetaFormDatas) {
-        this.crudMetaFormDatas = crudMetaFormDatas;
+    public void setCrudMetaFormData(Set<CrudMetaFormData> crudMetaFormDatas) {
+        this.crudMetaFormData = crudMetaFormDatas;
     }
 
-    public Set<CrudMetaGridData> getCrudMetaGridDatas() {
-        return crudMetaGridDatas;
+    public Set<CrudMetaGridData> getCrudMetaGridData() {
+        return crudMetaGridData;
     }
 
-    public void setCrudMetaGridDatas(Set<CrudMetaGridData> crudMetaGridDatas) {
-        this.crudMetaGridDatas = crudMetaGridDatas;
+    public void setCrudMetaGridData(Set<CrudMetaGridData> crudMetaGridDatas) {
+        this.crudMetaGridData = crudMetaGridDatas;
     }
 
     @Override

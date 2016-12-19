@@ -46,8 +46,8 @@ public class CrudMetaFormDataJPATest extends AbstractTest {
     }
 
     @Test
-    public void testGetAllCrudMetaFormDatas() throws Exception {
-        Collection<CrudMetaFormData> crudClassMetaDatas = crudMetaFormDataRepository.findAllDistinctByOrderById();
+    public void testGetAllCrudMetaFormData() throws Exception {
+        Collection<CrudMetaFormData> crudClassMetaData = crudMetaFormDataRepository.findAllDistinctByOrderById();
         CRUD_META_FORM_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_META_FORM_DATA_1, CRUD_META_FORM_DATA_2, CRUD_META_FORM_DATA_3,
                 CRUD_META_FORM_DATA_4, CRUD_META_FORM_DATA_5, CRUD_META_FORM_DATA_6, CRUD_META_FORM_DATA_7, CRUD_META_FORM_DATA_8,
                 CRUD_META_FORM_DATA_9, CRUD_META_FORM_DATA_10, CRUD_META_FORM_DATA_11, CRUD_META_FORM_DATA_12, CRUD_META_FORM_DATA_13,
@@ -56,7 +56,7 @@ public class CrudMetaFormDataJPATest extends AbstractTest {
                 CRUD_META_FORM_DATA_24, CRUD_META_FORM_DATA_25, CRUD_META_FORM_DATA_26, CRUD_META_FORM_DATA_27, CRUD_META_FORM_DATA_28,
                 CRUD_META_FORM_DATA_29, CRUD_META_FORM_DATA_30, CRUD_META_FORM_DATA_31, CRUD_META_FORM_DATA_32, CRUD_META_FORM_DATA_33,
                 CRUD_META_FORM_DATA_34, CRUD_META_FORM_DATA_35, CRUD_META_FORM_DATA_36, CRUD_META_FORM_DATA_37, CRUD_META_FORM_DATA_38,
-                CRUD_META_FORM_DATA_39, CRUD_META_FORM_DATA_40, CRUD_META_FORM_DATA_41, CRUD_META_FORM_DATA_42), crudClassMetaDatas);
+                CRUD_META_FORM_DATA_39, CRUD_META_FORM_DATA_40, CRUD_META_FORM_DATA_41, CRUD_META_FORM_DATA_42), crudClassMetaData);
     }
 
     @Test

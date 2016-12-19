@@ -4,19 +4,18 @@ import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "CUSTOMER_CONTACT", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL_ADDRESS", name = "customer_contact_unique_email_address_idx")})
 public class CustomerContact extends BaseEntity {
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "{customer.contact.firstName.validation}")
-    private String firstName;
+    @NotEmpty(message = "{customer.contact.firstname.validation}")
+    private String firstname;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "{customer.contact.surName.validation}")
-    private String surName;
+    @NotEmpty(message = "{customer.contact.surname.validation}")
+    private String surname;
 
     @Column(name = "PHONE", nullable = false)
     @NotEmpty(message = "{customer.contact.phone.validation}")
@@ -48,34 +47,34 @@ public class CustomerContact extends BaseEntity {
     }
 
     public CustomerContact(CustomerContact customerContact) {
-        this(customerContact.getId(),customerContact.getFirstName(),customerContact.getSurName(),customerContact.getPhone(),
+        this(customerContact.getId(),customerContact.getFirstname(),customerContact.getSurname(),customerContact.getPhone(),
                 customerContact.getMobilePhone(),customerContact.getFax(),customerContact.getEmailAddress());
     }
 
-    public CustomerContact(Long id, String firstName, String surName, String phone, String mobilePhone, String fax, String emailAddress) {
+    public CustomerContact(Long id, String firstname, String surname, String phone, String mobilePhone, String fax, String emailAddress) {
         super(id);
-        this.firstName = firstName;
-        this.surName = surName;
+        this.firstname = firstname;
+        this.surname = surname;
         this.phone = phone;
         this.mobilePhone = mobilePhone;
         this.fax = fax;
         this.emailAddress = emailAddress;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstName) {
+        this.firstname = firstName;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setSurname(String surName) {
+        this.surname = surName;
     }
 
     public String getPhone() {
@@ -137,8 +136,8 @@ public class CustomerContact extends BaseEntity {
     @Override
     public String toString() {
         return "CustomerContact{" +
-                "firstName='" + firstName + '\'' +
-                ", surName='" + surName + '\'' +
+                "firstName='" + firstname + '\'' +
+                ", surName='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", fax='" + fax + '\'' +

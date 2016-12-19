@@ -16,9 +16,11 @@ import java.util.List;
 public interface CrudMetaGridDataRepository extends JpaRepository<CrudMetaGridData, Long>, CrudMetaGridDataRepositoryCustom {
 
     @Override
+    @Transactional
     void delete(Long id);
 
     @Override
+    @Transactional
     CrudMetaGridData save(CrudMetaGridData crudMetaGridData);
 
     @Override

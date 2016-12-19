@@ -46,7 +46,7 @@ public class JWTAuthenticationTest extends AbstractTest {
 
     @Test
     public void testRefreshToken() throws Exception {
-        UserDetails admin = JWTUserFactory.create(userRepository.findByUserName("Admin"));
+        UserDetails admin = JWTUserFactory.create(userRepository.findByUsername("Admin"));
         String expiredAccessToken = jwtTokenUtil.generateAccessToken(admin);
         String refreshToken = jwtTokenUtil.generateRefreshToken(admin);
         MvcResult result = mockMvc.perform(put("/rest/auth/token")

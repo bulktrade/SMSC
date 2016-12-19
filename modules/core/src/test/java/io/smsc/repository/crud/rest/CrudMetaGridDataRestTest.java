@@ -34,7 +34,7 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
     }
 
     @Test
-    public void testGetAllCrudMetaGridDatas() throws Exception {
+    public void testGetAllCrudMetaGridData() throws Exception {
         mockMvc.perform(get("/rest/repository/crud-meta-grid-data/search/findAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

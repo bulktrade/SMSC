@@ -32,11 +32,11 @@ public class UserTestData {
 
     public static final ModelMatcher<User> USER_MODEL_MATCHER = new ModelMatcher<>(User.class,
             (expected, actual) -> expected == actual ||
-                    (Objects.equals(expected.getUserName(), actual.getUserName())
+                    (Objects.equals(expected.getUsername(), actual.getUsername())
                             && Objects.equals(expected.getPassword(), actual.getPassword())
                             && Objects.equals(expected.getId(), actual.getId())
-                            && Objects.equals(expected.getFirstName(), actual.getFirstName())
-                            && Objects.equals(expected.getSurName(), actual.getSurName())
+                            && Objects.equals(expected.getFirstname(), actual.getFirstname())
+                            && Objects.equals(expected.getSurname(), actual.getSurname())
                             && Objects.equals(expected.getEmail(), actual.getEmail())
                             && Objects.equals(expected.isActive(), actual.isActive())
                             && Objects.equals(expected.isBlocked(), actual.isBlocked())

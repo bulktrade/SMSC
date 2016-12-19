@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
 import java.net.URI;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -33,7 +34,7 @@ public class AuthController {
     // @RequestBody - JSON value of valid username and password
     // ResponseEntity - JSON value of new AccessToken and new RefreshToken
     @PostMapping(path = "/rest/auth/token", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<JWTAuthenticationResponse> token(@RequestBody JWTAuthenticationRequest request, HttpServletResponse response) {
+    public ResponseEntity<JWTAuthenticationResponse> token(@RequestBody JWTAuthenticationRequest request, HttpServletResponse response) throws IOException {
         try {
             JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername(request.getUsername());
             if (jwtUser.getPassword().equals(request.getPassword())) {
@@ -41,9 +42,9 @@ public class AuthController {
                 return new ResponseEntity<>(token, HttpStatus.OK);
             }
         } catch (Exception ex) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            // going to send error
         }
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Credentials are invalid. Please enter valid username and password");
         return null;
     }
 
@@ -51,19 +52,20 @@ public class AuthController {
     // @RequestBody - JSON value of expired AccessToken and not expired RefreshToken
     // ResponseEntity - JSON value of refreshed AccessToken
     @PutMapping(path = "/rest/auth/token", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<JWTRefreshTokenResponse> token(@RequestBody JWTRefreshTokenRequest request, HttpServletResponse response) {
+    public ResponseEntity<JWTRefreshTokenResponse> token(@RequestBody JWTRefreshTokenRequest request, HttpServletResponse response) throws IOException {
         try {
             String expiredAccessToken = request.getExpiredToken();
             String refreshToken = request.getRefreshToken();
             JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername(jwtTokenUtil.getUsernameFromToken(refreshToken));
-            if(jwtTokenUtil.validateToken(refreshToken,jwtUser)) {
+            if (jwtTokenUtil.validateToken(refreshToken, jwtUser) || jwtTokenUtil.getUsernameFromToken(expiredAccessToken).equals(jwtUser.getUsername())) {
                 JWTRefreshTokenResponse token = new JWTRefreshTokenResponse(jwtTokenUtil.refreshToken(expiredAccessToken));
                 return new ResponseEntity<>(token, HttpStatus.OK);
             }
-        } catch (Exception ex) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        catch (Exception ex) {
+            // going to send error
+        }
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh or expired access token is invalid. Please enter valid tokens");
         return null;
     }
 }

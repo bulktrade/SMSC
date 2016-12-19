@@ -17,11 +17,11 @@ public final class JWTUserFactory {
     public static JWTUser create(User user) {
         return new JWTUser(
                 user.getId(),
-                user.getUserName(),
+                user.getUsername(),
                 user.getPassword(),
                 user.getSalt(),
-                user.getFirstName(),
-                user.getSurName(),
+                user.getFirstname(),
+                user.getSurname(),
                 user.getEmail(),
                 user.isActive(),
                 user.isBlocked(),

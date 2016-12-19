@@ -91,7 +91,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public User getOneByUserNameWithDecryptedPassword(String username) {
-        User user = userRepository.findByUserName(username);
+        User user = userRepository.findByUsername(username);
         CryptoConverter.decrypt(user,secretKey);
         return user;
     }
