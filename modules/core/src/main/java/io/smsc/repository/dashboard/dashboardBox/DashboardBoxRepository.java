@@ -22,9 +22,11 @@ public interface DashboardBoxRepository extends JpaRepository<DashboardBox, Long
     //All query method resources are exposed under the resource 'search'.
 
     @Override
+    @Transactional
     void delete(Long id);
 
     @Override
+    @Transactional
     DashboardBox save(DashboardBox dashboardBox);
 
     @Override

@@ -40,7 +40,6 @@ public class DashboardBoxTestData {
                             && Objects.equals(expected.getOrder(), actual.getOrder())
                             && Objects.equals(expected.getName(), actual.getName()))
                             && Objects.equals(expected.getDescription(), actual.getDescription())
-                            && Objects.equals(expected.getDashboard(), actual.getDashboard())
                             && Objects.equals(expected.getDashboardBoxType(), actual.getDashboardBoxType())
     );
 }

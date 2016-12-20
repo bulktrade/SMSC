@@ -19,11 +19,14 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
 
     @Override
+    @Transactional
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_DELETE')")
     void delete(Long id);
 
     @Override
-    @PreAuthorize("hasRole('ADMIN') or (hasAuthority('USER_CREATE') and #user.id == null) or hasAuthority('USER_UPDATE')")
+    @Transactional
+//    @PreAuthorize("hasRole('ADMIN') or (hasAuthority('USER_CREATE') and #user.id == null) or hasAuthority('USER_UPDATE')")
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_CREATE') or hasAuthority('USER_UPDATE')")
     User save(@RequestBody  User user);
 
     @Override
@@ -39,8 +42,9 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     @EntityGraph(attributePaths = {"roles", "dashboards"})
 //    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     @RestResource(exported = false)
-    User findByUserName(@Param("username")String username);
+    User findByUsername(@Param("username")String username);
 
+    // /rest/repository/users/search/findAll
     @EntityGraph(attributePaths = {"roles"})
     @RestResource(path = "findAll")
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")

@@ -19,9 +19,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, Custo
     //All query method resources are exposed under the resource 'search'.
 
     @Override
+    @Transactional
     void delete(Long id);
 
     @Override
+    @Transactional
     Customer save(Customer customer);
 
     @Override

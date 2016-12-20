@@ -48,7 +48,7 @@ public class CustomerContactJPATest extends AbstractTest {
         updated.setType(Type.PRIMARY);
         updated.setEmailAddress("new_email@gmial.com");
         updated.setMobilePhone("0971234567");
-        updated.setFirstName("newFirstName");
+        updated.setFirstname("newFirstName");
         customerContactRepository.save(updated);
         CUSTOMER_CONTACT_MODEL_MATCHER.assertEquals(updated, customerContactRepository.getOne(CUSTOMER_CONTACT_ID_1));
     }

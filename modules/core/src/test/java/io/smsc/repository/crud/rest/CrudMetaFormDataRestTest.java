@@ -34,7 +34,7 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
     }
 
     @Test
-    public void testGetAllCrudMetaFormDatas() throws Exception {
+    public void testGetAllCrudMetaFormData() throws Exception {
         mockMvc.perform(get("/rest/repository/crud-meta-form-data/search/findAll"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

@@ -11,5 +11,5 @@ public enum Operator {
     BETWEEN,
     IS,
     INSTANCE_OF,
-    MATCHES,
+    MATCHES
 }

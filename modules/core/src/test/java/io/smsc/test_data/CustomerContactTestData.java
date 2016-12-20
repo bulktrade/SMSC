@@ -25,8 +25,8 @@ public class CustomerContactTestData {
     public static final ModelMatcher<CustomerContact> CUSTOMER_CONTACT_MODEL_MATCHER = new ModelMatcher<>(CustomerContact.class,
             (expected, actual) -> expected == actual ||
                     (Objects.equals(expected.getId(), actual.getId())
-                            && Objects.equals(expected.getFirstName(), actual.getFirstName())
-                            && Objects.equals(expected.getSurName(), actual.getSurName())
+                            && Objects.equals(expected.getFirstname(), actual.getFirstname())
+                            && Objects.equals(expected.getSurname(), actual.getSurname())
                             && Objects.equals(expected.getPhone(), actual.getPhone())
                             && Objects.equals(expected.getMobilePhone(), actual.getMobilePhone())
                             && Objects.equals(expected.getFax(), actual.getFax())

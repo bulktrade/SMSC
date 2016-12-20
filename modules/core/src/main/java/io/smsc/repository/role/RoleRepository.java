@@ -19,9 +19,11 @@ public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositor
     //All query method resources are exposed under the resource 'search'.
 
     @Override
+    @Transactional
     void delete(Long id);
 
     @Override
+    @Transactional
     Role save(Role role);
 
     @Override

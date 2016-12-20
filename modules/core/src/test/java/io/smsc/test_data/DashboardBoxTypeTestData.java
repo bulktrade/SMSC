@@ -43,7 +43,6 @@ public class DashboardBoxTypeTestData {
                     (Objects.equals(expected.getId(), actual.getId())
                             && Objects.equals(expected.getName(), actual.getName())
                             && Objects.equals(expected.getType(), actual.getType())
-                            && Objects.equals(expected.getKind(), actual.getKind())
-                            && Objects.equals(expected.getDashboardBoxes(), actual.getDashboardBoxes()))
+                            && Objects.equals(expected.getKind(), actual.getKind()))
     );
 }

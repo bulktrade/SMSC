@@ -21,9 +21,11 @@ public interface DashboardRepository extends JpaRepository<Dashboard,Long>, Dash
     //All query method resources are exposed under the resource 'search'.
 
     @Override
+    @Transactional
     void delete(Long id);
 
     @Override
+    @Transactional
     Dashboard save(Dashboard dashboard);
 
     @Override

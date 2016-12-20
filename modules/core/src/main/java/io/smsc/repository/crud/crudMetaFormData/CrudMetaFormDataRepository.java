@@ -16,9 +16,11 @@ import java.util.List;
 public interface CrudMetaFormDataRepository extends JpaRepository<CrudMetaFormData, Long>, CrudMetaFormDataRepositoryCustom {
 
     @Override
+    @Transactional
     void delete(Long id);
 
     @Override
+    @Transactional
     CrudMetaFormData save(CrudMetaFormData crudMetaGridData);
 
     @Override

@@ -17,7 +17,7 @@ public class Role extends BaseEntity{
     @Pattern(regexp = "[A-Z_]+", message = "{role.name.validation}")
     private String name;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @OrderBy
     @JoinTable(
             name = "ROLE_PERMISSION",

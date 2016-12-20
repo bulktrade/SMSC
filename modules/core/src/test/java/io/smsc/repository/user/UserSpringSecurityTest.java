@@ -32,8 +32,8 @@ public class UserSpringSecurityTest extends AbstractTest {
 
     @Before
     public void generateTokens() throws Exception {
-        UserDetails user = JWTUserFactory.create(userRepository.findByUserName("User"));
-        UserDetails admin = JWTUserFactory.create(userRepository.findByUserName("Admin"));
+        UserDetails user = JWTUserFactory.create(userRepository.findByUsername("User"));
+        UserDetails admin = JWTUserFactory.create(userRepository.findByUsername("Admin"));
         userToken = jwtTokenUtil.generateAccessToken(user);
         adminToken = jwtTokenUtil.generateAccessToken(admin);
     }
