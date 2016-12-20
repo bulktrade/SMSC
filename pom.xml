@@ -504,11 +504,6 @@
                 <version>1.4.192</version>
             </dependency>
             <dependency>
-                <groupId>com.oracle</groupId>
-                <artifactId>ojdbc6</artifactId>
-                <version>11.2.0.4</version>
-            </dependency>
-            <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>9.4.1211</version>
@@ -522,12 +517,6 @@
                 <groupId>org.apache.tomcat</groupId>
                 <artifactId>tomcat-jdbc</artifactId>
                 <version>8.0.33</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.geowarin</groupId>
-                <artifactId>docker-junit-rule</artifactId>
-                <version>1.1.0</version>
-                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.github.tdomzal</groupId>

@@ -69,14 +69,6 @@ public class DashboardJPATest extends AbstractTest {
         DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(DASHBOARD_1), dashboards);
     }
 
-    @Test(expected = DataIntegrityViolationException.class)
-    public void testDuplicateDashboardNameUserSave() throws Exception {
-        Dashboard newDashboard = new Dashboard(DASHBOARD_1);
-        newDashboard.setId(null);
-        dashboardRepository.save(newDashboard);
-        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newDashboard,DASHBOARD_1), dashboardRepository.findAllDistinctByOrderById());
-    }
-
     @Test
     public void testAddDashboardBox() throws Exception {
         Dashboard dashboard = dashboardRepository.addDashboardBox(DASHBOARD_ID_1,  DASHBOARD_BOX_TYPE_ID_1, Width.WIDTH_25,

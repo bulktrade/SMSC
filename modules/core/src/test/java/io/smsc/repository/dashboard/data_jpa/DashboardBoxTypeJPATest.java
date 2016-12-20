@@ -62,14 +62,4 @@ public class DashboardBoxTypeJPATest extends AbstractTest {
         DashboardBoxType dashboardBoxType = dashboardBoxTypeRepository.findByName(DASHBOARD_BOX_TYPE_1.getName());
         DASHBOARD_BOX_TYPE_MODEL_MATCHER.assertEquals(DASHBOARD_BOX_TYPE_1, dashboardBoxType);
     }
-
-    @Test(expected = DataIntegrityViolationException.class)
-    public void testDuplicateDashboardBoxTypeNameSave() throws Exception {
-        DashboardBoxType newDashboardBoxType = new DashboardBoxType(DASHBOARD_BOX_TYPE_1);
-        newDashboardBoxType.setId(null);
-        dashboardBoxTypeRepository.save(newDashboardBoxType);
-        DASHBOARD_BOX_TYPE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newDashboardBoxType,DASHBOARD_BOX_TYPE_1,
-                DASHBOARD_BOX_TYPE_2,DASHBOARD_BOX_TYPE_3,DASHBOARD_BOX_TYPE_4,DASHBOARD_BOX_TYPE_5,DASHBOARD_BOX_TYPE_6),
-                dashboardBoxTypeRepository.findAllDistinctByOrderById());
-    }
 }

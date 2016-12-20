@@ -31,18 +31,18 @@ public class CrudMetaFormDataJPATest extends AbstractTest {
 
     @Test
     public void testSaveCrudMetaFormData() throws Exception {
-        CrudMetaFormData newCrudClassMetaData = new CrudMetaFormData(null,"defaultProperty", true,
+        CrudMetaFormData newCrudMetaFormData = new CrudMetaFormData(null,"defaultProperty", true,
                 true, null, 10.0,"newFieldLayoutGridPosition");
-        newCrudClassMetaData.setCrudClassMetaData(CRUD_CLASS_META_DATA_1);
-        CrudMetaFormData created = crudMetaFormDataRepository.save(newCrudClassMetaData);
-        newCrudClassMetaData.setId(created.getId());
-        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(newCrudClassMetaData, crudMetaFormDataRepository.findOne(newCrudClassMetaData.getId()));
+        newCrudMetaFormData.setCrudClassMetaData(CRUD_CLASS_META_DATA_1);
+        CrudMetaFormData created = crudMetaFormDataRepository.save(newCrudMetaFormData);
+        newCrudMetaFormData.setId(created.getId());
+        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(newCrudMetaFormData, crudMetaFormDataRepository.findOne(newCrudMetaFormData.getId()));
     }
 
     @Test
     public void testGetSingleCrudMetaFormData() throws Exception {
-        CrudMetaFormData crudClassMetaData = crudMetaFormDataRepository.findOne(CRUD_META_FORM_DATA_ID_1);
-        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(CRUD_META_FORM_DATA_1,crudClassMetaData);
+        CrudMetaFormData crudMetaFormData = crudMetaFormDataRepository.findOne(CRUD_META_FORM_DATA_ID_1);
+        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(CRUD_META_FORM_DATA_1,crudMetaFormData);
     }
 
     @Test

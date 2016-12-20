@@ -51,15 +51,6 @@ public class RoleJPATest extends AbstractTest {
         ROLE_MODEL_MATCHER.assertEquals(updated, roleRepository.findOne(ROLE_USER_ID));
     }
 
-
-    @Test(expected = DataIntegrityViolationException.class)
-    public void testDuplicateRoleNameSave() throws Exception {
-        Role newRole = new Role(ROLE_USER);
-        newRole.setId(null);
-        roleRepository.save(newRole);
-        ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newRole,ROLE_USER,ROLE_ADMIN), roleRepository.findAll());
-    }
-
     @Test
     public void testAddPermission() throws Exception {
         Role role = roleRepository.addPermission(ROLE_USER_ID,PERMISSION_USER_CREATE_ID);

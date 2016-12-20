@@ -4,6 +4,8 @@ import io.smsc.AbstractTest;
 import io.smsc.model.User;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.CustomerContact;
+import io.smsc.model.customer.Salutation;
+import io.smsc.model.customer.Type;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -72,7 +74,7 @@ public class CustomerJPATest extends AbstractTest {
 
     @Test
     public void testAddContact() throws Exception {
-        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com");
+        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.PRIMARY, Salutation.CEO);
         CustomerContact created = customerContactRepository.save(newContact);
         Customer customer = customerRepository.addContact(CUSTOMER_ID_1,created.getId());
         CUSTOMER_MODEL_MATCHER.assertEquals(customer, customerRepository.getOne(CUSTOMER_ID_1));
@@ -88,13 +90,5 @@ public class CustomerJPATest extends AbstractTest {
     public void testGetCustomerByCustomerId() throws Exception {
         Customer customer = customerRepository.findByCustomerId(1.0);
         CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1,customer);
-    }
-
-    @Test(expected = DataIntegrityViolationException.class)
-    public void testDuplicateCustomerIdSave() throws Exception {
-        Customer newCustomer = new Customer(CUSTOMER_1);
-        newCustomer.setId(null);
-        customerRepository.save(newCustomer);
-        CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCustomer,CUSTOMER_1), customerRepository.findAllDistinctByOrderById());
     }
 }

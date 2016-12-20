@@ -55,7 +55,7 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testCreateCustomerContact() throws Exception {
-        String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com"));
+        String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.CEO));
         this.mockMvc.perform(post("/rest/repository/customer-contacts")
                 .contentType(contentType)
                 .content(customerContactJson))
