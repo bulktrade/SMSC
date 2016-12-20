@@ -10,8 +10,7 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
     @Column(name = "FIELD_LAYOUT_GRID_POSITION")
     private String fieldLayoutGridPosition;
 
-    @OneToMany()
-    @JoinColumn(name="CRUD_META_FORM_DATA", referencedColumnName = "ID")
+    @OneToMany(mappedBy = "crudMetaFormData")
     private Set<MetaDataPropertyBindingParameter> bindingParameters;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,9 +43,9 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
     }
 
     @PreRemove
-    private void removeBindingParametersFromCrudMetaMetaData() {
+    private void removeBindingParametersFromCrudMetaFormData() {
         for(MetaDataPropertyBindingParameter parameter : bindingParameters){
-            parameter.setCrudMetaFormDataId(null);
+            parameter.setCrudMetaFormData(null);
         }
     }
 

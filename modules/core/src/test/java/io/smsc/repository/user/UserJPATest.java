@@ -64,14 +64,6 @@ public class UserJPATest extends AbstractTest {
         USER_MODEL_MATCHER.assertEquals(ADMIN, user);
     }
 
-    @Test(expected = DataIntegrityViolationException.class)
-    public void testDuplicateUserNameMailSave() throws Exception {
-        User newUser = new User(USER);
-        newUser.setId(null);
-        userRepository.saveOneWithEncryptedPassword(newUser);
-        USER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newUser,USER,ADMIN), userRepository.getAllWithRolesAndDecryptedPassword());
-    }
-
     @Test
     public void testAddRole() throws Exception {
         User user = userRepository.addRole(USER_ID,ROLE_ADMIN_ID);

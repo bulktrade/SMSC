@@ -4,6 +4,7 @@ import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "META_DATA_PROPERTY_BINDING_PARAMETER")
@@ -19,17 +20,21 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "COMBINE_OPERATOR", nullable = false)
+    @NotNull(message = "{meta.data.property.binding.parameter.combineOperator.validation}")
     private CombineOperator combineOperator;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "OPERATOR", nullable = false)
+    @NotNull(message = "{meta.data.property.binding.parameter.operator.validation}")
     private Operator operator;
 
-    @Column(name="CRUD_META_FORM_DATA")
-    private Long crudMetaFormDataId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CRUD_META_FORM_DATA")
+    private CrudMetaFormData crudMetaFormData;
 
-    @Column(name="CRUD_META_GRID_DATA")
-    private Long crudMetaGridDataId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CRUD_META_GRID_DATA")
+    private CrudMetaGridData crudMetaGridData;
 
     public MetaDataPropertyBindingParameter() {
     }
@@ -85,20 +90,20 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
         this.operator = operator;
     }
 
-    public Long getCrudMetaFormDataId() {
-        return crudMetaFormDataId;
+    public CrudMetaFormData getCrudMetaFormData() {
+        return crudMetaFormData;
     }
 
-    public void setCrudMetaFormDataId(Long crudMetaFormDataId) {
-        this.crudMetaFormDataId = crudMetaFormDataId;
+    public void setCrudMetaFormData(CrudMetaFormData crudMetaFormData) {
+        this.crudMetaFormData = crudMetaFormData;
     }
 
-    public Long getCrudMetaGridDataId() {
-        return crudMetaGridDataId;
+    public CrudMetaGridData getCrudMetaGridData() {
+        return crudMetaGridData;
     }
 
-    public void setCrudMetaGridDataId(Long crudMetaGridDataId) {
-        this.crudMetaGridDataId = crudMetaGridDataId;
+    public void setCrudMetaGridData(CrudMetaGridData crudMetaGridData) {
+        this.crudMetaGridData = crudMetaGridData;
     }
 
     @Override

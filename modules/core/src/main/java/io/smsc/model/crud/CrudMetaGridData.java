@@ -10,8 +10,7 @@ public class CrudMetaGridData extends CrudPropertyMetaData {
     @Column(name = "COLUMN_WIDTH")
     private Double columnWidth;
 
-    @OneToMany()
-    @JoinColumn(name="CRUD_META_GRID_DATA", referencedColumnName = "ID")
+    @OneToMany(mappedBy = "crudMetaGridData")
     private Set<MetaDataPropertyBindingParameter> bindingParameters;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,7 +41,7 @@ public class CrudMetaGridData extends CrudPropertyMetaData {
     @PreRemove
     private void removeBindingParametersFromCrudMetaGridData() {
         for(MetaDataPropertyBindingParameter parameter : bindingParameters){
-            parameter.setCrudMetaGridDataId(null);
+            parameter.setCrudMetaGridData(null);
         }
     }
 
