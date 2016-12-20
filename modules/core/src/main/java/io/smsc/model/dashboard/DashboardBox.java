@@ -11,9 +11,13 @@ import javax.validation.constraints.NotNull;
 public class DashboardBox extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "WIDTH", nullable = false)
+    @NotNull(message = "{dashboardBox.width.validation}")
     private Width width;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "HEIGHT", nullable = false)
+    @NotNull(message = "{dashboardBox.height.validation}")
     private Height height;
 
     // order is reserved keyword in postgreSQL

@@ -1,9 +1,11 @@
 package io.smsc.model.customer;
 
 import io.smsc.model.BaseEntity;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "CUSTOMER_CONTACT", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL_ADDRESS", name = "customer_contact_unique_email_address_idx")})
@@ -30,6 +32,7 @@ public class CustomerContact extends BaseEntity {
     private String fax;
 
     @Column(name = "EMAIL_ADDRESS", nullable = false, unique = true)
+    @Email(message = "{customer.contact.emailAddress.format.validation}")
     @NotEmpty(message = "{customer.contact.emailAddress.validation}")
     private String emailAddress;
 
@@ -38,9 +41,13 @@ public class CustomerContact extends BaseEntity {
     private Customer customer;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE", nullable = false)
+    @NotNull(message = "{customer.contact.type.validation}")
     private Type type;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "SALUTATION", nullable = false)
+    @NotNull(message = "{customer.contact.salutation.validation}")
     private Salutation salutation;
 
     public CustomerContact() {
@@ -48,10 +55,11 @@ public class CustomerContact extends BaseEntity {
 
     public CustomerContact(CustomerContact customerContact) {
         this(customerContact.getId(),customerContact.getFirstname(),customerContact.getSurname(),customerContact.getPhone(),
-                customerContact.getMobilePhone(),customerContact.getFax(),customerContact.getEmailAddress());
+                customerContact.getMobilePhone(),customerContact.getFax(),customerContact.getEmailAddress(),customerContact.getType(),
+                customerContact.getSalutation());
     }
 
-    public CustomerContact(Long id, String firstname, String surname, String phone, String mobilePhone, String fax, String emailAddress) {
+    public CustomerContact(Long id, String firstname, String surname, String phone, String mobilePhone, String fax, String emailAddress, Type type, Salutation salutation) {
         super(id);
         this.firstname = firstname;
         this.surname = surname;
@@ -59,6 +67,8 @@ public class CustomerContact extends BaseEntity {
         this.mobilePhone = mobilePhone;
         this.fax = fax;
         this.emailAddress = emailAddress;
+        this.type = type;
+        this.salutation = salutation;
     }
 
     public String getFirstname() {

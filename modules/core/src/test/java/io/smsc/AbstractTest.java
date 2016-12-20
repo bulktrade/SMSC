@@ -2,7 +2,7 @@ package io.smsc;
 
 import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.SecurityConfig;
-import io.smsc.model.dashboard.Dashboard;
+import io.smsc.config.SpringDataRestValidationConfiguration;
 import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
 import io.smsc.repository.crud.crudMetaFormData.CrudMetaFormDataRepository;
 import io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository;
@@ -19,6 +19,7 @@ import io.smsc.security.JWTTokenUtil;
 import io.smsc.security.JWTUserDetailsServiceImpl;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
@@ -39,6 +40,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+import pl.domzal.junit.docker.rule.DockerRule;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -48,7 +50,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ContextConfiguration(classes = {Application.class, SecurityConfig.class, FlywayConfiguration.class})
+@ContextConfiguration(classes = {Application.class, SecurityConfig.class, FlywayConfiguration.class, SpringDataRestValidationConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @TestPropertySource(properties = {"smsc.database = postgresql"})
@@ -72,7 +74,7 @@ public abstract class AbstractTest {
 //            .env("POSTGRESQL_PASS","oe9jaacZLbR9pN")
 //            .env("POSTGRESQL_DB","smsc")
 //            .build();
-
+//
 //    @ClassRule
 //    public static DockerRule mySQLRule = DockerRule.builder()
 //            .imageName("mysql:latest")
@@ -82,7 +84,7 @@ public abstract class AbstractTest {
 //            .env("MYSQL_USER","user")
 //            .env("MYSQL_PASSWORD","password")
 //            .build();
-
+//
 //    @ClassRule
 //    public static DockerRule oracleRule = DockerRule.builder()
 //            .imageName("alexeiled/docker-oracle-xe-11g")

@@ -1,4 +1,4 @@
-package io.smsc.repository;
+package io.smsc.repository.user;
 
 import io.smsc.converters.CryptoConverter;
 import io.smsc.model.User;
@@ -6,7 +6,7 @@ import io.smsc.AbstractTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class PasswordCryptTest extends AbstractTest {
+public class UserPasswordCryptTest extends AbstractTest {
 
     @Test
     public void testEncryptDecryptUserPassword(){

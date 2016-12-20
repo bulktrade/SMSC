@@ -53,13 +53,4 @@ public class CrudClassMetaDataJPATest extends AbstractTest {
         crudClassMetaDataRepository.save(updated);
         CRUD_CLASS_META_DATA_MODEL_MATCHER.assertEquals(updated, crudClassMetaDataRepository.findOne(CRUD_CLASS_META_DATA_ID_1));
     }
-
-    @Test(expected = DataIntegrityViolationException.class)
-    public void testDuplicateClassNameSave() throws Exception {
-        CrudClassMetaData newCrudClassMetaData = new CrudClassMetaData(CRUD_CLASS_META_DATA_1);
-        newCrudClassMetaData.setId(null);
-        crudClassMetaDataRepository.save(newCrudClassMetaData);
-        CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCrudClassMetaData,CRUD_CLASS_META_DATA_1,
-                CRUD_CLASS_META_DATA_2, CRUD_CLASS_META_DATA_3, CRUD_CLASS_META_DATA_4), crudClassMetaDataRepository.findAllDistinctByOrderById());
-    }
 }

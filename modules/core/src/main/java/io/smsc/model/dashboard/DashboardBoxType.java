@@ -4,6 +4,7 @@ import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -15,9 +16,13 @@ public class DashboardBoxType extends BaseEntity {
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "TYPE", nullable = false)
+    @NotNull(message = "{dashboardBoxType.type.validation}")
     private Type type;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "KIND", nullable = false)
+    @NotNull(message = "{dashboardBoxType.kind.validation}")
     private Kind kind;
 
     @OneToMany(mappedBy = "dashboardBoxType", fetch = FetchType.LAZY, orphanRemoval = true)
