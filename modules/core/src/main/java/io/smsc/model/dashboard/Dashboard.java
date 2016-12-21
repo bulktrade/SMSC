@@ -1,5 +1,7 @@
 package io.smsc.model.dashboard;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.User;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,10 +23,12 @@ public class Dashboard extends BaseEntity {
     private String icon;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name="USER_ACCOUNT", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "dashboard", orphanRemoval = true)
+    @JsonManagedReference
     private Set<DashboardBox> dashboardBoxes;
 
     public Dashboard() {

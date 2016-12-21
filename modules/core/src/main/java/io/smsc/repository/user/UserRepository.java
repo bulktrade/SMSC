@@ -45,7 +45,7 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     User findByUsername(@Param("username")String username);
 
     // /rest/repository/users/search/findAll
-    @EntityGraph(attributePaths = {"roles"})
+    @EntityGraph(attributePaths = {"roles", "dashboards"})
     @RestResource(path = "findAll")
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     List<User> findAllDistinctByOrderById();

@@ -1,6 +1,8 @@
 package io.smsc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.validator.constraints.Email;
@@ -51,6 +53,7 @@ public class User extends BaseEntity {
     private boolean blocked = false;
 
     @ManyToMany()
+    @JsonManagedReference(value = "user")
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -60,9 +63,11 @@ public class User extends BaseEntity {
 
     @ManyToMany(mappedBy = "users")
     @OrderBy
+    @JsonBackReference
     private Set<Customer> customers;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @JsonManagedReference
     @OrderBy
     private Set<Dashboard> dashboards;
 

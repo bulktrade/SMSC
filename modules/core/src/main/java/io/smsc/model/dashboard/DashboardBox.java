@@ -1,5 +1,6 @@
 package io.smsc.model.dashboard;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -34,10 +35,12 @@ public class DashboardBox extends BaseEntity {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name="DASHBOARD", nullable = false)
     private Dashboard dashboard;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name="DASHBOARD_BOX_TYPE", nullable = false)
     private DashboardBoxType dashboardBoxType;
 

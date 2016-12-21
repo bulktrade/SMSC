@@ -27,14 +27,14 @@ public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositor
     Role save(Role role);
 
     @Override
-    @EntityGraph(attributePaths = {"permissions"})
+//    @EntityGraph(attributePaths = {"permissions"})
     Role findOne(Long id);
 
-    @EntityGraph(attributePaths = {"permissions"})
+//    @EntityGraph(attributePaths = {"permissions"})
     Role findByName(@Param("name")String name);
 
     // /rest/repository/roles/search/findAll
-    @EntityGraph(attributePaths = {"permissions"})
+//    @EntityGraph(attributePaths = {"permissions"})
     @RestResource(path = "findAll")
     List<Role> findAllDistinctByOrderById();
 

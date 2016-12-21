@@ -50,7 +50,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ContextConfiguration(classes = {Application.class, SecurityConfig.class, FlywayConfiguration.class, SpringDataRestValidationConfiguration.class})
+@ContextConfiguration(classes = {Application.class, SecurityConfig.class, SpringDataRestValidationConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @TestPropertySource(properties = {"smsc.database = postgresql"})
