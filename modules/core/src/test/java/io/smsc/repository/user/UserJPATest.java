@@ -75,16 +75,4 @@ public class UserJPATest extends AbstractTest {
         User user = userRepository.removeRole(USER_ID,ROLE_USER_ID);
         USER_MODEL_MATCHER.assertEquals(user, userRepository.getOneWithDecryptedPassword(USER_ID));
     }
-
-    @Test
-    public void testAddDashboard() throws Exception {
-        User user = userRepository.addDashboard(USER_ID, "new dashboard", "new icon");
-        USER_MODEL_MATCHER.assertEquals(user, userRepository.getOneWithDecryptedPassword(USER_ID));
-    }
-
-    @Test
-    public void testRemoveDashboard() throws Exception {
-        User user = userRepository.removeDashboard(USER_ID, DASHBOARD_ID_1);
-        USER_MODEL_MATCHER.assertEquals(user, userRepository.getOneWithDecryptedPassword(USER_ID));
-    }
 }

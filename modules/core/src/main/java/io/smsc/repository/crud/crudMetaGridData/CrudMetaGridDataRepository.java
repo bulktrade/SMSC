@@ -13,7 +13,7 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "crud-meta-grid-data", path = "crud-meta-grid-data")
 @Transactional(readOnly = true)
-public interface CrudMetaGridDataRepository extends JpaRepository<CrudMetaGridData, Long>, CrudMetaGridDataRepositoryCustom {
+public interface CrudMetaGridDataRepository extends JpaRepository<CrudMetaGridData, Long> {
 
     @Override
     @Transactional

@@ -28,7 +28,7 @@ public class Dashboard extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "dashboard", orphanRemoval = true)
-    @JsonManagedReference
+//    @JsonManagedReference
     private Set<DashboardBox> dashboardBoxes;
 
     public Dashboard() {

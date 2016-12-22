@@ -50,12 +50,10 @@ public class Customer extends BaseEntity {
     private Customer parentCustomer;
 
     @OneToMany(mappedBy = "customer")
-    @JsonManagedReference
     private Set<CustomerContact> contacts;
 
     @ManyToMany()
     @OrderBy
-    @JsonManagedReference
     @JoinTable(
             name = "CUSTOMER_USER",
             joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),

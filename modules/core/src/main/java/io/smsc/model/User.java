@@ -42,18 +42,18 @@ public class User extends BaseEntity {
     @NotEmpty(message = "{user.email.empty.validation}")
     private String email;
 
-    @Column(name = "ACTIVE", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "ACTIVE", columnDefinition = "boolean default true")
     private boolean active = true;
 
     @Column(name = "CREATED", columnDefinition = "timestamp default now()")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="CET")
     private Date created = new Date();
 
-    @Column(name = "BLOCKED", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "BLOCKED", columnDefinition = "boolean default false")
     private boolean blocked = false;
 
     @ManyToMany()
-    @JsonManagedReference(value = "user")
+//    @JsonManagedReference(value = "user")
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -67,7 +67,7 @@ public class User extends BaseEntity {
     private Set<Customer> customers;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
-    @JsonManagedReference
+//    @JsonManagedReference
     @OrderBy
     private Set<Dashboard> dashboards;
 

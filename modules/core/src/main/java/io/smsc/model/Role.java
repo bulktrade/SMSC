@@ -21,7 +21,7 @@ public class Role extends BaseEntity{
 
     @ManyToMany(fetch = FetchType.EAGER)
     @OrderBy
-    @JsonManagedReference
+//    @JsonManagedReference
     @JoinTable(
             name = "ROLE_PERMISSION",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
@@ -31,7 +31,7 @@ public class Role extends BaseEntity{
 
     @ManyToMany(mappedBy = "roles")
     @OrderBy
-    @JsonBackReference(value = "user")
+    @JsonBackReference()
     private Set<User> users;
 
     @PreRemove
