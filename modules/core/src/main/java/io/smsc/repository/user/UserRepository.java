@@ -21,17 +21,20 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     @Override
     @Transactional
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_DELETE')")
+    @RestResource(exported = false)
     void delete(Long id);
 
     @Override
     @Transactional
 //    @PreAuthorize("hasRole('ADMIN') or (hasAuthority('USER_CREATE') and #user.id == null) or hasAuthority('USER_UPDATE')")
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_CREATE') or hasAuthority('USER_UPDATE')")
+    @RestResource(exported = false)
     User save(@RequestBody  User user);
 
     @Override
     @EntityGraph(attributePaths = {"roles", "dashboards"})
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
+    @RestResource(exported = false)
     User findOne(Long id);
 
     @EntityGraph(attributePaths = {"roles", "dashboards"})
@@ -45,8 +48,8 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     User findByUsername(@Param("username")String username);
 
     // /rest/repository/users/search/findAll
-    @EntityGraph(attributePaths = {"roles"})
-    @RestResource(path = "findAll")
+    @EntityGraph(attributePaths = {"roles", "dashboards"})
+    @RestResource(path = "findAll", exported = false)
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     List<User> findAllDistinctByOrderById();
 

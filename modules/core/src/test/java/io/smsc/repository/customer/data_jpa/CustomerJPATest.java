@@ -73,20 +73,6 @@ public class CustomerJPATest extends AbstractTest {
     }
 
     @Test
-    public void testAddContact() throws Exception {
-        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.PRIMARY, Salutation.CEO);
-        CustomerContact created = customerContactRepository.save(newContact);
-        Customer customer = customerRepository.addContact(CUSTOMER_ID_1,created.getId());
-        CUSTOMER_MODEL_MATCHER.assertEquals(customer, customerRepository.getOne(CUSTOMER_ID_1));
-    }
-
-    @Test
-    public void testRemoveContact() throws Exception {
-        Customer customer = customerRepository.removeContact(CUSTOMER_ID_1,CUSTOMER_CONTACT_ID_1);
-        CUSTOMER_MODEL_MATCHER.assertEquals(customer, customerRepository.getOne(CUSTOMER_ID_1));
-    }
-
-    @Test
     public void testGetCustomerByCustomerId() throws Exception {
         Customer customer = customerRepository.findByCustomerId(1.0);
         CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1,customer);

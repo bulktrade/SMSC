@@ -1,5 +1,6 @@
 package io.smsc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Permission extends BaseEntity{
 
     @ManyToMany(mappedBy = "permissions")
     @OrderBy
+    @JsonBackReference
     private Set<Role> roles;
 
     @PreRemove

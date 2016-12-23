@@ -16,11 +16,10 @@ public class UserRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleUser() throws Exception {
-        mockMvc.perform(get("/rest/repository/users/1"))
+        mockMvc.perform(get("/rest/repository/users/findOne/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.username", is(USER.getUsername())))
-//                .andExpect(jsonPath("$.password", is(USER.getPassword())))
+                .andExpect(jsonPath("$.password", is(USER.getPassword())))
                 .andExpect(jsonPath("$.firstname", is(USER.getFirstname())))
                 .andExpect(jsonPath("$.surname", is(USER.getSurname())))
                 .andExpect(jsonPath("$.email", is(USER.getEmail())))
@@ -31,47 +30,47 @@ public class UserRestTest extends AbstractTest {
 
     @Test
     public void testUserNotFound() throws Exception {
-        mockMvc.perform(get("/rest/repository/users/999"))
+        mockMvc.perform(get("/rest/repository/users/findOne/999")
+                .contentType("application/json;charset=UTF-8"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void testGetAllUsers() throws Exception {
-        mockMvc.perform(get("/rest/repository/users/search/findAll"))
+        mockMvc.perform(get("/rest/repository/users/findAll"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.users", hasSize(2)))
-                .andExpect(jsonPath("$._embedded.users[0].username", is(USER.getUsername())))
-//                .andExpect(jsonPath("$._embedded.users[0].password", is(USER.getPassword())))
-                .andExpect(jsonPath("$._embedded.users[0].firstname", is(USER.getFirstname())))
-                .andExpect(jsonPath("$._embedded.users[0].surname", is(USER.getSurname())))
-                .andExpect(jsonPath("$._embedded.users[0].email", is(USER.getEmail())))
-                .andExpect(jsonPath("$._embedded.users[0].active", is(USER.isActive())))
-//                .andExpect(jsonPath("$._embedded.users[0].created", is(USER.getCreated().toString().substring(0,19))))
-                .andExpect(jsonPath("$._embedded.users[0].blocked", is(USER.isBlocked())))
-                .andExpect(jsonPath("$._embedded.users[1].username", is(ADMIN.getUsername())))
-//                .andExpect(jsonPath("$._embedded.users[1].password", is(ADMIN.getPassword())))
-                .andExpect(jsonPath("$._embedded.users[1].firstname", is(ADMIN.getFirstname())))
-                .andExpect(jsonPath("$._embedded.users[1].surname", is(ADMIN.getSurname())))
-                .andExpect(jsonPath("$._embedded.users[1].email", is(ADMIN.getEmail())))
-                .andExpect(jsonPath("$._embedded.users[1].active", is(ADMIN.isActive())))
-//                .andExpect(jsonPath("$._embedded.users[1].created", is(ADMIN.getCreated().toString().substring(0,19))))
-                .andExpect(jsonPath("$._embedded.users[1].blocked", is(ADMIN.isBlocked())));
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$.[0].username", is(USER.getUsername())))
+                .andExpect(jsonPath("$.[0].password", is(USER.getPassword())))
+                .andExpect(jsonPath("$.[0].firstname", is(USER.getFirstname())))
+                .andExpect(jsonPath("$.[0].surname", is(USER.getSurname())))
+                .andExpect(jsonPath("$.[0].email", is(USER.getEmail())))
+                .andExpect(jsonPath("$.[0].active", is(USER.isActive())))
+//                .andExpect(jsonPath("$.[0].created", is(USER.getCreated().toString().substring(0,19))))
+                .andExpect(jsonPath("$.[0].blocked", is(USER.isBlocked())))
+                .andExpect(jsonPath("$.[1].username", is(ADMIN.getUsername())))
+                .andExpect(jsonPath("$.[1].password", is(ADMIN.getPassword())))
+                .andExpect(jsonPath("$.[1].firstname", is(ADMIN.getFirstname())))
+                .andExpect(jsonPath("$.[1].surname", is(ADMIN.getSurname())))
+                .andExpect(jsonPath("$.[1].email", is(ADMIN.getEmail())))
+                .andExpect(jsonPath("$.[1].active", is(ADMIN.isActive())))
+//                .andExpect(jsonPath("$.[1].created", is(ADMIN.getCreated().toString().substring(0,19))))
+                .andExpect(jsonPath("$.[1].blocked", is(ADMIN.isBlocked())));
     }
 
     @Test
     public void testCreateUser() throws Exception {
-        String userJson = json(new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false));
-        this.mockMvc.perform(post("/rest/repository/users")
-                .contentType(contentType)
+        String userJson = json(new User(111L,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false));
+        this.mockMvc.perform(post("/rest/repository/users/create")
+                .contentType("application/json;charset=UTF-8")
                 .content(userJson))
                 .andExpect(status().isCreated());
     }
 
     @Test
     public void testDeleteUser() throws Exception {
-        mockMvc.perform(delete("/rest/repository/users/1"));
-        mockMvc.perform(get("/rest/repository/users/1"))
+        mockMvc.perform(delete("/rest/repository/users/delete/1"));
+        mockMvc.perform(get("/rest/repository/users/findOne/1"))
                 .andExpect(status().isNotFound());
     }
 
@@ -82,20 +81,37 @@ public class UserRestTest extends AbstractTest {
         updated.setBlocked(true);
         updated.setEmail("bot@gmail.com");
         String userJson = json(updated);
-        mockMvc.perform(put("/rest/repository/users/1")
-                .contentType(contentType)
+        mockMvc.perform(put("/rest/repository/users/update/1")
+                .contentType("application/json;charset=UTF-8")
                 .content(userJson))
-                .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/users/1"))
+                .andExpect(status().isOk());
+//        mockMvc.perform(get("/rest/repository/users/findOne/1"))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.username",is(updated.getUsername())))
+////                .andExpect(jsonPath("$.password",is(updated.getPassword())))
+//                .andExpect(jsonPath("$.firstname",is(updated.getFirstname())))
+//                .andExpect(jsonPath("$.surname",is(updated.getSurname())))
+//                .andExpect(jsonPath("$.email",is(updated.getEmail())))
+//                .andExpect(jsonPath("$.active",is(updated.isActive())))
+////                .andExpect(jsonPath("$.created",is(updated.getCreated())))
+//                .andExpect(jsonPath("$.blocked",is(updated.isBlocked())));
+    }
+
+    @Test
+    public void testAddRole() throws Exception {
+        mockMvc.perform(get("/rest/repository/users/addRole?userId=1&roleId=4"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rest/repository/users/1/roles"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.username",is(updated.getUsername())))
-                .andExpect(jsonPath("$.password",is(updated.getPassword())))
-                .andExpect(jsonPath("$.firstname",is(updated.getFirstname())))
-                .andExpect(jsonPath("$.surname",is(updated.getSurname())))
-                .andExpect(jsonPath("$.email",is(updated.getEmail())))
-                .andExpect(jsonPath("$.active",is(updated.isActive())))
-//                .andExpect(jsonPath("$.created",is(updated.getCreated())))
-                .andExpect(jsonPath("$.blocked",is(updated.isBlocked())));
+                .andExpect(jsonPath("$._embedded.roles", hasSize(2)));
+    }
+
+    @Test
+    public void testRemoveRole() throws Exception {
+        mockMvc.perform(get("/rest/repository/users/removeRole?userId=1&roleId=3"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rest/repository/users/1/roles"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.roles", hasSize(0)));
     }
 }

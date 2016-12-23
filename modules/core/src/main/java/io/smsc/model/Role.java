@@ -1,5 +1,7 @@
 package io.smsc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -19,6 +21,7 @@ public class Role extends BaseEntity{
 
     @ManyToMany(fetch = FetchType.EAGER)
     @OrderBy
+//    @JsonManagedReference
     @JoinTable(
             name = "ROLE_PERMISSION",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
@@ -28,6 +31,7 @@ public class Role extends BaseEntity{
 
     @ManyToMany(mappedBy = "roles")
     @OrderBy
+    @JsonBackReference()
     private Set<User> users;
 
     @PreRemove
@@ -102,7 +106,7 @@ public class Role extends BaseEntity{
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                "permission'=" + permissions + '\'' +
+                "permissions'=" + permissions + '\'' +
                 '}';
     }
 }

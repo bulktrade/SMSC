@@ -3,6 +3,7 @@ package io.smsc.repository.customer.rest;
 import io.smsc.AbstractTest;
 import io.smsc.model.customer.Customer;
 import org.junit.Test;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
@@ -62,7 +63,7 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCustomer() throws Exception {
-        mockMvc.perform(delete("/rest/repository/customers/138"));
+        mockMvc.perform(delete("/rest/repository/customers/delete/138"));
         mockMvc.perform(get("/rest/repository/customers/138"))
                 .andExpect(status().isNotFound());
     }
@@ -90,5 +91,23 @@ public class CustomerRestTest extends AbstractTest {
                 .andExpect(jsonPath("$.country", is(updated.getCountry())))
                 .andExpect(jsonPath("$.city", is(updated.getCity())))
                 .andExpect(jsonPath("$.vatid", is(updated.getVatid())));
+    }
+
+    @Test
+    public void testAddUser() throws Exception {
+        mockMvc.perform(get("/rest/repository/customers/addUser?customerId=138&userId=2"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rest/repository/customers/138/users"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.users", hasSize(2)));
+    }
+
+    @Test
+    public void testRemoveUser() throws Exception {
+        mockMvc.perform(get("/rest/repository/customers/removeUser?customerId=138&userId=2"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rest/repository/customers/138/users"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._embedded.users", hasSize(1)));
     }
 }
