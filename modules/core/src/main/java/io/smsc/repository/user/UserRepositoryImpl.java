@@ -27,23 +27,23 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public User addRole(Long userId, Long roleId){
-        User user = userRepository.getOneWithRolesAndDecryptedPassword(userId);
+        User user = userRepository.findOne(userId);
         Role role = roleRepository.findOne(roleId);
         user.addRole(role);
         role.addUser(user);
         roleRepository.save(role);
-        userRepository.saveOneWithEncryptedPassword(user);
+        userRepository.save(user);
         return userRepository.getOneWithRolesAndDecryptedPassword(userId);
     }
 
     @Override
     public User removeRole(Long userId, Long roleId){
-        User user = userRepository.getOneWithRolesAndDecryptedPassword(userId);
+        User user = userRepository.findOne(userId);
         Role role = roleRepository.findOne(roleId);
         user.removeRole(role);
         role.removeUser(user);
         roleRepository.save(role);
-        userRepository.saveOneWithEncryptedPassword(user);
+        userRepository.save(user);
         return userRepository.getOneWithRolesAndDecryptedPassword(userId);
     }
 

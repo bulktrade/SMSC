@@ -5,6 +5,7 @@ import io.smsc.repository.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -29,9 +30,9 @@ public class UserRestController {
     private final Logger log = LoggerFactory.getLogger(UserRestController.class);
 
     @GetMapping(value = "/findAll",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<User>> getAll() {
+    public List<User> getAll() {
         log.info("get All Users");
-        return new ResponseEntity<>(userRepository.getAllWithRolesAndDecryptedPassword(),HttpStatus.OK);
+        return userRepository.getAllWithRolesAndDecryptedPassword();
     }
 
     @GetMapping(value = "/findOne/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,6 +40,7 @@ public class UserRestController {
         log.info("get User with id " + id);
         try {
             User user = userRepository.getOneWithRolesAndDecryptedPassword(id);
+            String username = user.getUsername();
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
         catch (NullPointerException ex) {
@@ -48,15 +50,22 @@ public class UserRestController {
         return null;
     }
 
-    @PostMapping(value = "/create",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> create(@Valid @RequestBody User user) {
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> create(@Valid @RequestBody User user, HttpServletResponse response) throws IOException {
         log.info("create User");
-        User created = userRepository.saveOneWithEncryptedPassword(user);
-        User newUser = userRepository.getOneWithRolesAndDecryptedPassword(created.getId());
-        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("findOne/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResource).body(newUser);
+        try {
+            User created = userRepository.saveOneWithEncryptedPassword(user);
+            User newUser = userRepository.getOneWithRolesAndDecryptedPassword(created.getId());
+            URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("findOne/{id}")
+                    .buildAndExpand(created.getId()).toUri();
+            return ResponseEntity.created(uriOfNewResource).body(newUser);
+        }
+        catch (DataIntegrityViolationException ex) {
+            // going to send error
+        }
+        response.sendError(HttpServletResponse.SC_CONFLICT, "User with this username or email already exists");
+        return null;
     }
 
     @PutMapping(value = "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,7 +74,7 @@ public class UserRestController {
         try {
             User updatedUser = userRepository.getOneWithRolesAndDecryptedPassword(id);
             if(!updatedUser.getUsername().equals(user.getUsername()) && userRepository.getOneByUserNameWithDecryptedPassword(user.getUsername()) != null) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "User with this username already exists");
+                response.sendError(HttpServletResponse.SC_CONFLICT, "User with this username already exists");
                 return null;
             }
             updatedUser.setUsername(user.getUsername());
@@ -73,7 +82,7 @@ public class UserRestController {
             updatedUser.setFirstname(user.getFirstname());
             updatedUser.setSurname(user.getSurname());
             if(!updatedUser.getEmail().equals(user.getEmail()) && userRepository.getOneByEmailWithDecryptedPassword(user.getEmail()) != null){
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "User with this email already exists");
+                response.sendError(HttpServletResponse.SC_CONFLICT, "User with this email already exists");
                 return null;
             }
             updatedUser.setEmail(user.getEmail());

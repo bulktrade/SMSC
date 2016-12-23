@@ -21,6 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     @Override
     @Transactional
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_DELETE')")
+    @RestResource(exported = false)
     void delete(Long id);
 
     @Override
