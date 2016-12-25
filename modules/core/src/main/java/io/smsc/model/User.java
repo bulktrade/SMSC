@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_unique_username_email_idx")})
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"},ignoreUnknown = true)
 public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)

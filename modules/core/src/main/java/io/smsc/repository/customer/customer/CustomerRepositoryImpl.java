@@ -25,8 +25,8 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
             return null;
         }
         customer.addUser(user);
-        user.addCustomer(customer);
-        userRepository.save(user);
+//        user.addCustomer(customer);
+//        userRepository.save(user);
         return customerRepository.save(customer);
     }
 

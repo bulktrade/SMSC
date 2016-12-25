@@ -13,7 +13,7 @@ import java.io.Serializable;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "_links"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BaseEntity implements Persistable<Long>, Serializable {
 
     protected static final long serialVersionUID = 1L;
