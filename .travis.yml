@@ -49,6 +49,7 @@ notifications:
     recipients:
       - info@smsc.io
       - dimakuba124@gmail.com
+      - nazar.lipkovskyy@gmail.com
     on_success: always
     on_failure: always
 
