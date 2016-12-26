@@ -28,7 +28,7 @@ public class CustomerContactRestTest extends AbstractTest {
                 .andExpect(jsonPath("$.fax", is(CUSTOMER_CONTACT_1.getFax())))
                 .andExpect(jsonPath("$.emailAddress", is(CUSTOMER_CONTACT_1.getEmailAddress())))
                 .andExpect(jsonPath("$.type", is(Type.CEO.toString())))
-                .andExpect(jsonPath("$.salutation", is(Salutation.TECHNICAL.toString())));
+                .andExpect(jsonPath("$.salutation", is(Salutation.MR.toString())));
     }
 
     @Test
@@ -50,12 +50,12 @@ public class CustomerContactRestTest extends AbstractTest {
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].fax", is(CUSTOMER_CONTACT_1.getFax())))
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].emailAddress", is(CUSTOMER_CONTACT_1.getEmailAddress())))
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].type", is(Type.CEO.toString())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].salutation", is(Salutation.TECHNICAL.toString())));
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].salutation", is(Salutation.MR.toString())));
     }
 
     @Test
     public void testCreateCustomerContact() throws Exception {
-        String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.CEO));
+        String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.MRS));
         this.mockMvc.perform(post("/rest/repository/customer-contacts")
                 .contentType(contentType)
                 .content(customerContactJson))
@@ -73,7 +73,7 @@ public class CustomerContactRestTest extends AbstractTest {
     public void testUpdateCustomerContact() throws Exception {
         CustomerContact updated = new CustomerContact(CUSTOMER_CONTACT_1);
         updated.setType(Type.PRIMARY);
-        updated.setSalutation(Salutation.CEO);
+        updated.setSalutation(Salutation.MRS);
         updated.setEmailAddress("new_email@gmial.com");
         updated.setMobilePhone("0971234567");
         updated.setFirstname("newFirstName");
@@ -92,6 +92,6 @@ public class CustomerContactRestTest extends AbstractTest {
                 .andExpect(jsonPath("$.fax", is(updated.getFax())))
                 .andExpect(jsonPath("$.emailAddress", is(updated.getEmailAddress())))
                 .andExpect(jsonPath("$.type", is(Type.PRIMARY.toString())))
-                .andExpect(jsonPath("$.salutation", is(Salutation.CEO.toString())));
+                .andExpect(jsonPath("$.salutation", is(Salutation.MRS.toString())));
     }
 }
