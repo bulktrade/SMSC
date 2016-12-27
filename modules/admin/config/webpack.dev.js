@@ -159,15 +159,7 @@ module.exports = function(options) {
                 aggregateTimeout: 300,
                 poll: 1000
             },
-            outputPath: helpers.root('dist'),
-            proxy: {
-                '/orientdb/*': {
-                    target: 'http://localhost:2480',
-                    pathRewrite: {
-                        '^/orientdb' : '/'
-                    }
-                }
-            }
+            outputPath: helpers.root('dist')
         },
 
         /*
