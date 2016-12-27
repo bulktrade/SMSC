@@ -43,6 +43,7 @@ import { CrudClassMetaDataComponent } from './crud-meta-data/crud-class-meta-dat
 import { CrudMetaGridDataComponent } from './crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component';
 import { SharedModule } from './shared.module';
 import { CrudModule } from "./crud/crud.module";
+import { BackendService } from "./services/backend/backend.service";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -106,6 +107,7 @@ export const APP_PROVIDERS = [
     providers: [
         CrudService,
         ConfigService,
+        BackendService,
         ENV_PROVIDERS,
         APP_PROVIDERS
     ]
