@@ -1,15 +1,12 @@
 package io.smsc.converters;
 
-import io.smsc.Application;
 import io.smsc.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.keygen.KeyGenerators;
-import org.springframework.util.Assert;
 
-import javax.persistence.AttributeConverter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.security.Permission;
@@ -21,7 +18,7 @@ public class CryptoConverter {
     private static final Logger LOG = LoggerFactory.getLogger(CryptoConverter.class);
 
     public static String encrypt(User user, String secretKey) {
-//      Solution of JCE problem for JDK up to 1.8.0.112 (can be useless on other builds)
+//      Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
         removeCryptographyRestrictions();
         String salt = KeyGenerators.string().generateKey();
         String password = user.getPassword();
@@ -33,7 +30,7 @@ public class CryptoConverter {
     }
 
     public static String decrypt(User user, String secretKey) {
-//     Solution of JCE problem for JDK up to 1.8.0.112 (can be useless on next builds)
+//     Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
        removeCryptographyRestrictions();
        String salt = user.getSalt();
        String password = user.getPassword();
