@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
                     this.router.navigateByUrl('/');
                 },
                 (err: Response) => {
-                    console.log(err);
                     switch (err.status) {
                         case 401:
                             this.serviceNotifications.createNotification('error',

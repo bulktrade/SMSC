@@ -14,7 +14,12 @@ export class BackendService {
         this.urlPrefix = this.databaseUrl + this.urlSuffix;
     }
 
-
+    /**
+     * Receive new Access and Refresh tokens using valid credentials
+     * @param username
+     * @param password
+     * @returns {any}
+     */
     authentication(username: string = '', password: string = '') {
         let requestOptions = new RequestOptions({
             headers: new Headers({ 'Content-Type': 'application/json' }),
