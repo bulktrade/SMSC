@@ -1,6 +1,5 @@
 package io.smsc;
 
-import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.SecurityConfig;
 import io.smsc.config.SpringDataRestValidationConfiguration;
 import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
@@ -19,7 +18,6 @@ import io.smsc.security.JWTTokenUtil;
 import io.smsc.security.JWTUserDetailsServiceImpl;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
