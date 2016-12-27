@@ -18,6 +18,7 @@ import io.smsc.security.JWTTokenUtil;
 import io.smsc.security.JWTUserDetailsServiceImpl;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
@@ -51,7 +52,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration(classes = {Application.class, SecurityConfig.class, SpringDataRestValidationConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = postgresql"})
+//@TestPropertySource(properties = {"smsc.database.dialect = postgresql"})
 @Transactional
 public abstract class AbstractTest {
 
@@ -64,13 +65,34 @@ public abstract class AbstractTest {
     @Value("${jwt.secret}")
     protected String tokenSecret;
 
+//    private static String user;
+//
+//    private static String password;
+//
+//    private static String database;
+//
+//    @Value("${spring.datasource.username}")
+//    public void setUser(String user) {
+//        AbstractTest.user = user;
+//    }
+//
+//    @Value("${spring.datasource.password}")
+//    public void setPassword(String password) {
+//        AbstractTest.password = password;
+//    }
+//
+//    @Value("${spring.datasource.password}")
+//    public void setDatabase(String database) {
+//        AbstractTest.database = database;
+//    }
+//
 //    @ClassRule
 //    public static DockerRule postgreSQLRule = DockerRule.builder()
 //            .imageName("orchardup/postgresql")
 //            .expose("5432","5432")
-//            .env("POSTGRESQL_USER","test")
-//            .env("POSTGRESQL_PASS","oe9jaacZLbR9pN")
-//            .env("POSTGRESQL_DB","smsc")
+//            .env("POSTGRESQL_USER",user)
+//            .env("POSTGRESQL_PASS",password)
+//            .env("POSTGRESQL_DB",database)
 //            .build();
 //
 //    @ClassRule
