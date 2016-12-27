@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @PropertySource(value = "classpath:application.properties")
-@PropertySource(value = "classpath:${smsc.database:postgresql}.properties")
+@PropertySource(value = "classpath:${smsc.database:hsqldb}.properties")
 @ComponentScan("io.smsc")
 public class Application {
     public static void main(String[] args) {

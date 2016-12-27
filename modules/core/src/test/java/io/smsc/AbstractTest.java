@@ -53,7 +53,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration(classes = {Application.class, SecurityConfig.class, SpringDataRestValidationConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = postgresql"})
+//@TestPropertySource(properties = {"smsc.database = postgresql"}) @todo check
 @Transactional
 public abstract class AbstractTest {
 
@@ -66,15 +66,21 @@ public abstract class AbstractTest {
     @Value("${jwt.secret}")
     protected String tokenSecret;
 
+//    @Value("${spring.datasource.username}")
+//    protected static String databaseUsername;
+//
+//    @Value("${spring.datasource.password}")
+//    protected static String databasePassword;
+
 //    @ClassRule
 //    public static DockerRule postgreSQLRule = DockerRule.builder()
 //            .imageName("orchardup/postgresql")
-//            .expose("5432","5432")
-//            .env("POSTGRESQL_USER","test")
-//            .env("POSTGRESQL_PASS","oe9jaacZLbR9pN")
-//            .env("POSTGRESQL_DB","smsc")
+//            .expose("5432", "5432")
+//            .env("POSTGRESQL_USER", databaseUsername)
+//            .env("POSTGRESQL_PASS", databasePassword)
+//            .env("POSTGRESQL_DB", "smsc")
 //            .build();
-//
+
 //    @ClassRule
 //    public static DockerRule mySQLRule = DockerRule.builder()
 //            .imageName("mysql:latest")
@@ -90,6 +96,7 @@ public abstract class AbstractTest {
 //            .imageName("alexeiled/docker-oracle-xe-11g")
 //            .expose("1521","1521")
 //            .expose("8080","8080")
+//            .cmd("echo 'SQL' > /etc/entrypoint-initdb.d/init.sql && /start.sh")
 //            .build();
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
