@@ -1,6 +1,5 @@
 package io.smsc;
 
-import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.SecurityConfig;
 import io.smsc.config.SpringDataRestValidationConfiguration;
 import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
@@ -53,7 +52,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration(classes = {Application.class, SecurityConfig.class, SpringDataRestValidationConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-//@TestPropertySource(properties = {"smsc.database.dialect = postgresql"}) @todo check
+//@TestPropertySource(properties = {"smsc.database.dialect = postgresql"})
 @Transactional
 public abstract class AbstractTest {
 
@@ -66,21 +65,36 @@ public abstract class AbstractTest {
     @Value("${jwt.secret}")
     protected String tokenSecret;
 
+//    private static String user;
+//
+//    private static String password;
+//
+//    private static String database;
+//
 //    @Value("${spring.datasource.username}")
-//    protected static String databaseUsername;
+//    public void setUser(String user) {
+//        AbstractTest.user = user;
+//    }
 //
 //    @Value("${spring.datasource.password}")
-//    protected static String databasePassword;
-
+//    public void setPassword(String password) {
+//        AbstractTest.password = password;
+//    }
+//
+//    @Value("${spring.datasource.password}")
+//    public void setDatabase(String database) {
+//        AbstractTest.database = database;
+//    }
+//
 //    @ClassRule
 //    public static DockerRule postgreSQLRule = DockerRule.builder()
 //            .imageName("orchardup/postgresql")
-//            .expose("5432", "5432")
-//            .env("POSTGRESQL_USER", databaseUsername)
-//            .env("POSTGRESQL_PASS", databasePassword)
-//            .env("POSTGRESQL_DB", "smsc")
+//            .expose("5432","5432")
+//            .env("POSTGRESQL_USER",user)
+//            .env("POSTGRESQL_PASS",password)
+//            .env("POSTGRESQL_DB",database)
 //            .build();
-
+//
 //    @ClassRule
 //    public static DockerRule mySQLRule = DockerRule.builder()
 //            .imageName("mysql:latest")
@@ -96,7 +110,6 @@ public abstract class AbstractTest {
 //            .imageName("alexeiled/docker-oracle-xe-11g")
 //            .expose("1521","1521")
 //            .expose("8080","8080")
-//            .cmd("echo 'SQL' > /etc/entrypoint-initdb.d/init.sql && /start.sh")
 //            .build();
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
