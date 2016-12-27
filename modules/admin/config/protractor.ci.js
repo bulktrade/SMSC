@@ -1,7 +1,3 @@
-/**
- * @author: @AngularClass
- */
-
 const helpers = require('./helpers');
 const objectMerge = require('object-merge');
 const commonConfig = require('./protractor.common'); // the settings that are common to prod and dev

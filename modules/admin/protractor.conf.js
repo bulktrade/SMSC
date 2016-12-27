@@ -1,7 +1,3 @@
-/**
- * @author: @AngularClass
- */
-
 // look in ./config for protractor.dev.js
 switch (process.env.NODE_ENV) {
     case 'ci':
