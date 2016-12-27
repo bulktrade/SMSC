@@ -53,7 +53,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration(classes = {Application.class, SecurityConfig.class, SpringDataRestValidationConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-//@TestPropertySource(properties = {"smsc.database = postgresql"}) @todo check
+//@TestPropertySource(properties = {"smsc.database.dialect = postgresql"}) @todo check
 @Transactional
 public abstract class AbstractTest {
 
