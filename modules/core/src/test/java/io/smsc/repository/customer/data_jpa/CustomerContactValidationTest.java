@@ -19,7 +19,7 @@ public class CustomerContactValidationTest extends AbstractTest {
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCustomerContactFirstnameSave() throws Exception {
         CustomerContact newContact = new CustomerContact(null, "", "newSurname",
-                "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.PRIMARY, Salutation.CEO);
+                "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.PRIMARY, Salutation.MRS);
         customerContactRepository.save(newContact);
         customerContactRepository.findAll();
     }
@@ -28,7 +28,7 @@ public class CustomerContactValidationTest extends AbstractTest {
     public void testEmptyCustomerContactSurnameSave() throws Exception {
         CustomerContact newContact = new CustomerContact(null, "newName", "",
                 "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com",
-                Type.PRIMARY, Salutation.CEO);
+                Type.PRIMARY, Salutation.MRS);
         customerContactRepository.save(newContact);
         customerContactRepository.findAll();
     }
@@ -36,7 +36,7 @@ public class CustomerContactValidationTest extends AbstractTest {
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCustomerContactPhoneSave() throws Exception {
         CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
-                "", "0632222222", "new_fake_fax", "fake@gmail.com", Type.PRIMARY, Salutation.CEO);
+                "", "0632222222", "new_fake_fax", "fake@gmail.com", Type.PRIMARY, Salutation.MRS);
         customerContactRepository.save(newContact);
         customerContactRepository.findAll();
     }
@@ -45,7 +45,7 @@ public class CustomerContactValidationTest extends AbstractTest {
     public void testEmptyCustomerContactMobilePhoneSave() throws Exception {
         CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
                 "0322222222", "", "new_fake_fax", "fake@gmail.com", Type.PRIMARY,
-                Salutation.CEO);
+                Salutation.MRS);
         customerContactRepository.save(newContact);
         customerContactRepository.findAll();
     }
@@ -54,7 +54,7 @@ public class CustomerContactValidationTest extends AbstractTest {
     public void testEmptyCustomerContactFaxSave() throws Exception {
         CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
                 "0322222222", "0632222222", "", "fake@gmail.com", Type.PRIMARY,
-                Salutation.CEO);
+                Salutation.MRS);
         customerContactRepository.save(newContact);
         customerContactRepository.findAll();
     }
@@ -63,7 +63,7 @@ public class CustomerContactValidationTest extends AbstractTest {
     public void testEmptyCustomerContactEmailAddressSave() throws Exception {
         CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
                 "0322222222", "0632222222", "new_fake_fax", "", Type.PRIMARY,
-                Salutation.CEO);
+                Salutation.MRS);
         customerContactRepository.save(newContact);
         customerContactRepository.findAll();
     }
@@ -72,7 +72,7 @@ public class CustomerContactValidationTest extends AbstractTest {
     public void testEmptyCustomerContactTypeSave() throws Exception {
         CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
                 "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com",
-                null, Salutation.CEO);
+                null, Salutation.MRS);
         customerContactRepository.save(newContact);
         customerContactRepository.findAll();
     }

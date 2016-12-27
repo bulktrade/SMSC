@@ -16,7 +16,7 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards")
 @Transactional(readOnly = true)
-public interface DashboardRepository extends JpaRepository<Dashboard,Long>, DashboardRepositoryCustom {
+public interface DashboardRepository extends JpaRepository<Dashboard,Long>{
 
     //All query method resources are exposed under the resource 'search'.
 

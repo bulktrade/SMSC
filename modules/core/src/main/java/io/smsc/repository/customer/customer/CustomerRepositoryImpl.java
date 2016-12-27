@@ -17,13 +17,13 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private CustomerContactRepository customerContactRepository;
-
     @Override
     public Customer addUser(Long customerId, Long userId) {
         Customer customer = customerRepository.findOne(customerId);
         User user = userRepository.findOne(userId);
+        if(user == null || customer == null) {
+            return null;
+        }
         customer.addUser(user);
 //        user.addCustomer(customer);
 //        userRepository.save(user);
@@ -34,34 +34,12 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     public Customer removeUser(Long customerId, Long userId) {
         Customer customer = customerRepository.findOne(customerId);
         User user = userRepository.findOne(userId);
+        if(user == null || customer == null) {
+            return null;
+        }
         customer.removeUser(user);
         user.removeCustomer(customer);
         userRepository.save(user);
-        return customerRepository.save(customer);
-    }
-
-    @Override
-    public Customer addContact(Long customerId, Long contactId) {
-        Customer customer = customerRepository.findOne(customerId);
-        CustomerContact contact = customerContactRepository.findOne(contactId);
-        if(contact.getCustomer() != null){
-            contact.getCustomer().removeContact(contact);
-        }
-        customer.addContact(contact);
-        contact.setCustomer(customer);
-        customerContactRepository.save(contact);
-        return customerRepository.save(customer);
-    }
-
-    @Override
-    public Customer removeContact(Long customerId, Long contactId) {
-        Customer customer = customerRepository.findOne(customerId);
-        CustomerContact contact = customerContactRepository.findOne(contactId);
-        if(contact.getCustomer().equals(customer)) {
-            customer.removeContact(contact);
-            contact.setCustomer(null);
-        }
-        customerContactRepository.save(contact);
         return customerRepository.save(customer);
     }
 }

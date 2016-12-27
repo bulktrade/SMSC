@@ -1,5 +1,6 @@
 package io.smsc.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.User;
 import org.hibernate.validator.constraints.NotEmpty;

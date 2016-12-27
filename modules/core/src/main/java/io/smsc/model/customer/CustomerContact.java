@@ -1,5 +1,6 @@
 package io.smsc.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -37,6 +38,7 @@ public class CustomerContact extends BaseEntity {
     private String emailAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonBackReference
     @JoinColumn(name="CUSTOMER")
     private Customer customer;
 

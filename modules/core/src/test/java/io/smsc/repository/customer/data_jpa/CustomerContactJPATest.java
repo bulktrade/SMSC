@@ -25,7 +25,7 @@ public class CustomerContactJPATest extends AbstractTest {
 
     @Test
     public void testSaveCustomerContact() throws Exception {
-        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.CEO);
+        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.MRS);
         CustomerContact created =customerContactRepository.save(newContact);
         newContact.setId(created.getId());
         CUSTOMER_CONTACT_MODEL_MATCHER.assertEquals(newContact, customerContactRepository.getOne(newContact.getId()));

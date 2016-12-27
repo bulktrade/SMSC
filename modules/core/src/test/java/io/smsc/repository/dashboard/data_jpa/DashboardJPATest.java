@@ -68,17 +68,4 @@ public class DashboardJPATest extends AbstractTest {
         List<Dashboard> dashboards = dashboardRepository.findAllDistinctByUser(DASHBOARD_1.getUser());
         DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(DASHBOARD_1), dashboards);
     }
-
-    @Test
-    public void testAddDashboardBox() throws Exception {
-        Dashboard dashboard = dashboardRepository.addDashboardBox(DASHBOARD_ID_1,  DASHBOARD_BOX_TYPE_ID_1, Width.WIDTH_25,
-                Height.HEIGHT_25, 50, "new dashboardBox", "new dashboardBox desc");
-        DASHBOARD_MODEL_MATCHER.assertEquals(dashboard, dashboardRepository.getOne(DASHBOARD_ID_1));
-    }
-
-    @Test
-    public void testRemoveDashboardBox() throws Exception {
-        Dashboard dashboard = dashboardRepository.removeDashboardBox(DASHBOARD_ID_1, DASHBOARD_BOX_ID_1);
-        DASHBOARD_MODEL_MATCHER.assertEquals(dashboard, dashboardRepository.getOne(DASHBOARD_ID_1));
-    }
 }

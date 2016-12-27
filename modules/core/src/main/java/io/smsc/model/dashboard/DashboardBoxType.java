@@ -1,5 +1,7 @@
 package io.smsc.model.dashboard;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -26,6 +28,7 @@ public class DashboardBoxType extends BaseEntity {
     private Kind kind;
 
     @OneToMany(mappedBy = "dashboardBoxType", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonBackReference
     private Set<DashboardBox> dashboardBoxes;
 
     public DashboardBoxType() {

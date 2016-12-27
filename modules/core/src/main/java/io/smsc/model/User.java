@@ -1,6 +1,9 @@
 package io.smsc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.validator.constraints.Email;
@@ -14,6 +17,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_unique_username_email_idx")})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"},ignoreUnknown = true)
 public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)
@@ -40,17 +44,18 @@ public class User extends BaseEntity {
     @NotEmpty(message = "{user.email.empty.validation}")
     private String email;
 
-    @Column(name = "ACTIVE", nullable = false, columnDefinition = "boolean default true")
+    @Column(name = "ACTIVE", columnDefinition = "boolean default true")
     private boolean active = true;
 
     @Column(name = "CREATED", columnDefinition = "timestamp default now()")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="CET")
     private Date created = new Date();
 
-    @Column(name = "BLOCKED", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "BLOCKED", columnDefinition = "boolean default false")
     private boolean blocked = false;
 
     @ManyToMany()
+//    @JsonManagedReference(value = "user")
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -60,9 +65,11 @@ public class User extends BaseEntity {
 
     @ManyToMany(mappedBy = "users")
     @OrderBy
+    @JsonBackReference
     private Set<Customer> customers;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
+//    @JsonManagedReference
     @OrderBy
     private Set<Dashboard> dashboards;
 

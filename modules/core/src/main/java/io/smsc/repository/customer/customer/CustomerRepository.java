@@ -20,6 +20,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, Custo
 
     @Override
     @Transactional
+    @RestResource(exported = false)
     void delete(Long id);
 
     @Override
