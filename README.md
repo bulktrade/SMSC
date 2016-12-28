@@ -43,6 +43,7 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
 	Password: password
 
 ### Default application properties (can be changed through system properties (use -D))
+* `smsc.database.dialect = postgresql` - database, which is used (other options - mysql, oracle, hsqldb, h2)
 * `encrypt.key = smsc.io` - used in password encryption
 * `jwt.header = X-Authorization` - name of request header, which is used for JWT authentication
 * `jwt.secret = smsc.io` - used in access token signature
