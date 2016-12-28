@@ -44,9 +44,14 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
 	
 ### Docker images launching
 
-* PostgreSQL 
+* PostgreSQL   
 `$ docker run -d -p 5432:5432 -e POSTGRESQL_USER=test -e POSTGRESQL_PASS=oe9jaacZLbR9pN 
 -e POSTGRESQL_DB=smsc orchardup/postgresql` 
+* MySQL   
+`$ docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=smsc 
+-e MYSQL_USER=user -e MYSQL_PASSWORD=password -d mysql:latest` 
+* Oracle
+`$ docker run -d --shm-size=2g -p 1521:1521 alexeiled/docker-oracle-xe-11g` 
 
 ### Default application properties (can be changed through system properties (use -D))
 * `smsc.database.dialect = postgresql` - database, which is used (other options - mysql, oracle, hsqldb, h2)
