@@ -6,22 +6,47 @@
 # smsc.io
 SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API support.
 
-# Start admin module
+## Start admin module
 
-## Installation
+### Installation
 * `cd modules/admin`
 * `npm install`
 
-## Serve
+### Serve
 * `npm start` 
 
 > go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
 
-# Admin module credentials
+### Admin module credentials
 	
 	Username: admin
 	Password: admin
 	URL: /admin
+	
+## Start core module
+
+### Start Spring boot application
+* `cd modules/core`
+* `mvn spring-boot:run`
+
+### Receive access and refresh tokens
+ POST request on [http://localhost:8080/rest/auth/token](http://localhost:8080/rest/auth/token) with valid credentials
+ 
+ ### Admin credentials
+ 
+	Username: admin
+	Password: admin
+	
+### User credentials
+
+	Username: user
+	Password: password
+
+### Default application properties (can be changed through system properties (use -D))
+* `encrypt.key = smsc.io` - used in password encryption
+* `jwt.header = X-Authorization` - name of request header, which is used for JWT authentication
+* `jwt.secret = smsc.io` - used in access token signature
+* `jwt.expiration = 3600` - lifetime of access token (seconds).
 
 ## Thanks
 
