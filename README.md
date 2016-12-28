@@ -32,7 +32,7 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
 ### Receive access and refresh tokens
  POST request on [http://localhost:8080/rest/auth/token](http://localhost:8080/rest/auth/token) with valid credentials
  
- ### Admin credentials
+### Admin credentials
  
 	Username: admin
 	Password: admin
