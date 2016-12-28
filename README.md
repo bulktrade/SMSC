@@ -41,6 +41,11 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
 
 	Username: user
 	Password: password
+	
+### Docker images launching
+
+* PostgreSQL `docker run -d -p 5432:5432 -e POSTGRESQL_USER=test -e POSTGRESQL_PASS=oe9jaacZLbR9pN 
+-e POSTGRESQL_DB=smsc orchardup/postgresql` 
 
 ### Default application properties (can be changed through system properties (use -D))
 * `smsc.database.dialect = postgresql` - database, which is used (other options - mysql, oracle, hsqldb, h2)
