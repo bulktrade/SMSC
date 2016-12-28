@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "META_DATA_PROPERTY_BINDING_PARAMETER")
+@Table(name = "META_DATA_BINDING_PARAMETER")
 public class MetaDataPropertyBindingParameter extends BaseEntity {
 
     @Column(name = "FROM_PROPERTY", nullable = false)

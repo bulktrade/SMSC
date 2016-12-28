@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_unique_username_email_idx")})
+@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_username_email_idx")})
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"},ignoreUnknown = true)
 public class User extends BaseEntity {
 
@@ -44,15 +44,15 @@ public class User extends BaseEntity {
     @NotEmpty(message = "{user.email.empty.validation}")
     private String email;
 
-    @Column(name = "ACTIVE", columnDefinition = "boolean default true")
-    private boolean active = true;
+    @Column(name = "ACTIVE")
+    private Boolean active = true;
 
-    @Column(name = "CREATED", columnDefinition = "timestamp default now()")
+    @Column(name = "CREATED")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="CET")
     private Date created = new Date();
 
-    @Column(name = "BLOCKED", columnDefinition = "boolean default false")
-    private boolean blocked = false;
+    @Column(name = "BLOCKED")
+    private Boolean blocked = false;
 
     @ManyToMany()
 //    @JsonManagedReference(value = "user")

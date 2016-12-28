@@ -25,7 +25,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-
 public class ApplicationContextAwareSpringJdbcMigrationResolver extends SpringJdbcMigrationResolver {
 
     private final ApplicationContext applicationContext;
