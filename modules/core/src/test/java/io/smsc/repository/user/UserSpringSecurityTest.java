@@ -47,13 +47,13 @@ public class UserSpringSecurityTest extends AbstractTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Test
-    public void testJwtUserAccessGranted() throws Exception {
-        mockMvc.perform(get("/rest/repository/users/search/findByEmail?email=user@gmail.com")
-                .header(tokenHeader,userToken))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType));
-    }
+//    @Test
+//    public void testJwtUserAccessGranted() throws Exception {
+//        mockMvc.perform(get("/rest/repository/users/search/findByEmail?email=user@gmail.com")
+//                .header(tokenHeader,userToken))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(contentType));
+//    }
 
     @Test
     public void testJwtUserGetAllAccessForbidden() throws Exception {
@@ -64,7 +64,7 @@ public class UserSpringSecurityTest extends AbstractTest {
 
     @Test
     public void testJwtUserDeleteAccessForbidden() throws Exception {
-        mockMvc.perform(delete("/rest/repository/users/delete/1")
+        mockMvc.perform(delete("/rest/repository/users/delete/53")
                 .header(tokenHeader,userToken))
                 .andExpect(status().isForbidden());
     }

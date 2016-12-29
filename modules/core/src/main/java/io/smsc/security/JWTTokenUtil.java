@@ -18,7 +18,7 @@ public class JWTTokenUtil implements Serializable {
     static final String CLAIM_KEY_USERNAME = "sub";
     static final String CLAIM_KEY_CREATED = "created";
 
-    @Value("${jwt.secret}")
+    @Value("${jwt.secret:smsc.io}")
     private String secret;
 
     @Value("${jwt.expiration}")

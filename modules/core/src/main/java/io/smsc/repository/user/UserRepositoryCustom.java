@@ -1,10 +1,12 @@
 package io.smsc.repository.user;
 
 import io.smsc.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface UserRepositoryCustom {
+public interface UserRepositoryCustom{
 
     User addRole(Long userId, Long roleId);
 

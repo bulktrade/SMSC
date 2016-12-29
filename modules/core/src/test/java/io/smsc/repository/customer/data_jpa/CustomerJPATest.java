@@ -60,7 +60,7 @@ public class CustomerJPATest extends AbstractTest {
 
     @Test
     public void testAddUser() throws Exception {
-        User newUser = new User(500L,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
+        User newUser = new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
         User created = userRepository.saveOneWithEncryptedPassword(newUser);
         Customer customer = customerRepository.addUser(CUSTOMER_ID_1,created.getId());
         CUSTOMER_MODEL_MATCHER.assertEquals(customer, customerRepository.getOne(CUSTOMER_ID_1));

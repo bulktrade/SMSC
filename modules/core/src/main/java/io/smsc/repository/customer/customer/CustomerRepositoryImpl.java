@@ -5,6 +5,7 @@ import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.CustomerContact;
 import io.smsc.repository.customer.customerContact.CustomerContactRepository;
 import io.smsc.repository.user.UserRepository;
+import io.smsc.repository.user.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
         }
         customer.addUser(user);
 //        user.addCustomer(customer);
-//        userRepository.save(user);
+        userRepository.save(user);
         return customerRepository.save(customer);
     }
 
@@ -38,7 +39,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
             return null;
         }
         customer.removeUser(user);
-        user.removeCustomer(customer);
+//        user.removeCustomer(customer);
         userRepository.save(user);
         return customerRepository.save(customer);
     }

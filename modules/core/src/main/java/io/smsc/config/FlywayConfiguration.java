@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 public class FlywayConfiguration {
 
     @Bean
-    public BeanPostProcessor postProcessFlyway(ApplicationContext context) {
+    public static BeanPostProcessor postProcessFlyway(ApplicationContext context) {
         return new BeanPostProcessor() {
 
             @Override
