@@ -19,7 +19,7 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
 
 ### Admin module credentials
 	
-	Username: admin
+	Username: Admin
 	Password: admin
 	URL: /admin
 	
