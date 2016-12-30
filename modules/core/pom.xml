@@ -324,20 +324,20 @@
                 <version>2.16</version>
                 <executions>
                     <!--postgreSQL is running first by default-->
-                    <!--<execution>-->
-                        <!--<id>2</id>-->
-                        <!--<goals>-->
-                            <!--<goal>test</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<systemProperties>-->
-                                <!--<property>-->
-                                    <!--<name>smsc.database.dialect</name>-->
-                                    <!--<value>mysql</value>-->
-                                <!--</property>-->
-                            <!--</systemProperties>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
+                    <execution>
+                        <id>2</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <systemProperties>
+                                <property>
+                                    <name>smsc.database.dialect</name>
+                                    <value>mysql</value>
+                                </property>
+                            </systemProperties>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>3</id>
                         <goals>
