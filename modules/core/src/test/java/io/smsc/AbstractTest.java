@@ -1,7 +1,7 @@
 package io.smsc;
 
 import io.smsc.config.FlywayConfiguration;
-import io.smsc.config.SecurityConfig;
+import io.smsc.config.SecurityConfiguration;
 import io.smsc.config.SpringDataRestValidationConfiguration;
 import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
 import io.smsc.repository.crud.crudMetaFormData.CrudMetaFormDataRepository;
@@ -19,7 +19,6 @@ import io.smsc.security.JWTTokenUtil;
 import io.smsc.security.JWTUserDetailsServiceImpl;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
@@ -34,13 +33,11 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-import pl.domzal.junit.docker.rule.DockerRule;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -50,10 +47,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ContextConfiguration(classes = {Application.class, SecurityConfig.class, SpringDataRestValidationConfiguration.class, FlywayConfiguration.class})
+@ContextConfiguration(classes = {Application.class, SecurityConfiguration.class, SpringDataRestValidationConfiguration.class, FlywayConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-//@TestPropertySource(properties = {"smsc.database.dialect = postgresql"})
 @Transactional
 public abstract class AbstractTest {
 

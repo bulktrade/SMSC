@@ -1,6 +1,5 @@
 package io.smsc.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -9,14 +8,25 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+/**
+ * The SpringDataRestValidationConfiguration class is used for customization
+ * hibernate bean validation to launch before entity is created or updated
+ *
+ * @author  Nazar Lipkovskyy
+ * @version 1.0
+ * @since   2016-12-30
+ */
 @Configuration
 public class SpringDataRestValidationConfiguration extends RepositoryRestConfigurerAdapter {
 
+    /**
+     * Create a validator to use in bean validation - primary to be able
+     * to autowire without qualifier
+     *
+     * @return validator
+     */
     @Bean
     @Primary
-    /*
-     * Create a validator to use in bean validation - primary to be able to autowire without qualifier
-     */
     Validator validator() {
         return new LocalValidatorFactoryBean();
     }

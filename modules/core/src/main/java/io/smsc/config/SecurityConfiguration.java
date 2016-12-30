@@ -2,32 +2,33 @@ package io.smsc.config;
 
 import io.smsc.security.JWTAuthenticationEntryPoint;
 import io.smsc.security.JWTAuthenticationTokenFilter;
-import io.smsc.security.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+/**
+ * The SecurityConfiguration class is used for configuring Spring
+ * Security service considering JWT {@link JWTAuthenticationTokenFilter}
+ * implementation.
+ *
+ * @author  Nazar Lipkovskyy
+ * @version 1.0
+ * @since   2016-12-30
+ */
 @Configuration
 @EnableWebSecurity
 @EnableAutoConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -39,25 +40,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
                 .userDetailsService(this.userDetailsService);
-//                .passwordEncoder(passwordEncoder());
     }
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
+    /**
+     * Gets the {@link JWTAuthenticationTokenFilter} bean
+     *
+     * @return authenticationTokenFilter
+     * @throws Exception if an error occurs
+     */
     @Bean
     public JWTAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
         return new JWTAuthenticationTokenFilter();
     }
 
+    /**
+     * This is the main method to configure the {@link HttpSecurity}.
+     *
+     * @param  http      the {@link HttpSecurity} to modify
+     * @throws Exception if an error occurs
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
                 .authorizeRequests()
+                // /rest/auth/** is used for token receiving and updating
+                // **/migration/** is user for migration operations
                 .antMatchers("/rest/auth/**","**/migration/**")
                 .permitAll();
         http

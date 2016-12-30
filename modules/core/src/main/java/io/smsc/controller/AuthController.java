@@ -3,21 +3,24 @@ package io.smsc.controller;
 import io.smsc.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.net.URI;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
+/**
+ * The AuthController class is used for mapping HTTP requests for receiving and updating
+ * access and refresh tokens onto specific methods
+ *
+ * @author  Nazar Lipkovskyy
+ * @version 1.0
+ * @since   2016-12-30
+ */
 @RestController
 public class AuthController {
 
@@ -30,9 +33,17 @@ public class AuthController {
     @Value("${jwt.header}")
     protected String tokenHeader;
 
-    // Receive Access and Refresh tokens
-    // @RequestBody - JSON value of valid username and password
-    // ResponseEntity - JSON value of new AccessToken and new RefreshToken
+    /**
+     * Method to receive {@link ResponseEntity} with {@link JWTAuthenticationResponse}
+     * which contains access and refresh tokens.
+     *
+     * @param  request     the {@link JWTAuthenticationRequest} to take credentials from
+     * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
+     * functionality in sending a response
+     * @return             the {@link JWTAuthenticationResponse} with valid access and
+     * refresh tokens
+     * @throws IOException on input error
+     */
     @PostMapping(path = "/rest/auth/token", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<JWTAuthenticationResponse> token(@RequestBody JWTAuthenticationRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -48,9 +59,17 @@ public class AuthController {
         return null;
     }
 
-    // Refresh Access token
-    // @RequestBody - JSON value of expired AccessToken and not expired RefreshToken
-    // ResponseEntity - JSON value of refreshed AccessToken
+    /**
+     * Method to receive {@link ResponseEntity} with {@link JWTRefreshTokenResponse}
+     * which contains refreshed access token.
+     *
+     * @param  request     the {@link JWTRefreshTokenRequest} to take valid refresh
+     * token and expired access token from
+     * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
+     * functionality in sending a response
+     * @return             the {@link JWTRefreshTokenResponse} with refreshed access token
+     * @throws IOException on input error
+     */
     @PutMapping(path = "/rest/auth/token", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<JWTRefreshTokenResponse> token(@RequestBody JWTRefreshTokenRequest request, HttpServletResponse response) throws IOException {
         try {

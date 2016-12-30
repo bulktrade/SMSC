@@ -22,9 +22,18 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
+/**
+ * The ApplicationContextAwareSpringJdbcMigrationResolver class is used for
+ * replacement default flyway migration resolver to provide repository injections
+ * in migration class and launch migration bean after hibernate tables creation.
+ *
+ * @author  Nazar Lipkovskyy
+ * @version 1.0
+ * @see     io.smsc.config.FlywayConfiguration
+ * @since   2016-12-30
+ */
 public class ApplicationContextAwareSpringJdbcMigrationResolver extends SpringJdbcMigrationResolver {
 
     private final ApplicationContext applicationContext;
@@ -34,35 +43,39 @@ public class ApplicationContextAwareSpringJdbcMigrationResolver extends SpringJd
         this.applicationContext = applicationContext;
     }
 
+    /**
+     * Overrides base resolveMigrations method
+     */
     @SuppressWarnings("unchecked")
     @Override
     public Collection<ResolvedMigration> resolveMigrations() {
         // get all beans of type SpringJdbcMigration from the application context
         Map<String, SpringJdbcMigration> springJdbcMigrationBeans =
-                (Map<String, SpringJdbcMigration>) this.applicationContext.getBeansOfType(SpringJdbcMigration.class);
-
-        ArrayList<ResolvedMigration> resolvedMigrations = new ArrayList<ResolvedMigration>();
-
+                this.applicationContext.getBeansOfType(SpringJdbcMigration.class);
+        ArrayList<ResolvedMigration> resolvedMigrations = new ArrayList<>();
         // resolve the migration and populate it with the migration info
         for (SpringJdbcMigration springJdbcMigrationBean : springJdbcMigrationBeans.values()) {
             ResolvedMigrationImpl resolvedMigration = extractMigrationInfo(springJdbcMigrationBean);
             resolvedMigration.setPhysicalLocation(ClassUtils.getLocationOnDisk(springJdbcMigrationBean.getClass()));
             resolvedMigration.setExecutor(new SpringJdbcMigrationExecutor(springJdbcMigrationBean));
-
             resolvedMigrations.add(resolvedMigration);
         }
-
-        Collections.sort(resolvedMigrations, new ResolvedMigrationComparator());
+        resolvedMigrations.sort(new ResolvedMigrationComparator());
         return resolvedMigrations;
     }
 
-    ResolvedMigrationImpl extractMigrationInfo(SpringJdbcMigration springJdbcMigration) {
+    /**
+     * Extracts the migration info from this migration.
+     *
+     * @param  springJdbcMigration The migration to analyse.
+     * @return                     The migration info.
+     */
+    private ResolvedMigrationImpl extractMigrationInfo(SpringJdbcMigration springJdbcMigration) {
         Integer checksum = null;
         if (springJdbcMigration instanceof MigrationChecksumProvider) {
             MigrationChecksumProvider version = (MigrationChecksumProvider) springJdbcMigration;
             checksum = version.getChecksum();
         }
-
         String description;
         MigrationVersion version1;
         if (springJdbcMigration instanceof MigrationInfoProvider) {
@@ -78,13 +91,11 @@ public class ApplicationContextAwareSpringJdbcMigrationResolver extends SpringJd
                 throw new FlywayException("Invalid Jdbc migration class name: " + springJdbcMigration.getClass()
                         .getName() + " => ensure it starts with V or R," + " or implement org.flywaydb.core.api.migration.MigrationInfoProvider for non-default naming");
             }
-
             String prefix = resolvedMigration1.substring(0, 1);
             Pair info = MigrationInfoHelper.extractVersionAndDescription(resolvedMigration1, prefix, "__", "");
             version1 = (MigrationVersion) info.getLeft();
             description = (String) info.getRight();
         }
-
         ResolvedMigrationImpl resolvedMigration2 = new ResolvedMigrationImpl();
         resolvedMigration2.setVersion(version1);
         resolvedMigration2.setDescription(description);

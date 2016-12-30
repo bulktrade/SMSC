@@ -14,7 +14,6 @@ import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
 import io.smsc.repository.crud.crudMetaFormData.CrudMetaFormDataRepository;
 import io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository;
 import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
-import io.smsc.repository.customer.customer.CustomerRepository;
 import io.smsc.repository.customer.customer.CustomerRepositoryMigration;
 import io.smsc.repository.customer.customerContact.CustomerContactRepository;
 import io.smsc.repository.dashboard.dashboard.DashboardRepository;
@@ -31,6 +30,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * This class is used for providing java based flyway migration service
+ * using custom configuration {@link io.smsc.config.FlywayConfiguration}.
+ *
+ * @author  Nazar Lipkovskyy
+ * @version 1.0
+ * @since   2016-12-30
+ */
 @Component
 public class V1_2__populateDB implements SpringJdbcMigration {
 
@@ -81,7 +88,14 @@ public class V1_2__populateDB implements SpringJdbcMigration {
         this.dashboardBoxTypeRepository = dashboardBoxTypeRepository;
     }
 
-    public void migrate(JdbcTemplate jdbcTemplate) {
+    /**
+     * Executes this migration. The execution will automatically take place within a transaction, when the underlying
+     * database supports it.
+     *
+     * @param  jdbcTemplate The jdbcTemplate to use to execute statements.
+     * @throws Exception    when the migration failed.
+     */
+    public void migrate(JdbcTemplate jdbcTemplate) throws Exception {
         Permission permission1 = new Permission(1L, "USER_READ");
         Permission permission2 = new Permission(2L, "USER_UPDATE");
         Permission permission3 = new Permission(3L, "USER_CREATE");

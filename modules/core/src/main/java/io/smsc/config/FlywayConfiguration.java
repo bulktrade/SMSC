@@ -5,14 +5,20 @@ import io.smsc.db.migration.ApplicationContextAwareSpringJdbcMigrationResolver;
 import org.flywaydb.core.internal.util.Location;
 import org.flywaydb.core.internal.util.scanner.Scanner;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.autoconfigure.flyway.FlywayProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * The FlywayConfiguration class is used for overriding default
+ * flyway bean initialization using custom resolver {@link io.smsc.db.migration.ApplicationContextAwareSpringJdbcMigrationResolver}.
+ *
+ * @author  Nazar Lipkovskyy
+ * @version 1.0
+ * @since   2016-12-30
+ */
 @Configuration
 @ComponentScan("io.smsc.db.migration")
 public class FlywayConfiguration {
