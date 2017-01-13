@@ -2,7 +2,7 @@ package io.smsc.controller;
 
 import io.smsc.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +18,7 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
  * access and refresh tokens onto specific methods
  *
  * @author  Nazar Lipkovskyy
- * @version 1.0
- * @since   2016-12-30
+ * @since   0.0.1-SNAPSHOT
  */
 @RestController
 public class AuthController {
@@ -30,18 +29,15 @@ public class AuthController {
     @Autowired
     private JWTUserDetailsServiceImpl jwtUserDetailsService;
 
-    @Value("${jwt.header}")
-    protected String tokenHeader;
-
     /**
      * Method to receive {@link ResponseEntity} with {@link JWTAuthenticationResponse}
      * which contains access and refresh tokens.
      *
      * @param  request     the {@link JWTAuthenticationRequest} to take credentials from
      * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     * functionality in sending a response
+     *                     functionality in sending a response
      * @return             the {@link JWTAuthenticationResponse} with valid access and
-     * refresh tokens
+     *                     refresh tokens
      * @throws IOException on input error
      */
     @PostMapping(path = "/rest/auth/token", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -64,9 +60,9 @@ public class AuthController {
      * which contains refreshed access token.
      *
      * @param  request     the {@link JWTRefreshTokenRequest} to take valid refresh
-     * token and expired access token from
+     *                     token and expired access token from
      * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     * functionality in sending a response
+     *                     functionality in sending a response
      * @return             the {@link JWTRefreshTokenResponse} with refreshed access token
      * @throws IOException on input error
      */

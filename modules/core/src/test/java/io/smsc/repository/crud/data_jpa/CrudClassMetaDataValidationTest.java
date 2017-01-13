@@ -44,6 +44,6 @@ public class CrudClassMetaDataValidationTest extends AbstractTest {
         newCrudClassMetaData.setId(null);
         crudClassMetaDataRepository.save(newCrudClassMetaData);
         CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCrudClassMetaData,CRUD_CLASS_META_DATA_1,
-                CRUD_CLASS_META_DATA_2, CRUD_CLASS_META_DATA_3, CRUD_CLASS_META_DATA_4), crudClassMetaDataRepository.findAllDistinctByOrderById());
+                CRUD_CLASS_META_DATA_2, CRUD_CLASS_META_DATA_3, CRUD_CLASS_META_DATA_4), crudClassMetaDataRepository.findAll());
     }
 }

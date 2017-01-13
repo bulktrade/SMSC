@@ -14,6 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link Dashboard} entities and exporting them
+ * to appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards")
 @Transactional(readOnly = true)
 public interface DashboardRepository extends JpaRepository<Dashboard,Long>{
@@ -26,6 +34,7 @@ public interface DashboardRepository extends JpaRepository<Dashboard,Long>{
 
     @Override
     @Transactional
+    @RestResource(exported = false)
     Dashboard save(Dashboard dashboard);
 
     @Override
@@ -40,13 +49,7 @@ public interface DashboardRepository extends JpaRepository<Dashboard,Long>{
     @EntityGraph(attributePaths = {"dashboardBoxes"})
     Dashboard findByName(@Param("name") String name);
 
-    // /rest/repository/dashboards/search/findAll
-    @EntityGraph(attributePaths = {"dashboardBoxes"})
-    @RestResource(path = "findAll")
-    List<Dashboard> findAllDistinctByOrderById();
-
-    // Prevents GET /dashboards
     @Override
-    @RestResource(exported = false)
+    @EntityGraph(attributePaths = {"dashboardBoxes"})
     Page<Dashboard> findAll(Pageable pageable);
 }

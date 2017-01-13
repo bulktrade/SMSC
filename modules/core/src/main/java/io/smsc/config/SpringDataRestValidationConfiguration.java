@@ -13,8 +13,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
  * hibernate bean validation to launch before entity is created or updated
  *
  * @author  Nazar Lipkovskyy
- * @version 1.0
- * @since   2016-12-30
+ * @since   0.0.1-SNAPSHOT
  */
 @Configuration
 public class SpringDataRestValidationConfiguration extends RepositoryRestConfigurerAdapter {

@@ -4,13 +4,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.security.Security;
 
 @SpringBootApplication
 @PropertySource(value = "classpath:application.properties")
-@PropertySource(value = "classpath:${smsc.database.dialect:postgresql}.properties")
+@PropertySource(value = "classpath:${smsc.database.dialect:hsqldb}.properties")
 @ComponentScan("io.smsc")
 public class Application {
 

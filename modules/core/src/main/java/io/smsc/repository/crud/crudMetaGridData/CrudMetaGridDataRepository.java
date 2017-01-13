@@ -11,9 +11,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link CrudMetaGridData} entities and exporting them
+ * to appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "crud-meta-grid-data", path = "crud-meta-grid-data")
 @Transactional(readOnly = true)
 public interface CrudMetaGridDataRepository extends JpaRepository<CrudMetaGridData, Long> {
+
+    //All query method resources are exposed under the resource 'search'.
 
     @Override
     @Transactional
@@ -21,19 +31,14 @@ public interface CrudMetaGridDataRepository extends JpaRepository<CrudMetaGridDa
 
     @Override
     @Transactional
+    @RestResource(exported = false)
     CrudMetaGridData save(CrudMetaGridData crudMetaGridData);
 
     @Override
     @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
     CrudMetaGridData findOne(Long id);
 
-    // /rest/repository/crud-meta-grid-data/search/findAll
-    @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
-    @RestResource(path = "findAll")
-    List<CrudMetaGridData> findAllDistinctByOrderById();
-
-    // Prevents GET /crud-meta-grid-data
     @Override
-    @RestResource(exported = false)
+    @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
     Page<CrudMetaGridData> findAll(Pageable pageable);
 }

@@ -1,5 +1,11 @@
 package io.smsc.model.crud;
 
+/**
+ * Specifies Operators which can be used in {@link MetaDataPropertyBindingParameter}
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 public enum Operator {
     EQUALS,
     MORE,

@@ -30,9 +30,8 @@ import java.util.Map;
  * in migration class and launch migration bean after hibernate tables creation.
  *
  * @author  Nazar Lipkovskyy
- * @version 1.0
  * @see     io.smsc.config.FlywayConfiguration
- * @since   2016-12-30
+ * @since   0.0.1-SNAPSHOT
  */
 public class ApplicationContextAwareSpringJdbcMigrationResolver extends SpringJdbcMigrationResolver {
 
@@ -44,7 +43,7 @@ public class ApplicationContextAwareSpringJdbcMigrationResolver extends SpringJd
     }
 
     /**
-     * Overrides base resolveMigrations method
+     * Overrides base {@code resolveMigrations} method
      */
     @SuppressWarnings("unchecked")
     @Override

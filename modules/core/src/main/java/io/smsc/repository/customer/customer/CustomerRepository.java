@@ -11,7 +11,19 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link Customer} entities and exporting them to
+ * appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     CustomerMigrationRepository
+ * @see     CustomerRepositoryCustom
+ * @see     CustomerRepositoryImpl
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "customers", path = "customers")
 @Transactional(readOnly = true)
 public interface CustomerRepository extends JpaRepository<Customer, Long>, CustomerRepositoryCustom {
@@ -25,6 +37,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, Custo
 
     @Override
     @Transactional
+    @RestResource(exported = false)
     Customer save(Customer customer);
 
     @Override
@@ -34,13 +47,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, Custo
     @EntityGraph(attributePaths = {"parentCustomer","contacts","users"})
     Customer findByCustomerId(@Param("customerId")Double customerID);
 
-    // /rest/repository/customers/search/findAll
-    @EntityGraph(attributePaths = {"parentCustomer","contacts","users"})
-    @RestResource(path = "findAll")
-    List<Customer> findAllDistinctByOrderById();
-
-    // Prevents GET /customers
     @Override
-    @RestResource(exported = false)
+    @EntityGraph(attributePaths = {"parentCustomer","contacts","users"})
     Page<Customer> findAll(Pageable pageable);
+
 }

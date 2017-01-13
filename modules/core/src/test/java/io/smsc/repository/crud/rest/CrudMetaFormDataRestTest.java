@@ -35,23 +35,23 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
     public void testGetAllCrudMetaFormData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data/search/findAll"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 // paginating is showing 20 items by default
-                    .andExpect(jsonPath("$._embedded.crud-meta-form-data", hasSize(42)))
+                    .andExpect(jsonPath("$._embedded.crud-meta-form-data", hasSize(202)))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].property", is(CRUD_META_FORM_DATA_1.getProperty())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].editable", is(CRUD_META_FORM_DATA_1.getEditable())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].visible", is(CRUD_META_FORM_DATA_1.getVisible())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].decorator", is(CRUD_META_FORM_DATA_1.getDecorator())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].order", is(CRUD_META_FORM_DATA_1.getOrder())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].fieldLayoutGridPosition", is(CRUD_META_FORM_DATA_1.getFieldLayoutGridPosition())))
-                .andExpect(jsonPath("$._embedded.crud-meta-form-data[41].property", is(CRUD_META_FORM_DATA_42.getProperty())))
-                .andExpect(jsonPath("$._embedded.crud-meta-form-data[41].editable", is(CRUD_META_FORM_DATA_42.getEditable())))
-                .andExpect(jsonPath("$._embedded.crud-meta-form-data[41].visible", is(CRUD_META_FORM_DATA_42.getVisible())))
-                .andExpect(jsonPath("$._embedded.crud-meta-form-data[41].decorator", is(CRUD_META_FORM_DATA_42.getDecorator())))
-                .andExpect(jsonPath("$._embedded.crud-meta-form-data[41].order", is(CRUD_META_FORM_DATA_42.getOrder())))
-                .andExpect(jsonPath("$._embedded.crud-meta-form-data[41].fieldLayoutGridPosition", is(CRUD_META_FORM_DATA_42.getFieldLayoutGridPosition())));
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].property", is(CRUD_META_FORM_DATA_20.getProperty())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].editable", is(CRUD_META_FORM_DATA_20.getEditable())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].visible", is(CRUD_META_FORM_DATA_20.getVisible())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].decorator", is(CRUD_META_FORM_DATA_20.getDecorator())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].order", is(CRUD_META_FORM_DATA_20.getOrder())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].fieldLayoutGridPosition", is(CRUD_META_FORM_DATA_20.getFieldLayoutGridPosition())));
     }
 
     @Test

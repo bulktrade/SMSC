@@ -14,14 +14,15 @@ import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
 import io.smsc.repository.crud.crudMetaFormData.CrudMetaFormDataRepository;
 import io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository;
 import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
-import io.smsc.repository.customer.customer.CustomerRepositoryMigration;
+import io.smsc.repository.customer.customer.CustomerMigrationRepository;
 import io.smsc.repository.customer.customerContact.CustomerContactRepository;
 import io.smsc.repository.dashboard.dashboard.DashboardRepository;
 import io.smsc.repository.dashboard.dashboardBox.DashboardBoxRepository;
 import io.smsc.repository.dashboard.dashboardBoxType.DashboardBoxTypeRepository;
 import io.smsc.repository.permission.PermissionRepository;
+import io.smsc.repository.role.RoleMigrationRepository;
 import io.smsc.repository.role.RoleRepository;
-import io.smsc.repository.user.UserRepositoryMigration;
+import io.smsc.repository.user.UserMigrationRepository;
 import org.flywaydb.core.api.migration.spring.SpringJdbcMigration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,17 +36,16 @@ import java.util.*;
  * using custom configuration {@link io.smsc.config.FlywayConfiguration}.
  *
  * @author  Nazar Lipkovskyy
- * @version 1.0
- * @since   2016-12-30
+ * @since   0.0.1-SNAPSHOT
  */
 @Component
 public class V1_2__populateDB implements SpringJdbcMigration {
 
     private final PermissionRepository permissionRepository;
 
-    private final RoleRepository roleRepository;
+    private final RoleMigrationRepository roleRepository;
 
-    private final UserRepositoryMigration userRepository;
+    private final UserMigrationRepository userRepository;
 
     private final CrudClassMetaDataRepository crudClassMetaDataRepository;
 
@@ -55,7 +55,7 @@ public class V1_2__populateDB implements SpringJdbcMigration {
 
     private final MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository;
 
-    private final CustomerRepositoryMigration customerRepository;
+    private final CustomerMigrationRepository customerRepository;
 
     private final CustomerContactRepository customerContactRepository;
 
@@ -65,14 +65,17 @@ public class V1_2__populateDB implements SpringJdbcMigration {
 
     private final DashboardBoxTypeRepository dashboardBoxTypeRepository;
 
+    /**
+     * String, which is used for {@link org.springframework.security.crypto.encrypt.TextEncryptor} creating
+     */
     @Value("${encrypt.key}")
     private String secretKey;
 
     @Autowired
-    public V1_2__populateDB(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepositoryMigration userRepository,
+    public V1_2__populateDB(PermissionRepository permissionRepository, RoleMigrationRepository roleRepository, UserMigrationRepository userRepository,
                             CrudClassMetaDataRepository crudClassMetaDataRepository, CrudMetaFormDataRepository crudMetaFormDataRepository,
                             CrudMetaGridDataRepository crudMetaGridDataRepository, MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository,
-                            CustomerRepositoryMigration customerRepository, CustomerContactRepository customerContactRepository, DashboardRepository dashboardRepository,
+                            CustomerMigrationRepository customerRepository, CustomerContactRepository customerContactRepository, DashboardRepository dashboardRepository,
                             DashboardBoxRepository dashboardBoxRepository, DashboardBoxTypeRepository dashboardBoxTypeRepository) {
         this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;
@@ -386,7 +389,7 @@ public class V1_2__populateDB implements SpringJdbcMigration {
         metaDataPropertyBindingParameter.setOperator(Operator.EQUALS);
         metaDataPropertyBindingParameterRepository.save(metaDataPropertyBindingParameter);
         Customer customer = new Customer(138L, 1.0, "SMSC", "Amtsgericht", "Amtsgericht", "3254", "Germany", "Stuttgart", 5672394.0);
-        Set<User> users = new HashSet<>(userRepository.findAll());
+        Set<User> users = new HashSet<>(userRepository.findAllDistinctByOrderById());
         customer.setUsers(users);
         Customer newCustomer = customerRepository.save(customer);
         CustomerContact customerContact = new CustomerContact(139L, "SMSC", "SMSC", "0674329568", "0504569753", "fake_fax", "smsc@bulk.io", Type.CEO, Salutation.MR);

@@ -33,7 +33,7 @@ public class RoleRestTest extends AbstractTest {
 
     @Test
     public void testGetAllRoles() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles/search/findAll"))
+        mockMvc.perform(get("/rest/repository/roles"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.roles", hasSize(2)));

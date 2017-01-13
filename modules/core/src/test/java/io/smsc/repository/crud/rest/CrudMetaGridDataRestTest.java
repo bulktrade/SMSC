@@ -35,23 +35,23 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
 
     @Test
     public void testGetAllCrudMetaGridData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/search/findAll"))
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 // paginating is showing 20 items by default
-                .andExpect(jsonPath("$._embedded.crud-meta-grid-data", hasSize(31)))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data", hasSize(20)))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].property", is(CRUD_META_GRID_DATA_1.getProperty())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].editable", is(CRUD_META_GRID_DATA_1.getEditable())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].visible", is(CRUD_META_GRID_DATA_1.getVisible())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].decorator", is(CRUD_META_GRID_DATA_1.getDecorator())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].order", is(CRUD_META_GRID_DATA_1.getOrder())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].columnWidth", is(CRUD_META_GRID_DATA_1.getColumnWidth())))
-                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[30].property", is(CRUD_META_GRID_DATA_31.getProperty())))
-                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[30].editable", is(CRUD_META_GRID_DATA_31.getEditable())))
-                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[30].visible", is(CRUD_META_GRID_DATA_31.getVisible())))
-                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[30].decorator", is(CRUD_META_GRID_DATA_31.getDecorator())))
-                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[30].order", is(CRUD_META_GRID_DATA_31.getOrder())))
-                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[30].columnWidth", is(CRUD_META_GRID_DATA_31.getColumnWidth())));
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].property", is(CRUD_META_GRID_DATA_20.getProperty())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].editable", is(CRUD_META_GRID_DATA_20.getEditable())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].visible", is(CRUD_META_GRID_DATA_20.getVisible())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].decorator", is(CRUD_META_GRID_DATA_20.getDecorator())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].order", is(CRUD_META_GRID_DATA_20.getOrder())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].columnWidth", is(CRUD_META_GRID_DATA_20.getColumnWidth())));
     }
 
     @Test

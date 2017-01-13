@@ -1,19 +1,34 @@
 package io.smsc.security;
 
 import io.smsc.model.User;
-import io.smsc.repository.user.UserRepository;
 import io.smsc.repository.user.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of base {@link UserDetailsService} which loads user-specific data.
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @Service
 public class JWTUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepositoryImpl userRepository;
 
+    /**
+     * Implementation of basic {@link UserDetailsService#loadUserByUsername(String)} method
+     * which takes {@link User} entity by username from database and creates {@link JWTUser} with
+     * appropriate parameters.
+     *
+     * @param  username                  string which describes user name
+     * @return                           appropriate {@link JWTUser} object
+     * @throws UsernameNotFoundException if cannot locate a {@link User} by
+     *                                   its username.
+     */
     @Override
     public JWTUser loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.getOneByUserNameWithDecryptedPassword(username);
@@ -24,6 +39,15 @@ public class JWTUserDetailsServiceImpl implements UserDetailsService {
         }
     }
 
+    /**
+     * Additional method which takes {@link User} entity by email from database and creates
+     * {@link JWTUser} with appropriate parameters.
+     *
+     * @param  email                     string which describes user's email
+     * @return                           appropriate {@link JWTUser} object
+     * @throws UsernameNotFoundException if cannot locate a {@link User} by
+     *                                   its email.
+     */
     public JWTUser loadUserByEmail(String email) throws UsernameNotFoundException {
         User user = userRepository.getOneByEmailWithDecryptedPassword(email);
         if (user == null) {

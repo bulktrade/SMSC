@@ -12,6 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link Permission} entities and exporting them
+ * to appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+// * @see     PermissionMigrationRepository
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "permissions", path = "permissions")
 @Transactional(readOnly = true)
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
@@ -24,6 +33,7 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
     @Override
     @Transactional
+    @RestResource(exported = false)
     Permission save(Permission permission);
 
     @Override
@@ -31,12 +41,6 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
     Permission findByName(@Param("name")String name);
 
-    // /rest/repository/permissions/search/findAll
-    @RestResource(path = "findAll")
-    List<Permission> findAllDistinctByOrderById();
-
-    // Prevents GET /permissions
     @Override
-    @RestResource(exported = false)
     Page<Permission> findAll(Pageable pageable);
 }

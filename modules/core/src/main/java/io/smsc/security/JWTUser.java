@@ -11,6 +11,13 @@ import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Implementation of base {@link UserDetails} interface with {@link io.smsc.model.User}
+ * information which is later encapsulated into {@link Authentication} objects.
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 public class JWTUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -53,7 +60,6 @@ public class JWTUser implements UserDetails {
         this.authorities = authorities;
     }
 
-    //    @JsonIgnore
     public Long getId() {
         return id;
     }
@@ -100,7 +106,7 @@ public class JWTUser implements UserDetails {
         return created;
     }
 
-    //enabling causes a loop
+    //enabling may cause a loop
     public Set<Role> getRoles() {
         return roles;
     }

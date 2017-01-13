@@ -33,7 +33,7 @@ public class CrudClassMetaDataRestTest extends AbstractTest {
 
     @Test
     public void testGetAllCrudClassMetaData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-class-meta-data/search/findAll"))
+        mockMvc.perform(get("/rest/repository/crud-class-meta-data"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.crud-class-meta-data", hasSize(9)))

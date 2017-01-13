@@ -7,6 +7,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Specifies DashboardBox class as an entity class.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @see     Dashboard
+ * @see     DashboardBoxType
+ * @see     Width
+ * @see     Height
+ * @since   0.0.1-SNAPSHOT
+ */
 @Entity
 @Table(name = "DASHBOARD_BOX")
 public class DashboardBox extends BaseEntity {

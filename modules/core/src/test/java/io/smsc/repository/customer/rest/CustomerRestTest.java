@@ -38,7 +38,7 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testGetAllCustomers() throws Exception {
-        mockMvc.perform(get("/rest/repository/customers/search/findAll"))
+        mockMvc.perform(get("/rest/repository/customers"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.customers", hasSize(1)))

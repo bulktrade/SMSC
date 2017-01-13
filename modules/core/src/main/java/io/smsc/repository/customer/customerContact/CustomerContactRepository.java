@@ -12,6 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link CustomerContact} entities and exporting them
+ * to appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "customer-contacts", path = "customer-contacts")
 @Transactional(readOnly = true)
 public interface CustomerContactRepository extends JpaRepository<CustomerContact, Long> {
@@ -24,6 +32,7 @@ public interface CustomerContactRepository extends JpaRepository<CustomerContact
 
     @Override
     @Transactional
+    @RestResource(exported = false)
     CustomerContact save(CustomerContact customer);
 
     @Override
@@ -33,13 +42,7 @@ public interface CustomerContactRepository extends JpaRepository<CustomerContact
     @EntityGraph(attributePaths = {"type","salutation"})
     CustomerContact findByEmailAddress(@Param("emailAddress") String emailAddress);
 
-    // /rest/repository/customer-contact/search/findAll
-    @EntityGraph(attributePaths = {"type","salutation"})
-    @RestResource(path = "findAll")
-    List<CustomerContact> findAllDistinctByOrderById();
-
-    // Prevents GET /customer-contact
     @Override
-    @RestResource(exported = false)
+    @EntityGraph(attributePaths = {"type","salutation"})
     Page<CustomerContact> findAll(Pageable pageable);
 }

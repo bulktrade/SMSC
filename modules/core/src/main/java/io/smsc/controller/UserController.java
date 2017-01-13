@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,50 +23,51 @@ import java.util.List;
 
 /**
  * The UserRestController class is used for mapping HTTP requests concerning {@link User} entities
- * onto specific methods
+ * onto specific methods.
  * <p>
  * Methods in this class extend default {@link org.springframework.data.jpa.repository.JpaRepository}
- * methods in {@link io.smsc.repository.user.UserRepository}
+ * methods in {@link io.smsc.repository.user.UserRepository}.
  *
  * @author  Nazar Lipkovskyy
- * @version 1.0
- * @since   2016-12-30
+ * @since   0.0.1-SNAPSHOT
  */
 @RestController
 @RequestMapping("/rest/repository/users")
-public class UserRestController {
+public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    private final Logger log = LoggerFactory.getLogger(UserRestController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
 
     /**
-     * Method to get all {@link io.smsc.model.User} from database
+     * Method to get all {@link io.smsc.model.User} entities from database.
      * <p>
      * This method extends default {@link UserRepository#findAll()} method
      *
      * @return list with {@link io.smsc.model.User} entities
      */
     @GetMapping(value = "/findAll",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     public List<User> getAll() {
         log.info("get All Users");
         return userRepository.getAllWithRolesAndDecryptedPassword();
     }
 
     /**
-     * Method to find specific {@link io.smsc.model.User} in database
+     * Method to find specific {@link io.smsc.model.User} in database.
      * <p>
      * This method extends default
-     * {@link io.smsc.repository.user.UserRepository#findOne(Long)} method
+     * {@link io.smsc.repository.user.UserRepository#findOne(Long)} method.
      *
      * @param  id          long value which identifies {@link io.smsc.model.User} in database
      * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     * functionality in sending a response
+     *                     functionality in sending a response
      * @return             {@link io.smsc.model.User} entity
      * @throws IOException on input error
      */
     @GetMapping(value = "/findOne/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     public ResponseEntity<User> getOne(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
         log.info("get User with id " + id);
         try {
@@ -81,18 +83,19 @@ public class UserRestController {
     }
 
     /**
-     * Method to create {@link io.smsc.model.User} in database
+     * Method to create and save {@link io.smsc.model.User} in database.
      * <p>
      * This method extends default
-     * {@link io.smsc.repository.user.UserRepository#save(User)} method
+     * {@link io.smsc.repository.user.UserRepository#save(User)} method.
      *
      * @param  user        valid {@link io.smsc.model.User} entity
      * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     * functionality in sending a response
+     *                     functionality in sending a response
      * @return             created {@link io.smsc.model.User} entity
      * @throws IOException on input error
      */
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_CREATE')")
     public ResponseEntity<User> create(@Valid @RequestBody User user, HttpServletResponse response) throws IOException {
         log.info("create User");
         try {
@@ -111,19 +114,20 @@ public class UserRestController {
     }
 
     /**
-     * Method to update specific {@link io.smsc.model.User} in database
+     * Method to update specific {@link io.smsc.model.User} in database.
      * <p>
      * This method extends default
-     * {@link io.smsc.repository.user.UserRepository#save(User)} method
+     * {@link io.smsc.repository.user.UserRepository#save(User)} method.
      *
      * @param  user        valid {@link io.smsc.model.User} entity
      * @param  id          long value which identifies {@link io.smsc.model.User} in database
      * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     * functionality in sending a response
+     *                     functionality in sending a response
      * @return             updated {@link io.smsc.model.User} entity
      * @throws IOException on input error
      */
     @PutMapping(value = "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_UPDATE')")
     public ResponseEntity<User> update(@Valid @RequestBody User user, @PathVariable("id") long id, HttpServletResponse response) throws IOException {
         log.info("update User with id " + id);
         try {
@@ -155,17 +159,18 @@ public class UserRestController {
     }
 
     /**
-     * Method to remove specific {@link io.smsc.model.User} from database
+     * Method to remove specific {@link io.smsc.model.User} from database.
      * <p>
      * This method extends default
-     * {@link io.smsc.repository.user.UserRepository#delete(Long)} method
+     * {@link io.smsc.repository.user.UserRepository#delete(Long)} method.
      *
      * @param  id          long value which identifies {@link io.smsc.model.User} in database
      * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     * functionality in sending a response
+     *                     functionality in sending a response
      * @throws IOException on input error
      */
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_DELETE')")
     public void delete(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
         log.info("delete User with id = " + id);
         try {
@@ -178,13 +183,13 @@ public class UserRestController {
     }
 
     /**
-     * Method to add specific {@link io.smsc.model.Role} to specific {@link io.smsc.model.User}
+     * Method to add specific {@link io.smsc.model.Role} to specific {@link io.smsc.model.User}.
      *
      * @param  userId      long value which identifies {@link io.smsc.model.User} in database
      * @param  roleId      long value which identifies {@link io.smsc.model.Role} in database
      * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     * functionality in sending a response
-     * @return              updated {@link io.smsc.model.User} entity
+     *                     functionality in sending a response
+     * @return             updated {@link io.smsc.model.User} entity
      * @throws IOException on input error
      */
     @GetMapping(value = "/addRole", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -202,13 +207,13 @@ public class UserRestController {
     }
 
     /**
-     * Method to remove specific {@link io.smsc.model.Role} from specific {@link io.smsc.model.User}
+     * Method to remove specific {@link io.smsc.model.Role} from specific {@link io.smsc.model.User}.
      *
      * @param  userId      long value which identifies {@link io.smsc.model.User} in database
      * @param  roleId      long value which identifies {@link io.smsc.model.Role} in database
      * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     * functionality in sending a response
-     * @return              updated {@link io.smsc.model.User} entity
+     *                     functionality in sending a response
+     * @return             updated {@link io.smsc.model.User} entity
      * @throws IOException on input error
      */
     @GetMapping(value = "/removeRole", produces = MediaType.APPLICATION_JSON_VALUE)

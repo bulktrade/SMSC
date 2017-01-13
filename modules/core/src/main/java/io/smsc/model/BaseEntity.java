@@ -10,10 +10,19 @@ import org.springframework.data.domain.Persistable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Specifies Base entity class as an mapped superclass. It's mapping information
+ * is applied to the entities that inherit from it. It contains only id property
+ * and equals/hashcode implementations.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     MappedSuperclass
+ * @since   0.0.1-SNAPSHOT
+ */
 @MappedSuperclass
 @Access(AccessType.FIELD)
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"},ignoreUnknown = true)
 public class BaseEntity implements Persistable<Long>, Serializable {
 
     protected static final long serialVersionUID = 1L;
@@ -21,9 +30,6 @@ public class BaseEntity implements Persistable<Long>, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
-//    @Id
-//    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
     protected Long id;

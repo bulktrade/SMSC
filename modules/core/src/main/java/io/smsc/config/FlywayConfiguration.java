@@ -16,8 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * flyway bean initialization using custom resolver {@link io.smsc.db.migration.ApplicationContextAwareSpringJdbcMigrationResolver}.
  *
  * @author  Nazar Lipkovskyy
- * @version 1.0
- * @since   2016-12-30
+ * @since   0.0.1-SNAPSHOT
  */
 @Configuration
 @ComponentScan("io.smsc.db.migration")

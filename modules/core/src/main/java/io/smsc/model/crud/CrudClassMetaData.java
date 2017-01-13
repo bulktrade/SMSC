@@ -7,6 +7,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+/**
+ * Specifies CrudClassMetaData class as an entity class.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @since   0.0.1-SNAPSHOT
+ */
 @Entity
 @Table(name = "CRUD_CLASS_META_DATA", uniqueConstraints = {@UniqueConstraint(columnNames = "CLASS_NAME", name = "crud_class_meta_data_unique_class_idx")})
 public class CrudClassMetaData extends BaseEntity {
@@ -49,6 +56,11 @@ public class CrudClassMetaData extends BaseEntity {
         this.query = query;
     }
 
+    /**
+     * This method is used for removing all links on CrudClassMetaData entity from
+     * appropriate CrudMetaFormData and CrudMetaGridData entities before entity
+     * is removed. Without it deleting an entity can cause <code>ConstraintViolationException<code/>
+     */
     @PreRemove
     private void removeCrudMetaFormGridDataFromCrudClassMetaData() {
         for(CrudMetaFormData crudMetaFormData : crudMetaFormData){

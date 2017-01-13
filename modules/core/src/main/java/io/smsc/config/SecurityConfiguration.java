@@ -21,8 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * implementation.
  *
  * @author  Nazar Lipkovskyy
- * @version 1.0
- * @since   2016-12-30
+ * @since   0.0.1-SNAPSHOT
  */
 @Configuration
 @EnableWebSecurity
@@ -66,8 +65,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 // /rest/auth/** is used for token receiving and updating
-                // **/migration/** is user for migration operations
-                .antMatchers("/rest/auth/**","**/migration/**")
+                .antMatchers("/rest/auth/**")
                 .permitAll();
         http
                 .csrf().disable()

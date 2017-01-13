@@ -10,6 +10,15 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Util class used for generating and processing access and refresh tokens.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     io.jsonwebtoken.Claims;
+ * @see     io.jsonwebtoken.Jwts;
+ * @see     io.jsonwebtoken.SignatureAlgorithm;
+ * @since   0.0.1-SNAPSHOT
+ */
 @Component
 public class JWTTokenUtil implements Serializable {
 
@@ -18,9 +27,15 @@ public class JWTTokenUtil implements Serializable {
     static final String CLAIM_KEY_USERNAME = "sub";
     static final String CLAIM_KEY_CREATED = "created";
 
-    @Value("${jwt.secret:smsc.io}")
+    /**
+     * This string is used as a name of request header which contains tokens
+     */
+    @Value("${jwt.secret}")
     private String secret;
 
+    /**
+     * This digit is used as a value of access token life duration in seconds
+     */
     @Value("${jwt.expiration}")
     private Long expiration;
 

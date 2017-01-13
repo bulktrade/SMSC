@@ -24,7 +24,7 @@ public class CustomerJPATest extends AbstractTest {
     @Test
     public void testDeleteCustomer() throws Exception {
         customerRepository.delete(CUSTOMER_1);
-        CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), customerRepository.findAllDistinctByOrderById());
+        CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), customerRepository.findAll());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class CustomerJPATest extends AbstractTest {
 
     @Test
     public void testGetAllCustomers() throws Exception {
-        Collection<Customer> customers = customerRepository.findAllDistinctByOrderById();
+        Collection<Customer> customers = customerRepository.findAll();
         CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(CUSTOMER_1), customers);
     }
 

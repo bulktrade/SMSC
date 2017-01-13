@@ -18,8 +18,7 @@ import java.util.Map;
  * password encryption\decryption.
  *
  * @author  Nazar Lipkovskyy
- * @version 1.0
- * @since   2016-12-30
+ * @since   0.0.1-SNAPSHOT
  */
 public class CryptoConverter {
 
@@ -63,7 +62,7 @@ public class CryptoConverter {
     }
 
     /**
-     * This method is a solution to avoid exception associated with cryptography
+     * This method is used to avoid exception associated with cryptography
      * strength limit. When using JDK 9+ this method is not more necessary and
      * should be removed.
      */

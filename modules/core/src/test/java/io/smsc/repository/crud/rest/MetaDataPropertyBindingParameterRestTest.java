@@ -35,7 +35,7 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
 
     @Test
     public void testGetAllMetaDataPropertyBindingParameters() throws Exception {
-        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/search/findAll"))
+        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.meta-data-property-binding-parameters", hasSize(1)))
