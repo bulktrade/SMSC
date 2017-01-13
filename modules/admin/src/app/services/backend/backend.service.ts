@@ -142,7 +142,7 @@ export class BackendService {
      * @param id
      * @returns {any}
      */
-    findOneUser(id: string = '') {
+    getUser(id: string = '') {
         let requestOptions = new RequestOptions({
             headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Get,
@@ -164,7 +164,7 @@ export class BackendService {
      * Finds all users
      * @returns {any}
      */
-    findAllUsers() {
+    getAllUsers() {
         let requestOptions = new RequestOptions({
             headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Get,
@@ -323,7 +323,7 @@ export class BackendService {
      * @param id
      * @returns {any}
      */
-    findOneCrudClassMetaData(id: string = '') {
+    getCrudClassMetaData(id: string = '') {
         let requestOptions = new RequestOptions({
             headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Get
@@ -345,7 +345,7 @@ export class BackendService {
      * Finds all crudClassMetaData
      * @returns {any}
      */
-    findAllCrudClassMetaData() {
+    getAllCrudClassMetaData() {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Get,
             headers: new Headers({ 'X-Authorization': this.tokenService.getToken() })
