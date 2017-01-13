@@ -29,8 +29,7 @@ export class BackendService {
     authentication(username: string = '', password: string = '') {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Post,
             body: {
@@ -60,8 +59,7 @@ export class BackendService {
     refresheAccessToken(expiredToken: string = '', refreshToken: string = '') {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Put,
             body: {
@@ -90,8 +88,7 @@ export class BackendService {
     createUser(user: User) {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Post,
             body: user
@@ -118,8 +115,7 @@ export class BackendService {
     updateUser(id: string = '', user: User) {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Put,
             body: user
@@ -144,8 +140,7 @@ export class BackendService {
      */
     getUser(id: string = '') {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
-            method: RequestMethod.Get,
+            method: RequestMethod.Get
         });
 
         return Observable.create(obs => {
@@ -166,8 +161,7 @@ export class BackendService {
      */
     getAllUsers() {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
-            method: RequestMethod.Get,
+            method: RequestMethod.Get
         });
 
         return Observable.create(obs => {
@@ -189,8 +183,7 @@ export class BackendService {
      */
     deleteUser(id: string = '') {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
-            method: RequestMethod.Delete,
+            method: RequestMethod.Delete
         });
 
         return Observable.create(obs => {
@@ -217,7 +210,6 @@ export class BackendService {
         search.set('roleId', roleId);
 
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Get,
             search: search
         });
@@ -246,7 +238,6 @@ export class BackendService {
         search.set('roleId', roleId);
 
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Get,
             search: search
         });
@@ -271,8 +262,7 @@ export class BackendService {
     createCrudClassMetaData(crudClassMetaData: CrudClassMetaData) {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Post,
             body: crudClassMetaData
@@ -299,8 +289,7 @@ export class BackendService {
     updateCrudClassMetaData(id: string = '', crudClassMetaData: CrudClassMetaData) {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Put,
             body: crudClassMetaData
@@ -325,7 +314,6 @@ export class BackendService {
      */
     getCrudClassMetaData(id: string = '') {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Get
         });
 
@@ -347,8 +335,7 @@ export class BackendService {
      */
     getAllCrudClassMetaData() {
         let requestOptions = new RequestOptions({
-            method: RequestMethod.Get,
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() })
+            method: RequestMethod.Get
         });
 
         return Observable.create(obs => {
@@ -370,7 +357,6 @@ export class BackendService {
      */
     deleteCrudClassMetaData(id: string = '') {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Delete
         });
 
@@ -394,8 +380,7 @@ export class BackendService {
     createCrudMetaFormData(crudMetaFormData: CrudMetaFormData) {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Post,
             body: crudMetaFormData
@@ -422,8 +407,7 @@ export class BackendService {
     updateCrudMetaFormData(id: string = '', crudMetaFormData: CrudMetaFormData) {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Put,
             body: crudMetaFormData
@@ -448,8 +432,7 @@ export class BackendService {
      */
     getCrudMetaFormData(id: string = '') {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
-            method: RequestMethod.Get,
+            method: RequestMethod.Get
         });
 
         return Observable.create(obs => {
@@ -470,8 +453,7 @@ export class BackendService {
      */
     getAllCrudMetaFormData() {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
-            method: RequestMethod.Get,
+            method: RequestMethod.Get
         });
 
         return Observable.create(obs => {
@@ -493,8 +475,7 @@ export class BackendService {
      */
     deleteCrudMetaFormData(id: string = '') {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
-            method: RequestMethod.Delete,
+            method: RequestMethod.Delete
         });
 
         return Observable.create(obs => {
@@ -517,8 +498,7 @@ export class BackendService {
     createCrudMetaGridData(crudMetaGridData: CrudMetaGridData) {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Post,
             body: crudMetaGridData
@@ -545,8 +525,7 @@ export class BackendService {
     updateCrudMetaGridData(id: string = '', crudMetaGridData: CrudMetaGridData) {
         let requestOptions = new RequestOptions({
             headers: new Headers({
-                'Content-Type': 'application/json',
-                'X-Authorization': this.tokenService.getToken()
+                'Content-Type': 'application/json'
             }),
             method: RequestMethod.Put,
             body: crudMetaGridData
@@ -571,7 +550,6 @@ export class BackendService {
      */
     getCrudMetaGridData(id: string = '') {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Get
         });
 
@@ -593,7 +571,6 @@ export class BackendService {
      */
     getAllCrudMetaGridData() {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Get
         });
 
@@ -616,7 +593,6 @@ export class BackendService {
      */
     deleteCrudMetaGridData(id: string = '') {
         let requestOptions = new RequestOptions({
-            headers: new Headers({ 'X-Authorization': this.tokenService.getToken() }),
             method: RequestMethod.Delete
         });
 
