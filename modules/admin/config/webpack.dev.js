@@ -161,8 +161,8 @@ module.exports = function (options) {
       },
       outputPath: helpers.root('dist'),
       proxy: {
-        '/rest/*': {
-          target: 'http://localhost:8080'
+        '/rest/**': {
+          target: 'http://localhost:8080/'
         }
       }
     },
