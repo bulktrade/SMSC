@@ -8,6 +8,7 @@ import { CrudViewResolve } from './crud/crud-view/crud-view.resolve';
 import { CrudLinksetResolve } from './crud/crud-linkset/crud-linkset.resolve';
 import { CrudCreateResolve } from './crud/crud-create/crud-create.resolve';
 import { CrudEditResolve } from './crud/crud-update/crud-update.resolve';
+import { MainCrudResolve } from "./crud/crud.resolve";
 
 @Injectable()
 export class DataResolver implements Resolve<any> {
@@ -26,5 +27,6 @@ export const APP_RESOLVER_PROVIDERS = [
     CrudCreateResolve,
     CrudLinksetResolve,
     CrudResolve,
-    CrudViewResolve
+    CrudViewResolve,
+    MainCrudResolve
 ];

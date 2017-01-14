@@ -18,15 +18,13 @@ export class CrudViewResolve extends CrudResolve {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let className = route.parent.parent.data['crudClass'];
-
         this.loadingGridService.start();
 
         return Observable.create((observer: Observer<ColumnDefsModel>) => {
-            this.crudService.getGridColumnDefs(className)
-                .subscribe((gridProperties: Array<GridPropertyModel>) => {
+            this.crudService.getGridColumnDefs(this.crudService.getClassName())
+                .subscribe((columns) => {
                     this.loadingGridService.stop();
-                    observer.next(gridProperties);
+                    observer.next(columns);
                     observer.complete();
                 }, err => {
                     this.loadingGridService.stop();

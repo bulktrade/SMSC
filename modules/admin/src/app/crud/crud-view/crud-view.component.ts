@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CrudService } from '../crud.service';
-import { GridPropertyModel } from '../model/grid-property';
+import { Component } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router, ActivatedRoute } from "@angular/router";
+import { CrudService } from "../crud.service";
+import { GridPropertyModel } from "../model/grid-property";
+import { BackendService } from "../../services/backend/backend.service";
 
 @Component({
     selector: 'crud-view',
     template: '<dynamic-view [crudClass]="crudService.getClassName()"></dynamic-view>',
-    styleUrls: [],
-    providers: [],
 })
 
 export class CrudViewComponent {
@@ -17,7 +16,8 @@ export class CrudViewComponent {
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
                 public router: Router,
-                public route: ActivatedRoute) {
+                public route: ActivatedRoute,
+                public backend: BackendService) {
     }
 
     ngOnInit() {

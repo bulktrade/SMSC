@@ -1,24 +1,26 @@
-import { ODatabaseService } from '../orientdb/orientdb.service';
-import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
-import { Response } from '@angular/http';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { GridOptions, GridApi } from 'ag-grid';
-import { NotificationService } from '../services/notification-service';
-import { LoadingGridService } from '../services/loading/loading-grid.service';
-import { ColumnModel } from './model/crud-column';
-import { INPUT_TYPES } from './dynamic-form/model/form-input-types';
-import { Operation } from '../orientdb/model/operation';
-import { BatchType } from '../orientdb/model/batch-type';
-import { Observable, Observer } from 'rxjs';
-import { GridPropertyModel } from './model/grid-property';
-import { FormPropertyModel } from './model/form-property';
-import { CrudLevel } from './model/crud-level';
-import { Location } from '@angular/common';
-import { LinksetProperty } from './model/linkset-property';
-import { GridService } from '../services/grid.service';
-import { Button } from './model/button';
-import { RouterOutletService } from '../services/router-outlet-service';
+import { ODatabaseService } from "../orientdb/orientdb.service";
+import { Injectable } from "@angular/core";
+import { Router, ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
+import { Response } from "@angular/http";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { GridOptions, GridApi } from "ag-grid";
+import { NotificationService } from "../services/notification-service";
+import { LoadingGridService } from "../services/loading/loading-grid.service";
+import { ColumnModel } from "./model/crud-column";
+import { INPUT_TYPES } from "./dynamic-form/model/form-input-types";
+import { Operation } from "../orientdb/model/operation";
+import { BatchType } from "../orientdb/model/batch-type";
+import { Observable, Observer } from "rxjs";
+import { FormPropertyModel } from "./model/form-property";
+import { CrudLevel } from "./model/crud-level";
+import { Location } from "@angular/common";
+import { LinksetProperty } from "./model/linkset-property";
+import { GridService } from "../services/grid.service";
+import { Button } from "./model/button";
+import { RouterOutletService } from "../services/router-outlet-service";
+import { BackendService } from "../services/backend/backend.service";
+import * as _ from "lodash";
+import * as clone from "js.clone";
 
 const squel = require('squel');
 let cubeGridHtml = require('../common/spinner/cube-grid/cube-grid.component.html');
@@ -61,7 +63,8 @@ export class CrudService {
                 public loadingService: LoadingGridService,
                 public gridService: GridService,
                 public roService: RouterOutletService,
-                public location: Location) {
+                public location: Location,
+                public backendService: BackendService) {
     }
 
     onFilterChanged(value, gridOptions) {
@@ -735,31 +738,6 @@ export class CrudService {
     }
 
     /**
-     * Translates the column names for grid
-     *
-     * @param columnDefs
-     * @param name
-     * @returns {Promise<TResult2|TResult1>|Promise<TResult>|Promise<U>}
-     */
-    translateColumnsName(columnDefs, name): Promise<any> {
-        let headersName = [];
-
-        for (let i in columnDefs) {
-            if (columnDefs.hasOwnProperty(i)) {
-                headersName.push(columnDefs[i][name].toUpperCase());
-            }
-        }
-
-        return this.translate.get(headersName).toPromise()
-            .then((columnName) => {
-                return Promise.resolve(columnName);
-            }, (error) => {
-                this.serviceNotifications.createNotificationOnResponse(error);
-                return Promise.reject(error);
-            });
-    }
-
-    /**
      * Adds additional columns to grid like RID, checkbox selection, etc
      */
     addColumn(gridOptions) {
@@ -790,249 +768,117 @@ export class CrudService {
     }
 
     /**
-     * Gets the column definitions with metaData for grid
+     * Returns column definitions for the grid
      * @param className
-     * @return {any}
+     * @returns {any}
      */
-    getGridColumnDefs(className): Observable<Array<GridPropertyModel>> {
-        return Observable.create((observer: Observer<ColumnModel>) => {
-            this.databaseService.getInfoClass(className)
-                .subscribe((res: Response) => {
-                    let properties = res.json().properties;
+    getGridColumnDefs(className: string = '') {
+        return Observable.create((observer) => {
 
-                    this.setPropertiesMetaGridData(properties, className)
-                        .subscribe((gridProperties: Array<GridPropertyModel>) => {
-                            observer.next(gridProperties);
-                            observer.complete();
-                        }, (err: Response) => {
-                            observer.error(err);
-                            observer.complete();
+            this.backendService.getAllCrudClassMetaData()
+                .subscribe(data => {
+                    // find the crudClassMetaData by class name
+                    let columns = _.find(data, (o) => {
+                        return o['className'] === className;
+                    });
+                    let linkToMetaGridData = columns['_links'].crudMetaGridData.href;
+
+                    this.backendService.getDataByLink(linkToMetaGridData)
+                        .subscribe(_data => {
+                            let columns = _data['crud-meta-grid-data'];
+
+                            // @todo rename the property 'property' to the 'field' name
+                            for (let key in columns) {
+                                if (columns.hasOwnProperty(key)) {
+                                    let currColumn = columns[key];
+
+                                    currColumn.field = currColumn.property;
+                                    currColumn.width = currColumn.getWidth || 200;
+                                    currColumn.hide = !currColumn.visible || false;
+                                }
+                            }
+
+                            // sorted columns in ascending order by 'order' property
+                            columns = _.sortBy(columns, ['order']);
+
+                            this.translateColumnDefs(columns, 'headerName')
+                                .subscribe(translatedCols => {
+                                    console.log(translatedCols);
+                                    observer.next(translatedCols);
+                                    observer.complete();
+                                });
                         });
-                }, (err: Response) => {
+                }, err => {
                     observer.error(err);
                     observer.complete();
                 });
+
         });
     }
 
     /**
-     * Gets the column definitions with metaData for form
+     * Returns column definitions for the form
      * @param className
      * @return {any}
      */
     getFormColumnDefs(className): Observable<Array<FormPropertyModel>> {
-        return Observable.create((observer: Observer<ColumnModel>) => {
-            this.databaseService.getInfoClass(className)
-                .subscribe((res: Response) => {
-                    let properties = res.json().properties;
+        return Observable.create((observer) => {
 
-                    this.setPropertiesMetaFormData(properties, className)
-                        .subscribe((formProperties: Array<FormPropertyModel>) => {
-                            observer.next(formProperties);
-                            observer.complete();
-                        }, (err: Response) => {
-                            observer.error(err);
-                            observer.complete();
+            this.backendService.getAllCrudClassMetaData()
+                .subscribe(data => {
+                    // find the crudClassMetaData by class name
+                    let columns = _.find(data, (o) => {
+                        return o['className'] === className;
+                    });
+                    let linkToMetaFormData = columns['_links'].crudMetaFormData.href;
+
+                    this.backendService.getDataByLink(linkToMetaFormData)
+                        .subscribe(_data => {
+                            let columns = _data['crud-meta-form-data'];
+
+                            // sorted columns in ascending order by 'order' property
+                            columns = _.sortBy(columns, ['order']);
+
+                            this.translateColumnDefs(columns, 'property')
+                                .subscribe(translatedCols => {
+                                    observer.next(translatedCols);
+                                    observer.complete();
+                                });
                         });
-                }, (err: Response) => {
+                }, err => {
                     observer.error(err);
                     observer.complete();
                 });
+
         });
     }
 
     /**
-     * Sets the additional metaData to formProperties from metaData classes.
-     * Such as: editable, visible, readOnly, etc...
-     *
-     * @param properties
-     * @param className
+     * Translates columns and creates the new property with a translated value for the each of column
+     * @param columns
+     * @param translateProperty
      * @returns {any}
      */
-    setPropertiesMetaFormData(properties, className): Observable<ColumnModel> {
-        let queryCrudMetaFormData = squel.select()
-            .from('CrudMetaFormData')
-            .where('crudClassMetaData.class = ?', className);
+    translateColumnDefs(columns, translateProperty: string) {
+        let observableStore = [],
+            _columns = clone(columns);
 
-        return Observable.create((observer: Observer<ColumnModel>) => {
-            this.databaseService.query(queryCrudMetaFormData.toString())
-                .subscribe((res: Response) => {
-                    let response = res.json().hasOwnProperty('result') ?
-                        res.json()['result'] : null;
-                    let isExistForm: boolean;
-                    let columnsForm: Array<FormPropertyModel> = [];
-                    let result: Array<FormPropertyModel>;
+        for (let key in _columns) {
+            if (_columns.hasOwnProperty(key)) {
+                let columnName = _columns[key].hasOwnProperty('property') ? _columns[key]['property'] : '';
 
-                    try {
-                        if (response) {
-                            isExistForm = res.json()['result'].length > 0 ? true : false;
-                            result = isExistForm ? res.json()['result'] : properties;
-                        }
-                    } catch (ex) {
-                        observer.error(ex);
-                    }
+                observableStore.push(this.translate.get(columnName)
+                    .subscribe(headerName => {
+                        _columns[key][translateProperty] = headerName;
+                    }));
 
-                    this.translateColumnsName(result, isExistForm ? 'property' : 'name')
-                        .then((columnsName) => {
-                            for (let i in result) {
-                                if (result.hasOwnProperty(i)) {
-                                    let column: FormPropertyModel = result[i];
-
-                                    if (isExistForm) {
-                                        column['headerName'] =
-                                            columnsName[result[i]['property'].toUpperCase()];
-
-                                        this.getPropertyMetadata(column, false, properties);
-                                        columnsForm.push(column);
-                                    } else {
-                                        column['headerName'] =
-                                            columnsName[result[i]['name'].toUpperCase()];
-                                        column['property'] = result[i]['name'];
-                                        column['editable'] = !result[i]['readonly'];
-                                        column['visible'] = true;
-
-                                        columnsForm.push(column);
-                                    }
-                                }
-                            }
-
-                            if (isExistForm) {
-                                columnsForm.sort(this.compare);
-                            }
-
-                            observer.next(columnsForm);
-                            observer.complete();
-                        });
-                }, (err) => {
-                    observer.error(err);
-                    observer.complete();
-                });
-        });
-    }
-
-    /**
-     * Sets the additional metaData to gridProperties from metaData classes.
-     * Such as: editable, visible, width, etc...
-     *
-     * @param properties
-     * @param className
-     * @returns {any}
-     */
-    setPropertiesMetaGridData(properties, className): Observable<ColumnModel> {
-        let queryCrudMetaGridData = squel.select()
-            .from('CrudMetaGridData')
-            .where('crudClassMetaData.class = ?', className);
-
-        return Observable.create((observer: Observer<ColumnModel>) => {
-            this.databaseService.query(queryCrudMetaGridData.toString())
-                .subscribe((res: Response) => {
-                    let response = res.json().hasOwnProperty('result') ?
-                        res.json()['result'] : null;
-                    let isExistColumn: boolean;
-                    let columnsGrid: Array<GridPropertyModel> = [];
-                    let result: Array<GridPropertyModel>;
-
-                    try {
-                        if (response) {
-                            isExistColumn = response.length > 0 ? true : false;
-                            result = isExistColumn ? response : properties;
-                        }
-                    } catch (ex) {
-                        observer.error(ex);
-                    }
-
-                    return this.translateColumnsName(result, isExistColumn ? 'property' : 'name')
-                        .then((columnsName) => {
-                            for (let i in result) {
-                                if (result.hasOwnProperty(i)) {
-                                    let column: GridPropertyModel = result[i];
-
-                                    if (isExistColumn) {
-                                        column['headerName'] =
-                                            columnsName[result[i]['property'].toUpperCase()];
-                                        column['field'] = result[i]['property'];
-                                        column['hide'] = !result[i]['visible'];
-                                        column['width'] = result[i]['columnWidth'];
-                                        column['sort'] = 'asc';
-
-                                        this.getPropertyMetadata(column, true, properties);
-                                        columnsGrid.push(column);
-                                    } else {
-                                        column['headerName'] =
-                                            columnsName[result[i]['name'].toUpperCase()];
-                                        column['field'] = result[i]['name'];
-                                        column['sort'] = 'asc';
-                                        columnsGrid.push(column);
-                                    }
-                                }
-                            }
-
-                            if (isExistColumn) {
-                                columnsGrid.sort(this.compare);
-                            }
-
-                            observer.next(columnsGrid);
-                            observer.complete();
-                        });
-                }, (error) => {
-                    observer.error(error);
-                    observer.complete();
-                });
-        });
-    }
-
-    /**
-     * Gets the metadata for the property. Such as: linkedClass, mandatory, etc.
-     *
-     * @param column
-     * @param isGrid
-     * @param properties
-     */
-    getPropertyMetadata(column, isGrid: boolean, properties) {
-        let metadataGridProperty = ['linkedClass', 'type', 'custom'];
-        let metadataFormProperty = ['mandatory', 'type', 'linkedClass', 'custom'];
-        let property;
-
-        if (isGrid) {
-            property = properties.filter((obj) => {
-                return obj.name === column.field;
-            })[0];
-
-            if (property) {
-                metadataGridProperty.forEach((i) => {
-                    if (property.hasOwnProperty(i)) {
-                        column[i] = property[i];
-                    }
-                });
-            }
-        } else {
-            property = properties.filter((obj) => {
-                return obj.name === column.property;
-            })[0];
-
-            if (property) {
-                metadataFormProperty.forEach((i) => {
-                    if (property.hasOwnProperty(i)) {
-                        column[i] = property[i];
-                    }
-                });
             }
         }
-    }
 
-    /**
-     * Compares the order of the properties.
-     *
-     * @param a
-     * @param b
-     * @returns {number}
-     */
-    compare(a, b) {
-        if (a.order < b.order)
-            return -1;
-        if (a.order > b.order)
-            return 1;
-        return 0;
+        return Observable.create(obs => {
+            obs.next(_columns);
+            obs.complete();
+        });
     }
 
     /**
