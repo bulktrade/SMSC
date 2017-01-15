@@ -6,7 +6,6 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { GridOptions, GridApi } from "ag-grid";
 import { NotificationService } from "../services/notification-service";
 import { LoadingGridService } from "../services/loading/loading-grid.service";
-import { ColumnModel } from "./model/crud-column";
 import { INPUT_TYPES } from "./dynamic-form/model/form-input-types";
 import { Operation } from "../orientdb/model/operation";
 import { BatchType } from "../orientdb/model/batch-type";
@@ -793,17 +792,14 @@ export class CrudService {
                                     let currColumn = columns[key];
 
                                     currColumn.field = currColumn.property;
-                                    currColumn.width = currColumn.getWidth || 200;
-                                    currColumn.hide = !currColumn.visible || false;
                                 }
                             }
 
                             // sorted columns in ascending order by 'order' property
                             columns = _.sortBy(columns, ['order']);
 
-                            this.translateColumnDefs(columns, 'headerName')
+                            this.translateColumnDefs(columns, 'property')
                                 .subscribe(translatedCols => {
-                                    console.log(translatedCols);
                                     observer.next(translatedCols);
                                     observer.complete();
                                 });

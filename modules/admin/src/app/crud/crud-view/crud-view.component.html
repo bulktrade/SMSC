@@ -1,0 +1,12 @@
+<p-dataTable [value]="rowData" [(selection)]="selectedRows" [paginator]="true" rows="15"
+             scrollable="true" scrollHeight="400px">
+	<header>{{ crudService.getClassName() }}</header>
+	<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+	<p-column [field]="column.field" [style]="{'width':'200px'}" [header]="column.property" [sortable]="true" *ngFor="let column of columnDefs"></p-column>
+	<footer>
+		<div class="ui-helper-clearfix" style="width:100%">
+			<button type="button" pButton icon="fa-plus" style="float:left" label="Add"></button>
+			<button type="button" pButton icon="fa-remove" style="float:left" label="Delete"></button>
+		</div>
+	</footer>
+</p-dataTable>

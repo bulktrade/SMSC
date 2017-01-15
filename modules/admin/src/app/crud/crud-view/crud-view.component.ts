@@ -2,16 +2,17 @@ import { Component } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
-import { GridPropertyModel } from "../model/grid-property";
 import { BackendService } from "../../services/backend/backend.service";
 
 @Component({
     selector: 'crud-view',
-    template: '<dynamic-view [crudClass]="crudService.getClassName()"></dynamic-view>',
+    template: require('./crud-view.component.html')
 })
 
 export class CrudViewComponent {
-    public resolveData: Array<GridPropertyModel> = [];
+    public columnDefs;
+    public selectedRows;
+    public rowData = [];
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -21,19 +22,12 @@ export class CrudViewComponent {
     }
 
     ngOnInit() {
-        // sets crud class name
-        this.crudService.setClassName(this.route.parent.parent.data['value']['crudClass']);
-        // sets path from root component
-        this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
-
-        this.resolveData = this.route.snapshot.data['view'];
-        this.crudService.gridOptions.columnDefs = this.resolveData;
-        this.crudService.gridOptions.rowData = [];
-
-        // adds additional columns
-        this.crudService.addColumn(this.crudService.gridOptions);
-
+        this.columnDefs = this.getColumnDefs();
         this.crudService.resetCrudLevels();
+    }
+
+    getColumnDefs() {
+        return this.route.snapshot.data['view'];
     }
 
     navigateToCreate() {

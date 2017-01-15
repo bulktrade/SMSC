@@ -19,6 +19,9 @@ import { CommonModule } from '@angular/common';
 import { DynamicViewModule } from './dynamic-view/dynamic-view.component';
 import { TranslateModule } from 'ng2-translate';
 import { GridPaginationModule } from './directives/grid-pagination/grid-pagination.module';
+import { SharedModule } from "primeng/components/common/shared";
+import { DataTableModule } from "primeng/components/datatable/datatable";
+import { ButtonModule } from "primeng/components/button/button";
 
 const CRUD_DECLARATIONS = [
     CrudComponent,
@@ -29,6 +32,9 @@ const CRUD_DECLARATIONS = [
 ];
 
 const CRUD_MODULES = [
+    DataTableModule,
+    ButtonModule,
+    SharedModule,
     MdSelectModule,
     GridPaginationModule,
     LoadingRouterOutletModule,

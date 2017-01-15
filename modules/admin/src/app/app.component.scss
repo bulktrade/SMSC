@@ -12,6 +12,12 @@ body {
     }
 }
 
+.fa-check:before {
+    left: -1px;
+    top: -4px;
+    position: relative;
+}
+
 .md-card,
 navigation,
 login {
