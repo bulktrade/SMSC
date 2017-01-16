@@ -39,59 +39,6 @@ public class CustomerController {
 
     private final Logger log = LoggerFactory.getLogger(CustomerController.class);
 
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CUSTOMER_CREATE')")
-    public ResponseEntity<Customer> create(@Valid @RequestBody Customer customer, HttpServletResponse response) throws IOException {
-        log.info("create Customer");
-        try {
-            Customer created = customerRepository.save(customer);
-            Customer newCustomer = customerRepository.findOne(created.getId());
-            URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("{id}")
-                    .buildAndExpand(created.getId()).toUri();
-            return ResponseEntity.created(uriOfNewResource).body(newCustomer);
-        }
-        catch (DataIntegrityViolationException ex) {
-            // going to send error
-        }
-        response.sendError(HttpServletResponse.SC_CONFLICT, "Customer with this customerId already exists");
-        return null;
-    }
-
-    @PutMapping(value = "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('CUSTOMER_UPDATE')")
-    public ResponseEntity<Customer> update(@Valid @RequestBody Customer customer, @PathVariable("id") long id, HttpServletResponse response) throws IOException {
-        log.info("update Customer with id " + id);
-        try {
-            Customer updated = customerRepository.findOne(id);
-            if(!updated.getCustomerId().equals(customer.getCustomerId()) && customerRepository.findByCustomerId(customer.getCustomerId()) != null) {
-                response.sendError(HttpServletResponse.SC_CONFLICT, "Customer with this customerId already exists");
-                return null;
-            }
-            updated.setCustomerId(customer.getCustomerId());
-            updated.setCompanyName(customer.getCompanyName());
-            updated.setStreet(customer.getStreet());
-            updated.setStreet2(customer.getStreet2());
-            updated.setPostcode(customer.getPostcode());
-            updated.setCountry(customer.getCountry());
-            updated.setCity(customer.getCity());
-            if(customer.getVatid() != null) {
-                updated.setVatid(customer.getVatid());
-            }
-            if(customer.getParentCustomer() != null) {
-                updated.setParentCustomer(customer.getParentCustomer());
-            }
-            customerRepository.save(updated);
-            return new ResponseEntity<>(customerRepository.getOne(id), HttpStatus.OK);
-        }
-        catch (NullPointerException ex) {
-            ex.printStackTrace();
-            // going to send error
-        }
-        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Customer with id = " + id + " was not found");
-        return null;
-    }
-
     /**
      * Method to add specific {@link io.smsc.model.User} to specific {@link Customer}
      *

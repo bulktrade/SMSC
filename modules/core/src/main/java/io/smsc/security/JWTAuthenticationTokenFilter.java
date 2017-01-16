@@ -1,5 +1,6 @@
 package io.smsc.security;
 
+import io.smsc.security.model.JWTUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

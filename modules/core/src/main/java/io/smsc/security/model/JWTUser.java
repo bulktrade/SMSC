@@ -1,4 +1,4 @@
-package io.smsc.security;
+package io.smsc.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.Role;

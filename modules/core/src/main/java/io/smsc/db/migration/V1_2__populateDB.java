@@ -14,14 +14,14 @@ import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
 import io.smsc.repository.crud.crudMetaFormData.CrudMetaFormDataRepository;
 import io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository;
 import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
-import io.smsc.repository.customer.customer.CustomerMigrationRepository;
+import io.smsc.repository.customer.customer.CustomerRepository;
 import io.smsc.repository.customer.customerContact.CustomerContactRepository;
 import io.smsc.repository.dashboard.dashboard.DashboardRepository;
 import io.smsc.repository.dashboard.dashboardBox.DashboardBoxRepository;
 import io.smsc.repository.dashboard.dashboardBoxType.DashboardBoxTypeRepository;
 import io.smsc.repository.permission.PermissionRepository;
 import io.smsc.repository.role.RoleRepository;
-import io.smsc.repository.user.UserMigrationRepository;
+import io.smsc.repository.user.UserRepository;
 import org.flywaydb.core.api.migration.spring.SpringJdbcMigration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,7 +44,7 @@ public class V1_2__populateDB implements SpringJdbcMigration {
 
     private final RoleRepository roleRepository;
 
-    private final UserMigrationRepository userRepository;
+    private UserRepository userRepository;
 
     private final CrudClassMetaDataRepository crudClassMetaDataRepository;
 
@@ -54,7 +54,7 @@ public class V1_2__populateDB implements SpringJdbcMigration {
 
     private final MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository;
 
-    private final CustomerMigrationRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     private final CustomerContactRepository customerContactRepository;
 
@@ -71,10 +71,10 @@ public class V1_2__populateDB implements SpringJdbcMigration {
     private String secretKey;
 
     @Autowired
-    public V1_2__populateDB(PermissionRepository permissionRepository, RoleRepository roleRepository, UserMigrationRepository userRepository,
+    public V1_2__populateDB(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository,
                             CrudClassMetaDataRepository crudClassMetaDataRepository, CrudMetaFormDataRepository crudMetaFormDataRepository,
                             CrudMetaGridDataRepository crudMetaGridDataRepository, MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository,
-                            CustomerMigrationRepository customerRepository, CustomerContactRepository customerContactRepository, DashboardRepository dashboardRepository,
+                            CustomerRepository customerRepository, CustomerContactRepository customerContactRepository, DashboardRepository dashboardRepository,
                             DashboardBoxRepository dashboardBoxRepository, DashboardBoxTypeRepository dashboardBoxTypeRepository) {
         this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;

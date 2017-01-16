@@ -1,4 +1,4 @@
-package io.smsc.security;
+package io.smsc.security.model;
 
 import java.io.Serializable;
 

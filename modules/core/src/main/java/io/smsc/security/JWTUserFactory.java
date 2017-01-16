@@ -3,6 +3,7 @@ package io.smsc.security;
 import io.smsc.model.Permission;
 import io.smsc.model.Role;
 import io.smsc.model.User;
+import io.smsc.security.model.JWTUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

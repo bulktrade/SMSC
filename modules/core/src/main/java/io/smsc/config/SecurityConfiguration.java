@@ -1,6 +1,7 @@
 package io.smsc.config;
 
 import io.smsc.security.JWTAuthenticationEntryPoint;
+
 import io.smsc.security.JWTAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

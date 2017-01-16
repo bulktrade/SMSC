@@ -1,6 +1,8 @@
 package io.smsc.security;
 
 import io.smsc.AbstractTest;
+import io.smsc.security.model.JWTAuthenticationRequest;
+import io.smsc.security.model.JWTRefreshTokenRequest;
 import org.assertj.core.util.DateUtil;
 import org.junit.Test;
 import org.springframework.http.MediaType;

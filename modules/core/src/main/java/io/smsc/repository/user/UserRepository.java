@@ -20,7 +20,6 @@ import java.util.List;
  * appropriate endpoints.
  *
  * @author  Nazar Lipkovskyy
- * @see     UserMigrationRepository
  * @see     UserRepositoryCustom
  * @see     UserRepositoryImpl
  * @since   0.0.1-SNAPSHOT
@@ -49,11 +48,11 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     @EntityGraph(attributePaths = {"roles", "dashboards"})
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ') or hasAuthority('USER_READ_OWN')")
     @RestResource(exported = false)
-    User findByEmail(@Param("email")String email);
+    User findByEmail(@Param("email") String email);
 
     @EntityGraph(attributePaths = {"roles", "dashboards"})
     @RestResource(exported = false)
-    User findByUsername(@Param("username")String username);
+    User findByUsername(@Param("username") String username);
 
     // /rest/repository/users/search/findAll
     @EntityGraph(attributePaths = {"roles", "dashboards"})

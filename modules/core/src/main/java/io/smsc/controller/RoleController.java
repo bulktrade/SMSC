@@ -39,47 +39,6 @@ public class RoleController {
 
     private final Logger log = LoggerFactory.getLogger(RoleController.class);
 
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('ROLE_CREATE')")
-    public ResponseEntity<Role> create(@Valid @RequestBody Role role, HttpServletResponse response) throws IOException {
-        log.info("create Permission");
-        try {
-            Role created = roleRepository.save(role);
-            Role newRole = roleRepository.findOne(created.getId());
-            URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("{id}")
-                    .buildAndExpand(created.getId()).toUri();
-            return ResponseEntity.created(uriOfNewResource).body(newRole);
-        }
-        catch (DataIntegrityViolationException ex) {
-            // going to send error
-        }
-        response.sendError(HttpServletResponse.SC_CONFLICT, "Permission with this name already exists");
-        return null;
-    }
-
-    @PutMapping(value = "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('ROLE_UPDATE')")
-    public ResponseEntity<Role> update(@Valid @RequestBody Role role, @PathVariable("id") long id, HttpServletResponse response) throws IOException {
-        log.info("update Role with id " + id);
-        try {
-            Role updated = roleRepository.findOne(id);
-            if(!updated.getName().equals(role.getName()) && roleRepository.findByName(role.getName()) != null) {
-                response.sendError(HttpServletResponse.SC_CONFLICT, "Role with this name already exists");
-                return null;
-            }
-            updated.setName(role.getName());
-            roleRepository.save(updated);
-            return new ResponseEntity<>(roleRepository.getOne(id), HttpStatus.OK);
-        }
-        catch (NullPointerException ex) {
-            ex.printStackTrace();
-            // going to send error
-        }
-        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Role with id = " + id + " was not found");
-        return null;
-    }
-
     /**
      * Method to add specific {@link io.smsc.model.Permission} to specific {@link Role}
      *

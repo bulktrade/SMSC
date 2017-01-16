@@ -1,7 +1,8 @@
 package io.smsc.security;
 
 import io.smsc.model.User;
-import io.smsc.repository.user.UserRepositoryImpl;
+import io.smsc.repository.user.UserRepository;
+import io.smsc.security.model.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class JWTUserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserRepositoryImpl userRepository;
+    private UserRepository userRepository;
 
     /**
      * Implementation of basic {@link UserDetailsService#loadUserByUsername(String)} method
