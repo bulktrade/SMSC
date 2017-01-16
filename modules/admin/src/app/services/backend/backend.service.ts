@@ -629,4 +629,132 @@ export class BackendService {
                 });
         });
     }
+
+
+    /**
+     * Creates the new resource to the specified repository
+     * @param data
+     * @param repositoryName
+     * @returns {any}
+     */
+    createResource(data, repositoryName: string = '') {
+        let requestOptions = new RequestOptions({
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            method: RequestMethod.Post,
+            body: data
+        });
+
+        return Observable.create(obs => {
+            this.http.request(this.urlPrefix + 'repository' + this.urlSuffix + repositoryName, requestOptions)
+                .subscribe((res: Response) => {
+                    obs.next(res.json());
+                    obs.complete();
+                }, err => {
+                    obs.error(err);
+                    obs.complete();
+                });
+        });
+    }
+
+    /**
+     * Replaces the resource identified by id in the specified repository
+     * @param id
+     * @param data
+     * @param repositoryName
+     * @returns {any}
+     */
+    updateResource(id: string = '', data, repositoryName: string = '') {
+        let requestOptions = new RequestOptions({
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            method: RequestMethod.Put,
+            body: data
+        });
+
+        return Observable.create(obs => {
+            this.http.request(this.urlPrefix + 'repository' + this.urlSuffix + repositoryName +
+                this.urlSuffix + id, requestOptions)
+                .subscribe((res: Response) => {
+                    obs.next(res.json());
+                    obs.complete();
+                }, err => {
+                    obs.error(err);
+                    obs.complete();
+                });
+        });
+    }
+
+    /**
+     * Removes the resource with id from the specified repository
+     * @param id
+     * @param repositoryName
+     * @returns {any}
+     */
+    deleteResource(id: string = '', repositoryName: string = '') {
+        let requestOptions = new RequestOptions({
+            method: RequestMethod.Delete
+        });
+
+        return Observable.create(obs => {
+            this.http.request(this.urlPrefix + 'repository' + this.urlSuffix + repositoryName
+                + this.urlSuffix + id, requestOptions)
+                .subscribe((res: Response) => {
+                    obs.next(res.json());
+                    obs.complete();
+                }, err => {
+                    obs.error(err);
+                    obs.complete();
+                });
+        });
+    }
+
+    /**
+     * Retrieves a single resource with the given id from the specified repository
+     * @param id
+     * @param repositoryName
+     * @returns {any}
+     */
+    getResource(id: string = '', repositoryName: string = '') {
+        let requestOptions = new RequestOptions({
+            method: RequestMethod.Get
+        });
+
+        return Observable.create(obs => {
+            this.http.request(this.urlPrefix + 'repository' + this.urlSuffix + repositoryName +
+                this.urlSuffix + id, requestOptions)
+                .subscribe((res: Response) => {
+                    obs.next(res.json());
+                    obs.complete();
+                }, err => {
+                    obs.error(err);
+                    obs.complete();
+                });
+        });
+    }
+
+    /**
+     * Retrieves a list of all resources from the specified repository
+     * @param repositoryName
+     * @returns {any}
+     */
+    getResources(repositoryName: string = '') {
+        let requestOptions = new RequestOptions({
+            method: RequestMethod.Get
+        });
+
+        return Observable.create(obs => {
+            this.http.request(this.urlPrefix + 'repository' + this.urlSuffix + repositoryName +
+                this.urlSuffix + 'search/findAll', requestOptions)
+                .subscribe((res: Response) => {
+                    obs.next(res.json()['_embedded'][repositoryName]);
+                    obs.complete();
+                }, err => {
+                    obs.error(err);
+                    obs.complete();
+                });
+        });
+    }
 }
