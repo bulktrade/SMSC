@@ -8,7 +8,7 @@ import { FormPropertyModel } from '../../../crud/model/form-property';
 
 @Component({
     selector: 'dashboard-crud-edit',
-    template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>'
+    template: '<dynamic-form [formType]="btnName" [columnDefs]="columnDefs"></dynamic-form>'
 })
 export class DashboardCrudUpdateComponent {
     public resolveData: EditModel = new EditModel();

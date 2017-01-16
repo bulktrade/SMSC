@@ -9,6 +9,9 @@ import { FormsModule } from '@angular/forms';
 import { LoadingGridModule } from '../../common/loading-grid.component';
 import { MultipleSelectModule } from '../directives/multiple-select/multiple-select.component';
 import { FormPropertyModel } from '../model/form-property';
+import { PanelModule } from "primeng/components/panel/panel";
+import { InputTextModule } from "primeng/components/inputtext/inputtext";
+import { ButtonModule } from "primeng/components/button/button";
 
 @Component({
     selector: 'dynamic-form',
@@ -20,10 +23,12 @@ import { FormPropertyModel } from '../model/form-property';
 })
 
 export class DynamicFormComponent {
-    @Input('btnName')
-    public btnName: BtnTypes;
+    @Input('formType')
+    public formType: string;
     @Input('columnDefs')
     public columnDefs: Array<FormPropertyModel>;
+    @Input('model')
+    public model = {};
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
@@ -32,7 +37,7 @@ export class DynamicFormComponent {
     }
 
     onSubmit() {
-        switch (this.btnName) {
+        switch (this.formType) {
             case BtnTypes.UPDATE:
                 this.crudService.updateRecord(this.crudService.model);
                 break;
@@ -64,7 +69,10 @@ export class DynamicFormComponent {
         MdSelectModule.forRoot(),
         MultipleSelectModule.forRoot(),
         TranslateModule,
-        LoadingGridModule
+        LoadingGridModule,
+        PanelModule,
+        InputTextModule,
+        ButtonModule
     ],
     exports: [DynamicFormComponent],
     declarations: [DynamicFormComponent]

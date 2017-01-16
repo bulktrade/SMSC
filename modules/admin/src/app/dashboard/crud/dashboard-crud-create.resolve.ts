@@ -1,12 +1,11 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Injectable } from '@angular/core';
-import { Location } from '@angular/common';
-import { GridService } from '../../services/grid.service';
-import { CrudService } from '../../crud/crud.service';
-import { CrudResolve } from '../../crud/common/crud-resolve';
-import { DashboardService } from '../dashboard.service';
-import { ColumnModel } from '../../crud/model/crud-column';
-import { Observer, Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { Injectable } from "@angular/core";
+import { Location } from "@angular/common";
+import { GridService } from "../../services/grid.service";
+import { CrudService } from "../../crud/crud.service";
+import { CrudResolve } from "../../crud/common/crud-resolve";
+import { DashboardService } from "../dashboard.service";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class DashboardCrudCreateResolve extends CrudResolve {
@@ -22,7 +21,7 @@ export class DashboardCrudCreateResolve extends CrudResolve {
 
         this.crudService.setParentPath(route.parent.pathFromRoot);
 
-        return Observable.create((observer: Observer<ColumnModel>) => {
+        return Observable.create((observer) => {
             this.crudService.getFormColumnDefs(className).subscribe((res) => {
                 this.crudService.model['dashboard'] = route.params['dashboard'];
 

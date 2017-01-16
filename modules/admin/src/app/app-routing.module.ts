@@ -78,7 +78,10 @@ export const ROUTES: Routes = [
                     translationKey: 'Customers',
                     showInSubNavigation: true,
                     icon: 'perm_contact_calendar',
-                    crudClass: 'Customer'
+                    backend: {
+                        crudClass: 'Customer',
+                        repositoryName: 'customers'
+                    }
                 },
                 children: [
                     {

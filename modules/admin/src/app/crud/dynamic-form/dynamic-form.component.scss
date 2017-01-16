@@ -3,6 +3,11 @@ $colorHint: #A94442;
 .addingForm {
 	width: 100%;
 
+    #back-button {
+        padding-right: 10px;
+        cursor: pointer;
+    }
+
     .form {
         padding: 0 15px;
         background: #fff;

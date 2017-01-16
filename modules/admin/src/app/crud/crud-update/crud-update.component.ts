@@ -1,15 +1,14 @@
-import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CrudService } from '../crud.service';
-import { Location } from '@angular/common';
-import { EditModel } from './crud-update.model';
-import { BtnTypes } from '../dynamic-form/model/button-types';
-import { FormPropertyModel } from '../model/form-property';
+import { Component } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router, ActivatedRoute } from "@angular/router";
+import { CrudService } from "../crud.service";
+import { Location } from "@angular/common";
+import { BtnTypes } from "../dynamic-form/model/button-types";
+import { ColumnDef } from "../model/column-definition";
 
 @Component({
     selector: 'crud-update',
-    template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>',
+    template: '<dynamic-form [formType]="btnName" [model]="model" [columnDefs]="columnDefs"></dynamic-form>',
     styleUrls: [
         require('../common/style.scss')
     ],
@@ -17,9 +16,9 @@ import { FormPropertyModel } from '../model/form-property';
 })
 
 export class CrudUpdateComponent {
-    public resolveData: EditModel;
     public btnName: BtnTypes = BtnTypes.UPDATE;
-    public columnDefs: Array<FormPropertyModel> = null;
+    public columnDefs: ColumnDef[] = [];
+    public model = {};
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -29,25 +28,20 @@ export class CrudUpdateComponent {
     }
 
     ngOnInit() {
-        // sets path from root component
-        this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
-
-        this.resolveData = this.route.snapshot.data['edit'];
-
-        if (this.resolveData.inputModel) {
-            this.crudService.setModel(this.resolveData.inputModel);
-        }
-
-        this.columnDefs = this.resolveData.columnDefs;
+        this.columnDefs = this.getColunmDefs();
+        this.model = this.getModel();
     }
 
-    ngOnDestroy() {
-        this.crudService.multipleSelectValid = false;
-        this.crudService.setModel({});
+    getColunmDefs() {
+        return this.route.snapshot.data['edit'].columnDefs;
+    }
+
+    getModel() {
+        return this.route.snapshot.data['edit'].rowData;
     }
 
     onSubmit() {
-        this.crudService.updateRecord(this.crudService.model);
+        // this.crudService.updateRecord(this.crudService.model);
     }
 
 }

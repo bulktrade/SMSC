@@ -8,7 +8,7 @@ import { FormPropertyModel } from '../model/form-property';
 
 @Component({
     selector: 'crud-create',
-    template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>',
+    template: '<dynamic-form [formType]="formType" [columnDefs]="columnDefs"></dynamic-form>',
     styleUrls: [
         require('../common/style.scss')
     ],
@@ -17,7 +17,7 @@ import { FormPropertyModel } from '../model/form-property';
 
 export class CrudCreateComponent {
     public columnDefs: Array<FormPropertyModel>;
-    public btnName: BtnTypes = BtnTypes.CREATE;
+    public formType: string = BtnTypes.CREATE;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -27,20 +27,16 @@ export class CrudCreateComponent {
     }
 
     ngOnInit() {
-        // sets path from root component
-        this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
-
-        this.columnDefs = this.route.snapshot.data['create'];
+        this.columnDefs = this.getColumnDefs();
     }
 
-    ngOnDestroy() {
-        this.crudService.multipleSelectValid = false;
-        this.crudService.setModel({});
+    getColumnDefs() {
+        return this.route.snapshot.data['create'];
     }
 
     onSubmit() {
-        this.crudService.createRecord(this.crudService.model,
-            this.route.snapshot.params['className']);
+        // this.crudService.createRecord(this.crudService.model,
+        //     this.route.snapshot.params['className']);
     }
 
 }

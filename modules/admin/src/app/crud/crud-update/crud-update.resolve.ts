@@ -1,58 +1,46 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Injectable } from '@angular/core';
-import { CrudResolve } from '../common/crud-resolve';
-import { CrudService } from '../crud.service';
-import { Response } from '@angular/http';
-import { Location } from '@angular/common';
-import { GridService } from '../../services/grid.service';
-import { Observable, Observer } from 'rxjs';
-import { EditModel } from './crud-update.model';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { Injectable } from "@angular/core";
+import { CrudResolve } from "../common/crud-resolve";
+import { CrudService } from "../crud.service";
+import { Location } from "@angular/common";
+import { Observable } from "rxjs";
+import { GridOptions } from "../model/grid-options";
+import { BackendService } from "../../services/backend/backend.service";
+import { NotificationService } from "../../services/notification-service";
 
 @Injectable()
 export class CrudEditResolve extends CrudResolve {
 
     constructor(public crudService: CrudService,
                 public location: Location,
-                public gridService: GridService) {
+                public notification: NotificationService,
+                public backendService: BackendService) {
         super();
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let id = route.params['id'];
+        let gridOptions: GridOptions = <GridOptions>{};
 
-        return Observable.create((observer: Observer<EditModel>) => {
-            this.crudService.databaseService.load(id)
-                .then((res: Response) => {
-                    let result = res.json();
-                    let className = result['@class'];
-                    let model = [];
+        return Observable.create((observer) => {
+            this.crudService.getFormColumnDefs(this.crudService.getClassName())
+                .subscribe((columns) => {
+                    gridOptions.columnDefs = columns;
 
-                    if (!Object.keys(this.crudService.model).length) {
-                        model.push(result);
-                    }
+                    this.backendService.getResource(id, this.crudService.getRepositoryName())
+                        .subscribe(resource => {
+                            gridOptions.rowData = resource;
 
-                    this.crudService.getFormColumnDefs(className)
-                        .subscribe((columnDefs) => {
-                            return this.gridService.selectLinksetProperties(columnDefs, model)
-                                .then(() => {
-                                    let editModel: EditModel = {
-                                        columnDefs: columnDefs,
-                                        inputModel: model[0]
-                                    };
-
-                                    observer.next(editModel);
-                                    observer.complete();
-                                });
-                        }, (error) => {
-                            this.crudService.serviceNotifications.createNotificationOnResponse(
-                                error);
-                            observer.error(error);
+                            observer.next(gridOptions);
+                            observer.complete();
+                        }, err => {
+                            this.notification.createNotificationOnResponse(err);
+                            observer.error(err);
                             observer.complete();
                         });
-                }, error => {
-                    this.crudService.serviceNotifications.createNotificationOnResponse(error);
-                    this.location.back();
-                    observer.error(error);
+                }, err => {
+                    this.notification.createNotificationOnResponse(err);
+                    observer.error(err);
                     observer.complete();
                 });
         });

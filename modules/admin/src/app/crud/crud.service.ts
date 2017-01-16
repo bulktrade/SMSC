@@ -40,6 +40,7 @@ export class CrudService {
     public crud: Promise<any> = Promise.resolve();
     public parentPath = null;
     public className = null;
+    public repositoryName: string = '';
     public dataNotFound = false;
     public successExecute = false;
     public titleColumns = {};
@@ -713,11 +714,11 @@ export class CrudService {
         location.back();
     }
 
-    getSelectedRID(gridOptions) {
+    getSelectedRID(selectedRows) {
         let id = [];
 
-        gridOptions.api.getSelectedRows().forEach((i) => {
-            id.push(i['@rid']);
+        selectedRows.forEach((i) => {
+            id.push(i.customerId);
         });
 
         return id;
@@ -786,7 +787,6 @@ export class CrudService {
                         .subscribe(_data => {
                             let columns = _data['crud-meta-grid-data'];
 
-                            // @todo rename the property 'property' to the 'field' name
                             for (let key in columns) {
                                 if (columns.hasOwnProperty(key)) {
                                     let currColumn = columns[key];
@@ -798,7 +798,7 @@ export class CrudService {
                             // sorted columns in ascending order by 'order' property
                             columns = _.sortBy(columns, ['order']);
 
-                            this.translateColumnDefs(columns, 'property')
+                            this.translateColumnDefs(columns, 'headerName')
                                 .subscribe(translatedCols => {
                                     observer.next(translatedCols);
                                     observer.complete();
@@ -817,7 +817,7 @@ export class CrudService {
      * @param className
      * @return {any}
      */
-    getFormColumnDefs(className): Observable<Array<FormPropertyModel>> {
+    getFormColumnDefs(className) {
         return Observable.create((observer) => {
 
             this.backendService.getAllCrudClassMetaData()
@@ -835,7 +835,7 @@ export class CrudService {
                             // sorted columns in ascending order by 'order' property
                             columns = _.sortBy(columns, ['order']);
 
-                            this.translateColumnDefs(columns, 'property')
+                            this.translateColumnDefs(columns, 'headerName')
                                 .subscribe(translatedCols => {
                                     observer.next(translatedCols);
                                     observer.complete();
@@ -1036,6 +1036,14 @@ export class CrudService {
 
     getClassName() {
         return this.className;
+    }
+
+    setRepositoryName(repositoryName) {
+        this.repositoryName = repositoryName;
+    }
+
+    getRepositoryName() {
+        return this.repositoryName;
     }
 
     setLinkedClass(linkedClass) {
