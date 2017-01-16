@@ -49,8 +49,8 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
     public void testCreateMetaDataPropertyBindingParameter() throws Exception {
         String metaDataPropertyBindingParameterJson = json(new MetaDataPropertyBindingParameter(null, "from_new_property",
                 "to_new_property", CombineOperator.OR, Operator.IS));
-        this.mockMvc.perform(post("/rest/repository/meta-data-property-binding-parameters")
-                .contentType(contentType)
+        this.mockMvc.perform(post("/rest/repository/meta-data-property-binding-parameters/create")
+                .contentType("application/json;charset=UTF-8")
                 .content(metaDataPropertyBindingParameterJson))
                 .andExpect(status().isCreated());
     }
@@ -70,10 +70,10 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
         updated.setCombineOperator(CombineOperator.AND);
         updated.setOperator(Operator.MORE_OR_LESS);
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/meta-data-property-binding-parameters/137")
-                .contentType(contentType)
+        mockMvc.perform(put("/rest/repository/meta-data-property-binding-parameters/update/137")
+                .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/137"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

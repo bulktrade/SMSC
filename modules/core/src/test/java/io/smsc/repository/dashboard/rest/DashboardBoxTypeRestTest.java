@@ -34,7 +34,7 @@ public class DashboardBoxTypeRestTest extends AbstractTest {
 
     @Test
     public void testGetAllDashboardBoxTypes() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboard-box-types/search/findAll"))
+        mockMvc.perform(get("/rest/repository/dashboard-box-types"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.dashboard-box-types", hasSize(6)))
@@ -49,8 +49,8 @@ public class DashboardBoxTypeRestTest extends AbstractTest {
     @Test
     public void testCreateDashboardBoxType() throws Exception {
         String dashboardBoxTypeJson = json(new DashboardBoxType(null, "new dashboard box type", Type.CHART, Kind.BAR_CHART));
-        this.mockMvc.perform(post("/rest/repository/dashboard-box-types")
-                .contentType(contentType)
+        this.mockMvc.perform(post("/rest/repository/dashboard-box-types/create")
+                .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxTypeJson))
                 .andExpect(status().isCreated());
     }
@@ -69,10 +69,10 @@ public class DashboardBoxTypeRestTest extends AbstractTest {
         updated.setType(Type.STATUS);
         updated.setKind(Kind.ORDERS_STATUS);
         String dashboardBoxTypeJson = json(updated);
-        mockMvc.perform(put("/rest/repository/dashboard-box-types/141")
-                .contentType(contentType)
+        mockMvc.perform(put("/rest/repository/dashboard-box-types/update/141")
+                .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxTypeJson))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/dashboard-box-types/141"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

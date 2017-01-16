@@ -1,7 +1,6 @@
 package io.smsc.controller;
 
 import io.smsc.model.Permission;
-import io.smsc.model.customer.Customer;
 import io.smsc.repository.permission.PermissionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +18,16 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 
+/**
+ * The DashboardBoxTypeController class is used for mapping HTTP requests for creating
+ * and updating {@link Permission} entities onto specific methods.
+ * <p>
+ * Methods in this class extend default {@link org.springframework.data.jpa.repository.JpaRepository}
+ * methods in {@link io.smsc.repository.permission.PermissionRepository}
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @RestController
 @RequestMapping("/rest/repository/permissions")
 public class PermissionController {
@@ -50,7 +59,7 @@ public class PermissionController {
     @PutMapping(value = "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('PERMISSION_UPDATE')")
     public ResponseEntity<Permission> update(@Valid @RequestBody Permission permission, @PathVariable("id") long id, HttpServletResponse response) throws IOException {
-        log.info("updatePermission with id " + id);
+        log.info("update Permission with id " + id);
         try {
             Permission updated = permissionRepository.findOne(id);
             if(!updated.getName().equals(permission.getName()) && permissionRepository.findByName(permission.getName()) != null) {

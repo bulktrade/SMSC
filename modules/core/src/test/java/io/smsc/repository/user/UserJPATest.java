@@ -25,8 +25,8 @@ public class UserJPATest extends AbstractTest {
     public void testDeleteUser() throws Exception {
         userRepository.delete(USER_ID);
         USER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), userRepository.getAllWithRolesAndDecryptedPassword());
-        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(),dashboardRepository.findAllDistinctByOrderById());
-        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(),dashboardBoxRepository.findAllDistinctByOrderById());
+        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(),dashboardRepository.findAll());
+        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(),dashboardBoxRepository.findAll());
     }
 
     @Test

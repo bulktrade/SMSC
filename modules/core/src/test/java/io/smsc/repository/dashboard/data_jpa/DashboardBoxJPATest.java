@@ -22,7 +22,7 @@ public class DashboardBoxJPATest extends AbstractTest {
     public void testDeleteDashboardBox() throws Exception {
         dashboardBoxRepository.delete(DASHBOARD_BOX_ID_1);
         DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_2,DASHBOARD_BOX_3,DASHBOARD_BOX_4,
-                DASHBOARD_BOX_5,DASHBOARD_BOX_6,DASHBOARD_BOX_7,DASHBOARD_BOX_8,DASHBOARD_BOX_9), dashboardBoxRepository.findAllDistinctByOrderById());
+                DASHBOARD_BOX_5,DASHBOARD_BOX_6,DASHBOARD_BOX_7,DASHBOARD_BOX_8,DASHBOARD_BOX_9), dashboardBoxRepository.findAll());
     }
 
     @Test
@@ -42,7 +42,7 @@ public class DashboardBoxJPATest extends AbstractTest {
 
     @Test
     public void testGetAllDashboardBoxes() throws Exception {
-        Collection<DashboardBox> dashboardBoxes = dashboardBoxRepository.findAllDistinctByOrderById();
+        Collection<DashboardBox> dashboardBoxes = dashboardBoxRepository.findAll();
         DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_1, DASHBOARD_BOX_2,DASHBOARD_BOX_3,DASHBOARD_BOX_4,
                 DASHBOARD_BOX_5,DASHBOARD_BOX_6,DASHBOARD_BOX_7,DASHBOARD_BOX_8,DASHBOARD_BOX_9), dashboardBoxes);
     }

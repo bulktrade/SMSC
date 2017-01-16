@@ -43,6 +43,6 @@ public class DashboardBoxTypeValidationTest extends AbstractTest {
         dashboardBoxTypeRepository.save(newDashboardBoxType);
         DASHBOARD_BOX_TYPE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newDashboardBoxType,DASHBOARD_BOX_TYPE_1,
                 DASHBOARD_BOX_TYPE_2,DASHBOARD_BOX_TYPE_3,DASHBOARD_BOX_TYPE_4,DASHBOARD_BOX_TYPE_5,DASHBOARD_BOX_TYPE_6),
-                dashboardBoxTypeRepository.findAllDistinctByOrderById());
+                dashboardBoxTypeRepository.findAll());
     }
 }

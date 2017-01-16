@@ -17,6 +17,16 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 
+/**
+ * The DashboardBoxTypeController class is used for mapping HTTP requests for creating
+ * and updating {@link MetaDataPropertyBindingParameter} entities onto specific methods.
+ * <p>
+ * Methods in this class extend default {@link org.springframework.data.jpa.repository.JpaRepository}
+ * methods in {@link io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository}
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @RestController
 @RequestMapping("/rest/repository/meta-data-property-binding-parameters")
 public class MetaDataPropertyBindingParameterController {

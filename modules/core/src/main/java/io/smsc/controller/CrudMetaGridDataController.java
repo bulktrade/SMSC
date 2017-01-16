@@ -17,6 +17,16 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 
+/**
+ * The CrudMetaFormDataController class is used for mapping HTTP requests for creating
+ * and updating {@link CrudMetaGridData} entities onto specific methods.
+ * <p>
+ * Methods in this class extend default {@link org.springframework.data.jpa.repository.JpaRepository}
+ * methods in {@link io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository}
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @RestController
 @RequestMapping("/rest/repository/crud-meta-grid-data")
 public class CrudMetaGridDataController {
@@ -55,6 +65,7 @@ public class CrudMetaGridDataController {
             updated.setEditable(crudMetaFormData.getEditable());
             updated.setVisible(crudMetaFormData.getVisible());
             updated.setOrder(crudMetaFormData.getOrder());
+            updated.setColumnWidth(crudMetaFormData.getColumnWidth());
             if(crudMetaFormData.getBindingParameters() != null) {
                 updated.setBindingParameters(crudMetaFormData.getBindingParameters());
             }

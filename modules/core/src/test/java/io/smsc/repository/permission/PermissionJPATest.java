@@ -35,7 +35,7 @@ public class PermissionJPATest extends AbstractTest {
                 PERMISSION_DASHBOARD_UPDATE, PERMISSION_DASHBOARD_CREATE, PERMISSION_DASHBOARD_DELETE, PERMISSION_DASHBOARD_BOX_READ,
                 PERMISSION_DASHBOARD_BOX_UPDATE, PERMISSION_DASHBOARD_BOX_CREATE, PERMISSION_DASHBOARD_BOX_DELETE,
                 PERMISSION_DASHBOARD_BOX_TYPE_READ, PERMISSION_DASHBOARD_BOX_TYPE_UPDATE, PERMISSION_DASHBOARD_BOX_TYPE_CREATE,
-                PERMISSION_DASHBOARD_BOX_TYPE_DELETE),permissionRepository.findAllDistinctByOrderById());
+                PERMISSION_DASHBOARD_BOX_TYPE_DELETE),permissionRepository.findAll());
     }
 
     // ERROR SqlExceptionHelper - ERROR: duplicate key value violates unique constraint "permission_pkey"
@@ -72,7 +72,7 @@ public class PermissionJPATest extends AbstractTest {
 
     @Test
     public void testGetAllPermissions() throws Exception {
-        Collection<Permission> permissions = permissionRepository.findAllDistinctByOrderById();
+        Collection<Permission> permissions = permissionRepository.findAll();
         PERMISSION_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(PERMISSION_USER_READ,PERMISSION_USER_UPDATE,
                 PERMISSION_USER_CREATE,PERMISSION_USER_DELETE,PERMISSION_USER_READ_OWN,PERMISSION_USER_UPDATE_OWN,
                 PERMISSION_ROLE_READ,PERMISSION_ROLE_UPDATE,PERMISSION_ROLE_CREATE,PERMISSION_ROLE_DELETE,PERMISSION_PERMISSION_READ,

@@ -20,9 +20,9 @@ import java.io.IOException;
 import java.net.URI;
 
 /**
- * The RoleRestController class is used for mapping HTTP requests for adding and
- * removing {@link io.smsc.model.Permission} from {@link io.smsc.model.Role} onto
- * specific methods
+ * The RoleRestController class is used for mapping HTTP requests for creating and
+ * updating {@link Role} entities and for adding and removing {@link io.smsc.model.Permission}
+ * from {@link Role} onto specific methods.
  * <p>
  * Methods in this class extend default {@link org.springframework.data.jpa.repository.JpaRepository}
  * methods in {@link io.smsc.repository.role.RoleRepository}
@@ -61,11 +61,11 @@ public class RoleController {
     @PutMapping(value = "/update/{id}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('ROLE_UPDATE')")
     public ResponseEntity<Role> update(@Valid @RequestBody Role role, @PathVariable("id") long id, HttpServletResponse response) throws IOException {
-        log.info("updatePermission with id " + id);
+        log.info("update Role with id " + id);
         try {
             Role updated = roleRepository.findOne(id);
             if(!updated.getName().equals(role.getName()) && roleRepository.findByName(role.getName()) != null) {
-                response.sendError(HttpServletResponse.SC_CONFLICT, "Permission with this name already exists");
+                response.sendError(HttpServletResponse.SC_CONFLICT, "Role with this name already exists");
                 return null;
             }
             updated.setName(role.getName());
@@ -76,7 +76,7 @@ public class RoleController {
             ex.printStackTrace();
             // going to send error
         }
-        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Permission with id = " + id + " was not found");
+        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Role with id = " + id + " was not found");
         return null;
     }
 

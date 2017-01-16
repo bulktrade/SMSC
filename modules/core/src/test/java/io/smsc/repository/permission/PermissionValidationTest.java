@@ -50,6 +50,6 @@ public class PermissionValidationTest extends AbstractTest {
                 PERMISSION_DASHBOARD_BOX_UPDATE, PERMISSION_DASHBOARD_BOX_CREATE, PERMISSION_DASHBOARD_BOX_DELETE,
                 PERMISSION_DASHBOARD_BOX_TYPE_READ, PERMISSION_DASHBOARD_BOX_TYPE_UPDATE, PERMISSION_DASHBOARD_BOX_TYPE_CREATE,
                 PERMISSION_DASHBOARD_BOX_TYPE_DELETE),
-                permissionRepository.findAllDistinctByOrderById());
+                permissionRepository.findAll());
     }
 }

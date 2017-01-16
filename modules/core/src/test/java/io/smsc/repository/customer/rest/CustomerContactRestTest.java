@@ -39,7 +39,7 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testGetAllCustomerContacts() throws Exception {
-        mockMvc.perform(get("/rest/repository/customer-contacts/search/findAll"))
+        mockMvc.perform(get("/rest/repository/customer-contacts"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.customer-contacts", hasSize(1)))
@@ -56,8 +56,8 @@ public class CustomerContactRestTest extends AbstractTest {
     @Test
     public void testCreateCustomerContact() throws Exception {
         String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.MRS));
-        this.mockMvc.perform(post("/rest/repository/customer-contacts")
-                .contentType(contentType)
+        this.mockMvc.perform(post("/rest/repository/customer-contacts/create")
+                .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isCreated());
     }
@@ -78,10 +78,10 @@ public class CustomerContactRestTest extends AbstractTest {
         updated.setMobilePhone("0971234567");
         updated.setFirstname("newFirstName");
         String customerContactJson = json(updated);
-        mockMvc.perform(put("/rest/repository/customer-contacts/139")
-                .contentType(contentType)
+        mockMvc.perform(put("/rest/repository/customer-contacts/update/139")
+                .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/customer-contacts/139"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

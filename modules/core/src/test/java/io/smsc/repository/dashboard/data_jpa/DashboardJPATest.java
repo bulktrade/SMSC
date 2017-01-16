@@ -24,7 +24,7 @@ public class DashboardJPATest extends AbstractTest {
     @Test
     public void testDeleteDashboard() throws Exception {
         dashboardRepository.delete(DASHBOARD_ID_1);
-        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), dashboardRepository.findAllDistinctByOrderById());
+        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), dashboardRepository.findAll());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class DashboardJPATest extends AbstractTest {
 
     @Test
     public void testGetAllDashboards() throws Exception {
-        Collection<Dashboard> dashboards = dashboardRepository.findAllDistinctByOrderById();
+        Collection<Dashboard> dashboards = dashboardRepository.findAll();
         DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(DASHBOARD_1), dashboards);
     }
 

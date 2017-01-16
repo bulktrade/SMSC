@@ -18,6 +18,16 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 
+/**
+ * The CrudClassMetaDataController class is used for mapping HTTP requests for creating
+ * and updating {@link CrudClassMetaData} entities onto specific methods.
+ * <p>
+ * Methods in this class extend default {@link org.springframework.data.jpa.repository.JpaRepository}
+ * methods in {@link io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository}
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @RestController
 @RequestMapping("/rest/repository/crud-class-meta-data")
 public class CrudClassMetaDataController {

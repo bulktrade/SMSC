@@ -55,8 +55,8 @@ public class CustomerRestTest extends AbstractTest {
     @Test
     public void testCreateCustomer() throws Exception {
         String customerJson = json(new Customer(null,2.0,"newCompany","newStreet","newStreet2","79005", "Ukraine", "Lviv", 9999999.0));
-        this.mockMvc.perform(post("/rest/repository/customers")
-                .contentType(contentType)
+        this.mockMvc.perform(post("/rest/repository/customers/create")
+                .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
                 .andExpect(status().isCreated());
     }
@@ -76,10 +76,10 @@ public class CustomerRestTest extends AbstractTest {
         updated.setCountry("Monaco");
         updated.setCustomerId(5.0);
         String customerJson = json(updated);
-        mockMvc.perform(put("/rest/repository/customers/138")
-                .contentType(contentType)
+        mockMvc.perform(put("/rest/repository/customers/update/138")
+                .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/customers/138"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

@@ -20,7 +20,6 @@ import io.smsc.repository.dashboard.dashboard.DashboardRepository;
 import io.smsc.repository.dashboard.dashboardBox.DashboardBoxRepository;
 import io.smsc.repository.dashboard.dashboardBoxType.DashboardBoxTypeRepository;
 import io.smsc.repository.permission.PermissionRepository;
-import io.smsc.repository.role.RoleMigrationRepository;
 import io.smsc.repository.role.RoleRepository;
 import io.smsc.repository.user.UserMigrationRepository;
 import org.flywaydb.core.api.migration.spring.SpringJdbcMigration;
@@ -43,7 +42,7 @@ public class V1_2__populateDB implements SpringJdbcMigration {
 
     private final PermissionRepository permissionRepository;
 
-    private final RoleMigrationRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     private final UserMigrationRepository userRepository;
 
@@ -72,7 +71,7 @@ public class V1_2__populateDB implements SpringJdbcMigration {
     private String secretKey;
 
     @Autowired
-    public V1_2__populateDB(PermissionRepository permissionRepository, RoleMigrationRepository roleRepository, UserMigrationRepository userRepository,
+    public V1_2__populateDB(PermissionRepository permissionRepository, RoleRepository roleRepository, UserMigrationRepository userRepository,
                             CrudClassMetaDataRepository crudClassMetaDataRepository, CrudMetaFormDataRepository crudMetaFormDataRepository,
                             CrudMetaGridDataRepository crudMetaGridDataRepository, MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository,
                             CustomerMigrationRepository customerRepository, CustomerContactRepository customerContactRepository, DashboardRepository dashboardRepository,
@@ -207,7 +206,7 @@ public class V1_2__populateDB implements SpringJdbcMigration {
         userPermission.add(permissionRepository.findOne(5L));
         userPermission.add(permissionRepository.findOne(6L));
         role_user.setPermissions(userPermission);
-        role_admin.setPermissions(new HashSet<>(permissionRepository.findAllDistinctByOrderById()));
+        role_admin.setPermissions(new HashSet<>(permissionRepository.findAll()));
         Role user_role = roleRepository.save(role_user);
         Role admin_role = roleRepository.save(role_admin);
         Set<Role> userRole = new HashSet<>();
