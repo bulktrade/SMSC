@@ -19,8 +19,6 @@ export class DashboardCrudCreateResolve extends CrudResolve {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         let className = route.params['className'];
 
-        this.crudService.setParentPath(route.parent.pathFromRoot);
-
         return Observable.create((observer) => {
             this.crudService.getFormColumnDefs(className).subscribe((res) => {
                 this.crudService.model['dashboard'] = route.params['dashboard'];

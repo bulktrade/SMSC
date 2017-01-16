@@ -20,9 +20,6 @@ export class DashboardCrudCreateComponent {
     }
 
     ngOnInit() {
-        // sets path from root component
-        this.crudService.setParentPath(this.route.parent.snapshot.pathFromRoot);
-
         this.columnDefs = this.route.snapshot.data['create'];
     }
 

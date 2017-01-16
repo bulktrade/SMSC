@@ -128,143 +128,12 @@ export class CrudService {
     }
 
     /**
-     * Creates a new record in the database.
-     *
-     * @example
-     * let record = {
-     *  name: 'test',
-     *  foo: 'bar'
-     * };
-     *
-     * let className = 'CrudComponent';
-     *
-     * createRecord(record, className);
-     *
-     * @param record
-     * @param className
-     * @returns {Promise<T>}
-     */
-    createRecord(record, className): Promise<Response> {
-        record['@class'] = className;
-        this.loadingService.start();
-
-        let operations: Array<Operation> = [
-            {
-                type: BatchType.CREATE,
-                record: record
-            }
-        ];
-
-        return new Promise((resolve, reject) => {
-            this.databaseService.batch(operations)
-                .subscribe((res: Response) => {
-                    let result = res.json().result[0];
-
-                    this.gridService.addLinkToCreatedRecord(result, 'customer', ['contacts']);
-                    this.loadingService.stop();
-                    this.serviceNotifications.createNotification('success',
-                        'message.createSuccessful', 'orientdb.successCreate');
-                    resolve(res);
-                }, (error) => {
-                    this.loadingService.stop();
-                    this.serviceNotifications.createNotificationOnResponse(error);
-                    reject(error);
-                });
-        });
-    }
-
-    /**
-     * Updates a record in the database.
-     *
-     * @example
-     * let record = {
-     *  "@rid" : "#14:122",
-     *  "name" : "Luca",
-     *  "vehicle" : "Car"
-     * };
-     *
-     * updateRecord(record);
-     *
-     * @param record
-     * @returns {Promise<T>}
-     */
-    updateRecord(record): Promise<Response> {
-        this.loadingService.start();
-
-        let operations: Array<Operation> = [
-            {
-                type: BatchType.UPDATE,
-                record: record
-            }
-        ];
-
-        return new Promise((resolve, reject) => {
-            this.databaseService.batch(operations)
-                .subscribe((res) => {
-                    this.loadingService.stop();
-                    this.serviceNotifications.createNotification('success',
-                        'message.updateSuccessful', 'orientdb.successUpdate');
-                    resolve(res);
-                }, (error) => {
-                    this.serviceNotifications.createNotificationOnResponse(error);
-                    this.loadingService.stop();
-                    reject(error);
-                });
-        });
-    }
-
-    /**
-     * Removes one or more records from the database.
-     *
-     * @example
-     * let rids: Array<string> = ['#25:0', '#25:1'];
-     *
-     * updateRecord(rids);
-     *
-     * @param rid
-     * @returns {any}
-     */
-    deleteRecord(rid: Array<string>): Observable<Response> {
-        let record: any = {};
-        record['@rid'] = rid;
-        this.loadingService.start();
-
-        let operations: Array<Operation> = [];
-
-        rid.forEach(i => {
-            let operation: Operation = {
-                type: BatchType.DELETE,
-                record: {
-                    '@rid': i
-                }
-            };
-
-            operations.push(operation);
-        });
-
-        return Observable.create((observer: Observer<Response>) => {
-            this.databaseService.batch(operations)
-                .subscribe((res) => {
-                    this.loadingService.stop();
-                    this.serviceNotifications.createNotification('success',
-                        'message.deleteSuccessful', 'orientdb.successDelete');
-                    observer.next(res);
-                    observer.complete();
-                }, (error) => {
-                    this.serviceNotifications.createNotificationOnResponse(error);
-                    this.loadingService.stop();
-                });
-        });
-    }
-
-    /**
      * Called when select the row and sets the style to checkbox.
      *
      * @param gridOptions
      */
     rowSelected(gridOptions: GridOptions) {
         this.changeCheckboxState(gridOptions);
-        this.disableDeleteButton(gridOptions.api);
     }
 
     /**
@@ -277,35 +146,6 @@ export class CrudService {
         } else {
             this.isDisableDeleteButton = false;
         }
-    }
-
-    /**
-     * Called when grid was initialized
-     *
-     * @param event
-     */
-    onReady(event) {
-        this.disableDeleteButton(event.api);
-    }
-
-    /**
-     * Returns a result set of records from table.
-     *
-     * @param className
-     * @returns {any}
-     */
-    getStore(className): Observable<Response> {
-        return Observable.create((observer: Observer<Response>) => {
-            this.databaseService.query('select from ' + className)
-                .subscribe((res: Response) => {
-                    observer.next(res);
-                    observer.complete();
-                }, (err: Response) => {
-                    observer.error(err);
-                    observer.complete();
-                    this.serviceNotifications.createNotificationOnResponse(err);
-                });
-        });
     }
 
     /**
@@ -639,7 +479,7 @@ export class CrudService {
                 params[previousCrudLevel.linksetProperty.name] = linkSet;
 
                 if (this.roService.isPreviousRoute('CrudViewComponent')) {
-                    this.updateRecord(params);
+                    // this.updateRecord(params);
                     this.location.back();
                 } else {
                     this.model = params;
@@ -705,15 +545,6 @@ export class CrudService {
         return previousLevel;
     }
 
-    /**
-     * Navigates back in the platform's history.
-     *
-     * @param location
-     */
-    backFromForm(location: Location) {
-        location.back();
-    }
-
     getSelectedRID(selectedRows) {
         let id = [];
 
@@ -722,19 +553,6 @@ export class CrudService {
         });
 
         return id;
-    }
-
-    /**
-     * Adds RID column.
-     *
-     * @param columnDefs
-     */
-    addRIDColumn(gridOptions: GridOptions) {
-        gridOptions.columnDefs.unshift({
-            headerName: 'RID',
-            field: '@rid',
-            width: 55
-        });
     }
 
     /**
@@ -759,9 +577,6 @@ export class CrudService {
 
         // add buttons
         this.btnRenderer(gridOptions, [editButton, deleteButton], 50);
-
-        // add column with RID
-        this.addRIDColumn(gridOptions);
 
         // add column with checkbox selection
         this.addColumnCheckbox(gridOptions);
@@ -886,22 +701,6 @@ export class CrudService {
     }
 
     /**
-     * Gets the select options from property.
-     *
-     * @param columnDefsItem
-     * @returns {any}
-     */
-    getSelectOptions(columnDefsItem) {
-        if (typeof columnDefsItem !== 'undefined') {
-            if (columnDefsItem.hasOwnProperty('custom')) {
-                return columnDefsItem.custom.type.split(',');
-            }
-        }
-
-        return [];
-    }
-
-    /**
      * Checks the limit of crud levels.
      *
      * @returns {boolean}
@@ -915,63 +714,6 @@ export class CrudService {
     }
 
     /**
-     * Renders input field depending on property type.
-     *
-     * @param type
-     * @returns {string}
-     */
-    typeForInput(type) {
-        let types = INPUT_TYPES;
-        let result: string = null;
-
-        result = types.find((i) => {
-            if (i === type) {
-                return true;
-            }
-
-            return false;
-        });
-
-        result = this.inputType(result);
-
-        return result;
-    }
-
-    /**
-     * Sets the type for input field depending on property type.
-     *
-     * @param type
-     * @returns {string}
-     */
-    inputType(type) {
-        let result: string;
-
-        switch (type) {
-            case 'STRING':
-                result = 'text';
-                break;
-            case 'DATE':
-                result = 'date';
-                break;
-            case 'DATETIME':
-                result = 'datetime';
-                break;
-            case 'DOUBLE':
-            case 'INTEGER':
-            case 'FLOAT':
-            case 'BYTE':
-            case 'DECIMAL':
-                result = 'number';
-                break;
-            default:
-                result = null;
-                break;
-        }
-
-        return result;
-    }
-
-    /**
      * Checks whether a multiple select is filled
      *
      * @param event
@@ -981,41 +723,6 @@ export class CrudService {
             this.multipleSelectValid = true;
             return;
         }
-    }
-
-    /**
-     * Sets path from root component.
-     *
-     * @param parent
-     */
-    setParentPath(parent: Array<ActivatedRouteSnapshot>) {
-        let pathFromRoot: string = '';
-        let urlSuffix: string = '/';
-
-        for (let i in parent) {
-            if (parent[i].routeConfig !== null && parent[i].routeConfig.path !== '') {
-                pathFromRoot += parent[i].routeConfig.path + urlSuffix;
-            }
-        }
-
-        this.parentPath = pathFromRoot;
-    }
-
-    /**
-     * Sets the value in the model from property with EMBEDDEDLIST type.
-     *
-     * @param propertyName
-     * @param event
-     * @returns {any}
-     */
-    setEmbeddedList(propertyName: string, event?: string) {
-        if (!this.model[propertyName]) {
-            this.model[propertyName] = [];
-        } else if (typeof event !== 'undefined') {
-            this.model[propertyName] = [event];
-        }
-
-        return this.model[propertyName];
     }
 
     /**

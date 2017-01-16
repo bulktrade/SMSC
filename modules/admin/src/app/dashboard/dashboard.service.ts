@@ -171,7 +171,6 @@ export class DashboardService {
      */
     public getBoxFormColumns(route: ActivatedRouteSnapshot,
                              id: string, className: string): Observer<EditModel> {
-        this.crudService.setParentPath(route.parent.pathFromRoot);
         this.crudService.setClassName(className);
 
         return Observable.create((observer: Observer<EditModel>) => {
