@@ -13,7 +13,6 @@ import { AgGridModule } from 'ag-grid-ng2';
 import { TranslateModule } from 'ng2-translate';
 import { CubeGridModule } from '../common/spinner/cube-grid/cube-grid.component';
 import { AlertModule } from 'ng2-bootstrap';
-import { CrudService } from '../crud/crud.service';
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 import { DashboardsComponent } from './dashboards/dashboards.components';
@@ -26,7 +25,6 @@ import { MdSelectModule } from '../common/material/select/select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingGridModule } from '../common/loading-grid.component';
 import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
-import { GridPaginationModule } from '../crud/directives/grid-pagination/grid-pagination.module';
 import {
     DashboardCrudDeleteComponent
 } from './crud/dashboard-box-delete/dashboard-box-delete.component';
@@ -54,7 +52,6 @@ const DASHBOARD_DECLARATION = [
 @NgModule({
     imports: [
         MdSelectModule,
-        GridPaginationModule,
         LoadingRouterOutletModule,
         CubeGridModule,
         LoadingGridModule,

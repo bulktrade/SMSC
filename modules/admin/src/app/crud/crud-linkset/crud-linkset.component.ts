@@ -1,17 +1,16 @@
-import { Component, ModuleWithProviders, NgModule } from '@angular/core';
-import { TranslateService, TranslateModule } from 'ng2-translate/ng2-translate';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CrudService } from '../crud.service';
-import { Location, CommonModule } from '@angular/common';
-import { GridService } from '../../services/grid.service';
-import { MdSelectModule } from '../../common/material/select/select.component';
-import { GridPaginationModule } from '../directives/grid-pagination/grid-pagination.module';
-import { DropdownModule, AlertModule } from 'ng2-bootstrap';
-import { AgGridModule } from 'ag-grid-ng2';
-import { LoadingGridModule } from '../../common/loading-grid.component';
-import { FormsModule } from '@angular/forms';
-import { DynamicViewModule } from '../dynamic-view/dynamic-view.component';
-import { GridPropertyModel } from '../model/grid-property';
+import { Component, ModuleWithProviders, NgModule } from "@angular/core";
+import { TranslateService, TranslateModule } from "ng2-translate/ng2-translate";
+import { Router, ActivatedRoute } from "@angular/router";
+import { CrudService } from "../crud.service";
+import { Location, CommonModule } from "@angular/common";
+import { GridService } from "../../services/grid.service";
+import { MdSelectModule } from "../../common/material/select/select.component";
+import { DropdownModule, AlertModule } from "ng2-bootstrap";
+import { AgGridModule } from "ag-grid-ng2";
+import { LoadingGridModule } from "../../common/loading-grid.component";
+import { FormsModule } from "@angular/forms";
+import { DynamicViewModule } from "../dynamic-view/dynamic-view.component";
+import { GridPropertyModel } from "../model/grid-property";
 
 @Component({
     selector: 'crud-linkset',
@@ -48,7 +47,6 @@ export class CrudLinksetComponent {
         FormsModule,
         DropdownModule,
         TranslateModule,
-        GridPaginationModule,
         AlertModule,
         AgGridModule,
         LoadingGridModule,

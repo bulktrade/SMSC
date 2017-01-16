@@ -42,12 +42,12 @@ export class CrudDeleteComponent {
     }
 
     deleteRecords() {
-        this.crudService.deleteRecord(this.id.split(','))
-            .subscribe(() => {
-                this.back();
-            }, (error) => {
-                this.crudService.serviceNotifications.createNotificationOnResponse(error);
-            });
+        // this.crudService.deleteRecord(this.id.split(','))
+        //     .subscribe(() => {
+        //         this.back();
+        //     }, (error) => {
+        //         this.crudService.serviceNotifications.createNotificationOnResponse(error);
+        //     });
     }
 
 }

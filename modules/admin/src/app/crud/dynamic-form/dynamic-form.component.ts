@@ -39,11 +39,11 @@ export class DynamicFormComponent {
     onSubmit() {
         switch (this.formType) {
             case BtnTypes.UPDATE:
-                this.crudService.updateRecord(this.crudService.model);
+                // this.crudService.updateRecord(this.crudService.model);
                 break;
             case BtnTypes.CREATE:
-                this.crudService.createRecord(this.crudService.model,
-                    this.route.snapshot.params['className']);
+                // this.crudService.createRecord(this.crudService.model,
+                //     this.route.snapshot.params['className']);
                 break;
             default:
                 break;

@@ -36,8 +36,7 @@ export class DashboardCrudCreateComponent {
     }
 
     onSubmit() {
-        alert();
-        this.crudService.createRecord(this.crudService.model,
-            this.route.snapshot.params['className']);
+        // this.crudService.createRecord(this.crudService.model,
+        //     this.route.snapshot.params['className']);
     }
 }

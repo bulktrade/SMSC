@@ -1,16 +1,13 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
-import { Router, ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
-import { Response } from "@angular/http";
+import { Router, ActivatedRoute } from "@angular/router";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { GridOptions, GridApi } from "ag-grid";
 import { NotificationService } from "../services/notification-service";
 import { LoadingGridService } from "../services/loading/loading-grid.service";
-import { INPUT_TYPES } from "./dynamic-form/model/form-input-types";
 import { Operation } from "../orientdb/model/operation";
 import { BatchType } from "../orientdb/model/batch-type";
-import { Observable, Observer } from "rxjs";
-import { FormPropertyModel } from "./model/form-property";
+import { Observable } from "rxjs";
 import { CrudLevel } from "./model/crud-level";
 import { Location } from "@angular/common";
 import { LinksetProperty } from "./model/linkset-property";

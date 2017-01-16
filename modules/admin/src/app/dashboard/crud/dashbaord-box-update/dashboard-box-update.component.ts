@@ -33,7 +33,7 @@ export class DashboardCrudUpdateComponent {
     }
 
     onSubmit() {
-        this.crudService.updateRecord(this.crudService.model);
+        // this.crudService.updateRecord(this.crudService.model);
     }
 
     ngOnDestroy() {
