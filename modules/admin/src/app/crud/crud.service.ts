@@ -16,7 +16,7 @@ import { Button } from "./model/button";
 import { RouterOutletService } from "../services/router-outlet-service";
 import { BackendService } from "../services/backend/backend.service";
 import * as _ from "lodash";
-import * as clone from "js.clone";
+const clone = require("js.clone");
 
 const squel = require('squel');
 let cubeGridHtml = require('../common/spinner/cube-grid/cube-grid.component.html');
