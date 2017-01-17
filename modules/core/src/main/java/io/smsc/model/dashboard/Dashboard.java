@@ -1,15 +1,21 @@
 package io.smsc.model.dashboard;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.User;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+/**
+ * Specifies Dashboard class as an entity class.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @see     User
+ * @since   0.0.1-SNAPSHOT
+ */
 @Entity
 @Table(name = "DASHBOARD", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"}, name = "dashboards_unique_name_user_idx")})
 public class Dashboard extends BaseEntity {
@@ -35,7 +41,7 @@ public class Dashboard extends BaseEntity {
     }
 
     public Dashboard(Dashboard dashboard) {
-        this(dashboard.getId(),dashboard.getName(),dashboard.getIcon(),dashboard.getUser());
+        this(dashboard.getId(), dashboard.getName(), dashboard.getIcon(), dashboard.getUser());
     }
 
     public Dashboard(Long id, String name, String icon, User user) {

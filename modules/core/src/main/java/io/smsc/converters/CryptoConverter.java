@@ -13,12 +13,26 @@ import java.security.Permission;
 import java.security.PermissionCollection;
 import java.util.Map;
 
+/**
+ * The CryptoConverter class is used for providing custom user's
+ * password encryption\decryption.
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 public class CryptoConverter {
 
     private static final Logger LOG = LoggerFactory.getLogger(CryptoConverter.class);
 
+    /**
+     * This is the main method to encrypt password.
+     *
+     * @param  user      the {@link User} whose password should be encrypted
+     * @param  secretKey string, which is used for {@link TextEncryptor} creating
+     * @return           encrypted password
+     */
     public static String encrypt(User user, String secretKey) {
-//      Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
+        //Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
         removeCryptographyRestrictions();
         String salt = KeyGenerators.string().generateKey();
         String password = user.getPassword();
@@ -29,6 +43,13 @@ public class CryptoConverter {
         return encryptedPassword;
     }
 
+    /**
+     * This is the main method to decrypt password.
+     *
+     * @param  user      the {@link User} whose password should be decrypted
+     * @param  secretKey string, which is used for {@link TextEncryptor} creating
+     * @return           decrypted password
+     */
     public static String decrypt(User user, String secretKey) {
 //     Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
        removeCryptographyRestrictions();
@@ -40,6 +61,11 @@ public class CryptoConverter {
        return decryptedPassword;
     }
 
+    /**
+     * This method is used to avoid exception associated with cryptography
+     * strength limit. When using JDK 9+ this method is not more necessary and
+     * should be removed.
+     */
     private static void removeCryptographyRestrictions() {
         if (!isRestrictedCryptography()) {
             LOG.info("Cryptography restrictions removal not needed");

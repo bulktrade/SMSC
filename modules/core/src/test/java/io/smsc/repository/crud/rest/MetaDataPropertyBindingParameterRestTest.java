@@ -35,7 +35,7 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
 
     @Test
     public void testGetAllMetaDataPropertyBindingParameters() throws Exception {
-        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/search/findAll"))
+        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.meta-data-property-binding-parameters", hasSize(1)))
@@ -50,7 +50,7 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
         String metaDataPropertyBindingParameterJson = json(new MetaDataPropertyBindingParameter(null, "from_new_property",
                 "to_new_property", CombineOperator.OR, Operator.IS));
         this.mockMvc.perform(post("/rest/repository/meta-data-property-binding-parameters")
-                .contentType(contentType)
+                .contentType("application/json;charset=UTF-8")
                 .content(metaDataPropertyBindingParameterJson))
                 .andExpect(status().isCreated());
     }
@@ -71,9 +71,9 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
         updated.setOperator(Operator.MORE_OR_LESS);
         String permissionJson = json(updated);
         mockMvc.perform(put("/rest/repository/meta-data-property-binding-parameters/137")
-                .contentType(contentType)
+                .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/137"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

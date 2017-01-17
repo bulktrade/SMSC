@@ -11,9 +11,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link MetaDataPropertyBindingParameter} entities
+ * and exporting them to appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "meta-data-property-binding-parameters", path = "meta-data-property-binding-parameters")
 @Transactional(readOnly = true)
 public interface MetaDataPropertyBindingParameterRepository extends JpaRepository<MetaDataPropertyBindingParameter, Long>{
+
+    //All query method resources are exposed under the resource 'search'.
 
     @Override
     @Transactional
@@ -24,16 +34,10 @@ public interface MetaDataPropertyBindingParameterRepository extends JpaRepositor
     MetaDataPropertyBindingParameter save(MetaDataPropertyBindingParameter metaDataPropertyBindingParameter);
 
     @Override
-    @EntityGraph(attributePaths = {"operator","combineOperator"})
+    @EntityGraph(attributePaths = {"operator", "combineOperator"})
     MetaDataPropertyBindingParameter findOne(Long id);
 
-    // /rest/repository/meta-data-property-binding-parameters/search/findAll
-    @EntityGraph(attributePaths = {"operator","combineOperator"})
-    @RestResource(path = "findAll")
-    List<MetaDataPropertyBindingParameter> findAllDistinctByOrderById();
-
-    // Prevents GET /meta-data-property-binding-parameters
     @Override
-    @RestResource(exported = false)
+    @EntityGraph(attributePaths = {"operator", "combineOperator"})
     Page<MetaDataPropertyBindingParameter> findAll(Pageable pageable);
 }

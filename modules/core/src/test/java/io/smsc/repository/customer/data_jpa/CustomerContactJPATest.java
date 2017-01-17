@@ -20,7 +20,7 @@ public class CustomerContactJPATest extends AbstractTest {
     @Test
     public void testDeleteCustomerContact() throws Exception {
         customerContactRepository.delete(CUSTOMER_CONTACT_ID_1);
-        CUSTOMER_CONTACT_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), customerContactRepository.findAllDistinctByOrderById());
+        CUSTOMER_CONTACT_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), customerContactRepository.findAll());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class CustomerContactJPATest extends AbstractTest {
 
     @Test
     public void testGetAllCustomerContacts() throws Exception {
-        Collection<CustomerContact> customerContacts = customerContactRepository.findAllDistinctByOrderById();
+        Collection<CustomerContact> customerContacts = customerContactRepository.findAll();
         CUSTOMER_CONTACT_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(CUSTOMER_CONTACT_1), customerContacts);
     }
 

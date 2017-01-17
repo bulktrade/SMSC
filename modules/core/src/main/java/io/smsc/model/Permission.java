@@ -5,9 +5,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import java.util.List;
 import java.util.Set;
 
+/**
+ * Specifies Permission class as an entity class.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @since   0.0.1-SNAPSHOT
+ */
 @Entity
 @Table(name = "PERMISSION", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "permissions_unique_name_idx")})
 public class Permission extends BaseEntity{
@@ -22,6 +28,11 @@ public class Permission extends BaseEntity{
     @JsonBackReference
     private Set<Role> roles;
 
+    /**
+     * This method is used for removing all links on Permission entity from
+     * appropriate Role entities before entity is removed. Without
+     * it deleting entity can cause <code>ConstraintViolationException<code/>
+     */
     @PreRemove
     private void removePermissionsFromRoles() {
         for (Role role : roles) {

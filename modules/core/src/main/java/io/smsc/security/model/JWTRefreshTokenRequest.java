@@ -1,11 +1,13 @@
-package io.smsc.security;
+package io.smsc.security.model;
 
 import java.io.Serializable;
 
 /**
- * Class for access token refresh request
+ * Class for access token refresh request. Contains expired access token and valid refresh token strings.
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
  */
-
 public class JWTRefreshTokenRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;

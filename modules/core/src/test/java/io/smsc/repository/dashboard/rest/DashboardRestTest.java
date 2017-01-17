@@ -32,7 +32,7 @@ public class DashboardRestTest extends AbstractTest {
 
     @Test
     public void testGetAllDashboards() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboards/search/findAll"))
+        mockMvc.perform(get("/rest/repository/dashboards"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.dashboards", hasSize(1)))
@@ -44,7 +44,7 @@ public class DashboardRestTest extends AbstractTest {
     public void testCreateDashboard() throws Exception {
         String dashboardJson = json(new Dashboard(null, "default_admin", "admin", ADMIN));
         this.mockMvc.perform(post("/rest/repository/dashboards")
-                .contentType(contentType)
+                .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isCreated());
     }
@@ -64,9 +64,9 @@ public class DashboardRestTest extends AbstractTest {
         updated.setName("new name");
         String dashboardJson = json(updated);
         mockMvc.perform(put("/rest/repository/dashboards/140")
-                .contentType(contentType)
+                .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/dashboards/140"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

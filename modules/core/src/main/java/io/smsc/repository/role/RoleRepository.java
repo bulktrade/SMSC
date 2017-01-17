@@ -12,9 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link Role} entities and exporting them to
+ * appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     RoleRepositoryCustom
+ * @see     RoleRepositoryImpl
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
 @Transactional(readOnly = true)
-public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositoryCustom {
+public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositoryCustom{
 
     //All query method resources are exposed under the resource 'search'.
 
@@ -27,19 +37,14 @@ public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositor
     Role save(Role role);
 
     @Override
-//    @EntityGraph(attributePaths = {"permissions"})
+    @EntityGraph(attributePaths = {"permissions"})
     Role findOne(Long id);
 
-//    @EntityGraph(attributePaths = {"permissions"})
-    Role findByName(@Param("name")String name);
+    @EntityGraph(attributePaths = {"permissions"})
+    Role findByName(@Param("name") String name);
 
-    // /rest/repository/roles/search/findAll
-//    @EntityGraph(attributePaths = {"permissions"})
-    @RestResource(path = "findAll")
-    List<Role> findAllDistinctByOrderById();
-
-    // Prevents GET /roles
     @Override
-    @RestResource(exported = false)
+    @EntityGraph(attributePaths = {"permissions"})
     Page<Role> findAll(Pageable pageable);
+
 }

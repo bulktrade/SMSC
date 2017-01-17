@@ -74,7 +74,7 @@ public class CrudMetaFormDataTestData {
     public static final CrudMetaFormData CRUD_META_FORM_DATA_17 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_17,"decorator", true, true, null,5.0, null);
     public static final CrudMetaFormData CRUD_META_FORM_DATA_18 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_18,"order", true, true, null, 6.0, null);
     public static final CrudMetaFormData CRUD_META_FORM_DATA_19 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_19,"crudClassMetaData", true, true, null, 7.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_20 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_20,"bingingProperties", true, true, null, 8.0, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_20 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_20,"bindingProperties", true, true, null, 8.0, null);
 
     public static final CrudMetaFormData CRUD_META_FORM_DATA_21 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_21,"customerId", true, true, null, 1.0, null);
     public static final CrudMetaFormData CRUD_META_FORM_DATA_22 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_22,"companyName", true, true, null, 2.0, null);

@@ -20,7 +20,7 @@ public class MetaDataPropertyBindingParameterJPATest extends AbstractTest {
     @Test
     public void testDeleteMetaDataPropertyBindingParameter() throws Exception {
         metaDataPropertyBindingParameterRepository.delete(META_DATA_PROPERTY_BINDING_PARAMETER_ID_1);
-        META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), metaDataPropertyBindingParameterRepository.findAllDistinctByOrderById());
+        META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), metaDataPropertyBindingParameterRepository.findAll());
     }
 
     @Test
@@ -35,12 +35,12 @@ public class MetaDataPropertyBindingParameterJPATest extends AbstractTest {
     @Test
     public void testGetSingleMetaDataPropertyBindingParameter() throws Exception {
         MetaDataPropertyBindingParameter metaDataPropertyBindingParameter = metaDataPropertyBindingParameterRepository.findOne(META_DATA_PROPERTY_BINDING_PARAMETER_ID_1);
-        META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertEquals(META_DATA_PROPERTY_BINDING_PARAMETER_1,metaDataPropertyBindingParameter);
+        META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertEquals(META_DATA_PROPERTY_BINDING_PARAMETER_1, metaDataPropertyBindingParameter);
     }
 
     @Test
     public void testGetAllMetaDataPropertyBindingParameters() throws Exception {
-        Collection<MetaDataPropertyBindingParameter> metaDataPropertyBindingParameter = metaDataPropertyBindingParameterRepository.findAllDistinctByOrderById();
+        Collection<MetaDataPropertyBindingParameter> metaDataPropertyBindingParameter = metaDataPropertyBindingParameterRepository.findAll();
         META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(META_DATA_PROPERTY_BINDING_PARAMETER_1), metaDataPropertyBindingParameter);
     }
 

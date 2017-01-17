@@ -1,8 +1,19 @@
 package io.smsc.model.crud;
 
+import io.smsc.model.BaseEntity;
+
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Specifies CrudMetaFormData class as an entity class.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @see     CrudPropertyMetaData
+ * @see     CrudClassMetaData
+ * @since   0.0.1-SNAPSHOT
+ */
 @Entity
 @Table(name = "CRUD_META_FORM_DATA")
 public class CrudMetaFormData extends CrudPropertyMetaData {
@@ -42,6 +53,11 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
         this.crudClassMetaData = crudClassMetaData;
     }
 
+    /**
+     * This method is used for removing all links on CrudMetaFormData entity from
+     * appropriate MetaDataPropertyBindingParameter entities before entity
+     * is removed. Without it deleting entity can cause <code>ConstraintViolationException<code/>
+     */
     @PreRemove
     private void removeBindingParametersFromCrudMetaFormData() {
         for(MetaDataPropertyBindingParameter parameter : bindingParameters){

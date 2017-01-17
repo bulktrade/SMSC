@@ -75,6 +75,6 @@ public class CustomerValidationTest extends AbstractTest {
         Customer newCustomer = new Customer(CUSTOMER_1);
         newCustomer.setId(null);
         customerRepository.save(newCustomer);
-        CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCustomer,CUSTOMER_1), customerRepository.findAllDistinctByOrderById());
+        CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCustomer, CUSTOMER_1), customerRepository.findAll());
     }
 }

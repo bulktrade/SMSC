@@ -21,8 +21,8 @@ public class DashboardBoxJPATest extends AbstractTest {
     @Test
     public void testDeleteDashboardBox() throws Exception {
         dashboardBoxRepository.delete(DASHBOARD_BOX_ID_1);
-        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_2,DASHBOARD_BOX_3,DASHBOARD_BOX_4,
-                DASHBOARD_BOX_5,DASHBOARD_BOX_6,DASHBOARD_BOX_7,DASHBOARD_BOX_8,DASHBOARD_BOX_9), dashboardBoxRepository.findAllDistinctByOrderById());
+        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_2, DASHBOARD_BOX_3, DASHBOARD_BOX_4,
+                DASHBOARD_BOX_5, DASHBOARD_BOX_6, DASHBOARD_BOX_7, DASHBOARD_BOX_8, DASHBOARD_BOX_9), dashboardBoxRepository.findAll());
     }
 
     @Test
@@ -37,14 +37,14 @@ public class DashboardBoxJPATest extends AbstractTest {
     @Test
     public void testGetSingleDashboardBox() throws Exception {
         DashboardBox dashboardBox = dashboardBoxRepository.findOne(DASHBOARD_BOX_ID_1);
-        DASHBOARD_BOX_MODEL_MATCHER.assertEquals(DASHBOARD_BOX_1,dashboardBox);
+        DASHBOARD_BOX_MODEL_MATCHER.assertEquals(DASHBOARD_BOX_1, dashboardBox);
     }
 
     @Test
     public void testGetAllDashboardBoxes() throws Exception {
-        Collection<DashboardBox> dashboardBoxes = dashboardBoxRepository.findAllDistinctByOrderById();
-        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_1, DASHBOARD_BOX_2,DASHBOARD_BOX_3,DASHBOARD_BOX_4,
-                DASHBOARD_BOX_5,DASHBOARD_BOX_6,DASHBOARD_BOX_7,DASHBOARD_BOX_8,DASHBOARD_BOX_9), dashboardBoxes);
+        Collection<DashboardBox> dashboardBoxes = dashboardBoxRepository.findAll();
+        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_1, DASHBOARD_BOX_2, DASHBOARD_BOX_3, DASHBOARD_BOX_4,
+                DASHBOARD_BOX_5, DASHBOARD_BOX_6, DASHBOARD_BOX_7, DASHBOARD_BOX_8, DASHBOARD_BOX_9), dashboardBoxes);
     }
 
     @Test
@@ -61,14 +61,14 @@ public class DashboardBoxJPATest extends AbstractTest {
     @Test
     public void testGetDashboardBoxesByDashboard() throws Exception {
         List<DashboardBox> dashboardBoxes = dashboardBoxRepository.findAllByDashboard(DASHBOARD_1);
-        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_1,DASHBOARD_BOX_2,DASHBOARD_BOX_3,
-                DASHBOARD_BOX_4,DASHBOARD_BOX_5,DASHBOARD_BOX_6,DASHBOARD_BOX_7,DASHBOARD_BOX_8,DASHBOARD_BOX_9),dashboardBoxes);
+        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_1, DASHBOARD_BOX_2, DASHBOARD_BOX_3,
+                DASHBOARD_BOX_4, DASHBOARD_BOX_5, DASHBOARD_BOX_6, DASHBOARD_BOX_7, DASHBOARD_BOX_8, DASHBOARD_BOX_9),dashboardBoxes);
     }
 
     @Test
     public void testGetDashboardBoxesByDashboardBoxType() throws Exception {
         List<DashboardBox> dashboardBoxes = dashboardBoxRepository.findAllByDashboardBoxType(DASHBOARD_BOX_TYPE_1);
-        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_1,DASHBOARD_BOX_2,DASHBOARD_BOX_3,
+        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_1, DASHBOARD_BOX_2, DASHBOARD_BOX_3,
                 DASHBOARD_BOX_4),dashboardBoxes);
     }
 

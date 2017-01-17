@@ -16,7 +16,7 @@ public class PermissionRestTest extends AbstractTest {
 
     @Test
     public void testGetSinglePermission() throws Exception {
-        mockMvc.perform(get("/rest/repository/permissions/5"))
+        mockMvc.perform(get("/rest/repository/permissions/1"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(contentType))
@@ -31,27 +31,28 @@ public class PermissionRestTest extends AbstractTest {
 
     @Test
     public void testGetAllPermissions() throws Exception {
-        mockMvc.perform(get("/rest/repository/permissions/search/findAll"))
+        mockMvc.perform(get("/rest/repository/permissions"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 // paginating is showing 20 items by default
-                .andExpect(jsonPath("$._embedded.permissions", hasSize(50)))
-                .andExpect(jsonPath("$._embedded.permissions[0].name", is("USER_READ")));
+                .andExpect(jsonPath("$._embedded.permissions", hasSize(20)))
+                .andExpect(jsonPath("$._embedded.permissions[0].name", is(PERMISSION_USER_READ.getName())))
+                .andExpect(jsonPath("$._embedded.permissions[19].name", is(PERMISSION_CRUD_META_FORM_DATA_UPDATE.getName())));
     }
 
     @Test
     public void testCreatePermission() throws Exception {
         String permissionJson = json(new Permission(null,"UNLIMITED"));
         mockMvc.perform(post("/rest/repository/permissions")
-                .contentType(contentType)
+                .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isCreated());
     }
 
     @Test
     public void testDeletePermission() throws Exception {
-        mockMvc.perform(delete("/rest/repository/permissions/5"));
-        mockMvc.perform(get("/rest/repository/permissions/5"))
+        mockMvc.perform(delete("/rest/repository/permissions/1"));
+        mockMvc.perform(get("/rest/repository/permissions/1"))
                 .andExpect(status().isNotFound());
     }
 
@@ -60,13 +61,13 @@ public class PermissionRestTest extends AbstractTest {
         Permission updated = new Permission(PERMISSION_USER_READ);
         updated.setName("WITHOUT_ACCESS");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/permissions/5")
-                .contentType(contentType)
+        mockMvc.perform(put("/rest/repository/permissions/1")
+                .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
-                .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/permissions/5"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rest/repository/permissions/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.name",is(updated.getName())));
+                .andExpect(jsonPath("$.name", is(updated.getName())));
     }
 }

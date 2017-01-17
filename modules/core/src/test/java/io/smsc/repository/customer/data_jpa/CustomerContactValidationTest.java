@@ -91,6 +91,6 @@ public class CustomerContactValidationTest extends AbstractTest {
         CustomerContact newCustomerContact = new CustomerContact(CUSTOMER_CONTACT_1);
         newCustomerContact.setId(null);
         customerContactRepository.save(newCustomerContact);
-        CUSTOMER_CONTACT_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCustomerContact,CUSTOMER_CONTACT_1), customerContactRepository.findAllDistinctByOrderById());
+        CUSTOMER_CONTACT_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCustomerContact, CUSTOMER_CONTACT_1), customerContactRepository.findAll());
     }
 }

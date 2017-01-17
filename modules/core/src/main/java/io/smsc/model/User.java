@@ -2,8 +2,6 @@ package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.validator.constraints.Email;
@@ -15,9 +13,15 @@ import javax.persistence.Table;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ * Specifies User class as an entity class.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @since   0.0.1-SNAPSHOT
+ */
 @Entity
-@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_unique_username_email_idx")})
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"},ignoreUnknown = true)
+@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_username_email_idx")})
 public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)
@@ -44,18 +48,17 @@ public class User extends BaseEntity {
     @NotEmpty(message = "{user.email.empty.validation}")
     private String email;
 
-    @Column(name = "ACTIVE", columnDefinition = "boolean default true")
-    private boolean active = true;
+    @Column(name = "ACTIVE")
+    private Boolean active = true;
 
-    @Column(name = "CREATED", columnDefinition = "timestamp default now()")
+    @Column(name = "CREATED")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="CET")
     private Date created = new Date();
 
-    @Column(name = "BLOCKED", columnDefinition = "boolean default false")
-    private boolean blocked = false;
+    @Column(name = "BLOCKED")
+    private Boolean blocked = false;
 
-    @ManyToMany()
-//    @JsonManagedReference(value = "user")
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -69,10 +72,14 @@ public class User extends BaseEntity {
     private Set<Customer> customers;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
-//    @JsonManagedReference
     @OrderBy
     private Set<Dashboard> dashboards;
 
+    /**
+     * This method is used for removing all links on User entity from
+     * appropriate Customer entities before entity is removed. Without
+     * it deleting entity can cause <code>ConstraintViolationException<code/>
+     */
     @PreRemove
     private void removeUsersFromCustomers() {
         for (Customer customer : customers) {

@@ -1,6 +1,5 @@
 package io.smsc.model.customer;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -8,6 +7,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Specifies CustomerContact class as an entity class.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @see     Customer
+ * @see     Type
+ * @see     Salutation
+ * @since   0.0.1-SNAPSHOT
+ */
 @Entity
 @Table(name = "CUSTOMER_CONTACT", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL_ADDRESS", name = "customer_contact_unique_email_address_idx")})
 public class CustomerContact extends BaseEntity {
