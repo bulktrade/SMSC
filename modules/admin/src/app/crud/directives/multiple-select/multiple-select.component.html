@@ -1,8 +1,5 @@
 <div id="multipleSelect">
 	<div id="multipleSelectComponent">
-		<div class="title">{{property.property | uppercase | translate}}<span
-			class="requiredSymb">{{requiredSymb}}</span></div>
-		<hr>
 		<div *ngFor="let item of ridItems" class="items">
 			<div class="link" *ngIf="item.visible">
 				<div class="title">{{item.name}}</div>

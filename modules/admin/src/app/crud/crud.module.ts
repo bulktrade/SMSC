@@ -19,10 +19,10 @@ import { CommonModule } from "@angular/common";
 import { DynamicViewModule } from "./dynamic-view/dynamic-view.component";
 import { TranslateModule } from "ng2-translate";
 import { SharedModule } from "primeng/components/common/shared";
-import { DataTableModule } from "primeng/components/datatable/datatable";
 import { ButtonModule } from "primeng/components/button/button";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { MessagesModule } from "primeng/components/messages/messages";
+import { DataTableModule } from "primeng/components/datatable/datatable";
 
 const CRUD_DECLARATIONS = [
     CrudComponent,

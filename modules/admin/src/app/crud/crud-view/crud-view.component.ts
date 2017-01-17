@@ -38,14 +38,20 @@ export class CrudViewComponent {
     }
 
     navigateToCreate() {
-        this.crudService.setModel({});
         this.router.navigate([this.router.url, 'create']);
     }
 
-    navigateToDelete() {
-        let id = this.crudService.getSelectedRID(this.selectedRows);
+    navigateToDelete(data) {
+        this.router.navigate([this.router.url, 'delete', this.getIdFromURI(data)]);
+    }
 
-        this.router.navigate([this.router.url, 'delete',
-            id.join().replace(/\[|\]/gi, '')]);
+    navigateToUpdate(data) {
+        this.router.navigate([this.router.url, 'update', this.getIdFromURI(data)]);
+    }
+
+    getIdFromURI(data) {
+        let parseUrl = data['_links'].self.href.split('/');
+
+        return parseUrl[parseUrl.length - 1];
     }
 }

@@ -1,6 +1,6 @@
 <div class="crud-view-window">
-	<p-dataTable [value]="rowData" [(selection)]="selectedRows" [paginator]="true" rows="15"
-	             scrollable="true" scrollHeight="400px">
+	<p-dataTable [value]="rowData" [(selection)]="selectedRows" [paginator]="true" rows="15" (onRowSelect)="navigateToUpdate($event.data)"
+	             scrollable="true" scrollHeight="400px" selectionMode="single">
 		<header>{{ crudService.getClassName() | uppercase | translate}}</header>
 		<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 		<p-column [field]="column.field" [style]="{'width':'200px'}" [header]="column.headerName" [sortable]="true"
