@@ -53,13 +53,13 @@ public class RoleJPATest extends AbstractTest {
 
     @Test
     public void testAddPermission() throws Exception {
-        Role role = roleRepository.addPermission(ROLE_USER_ID,PERMISSION_USER_CREATE_ID);
+        Role role = roleRepository.addPermission(ROLE_USER_ID, PERMISSION_USER_CREATE_ID);
         ROLE_MODEL_MATCHER.assertEquals(role,roleRepository.findOne(ROLE_USER_ID));
     }
 
     @Test
     public void testRemovePermission() throws Exception {
-        Role role = roleRepository.removePermission(ROLE_USER_ID,PERMISSION_USER_READ_OWN_ID);
+        Role role = roleRepository.removePermission(ROLE_USER_ID, PERMISSION_USER_READ_OWN_ID);
         ROLE_MODEL_MATCHER.assertEquals(role,roleRepository.findOne(ROLE_USER_ID));
     }
 

@@ -31,14 +31,13 @@ public interface MetaDataPropertyBindingParameterRepository extends JpaRepositor
 
     @Override
     @Transactional
-    @RestResource(exported = false)
     MetaDataPropertyBindingParameter save(MetaDataPropertyBindingParameter metaDataPropertyBindingParameter);
 
     @Override
-    @EntityGraph(attributePaths = {"operator","combineOperator"})
+    @EntityGraph(attributePaths = {"operator", "combineOperator"})
     MetaDataPropertyBindingParameter findOne(Long id);
 
     @Override
-    @EntityGraph(attributePaths = {"operator","combineOperator"})
+    @EntityGraph(attributePaths = {"operator", "combineOperator"})
     Page<MetaDataPropertyBindingParameter> findAll(Pageable pageable);
 }

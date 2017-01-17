@@ -38,7 +38,7 @@ public class CustomerJPATest extends AbstractTest {
     @Test
     public void testGetSingleCustomer() throws Exception {
         Customer customer = customerRepository.getOne(CUSTOMER_ID_1);
-        CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1,customer);
+        CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1, customer);
     }
 
     @Test
@@ -75,6 +75,6 @@ public class CustomerJPATest extends AbstractTest {
     @Test
     public void testGetCustomerByCustomerId() throws Exception {
         Customer customer = customerRepository.findByCustomerId(1.0);
-        CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1,customer);
+        CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1, customer);
     }
 }

@@ -33,6 +33,6 @@ public class RoleValidationTest extends AbstractTest {
         Role newRole = new Role(ROLE_USER);
         newRole.setId(null);
         roleRepository.save(newRole);
-        ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newRole,ROLE_USER,ROLE_ADMIN), roleRepository.findAll());
+        ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newRole, ROLE_USER,ROLE_ADMIN), roleRepository.findAll());
     }
 }

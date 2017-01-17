@@ -35,7 +35,7 @@ public class MetaDataPropertyBindingParameterJPATest extends AbstractTest {
     @Test
     public void testGetSingleMetaDataPropertyBindingParameter() throws Exception {
         MetaDataPropertyBindingParameter metaDataPropertyBindingParameter = metaDataPropertyBindingParameterRepository.findOne(META_DATA_PROPERTY_BINDING_PARAMETER_ID_1);
-        META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertEquals(META_DATA_PROPERTY_BINDING_PARAMETER_1,metaDataPropertyBindingParameter);
+        META_DATA_PROPERTY_BINDING_PARAMETER_MODEL_MATCHER.assertEquals(META_DATA_PROPERTY_BINDING_PARAMETER_1, metaDataPropertyBindingParameter);
     }
 
     @Test

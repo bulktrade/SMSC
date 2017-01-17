@@ -43,7 +43,7 @@ public class DashboardBoxType extends BaseEntity {
     }
 
     public DashboardBoxType(DashboardBoxType dashboardBoxType) {
-        this(dashboardBoxType.getId(),dashboardBoxType.getName(),dashboardBoxType.getType(),dashboardBoxType.getKind());
+        this(dashboardBoxType.getId(), dashboardBoxType.getName(), dashboardBoxType.getType(), dashboardBoxType.getKind());
     }
 
     public DashboardBoxType(Long id, String name, Type type, Kind kind) {

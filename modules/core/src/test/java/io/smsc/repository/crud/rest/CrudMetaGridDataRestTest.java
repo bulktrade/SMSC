@@ -59,7 +59,7 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
         CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"defaultProperty", true,
                 true, null, 10.0, 50.0);
         String crudMetaGridDataJson = json(newCrudMetaGridData);
-        this.mockMvc.perform(post("/rest/repository/crud-meta-grid-data/create")
+        this.mockMvc.perform(post("/rest/repository/crud-meta-grid-data")
                 .contentType("application/json;charset=UTF-8")
                 .content(crudMetaGridDataJson))
                 .andExpect(status().isCreated());
@@ -68,7 +68,7 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
     @Test
     public void testDeleteCrudMetaGridData() throws Exception {
         mockMvc.perform(delete("/rest/repository/crud-meta-grid-data/106"));
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/search/106"))
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/106"))
                 .andExpect(status().isNotFound());
     }
 
@@ -82,7 +82,7 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
         updated.setVisible(false);
         updated.setColumnWidth(30.0);
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-meta-grid-data/update/106")
+        mockMvc.perform(put("/rest/repository/crud-meta-grid-data/106")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isOk());

@@ -18,8 +18,8 @@ public class DashboardTestData {
 
     static
     {
-        DASHBOARD_1.setDashboardBoxes(new HashSet<>(Arrays.asList(DASHBOARD_BOX_1,DASHBOARD_BOX_2,DASHBOARD_BOX_3,DASHBOARD_BOX_4,
-                DASHBOARD_BOX_5,DASHBOARD_BOX_6,DASHBOARD_BOX_7,DASHBOARD_BOX_8,DASHBOARD_BOX_9)));
+        DASHBOARD_1.setDashboardBoxes(new HashSet<>(Arrays.asList(DASHBOARD_BOX_1, DASHBOARD_BOX_2, DASHBOARD_BOX_3, DASHBOARD_BOX_4,
+                DASHBOARD_BOX_5, DASHBOARD_BOX_6, DASHBOARD_BOX_7, DASHBOARD_BOX_8, DASHBOARD_BOX_9)));
     }
 
     public static final ModelMatcher<Dashboard> DASHBOARD_MODEL_MATCHER = new ModelMatcher<>(Dashboard.class,

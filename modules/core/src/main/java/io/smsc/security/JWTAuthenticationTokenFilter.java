@@ -1,6 +1,8 @@
 package io.smsc.security;
 
 import io.smsc.security.model.JWTUser;
+import io.smsc.security.service.JWTTokenGenerationService;
+import io.smsc.security.service.JWTUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,8 @@ import java.io.IOException;
  * class and provides one execution of {@link #doFilterInternal} method per each request.
  *
  * @author  Nazar Lipkovskyy
- * @see     io.smsc.security.JWTTokenUtil
- * @see     io.smsc.security.JWTUserDetailsServiceImpl
+ * @see     io.smsc.security.service.JWTTokenGenerationService
+ * @see     io.smsc.security.service.JWTUserDetailsService
  * @since   0.0.1-SNAPSHOT
  */
 @Component
@@ -31,17 +33,21 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private static final Logger LOG = LoggerFactory.getLogger(JWTAuthenticationTokenFilter.class);
 
-    @Autowired
-    private JWTUserDetailsServiceImpl userDetailsService;
+    private final JWTUserDetailsService userDetailsService;
 
-    @Autowired
-    private JWTTokenUtil JWTTokenUtil;
+    private final JWTTokenGenerationService JWTTokenGenerationService;
 
     /**
      * This string is used as a name of request header which contains tokens
      */
     @Value("${jwt.header}")
     private String tokenHeader;
+
+    @Autowired
+    public JWTAuthenticationTokenFilter(JWTUserDetailsService userDetailsService, JWTTokenGenerationService JWTTokenGenerationService) {
+        this.userDetailsService = userDetailsService;
+        this.JWTTokenGenerationService = JWTTokenGenerationService;
+    }
 
     /**
      * This method will be be invoked once per request within a single request thread.
@@ -63,11 +69,11 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String authToken = request.getHeader(this.tokenHeader);
         // String authToken = header.substring(7);
-        String username = JWTTokenUtil.getUsernameFromToken(authToken);
+        String username = JWTTokenGenerationService.getUsernameFromToken(authToken);
         LOG.info("checking authentication for user " + username);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
-            if (JWTTokenUtil.validateToken(authToken, jwtUser)) {
+            if (JWTTokenGenerationService.validateToken(authToken, jwtUser)) {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 LOG.info("authenticated user " + username + ", setting security context");

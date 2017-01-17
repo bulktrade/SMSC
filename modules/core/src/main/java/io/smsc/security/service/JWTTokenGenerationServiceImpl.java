@@ -1,4 +1,4 @@
-package io.smsc.security;
+package io.smsc.security.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -6,27 +6,27 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.smsc.security.model.JWTUser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
- * Util class used for generating and processing access and refresh tokens.
+ * Service class used for generating and processing access and refresh tokens.
  *
  * @author  Nazar Lipkovskyy
+ * @see     JWTTokenGenerationService
  * @see     io.jsonwebtoken.Claims;
  * @see     io.jsonwebtoken.Jwts;
  * @see     io.jsonwebtoken.SignatureAlgorithm;
  * @since   0.0.1-SNAPSHOT
  */
-@Component
-public class JWTTokenUtil implements Serializable {
+@Service
+public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService {
 
-    private static final long serialVersionUID = -3301605591108950415L;
+    public static final long serialVersionUID = -3301605591108950415L;
 
-    static final String CLAIM_KEY_USERNAME = "sub";
-    static final String CLAIM_KEY_CREATED = "created";
+    public static final String CLAIM_KEY_USERNAME = "sub";
+    public static final String CLAIM_KEY_CREATED = "created";
 
     /**
      * This string is used as a name of request header which contains tokens
@@ -40,6 +40,7 @@ public class JWTTokenUtil implements Serializable {
     @Value("${jwt.expiration}")
     private Long expiration;
 
+    @Override
     public String getUsernameFromToken(String token) {
         String username;
         try {
@@ -88,6 +89,7 @@ public class JWTTokenUtil implements Serializable {
         return expiration.before(new Date());
     }
 
+    @Override
     public String refreshToken(String token) {
         String refreshedToken;
         try {
@@ -100,12 +102,14 @@ public class JWTTokenUtil implements Serializable {
         return refreshedToken;
     }
 
+    @Override
     public Boolean validateToken(String token, UserDetails userDetails) {
         JWTUser user = (JWTUser) userDetails;
         final String username = getUsernameFromToken(token);
         return username.equals(user.getUsername()) && !isTokenExpired(token);
     }
 
+    @Override
     public String generateAccessToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
@@ -121,6 +125,7 @@ public class JWTTokenUtil implements Serializable {
                 .compact();
     }
 
+    @Override
     public String generateRefreshToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());

@@ -3,6 +3,8 @@ package io.smsc.config;
 import io.smsc.security.JWTAuthenticationEntryPoint;
 
 import io.smsc.security.JWTAuthenticationTokenFilter;
+import io.smsc.security.service.JWTTokenGenerationService;
+import io.smsc.security.service.JWTUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +15,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -30,11 +31,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final JWTUserDetailsService userDetailsService;
+
+    private final JWTAuthenticationEntryPoint unauthorizedHandler;
+
+    private final JWTTokenGenerationService tokenGenerationService;
 
     @Autowired
-    private JWTAuthenticationEntryPoint unauthorizedHandler;
+    public SecurityConfiguration(JWTUserDetailsService userDetailsService, JWTAuthenticationEntryPoint unauthorizedHandler, JWTTokenGenerationService tokenGenerationService) {
+        this.userDetailsService = userDetailsService;
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.tokenGenerationService = tokenGenerationService;
+    }
+
 
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -50,7 +59,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public JWTAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-        return new JWTAuthenticationTokenFilter();
+        return new JWTAuthenticationTokenFilter(userDetailsService,tokenGenerationService);
     }
 
     /**

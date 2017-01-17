@@ -50,7 +50,7 @@ public class RoleController {
      * @throws IOException  on input error
      */
     @GetMapping(value = "/addPermission", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Role> addPermission(@Param("roleId")long roleId, @Param("permissionId")long permissionId, HttpServletResponse response) throws IOException {
+    public ResponseEntity<Role> addPermission(@Param("roleId") long roleId, @Param("permissionId") long permissionId, HttpServletResponse response) throws IOException {
         log.info("add permission with id = " + permissionId + " to role with id = " + roleId);
         try {
             Role role = roleRepository.addPermission(roleId,permissionId);
@@ -74,10 +74,10 @@ public class RoleController {
      * @throws IOException  on input error
      */
     @GetMapping(value = "/removePermission", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Role> removePermission(@Param("roleId")long roleId, @Param("permissionId")long permissionId, HttpServletResponse response) throws IOException {
+    public ResponseEntity<Role> removePermission(@Param("roleId") long roleId, @Param("permissionId") long permissionId, HttpServletResponse response) throws IOException {
         log.info("remove permission with id = " + permissionId + " from role with id = " + roleId);
         try {
-            Role role = roleRepository.removePermission(roleId,permissionId);
+            Role role = roleRepository.removePermission(roleId, permissionId);
             return new ResponseEntity<>(role, HttpStatus.OK);
         }
         catch (NullPointerException ex){

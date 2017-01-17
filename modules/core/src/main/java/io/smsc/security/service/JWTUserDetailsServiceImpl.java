@@ -1,7 +1,8 @@
-package io.smsc.security;
+package io.smsc.security.service;
 
 import io.smsc.model.User;
 import io.smsc.repository.user.UserRepository;
+import io.smsc.security.JWTUserFactory;
 import io.smsc.security.model.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,16 +10,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
- * Implementation of base {@link UserDetailsService} which loads user-specific data.
+ * Implementation of base {@link JWTUserDetailsService} which loads user-specific data.
  *
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
 @Service
-public class JWTUserDetailsServiceImpl implements UserDetailsService {
+public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
+
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public JWTUserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     /**
      * Implementation of basic {@link UserDetailsService#loadUserByUsername(String)} method
@@ -49,6 +54,7 @@ public class JWTUserDetailsServiceImpl implements UserDetailsService {
      * @throws UsernameNotFoundException if cannot locate a {@link User} by
      *                                   its email.
      */
+    @Override
     public JWTUser loadUserByEmail(String email) throws UsernameNotFoundException {
         User user = userRepository.getOneByEmailWithDecryptedPassword(email);
         if (user == null) {

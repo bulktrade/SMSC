@@ -43,7 +43,7 @@ public class DashboardRestTest extends AbstractTest {
     @Test
     public void testCreateDashboard() throws Exception {
         String dashboardJson = json(new Dashboard(null, "default_admin", "admin", ADMIN));
-        this.mockMvc.perform(post("/rest/repository/dashboards/create")
+        this.mockMvc.perform(post("/rest/repository/dashboards")
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isCreated());
@@ -63,7 +63,7 @@ public class DashboardRestTest extends AbstractTest {
         updated.setIcon("new icon");
         updated.setName("new name");
         String dashboardJson = json(updated);
-        mockMvc.perform(put("/rest/repository/dashboards/update/140")
+        mockMvc.perform(put("/rest/repository/dashboards/140")
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isOk());

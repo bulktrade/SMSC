@@ -43,7 +43,7 @@ public class CrudMetaFormDataJPATest extends AbstractTest {
     @Test
     public void testGetSingleCrudMetaFormData() throws Exception {
         CrudMetaFormData crudMetaFormData = crudMetaFormDataRepository.findOne(CRUD_META_FORM_DATA_ID_1);
-        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(CRUD_META_FORM_DATA_1,crudMetaFormData);
+        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(CRUD_META_FORM_DATA_1, crudMetaFormData);
     }
 
     //hard to find error
@@ -81,9 +81,9 @@ public class CrudMetaFormDataJPATest extends AbstractTest {
         crudMetaFormData.addBindingParameter(metaDataPropertyBindingParameter);
         crudMetaFormDataRepository.save(crudMetaFormData);
         CRUD_META_FORM_DATA_1.setBindingParameters(Collections.singleton(metaDataPropertyBindingParameter));
-        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(CRUD_META_FORM_DATA_1,crudMetaFormData);
+        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(CRUD_META_FORM_DATA_1, crudMetaFormData);
         CRUD_META_FORM_DATA_1.setBindingParameters(Collections.emptySet());
         crudMetaFormData.removeBindingParameter(metaDataPropertyBindingParameter);
-        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(CRUD_META_FORM_DATA_1,crudMetaFormData);
+        CRUD_META_FORM_DATA_MODEL_MATCHER.assertEquals(CRUD_META_FORM_DATA_1, crudMetaFormData);
     }
 }

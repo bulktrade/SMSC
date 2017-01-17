@@ -32,17 +32,16 @@ public interface CustomerContactRepository extends JpaRepository<CustomerContact
 
     @Override
     @Transactional
-    @RestResource(exported = false)
     CustomerContact save(CustomerContact customer);
 
     @Override
-    @EntityGraph(attributePaths = {"type","salutation"})
+    @EntityGraph(attributePaths = {"type", "salutation"})
     CustomerContact findOne(Long id);
 
-    @EntityGraph(attributePaths = {"type","salutation"})
+    @EntityGraph(attributePaths = {"type", "salutation"})
     CustomerContact findByEmailAddress(@Param("emailAddress") String emailAddress);
 
     @Override
-    @EntityGraph(attributePaths = {"type","salutation"})
+    @EntityGraph(attributePaths = {"type", "salutation"})
     Page<CustomerContact> findAll(Pageable pageable);
 }

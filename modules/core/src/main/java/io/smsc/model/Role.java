@@ -55,7 +55,7 @@ public class Role extends BaseEntity{
     }
 
     public Role(Role role) {
-        this(role.getId(),role.getName());
+        this(role.getId(), role.getName());
     }
 
     public Role(Long id, String name) {

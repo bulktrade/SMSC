@@ -50,7 +50,7 @@ public class CustomerController {
      * @throws IOException on input error
      */
     @GetMapping(value = "/addUser", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Customer> addUser(@Param("customerId")long customerId, @Param("userId")long userId, HttpServletResponse response) throws IOException {
+    public ResponseEntity<Customer> addUser(@Param("customerId") long customerId, @Param("userId") long userId, HttpServletResponse response) throws IOException {
         log.info("add user with id = " + userId + " to customer with id = " + customerId);
         try {
             Customer customer = customerRepository.addUser(customerId,userId);
@@ -75,7 +75,7 @@ public class CustomerController {
      * @throws IOException on input error
      */
     @GetMapping(value = "/removeUser", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Customer> removeUser(@Param("customerId")long customerId, @Param("userId")long userId, HttpServletResponse response) throws IOException {
+    public ResponseEntity<Customer> removeUser(@Param("customerId") long customerId, @Param("userId") long userId, HttpServletResponse response) throws IOException {
         log.info("remove user with id = " + userId + " from customer with id = " + customerId);
         try {
             Customer customer = customerRepository.removeUser(customerId,userId);

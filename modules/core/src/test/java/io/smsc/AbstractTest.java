@@ -1,6 +1,7 @@
 package io.smsc;
 
 import io.smsc.config.FlywayConfiguration;
+import io.smsc.config.RepositoryIdExposingConfiguration;
 import io.smsc.config.SecurityConfiguration;
 import io.smsc.config.SpringDataRestValidationConfiguration;
 import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
@@ -15,8 +16,10 @@ import io.smsc.repository.dashboard.dashboardBoxType.DashboardBoxTypeRepository;
 import io.smsc.repository.permission.PermissionRepository;
 import io.smsc.repository.role.RoleRepository;
 import io.smsc.repository.user.UserRepository;
-import io.smsc.security.JWTTokenUtil;
-import io.smsc.security.JWTUserDetailsServiceImpl;
+import io.smsc.security.service.JWTTokenGenerationService;
+import io.smsc.security.service.JWTTokenGenerationServiceImpl;
+import io.smsc.security.service.JWTUserDetailsService;
+import io.smsc.security.service.JWTUserDetailsServiceImpl;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
@@ -47,7 +50,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ContextConfiguration(classes = {Application.class, SecurityConfiguration.class, SpringDataRestValidationConfiguration.class, FlywayConfiguration.class})
+@ContextConfiguration(classes = {Application.class, SecurityConfiguration.class, SpringDataRestValidationConfiguration.class,
+        FlywayConfiguration.class, RepositoryIdExposingConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @Transactional
@@ -130,13 +134,13 @@ public abstract class AbstractTest {
     }
 
     @Autowired
-    protected WebApplicationContext webApplicationContext;
+    private WebApplicationContext webApplicationContext;
 
     @Autowired
-    protected JWTTokenUtil jwtTokenUtil;
+    protected JWTTokenGenerationService jwtTokenGenerationService;
 
     @Autowired
-    protected JWTUserDetailsServiceImpl jwtUserDetailsService;
+    protected JWTUserDetailsService jwtUserDetailsService;
 
     @Autowired
     protected UserRepository userRepository;

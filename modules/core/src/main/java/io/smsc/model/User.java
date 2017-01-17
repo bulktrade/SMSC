@@ -58,7 +58,7 @@ public class User extends BaseEntity {
     @Column(name = "BLOCKED")
     private Boolean blocked = false;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

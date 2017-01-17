@@ -2,9 +2,12 @@ package io.smsc.repository.role;
 
 import io.smsc.model.Permission;
 import io.smsc.model.Role;
-import io.smsc.repository.permission.PermissionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.io.Serializable;
 
 /**
  * This class provides implementation of additional methods which are described in
@@ -13,14 +16,10 @@ import org.springframework.stereotype.Component;
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@Component
 public class RoleRepositoryImpl implements RoleRepositoryCustom {
 
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PermissionRepository permissionRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     /**
      * Method to add specific {@link Permission} to specific {@link Role}
@@ -31,12 +30,12 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
      */
     @Override
     public Role addPermission(Long roleId, Long permissionId){
-        Role role = roleRepository.findOne(roleId);
-        Permission permission = permissionRepository.findOne(permissionId);
+        Role role = entityManager.find(Role.class, roleId);
+        Permission permission = entityManager.find(Permission.class, permissionId);
         role.addPermission(permission);
         permission.addRole(role);
-        permissionRepository.save(permission);
-        return roleRepository.save(role);
+        entityManager.merge(permission);
+        return entityManager.merge(role);
     }
 
     /**
@@ -48,11 +47,11 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
      */
     @Override
     public Role removePermission(Long roleId, Long permissionId){
-        Role role = roleRepository.findOne(roleId);
-        Permission permission = permissionRepository.findOne(permissionId);
+        Role role = entityManager.find(Role.class, roleId);
+        Permission permission = entityManager.find(Permission.class, permissionId);
         role.removePermission(permission);
         permission.removeRole(role);
-        permissionRepository.save(permission);
-        return roleRepository.save(role);
+        entityManager.merge(permission);
+        return entityManager.merge(role);
     }
 }

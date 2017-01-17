@@ -42,7 +42,7 @@ public class RoleRestTest extends AbstractTest {
     @Test
     public void testCreateRole() throws Exception {
         String roleJson = json(new Role(null,"GOD"));
-        this.mockMvc.perform(post("/rest/repository/roles/create")
+        this.mockMvc.perform(post("/rest/repository/roles")
                 .contentType("application/json;charset=UTF-8")
                 .content(roleJson))
                 .andExpect(status().isCreated());
@@ -61,14 +61,14 @@ public class RoleRestTest extends AbstractTest {
         Role updated = new Role(ROLE_USER);
         updated.setName("GUEST");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/roles/update/51")
+        mockMvc.perform(put("/rest/repository/roles/51")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/roles/51"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.name",is(updated.getName())));
+                .andExpect(jsonPath("$.name", is(updated.getName())));
     }
 
     @Test

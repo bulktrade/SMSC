@@ -33,13 +33,12 @@ public interface PermissionRepository extends JpaRepository<Permission, Long> {
 
     @Override
     @Transactional
-    @RestResource(exported = false)
     Permission save(Permission permission);
 
     @Override
     Permission findOne(Long id);
 
-    Permission findByName(@Param("name")String name);
+    Permission findByName(@Param("name") String name);
 
     @Override
     Page<Permission> findAll(Pageable pageable);

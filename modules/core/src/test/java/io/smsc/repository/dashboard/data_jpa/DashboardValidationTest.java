@@ -42,6 +42,6 @@ public class DashboardValidationTest extends AbstractTest {
         Dashboard newDashboard = new Dashboard(DASHBOARD_1);
         newDashboard.setId(null);
         dashboardRepository.save(newDashboard);
-        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newDashboard,DASHBOARD_1), dashboardRepository.findAll());
+        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newDashboard, DASHBOARD_1), dashboardRepository.findAll());
     }
 }

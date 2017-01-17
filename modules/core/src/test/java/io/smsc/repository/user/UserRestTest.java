@@ -87,14 +87,14 @@ public class UserRestTest extends AbstractTest {
                 .andExpect(status().isOk());
 //        mockMvc.perform(get("/rest/repository/users/findOne/1"))
 //                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.username",is(updated.getUsername())))
-////                .andExpect(jsonPath("$.password",is(updated.getPassword())))
-//                .andExpect(jsonPath("$.firstname",is(updated.getFirstname())))
-//                .andExpect(jsonPath("$.surname",is(updated.getSurname())))
-//                .andExpect(jsonPath("$.email",is(updated.getEmail())))
-//                .andExpect(jsonPath("$.active",is(updated.isActive())))
-////                .andExpect(jsonPath("$.created",is(updated.getCreated())))
-//                .andExpect(jsonPath("$.blocked",is(updated.isBlocked())));
+//                .andExpect(jsonPath("$.username", is(updated.getUsername())))
+////                .andExpect(jsonPath("$.password", is(updated.getPassword())))
+//                .andExpect(jsonPath("$.firstname", is(updated.getFirstname())))
+//                .andExpect(jsonPath("$.surname", is(updated.getSurname())))
+//                .andExpect(jsonPath("$.email", is(updated.getEmail())))
+//                .andExpect(jsonPath("$.active", is(updated.isActive())))
+////                .andExpect(jsonPath("$.created", is(updated.getCreated())))
+//                .andExpect(jsonPath("$.blocked", is(updated.isBlocked())));
     }
 
     @Test

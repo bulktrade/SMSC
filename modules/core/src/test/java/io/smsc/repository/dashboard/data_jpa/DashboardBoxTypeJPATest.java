@@ -20,10 +20,10 @@ public class DashboardBoxTypeJPATest extends AbstractTest {
     @Test
     public void testDeleteDashboardBoxType() throws Exception {
         dashboardBoxTypeRepository.delete(DASHBOARD_BOX_TYPE_ID_1);
-        DASHBOARD_BOX_TYPE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_TYPE_2,DASHBOARD_BOX_TYPE_3,
-                DASHBOARD_BOX_TYPE_4,DASHBOARD_BOX_TYPE_5,DASHBOARD_BOX_TYPE_6), dashboardBoxTypeRepository.findAll());
-        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_5,DASHBOARD_BOX_6,DASHBOARD_BOX_7,DASHBOARD_BOX_8,
-                DASHBOARD_BOX_9),dashboardBoxRepository.findAll());
+        DASHBOARD_BOX_TYPE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_TYPE_2, DASHBOARD_BOX_TYPE_3,
+                DASHBOARD_BOX_TYPE_4, DASHBOARD_BOX_TYPE_5, DASHBOARD_BOX_TYPE_6), dashboardBoxTypeRepository.findAll());
+        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(DASHBOARD_BOX_5, DASHBOARD_BOX_6, DASHBOARD_BOX_7, DASHBOARD_BOX_8,
+                DASHBOARD_BOX_9), dashboardBoxRepository.findAll());
     }
 
     @Test

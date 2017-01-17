@@ -25,8 +25,8 @@ public class UserJPATest extends AbstractTest {
     public void testDeleteUser() throws Exception {
         userRepository.delete(USER_ID);
         USER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ADMIN), userRepository.getAllWithRolesAndDecryptedPassword());
-        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(),dashboardRepository.findAll());
-        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(),dashboardBoxRepository.findAll());
+        DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), dashboardRepository.findAll());
+        DASHBOARD_BOX_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), dashboardBoxRepository.findAll());
     }
 
     @Test
@@ -34,13 +34,13 @@ public class UserJPATest extends AbstractTest {
         User newUser = new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
         User created = userRepository.saveOneWithEncryptedPassword(newUser);
         newUser.setId(created.getId());
-        USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithDecryptedPassword(newUser.getId()));
+        USER_MODEL_MATCHER.assertEquals(newUser, userRepository.getOneWithRolesAndDecryptedPassword(newUser.getId()));
     }
 
     @Test
     public void testGetSingleUser() throws Exception {
-        User user = userRepository.getOneWithDecryptedPassword(USER_ID);
-        USER_MODEL_MATCHER.assertEquals(USER,user);
+        User user = userRepository.getOneWithRolesAndDecryptedPassword(USER_ID);
+        USER_MODEL_MATCHER.assertEquals(USER, user);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class UserJPATest extends AbstractTest {
         updated.setEmail("bot@gmail.com");
         userRepository.saveOneWithEncryptedPassword(updated);
         CryptoConverter.decrypt(updated,secretKey);
-        USER_MODEL_MATCHER.assertEquals(updated, userRepository.getOneWithDecryptedPassword(USER_ID));
+        USER_MODEL_MATCHER.assertEquals(updated, userRepository.getOneWithRolesAndDecryptedPassword(USER_ID));
     }
 
     @Test
@@ -68,13 +68,13 @@ public class UserJPATest extends AbstractTest {
 
     @Test
     public void testAddRole() throws Exception {
-        User user = userRepository.addRole(USER_ID,ROLE_ADMIN_ID);
+        User user = userRepository.addRole(USER_ID, ROLE_ADMIN_ID);
 //        USER_MODEL_MATCHER.assertEquals(user, userRepository.getOneWithDecryptedPassword(USER_ID));
     }
 
     @Test
     public void testRemoveRole() throws Exception {
-        User user = userRepository.removeRole(USER_ID,ROLE_USER_ID);
+        User user = userRepository.removeRole(USER_ID, ROLE_USER_ID);
 //        USER_MODEL_MATCHER.assertEquals(user, userRepository.getOneWithDecryptedPassword(USER_ID));
     }
 }

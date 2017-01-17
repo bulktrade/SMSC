@@ -29,8 +29,8 @@ public class UserSpringSecurityTest extends AbstractTest {
     public void generateTokens() throws Exception {
         UserDetails user = JWTUserFactory.create(userRepository.findByUsername("User"));
         UserDetails admin = JWTUserFactory.create(userRepository.findByUsername("Admin"));
-        userToken = jwtTokenUtil.generateAccessToken(user);
-        adminToken = jwtTokenUtil.generateAccessToken(admin);
+        userToken = jwtTokenGenerationService.generateAccessToken(user);
+        adminToken = jwtTokenGenerationService.generateAccessToken(admin);
     }
 
     @Value("${jwt.header}")
@@ -92,7 +92,7 @@ public class UserSpringSecurityTest extends AbstractTest {
                 .signWith(SignatureAlgorithm.HS512, tokenSecret)
                 .compact();
         mockMvc.perform(get("/rest/repository/users/search/findAll")
-                .header(tokenHeader,expiredToken))
+                .header(tokenHeader, expiredToken))
                 .andExpect(status().isUnauthorized());
     }
 }

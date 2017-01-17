@@ -38,7 +38,7 @@ public class DashboardJPATest extends AbstractTest {
     @Test
     public void testGetSingleDashboard() throws Exception {
         Dashboard dashboard = dashboardRepository.findOne(DASHBOARD_ID_1);
-        DASHBOARD_MODEL_MATCHER.assertEquals(DASHBOARD_1,dashboard);
+        DASHBOARD_MODEL_MATCHER.assertEquals(DASHBOARD_1, dashboard);
     }
 
     @Test

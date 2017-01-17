@@ -47,7 +47,7 @@ public class UserController {
      *
      * @return list with {@link io.smsc.model.User} entities
      */
-    @GetMapping(value = "/findAll",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/findAll", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     public List<User> getAll() {
         log.info("get All Users");
@@ -193,7 +193,7 @@ public class UserController {
      * @throws IOException on input error
      */
     @GetMapping(value = "/addRole", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> addRole(@Param("userId")long userId, @Param("roleId")long roleId, HttpServletResponse response) throws IOException {
+    public ResponseEntity<User> addRole(@Param("userId") long userId, @Param("roleId") long roleId, HttpServletResponse response) throws IOException {
         log.info("add role with id = " + roleId + " to user with id = " + userId);
         try {
             User user = userRepository.addRole(userId, roleId);
@@ -217,7 +217,7 @@ public class UserController {
      * @throws IOException on input error
      */
     @GetMapping(value = "/removeRole", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> removeRole(@Param("userId")long userId, @Param("roleId")long roleId, HttpServletResponse response) throws IOException {
+    public ResponseEntity<User> removeRole(@Param("userId") long userId, @Param("roleId") long roleId, HttpServletResponse response) throws IOException {
         log.info("remove role with id = " + roleId + " from user with id = " + userId);
         try {
             User user = userRepository.removeRole(userId, roleId);

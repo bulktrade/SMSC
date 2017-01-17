@@ -32,7 +32,7 @@ public class CryptoConverter {
      * @return           encrypted password
      */
     public static String encrypt(User user, String secretKey) {
-//      Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
+        //Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
         removeCryptographyRestrictions();
         String salt = KeyGenerators.string().generateKey();
         String password = user.getPassword();

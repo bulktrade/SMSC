@@ -59,7 +59,7 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
         CrudMetaFormData newCrudClassMetaData = new CrudMetaFormData(null,"defaultProperty", true,
                 true, null, 10.0, "newFieldLayoutGridPosition");
         String crudClassMetaDataJson = json(newCrudClassMetaData);
-        this.mockMvc.perform(post("/rest/repository/crud-meta-form-data/create")
+        this.mockMvc.perform(post("/rest/repository/crud-meta-form-data")
                 .contentType("application/json;charset=UTF-8")
                 .content(crudClassMetaDataJson))
                 .andExpect(status().isCreated());
@@ -82,7 +82,7 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
         updated.setVisible(false);
         updated.setFieldLayoutGridPosition("newFieldLayoutGridPosition");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-meta-form-data/update/64")
+        mockMvc.perform(put("/rest/repository/crud-meta-form-data/64")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isOk());

@@ -18,14 +18,13 @@ import java.util.List;
  * appropriate endpoints.
  *
  * @author  Nazar Lipkovskyy
-// * @see     RoleMigrationRepository
  * @see     RoleRepositoryCustom
  * @see     RoleRepositoryImpl
  * @since   0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
 @Transactional(readOnly = true)
-public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositoryCustom {
+public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositoryCustom{
 
     //All query method resources are exposed under the resource 'search'.
 
@@ -35,7 +34,6 @@ public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositor
 
     @Override
     @Transactional
-    @RestResource(exported = false)
     Role save(Role role);
 
     @Override
@@ -43,7 +41,7 @@ public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositor
     Role findOne(Long id);
 
     @EntityGraph(attributePaths = {"permissions"})
-    Role findByName(@Param("name")String name);
+    Role findByName(@Param("name") String name);
 
     @Override
     @EntityGraph(attributePaths = {"permissions"})

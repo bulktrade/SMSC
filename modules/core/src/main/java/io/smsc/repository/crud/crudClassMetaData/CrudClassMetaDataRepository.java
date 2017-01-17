@@ -29,13 +29,12 @@ public interface CrudClassMetaDataRepository extends JpaRepository<CrudClassMeta
 
     @Override
     @Transactional
-    @RestResource(exported = false)
     CrudClassMetaData save(CrudClassMetaData crudClassMetaData);
 
     @Override
     CrudClassMetaData findOne(Long id);
 
-    CrudClassMetaData findByClassName(@Param("className")String className);
+    CrudClassMetaData findByClassName(@Param("className") String className);
 
     @Override
     Page<CrudClassMetaData> findAll(Pageable pageable);

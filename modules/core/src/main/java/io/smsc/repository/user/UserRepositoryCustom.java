@@ -3,6 +3,7 @@ package io.smsc.repository.user;
 import io.smsc.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,16 +15,13 @@ import java.util.List;
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@NoRepositoryBean
-public interface UserRepositoryCustom<T, ID extends Serializable>{
+public interface UserRepositoryCustom{
 
-    User addRole(ID userId, ID roleId);
+    User addRole(Long userId, Long roleId);
 
-    User removeRole(ID userId, ID roleId);
+    User removeRole(Long userId, Long roleId);
 
-    User getOneWithDecryptedPassword(ID id);
-
-    User getOneWithRolesAndDecryptedPassword(ID id);
+    User getOneWithRolesAndDecryptedPassword(Long id);
 
     User getOneByEmailWithDecryptedPassword(String email);
 

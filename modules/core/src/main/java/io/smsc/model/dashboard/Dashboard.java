@@ -41,7 +41,7 @@ public class Dashboard extends BaseEntity {
     }
 
     public Dashboard(Dashboard dashboard) {
-        this(dashboard.getId(),dashboard.getName(),dashboard.getIcon(),dashboard.getUser());
+        this(dashboard.getId(), dashboard.getName(), dashboard.getIcon(), dashboard.getUser());
     }
 
     public Dashboard(Long id, String name, String icon, User user) {

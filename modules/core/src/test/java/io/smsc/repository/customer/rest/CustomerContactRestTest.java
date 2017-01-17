@@ -33,7 +33,7 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testCustomerContactNotFound() throws Exception {
-        mockMvc.perform(get("/rest/repository/customer-contacts/search/999"))
+        mockMvc.perform(get("/rest/repository/customer-contacts/999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -56,7 +56,7 @@ public class CustomerContactRestTest extends AbstractTest {
     @Test
     public void testCreateCustomerContact() throws Exception {
         String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.MRS));
-        this.mockMvc.perform(post("/rest/repository/customer-contacts/create")
+        this.mockMvc.perform(post("/rest/repository/customer-contacts")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isCreated());
@@ -78,7 +78,7 @@ public class CustomerContactRestTest extends AbstractTest {
         updated.setMobilePhone("0971234567");
         updated.setFirstname("newFirstName");
         String customerContactJson = json(updated);
-        mockMvc.perform(put("/rest/repository/customer-contacts/update/139")
+        mockMvc.perform(put("/rest/repository/customer-contacts/139")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isOk());

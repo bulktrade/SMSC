@@ -33,18 +33,17 @@ public interface DashboardBoxTypeRepository extends JpaRepository<DashboardBoxTy
 
     @Override
     @Transactional
-    @RestResource(exported = false)
     DashboardBoxType save(DashboardBoxType dashboardBoxType);
 
     @Override
-    @EntityGraph(attributePaths = {"kind","type"})
+    @EntityGraph(attributePaths = {"kind", "type"})
     DashboardBoxType findOne(Long id);
 
-    @EntityGraph(attributePaths = {"kind","type"})
+    @EntityGraph(attributePaths = {"kind", "type"})
     DashboardBoxType findByName(@Param("name") String name);
 
     @Override
-    @EntityGraph(attributePaths = {"kind","type"})
+    @EntityGraph(attributePaths = {"kind", "type"})
     Page<DashboardBoxType> findAll(Pageable pageable);
 
 }

@@ -59,8 +59,8 @@ public class DashboardBox extends BaseEntity {
     }
 
     public DashboardBox(DashboardBox dashboardBox) {
-        this(dashboardBox.getId(),dashboardBox.getWidth(),dashboardBox.getHeight(),dashboardBox.getOrder(),dashboardBox.getName(),
-                dashboardBox.getDescription(),dashboardBox.getDashboard(),dashboardBox.getDashboardBoxType());
+        this(dashboardBox.getId(), dashboardBox.getWidth(), dashboardBox.getHeight(), dashboardBox.getOrder(), dashboardBox.getName(),
+                dashboardBox.getDescription(), dashboardBox.getDashboard(), dashboardBox.getDashboardBoxType());
     }
 
     public DashboardBox(Long id, Width width, Height height, Integer order, String name, String description, Dashboard dashboard, DashboardBoxType dashboardBoxType) {

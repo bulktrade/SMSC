@@ -58,7 +58,7 @@ public class CrudClassMetaDataRestTest extends AbstractTest {
     @Test
     public void testCreateCrudClassMetaData() throws Exception {
         String crudClassMetaDataJson = json(new CrudClassMetaData(null,"CrudMetaDefaultData", "columnHeight", true, "new_query"));
-        this.mockMvc.perform(post("/rest/repository/crud-class-meta-data/create")
+        this.mockMvc.perform(post("/rest/repository/crud-class-meta-data")
                 .contentType("application/json;charset=UTF-8")
                 .content(crudClassMetaDataJson))
                 .andExpect(status().isCreated());
@@ -78,7 +78,7 @@ public class CrudClassMetaDataRestTest extends AbstractTest {
         updated.setEditable(false);
         updated.setQuery("newQuery");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-class-meta-data/update/55")
+        mockMvc.perform(put("/rest/repository/crud-class-meta-data/55")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isOk());

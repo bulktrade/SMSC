@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards")
 @Transactional(readOnly = true)
-public interface DashboardRepository extends JpaRepository<Dashboard,Long>{
+public interface DashboardRepository extends JpaRepository<Dashboard, Long>{
 
     //All query method resources are exposed under the resource 'search'.
 
@@ -34,7 +34,6 @@ public interface DashboardRepository extends JpaRepository<Dashboard,Long>{
 
     @Override
     @Transactional
-    @RestResource(exported = false)
     Dashboard save(Dashboard dashboard);
 
     @Override

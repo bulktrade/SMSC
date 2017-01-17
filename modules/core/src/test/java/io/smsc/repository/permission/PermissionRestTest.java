@@ -43,7 +43,7 @@ public class PermissionRestTest extends AbstractTest {
     @Test
     public void testCreatePermission() throws Exception {
         String permissionJson = json(new Permission(null,"UNLIMITED"));
-        mockMvc.perform(post("/rest/repository/permissions/create")
+        mockMvc.perform(post("/rest/repository/permissions")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isCreated());
@@ -61,13 +61,13 @@ public class PermissionRestTest extends AbstractTest {
         Permission updated = new Permission(PERMISSION_USER_READ);
         updated.setName("WITHOUT_ACCESS");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/permissions/update/1")
+        mockMvc.perform(put("/rest/repository/permissions/1")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/permissions/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.name",is(updated.getName())));
+                .andExpect(jsonPath("$.name", is(updated.getName())));
     }
 }

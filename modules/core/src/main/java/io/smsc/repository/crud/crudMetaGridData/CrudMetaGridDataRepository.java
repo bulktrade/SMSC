@@ -31,14 +31,13 @@ public interface CrudMetaGridDataRepository extends JpaRepository<CrudMetaGridDa
 
     @Override
     @Transactional
-    @RestResource(exported = false)
     CrudMetaGridData save(CrudMetaGridData crudMetaGridData);
 
     @Override
-    @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
+    @EntityGraph(attributePaths = {"crudClassMetaData", "bindingParameters"})
     CrudMetaGridData findOne(Long id);
 
     @Override
-    @EntityGraph(attributePaths = {"crudClassMetaData","bindingParameters"})
+    @EntityGraph(attributePaths = {"crudClassMetaData", "bindingParameters"})
     Page<CrudMetaGridData> findAll(Pageable pageable);
 }

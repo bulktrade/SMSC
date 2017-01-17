@@ -49,7 +49,7 @@ public class DashboardBoxTypeRestTest extends AbstractTest {
     @Test
     public void testCreateDashboardBoxType() throws Exception {
         String dashboardBoxTypeJson = json(new DashboardBoxType(null, "new dashboard box type", Type.CHART, Kind.BAR_CHART));
-        this.mockMvc.perform(post("/rest/repository/dashboard-box-types/create")
+        this.mockMvc.perform(post("/rest/repository/dashboard-box-types")
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxTypeJson))
                 .andExpect(status().isCreated());
@@ -69,7 +69,7 @@ public class DashboardBoxTypeRestTest extends AbstractTest {
         updated.setType(Type.STATUS);
         updated.setKind(Kind.ORDERS_STATUS);
         String dashboardBoxTypeJson = json(updated);
-        mockMvc.perform(put("/rest/repository/dashboard-box-types/update/141")
+        mockMvc.perform(put("/rest/repository/dashboard-box-types/141")
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxTypeJson))
                 .andExpect(status().isOk());
