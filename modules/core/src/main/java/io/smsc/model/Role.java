@@ -1,7 +1,6 @@
 package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -10,6 +9,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
+/**
+ * Specifies Role class as an entity class.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @since   0.0.1-SNAPSHOT
+ */
 @Entity
 @Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "roles_unique_name_idx")})
 public class Role extends BaseEntity{
@@ -21,7 +27,6 @@ public class Role extends BaseEntity{
 
     @ManyToMany(fetch = FetchType.EAGER)
     @OrderBy
-//    @JsonManagedReference
     @JoinTable(
             name = "ROLE_PERMISSION",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
@@ -34,6 +39,11 @@ public class Role extends BaseEntity{
     @JsonBackReference()
     private Set<User> users;
 
+    /**
+     * This method is used for removing all links on Role entity from
+     * appropriate User entities before entity is removed. Without
+     * it deleting entity can cause <code>ConstraintViolationException<code/>
+     */
     @PreRemove
     private void removeRolesFromUsers() {
         for (User user : users) {
@@ -45,7 +55,7 @@ public class Role extends BaseEntity{
     }
 
     public Role(Role role) {
-        this(role.getId(),role.getName());
+        this(role.getId(), role.getName());
     }
 
     public Role(Long id, String name) {

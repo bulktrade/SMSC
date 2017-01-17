@@ -1,6 +1,8 @@
 package io.smsc;
 
-import io.smsc.config.SecurityConfig;
+import io.smsc.config.FlywayConfiguration;
+import io.smsc.config.RepositoryIdExposingConfiguration;
+import io.smsc.config.SecurityConfiguration;
 import io.smsc.config.SpringDataRestValidationConfiguration;
 import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
 import io.smsc.repository.crud.crudMetaFormData.CrudMetaFormDataRepository;
@@ -14,8 +16,10 @@ import io.smsc.repository.dashboard.dashboardBoxType.DashboardBoxTypeRepository;
 import io.smsc.repository.permission.PermissionRepository;
 import io.smsc.repository.role.RoleRepository;
 import io.smsc.repository.user.UserRepository;
-import io.smsc.security.JWTTokenUtil;
-import io.smsc.security.JWTUserDetailsServiceImpl;
+import io.smsc.security.service.JWTTokenGenerationService;
+import io.smsc.security.service.JWTTokenGenerationServiceImpl;
+import io.smsc.security.service.JWTUserDetailsService;
+import io.smsc.security.service.JWTUserDetailsServiceImpl;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,13 +36,11 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
-import pl.domzal.junit.docker.rule.DockerRule;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -48,10 +50,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@ContextConfiguration(classes = {Application.class, SecurityConfig.class, SpringDataRestValidationConfiguration.class})
+@ContextConfiguration(classes = {Application.class, SecurityConfiguration.class, SpringDataRestValidationConfiguration.class,
+        FlywayConfiguration.class, RepositoryIdExposingConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@TestPropertySource(properties = {"smsc.database = postgresql"})
 @Transactional
 public abstract class AbstractTest {
 
@@ -64,13 +66,34 @@ public abstract class AbstractTest {
     @Value("${jwt.secret}")
     protected String tokenSecret;
 
+//    private static String user;
+//
+//    private static String password;
+//
+//    private static String database;
+//
+//    @Value("${spring.datasource.username}")
+//    public void setUser(String user) {
+//        AbstractTest.user = user;
+//    }
+//
+//    @Value("${spring.datasource.password}")
+//    public void setPassword(String password) {
+//        AbstractTest.password = password;
+//    }
+//
+//    @Value("${spring.datasource.password}")
+//    public void setDatabase(String database) {
+//        AbstractTest.database = database;
+//    }
+//
 //    @ClassRule
 //    public static DockerRule postgreSQLRule = DockerRule.builder()
 //            .imageName("orchardup/postgresql")
 //            .expose("5432","5432")
-//            .env("POSTGRESQL_USER","test")
-//            .env("POSTGRESQL_PASS","oe9jaacZLbR9pN")
-//            .env("POSTGRESQL_DB","smsc")
+//            .env("POSTGRESQL_USER",user)
+//            .env("POSTGRESQL_PASS",password)
+//            .env("POSTGRESQL_DB",database)
 //            .build();
 //
 //    @ClassRule
@@ -111,13 +134,13 @@ public abstract class AbstractTest {
     }
 
     @Autowired
-    protected WebApplicationContext webApplicationContext;
+    private WebApplicationContext webApplicationContext;
 
     @Autowired
-    protected JWTTokenUtil jwtTokenUtil;
+    protected JWTTokenGenerationService jwtTokenGenerationService;
 
     @Autowired
-    protected JWTUserDetailsServiceImpl jwtUserDetailsService;
+    protected JWTUserDetailsService jwtUserDetailsService;
 
     @Autowired
     protected UserRepository userRepository;

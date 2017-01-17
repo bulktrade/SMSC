@@ -12,6 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link DashboardBoxType} entities and exporting them
+ * to appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+// * @see     DashboardBoxMigrationRepository
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "dashboard-box-types", path = "dashboard-box-types")
 @Transactional(readOnly = true)
 public interface DashboardBoxTypeRepository extends JpaRepository<DashboardBoxType, Long> {
@@ -27,20 +36,14 @@ public interface DashboardBoxTypeRepository extends JpaRepository<DashboardBoxTy
     DashboardBoxType save(DashboardBoxType dashboardBoxType);
 
     @Override
-    @EntityGraph(attributePaths = {"kind","type"})
+    @EntityGraph(attributePaths = {"kind", "type"})
     DashboardBoxType findOne(Long id);
 
-    @EntityGraph(attributePaths = {"kind","type"})
+    @EntityGraph(attributePaths = {"kind", "type"})
     DashboardBoxType findByName(@Param("name") String name);
 
-    // /rest/repository/dashboard-box-types/search/findAll
-    @EntityGraph(attributePaths = {"kind","type"})
-    @RestResource(path = "findAll")
-    List<DashboardBoxType> findAllDistinctByOrderById();
-
-    // Prevents GET /dashboard-box-types
     @Override
-    @RestResource(exported = false)
+    @EntityGraph(attributePaths = {"kind", "type"})
     Page<DashboardBoxType> findAll(Pageable pageable);
 
 }

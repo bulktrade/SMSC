@@ -6,8 +6,19 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Specifies MetaDataPropertyBindingParameter class as an entity class.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @see     CrudMetaFormData
+ * @see     CrudMetaGridData
+ * @see     Operator
+ * @see     CombineOperator
+ * @since   0.0.1-SNAPSHOT
+ */
 @Entity
-@Table(name = "META_DATA_PROPERTY_BINDING_PARAMETER")
+@Table(name = "META_DATA_BINDING_PARAMETER")
 public class MetaDataPropertyBindingParameter extends BaseEntity {
 
     @Column(name = "FROM_PROPERTY", nullable = false)

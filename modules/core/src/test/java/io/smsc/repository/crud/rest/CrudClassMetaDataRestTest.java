@@ -33,7 +33,7 @@ public class CrudClassMetaDataRestTest extends AbstractTest {
 
     @Test
     public void testGetAllCrudClassMetaData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-class-meta-data/search/findAll"))
+        mockMvc.perform(get("/rest/repository/crud-class-meta-data"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.crud-class-meta-data", hasSize(9)))
@@ -59,7 +59,7 @@ public class CrudClassMetaDataRestTest extends AbstractTest {
     public void testCreateCrudClassMetaData() throws Exception {
         String crudClassMetaDataJson = json(new CrudClassMetaData(null,"CrudMetaDefaultData", "columnHeight", true, "new_query"));
         this.mockMvc.perform(post("/rest/repository/crud-class-meta-data")
-                .contentType(contentType)
+                .contentType("application/json;charset=UTF-8")
                 .content(crudClassMetaDataJson))
                 .andExpect(status().isCreated());
     }
@@ -79,9 +79,9 @@ public class CrudClassMetaDataRestTest extends AbstractTest {
         updated.setQuery("newQuery");
         String permissionJson = json(updated);
         mockMvc.perform(put("/rest/repository/crud-class-meta-data/55")
-                .contentType(contentType)
+                .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/crud-class-meta-data/55"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

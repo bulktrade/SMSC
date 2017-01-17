@@ -18,7 +18,7 @@ public class RoleRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleRole() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles/3"))
+        mockMvc.perform(get("/rest/repository/roles/51"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(contentType))
@@ -33,7 +33,7 @@ public class RoleRestTest extends AbstractTest {
 
     @Test
     public void testGetAllRoles() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles/search/findAll"))
+        mockMvc.perform(get("/rest/repository/roles"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.roles", hasSize(2)));
@@ -43,16 +43,16 @@ public class RoleRestTest extends AbstractTest {
     public void testCreateRole() throws Exception {
         String roleJson = json(new Role(null,"GOD"));
         this.mockMvc.perform(post("/rest/repository/roles")
-                .contentType(contentType)
+                .contentType("application/json;charset=UTF-8")
                 .content(roleJson))
                 .andExpect(status().isCreated());
     }
 
     @Test
     public void testDeleteRole() throws Exception {
-        mockMvc.perform(delete("/rest/repository/roles/3"))
+        mockMvc.perform(delete("/rest/repository/roles/51"))
                 .andDo(print());
-        mockMvc.perform(get("/rest/repository/roles/3"))
+        mockMvc.perform(get("/rest/repository/roles/51"))
                 .andExpect(status().isNotFound());
     }
 
@@ -61,30 +61,30 @@ public class RoleRestTest extends AbstractTest {
         Role updated = new Role(ROLE_USER);
         updated.setName("GUEST");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/roles/3")
-                .contentType(contentType)
+        mockMvc.perform(put("/rest/repository/roles/51")
+                .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
-                .andExpect(status().isNoContent());
-        mockMvc.perform(get("/rest/repository/roles/3"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rest/repository/roles/51"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.name",is(updated.getName())));
+                .andExpect(jsonPath("$.name", is(updated.getName())));
     }
 
     @Test
     public void testAddPermission() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles/addPermission?roleId=3&permissionId=15"))
+        mockMvc.perform(get("/rest/repository/roles/addPermission?roleId=51&permissionId=20"))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/roles/3/permissions"))
+        mockMvc.perform(get("/rest/repository/roles/51/permissions"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.permissions", hasSize(3)));
     }
 
     @Test
     public void testRemovePermission() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles/removePermission?roleId=3&permissionId=9"))
+        mockMvc.perform(get("/rest/repository/roles/removePermission?roleId=51&permissionId=5"))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/roles/3/permissions"))
+        mockMvc.perform(get("/rest/repository/roles/51/permissions"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.permissions", hasSize(1)));
     }

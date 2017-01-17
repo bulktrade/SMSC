@@ -15,6 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link DashboardBox} entities and exporting them
+ * to appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "dashboard-boxes", path = "dashboard-boxes")
 @Transactional(readOnly = true)
 public interface DashboardBoxRepository extends JpaRepository<DashboardBox, Long> {
@@ -30,25 +38,19 @@ public interface DashboardBoxRepository extends JpaRepository<DashboardBox, Long
     DashboardBox save(DashboardBox dashboardBox);
 
     @Override
-    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
+    @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
     DashboardBox findOne(Long id);
 
-    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
+    @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
     List<DashboardBox> findAllByName(@Param("name") String name);
 
-    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
+    @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
     List<DashboardBox> findAllByDashboard(@RequestBody Dashboard dashboard);
 
-    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
+    @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
     List<DashboardBox> findAllByDashboardBoxType(@RequestBody DashboardBoxType dashboardBoxType);
 
-    // /rest/repository/dashboard-boxes/search/findAll
-    @EntityGraph(attributePaths = {"dashboardBoxType","width","height"})
-    @RestResource(path = "findAll")
-    List<DashboardBox> findAllDistinctByOrderById();
-
-    // Prevents GET /dashboard-boxes
     @Override
-    @RestResource(exported = false)
+    @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
     Page<DashboardBox> findAll(Pageable pageable);
 }

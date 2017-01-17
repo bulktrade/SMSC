@@ -6,6 +6,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Specifies CrudPropertyMetaData class as an mapped superclass. It's mapping information
+ * is applied to the entities that inherit from it.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     BaseEntity
+ * @see     MappedSuperclass
+ * @since   0.0.1-SNAPSHOT
+ */
 @MappedSuperclass
 public class CrudPropertyMetaData extends BaseEntity {
 

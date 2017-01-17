@@ -4,12 +4,9 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.smsc.model.User;
 import io.smsc.AbstractTest;
-import io.smsc.security.JWTTokenUtil;
 import io.smsc.security.JWTUserFactory;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,9 +17,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 public class UserSpringSecurityTest extends AbstractTest {
 
@@ -34,8 +29,8 @@ public class UserSpringSecurityTest extends AbstractTest {
     public void generateTokens() throws Exception {
         UserDetails user = JWTUserFactory.create(userRepository.findByUsername("User"));
         UserDetails admin = JWTUserFactory.create(userRepository.findByUsername("Admin"));
-        userToken = jwtTokenUtil.generateAccessToken(user);
-        adminToken = jwtTokenUtil.generateAccessToken(admin);
+        userToken = jwtTokenGenerationService.generateAccessToken(user);
+        adminToken = jwtTokenGenerationService.generateAccessToken(admin);
     }
 
     @Value("${jwt.header}")
@@ -47,13 +42,13 @@ public class UserSpringSecurityTest extends AbstractTest {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Test
-    public void testJwtUserAccessGranted() throws Exception {
-        mockMvc.perform(get("/rest/repository/users/search/findByEmail?email=user@gmail.com")
-                .header(tokenHeader,userToken))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType));
-    }
+//    @Test
+//    public void testJwtUserAccessGranted() throws Exception {
+//        mockMvc.perform(get("/rest/repository/users/search/findByEmail?email=user@gmail.com")
+//                .header(tokenHeader,userToken))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(contentType));
+//    }
 
     @Test
     public void testJwtUserGetAllAccessForbidden() throws Exception {
@@ -64,7 +59,7 @@ public class UserSpringSecurityTest extends AbstractTest {
 
     @Test
     public void testJwtUserDeleteAccessForbidden() throws Exception {
-        mockMvc.perform(delete("/rest/repository/users/delete/1")
+        mockMvc.perform(delete("/rest/repository/users/delete/53")
                 .header(tokenHeader,userToken))
                 .andExpect(status().isForbidden());
     }
@@ -97,7 +92,7 @@ public class UserSpringSecurityTest extends AbstractTest {
                 .signWith(SignatureAlgorithm.HS512, tokenSecret)
                 .compact();
         mockMvc.perform(get("/rest/repository/users/search/findAll")
-                .header(tokenHeader,expiredToken))
+                .header(tokenHeader, expiredToken))
                 .andExpect(status().isUnauthorized());
     }
 }

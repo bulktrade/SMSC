@@ -24,7 +24,7 @@ public class CustomerJPATest extends AbstractTest {
     @Test
     public void testDeleteCustomer() throws Exception {
         customerRepository.delete(CUSTOMER_1);
-        CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), customerRepository.findAllDistinctByOrderById());
+        CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), customerRepository.findAll());
     }
 
     @Test
@@ -38,12 +38,12 @@ public class CustomerJPATest extends AbstractTest {
     @Test
     public void testGetSingleCustomer() throws Exception {
         Customer customer = customerRepository.getOne(CUSTOMER_ID_1);
-        CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1,customer);
+        CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1, customer);
     }
 
     @Test
     public void testGetAllCustomers() throws Exception {
-        Collection<Customer> customers = customerRepository.findAllDistinctByOrderById();
+        Collection<Customer> customers = customerRepository.findAll();
         CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(CUSTOMER_1), customers);
     }
 
@@ -60,7 +60,7 @@ public class CustomerJPATest extends AbstractTest {
 
     @Test
     public void testAddUser() throws Exception {
-        User newUser = new User(500L,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
+        User newUser = new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false);
         User created = userRepository.saveOneWithEncryptedPassword(newUser);
         Customer customer = customerRepository.addUser(CUSTOMER_ID_1,created.getId());
         CUSTOMER_MODEL_MATCHER.assertEquals(customer, customerRepository.getOne(CUSTOMER_ID_1));
@@ -75,6 +75,6 @@ public class CustomerJPATest extends AbstractTest {
     @Test
     public void testGetCustomerByCustomerId() throws Exception {
         Customer customer = customerRepository.findByCustomerId(1.0);
-        CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1,customer);
+        CUSTOMER_MODEL_MATCHER.assertEquals(CUSTOMER_1, customer);
     }
 }

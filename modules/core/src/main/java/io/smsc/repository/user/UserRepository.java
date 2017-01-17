@@ -14,46 +14,52 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link User} entities and exporting them to
+ * appropriate endpoints.
+ *
+ * @author  Nazar Lipkovskyy
+ * @see     UserRepositoryCustom
+ * @see     UserRepositoryImpl
+ * @since   0.0.1-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
 
+    //All query method resources are exposed under the resource 'search'.
+
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_DELETE')")
     @RestResource(exported = false)
     void delete(Long id);
 
     @Override
     @Transactional
-//    @PreAuthorize("hasRole('ADMIN') or (hasAuthority('USER_CREATE') and #user.id == null) or hasAuthority('USER_UPDATE')")
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_CREATE') or hasAuthority('USER_UPDATE')")
     @RestResource(exported = false)
     User save(@RequestBody  User user);
 
     @Override
     @EntityGraph(attributePaths = {"roles", "dashboards"})
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     @RestResource(exported = false)
     User findOne(Long id);
 
     @EntityGraph(attributePaths = {"roles", "dashboards"})
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ') or hasAuthority('USER_READ_OWN')")
-//    @RestResource(exported = false)
-    User findByEmail(@Param("email")String email);
+    @RestResource(exported = false)
+    User findByEmail(@Param("email") String email);
 
     @EntityGraph(attributePaths = {"roles", "dashboards"})
-//    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     @RestResource(exported = false)
-    User findByUsername(@Param("username")String username);
+    User findByUsername(@Param("username") String username);
 
     // /rest/repository/users/search/findAll
     @EntityGraph(attributePaths = {"roles", "dashboards"})
-    @RestResource(path = "findAll", exported = false)
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
+    @RestResource(exported = false)
     List<User> findAllDistinctByOrderById();
 
-    // Prevents GET /users
+//     Prevents GET /users
     @Override
     @RestResource(exported = false)
     Page<User> findAll(Pageable pageable);

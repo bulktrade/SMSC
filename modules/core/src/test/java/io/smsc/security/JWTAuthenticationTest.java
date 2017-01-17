@@ -1,6 +1,9 @@
 package io.smsc.security;
 
 import io.smsc.AbstractTest;
+import io.smsc.security.model.JWTAuthenticationRequest;
+import io.smsc.security.model.JWTRefreshTokenRequest;
+import io.smsc.security.service.JWTTokenGenerationServiceImpl;
 import org.assertj.core.util.DateUtil;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -47,8 +50,8 @@ public class JWTAuthenticationTest extends AbstractTest {
     @Test
     public void testRefreshToken() throws Exception {
         UserDetails admin = JWTUserFactory.create(userRepository.findByUsername("Admin"));
-        String expiredAccessToken = jwtTokenUtil.generateAccessToken(admin);
-        String refreshToken = jwtTokenUtil.generateRefreshToken(admin);
+        String expiredAccessToken = jwtTokenGenerationService.generateAccessToken(admin);
+        String refreshToken = jwtTokenGenerationService.generateRefreshToken(admin);
         MvcResult result = mockMvc.perform(put("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTRefreshTokenRequest(expiredAccessToken,refreshToken))))
@@ -60,18 +63,18 @@ public class JWTAuthenticationTest extends AbstractTest {
     @Test
     public void testGenerateTokenGeneratesDifferentTokensForDifferentCreationDates() throws Exception {
         final Map<String, Object> claims = createClaims("2016-09-08T03:00:00");
-        final String token = jwtTokenUtil.generateAccessToken(claims);
+        final String token = jwtTokenGenerationService.generateAccessToken(claims);
 
         final Map<String, Object> claimsForLaterToken = createClaims("2016-09-08T08:00:00");
-        final String laterToken = jwtTokenUtil.generateAccessToken(claimsForLaterToken);
+        final String laterToken = jwtTokenGenerationService.generateAccessToken(claimsForLaterToken);
 
         assertThat(token).isNotEqualTo(laterToken);
     }
 
     private Map<String, Object> createClaims(String creationDate) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(JWTTokenUtil.CLAIM_KEY_USERNAME, "testUser");
-        claims.put(JWTTokenUtil.CLAIM_KEY_CREATED, DateUtil.parseDatetime(creationDate));
+        claims.put(JWTTokenGenerationServiceImpl.CLAIM_KEY_USERNAME, "testUser");
+        claims.put(JWTTokenGenerationServiceImpl.CLAIM_KEY_CREATED, DateUtil.parseDatetime(creationDate));
         return claims;
     }
 }

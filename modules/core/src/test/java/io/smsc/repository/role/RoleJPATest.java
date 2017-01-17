@@ -20,7 +20,7 @@ public class RoleJPATest extends AbstractTest {
     @Test
     public void testDeleteRole() throws Exception {
         roleRepository.delete(ROLE_USER_ID);
-        ROLE_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ROLE_ADMIN), roleRepository.findAllDistinctByOrderById());
+        ROLE_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(ROLE_ADMIN), roleRepository.findAll());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class RoleJPATest extends AbstractTest {
 
     @Test
     public void testGetAllRoles() throws Exception {
-        Collection<Role> roles = roleRepository.findAllDistinctByOrderById();
+        Collection<Role> roles = roleRepository.findAll();
         ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(ROLE_USER, ROLE_ADMIN), roles);
     }
 
@@ -53,13 +53,13 @@ public class RoleJPATest extends AbstractTest {
 
     @Test
     public void testAddPermission() throws Exception {
-        Role role = roleRepository.addPermission(ROLE_USER_ID,PERMISSION_USER_CREATE_ID);
+        Role role = roleRepository.addPermission(ROLE_USER_ID, PERMISSION_USER_CREATE_ID);
         ROLE_MODEL_MATCHER.assertEquals(role,roleRepository.findOne(ROLE_USER_ID));
     }
 
     @Test
     public void testRemovePermission() throws Exception {
-        Role role = roleRepository.removePermission(ROLE_USER_ID,PERMISSION_USER_READ_OWN_ID);
+        Role role = roleRepository.removePermission(ROLE_USER_ID, PERMISSION_USER_READ_OWN_ID);
         ROLE_MODEL_MATCHER.assertEquals(role,roleRepository.findOne(ROLE_USER_ID));
     }
 
