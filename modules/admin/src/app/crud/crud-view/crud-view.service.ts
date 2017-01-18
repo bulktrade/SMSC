@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { BackendService } from "../../services/backend/backend.service";
-import { Pagination } from "../model/pagination";
 import { Observable } from "rxjs";
 import { CrudService } from "../crud.service";
 

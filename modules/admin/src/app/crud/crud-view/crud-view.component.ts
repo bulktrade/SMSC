@@ -47,7 +47,6 @@ export class CrudViewComponent {
         this.crudViewService.getCountRows()
             .subscribe(countRows => {
                 this.pagination.totalElements = countRows;
-                console.log(this.pagination.totalElements);
             });
 
         // this.crudService.resetCrudLevels();
