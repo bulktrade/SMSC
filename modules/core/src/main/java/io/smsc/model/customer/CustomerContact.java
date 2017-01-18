@@ -47,7 +47,6 @@ public class CustomerContact extends BaseEntity {
     private String emailAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonBackReference
     @JoinColumn(name="CUSTOMER")
     private Customer customer;
 
