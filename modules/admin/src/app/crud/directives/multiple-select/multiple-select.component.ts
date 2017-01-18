@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Location, CommonModule } from "@angular/common";
 import { CrudService } from "../../crud.service";
 import { FormsModule } from "@angular/forms";
+import { SelectItem } from "primeng/components/common/api";
 
 @Component({
     selector: 'multiple-select',
@@ -18,7 +19,10 @@ export class MultipleSelectComponent {
     @Input('property') public property: any;
 
     public requiredSymb = ' ';
-    public ridItems = [];
+    public items: SelectItem[] = [
+        { label: 'Admin', value: 'http://......' },
+        { label: 'User', value: 'http://......' },
+    ];
 
     constructor(public translate: TranslateService,
                 public route: ActivatedRoute,
@@ -27,10 +31,11 @@ export class MultipleSelectComponent {
                 public crudService: CrudService) {
     }
 
-    ngOnInit() {
+    removeItem(index) {
+        this.items.splice(index, 1);
     }
 
-    addLinkset(): void {
+    ngOnInit() {
     }
 }
 

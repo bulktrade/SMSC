@@ -11,6 +11,8 @@ import { FormPropertyModel } from "../model/form-property";
 import { PanelModule } from "primeng/components/panel/panel";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { ButtonModule } from "primeng/components/button/button";
+import { DropdownModule } from "primeng/components/dropdown/dropdown";
+import { CheckboxModule } from "primeng/components/checkbox/checkbox";
 
 @Component({
     selector: 'dynamic-form',
@@ -55,6 +57,7 @@ export class DynamicFormComponent {
 @NgModule({
     imports: [
         CommonModule,
+        CheckboxModule,
         FormsModule,
         TranslateModule,
         LoadingGridModule,
@@ -64,7 +67,8 @@ export class DynamicFormComponent {
         LoadingGridModule,
         PanelModule,
         InputTextModule,
-        ButtonModule
+        ButtonModule,
+        DropdownModule
     ],
     exports: [DynamicFormComponent],
     declarations: [DynamicFormComponent]

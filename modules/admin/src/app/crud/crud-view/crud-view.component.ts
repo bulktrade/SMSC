@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { BackendService } from "../../services/backend/backend.service";
 import { ColumnDef } from "../model/column-definition";
-import * as _ from "lodash";
 import { CrudViewService } from "./crud-view.service";
 import { Pagination } from "../model/pagination";
 
@@ -19,10 +18,9 @@ import { Pagination } from "../model/pagination";
 
 export class CrudViewComponent {
     public pagination: Pagination = new Pagination(10, null, null, 0);
-    public lodash = _;
     public columnDefs: ColumnDef[];
     public rowData = [];
-    public selectedRows = {};
+    public selectedRows = null;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,

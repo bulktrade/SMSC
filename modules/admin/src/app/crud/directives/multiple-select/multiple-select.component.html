@@ -1,15 +1,15 @@
 <div id="multipleSelect">
 	<div id="multipleSelectComponent">
-		<div *ngFor="let item of ridItems" class="items">
-			<div class="link" *ngIf="item.visible">
-				<div class="title">{{item.name}}</div>
-					<i class="material-icons" (click)="item.visible=!item.visible; removeItem()">remove_circle_outline</i>
+		<div *ngFor="let item of items; let i = index" class="items">
+			<div class="link">
+				<div class="title">{{ item.label }}</div>
+				<i class="material-icons remove-item" (click)="removeItem(i)">remove_circle_outline</i>
 			</div>
 		</div>
-			<i class="material-icons" id="add" title="{{'ADD' | translate}}"
-			   (click)="addLinkset()">add_circle</i>
-			<i class="material-icons" title="{{'CLEARALL' | translate}}"
-			   (click)="clearAll()" id="clearAll">clear_all</i>
+		<i class="material-icons" id="add" title="{{'ADD' | translate}}"
+		   (click)="addLinkset()">add_circle</i>
+		<i class="material-icons" title="{{'CLEARALL' | translate}}"
+		   (click)="clearAll()" id="clearAll">clear_all</i>
 	</div>
 	<ng-content id="hint"></ng-content>
 </div>

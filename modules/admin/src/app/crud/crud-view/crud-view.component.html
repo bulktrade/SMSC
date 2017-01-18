@@ -7,9 +7,9 @@
 
 				<button type="button" (click)="navigateToCreate()" pButton icon="fa-plus" style="float:right"
 				        label="Add"></button>
-				<button type="button" [disabled]="!lodash.keys(selectedRows).length" (click)="navigateToDelete()"
+				<button type="button" [disabled]="!selectedRows" (click)="navigateToDelete()"
 				        pButton icon="fa-remove" style="float:right" label="Delete"></button>
-				<button type="button" [disabled]="!lodash.keys(selectedRows).length" (click)="navigateToUpdate()"
+				<button type="button" [disabled]="!selectedRows" (click)="navigateToUpdate()"
 				        pButton icon="fa-edit" style="float:right" label="Update"></button>
 			</div>
 		</header>

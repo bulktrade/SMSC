@@ -112,13 +112,17 @@ export const ROUTES: Routes = [
                             showInSubNavigation: true,
                             translationKey: 'CrudClassMetaData',
                             icon: 'perm_data_setting',
-                            crudClass: 'CrudClassMetaData',
+                            backend: {
+                                crudClass: 'CrudMetaFormData',
+                                repositoryName: 'crud-meta-form-data'
+                            },
                             showInBreadcrumb: true,
                         },
                         children: [
                             {
                                 path: '',
                                 component: CrudComponent,
+                                resolve: { view: MainCrudResolve },
                                 loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
@@ -134,12 +138,16 @@ export const ROUTES: Routes = [
                             showInBreadcrumb: true,
                             translationKey: 'MetaDataPropertyBindingParameter',
                             icon: 'perm_data_setting',
-                            crudClass: 'MetaDataPropertyBindingParameter'
+                            backend: {
+                                crudClass: 'MetaDataPropertyBindingParameter',
+                                repositoryName: 'meta-data-property-binding-parameters'
+                            }
                         },
                         children: [
                             {
                                 path: '',
                                 component: CrudComponent,
+                                resolve: { view: MainCrudResolve },
                                 loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: true,
@@ -154,13 +162,17 @@ export const ROUTES: Routes = [
                             showInSubNavigation: true,
                             translationKey: 'CrudMetaGridData',
                             icon: 'grid_on',
-                            crudClass: 'CrudMetaGridData',
+                            backend: {
+                                crudClass: 'CrudMetaGridData',
+                                repositoryName: 'crud-meta-form-data'
+                            },
                             showInBreadcrumb: true
                         },
                         children: [
                             {
                                 path: '',
                                 component: CrudComponent,
+                                resolve: { view: MainCrudResolve },
                                 loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
@@ -175,13 +187,17 @@ export const ROUTES: Routes = [
                             showInSubNavigation: true,
                             translationKey: 'CrudMetaFormData',
                             icon: 'format_shapes',
-                            crudClass: 'CrudMetaFormData',
+                            backend: {
+                                crudClass: 'CrudMetaFormData',
+                                repositoryName: 'crud-meta-grid-data'
+                            },
                             showInBreadcrumb: true
                         },
                         children: [
                             {
                                 path: '',
                                 component: CrudComponent,
+                                resolve: { view: MainCrudResolve },
                                 loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
