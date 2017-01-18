@@ -587,7 +587,7 @@ export class CrudService {
     getGridColumnDefs(className: string = '') {
         return Observable.create((observer) => {
 
-            this.backendService.getAllCrudClassMetaData()
+            this.backendService.getResources('crud-class-meta-data')
                 .subscribe(data => {
                     // find the crudClassMetaData by class name
                     let columns = _.find(data, (o) => {
@@ -632,7 +632,7 @@ export class CrudService {
     getFormColumnDefs(className) {
         return Observable.create((observer) => {
 
-            this.backendService.getAllCrudClassMetaData()
+            this.backendService.getResources('crud-class-meta-data')
                 .subscribe(data => {
                     // find the crudClassMetaData by class name
                     let columns = _.find(data, (o) => {

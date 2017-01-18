@@ -339,7 +339,7 @@ export class BackendService {
         });
 
         return Observable.create(obs => {
-            this.http.request(this.urlPrefix + 'repository/crud-class-meta-data/search/findAll', requestOptions)
+            this.http.request(this.urlPrefix + 'repository/crud-class-meta-data', requestOptions)
                 .subscribe((res: Response) => {
                     obs.next(res.json()._embedded['crud-class-meta-data']);
                     obs.complete();
@@ -457,7 +457,7 @@ export class BackendService {
         });
 
         return Observable.create(obs => {
-            this.http.request(this.urlPrefix + 'repository/crud-meta-form-data/search/findAll', requestOptions)
+            this.http.request(this.urlPrefix + 'repository/crud-meta-form-data', requestOptions)
                 .subscribe((res: Response) => {
                     obs.next(res.json());
                     obs.complete();
@@ -575,7 +575,7 @@ export class BackendService {
         });
 
         return Observable.create(obs => {
-            this.http.request(this.urlPrefix + 'repository/crud-meta-grid-data/search/findAll', requestOptions)
+            this.http.request(this.urlPrefix + 'repository/crud-meta-grid-data', requestOptions)
                 .subscribe((res: Response) => {
                     obs.next(res.json());
                     obs.complete();
@@ -746,8 +746,7 @@ export class BackendService {
         });
 
         return Observable.create(obs => {
-            this.http.request(this.urlPrefix + 'repository' + this.urlSuffix + repositoryName +
-                this.urlSuffix + 'search/findAll', requestOptions)
+            this.http.request(this.urlPrefix + 'repository' + this.urlSuffix + repositoryName, requestOptions)
                 .subscribe((res: Response) => {
                     obs.next(res.json()['_embedded'][repositoryName]);
                     obs.complete();
