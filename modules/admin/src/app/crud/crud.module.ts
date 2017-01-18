@@ -23,6 +23,7 @@ import { ButtonModule } from "primeng/components/button/button";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { MessagesModule } from "primeng/components/messages/messages";
 import { DataTableModule } from "primeng/components/datatable/datatable";
+import { PaginatorModule } from "primeng/components/paginator/paginator";
 
 const CRUD_DECLARATIONS = [
     CrudComponent,
@@ -33,6 +34,7 @@ const CRUD_DECLARATIONS = [
 ];
 
 const CRUD_MODULES = [
+    PaginatorModule,
     DataTableModule,
     ButtonModule,
     SharedModule,

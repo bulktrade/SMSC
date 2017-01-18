@@ -590,7 +590,7 @@ export class CrudService {
             this.backendService.getResources('crud-class-meta-data')
                 .subscribe(data => {
                     // find the crudClassMetaData by class name
-                    let columns = _.find(data, (o) => {
+                    let columns = _.find(data['_embedded']['crud-class-meta-data'], (o) => {
                         return o['className'] === className;
                     });
                     let linkToMetaGridData = columns['_links'].crudMetaGridData.href;
@@ -635,7 +635,7 @@ export class CrudService {
             this.backendService.getResources('crud-class-meta-data')
                 .subscribe(data => {
                     // find the crudClassMetaData by class name
-                    let columns = _.find(data, (o) => {
+                    let columns = _.find(data['_embedded']['crud-class-meta-data'], (o) => {
                         return o['className'] === className;
                     });
                     let linkToMetaFormData = columns['_links'].crudMetaFormData.href;

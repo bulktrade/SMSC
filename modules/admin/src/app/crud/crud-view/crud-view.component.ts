@@ -5,30 +5,52 @@ import { CrudService } from "../crud.service";
 import { BackendService } from "../../services/backend/backend.service";
 import { ColumnDef } from "../model/column-definition";
 import * as _ from "lodash";
+import { CrudViewService } from "./crud-view.service";
+import { Pagination } from "../model/pagination";
 
 @Component({
     selector: 'crud-view',
-    template: require('./crud-view.component.html')
+    template: require('./crud-view.component.html'),
+    styleUrls: [
+        require('./crud-view.component.scss')
+    ],
+    providers: [CrudViewService]
 })
 
 export class CrudViewComponent {
+    public pagination: Pagination = new Pagination(10, null, null, 0);
     public lodash = _;
     public columnDefs: ColumnDef[];
     public rowData = [];
-    public selectedRows: ColumnDef = <ColumnDef>{};
+    public selectedRows = {};
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
                 public router: Router,
                 public route: ActivatedRoute,
-                public backend: BackendService) {
+                public backend: BackendService,
+                public crudViewService: CrudViewService) {
+    }
+
+    onPaginate(event) {
+        this.backend.getResources(this.crudService.getRepositoryName(), event.page, event.rows)
+            .subscribe(rows => {
+                this.rowData = rows['_embedded'][this.crudService.getRepositoryName()];
+            });
     }
 
     ngOnInit() {
         this.columnDefs = this.getColumnDefs();
         this.rowData = this.getRowData();
 
-        this.crudService.resetCrudLevels();
+        // get total rows
+        this.crudViewService.getCountRows()
+            .subscribe(countRows => {
+                this.pagination.totalElements = countRows;
+                console.log(this.pagination.totalElements);
+            });
+
+        // this.crudService.resetCrudLevels();
     }
 
     getColumnDefs() {
@@ -44,19 +66,10 @@ export class CrudViewComponent {
     }
 
     navigateToDelete() {
-        this.router.navigate([this.router.url, 'delete', this.getIdFromURI(this.selectedRows)]);
+        this.router.navigate([this.router.url, 'delete', this.selectedRows['id']]);
     }
 
     navigateToUpdate() {
-        this.router.navigate([this.router.url, 'update', this.getIdFromURI(this.selectedRows)]);
-    }
-
-    getIdFromURI(data) {
-        if (data.hasOwnProperty('_links')) {
-            let parseUrl = data['_links'].self.href.split('/');
-            return parseUrl[parseUrl.length - 1];
-        } else {
-            return null;
-        }
+        this.router.navigate([this.router.url, 'update', this.selectedRows['id']]);
     }
 }

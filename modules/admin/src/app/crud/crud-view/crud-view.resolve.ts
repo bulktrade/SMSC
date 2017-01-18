@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 import { NotificationService } from "../../services/notification-service";
 import { GridOptions } from "../model/grid-options";
 import { BackendService } from "../../services/backend/backend.service";
+import { Pagination } from "../model/pagination";
 
 @Injectable()
 export class CrudViewResolve extends CrudResolve {
@@ -19,6 +20,7 @@ export class CrudViewResolve extends CrudResolve {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        let pagination: Pagination = new Pagination(10, null, null, 0);
         let gridOptions: GridOptions = <GridOptions>{};
         this.loadingGridService.start();
 
@@ -28,9 +30,9 @@ export class CrudViewResolve extends CrudResolve {
                     this.loadingGridService.stop();
                     gridOptions.columnDefs = columns;
 
-                    this.backendService.getResources(this.crudService.getRepositoryName())
+                    this.backendService.getResources(this.crudService.getRepositoryName(), pagination.number, pagination.size)
                         .subscribe(resources => {
-                            gridOptions.rowData = resources;
+                            gridOptions.rowData = resources['_embedded'][this.crudService.getRepositoryName()];
 
                             observer.next(gridOptions);
                             observer.complete();

@@ -738,17 +738,27 @@ export class BackendService {
     /**
      * Retrieves a list of all resources from the specified repository
      * @param repositoryName
+     * @param page
+     * @param size
      * @returns {any}
      */
-    getResources(repositoryName: string = '') {
+    getResources(repositoryName: string = '', page?: number, size?: number) {
+        let search = new URLSearchParams();
+
+        if (typeof page !== 'undefined' && typeof size !== 'undefined') {
+            search.set('page', page + '');
+            search.set('size', size + '');
+        }
+
         let requestOptions = new RequestOptions({
-            method: RequestMethod.Get
+            method: RequestMethod.Get,
+            search: search
         });
 
         return Observable.create(obs => {
             this.http.request(this.urlPrefix + 'repository' + this.urlSuffix + repositoryName, requestOptions)
                 .subscribe((res: Response) => {
-                    obs.next(res.json()['_embedded'][repositoryName]);
+                    obs.next(res.json());
                     obs.complete();
                 }, err => {
                     obs.error(err);

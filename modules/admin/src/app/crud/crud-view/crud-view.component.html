@@ -1,18 +1,21 @@
-<div class="crud-view-window">
-	<p-dataTable [value]="rowData" [(selection)]="selectedRows" [paginator]="true" rows="15"
+<div id="crud-view-window">
+	<p-dataTable [value]="rowData" [(selection)]="selectedRows"
 	             scrollable="true" scrollHeight="400px" selectionMode="single">
-		<header>{{ crudService.getClassName() | uppercase | translate}}</header>
-		<p-column [field]="column.field" [style]="{'width':'200px'}" [header]="column.headerName" [sortable]="true"
-		          *ngFor="let column of columnDefs"></p-column>
-		<footer>
+		<header class="grid-header">
 			<div class="ui-helper-clearfix" style="width:100%">
-				<button type="button" (click)="navigateToCreate()" pButton icon="fa-plus" style="float:left"
+				<span class="grid-title">{{ crudService.getClassName() | uppercase | translate}}</span>
+
+				<button type="button" (click)="navigateToCreate()" pButton icon="fa-plus" style="float:right"
 				        label="Add"></button>
 				<button type="button" [disabled]="!lodash.keys(selectedRows).length" (click)="navigateToDelete()"
-				        pButton icon="fa-remove" style="float:left" label="Delete"></button>
+				        pButton icon="fa-remove" style="float:right" label="Delete"></button>
 				<button type="button" [disabled]="!lodash.keys(selectedRows).length" (click)="navigateToUpdate()"
-				        pButton icon="fa-edit" style="float:left" label="Update"></button>
+				        pButton icon="fa-edit" style="float:right" label="Update"></button>
 			</div>
-		</footer>
+		</header>
+		<p-column [field]="column.field" [style]="{'width':'200px'}" [header]="column.headerName" [sortable]="true"
+		          *ngFor="let column of columnDefs"></p-column>
 	</p-dataTable>
+	<p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
+	             [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPaginate($event)"></p-paginator>
 </div>
