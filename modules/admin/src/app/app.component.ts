@@ -6,7 +6,7 @@ import { NOTIFICATION_OPTIONS } from "./common/notification-Options";
     selector: 'app',
     providers: [],
     template: `
-        <simple-notifications id="growl" [options]="notificationOptions"></simple-notifications>
+        <simple-notifications style="z-index:999999" id="growl" [options]="notificationOptions"></simple-notifications>
         <router-outlet></router-outlet>
     `,
     encapsulation: ViewEncapsulation.None,

@@ -4,6 +4,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { Location } from "@angular/common";
 import { Message } from "primeng/components/common/api";
+import { BackendService } from "../../services/backend/backend.service";
+import { GrowlService } from "../../services/growl/growl.service";
+import { NotificationService } from "../../services/notification-service";
 
 @Component({
     selector: 'crud-delete',
@@ -23,7 +26,9 @@ export class CrudDeleteComponent {
                 public crudService: CrudService,
                 public router: Router,
                 public route: ActivatedRoute,
-                public location: Location) {
+                public location: Location,
+                public backendService: BackendService,
+                private notifications: NotificationService) {
     }
 
     ngOnInit() {
@@ -41,13 +46,13 @@ export class CrudDeleteComponent {
         this.location.back();
     }
 
-    deleteRecords() {
-        // this.crudService.deleteRecord(this.id.split(','))
-        //     .subscribe(() => {
-        //         this.back();
-        //     }, (error) => {
-        //         this.crudService.serviceNotifications.createNotificationOnResponse(error);
-        //     });
+    delete() {
+        this.backendService.deleteResource(this.id, this.crudService.getRepositoryName())
+            .subscribe(res => {
+                this.notifications.createNotification('success', 'SUCCESS', 'crud.successDelete');
+            }, err => {
+                console.error(err);
+                this.notifications.createNotification('error', 'ERROR', 'crud.errorDelete');
+            })
     }
-
 }

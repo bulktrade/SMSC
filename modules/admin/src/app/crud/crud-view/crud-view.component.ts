@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CrudService } from "../crud.service";
 import { BackendService } from "../../services/backend/backend.service";
 import { ColumnDef } from "../model/column-definition";
+import * as _ from "lodash";
 
 @Component({
     selector: 'crud-view',
@@ -11,9 +12,10 @@ import { ColumnDef } from "../model/column-definition";
 })
 
 export class CrudViewComponent {
+    public lodash = _;
     public columnDefs: ColumnDef[];
     public rowData = [];
-    public selectedRows: ColumnDef[] = [];
+    public selectedRows: ColumnDef = <ColumnDef>{};
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -41,17 +43,20 @@ export class CrudViewComponent {
         this.router.navigate([this.router.url, 'create']);
     }
 
-    navigateToDelete(data) {
-        this.router.navigate([this.router.url, 'delete', this.getIdFromURI(data)]);
+    navigateToDelete() {
+        this.router.navigate([this.router.url, 'delete', this.getIdFromURI(this.selectedRows)]);
     }
 
-    navigateToUpdate(data) {
-        this.router.navigate([this.router.url, 'update', this.getIdFromURI(data)]);
+    navigateToUpdate() {
+        this.router.navigate([this.router.url, 'update', this.getIdFromURI(this.selectedRows)]);
     }
 
     getIdFromURI(data) {
-        let parseUrl = data['_links'].self.href.split('/');
-
-        return parseUrl[parseUrl.length - 1];
+        if (data.hasOwnProperty('_links')) {
+            let parseUrl = data['_links'].self.href.split('/');
+            return parseUrl[parseUrl.length - 1];
+        } else {
+            return null;
+        }
     }
 }

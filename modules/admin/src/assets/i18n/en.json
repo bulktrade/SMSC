@@ -112,5 +112,7 @@
     "ORDER": "Order",
     "BINGINGPROPERTIES": "Binging properties",
     "COLUMNWIDTH": "Column width",
-    "FIELDLAYOUTGRIDPOSITION": "Field layout grid position"
+    "FIELDLAYOUTGRIDPOSITION": "Field layout grid position",
+    "crud.successDelete": "Data has been successfully deleted",
+    "crud.errorDelete": "Data was not deleted"
 }
