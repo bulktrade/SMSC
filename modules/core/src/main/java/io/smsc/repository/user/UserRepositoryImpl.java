@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -77,11 +78,14 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
      */
     @EntityGraph(attributePaths = {"roles", "dashboards"})
     public User getOneWithRolesAndDecryptedPassword(Long id) {
-        User user = entityManager.find(User.class, id);
-        if(user == null) {
+        User user;
+        try {
+            user = entityManager.find(User.class, id);
+            CryptoConverter.decrypt(user, secretKey);
+        }
+        catch (NoResultException ex) {
             return null;
         }
-        CryptoConverter.decrypt(user, secretKey);
         return user;
     }
 
@@ -97,10 +101,16 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     @EntityGraph(attributePaths = {"roles", "dashboards"})
     public User getOneByEmailWithDecryptedPassword(String email) {
-        TypedQuery query = entityManager.createQuery("select u from User u where u.email = ?1", User.class);
-        query.setParameter(1, email);
-        User user = (User) query.getSingleResult();
-        CryptoConverter.decrypt(user, secretKey);
+        User user;
+        try {
+            TypedQuery query = entityManager.createQuery("select u from User u where u.email = ?1", User.class);
+            query.setParameter(1, email);
+            user = (User) query.getSingleResult();
+            CryptoConverter.decrypt(user, secretKey);
+        }
+        catch (NoResultException ex) {
+            return null;
+        }
         return user;
     }
 
@@ -116,10 +126,16 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     @EntityGraph(attributePaths = {"roles", "dashboards"})
     public User getOneByUserNameWithDecryptedPassword(String username) {
-        TypedQuery query = entityManager.createQuery("select u from User u where u.username = ?1", User.class);
-        query.setParameter(1, username);
-        User user = (User) query.getSingleResult();
-        CryptoConverter.decrypt(user, secretKey);
+        User user;
+        try {
+            TypedQuery query = entityManager.createQuery("select u from User u where u.username = ?1", User.class);
+            query.setParameter(1, username);
+            user = (User) query.getSingleResult();
+            CryptoConverter.decrypt(user, secretKey);
+        }
+        catch (NoResultException ex) {
+            return null;
+        }
         return user;
     }
 
@@ -158,7 +174,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         else {
             entityManager.merge(user);
         }
-        CryptoConverter.decrypt(user, secretKey);
         return user;
     }
 }

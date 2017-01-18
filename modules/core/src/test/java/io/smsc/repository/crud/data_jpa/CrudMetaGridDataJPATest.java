@@ -30,7 +30,7 @@ public class CrudMetaGridDataJPATest extends AbstractTest {
     @Test
     public void testSaveCrudMetaGridData() throws Exception {
         CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"defaultProperty", true, true,
-                "newDecorator", 10.0, 50.0);
+                "newDecorator", 10.0, "String", null, null, null);
         newCrudMetaGridData.setCrudClassMetaData(CRUD_CLASS_META_DATA_1);
         CrudMetaGridData created = crudMetaGridDataRepository.save(newCrudMetaGridData);
         newCrudMetaGridData.setId(created.getId());

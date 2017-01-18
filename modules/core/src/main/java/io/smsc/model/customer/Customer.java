@@ -61,8 +61,8 @@ public class Customer extends BaseEntity {
     @OrderBy
     @JoinTable(
             name = "CUSTOMER_USER",
-            joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     )
     private Set<User> users;
 

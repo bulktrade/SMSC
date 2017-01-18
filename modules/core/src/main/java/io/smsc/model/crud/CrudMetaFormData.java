@@ -31,24 +31,27 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
     public CrudMetaFormData() {
     }
 
-    public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order) {
-        super(id, property, editable, visible, decorator, order);
+    public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
+                            String type, String linkedClass, String linkedRepository) {
+        super(id, property, editable, visible, decorator, order, type, linkedClass, linkedRepository);
     }
 
     public CrudMetaFormData(CrudMetaFormData crudMetaFormData) {
         this(crudMetaFormData.getId(), crudMetaFormData.getProperty(), crudMetaFormData.getEditable(), crudMetaFormData.getVisible(),
-                crudMetaFormData.getDecorator(), crudMetaFormData.getOrder(), crudMetaFormData.getFieldLayoutGridPosition());
+                crudMetaFormData.getDecorator(), crudMetaFormData.getOrder(), crudMetaFormData.getType(), crudMetaFormData.getLinkedClass(),
+                crudMetaFormData.getLinkedRepository(), crudMetaFormData.getFieldLayoutGridPosition());
     }
 
     public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
-                            String fieldLayoutGridPosition) {
-        super(id, property, editable, visible, decorator, order);
+                            String type, String linkedClass, String linkedRepository, String fieldLayoutGridPosition) {
+        super(id, property, editable, visible, decorator, order, type, linkedClass, linkedRepository);
         this.fieldLayoutGridPosition = fieldLayoutGridPosition;
     }
 
     public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
-                            String fieldLayoutGridPosition, CrudClassMetaData crudClassMetaData) {
-        super(id, property, editable, visible, decorator, order);
+                            String type, String linkedClass, String linkedRepository, String fieldLayoutGridPosition,
+                            CrudClassMetaData crudClassMetaData) {
+        super(id, property, editable, visible, decorator, order, type, linkedClass, linkedRepository);
         this.fieldLayoutGridPosition = fieldLayoutGridPosition;
         this.crudClassMetaData = crudClassMetaData;
     }

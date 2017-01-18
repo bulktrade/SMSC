@@ -42,40 +42,40 @@ public class CrudMetaGridDataTestData {
     public static final long CRUD_META_GRID_DATA_ID_30 = 135;
     public static final long CRUD_META_GRID_DATA_ID_31 = 136;
 
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_1 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_1,"fromProperty", true, true, null, 1.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_2 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_2,"toProperty", true, true, null, 2.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_3 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_3,"combineOperator", true, true, null, 3.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_4 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_4,"operator", true, true, null, 4.0, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_1 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_1,"fromProperty", true, true, null, 1.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_2 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_2,"toProperty", true, true, null, 2.0, "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_3 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_3,"combineOperator", true, true, null, 3.0,   "AND,OR,NOT", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_4 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_4,"operator", true, true, null, 4.0,  "EQUALS,MORE,LESS,MORE_OR_EQUALS,LESS_OR_EQUALS,MORE_OR_LESS,LIKE,BETWEEN,IS,INSTANCE_OF,MATCHES", null, null, null);
 
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_5 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_5,"columnWidth", true, true, null, 1.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_6 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_6,"property", true, true, null, 2.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_7 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_7,"editable", true, true, null, 3.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_8 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_8,"visible", true, true, null, 4.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_9 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_9,"decorator", true, true, null, 5.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_10 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_10,"order", true, true, null, 6.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_11 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_11,"crudClassMetaData", true, true, null, 7.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_12 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_12,"bingingProperties", true, true, null, 8.0, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_5 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_5,"columnWidth", true, true, null, 1.0,  "Double", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_6 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_6,"property", true, true, null, 2.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_7 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_7,"editable", true, true, null, 3.0,  "Boolean", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_8 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_8,"visible", true, true, null, 4.0,  "Boolean", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_9 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_9,"decorator", true, true, null, 5.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_10 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_10,"order", true, true, null, 6.0,  "Double", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_11 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_11,"crudClassMetaData", true, true, null, 7.0,  "URI", "CrudClassMetaData", "crud-class-meta-data", null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_12 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_12,"bindingProperties", true, true, null, 8.0,  "URI", "MetaDataPropertyBindingParameter", "meta-data-property-binding-parameters", null);
 
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_13 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_13,"fieldLayoutGridPosition", true, true, null, 1.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_14 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_14,"property", true, true, null, 2.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_15 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_15,"editable", true, true, null, 3.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_16 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_16,"visible", true, true, null, 4.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_17 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_17,"decorator", true, true, null, 5.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_18 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_18,"order", true, true, null, 6.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_19 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_19,"crudClassMetaData", true, true, null, 7.0,null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_20 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_20,"bingingProperties", true, true, null, 8.0, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_13 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_13,"fieldLayoutGridPosition", true, true, null, 1.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_14 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_14,"property", true, true, null, 2.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_15 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_15,"editable", true, true, null, 3.0,  "Boolean", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_16 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_16,"visible", true, true, null, 4.0,  "Boolean", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_17 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_17,"decorator", true, true, null, 5.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_18 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_18,"order", true, true, null, 6.0,  "Double", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_19 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_19,"crudClassMetaData", true, true, null, 7.0,  "URI", "CrudClassMetaData", "crud-class-meta-data", null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_20 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_20,"bindingProperties", true, true, null, 8.0,  "URI", "MetaDataPropertyBindingParameter", "meta-data-property-binding-parameters", null);
 
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_21 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_21,"customerId", true, true, null, 1.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_22 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_22,"companyName", true, true, null, 2.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_23 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_23,"street", true, true, null, 3.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_24 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_24,"street2", true, true, null, 4.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_25 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_25,"postcode", true, true, null,5.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_26 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_26,"country", true, true, null, 6.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_27 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_27,"city", true, true, null, 7.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_28 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_28,"vatid", true, true, null, 8.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_29 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_29,"contacts", true, true, null, 9.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_30 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_30,"users", true, true, null, 10.0, null);
-    public static final CrudMetaGridData CRUD_META_GRID_DATA_31 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_31,"parentCustomer", true, true, null, 11.0, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_21 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_21,"customerId", true, true, null, 1.0,  "Double", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_22 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_22,"companyName", true, true, null, 2.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_23 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_23,"street", true, true, null, 3.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_24 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_24,"street2", true, true, null, 4.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_25 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_25,"postcode", true, true, null,5.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_26 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_26,"country", true, true, null, 6.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_27 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_27,"city", true, true, null, 7.0,  "String", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_28 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_28,"vatid", true, true, null, 8.0,  "Double", null, null, null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_29 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_29,"contacts", true, true, null, 9.0,  "URI", "CustomerContact", "customer-contacts", null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_30 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_30,"users", true, true, null, 10.0,  "URI", "User", "users", null);
+    public static final CrudMetaGridData CRUD_META_GRID_DATA_31 = new CrudMetaGridData(CRUD_META_GRID_DATA_ID_31,"parentCustomer", true, true, null, 11.0, "URI", "Customer", "customers", null);
 
     static {
         CRUD_META_GRID_DATA_1.setBindingParameters(Collections.emptySet());

@@ -140,10 +140,6 @@ public class UserController {
             updatedUser.setPassword(user.getPassword());
             updatedUser.setFirstname(user.getFirstname());
             updatedUser.setSurname(user.getSurname());
-            if(!updatedUser.getEmail().equals(user.getEmail()) && userRepository.getOneByEmailWithDecryptedPassword(user.getEmail()) != null){
-                response.sendError(HttpServletResponse.SC_CONFLICT, "User with this email already exists");
-                return null;
-            }
             updatedUser.setEmail(user.getEmail());
             updatedUser.setActive(user.isActive());
             updatedUser.setBlocked(user.isBlocked());

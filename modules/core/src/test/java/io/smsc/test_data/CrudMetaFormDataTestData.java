@@ -53,54 +53,54 @@ public class CrudMetaFormDataTestData {
     public static final long CRUD_META_FORM_DATA_ID_41 = 104;
     public static final long CRUD_META_FORM_DATA_ID_42 = 105;
 
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_1 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_1,"fromProperty", true, true, null, 1.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_2 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_2,"toProperty", true, true, null, 2.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_3 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_3,"combineOperator", true, true, null, 3.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_4 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_4,"operator", true, true, null, 4.0, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_1 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_1,"fromProperty", true, true, null, 1.0, "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_2 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_2,"toProperty", true, true, null, 2.0, "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_3 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_3,"combineOperator", true, true, null, 3.0, "AND,OR,NOT", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_4 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_4,"operator", true, true, null, 4.0, "EQUALS,MORE,LESS,MORE_OR_EQUALS,LESS_OR_EQUALS,MORE_OR_LESS,LIKE,BETWEEN,IS,INSTANCE_OF,MATCHES", null, null, null);
 
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_5 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_5,"columnWidth", true, true, null, 1.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_6 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_6,"property", true, true, null, 2.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_7 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_7,"editable", true, true, null, 3.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_8 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_8,"visible", true, true, null, 4.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_9 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_9,"decorator", true, true, null, 5.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_10 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_10,"order", true, true, null, 6.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_11 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_11,"crudClassMetaData", true, true, null, 7.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_12 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_12,"bingingProperties", true, true, null, 8.0, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_5 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_5,"columnWidth", true, true, null, 1.0,  "Double", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_6 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_6,"property", true, true, null, 2.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_7 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_7,"editable", true, true, null, 3.0,  "Boolean", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_8 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_8,"visible", true, true, null, 4.0,  "Boolean", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_9 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_9,"decorator", true, true, null, 5.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_10 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_10,"order", true, true, null, 6.0,  "Double", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_11 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_11,"crudClassMetaData", true, true, null, 7.0,  "URI", "CrudClassMetaData", "crud-class-meta-data", null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_12 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_12,"bingingProperties", true, true, null, 8.0,  "URI", "MetaDataPropertyBindingParameter", "meta-data-property-binding-parameters", null);
 
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_13 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_13,"fieldLayoutGridPosition", true, true, null, 1.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_14 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_14,"property", true, true, null, 2.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_15 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_15,"editable", true, true, null, 3.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_16 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_16,"visible", true, true, null, 4.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_17 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_17,"decorator", true, true, null,5.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_18 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_18,"order", true, true, null, 6.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_19 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_19,"crudClassMetaData", true, true, null, 7.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_20 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_20,"bindingProperties", true, true, null, 8.0, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_13 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_13,"fieldLayoutGridPosition", true, true, null, 1.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_14 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_14,"property", true, true, null, 2.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_15 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_15,"editable", true, true, null, 3.0,  "Boolean", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_16 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_16,"visible", true, true, null, 4.0,  "Boolean", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_17 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_17,"decorator", true, true, null,5.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_18 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_18,"order", true, true, null, 6.0,  "Double", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_19 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_19,"crudClassMetaData", true, true, null, 7.0,  "URI", "CrudClassMetaData", "crud-class-meta-data", null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_20 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_20,"bindingProperties", true, true, null, 8.0,  "URI", "MetaDataPropertyBindingParameter", "meta-data-property-binding-parameters", null);
 
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_21 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_21,"customerId", true, true, null, 1.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_22 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_22,"companyName", true, true, null, 2.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_23 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_23,"street", true, true, null, 3.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_24 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_24,"street2", true, true, null, 4.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_25 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_25,"postcode", true, true, null,5.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_26 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_26,"country", true, true, null, 6.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_27 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_27,"city", true, true, null, 7.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_28 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_28,"vatid", true, true, null, 8.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_29 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_29,"contacts", true, true, null, 9.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_30 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_30,"users", true, true, null, 10.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_31 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_31,"parentCustomer", true, true, null, 11.0, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_21 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_21,"customerId", true, true, null, 1.0,  "Double", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_22 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_22,"companyName", true, true, null, 2.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_23 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_23,"street", true, true, null, 3.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_24 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_24,"street2", true, true, null, 4.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_25 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_25,"postcode", true, true, null,5.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_26 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_26,"country", true, true, null, 6.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_27 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_27,"city", true, true, null, 7.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_28 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_28,"vatid", true, true, null, 8.0,  "Double", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_29 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_29,"contacts", true, true, null, 9.0,  "URI", "CustomerContact", "customer-contacts", null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_30 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_30,"users", true, true, null, 10.0,  "URI", "User", "users", null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_31 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_31,"parentCustomer", true, true, null, 11.0,  "URI", "Customer", "customers", null);
 
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_32 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_32,"name", true, true, null, 1.0, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_32 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_32,"name", true, true, null, 1.0,  "String", null, null, null);
 
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_33 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_33,"name", true, true, null, 1.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_34 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_34,"description", true, true, null, 2.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_35 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_35,"type", true, true, null, 3.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_36 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_36,"dashboard", true, true, null, 4.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_37 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_37,"width", true, true, null,5.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_38 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_38,"height", true, true, null, 6.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_39 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_39,"order", true, true, null, 7.0, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_33 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_33,"name", true, true, null, 1.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_34 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_34,"description", true, true, null, 2.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_35 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_35,"type", true, true, null, 3.0,  "URI", "DashboardBoxType", "dashboard-box-types", null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_36 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_36,"dashboard", true, true, null, 4.0,  "URI", "Dashboard", "dashboards", null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_37 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_37,"width", true, true, null,5.0,  "WIDTH_25,WIDTH_50,WIDTH_75,WIDTH_100", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_38 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_38,"height", true, true, null, 6.0,  "HEIGHT_25,HEIGHT_50,HEIGHT_75,HEIGHT_100", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_39 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_39,"order", true, true, null, 7.0,  "Integer", null, null, null);
 
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_40 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_40,"name", true, true, null, 1.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_41 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_41,"type", true, true, null, 2.0, null);
-    public static final CrudMetaFormData CRUD_META_FORM_DATA_42 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_42,"kind", true, true, null, 3.0, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_40 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_40,"name", true, true, null, 1.0,  "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_41 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_41,"type", true, true, null, 2.0,  "STATUS,CHART", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_42 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_42,"kind", true, true, null, 3.0,  "PIE_CHART,SERIAL_CHART,LINE_CHART,BAR_CHART,BUBBLE_CHART,FEEDBACK_STATUS, PROFIT_STATUS,ORDERS_STATUS,USERS_STATUS", null, null, null);
 
     static {
         CRUD_META_FORM_DATA_1.setBindingParameters(Collections.emptySet());

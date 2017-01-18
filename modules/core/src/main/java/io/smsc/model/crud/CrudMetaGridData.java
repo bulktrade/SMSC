@@ -33,18 +33,19 @@ public class CrudMetaGridData extends CrudPropertyMetaData {
 
     public CrudMetaGridData(CrudMetaGridData crudMetaGridData) {
         this(crudMetaGridData.getId(), crudMetaGridData.getProperty(), crudMetaGridData.getEditable(), crudMetaGridData.getVisible(),
-                crudMetaGridData.getDecorator(), crudMetaGridData.getOrder(), crudMetaGridData.getColumnWidth());
+                crudMetaGridData.getDecorator(), crudMetaGridData.getOrder(), crudMetaGridData.getType(),
+                crudMetaGridData.getLinkedClass(), crudMetaGridData.getLinkedRepository(), crudMetaGridData.getColumnWidth());
     }
 
     public CrudMetaGridData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
-                            Double columnWidth) {
-        super(id, property, editable, visible, decorator, order);
+                            String type, String linkedClass, String linkedRepository, Double columnWidth) {
+        super(id, property, editable, visible, decorator, order, type, linkedClass, linkedRepository);
         this.columnWidth = columnWidth;
     }
 
     public CrudMetaGridData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
-                            Double columnWidth, CrudClassMetaData crudClassMetaData) {
-        super(id, property, editable, visible, decorator, order);
+                             String type, String linkedClass, String linkedRepository, Double columnWidth, CrudClassMetaData crudClassMetaData) {
+        super(id, property, editable, visible, decorator, order, type, linkedClass, linkedRepository);
         this.columnWidth = columnWidth;
         this.crudClassMetaData = crudClassMetaData;
     }

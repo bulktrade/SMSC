@@ -43,7 +43,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, Custo
     Customer findOne(Long id);
 
     @EntityGraph(attributePaths = {"parentCustomer", "contacts", "users"})
-    Customer findByCustomerId(@Param("customerId")Double customerID);
+    Customer findByCustomerId(@Param("customerId") Double customerID);
 
     @Override
     @EntityGraph(attributePaths = {"parentCustomer", "contacts", "users"})
