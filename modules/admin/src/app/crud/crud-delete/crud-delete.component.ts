@@ -5,7 +5,6 @@ import { CrudService } from "../crud.service";
 import { Location } from "@angular/common";
 import { Message } from "primeng/components/common/api";
 import { BackendService } from "../../services/backend/backend.service";
-import { GrowlService } from "../../services/growl/growl.service";
 import { NotificationService } from "../../services/notification-service";
 
 @Component({
@@ -28,7 +27,7 @@ export class CrudDeleteComponent {
                 public route: ActivatedRoute,
                 public location: Location,
                 public backendService: BackendService,
-                private notifications: NotificationService) {
+                public notifications: NotificationService) {
     }
 
     ngOnInit() {

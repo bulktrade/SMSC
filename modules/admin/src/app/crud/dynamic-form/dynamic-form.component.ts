@@ -1,14 +1,13 @@
-import { Component, Input, NgModule, ModuleWithProviders } from '@angular/core';
-import { CrudService } from '../crud.service';
-import { Location, CommonModule } from '@angular/common';
-import { BtnTypes } from './model/button-types';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MdSelectModule } from '../../common/material/select/select.component';
-import { TranslateModule } from 'ng2-translate/ng2-translate';
-import { FormsModule } from '@angular/forms';
-import { LoadingGridModule } from '../../common/loading-grid.component';
-import { MultipleSelectModule } from '../directives/multiple-select/multiple-select.component';
-import { FormPropertyModel } from '../model/form-property';
+import { Component, Input, NgModule, ModuleWithProviders, Output, EventEmitter } from "@angular/core";
+import { CrudService } from "../crud.service";
+import { Location, CommonModule } from "@angular/common";
+import { Router, ActivatedRoute } from "@angular/router";
+import { MdSelectModule } from "../../common/material/select/select.component";
+import { TranslateModule } from "ng2-translate/ng2-translate";
+import { FormsModule } from "@angular/forms";
+import { LoadingGridModule } from "../../common/loading-grid.component";
+import { MultipleSelectModule } from "../directives/multiple-select/multiple-select.component";
+import { FormPropertyModel } from "../model/form-property";
 import { PanelModule } from "primeng/components/panel/panel";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { ButtonModule } from "primeng/components/button/button";
@@ -30,6 +29,9 @@ export class DynamicFormComponent {
     @Input('model')
     public model = {};
 
+    @Output('onSubmit')
+    public _onSubmit = new EventEmitter();
+
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
@@ -37,17 +39,7 @@ export class DynamicFormComponent {
     }
 
     onSubmit() {
-        switch (this.formType) {
-            case BtnTypes.UPDATE:
-                // this.crudService.updateRecord(this.crudService.model);
-                break;
-            case BtnTypes.CREATE:
-                // this.crudService.createRecord(this.crudService.model,
-                //     this.route.snapshot.params['className']);
-                break;
-            default:
-                break;
-        }
+        this._onSubmit.emit(this.model);
     }
 
     ngOnDestroy() {
