@@ -18,7 +18,6 @@ import java.util.List;
  * to appropriate endpoints.
  *
  * @author  Nazar Lipkovskyy
-// * @see     DashboardBoxMigrationRepository
  * @since   0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "dashboard-box-types", path = "dashboard-box-types")

@@ -17,7 +17,7 @@ public class DashboardRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleDashboard() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboards/140"))
+        mockMvc.perform(get("/rest/repository/dashboards/230"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is(DASHBOARD_1.getName())))
@@ -51,8 +51,8 @@ public class DashboardRestTest extends AbstractTest {
 
     @Test
     public void testDeleteDashboard() throws Exception {
-        mockMvc.perform(delete("/rest/repository/dashboards/140"));
-        mockMvc.perform(get("/rest/repository/dashboards/140"))
+        mockMvc.perform(delete("/rest/repository/dashboards/230"));
+        mockMvc.perform(get("/rest/repository/dashboards/230"))
                 .andExpect(status().isNotFound());
     }
 
@@ -63,11 +63,11 @@ public class DashboardRestTest extends AbstractTest {
         updated.setIcon("new icon");
         updated.setName("new name");
         String dashboardJson = json(updated);
-        mockMvc.perform(put("/rest/repository/dashboards/140")
+        mockMvc.perform(put("/rest/repository/dashboards/230")
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/dashboards/140"))
+        mockMvc.perform(get("/rest/repository/dashboards/230"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is(updated.getName())))

@@ -36,23 +36,15 @@ public class CrudClassMetaDataRestTest extends AbstractTest {
         mockMvc.perform(get("/rest/repository/crud-class-meta-data"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data", hasSize(9)))
+                .andExpect(jsonPath("$._embedded.crud-class-meta-data", hasSize(12)))
                 .andExpect(jsonPath("$._embedded.crud-class-meta-data[0].className", is(CRUD_CLASS_META_DATA_1.getClassName())))
                 .andExpect(jsonPath("$._embedded.crud-class-meta-data[0].editable", is(CRUD_CLASS_META_DATA_1.getEditable())))
                 .andExpect(jsonPath("$._embedded.crud-class-meta-data[0].query", is(CRUD_CLASS_META_DATA_1.getQuery())))
                 .andExpect(jsonPath("$._embedded.crud-class-meta-data[0].titleColumns", is(CRUD_CLASS_META_DATA_1.getTitleColumns())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[1].className", is(CRUD_CLASS_META_DATA_2.getClassName())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[1].editable", is(CRUD_CLASS_META_DATA_2.getEditable())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[1].query", is(CRUD_CLASS_META_DATA_2.getQuery())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[1].titleColumns", is(CRUD_CLASS_META_DATA_2.getTitleColumns())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[2].className", is(CRUD_CLASS_META_DATA_3.getClassName())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[2].editable", is(CRUD_CLASS_META_DATA_3.getEditable())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[2].query", is(CRUD_CLASS_META_DATA_3.getQuery())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[2].titleColumns", is(CRUD_CLASS_META_DATA_3.getTitleColumns())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[3].className", is(CRUD_CLASS_META_DATA_4.getClassName())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[3].editable", is(CRUD_CLASS_META_DATA_4.getEditable())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[3].query", is(CRUD_CLASS_META_DATA_4.getQuery())))
-                .andExpect(jsonPath("$._embedded.crud-class-meta-data[3].titleColumns", is(CRUD_CLASS_META_DATA_4.getTitleColumns())));
+                .andExpect(jsonPath("$._embedded.crud-class-meta-data[11].className", is(CRUD_CLASS_META_DATA_12.getClassName())))
+                .andExpect(jsonPath("$._embedded.crud-class-meta-data[11].editable", is(CRUD_CLASS_META_DATA_12.getEditable())))
+                .andExpect(jsonPath("$._embedded.crud-class-meta-data[11].query", is(CRUD_CLASS_META_DATA_12.getQuery())))
+                .andExpect(jsonPath("$._embedded.crud-class-meta-data[11].titleColumns", is(CRUD_CLASS_META_DATA_12.getTitleColumns())));
     }
 
     @Test
