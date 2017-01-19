@@ -34,8 +34,13 @@ export class CrudViewResolve extends CrudResolve {
                         .subscribe(resources => {
                             gridOptions.rowData = resources['_embedded'][this.crudService.getRepositoryName()];
 
-                            observer.next(gridOptions);
-                            observer.complete();
+                            this.crudService.parseLinkProps(gridOptions.columnDefs, gridOptions.rowData)
+                                .subscribe(data => {
+                                    gridOptions.rowData = data;
+
+                                    observer.next(gridOptions);
+                                    observer.complete();
+                                });
                         }, err => {
                             this.loadingGridService.stop();
                             this.notification.createNotificationOnResponse(err);
