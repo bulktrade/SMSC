@@ -17,7 +17,7 @@
 									{{ item.property | translate }}
 								</div>
 								<div class="ui-grid-col-6">
-									<multiple-select [property]="item"></multiple-select>
+									<multiple-select [property]="item" [id]="item.property"></multiple-select>
 								</div>
 								<div class="ui-grid-col-4" *ngIf="false">
 									<div class="ui-message ui-messages-error ui-corner-all">
@@ -28,16 +28,54 @@
 							</div>
 						</ng-container>
 
-						<ng-container *ngSwitchDefault>
+						<ng-container *ngSwitchCase="'Boolean'">
 							<div class="ui-grid-row">
 								<div class="ui-grid-col-2">
 									{{ item.property | translate }}
 								</div>
 								<div class="ui-grid-col-6">
-									<input pInputText class="form-control" [(ngModel)]="model[item.property]" #field="ngModel"
-									       required [name]="item.property" type="text" id="gender">
+									<p-checkbox [name]="item.property" [binary]="true" [id]="item.property"
+									            [(ngModel)]="model[item.property]"></p-checkbox>
+								</div>
+								<div class="ui-grid-col-4" *ngIf="false">
+									<div class="ui-message ui-messages-error ui-corner-all">
+										<i class="fa fa-close"></i>
+										{{ (item.property | translate) + ' ' + ('crud.required' | translate) }}
+									</div>
+								</div>
+							</div>
+						</ng-container>
+
+						<ng-container *ngIf="item.type === 'String' || item.type === 'Double'">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-2">
+									{{ item.property | translate }}
+								</div>
+								<div class="ui-grid-col-6">
+									<input pInputText class="form-control" [(ngModel)]="model[item.property]"
+									       #field="ngModel"
+									       required [name]="item.property" type="text" [id]="item.property">
 								</div>
 								<div class="ui-grid-col-4" *ngIf="field.invalid&&field.dirty">
+									<div class="ui-message ui-messages-error ui-corner-all">
+										<i class="fa fa-close"></i>
+										{{ (item.property | translate) + ' ' + ('crud.required' | translate) }}
+									</div>
+								</div>
+							</div>
+						</ng-container>
+
+						<ng-container *ngIf="item.type.includes(',')">
+
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-2">
+									{{ item.property | translate }}
+								</div>
+								<div class="ui-grid-col-6">
+									<p-dropdown [name]="item.property" [options]="item.options"
+									            [(ngModel)]="model[item.property]" [id]="item.property"></p-dropdown>
+								</div>
+								<div class="ui-grid-col-4" *ngIf="false">
 									<div class="ui-message ui-messages-error ui-corner-all">
 										<i class="fa fa-close"></i>
 										{{ (item.property | translate) + ' ' + ('crud.required' | translate) }}

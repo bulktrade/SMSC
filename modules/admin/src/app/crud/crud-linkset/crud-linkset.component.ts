@@ -20,8 +20,6 @@ import { Observable } from "rxjs";
 @Component({
     selector: 'crud-linkset',
     template: require('./crud-linkset.component.html'),
-    styleUrls: [],
-    providers: []
 })
 
 export class CrudLinksetComponent {

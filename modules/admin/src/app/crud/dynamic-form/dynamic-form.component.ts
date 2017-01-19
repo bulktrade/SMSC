@@ -7,12 +7,12 @@ import { TranslateModule } from "ng2-translate/ng2-translate";
 import { FormsModule } from "@angular/forms";
 import { LoadingGridModule } from "../../common/loading-grid.component";
 import { MultipleSelectModule } from "../directives/multiple-select/multiple-select.component";
-import { FormPropertyModel } from "../model/form-property";
 import { PanelModule } from "primeng/components/panel/panel";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { ButtonModule } from "primeng/components/button/button";
 import { DropdownModule } from "primeng/components/dropdown/dropdown";
 import { CheckboxModule } from "primeng/components/checkbox/checkbox";
+import { ColumnDef } from "../model/column-definition";
 
 @Component({
     selector: 'dynamic-form',
@@ -26,8 +26,10 @@ import { CheckboxModule } from "primeng/components/checkbox/checkbox";
 export class DynamicFormComponent {
     @Input('formType')
     public formType: string;
+
     @Input('columnDefs')
-    public columnDefs: Array<FormPropertyModel>;
+    public columnDefs: ColumnDef[];
+
     @Input('model')
     public model = {};
 
@@ -38,6 +40,15 @@ export class DynamicFormComponent {
                 public route: ActivatedRoute,
                 public location: Location,
                 public crudService: CrudService) {
+    }
+
+    ngOnInit() {
+        // generate the 'options' property for the dropdown UI component
+        this.columnDefs.forEach(i => {
+            if (i.type.includes(',')) {
+                i.options = this.crudService.generateOptionsForDropdown(i.type);
+            }
+        });
     }
 
     onSubmit() {

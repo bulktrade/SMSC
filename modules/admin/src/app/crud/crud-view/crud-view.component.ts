@@ -30,13 +30,6 @@ export class CrudViewComponent {
                 public crudViewService: CrudViewService) {
     }
 
-    onPaginate(event) {
-        this.backend.getResources(this.crudService.getRepositoryName(), event.page, event.rows)
-            .subscribe(rows => {
-                this.rowData = rows['_embedded'][this.crudService.getRepositoryName()];
-            });
-    }
-
     ngOnInit() {
         this.columnDefs = this.getColumnDefs();
         this.rowData = this.getRowData();
@@ -48,6 +41,13 @@ export class CrudViewComponent {
             });
 
         // this.crudService.resetCrudLevels();
+    }
+
+    onPaginate(event) {
+        this.backend.getResources(this.crudService.getRepositoryName(), event.page, event.rows)
+            .subscribe(rows => {
+                this.rowData = rows['_embedded'][this.crudService.getRepositoryName()];
+            });
     }
 
     getColumnDefs() {

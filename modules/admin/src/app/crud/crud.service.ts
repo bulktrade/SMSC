@@ -16,6 +16,7 @@ import { Button } from "./model/button";
 import { RouterOutletService } from "../services/router-outlet-service";
 import { BackendService } from "../services/backend/backend.service";
 import * as _ from "lodash";
+import { SelectItem } from "primeng/components/common/api";
 const clone = require("js.clone");
 
 const squel = require('squel');
@@ -687,6 +688,25 @@ export class CrudService {
             obs.next(_columns);
             obs.complete();
         });
+    }
+
+    /**
+     * Generates the 'options' property for the dropdown UI component
+     * @param options
+     * @returns {SelectItem[]}
+     */
+    generateOptionsForDropdown(options: string) {
+        let _options: string[] = options.split(','),
+            _result: SelectItem[] = [];
+
+        _options.forEach(i => {
+            _result.push({
+                label: i,
+                value: i
+            })
+        });
+
+        return _result;
     }
 
     /**
