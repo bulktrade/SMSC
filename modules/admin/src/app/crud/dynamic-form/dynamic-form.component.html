@@ -7,21 +7,47 @@
 		</header>
 		<form role="form" (ngSubmit)="onSubmit()" #dynamicForm="ngForm" novalidate>
 			<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
-				<div class="ui-grid-row" *ngFor="let item of columnDefs">
-					<div class="ui-grid-col-2">
-						{{ item.property | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model[item.property]" #field="ngModel"
-						       required [name]="item.property" type="text" id="gender">
-					</div>
-					<div class="ui-grid-col-4" *ngIf="field.invalid&&field.dirty">
-						<div class="ui-message ui-messages-error ui-corner-all">
-							<i class="fa fa-close"></i>
-							{{ (item.property | translate) + ' ' + ('crud.required' | translate) }}
-						</div>
-					</div>
-				</div>
+				<ng-container *ngFor="let item of columnDefs">
+
+					<ng-container [ngSwitch]="item.type">
+
+						<ng-container *ngSwitchCase="'URI'">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-2">
+									{{ item.property | translate }}
+								</div>
+								<div class="ui-grid-col-6">
+									<multiple-select [property]="item"></multiple-select>
+								</div>
+								<div class="ui-grid-col-4" *ngIf="false">
+									<div class="ui-message ui-messages-error ui-corner-all">
+										<i class="fa fa-close"></i>
+										{{ (item.property | translate) + ' ' + ('crud.required' | translate) }}
+									</div>
+								</div>
+							</div>
+						</ng-container>
+
+						<ng-container *ngSwitchDefault>
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-2">
+									{{ item.property | translate }}
+								</div>
+								<div class="ui-grid-col-6">
+									<input pInputText class="form-control" [(ngModel)]="model[item.property]" #field="ngModel"
+									       required [name]="item.property" type="text" id="gender">
+								</div>
+								<div class="ui-grid-col-4" *ngIf="field.invalid&&field.dirty">
+									<div class="ui-message ui-messages-error ui-corner-all">
+										<i class="fa fa-close"></i>
+										{{ (item.property | translate) + ' ' + ('crud.required' | translate) }}
+									</div>
+								</div>
+							</div>
+						</ng-container>
+
+					</ng-container>
+				</ng-container>
 				<div class="ui-grid-row">
 					<div class="ui-grid-col-2"></div>
 					<div class="ui-grid-col-6">

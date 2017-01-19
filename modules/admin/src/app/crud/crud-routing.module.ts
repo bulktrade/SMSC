@@ -43,7 +43,7 @@ const CRUD_ROUTE_PROVIDER = [
         }
     },
     {
-        path: 'linkset/:className', component: CrudLinksetComponent,
+        path: 'linkset/:className/:repositoryName', component: CrudLinksetComponent,
         resolve: { linkset: CrudLinksetResolve },
         data: {
             showInBreadcrumb: false,

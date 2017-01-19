@@ -35,6 +35,10 @@ export class MultipleSelectComponent {
         this.items.splice(index, 1);
     }
 
+    navigateToLinkedRepository() {
+        this.router.navigate(['customers', 'linkset', this.property.linkedClass, this.property.linkedRepository]);
+    }
+
     ngOnInit() {
     }
 }
