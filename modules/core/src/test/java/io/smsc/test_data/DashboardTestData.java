@@ -12,7 +12,7 @@ import static io.smsc.test_data.DashboardBoxTestData.*;
 
 public class DashboardTestData {
 
-    public static final long DASHBOARD_ID_1 = 140;
+    public static final long DASHBOARD_ID_1 = 230;
 
     public static final Dashboard DASHBOARD_1 = new Dashboard(DASHBOARD_ID_1, "default", "user", USER);
 

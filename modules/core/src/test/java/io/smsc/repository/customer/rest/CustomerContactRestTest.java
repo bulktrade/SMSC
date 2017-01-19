@@ -18,7 +18,7 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCustomerContact() throws Exception {
-        mockMvc.perform(get("/rest/repository/customer-contacts/139"))
+        mockMvc.perform(get("/rest/repository/customer-contacts/229"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.firstname", is(CUSTOMER_CONTACT_1.getFirstname())))
@@ -64,8 +64,8 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCustomerContact() throws Exception {
-        mockMvc.perform(delete("/rest/repository/customer-contacts/139"));
-        mockMvc.perform(get("/rest/repository/customer-contacts/139"))
+        mockMvc.perform(delete("/rest/repository/customer-contacts/229"));
+        mockMvc.perform(get("/rest/repository/customer-contacts/229"))
                 .andExpect(status().isNotFound());
     }
 
@@ -78,11 +78,11 @@ public class CustomerContactRestTest extends AbstractTest {
         updated.setMobilePhone("0971234567");
         updated.setFirstname("newFirstName");
         String customerContactJson = json(updated);
-        mockMvc.perform(put("/rest/repository/customer-contacts/139")
+        mockMvc.perform(put("/rest/repository/customer-contacts/229")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/customer-contacts/139"))
+        mockMvc.perform(get("/rest/repository/customer-contacts/229"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.firstname", is(updated.getFirstname())))

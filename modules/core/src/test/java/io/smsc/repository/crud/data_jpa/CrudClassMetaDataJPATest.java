@@ -19,7 +19,8 @@ public class CrudClassMetaDataJPATest extends AbstractTest {
         crudClassMetaDataRepository.delete(CRUD_CLASS_META_DATA_ID_1);
         CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_CLASS_META_DATA_2, CRUD_CLASS_META_DATA_3,
                 CRUD_CLASS_META_DATA_4, CRUD_CLASS_META_DATA_5, CRUD_CLASS_META_DATA_6, CRUD_CLASS_META_DATA_7,
-                CRUD_CLASS_META_DATA_8, CRUD_CLASS_META_DATA_9), crudClassMetaDataRepository.findAll());
+                CRUD_CLASS_META_DATA_8, CRUD_CLASS_META_DATA_9, CRUD_CLASS_META_DATA_10, CRUD_CLASS_META_DATA_11, CRUD_CLASS_META_DATA_12),
+                crudClassMetaDataRepository.findAll());
     }
 
     @Test
@@ -41,7 +42,8 @@ public class CrudClassMetaDataJPATest extends AbstractTest {
         Collection<CrudClassMetaData> crudClassMetaData = crudClassMetaDataRepository.findAll();
         CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(CRUD_CLASS_META_DATA_1, CRUD_CLASS_META_DATA_2, CRUD_CLASS_META_DATA_3,
                 CRUD_CLASS_META_DATA_4, CRUD_CLASS_META_DATA_5, CRUD_CLASS_META_DATA_6, CRUD_CLASS_META_DATA_7,
-                CRUD_CLASS_META_DATA_8, CRUD_CLASS_META_DATA_9), crudClassMetaData);
+                CRUD_CLASS_META_DATA_8, CRUD_CLASS_META_DATA_9, CRUD_CLASS_META_DATA_10, CRUD_CLASS_META_DATA_11,
+                CRUD_CLASS_META_DATA_12), crudClassMetaData);
     }
 
     @Test

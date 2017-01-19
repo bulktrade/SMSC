@@ -19,7 +19,7 @@ import java.io.Serializable;
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-public class CustomerRepositoryImpl implements CustomerRepositoryCustom{
+public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
 
     @PersistenceContext
     private EntityManager entityManager;

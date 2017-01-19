@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class CustomerContactTestData {
 
-    public static final long CUSTOMER_CONTACT_ID_1 = 139;
+    public static final long CUSTOMER_CONTACT_ID_1 = 229;
 
     public static final CustomerContact CUSTOMER_CONTACT_1 = new CustomerContact(CUSTOMER_CONTACT_ID_1, "SMSC", "SMSC", "0674329568", "0504569753", "fake_fax", "smsc@bulk.io", Type.CEO, Salutation.MR);
 

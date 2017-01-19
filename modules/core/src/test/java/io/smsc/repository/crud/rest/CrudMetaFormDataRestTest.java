@@ -16,7 +16,7 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCrudMetaFormData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data/64"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data/67"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is(CRUD_META_FORM_DATA_1.getProperty())))
@@ -76,8 +76,8 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCrudMetaFormData() throws Exception {
-        mockMvc.perform(delete("/rest/repository/crud-meta-form-data/64"));
-        mockMvc.perform(post("/rest/repository/crud-meta-form-data/64"))
+        mockMvc.perform(delete("/rest/repository/crud-meta-form-data/67"));
+        mockMvc.perform(post("/rest/repository/crud-meta-form-data/67"))
                 .andExpect(status().isNotFound());
     }
 
@@ -91,11 +91,11 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
         updated.setVisible(false);
         updated.setFieldLayoutGridPosition("newFieldLayoutGridPosition");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-meta-form-data/64")
+        mockMvc.perform(put("/rest/repository/crud-meta-form-data/67")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data/64"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data/67"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is("newProperty")))
