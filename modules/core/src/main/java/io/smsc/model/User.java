@@ -2,6 +2,8 @@ package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.validator.constraints.Email;
@@ -21,6 +23,7 @@ import java.util.Set;
  * @since   0.0.1-SNAPSHOT
  */
 @Entity
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "CUSTOMER_USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_username_email_idx")})
 public class User extends BaseEntity {
 

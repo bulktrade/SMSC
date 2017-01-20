@@ -24,5 +24,5 @@ public interface RoleProjection {
 
     Set<Permission> getPermissions();
 
-    Set<User> getUsers();
+//    Set<User> getUsers();
 }

@@ -21,7 +21,6 @@ import java.io.Serializable;
  */
 @MappedSuperclass
 @Access(AccessType.FIELD)
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
 public class BaseEntity implements Persistable<Long>, Serializable {
 

@@ -31,7 +31,7 @@ public interface CustomerContactProjection {
 
     String getEmailAddress();
 
-    Customer getCustomer();
+//    Customer getCustomer();
 
     Type getType();
 

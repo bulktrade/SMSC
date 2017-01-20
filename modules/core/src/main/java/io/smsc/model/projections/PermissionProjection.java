@@ -21,5 +21,5 @@ public interface PermissionProjection {
 
     String getName();
 
-    Set<Role> getRoles();
+//    Set<Role> getRoles();
 }
