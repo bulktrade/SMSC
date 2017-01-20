@@ -40,11 +40,11 @@ public class MetaDataPropertyBindingParameter extends BaseEntity {
     private Operator operator;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CRUD_META_FORM_DATA")
+    @JoinColumn(name = "CRUD_META_FORM_DATA_ID")
     private CrudMetaFormData crudMetaFormData;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CRUD_META_GRID_DATA")
+    @JoinColumn(name = "CRUD_META_GRID_DATA_ID")
     private CrudMetaGridData crudMetaGridData;
 
     public MetaDataPropertyBindingParameter() {

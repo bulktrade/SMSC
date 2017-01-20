@@ -25,7 +25,7 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
     private Set<MetaDataPropertyBindingParameter> bindingParameters;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CRUD_CLASS_META_DATA")
+    @JoinColumn(name = "CRUD_CLASS_META_DATA_ID")
     private CrudClassMetaData crudClassMetaData;
 
     public CrudMetaFormData() {

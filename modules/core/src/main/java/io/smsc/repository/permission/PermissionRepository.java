@@ -1,6 +1,7 @@
 package io.smsc.repository.permission;
 
 import io.smsc.model.Permission;
+import io.smsc.model.projections.PermissionProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "permissions", path = "permissions")
+@RepositoryRestResource(collectionResourceRel = "permissions", path = "permissions", excerptProjection = PermissionProjection.class)
 @Transactional(readOnly = true)
 public interface PermissionRepository extends JpaRepository<Permission, Long> {
 

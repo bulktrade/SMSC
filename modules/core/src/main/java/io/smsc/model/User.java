@@ -21,7 +21,7 @@ import java.util.Set;
  * @since   0.0.1-SNAPSHOT
  */
 @Entity
-@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_username_email_idx")})
+@Table(name = "CUSTOMER_USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_username_email_idx")})
 public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)
