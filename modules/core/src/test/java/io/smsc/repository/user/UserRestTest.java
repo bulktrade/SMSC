@@ -60,7 +60,7 @@ public class UserRestTest extends AbstractTest {
 
     @Test
     public void testCreateUser() throws Exception {
-        String userJson = json(new User(111L,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false));
+        String userJson = json(new User(null,"Old Johnny","john123456","John","Forrester","john@gmail.com",true,false));
         this.mockMvc.perform(post("/rest/repository/users/create")
                 .contentType("application/json;charset=UTF-8")
                 .content(userJson))

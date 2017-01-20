@@ -12,15 +12,15 @@ import java.util.Objects;
 
 public class DashboardBoxTestData {
 
-    public static final long DASHBOARD_BOX_ID_1 = 147;
-    public static final long DASHBOARD_BOX_ID_2 = 148;
-    public static final long DASHBOARD_BOX_ID_3 = 149;
-    public static final long DASHBOARD_BOX_ID_4 = 150;
-    public static final long DASHBOARD_BOX_ID_5 = 151;
-    public static final long DASHBOARD_BOX_ID_6 = 152;
-    public static final long DASHBOARD_BOX_ID_7 = 153;
-    public static final long DASHBOARD_BOX_ID_8 = 154;
-    public static final long DASHBOARD_BOX_ID_9 = 155;
+    public static final long DASHBOARD_BOX_ID_1 = 249;
+    public static final long DASHBOARD_BOX_ID_2 = 250;
+    public static final long DASHBOARD_BOX_ID_3 = 251;
+    public static final long DASHBOARD_BOX_ID_4 = 252;
+    public static final long DASHBOARD_BOX_ID_5 = 253;
+    public static final long DASHBOARD_BOX_ID_6 = 254;
+    public static final long DASHBOARD_BOX_ID_7 = 255;
+    public static final long DASHBOARD_BOX_ID_8 = 256;
+    public static final long DASHBOARD_BOX_ID_9 = 257;
 
     public static final DashboardBox DASHBOARD_BOX_1 = new DashboardBox(DASHBOARD_BOX_ID_1, Width.WIDTH_25, Height.HEIGHT_25, 1, "Box 1", "Box 1 desc", DASHBOARD_1, DASHBOARD_BOX_TYPE_1);
     public static final DashboardBox DASHBOARD_BOX_2 = new DashboardBox(DASHBOARD_BOX_ID_2, Width.WIDTH_25, Height.HEIGHT_25, 2, "Box 2", "Box 2 desc", DASHBOARD_1, DASHBOARD_BOX_TYPE_1);

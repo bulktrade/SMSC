@@ -51,7 +51,7 @@ public class Customer extends BaseEntity {
     private Double vatid;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="PARENT_CUSTOMER")
+    @JoinColumn(name="PARENT_CUSTOMER_ID")
     private Customer parentCustomer;
 
     @OneToMany(mappedBy = "customer")
@@ -60,9 +60,9 @@ public class Customer extends BaseEntity {
     @ManyToMany()
     @OrderBy
     @JoinTable(
-            name = "CUSTOMER_USER",
-            joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+            name = "CUSTOMER_HAS_USER_ACCOUNT",
+            joinColumns = @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     )
     private Set<User> users;
 

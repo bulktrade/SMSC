@@ -29,8 +29,8 @@ public class Role extends BaseEntity{
     @OrderBy
     @JoinTable(
             name = "ROLE_PERMISSION",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id", referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "PERMISSION_ID", referencedColumnName = "ID")
     )
     private Set<Permission> permissions;
 
@@ -61,14 +61,6 @@ public class Role extends BaseEntity{
     public Role(Long id, String name) {
         super(id);
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

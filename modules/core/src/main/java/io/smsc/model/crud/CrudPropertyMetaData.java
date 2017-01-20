@@ -38,16 +38,30 @@ public class CrudPropertyMetaData extends BaseEntity {
     @NotNull(message = "{crud.property.meta.data.order.validation}")
     private Double order;
 
+    @Column(name = "TYPE", nullable = false)
+    @NotEmpty(message = "{crud.property.meta.data.type.validation}")
+    private String type;
+
+    @Column(name = "LINKED_CLASS")
+    private String linkedClass;
+
+    @Column(name = "LINKED_REPOSITORY")
+    private String linkedRepository;
+
     public CrudPropertyMetaData() {
     }
 
-    public CrudPropertyMetaData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order) {
+    public CrudPropertyMetaData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order, String type,
+                                String linkedClass, String linkedRepository) {
         super(id);
         this.property = property;
         this.editable = editable;
         this.visible = visible;
         this.decorator = decorator;
         this.order = order;
+        this.type = type;
+        this.linkedClass = linkedClass;
+        this.linkedRepository = linkedRepository;
     }
 
     public String getProperty() {
@@ -90,6 +104,30 @@ public class CrudPropertyMetaData extends BaseEntity {
         this.order = order;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getLinkedClass() {
+        return linkedClass;
+    }
+
+    public void setLinkedClass(String linkedClass) {
+        this.linkedClass = linkedClass;
+    }
+
+    public String getLinkedRepository() {
+        return linkedRepository;
+    }
+
+    public void setLinkedRepository(String linkedRepository) {
+        this.linkedRepository = linkedRepository;
+    }
+
     @Override
     public String toString() {
         return "CrudPropertyMetaData{" +
@@ -97,6 +135,10 @@ public class CrudPropertyMetaData extends BaseEntity {
                 ", editable=" + editable +
                 ", visible=" + visible +
                 ", decorator='" + decorator + '\'' +
-                ", order=" + order + '}';
+                ", order=" + order +
+                ", type='" + type + '\'' +
+                ", linkedClass='" + linkedClass + '\'' +
+                ", linkedRepository='" + linkedRepository + '\'' +
+                "} " + super.toString();
     }
 }

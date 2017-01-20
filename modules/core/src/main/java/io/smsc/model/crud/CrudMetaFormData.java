@@ -25,30 +25,33 @@ public class CrudMetaFormData extends CrudPropertyMetaData {
     private Set<MetaDataPropertyBindingParameter> bindingParameters;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CRUD_CLASS_META_DATA")
+    @JoinColumn(name = "CRUD_CLASS_META_DATA_ID")
     private CrudClassMetaData crudClassMetaData;
 
     public CrudMetaFormData() {
     }
 
-    public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order) {
-        super(id, property, editable, visible, decorator, order);
+    public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
+                            String type, String linkedClass, String linkedRepository) {
+        super(id, property, editable, visible, decorator, order, type, linkedClass, linkedRepository);
     }
 
     public CrudMetaFormData(CrudMetaFormData crudMetaFormData) {
         this(crudMetaFormData.getId(), crudMetaFormData.getProperty(), crudMetaFormData.getEditable(), crudMetaFormData.getVisible(),
-                crudMetaFormData.getDecorator(), crudMetaFormData.getOrder(), crudMetaFormData.getFieldLayoutGridPosition());
+                crudMetaFormData.getDecorator(), crudMetaFormData.getOrder(), crudMetaFormData.getType(), crudMetaFormData.getLinkedClass(),
+                crudMetaFormData.getLinkedRepository(), crudMetaFormData.getFieldLayoutGridPosition());
     }
 
     public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
-                            String fieldLayoutGridPosition) {
-        super(id, property, editable, visible, decorator, order);
+                            String type, String linkedClass, String linkedRepository, String fieldLayoutGridPosition) {
+        super(id, property, editable, visible, decorator, order, type, linkedClass, linkedRepository);
         this.fieldLayoutGridPosition = fieldLayoutGridPosition;
     }
 
     public CrudMetaFormData(Long id, String property, Boolean editable, Boolean visible, String decorator, Double order,
-                            String fieldLayoutGridPosition, CrudClassMetaData crudClassMetaData) {
-        super(id, property, editable, visible, decorator, order);
+                            String type, String linkedClass, String linkedRepository, String fieldLayoutGridPosition,
+                            CrudClassMetaData crudClassMetaData) {
+        super(id, property, editable, visible, decorator, order, type, linkedClass, linkedRepository);
         this.fieldLayoutGridPosition = fieldLayoutGridPosition;
         this.crudClassMetaData = crudClassMetaData;
     }

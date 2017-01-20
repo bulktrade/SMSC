@@ -13,7 +13,7 @@ public class CrudMetaFormDataValidationTest extends AbstractTest {
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCrudMetaFormDataPropertySave() throws Exception {
         CrudMetaFormData newCrudMetaFormData = new CrudMetaFormData(null,"", true,
-                true, null, 10.0,"newFieldLayoutGridPosition");
+                true, null, 10.0, "String", null, null, "newFieldLayoutGridPosition");
         crudMetaFormDataRepository.save(newCrudMetaFormData);
         crudMetaFormDataRepository.findAll();
     }
@@ -21,7 +21,7 @@ public class CrudMetaFormDataValidationTest extends AbstractTest {
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCrudMetaFormDataEditableSave() throws Exception {
         CrudMetaFormData newCrudMetaFormData = new CrudMetaFormData(null,"defaultProperty", null,
-                true, null, 10.0,"newFieldLayoutGridPosition");
+                true, null, 10.0, "String", null, null, "newFieldLayoutGridPosition");
         crudMetaFormDataRepository.save(newCrudMetaFormData);
         crudMetaFormDataRepository.findAll();
     }
@@ -29,7 +29,7 @@ public class CrudMetaFormDataValidationTest extends AbstractTest {
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCrudMetaFormDataVisibleSave() throws Exception {
         CrudMetaFormData newCrudMetaFormData = new CrudMetaFormData(null,"defaultProperty", true,
-                null, null, 10.0,"newFieldLayoutGridPosition");
+                null, null, 10.0, "String", null, null, "newFieldLayoutGridPosition");
         crudMetaFormDataRepository.save(newCrudMetaFormData);
         crudMetaFormDataRepository.findAll();
     }
@@ -37,7 +37,15 @@ public class CrudMetaFormDataValidationTest extends AbstractTest {
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCrudMetaFormDataOrderSave() throws Exception {
         CrudMetaFormData newCrudMetaFormData = new CrudMetaFormData(null,"defaultProperty", true,
-                true, null, null,"newFieldLayoutGridPosition");
+                true, null, null, "String", null, null, "newFieldLayoutGridPosition");
+        crudMetaFormDataRepository.save(newCrudMetaFormData);
+        crudMetaFormDataRepository.findAll();
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testEmptyCrudMetaFormDataTypeSave() throws Exception {
+        CrudMetaFormData newCrudMetaFormData = new CrudMetaFormData(null,"defaultProperty", true,
+                true, null, null, "", null, null, "newFieldLayoutGridPosition");
         crudMetaFormDataRepository.save(newCrudMetaFormData);
         crudMetaFormDataRepository.findAll();
     }

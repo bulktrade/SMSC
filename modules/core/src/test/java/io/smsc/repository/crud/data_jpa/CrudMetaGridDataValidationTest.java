@@ -12,32 +12,40 @@ public class CrudMetaGridDataValidationTest extends AbstractTest {
 
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCrudMetaGridDataPropertySave() throws Exception {
-        CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"", true,
-                true, null, 10.0,50.0);
+        CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null, "", true,
+                true, null, 10.0, "String", null, null, 50.0);
         crudMetaGridDataRepository.save(newCrudMetaGridData);
         crudMetaGridDataRepository.findAll();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCrudMetaGridDataEditableSave() throws Exception {
-        CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"defaultProperty", null,
-                true, null, 10.0,50.0);
+        CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null, "defaultProperty", null,
+                true, null, 10.0, "String", null, null, 50.0);
         crudMetaGridDataRepository.save(newCrudMetaGridData);
         crudMetaGridDataRepository.findAll();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCrudMetaGridDataVisibleSave() throws Exception {
-        CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"defaultProperty", true,
-                null, null, 10.0,50.0);
+        CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null, "defaultProperty", true,
+                null, null, 10.0, "String", null, null, 50.0);
         crudMetaGridDataRepository.save(newCrudMetaGridData);
         crudMetaGridDataRepository.findAll();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyCrudMetaGridDataOrderSave() throws Exception {
-        CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"defaultProperty", true,
-                true, null, null,50.0);
+        CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null, "defaultProperty", true,
+                true, null, null, "String", null, null, 50.0);
+        crudMetaGridDataRepository.save(newCrudMetaGridData);
+        crudMetaGridDataRepository.findAll();
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testEmptyCrudMetaGridDataTypeSave() throws Exception {
+        CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null, "defaultProperty", true,
+                true, null, null, "", null, null, 50.0);
         crudMetaGridDataRepository.save(newCrudMetaGridData);
         crudMetaGridDataRepository.findAll();
     }

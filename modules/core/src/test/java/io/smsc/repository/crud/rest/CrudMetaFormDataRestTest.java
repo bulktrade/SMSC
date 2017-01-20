@@ -16,7 +16,7 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCrudMetaFormData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data/64"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data/67"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is(CRUD_META_FORM_DATA_1.getProperty())))
@@ -24,6 +24,9 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
                 .andExpect(jsonPath("$.visible", is(CRUD_META_FORM_DATA_1.getVisible())))
                 .andExpect(jsonPath("$.decorator", is(CRUD_META_FORM_DATA_1.getDecorator())))
                 .andExpect(jsonPath("$.order", is(CRUD_META_FORM_DATA_1.getOrder())))
+                .andExpect(jsonPath("$.type", is(CRUD_META_FORM_DATA_1.getType())))
+                .andExpect(jsonPath("$.linkedClass", is(CRUD_META_FORM_DATA_1.getLinkedClass())))
+                .andExpect(jsonPath("$.linkedRepository", is(CRUD_META_FORM_DATA_1.getLinkedRepository())))
                 .andExpect(jsonPath("$.fieldLayoutGridPosition", is(CRUD_META_FORM_DATA_1.getFieldLayoutGridPosition())));
     }
 
@@ -39,25 +42,31 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 // paginating is showing 20 items by default
-                    .andExpect(jsonPath("$._embedded.crud-meta-form-data", hasSize(20)))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data", hasSize(20)))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].property", is(CRUD_META_FORM_DATA_1.getProperty())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].editable", is(CRUD_META_FORM_DATA_1.getEditable())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].visible", is(CRUD_META_FORM_DATA_1.getVisible())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].decorator", is(CRUD_META_FORM_DATA_1.getDecorator())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].order", is(CRUD_META_FORM_DATA_1.getOrder())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].type", is(CRUD_META_FORM_DATA_1.getType())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].linkedClass", is(CRUD_META_FORM_DATA_1.getLinkedClass())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].linkedRepository", is(CRUD_META_FORM_DATA_1.getLinkedRepository())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[0].fieldLayoutGridPosition", is(CRUD_META_FORM_DATA_1.getFieldLayoutGridPosition())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].property", is(CRUD_META_FORM_DATA_20.getProperty())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].editable", is(CRUD_META_FORM_DATA_20.getEditable())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].visible", is(CRUD_META_FORM_DATA_20.getVisible())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].decorator", is(CRUD_META_FORM_DATA_20.getDecorator())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].order", is(CRUD_META_FORM_DATA_20.getOrder())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].type", is(CRUD_META_FORM_DATA_20.getType())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].linkedClass", is(CRUD_META_FORM_DATA_20.getLinkedClass())))
+                .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].linkedRepository", is(CRUD_META_FORM_DATA_20.getLinkedRepository())))
                 .andExpect(jsonPath("$._embedded.crud-meta-form-data[19].fieldLayoutGridPosition", is(CRUD_META_FORM_DATA_20.getFieldLayoutGridPosition())));
     }
 
     @Test
     public void testCreateCrudMetaFormData() throws Exception {
         CrudMetaFormData newCrudClassMetaData = new CrudMetaFormData(null,"defaultProperty", true,
-                true, null, 10.0, "newFieldLayoutGridPosition");
+                true, null, 10.0, "String", null, null, "newFieldLayoutGridPosition");
         String crudClassMetaDataJson = json(newCrudClassMetaData);
         this.mockMvc.perform(post("/rest/repository/crud-meta-form-data")
                 .contentType("application/json;charset=UTF-8")
@@ -67,8 +76,8 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCrudMetaFormData() throws Exception {
-        mockMvc.perform(delete("/rest/repository/crud-meta-form-data/64"));
-        mockMvc.perform(post("/rest/repository/crud-meta-form-data/64"))
+        mockMvc.perform(delete("/rest/repository/crud-meta-form-data/67"));
+        mockMvc.perform(post("/rest/repository/crud-meta-form-data/67"))
                 .andExpect(status().isNotFound());
     }
 
@@ -82,11 +91,11 @@ public class CrudMetaFormDataRestTest extends AbstractTest {
         updated.setVisible(false);
         updated.setFieldLayoutGridPosition("newFieldLayoutGridPosition");
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-meta-form-data/64")
+        mockMvc.perform(put("/rest/repository/crud-meta-form-data/67")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/crud-meta-form-data/64"))
+        mockMvc.perform(get("/rest/repository/crud-meta-form-data/67"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is("newProperty")))

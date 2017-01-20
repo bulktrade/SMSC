@@ -16,7 +16,7 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCrudMetaGridData() throws Exception {
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/106"))
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/153"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is(CRUD_META_GRID_DATA_1.getProperty())))
@@ -24,6 +24,9 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
                 .andExpect(jsonPath("$.visible", is(CRUD_META_GRID_DATA_1.getVisible())))
                 .andExpect(jsonPath("$.decorator", is(CRUD_META_GRID_DATA_1.getDecorator())))
                 .andExpect(jsonPath("$.order", is(CRUD_META_GRID_DATA_1.getOrder())))
+                .andExpect(jsonPath("$.type", is(CRUD_META_GRID_DATA_1.getType())))
+                .andExpect(jsonPath("$.linkedClass", is(CRUD_META_GRID_DATA_1.getLinkedClass())))
+                .andExpect(jsonPath("$.linkedRepository", is(CRUD_META_GRID_DATA_1.getLinkedRepository())))
                 .andExpect(jsonPath("$.columnWidth", is(CRUD_META_GRID_DATA_1.getColumnWidth())));
     }
 
@@ -45,19 +48,25 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].visible", is(CRUD_META_GRID_DATA_1.getVisible())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].decorator", is(CRUD_META_GRID_DATA_1.getDecorator())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].order", is(CRUD_META_GRID_DATA_1.getOrder())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].type", is(CRUD_META_GRID_DATA_1.getType())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].linkedClass", is(CRUD_META_GRID_DATA_1.getLinkedClass())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].linkedRepository", is(CRUD_META_GRID_DATA_1.getLinkedRepository())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[0].columnWidth", is(CRUD_META_GRID_DATA_1.getColumnWidth())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].property", is(CRUD_META_GRID_DATA_20.getProperty())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].editable", is(CRUD_META_GRID_DATA_20.getEditable())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].visible", is(CRUD_META_GRID_DATA_20.getVisible())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].decorator", is(CRUD_META_GRID_DATA_20.getDecorator())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].order", is(CRUD_META_GRID_DATA_20.getOrder())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].type", is(CRUD_META_GRID_DATA_20.getType())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].linkedClass", is(CRUD_META_GRID_DATA_20.getLinkedClass())))
+                .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].linkedRepository", is(CRUD_META_GRID_DATA_20.getLinkedRepository())))
                 .andExpect(jsonPath("$._embedded.crud-meta-grid-data[19].columnWidth", is(CRUD_META_GRID_DATA_20.getColumnWidth())));
     }
 
     @Test
     public void testCreateCrudMetaGridData() throws Exception {
         CrudMetaGridData newCrudMetaGridData = new CrudMetaGridData(null,"defaultProperty", true,
-                true, null, 10.0, 50.0);
+                true, null, 10.0, "String", null, null, 50.0);
         String crudMetaGridDataJson = json(newCrudMetaGridData);
         this.mockMvc.perform(post("/rest/repository/crud-meta-grid-data")
                 .contentType("application/json;charset=UTF-8")
@@ -67,8 +76,8 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCrudMetaGridData() throws Exception {
-        mockMvc.perform(delete("/rest/repository/crud-meta-grid-data/106"));
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/106"))
+        mockMvc.perform(delete("/rest/repository/crud-meta-grid-data/153"));
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/153"))
                 .andExpect(status().isNotFound());
     }
 
@@ -82,11 +91,11 @@ public class CrudMetaGridDataRestTest extends AbstractTest {
         updated.setVisible(false);
         updated.setColumnWidth(30.0);
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/crud-meta-grid-data/106")
+        mockMvc.perform(put("/rest/repository/crud-meta-grid-data/153")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/106"))
+        mockMvc.perform(get("/rest/repository/crud-meta-grid-data/153"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.property", is("newProperty")))

@@ -33,7 +33,7 @@ public class CrudMetaFormDataJPATest extends AbstractTest {
     @Test
     public void testSaveCrudMetaFormData() throws Exception {
         CrudMetaFormData newCrudMetaFormData = new CrudMetaFormData(null,"defaultProperty", true,
-                true, null, 10.0,"newFieldLayoutGridPosition");
+                true, null, 10.0, "String", null, null, "newFieldLayoutGridPosition");
         newCrudMetaFormData.setCrudClassMetaData(CRUD_CLASS_META_DATA_1);
         CrudMetaFormData created = crudMetaFormDataRepository.save(newCrudMetaFormData);
         newCrudMetaFormData.setId(created.getId());
