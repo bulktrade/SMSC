@@ -61,10 +61,10 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>exec-npm-install</id>
+                        <id>exec-yarn-install</id>
                         <phase>initialize</phase>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>yarn</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
