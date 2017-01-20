@@ -1,27 +1,14 @@
-# How to install required packages
-```bash
-# install the repo with npm
-$ npm install
-# Lock down dependency versions
-$ npm shrinkwrap
-# start the server
-$ npm start
-# start the server in dev mode 
-$ npm run start
+## Installation
+* `npm install`
 
-# or start with hmr
-$ npm run start:hmr
-```
-go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
+## Serve
+* `npm start` start the server in dev mode 
+* `npm start:hmr` or start with hmr
 
-## Other commands
+> go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
 
-### run tests
-```bash
-$ npm run test
-```
+## Run unit tests
+* `npm run test`
 
-### run end-to-end tests
-```bash
-$ npm run e2e
-```
+## Run end-to-end tests
+* `npm run e2e` this will start a test server and launch Protractor

@@ -1,6 +1,3 @@
-/**
- * @author: @AngularClass
- */
 const helpers = require('./helpers');
 const ghDeploy = require('./github-deploy');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs

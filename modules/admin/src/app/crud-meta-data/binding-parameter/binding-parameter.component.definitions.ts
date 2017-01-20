@@ -74,7 +74,7 @@ export const BINDING_PARAMETER_SPEC_DEFINITIONS = () => {
         bindingParam.crudCreate.clickOnContacts();
         bindingParam.crudPage.getSizeRecords()
             .then(size => {
-                expect(size).toEqual(2);
+                expect(size).toEqual(1);
             });
     });
 

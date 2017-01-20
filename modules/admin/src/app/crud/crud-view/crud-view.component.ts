@@ -1,71 +1,72 @@
-import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CrudService } from '../crud.service';
-import { ColumnDefsModel } from '../model/column-definitions';
-import { LinksetProperty } from '../model/linkset-property';
+import { Component } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router, ActivatedRoute } from "@angular/router";
+import { CrudService } from "../crud.service";
+import { BackendService } from "../../services/backend/backend.service";
+import { ColumnDef } from "../model/column-definition";
+import { CrudViewService } from "./crud-view.service";
+import { Pagination } from "../model/pagination";
 
 @Component({
     selector: 'crud-view',
     template: require('./crud-view.component.html'),
     styleUrls: [
-        require('./crud-view.component.scss'),
-        require('../common/grid.scss'),
-        require('../common/style.scss')
+        require('./crud-view.component.scss')
     ],
-    providers: [],
+    providers: [CrudViewService]
 })
 
 export class CrudViewComponent {
-    public resolveData: ColumnDefsModel = null;
+    public pagination: Pagination = new Pagination(10, null, null, 0);
+    public columnDefs: ColumnDef[];
+    public rowData = [];
+    public selectedRows = null;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
                 public router: Router,
-                public route: ActivatedRoute) {
+                public route: ActivatedRoute,
+                public backend: BackendService,
+                public crudViewService: CrudViewService) {
     }
 
     ngOnInit() {
-        // sets crud class name
-        this.crudService.setClassName(this.route.parent.parent.data['value']['crudClass']);
-        // sets path from root component
-        this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
+        this.columnDefs = this.getColumnDefs();
+        this.rowData = this.getRowData();
 
-        this.resolveData = this.route.snapshot.data['view'];
-        this.crudService.gridOptions.columnDefs = this.resolveData.grid;
-        this.crudService.gridOptions.rowData = [];
+        // get total rows
+        this.crudViewService.getCountRows()
+            .subscribe(countRows => {
+                this.pagination.totalElements = countRows;
+            });
 
-        // adds additional columns
-        this.crudService.addColumn(this.crudService.gridOptions);
+        // this.crudService.resetCrudLevels();
+    }
 
-        this.crudService.resetCrudLevels();
+    onPaginate(event) {
+        this.backend.getResources(this.crudService.getRepositoryName(), event.page, event.rows)
+            .subscribe(rows => {
+                this.rowData = rows['_embedded'][this.crudService.getRepositoryName()];
+            });
+    }
+
+    getColumnDefs() {
+        return this.route.snapshot.data['view'].columnDefs;
+    }
+
+    getRowData() {
+        return this.route.snapshot.data['view'].rowData;
     }
 
     navigateToCreate() {
-        this.crudService.setModel({});
-        this.router.navigate([this.crudService.parentPath,
-            'create', this.crudService.getClassName()]);
+        this.router.navigate([this.router.url, 'create']);
     }
 
     navigateToDelete() {
-        let id = this.crudService.getSelectedRID(this.crudService.gridOptions);
-
-        this.router.navigate([this.crudService.parentPath, 'delete',
-            id.join().replace(/\[|\]/gi, '')]);
+        this.router.navigate([this.router.url, 'delete', this.selectedRows['id']]);
     }
 
-    clickOnCell(event) {
-        if (event.colDef.type === 'LINK' ||
-            event.colDef.type === 'LINKSET') {
-            this.crudService.setLinkedClass(event.colDef.linkedClass);
-            let linsetProperty: LinksetProperty = {
-                name: event.colDef.property,
-                type: event.colDef.type,
-                bingingProperties: event.colDef.bingingProperties,
-                data: event.data
-            };
-
-            this.crudService.navigateToLinkset(event.colDef.linkedClass, linsetProperty);
-        }
+    navigateToUpdate() {
+        this.router.navigate([this.router.url, 'update', this.selectedRows['id']]);
     }
 }

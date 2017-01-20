@@ -9,5 +9,5 @@ export const NOTIFICATION_OPTIONS = {
     preventDuplicates: false,
     preventLastDuplicates: 'visible',
     rtl: false,
-    position: ['left', 'bottom']
+    position: ['left', 'top']
 };

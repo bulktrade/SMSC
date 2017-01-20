@@ -1,7 +1,3 @@
-/**
- * @author: @AngularClass
- */
-
 module.exports = function (config) {
     var testWebpackConfig = require('./webpack.test.js')({ env: 'test' });
 
@@ -77,7 +73,7 @@ module.exports = function (config) {
          * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
          */
         browsers: [
-            'PhantomJS'
+            'Chrome'
         ],
 
         customLaunchers: {
@@ -96,8 +92,7 @@ module.exports = function (config) {
 
     if (process.env.TRAVIS) {
         configuration.browsers = [
-            'ChromeTravisCi',
-            'PhantomJS'
+            'ChromeTravisCi'
         ];
     }
 

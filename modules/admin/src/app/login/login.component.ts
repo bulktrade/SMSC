@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginModel } from './login.model';
-import { AuthService } from '../services/auth/auth.service';
-import { Response } from '@angular/http';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { LoginModel } from "./login.model";
+import { AuthService } from "../services/auth/auth.service";
+import { Response } from "@angular/http";
+import { NotificationService } from "../services/notification-service";
 
 @Component({
     selector: 'login',
@@ -15,46 +16,43 @@ import { Response } from '@angular/http';
     ]
 })
 export class LoginComponent implements OnInit {
-    errorMessage: string = null;
     isErrorMessage: boolean = false;
     loading: boolean = false;
 
     model = new LoginModel('', '', false);
 
-    constructor(public router: Router,
-                public authService: AuthService) {
+    constructor(private router: Router,
+                private authService: AuthService,
+                private serviceNotifications: NotificationService) {
     }
 
     ngOnInit() {
     }
 
     onSubmit(model) {
-        this.errorMessage = null;
         this.loading = true;
 
-        return new Promise((resolve, reject) => {
-            this.authService.login(model.username, model.password)
-                .subscribe(
-                    (res) => {
-                        this.router.navigateByUrl('/');
-                        resolve(res);
-                    },
-                    (err: Response) => {
-                        switch (err.status) {
-                            case 400:
-                                this.errorMessage = 'login.userNotFound';
-                                break;
-                            default:
-                                console.log(err);
-                                this.errorMessage = 'login.commonError';
-                                break;
-                        }
-
-                        this.loading = false;
-                        this.isErrorMessage = true;
-                        reject(err);
+        this.authService.login(model.username, model.password)
+            .subscribe(
+                () => {
+                    this.router.navigateByUrl('/customers');
+                },
+                (err: Response) => {
+                    switch (err.status) {
+                        case 401:
+                            this.serviceNotifications.createNotification('error',
+                                'login.errorTitle', 'login.userNotFound');
+                            break;
+                        default:
+                            console.log(err);
+                            this.serviceNotifications.createNotification('error',
+                                'login.errorTitle', 'login.commonError');
+                            break;
                     }
-                );
-        });
+
+                    this.loading = false;
+                    this.isErrorMessage = true;
+                }
+            );
     }
 }

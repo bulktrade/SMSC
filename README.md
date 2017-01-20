@@ -6,68 +6,59 @@
 # smsc.io
 SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API support.
 
-# Start with OrientDB
+## Start admin module
 
-    EMBEDDED_ORIENTDB_ENABLED = 1
+### Installation
+* `cd modules/admin`
+* `npm install`
 
-# OrientDB Environment Variables
+### Serve
+* `npm start` 
+
+> go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
+
+### Admin module credentials
 	
-	ORIENTDB_DATABASE = smsc
-	ORIENTDB_DATABASE_USERNAME = smsc
-	ORIENTDB_DATABASE_PASSWORD = smscPassword$
-	ORIENTDB_PATH = memory:smsc
-	ORIENTDB_CACHE_SIZE = 10000
-	ORIENTDB_ROOT_PASSWORD = admin
-	ORIENTDB_GRAPH_SERVER = true
-	ORIENTDB_GRAPH_POOL_MAX = 50
-	ORIENTDB_OJMXPLUGIN_ENABLED = false
-	ORIENTDB_OJMXPLUGIN_PROFILE_MANAGED_ENABLED = true
-	ORIENTDB_SERVER_SIDE_SCRIPT_INTERPRETER_ENABLED = true
-	ORIENTDB_SERVER_SIDE_SCRIPT_INTERPRETER_ALLOWED_LANGUAGES = SQL,Javascript
-	ORIENTDB_LIVE_QUERY_PLUGIN = true
-	ORIENTDB_LOG_CONSOLE_LEVEL = info
-	ORIENTDB_LOG_FILE_LEVEL = fine
-	ORIENTDB_PROFILER_ENABLED = true
-	ORIENTDB_PROFILER_CONFIG = 30,10,10
-	ORIENTDB_POOL_MIN = 1
-	ORIENTDB_POOL_MAX = 50
-	ORIENTDB_BINARY_SSL_CLIENT_AUTH = false
-	ORIENTDB_BINARY_SSL_KEY_STORE = config/cert/orientdb.ks
-	ORIENTDB_BINARY_SSL_KEY_STORE_PASSWORD = 123password
-	ORIENTDB_BINARY_SSL_TRUST_STORE = config/cert/orientdb.ks
-	ORIENTDB_BINARY_SSL_TRUST_STORE_PASSWORD = 123password
-	ORIENTDB_HTTP_PORT_RANGE = 2480-2490
-	
-more info: http://orientdb.com/docs/last/Configuration.html
-
-Example XML File: https://github.com/orientechnologies/orientdb/blob/master/graphdb/config/orientdb-server-config.xml
-
-# OrientDB Tuning
-	
-	java -Xmx800m -Dstorage.diskCache.bufferSize=7200 ...
-	java -server -XX:+PerfDisableSharedMem
-	
-# OrientDB SSL
-
-	keytool -genkey -alias server -keystore orientdb.ks -keyalg RSA -keysize 2048 -validity 3650
-	keytool -export -alias server -keystore orientdb.ks -file orientdb.cert
-	keytool -genkey -alias console -keystore orientdb-console.ks -keyalg RSA -keysize 2048 -validity 3650
-	keytool -import -alias server -keystore orientdb-console.ts -file orientdb.cert
-	
-# OrientDB SSL Client Config
-
-	java -Dclient.ssl.enabled=false -Djavax.net.ssl.keyStore=</path/to/keystore> -Djavax.net.ssl.keyStorePassword=<keystorepass> \
-        -Djavax.net.ssl.trustStore=</path/to/truststore> -Djavax.net.ssl.trustStorePassword=<truststorepass>
-
-# OrientDB Studio
-	
-	http://localhost:2480/studio/index.html
-
-# Admin module credentials
-	
-	Username: admin
+	Username: Admin
 	Password: admin
 	URL: /admin
+	
+## Start core module
+
+### Start Spring boot application
+* `cd modules/core`
+* `mvn spring-boot:run`
+
+### Receive access and refresh tokens
+ POST request on [http://localhost:8080/rest/auth/token](http://localhost:8080/rest/auth/token) with valid credentials
+ 
+### Admin credentials
+ 
+	Username: Admin
+	Password: admin
+	
+### User credentials
+
+	Username: User
+	Password: password
+	
+### Docker images launching
+
+* PostgreSQL   
+`$ docker run -d -p 5432:5432 -e POSTGRESQL_USER=test -e POSTGRESQL_PASS=oe9jaacZLbR9pN 
+-e POSTGRESQL_DB=smsc orchardup/postgresql` 
+* MySQL   
+`$ docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=smsc 
+-e MYSQL_USER=user -e MYSQL_PASSWORD=password -d mysql:latest` 
+* Oracle  
+`$ docker run -d --shm-size=2g -p 1521:1521 alexeiled/docker-oracle-xe-11g` 
+
+### Default application properties (can be changed through system properties (use -D))
+* `smsc.database.dialect = postgresql` - database, which is used (other options - mysql, oracle, hsqldb, h2)
+* `encrypt.key = smsc.io` - used in password encryption
+* `jwt.header = X-Authorization` - name of request header, which is used for JWT authentication
+* `jwt.secret = smsc.io` - used in access token signature
+* `jwt.expiration = 3600` - lifetime of access token (seconds).
 
 ## Thanks
 

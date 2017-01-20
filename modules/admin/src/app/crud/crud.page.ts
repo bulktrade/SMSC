@@ -5,7 +5,7 @@ export class CrudPage {
     public login: LoginPage = new LoginPage();
 
     public logo = element(by.id('logo'));
-    public notification = element(by.id('notificationBox'));
+    public notification = element(by.id('growl'));
     public customersItem = element(by.className('customers'));
     public customersTag = element(by.tagName('customers'));
     public metaDataItem = element(by.className('crudmetadata'));

@@ -1,46 +1,21 @@
-<div id="windowGrid">
-	<div class="option-container">
-		<div class="opionPanel">
-			<div class="searchPanel">
-				<md-input placeholder="{{ 'SEARCH' | translate }}"
-				          type="text" autocomplete="off" name="search"
-				          #db (keydown)="crudService.onFilterChanged(db.value, crudService.gridOptions)"
-				          (keyup)="crudService.onFilterChanged(db.value, crudService.gridOptions)"></md-input>
-				<button md-icon-button color="primary" class="searchBtn">
-					<md-icon class="md-24">search</md-icon>
-				</button>
+<div id="crud-view-window">
+	<p-dataTable [value]="rowData" [(selection)]="selectedRows" resizableColumns="true"
+	             scrollable="true" scrollHeight="400px" selectionMode="single">
+		<header class="grid-header">
+			<div class="ui-helper-clearfix" style="width:100%">
+				<span class="grid-title">{{ crudService.getClassName() | uppercase | translate}}</span>
+
+				<button type="button" (click)="navigateToCreate()" pButton icon="fa-plus" style="float:right"
+				        label="Add"></button>
+				<button type="button" [disabled]="!selectedRows" (click)="navigateToDelete()"
+				        pButton icon="fa-remove" style="float:right" label="Delete"></button>
+				<button type="button" [disabled]="!selectedRows" (click)="navigateToUpdate()"
+				        pButton icon="fa-edit" style="float:right" label="Update"></button>
 			</div>
-			<div class="buttonsPanel">
-				<button md-raised-button color="primary" (click)="navigateToCreate()" id="addRow">{{'NEWRECORD' |
-					translate}}
-				</button>
-				<button md-raised-button color="warn" [disabled]="!crudService.isDisableDeleteButton"
-				        (click)="navigateToDelete()" id="deleteRecord">{{'DELETE' | translate}}
-				</button>
-			</div>
-		</div>
-		<alert *ngIf="crudService.dataNotFound" type="danger" dismissible="true"
-		       (close)="crudService.dataNotFound=false">
-			{{ crudService.errorMessage | translate }}
-		</alert>
-		<alert *ngIf="crudService.successExecute" type="success" dismissible="true"
-		       (close)="crudService.successExecute=false">
-			{{ crudService.successMessage | translate }}
-		</alert>
-	</div>
-	<loading-grid>
-		<ag-grid-ng2 class="ag-fresh"
-		             [rowGroupPanelShow]="always" [columnDefs]="crudService.gridOptions.columnDefs"
-		             [overlayLoadingTemplate]="crudService.overlayLoadingTemplate()"
-		             [gridOptions]="crudService.gridOptions" [rowData]="crudService.gridOptions.rowData"
-		             (cellValueChanged)="crudService.cellValueChanged($event)"
-		             (rowClicked)="crudService.rowClicked($event)"
-		             (cellClicked)="clickOnCell($event)"
-		             (rowSelected)="crudService.rowSelected(crudService.gridOptions)"
-		             (gridReady)="crudService.onReady($event)"
-		></ag-grid-ng2>
-		<grid-pagination [currentCrudLevel]="crudService.crudLevel[crudService.crudLevel.length - 1]"
-		                 [className]="crudService.getClassName()"
-		                 [gridOptions]="crudService.gridOptions"></grid-pagination>
-	</loading-grid>
+		</header>
+		<p-column [field]="column.field" [style]="{'width':'200px'}" [header]="column.headerName" [sortable]="true"
+		          *ngFor="let column of columnDefs"></p-column>
+	</p-dataTable>
+	<p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
+	             [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPaginate($event)"></p-paginator>
 </div>

@@ -1,22 +1,15 @@
 <div id="multipleSelect">
 	<div id="multipleSelectComponent">
-		<div class="title">{{property.property | uppercase | translate}}<span
-			class="requiredSymb">{{requiredSymb}}</span></div>
-		<hr>
-		<div *ngFor="let item of ridItems" class="items">
-			<div class="link" *ngIf="item.visible">
-				<div class="title">{{item.name}}</div>
-				<md-icon (click)="item.visible=!item.visible; removeItem()"
-				         class="md-24">remove_circle_outline
-				</md-icon>
+		<div *ngFor="let item of items; let i = index" class="items">
+			<div class="link">
+				<div class="title">{{ item.label }}</div>
+				<i class="material-icons remove-item" (click)="removeItem(i)">remove_circle_outline</i>
 			</div>
 		</div>
-		<md-icon class="md-24" id="add" title="{{'ADD' | translate}}"
-		         (click)="addLinkset()">add_circle
-		</md-icon>
-		<md-icon class="md-24" title="{{'CLEARALL' | translate}}"
-		         (click)="clearAll()" id="clearAll">clear_all
-		</md-icon>
+		<i class="material-icons" id="add" title="{{'ADD' | translate}}"
+		   (click)="navigateToLinkedRepository()">add_circle</i>
+		<i class="material-icons" title="{{'CLEARALL' | translate}}"
+		   (click)="removeItems()" id="clearAll">clear_all</i>
 	</div>
-	<ng-content select="md-hint" id="hint"></ng-content>
+	<ng-content id="hint"></ng-content>
 </div>

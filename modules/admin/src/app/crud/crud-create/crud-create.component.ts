@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CrudService } from '../crud.service';
-import { Location } from '@angular/common';
-import { ColumnDefsModel } from '../model/column-definitions';
-import { BtnTypes } from '../dynamic-form/model/button-types';
-import { FormPropertyModel } from '../model/form-property';
+import { Component } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router, ActivatedRoute } from "@angular/router";
+import { CrudService } from "../crud.service";
+import { Location } from "@angular/common";
+import { BtnTypes } from "../dynamic-form/model/button-types";
+import { FormPropertyModel } from "../model/form-property";
+import { NotificationService } from "../../services/notification-service";
+import { BackendService } from "../../services/backend/backend.service";
 
 @Component({
     selector: 'crud-create',
-    template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>',
+    template: '<dynamic-form [formType]="formType" [columnDefs]="columnDefs" (onSubmit)="onSubmit($event)"></dynamic-form>',
     styleUrls: [
         require('../common/style.scss')
     ],
@@ -17,33 +18,34 @@ import { FormPropertyModel } from '../model/form-property';
 })
 
 export class CrudCreateComponent {
-    public resolveData: ColumnDefsModel = null;
-    public columnDefs: Array<FormPropertyModel> = null;
-    public btnName: BtnTypes = BtnTypes.CREATE;
+    public columnDefs: Array<FormPropertyModel>;
+    public formType: string = BtnTypes.CREATE;
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
                 public router: Router,
                 public route: ActivatedRoute,
-                public location: Location) {
+                public location: Location,
+                public backendService: BackendService,
+                public notifications: NotificationService) {
     }
 
     ngOnInit() {
-        // sets path from root component
-        this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
-
-        this.resolveData = this.route.snapshot.data['create'];
-        this.columnDefs = this.resolveData.form;
+        this.columnDefs = this.getColumnDefs();
     }
 
-    ngOnDestroy() {
-        this.crudService.multipleSelectValid = false;
-        this.crudService.setModel({});
+    getColumnDefs() {
+        return this.route.snapshot.data['create'];
     }
 
-    onSubmit() {
-        this.crudService.createRecord(this.crudService.model,
-            this.route.snapshot.params['className']);
+    onSubmit(data) {
+        this.backendService.createResource(data, this.crudService.getRepositoryName())
+            .subscribe(res => {
+                this.notifications.createNotification('success', 'SUCCESS', 'crud.successCreate');
+            }, err => {
+                console.error(err);
+                this.notifications.createNotification('error', 'ERROR', 'crud.errorCreate');
+            })
     }
 
 }

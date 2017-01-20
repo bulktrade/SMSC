@@ -1,21 +1,25 @@
 #multipleSelect {
-    margin-bottom: 25px;
-
     #multipleSelectComponent {
-        border: 1px solid rgba(0, 0, 0, 0.38);
+        border: 1px solid #d6d6d6;
+        border-radius: 3px;
         color: rgba(0, 0, 0, 0.38);
         font-size: 14px;
         padding: 5px;
-        min-height: 75px;
         margin-top: 7px;
 
-        .title {
-            margin: 0;
+        i {
+            font-size: 21px;
+            cursor: pointer;
+
+            &:hover {
+                color: green;
+            }
         }
 
-        hr {
-            padding: 0;
-            margin: 6px 0 6px 0;
+        .remove-item {
+            &:hover {
+                color: red;
+            }
         }
 
         .items {
@@ -24,19 +28,10 @@
             margin-right: 10px;
         }
 
-        md-icon {
-            float: left;
-            cursor: pointer;
-            font-size: 20px;
-            margin: auto;
-
-            &:hover {
-                color: red;
-            }
-        }
-
         .link {
-            padding-top: 2px;
+            padding: 3px 5px;
+            border: 1px solid #d6d6d6;
+            border-radius: 3px;
         }
 
         .items,
@@ -45,11 +40,7 @@
         }
 
         #add {
-            margin-bottom: 6px;
-
-            &:hover {
-                color: green;
-            }
+            padding-top: 2px;
         }
     }
 }

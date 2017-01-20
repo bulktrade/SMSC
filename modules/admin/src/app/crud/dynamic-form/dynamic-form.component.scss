@@ -3,23 +3,18 @@ $colorHint: #A94442;
 .addingForm {
 	width: 100%;
 
-	md-input {
-		background: transparent;
-		border: none;
-		width: 100%;
-        padding: 6px 0;
-        box-sizing: border-box;
-	}
+    #back-button {
+        padding-right: 10px;
+        cursor: pointer;
+    }
 
     .form {
         padding: 0 15px;
         background: #fff;
         margin-bottom: 50px;
 
-        md-hint {
-            position: relative;
-            top: 5px;
-            color: $colorHint;
+        > div {
+            padding-top: 20px;
         }
     }
 
@@ -32,7 +27,8 @@ $colorHint: #A94442;
         }
     }
 
-    .back {
-        background: #000;
+    button {
+        color: #fff;
     }
+
 }

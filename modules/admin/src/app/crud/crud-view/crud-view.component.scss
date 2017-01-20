@@ -1,32 +1,12 @@
-@media all and (min-width: 550px) {
-    .buttonsPanel {
-        padding: 6px 14px 0 0;
-        justify-content: flex-end;
+#crud-view-window {
+
+    .grid-header {
+        text-align: left;
     }
 
-    ag-grid-ng2 {
-        height: calc(100% - 138px);
+    #grid-pagination {
+        position: relative;
+        top: -1px;
     }
-}
 
-@media all and (max-width: 550px) {
-    #windowGrid {
-        .opionPanel {
-            flex-direction: column;
-        }
-
-        ag-grid-ng2 {
-            height: calc(100% - 157px);
-            padding-bottom: 15px;
-        }
-
-        .buttonsPanel {
-            justify-content: center;
-            padding: 0 14px 0 7px;
-
-            button {
-                flex-grow: 1;
-            }
-        }
-    }
 }

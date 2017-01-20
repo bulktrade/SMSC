@@ -27,7 +27,7 @@ const CRUD_ROUTE_PROVIDER = [
         }
     },
     {
-        path: 'edit/:id',
+        path: 'update/:id',
         component: CrudUpdateComponent,
         resolve: { edit: CrudEditResolve },
         data: {
@@ -35,7 +35,7 @@ const CRUD_ROUTE_PROVIDER = [
         }
     },
     {
-        path: 'create/:className',
+        path: 'create',
         component: CrudCreateComponent,
         resolve: { create: CrudCreateResolve },
         data: {
@@ -43,7 +43,7 @@ const CRUD_ROUTE_PROVIDER = [
         }
     },
     {
-        path: 'linkset/:className', component: CrudLinksetComponent,
+        path: 'linkset/:className/:repositoryName', component: CrudLinksetComponent,
         resolve: { linkset: CrudLinksetResolve },
         data: {
             showInBreadcrumb: false,
