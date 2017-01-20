@@ -1,12 +1,12 @@
 package io.smsc.repository.crud.crudClassMetaData;
 
 import io.smsc.model.crud.CrudClassMetaData;
+import io.smsc.model.projections.CrudClassMetaDataProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "crud-class-meta-data", path = "crud-class-meta-data")
+@RepositoryRestResource(collectionResourceRel = "crud-class-meta-data", path = "crud-class-meta-data" ,excerptProjection = CrudClassMetaDataProjection.class)
 @Transactional(readOnly = true)
 public interface CrudClassMetaDataRepository extends JpaRepository<CrudClassMetaData, Long> {
 

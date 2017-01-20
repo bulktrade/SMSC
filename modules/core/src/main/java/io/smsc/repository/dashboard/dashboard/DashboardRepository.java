@@ -2,6 +2,7 @@ package io.smsc.repository.dashboard.dashboard;
 
 import io.smsc.model.User;
 import io.smsc.model.dashboard.Dashboard;
+import io.smsc.model.projections.DashboardProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards")
+@RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards", excerptProjection = DashboardProjection.class)
 @Transactional(readOnly = true)
 public interface DashboardRepository extends JpaRepository<Dashboard, Long>{
 

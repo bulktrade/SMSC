@@ -1,15 +1,13 @@
 package io.smsc.repository.crud.crudMetaGridData;
 
 import io.smsc.model.crud.CrudMetaGridData;
+import io.smsc.model.projections.CrudMetaGridDataProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * This REST repository class is used for providing default {@link JpaRepository}
@@ -19,7 +17,7 @@ import java.util.List;
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "crud-meta-grid-data", path = "crud-meta-grid-data")
+@RepositoryRestResource(collectionResourceRel = "crud-meta-grid-data", path = "crud-meta-grid-data", excerptProjection = CrudMetaGridDataProjection.class)
 @Transactional(readOnly = true)
 public interface CrudMetaGridDataRepository extends JpaRepository<CrudMetaGridData, Long> {
 

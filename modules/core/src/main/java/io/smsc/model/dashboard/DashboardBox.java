@@ -47,12 +47,12 @@ public class DashboardBox extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="DASHBOARD", nullable = false)
+    @JoinColumn(name="DASHBOARD_ID", nullable = false)
     private Dashboard dashboard;
 
     @ManyToOne(fetch = FetchType.LAZY)
 //    @JsonBackReference
-    @JoinColumn(name="DASHBOARD_BOX_TYPE", nullable = false)
+    @JoinColumn(name="DASHBOARD_BOX_TYPE_ID", nullable = false)
     private DashboardBoxType dashboardBoxType;
 
     public DashboardBox() {

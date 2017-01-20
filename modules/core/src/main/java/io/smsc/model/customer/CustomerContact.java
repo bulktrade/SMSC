@@ -47,7 +47,7 @@ public class CustomerContact extends BaseEntity {
     private String emailAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CUSTOMER")
+    @JoinColumn(name="CUSTOMER_ID")
     private Customer customer;
 
     @Enumerated(EnumType.STRING)
