@@ -9,6 +9,7 @@ import { GridOptions } from "../model/grid-options";
 import { BackendService } from "../../services/backend/backend.service";
 import { Pagination } from "../model/pagination";
 import { GetDataFromURIService } from "../../services/get-data-from-URI";
+import { ColumnsType } from "../model/columns-type";
 
 @Injectable()
 export class CrudViewResolve extends CrudResolve {
@@ -36,7 +37,7 @@ export class CrudViewResolve extends CrudResolve {
                         .subscribe(resources => {
                             gridOptions.rowData = resources['_embedded'][this.crudService.getRepositoryName()];
 
-                            this.URIService.parseLinkProps(gridOptions.columnDefs, gridOptions.rowData)
+                            this.URIService.parseLinkProps(gridOptions.columnDefs, gridOptions.rowData, ColumnsType.Grid)
                                 .subscribe(data => {
                                     gridOptions.rowData = data;
 

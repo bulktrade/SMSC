@@ -1,18 +1,21 @@
 <div id="crud-linkset-window">
 	<p-dataTable [value]="rowData" [(selection)]="selectedRows"
-	             scrollable="true" scrollHeight="400px" selectionMode="single">
+	             scrollable="true" scrollHeight="400px" selectionMode="multiple">
 		<header class="grid-header">
 			<div class="ui-helper-clearfix" style="width:100%">
 				<span class="grid-title">{{ crudService.getClassName() | uppercase | translate}}</span>
 
 				<button type="button" (click)="navigateToCreate()" pButton icon="fa-plus" style="float:right"
 				        label="Add"></button>
-				<button type="button" [disabled]="!selectedRows" (click)="navigateToDelete()"
-				        pButton icon="fa-remove" style="float:right" label="Delete"></button>
-				<button type="button" [disabled]="!selectedRows" (click)="navigateToUpdate()"
-				        pButton icon="fa-edit" style="float:right" label="Update"></button>
+				<!--<button type="button" [disabled]="!selectedRows" (click)="navigateToDelete()"-->
+				        <!--pButton icon="fa-remove" style="float:right" label="Delete"></button>-->
+				<!--<button type="button" [disabled]="!selectedRows" (click)="navigateToUpdate()"-->
+				        <!--pButton icon="fa-edit" style="float:right" label="Update"></button>-->
+				<button type="button" (click)="addLinks()"
+				        pButton icon="fa-plus" style="float:right" label="Add"></button>
 			</div>
 		</header>
+		<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 		<p-column [field]="column.field" [style]="{'width':'200px'}" [header]="column.headerName" [sortable]="true"
 		          *ngFor="let column of columnDefs"></p-column>
 	</p-dataTable>

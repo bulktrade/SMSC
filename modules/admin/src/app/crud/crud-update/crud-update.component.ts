@@ -47,7 +47,7 @@ export class CrudUpdateComponent {
     }
 
     getModel() {
-        return this.route.snapshot.data['edit'].rowData;
+        return this.route.snapshot.data['edit'].rowData[0];
     }
 
     onSubmit(data) {

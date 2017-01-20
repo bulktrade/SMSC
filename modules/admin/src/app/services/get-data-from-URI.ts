@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { ColumnDef } from "../crud/model/column-definition";
 import { BackendService } from "./backend/backend.service";
 import * as _ from "lodash";
+import { ColumnsType } from "../crud/model/columns-type";
 const clone = require("js.clone");
 
 @Injectable()
@@ -11,7 +12,7 @@ export class GetDataFromURIService {
     constructor(public backendService: BackendService) {
     }
 
-    parseLinkProps(columnDefs: ColumnDef[], rowData: any[]) {
+    parseLinkProps(columnDefs: ColumnDef[], rowData: any[], columnsType: ColumnsType) {
         let _rowData = clone(rowData),
             storeObservables = [];
 
@@ -28,14 +29,13 @@ export class GetDataFromURIService {
 
                     let observable = Observable.create((obs) => {
                         // pull resources from the each link
-                        this.generateArrayReferencedLink(link, linkedRepository, linkedClass)
+                        this.generateArrayReferencedLink(link, linkedRepository, linkedClass, columnsType)
                             .subscribe(_columns => {
                                 i[objectKey] = _columns;
 
                                 obs.next(true);
                                 obs.complete();
                             }, err => {
-                                console.error(err);
                                 obs.next(true);
                                 obs.complete();
                             })
@@ -69,23 +69,49 @@ export class GetDataFromURIService {
         return linkedProperty;
     }
 
-    generateArrayReferencedLink(link: string, linkedRepository: string, linkedClass: string) {
+    generateArrayReferencedLink(link: string, linkedRepository: string, linkedClass: string, columnsType: ColumnsType) {
         return Observable.create(obs => {
-            this.backendService.getDataByLink(link)
-                .subscribe(data => {
-                    let _result: any[] = [];
 
-                    if (data && data.hasOwnProperty(linkedRepository)) {
-                        data[linkedRepository].forEach(i => {
-                            _result.push(i['_links']['self'].href);
-                        });
+            this.backendService.getResources('crud-class-meta-data')
+                .subscribe(data => {
+                    // find the crudClassMetaData by class name
+                    let crudClassMetaData = _.find(data['_embedded']['crud-class-meta-data'], (o) => {
+                        return o['className'] === linkedClass;
+                    });
+
+                    let titleColumns: string = 'id';
+
+                    if (crudClassMetaData.hasOwnProperty('titleColumns') && crudClassMetaData['titleColumns']) {
+                        titleColumns = crudClassMetaData['titleColumns'];
                     }
 
-                    obs.next(_result);
-                    obs.complete();
+                    this.backendService.getDataByLink(link)
+                        .subscribe(data => {
+                            let _result: any[] = [];
+
+                            if (data && data.hasOwnProperty(linkedRepository)) {
+                                data[linkedRepository].forEach(i => {
+
+                                    if (columnsType === ColumnsType.Grid) {
+                                        _result.push(i[titleColumns] || i['id']);
+                                    } else if (columnsType === ColumnsType.Form) {
+                                        _result.push({
+                                            title: i[titleColumns] || i['id'],
+                                            link: i['_links'].self.href
+                                        });
+                                    }
+                                });
+                            }
+
+                            obs.next(_result);
+                            obs.complete();
+                        }, err => {
+                            obs.next([]);
+                            obs.complete();
+                        });
+
                 }, err => {
-                    console.error(err);
-                    obs.next([]);
+                    obs.error(err);
                     obs.complete();
                 });
         });

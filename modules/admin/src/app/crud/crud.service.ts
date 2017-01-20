@@ -1,6 +1,6 @@
 import { ODatabaseService } from "../orientdb/orientdb.service";
 import { Injectable } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { GridOptions, GridApi } from "ag-grid";
 import { NotificationService } from "../services/notification-service";
@@ -38,6 +38,7 @@ export class CrudService {
     public initGridData: Promise<any> = Promise.resolve();
     public crud: Promise<any> = Promise.resolve();
     public parentPath = null;
+    public crudRootPath: string = '';
     public className = null;
     public repositoryName: string = '';
     public dataNotFound = false;
@@ -781,5 +782,22 @@ export class CrudService {
 
     setModel(model) {
         this.model = model;
+    }
+
+    getCrudRootPath() {
+        return this.crudRootPath;
+    }
+
+    setCrudRootPath(parent: Array<ActivatedRouteSnapshot>) {
+        let pathFromRoot: string = '';
+        let urlSuffix: string = '/';
+
+        for (let i in parent) {
+            if (parent[i].routeConfig !== null && parent[i].routeConfig.path !== '') {
+                pathFromRoot += parent[i].routeConfig.path + urlSuffix;
+            }
+        }
+
+        this.crudRootPath = pathFromRoot;
     }
 }

@@ -17,7 +17,7 @@
 									{{ item.property | translate }}
 								</div>
 								<div class="ui-grid-col-6">
-									<multiple-select [property]="item" [id]="item.property"></multiple-select>
+									<multiple-select [property]="item" [(model)]="model[item.property]" [id]="item.property"></multiple-select>
 								</div>
 								<div class="ui-grid-col-4" *ngIf="false">
 									<div class="ui-message ui-messages-error ui-corner-all">

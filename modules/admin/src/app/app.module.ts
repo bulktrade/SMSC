@@ -46,6 +46,7 @@ import { CrudModule } from "./crud/crud.module";
 import { BackendService } from "./services/backend/backend.service";
 import { GrowlService } from "./services/growl/growl.service";
 import { GetDataFromURIService } from "./services/get-data-from-URI";
+import { Navigator, ConversionStrategy, ConversionStrategyJson } from "ng2-hal";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -113,7 +114,12 @@ export const APP_PROVIDERS = [
         BackendService,
         GetDataFromURIService,
         ENV_PROVIDERS,
-        APP_PROVIDERS
+        APP_PROVIDERS,
+        {
+            provide: ConversionStrategy,
+            useFactory: () => new ConversionStrategyJson()
+        },
+        Navigator
     ]
 })
 export class AppModule {

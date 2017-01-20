@@ -26,7 +26,7 @@ export class CrudLinksetComponent {
     public pagination: Pagination = new Pagination(10, null, null, 0);
     public columnDefs: ColumnDef[];
     public rowData = [];
-    public selectedRows = null;
+    public selectedRows: ColumnDef[] = [];
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
@@ -76,15 +76,18 @@ export class CrudLinksetComponent {
     }
 
     navigateToCreate() {
-        this.router.navigate([this.router.url, 'create']);
+        this.router.navigate([this.crudService.getCrudRootPath(), 'create']);
     }
 
     navigateToDelete() {
-        this.router.navigate([this.router.url, 'delete', this.selectedRows['id']]);
+        this.router.navigate([this.crudService.getCrudRootPath(), 'delete', this.selectedRows['id']]);
     }
 
     navigateToUpdate() {
-        this.router.navigate([this.router.url, 'update', this.selectedRows['id']]);
+        this.router.navigate([this.crudService.getCrudRootPath(), 'update', this.selectedRows['id']]);
+    }
+
+    addLinks() {
     }
 }
 
