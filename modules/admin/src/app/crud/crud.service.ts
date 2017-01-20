@@ -16,9 +16,8 @@ import { Button } from "./model/button";
 import { RouterOutletService } from "../services/router-outlet-service";
 import { BackendService } from "../services/backend/backend.service";
 import * as _ from "lodash";
-import { ColumnDef } from "./model/column-definition";
 import { SelectItem } from "primeng/components/common/api";
-import "rxjs";
+import "rxjs/Rx";
 const clone = require("js.clone");
 
 const squel = require('squel');
@@ -689,62 +688,6 @@ export class CrudService {
         return Observable.create(obs => {
             obs.next(_columns);
             obs.complete();
-        });
-    }
-
-    parseLinkProps(columnDefs: ColumnDef[], rowData: any[]) {
-        let _rowData = clone(rowData),
-            storeObservables = [];
-
-        _rowData.forEach(i => {
-            // select all of links properties
-            let links = i['_links'];
-
-            Object.keys(links).map((objectKey, index) => {
-                let link = links[objectKey].href;
-                let currentColumn = _.find(columnDefs, (o) => {
-                        return o.property === objectKey;
-                    }),
-                    linkedRepository: string = '';
-
-                if (currentColumn && currentColumn.hasOwnProperty('linkedRepository')) {
-                    linkedRepository = currentColumn.linkedRepository;
-                }
-
-                if (link && linkedRepository) {
-                    storeObservables.push(Observable.create((obs) => {
-                            this.backendService.getDataByLink(link)
-                                .subscribe(data => {
-                                    if (data) {
-                                        let _result: any[] = [];
-
-                                        rowData.forEach(i => {
-                                            _result.push(i['_links']['self'].href);
-                                        });
-
-                                        i[objectKey] = _result;
-                                    }
-
-                                    obs.next(true);
-                                    obs.complete();
-                                }, err => {
-                                    console.error(err);
-                                    obs.next(true);
-                                    obs.complete();
-                                });
-                        })
-                    );
-                }
-
-            });
-        });
-
-        return Observable.create(obs => {
-            Observable.forkJoin(storeObservables)
-                .subscribe(() => {
-                    obs.next(_rowData);
-                    obs.complete();
-                });
         });
     }
 

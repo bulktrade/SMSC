@@ -8,6 +8,7 @@ import { NotificationService } from "../../services/notification-service";
 import { GridOptions } from "../model/grid-options";
 import { BackendService } from "../../services/backend/backend.service";
 import { Pagination } from "../model/pagination";
+import { GetDataFromURIService } from "../../services/get-data-from-URI";
 
 @Injectable()
 export class CrudViewResolve extends CrudResolve {
@@ -15,7 +16,8 @@ export class CrudViewResolve extends CrudResolve {
     constructor(public crudService: CrudService,
                 public loadingGridService: LoadingGridService,
                 public notification: NotificationService,
-                public backendService: BackendService) {
+                public backendService: BackendService,
+                public URIService: GetDataFromURIService) {
         super();
     }
 
@@ -34,7 +36,7 @@ export class CrudViewResolve extends CrudResolve {
                         .subscribe(resources => {
                             gridOptions.rowData = resources['_embedded'][this.crudService.getRepositoryName()];
 
-                            this.crudService.parseLinkProps(gridOptions.columnDefs, gridOptions.rowData)
+                            this.URIService.parseLinkProps(gridOptions.columnDefs, gridOptions.rowData)
                                 .subscribe(data => {
                                     gridOptions.rowData = data;
 

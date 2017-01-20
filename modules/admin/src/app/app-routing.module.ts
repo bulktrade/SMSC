@@ -37,7 +37,7 @@ export const ROUTES: Routes = [
         },
         children: [
             {
-                path: '',
+                path: 'dashboard',
                 component: DashboardsComponent,
                 data: {
                     similarPath: 'dasboards', // @todo Impement in sidenav
@@ -71,7 +71,7 @@ export const ROUTES: Routes = [
                 ]
             },
             {
-                path: 'customers',
+                path: '',
                 component: CustomersComponent,
                 data: {
                     showInBreadcrumb: true,
@@ -113,8 +113,8 @@ export const ROUTES: Routes = [
                             translationKey: 'CrudClassMetaData',
                             icon: 'perm_data_setting',
                             backend: {
-                                crudClass: 'CrudMetaFormData',
-                                repositoryName: 'crud-meta-form-data'
+                                crudClass: 'CrudClassMetaData',
+                                repositoryName: 'crud-class-meta-data'
                             },
                             showInBreadcrumb: true,
                         },
