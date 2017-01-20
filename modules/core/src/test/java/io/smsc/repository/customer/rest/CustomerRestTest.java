@@ -17,7 +17,7 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCustomer() throws Exception {
-        mockMvc.perform(get("/rest/repository/customers/228"))
+        mockMvc.perform(get("/rest/repository/customers/240"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.customerId", is(CUSTOMER_1.getCustomerId())))
@@ -63,8 +63,8 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCustomer() throws Exception {
-        mockMvc.perform(delete("/rest/repository/customers/delete/228"));
-        mockMvc.perform(get("/rest/repository/customers/228"))
+        mockMvc.perform(delete("/rest/repository/customers/delete/240"));
+        mockMvc.perform(get("/rest/repository/customers/240"))
                 .andExpect(status().isNotFound());
     }
 
@@ -76,11 +76,11 @@ public class CustomerRestTest extends AbstractTest {
         updated.setCountry("Monaco");
         updated.setCustomerId(5.0);
         String customerJson = json(updated);
-        mockMvc.perform(put("/rest/repository/customers/228")
+        mockMvc.perform(put("/rest/repository/customers/240")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/customers/228"))
+        mockMvc.perform(get("/rest/repository/customers/240"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.customerId", is(updated.getCustomerId())))
@@ -95,7 +95,7 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testAddUser() throws Exception {
-        mockMvc.perform(get("/rest/repository/customers/addUser?customerId=228&userId=53"))
+        mockMvc.perform(get("/rest/repository/customers/addUser?customerId=240&userId=53"))
                 .andExpect(status().isOk());
 //        mockMvc.perform(get("/rest/repository/customers/228"))
 //                .andExpect(status().isOk())
@@ -104,7 +104,7 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testRemoveUser() throws Exception {
-        mockMvc.perform(get("/rest/repository/customers/removeUser?customerId=228&userId=53"))
+        mockMvc.perform(get("/rest/repository/customers/removeUser?customerId=240&userId=53"))
                 .andExpect(status().isOk());
 //        mockMvc.perform(get("/rest/repository/customers/228"))
 //                .andExpect(status().isOk())

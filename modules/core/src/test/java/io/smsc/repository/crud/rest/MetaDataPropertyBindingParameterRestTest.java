@@ -18,7 +18,7 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleMetaDataPropertyBindingParameter() throws Exception {
-        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/227"))
+        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/239"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.fromProperty", is(META_DATA_PROPERTY_BINDING_PARAMETER_1.getFromProperty())))
@@ -57,8 +57,8 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
 
     @Test
     public void testDeleteMetaDataPropertyBindingParameter() throws Exception {
-        mockMvc.perform(delete("/rest/repository/meta-data-property-binding-parameters/227"));
-        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/227"))
+        mockMvc.perform(delete("/rest/repository/meta-data-property-binding-parameters/239"));
+        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/239"))
                 .andExpect(status().isNotFound());
     }
 
@@ -70,11 +70,11 @@ public class MetaDataPropertyBindingParameterRestTest extends AbstractTest {
         updated.setCombineOperator(CombineOperator.AND);
         updated.setOperator(Operator.MORE_OR_LESS);
         String permissionJson = json(updated);
-        mockMvc.perform(put("/rest/repository/meta-data-property-binding-parameters/227")
+        mockMvc.perform(put("/rest/repository/meta-data-property-binding-parameters/239")
                 .contentType("application/json;charset=UTF-8")
                 .content(permissionJson))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/227"))
+        mockMvc.perform(get("/rest/repository/meta-data-property-binding-parameters/239"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.fromProperty", is("from_updated_property")))
