@@ -90,6 +90,12 @@ public class CrudMetaFormDataTestData {
     public static final long CRUD_META_FORM_DATA_ID_78 = 144;
     public static final long CRUD_META_FORM_DATA_ID_79 = 145;
     public static final long CRUD_META_FORM_DATA_ID_80 = 146;
+    public static final long CRUD_META_FORM_DATA_ID_81 = 147;
+    public static final long CRUD_META_FORM_DATA_ID_82 = 148;
+    public static final long CRUD_META_FORM_DATA_ID_83 = 149;
+    public static final long CRUD_META_FORM_DATA_ID_84 = 150;
+    public static final long CRUD_META_FORM_DATA_ID_85 = 151;
+    public static final long CRUD_META_FORM_DATA_ID_86 = 152;
 
     public static final CrudMetaFormData CRUD_META_FORM_DATA_1 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_1,"fromProperty", true, true, null, 1.0, "String", null, null, null);
     public static final CrudMetaFormData CRUD_META_FORM_DATA_2 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_2,"toProperty", true, true, null, 2.0, "String", null, null, null);
@@ -182,6 +188,13 @@ public class CrudMetaFormDataTestData {
     public static final CrudMetaFormData CRUD_META_FORM_DATA_79 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_79,"name", true, true, null, 1.0, "String", null, null, null);
     public static final CrudMetaFormData CRUD_META_FORM_DATA_80 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_80,"roles", true, true, null, 2.0, "URI", "Role", "roles", null);
 
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_81 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_81,"className", true, true, null, 1.0, "URI", "Dashboard", "dashboards", null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_82 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_82,"titleColumns", true, true, null, 2.0, "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_83 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_83,"editable", true, true, null, 3.0, "Boolean", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_84 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_84,"query", true, true, null, 4.0, "String", null, null, null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_85 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_85,"crudMetaFormData", true, true, null, 5.0, "URI", "CrudMetaFormData", "crud-meta-form-data", null);
+    public static final CrudMetaFormData CRUD_META_FORM_DATA_86 = new CrudMetaFormData(CRUD_META_FORM_DATA_ID_86,"crudMetaGridData", true, true, null, 6.0, "URI", "CrudMetaGridData", "crud-meta-grid-data", null);
+
     static {
         CRUD_META_FORM_DATA_1.setBindingParameters(Collections.emptySet());
         CRUD_META_FORM_DATA_2.setBindingParameters(Collections.emptySet());
@@ -263,6 +276,12 @@ public class CrudMetaFormDataTestData {
         CRUD_META_FORM_DATA_78.setBindingParameters(Collections.emptySet());
         CRUD_META_FORM_DATA_79.setBindingParameters(Collections.emptySet());
         CRUD_META_FORM_DATA_80.setBindingParameters(Collections.emptySet());
+        CRUD_META_FORM_DATA_81.setBindingParameters(Collections.emptySet());
+        CRUD_META_FORM_DATA_82.setBindingParameters(Collections.emptySet());
+        CRUD_META_FORM_DATA_83.setBindingParameters(Collections.emptySet());
+        CRUD_META_FORM_DATA_84.setBindingParameters(Collections.emptySet());
+        CRUD_META_FORM_DATA_85.setBindingParameters(Collections.emptySet());
+        CRUD_META_FORM_DATA_86.setBindingParameters(Collections.emptySet());
         CRUD_META_FORM_DATA_1.setCrudClassMetaData(CRUD_CLASS_META_DATA_6);
         CRUD_META_FORM_DATA_2.setCrudClassMetaData(CRUD_CLASS_META_DATA_6);
         CRUD_META_FORM_DATA_3.setCrudClassMetaData(CRUD_CLASS_META_DATA_6);
@@ -343,6 +362,12 @@ public class CrudMetaFormDataTestData {
         CRUD_META_FORM_DATA_78.setCrudClassMetaData(CRUD_CLASS_META_DATA_10);
         CRUD_META_FORM_DATA_79.setCrudClassMetaData(CRUD_CLASS_META_DATA_11);
         CRUD_META_FORM_DATA_80.setCrudClassMetaData(CRUD_CLASS_META_DATA_11);
+        CRUD_META_FORM_DATA_81.setCrudClassMetaData(CRUD_CLASS_META_DATA_3);
+        CRUD_META_FORM_DATA_82.setCrudClassMetaData(CRUD_CLASS_META_DATA_3);
+        CRUD_META_FORM_DATA_83.setCrudClassMetaData(CRUD_CLASS_META_DATA_3);
+        CRUD_META_FORM_DATA_84.setCrudClassMetaData(CRUD_CLASS_META_DATA_3);
+        CRUD_META_FORM_DATA_85.setCrudClassMetaData(CRUD_CLASS_META_DATA_3);
+        CRUD_META_FORM_DATA_86.setCrudClassMetaData(CRUD_CLASS_META_DATA_3);
     }
 
     public static final ModelMatcher<CrudMetaFormData> CRUD_META_FORM_DATA_MODEL_MATCHER = new ModelMatcher<>(CrudMetaFormData.class,

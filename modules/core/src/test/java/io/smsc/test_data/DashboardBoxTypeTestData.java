@@ -14,12 +14,12 @@ import static io.smsc.test_data.DashboardBoxTestData.*;
 
 public class DashboardBoxTypeTestData {
 
-    public static final long DASHBOARD_BOX_TYPE_ID_1 = 231;
-    public static final long DASHBOARD_BOX_TYPE_ID_2 = 232;
-    public static final long DASHBOARD_BOX_TYPE_ID_3 = 233;
-    public static final long DASHBOARD_BOX_TYPE_ID_4 = 234;
-    public static final long DASHBOARD_BOX_TYPE_ID_5 = 235;
-    public static final long DASHBOARD_BOX_TYPE_ID_6 = 236;
+    public static final long DASHBOARD_BOX_TYPE_ID_1 = 243;
+    public static final long DASHBOARD_BOX_TYPE_ID_2 = 244;
+    public static final long DASHBOARD_BOX_TYPE_ID_3 = 245;
+    public static final long DASHBOARD_BOX_TYPE_ID_4 = 246;
+    public static final long DASHBOARD_BOX_TYPE_ID_5 = 247;
+    public static final long DASHBOARD_BOX_TYPE_ID_6 = 248;
 
     public static final DashboardBoxType DASHBOARD_BOX_TYPE_1 = new DashboardBoxType(DASHBOARD_BOX_TYPE_ID_1, "Ivan feeds", Type.STATUS, Kind.FEEDBACK_STATUS);
     public static final DashboardBoxType DASHBOARD_BOX_TYPE_2 = new DashboardBoxType(DASHBOARD_BOX_TYPE_ID_2, "Petia profit", Type.CHART, Kind.PIE_CHART);
