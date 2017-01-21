@@ -74,21 +74,21 @@
                             <goal>exec</goal>
                         </goals>
                     </execution>
-                    <!--<execution>-->
-                        <!--<id>test-app</id>-->
-                        <!--<phase>test</phase>-->
-                        <!--<configuration>-->
-                            <!--<executable>npm</executable>-->
-                            <!--<workingDirectory>${project.basedir}</workingDirectory>-->
-                            <!--<arguments>-->
-                                <!--<argument>run</argument>-->
-                                <!--<argument>test</argument>-->
-                            <!--</arguments>-->
-                        <!--</configuration>-->
-                        <!--<goals>-->
-                            <!--<goal>exec</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                    <execution>
+                        <id>test-app</id>
+                        <phase>test</phase>
+                        <configuration>
+                            <executable>npm</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>run</argument>
+                                <argument>test</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
