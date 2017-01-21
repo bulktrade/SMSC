@@ -14,6 +14,7 @@ const IgnorePlugin = require('webpack/lib/IgnorePlugin');
 const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
+const HtmlElementsPlugin = require('./html-elements-plugin');
 
 /**
  * Webpack Constants
@@ -202,8 +203,11 @@ module.exports = function(env) {
             new CompressionPlugin({
               regExp: /\.css$|\.html$|\.js$|\.map$/,
               threshold: 2 * 1024
-            })
+            }),
 
+            new HtmlElementsPlugin({
+                headTags: require('./head-config.prod')
+            })
         ],
 
         /**

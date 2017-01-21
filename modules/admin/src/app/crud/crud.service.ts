@@ -1,22 +1,21 @@
-import { ODatabaseService } from "../orientdb/orientdb.service";
-import { Injectable } from "@angular/core";
-import { Router, ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { GridOptions, GridApi } from "ag-grid";
-import { NotificationService } from "../services/notification-service";
-import { LoadingGridService } from "../services/loading/loading-grid.service";
-import { Operation } from "../orientdb/model/operation";
-import { BatchType } from "../orientdb/model/batch-type";
-import { Observable } from "rxjs";
-import { CrudLevel } from "./model/crud-level";
-import { Location } from "@angular/common";
-import { LinksetProperty } from "./model/linkset-property";
-import { GridService } from "../services/grid.service";
-import { Button } from "./model/button";
-import { RouterOutletService } from "../services/router-outlet-service";
-import { BackendService } from "../services/backend/backend.service";
+import {Injectable} from "@angular/core";
+import {Router, ActivatedRoute, ActivatedRouteSnapshot} from "@angular/router";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {GridOptions, GridApi} from "ag-grid";
+import {NotificationService} from "../services/notification-service";
+import {LoadingGridService} from "../services/loading/loading-grid.service";
+import {Operation} from "../orientdb/model/operation";
+import {BatchType} from "../orientdb/model/batch-type";
+import {Observable} from "rxjs";
+import {CrudLevel} from "./model/crud-level";
+import {Location} from "@angular/common";
+import {LinksetProperty} from "./model/linkset-property";
+import {GridService} from "../services/grid.service";
+import {Button} from "./model/button";
+import {RouterOutletService} from "../services/router-outlet-service";
+import {BackendService} from "../services/backend/backend.service";
 import * as _ from "lodash";
-import { SelectItem } from "primeng/components/common/api";
+import {SelectItem} from "primeng/components/common/api";
 import "rxjs/Rx";
 const clone = require("js.clone");
 
@@ -55,8 +54,7 @@ export class CrudService {
 
     private limitCrudLevel: number = 3;
 
-    constructor(public databaseService: ODatabaseService,
-                public router: Router,
+    constructor(public router: Router,
                 public route: ActivatedRoute,
                 public translate: TranslateService,
                 public serviceNotifications: NotificationService,
@@ -85,26 +83,26 @@ export class CrudService {
             }
         ];
 
-        this.databaseService.batch(operations)
-            .subscribe(res => {
-                this.setCellStyleWhenDataIncorrect(this.gridOptions,
-                    { backgroundColor: 'none' }, value);
-                this.serviceNotifications.createNotification('success',
-                    'message.createSuccessful', 'orientdb.successCreate');
-
-                this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
-                    [focusedRow.data])
-                    .then(() => {
-                        this.gridOptions.api.setRowData(this.gridOptions.rowData);
-                    });
-
-                return Promise.resolve(res);
-            }, err => {
-                this.setCellStyleWhenDataIncorrect(this.gridOptions,
-                    { backgroundColor: '#ffccba' }, value);
-                this.serviceNotifications.incorrectData(err.json().errors[0].content);
-                return Promise.reject(err);
-            });
+        // this.databaseService.batch(operations)
+        //     .subscribe(res => {
+        //         this.setCellStyleWhenDataIncorrect(this.gridOptions,
+        //             {backgroundColor: 'none'}, value);
+        //         this.serviceNotifications.createNotification('success',
+        //             'message.createSuccessful', 'orientdb.successCreate');
+        //
+        //         this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
+        //             [focusedRow.data])
+        //             .then(() => {
+        //                 this.gridOptions.api.setRowData(this.gridOptions.rowData);
+        //             });
+        //
+        //         return Promise.resolve(res);
+        //     }, err => {
+        //         this.setCellStyleWhenDataIncorrect(this.gridOptions,
+        //             {backgroundColor: '#ffccba'}, value);
+        //         this.serviceNotifications.incorrectData(err.json().errors[0].content);
+        //         return Promise.reject(err);
+        //     });
     }
 
     /**

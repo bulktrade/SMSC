@@ -1,23 +1,24 @@
-import { Injectable } from "@angular/core";
-import { Http, RequestMethod, Headers, Response, URLSearchParams } from "@angular/http";
-import { Observable } from "rxjs";
-import { User } from "./model/user";
-import { CrudClassMetaData } from "./model/crud-class-meta-data";
-import { CrudMetaFormData } from "./model/crud-meta-form-data";
-import { CrudMetaGridData } from "./model/crud-meta-grid-data";
-import { TokenService } from "../auth/token.service";
-import { RequestOptions } from "@angular/http/src/base_request_options";
+import {Injectable} from "@angular/core";
+import {Http, RequestMethod, Headers, Response, URLSearchParams} from "@angular/http";
+import {Observable} from "rxjs";
+import {User} from "./model/user";
+import {CrudClassMetaData} from "./model/crud-class-meta-data";
+import {CrudMetaFormData} from "./model/crud-meta-form-data";
+import {CrudMetaGridData} from "./model/crud-meta-grid-data";
+import {TokenService} from "../auth/token.service";
+import {RequestOptions} from "@angular/http/src/base_request_options";
+import {ConfigService} from "../../config/config.service";
 
 @Injectable()
 export class BackendService {
-    private databaseUrl: string;
+    private apiUrl: string;
     private urlPrefix: string;
     private urlSuffix: string;
 
-    constructor(public http: Http, public tokenService: TokenService) {
-        this.databaseUrl = 'rest';
+    constructor(public http: Http, public tokenService: TokenService, public configService: ConfigService) {
+        this.apiUrl = configService.config.apiUrl;
         this.urlSuffix = '/';
-        this.urlPrefix = this.databaseUrl + this.urlSuffix;
+        this.urlPrefix = this.apiUrl + this.urlSuffix;
     }
 
     /**
@@ -56,7 +57,7 @@ export class BackendService {
      * @param refreshToken
      * @returns {any}
      */
-    refresheAccessToken(expiredToken: string = '', refreshToken: string = '') {
+    refreshAccessToken(expiredToken: string = '', refreshToken: string = '') {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'

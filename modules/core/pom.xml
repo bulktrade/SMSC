@@ -63,6 +63,12 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -162,7 +168,7 @@
                 <configuration>
                     <mainClass>io.smsc.Application</mainClass>
                     <layout>ZIP</layout>
-                    <!--<addResources>false</addResources>-->
+                    <addResources>false</addResources>
                 </configuration>
                 <executions>
                     <execution>

@@ -70,17 +70,20 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
         String authToken = request.getHeader(this.tokenHeader);
         // String authToken = header.substring(7);
         String username = JWTTokenGenerationService.getUsernameFromToken(authToken);
-        LOG.info("checking authentication for user " + username);
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
-            if (JWTTokenGenerationService.validateToken(authToken, jwtUser)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                LOG.info("authenticated user " + username + ", setting security context");
-                LOG.info(username + " has roles: " + jwtUser.getRoles());
-                LOG.info(username + " has permissions: " + jwtUser.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (username != null) {
+            LOG.info("checking authentication for user " + username);
+
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
+                if (JWTTokenGenerationService.validateToken(authToken, jwtUser)) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    LOG.info("authenticated user " + username + ", setting security context");
+                    LOG.info(username + " has roles: " + jwtUser.getRoles());
+                    LOG.info(username + " has permissions: " + jwtUser.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
         }
 

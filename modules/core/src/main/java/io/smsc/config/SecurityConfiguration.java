@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -75,6 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // /rest/auth/** is used for token receiving and updating
                 .antMatchers("/browser/**").permitAll()
+                .antMatchers("/admin/**").permitAll()
                 .antMatchers("/rest/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -90,5 +92,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .headers()
                 .cacheControl();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/admin/**");
     }
 }

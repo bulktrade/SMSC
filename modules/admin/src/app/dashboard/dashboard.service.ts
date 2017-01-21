@@ -1,4 +1,3 @@
-import { ODatabaseService } from '../orientdb/orientdb.service';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { DashboardBox } from './models/dashboard-box';
@@ -21,8 +20,7 @@ const squel = require('squel');
 
 @Injectable()
 export class DashboardService {
-    constructor(private databaseService: ODatabaseService,
-                public crudService: CrudService,
+    constructor(public crudService: CrudService,
                 public location: Location,
                 public gridService: GridService,
                 private authHttp: AuthHttp,
@@ -42,21 +40,21 @@ export class DashboardService {
             .toString();
 
         return Observable.create((observer: Observer<Array<DashboardBox>>) => {
-            this.databaseService.query(query, 50, '*:3').subscribe((res: Response) => {
-                let result: Array<DashboardBox> = [];
-
-                for (let item of res.json().result) {
-                    item.width = Number(item.width[0]);
-                    item.height = Number(item.height[0]);
-                    result.push(new DashboardBox(item));
-                }
-
-                observer.next(result);
-                observer.complete();
-            }, (ex) => {
-                observer.error(ex);
-                observer.complete();
-            });
+            // this.databaseService.query(query, 50, '*:3').subscribe((res: Response) => {
+            //     let result: Array<DashboardBox> = [];
+            //
+            //     for (let item of res.json().result) {
+            //         item.width = Number(item.width[0]);
+            //         item.height = Number(item.height[0]);
+            //         result.push(new DashboardBox(item));
+            //     }
+            //
+            //     observer.next(result);
+            //     observer.complete();
+            // }, (ex) => {
+            //     observer.error(ex);
+            //     observer.complete();
+            // });
         });
     }
 
@@ -74,15 +72,15 @@ export class DashboardService {
             .toString();
 
         return Observable.create((observer: Observer<DashboardBox>) => {
-            this.databaseService.query(query, 1, '*:3').subscribe((res: Response) => {
-                let result: DashboardBox = new DashboardBox(res.json().result[0]);
-
-                observer.next(result);
-                observer.complete();
-            }, (ex) => {
-                observer.error(ex);
-                observer.complete();
-            });
+            // this.databaseService.query(query, 1, '*:3').subscribe((res: Response) => {
+            //     let result: DashboardBox = new DashboardBox(res.json().result[0]);
+            //
+            //     observer.next(result);
+            //     observer.complete();
+            // }, (ex) => {
+            //     observer.error(ex);
+            //     observer.complete();
+            // });
         });
     }
 
@@ -104,12 +102,12 @@ export class DashboardService {
         let options: Array<Operation> = [obj];
 
         return Observable.create((observer: Observer<Object>) => {
-            this.databaseService.batch(options).subscribe((res) => {
-                let result = JSON.parse(res['_body']);
-
-                observer.next(result.result[0]);
-                observer.complete();
-            });
+            // this.databaseService.batch(options).subscribe((res) => {
+            //     let result = JSON.parse(res['_body']);
+            //
+            //     observer.next(result.result[0]);
+            //     observer.complete();
+            // });
         });
     }
 
@@ -124,7 +122,7 @@ export class DashboardService {
         };
         let options: Array<Operation> = [obj];
 
-        return this.databaseService.batch(options);
+        // return this.databaseService.batch(options);
     }
 
     /**
@@ -149,15 +147,15 @@ export class DashboardService {
         }
 
         return Observable.create((observer: Observer<Array<DashboardBox>>) => {
-            this.databaseService.batch(operations).subscribe(() => {
-                this.getDashboardBoxes().subscribe((res) => {
-                    observer.next(res);
-                    observer.complete();
-                }, (ex) => {
-                    observer.error(ex);
-                    observer.complete();
-                });
-            });
+            // this.databaseService.batch(operations).subscribe(() => {
+            //     this.getDashboardBoxes().subscribe((res) => {
+            //         observer.next(res);
+            //         observer.complete();
+            //     }, (ex) => {
+            //         observer.error(ex);
+            //         observer.complete();
+            //     });
+            // });
         });
     }
 
@@ -174,40 +172,40 @@ export class DashboardService {
         this.crudService.setClassName(className);
 
         return Observable.create((observer: Observer<EditModel>) => {
-            this.crudService.databaseService.load(id)
-                .then((res: Response) => {
-                    let result = JSON.parse(res['_body']);
-                    let model = [];
-                    this.crudService.model = this.crudService.model || {};
-
-                    if (!Object.keys(this.crudService.model).length) {
-                        model.push(result);
-                    }
-
-                    this.crudService.getFormColumnDefs(className)
-                        .subscribe((columnDefs) => {
-                            return this.gridService.selectLinksetProperties(columnDefs, model)
-                                .then(() => {
-                                    let editModel: EditModel = {
-                                        columnDefs: columnDefs,
-                                        inputModel: model[0]
-                                    };
-
-                                    observer.next(editModel);
-                                    observer.complete();
-                                });
-                        }, (error) => {
-                            this.crudService.serviceNotifications.createNotificationOnResponse(
-                                error);
-                            observer.error(error);
-                            observer.complete();
-                        });
-                }, error => {
-                    this.crudService.serviceNotifications.createNotificationOnResponse(error);
-                    this.location.back();
-                    observer.error(error);
-                    observer.complete();
-                });
+            // this.crudService.databaseService.load(id)
+            //     .then((res: Response) => {
+            //         let result = JSON.parse(res['_body']);
+            //         let model = [];
+            //         this.crudService.model = this.crudService.model || {};
+            //
+            //         if (!Object.keys(this.crudService.model).length) {
+            //             model.push(result);
+            //         }
+            //
+            //         this.crudService.getFormColumnDefs(className)
+            //             .subscribe((columnDefs) => {
+            //                 return this.gridService.selectLinksetProperties(columnDefs, model)
+            //                     .then(() => {
+            //                         let editModel: EditModel = {
+            //                             columnDefs: columnDefs,
+            //                             inputModel: model[0]
+            //                         };
+            //
+            //                         observer.next(editModel);
+            //                         observer.complete();
+            //                     });
+            //             }, (error) => {
+            //                 this.crudService.serviceNotifications.createNotificationOnResponse(
+            //                     error);
+            //                 observer.error(error);
+            //                 observer.complete();
+            //             });
+            //     }, error => {
+            //         this.crudService.serviceNotifications.createNotificationOnResponse(error);
+            //         this.location.back();
+            //         observer.error(error);
+            //         observer.complete();
+            //     });
         });
     }
 
@@ -223,24 +221,24 @@ export class DashboardService {
             .toString();
 
         return Observable.create((observer: Observer<Dashboard>) => {
-            this.databaseService.query(query, 50, '*:3').subscribe((res: Response) => {
-                let data = res.json().result[0];
-                let dashboard: Dashboard = new Dashboard(
-                    new MetaData(
-                        data['@class'],
-                        data['@rid'],
-                        data['@version']
-                    ),
-                    data['icon'],
-                    data['name'],
-                    new OUser(
-                        data['user']['name']
-                    )
-                );
-
-                observer.next(dashboard);
-                observer.complete();
-            });
+            // this.databaseService.query(query, 50, '*:3').subscribe((res: Response) => {
+            //     let data = res.json().result[0];
+            //     let dashboard: Dashboard = new Dashboard(
+            //         new MetaData(
+            //             data['@class'],
+            //             data['@rid'],
+            //             data['@version']
+            //         ),
+            //         data['icon'],
+            //         data['name'],
+            //         new OUser(
+            //             data['user']['name']
+            //         )
+            //     );
+            //
+            //     observer.next(dashboard);
+            //     observer.complete();
+            // });
         });
     }
 }

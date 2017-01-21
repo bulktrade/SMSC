@@ -68,6 +68,10 @@
   version "0.0.36"
   resolved "https://registry.yarnpkg.com/@types/amcharts/-/amcharts-0.0.36.tgz#fa5ae22ecce398b0cc5a9fa99be9f93711d26d0a"
 
+"@types/core-js@^0.9.35":
+  version "0.9.35"
+  resolved "https://registry.yarnpkg.com/@types/core-js/-/core-js-0.9.35.tgz#444064e63711cdcc62ea844d27642f6efc2285f2"
+
 "@types/hammerjs@^2.0.33":
   version "2.0.34"
   resolved "https://registry.yarnpkg.com/@types/hammerjs/-/hammerjs-2.0.34.tgz#9cbac4f41cb039436141785e1be50b3ab10a04a9"
