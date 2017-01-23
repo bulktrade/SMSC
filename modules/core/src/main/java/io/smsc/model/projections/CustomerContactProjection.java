@@ -1,6 +1,5 @@
 package io.smsc.model.projections;
 
-import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.CustomerContact;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
