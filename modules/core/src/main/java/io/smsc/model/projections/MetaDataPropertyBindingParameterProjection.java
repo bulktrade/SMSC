@@ -1,8 +1,10 @@
 package io.smsc.model.projections;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.smsc.model.crud.*;
 import org.springframework.data.rest.core.config.Projection;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -13,10 +15,15 @@ import java.util.Set;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "metaDataPropertyBindingParameter", types = { MetaDataPropertyBindingParameter.class })
+@Projection(name = "meta-data-property-binding-parameters", types = { MetaDataPropertyBindingParameter.class })
 public interface MetaDataPropertyBindingParameterProjection {
 
     Long getId();
+
+    Long getVersion();
+
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+    Date getLastModifiedDate();
 
     String getFromProperty();
 

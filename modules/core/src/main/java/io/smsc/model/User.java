@@ -2,8 +2,6 @@ package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.validator.constraints.Email;
@@ -55,7 +53,7 @@ public class User extends BaseEntity {
     private Boolean active = true;
 
     @Column(name = "CREATED")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="CET")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
     private Date created = new Date();
 
     @Column(name = "BLOCKED")
