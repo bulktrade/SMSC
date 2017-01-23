@@ -11,7 +11,7 @@ export class MainCrudResolve extends CrudResolve {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        this.crudService.setClassName(route.parent.data['backend'].crudClass);
+        this.crudService.setClassName(route.parent.data['backend'].crudEntity);
         this.crudService.setRepositoryName(route.parent.data['backend'].repositoryName);
         this.crudService.setCrudRootPath(route.parent.pathFromRoot);
     }

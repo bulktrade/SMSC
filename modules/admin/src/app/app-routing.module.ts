@@ -79,7 +79,7 @@ export const ROUTES: Routes = [
                     showInSubNavigation: true,
                     icon: 'perm_contact_calendar',
                     backend: {
-                        crudClass: 'Customer',
+                        crudEntity: 'Customer',
                         repositoryName: 'customers'
                     }
                 },
@@ -113,7 +113,7 @@ export const ROUTES: Routes = [
                             translationKey: 'CrudClassMetaData',
                             icon: 'perm_data_setting',
                             backend: {
-                                crudClass: 'CrudClassMetaData',
+                                crudEntity: 'CrudClassMetaData',
                                 repositoryName: 'crud-class-meta-data'
                             },
                             showInBreadcrumb: true,
@@ -139,7 +139,7 @@ export const ROUTES: Routes = [
                             translationKey: 'MetaDataPropertyBindingParameter',
                             icon: 'perm_data_setting',
                             backend: {
-                                crudClass: 'MetaDataPropertyBindingParameter',
+                                crudEntity: 'MetaDataPropertyBindingParameter',
                                 repositoryName: 'meta-data-property-binding-parameters'
                             }
                         },
@@ -163,7 +163,7 @@ export const ROUTES: Routes = [
                             translationKey: 'CrudMetaGridData',
                             icon: 'grid_on',
                             backend: {
-                                crudClass: 'CrudMetaGridData',
+                                crudEntity: 'CrudMetaGridData',
                                 repositoryName: 'crud-meta-form-data'
                             },
                             showInBreadcrumb: true
@@ -188,7 +188,7 @@ export const ROUTES: Routes = [
                             translationKey: 'CrudMetaFormData',
                             icon: 'format_shapes',
                             backend: {
-                                crudClass: 'CrudMetaFormData',
+                                crudEntity: 'CrudMetaFormData',
                                 repositoryName: 'crud-meta-grid-data'
                             },
                             showInBreadcrumb: true
