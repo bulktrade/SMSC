@@ -1,22 +1,22 @@
-import {Injectable} from "@angular/core";
-import {Router, ActivatedRoute, ActivatedRouteSnapshot} from "@angular/router";
-import {TranslateService} from "ng2-translate/ng2-translate";
-import {GridOptions, GridApi} from "ag-grid";
-import {NotificationService} from "../services/notification-service";
-import {LoadingGridService} from "../services/loading/loading-grid.service";
-import {Operation} from "../orientdb/model/operation";
-import {BatchType} from "../orientdb/model/batch-type";
-import {Observable} from "rxjs";
-import {CrudLevel} from "./model/crud-level";
-import {Location} from "@angular/common";
-import {LinksetProperty} from "./model/linkset-property";
-import {GridService} from "../services/grid.service";
-import {Button} from "./model/button";
-import {RouterOutletService} from "../services/router-outlet-service";
-import {BackendService} from "../services/backend/backend.service";
+import { Injectable } from "@angular/core";
+import { Router, ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { GridOptions, GridApi } from "ag-grid";
+import { NotificationService } from "../services/notification-service";
+import { LoadingGridService } from "../services/loading/loading-grid.service";
+import { Operation } from "../orientdb/model/operation";
+import { BatchType } from "../orientdb/model/batch-type";
+import { Observable } from "rxjs";
+import { CrudLevel } from "./model/crud-level";
+import { Location } from "@angular/common";
+import { GridService } from "../services/grid.service";
+import { Button } from "./model/button";
+import { RouterOutletService } from "../services/router-outlet-service";
+import { BackendService } from "../services/backend/backend.service";
 import * as _ from "lodash";
-import {SelectItem} from "primeng/components/common/api";
+import { SelectItem } from "primeng/components/common/api";
 import "rxjs/Rx";
+import { LinksetProperty } from "../services/model/linkset-property";
 const clone = require("js.clone");
 
 const squel = require('squel');
@@ -374,18 +374,18 @@ export class CrudService {
      * @param event
      */
     clickOnCell(event) {
-        if (event.colDef.type === 'LINK' ||
-            event.colDef.type === 'LINKSET') {
-            this.setLinkedClass(event.colDef.linkedClass);
-            let linsetProperty: LinksetProperty = {
-                name: event.colDef.property,
-                type: event.colDef.type,
-                bingingProperties: event.colDef.bingingProperties,
-                data: event.data
-            };
-
-            this.navigateToLinkset(event.colDef.linkedClass, linsetProperty);
-        }
+        // if (event.colDef.type === 'LINK' ||
+        //     event.colDef.type === 'LINKSET') {
+        //     this.setLinkedClass(event.colDef.linkedClass);
+        //     let linsetProperty: LinksetProperty = {
+        //         name: event.colDef.property,
+        //         type: event.colDef.type,
+        //         bingingProperties: event.colDef.bingingProperties,
+        //         data: event.data
+        //     };
+        //
+        //     this.navigateToLinkset(event.colDef.linkedClass, linsetProperty);
+        // }
     }
 
     /**
@@ -441,8 +441,8 @@ export class CrudService {
      * @param linsetProperty
      */
     navigateToLinkset(className: string, linksetProperty?: LinksetProperty) {
-        this.nextCrudLevel(linksetProperty);
-        this.router.navigate([this.parentPath, 'linkset', className]);
+        // this.nextCrudLevel(linksetProperty);
+        // this.router.navigate([this.parentPath, 'linkset', className]);
     }
 
     /**
@@ -452,13 +452,13 @@ export class CrudService {
      * @param linsetProperty
      */
     nextCrudLevel(linsetProperty?: LinksetProperty) {
-        let crudLevel: CrudLevel = {
-            className: this.getLinkedClass(),
-            inputModel: this.model,
-            linksetProperty: linsetProperty
-        };
-
-        this.crudLevel.push(crudLevel);
+        // let crudLevel: CrudLevel = {
+        //     className: this.getLinkedClass(),
+        //     inputModel: this.model,
+        //     linksetProperty: linsetProperty
+        // };
+        //
+        // this.crudLevel.push(crudLevel);
     }
 
     /**
@@ -468,23 +468,23 @@ export class CrudService {
      * @return {Promise<U>|Promise<TResult>}
      */
     addLink(gridOptions) {
-        let className = this.getLinkedClass();
-        let previousCrudLevel: CrudLevel = this.previousCrudLevel();
-        let params: any = previousCrudLevel.linksetProperty.data;
-
-        return this.getLinkset(gridOptions, previousCrudLevel.linksetProperty.type, className)
-            .then(linkSet => {
-                params[previousCrudLevel.linksetProperty.name] = linkSet;
-
-                if (this.roService.isPreviousRoute('CrudViewComponent')) {
-                    // this.updateRecord(params);
-                    this.location.back();
-                } else {
-                    this.model = params;
-                    this.location.back();
-                }
-
-            });
+        // let className = this.getLinkedClass();
+        // let previousCrudLevel: CrudLevel = this.previousCrudLevel();
+        // let params: any = previousCrudLevel.linksetProperty.data;
+        //
+        // return this.getLinkset(gridOptions, previousCrudLevel.linksetProperty.type, className)
+        //     .then(linkSet => {
+        //         params[previousCrudLevel.linksetProperty.name] = linkSet;
+        //
+        //         if (this.roService.isPreviousRoute('CrudViewComponent')) {
+        //             // this.updateRecord(params);
+        //             this.location.back();
+        //         } else {
+        //             this.model = params;
+        //             this.location.back();
+        //         }
+        //
+        //     });
     }
 
     /**
@@ -534,13 +534,13 @@ export class CrudService {
      *
      * @returns {CrudLevel}
      */
-    previousCrudLevel(): CrudLevel {
-        let previousLevel: CrudLevel = this.crudLevel.pop();
-
-        this.setLinkedClass(previousLevel.className);
-        this.setModel(previousLevel.inputModel);
-
-        return previousLevel;
+    previousCrudLevel() {
+        // let previousLevel: CrudLevel = this.crudLevel.pop();
+        //
+        // this.setLinkedClass(previousLevel.className);
+        // this.setModel(previousLevel.inputModel);
+        //
+        // return previousLevel;
     }
 
     getSelectedRID(selectedRows) {

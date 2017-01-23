@@ -5,6 +5,9 @@ import { Location, CommonModule } from "@angular/common";
 import { CrudService } from "../../crud.service";
 import { FormsModule } from "@angular/forms";
 import { SelectItem } from "primeng/components/common/api";
+import { CrudLevelService } from "../../services/crud-level";
+import { CrudLevel } from "../../model/crud-level";
+import { LinkedProperty } from "../../model/linkset-property";
 
 @Component({
     selector: 'multiple-select',
@@ -19,11 +22,14 @@ export class MultipleSelectComponent {
     @Input('property')
     public property: any;
 
-    @Input('model')
-    public model = [];
+    @Input('formModel')
+    public formModel: any;
 
-    @Output('model')
-    public modelChange = new EventEmitter();
+    @Input('propertyModel')
+    public propertyModel = [];
+
+    @Output('propertyModel')
+    public propertyModelChange = new EventEmitter();
 
     public items: SelectItem[] = [];
 
@@ -31,13 +37,14 @@ export class MultipleSelectComponent {
                 public route: ActivatedRoute,
                 public router: Router,
                 public location: Location,
-                public crudService: CrudService) {
+                public crudService: CrudService,
+                public crudLevelService: CrudLevelService) {
     }
 
     ngOnInit() {
-        if (this.model) {
-            // create array of links and push to the model
-            this.model.forEach((item, i, arr) => {
+        if (this.propertyModel) {
+            // create array of links and push to the propertyModel
+            this.propertyModel.forEach((item, i, arr) => {
                 this.items.push({
                     label: item.title,
                     value: item.link
@@ -45,7 +52,7 @@ export class MultipleSelectComponent {
                 arr[i] = item.link;
             });
 
-            this.modelChange.emit(this.model);
+            this.propertyModelChange.emit(this.propertyModel);
         }
     }
 
@@ -55,9 +62,9 @@ export class MultipleSelectComponent {
      */
     removeItem(index) {
         this.items.splice(index, 1);
-        this.model.splice(index, 1);
+        this.propertyModel.splice(index, 1);
 
-        this.modelChange.emit(this.model);
+        this.propertyModelChange.emit(this.propertyModel);
     }
 
     /**
@@ -65,18 +72,35 @@ export class MultipleSelectComponent {
      */
     removeItems() {
         this.items = [];
-        this.model = [];
+        this.propertyModel = [];
 
-        this.modelChange.emit(this.model);
+        this.propertyModelChange.emit(this.propertyModel);
     }
 
     /**
      * Navigate to the linkset component with the linkedClass & the linkedRepository params
      */
     navigateToLinkedRepository() {
-        this.router.navigate([this.crudService.getCrudRootPath(), 'linkset',
-            this.property.linkedClass, this.property.linkedRepository]);
+
+        let crudLevel: CrudLevel = <CrudLevel>{
+            formModel: this.formModel,
+            linkedProperty: <LinkedProperty>{
+                crudEntity: this.crudService.getClassName(),
+                crudRepository: this.crudService.getRepositoryName()
+            }
+        };
+
+        this.crudLevelService.nextCrudLevel(crudLevel);
+
+        // set crud class name
+        this.crudService.setClassName(this.property.linkedClass);
+
+        // set crud repository name
+        this.crudService.setRepositoryName(this.property.linkedRepository);
+
+        this.router.navigate([this.crudService.getCrudRootPath()]);
     }
+
 }
 
 @NgModule({

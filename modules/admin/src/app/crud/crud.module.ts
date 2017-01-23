@@ -2,7 +2,6 @@ import { NgModule, ModuleWithProviders } from "@angular/core";
 import { CrudComponent } from "./crud.component";
 import { CrudViewComponent } from "./crud-view/crud-view.component";
 import { CrudUpdateComponent } from "./crud-update/crud-update.component";
-import { CrudLinksetModule } from "./crud-linkset/crud-linkset.component";
 import { CrudCreateComponent } from "./crud-create/crud-create.component";
 import { CrudDeleteComponent } from "./crud-delete/crud-delete.component";
 import { LoadingRouterOutletModule } from "../common/loading-router-outlet.component";
@@ -16,7 +15,6 @@ import { MdSelectModule } from "../common/material/select/select.component";
 import { DynamicFormModule } from "./dynamic-form/dynamic-form.component";
 import { CrudRoutingModule } from "./crud-routing.module";
 import { CommonModule } from "@angular/common";
-import { DynamicViewModule } from "./dynamic-view/dynamic-view.component";
 import { TranslateModule } from "ng2-translate";
 import { SharedModule } from "primeng/components/common/shared";
 import { ButtonModule } from "primeng/components/button/button";
@@ -24,6 +22,8 @@ import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { MessagesModule } from "primeng/components/messages/messages";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { PaginatorModule } from "primeng/components/paginator/paginator";
+import { CrudGuard } from "./crud.guard";
+import { CrudLinksetModule } from "./crud-linkset/crud-linkset.module";
 
 const CRUD_DECLARATIONS = [
     CrudComponent,
@@ -52,7 +52,6 @@ const CRUD_MODULES = [
     MultipleSelectModule,
     CrudLinksetModule,
     CrudRoutingModule,
-    DynamicViewModule,
     InputTextModule
 ];
 
@@ -62,7 +61,7 @@ const CRUD_MODULES = [
     ],
     exports: [CRUD_DECLARATIONS],
     declarations: [CRUD_DECLARATIONS],
-    providers: []
+    providers: [CrudGuard]
 })
 export class CrudModule {
     static forRoot(): ModuleWithProviders {

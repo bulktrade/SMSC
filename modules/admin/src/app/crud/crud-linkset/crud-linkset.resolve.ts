@@ -35,7 +35,7 @@ export class CrudLinksetResolve extends CrudResolve {
 
                     this.backendService.getResources(repositoryName, pagination.number, pagination.size)
                         .subscribe(resources => {
-                            gridOptions.rowData = resources['_embedded'][this.crudService.getRepositoryName()];
+                            gridOptions.rowData = resources['_embedded'][repositoryName];
 
                             observer.next(gridOptions);
                             observer.complete();

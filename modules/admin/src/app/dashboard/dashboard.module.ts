@@ -32,9 +32,9 @@ import { DashboardCrudUpdateResolve } from './crud/dashboard-crud-update.resolve
 import { DashboardCrudCreateResolve } from './crud/dashboard-crud-create.resolve';
 import { DashboardViewResolve } from './dashboard-view/dashboard-view.resolve';
 import { CommonModule } from '@angular/common';
-import { CrudLinksetModule } from '../crud/crud-linkset/crud-linkset.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardViewComponent } from './dashboard-view/dashboard-view.component';
+import { CrudLinksetModule } from "../crud/crud-linkset/crud-linkset.module";
 
 const DASHBOARD_DECLARATION = [
     OrderBy,

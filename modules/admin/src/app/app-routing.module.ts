@@ -22,6 +22,7 @@ import { DashboardsComponent } from './dashboard/dashboards/dashboards.component
 import { NgModule } from '@angular/core';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { MainCrudResolve } from "./crud/crud.resolve";
+import { CrudGuard } from "./crud/crud.guard";
 
 export const ROUTES: Routes = [
     {
@@ -88,6 +89,7 @@ export const ROUTES: Routes = [
                         path: '',
                         component: CrudComponent,
                         resolve: { view: MainCrudResolve },
+                        canActivate: [CrudGuard],
                         loadChildren: './crud/crud.module#CrudModule',
                         data: {
                             showInBreadcrumb: false,

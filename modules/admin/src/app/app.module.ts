@@ -46,6 +46,7 @@ import { CrudModule } from "./crud/crud.module";
 import { BackendService } from "./services/backend/backend.service";
 import { GrowlService } from "./services/growl/growl.service";
 import { GetDataFromURIService } from "./services/get-data-from-URI";
+import { CrudLevelService } from "./crud/services/crud-level";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -107,6 +108,7 @@ export const APP_PROVIDERS = [
         BreadcrumbModule.forRoot()
     ],
     providers: [
+        CrudLevelService,
         CrudService,
         ConfigService,
         GrowlService,

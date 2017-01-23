@@ -1,12 +1,10 @@
-import {Injectable} from "@angular/core";
-import {NotificationService} from "./notification-service";
-import {CrudLevel} from "../crud/model/crud-level";
-import {MetaDataPropertyBindingParameterModel} from "../crud-meta-data/binding-parameter/binding-parameter.model";
-import {Response} from "@angular/http";
-import {Observable} from "rxjs";
-import {BatchType} from "../orientdb/model/batch-type";
-import {Operation} from "../orientdb/model/operation";
-import {LinksetProperty} from "./model/linkset-property";
+import { Injectable } from "@angular/core";
+import { NotificationService } from "./notification-service";
+// import { CrudLevel } from "../crud/model/crud-level";
+import { Response } from "@angular/http";
+import { Observable } from "rxjs";
+import { LinksetProperty } from "./model/linkset-property";
+import { CrudLevel } from "../crud/model/crud-level";
 
 const squel = require('squel');
 
@@ -201,15 +199,15 @@ export class GridService {
      * @returns {any}
      */
     combineOperators(currentCrudLevel: CrudLevel) {
-        if (typeof currentCrudLevel !== 'undefined') {
-            let promises: Array<Promise<string>> = [];
-            let expression = squel.expr();
-
-            for (let i in currentCrudLevel.linksetProperty.bingingProperties) {
-                if (currentCrudLevel.linksetProperty.bingingProperties.hasOwnProperty(i)) {
-                    let rid = currentCrudLevel.linksetProperty.bingingProperties[i];
-
-                    promises.push(
+        // if (typeof currentCrudLevel !== 'undefined') {
+        //     let promises: Array<Promise<string>> = [];
+        //     let expression = squel.expr();
+        //
+        //     for (let i in currentCrudLevel.linksetProperty.bingingProperties) {
+        //         if (currentCrudLevel.linksetProperty.bingingProperties.hasOwnProperty(i)) {
+        //             let rid = currentCrudLevel.linksetProperty.bingingProperties[i];
+        //
+        //             promises.push(
                         // this.database.load(rid)
                         //     .then(res => {
                         //         let result: MetaDataPropertyBindingParameterModel = res.json();
@@ -231,17 +229,17 @@ export class GridService {
                         //                 .or(expr);
                         //         }
                         //     })
-                    );
-                }
-            }
+            //         );
+            //     }
+            // }
 
-            return Promise.all(promises)
-                .then(() => {
-                    return Promise.resolve(expression);
-                });
-        } else {
-            return Promise.resolve(null);
-        }
+        //     return Promise.all(promises)
+        //         .then(() => {
+        //             return Promise.resolve(expression);
+        //         });
+        // } else {
+        //     return Promise.resolve(null);
+        // }
     }
 
     /**
