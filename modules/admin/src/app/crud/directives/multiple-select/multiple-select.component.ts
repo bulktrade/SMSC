@@ -5,7 +5,6 @@ import { EventEmitter } from '@angular/common/src/facade/async';
 import { Location, CommonModule } from '@angular/common';
 import { CrudService } from '../../crud.service';
 import { LinksetProperty } from '../../model/linkset-property';
-import { MdModule } from '../../../md.module';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -134,7 +133,6 @@ export class MultipleSelectComponent {
     imports: [
         CommonModule,
         FormsModule,
-        MdModule.forRoot(),
         TranslateModule
     ],
     exports: [MultipleSelectComponent],

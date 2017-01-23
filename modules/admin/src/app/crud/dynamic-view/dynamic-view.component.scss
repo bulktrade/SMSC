@@ -1,0 +1,71 @@
+#back {
+    background: #212121;
+    margin-right: 5px;
+    color: #fff;
+}
+
+@media all and (min-width: 817px) {
+    .buttonsPanel {
+        justify-content: flex-end;
+    }
+
+    .viewButtons {
+        margin-left: 7px;
+    }
+
+    ag-grid-ng2 {
+        height: calc(100% - 109px);
+        padding-bottom: 15px;
+    }
+}
+
+@media all and (max-width: 817px) {
+    #windowGrid {
+        .opionPanel {
+            flex-direction: column;
+        }
+
+        ag-grid-ng2 {
+            height: calc(100% - 150px);
+            padding-bottom: 15px;
+        }
+
+        .searchPanel {
+            width: 100%;
+            padding: 0 0 7px 0 !important;
+        }
+
+        .linksetButtons,
+        .viewButtons {
+            display: flex;
+            margin: 0;
+        }
+
+        .viewButtons {
+            margin: 0 !important;
+        }
+
+        .viewButtons {
+            margin-right: 7px;
+        }
+
+        button {
+            flex-grow: 1;
+        }
+    }
+}
+
+@media all and (max-width: 536px) {
+    .buttonsPanel {
+        flex-direction: column;
+
+        .linksetButtons {
+            padding: 0 0 10px 0;
+            margin-right: 0 !important;
+        }
+    }
+
+    .grid-height {
+        height: calc(100% - 195px) !important;
+    }
+}

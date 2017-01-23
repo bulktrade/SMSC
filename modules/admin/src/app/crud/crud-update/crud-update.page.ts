@@ -8,7 +8,7 @@ export class UpdatePage {
 
     public editIcon = element(by.css('.ag-body-container > div:first-of-type .editIcon'));
     public updateDirective = element(by.tagName('crud-update'));
-    public editableField = element(by.css('.customerId input'));
+    public editableField = element(by.css('.customerId'));
     public formBtn = element(by.id('modify'));
 
     constructor() {

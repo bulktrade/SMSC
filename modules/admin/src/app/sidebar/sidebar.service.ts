@@ -1,30 +1,49 @@
-import {Injectable} from '@angular/core';
-import { MdSidenav } from "@angular2-material/sidenav";
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SidebarService {
-    public prevLeftScroll: number;
-    public prevTopScroll: number;
-    private _sidenav:MdSidenav;
-    private _fullScreenMode:boolean = false;
+    private _prevLeftScroll: number;
+    private _prevTopScroll: number;
+    private _toggle: boolean = false;
+    private _fullScreenMode: boolean = false;
 
-    set sidenav(value:MdSidenav) {
-        this._sidenav = value;
+    set sidenav(value) {
+        this._toggle = value;
     }
 
-    public get fullScreenMode():boolean {
+    public get fullScreenMode(): boolean {
         return this._fullScreenMode;
     }
 
-    public  set fullScreenMode(value:boolean) {
+    public set fullScreenMode(value: boolean) {
         this._fullScreenMode = value;
     }
 
-    public closeSidenav():Promise<void> {
-        return this._sidenav.close();
+    public toggleSidenav() {
+        return this._toggle = !this._toggle;
     }
 
-    public toggleSidenav():Promise<void> {
-        return this._sidenav.toggle();
+    get prevLeftScroll(): number {
+        return this._prevLeftScroll;
+    }
+
+    get toggle(): boolean {
+        return this._toggle;
+    }
+
+    set toggle(value: boolean) {
+        this._toggle = value;
+    }
+
+    set prevLeftScroll(value: number) {
+        this._prevLeftScroll = value;
+    }
+
+    get prevTopScroll(): number {
+        return this._prevTopScroll;
+    }
+
+    set prevTopScroll(value: number) {
+        this._prevTopScroll = value;
     }
 }

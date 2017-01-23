@@ -1,19 +1,29 @@
 .grid-pagination {
+    font-family: 'Open Sans';
     display: flex;
     justify-content: center;
-    font-family: 'Open Sans';
+    align-items: center;
+
+    .fa-fw {
+      width: initial !important;
+      margin-top: 8px !important;
+    }
 
     button {
-        padding-top: 10px;
+        border: none;
+    }
+
+    .page-size {
+        p-dropdown {
+            display: flex;
+            align-items: center;
+            padding-left: 5px;
+        }
     }
 
     .page-summary-panel,
     .page-size {
         display: flex;
-    }
-
-    .row-summary-panel {
-        padding: 15px 10px 0 0;
     }
 
     .previous-panel,
@@ -22,15 +32,16 @@
     }
 
     .page-info {
-        padding: 15px 5px 0 5px;
+        padding-top: 9px;
     }
 }
 
 @media all and (max-width: 550px) {
-    .grid-pagination {
-        .row-summary-panel {
-            display: none;
-        }
+    .row-summary-panel {
+        display: none;
+    }
+
+    .page-size {
+        display: none !important;
     }
 }
-

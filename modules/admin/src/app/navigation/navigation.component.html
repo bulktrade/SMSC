@@ -14,8 +14,7 @@
 		</div>
 	</div>
 
-
-	<div id="wrapper" [ngClass]="{'toggled': toggle}">
+	<div id="wrapper" [ngClass]="{'toggled': toggle || sidebarService.toggle}">
 		<!-- Sidebar -->
 		<div id="sidebar-wrapper" [@state]="!toggledUp ? 'open' : 'closed'">
 			<ul class="sidebar-nav">
@@ -32,6 +31,4 @@
 		</main>
 		<!-- /#page-content-wrapper -->
 	</div>
-
-	<simple-notifications id="notificationBox" [options]="notificationOptions"></simple-notifications>
 </div>

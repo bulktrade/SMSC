@@ -1,52 +1,59 @@
 <div class="addingForm">
 	<loading-grid>
 		<form class="form" id="dynamicForm" (submit)="onSubmit()" #addingForm="ngForm">
-			<div *ngFor="let item of columnDefs" [ngSwitch]="item.type">
-				<md-input *ngIf="crudService.typeForInput(item.type)" [placeholder]="item.headerName"
-				          [name]="item.headerName"
-				          class="{{item.property}}" [readonly]="!item.editable" [hidden]="!item.visible"
-				          [required]="item.mandatory" #column="ngModel"
-				          [type]="crudService.typeForInput(item.type)" autocomplete="off"
-				          [(ngModel)]="crudService.model[item.property]"
-				          class="form-control">
-					<md-hint [hidden]="column.valid"
-					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
-					</md-hint>
-				</md-input>
+			<div *ngFor="let item of columnDefs" [ngSwitch]="item.type" [hidden]="!item.visible">
+
+				<div class="group" *ngIf="crudService.typeForInput(item.type)">
+					<input [name]="item.headerName"
+					       class="{{item.property}}" [readonly]="!item.editable"
+					       [required]="item.mandatory" #column="ngModel"
+					       [type]="crudService.typeForInput(item.type)" autocomplete="off"
+					       [(ngModel)]="crudService.model[item.property]">
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label class="label-input" [ngClass]="{in: crudService.model[item.property]}">
+						{{ item.headerName}}
+					</label>
+
+					<div [hidden]="column.valid" class="hint"
+					     align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
+					</div>
+				</div>
 				<multiple-select *ngIf="item.type === 'LINKSET' || item.type === 'LINK'"
 				                 [property]="item" class="{{item.property}}"
-				                 [rowSelectionLinkset]="'single'" [hidden]="!item.visible"
+				                 [rowSelectionLinkset]="'single'"
 				                 (isRequired)="crudService.isRequired($event); crudService.isHint[item.property] = $event">
-					<md-hint [hidden]="!crudService.isHint[item.property]"
-					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
-					</md-hint>
+					<div class="hint" [hidden]="!crudService.isHint[item.property]"
+					     align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
+					</div>
 				</multiple-select>
-				<md-checkbox *ngSwitchCase="'BOOLEAN'" class="{{item.property}}"
-				             [(ngModel)]="crudService.model[item.property]" [name]="item.headerName"
-				             [align]="alignment">
-					{{item.headerName}}
-				</md-checkbox>
+				<label *ngSwitchCase="'BOOLEAN'" class="label-checkbox rememberMe" [ngClass]="item.property">
+					<input type="checkbox" class="checkbox" [(ngModel)]="crudService.model[item.property]"
+					       [name]="item.headerName">
+					{{ item.headerName }}
+				</label>
 				<md-select *ngSwitchCase="'EMBEDDEDLIST'" [options]="crudService.getSelectOptions(item)"
 				           [placeholder]="item.headerName" [required]="item.mandatory"
 				           (valid)="crudService.isHint[item.property] = $event" class="{{item.property}}"
 				           (modelChange)="crudService.setEmbeddedList(item.property, $event)"
 				           [model]="crudService.setEmbeddedList(item.property)">
-					<md-hint [hidden]="!crudService.isHint[item.property]"
-					         align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
-					</md-hint>
+					<div class="hint" [hidden]="!crudService.isHint[item.property]"
+					     align="start">{{ item.headerName + ' ' + ('IS_REQUIRED' | translate) }}
+					</div>
 				</md-select>
 			</div>
 			<div class="wrapBtn">
 				<div class="formButtons">
-					<button md-raised-button color="primary" type="button" class="back"
+					<button color="primary" type="button" class="btn back"
 					        (click)="back()" id="back">{{'BACK' | translate}}
 					</button>
-					<button [disabled]="crudService.multipleSelectValid || !addingForm.valid" md-raised-button
-					        color="primary" type="submit"
+					<button [disabled]="crudService.multipleSelectValid || !addingForm.valid"
+					        color="primary" type="submit" class="btn btn-primary"
 					        id="modify">{{btnName | translate}}
 					</button>
 				</div>
 			</div>
+
 		</form>
 	</loading-grid>
 </div>

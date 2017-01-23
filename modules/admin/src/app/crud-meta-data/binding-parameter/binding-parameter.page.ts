@@ -9,8 +9,8 @@ export class BindingParameterPage {
     public bindingParameterItem = element(by.className('metadatapropertybindingparameter'));
     public bindingParameterDirective = element(by.tagName('binding-parameter'));
 
-    public fromPropertyField = element(by.css('.fromProperty input'));
-    public toPropertyField = element(by.css('.toProperty input'));
+    public fromPropertyField = element(by.css('.fromProperty'));
+    public toPropertyField = element(by.css('.toProperty'));
     public combineOperatorSelect = element(by.className('combineOperator'));
     public operatorSelect = element(by.className('operator'));
     public bingingPropertiesSelect = element(by.css('.bingingProperties #add'));

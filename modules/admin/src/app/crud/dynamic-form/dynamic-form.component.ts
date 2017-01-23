@@ -4,7 +4,6 @@ import { Location, CommonModule } from '@angular/common';
 import { BtnTypes } from './model/button-types';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MdSelectModule } from '../../common/material/select/select.component';
-import { MdModule } from '../../md.module';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 import { FormsModule } from '@angular/forms';
 import { LoadingGridModule } from '../../common/loading-grid.component';
@@ -64,15 +63,11 @@ export class DynamicFormComponent {
         LoadingGridModule,
         MdSelectModule.forRoot(),
         MultipleSelectModule.forRoot(),
-        MdModule.forRoot(),
         TranslateModule,
         LoadingGridModule
     ],
     exports: [DynamicFormComponent],
-    declarations: [DynamicFormComponent],
-    providers: [
-        CrudService
-    ]
+    declarations: [DynamicFormComponent]
 })
 export class DynamicFormModule {
     static forRoot(): ModuleWithProviders {

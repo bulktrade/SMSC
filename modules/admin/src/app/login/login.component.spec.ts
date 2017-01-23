@@ -87,7 +87,6 @@ describe('Authentication', () => {
                 })
                 .catch((error) => {
                     expect(login.isErrorMessage).toBeTruthy();
-                    expect(login.errorMessage).toEqual('login.userNotFound');
                 });
         }));
 
@@ -109,7 +108,6 @@ describe('Authentication', () => {
                 })
                 .catch((error) => {
                     expect(login.isErrorMessage).toBeTruthy();
-                    expect(login.errorMessage).toEqual('login.commonError');
                 });
         }));
 });

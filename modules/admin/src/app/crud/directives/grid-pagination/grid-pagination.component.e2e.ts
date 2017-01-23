@@ -1,11 +1,9 @@
-import { GridPaginationPage } from './grid-pagination.page';
-
+import { GridPaginationPage } from "./grid-pagination.page";
 describe('Grid pagination', () => {
-    let paginationPage: GridPaginationPage;
+    let paginationPage: GridPaginationPage = new GridPaginationPage();
     let ptor = protractor.wrapDriver(browser.driver);
 
     beforeEach(() => {
-        paginationPage = new GridPaginationPage();
         ptor = protractor.wrapDriver(browser.driver);
     });
 
@@ -20,15 +18,9 @@ describe('Grid pagination', () => {
     });
 
     it('should navigate to the grid meta data', () => {
-        let width = 1024,
-            height = 768;
-
-        ptor.manage().window().setSize(width, height)
-            .then(() => {
-                paginationPage.crudPage.clickOnMetaData();
-                paginationPage.crudPage.clickOnGridMetaData();
-                expect(paginationPage.crudPage.isPresentGridMetaData()).toBeTruthy();
-            });
+        paginationPage.crudPage.clickOnMetaData();
+        paginationPage.crudPage.clickOnGridMetaData();
+        expect(paginationPage.crudPage.isPresentGridMetaData()).toBeTruthy();
     });
 
     it('should be the next page', () => {

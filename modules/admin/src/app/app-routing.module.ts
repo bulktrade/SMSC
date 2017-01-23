@@ -18,10 +18,9 @@ import {
 import {
     MetaDataPropertyBindingParameterComponent
 } from './crud-meta-data/binding-parameter/binding-parameter.component';
-import { DashboardsComponent } from './dashboards/dashboards.components';
+import { DashboardsComponent } from './dashboard/dashboards/dashboards.components';
 import { NgModule } from '@angular/core';
-import { DashboardModule } from './dashboards/dashboard.module';
-import { CrudModule } from './crud/crud.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 export const ROUTES: Routes = [
     {
@@ -39,14 +38,36 @@ export const ROUTES: Routes = [
             {
                 path: '',
                 component: DashboardsComponent,
-                loadChildren: () => DashboardModule,
                 data: {
                     similarPath: 'dasboards', // @todo Impement in sidenav
                     showInSubNavigation: true,
                     translationKey: 'Dashboards',
                     icon: 'layers',
                     showInBreadcrumb: false
-                }
+                },
+                children: [
+                    {
+                        path: '',
+                        data: {
+                            showInBreadcrumb: false,
+                            showInSubNavigation: false,
+                            translationKey: 'Dashboards',
+                            icon: 'layers',
+                            crudClass: 'DashboardBox',
+                            crudTypeClass: 'DashboardBoxType',
+                            dashboard: 'default'
+                        },
+                        loadChildren: () => DashboardModule,
+                    },
+                    {
+                        path: 'dashboard',
+                        data: {
+                            crudClass: 'DashboardBox',
+                            crudTypeClass: 'DashboardBoxType'
+                        },
+                        loadChildren: () => DashboardModule,
+                    }
+                ]
             },
             {
                 path: 'customers',
@@ -62,10 +83,10 @@ export const ROUTES: Routes = [
                     {
                         path: '',
                         component: CrudComponent,
-                        loadChildren: () => CrudModule,
+                        loadChildren: './crud/crud.module#CrudModule',
                         data: {
                             showInBreadcrumb: false,
-                        }
+                        },
                     }
                 ]
             },
@@ -93,7 +114,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: () => CrudModule,
+                                loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
                                 }
@@ -114,7 +135,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: () => CrudModule,
+                                loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: true,
                                 }
@@ -135,7 +156,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: () => CrudModule,
+                                loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
                                 }
@@ -156,7 +177,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                loadChildren: () => CrudModule,
+                                loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
                                 }
@@ -175,10 +196,11 @@ export const ROUTES: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(ROUTES, {useHash: false})
+        RouterModule.forRoot(ROUTES, { useHash: false })
     ],
     exports: [
         RouterModule
     ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

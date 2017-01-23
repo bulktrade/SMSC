@@ -22,36 +22,27 @@ import { LoadingGridService } from './services/loading/loading-grid.service';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { createNewHosts, removeNgStyles } from '@angularclass/hmr';
 import { ENV_PROVIDERS } from './environment';
-import { MdModule } from './md.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { Ng2BootstrapModule } from 'ng2-bootstrap';
 import { GridService } from './services/grid.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarItemComponent } from './sidebar/sidebar-item.component';
-import { CrudViewResolve } from './crud/crud-view/crud-view.resolve';
-import { CrudModule } from './crud/crud.module';
 import { LoadingRouterOutletModule } from './common/loading-router-outlet.component';
 import { ConfigService } from './config/config.service';
 import { LoadingRouterOutletService } from './services/loading/loading-router-outlet.service';
 import { LoadingService } from './services/loading/loading.service';
 import { RouterOutletService } from './services/router-outlet-service';
-import {
-    MetaDataPropertyBindingParameterComponent
-} from './crud-meta-data/binding-parameter/binding-parameter.component';
+import { MetaDataPropertyBindingParameterComponent } from './crud-meta-data/binding-parameter/binding-parameter.component';
 import { SidebarService } from './sidebar/sidebar.service';
-import { DashboardModule } from './dashboards/dashboard.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 import { HttpInterceptor } from './common/http-interceptor';
 import { NoInternetModule } from './common/no-internet/no-internet.component';
-import {
-    CrudMetaFormDataComponent
-} from './crud-meta-data/crud-meta-form-data/crud-meta-form-data.component';
-import {
-    CrudClassMetaDataComponent
-} from './crud-meta-data/crud-class-meta-data/crud-class-meta-data.component';
-import {
-    CrudMetaGridDataComponent
-} from './crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component';
+import { CrudMetaFormDataComponent } from './crud-meta-data/crud-meta-form-data/crud-meta-form-data.component';
+import { CrudClassMetaDataComponent } from './crud-meta-data/crud-class-meta-data/crud-class-meta-data.component';
+import { CrudMetaGridDataComponent } from './crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component';
+import { SharedModule } from './shared.module';
+import { CrudModule } from "./crud/crud.module";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -59,12 +50,10 @@ export const APP_PROVIDERS = [
     LoadingGridService,
     LoadingService,
     LoadingRouterOutletService,
-    CrudService,
     RouterOutletService,
     GridService,
     TokenService,
     AuthService,
-    CrudViewResolve,
     NotificationService,
     AuthGuard,
     AppState,
@@ -101,7 +90,6 @@ export const APP_PROVIDERS = [
         NoInternetModule,
         HttpModule,
         AppRoutingModule,
-        MdModule.forRoot(),
         TranslateModule.forRoot({
             provide: TranslateLoader,
             useFactory: (http: Http, configService: ConfigService) => {
@@ -109,12 +97,14 @@ export const APP_PROVIDERS = [
             },
             deps: [Http, ConfigService]
         }),
+        SharedModule.forRoot(),
         SimpleNotificationsModule,
         CrudModule,
         DashboardModule,
         BreadcrumbModule.forRoot()
     ],
     providers: [
+        CrudService,
         ConfigService,
         ENV_PROVIDERS,
         APP_PROVIDERS

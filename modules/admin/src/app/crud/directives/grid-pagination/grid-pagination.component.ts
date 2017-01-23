@@ -1,16 +1,13 @@
-import { Component, Input, NgModule, ModuleWithProviders } from '@angular/core';
-import { TranslateService, TranslateModule } from 'ng2-translate/ng2-translate';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
 import { Response } from '@angular/http';
 import { ODatabaseService } from '../../../orientdb/orientdb.service';
 import { NotificationService } from '../../../services/notification-service';
 import { GridOptions } from 'ag-grid';
 import { GridService } from '../../../services/grid.service';
-import { CommonModule } from '@angular/common';
-import { MdSelectModule } from '../../../common/material/select/select.component';
-import { MdModule } from '../../../md.module';
 import { CrudLevel } from '../../model/crud-level';
 import { Observable } from 'rxjs';
-import { DropdownModule } from 'ng2-bootstrap';
+import { SelectItem } from 'primeng/components/common/api';
 
 const squel = require('squel');
 
@@ -20,7 +17,8 @@ const squel = require('squel');
     template: require('./grid-pagination.component.html'),
     styleUrls: [
         require('./grid-pagination.component.scss'),
-    ]
+    ],
+    encapsulation: ViewEncapsulation.None
 })
 
 export class GridPaginationComponent {
@@ -29,7 +27,13 @@ export class GridPaginationComponent {
     @Input('currentCrudLevel') public currentCrudLevel: CrudLevel;
 
     public rowsThisPage = [];
-    public stepPageSize = [25, 50, 150, 200, 300];
+    public stepPageSize: SelectItem[] = [
+        { label: '25', value: 25 },
+        { label: '50', value: 50 },
+        { label: '150', value: 150 },
+        { label: '200', value: 200 },
+        { label: '300', value: 300 }
+    ];
     public defaultPageSize: number = 25;
     public pageSize;
     private currentPage: number = 0;
@@ -46,15 +50,14 @@ export class GridPaginationComponent {
     ngOnInit() {
         this.translate.get('ALL_RECORDS')
             .subscribe(res => {
-                this.stepPageSize.push(res);
+                this.stepPageSize.push({ label: res, value: res });
             });
 
-        this.changePageSize(this.defaultPageSize);
+        this.pageSize = this.defaultPageSize;
+        this.changePageSize();
     }
 
-    changePageSize(pageSize) {
-        this.setPageSize(pageSize);
-
+    changePageSize() {
         if (this.pageSize === 'All records') {
             this.getSizeClass(this.className)
                 .subscribe(classSize => {
@@ -249,19 +252,5 @@ export class GridPaginationComponent {
 
     setToRecord(numberRecords) {
         this.toRecord = this.currentPage * this.pageSize + numberRecords;
-    }
-}
-
-@NgModule({
-    imports: [CommonModule, MdSelectModule, MdModule.forRoot(), DropdownModule, TranslateModule],
-    exports: [GridPaginationComponent],
-    declarations: [GridPaginationComponent]
-})
-export class GridPaginationModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: GridPaginationModule,
-            providers: []
-        };
     }
 }

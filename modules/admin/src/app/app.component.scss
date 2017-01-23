@@ -1,3 +1,5 @@
+$primaryColor: #009688;
+
 body {
     background: #E9ECF3 !important;
     font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -10,11 +12,9 @@ body {
     }
 }
 
-navigation {
-    height: 100%;
-}
-
-.md-card {
+.md-card,
+navigation,
+login {
     height: 100%;
 }
 
@@ -24,8 +24,328 @@ navigation {
     }
 }
 
+.card {
+    border-radius: 0;
+}
+
+.hint {
+    font-size: 12px;
+    color: #A94442;
+}
+
+.btn {
+    border-radius: 3px;
+}
+
+.back {
+    background: #212121;
+    margin-right: 5px;
+    color: #fff;
+}
+
+@media all and (max-width: 992px) {
+    breadcrumb {
+        display: none;
+    }
+}
+
+/*-- STYLE FOR ICON BUTTON (BEGIN) --*/
+
+.btn-icon {
+    display: flex;
+    float: left;
+    background-color: transparent;
+    padding: 7px;
+    color: $primaryColor;
+    border-radius: 50px;
+
+    &:hover {
+        background-color: #e1f3f1;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+/*-- STYLE FOR ICON BUTTON (END) --*/
+
 @media (max-width: 992px) {
     .md-sidenav-content {
         margin-left: 0 !important;
     }
 }
+
+/*-- STYLE FOR INPUT FIELD (BEGIN) --*/
+
+.group {
+    position: relative;
+
+    input {
+        font-size: 16px;
+        padding: 10px 10px 10px 5px;
+        display: block;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #757575;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    /* LABEL ======================================= */
+    .label-input {
+        color: #999;
+        font-size: 16px;
+        font-weight: normal;
+        position: absolute;
+        pointer-events: none;
+        left: 5px;
+        top: 10px;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+
+    /* active state */
+    input:focus ~ .label-input, .in {
+        top: -20px;
+        font-size: 14px;
+        color: $primaryColor;
+    }
+
+    /* BOTTOM BARS ================================= */
+    .bar {
+        position: relative;
+        display: block;
+        width: 100%;
+    }
+
+    .bar:before, .bar:after {
+        content: '';
+        height: 2px;
+        width: 0;
+        bottom: 1px;
+        position: absolute;
+        background: $primaryColor;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+
+    .bar:before {
+        left: 50%;
+    }
+
+    .bar:after {
+        right: 50%;
+    }
+
+    /* active state */
+    input:focus ~ .bar:before, input:focus ~ .bar:after {
+        width: 50%;
+    }
+
+    /* HIGHLIGHTER ================================== */
+    .highlight {
+        position: absolute;
+        height: 60%;
+        width: 100px;
+        top: 25%;
+        left: 0;
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    /* active state */
+    input:focus ~ .highlight {
+        -webkit-animation: inputHighlighter 0.3s ease;
+        -moz-animation: inputHighlighter 0.3s ease;
+        animation: inputHighlighter 0.3s ease;
+    }
+
+    /* ANIMATIONS ================ */
+    @-webkit-keyframes inputHighlighter {
+        from {
+            background: $primaryColor;
+        }
+        to {
+            width: 0;
+            background: transparent;
+        }
+    }
+
+    @-moz-keyframes inputHighlighter {
+        from {
+            background: $primaryColor;
+        }
+        to {
+            width: 0;
+            background: transparent;
+        }
+    }
+
+    @keyframes inputHighlighter {
+        from {
+            background: $primaryColor;
+        }
+        to {
+            width: 0;
+            background: transparent;
+        }
+    }
+}
+
+/*-- STYLE FOR INPUT FIELD (END) --*/
+
+/*-- STYLE FOR CHECKBOX (BEGIN) --*/
+
+$baseFontSize: 16;
+
+$green: #009688;
+$blue: #5677fc;
+$blueDark: #3b50ce;
+
+$slideDistance: 100;
+$slideDuration: .4s;
+
+@function rem($val) {
+    @return #{$val / $baseFontSize}rem;
+}
+
+.label-checkbox {
+    position: relative;
+
+    margin: .5rem;
+
+    font-family: Arial, sans-serif;
+    line-height: 135%;
+
+    cursor: pointer;
+
+    > input {
+        position: relative;
+        top: 1px;
+    }
+}
+
+.checkbox {
+    position: relative;
+    top: rem(-6);
+
+    margin: 0 1rem 0 0 ;
+
+    cursor: pointer;
+
+    &:before {
+        transition: all .3s ease-in-out;
+
+        content: "";
+
+        position: absolute;
+        left: 0;
+        z-index: 1;
+
+        width: 1rem;
+        height: 1rem;
+
+        border: 2px solid #f2f2f2;
+    }
+
+    &:checked {
+        &:before {
+            transform: rotate(-45deg);
+
+            height: .5rem;
+
+            border-color: $green;
+            border-top-style: none;
+            border-right-style: none;
+        }
+    }
+
+    &:after {
+        content: "";
+
+        position: absolute;
+        top: rem(-2);
+        left: 0;
+
+        width: 1.1rem;
+        height: 1.1rem;
+
+        background: #fff;
+
+        cursor: pointer;
+    }
+}
+
+.button--round {
+    transition: .3s background ease-in-out;
+
+    width: 2rem;
+    height: 2rem;
+
+    background: $blue;
+
+    border-radius: 50%;
+    box-shadow: 0 rem(2) rem(5) 0 rgba(0, 0, 0, 0.25);
+
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+
+    i {
+        font-size: 1rem;
+        line-height: 220%;
+        vertical-align: middle;
+    }
+
+    &:hover {
+        background: $blueDark;
+    }
+}
+
+.button--sticky {
+    position: fixed;
+    right: 2rem;
+    top: 16rem;
+}
+
+%slide-up {
+    -webkit-animation-duration: $slideDuration;
+    animation-duration: $slideDuration;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: slideUp;
+    animation-name: slideUp;
+    -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@-webkit-keyframes slideUp {
+    0% {
+        -webkit-transform: translateY(rem($slideDistance));
+        transform: translateY(rem($slideDistance));
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        -webkit-transform: translateY(rem($slideDistance));
+        transform: translateY(rem($slideDistance));
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+/*-- STYLE FOR CHECKBOX (BEGIN) --*/

@@ -30,35 +30,35 @@ export class CreatePage {
     public inputElementsOnFirstLevel: Array<InputElement> = [
         {
             nameElement: 'customerId',
-            element: element(by.css('.customerId input')), data: '1'
+            element: element(by.css('.customerId')), data: '1'
         },
         {
             nameElement: 'companyName',
-            element: element(by.css('.companyName input')), data: 'SMSC'
+            element: element(by.css('.companyName')), data: 'SMSC'
         },
         {
             nameElement: 'country',
-            element: element(by.css('.country input')), data: 'Ukraine'
+            element: element(by.css('.country')), data: 'Ukraine'
         },
         {
             nameElement: 'city',
-            element: element(by.css('.city input')), data: 'Odessa'
+            element: element(by.css('.city')), data: 'Odessa'
         },
         {
             nameElement: 'postcode',
-            element: element(by.css('.postcode input')), data: '65000'
+            element: element(by.css('.postcode')), data: '65000'
         },
         {
             nameElement: 'street',
-            element: element(by.css('.street input')), data: 'Pastera'
+            element: element(by.css('.street')), data: 'Pastera'
         },
         {
             nameElement: 'street2',
-            element: element(by.css('.street2 input')), data: 'Tennistaya'
+            element: element(by.css('.street2')), data: 'Tennistaya'
         },
         {
             nameElement: 'vatid',
-            element: element(by.css('.vatid input')), data: '465787'
+            element: element(by.css('.vatid')), data: '465787'
         }
     ];
 
@@ -66,23 +66,23 @@ export class CreatePage {
     public inputElementsOnSecondLevel: Array<InputElement> = [
         {
             nameElement: 'firstname',
-            element: element(by.css('.firstname input')), data: 'Josh'
+            element: element(by.css('.firstname ')), data: 'Josh'
         },
         {
             nameElement: 'surename',
-            element: element(by.css('.surename input')), data: 'Tomas'
+            element: element(by.css('.surename ')), data: 'Tomas'
         },
         {
             nameElement: 'phone',
-            element: element(by.css('.phone input')), data: '43-458-05'
+            element: element(by.css('.phone')), data: '43-458-05'
         },
         {
             nameElement: 'mobilePhone',
-            element: element(by.css('.mobilePhone input')), data: '0975486397'
+            element: element(by.css('.mobilePhone ')), data: '0975486397'
         },
         {
             nameElement: 'emailAddress',
-            element: element(by.css('.emailAddress input')), data: 'polin@gmail.com'
+            element: element(by.css('.emailAddress ')), data: 'polin@gmail.com'
         }
     ];
 

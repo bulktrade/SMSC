@@ -1,10 +1,14 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
+import { NOTIFICATION_OPTIONS } from "./common/notification-Options";
 
 @Component({
     selector: 'app',
     providers: [],
-    template: '<router-outlet></router-outlet>',
+    template: `
+        <simple-notifications id="growl" [options]="notificationOptions"></simple-notifications>
+        <router-outlet></router-outlet>
+    `,
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
         require('normalize.css/normalize.css'),
@@ -13,10 +17,14 @@ import { TranslateService } from 'ng2-translate';
         require('ag-grid/dist/styles/ag-grid.css'),
         require('ag-grid/dist/styles/theme-fresh.css'),
         require('./app.component.scss'),
-        require('./common/spinner/cube-grid/cube-grid.component.scss')
+        require('./common/spinner/cube-grid/cube-grid.component.scss'),
+        require('primeng/resources/themes/omega/theme.css'),
+        require('primeng/resources/primeng.min.css')
     ]
 })
 export class App {
+    public notificationOptions = NOTIFICATION_OPTIONS;
+
     constructor(private translate: TranslateService) {
         let userLang = navigator.language.split('-')[0]; // use navigator lang if available
         userLang = /(de|ru|en)/gi.test(userLang) ? userLang : 'en';

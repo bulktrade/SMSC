@@ -8,7 +8,6 @@ import { NotificationService } from '../services/notification-service';
 import { LoadingGridService } from '../services/loading/loading-grid.service';
 import { ColumnModel } from './model/crud-column';
 import { INPUT_TYPES } from './dynamic-form/model/form-input-types';
-import { ColumnDefsModel } from './model/column-definitions';
 import { Operation } from '../orientdb/model/operation';
 import { BatchType } from '../orientdb/model/batch-type';
 import { Observable, Observer } from 'rxjs';
@@ -19,6 +18,7 @@ import { Location } from '@angular/common';
 import { LinksetProperty } from './model/linkset-property';
 import { GridService } from '../services/grid.service';
 import { Button } from './model/button';
+import { RouterOutletService } from '../services/router-outlet-service';
 
 const squel = require('squel');
 let cubeGridHtml = require('../common/spinner/cube-grid/cube-grid.component.html');
@@ -59,14 +59,22 @@ export class CrudService {
                 public translate: TranslateService,
                 public serviceNotifications: NotificationService,
                 public loadingService: LoadingGridService,
-                public gridService: GridService) {
+                public gridService: GridService,
+                public roService: RouterOutletService,
+                public location: Location) {
     }
 
     onFilterChanged(value, gridOptions) {
         gridOptions.api.setQuickFilter(value);
     }
 
+    /**
+     * Called when select the row and sets the style to checkbox.
+     *
+     * @param value
+     */
     cellValueChanged(value) {
+        let focusedRow = this.focusedRow;
         let operations: Array<Operation> = [
             {
                 type: BatchType.UPDATE,
@@ -82,7 +90,7 @@ export class CrudService {
                     'message.createSuccessful', 'orientdb.successCreate');
 
                 this.gridService.selectLinksetProperties(this.gridOptions.columnDefs,
-                    [this.focusedRow.data])
+                    [focusedRow.data])
                     .then(() => {
                         this.gridOptions.api.setRowData(this.gridOptions.rowData);
                     });
@@ -105,8 +113,8 @@ export class CrudService {
      */
     setCellStyleWhenDataIncorrect(gridOptions: GridOptions, style: Object, changeCell) {
         gridOptions.columnDefs.filter(i => {
-            if (i.property === changeCell.colDef.property) {
-                i.cellStyle = (params) => {
+            if (i['property'] === changeCell.colDef.property) {
+                i['cellStyle'] = (params) => {
                     if (params.data['@rid'] === changeCell.data['@rid']) {
                         return style;
                     }
@@ -252,14 +260,7 @@ export class CrudService {
      * @param gridOptions
      */
     rowSelected(gridOptions: GridOptions) {
-        if (gridOptions.api.getSelectedRows().length === gridOptions.rowData.length) {
-            this.changeCheckboxState('allSelected', gridOptions);
-        } else if (!gridOptions.api.getSelectedRows().length) {
-            this.changeCheckboxState('notSelected', gridOptions);
-        } else {
-            this.changeCheckboxState('notAllSelected', gridOptions);
-        }
-
+        this.changeCheckboxState(gridOptions);
         this.disableDeleteButton(gridOptions.api);
     }
 
@@ -275,6 +276,11 @@ export class CrudService {
         }
     }
 
+    /**
+     * Called when grid was initialized
+     *
+     * @param event
+     */
     onReady(event) {
         this.disableDeleteButton(event.api);
     }
@@ -309,7 +315,7 @@ export class CrudService {
     }
 
     /**
-     * The method adds checkbox selection to the columnDefs property.
+     * Adds checkbox selection to the columnDefs property.
      *
      * @param columnDefs
      * @param gridOptions
@@ -319,7 +325,6 @@ export class CrudService {
             headerName: ' ',
             field: 'checkboxSel',
             width: 25,
-            hideInForm: true,
             checkboxSelection: true,
             headerCellTemplate: () => {
                 let that = this;
@@ -412,9 +417,9 @@ export class CrudService {
                     clicked = !clicked;
 
                     if (clicked) {
-                        that.changeCheckboxState('allSelected', gridOptions);
+                        that.changeCheckboxState(gridOptions, 'allSelected');
                     } else {
-                        that.changeCheckboxState('notSelected', gridOptions);
+                        that.changeCheckboxState(gridOptions, 'notSelected');
                     }
                 });
 
@@ -429,7 +434,17 @@ export class CrudService {
      * @param isSelectCheckbox
      * @param gridOptions
      */
-    changeCheckboxState(isSelectCheckbox, gridOptions) {
+    changeCheckboxState(gridOptions, isSelectCheckbox?: string) {
+        if (!isSelectCheckbox) {
+            if (gridOptions.api.getSelectedRows().length === gridOptions.rowData.length) {
+                isSelectCheckbox = 'allSelected';
+            } else if (!gridOptions.api.getSelectedRows().length) {
+                isSelectCheckbox = 'notSelected';
+            } else {
+                isSelectCheckbox = 'notAllSelected';
+            }
+        }
+
         switch (isSelectCheckbox) {
             case 'allSelected':
                 gridOptions.api.selectAll();
@@ -481,7 +496,6 @@ export class CrudService {
             headerName: ' ',
             field: 'controlPanel',
             width: width,
-            hideInForm: true,
             cellRenderer: () => {
                 let that = this;
                 let buttonWrapper = document.createElement('div');
@@ -514,6 +528,26 @@ export class CrudService {
     }
 
     /**
+     * Called when click on cell.
+     *
+     * @param event
+     */
+    clickOnCell(event) {
+        if (event.colDef.type === 'LINK' ||
+            event.colDef.type === 'LINKSET') {
+            this.setLinkedClass(event.colDef.linkedClass);
+            let linsetProperty: LinksetProperty = {
+                name: event.colDef.property,
+                type: event.colDef.type,
+                bingingProperties: event.colDef.bingingProperties,
+                data: event.data
+            };
+
+            this.navigateToLinkset(event.colDef.linkedClass, linsetProperty);
+        }
+    }
+
+    /**
      * Called when click on row.
      *
      * @param event
@@ -522,30 +556,42 @@ export class CrudService {
         this.focusedRow = event;
 
         if (this.clickOnDeleteBtn) {
-            this.navigateToDelete(event.data['@rid']);
+            // navigate to delete component
+            this.router.navigate([this.parentPath, 'delete', event.data['@rid']]);
             this.clickOnDeleteBtn = false;
         } else if (this.clickOnEditBtn) {
-            this.navigateToEdit(event.data['@rid']);
+            // navigate to edit component
+            this.router.navigate([this.parentPath, 'edit', event.data['@rid']]);
             this.clickOnEditBtn = false;
         }
     }
 
     /**
-     * Navigate to update component and send the id parameter.
-     *
-     * @param id
+     * Navigates back in the platform's history and reduces a crud level
      */
-    navigateToEdit(id: number) {
-        this.router.navigate([this.parentPath, 'edit', id]);
+    back() {
+        this.previousCrudLevel();
+        this.location.back();
     }
 
     /**
-     * Navigate to delete component and send the id parameter.
-     *
-     * @param id
+     * Navigate to delete component
      */
-    navigateToDelete(id: number) {
-        this.router.navigate([this.parentPath, 'delete', id]);
+    navigateToDelete() {
+        let id = this.getSelectedRID(this.gridOptions);
+
+        this.router.navigate([this.parentPath, 'delete',
+            id.join().replace(/\[|\]/gi, '')]);
+    }
+
+    /**
+     * Navigate to create component
+     * @param className
+     */
+    navigateToCreate(className: string) {
+        this.setModel({});
+        this.router.navigate([this.parentPath,
+            'create', className]);
     }
 
     /**
@@ -572,6 +618,74 @@ export class CrudService {
         };
 
         this.crudLevel.push(crudLevel);
+    }
+
+    /**
+     * Adds selected links to the multiple select component or updates a linkset property in record
+     *
+     * @param gridOptions
+     * @return {Promise<U>|Promise<TResult>}
+     */
+    addLink(gridOptions) {
+        let className = this.getLinkedClass();
+        let previousCrudLevel: CrudLevel = this.previousCrudLevel();
+        let params: any = previousCrudLevel.linksetProperty.data;
+
+        return this.getLinkset(gridOptions, previousCrudLevel.linksetProperty.type, className)
+            .then(linkSet => {
+                params[previousCrudLevel.linksetProperty.name] = linkSet;
+
+                if (this.roService.isPreviousRoute('CrudViewComponent')) {
+                    this.updateRecord(params);
+                    this.location.back();
+                } else {
+                    this.model = params;
+                    this.location.back();
+                }
+
+            });
+    }
+
+    /**
+     * Replaces a RID with title columns property
+     *
+     * @param gridOptions
+     * @param type
+     * @param className
+     * @return {Promise<Array<any>>|Promise<Array>}
+     */
+    getLinkset(gridOptions, type, className) {
+        let focusedRows = gridOptions.api.getSelectedRows();
+        let result = [];
+
+        return this.gridService.getTitleColumns(className)
+            .then((columnName) => {
+                for (let i = 0; i < focusedRows.length; i++) {
+                    switch (type) {
+                        case 'LINKSET':
+                            result['_' + i] = focusedRows[i]['@rid'];
+
+                            if (focusedRows[i].hasOwnProperty(columnName) &&
+                                typeof columnName !== 'undefined') {
+                                result.push(focusedRows[i][columnName]);
+                            } else {
+                                result.push(focusedRows[i]['@rid']);
+                            }
+                            break;
+                        case 'LINK':
+                            result[0] = focusedRows[i][columnName];
+                            result['rid'] = focusedRows[i]['@rid'];
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                result['type'] = type;
+
+                return result;
+            });
     }
 
     /**
@@ -616,7 +730,6 @@ export class CrudService {
         gridOptions.columnDefs.unshift({
             headerName: 'RID',
             field: '@rid',
-            hideInForm: true,
             width: 55
         });
     }
@@ -677,18 +790,11 @@ export class CrudService {
     }
 
     /**
-     * Gets the column definitions with metaData for grid.
-     *
+     * Gets the column definitions with metaData for grid
      * @param className
-     * @param readOnly
-     * @returns {any}
+     * @return {any}
      */
-    getColumnDefs(className, readOnly): Observable<ColumnDefsModel> {
-        let columnDefs: ColumnDefsModel = {
-            grid: [],
-            form: []
-        };
-
+    getGridColumnDefs(className): Observable<Array<GridPropertyModel>> {
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.getInfoClass(className)
                 .subscribe((res: Response) => {
@@ -696,17 +802,34 @@ export class CrudService {
 
                     this.setPropertiesMetaGridData(properties, className)
                         .subscribe((gridProperties: Array<GridPropertyModel>) => {
-                            this.setPropertiesMetaFormData(properties, className)
-                                .subscribe((formProperties: Array<FormPropertyModel>) => {
-                                    columnDefs.form = columnDefs.form.concat(formProperties);
-                                    columnDefs.grid = columnDefs.grid.concat(gridProperties);
+                            observer.next(gridProperties);
+                            observer.complete();
+                        }, (err: Response) => {
+                            observer.error(err);
+                            observer.complete();
+                        });
+                }, (err: Response) => {
+                    observer.error(err);
+                    observer.complete();
+                });
+        });
+    }
 
-                                    observer.next(columnDefs);
-                                    observer.complete();
-                                }, (err: Response) => {
-                                    observer.error(err);
-                                    observer.complete();
-                                });
+    /**
+     * Gets the column definitions with metaData for form
+     * @param className
+     * @return {any}
+     */
+    getFormColumnDefs(className): Observable<Array<FormPropertyModel>> {
+        return Observable.create((observer: Observer<ColumnModel>) => {
+            this.databaseService.getInfoClass(className)
+                .subscribe((res: Response) => {
+                    let properties = res.json().properties;
+
+                    this.setPropertiesMetaFormData(properties, className)
+                        .subscribe((formProperties: Array<FormPropertyModel>) => {
+                            observer.next(formProperties);
+                            observer.complete();
                         }, (err: Response) => {
                             observer.error(err);
                             observer.complete();
@@ -734,13 +857,17 @@ export class CrudService {
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.query(queryCrudMetaFormData.toString())
                 .subscribe((res: Response) => {
+                    let response = res.json().hasOwnProperty('result') ?
+                        res.json()['result'] : null;
                     let isExistForm: boolean;
                     let columnsForm: Array<FormPropertyModel> = [];
                     let result: Array<FormPropertyModel>;
 
                     try {
-                        isExistForm = res.json()['result'].length > 0 ? true : false;
-                        result = isExistForm ? res.json()['result'] : properties;
+                        if (response) {
+                            isExistForm = res.json()['result'].length > 0 ? true : false;
+                            result = isExistForm ? res.json()['result'] : properties;
+                        }
                     } catch (ex) {
                         observer.error(ex);
                     }
@@ -799,13 +926,17 @@ export class CrudService {
         return Observable.create((observer: Observer<ColumnModel>) => {
             this.databaseService.query(queryCrudMetaGridData.toString())
                 .subscribe((res: Response) => {
+                    let response = res.json().hasOwnProperty('result') ?
+                        res.json()['result'] : null;
                     let isExistColumn: boolean;
                     let columnsGrid: Array<GridPropertyModel> = [];
                     let result: Array<GridPropertyModel>;
 
                     try {
-                        isExistColumn = res.json()['result'].length > 0 ? true : false;
-                        result = isExistColumn ? res.json()['result'] : properties;
+                        if (response) {
+                            isExistColumn = response.length > 0 ? true : false;
+                            result = isExistColumn ? response : properties;
+                        }
                     } catch (ex) {
                         observer.error(ex);
                     }
@@ -1043,6 +1174,14 @@ export class CrudService {
         }
 
         return this.model[propertyName];
+    }
+
+    /**
+     * Gets the current CRUD level
+     * @return {number}
+     */
+    getCurrentCrudLevel(): number {
+        return this.crudLevel.length;
     }
 
     resetCrudLevels() {

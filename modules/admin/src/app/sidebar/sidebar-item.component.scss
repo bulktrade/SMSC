@@ -4,22 +4,20 @@
     display: flex;
     margin: 0;
     text-decoration: none;
+    padding: 13px 22px;
 
     &:hover {
         background: #F2F6F9;
         color: rgb(91, 155, 209) !important;
     }
-    padding: 13px 0 13px 22px;
+
     .icon-left {
         float: left;
         font-size: 18px;
         color: rgb(167, 189, 205);
     }
     .isChildren {
-        width: 12px;
-        height: 18px;
-        float: right;
-        margin: 0 23px 0 58px;
+        margin-left: auto;
     }
     .dashboard-icon {
         margin-top: -18px;
@@ -102,6 +100,10 @@ ul {
     }
 }
 
+.show-nav {
+    display: flex;
+}
+
 /* MOBILE DEVICE (BEGIN)*/
 
 @media (max-width: 992px) {
@@ -111,7 +113,6 @@ ul {
         clear: both;
     }
     .show-nav {
-        display: block !important;
         width: 100%;
     }
     .item-menu {
@@ -133,7 +134,7 @@ ul {
 
 @media (min-width: 992px) {
     .show-nav {
-        display: flex;
+        width: 100%;
     }
     .last {
         margin-top: -18px !important;

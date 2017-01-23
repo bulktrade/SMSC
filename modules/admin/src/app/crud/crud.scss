@@ -1,14 +1,26 @@
+$primaryColor: #009688;
+
 #crud-window {
 	height: calc(100% - 92px);
 	padding: 0;
 	background: #fff;
 
+	.crud-title {
+		color: #fff;
+		background-color: $primaryColor;
+	}
+
+	.card-title {
+		margin: 0 !important;
+	}
+
 	.title {
 		margin-bottom: 16px;
 	}
 
-	md-card-content {
+	.card-content {
 		height: calc(100% - 74px);
+		padding: 0;
 	}
 
 }

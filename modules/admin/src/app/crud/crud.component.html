@@ -1,6 +1,8 @@
-<md-card id="crud-window">
-	<md-toolbar class="title" color="primary">{{ route.component['name'] | uppercase | translate }}</md-toolbar>
-	<md-card-content>
+<div id="crud-window" class="card">
+	<div class="card-block crud-title">
+		<h5 class="card-title title">{{ route.data.value.translationKey | uppercase | translate }}</h5>
+	</div>
+	<div class="card-block card-content">
 		<loading-router-outlet></loading-router-outlet>
-	</md-card-content>
-</md-card>
+	</div>
+</div>

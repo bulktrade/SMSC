@@ -38,7 +38,7 @@ export class CrudUpdateComponent {
             this.crudService.setModel(this.resolveData.inputModel);
         }
 
-        this.columnDefs = this.resolveData.columnDefs.form;
+        this.columnDefs = this.resolveData.columnDefs;
     }
 
     ngOnDestroy() {

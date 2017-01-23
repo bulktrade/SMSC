@@ -1,6 +1,6 @@
-import { ColumnDefsModel } from '../model/column-definitions';
+import { FormPropertyModel } from '../model/form-property';
 
 export class EditModel {
-    public columnDefs: ColumnDefsModel;
+    public columnDefs: Array<FormPropertyModel>;
     public inputModel: Object;
 }

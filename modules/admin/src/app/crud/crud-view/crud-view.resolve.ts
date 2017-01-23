@@ -6,6 +6,7 @@ import { LoadingGridService } from '../../services/loading/loading-grid.service'
 import { ColumnDefsModel } from '../model/column-definitions';
 import { Observer, Observable } from 'rxjs';
 import { NotificationService } from '../../services/notification-service';
+import { GridPropertyModel } from '../model/grid-property';
 
 @Injectable()
 export class CrudViewResolve extends CrudResolve {
@@ -22,10 +23,10 @@ export class CrudViewResolve extends CrudResolve {
         this.loadingGridService.start();
 
         return Observable.create((observer: Observer<ColumnDefsModel>) => {
-            this.crudService.getColumnDefs(className, true)
-                .subscribe((res: ColumnDefsModel) => {
+            this.crudService.getGridColumnDefs(className)
+                .subscribe((gridProperties: Array<GridPropertyModel>) => {
                     this.loadingGridService.stop();
-                    observer.next(res);
+                    observer.next(gridProperties);
                     observer.complete();
                 }, err => {
                     this.loadingGridService.stop();

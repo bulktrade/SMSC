@@ -9,11 +9,12 @@ export class BreadcrumbService {
     constructor(public router: Router,
                 public route: ActivatedRoute) {
         this.chainBreadcrumbItems(this.route);
-        this.name = this.childs[this.childs.length - 1].name || '';
+        this.name = this.childs.length && this.childs[this.childs.length - 1].name ||
+            this.route.data['value'].translationKey;
     }
 
     chainBreadcrumbItems(route: ActivatedRoute) {
-        if (route.component['name'] === 'NavigationComponent') {
+        if (route.parent === null) {
             this.childs.reverse();
             return;
         }
@@ -30,24 +31,24 @@ export class BreadcrumbService {
         this.chainBreadcrumbItems(route.parent);
     }
 
-    generationPathFromRoot(paths): string {
-        let result: string = '';
+    generationPathFromRoot(paths: ActivatedRoute[]): string {
+        let path: string = '';
 
-        for (let i = 2; i < paths.length; i++) {
+        for (let i = 1; i < paths.length; i++) {
             if (paths[i].routeConfig.path !== '') {
                 if (i !== paths.length - 1) {
-                    result += paths[i].routeConfig.path + '/';
+                    path += paths[i].routeConfig.path + '/';
                 } else {
-                    result += paths[i].routeConfig.path;
+                    path += paths[i].routeConfig.path;
                 }
             }
         }
 
-        if (result === '') {
+        if (path === '') {
             return '/';
         }
 
-        return result;
+        return path;
     }
 
     navigateTo(router) {
