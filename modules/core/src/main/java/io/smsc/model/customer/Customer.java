@@ -50,7 +50,7 @@ public class Customer extends BaseEntity {
     @Column(name = "VATID")
     private Double vatid;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="PARENT_CUSTOMER_ID")
     private Customer parentCustomer;
 

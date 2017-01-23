@@ -63,5 +63,4 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     @Override
     @RestResource(exported = false)
     Page<User> findAll(Pageable pageable);
-
 }

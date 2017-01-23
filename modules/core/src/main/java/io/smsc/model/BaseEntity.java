@@ -1,14 +1,13 @@
 package io.smsc.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.Hibernate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Specifies Base entity class as an mapped superclass. It's mapping information
@@ -25,6 +24,21 @@ import java.io.Serializable;
 public class BaseEntity implements Persistable<Long>, Serializable {
 
     protected static final long serialVersionUID = 1L;
+
+    @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "LAST_MODIFIED_DATE", nullable = false)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+    protected Date lastModifiedDate = new Date();
+
+    @Version
+    @Column(name = "VERSION", nullable = false)
+    protected Long version;
+
+    @PreUpdate
+    protected void onUpdate() {
+        lastModifiedDate = new Date();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,6 +61,22 @@ public class BaseEntity implements Persistable<Long>, Serializable {
     @Override
     public Long getId() {
         return id;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long versionNumber) {
+        this.version = version;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @Override
@@ -72,8 +102,4 @@ public class BaseEntity implements Persistable<Long>, Serializable {
     public int hashCode() {
         return (getId() == null) ? 0 : getId().hashCode();
     }
-
-
-
-
 }
