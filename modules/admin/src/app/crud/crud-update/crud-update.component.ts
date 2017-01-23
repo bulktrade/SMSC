@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CrudService } from '../crud.service';
-import { Location } from '@angular/common';
-import { EditModel } from './crud-update.model';
-import { BtnTypes } from '../dynamic-form/model/button-types';
-import { FormPropertyModel } from '../model/form-property';
+import { Component } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router, ActivatedRoute } from "@angular/router";
+import { CrudService } from "../crud.service";
+import { Location } from "@angular/common";
+import { BtnTypes } from "../dynamic-form/model/button-types";
+import { ColumnDef } from "../model/column-definition";
+import { BackendService } from "../../services/backend/backend.service";
+import { NotificationService } from "../../services/notification-service";
 
 @Component({
     selector: 'crud-update',
-    template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>',
+    template: '<dynamic-form [formType]="btnName" [model]="model" [columnDefs]="columnDefs" (onSubmit)="onSubmit($event)"></dynamic-form>',
     styleUrls: [
         require('../common/style.scss')
     ],
@@ -17,37 +18,46 @@ import { FormPropertyModel } from '../model/form-property';
 })
 
 export class CrudUpdateComponent {
-    public resolveData: EditModel;
+    public id;
     public btnName: BtnTypes = BtnTypes.UPDATE;
-    public columnDefs: Array<FormPropertyModel> = null;
+    public columnDefs: ColumnDef[] = [];
+    public model = {};
 
     constructor(public translate: TranslateService,
                 public crudService: CrudService,
                 public router: Router,
                 public route: ActivatedRoute,
-                public location: Location) {
+                public location: Location,
+                public backendService: BackendService,
+                public notifications: NotificationService) {
     }
 
     ngOnInit() {
-        // sets path from root component
-        this.crudService.setParentPath(this.route.parent.parent.snapshot.pathFromRoot);
+        // get id parameter
+        this.route.params.subscribe((params) => {
+            this.id = params['id'];
+        });
 
-        this.resolveData = this.route.snapshot.data['edit'];
-
-        if (this.resolveData.inputModel) {
-            this.crudService.setModel(this.resolveData.inputModel);
-        }
-
-        this.columnDefs = this.resolveData.columnDefs;
+        this.columnDefs = this.getColunmDefs();
+        this.model = this.getModel();
     }
 
-    ngOnDestroy() {
-        this.crudService.multipleSelectValid = false;
-        this.crudService.setModel({});
+    getColunmDefs() {
+        return this.route.snapshot.data['edit'].columnDefs;
     }
 
-    onSubmit() {
-        this.crudService.updateRecord(this.crudService.model);
+    getModel() {
+        return this.route.snapshot.data['edit'].rowData[0];
+    }
+
+    onSubmit(data) {
+        this.backendService.updateResource(this.id, data, this.crudService.getRepositoryName())
+            .subscribe(res => {
+                this.notifications.createNotification('success', 'SUCCESS', 'crud.successUpdate');
+            }, err => {
+                console.error(err);
+                this.notifications.createNotification('error', 'ERROR', 'crud.errorUpdate');
+            })
     }
 
 }

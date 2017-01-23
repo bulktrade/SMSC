@@ -1,11 +1,10 @@
-import { Component, Input, ModuleWithProviders, NgModule } from '@angular/core';
-import { TranslateService, TranslateModule } from 'ng2-translate/ng2-translate';
-import { ActivatedRoute, Router } from '@angular/router';
-import { EventEmitter } from '@angular/common/src/facade/async';
-import { Location, CommonModule } from '@angular/common';
-import { CrudService } from '../../crud.service';
-import { LinksetProperty } from '../../model/linkset-property';
-import { FormsModule } from '@angular/forms';
+import { Component, Input, ModuleWithProviders, NgModule, Output, EventEmitter } from "@angular/core";
+import { TranslateService, TranslateModule } from "ng2-translate/ng2-translate";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location, CommonModule } from "@angular/common";
+import { CrudService } from "../../crud.service";
+import { FormsModule } from "@angular/forms";
+import { SelectItem } from "primeng/components/common/api";
 
 @Component({
     selector: 'multiple-select',
@@ -13,17 +12,20 @@ import { FormsModule } from '@angular/forms';
     styleUrls: [
         require('./multiple-select.component.scss')
     ],
-    providers: [],
-    outputs: ['isRequired']
+    providers: []
 })
 
 export class MultipleSelectComponent {
-    @Input('property') public property: any;
-    @Input('rowSelectionLinkset') rowSelectionLinkset: string;
+    @Input('property')
+    public property: any;
 
-    public isRequired = new EventEmitter();
-    public requiredSymb = ' ';
-    public ridItems = [];
+    @Input('model')
+    public model = [];
+
+    @Output('model')
+    public modelChange = new EventEmitter();
+
+    public items: SelectItem[] = [];
 
     constructor(public translate: TranslateService,
                 public route: ActivatedRoute,
@@ -33,99 +35,47 @@ export class MultipleSelectComponent {
     }
 
     ngOnInit() {
-        if (this.property.mandatory) {
-            this.requiredSymb += '*';
-        }
-
-        this.crudService.initGridData.then(() => {
-            this.crudService.rowSelectionLinkset = this.rowSelectionLinkset;
-            let linkset = [];
-
-            if (this.crudService.model[this.property.property]) {
-                linkset = (Array.isArray(this.crudService.model[this.property.property]) ?
-                    this.crudService.model[this.property.property] :
-                    this.crudService.model[this.property.property].split(','));
-            }
-
-            if (linkset) {
-                linkset.forEach((item) => {
-                    if (item) {
-                        this.ridItems.push({
-                            name: item, visible: true
-                        });
-                    }
+        if (this.model) {
+            // create array of links and push to the model
+            this.model.forEach((item, i, arr) => {
+                this.items.push({
+                    label: item.title,
+                    value: item.link
                 });
+                arr[i] = item.link;
+            });
 
-                if (this.property.mandatory) {
-                    if (linkset.length) {
-                        this.isRequired.emit(false);
-                    } else {
-                        this.isRequired.emit(true);
-                    }
-                } else {
-                    this.isRequired.emit(false);
-                }
-            } else if (this.property.mandatory) {
-                this.isRequired.emit(true);
-            } else {
-                this.isRequired.emit(false);
-            }
-        });
-    }
-
-    removeItem(): void {
-        this.crudService.multipleSelectValid = false;
-        let linkset = Array.isArray(this.crudService.model[this.property.property]) ?
-            this.crudService.model[this.property.property] :
-            this.crudService.model[this.property.property].split(',');
-        let model = [];
-        model['type'] = this.property.type;
-
-        for (let i in this.ridItems) {
-            if (this.ridItems[i].visible) {
-                model['_' + model.length] = linkset['_' + model.length];
-                model.push(linkset[i]);
-            }
+            this.modelChange.emit(this.model);
         }
-
-        if (this.property.mandatory) {
-            if (model.length) {
-                this.isRequired.emit(false);
-            } else {
-                this.isRequired.emit(true);
-            }
-        } else {
-            this.isRequired.emit(false);
-        }
-
-        this.crudService.model[this.property.property] = model;
     }
 
-    clearAll(): void {
-        this.resetParams();
-        this.crudService.model[this.property.property] = [];
-        this.crudService.multipleSelectValid = true;
+    /**
+     * Removes the item by index
+     * @param index
+     */
+    removeItem(index) {
+        this.items.splice(index, 1);
+        this.model.splice(index, 1);
+
+        this.modelChange.emit(this.model);
     }
 
-    addLinkset(): void {
-        this.resetParams();
-        this.crudService.multipleSelectValid = false;
+    /**
+     * Removes all items
+     */
+    removeItems() {
+        this.items = [];
+        this.model = [];
 
-        let linsetProperty: LinksetProperty = {
-            name: this.property.property,
-            type: this.property.type,
-            data: this.crudService.model,
-            bingingProperties: this.property.bingingProperties
-        };
-
-        this.crudService.navigateToLinkset(this.property.linkedClass, linsetProperty);
-        this.crudService.setLinkedClass(this.property.linkedClass);
+        this.modelChange.emit(this.model);
     }
 
-    resetParams(): void {
-        this.crudService.titleColumns[this.property.property] = [];
-        this.crudService.titleColumns = [];
-        this.ridItems = [];
+    /**
+     * Navigate to the linkset component with the linkedClass & the linkedRepository params
+     */
+    navigateToLinkedRepository() {
+        this.router.navigate([this.crudService.getCrudRootPath(), 'linkset',
+            this.property.linkedClass, this.property.linkedRepository]);
     }
 }
 

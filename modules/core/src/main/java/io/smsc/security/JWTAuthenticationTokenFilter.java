@@ -23,10 +23,10 @@ import java.io.IOException;
  * Class that extends base {@link org.springframework.web.filter.OncePerRequestFilter} filter
  * class and provides one execution of {@link #doFilterInternal} method per each request.
  *
- * @author  Nazar Lipkovskyy
- * @see     io.smsc.security.service.JWTTokenGenerationService
- * @see     io.smsc.security.service.JWTUserDetailsService
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see io.smsc.security.service.JWTTokenGenerationService
+ * @see io.smsc.security.service.JWTUserDetailsService
+ * @since 0.0.1-SNAPSHOT
  */
 @Component
 public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
@@ -56,11 +56,11 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
      * Implementation of basic {@link org.springframework.web.filter.OncePerRequestFilter
      * #doFilterInternal(HttpServletRequest, HttpServletResponse, FilterChain)}  method.
      *
-     * @param request           the request, in which method will be executed
-     * @param response          the response
-     * @param chain             an object provided by the servlet container to the developer
-     *                          giving a view into the invocation chain of a filtered request
-     *                          for a resource
+     * @param request  the request, in which method will be executed
+     * @param response the response
+     * @param chain    an object provided by the servlet container to the developer
+     *                 giving a view into the invocation chain of a filtered request
+     *                 for a resource
      * @throws ServletException if {@code request} or {@code response} are not {@link HttpServletRequest}
      *                          or {@link HttpServletResponse} type accordingly
      * @throws IOException      on input error
@@ -70,18 +70,23 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
         String authToken = request.getHeader(this.tokenHeader);
         // String authToken = header.substring(7);
         String username = JWTTokenGenerationService.getUsernameFromToken(authToken);
-        LOG.info("checking authentication for user " + username);
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
-            if (JWTTokenGenerationService.validateToken(authToken, jwtUser)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                LOG.info("authenticated user " + username + ", setting security context");
-                LOG.info(username + " has roles: " + jwtUser.getRoles());
-                LOG.info(username + " has permissions: " + jwtUser.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        if (username != null) {
+            LOG.info("checking authentication for user " + username);
+
+            if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
+                if (JWTTokenGenerationService.validateToken(authToken, jwtUser)) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    LOG.info("authenticated user " + username + ", setting security context");
+                    LOG.info(username + " has roles: " + jwtUser.getRoles());
+                    LOG.info(username + " has permissions: " + jwtUser.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
         }
+
         chain.doFilter(request, response);
     }
 

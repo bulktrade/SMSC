@@ -4,6 +4,12 @@
     color: #fff;
 }
 
+.searchPanel {
+    input {
+        border-radius: 0;
+    }
+}
+
 @media all and (min-width: 817px) {
     .buttonsPanel {
         justify-content: flex-end;

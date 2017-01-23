@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { MdSelectModule } from '../../common/material/select/select.component';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule, AlertModule } from 'ng2-bootstrap';
-import { GridPaginationModule } from '../directives/grid-pagination/grid-pagination.module';
 import { AgGridModule } from 'ag-grid-ng2';
 import { LoadingGridModule } from '../../common/loading-grid.component';
 
@@ -39,7 +38,6 @@ export class DynamicViewComponent implements OnInit {
         FormsModule,
         DropdownModule,
         TranslateModule,
-        GridPaginationModule,
         AlertModule,
         AgGridModule,
         LoadingGridModule

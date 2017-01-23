@@ -23,8 +23,7 @@ describe('Config Service', () => {
 
     it('should get config.json settings', inject([ConfigService], (configService) => {
         let responseText = {
-            'orientDBUrl': '/orientdb',
-            'orientDBDatabase': 'smsc',
+            'apiUrl': '/rest',
             'i18nPath': 'assets/i18n',
             'debug': false
         };
@@ -32,8 +31,7 @@ describe('Config Service', () => {
         expect(configService.configStream instanceof Observable).toBeTruthy();
 
         configService.configStream.subscribe((res: Config) => {
-            expect(res.orientDBUrl).toEqual(responseText.orientDBUrl);
-            expect(res.orientDBDatabase).toEqual(responseText.orientDBDatabase);
+            expect(res.apiUrl).toEqual(responseText.apiUrl);
             expect(res.i18nPath).toEqual(responseText.i18nPath);
             expect(res.debug).toEqual(responseText.debug);
         });
@@ -41,8 +39,7 @@ describe('Config Service', () => {
 
     it('should get an error on non-existent path', inject([ConfigService], (configService) => {
         let responseText = {
-            'orientDBUrl': '/orientdb',
-            'orientDBDatabase': 'smsc',
+            'apiUrl': '/rest',
             'i18nPath': 'assets/i18n',
             'debug': false
         };

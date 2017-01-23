@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -22,8 +23,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Security service considering JWT {@link JWTAuthenticationTokenFilter}
  * implementation.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @Configuration
 @EnableWebSecurity
@@ -59,27 +60,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public JWTAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
-        return new JWTAuthenticationTokenFilter(userDetailsService,tokenGenerationService);
+        return new JWTAuthenticationTokenFilter(userDetailsService, tokenGenerationService);
     }
 
     /**
      * This is the main method to configure the {@link HttpSecurity}.
      *
-     * @param  http      the {@link HttpSecurity} to modify
+     * @param http the {@link HttpSecurity} to modify
      * @throws Exception if an error occurs
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                // we don't need CSRF because our token is invulnerable
                 .csrf().disable()
                 .authorizeRequests()
                 // /rest/auth/** is used for token receiving and updating
-                .antMatchers("/rest/auth/**")
-                .permitAll();
-        http
-                .csrf().disable()
-                .authorizeRequests()
+                .antMatchers("/browser/**").permitAll()
+                .antMatchers("/admin/**").permitAll()
+                .antMatchers("/rest/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // Call our errorHandler if authentication/authorization fails
@@ -94,5 +92,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .headers()
                 .cacheControl();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/admin/**");
     }
 }

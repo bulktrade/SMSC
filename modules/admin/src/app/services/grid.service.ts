@@ -1,23 +1,19 @@
-import { Injectable } from '@angular/core';
-import { ODatabaseService } from '../orientdb/orientdb.service';
-import { NotificationService } from './notification-service';
-import { CrudLevel } from '../crud/model/crud-level';
-import {
-    MetaDataPropertyBindingParameterModel
-} from '../crud-meta-data/binding-parameter/binding-parameter.model';
-import { Response } from '@angular/http';
-import { Observable } from 'rxjs';
-import { BatchType } from '../orientdb/model/batch-type';
-import { Operation } from '../orientdb/model/operation';
-import { LinksetProperty } from './model/linkset-property';
+import {Injectable} from "@angular/core";
+import {NotificationService} from "./notification-service";
+import {CrudLevel} from "../crud/model/crud-level";
+import {MetaDataPropertyBindingParameterModel} from "../crud-meta-data/binding-parameter/binding-parameter.model";
+import {Response} from "@angular/http";
+import {Observable} from "rxjs";
+import {BatchType} from "../orientdb/model/batch-type";
+import {Operation} from "../orientdb/model/operation";
+import {LinksetProperty} from "./model/linkset-property";
 
 const squel = require('squel');
 
 @Injectable()
 export class GridService {
 
-    constructor(public database: ODatabaseService,
-                public serviceNotifications: NotificationService) {
+    constructor(public serviceNotifications: NotificationService) {
     }
 
     /**
@@ -91,30 +87,30 @@ export class GridService {
 
             this.getTitleColumns(i.linkedClass)
                 .then((titleColumns: string) => {
-                    this.database.query(expr.toString())
-                        .subscribe((res: Response) => {
-                            let records = res.json().result;
-
-                            rowData.forEach((row) => {
-                                let linkset = row[i['name']];
-
-                                if (typeof linkset !== 'undefined' && i['type'] === 'LINKSET') {
-                                    for (let keyLink = 0; keyLink < linkset.length; keyLink++) {
-                                        promises.push(
-                                            this.setNameToLinksetProperty(linkset, keyLink,
-                                                titleColumns, i['type'], records));
-                                    }
-                                    linkset['type'] = i['type'];
-                                } else if (i['type'] === 'LINK') {
-                                    if (typeof row[i['name']] !== 'undefined' &&
-                                        row[i['name']] !== null) {
-                                        promises.push(
-                                            this.setNameToLinksetProperty(row, i['name'],
-                                                titleColumns, i['type'], records));
-                                    }
-                                }
-                            });
-                        });
+                    // this.database.query(expr.toString())
+                    //     .subscribe((res: Response) => {
+                    //         let records = res.json().result;
+                    //
+                    //         rowData.forEach((row) => {
+                    //             let linkset = row[i['name']];
+                    //
+                    //             if (typeof linkset !== 'undefined' && i['type'] === 'LINKSET') {
+                    //                 for (let keyLink = 0; keyLink < linkset.length; keyLink++) {
+                    //                     promises.push(
+                    //                         this.setNameToLinksetProperty(linkset, keyLink,
+                    //                             titleColumns, i['type'], records));
+                    //                 }
+                    //                 linkset['type'] = i['type'];
+                    //             } else if (i['type'] === 'LINK') {
+                    //                 if (typeof row[i['name']] !== 'undefined' &&
+                    //                     row[i['name']] !== null) {
+                    //                     promises.push(
+                    //                         this.setNameToLinksetProperty(row, i['name'],
+                    //                             titleColumns, i['type'], records));
+                    //                 }
+                    //             }
+                    //         });
+                    //     });
                 });
         });
 
@@ -175,19 +171,19 @@ export class GridService {
             .where('class = ?', className);
 
         return new Promise((resolve, reject) => {
-            this.database.query(
-                queryCrudClassMetaData.toString())
-                .subscribe((res) => {
-                    let result = null;
-
-                    if (res.json().result.length) {
-                        result = res.json().result[0].titleColumns;
-                    }
-
-                    resolve(result);
-                }, err => {
-                    reject(err);
-                });
+            // this.database.query(
+            //     queryCrudClassMetaData.toString())
+            //     .subscribe((res) => {
+            //         let result = null;
+            //
+            //         if (res.json().result.length) {
+            //             result = res.json().result[0].titleColumns;
+            //         }
+            //
+            //         resolve(result);
+            //     }, err => {
+            //         reject(err);
+            //     });
         });
     }
 
@@ -214,27 +210,27 @@ export class GridService {
                     let rid = currentCrudLevel.linksetProperty.bingingProperties[i];
 
                     promises.push(
-                        this.database.load(rid)
-                            .then(res => {
-                                let result: MetaDataPropertyBindingParameterModel = res.json();
-
-                                if (currentCrudLevel.inputModel.hasOwnProperty('@rid')) {
-                                    let expr: string = result.fromProperty + '.' +
-                                        result.toProperty + ' ' + result.operator + ' ' +
-                                        currentCrudLevel.linksetProperty.data[result.toProperty];
-
-                                    if (currentCrudLevel.linksetProperty.data[result.toProperty]) {
-                                        expression
-                                            .or(expr);
-                                    }
-                                } else {
-                                    let expr: string = result.fromProperty + '.' +
-                                        result.toProperty + ' ' + 'IS NULL';
-
-                                    expression
-                                        .or(expr);
-                                }
-                            })
+                        // this.database.load(rid)
+                        //     .then(res => {
+                        //         let result: MetaDataPropertyBindingParameterModel = res.json();
+                        //
+                        //         if (currentCrudLevel.inputModel.hasOwnProperty('@rid')) {
+                        //             let expr: string = result.fromProperty + '.' +
+                        //                 result.toProperty + ' ' + result.operator + ' ' +
+                        //                 currentCrudLevel.linksetProperty.data[result.toProperty];
+                        //
+                        //             if (currentCrudLevel.linksetProperty.data[result.toProperty]) {
+                        //                 expression
+                        //                     .or(expr);
+                        //             }
+                        //         } else {
+                        //             let expr: string = result.fromProperty + '.' +
+                        //                 result.toProperty + ' ' + 'IS NULL';
+                        //
+                        //             expression
+                        //                 .or(expr);
+                        //         }
+                        //     })
                     );
                 }
             }
@@ -256,15 +252,15 @@ export class GridService {
      */
     getSizeClass(className: string): Observable<number> {
         return Observable.create((obs) => {
-            this.database.getInfoClass(className)
-                .subscribe((res: Response) => {
-                    obs.next(res.json().records);
-                    obs.complete();
-                }, (error) => {
-                    this.serviceNotifications.createNotificationOnResponse(error);
-                    obs.error(error);
-                    obs.complete();
-                });
+            // this.database.getInfoClass(className)
+            //     .subscribe((res: Response) => {
+            //         obs.next(res.json().records);
+            //         obs.complete();
+            //     }, (error) => {
+            //         this.serviceNotifications.createNotificationOnResponse(error);
+            //         obs.error(error);
+            //         obs.complete();
+            //     });
         });
     }
 
@@ -294,27 +290,27 @@ export class GridService {
                     let rid = link[k];
 
                     promises.push(
-                        this.database.load(rid)
-                            .then((res: Response) => {
-                                let dataRow = res.json();
-                                dataRow[nameProperty] = result['@rid'];
-
-                                let operations: Array<Operation> = [
-                                    {
-                                        type: BatchType.UPDATE,
-                                        record: dataRow
-                                    }
-                                ];
-
-                                return new Promise((resolve, reject) => {
-                                    this.database.batch(operations)
-                                        .subscribe(response => {
-                                            resolve(response);
-                                        }, err => {
-                                            reject(err);
-                                        });
-                                });
-                            })
+                        // this.database.load(rid)
+                        //     .then((res: Response) => {
+                        //         let dataRow = res.json();
+                        //         dataRow[nameProperty] = result['@rid'];
+                        //
+                        //         let operations: Array<Operation> = [
+                        //             {
+                        //                 type: BatchType.UPDATE,
+                        //                 record: dataRow
+                        //             }
+                        //         ];
+                        //
+                        //         return new Promise((resolve, reject) => {
+                        //             this.database.batch(operations)
+                        //                 .subscribe(response => {
+                        //                     resolve(response);
+                        //                 }, err => {
+                        //                     reject(err);
+                        //                 });
+                        //         });
+                        //     })
                     );
                 }
             }

@@ -7,7 +7,7 @@ import { FormPropertyModel } from '../../../crud/model/form-property';
 
 @Component({
     selector: 'dashboard-crud-edit',
-    template: '<dynamic-form [btnName]="btnName" [columnDefs]="columnDefs"></dynamic-form>'
+    template: '<dynamic-form [formType]="btnName" [columnDefs]="columnDefs"></dynamic-form>'
 })
 export class DashboardCrudCreateComponent {
     public btnName: BtnTypes = BtnTypes.CREATE;
@@ -20,9 +20,6 @@ export class DashboardCrudCreateComponent {
     }
 
     ngOnInit() {
-        // sets path from root component
-        this.crudService.setParentPath(this.route.parent.snapshot.pathFromRoot);
-
         this.columnDefs = this.route.snapshot.data['create'];
     }
 
@@ -39,8 +36,7 @@ export class DashboardCrudCreateComponent {
     }
 
     onSubmit() {
-        alert();
-        this.crudService.createRecord(this.crudService.model,
-            this.route.snapshot.params['className']);
+        // this.crudService.createRecord(this.crudService.model,
+        //     this.route.snapshot.params['className']);
     }
 }

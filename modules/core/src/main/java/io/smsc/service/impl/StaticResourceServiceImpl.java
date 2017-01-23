@@ -9,36 +9,50 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 @Component
 public class StaticResourceServiceImpl implements StaticResourceService {
-	private static Logger log = Logger.getLogger(StaticResourceServiceImpl.class);
+    private static Logger log = Logger.getLogger(StaticResourceServiceImpl.class);
 
-	@Autowired
-	private ApplicationContext appContext;
+    @Autowired
+    private ApplicationContext appContext;
 
-	@Override
-	public String getContent(String path) {
-		Resource resource = appContext.getResource(path);
-		try {
-			return IOUtils.toString(resource.getInputStream());
-		} catch (IOException e) {
-			log.error(e);
-		}
+    @Override
+    public String getContent(String path) {
+        Resource resource = appContext.getResource(path);
+        try {
+            return IOUtils.toString(resource.getInputStream());
+        } catch (IOException e) {
+            log.error(e);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public byte[] getBinarayContent(String path) {
-		Resource resource = appContext.getResource(path);
+    @Override
+    public byte[] getBinarayContent(String path) {
+        Resource resource = appContext.getResource(path);
 
-		try {
-			return IOUtils.toByteArray(resource.getInputStream());
-		} catch (IOException e) {
-			log.error(e);
-		}
+        try {
+            return IOUtils.toByteArray(resource.getInputStream());
+        } catch (IOException e) {
+            log.error(e);
+        }
 
-		return null;
-	}
+        return null;
+    }
+
+    @Override
+    public InputStream getInputStream(String path) {
+        Resource resource = appContext.getResource(path);
+
+        try {
+            return resource.getInputStream();
+        } catch (IOException e) {
+            log.error(e);
+        }
+
+        return null;
+    }
 }
