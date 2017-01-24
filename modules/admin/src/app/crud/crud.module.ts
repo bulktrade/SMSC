@@ -23,7 +23,6 @@ import { MessagesModule } from "primeng/components/messages/messages";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { PaginatorModule } from "primeng/components/paginator/paginator";
 import { CrudGuard } from "./crud.guard";
-import { CrudLinksetModule } from "./crud-linkset/crud-linkset.module";
 
 const CRUD_DECLARATIONS = [
     CrudComponent,
@@ -50,7 +49,6 @@ const CRUD_MODULES = [
     AgGridModule.withComponents([]),
     DynamicFormModule,
     MultipleSelectModule,
-    CrudLinksetModule,
     CrudRoutingModule,
     InputTextModule
 ];

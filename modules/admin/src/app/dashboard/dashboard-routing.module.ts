@@ -3,8 +3,8 @@ import {
 } from './crud/dashbaord-box-update/dashboard-box-update.component';
 import { DashboardCrudUpdateResolve } from './crud/dashboard-crud-update.resolve';
 import { DashboardCrudCreateResolve } from './crud/dashboard-crud-create.resolve';
-import { CrudLinksetComponent } from '../crud/crud-linkset/crud-linkset.component';
-import { CrudLinksetResolve } from '../crud/crud-linkset/crud-linkset.resolve';
+// import { CrudLinksetComponent } from '../crud/crud-linkset/crud-linkset.component';
+// import { CrudLinksetResolve } from '../crud/crud-linkset/crud-linkset.resolve';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DashboardViewResolve } from './dashboard-view/dashboard-view.resolve';
@@ -63,15 +63,15 @@ const DASHBOARD_CRUD_ROUTES = [
             translationKey: 'DashboardDelete'
         }
     },
-    {
-        path: 'linkset/:className',
-        component: CrudLinksetComponent,
-        resolve: { linkset: CrudLinksetResolve },
-        data: {
-            showInBreadcrumb: true,
-            translationKey: 'DashboardLinkset'
-        }
-    }
+    // {
+    //     path: 'linkset/:className',
+    //     component: CrudLinksetComponent,
+    //     resolve: { linkset: CrudLinksetResolve },
+    //     data: {
+    //         showInBreadcrumb: true,
+    //         translationKey: 'DashboardLinkset'
+    //     }
+    // }
 ];
 
 @NgModule({

@@ -34,7 +34,7 @@ import { DashboardViewResolve } from './dashboard-view/dashboard-view.resolve';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardViewComponent } from './dashboard-view/dashboard-view.component';
-import { CrudLinksetModule } from "../crud/crud-linkset/crud-linkset.module";
+// import { CrudLinksetModule } from "../crud/crud-linkset/crud-linkset.module";
 
 const DASHBOARD_DECLARATION = [
     OrderBy,
@@ -64,7 +64,7 @@ const DASHBOARD_DECLARATION = [
         DragulaModule,
         DynamicFormModule,
         BreadcrumbModule,
-        CrudLinksetModule,
+        // CrudLinksetModule,
         DashboardRoutingModule,
     ],
     exports: [DASHBOARD_DECLARATION],

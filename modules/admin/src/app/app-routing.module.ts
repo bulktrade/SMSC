@@ -1,27 +1,18 @@
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './common/auth.guard';
-import { LoginComponent } from './login/login.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { CustomersComponent } from './customers/customers.components';
-import { CrudComponent } from './crud/crud.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { CrudMetaDataComponent } from './crud-meta-data/crud-meta-data.components';
-import {
-    CrudMetaGridDataComponent
-} from './crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component';
-import {
-    CrudMetaFormDataComponent
-} from './crud-meta-data/crud-meta-form-data/crud-meta-form-data.component';
-import {
-    CrudClassMetaDataComponent
-} from './crud-meta-data/crud-class-meta-data/crud-class-meta-data.component';
-import {
-    MetaDataPropertyBindingParameterComponent
-} from './crud-meta-data/binding-parameter/binding-parameter.component';
-import { DashboardsComponent } from './dashboard/dashboards/dashboards.components';
-import { NgModule } from '@angular/core';
-import { DashboardModule } from './dashboard/dashboard.module';
-import { MainCrudResolve } from "./crud/crud.resolve";
+import { Routes, RouterModule } from "@angular/router";
+import { AuthGuard } from "./common/auth.guard";
+import { LoginComponent } from "./login/login.component";
+import { NavigationComponent } from "./navigation/navigation.component";
+import { CustomersComponent } from "./customers/customers.components";
+import { CrudComponent } from "./crud/crud.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { CrudMetaDataComponent } from "./crud-meta-data/crud-meta-data.components";
+import { CrudMetaGridDataComponent } from "./crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component";
+import { CrudMetaFormDataComponent } from "./crud-meta-data/crud-meta-form-data/crud-meta-form-data.component";
+import { CrudClassMetaDataComponent } from "./crud-meta-data/crud-class-meta-data/crud-class-meta-data.component";
+import { MetaDataPropertyBindingParameterComponent } from "./crud-meta-data/binding-parameter/binding-parameter.component";
+import { DashboardsComponent } from "./dashboard/dashboards/dashboards.components";
+import { NgModule } from "@angular/core";
+import { DashboardModule } from "./dashboard/dashboard.module";
 import { CrudGuard } from "./crud/crud.guard";
 
 export const ROUTES: Routes = [
@@ -88,7 +79,6 @@ export const ROUTES: Routes = [
                     {
                         path: '',
                         component: CrudComponent,
-                        resolve: { view: MainCrudResolve },
                         canActivate: [CrudGuard],
                         loadChildren: './crud/crud.module#CrudModule',
                         data: {
@@ -124,7 +114,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                resolve: { view: MainCrudResolve },
+                                canActivate: [CrudGuard],
                                 loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
@@ -149,7 +139,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                resolve: { view: MainCrudResolve },
+                                canActivate: [CrudGuard],
                                 loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: true,
@@ -174,7 +164,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                resolve: { view: MainCrudResolve },
+                                canActivate: [CrudGuard],
                                 loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
@@ -199,7 +189,7 @@ export const ROUTES: Routes = [
                             {
                                 path: '',
                                 component: CrudComponent,
-                                resolve: { view: MainCrudResolve },
+                                canActivate: [CrudGuard],
                                 loadChildren: './crud/crud.module#CrudModule',
                                 data: {
                                     showInBreadcrumb: false,
