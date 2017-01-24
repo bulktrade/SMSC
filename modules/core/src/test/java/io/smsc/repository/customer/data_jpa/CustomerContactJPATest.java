@@ -45,7 +45,7 @@ public class CustomerContactJPATest extends AbstractTest {
 
     @Test
     public void testUpdateCustomerContact() throws Exception {
-        CustomerContact updated = new CustomerContact(CUSTOMER_CONTACT_1);
+        CustomerContact updated = customerContactRepository.findOne(241L);
         updated.setType(Type.PRIMARY);
         updated.setEmailAddress("new_email@gmial.com");
         updated.setMobilePhone("0971234567");

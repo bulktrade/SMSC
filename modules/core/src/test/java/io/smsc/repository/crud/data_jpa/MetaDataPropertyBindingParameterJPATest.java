@@ -46,7 +46,7 @@ public class MetaDataPropertyBindingParameterJPATest extends AbstractTest {
 
     @Test
     public void testUpdateMetaDataPropertyBindingParameter() throws Exception{
-        MetaDataPropertyBindingParameter updated = new MetaDataPropertyBindingParameter(META_DATA_PROPERTY_BINDING_PARAMETER_1);
+        MetaDataPropertyBindingParameter updated = metaDataPropertyBindingParameterRepository.findOne(239L);
         updated.setFromProperty("from_updated_property");
         updated.setToProperty("to_updated_property");
         updated.setCombineOperator(CombineOperator.AND);

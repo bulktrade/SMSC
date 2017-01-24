@@ -51,12 +51,11 @@ public class UserJPATest extends AbstractTest {
 
     @Test
     public void testUpdateUser() throws Exception{
-        User updated = new User(USER);
+        User updated = userRepository.getOneWithRolesAndDecryptedPassword(53L);
         updated.setActive(false);
         updated.setBlocked(true);
         updated.setEmail("bot@gmail.com");
         userRepository.saveOneWithEncryptedPassword(updated);
-        CryptoConverter.decrypt(updated,secretKey);
         USER_MODEL_MATCHER.assertEquals(updated, userRepository.getOneWithRolesAndDecryptedPassword(USER_ID));
     }
 

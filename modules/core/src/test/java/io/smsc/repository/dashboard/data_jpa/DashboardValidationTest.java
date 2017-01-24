@@ -18,14 +18,14 @@ public class DashboardValidationTest extends AbstractTest {
 
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyDashboardNameSave() throws Exception {
-        Dashboard newDashboard = new Dashboard(null, "", "admin", ADMIN);
+        Dashboard newDashboard = new Dashboard(null, "", "admin", userRepository.findOne(54L));
         dashboardRepository.save(newDashboard);
         dashboardRepository.findAll();
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testEmptyDashboardIconSave() throws Exception {
-        Dashboard newDashboard = new Dashboard(null, "default_admin", "", ADMIN);
+        Dashboard newDashboard = new Dashboard(null, "default_admin", "", userRepository.findOne(54L));
         dashboardRepository.save(newDashboard);
         dashboardRepository.findAll();
     }
@@ -39,7 +39,7 @@ public class DashboardValidationTest extends AbstractTest {
 
     @Test(expected = DataIntegrityViolationException.class)
     public void testDuplicateDashboardNameUserSave() throws Exception {
-        Dashboard newDashboard = new Dashboard(DASHBOARD_1);
+        Dashboard newDashboard = new Dashboard(dashboardRepository.findOne(242L));
         newDashboard.setId(null);
         dashboardRepository.save(newDashboard);
         DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newDashboard, DASHBOARD_1), dashboardRepository.findAll());

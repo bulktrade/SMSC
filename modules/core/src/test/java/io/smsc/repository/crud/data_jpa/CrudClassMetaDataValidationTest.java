@@ -4,6 +4,7 @@ import io.smsc.AbstractTest;
 import io.smsc.model.crud.CrudClassMetaData;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import javax.validation.ConstraintViolationException;
@@ -38,10 +39,10 @@ public class CrudClassMetaDataValidationTest extends AbstractTest {
         crudClassMetaDataRepository.findAll();
     }
 
-    @Test(expected = DataIntegrityViolationException.class)
+    @Test(expected = JpaSystemException.class)
     public void testDuplicateClassNameSave() throws Exception {
-        CrudClassMetaData newCrudClassMetaData = new CrudClassMetaData(CRUD_CLASS_META_DATA_1);
-        newCrudClassMetaData.setId(null);
+        CrudClassMetaData newCrudClassMetaData = new CrudClassMetaData(null,"CrudMetaFormData",
+                "columnHeight", true, null);
         crudClassMetaDataRepository.save(newCrudClassMetaData);
         CRUD_CLASS_META_DATA_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCrudClassMetaData, CRUD_CLASS_META_DATA_1,
                 CRUD_CLASS_META_DATA_2, CRUD_CLASS_META_DATA_3, CRUD_CLASS_META_DATA_4), crudClassMetaDataRepository.findAll());

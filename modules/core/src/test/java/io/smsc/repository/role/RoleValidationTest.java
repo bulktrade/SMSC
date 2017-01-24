@@ -4,6 +4,7 @@ import io.smsc.AbstractTest;
 import io.smsc.model.Role;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import javax.validation.ConstraintViolationException;
@@ -28,11 +29,11 @@ public class RoleValidationTest extends AbstractTest {
         roleRepository.findAll();
     }
 
-    @Test(expected = DataIntegrityViolationException.class)
+    @Test(expected = JpaSystemException.class)
     public void testDuplicateRoleNameSave() throws Exception {
-        Role newRole = new Role(ROLE_USER);
+        Role newRole = roleRepository.findOne(52L);
         newRole.setId(null);
         roleRepository.save(newRole);
-        ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newRole, ROLE_USER,ROLE_ADMIN), roleRepository.findAll());
+        ROLE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newRole, ROLE_USER, ROLE_ADMIN), roleRepository.findAll());
     }
 }

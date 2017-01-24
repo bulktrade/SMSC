@@ -93,7 +93,7 @@ public class PermissionJPATest extends AbstractTest {
 
     @Test
     public void testUpdatePermission() throws Exception {
-        Permission updated = new Permission(PERMISSION_USER_DELETE);
+        Permission updated = permissionRepository.findOne(4L);
         updated.setName("WITHOUT_ACCESS");
         permissionRepository.save(updated);
         PERMISSION_MODEL_MATCHER.assertEquals(updated, permissionRepository.findOne(PERMISSION_USER_DELETE_ID));

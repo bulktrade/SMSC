@@ -57,7 +57,7 @@ public class CrudMetaGridDataJPATest extends AbstractTest {
 
     @Test
     public void testUpdateCrudMetaGridData() throws Exception{
-        CrudMetaGridData updated = new CrudMetaGridData(CRUD_META_GRID_DATA_1);
+        CrudMetaGridData updated = crudMetaGridDataRepository.findOne(153L);
         updated.setDecorator("newDecorator");
         updated.setEditable(false);
         updated.setOrder(20.0);

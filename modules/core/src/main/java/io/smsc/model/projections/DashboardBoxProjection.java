@@ -21,7 +21,7 @@ public interface DashboardBoxProjection {
 
     Long getVersion();
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
     Date getLastModifiedDate();
 
     Width getWidth();

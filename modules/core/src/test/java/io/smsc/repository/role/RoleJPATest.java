@@ -45,7 +45,7 @@ public class RoleJPATest extends AbstractTest {
 
     @Test
     public void testUpdateRole() throws Exception {
-        Role updated = new Role(ROLE_USER);
+        Role updated = roleRepository.findOne(51L);
         updated.setName("GUEST");
         roleRepository.save(updated);
         ROLE_MODEL_MATCHER.assertEquals(updated, roleRepository.findOne(ROLE_USER_ID));

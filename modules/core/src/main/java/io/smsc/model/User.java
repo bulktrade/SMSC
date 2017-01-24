@@ -53,7 +53,7 @@ public class User extends BaseEntity {
     private Boolean active = true;
 
     @Column(name = "CREATED")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
     private Date created = new Date();
 
     @Column(name = "BLOCKED")
