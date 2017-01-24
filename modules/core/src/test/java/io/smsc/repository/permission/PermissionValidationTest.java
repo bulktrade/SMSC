@@ -4,6 +4,7 @@ import io.smsc.AbstractTest;
 import io.smsc.model.Permission;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import javax.validation.ConstraintViolationException;
@@ -29,9 +30,9 @@ public class PermissionValidationTest extends AbstractTest {
         permissionRepository.findAll();
     }
 
-    @Test(expected = DataIntegrityViolationException.class)
+    @Test(expected = JpaSystemException.class)
     public void testDuplicatePermissionNameSave() throws Exception {
-        Permission newPermission = new Permission(PERMISSION_USER_DELETE);
+        Permission newPermission = permissionRepository.findOne(4L);
         newPermission.setId(null);
         permissionRepository.save(newPermission);
         PERMISSION_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newPermission, PERMISSION_USER_READ, PERMISSION_USER_UPDATE,

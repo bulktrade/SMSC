@@ -29,7 +29,7 @@ public class DashboardJPATest extends AbstractTest {
 
     @Test
     public void testSaveDashboard() throws Exception {
-        Dashboard newDashboard = new Dashboard(null, "default_admin", "admin", ADMIN);
+        Dashboard newDashboard = new Dashboard(null, "default_admin", "admin", userRepository.findOne(53L));
         Dashboard created = dashboardRepository.save(newDashboard);
         newDashboard.setId(created.getId());
         DASHBOARD_MODEL_MATCHER.assertEquals(newDashboard, dashboardRepository.getOne(newDashboard.getId()));
@@ -49,7 +49,7 @@ public class DashboardJPATest extends AbstractTest {
 
     @Test
     public void testUpdateDashboard() throws Exception{
-        Dashboard updated = new Dashboard(DASHBOARD_1);
+        Dashboard updated = dashboardRepository.findOne(242L);
         updated.setUser(ADMIN);
         updated.setIcon("new icon");
         updated.setName("new name");
@@ -65,7 +65,7 @@ public class DashboardJPATest extends AbstractTest {
 
     @Test
     public void testGetDashboardsByUser() throws Exception {
-        List<Dashboard> dashboards = dashboardRepository.findAllDistinctByUser(DASHBOARD_1.getUser());
+        List<Dashboard> dashboards = dashboardRepository.findAllDistinctByUser(dashboardRepository.findOne(242L).getUser());
         DASHBOARD_MODEL_MATCHER.assertCollectionEquals(Collections.singletonList(DASHBOARD_1), dashboards);
     }
 }

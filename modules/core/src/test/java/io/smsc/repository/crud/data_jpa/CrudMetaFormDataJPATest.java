@@ -63,7 +63,7 @@ public class CrudMetaFormDataJPATest extends AbstractTest {
 
     @Test
     public void testUpdateCrudMetaFormData() throws Exception {
-        CrudMetaFormData updated = new CrudMetaFormData(CRUD_META_FORM_DATA_1);
+        CrudMetaFormData updated = crudMetaFormDataRepository.findOne(67L);
         updated.setDecorator("newDecorator");
         updated.setEditable(false);
         updated.setOrder(20.0);

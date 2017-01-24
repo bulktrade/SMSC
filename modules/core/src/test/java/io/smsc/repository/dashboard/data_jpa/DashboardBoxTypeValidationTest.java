@@ -4,6 +4,7 @@ import io.smsc.AbstractTest;
 import io.smsc.model.dashboard.*;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import javax.validation.ConstraintViolationException;
@@ -36,9 +37,9 @@ public class DashboardBoxTypeValidationTest extends AbstractTest {
         dashboardBoxTypeRepository.findAll();
     }
 
-    @Test(expected = DataIntegrityViolationException.class)
+    @Test(expected = JpaSystemException.class)
     public void testDuplicateDashboardBoxTypeNameSave() throws Exception {
-        DashboardBoxType newDashboardBoxType = new DashboardBoxType(DASHBOARD_BOX_TYPE_1);
+        DashboardBoxType newDashboardBoxType = dashboardBoxTypeRepository.findOne(243L);
         newDashboardBoxType.setId(null);
         dashboardBoxTypeRepository.save(newDashboardBoxType);
         DASHBOARD_BOX_TYPE_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newDashboardBoxType, DASHBOARD_BOX_TYPE_1,

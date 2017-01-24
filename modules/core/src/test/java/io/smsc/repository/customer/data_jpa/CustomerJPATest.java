@@ -23,7 +23,7 @@ public class CustomerJPATest extends AbstractTest {
 
     @Test
     public void testDeleteCustomer() throws Exception {
-        customerRepository.delete(CUSTOMER_1);
+        customerRepository.delete(CUSTOMER_ID_1);
         CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), customerRepository.findAll());
     }
 
@@ -49,7 +49,7 @@ public class CustomerJPATest extends AbstractTest {
 
     @Test
     public void testUpdateCustomer() throws Exception{
-        Customer updated = new Customer(CUSTOMER_1);
+        Customer updated = customerRepository.findOne(240L);
         updated.setCity("Monte-Carlo");
         updated.setCompanyName("Monte-Carlo Automobile");
         updated.setCountry("Monaco");

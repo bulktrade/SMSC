@@ -1,9 +1,11 @@
 package io.smsc.model.projections;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.CustomerContact;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.Date;
@@ -23,7 +25,7 @@ public interface CustomerContactProjection {
 
     Long getVersion();
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
     Date getLastModifiedDate();
 
     String getFirstname();
@@ -38,7 +40,7 @@ public interface CustomerContactProjection {
 
     String getEmailAddress();
 
-//    Customer getCustomer();
+    Customer getCustomer();
 
     Type getType();
 

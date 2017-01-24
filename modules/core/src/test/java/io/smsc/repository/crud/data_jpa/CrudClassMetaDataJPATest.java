@@ -47,8 +47,8 @@ public class CrudClassMetaDataJPATest extends AbstractTest {
     }
 
     @Test
-    public void testUpdateCrudClassMetaData() throws Exception{
-        CrudClassMetaData updated = new CrudClassMetaData(CRUD_CLASS_META_DATA_1);
+    public void testUpdateCrudClassMetaData() throws Exception {
+        CrudClassMetaData updated = crudClassMetaDataRepository.findOne(55L);
         updated.setClassName("newClassName");
         updated.setEditable(false);
         updated.setQuery("newQuery");

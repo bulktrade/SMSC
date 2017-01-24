@@ -49,7 +49,7 @@ public class DashboardBoxTypeJPATest extends AbstractTest {
 
     @Test
     public void testUpdateDashboardBoxType() throws Exception {
-        DashboardBoxType updated = new DashboardBoxType(DASHBOARD_BOX_TYPE_1);
+        DashboardBoxType updated = dashboardBoxTypeRepository.findOne(243L);
         updated.setName("new name");
         updated.setType(Type.STATUS);
         updated.setKind(Kind.ORDERS_STATUS);
