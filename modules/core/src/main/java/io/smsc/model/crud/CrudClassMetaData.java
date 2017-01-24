@@ -15,10 +15,10 @@ import java.util.Set;
  * @since   0.0.1-SNAPSHOT
  */
 @Entity
-@Table(name = "CRUD_CLASS_META_DATA", uniqueConstraints = {@UniqueConstraint(columnNames = "CLASS_NAME", name = "crud_class_meta_data_unique_class_idx")})
+@Table(name = "CRUD_CLASS_META_DATA", uniqueConstraints = {@UniqueConstraint(columnNames = "CLASS", name = "crud_class_meta_data_unique_class_idx")})
 public class CrudClassMetaData extends BaseEntity {
 
-    @Column(name = "CLASS_NAME", nullable = false, unique = true)
+    @Column(name = "CLASS", nullable = false, unique = true)
     @NotEmpty(message = "{crud.class.meta.data.className.validation}")
     private String className;
 

@@ -17,7 +17,7 @@ import java.util.Set;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "crud-class-meta-data", types = { CrudClassMetaData.class })
+@Projection(name = "withFormAndGridData", types = { CrudClassMetaData.class })
 public interface CrudClassMetaDataProjection {
 
     Long getId();

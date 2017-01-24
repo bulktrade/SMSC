@@ -15,7 +15,7 @@ import java.util.Set;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "meta-data-property-binding-parameters", types = { MetaDataPropertyBindingParameter.class })
+@Projection(name = "withFormAndGridData", types = { MetaDataPropertyBindingParameter.class })
 public interface MetaDataPropertyBindingParameterProjection {
 
     Long getId();
