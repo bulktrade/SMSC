@@ -30,6 +30,7 @@ export class CrudLevelService {
 
     resetCrudLevels() {
         this.crudLevels = [];
+        this.currentCrudLevel = null;
     }
 
     isLimitCrudLevel() {

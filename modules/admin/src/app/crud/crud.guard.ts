@@ -32,5 +32,6 @@ export class CrudGuard implements CanActivate {
         }
 
         return true;
+
     }
 }

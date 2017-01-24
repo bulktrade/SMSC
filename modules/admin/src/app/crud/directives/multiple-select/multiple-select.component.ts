@@ -5,9 +5,6 @@ import { Location, CommonModule } from "@angular/common";
 import { CrudService } from "../../crud.service";
 import { FormsModule } from "@angular/forms";
 import { SelectItem } from "primeng/components/common/api";
-import { CrudLevelService } from "../../services/crud-level";
-import { CrudLevel } from "../../model/crud-level";
-import { LinkedProperty } from "../../model/linkset-property";
 
 @Component({
     selector: 'multiple-select',
@@ -31,14 +28,16 @@ export class MultipleSelectComponent {
     @Output('propertyModel')
     public propertyModelChange = new EventEmitter();
 
+    @Output('onAdd')
+    public _onAdd = new EventEmitter();
+
     public items: SelectItem[] = [];
 
     constructor(public translate: TranslateService,
                 public route: ActivatedRoute,
                 public router: Router,
                 public location: Location,
-                public crudService: CrudService,
-                public crudLevelService: CrudLevelService) {
+                public crudService: CrudService) {
     }
 
     ngOnInit() {
@@ -78,27 +77,10 @@ export class MultipleSelectComponent {
     }
 
     /**
-     * Navigate to the linkset component with the linkedClass & the linkedRepository params
+     * Calls when click on the add button
      */
-    navigateToLinkedRepository() {
-
-        let crudLevel: CrudLevel = <CrudLevel>{
-            formModel: this.formModel,
-            linkedProperty: <LinkedProperty>{
-                crudEntity: this.crudService.getClassName(),
-                crudRepository: this.crudService.getRepositoryName()
-            }
-        };
-
-        this.crudLevelService.nextCrudLevel(crudLevel);
-
-        // set crud class name
-        this.crudService.setClassName(this.property.linkedClass);
-
-        // set crud repository name
-        this.crudService.setRepositoryName(this.property.linkedRepository);
-
-        this.router.navigate([this.crudService.getCrudRootPath()]);
+    onAdd() {
+        this._onAdd.emit(this.property);
     }
 
 }

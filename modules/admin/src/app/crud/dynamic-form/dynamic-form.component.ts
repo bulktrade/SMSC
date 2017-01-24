@@ -13,6 +13,9 @@ import { ButtonModule } from "primeng/components/button/button";
 import { DropdownModule } from "primeng/components/dropdown/dropdown";
 import { CheckboxModule } from "primeng/components/checkbox/checkbox";
 import { ColumnDef } from "../model/column-definition";
+import { CrudLevel } from "../model/crud-level";
+import { LinkedProperty } from "../model/linkset-property";
+import { CrudLevelService } from "../services/crud-level";
 
 @Component({
     selector: 'dynamic-form',
@@ -39,7 +42,8 @@ export class DynamicFormComponent {
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public crudService: CrudService) {
+                public crudService: CrudService,
+                public crudLevelService: CrudLevelService) {
     }
 
     ngOnInit() {
@@ -49,6 +53,11 @@ export class DynamicFormComponent {
                 i.options = this.crudService.generateOptionsForDropdown(i.type);
             }
         });
+
+        // set form model
+        if (this.crudLevelService.currentCrudLevel) {
+            this.model = this.crudLevelService.currentCrudLevel.formModel;
+        }
     }
 
     onSubmit() {
@@ -61,7 +70,32 @@ export class DynamicFormComponent {
     }
 
     back() {
+        // reset all crud levels if the crudLevels is empty
+        if (this.crudLevelService.isEmptyCrudLevels()) {
+            this.crudLevelService.resetCrudLevels();
+        }
+
         this.location.back();
+    }
+
+    onAdd(event) {
+        let crudLevel: CrudLevel = <CrudLevel>{
+            formModel: this.model,
+            linkedProperty: <LinkedProperty>{
+                crudEntity: this.crudService.getClassName(),
+                crudRepository: this.crudService.getRepositoryName()
+            }
+        };
+
+        this.crudLevelService.nextCrudLevel(crudLevel);
+
+        // set crud class name
+        this.crudService.setClassName(event.linkedClass);
+
+        // set crud repository name
+        this.crudService.setRepositoryName(event.linkedRepository);
+
+        this.router.navigate([this.crudService.getCrudRootPath()]);
     }
 }
 
