@@ -17,8 +17,8 @@
 									{{ item.property | translate }}
 								</div>
 								<div class="ui-grid-col-6">
-									<multiple-select [property]="item" [formModel]="model" (onAdd)="onAdd($event)"
-									                 [(propertyModel)]="model[item.property]"
+									<multiple-select [property]="item" (onAdd)="onAdd($event)"
+									                 [(model)]="model[item.property]"
 									                 [id]="item.property"></multiple-select>
 								</div>
 								<div class="ui-grid-col-4" *ngIf="false">

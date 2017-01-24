@@ -19,13 +19,10 @@ export class MultipleSelectComponent {
     @Input('property')
     public property: any;
 
-    @Input('formModel')
-    public formModel: any;
-
-    @Input('propertyModel')
+    @Input('model')
     public propertyModel = [];
 
-    @Output('propertyModel')
+    @Output('model')
     public propertyModelChange = new EventEmitter();
 
     @Output('onAdd')

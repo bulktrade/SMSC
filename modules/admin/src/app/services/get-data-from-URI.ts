@@ -14,40 +14,33 @@ export class GetDataFromURIService {
 
     parseLinkProps(columnDefs: ColumnDef[], rowData: any[], columnsType: ColumnsType) {
         let _rowData = clone(rowData),
-            storeObservables = [];
+            obsStore = [],
+            // get all columns which have the type='Link' or type='Linkset'
+            linkColumns: ColumnDef[] = this.getLinksColumns(columnDefs);
 
-        _rowData.forEach(i => {
-            // select all of links properties
-            let links = i['_links'];
+        linkColumns.forEach(column => {
+            _rowData.forEach(row => {
+                // generate for grid
+                if (Array.isArray(row[column.property])) {
+                    row[column.property].forEach((item, i, arr) => {
+                        obsStore.push(
+                            Observable.create(obs => {
+                                this.getTitleColumns(column.linkedClass)
+                                    .subscribe((titleColumns) => {
+                                        arr[i] = item[titleColumns] || item['id'];
 
-            Object.keys(links).map((objectKey, index) => {
-                let link = links[objectKey].href;
-                let linkedRepository: string = this.getLinkedProperty(columnDefs, objectKey, 'linkedRepository'),
-                    linkedClass: string = this.getLinkedProperty(columnDefs, objectKey, 'linkedClass');
-
-                if (link && linkedRepository && linkedClass) {
-
-                    let observable = Observable.create((obs) => {
-                        // pull resources from the each link
-                        this.generateArrayReferencedLink(link, linkedRepository, linkedClass, columnsType)
-                            .subscribe(_columns => {
-                                i[objectKey] = _columns;
-
-                                obs.next(true);
-                                obs.complete();
-                            }, err => {
-                                obs.next(true);
-                                obs.complete();
+                                        obs.next(true);
+                                        obs.complete();
+                                    });
                             })
+                        );
                     });
-
-                    storeObservables.push(observable);
                 }
             });
         });
 
         return Observable.create(obs => {
-            Observable.forkJoin(storeObservables)
+            Observable.forkJoin(obsStore)
                 .subscribe(() => {
                     obs.next(_rowData);
                     obs.complete();
@@ -55,66 +48,50 @@ export class GetDataFromURIService {
         });
     }
 
-    getLinkedProperty(columnDefs: ColumnDef[], objectKey: string, propertyName: string) {
-        let currentColumn = _.find(columnDefs, (o) => {
-            return o.property === objectKey;
-        });
-
-        let linkedProperty: string = '';
-
-        if (currentColumn && currentColumn.hasOwnProperty(propertyName)) {
-            linkedProperty = currentColumn[propertyName];
-        }
-
-        return linkedProperty;
-    }
-
-    generateArrayReferencedLink(link: string, linkedRepository: string, linkedClass: string, columnsType: ColumnsType) {
+    /**
+     * Gets titleColumns property from crudClassMetaData by class name
+     * @param className
+     * @returns {any}
+     */
+    getTitleColumns(className: string) {
         return Observable.create(obs => {
-
             this.backendService.getResources('crud-class-meta-data')
                 .subscribe(data => {
                     // find the crudClassMetaData by class name
                     let crudClassMetaData = _.find(data['_embedded']['crud-class-meta-data'], (o) => {
-                        return o['className'] === linkedClass;
+                        return o['className'] === className;
                     });
 
-                    let titleColumns: string = 'id';
-
-                    if (crudClassMetaData.hasOwnProperty('titleColumns') && crudClassMetaData['titleColumns']) {
-                        titleColumns = crudClassMetaData['titleColumns'];
+                    if (crudClassMetaData.hasOwnProperty('titleColumns')) {
+                        obs.next(crudClassMetaData['titleColumns']);
+                    } else {
+                        obs.next('id');
                     }
 
-                    this.backendService.getDataByLink(link)
-                        .subscribe(data => {
-                            let _result: any[] = [];
-
-                            if (data && data.hasOwnProperty(linkedRepository)) {
-                                data[linkedRepository].forEach(i => {
-
-                                    if (columnsType === ColumnsType.Grid) {
-                                        _result.push(i[titleColumns] || i['id']);
-                                    } else if (columnsType === ColumnsType.Form) {
-                                        _result.push({
-                                            title: i[titleColumns] || i['id'],
-                                            link: i['_links'].self.href
-                                        });
-                                    }
-                                });
-                            }
-
-                            obs.next(_result);
-                            obs.complete();
-                        }, err => {
-                            obs.next([]);
-                            obs.complete();
-                        });
+                    obs.complete();
 
                 }, err => {
                     obs.error(err);
                     obs.complete();
                 });
         });
+    }
+
+    /**
+     * Gets all columns which have the type='Link' or type='Linkset'
+     * @param columnDefs
+     * @returns {ColumnDef[]}
+     */
+    getLinksColumns(columnDefs: ColumnDef[]) {
+        let _res: ColumnDef[] = [];
+
+        columnDefs.forEach(i => {
+            if (i.type === 'URI') {
+                _res.push(i);
+            }
+        });
+
+        return _res;
     }
 
 }
