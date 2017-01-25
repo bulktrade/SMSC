@@ -34,7 +34,6 @@ export class CustomersViewComponent {
     }
 
     ngOnInit() {
-        this.columnDefs = this.getColumnDefs();
         this.rowData = this.getRowData();
         this.pagination.totalElements = this.getNumberCustomers();
     }
@@ -60,10 +59,6 @@ export class CustomersViewComponent {
         setTimeout(() => {
             this.router.navigate(['customers', 'delete', this.selectedRows['id']]);
         }, 50);
-    }
-
-    getColumnDefs() {
-        return this.route.snapshot.data['view'].columnDefs;
     }
 
     getRowData() {

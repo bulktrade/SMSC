@@ -11,14 +11,34 @@
 			</div>
 		</header>
 		<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-		<p-column [field]="'test'" [style]="{'width':'50px'}">
+		<p-column [style]="{'width':'50px'}">
 			<template pTemplate="body">
 				<span class="fa fa-pencil" style="padding-right: 3px; color: #009688;" (click)="onEdit()"></span>
 				<span class="fa fa-trash" style="color: #E53935;" (click)="onDelete()"></span>
 			</template>
 		</p-column>
-		<p-column [field]="column.property" [style]="{'width':'200px'}" [header]="column.headerName" [sortable]="true"
-		          *ngFor="let column of columnDefs"></p-column>
+		<p-column field="customerId" header="{{ 'customerId' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="companyName" header="{{ 'companyName' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="street" header="{{ 'street' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="street2" header="{{ 'street2' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="postcode" header="{{ 'postcode' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="country" header="{{ 'country' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="city" header="{{ 'city' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="vatid" header="{{ 'vatid' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="contacts" header="{{ 'contacts' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="users" header="{{ 'users' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
+		<p-column field="parentCustomer" header="{{ 'parentCustomer' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true"></p-column>
 	</p-dataTable>
 	<p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
 	             [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPaginate($event)"></p-paginator>

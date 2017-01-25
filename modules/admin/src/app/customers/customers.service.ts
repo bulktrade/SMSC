@@ -32,49 +32,6 @@ export class CustomersService {
     }
 
     /**
-     * Returns column definitions for the grid
-     * @param repositoryName - can have a value 'crud-meta-form-data' or 'crud-meta-grid-data'
-     * @returns {any}
-     */
-    getColumnDefs(repositoryName: string = '') {
-        return Observable.create((observer) => {
-
-            this.backendService.getResources('crud-class-meta-data')
-                .subscribe(data => {
-                    // find the crudClassMetaData by class name
-                    let columns = _.find(data['_embedded']['crud-class-meta-data'], (o) => {
-                        return o['className'] === CLASS_NAME;
-                    });
-                    let linkToMetaData: string = '';
-
-                    if (repositoryName === 'crud-meta-grid-data') {
-                        linkToMetaData = columns['_links'].crudMetaGridData.href;
-                    } else if (repositoryName === 'crud-meta-form-data') {
-                        linkToMetaData = columns['_links'].crudMetaFormData.href;
-                    }
-
-                    this.backendService.getDataByLink(linkToMetaData)
-                        .subscribe(_data => {
-                            let columns = _data[repositoryName];
-
-                            // sorted columns in ascending order by 'order' property
-                            columns = _.sortBy(columns, ['order']);
-
-                            this.translateColumnDefs(columns, 'headerName')
-                                .subscribe(translatedCols => {
-                                    observer.next(translatedCols);
-                                    observer.complete();
-                                });
-                        });
-                }, err => {
-                    observer.error(err);
-                    observer.complete();
-                });
-
-        });
-    }
-
-    /**
      * Translates columns and creates the new property with a translated value for the each of column
      * @param columns
      * @param translateProperty

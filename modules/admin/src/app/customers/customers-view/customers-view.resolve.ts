@@ -22,25 +22,16 @@ export class CustomersViewResolve implements Resolve<any> {
         let gridOptions: GridOptions = <GridOptions>{};
 
         return Observable.create((observer) => {
-            this.customersService.getColumnDefs('crud-meta-grid-data')
-                .subscribe((columns) => {
-                    gridOptions.columnDefs = columns;
+            this.customersService.getCustomers(pagination.number, pagination.size)
+                .subscribe(resources => {
+                    gridOptions.rowData = resources;
 
-                    this.customersService.getCustomers(pagination.number, pagination.size)
-                        .subscribe(resources => {
-                            gridOptions.rowData = resources;
+                    // get total rows
+                    this.customersService.getNumberCustomers()
+                        .subscribe(countRows => {
+                            gridOptions.totalElements = countRows.page.totalElements;
 
-                            // get total rows
-                            this.customersService.getNumberCustomers()
-                                .subscribe(countRows => {
-                                    gridOptions.totalElements = countRows.page.totalElements;
-
-                                    observer.next(gridOptions);
-                                    observer.complete();
-                                });
-                        }, err => {
-                            this.notification.createNotificationOnResponse(err);
-                            observer.error(err);
+                            observer.next(gridOptions);
                             observer.complete();
                         });
                 }, err => {
