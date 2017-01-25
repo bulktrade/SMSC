@@ -22,7 +22,7 @@ import java.util.Set;
  */
 @Entity
 //@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-@Table(name = "CUSTOMER_USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME","EMAIL"}, name = "users_username_email_idx")})
+@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
 public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)
@@ -44,7 +44,7 @@ public class User extends BaseEntity {
     @NotEmpty(message = "{user.surname.validation}")
     private String surname;
 
-    @Column(name = "EMAIL", nullable = false, unique = true)
+    @Column(name = "EMAIL", nullable = false)
     @Email(message = "{user.email.format.validation}")
     @NotEmpty(message = "{user.email.empty.validation}")
     private String email;
