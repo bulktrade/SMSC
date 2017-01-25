@@ -40,13 +40,30 @@ export class MultipleSelectComponent {
     ngOnInit() {
         if (this.propertyModel) {
             // create array of links and push to the propertyModel
-            this.propertyModel.forEach((item, i, arr) => {
-                this.items.push({
-                    label: item.title,
-                    value: item.link
-                });
-                arr[i] = item.link;
-            });
+
+            switch (this.property.type) {
+                case 'Linkset':
+                    this.propertyModel.forEach((item, i, arr) => {
+                        this.items.push({
+                            label: item.label,
+                            value: item.value
+                        });
+                        arr[i] = item.value;
+                    });
+                    break;
+
+                case 'Link':
+                    this.items.push({
+                        label: this.propertyModel['label'],
+                        value: this.propertyModel['value']
+                    });
+
+                    this.propertyModel = this.propertyModel['value'];
+                    break;
+
+                default:
+                    break;
+            }
 
             this.propertyModelChange.emit(this.propertyModel);
         }

@@ -186,8 +186,12 @@ export class BackendService {
      * @returns {any}
      */
     getResource(id: string = '', repositoryName: string = '') {
+        let search = new URLSearchParams();
+        search.set('projection', repositoryName);
+
         let requestOptions = new RequestOptions({
-            method: RequestMethod.Get
+            method: RequestMethod.Get,
+            search: search
         });
 
         return Observable.create(obs => {

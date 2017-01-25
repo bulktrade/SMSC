@@ -11,7 +11,7 @@
 
 					<ng-container [ngSwitch]="item.type">
 
-						<ng-container *ngSwitchCase="'URI'">
+						<ng-container *ngIf="item.type === 'Link' || item.type === 'Linkset'">
 							<div class="ui-grid-row">
 								<div class="ui-grid-col-2">
 									{{ item.property | translate }}
