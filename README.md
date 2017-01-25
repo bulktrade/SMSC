@@ -34,12 +34,12 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
  
 ### Admin credentials
  
-	Username: Admin
+	Username: admin
 	Password: admin
 	
 ### User credentials
 
-	Username: User
+	Username: user
 	Password: password
 	
 ### Docker images launching
