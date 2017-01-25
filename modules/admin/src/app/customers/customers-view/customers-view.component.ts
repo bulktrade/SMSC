@@ -12,15 +12,10 @@ import { CustomersService } from "../customers.service";
     template: require('./customers-view.component.html'),
     styleUrls: [
         require('./customers-view.component.scss')
-    ],
-    providers: []
+    ]
 })
 
 export class CustomersViewComponent {
-
-    public isEditClick: boolean = false;
-
-    public isDeleteClick: boolean = false;
 
     public pagination: Pagination = new Pagination(10, null, null, 0);
 
@@ -51,40 +46,20 @@ export class CustomersViewComponent {
             });
     }
 
-    onRowSelect(event) {
-        if (this.isDeleteClick) {
-            this.navigateToDelete(event.data.id);
-        } else if (this.isEditClick) {
-            this.navigateToUpdate(event.data.id);
-        }
-
-        this.isDeleteClick = false;
-
-        this.isEditClick = false;
-    }
-
     back() {
         this.location.back();
     }
 
     onEdit() {
-        this.isEditClick = true;
+        setTimeout(() => {
+            this.router.navigate(['customers', 'update', this.selectedRows['id']]);
+        }, 50);
     }
 
     onDelete() {
-        this.isDeleteClick = true;
-    }
-
-    navigateToCreate() {
-        this.router.navigate(['customers', 'create']);
-    }
-
-    navigateToDelete(id) {
-        this.router.navigate(['customers', 'delete', id]);
-    }
-
-    navigateToUpdate(id) {
-        this.router.navigate(['customers', 'update', id]);
+        setTimeout(() => {
+            this.router.navigate(['customers', 'delete', this.selectedRows['id']]);
+        }, 50);
     }
 
     getColumnDefs() {

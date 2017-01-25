@@ -1,15 +1,13 @@
 <div id="crud-view-window">
 	<p-dataTable [value]="rowData" [(selection)]="selectedRows" resizableColumns="true"
-	             (onRowSelect)="onRowSelect($event)"
 	             scrollable="true" scrollHeight="400px" selectionMode="single">
 		<header class="grid-header">
 			<div class="ui-helper-clearfix" style="width:100%">
 				<span class="grid-title">{{ 'Customers' | translate}}</span>
 
-				<button type="button" (click)="navigateToCreate()" pButton icon="fa-plus" style="float:right"
+				<button type="button" routerLink="/customers/create" pButton icon="fa-plus" style="float:right"
 				        label="Add"></button>
-				<!--<button type="button" [disabled]="!selectedRows" (click)="navigateToDelete()"-->
-				<!--pButton icon="fa-remove" style="float:right" label="Delete"></button>-->
+				<button type="button" pButton icon="fa-remove" style="float:right" label="Delete"></button>
 			</div>
 		</header>
 		<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
