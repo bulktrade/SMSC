@@ -11,11 +11,11 @@ import { ConfigService } from "../config/config.service";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/share";
 import * as Rx from "rxjs/Rx";
-import { CustomerModel } from "./model/customer";
+import { Customer } from "./model/customer";
 const clone = require("js.clone");
 
-const REPOSITORY_NAME: string = 'customers';
-const PROJECTION_NAME: string = 'withContactsAndUsers';
+export const REPOSITORY_NAME: string = 'customers';
+export const PROJECTION_NAME: string = 'withContactsAndUsers';
 
 @Injectable()
 export class CustomersService {
@@ -56,7 +56,7 @@ export class CustomersService {
      * @param data
      * @returns {Observable<R>}
      */
-    createCustomer(data): Rx.Observable<CustomerModel> {
+    createCustomer(data): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ export class CustomersService {
      * @param data
      * @returns {Observable<R>}
      */
-    updateCustomer(id: string = '', data): Rx.Observable<CustomerModel> {
+    updateCustomer(id: string = '', data): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -95,7 +95,7 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    deleteCustomer(id: string = ''): Rx.Observable<CustomerModel> {
+    deleteCustomer(id: string = ''): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
@@ -110,7 +110,7 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    getCustomer(id: string = ''): Rx.Observable<CustomerModel> {
+    getCustomer(id: string = ''): Rx.Observable<Customer> {
         let search = new URLSearchParams();
         search.set('projection', PROJECTION_NAME);
 
@@ -130,7 +130,7 @@ export class CustomersService {
      * @param size
      * @returns {Observable<R>}
      */
-    getCustomers(page?: number, size?: number): Rx.Observable<CustomerModel[]> {
+    getCustomers(page?: number, size?: number): Rx.Observable<Customer[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {
@@ -144,21 +144,7 @@ export class CustomersService {
         });
 
         return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
-            .map(res => res.json()['_embedded'][REPOSITORY_NAME])
-            .share();
-    }
-
-    /**
-     * Gets the number of customers
-     * @returns {Observable<R>}
-     */
-    getNumberCustomers(): Rx.Observable<number> {
-        let requestOptions = new RequestOptions({
-            method: RequestMethod.Get,
-        });
-
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
-            .map(res => res.json()['page']['totalElements'])
+            .map(res => res.json())
             .share();
     }
 }

@@ -1,5 +1,7 @@
-export interface CustomerModel {
-    id: string,
+import { Contact } from "./contact";
+import { User } from "./user";
+
+export interface Customer {
     country: string,
     city: string,
     companyName: string,
@@ -7,8 +9,8 @@ export interface CustomerModel {
     street2: string,
     postcode: string,
     vatid: number,
-    customerId: string,
-    contacts: any[]
-    users: any[],
-    parentCustomer: any
+    customerId: number,
+    contacts: Contact[]
+    users: User[],
+    parentCustomer: Customer
 }
