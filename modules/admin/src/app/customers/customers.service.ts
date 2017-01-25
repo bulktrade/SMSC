@@ -8,11 +8,12 @@ import { BackendService } from "../services/backend/backend.service";
 import { SelectItem } from "primeng/components/common/api";
 import { RequestOptions, Headers, RequestMethod, Http, URLSearchParams } from "@angular/http";
 import { ConfigService } from "../config/config.service";
-import "rxjs/Rx";
-import * as _ from "lodash";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/share";
+import * as Rx from "rxjs/Rx";
+import { CustomerModel } from "./model/customer";
 const clone = require("js.clone");
 
-const CLASS_NAME: string = 'Customer';
 const REPOSITORY_NAME: string = 'customers';
 const PROJECTION_NAME: string = 'withContactsAndUsers';
 
@@ -32,39 +33,11 @@ export class CustomersService {
     }
 
     /**
-     * Translates columns and creates the new property with a translated value for the each of column
-     * @param columns
-     * @param translateProperty
-     * @returns {any}
-     */
-    translateColumnDefs(columns, translateProperty: string) {
-        let observableStore = [],
-            _columns = clone(columns);
-
-        for (let key in _columns) {
-            if (_columns.hasOwnProperty(key)) {
-                let columnName = _columns[key].hasOwnProperty('property') ? _columns[key]['property'] : '';
-
-                observableStore.push(this.translate.get(columnName)
-                    .subscribe(headerName => {
-                        _columns[key][translateProperty] = headerName;
-                    }));
-
-            }
-        }
-
-        return Observable.create(obs => {
-            obs.next(_columns);
-            obs.complete();
-        });
-    }
-
-    /**
      * Generates the 'options' property for the dropdown UI component
      * @param options
      * @returns {SelectItem[]}
      */
-    generateOptionsForDropdown(options: string) {
+    generateOptionsForDropdown(options: string): SelectItem[] {
         let _options: string[] = options.split(','),
             _result: SelectItem[] = [];
 
@@ -83,7 +56,7 @@ export class CustomersService {
      * @param data
      * @returns {Observable<R>}
      */
-    createCustomer(data) {
+    createCustomer(data): Rx.Observable<CustomerModel> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -94,6 +67,7 @@ export class CustomersService {
 
         return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
             .map(res => res.json())
+            .share();
     }
 
     /**
@@ -102,7 +76,7 @@ export class CustomersService {
      * @param data
      * @returns {Observable<R>}
      */
-    updateResource(id: string = '', data) {
+    updateCustomer(id: string = '', data): Rx.Observable<CustomerModel> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -112,7 +86,8 @@ export class CustomersService {
         });
 
         return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
-            .map(res => res.json());
+            .map(res => res.json())
+            .share();
     }
 
     /**
@@ -120,13 +95,14 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    deleteCustomer(id: string = '') {
+    deleteCustomer(id: string = ''): Rx.Observable<CustomerModel> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
 
         return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
-            .map(res => res.json());
+            .map(res => res.json())
+            .share();
     }
 
     /**
@@ -134,7 +110,7 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    getCustomer(id: string = '') {
+    getCustomer(id: string = ''): Rx.Observable<CustomerModel> {
         let search = new URLSearchParams();
         search.set('projection', PROJECTION_NAME);
 
@@ -144,7 +120,8 @@ export class CustomersService {
         });
 
         return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
-            .map(res => res.json());
+            .map(res => res.json())
+            .share();
     }
 
     /**
@@ -153,7 +130,7 @@ export class CustomersService {
      * @param size
      * @returns {Observable<R>}
      */
-    getCustomers(page?: number, size?: number) {
+    getCustomers(page?: number, size?: number): Rx.Observable<CustomerModel[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {
@@ -167,19 +144,21 @@ export class CustomersService {
         });
 
         return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
-            .map(res => res.json()['_embedded'][REPOSITORY_NAME]);
+            .map(res => res.json()['_embedded'][REPOSITORY_NAME])
+            .share();
     }
 
     /**
      * Gets the number of customers
      * @returns {Observable<R>}
      */
-    getNumberCustomers() {
+    getNumberCustomers(): Rx.Observable<number> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Get,
         });
 
         return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
-            .map(res => res.json());
+            .map(res => res.json()['page']['totalElements'])
+            .share();
     }
 }
