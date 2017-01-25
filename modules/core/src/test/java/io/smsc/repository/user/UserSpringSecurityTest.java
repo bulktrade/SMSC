@@ -27,8 +27,8 @@ public class UserSpringSecurityTest extends AbstractTest {
 
     @Before
     public void generateTokens() throws Exception {
-        UserDetails user = JWTUserFactory.create(userRepository.findByUsername("User"));
-        UserDetails admin = JWTUserFactory.create(userRepository.findByUsername("Admin"));
+        UserDetails user = JWTUserFactory.create(userRepository.findByUsername("user"));
+        UserDetails admin = JWTUserFactory.create(userRepository.findByUsername("admin"));
         userToken = jwtTokenGenerationService.generateAccessToken(user);
         adminToken = jwtTokenGenerationService.generateAccessToken(admin);
     }
@@ -84,7 +84,7 @@ public class UserSpringSecurityTest extends AbstractTest {
     @Test
     public void testJwtAccessWithExpiredToken() throws Exception {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("sub", "Admin");
+        claims.put("sub", "admin");
         claims.put("created", new Date(System.currentTimeMillis() - 100000));
         String expiredToken = Jwts.builder()
                 .setClaims(claims)

@@ -15,8 +15,8 @@ public class UserTestData {
     public static final long USER_ID = 53;
     public static final long ADMIN_ID = 54;
 
-    public static final User USER = new User(USER_ID,"User","password","userName","userSurname","user@gmail.com",true,false);
-    public static final User ADMIN = new User(ADMIN_ID,"Admin","admin","adminName","adminSurname","admin@gmail.com",true,false);
+    public static final User USER = new User(USER_ID,"user","password","userName","userSurname","user@gmail.com",true,false);
+    public static final User ADMIN = new User(ADMIN_ID,"admin","admin","adminName","adminSurname","admin@gmail.com",true,false);
 
     static
     {
