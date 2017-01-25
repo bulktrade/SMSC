@@ -50,7 +50,7 @@ export class LoginPage {
     }
 
     login() {
-        let loginModel: LoginModel = new LoginModel('admin', 'admin', false);
+        let loginModel: LoginModel = new LoginModel('Admin', 'admin', false);
         this.fillLoginForm(loginModel);
     }
 
