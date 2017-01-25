@@ -23,7 +23,7 @@ public class JWTAuthenticationTest extends AbstractTest {
     public void testLoginUser() throws Exception {
         MvcResult result = mockMvc.perform(post("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json(new JWTAuthenticationRequest("User","password"))))
+                .content(json(new JWTAuthenticationRequest("user","password"))))
                 .andExpect(status().isOk())
                 .andReturn();
         System.out.println("Token for user: " + result.getResponse().getContentAsString());
@@ -33,7 +33,7 @@ public class JWTAuthenticationTest extends AbstractTest {
     public void testLoginAdmin() throws Exception {
         MvcResult result = mockMvc.perform(post("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json(new JWTAuthenticationRequest("Admin","admin"))))
+                .content(json(new JWTAuthenticationRequest("admin","admin"))))
                 .andExpect(status().isOk())
                 .andReturn();
         System.out.println("Token for admin: " + result.getResponse().getContentAsString());
@@ -49,7 +49,7 @@ public class JWTAuthenticationTest extends AbstractTest {
 
     @Test
     public void testRefreshToken() throws Exception {
-        UserDetails admin = JWTUserFactory.create(userRepository.findByUsername("Admin"));
+        UserDetails admin = JWTUserFactory.create(userRepository.findByUsername("admin"));
         String expiredAccessToken = jwtTokenGenerationService.generateAccessToken(admin);
         String refreshToken = jwtTokenGenerationService.generateRefreshToken(admin);
         MvcResult result = mockMvc.perform(put("/rest/auth/token")

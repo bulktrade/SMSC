@@ -150,8 +150,8 @@ public class V1_2__populateDB implements SpringJdbcMigration {
         Permission permission50 = new Permission(null, "DASHBOARD_BOX_TYPE_DELETE");
         Role role_user = new Role(null, "ROLE_USER");
         Role role_admin = new Role(null, "ROLE_ADMIN");
-        User user = new User(null,"User","password","userName","userSurname","user@gmail.com",true,false);
-        User admin = new User(null,"Admin","admin","adminName","adminSurname","admin@gmail.com",true,false);
+        User user = new User(null,"user","password","userName","userSurname","user@gmail.com",true,false);
+        User admin = new User(null,"admin","admin","adminName","adminSurname","admin@gmail.com",true,false);
         permissionRepository.save(permission1);
         permissionRepository.save(permission2);
         permissionRepository.save(permission3);
