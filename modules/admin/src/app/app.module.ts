@@ -46,11 +46,12 @@ import { BackendService } from "./services/backend/backend.service";
 import { GrowlService } from "./services/growl/growl.service";
 import { GetDataFromURIService } from "./services/get-data-from-URI";
 import { CrudLevelService } from "./crud/services/crud-level";
-import { CustomersModule } from "./customers/customers.module";
+import { CustomersService } from "./customers/customers.service";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     ...COMMON_PROVIDERS,
+    CustomersService,
     LoadingGridService,
     LoadingService,
     LoadingRouterOutletService,
@@ -104,8 +105,7 @@ export const APP_PROVIDERS = [
         SimpleNotificationsModule,
         CrudModule,
         DashboardModule,
-        BreadcrumbModule.forRoot(),
-        CustomersModule
+        BreadcrumbModule.forRoot()
     ],
     providers: [
         CrudLevelService,

@@ -64,22 +64,13 @@ export const ROUTES: Routes = [
             },
             {
                 path: 'customers',
-                component: CustomersComponent,
                 data: {
                     showInBreadcrumb: true,
                     translationKey: 'Customers',
                     showInSubNavigation: true,
                     icon: 'perm_contact_calendar'
                 },
-                children: [
-                    {
-                        path: '',
-                        loadChildren: './customers/customers.module#CustomersModule',
-                        data: {
-                            showInBreadcrumb: false,
-                        },
-                    }
-                ]
+                loadChildren: './customers/customers.module#CustomersModule'
             },
             {
                 path: 'metadata',
