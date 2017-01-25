@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { NotificationService } from "../../services/notification-service";
 import { BackendService } from "../../services/backend/backend.service";
 import { GetDataFromURIService } from "../../services/get-data-from-URI";
-import { CustomersService } from "../customers.service";
+import { CustomersService, REPOSITORY_NAME } from "../customers.service";
 import { Pagination } from "../model/pagination";
 import { GridOptions } from "../model/grid-options";
 
@@ -24,16 +24,11 @@ export class CustomersViewResolve implements Resolve<any> {
         return Observable.create((observer) => {
             this.customersService.getCustomers(pagination.number, pagination.size)
                 .subscribe(resources => {
-                    gridOptions.rowData = resources;
+                    gridOptions.rowData = resources['_embedded'][REPOSITORY_NAME];
+                    gridOptions.totalElements = resources['page']['totalElements'];
 
-                    // get total rows
-                    this.customersService.getNumberCustomers()
-                        .subscribe(countRows => {
-                            gridOptions.totalElements = countRows.page.totalElements;
-
-                            observer.next(gridOptions);
-                            observer.complete();
-                        });
+                    observer.next(gridOptions);
+                    observer.complete();
                 }, err => {
                     this.notification.createNotificationOnResponse(err);
                     observer.error(err);

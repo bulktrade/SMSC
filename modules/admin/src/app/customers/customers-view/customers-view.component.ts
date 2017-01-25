@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { BackendService } from "../../services/backend/backend.service";
 import { ColumnDef } from "../model/column-definition";
 import { Pagination } from "../model/pagination";
-import { CustomersService } from "../customers.service";
+import { CustomersService, REPOSITORY_NAME } from "../customers.service";
 
 @Component({
     selector: 'customers-view',
@@ -41,7 +41,7 @@ export class CustomersViewComponent {
     onPaginate(event) {
         this.customersService.getCustomers(event.page, event.rows)
             .subscribe(rows => {
-                this.rowData = rows;
+                this.rowData = rows['_embedded'][REPOSITORY_NAME];
             });
     }
 
