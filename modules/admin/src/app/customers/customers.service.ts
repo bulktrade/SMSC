@@ -33,9 +33,10 @@ export class CustomersService {
 
     /**
      * Returns column definitions for the grid
+     * @param repositoryName - can have a value 'crud-meta-form-data' or 'crud-meta-grid-data'
      * @returns {any}
      */
-    getGridColumnDefs() {
+    getColumnDefs(repositoryName: string = '') {
         return Observable.create((observer) => {
 
             this.backendService.getResources('crud-class-meta-data')
@@ -44,55 +45,17 @@ export class CustomersService {
                     let columns = _.find(data['_embedded']['crud-class-meta-data'], (o) => {
                         return o['className'] === CLASS_NAME;
                     });
-                    let linkToMetaGridData = columns['_links'].crudMetaGridData.href;
+                    let linkToMetaData: string = '';
 
-                    this.backendService.getDataByLink(linkToMetaGridData)
+                    if (repositoryName === 'crud-meta-grid-data') {
+                        linkToMetaData = columns['_links'].crudMetaGridData.href;
+                    } else if (repositoryName === 'crud-meta-form-data') {
+                        linkToMetaData = columns['_links'].crudMetaFormData.href;
+                    }
+
+                    this.backendService.getDataByLink(linkToMetaData)
                         .subscribe(_data => {
-                            let columns = _data['crud-meta-grid-data'];
-
-                            for (let key in columns) {
-                                if (columns.hasOwnProperty(key)) {
-                                    let currColumn = columns[key];
-
-                                    currColumn.field = currColumn.property;
-                                }
-                            }
-
-                            // sorted columns in ascending order by 'order' property
-                            columns = _.sortBy(columns, ['order']);
-
-                            this.translateColumnDefs(columns, 'headerName')
-                                .subscribe(translatedCols => {
-                                    observer.next(translatedCols);
-                                    observer.complete();
-                                });
-                        });
-                }, err => {
-                    observer.error(err);
-                    observer.complete();
-                });
-
-        });
-    }
-
-    /**
-     * Returns column definitions for the form
-     * @return {any}
-     */
-    getFormColumnDefs() {
-        return Observable.create((observer) => {
-
-            this.backendService.getResources('crud-class-meta-data')
-                .subscribe(data => {
-                    // find the crudClassMetaData by class name
-                    let columns = _.find(data['_embedded']['crud-class-meta-data'], (o) => {
-                        return o['className'] === CLASS_NAME;
-                    });
-                    let linkToMetaFormData = columns['_links'].crudMetaFormData.href;
-
-                    this.backendService.getDataByLink(linkToMetaFormData)
-                        .subscribe(_data => {
-                            let columns = _data['crud-meta-form-data'];
+                            let columns = _data[repositoryName];
 
                             // sorted columns in ascending order by 'order' property
                             columns = _.sortBy(columns, ['order']);
@@ -244,6 +207,19 @@ export class CustomersService {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Get,
             search: search
+        });
+
+        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
+            .map(res => res.json()['_embedded'][REPOSITORY_NAME]);
+    }
+
+    /**
+     * Gets the number of customers
+     * @returns {Observable<R>}
+     */
+    getNumberCustomers() {
+        let requestOptions = new RequestOptions({
+            method: RequestMethod.Get,
         });
 
         return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)

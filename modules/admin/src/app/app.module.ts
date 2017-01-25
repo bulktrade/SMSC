@@ -7,7 +7,6 @@ import { BreadcrumbModule } from "./breadcrumb/breadcrumb.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { LoginComponent } from "./login/login.component";
 import { NavigationComponent } from "./navigation/navigation.component";
-import { CustomersComponent } from "./customers/customers.components";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { CrudMetaDataComponent } from "./crud-meta-data/crud-meta-data.components";
 import { Router } from "@angular/router";
@@ -47,6 +46,7 @@ import { BackendService } from "./services/backend/backend.service";
 import { GrowlService } from "./services/growl/growl.service";
 import { GetDataFromURIService } from "./services/get-data-from-URI";
 import { CrudLevelService } from "./crud/services/crud-level";
+import { CustomersModule } from "./customers/customers.module";
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -78,7 +78,6 @@ export const APP_PROVIDERS = [
         App,
         LoginComponent,
         NavigationComponent,
-        CustomersComponent,
         NotFoundComponent,
         CrudMetaDataComponent,
         CrudMetaFormDataComponent,
@@ -105,7 +104,8 @@ export const APP_PROVIDERS = [
         SimpleNotificationsModule,
         CrudModule,
         DashboardModule,
-        BreadcrumbModule.forRoot()
+        BreadcrumbModule.forRoot(),
+        CustomersModule
     ],
     providers: [
         CrudLevelService,

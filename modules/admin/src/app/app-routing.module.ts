@@ -63,24 +63,18 @@ export const ROUTES: Routes = [
                 ]
             },
             {
-                path: '',
+                path: 'customers',
                 component: CustomersComponent,
                 data: {
                     showInBreadcrumb: true,
                     translationKey: 'Customers',
                     showInSubNavigation: true,
-                    icon: 'perm_contact_calendar',
-                    backend: {
-                        crudEntity: 'Customer',
-                        repositoryName: 'customers'
-                    }
+                    icon: 'perm_contact_calendar'
                 },
                 children: [
                     {
                         path: '',
-                        component: CrudComponent,
-                        canActivate: [CrudGuard],
-                        loadChildren: './crud/crud.module#CrudModule',
+                        loadChildren: './customers/customers.module#CustomersModule',
                         data: {
                             showInBreadcrumb: false,
                         },

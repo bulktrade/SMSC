@@ -6,6 +6,7 @@ import { CrudResolve } from "./crud/common/crud-resolve";
 import { CrudViewResolve } from "./crud/crud-view/crud-view.resolve";
 import { CrudCreateResolve } from "./crud/crud-create/crud-create.resolve";
 import { CrudEditResolve } from "./crud/crud-update/crud-update.resolve";
+import { CustomersViewResolve } from "./customers/customers-view/customers-view.resolve";
 
 @Injectable()
 export class DataResolver implements Resolve<any> {
@@ -24,5 +25,7 @@ export const APP_RESOLVER_PROVIDERS = [
     CrudEditResolve,
     CrudCreateResolve,
     CrudResolve,
-    CrudViewResolve
+    CrudViewResolve,
+
+    CustomersViewResolve
 ];
