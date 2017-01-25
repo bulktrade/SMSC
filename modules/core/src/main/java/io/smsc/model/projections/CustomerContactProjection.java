@@ -18,7 +18,7 @@ import java.util.Date;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "customer-contacts", types = { CustomerContact.class })
+@Projection(name = "withCustomer", types = { CustomerContact.class })
 public interface CustomerContactProjection {
 
     Long getId();

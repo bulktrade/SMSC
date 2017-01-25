@@ -14,7 +14,7 @@ import java.util.Date;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "dashboard-boxes", types = { DashboardBox.class })
+@Projection(name = "withDashboardsAndDashboardBoxType", types = { DashboardBox.class })
 public interface DashboardBoxProjection {
 
     Long getId();

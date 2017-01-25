@@ -17,7 +17,7 @@ import java.util.Set;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "crud-meta-form-data", types = { CrudMetaFormData.class })
+@Projection(name = "withBindingParametersAndMetaData", types = { CrudMetaFormData.class })
 public interface CrudMetaFormDataProjection {
 
     Long getId();

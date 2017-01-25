@@ -16,7 +16,7 @@ import java.util.Set;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "permissions", types = { Permission.class })
+@Projection(name = "withRoles", types = { Permission.class })
 public interface PermissionProjection {
 
     Long getId();

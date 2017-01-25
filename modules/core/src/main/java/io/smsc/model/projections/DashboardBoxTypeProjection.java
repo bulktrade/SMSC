@@ -15,7 +15,7 @@ import java.util.Set;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "dashboard-box-types", types = { DashboardBoxType.class })
+@Projection(name = "withDashboardBoxes", types = { DashboardBoxType.class })
 public interface DashboardBoxTypeProjection {
 
     Long getId();

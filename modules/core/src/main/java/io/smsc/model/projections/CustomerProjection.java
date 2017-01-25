@@ -18,7 +18,7 @@ import java.util.Set;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "customers", types = { Customer.class })
+@Projection(name = "withContactsAndUsers", types = { Customer.class })
 public interface CustomerProjection {
 
     Long getId();
