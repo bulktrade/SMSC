@@ -12,6 +12,7 @@ apt:
     - maven
 
 cache:
+  yarn: true
   docker: true
   directories:
     - modules/admin/node_modules
@@ -33,7 +34,6 @@ before_install:
 install:
   - nvm install 6
   - nvm use 6
-  - npm install -g yarn
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
