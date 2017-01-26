@@ -36,8 +36,8 @@ before_install:
   - sleep 3
 
 install:
-  - nvm install 6
-  - nvm use 6
+  - nvm install 7
+  - nvm use 7
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
