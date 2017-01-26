@@ -1,0 +1,161 @@
+<div class="addingForm">
+	<p-panel>
+		<header>
+			<i class="fa fa-chevron-left" aria-hidden="true" title="{{ 'BACK' | translate }}" (click)="back()"
+			   id="back-button"></i>
+			<span>{{ 'CUSTOMERS' | translate }}</span>
+		</header>
+		<form role="form" (ngSubmit)="onSubmit()" #dynamicForm="ngForm" novalidate>
+			<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
+
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						{{ 'customerId' | translate }}
+					</div>
+					<div class="ui-grid-col-6">
+						<input pInputText class="form-control" [(ngModel)]="model['customerId']"
+						       #customerId="ngModel"
+						       required name="customerId" type="text" id="customerId">
+					</div>
+					<div class="ui-grid-col-4" *ngIf="customerId.invalid&&customerId.dirty">
+						<div class="ui-message ui-messages-error ui-corner-all">
+							<i class="fa fa-close"></i>
+							{{ ('customerId' | translate) + ' ' + ('crud.required' | translate) }}
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						{{ 'companyName' | translate }}
+					</div>
+					<div class="ui-grid-col-6">
+						<input pInputText class="form-control" [(ngModel)]="model['companyName']"
+						       #companyName="ngModel"
+						       required name="companyName" type="text" id="companyName">
+					</div>
+					<div class="ui-grid-col-4" *ngIf="companyName.invalid&&companyName.dirty">
+						<div class="ui-message ui-messages-error ui-corner-all">
+							<i class="fa fa-close"></i>
+							{{ ('companyName' | translate) + ' ' + ('crud.required' | translate) }}
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						{{ 'street' | translate }}
+					</div>
+					<div class="ui-grid-col-6">
+						<input pInputText class="form-control" [(ngModel)]="model['street']"
+						       #street="ngModel"
+						       required name="street" type="text" id="street">
+					</div>
+					<div class="ui-grid-col-4" *ngIf="street.invalid&&street.dirty">
+						<div class="ui-message ui-messages-error ui-corner-all">
+							<i class="fa fa-close"></i>
+							{{ ('street' | translate) + ' ' + ('crud.required' | translate) }}
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						{{ 'street2' | translate }}
+					</div>
+					<div class="ui-grid-col-6">
+						<input pInputText class="form-control" [(ngModel)]="model['street2']"
+						       #street2="ngModel"
+						       required name="street2" type="text" id="street2">
+					</div>
+					<div class="ui-grid-col-4" *ngIf="street2.invalid&&street2.dirty">
+						<div class="ui-message ui-messages-error ui-corner-all">
+							<i class="fa fa-close"></i>
+							{{ ('street2' | translate) + ' ' + ('crud.required' | translate) }}
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						{{ 'postcode' | translate }}
+					</div>
+					<div class="ui-grid-col-6">
+						<input pInputText class="form-control" [(ngModel)]="model['postcode']"
+						       #postcode="ngModel"
+						       required name="postcode" type="text" id="postcode">
+					</div>
+					<div class="ui-grid-col-4" *ngIf="postcode.invalid&&postcode.dirty">
+						<div class="ui-message ui-messages-error ui-corner-all">
+							<i class="fa fa-close"></i>
+							{{ ('postcode' | translate) + ' ' + ('crud.required' | translate) }}
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						{{ 'country' | translate }}
+					</div>
+					<div class="ui-grid-col-6">
+						<input pInputText class="form-control" [(ngModel)]="model['country']"
+						       #country="ngModel"
+						       required name="country" type="text" id="country">
+					</div>
+					<div class="ui-grid-col-4" *ngIf="country.invalid&&country.dirty">
+						<div class="ui-message ui-messages-error ui-corner-all">
+							<i class="fa fa-close"></i>
+							{{ ('country' | translate) + ' ' + ('crud.required' | translate) }}
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						{{ 'city' | translate }}
+					</div>
+					<div class="ui-grid-col-6">
+						<input pInputText class="form-control" [(ngModel)]="model['city']"
+						       #city="ngModel"
+						       required name="city" type="text" id="city">
+					</div>
+					<div class="ui-grid-col-4" *ngIf="city.invalid&&city.dirty">
+						<div class="ui-message ui-messages-error ui-corner-all">
+							<i class="fa fa-close"></i>
+							{{ ('city' | translate) + ' ' + ('crud.required' | translate) }}
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2">
+						{{ 'vatid' | translate }}
+					</div>
+					<div class="ui-grid-col-6">
+						<input pInputText class="form-control" [(ngModel)]="model['vatid']"
+						       #vatid="ngModel"
+						       required name="vatid" type="text" id="vatid">
+					</div>
+					<div class="ui-grid-col-4" *ngIf="vatid.invalid&&vatid.dirty">
+						<div class="ui-message ui-messages-error ui-corner-all">
+							<i class="fa fa-close"></i>
+							{{ ('vatid' | translate) + ' ' + ('crud.required' | translate) }}
+						</div>
+					</div>
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-2"></div>
+					<div class="ui-grid-col-6">
+						<button style="width: 100%" type="submit" class="btn btn-primary" id="updateProfile"
+						        [disabled]="dynamicForm.form.invalid">
+							<span>{{ submitButtonName | translate }}</span>
+						</button>
+					</div>
+					<div class="ui-grid-col-4"></div>
+				</div>
+			</div>
+		</form>
+	</p-panel>
+</div>

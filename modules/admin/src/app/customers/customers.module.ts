@@ -17,10 +17,14 @@ import { CubeGridModule } from "../common/spinner/cube-grid/cube-grid.component"
 import { LoadingGridModule } from "../common/loading-grid.component";
 import { AlertModule } from "ng2-bootstrap";
 import { CustomersService } from "./customers.service";
+import { DynamicFormModule } from "./common/dynamic-form/dynamic-form.component";
+import { InputTextModule } from "primeng/components/inputtext/inputtext";
+import { CustomersUpdateComponent } from "./customers-update/customers-update.component";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
-    CustomersViewComponent
+    CustomersViewComponent,
+    CustomersUpdateComponent
 ];
 
 const CUSTOMERS_MODULES = [
@@ -38,10 +42,10 @@ const CUSTOMERS_MODULES = [
     FormsModule,
     CommonModule,
     TranslateModule,
-    // DynamicFormModule,
+    DynamicFormModule,
     // MultipleSelectModule,
     CustomersRoutingModule,
-    // InputTextModule,
+    InputTextModule,
 ];
 
 @NgModule({
