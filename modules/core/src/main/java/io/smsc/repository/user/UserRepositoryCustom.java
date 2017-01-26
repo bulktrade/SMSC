@@ -30,4 +30,6 @@ public interface UserRepositoryCustom{
     List<User> getAllWithRolesAndDecryptedPassword();
 
     User saveOneWithEncryptedPassword(User user);
+
+//    User findOne(Long id);
 }

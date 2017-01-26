@@ -4,10 +4,6 @@ import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.RepositoryIdExposingConfiguration;
 import io.smsc.config.SecurityConfiguration;
 import io.smsc.config.SpringDataRestValidationConfiguration;
-import io.smsc.repository.crud.crudClassMetaData.CrudClassMetaDataRepository;
-import io.smsc.repository.crud.crudMetaFormData.CrudMetaFormDataRepository;
-import io.smsc.repository.crud.crudMetaGridData.CrudMetaGridDataRepository;
-import io.smsc.repository.crud.metaDataPropertyBindingParameter.MetaDataPropertyBindingParameterRepository;
 import io.smsc.repository.customer.customer.CustomerRepository;
 import io.smsc.repository.customer.customerContact.CustomerContactRepository;
 import io.smsc.repository.dashboard.dashboard.DashboardRepository;
@@ -17,9 +13,7 @@ import io.smsc.repository.permission.PermissionRepository;
 import io.smsc.repository.role.RoleRepository;
 import io.smsc.repository.user.UserRepository;
 import io.smsc.security.service.JWTTokenGenerationService;
-import io.smsc.security.service.JWTTokenGenerationServiceImpl;
 import io.smsc.security.service.JWTUserDetailsService;
-import io.smsc.security.service.JWTUserDetailsServiceImpl;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
@@ -150,18 +144,6 @@ public abstract class AbstractTest {
 
     @Autowired
     protected PermissionRepository permissionRepository;
-
-    @Autowired
-    protected CrudClassMetaDataRepository crudClassMetaDataRepository;
-
-    @Autowired
-    protected CrudMetaFormDataRepository crudMetaFormDataRepository;
-
-    @Autowired
-    protected CrudMetaGridDataRepository crudMetaGridDataRepository;
-
-    @Autowired
-    protected MetaDataPropertyBindingParameterRepository metaDataPropertyBindingParameterRepository;
 
     @Autowired
     protected CustomerRepository customerRepository;
