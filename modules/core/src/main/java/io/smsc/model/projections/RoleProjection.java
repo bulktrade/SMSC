@@ -1,13 +1,13 @@
 package io.smsc.model.projections;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.smsc.model.Permission;
+
 import io.smsc.model.Role;
-import io.smsc.model.User;
+
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.Date;
-import java.util.Set;
+
 
 /**
  * This interface is describing excerpting projection for {@link Role}
@@ -28,8 +28,6 @@ public interface RoleProjection {
     Date getLastModifiedDate();
 
     String getName();
-
-    Set<Permission> getPermissions();
 
 //    Set<User> getUsers();
 }

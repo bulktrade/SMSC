@@ -242,6 +242,79 @@
                     <downloadSources>true</downloadSources>
                 </configuration>
             </plugin>
+            <plugin>
+                <!-- http://mydevnotes.nicus.it/2013/03/generate-ddl-with-maven-jpa-hibernate-4.html -->
+                <groupId>de.juplo</groupId>
+                <artifactId>hibernate4-maven-plugin</artifactId>
+                <version>1.1.0</version>
+                <executions>
+                    <!-- postgres -->
+                    <execution>
+                        <id>postgres</id>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                        <configuration>
+                            <hibernateDialect>org.hibernate.dialect.PostgreSQL94Dialect</hibernateDialect>
+                            <delimiter>;</delimiter>
+                            <target>SCRIPT</target>
+                            <outputFile>${project.build.directory}/postgresql-schema.sql</outputFile>
+                        </configuration>
+                    </execution>
+                    <!-- oracle -->
+                    <execution>
+                        <id>oracle</id>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                        <configuration>
+                            <hibernateDialect>org.hibernate.dialect.Oracle10gDialect</hibernateDialect>
+                            <delimiter>;</delimiter>
+                            <target>SCRIPT</target>
+                            <outputFile>${project.build.directory}/oracle-schema.sql</outputFile>
+                        </configuration>
+                    </execution>
+                    <!-- mysql -->
+                    <execution>
+                        <id>mysql</id>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                        <configuration>
+                            <hibernateDialect>org.hibernate.dialect.MySQLDialect</hibernateDialect>
+                            <delimiter>;</delimiter>
+                            <target>SCRIPT</target>
+                            <outputFile>${project.build.directory}/mysql-schema.sql</outputFile>
+                        </configuration>
+                    </execution>
+                    <!-- h2 -->
+                    <execution>
+                        <id>h3</id>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                        <configuration>
+                            <hibernateDialect>org.hibernate.dialect.H2Dialect</hibernateDialect>
+                            <delimiter>;</delimiter>
+                            <target>SCRIPT</target>
+                            <outputFile>${project.build.directory}/h2-schema.sql</outputFile>
+                        </configuration>
+                    </execution>
+                    <!-- hsqldb -->
+                    <execution>
+                        <id>hsqldb</id>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                        <configuration>
+                            <hibernateDialect>org.hibernate.dialect.HSQLDialect</hibernateDialect>
+                            <delimiter>;</delimiter>
+                            <target>SCRIPT</target>
+                            <outputFile>${project.build.directory}/hsqldb-schema.sql</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!--<plugin>-->
             <!--<groupId>org.apache.maven.plugins</groupId>-->
             <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
