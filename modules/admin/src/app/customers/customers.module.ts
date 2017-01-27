@@ -20,11 +20,18 @@ import { CustomersService } from "./customers.service";
 import { DynamicFormModule } from "./common/dynamic-form/dynamic-form.component";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { CustomersUpdateComponent } from "./customers-update/customers-update.component";
+import { CustomersCreateComponent } from "./customers-create/crud-create.component";
+import { Router } from "@angular/router";
+import { Http, XHRBackend, RequestOptions } from "@angular/http";
+import { HttpInterceptor } from "../common/http-interceptor";
+import { CustomersDeleteComponent } from "./customers-delete/customers-delete.component";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
     CustomersViewComponent,
-    CustomersUpdateComponent
+    CustomersUpdateComponent,
+    CustomersCreateComponent,
+    CustomersDeleteComponent
 ];
 
 const CUSTOMERS_MODULES = [
@@ -52,7 +59,14 @@ const CUSTOMERS_MODULES = [
     imports: [CUSTOMERS_MODULES],
     exports: [CUSTOMERS_DECLARATIONS],
     declarations: [CUSTOMERS_DECLARATIONS],
-    providers: [CustomersService]
+    providers: [CustomersService,
+        {
+            provide: Http,
+            useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) =>
+                new HttpInterceptor(xhrBackend, requestOptions, router),
+            deps: [XHRBackend, RequestOptions, Router]
+        },
+    ]
 })
 export class CustomersModule {
     static forRoot(): ModuleWithProviders {

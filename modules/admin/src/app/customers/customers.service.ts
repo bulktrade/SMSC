@@ -100,7 +100,7 @@ export class CustomersService {
             method: RequestMethod.Delete
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/delete/' + id, requestOptions)
             .map(res => res.json())
             .share();
     }

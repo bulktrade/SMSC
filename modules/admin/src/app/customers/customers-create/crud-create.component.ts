@@ -6,17 +6,15 @@ import { NotificationService } from "../../services/notification-service";
 import { CustomersService } from "../customers.service";
 
 @Component({
-    selector: 'customers-update',
-    template: `<dynamic-form [submitButtonName]="submitButtonName" [model]="model"
+    selector: 'customers-create',
+    template: `<dynamic-form [submitButtonName]="submitButtonName"
                     (onSubmit)="onSubmit($event)"></dynamic-form>`,
     styleUrls: [],
     providers: [Location]
 })
 
-export class CustomersUpdateComponent {
-    public id: string = '';
-    public submitButtonName: string = 'customers.update';
-    public model = {};
+export class CustomersCreateComponent {
+    public submitButtonName: string = 'customers.create';
 
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
@@ -26,25 +24,15 @@ export class CustomersUpdateComponent {
     }
 
     ngOnInit() {
-        // get id parameter
-        this.route.params.subscribe((params) => {
-            this.id = params['id'];
-        });
-
-        this.model = this.getModel();
-    }
-
-    getModel() {
-        return this.route.snapshot.data['edit'];
     }
 
     onSubmit(data) {
-        this.customersService.updateCustomer(this.id, data)
+        this.customersService.createCustomer(data)
             .subscribe(() => {
-                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreate');
             }, err => {
                 console.error(err);
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorCreate');
             })
     }
 
