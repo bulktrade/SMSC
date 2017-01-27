@@ -59,7 +59,7 @@ public class AclObjectIdentity extends BaseEntity {
 
     @OneToMany(mappedBy = "aclObjectIdentity")
     @OrderBy
-    private Set<AclEntry> aclEntrySet;
+    private Set<AclEntry> aclEntries;
 
     public AclObjectIdentity() {
     }
@@ -113,12 +113,12 @@ public class AclObjectIdentity extends BaseEntity {
         this.entriesInheriting = entriesInheriting;
     }
 
-    public Set<AclEntry> getAclEntrySet() {
-        return aclEntrySet;
+    public Set<AclEntry> getAclEntries() {
+        return aclEntries;
     }
 
-    public void setAclEntrySet(Set<AclEntry> aclEntrySet) {
-        this.aclEntrySet = aclEntrySet;
+    public void setAclEntries(Set<AclEntry> aclEntries) {
+        this.aclEntries = aclEntries;
     }
 
     @Override

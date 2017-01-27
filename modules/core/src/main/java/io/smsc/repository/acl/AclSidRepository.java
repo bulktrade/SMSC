@@ -1,7 +1,7 @@
 package io.smsc.repository.acl;
 
-import io.smsc.model.acl.AclClass;
-import io.smsc.model.projections.AclClassProjection;
+import io.smsc.model.acl.AclSid;
+import io.smsc.model.projections.AclSidProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -12,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This REST repository class is used for providing default {@link JpaRepository}
- * CRUD methods to operate with {@link AclClass} entities and exporting them to
+ * CRUD methods to operate with {@link AclSid} entities and exporting them to
  * appropriate endpoints.
  *
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "acl-classes", path = "acl-classes", excerptProjection = AclClassProjection.class)
+@RepositoryRestResource(collectionResourceRel = "acl-sid", path = "acl-sid", excerptProjection = AclSidProjection.class)
 @Transactional(readOnly = true)
-public interface AclClassRepository extends JpaRepository<AclClass, Long> {
+public interface AclSidRepository extends JpaRepository<AclSid, Long> {
 
     //All query method resources are exposed under the resource 'search'.
 
@@ -30,16 +30,16 @@ public interface AclClassRepository extends JpaRepository<AclClass, Long> {
 
     @Override
     @Transactional
-    AclClass save(AclClass aclClass);
+    AclSid save(AclSid aclSid);
 
     @Override
-    @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    AclClass findOne(Long id);
+    @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
+    AclSid findOne(Long id);
 
-    @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    AclClass findByClassName(@Param("className") String className);
+    @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
+    AclSid findBySid(@Param("sid") String sid);
 
     @Override
-    @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    Page<AclClass> findAll(Pageable pageable);
+    @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
+    Page<AclSid> findAll(Pageable pageable);
 }
