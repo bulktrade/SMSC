@@ -1,6 +1,5 @@
 package io.smsc.security;
 
-import io.smsc.model.Permission;
 import io.smsc.model.Role;
 import io.smsc.model.User;
 import io.smsc.security.model.JWTUser;
@@ -50,38 +49,12 @@ public final class JWTUserFactory {
      * @return       appropriate set with {@link GrantedAuthority} objects
      */
     private static Set<GrantedAuthority> mapToGrantedAuthorities(Set<Role> roles) {
-        return getGrantedAuthorities(getPermissions(roles));
-    }
-
-    /**
-     * Additional method which is used for creating set with strings which will describe
-     * each {@link Permission} in each role from entry set.
-     *
-     * @param  roles set with {@link Role} entities
-     * @return       appropriate set with string values of {@link Permission}
-     */
-    private static Set<String> getPermissions(Collection<Role> roles) {
         final Set<String> authorities = new HashSet<>();
-        final List<Permission> collection = new ArrayList<>();
-        for (final Role role : roles) {
-            collection.addAll(role.getPermissions());
+        final Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        authorities.addAll(roles.stream().map(Role::getName).collect(Collectors.toList()));
+        for (final String authority : authorities) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(authority));
         }
-        authorities.addAll(collection.stream().map(Permission::getName).collect(Collectors.toList()));
-        return authorities;
-    }
-
-    /**
-     * Additional method which is used for creating set with {@link GrantedAuthority} from set with
-     * string values of {@link Permission}
-     *
-     * @param  permissions set with string values of {@link Permission}
-     * @return             appropriate set with {@link GrantedAuthority} objects
-     */
-    private static Set<GrantedAuthority> getGrantedAuthorities(Set<String> permissions) {
-        final Set<GrantedAuthority> authorities = new HashSet<>();
-        for (final String authority : permissions) {
-            authorities.add(new SimpleGrantedAuthority(authority));
-        }
-        return authorities;
+        return grantedAuthorities;
     }
 }
