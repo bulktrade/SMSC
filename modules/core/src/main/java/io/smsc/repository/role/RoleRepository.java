@@ -16,13 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
  * appropriate endpoints.
  *
  * @author  Nazar Lipkovskyy
- * @see     RoleRepositoryCustom
- * @see     RoleRepositoryImpl
  * @since   0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "roles", path = "roles", excerptProjection = RoleProjection.class)
 @Transactional(readOnly = true)
-public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositoryCustom{
+public interface RoleRepository extends JpaRepository<Role, Long>{
 
     //All query method resources are exposed under the resource 'search'.
 

@@ -9,7 +9,6 @@ import io.smsc.repository.customer.customerContact.CustomerContactRepository;
 import io.smsc.repository.dashboard.dashboard.DashboardRepository;
 import io.smsc.repository.dashboard.dashboardBox.DashboardBoxRepository;
 import io.smsc.repository.dashboard.dashboardBoxType.DashboardBoxTypeRepository;
-import io.smsc.repository.permission.PermissionRepository;
 import io.smsc.repository.role.RoleRepository;
 import io.smsc.repository.user.UserRepository;
 import io.smsc.security.service.JWTTokenGenerationService;
@@ -141,9 +140,6 @@ public abstract class AbstractTest {
 
     @Autowired
     protected RoleRepository roleRepository;
-
-    @Autowired
-    protected PermissionRepository permissionRepository;
 
     @Autowired
     protected CustomerRepository customerRepository;

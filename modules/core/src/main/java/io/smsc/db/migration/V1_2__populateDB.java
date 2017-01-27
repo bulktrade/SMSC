@@ -1,7 +1,6 @@
 package io.smsc.db.migration;
 
 import io.smsc.converters.CryptoConverter;
-import io.smsc.model.Permission;
 import io.smsc.model.Role;
 import io.smsc.model.User;
 import io.smsc.model.customer.Customer;
@@ -14,7 +13,6 @@ import io.smsc.repository.customer.customerContact.CustomerContactRepository;
 import io.smsc.repository.dashboard.dashboard.DashboardRepository;
 import io.smsc.repository.dashboard.dashboardBox.DashboardBoxRepository;
 import io.smsc.repository.dashboard.dashboardBoxType.DashboardBoxTypeRepository;
-import io.smsc.repository.permission.PermissionRepository;
 import io.smsc.repository.role.RoleRepository;
 import io.smsc.repository.user.UserRepository;
 import org.flywaydb.core.api.migration.spring.SpringJdbcMigration;
@@ -34,8 +32,6 @@ import java.util.*;
  */
 @Component
 public class V1_2__populateDB implements SpringJdbcMigration {
-
-    private final PermissionRepository permissionRepository;
 
     private final RoleRepository roleRepository;
 
@@ -58,10 +54,9 @@ public class V1_2__populateDB implements SpringJdbcMigration {
     private String secretKey;
 
     @Autowired
-    public V1_2__populateDB(PermissionRepository permissionRepository, RoleRepository roleRepository, UserRepository userRepository,
+    public V1_2__populateDB(RoleRepository roleRepository, UserRepository userRepository,
                             CustomerRepository customerRepository, CustomerContactRepository customerContactRepository, DashboardRepository dashboardRepository,
                             DashboardBoxRepository dashboardBoxRepository, DashboardBoxTypeRepository dashboardBoxTypeRepository) {
-        this.permissionRepository = permissionRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.customerRepository = customerRepository;
@@ -79,115 +74,10 @@ public class V1_2__populateDB implements SpringJdbcMigration {
      * @throws Exception    when the migration failed.
      */
     public void migrate(JdbcTemplate jdbcTemplate) throws Exception {
-        Permission permission1 = new Permission(null, "USER_READ");
-        Permission permission2 = new Permission(null, "USER_UPDATE");
-        Permission permission3 = new Permission(null, "USER_CREATE");
-        Permission permission4 = new Permission(null, "USER_DELETE");
-        Permission permission5 = new Permission(null, "USER_READ_OWN");
-        Permission permission6 = new Permission(null, "USER_UPDATE_OWN");
-        Permission permission7 = new Permission(null, "ROLE_READ");
-        Permission permission8 = new Permission(null, "ROLE_UPDATE");
-        Permission permission9 = new Permission(null, "ROLE_CREATE");
-        Permission permission10 = new Permission(null, "ROLE_DELETE");
-        Permission permission11 = new Permission(null, "PERMISSION_READ");
-        Permission permission12 = new Permission(null, "PERMISSION_UPDATE");
-        Permission permission13 = new Permission(null, "PERMISSION_CREATE");
-        Permission permission14 = new Permission(null, "PERMISSION_DELETE");
-        Permission permission15 = new Permission(null, "CRUD_CLASS_META_DATA_READ");
-        Permission permission16 = new Permission(null, "CRUD_CLASS_META_DATA_UPDATE");
-        Permission permission17 = new Permission(null, "CRUD_CLASS_META_DATA_CREATE");
-        Permission permission18 = new Permission(null, "CRUD_CLASS_META_DATA_DELETE");
-        Permission permission19 = new Permission(null, "CRUD_META_FORM_DATA_READ");
-        Permission permission20 = new Permission(null, "CRUD_META_FORM_DATA_UPDATE");
-        Permission permission21 = new Permission(null, "CRUD_META_FORM_DATA_CREATE");
-        Permission permission22 = new Permission(null, "CRUD_META_FORM_DATA_DELETE");
-        Permission permission23 = new Permission(null, "CRUD_META_GRID_DATA_READ");
-        Permission permission24 = new Permission(null, "CRUD_META_GRID_DATA_UPDATE");
-        Permission permission25 = new Permission(null, "CRUD_META_GRID_DATA_CREATE");
-        Permission permission26 = new Permission(null, "CRUD_META_GRID_DATA_DELETE");
-        Permission permission27 = new Permission(null, "META_DATA_PROPERTY_BINDING_PARAMETER_READ");
-        Permission permission28 = new Permission(null, "META_DATA_PROPERTY_BINDING_PARAMETER_UPDATE");
-        Permission permission29 = new Permission(null, "META_DATA_PROPERTY_BINDING_PARAMETER_CREATE");
-        Permission permission30 = new Permission(null, "META_DATA_PROPERTY_BINDING_PARAMETER_DELETE");
-        Permission permission31 = new Permission(null, "CUSTOMER_READ");
-        Permission permission32 = new Permission(null, "CUSTOMER_UPDATE");
-        Permission permission33 = new Permission(null, "CUSTOMER_CREATE");
-        Permission permission34 = new Permission(null, "CUSTOMER_DELETE");
-        Permission permission35 = new Permission(null, "CUSTOMER_CONTACT_READ");
-        Permission permission36 = new Permission(null, "CUSTOMER_CONTACT_UPDATE");
-        Permission permission37 = new Permission(null, "CUSTOMER_CONTACT_CREATE");
-        Permission permission38 = new Permission(null, "CUSTOMER_CONTACT_DELETE");
-        Permission permission39 = new Permission(null, "DASHBOARD_READ");
-        Permission permission40 = new Permission(null, "DASHBOARD_UPDATE");
-        Permission permission41 = new Permission(null, "DASHBOARD_CREATE");
-        Permission permission42 = new Permission(null, "DASHBOARD_DELETE");
-        Permission permission43 = new Permission(null, "DASHBOARD_BOX_READ");
-        Permission permission44 = new Permission(null, "DASHBOARD_BOX_UPDATE");
-        Permission permission45 = new Permission(null, "DASHBOARD_BOX_CREATE");
-        Permission permission46 = new Permission(null, "DASHBOARD_BOX_DELETE");
-        Permission permission47 = new Permission(null, "DASHBOARD_BOX_TYPE_READ");
-        Permission permission48 = new Permission(null, "DASHBOARD_BOX_TYPE_UPDATE");
-        Permission permission49 = new Permission(null, "DASHBOARD_BOX_TYPE_CREATE");
-        Permission permission50 = new Permission(null, "DASHBOARD_BOX_TYPE_DELETE");
         Role role_user = new Role(null, "ROLE_USER");
         Role role_admin = new Role(null, "ROLE_ADMIN");
         User user = new User(null,"user","password","userName","userSurname","user@gmail.com",true,false);
         User admin = new User(null,"admin","admin","adminName","adminSurname","admin@gmail.com",true,false);
-        permissionRepository.save(permission1);
-        permissionRepository.save(permission2);
-        permissionRepository.save(permission3);
-        permissionRepository.save(permission4);
-        permissionRepository.save(permission5);
-        permissionRepository.save(permission6);
-        permissionRepository.save(permission7);
-        permissionRepository.save(permission8);
-        permissionRepository.save(permission9);
-        permissionRepository.save(permission10);
-        permissionRepository.save(permission11);
-        permissionRepository.save(permission12);
-        permissionRepository.save(permission13);
-        permissionRepository.save(permission14);
-        permissionRepository.save(permission15);
-        permissionRepository.save(permission16);
-        permissionRepository.save(permission17);
-        permissionRepository.save(permission18);
-        permissionRepository.save(permission19);
-        permissionRepository.save(permission20);
-        permissionRepository.save(permission21);
-        permissionRepository.save(permission22);
-        permissionRepository.save(permission23);
-        permissionRepository.save(permission24);
-        permissionRepository.save(permission25);
-        permissionRepository.save(permission26);
-        permissionRepository.save(permission27);
-        permissionRepository.save(permission28);
-        permissionRepository.save(permission29);
-        permissionRepository.save(permission30);
-        permissionRepository.save(permission31);
-        permissionRepository.save(permission32);
-        permissionRepository.save(permission33);
-        permissionRepository.save(permission34);
-        permissionRepository.save(permission35);
-        permissionRepository.save(permission36);
-        permissionRepository.save(permission37);
-        permissionRepository.save(permission38);
-        permissionRepository.save(permission39);
-        permissionRepository.save(permission40);
-        permissionRepository.save(permission41);
-        permissionRepository.save(permission42);
-        permissionRepository.save(permission43);
-        permissionRepository.save(permission44);
-        permissionRepository.save(permission45);
-        permissionRepository.save(permission46);
-        permissionRepository.save(permission47);
-        permissionRepository.save(permission48);
-        permissionRepository.save(permission49);
-        permissionRepository.save(permission50);
-        Set<Permission> userPermission = new HashSet<>();
-        userPermission.add(permissionRepository.findOne(5L));
-        userPermission.add(permissionRepository.findOne(6L));
-        role_user.setPermissions(userPermission);
-        role_admin.setPermissions(new HashSet<>(permissionRepository.findAll()));
         Role user_role = roleRepository.save(role_user);
         Role admin_role = roleRepository.save(role_admin);
         Set<Role> userRole = new HashSet<>();
