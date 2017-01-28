@@ -15,14 +15,13 @@
 					</div>
 					<div class="ui-grid-col-6">
 						<input pInputText class="form-control" [(ngModel)]="model['customerId']"
-						       #customerId="ngModel"
-						       required name="customerId" type="text" id="customerId">
+						       #customerId="ngModel" pattern="^(0|[1-9][0-9]*)$"
+						       required name="customerId" type="number" id="customerId">
 					</div>
-					<div class="ui-grid-col-4" *ngIf="customerId.invalid&&customerId.dirty">
-						<div class="ui-message ui-messages-error ui-corner-all">
-							<i class="fa fa-close"></i>
-							{{ ('customerId' | translate) + ' ' + ('crud.required' | translate) }}
-						</div>
+					<div class="ui-grid-col-4">
+						<control-errors control="customerId"
+						                [errors]="{required: ('customers.required'| translate),
+                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
 					</div>
 				</div>
 
@@ -35,11 +34,9 @@
 						       #companyName="ngModel"
 						       required name="companyName" type="text" id="companyName">
 					</div>
-					<div class="ui-grid-col-4" *ngIf="companyName.invalid&&companyName.dirty">
-						<div class="ui-message ui-messages-error ui-corner-all">
-							<i class="fa fa-close"></i>
-							{{ ('companyName' | translate) + ' ' + ('crud.required' | translate) }}
-						</div>
+					<div class="ui-grid-col-4">
+						<control-errors control="companyName"
+						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
 					</div>
 				</div>
 
@@ -52,11 +49,9 @@
 						       #street="ngModel"
 						       required name="street" type="text" id="street">
 					</div>
-					<div class="ui-grid-col-4" *ngIf="street.invalid&&street.dirty">
-						<div class="ui-message ui-messages-error ui-corner-all">
-							<i class="fa fa-close"></i>
-							{{ ('street' | translate) + ' ' + ('crud.required' | translate) }}
-						</div>
+					<div class="ui-grid-col-4">
+						<control-errors control="street"
+						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
 					</div>
 				</div>
 
@@ -69,11 +64,9 @@
 						       #street2="ngModel"
 						       required name="street2" type="text" id="street2">
 					</div>
-					<div class="ui-grid-col-4" *ngIf="street2.invalid&&street2.dirty">
-						<div class="ui-message ui-messages-error ui-corner-all">
-							<i class="fa fa-close"></i>
-							{{ ('street2' | translate) + ' ' + ('crud.required' | translate) }}
-						</div>
+					<div class="ui-grid-col-4">
+						<control-errors control="street2"
+						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
 					</div>
 				</div>
 
@@ -86,11 +79,9 @@
 						       #postcode="ngModel"
 						       required name="postcode" type="text" id="postcode">
 					</div>
-					<div class="ui-grid-col-4" *ngIf="postcode.invalid&&postcode.dirty">
-						<div class="ui-message ui-messages-error ui-corner-all">
-							<i class="fa fa-close"></i>
-							{{ ('postcode' | translate) + ' ' + ('crud.required' | translate) }}
-						</div>
+					<div class="ui-grid-col-4">
+						<control-errors control="postcode"
+						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
 					</div>
 				</div>
 
@@ -103,11 +94,9 @@
 						       #country="ngModel"
 						       required name="country" type="text" id="country">
 					</div>
-					<div class="ui-grid-col-4" *ngIf="country.invalid&&country.dirty">
-						<div class="ui-message ui-messages-error ui-corner-all">
-							<i class="fa fa-close"></i>
-							{{ ('country' | translate) + ' ' + ('crud.required' | translate) }}
-						</div>
+					<div class="ui-grid-col-4">
+						<control-errors control="country"
+						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
 					</div>
 				</div>
 
@@ -120,11 +109,9 @@
 						       #city="ngModel"
 						       required name="city" type="text" id="city">
 					</div>
-					<div class="ui-grid-col-4" *ngIf="city.invalid&&city.dirty">
-						<div class="ui-message ui-messages-error ui-corner-all">
-							<i class="fa fa-close"></i>
-							{{ ('city' | translate) + ' ' + ('crud.required' | translate) }}
-						</div>
+					<div class="ui-grid-col-4">
+						<control-errors control="city"
+						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
 					</div>
 				</div>
 
@@ -134,14 +121,13 @@
 					</div>
 					<div class="ui-grid-col-6">
 						<input pInputText class="form-control" [(ngModel)]="model['vatid']"
-						       #vatid="ngModel"
-						       required name="vatid" type="text" id="vatid">
+						       #vatid="ngModel" pattern="^(0|[1-9][0-9]*)$"
+						       required name="vatid" type="number" id="vatid">
 					</div>
-					<div class="ui-grid-col-4" *ngIf="vatid.invalid&&vatid.dirty">
-						<div class="ui-message ui-messages-error ui-corner-all">
-							<i class="fa fa-close"></i>
-							{{ ('vatid' | translate) + ' ' + ('crud.required' | translate) }}
-						</div>
+					<div class="ui-grid-col-4">
+						<control-errors control="vatid"
+						                [errors]="{required: ('customers.required'| translate),
+                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
 					</div>
 				</div>
 

@@ -56,10 +56,7 @@
     "YES": "Yes",
     "BACK": "Back",
     "CHOOSE": "Choose",
-    "customers.update": "Update",
-    "customers.create": "Create",
     "SELECTALL": "Select all",
-    "crud.confirmDeleteMsg": "You are dropping the record. Are you sure?",
     "EDIT": "Edit",
     "CONFIRM": "Confirm",
     "ADDLINK": "Add link",
@@ -90,7 +87,6 @@
     "LAST": "Last",
     "ALL_RECORDS": "All records",
     "FIELD_NOT_FILLED": "The field is not filled",
-    "crud.required": "is required",
     "cell.mandatoryException": "The fields are not filled",
     "cell.numberFormatException": "Number format exception",
     "METADATAPROPERTYBINDINGPARAMETER": "Binding Parameter",
@@ -113,6 +109,11 @@
     "BINGINGPROPERTIES": "Binging properties",
     "COLUMNWIDTH": "Column width",
     "FIELDLAYOUTGRIDPOSITION": "Field layout grid position",
-    "crud.successDelete": "Data has been successfully deleted",
-    "crud.errorDelete": "Data was not deleted"
+    "customers.successDelete": "Data has been successfully deleted",
+    "customers.errorDelete": "Data was not deleted",
+    "customers.update": "Update",
+    "customers.create": "Create",
+    "customers.required": "This field is required",
+    "customers.confirmDeleteMsg": "You are dropping the record. Are you sure?",
+    "customers.numberValidator": "Must be only numbers"
 }
