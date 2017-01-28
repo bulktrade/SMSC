@@ -2,6 +2,10 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CustomersViewResolve } from "./customers-view/customers-view.resolve";
 import { CustomersViewComponent } from "./customers-view/customers-view.component";
+import { CustomersUpdateComponent } from "./customers-update/customers-update.component";
+import { CustomersEditResolve } from "./customers-update/customers-update.resolve";
+import { CustomersCreateComponent } from "./customers-create/crud-create.component";
+import { CustomersDeleteComponent } from "./customers-delete/customers-delete.component";
 
 const CUSTOMERS_ROUTE_PROVIDER = [
     {
@@ -12,29 +16,28 @@ const CUSTOMERS_ROUTE_PROVIDER = [
             showInBreadcrumb: false,
         }
     },
-    // {
-    //     path: 'delete/:id',
-    //     component: CrudDeleteComponent,
-    //     data: {
-    //         showInBreadcrumb: false,
-    //     }
-    // },
-    // {
-    //     path: 'update/:id',
-    //     component: CrudUpdateComponent,
-    //     resolve: { edit: CrudEditResolve },
-    //     data: {
-    //         showInBreadcrumb: false,
-    //     }
-    // },
-    // {
-    //     path: 'create',
-    //     component: CrudCreateComponent,
-    //     resolve: { create: CrudCreateResolve },
-    //     data: {
-    //         showInBreadcrumb: false,
-    //     }
-    // }
+    {
+        path: 'delete/:id',
+        component: CustomersDeleteComponent,
+        data: {
+            showInBreadcrumb: false,
+        }
+    },
+    {
+        path: 'update/:id',
+        component: CustomersUpdateComponent,
+        resolve: { edit: CustomersEditResolve },
+        data: {
+            showInBreadcrumb: false,
+        }
+    },
+    {
+        path: 'create',
+        component: CustomersCreateComponent,
+        data: {
+            showInBreadcrumb: false,
+        }
+    }
 ];
 
 @NgModule({

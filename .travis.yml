@@ -1,4 +1,4 @@
-sudo: true
+sudo: required
 services:
   - docker
 
@@ -12,6 +12,7 @@ apt:
     - maven
 
 cache:
+  yarn: true
   docker: true
   directories:
     - modules/admin/node_modules
@@ -31,8 +32,8 @@ before_install:
   - sleep 3
 
 install:
-  - nvm install 6
-  - nvm use 6
+  - nvm install 7
+  - nvm use 7
   - npm install -g yarn
 
 after_success:
