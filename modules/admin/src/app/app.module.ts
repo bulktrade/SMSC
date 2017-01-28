@@ -44,7 +44,7 @@ import { SharedModule } from "./shared.module";
 import { CrudModule } from "./crud/crud.module";
 import { BackendService } from "./services/backend/backend.service";
 import { GrowlService } from "./services/growl/growl.service";
-import { GetDataFromURIService } from "./services/get-data-from-URI";
+import { URIHandlingService } from "./services/uri-handling";
 import { CrudLevelService } from "./crud/services/crud-level";
 import { CustomersService } from "./customers/customers.service";
 
@@ -113,7 +113,7 @@ export const APP_PROVIDERS = [
         ConfigService,
         GrowlService,
         BackendService,
-        GetDataFromURIService,
+        URIHandlingService,
         ENV_PROVIDERS,
         APP_PROVIDERS
     ]

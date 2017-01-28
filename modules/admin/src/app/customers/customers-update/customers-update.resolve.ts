@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Location } from "@angular/common";
 import { BackendService } from "../../services/backend/backend.service";
 import { NotificationService } from "../../services/notification-service";
-import { GetDataFromURIService } from "../../services/get-data-from-URI";
+import { URIHandlingService } from "../../services/uri-handling";
 import { CustomersService } from "../customers.service";
 
 @Injectable()
@@ -13,7 +13,7 @@ export class CustomersEditResolve implements Resolve<any> {
                 public location: Location,
                 public notification: NotificationService,
                 public backendService: BackendService,
-                public URIService: GetDataFromURIService) {
+                public URIService: URIHandlingService) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

@@ -8,7 +8,7 @@ import { NotificationService } from "../../services/notification-service";
 import { GridOptions } from "../model/grid-options";
 import { BackendService } from "../../services/backend/backend.service";
 import { Pagination } from "../model/pagination";
-import { GetDataFromURIService } from "../../services/get-data-from-URI";
+import { URIHandlingService } from "../../services/uri-handling";
 import { ColumnsType } from "../model/columns-type";
 
 @Injectable()
@@ -18,7 +18,7 @@ export class CrudViewResolve extends CrudResolve {
                 public loadingGridService: LoadingGridService,
                 public notification: NotificationService,
                 public backendService: BackendService,
-                public URIService: GetDataFromURIService) {
+                public URIService: URIHandlingService) {
         super();
     }
 
