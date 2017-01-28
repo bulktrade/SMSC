@@ -22,7 +22,7 @@ public class AclSid extends BaseEntity {
     /**
      * A flag to indicate if the sid field is a username or a role.
      */
-    @Column(name = "PRINCIPAL", nullable = false, unique = true)
+    @Column(name = "PRINCIPAL", nullable = false)
     @NotNull(message = "{acl.sid.principal.validation}")
     private Boolean principal;
 
@@ -35,7 +35,7 @@ public class AclSid extends BaseEntity {
 
     @OneToMany(mappedBy = "sid")
     @OrderBy
-    private Set<AclEntry> aclEntrySet;
+    private Set<AclEntry> aclEntries;
 
     @OneToMany(mappedBy = "ownerSid")
     @OrderBy
@@ -66,12 +66,12 @@ public class AclSid extends BaseEntity {
         this.sid = sid;
     }
 
-    public Set<AclEntry> getAclEntrySet() {
-        return aclEntrySet;
+    public Set<AclEntry> getAclEntries() {
+        return aclEntries;
     }
 
-    public void setAclEntrySet(Set<AclEntry> aclEntrySet) {
-        this.aclEntrySet = aclEntrySet;
+    public void setAclEntries(Set<AclEntry> aclEntries) {
+        this.aclEntries = aclEntries;
     }
 
     public Set<AclObjectIdentity> getAclObjectIdentities() {

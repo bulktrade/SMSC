@@ -70,22 +70,4 @@ public class RoleRestTest extends AbstractTest {
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is(updated.getName())));
     }
-
-    @Test
-    public void testAddPermission() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles/addPermission?roleId=51&permissionId=20"))
-                .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/roles/51/permissions"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.permissions", hasSize(3)));
-    }
-
-    @Test
-    public void testRemovePermission() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles/removePermission?roleId=51&permissionId=5"))
-                .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/roles/51/permissions"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.permissions", hasSize(1)));
-    }
 }

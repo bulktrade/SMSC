@@ -1,7 +1,7 @@
-package io.smsc.repository.role;
+package io.smsc.repository.acl;
 
-import io.smsc.model.Role;
-import io.smsc.model.projections.RoleProjection;
+import io.smsc.model.acl.AclSid;
+import io.smsc.model.projections.AclSidProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -12,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This REST repository class is used for providing default {@link JpaRepository}
- * CRUD methods to operate with {@link Role} entities and exporting them to
+ * CRUD methods to operate with {@link AclSid} entities and exporting them to
  * appropriate endpoints.
  *
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "roles", path = "roles", excerptProjection = RoleProjection.class)
+@RepositoryRestResource(collectionResourceRel = "acl-sid", path = "acl-sid", excerptProjection = AclSidProjection.class)
 @Transactional(readOnly = true)
-public interface RoleRepository extends JpaRepository<Role, Long>{
+public interface AclSidRepository extends JpaRepository<AclSid, Long> {
 
     //All query method resources are exposed under the resource 'search'.
 
@@ -30,17 +30,16 @@ public interface RoleRepository extends JpaRepository<Role, Long>{
 
     @Override
     @Transactional
-    Role save(Role role);
+    AclSid save(AclSid aclSid);
 
     @Override
-    @EntityGraph(attributePaths = {"permissions"})
-    Role findOne(Long id);
+    @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
+    AclSid findOne(Long id);
 
-    @EntityGraph(attributePaths = {"permissions"})
-    Role findByName(@Param("name") String name);
+    @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
+    AclSid findBySid(@Param("sid") String sid);
 
     @Override
-    @EntityGraph(attributePaths = {"permissions"})
-    Page<Role> findAll(Pageable pageable);
-
+    @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
+    Page<AclSid> findAll(Pageable pageable);
 }

@@ -176,4 +176,17 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         }
         return user;
     }
+
+//    @Override
+//    public User findOne(Long id) {
+//        User user;
+//        try {
+//            user = entityManager.find(User.class, id);
+//            CryptoConverter.decrypt(user, secretKey);
+//        }
+//        catch (NoResultException ex) {
+//            return null;
+//        }
+//        return user;
+//    }
 }
