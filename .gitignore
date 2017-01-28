@@ -1,4 +1,5 @@
 *.iml
+target
 /modules/core/target/
 /modules/admin/node_modules/
 /modules/.idea
