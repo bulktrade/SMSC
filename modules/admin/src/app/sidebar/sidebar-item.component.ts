@@ -1,15 +1,6 @@
-import {
-    Component,
-    Input,
-    Injectable,
-    trigger,
-    style,
-    animate,
-    state,
-    transition
-} from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router } from '@angular/router';
+import { Component, Input, Injectable, trigger, style, animate, state, transition } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'sidebar-item',
@@ -23,9 +14,7 @@ import { Router } from '@angular/router';
             transition('open => closed', [animate('200ms ease-out')])
         ]),
     ],
-    styleUrls: [
-        require('./sidebar-item.component.scss')
-    ]
+    styleUrls: ['./sidebar-item.component.scss']
 })
 
 @Injectable()

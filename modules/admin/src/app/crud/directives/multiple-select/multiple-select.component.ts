@@ -9,9 +9,7 @@ import { SelectItem } from "primeng/components/common/api";
 @Component({
     selector: 'multiple-select',
     template: require('./multiple-select.component.html'),
-    styleUrls: [
-        require('./multiple-select.component.scss')
-    ],
+    styleUrls: ['./multiple-select.component.scss'],
     providers: []
 })
 

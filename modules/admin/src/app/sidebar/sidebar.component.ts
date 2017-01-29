@@ -6,10 +6,7 @@ import { SidebarModel } from './sidebar.model';
 @Component({
     selector: 'sidebar',
     template: require('./sidebar.component.html'),
-    providers: [],
-    styleUrls: [
-        require('./sidebar.component.scss')
-    ]
+    styleUrls: ['./sidebar.component.scss']
 })
 
 export class SidebarComponent {

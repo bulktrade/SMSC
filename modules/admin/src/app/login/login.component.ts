@@ -11,9 +11,7 @@ import { NotificationService } from "../services/notification-service";
         AuthService
     ],
     template: require('./login.component.html'),
-    styleUrls: [
-        require('./login.component.scss')
-    ]
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
     isErrorMessage: boolean = false;

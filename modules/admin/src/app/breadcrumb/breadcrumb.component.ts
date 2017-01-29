@@ -15,9 +15,7 @@ import { CommonModule } from '@angular/common';
         'parents'
     ],
     providers: [],
-    styleUrls: [
-        require('./breadcrumb.component.scss')
-    ]
+    styleUrls: ['./breadcrumb.component.scss']
 })
 
 export class BreadcrumbComponent {

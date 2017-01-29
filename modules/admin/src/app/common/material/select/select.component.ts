@@ -7,9 +7,7 @@ import { FormsModule } from '@angular/forms';
     selector: 'md-select',
     providers: [],
     template: require('./select.component.html'),
-    styleUrls: [
-        require('./select.component.scss'),
-    ]
+    styleUrls: ['./select.component.scss']
 })
 
 export class MdSelectComponent implements OnInit {

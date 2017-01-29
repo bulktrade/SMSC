@@ -8,18 +8,18 @@ import { AppRoutingModule } from "./app-routing.module";
 import { LoginComponent } from "./login/login.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
-import { CrudMetaDataComponent } from "./crud-meta-data/crud-meta-data.components";
+// import { CrudMetaDataComponent } from "./crud-meta-data/crud-meta-data.components";
 import { Router } from "@angular/router";
-import { AppState } from "./app.service";
+import { AppState, InternalStateType } from "./app.service";
 import { COMMON_PROVIDERS } from "./common";
 import { AuthService } from "./services/auth/auth.service";
 import { TokenService } from "./services/auth/token.service";
-import { CrudService } from "./crud/crud.service";
+// import { CrudService } from "./crud/crud.service";
 import { AuthGuard } from "./common/auth.guard";
 import { NotificationService } from "./services/notification-service";
 import { LoadingGridService } from "./services/loading/loading-grid.service";
 import { APP_RESOLVER_PROVIDERS } from "./app.resolver";
-import { createNewHosts, removeNgStyles } from "@angularclass/hmr";
+import { createNewHosts, removeNgStyles, createInputTransfer } from "@angularclass/hmr";
 import { ENV_PROVIDERS } from "./environment";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate";
@@ -34,19 +34,25 @@ import { LoadingService } from "./services/loading/loading.service";
 import { RouterOutletService } from "./services/router-outlet-service";
 import { MetaDataPropertyBindingParameterComponent } from "./crud-meta-data/binding-parameter/binding-parameter.component";
 import { SidebarService } from "./sidebar/sidebar.service";
-import { DashboardModule } from "./dashboard/dashboard.module";
+// import { DashboardModule } from "./dashboard/dashboard.module";
 import { HttpInterceptor } from "./common/http-interceptor";
 import { NoInternetModule } from "./common/no-internet/no-internet.component";
-import { CrudMetaFormDataComponent } from "./crud-meta-data/crud-meta-form-data/crud-meta-form-data.component";
-import { CrudClassMetaDataComponent } from "./crud-meta-data/crud-class-meta-data/crud-class-meta-data.component";
-import { CrudMetaGridDataComponent } from "./crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component";
+// import { CrudMetaFormDataComponent } from "./crud-meta-data/crud-meta-form-data/crud-meta-form-data.component";
+// import { CrudClassMetaDataComponent } from "./crud-meta-data/crud-class-meta-data/crud-class-meta-data.component";
+// import { CrudMetaGridDataComponent } from "./crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component";
 import { SharedModule } from "./shared.module";
-import { CrudModule } from "./crud/crud.module";
+// import { CrudModule } from "./crud/crud.module";
 import { BackendService } from "./services/backend/backend.service";
 import { GrowlService } from "./services/growl/growl.service";
 import { URIHandlingService } from "./services/uri-handling";
-import { CrudLevelService } from "./crud/services/crud-level";
+// import { CrudLevelService } from "./crud/services/crud-level";
 import { CustomersService } from "./customers/customers.service";
+
+type StoreType = {
+    state: InternalStateType,
+    restoreInputValues: () => void,
+    disposeOldHosts: () => void
+};
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
@@ -80,10 +86,10 @@ export const APP_PROVIDERS = [
         LoginComponent,
         NavigationComponent,
         NotFoundComponent,
-        CrudMetaDataComponent,
-        CrudMetaFormDataComponent,
-        CrudClassMetaDataComponent,
-        CrudMetaGridDataComponent,
+        // // CrudMetaDataComponent,
+        // // CrudMetaFormDataComponent,
+        // // CrudClassMetaDataComponent,
+        // // CrudMetaGridDataComponent,
         MetaDataPropertyBindingParameterComponent,
     ],
     imports: [
@@ -103,13 +109,13 @@ export const APP_PROVIDERS = [
         }),
         SharedModule.forRoot(),
         SimpleNotificationsModule,
-        CrudModule,
-        DashboardModule,
+        // CrudModule,
+        // DashboardModule,
         BreadcrumbModule.forRoot()
     ],
     providers: [
-        CrudLevelService,
-        CrudService,
+        // CrudLevelService,
+        // CrudService,
         ConfigService,
         GrowlService,
         BackendService,
@@ -119,28 +125,43 @@ export const APP_PROVIDERS = [
     ]
 })
 export class AppModule {
-    constructor(public appRef: ApplicationRef, public appState: AppState) {
-    }
+    constructor(
+        public appRef: ApplicationRef,
+        public appState: AppState
+    ) {}
 
-    hmrOnInit(store) {
-        if (!store || !store.state) return;
-        console.log('HMR store', store);
+    public hmrOnInit(store: StoreType) {
+        if (!store || !store.state) {
+            return;
+        }
+        console.log('HMR store', JSON.stringify(store, null, 2));
+        // set state
         this.appState._state = store.state;
+        // set input values
+        if ('restoreInputValues' in store) {
+            let restoreInputValues = store.restoreInputValues;
+            setTimeout(restoreInputValues);
+        }
+
         this.appRef.tick();
         delete store.state;
+        delete store.restoreInputValues;
     }
 
-    hmrOnDestroy(store) {
-        const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-        // recreate elements
+    public hmrOnDestroy(store: StoreType) {
+        const cmpLocation = this.appRef.components.map((cmp) => cmp.location.nativeElement);
+        // save state
         const state = this.appState._state;
         store.state = state;
+        // recreate root elements
         store.disposeOldHosts = createNewHosts(cmpLocation);
+        // save input values
+        store.restoreInputValues  = createInputTransfer();
         // remove styles
         removeNgStyles();
     }
 
-    hmrAfterDestroy(store) {
+    public hmrAfterDestroy(store: StoreType) {
         // display new elements
         store.disposeOldHosts();
         delete store.disposeOldHosts;

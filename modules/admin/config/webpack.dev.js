@@ -1,13 +1,16 @@
 const helpers = require('./helpers');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
+const webpackMergeDll = webpackMerge.strategy({ plugins: 'replace' });
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 
 /**
  * Webpack Plugins
  */
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
 /**
  * Webpack Constants
@@ -23,6 +26,9 @@ const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
   HMR: HMR
 });
 
+
+const DllBundlesPlugin = require('webpack-dll-bundles-plugin').DllBundlesPlugin;
+
 /**
  * Webpack configuration
  *
@@ -30,20 +36,6 @@ const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
  */
 module.exports = function (options) {
   return webpackMerge(commonConfig({ env: ENV }), {
-
-    /**
-     * Merged metadata from webpack.common.js for index.html
-     *
-     * See: (custom attribute)
-     */
-    metadata: METADATA,
-
-    /**
-     * Switch loaders to debug mode.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#debug
-     */
-    debug: true,
 
     /**
      * Developer tool to enhance debugging
@@ -81,7 +73,7 @@ module.exports = function (options) {
        *
        * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
        */
-      sourceMapFilename: '[name].map',
+      sourceMapFilename: '[file].map',
 
       /** The filename of non-entry chunks as relative path
        * inside the output.path directory.
@@ -91,11 +83,40 @@ module.exports = function (options) {
       chunkFilename: '[id].chunk.js',
 
       library: 'ac_[name]',
-      libraryTarget: 'var'
+      libraryTarget: 'var',
+    },
+
+    module: {
+
+      rules: [
+
+        /*
+         * css loader support for *.css files (styles directory only)
+         * Loads external css styles into the DOM, supports HMR
+         *
+         */
+        {
+          test: /\.css$/,
+          use: [ 'style-loader', 'css-loader' ],
+          include: [ helpers.root('src', 'styles') ]
+        },
+
+        /*
+         * sass loader support for *.scss files (styles directory only)
+         * Loads external sass styles into the DOM, supports HMR
+         *
+         */
+        {
+          test: /\.scss$/,
+          use: [ 'style-loader', 'css-loader', 'sass-loader' ],
+          include: [ helpers.root('src', 'styles') ]
+        },
+
+      ]
+
     },
 
     plugins: [
-
       new CopyWebpackPlugin([ {
         from: 'src/app/config/config.dev.json',
         to: 'config.json'
@@ -121,27 +142,71 @@ module.exports = function (options) {
         }
       }),
 
+      new DllBundlesPlugin({
+        bundles: {
+          polyfills: [
+            'core-js',
+            {
+              name: 'zone.js',
+              path: 'zone.js/dist/zone.js'
+            },
+            {
+              name: 'zone.js',
+              path: 'zone.js/dist/long-stack-trace-zone.js'
+            },
+            'ts-helpers',
+          ],
+          vendor: [
+            '@angular/platform-browser',
+            '@angular/platform-browser-dynamic',
+            '@angular/core',
+            '@angular/common',
+            '@angular/forms',
+            '@angular/http',
+            '@angular/router',
+            '@angularclass/hmr',
+            'rxjs',
+          ]
+        },
+        dllDir: helpers.root('dll'),
+        webpackConfig: webpackMergeDll(commonConfig({ env: ENV }), {
+          devtool: 'cheap-module-source-map',
+          plugins: []
+        })
+      }),
+
+      /**
+       * Plugin: AddAssetHtmlPlugin
+       * Description: Adds the given JS or CSS file to the files
+       * Webpack knows about, and put it into the list of assets
+       * html-webpack-plugin injects into the generated html.
+       *
+       * See: https://github.com/SimenB/add-asset-html-webpack-plugin
+       */
+      new AddAssetHtmlPlugin([
+        { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('polyfills')}`) },
+        { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`) }
+      ]),
+
       /**
        * Plugin: NamedModulesPlugin (experimental)
        * Description: Uses file names as module name.
        *
        * See: https://github.com/webpack/webpack/commit/a04ffb928365b19feb75087c63f13cadfc08e1eb
        */
-      new NamedModulesPlugin(),
+      // new NamedModulesPlugin(),
+
+      /**
+       * Plugin LoaderOptionsPlugin (experimental)
+       *
+       * See: https://gist.github.com/sokra/27b24881210b56bbaff7
+       */
+      new LoaderOptionsPlugin({
+        debug: true,
+        options: {}
+      }),
 
     ],
-
-    /**
-     * Static analysis linter for TypeScript advanced options configuration
-     * Description: An extensible linter for the TypeScript language.
-     *
-     * See: https://github.com/wbuchwalter/tslint-loader
-     */
-    tslint: {
-      emitErrors: false,
-      failOnHint: false,
-      resourcePath: 'src'
-    },
 
     /**
      * Webpack Development Server configuration
@@ -159,7 +224,6 @@ module.exports = function (options) {
         aggregateTimeout: 300,
         poll: 1000
       },
-      outputPath: helpers.root('dist'),
       proxy: {
         '/rest/**': {
           target: 'http://localhost:8080/'
@@ -174,7 +238,7 @@ module.exports = function (options) {
      * See: https://webpack.github.io/docs/configuration.html#node
      */
     node: {
-      global: 'window',
+      global: true,
       crypto: 'empty',
       process: true,
       module: false,
@@ -183,4 +247,4 @@ module.exports = function (options) {
     }
 
   });
-};
+}

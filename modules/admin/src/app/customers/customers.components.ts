@@ -6,9 +6,7 @@ import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
     providers: [BreadcrumbComponent],
     selector: 'customers',
     template: require('./customers.component.html'),
-    styleUrls: [
-        require('./customers.component.scss')
-    ]
+    styleUrls: ['./customers.component.scss']
 })
 
 export class CustomersComponent {

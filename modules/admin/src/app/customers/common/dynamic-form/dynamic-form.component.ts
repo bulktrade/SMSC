@@ -14,9 +14,7 @@ import { ControlErrorsModule } from "../../../common/control-errors/control-erro
 @Component({
     selector: 'dynamic-form',
     template: require('./dynamic-form.component.html'),
-    styleUrls: [
-        require('./dynamic-form.component.scss')
-    ]
+    styleUrls: ['./dynamic-form.component.scss']
 })
 
 export class DynamicFormComponent {

@@ -10,7 +10,7 @@ import { CustomersService } from "../customers.service";
 @Component({
     selector: 'customers-delete',
     template: require('./customers-delete.component.html'),
-    styleUrls: [require('./customers-delete.component.scss')],
+    styleUrls: ['./customers-delete.component.scss'],
     providers: []
 })
 

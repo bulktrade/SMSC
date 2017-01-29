@@ -44,7 +44,17 @@
  */
 
 // support NodeJS modules without type definitions
-// declare module '*';
+declare module '*';
+
+/*
+ // for legacy tslint etc to understand rename 'modern-lru' with your package
+ // then comment out `declare module '*';`. For each new module copy/paste
+ // this method of creating an `any` module type definition
+ declare module 'modern-lru' {
+ let x: any;
+ export = x;
+ }
+ */
 
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
 declare var ENV: string;
@@ -56,8 +66,8 @@ interface SystemJS {
 }
 
 interface GlobalEnvironment {
-    ENV;
-    HMR;
+    ENV: string;
+    HMR: boolean;
     SystemJS: SystemJS;
     System: SystemJS;
 }
@@ -76,7 +86,6 @@ type AsyncRoutes = {
         FactoryPromise
 };
 
-
 type IdleCallbacks = Es6PromiseLoader |
     Function |
     FactoryEs6PromiseLoader |
@@ -86,8 +95,7 @@ interface WebpackModule {
     hot: {
         data?: any,
         idle: any,
-        accept(dependencies?: string | string[],
-               callback?: (updatedDependencies?: any) => void): void;
+        accept(dependencies?: string | string[], callback?: (updatedDependencies?: any) => void): void;
         decline(deps?: any | string | string[]): void;
         dispose(callback?: (data?: any) => void): void;
         addDisposeHandler(callback?: (data?: any) => void): void;
@@ -98,7 +106,6 @@ interface WebpackModule {
         removeStatusHandler(callback?: (status?: string) => void): void;
     };
 }
-
 
 interface WebpackRequire {
     (id: string): any;
@@ -114,7 +121,6 @@ interface WebpackContext extends WebpackRequire {
 interface ErrorStackTraceLimit {
     stackTraceLimit: number;
 }
-
 
 // Extend typings
 interface NodeRequire extends WebpackRequire {}

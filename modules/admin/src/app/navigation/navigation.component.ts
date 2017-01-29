@@ -19,8 +19,8 @@ import { SidebarService } from '../sidebar/sidebar.service';
         ]),
     ],
     styleUrls: [
-        require('./navigation.component.scss'),
-        require('./simple-sidebar.scss')
+        './navigation.component.scss',
+        './simple-sidebar.scss'
     ]
 })
 

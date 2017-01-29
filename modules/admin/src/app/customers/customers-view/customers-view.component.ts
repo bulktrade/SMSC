@@ -10,9 +10,7 @@ import { CustomersService, REPOSITORY_NAME } from "../customers.service";
 @Component({
     selector: 'customers-view',
     template: require('./customers-view.component.html'),
-    styleUrls: [
-        require('./customers-view.component.scss')
-    ]
+    styleUrls: ['./customers-view.component.scss']
 })
 
 export class CustomersViewComponent {

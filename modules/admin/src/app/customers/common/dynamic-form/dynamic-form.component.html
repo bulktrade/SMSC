@@ -134,9 +134,8 @@
 				<div class="ui-grid-row">
 					<div class="ui-grid-col-2"></div>
 					<div class="ui-grid-col-6">
-						<button style="width: 100%" type="submit" class="btn btn-primary" id="updateProfile"
-						        [disabled]="dynamicForm.form.invalid">
-							<span>{{ submitButtonName | translate }}</span>
+						<button style="width: 100%" type="submit" pButton id="updateProfile"
+						        [disabled]="dynamicForm.form.invalid" [label]="submitButtonName | translate">
 						</button>
 					</div>
 					<div class="ui-grid-col-4"></div>

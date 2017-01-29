@@ -1,5 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { TranslateService } from 'ng2-translate';
+import { Component, ViewEncapsulation } from "@angular/core";
+import { TranslateService } from "ng2-translate";
 import { NOTIFICATION_OPTIONS } from "./common/notification-Options";
 
 @Component({
@@ -11,15 +11,15 @@ import { NOTIFICATION_OPTIONS } from "./common/notification-Options";
     `,
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
-        require('normalize.css/normalize.css'),
-        require('webpack-material-design-icons/material-design-icons.css'),
-        require('font-awesome/css/font-awesome.css'),
-        require('ag-grid/dist/styles/ag-grid.css'),
-        require('ag-grid/dist/styles/theme-fresh.css'),
-        require('./app.component.scss'),
-        require('./common/spinner/cube-grid/cube-grid.component.scss'),
-        require('primeng/resources/themes/omega/theme.css'),
-        require('primeng/resources/primeng.min.css')
+        './../../node_modules/normalize.css/normalize.css',
+        './../../node_modules/webpack-material-design-icons/material-design-icons.css',
+        './../../node_modules/font-awesome/css/font-awesome.css',
+        './../../node_modules/ag-grid/dist/styles/ag-grid.css',
+        './../../node_modules/ag-grid/dist/styles/theme-fresh.css',
+        './../../node_modules/primeng/resources/themes/omega/theme.css',
+        './../../node_modules/primeng/resources/primeng.min.css',
+        './common/spinner/cube-grid/cube-grid.component.scss',
+        './app.component.scss'
     ]
 })
 export class App {
