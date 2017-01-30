@@ -45,12 +45,12 @@ module.exports = function (options) {
        *
        * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
        */
-      extensions: ['.ts', '.js'],
+      extensions: [ '.ts', '.js' ],
 
       /**
        * Make sure root is src
        */
-      modules: [path.resolve(__dirname, 'src'), 'node_modules']
+      modules: [ path.resolve(__dirname, 'src'), 'node_modules' ]
 
     },
 
@@ -108,7 +108,7 @@ module.exports = function (options) {
             },
             'angular2-template-loader'
           ],
-          exclude: [/\.e2e\.ts$/]
+          exclude: [ /\.e2e\.ts$/ ]
         },
 
         /*
@@ -198,10 +198,10 @@ module.exports = function (options) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
-      new CopyWebpackPlugin([{
+      new CopyWebpackPlugin([ {
         from: 'src/app/config/config.test.json',
         to: 'config.json'
-      }]),
+      } ]),
 
       /**
        * Plugin: DefinePlugin

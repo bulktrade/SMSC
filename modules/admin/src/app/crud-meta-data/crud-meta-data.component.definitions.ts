@@ -1,4 +1,5 @@
-import { CrudMetaDataPage } from './crud-meta-data.page';
+import { CrudMetaDataPage } from "./crud-meta-data.page";
+import { protractor, browser } from "protractor";
 
 export const CRUD_META_DATA_SPEC_DEFINITIONS = () => {
     let ptor = protractor.wrapDriver(browser.driver);

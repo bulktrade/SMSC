@@ -1,10 +1,9 @@
-import { EC } from '../../common/expected-conditions';
-import { CrudPage } from '../../crud/crud.page';
-import { CreatePage } from '../../crud/crud-create/crud-create.page';
+import { EC } from "../../common/expected-conditions";
+import { element, by, browser } from "protractor";
 
 export class BindingParameterPage {
-    public crudPage: CrudPage = new CrudPage();
-    public crudCreate: CreatePage = new CreatePage();
+    public crudPage = <any>{};
+    public crudCreate = <any>{};
 
     public bindingParameterItem = element(by.className('metadatapropertybindingparameter'));
     public bindingParameterDirective = element(by.tagName('binding-parameter'));

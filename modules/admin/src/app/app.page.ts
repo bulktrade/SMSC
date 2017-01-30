@@ -1,4 +1,5 @@
-import { EC } from './common/expected-conditions';
+import { EC } from "./common/expected-conditions";
+import { element, by, browser } from "protractor";
 
 export class AppTest {
 

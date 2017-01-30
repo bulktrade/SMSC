@@ -1,4 +1,5 @@
-import { BindingParameterPage } from './binding-parameter.page';
+import { BindingParameterPage } from "./binding-parameter.page";
+import { protractor, browser } from "protractor";
 
 export const BINDING_PARAMETER_SPEC_DEFINITIONS = () => {
     let bindingParam: BindingParameterPage;

@@ -1,5 +1,6 @@
-import { LoginPage } from '../login/login.page';
-import { EC } from '../common/expected-conditions';
+import { LoginPage } from "../login/login.page";
+import { EC } from "../common/expected-conditions";
+import { element, by, browser } from "protractor";
 
 export class CrudMetaDataPage {
     public login: LoginPage = new LoginPage();

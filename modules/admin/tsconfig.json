@@ -1,51 +1,42 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
-        "sourceMap": true,
-        "noEmit": true,
-        "noEmitHelpers": true,
-        "strictNullChecks": false,
-        "lib": [
-            "dom",
-            "es6"
-        ],
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "types": [
-            "hammerjs",
-            "jasmine",
-            "node",
-            "source-map",
-            "uglify-js",
-            "webpack",
-            "protractor",
-            "amcharts",
-            "hammerjs",
-            "lodash"
-        ]
-    },
-    "exclude": [
-      "node_modules",
-      "dist",
-      "src/**/*.spec.ts",
-      "src/**/*.e2e.ts",
-      "src/**/*.page.ts",
-      "src/**/*.definitions.ts",
-      "src/**/expected-conditions.ts"
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noEmit": true,
+    "noEmitHelpers": true,
+    "strictNullChecks": false,
+    "lib": [
+      "dom",
+      "es6"
     ],
-    "awesomeTypescriptLoaderOptions": {
-        "forkChecker": true,
-        "useWebpackText": true
-    },
-    "compileOnSave": false,
-    "buildOnSave": false,
-    "atom": {
-        "rewriteTsconfig": false
-    }
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "hammerjs",
+      "jasmine",
+      "node",
+      "source-map",
+      "uglify-js",
+      "webpack"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true,
+    "useWebpackText": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": {
+    "rewriteTsconfig": false
+  }
 }

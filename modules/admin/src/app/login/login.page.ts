@@ -1,5 +1,6 @@
-import { LoginModel } from './login.model';
-import { EC } from '../common/expected-conditions';
+import { LoginModel } from "./login.model";
+import { EC } from "../common/expected-conditions";
+import { browser, element, by } from "protractor";
 
 export class LoginPage {
     public elemNotFound = element(by.tagName('notfound'));
