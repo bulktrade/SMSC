@@ -15,6 +15,9 @@ import { LoadingGridService } from '../../services/loading/loading-grid.service'
 import { ConfigService } from '../../config/config.service';
 import { RouterOutletService } from '../../services/router-outlet-service';
 import { GridService } from '../../services/grid.service';
+import { BackendService } from "../../services/backend/backend.service";
+import { CrudViewService } from "../crud-view/crud-view.service";
+import { CrudLevelService } from "../services/crud-level";
 
 class MockActivatedRoute {
     navigateByUrl(url: string | UrlTree, extras?: NavigationExtras) {};
@@ -23,6 +26,9 @@ class MockActivatedRoute {
 
 export const CRUD_PROVIDERS = [
     ...COMMON_PROVIDERS,
+    BackendService,
+    CrudLevelService,
+    CrudViewService,
     LoadingGridService,
     GridService,
     RouterOutletService,
