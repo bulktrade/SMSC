@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { Location } from "@angular/common";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
-import { BackendService } from "../../services/backend/backend.service";
 import { ColumnDef } from "../model/column-definition";
 import { Pagination } from "../model/pagination";
 import { CustomersService, REPOSITORY_NAME } from "../customers.service";
@@ -27,7 +26,6 @@ export class CustomersViewComponent {
                 public customersService: CustomersService,
                 public router: Router,
                 public route: ActivatedRoute,
-                public backend: BackendService,
                 public location: Location) {
     }
 

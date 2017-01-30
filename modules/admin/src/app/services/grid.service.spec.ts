@@ -1,6 +1,5 @@
 import { TestBed } from "@angular/core/testing";
 import { HttpModule } from "@angular/http";
-import { CRUD_PROVIDERS } from "../crud/common/crud-providers";
 import { GridService } from "./grid.service";
 import { APP_PROVIDERS } from "../app.module";
 import { HTTP_PROVIDERS } from "../common/mock/http-providers";
@@ -10,7 +9,6 @@ describe('Grid Service', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                ...CRUD_PROVIDERS,
                 ...APP_PROVIDERS,
                 ...HTTP_PROVIDERS,
                 GridService,

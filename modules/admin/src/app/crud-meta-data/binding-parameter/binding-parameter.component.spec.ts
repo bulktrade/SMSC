@@ -1,17 +1,17 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { CRUD_PROVIDERS } from '../../crud/common/crud-providers';
 import { HttpModule } from '@angular/http';
 import { MetaDataPropertyBindingParameterComponent } from './binding-parameter.component';
+import { TranslateModule } from "ng2-translate";
 
 describe('MetaDataPropertyBindingParameterComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
-                ...CRUD_PROVIDERS,
-                MetaDataPropertyBindingParameterComponent
+                MetaDataPropertyBindingParameterComponent,
             ],
             imports: [
-                HttpModule
+                HttpModule,
+                TranslateModule.forRoot()
             ]
         });
     });

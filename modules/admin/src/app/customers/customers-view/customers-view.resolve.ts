@@ -2,7 +2,6 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from "@angular/r
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { NotificationService } from "../../services/notification-service";
-import { BackendService } from "../../services/backend/backend.service";
 import { URIHandlingService } from "../../services/uri-handling";
 import { CustomersService, REPOSITORY_NAME, URI_COLUMNS } from "../customers.service";
 import { Pagination } from "../model/pagination";
@@ -13,7 +12,6 @@ export class CustomersViewResolve implements Resolve<any> {
 
     constructor(public customersService: CustomersService,
                 public notification: NotificationService,
-                public backendService: BackendService,
                 public URIService: URIHandlingService) {
     }
 

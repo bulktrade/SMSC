@@ -4,7 +4,6 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { LoadingGridService } from "../services/loading/loading-grid.service";
 import { Observable } from "rxjs";
 import { Location } from "@angular/common";
-import { BackendService } from "../services/backend/backend.service";
 import { SelectItem } from "primeng/components/common/api";
 import { RequestOptions, Headers, RequestMethod, Http, URLSearchParams } from "@angular/http";
 import { ConfigService } from "../config/config.service";
@@ -32,7 +31,6 @@ export class CustomersService {
                 public translate: TranslateService,
                 public loadingService: LoadingGridService,
                 public location: Location,
-                public backendService: BackendService,
                 public http: Http,
                 public configService: ConfigService) {
         this.apiUrl = configService.config.apiUrl;

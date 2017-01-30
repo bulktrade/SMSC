@@ -3,7 +3,6 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { Message } from "primeng/components/common/api";
-import { BackendService } from "../../services/backend/backend.service";
 import { NotificationService } from "../../services/notification-service";
 import { CustomersService } from "../customers.service";
 
@@ -23,7 +22,6 @@ export class CustomersDeleteComponent {
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public backendService: BackendService,
                 public notifications: NotificationService) {
     }
 

@@ -1,27 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
-import { DashboardBox } from './models/dashboard-box';
-import { CrudService } from '../crud/crud.service';
-import { GridService } from '../services/grid.service';
-import { ActivatedRouteSnapshot } from '@angular/router';
-import { Location } from '@angular/common';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import { BatchType } from '../orientdb/model/batch-type';
-import { Operation } from '../orientdb/model/operation';
-import { EditModel } from '../crud/crud-update/crud-update.model';
-import { Dashboard } from './models/dashboard';
-import { MetaData } from '../common/models/meta-data';
-import { OUser } from '../common/models/OUser';
-import { AuthHttp } from 'angular2-jwt';
-import { ConfigService } from '../config/config.service';
+import { Injectable } from "@angular/core";
+import { DashboardBox } from "./models/dashboard-box";
+import { GridService } from "../services/grid.service";
+import { ActivatedRouteSnapshot } from "@angular/router";
+import { Location } from "@angular/common";
+import { Observable } from "rxjs/Observable";
+import { Observer } from "rxjs/Observer";
+import { Dashboard } from "./models/dashboard";
+import { AuthHttp } from "angular2-jwt";
+import { ConfigService } from "../config/config.service";
 
 const squel = require('squel');
 
 @Injectable()
 export class DashboardService {
-    constructor(public crudService: CrudService,
-                public location: Location,
+    constructor(public location: Location,
                 public gridService: GridService,
                 private authHttp: AuthHttp,
                 private configService: ConfigService) {
@@ -91,24 +83,24 @@ export class DashboardService {
      * height - box height(25/50/75/100)
      * rid - @rid
      */
-    public updateBoxSize(size: Object, item: DashboardBox): Observable<Object> {
-        let send: Object = item.getORecord();
-        send['width'] = size['width'];
-        send['height'] = size['height'];
-        let obj: any = {
-            type: BatchType.UPDATE,
-            record: send
-        };
-        let options: Array<Operation> = [obj];
-
-        return Observable.create((observer: Observer<Object>) => {
-            // this.databaseService.batch(options).subscribe((res) => {
-            //     let result = JSON.parse(res['_body']);
-            //
-            //     observer.next(result.result[0]);
-            //     observer.complete();
-            // });
-        });
+    public updateBoxSize(size: Object, item: DashboardBox) {
+        // let send: Object = item.getORecord();
+        // send['width'] = size['width'];
+        // send['height'] = size['height'];
+        // let obj: any = {
+        //     type: BatchType.UPDATE,
+        //     record: send
+        // };
+        // let options: Array<Operation> = [obj];
+        //
+        // return Observable.create((observer: Observer<Object>) => {
+        //     // this.databaseService.batch(options).subscribe((res) => {
+        //     //     let result = JSON.parse(res['_body']);
+        //     //
+        //     //     observer.next(result.result[0]);
+        //     //     observer.complete();
+        //     // });
+        // });
     }
 
     /**
@@ -116,11 +108,11 @@ export class DashboardService {
      * @param rid - box @rid
      */
     public deleteBox(box: DashboardBox) {
-        let obj: any = {
-            type: BatchType.DELETE,
-            record: box.getORecord()
-        };
-        let options: Array<Operation> = [obj];
+        // let obj: any = {
+        //     type: BatchType.DELETE,
+        //     record: box.getORecord()
+        // };
+        // let options: Array<Operation> = [obj];
 
         // return this.databaseService.batch(options);
     }
@@ -131,20 +123,20 @@ export class DashboardService {
      * @param list - list of boxes
      */
     public batchUpdateDashboardBox(list: Array<DashboardBox>): Observable<Array<DashboardBox>> {
-        let operations: Array<Operation> = [];
-
-        for (let key in list) {
-            if (list.hasOwnProperty(key)) {
-                let oRecord: Object = list[key].getORecord();
-
-                let tmp: any = {
-                    type: BatchType.UPDATE,
-                    record: oRecord
-                };
-
-                operations.push(tmp);
-            }
-        }
+        // let operations: Array<Operation> = [];
+        //
+        // for (let key in list) {
+        //     if (list.hasOwnProperty(key)) {
+        //         let oRecord: Object = list[key].getORecord();
+        //
+        //         let tmp: any = {
+        //             type: BatchType.UPDATE,
+        //             record: oRecord
+        //         };
+        //
+        //         operations.push(tmp);
+        //     }
+        // }
 
         return Observable.create((observer: Observer<Array<DashboardBox>>) => {
             // this.databaseService.batch(operations).subscribe(() => {
@@ -168,10 +160,10 @@ export class DashboardService {
      * @returns {Subscription}
      */
     public getBoxFormColumns(route: ActivatedRouteSnapshot,
-                             id: string, className: string): Observer<EditModel> {
-        this.crudService.setClassName(className);
-
-        return Observable.create((observer: Observer<EditModel>) => {
+                             id: string, className: string) {
+        // this.crudService.setClassName(className);
+        //
+        // return Observable.create((observer: Observer<EditModel>) => {
             // this.crudService.databaseService.load(id)
             //     .then((res: Response) => {
             //         let result = JSON.parse(res['_body']);
@@ -206,7 +198,7 @@ export class DashboardService {
             //         observer.error(error);
             //         observer.complete();
             //     });
-        });
+        // });
     }
 
     // Temporary

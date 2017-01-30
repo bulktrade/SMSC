@@ -30,7 +30,6 @@ export class DashboardViewComponent {
                 private dragulaService: DragulaService,
                 private  dashboardService: DashboardService,
                 private router: Router,
-                public crudService: CrudService,
                 private route: ActivatedRoute) {
         dragulaService.setOptions('status-bag', {
             direction: 'horizontal',
@@ -122,14 +121,14 @@ export class DashboardViewComponent {
         this.boxesCss.width.setItem(widthClass, index);
         this.boxesCss.height.setItem(heightClass, index);
 
-        if (item !== undefined) {
-            this.dashboardService.updateBoxSize({ width: val.width, height: val.height },
-                item).subscribe((res) => {
-                this.boxes.getItem(index)['metaData']['version'] = res['@version'];
-                this.boxes.getItem(index)['width'] = res['width'];
-                this.boxes.getItem(index)['height'] = res['height'];
-            });
-        }
+        // if (item !== undefined) {
+        //     this.dashboardService.updateBoxSize({ width: val.width, height: val.height },
+        //         item).subscribe((res) => {
+        //         this.boxes.getItem(index)['metaData']['version'] = res['@version'];
+        //         this.boxes.getItem(index)['width'] = res['width'];
+        //         this.boxes.getItem(index)['height'] = res['height'];
+        //     });
+        // }
     }
 
     /**
@@ -185,16 +184,16 @@ export class DashboardViewComponent {
             'div.box[data-boxRid="' + box.metaData.rid + '"]');
 
         //  Update current boxes list after end of transition
-        dom.on(removedObject, 'transitionend', (e) => {
-            this.boxes.removeItem(index);
-            this.boxesCss.width.removeItem(index);
-            this.boxesCss.height.removeItem(index);
-            this.boxesCss.remove.removeItem(index);
-
-            //  Remove box
-            this.dashboardService.deleteBox(box);
-
-        });
+        // dom.on(removedObject, 'transitionend', (e) => {
+        //     this.boxes.removeItem(index);
+        //     this.boxesCss.width.removeItem(index);
+        //     this.boxesCss.height.removeItem(index);
+        //     this.boxesCss.remove.removeItem(index);
+        //
+        //     //  Remove box
+        //     this.dashboardService.deleteBox(box);
+        //
+        // });
         this.boxesCss.remove.setItem('removeBox', index);
     }
 

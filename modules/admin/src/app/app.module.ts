@@ -42,7 +42,6 @@ import { NoInternetModule } from "./common/no-internet/no-internet.component";
 // import { CrudMetaGridDataComponent } from "./crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component";
 import { SharedModule } from "./shared.module";
 // import { CrudModule } from "./crud/crud.module";
-import { BackendService } from "./services/backend/backend.service";
 import { GrowlService } from "./services/growl/growl.service";
 import { URIHandlingService } from "./services/uri-handling";
 // import { CrudLevelService } from "./crud/services/crud-level";
@@ -118,7 +117,6 @@ export const APP_PROVIDERS = [
         // CrudService,
         ConfigService,
         GrowlService,
-        BackendService,
         URIHandlingService,
         ENV_PROVIDERS,
         APP_PROVIDERS

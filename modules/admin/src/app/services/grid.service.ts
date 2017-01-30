@@ -198,7 +198,7 @@ export class GridService {
      * @param currentCrudLevel
      * @returns {any}
      */
-    combineOperators(currentCrudLevel: CrudLevel) {
+    combineOperators(currentCrudLevel) {
         // if (typeof currentCrudLevel !== 'undefined') {
         //     let promises: Array<Promise<string>> = [];
         //     let expression = squel.expr();

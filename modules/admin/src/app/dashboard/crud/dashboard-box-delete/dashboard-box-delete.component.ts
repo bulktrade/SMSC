@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { CrudService } from '../../../crud/crud.service';
+import { Component } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router, ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 
 @Component({
     selector: 'crud-delete',
@@ -18,7 +17,6 @@ export class DashboardCrudDeleteComponent {
     public id;
 
     constructor(public translate: TranslateService,
-                public crudService: CrudService,
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location) {
