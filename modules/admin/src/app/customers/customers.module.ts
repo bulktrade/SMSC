@@ -50,7 +50,6 @@ const CUSTOMERS_MODULES = [
     CommonModule,
     TranslateModule,
     DynamicFormModule,
-    // MultipleSelectModule,
     CustomersRoutingModule,
     InputTextModule,
 ];

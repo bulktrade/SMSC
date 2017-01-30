@@ -9,8 +9,7 @@ import { SelectItem } from "primeng/components/common/api";
 @Component({
     selector: 'multiple-select',
     template: require('./multiple-select.component.html'),
-    styleUrls: ['./multiple-select.component.scss'],
-    providers: []
+    styleUrls: ['./multiple-select.component.scss']
 })
 
 export class MultipleSelectComponent {
@@ -31,8 +30,7 @@ export class MultipleSelectComponent {
     constructor(public translate: TranslateService,
                 public route: ActivatedRoute,
                 public router: Router,
-                public location: Location,
-                public crudService: CrudService) {
+                public location: Location) {
     }
 
     ngOnInit() {

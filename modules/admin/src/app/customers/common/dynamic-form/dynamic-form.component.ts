@@ -8,8 +8,8 @@ import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { ButtonModule } from "primeng/components/button/button";
 import { DropdownModule } from "primeng/components/dropdown/dropdown";
 import { CheckboxModule } from "primeng/components/checkbox/checkbox";
-import { MultipleSelectModule } from "../../../crud/directives/multiple-select/multiple-select.component";
 import { ControlErrorsModule } from "../../../common/control-errors/control-errors";
+import { MultipleSelectModule } from "../multiple-select/multiple-select.component";
 
 @Component({
     selector: 'dynamic-form',
@@ -53,7 +53,7 @@ export class DynamicFormComponent {
         CheckboxModule,
         FormsModule,
         TranslateModule,
-        MultipleSelectModule.forRoot(),
+        MultipleSelectModule,
         TranslateModule,
         PanelModule,
         InputTextModule,
