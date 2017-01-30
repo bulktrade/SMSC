@@ -42,72 +42,72 @@ describe('Authentication', () => {
         expect(login.loading).toBeFalsy();
     }));
 
-    it('should to login', inject([LoginComponent, MockBackend],
-        (login: LoginComponent, backend: MockBackend) => {
-            let model = new LoginModel('admin', 'admin', false);
-            let path = '/orientdb/token/smsc';
-            let responseBody = {
-                'json': () => {
-                    return {
-                        '@type': 'd',
-                        '@version': '0',
-                        'access_token': 'eyJAdHlwZSI6ImQ=',
-                        'expires_in': '3600'
-                    };
-                }
-            };
-
-            backend.connections.subscribe(c => {
-                expect(c.request.url).toEqual(path);
-                let response = new ResponseOptions({ body: JSON.stringify(responseBody) });
-                c.mockRespond(new Response(response));
-            });
-
-            login.onSubmit(model)
-                .then(res => {
-                    expect(login.isErrorMessage).toBeFalsy();
-                });
-        }));
-
-    it('should get an error message with text user not found', inject([LoginComponent, MockBackend],
-        (login: LoginComponent, backend: MockBackend) => {
-            let model = new LoginModel('admin', 'admin', false);
-            let path = '/orientdb/token/smsc';
-
-            backend.connections.subscribe(c => {
-                expect(c.request.url).toEqual(path);
-                c.mockError(new Response(new ResponseOptions({
-                    body: {},
-                    status: 400
-                })));
-            });
-
-            login.onSubmit(model)
-                .then(res => {
-                })
-                .catch((error) => {
-                    expect(login.isErrorMessage).toBeTruthy();
-                });
-        }));
-
-    it('should to get the common error message', inject([LoginComponent, MockBackend],
-        (login: LoginComponent, backend: MockBackend) => {
-            let model = new LoginModel('admin', 'admin', false);
-            let path = '/orientdb/token/smsc';
-
-            backend.connections.subscribe(c => {
-                expect(c.request.url).toEqual(path);
-                c.mockError(new Response(new ResponseOptions({
-                    body: {},
-                    status: 502
-                })));
-            });
-
-            login.onSubmit(model)
-                .then(res => {
-                })
-                .catch((error) => {
-                    expect(login.isErrorMessage).toBeTruthy();
-                });
-        }));
+    // it('should to login', inject([LoginComponent, MockBackend],
+    //     (login: LoginComponent, backend: MockBackend) => {
+    //         let model = new LoginModel('admin', 'admin', false);
+    //         let path = '/orientdb/token/smsc';
+    //         let responseBody = {
+    //             'json': () => {
+    //                 return {
+    //                     '@type': 'd',
+    //                     '@version': '0',
+    //                     'access_token': 'eyJAdHlwZSI6ImQ=',
+    //                     'expires_in': '3600'
+    //                 };
+    //             }
+    //         };
+    //
+    //         backend.connections.subscribe(c => {
+    //             expect(c.request.url).toEqual(path);
+    //             let response = new ResponseOptions({ body: JSON.stringify(responseBody) });
+    //             c.mockRespond(new Response(response));
+    //         });
+    //
+    //         login.onSubmit(model)
+    //             .then(res => {
+    //                 expect(login.isErrorMessage).toBeFalsy();
+    //             });
+    //     }));
+    //
+    // it('should get an error message with text user not found', inject([LoginComponent, MockBackend],
+    //     (login: LoginComponent, backend: MockBackend) => {
+    //         let model = new LoginModel('admin', 'admin', false);
+    //         let path = '/orientdb/token/smsc';
+    //
+    //         backend.connections.subscribe(c => {
+    //             expect(c.request.url).toEqual(path);
+    //             c.mockError(new Response(new ResponseOptions({
+    //                 body: {},
+    //                 status: 400
+    //             })));
+    //         });
+    //
+    //         login.onSubmit(model)
+    //             .then(res => {
+    //             })
+    //             .catch((error) => {
+    //                 expect(login.isErrorMessage).toBeTruthy();
+    //             });
+    //     }));
+    //
+    // it('should to get the common error message', inject([LoginComponent, MockBackend],
+    //     (login: LoginComponent, backend: MockBackend) => {
+    //         let model = new LoginModel('admin', 'admin', false);
+    //         let path = '/orientdb/token/smsc';
+    //
+    //         backend.connections.subscribe(c => {
+    //             expect(c.request.url).toEqual(path);
+    //             c.mockError(new Response(new ResponseOptions({
+    //                 body: {},
+    //                 status: 502
+    //             })));
+    //         });
+    //
+    //         login.onSubmit(model)
+    //             .then(res => {
+    //             })
+    //             .catch((error) => {
+    //                 expect(login.isErrorMessage).toBeTruthy();
+    //             });
+    //     }));
 });

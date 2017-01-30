@@ -60,7 +60,7 @@ public class Customer extends BaseEntity {
     @ManyToMany()
     @OrderBy
     @JoinTable(
-            name = "CUSTOMER_HAS_USER_ACCOUNT",
+            name = "CUSTOMER_USER_ACCOUNT",
             joinColumns = @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     )

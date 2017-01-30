@@ -99,6 +99,10 @@ public class UserController {
     public ResponseEntity<User> create(@Valid @RequestBody User user, HttpServletResponse response) throws IOException {
         log.info("create User");
         try {
+            if(user.getUsername().matches("^[Rr][Oo][Ll][Ee]_?")){
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Username cannot start with 'ROLE'");
+                return null;
+            }
             User created = userRepository.saveOneWithEncryptedPassword(user);
             User newUser = userRepository.getOneWithRolesAndDecryptedPassword(created.getId());
             URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -134,6 +138,10 @@ public class UserController {
             User updatedUser = userRepository.getOneWithRolesAndDecryptedPassword(id);
             if(!updatedUser.getUsername().equals(user.getUsername()) && userRepository.getOneByUserNameWithDecryptedPassword(user.getUsername()) != null) {
                 response.sendError(HttpServletResponse.SC_CONFLICT, "User with this username already exists");
+                return null;
+            }
+            if(user.getUsername().matches("^[Rr][Oo][Ll][Ee]_?")){
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Username cannot start with 'ROLE'");
                 return null;
             }
             updatedUser.setUsername(user.getUsername());

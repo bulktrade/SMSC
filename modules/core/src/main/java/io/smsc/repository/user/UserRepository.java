@@ -40,11 +40,6 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     @RestResource(exported = false)
     User save(@RequestBody  User user);
 
-    @Override
-    @EntityGraph(attributePaths = {"roles", "dashboards"})
-    @RestResource(exported = false)
-    User findOne(Long id);
-
     @EntityGraph(attributePaths = {"roles", "dashboards"})
     @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ') or hasAuthority('USER_READ_OWN')")
     @RestResource(exported = false)

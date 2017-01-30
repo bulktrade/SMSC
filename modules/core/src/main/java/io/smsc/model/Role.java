@@ -25,15 +25,6 @@ public class Role extends BaseEntity{
     @Pattern(regexp = "[A-Z_]+", message = "{role.name.validation}")
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @OrderBy
-    @JoinTable(
-            name = "ROLE_PERMISSION",
-            joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "PERMISSION_ID", referencedColumnName = "ID")
-    )
-    private Set<Permission> permissions;
-
     @ManyToMany(mappedBy = "roles")
     @OrderBy
     @JsonBackReference()
@@ -71,28 +62,12 @@ public class Role extends BaseEntity{
         this.name = name;
     }
 
-    public Set<Permission> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<Permission> permissions) {
-        this.permissions = permissions;
-    }
-
     public Set<User> getUsers() {
         return users;
     }
 
     public void setUsers(Set<User> users) {
         this.users = users;
-    }
-
-    public boolean addPermission(Permission permission){
-        return this.permissions.add(permission);
-    }
-
-    public boolean removePermission(Permission permission){
-        return this.permissions.remove(permission);
     }
 
     public boolean addUser(User user){
@@ -108,7 +83,6 @@ public class Role extends BaseEntity{
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                "permissions'=" + permissions + '\'' +
                 '}';
     }
 }

@@ -28,7 +28,7 @@ public class BaseEntity implements Persistable<Long>, Serializable {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_MODIFIED_DATE", nullable = false)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
     protected Date lastModifiedDate = new Date();
 
     @Version
