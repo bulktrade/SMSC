@@ -16,82 +16,82 @@ import static io.smsc.test_data.CustomerContactTestData.*;
 @WithMockUser(username="Admin",roles = {"ADMIN"})
 public class CustomerContactRestTest extends AbstractTest {
 
-    @Test
-    public void testGetSingleCustomerContact() throws Exception {
-        mockMvc.perform(get("/rest/repository/customer-contacts/241"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.firstname", is(CUSTOMER_CONTACT_1.getFirstname())))
-                .andExpect(jsonPath("$.surname", is(CUSTOMER_CONTACT_1.getSurname())))
-                .andExpect(jsonPath("$.phone", is(CUSTOMER_CONTACT_1.getPhone())))
-                .andExpect(jsonPath("$.mobilePhone", is(CUSTOMER_CONTACT_1.getMobilePhone())))
-                .andExpect(jsonPath("$.fax", is(CUSTOMER_CONTACT_1.getFax())))
-                .andExpect(jsonPath("$.emailAddress", is(CUSTOMER_CONTACT_1.getEmailAddress())))
-                .andExpect(jsonPath("$.type", is(Type.CEO.toString())))
-                .andExpect(jsonPath("$.salutation", is(Salutation.MR.toString())));
-    }
-
-    @Test
-    public void testCustomerContactNotFound() throws Exception {
-        mockMvc.perform(get("/rest/repository/customer-contacts/999"))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void testGetAllCustomerContacts() throws Exception {
-        mockMvc.perform(get("/rest/repository/customer-contacts"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.customer-contacts", hasSize(1)))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].firstname", is(CUSTOMER_CONTACT_1.getFirstname())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].surname", is(CUSTOMER_CONTACT_1.getSurname())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].phone", is(CUSTOMER_CONTACT_1.getPhone())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].mobilePhone", is(CUSTOMER_CONTACT_1.getMobilePhone())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].fax", is(CUSTOMER_CONTACT_1.getFax())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].emailAddress", is(CUSTOMER_CONTACT_1.getEmailAddress())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].type", is(Type.CEO.toString())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].salutation", is(Salutation.MR.toString())));
-    }
-
-    @Test
-    public void testCreateCustomerContact() throws Exception {
-        String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.MRS));
-        this.mockMvc.perform(post("/rest/repository/customer-contacts")
-                .contentType("application/json;charset=UTF-8")
-                .content(customerContactJson))
-                .andExpect(status().isCreated());
-    }
-
-    @Test
-    public void testDeleteCustomerContact() throws Exception {
-        mockMvc.perform(delete("/rest/repository/customer-contacts/241"));
-        mockMvc.perform(get("/rest/repository/customer-contacts/241"))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void testUpdateCustomerContact() throws Exception {
-        CustomerContact updated = new CustomerContact(CUSTOMER_CONTACT_1);
-        updated.setType(Type.PRIMARY);
-        updated.setSalutation(Salutation.MRS);
-        updated.setEmailAddress("new_email@gmial.com");
-        updated.setMobilePhone("0971234567");
-        updated.setFirstname("newFirstName");
-        String customerContactJson = json(updated);
-        mockMvc.perform(put("/rest/repository/customer-contacts/241")
-                .contentType("application/json;charset=UTF-8")
-                .content(customerContactJson))
-                .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/customer-contacts/241"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.firstname", is(updated.getFirstname())))
-                .andExpect(jsonPath("$.surname", is(updated.getSurname())))
-                .andExpect(jsonPath("$.phone", is(updated.getPhone())))
-                .andExpect(jsonPath("$.mobilePhone", is(updated.getMobilePhone())))
-                .andExpect(jsonPath("$.fax", is(updated.getFax())))
-                .andExpect(jsonPath("$.emailAddress", is(updated.getEmailAddress())))
-                .andExpect(jsonPath("$.type", is(Type.PRIMARY.toString())))
-                .andExpect(jsonPath("$.salutation", is(Salutation.MRS.toString())));
-    }
+//    @Test
+//    public void testGetSingleCustomerContact() throws Exception {
+//        mockMvc.perform(get("/rest/repository/customer-contacts/241"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(contentType))
+//                .andExpect(jsonPath("$.firstname", is(CUSTOMER_CONTACT_1.getFirstname())))
+//                .andExpect(jsonPath("$.surname", is(CUSTOMER_CONTACT_1.getSurname())))
+//                .andExpect(jsonPath("$.phone", is(CUSTOMER_CONTACT_1.getPhone())))
+//                .andExpect(jsonPath("$.mobilePhone", is(CUSTOMER_CONTACT_1.getMobilePhone())))
+//                .andExpect(jsonPath("$.fax", is(CUSTOMER_CONTACT_1.getFax())))
+//                .andExpect(jsonPath("$.emailAddress", is(CUSTOMER_CONTACT_1.getEmailAddress())))
+//                .andExpect(jsonPath("$.type", is(Type.CEO.toString())))
+//                .andExpect(jsonPath("$.salutation", is(Salutation.MR.toString())));
+//    }
+//
+//    @Test
+//    public void testCustomerContactNotFound() throws Exception {
+//        mockMvc.perform(get("/rest/repository/customer-contacts/999"))
+//                .andExpect(status().isNotFound());
+//    }
+//
+//    @Test
+//    public void testGetAllCustomerContacts() throws Exception {
+//        mockMvc.perform(get("/rest/repository/customer-contacts"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(contentType))
+//                .andExpect(jsonPath("$._embedded.customer-contacts", hasSize(1)))
+//                .andExpect(jsonPath("$._embedded.customer-contacts[0].firstname", is(CUSTOMER_CONTACT_1.getFirstname())))
+//                .andExpect(jsonPath("$._embedded.customer-contacts[0].surname", is(CUSTOMER_CONTACT_1.getSurname())))
+//                .andExpect(jsonPath("$._embedded.customer-contacts[0].phone", is(CUSTOMER_CONTACT_1.getPhone())))
+//                .andExpect(jsonPath("$._embedded.customer-contacts[0].mobilePhone", is(CUSTOMER_CONTACT_1.getMobilePhone())))
+//                .andExpect(jsonPath("$._embedded.customer-contacts[0].fax", is(CUSTOMER_CONTACT_1.getFax())))
+//                .andExpect(jsonPath("$._embedded.customer-contacts[0].emailAddress", is(CUSTOMER_CONTACT_1.getEmailAddress())))
+//                .andExpect(jsonPath("$._embedded.customer-contacts[0].type", is(Type.CEO.toString())))
+//                .andExpect(jsonPath("$._embedded.customer-contacts[0].salutation", is(Salutation.MR.toString())));
+//    }
+//
+//    @Test
+//    public void testCreateCustomerContact() throws Exception {
+//        String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.MRS));
+//        this.mockMvc.perform(post("/rest/repository/customer-contacts")
+//                .contentType("application/json;charset=UTF-8")
+//                .content(customerContactJson))
+//                .andExpect(status().isCreated());
+//    }
+//
+//    @Test
+//    public void testDeleteCustomerContact() throws Exception {
+//        mockMvc.perform(delete("/rest/repository/customer-contacts/241"));
+//        mockMvc.perform(get("/rest/repository/customer-contacts/241"))
+//                .andExpect(status().isNotFound());
+//    }
+//
+//    @Test
+//    public void testUpdateCustomerContact() throws Exception {
+//        CustomerContact updated = new CustomerContact(CUSTOMER_CONTACT_1);
+//        updated.setType(Type.PRIMARY);
+//        updated.setSalutation(Salutation.MRS);
+//        updated.setEmailAddress("new_email@gmial.com");
+//        updated.setMobilePhone("0971234567");
+//        updated.setFirstname("newFirstName");
+//        String customerContactJson = json(updated);
+//        mockMvc.perform(put("/rest/repository/customer-contacts/241")
+//                .contentType("application/json;charset=UTF-8")
+//                .content(customerContactJson))
+//                .andExpect(status().isOk());
+//        mockMvc.perform(get("/rest/repository/customer-contacts/241"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(contentType))
+//                .andExpect(jsonPath("$.firstname", is(updated.getFirstname())))
+//                .andExpect(jsonPath("$.surname", is(updated.getSurname())))
+//                .andExpect(jsonPath("$.phone", is(updated.getPhone())))
+//                .andExpect(jsonPath("$.mobilePhone", is(updated.getMobilePhone())))
+//                .andExpect(jsonPath("$.fax", is(updated.getFax())))
+//                .andExpect(jsonPath("$.emailAddress", is(updated.getEmailAddress())))
+//                .andExpect(jsonPath("$.type", is(Type.PRIMARY.toString())))
+//                .andExpect(jsonPath("$.salutation", is(Salutation.MRS.toString())));
+//    }
 }
