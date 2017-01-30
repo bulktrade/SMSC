@@ -30,8 +30,8 @@ var testing = require('@angular/core/testing');
 var browser = require('@angular/platform-browser-dynamic/testing');
 
 testing.TestBed.initTestEnvironment(
-    browser.BrowserDynamicTestingModule,
-    browser.platformBrowserDynamicTesting()
+  browser.BrowserDynamicTestingModule,
+  browser.platformBrowserDynamicTesting()
 );
 
 /*
@@ -43,7 +43,6 @@ testing.TestBed.initTestEnvironment(
  * any file that ends with spec.ts and get its path. By passing in true
  * we say do this recursively
  */
-var firstTestContext = require.context('../src/app/config', false, /configService\.spec\.ts/);
 var testContext = require.context('../src', true, /\.spec\.ts/);
 
 /*
@@ -52,8 +51,8 @@ var testContext = require.context('../src', true, /\.spec\.ts/);
  * loop and require those spec files here
  */
 function requireAll(requireContext) {
-    return requireContext.keys().map(requireContext);
+  return requireContext.keys().map(requireContext);
 }
 
 // requires and returns all modules that match
-var modules = requireAll(firstTestContext).concat(requireAll(testContext));
+var modules = requireAll(testContext);

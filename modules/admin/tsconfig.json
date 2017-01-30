@@ -27,13 +27,17 @@
             "protractor",
             "amcharts",
             "hammerjs",
-            "lodash",
-            "selenium-webdriver"
+            "lodash"
         ]
     },
     "exclude": [
-        "node_modules",
-        "dist"
+      "node_modules",
+      "dist",
+      "src/**/*.spec.ts",
+      "src/**/*.e2e.ts",
+      "src/**/*.page.ts",
+      "src/**/*.definitions.ts",
+      "src/**/expected-conditions.ts"
     ],
     "awesomeTypescriptLoaderOptions": {
         "forkChecker": true,

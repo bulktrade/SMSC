@@ -1,4 +1,3 @@
-import { AuthHttp } from "angular2-jwt";
 import { Injectable } from "@angular/core";
 import { TokenService } from "./token.service";
 import { Observable } from "rxjs";
@@ -6,8 +5,7 @@ import { BackendService } from "../backend/backend.service";
 
 @Injectable()
 export class AuthService {
-    constructor(public authHttp: AuthHttp,
-                public tokenService: TokenService,
+    constructor(public tokenService: TokenService,
                 private backendService: BackendService) {
 
     }
