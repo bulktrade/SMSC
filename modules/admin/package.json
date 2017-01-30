@@ -144,6 +144,7 @@
     "node-sass": "^4.3.0",
     "normalize.css": "^4.2.0",
     "object-merge": "^2.5.1",
+    "optimize-js-plugin": "0.0.4",
     "parse5": "^2.2.1",
     "phantomjs": "^2.1.7",
     "postcss": "^5.2.0",

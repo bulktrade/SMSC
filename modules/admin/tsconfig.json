@@ -23,7 +23,12 @@
             "node",
             "source-map",
             "uglify-js",
-            "webpack"
+            "webpack",
+            "protractor",
+            "amcharts",
+            "hammerjs",
+            "lodash",
+            "selenium-webdriver"
         ]
     },
     "exclude": [

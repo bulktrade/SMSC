@@ -7,7 +7,6 @@ import { Observable } from "rxjs";
 import { GridOptions } from "../model/grid-options";
 import { BackendService } from "../../services/backend/backend.service";
 import { NotificationService } from "../../services/notification-service";
-import { ColumnsType } from "../model/columns-type";
 import { URIHandlingService } from "../../services/uri-handling";
 
 @Injectable()
@@ -34,13 +33,8 @@ export class CrudEditResolve extends CrudResolve {
                         .subscribe(resource => {
                             gridOptions.rowData = resource;
 
-                            this.URIService.parseLinkProps(gridOptions.columnDefs, [gridOptions.rowData], ColumnsType.Form)
-                                .subscribe(data => {
-                                    gridOptions.rowData = data;
-
-                                    observer.next(gridOptions);
-                                    observer.complete();
-                                });
+                            observer.next(gridOptions);
+                            observer.complete();
                         }, err => {
                             this.notification.createNotificationOnResponse(err);
                             observer.error(err);

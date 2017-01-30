@@ -277,7 +277,7 @@ export class GridService {
      * @returns {Promise<Response>}
      */
     addLinkToCreatedRecord(result, nameProperty: string,
-                           linkProperties: Array<string>): Promise<Response> {
+                           linkProperties: Array<string>) {
         let promises: Array<Promise<Response>> = [];
 
         linkProperties.forEach(i => {
@@ -314,6 +314,6 @@ export class GridService {
             }
         });
 
-        return Promise.all(promises);
+        // return Promise.all(promises);
     }
 }
