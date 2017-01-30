@@ -14,6 +14,7 @@ const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplaceme
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const OptimizeJsPlugin = require('optimize-js-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /**
  * Webpack Constants
@@ -27,7 +28,10 @@ const METADATA = webpackMerge(commonConfig({
   host: HOST,
   port: PORT,
   ENV: ENV,
-  HMR: false
+  HMR: false,
+  title: 'SMSC Admin',
+  baseUrl: '/admin',
+  isDevServer: helpers.isWebpackDevServer()
 });
 
 module.exports = function (env) {
@@ -121,10 +125,10 @@ module.exports = function (env) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
-      new CopyWebpackPlugin([{
+      new CopyWebpackPlugin([ {
         from: 'src/app/config/config.prod.json',
         to: 'config.json'
-      }]),
+      } ]),
 
       /**
        * Webpack plugin to optimize a JavaScript file for faster initial load
@@ -227,6 +231,22 @@ module.exports = function (env) {
         /zone\.js(\\|\/)dist(\\|\/)long-stack-trace-zone/,
         helpers.root('config/empty.js')
       ),
+
+      /*
+       * Plugin: HtmlWebpackPlugin
+       * Description: Simplifies creation of HTML files to serve your webpack bundles.
+       * This is especially useful for webpack bundles that include a hash in the filename
+       * which changes every compilation.
+       *
+       * See: https://github.com/ampedandwired/html-webpack-plugin
+       */
+      new HtmlWebpackPlugin({
+        template: 'src/index.html',
+        title: METADATA.title,
+        chunksSortMode: 'dependency',
+        metadata: METADATA,
+        inject: 'head'
+      }),
 
 
       // AoT
