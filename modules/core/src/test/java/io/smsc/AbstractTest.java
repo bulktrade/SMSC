@@ -1,6 +1,5 @@
 package io.smsc;
 
-import io.smsc.config.FlywayConfiguration;
 import io.smsc.config.RepositoryIdExposingConfiguration;
 import io.smsc.config.SecurityConfiguration;
 import io.smsc.config.SpringDataRestValidationConfiguration;
@@ -44,7 +43,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @ContextConfiguration(classes = {Application.class, SecurityConfiguration.class, SpringDataRestValidationConfiguration.class,
-        FlywayConfiguration.class, RepositoryIdExposingConfiguration.class})
+        RepositoryIdExposingConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @Transactional

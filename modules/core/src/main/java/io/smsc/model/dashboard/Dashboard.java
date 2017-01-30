@@ -30,7 +30,7 @@ public class Dashboard extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="CUSTOMER_USER_ACCOUNT_ID", nullable = false)
+    @JoinColumn(name="USER_ACCOUNT_ID", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "dashboard", orphanRemoval = true)
