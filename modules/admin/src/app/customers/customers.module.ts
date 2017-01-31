@@ -25,6 +25,7 @@ import { Router } from "@angular/router";
 import { Http, XHRBackend, RequestOptions } from "@angular/http";
 import { HttpInterceptor } from "../common/http-interceptor";
 import { CustomersDeleteComponent } from "./customers-delete/customers-delete.component";
+import { MultipleSelectService } from "./common/multiple-select/multiple-select.service";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
@@ -32,6 +33,17 @@ const CUSTOMERS_DECLARATIONS = [
     CustomersUpdateComponent,
     CustomersCreateComponent,
     CustomersDeleteComponent
+];
+
+const CUSTOMERS_PROVIDERS = [
+    CustomersService,
+    {
+        provide: Http,
+        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) =>
+            new HttpInterceptor(xhrBackend, requestOptions, router),
+        deps: [XHRBackend, RequestOptions, Router]
+    },
+    MultipleSelectService
 ];
 
 const CUSTOMERS_MODULES = [
@@ -58,14 +70,7 @@ const CUSTOMERS_MODULES = [
     imports: [CUSTOMERS_MODULES],
     exports: [CUSTOMERS_DECLARATIONS],
     declarations: [CUSTOMERS_DECLARATIONS],
-    providers: [CustomersService,
-        {
-            provide: Http,
-            useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) =>
-                new HttpInterceptor(xhrBackend, requestOptions, router),
-            deps: [XHRBackend, RequestOptions, Router]
-        },
-    ]
+    providers: [CUSTOMERS_PROVIDERS]
 })
 export class CustomersModule {
     static forRoot(): ModuleWithProviders {

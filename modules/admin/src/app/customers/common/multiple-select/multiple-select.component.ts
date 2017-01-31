@@ -5,6 +5,7 @@ import { Location, CommonModule } from "@angular/common";
 import { CrudService } from "../../crud.service";
 import { FormsModule } from "@angular/forms";
 import { SelectItem } from "primeng/components/common/api";
+import { MultipleSelectService } from "./multiple-select.service";
 
 @Component({
     selector: 'multiple-select',
@@ -14,13 +15,16 @@ import { SelectItem } from "primeng/components/common/api";
 
 export class MultipleSelectComponent {
     @Input('property')
-    public property: any;
+    public property: string = '';
 
-    @Input('model')
-    public propertyModel = [];
+    @Input('byProperties')
+    public byProperties: string[] = [];
 
-    @Output('model')
-    public propertyModelChange = new EventEmitter();
+    @Input()
+    public model = [];
+
+    @Output()
+    public modelChange = new EventEmitter();
 
     @Output('onAdd')
     public _onAdd = new EventEmitter();
@@ -30,39 +34,13 @@ export class MultipleSelectComponent {
     constructor(public translate: TranslateService,
                 public route: ActivatedRoute,
                 public router: Router,
-                public location: Location) {
+                public location: Location,
+                public multipleSelectService: MultipleSelectService) {
     }
 
     ngOnInit() {
-        if (this.propertyModel) {
-            // create array of links and push to the propertyModel
-
-            switch (this.property.type) {
-                case 'Linkset':
-                    this.propertyModel.forEach((item, i, arr) => {
-                        this.items.push({
-                            label: item.label,
-                            value: item.value
-                        });
-                        arr[i] = item.value;
-                    });
-                    break;
-
-                case 'Link':
-                    this.items.push({
-                        label: this.propertyModel['label'],
-                        value: this.propertyModel['value']
-                    });
-
-                    this.propertyModel = this.propertyModel['value'];
-                    break;
-
-                default:
-                    break;
-            }
-
-            this.propertyModelChange.emit(this.propertyModel);
-        }
+        this.model = this.multipleSelectService.getItems(this.model, this.byProperties);
+        this.modelChange.emit(this.model);
     }
 
     /**
@@ -71,9 +49,9 @@ export class MultipleSelectComponent {
      */
     removeItem(index) {
         this.items.splice(index, 1);
-        this.propertyModel.splice(index, 1);
+        this.model.splice(index, 1);
 
-        this.propertyModelChange.emit(this.propertyModel);
+        this.modelChange.emit(this.model);
     }
 
     /**
@@ -81,9 +59,9 @@ export class MultipleSelectComponent {
      */
     removeItems() {
         this.items = [];
-        this.propertyModel = [];
+        this.model = [];
 
-        this.propertyModelChange.emit(this.propertyModel);
+        this.modelChange.emit(this.model);
     }
 
     /**

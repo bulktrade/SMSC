@@ -1,15 +1,31 @@
-<div id="multipleSelect">
-	<div id="multipleSelectComponent">
-		<div *ngFor="let item of items; let i = index" class="items">
-			<div class="link">
-				<div class="title">{{ item.label }}</div>
-				<i class="material-icons remove-item" (click)="removeItem(i)">remove_circle_outline</i>
+<div id="multiple-select-window">
+	<div class="ctrl-panel">
+		<i class="fa fa-plus-square-o"
+		   [title]="('customers.create' | translate) + ' ' + (property | translate)" aria-hidden="true"></i>
+		<i class="fa fa-minus-square-o" (click)="removeItems()"
+		   [title]="('customers.removeAll' | translate) + ' ' + (property | translate)" aria-hidden="true"></i>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-6" *ngFor="let item of model; let i = index">
+			<div class="data-item">
+				<div class="ctrl-panel">
+					<i class="fa fa-minus-square-o" (click)="removeItem(i)"
+					   [title]="('customers.remove' | translate) + ' ' + (property | translate)"
+					   aria-hidden="true"></i>
+					<i class="fa fa-pencil-square-o"
+					   [title]="('customers.update' | translate) + ' ' + (property | translate)"
+					   aria-hidden="true"></i>
+				</div>
+				<hr>
+				<div *ngFor="let item of item" class="data-title">
+					<ng-container *ngIf="item.label !== 'id'">
+						<div class="data-label pull-left">{{ item.label }}</div>
+						<span class="separate">:</span>
+						<div class="data-value pull-right">{{ item.value }}</div>
+					</ng-container>
+				</div>
 			</div>
 		</div>
-		<i class="material-icons" id="add" title="{{'ADD' | translate}}"
-		   (click)="onAdd()">add_circle</i>
-		<i class="material-icons" title="{{'CLEARALL' | translate}}"
-		   (click)="removeItems()" id="clearAll">clear_all</i>
 	</div>
-	<ng-content id="hint"></ng-content>
 </div>
