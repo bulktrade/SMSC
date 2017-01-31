@@ -81,7 +81,7 @@
         VATID double precision,
         PARENT_CUSTOMER_ID bigint,
         primary key (ID)
-    );
+    )   AUTO_INCREMENT = 5;
 
     create table CUSTOMER_CONTACT (
         ID bigint not null auto_increment,
@@ -97,7 +97,7 @@
         TYPE varchar(255) not null,
         CUSTOMER_ID bigint,
         primary key (ID)
-    );
+    )   AUTO_INCREMENT = 6;
 
     create table CUSTOMER_USER_ACCOUNT (
         CUSTOMER_ID bigint not null,
@@ -113,7 +113,7 @@
         NAME varchar(255) not null,
         USER_ACCOUNT_ID bigint not null,
         primary key (ID)
-    );
+    )   AUTO_INCREMENT = 7;
 
     create table DASHBOARD_BOX (
         ID bigint not null auto_increment,
@@ -127,7 +127,7 @@
         DASHBOARD_ID bigint not null,
         DASHBOARD_BOX_TYPE_ID bigint not null,
         primary key (ID)
-    );
+    )   AUTO_INCREMENT = 14;
 
     create table DASHBOARD_BOX_TYPE (
         ID bigint not null auto_increment,
@@ -137,18 +137,18 @@
         NAME varchar(255) not null,
         TYPE varchar(255) not null,
         primary key (ID)
-    );
+    )   AUTO_INCREMENT = 8;
 
     create table ROLE (
-        ID bigint not null auto_increment,
+        ID bigint not null AUTO_INCREMENT,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         NAME varchar(255) not null,
         primary key (ID)
-    );
+    )   AUTO_INCREMENT = 3;
 
     create table USER_ACCOUNT (
-        ID bigint not null auto_increment,
+        ID bigint not null AUTO_INCREMENT,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         ACTIVE bit,
@@ -169,49 +169,49 @@
         primary key (USER_ID, ROLE_ID)
     );
 
-    alter table ACL_CLASS 
+    alter table ACL_CLASS
         add constraint UK_b9jm6yrofuhriaet5qlvaa2sb  unique (CLASS);
 
-    alter table ACL_ENTRY 
+    alter table ACL_ENTRY
         add constraint acl_entry_object_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
 
-    alter table ACL_ENTRY 
+    alter table ACL_ENTRY
         add constraint UK_2udy4xgijqxsi2enlqmp1ryoi  unique (ACE_ORDER);
 
-    alter table ACL_ENTRY 
+    alter table ACL_ENTRY
         add constraint UK_4rfb2hf1mgefbvivqlb3uhc1o  unique (ACL_OBJECT_IDENTITY);
 
-    alter table ACL_OBJECT_IDENTITY 
+    alter table ACL_OBJECT_IDENTITY
         add constraint acl_object_id_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
 
-    alter table ACL_OBJECT_IDENTITY 
+    alter table ACL_OBJECT_IDENTITY
         add constraint UK_sqoxny9iftavslu22wdw45s5j  unique (OBJECT_ID_IDENTITY);
 
-    alter table ACL_OBJECT_IDENTITY 
+    alter table ACL_OBJECT_IDENTITY
         add constraint UK_93h9hjf8xedn5xo7gagsy6fth  unique (OBJECT_ID_CLASS);
 
-    alter table ACL_SID 
+    alter table ACL_SID
         add constraint acl_sid_sid_principal_idx  unique (SID, PRINCIPAL);
 
-    alter table ACL_SID 
+    alter table ACL_SID
         add constraint UK_iffjecpr10qe7c08yilqi4mi6  unique (SID);
 
-    alter table CUSTOMER 
+    alter table CUSTOMER
         add constraint UK_8eumjccoobf7t6psn9exu4gnh  unique (CUSTOMER_ID);
 
-    alter table CUSTOMER_CONTACT 
+    alter table CUSTOMER_CONTACT
         add constraint UK_rt1h2souk5fkc2l0yojlch8ng  unique (EMAIL_ADDRESS);
 
-    alter table DASHBOARD 
+    alter table DASHBOARD
         add constraint UK_k452w4cpbviagh85ll1q6gfc  unique (NAME);
 
-    alter table DASHBOARD_BOX_TYPE 
+    alter table DASHBOARD_BOX_TYPE
         add constraint UK_calopw9wexb9vek0fnkaotp2n  unique (NAME);
 
-    alter table ROLE 
+    alter table ROLE
         add constraint UK_lqaytvswxwacb7s84gcw7tk7l  unique (NAME);
 
-    alter table USER_ACCOUNT 
+    alter table USER_ACCOUNT
         add constraint UK_5b1ufubngfek527jhb11aure0  unique (USERNAME);
 
     alter table ACL_ENTRY 

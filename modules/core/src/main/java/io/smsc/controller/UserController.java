@@ -48,7 +48,7 @@ public class UserController {
      * @return list with {@link io.smsc.model.User} entities
      */
     @GetMapping(value = "/findAll", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
+//    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USER_READ')")
     public List<User> getAll() {
         log.info("get All Users");
         return userRepository.getAllWithRolesAndDecryptedPassword();

@@ -24,6 +24,8 @@
 
     drop table USER_ROLE cascade constraints;
 
+    create sequence hibernate_sequence;
+
     create table ACL_CLASS (
         ID number(19,0) not null,
         LAST_MODIFIED_DATE timestamp not null,
@@ -283,5 +285,3 @@
         add constraint FK_j2j8kpywaghe8i36swcxv8784 
         foreign key (USER_ID) 
         references USER_ACCOUNT;
-
-    create sequence hibernate_sequence;

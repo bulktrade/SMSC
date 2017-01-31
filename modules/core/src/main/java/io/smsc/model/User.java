@@ -92,7 +92,7 @@ public class User extends BaseEntity {
     }
 
     public User(User user) {
-        this(user.getId(),user.getUsername(),user.getPassword(),user.getFirstname(),user.getSurname(),user.getEmail(),user.isActive(),user.isBlocked());
+        this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked());
     }
 
     public User(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked) {
@@ -233,7 +233,7 @@ public class User extends BaseEntity {
                 ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
                 ", firstName='" + firstname + '\'' +
-                ", surName='" + surname + '\'' +
+//                ", surName='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", active=" + active +
                 ", created=" + created +
