@@ -78,7 +78,6 @@ public class Customer extends BaseEntity {
             joinColumns = @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     )
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<User> users;
 
     public Customer() {
