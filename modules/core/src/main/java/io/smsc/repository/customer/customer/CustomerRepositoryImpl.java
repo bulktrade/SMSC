@@ -20,17 +20,17 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
-//    @Override
-//    @Transactional
-//    public void delete(Long customerId) { // @todo very wrong implementation! Simply remove the logic.
-//        Customer customer = entityManager.find(Customer.class, customerId);
-//        TypedQuery query = entityManager.createQuery("select c from Customer c", Customer.class);
-//        List<Customer> customers = query.getResultList();
-//        for(Customer customer1 : customers) {
-//            if(customer.equals(customer1.getParentCustomer())) {
-//                customer1.setParentCustomer(null);
-//            }
-//        }
-//        entityManager.remove(customer);
-//    }
+    @Override
+    @Transactional
+    public void delete(Long customerId) {
+        Customer customer = entityManager.find(Customer.class, customerId);
+        TypedQuery query = entityManager.createQuery("select c from Customer c", Customer.class);
+        List<Customer> customers = query.getResultList();
+        for(Customer customer1 : customers) {
+            if(customer.equals(customer1.getParentCustomer())) {
+                customer1.setParentCustomer(null);
+            }
+        }
+        entityManager.remove(customer);
+    }
 }

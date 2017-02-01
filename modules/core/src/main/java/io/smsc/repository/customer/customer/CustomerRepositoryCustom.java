@@ -9,5 +9,5 @@ package io.smsc.repository.customer.customer;
  */
 public interface CustomerRepositoryCustom {
 
-//    void delete(Long customerId); @todo remove this
+    void delete(Long customerId);
 }
