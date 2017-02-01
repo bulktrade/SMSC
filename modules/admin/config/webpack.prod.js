@@ -14,6 +14,8 @@ const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplaceme
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const OptimizeJsPlugin = require('optimize-js-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlElementsPlugin = require('./html-elements-plugin');
 
 /**
  * Webpack Constants
@@ -27,7 +29,10 @@ const METADATA = webpackMerge(commonConfig({
   host: HOST,
   port: PORT,
   ENV: ENV,
-  HMR: false
+  HMR: false,
+  title: 'SMSC Admin',
+  baseUrl: '/admin/',
+  isDevServer: helpers.isWebpackDevServer()
 });
 
 module.exports = function (env) {
@@ -121,10 +126,10 @@ module.exports = function (env) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
-      new CopyWebpackPlugin([{
+      new CopyWebpackPlugin([ {
         from: 'src/app/config/config.prod.json',
         to: 'config.json'
-      }]),
+      } ]),
 
       /**
        * Webpack plugin to optimize a JavaScript file for faster initial load
@@ -135,6 +140,32 @@ module.exports = function (env) {
 
       new OptimizeJsPlugin({
         sourceMap: false
+      }),
+
+      /*
+       * Plugin: HtmlElementsPlugin
+       * Description: Generate html tags based on javascript maps.
+       *
+       * If a publicPath is set in the webpack output configuration, it will be automatically added to
+       * href attributes, you can disable that by adding a "=href": false property.
+       * You can also enable it to other attribute by settings "=attName": true.
+       *
+       * The configuration supplied is map between a location (key) and an element definition object (value)
+       * The location (key) is then exported to the template under then htmlElements property in webpack configuration.
+       *
+       * Example:
+       *  Adding this plugin configuration
+       *  new HtmlElementsPlugin({
+       *    headTags: { ... }
+       *  })
+       *
+       *  Means we can use it in the template like this:
+       *  <%= webpackConfig.htmlElements.headTags %>
+       *
+       * Dependencies: HtmlWebpackPlugin
+       */
+      new HtmlElementsPlugin({
+        headTags: require('./head-config.prod')
       }),
 
       /**
@@ -228,6 +259,22 @@ module.exports = function (env) {
         helpers.root('config/empty.js')
       ),
 
+      /*
+       * Plugin: HtmlWebpackPlugin
+       * Description: Simplifies creation of HTML files to serve your webpack bundles.
+       * This is especially useful for webpack bundles that include a hash in the filename
+       * which changes every compilation.
+       *
+       * See: https://github.com/ampedandwired/html-webpack-plugin
+       */
+      new HtmlWebpackPlugin({
+        template: 'src/index.html',
+        title: METADATA.title,
+        chunksSortMode: 'dependency',
+        metadata: METADATA,
+        inject: 'head'
+      }),
+
 
       // AoT
       // new NormalModuleReplacementPlugin(
@@ -281,6 +328,10 @@ module.exports = function (env) {
         minimize: true,
         debug: false,
         options: {
+          context: helpers.root(),
+          output: {
+            path: helpers.root('dist')
+          },
 
           /**
            * Html loader advanced options
