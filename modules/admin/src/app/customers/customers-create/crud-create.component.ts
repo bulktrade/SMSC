@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
 import { TranslateService } from "ng2-translate/ng2-translate";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { NotificationService } from "../../services/notification-service";
 import { CustomersService } from "../customers.service";
+import { Customer } from "../model/customer";
 
 @Component({
     selector: 'customers-create',
@@ -19,17 +20,17 @@ export class CustomersCreateComponent {
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public route: ActivatedRoute,
+                public router: Router,
                 public location: Location,
                 public notifications: NotificationService) {
     }
 
-    ngOnInit() {
-    }
-
     onSubmit(data) {
         this.customersService.createCustomer(data)
-            .subscribe(() => {
+            .subscribe((customer: Customer) => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreate');
+
+                this.router.navigate(['/customers', 'update', customer['id']]);
             }, err => {
                 console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorCreate');
