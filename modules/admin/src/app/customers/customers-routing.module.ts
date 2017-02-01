@@ -37,6 +37,13 @@ const CUSTOMERS_ROUTE_PROVIDER = [
         data: {
             showInBreadcrumb: false,
         }
+    },
+    {
+        path: 'customers-contacts',
+        loadChildren: './customers-contacts/customers-contacts.module#CustomersContactsModule',
+        data: {
+            showInBreadcrumb: false,
+        }
     }
 ];
 

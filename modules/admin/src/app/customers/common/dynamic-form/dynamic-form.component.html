@@ -136,8 +136,7 @@
 						{{ 'contacts' | translate }}
 					</div>
 					<div class="ui-grid-col-6">
-						<multiple-select property="contacts" [(model)]="model['contacts']"
-										[byProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"></multiple-select>
+						<contacts-select [(model)]="model['contacts']"></contacts-select>
 					</div>
 					<div class="ui-grid-col-4">
 						<control-errors control="contacts"
