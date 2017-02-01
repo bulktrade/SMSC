@@ -247,7 +247,10 @@ module.exports = function (options) {
       new LoaderOptionsPlugin({
         debug: false,
         options: {
-          // legacy options go here
+          context: helpers.root(),
+          output: {
+            path: helpers.root('dist')
+          }
         }
       }),
 

@@ -14,8 +14,6 @@ import { NOTIFICATION_OPTIONS } from "./common/notification-Options";
         './../../node_modules/normalize.css/normalize.css',
         './../../node_modules/webpack-material-design-icons/material-design-icons.css',
         './../../node_modules/font-awesome/css/font-awesome.css',
-        './../../node_modules/ag-grid/dist/styles/ag-grid.css',
-        './../../node_modules/ag-grid/dist/styles/theme-fresh.css',
         './../../node_modules/primeng/resources/themes/omega/theme.css',
         './../../node_modules/primeng/resources/primeng.min.css',
         './common/spinner/cube-grid/cube-grid.component.scss',

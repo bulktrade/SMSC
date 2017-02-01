@@ -57,7 +57,8 @@ module.exports = function (options) {
 
       'polyfills': './src/polyfills.browser.ts',
       'main': AOT ? './src/main.browser.aot.ts' :
-        './src/main.browser.ts'
+        './src/main.browser.ts',
+      'vendor': './src/vendor.browser.ts'
 
     },
 
@@ -183,16 +184,12 @@ module.exports = function (options) {
           use: 'file-loader'
         },
 
-        {
-          test: /\.(eot|woff|ttf|svg|woff2)$/,
-          use: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]'
-        },
+        { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000' },
+
+        { test: /\.(ttf|eot)$/, loader: 'file-loader' },
 
         // Bootstrap 4
-        {
-          test: /bootstrap[\/\\]dist[\/\\]js[\/\\]umd[\/\\]/,
-          use: 'imports?jQuery=jquery'
-        }
+        { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports-loader?jQuery=jquery' },
 
       ],
 
