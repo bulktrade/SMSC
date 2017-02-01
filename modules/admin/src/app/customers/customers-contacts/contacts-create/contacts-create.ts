@@ -25,7 +25,6 @@ export class ContactsCreateComponent implements OnInit {
         // get id parameter
         this.route.params.subscribe((params) => {
             this.customerId = params['customerId'];
-            console.log(this.customerId);
         });
     }
 
