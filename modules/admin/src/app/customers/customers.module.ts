@@ -17,7 +17,7 @@ import { CubeGridModule } from "../common/spinner/cube-grid/cube-grid.component"
 import { LoadingGridModule } from "../common/loading-grid.component";
 import { AlertModule } from "ng2-bootstrap";
 import { CustomersService } from "./customers.service";
-import { DynamicFormModule } from "./common/dynamic-form/dynamic-form.component";
+import { DynamicFormModule } from "./customers-form/customers-form.component";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { CustomersUpdateComponent } from "./customers-update/customers-update.component";
 import { CustomersCreateComponent } from "./customers-create/crud-create.component";

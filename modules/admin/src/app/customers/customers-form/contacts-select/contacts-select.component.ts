@@ -5,8 +5,8 @@ import { Location, CommonModule } from "@angular/common";
 import { CrudService } from "../../crud.service";
 import { FormsModule } from "@angular/forms";
 import { MultipleSelectService } from "./multiple-select.service";
-import { CustomersContactsService } from "../../../customers-contacts/customers-contacts.service";
-import { NotificationService } from "../../../../services/notification-service";
+import { CustomersContactsService } from "../../customers-contacts/customers-contacts.service";
+import { NotificationService } from "../../../services/notification-service";
 
 @Component({
     selector: 'contacts-select',
