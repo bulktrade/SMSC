@@ -1,15 +1,11 @@
 package io.smsc.repository.user;
 
 import io.smsc.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.io.Serializable;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
- * This interface is describing additional methods to extend {@link UserRepository}.
+ * This interface is describing methods to extend {@link UserRepository}.
  * Methods implementation is in {@link UserRepositoryImpl}
  *
  * @author  Nazar Lipkovskyy
@@ -17,19 +13,13 @@ import java.util.List;
  */
 public interface UserRepositoryCustom{
 
-    User addRole(Long userId, Long roleId);
+    User findOne(Long userId);
 
-    User removeRole(Long userId, Long roleId);
+    User findByUserName(String userName);
 
-    User getOneWithRolesAndDecryptedPassword(Long id);
+    User findByEmail(String userName);
 
-    User getOneByEmailWithDecryptedPassword(String email);
+    Page<User> findAll(Pageable pageable);
 
-    User getOneByUserNameWithDecryptedPassword(String username);
-
-    List<User> getAllWithRolesAndDecryptedPassword();
-
-    User saveOneWithEncryptedPassword(User user);
-
-//    User findOne(Long id);
+    User save(User user);
 }

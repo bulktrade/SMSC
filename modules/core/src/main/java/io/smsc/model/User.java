@@ -186,44 +186,8 @@ public class User extends BaseEntity {
         this.roles = roles;
     }
 
-    public boolean addRole(Role role){
-        return this.roles.add(role);
-    }
-
-    public boolean removeRole(Role role){
-        return this.roles.remove(role);
-    }
-
     public Set<Customer> getCustomers() {
         return customers;
-    }
-
-    public void setCustomers(Set<Customer> customers) {
-        this.customers = customers;
-    }
-
-    public Set<Dashboard> getDashboards() {
-        return dashboards;
-    }
-
-    public void setDashboards(Set<Dashboard> dashboards) {
-        this.dashboards = dashboards;
-    }
-
-    public void addDashboard(Dashboard dashboard) {
-        this.dashboards.add(dashboard);
-    }
-
-    public void removeDashboard(Dashboard dashboard) {
-        this.dashboards.remove(dashboard);
-    }
-
-    public void addCustomer(Customer customer) {
-        this.customers.add(customer);
-    }
-
-    public void removeCustomer(Customer customer) {
-        this.customers.remove(customer);
     }
 
     @Override
@@ -233,7 +197,7 @@ public class User extends BaseEntity {
                 ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
                 ", firstName='" + firstname + '\'' +
-//                ", surName='" + surname + '\'' +
+                ", surName='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", active=" + active +
                 ", created=" + created +

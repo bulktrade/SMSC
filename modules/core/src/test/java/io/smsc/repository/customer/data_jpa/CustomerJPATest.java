@@ -1,38 +1,65 @@
 //package io.smsc.repository.customer.data_jpa;
 //
-//import io.smsc.AbstractTest;
-//import io.smsc.model.User;
+//import static org.junit.Assert.*;
+//
 //import io.smsc.model.customer.Customer;
-//import io.smsc.model.customer.CustomerContact;
-//import io.smsc.model.customer.Salutation;
-//import io.smsc.model.customer.Type;
+//import io.smsc.repository.customer.customer.CustomerRepository;
+//import org.junit.After;
+//import org.junit.Before;
 //import org.junit.Test;
-//import org.springframework.dao.DataIntegrityViolationException;
-//import org.springframework.security.test.context.support.WithMockUser;
 //
-//import java.util.Arrays;
-//import java.util.Collection;
-//import java.util.Collections;
+//import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+//import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //
-//import static io.smsc.test_data.CustomerTestData.*;
-//import static io.smsc.test_data.UserTestData.*;
-//import static io.smsc.test_data.CustomerContactTestData.*;
+//import javax.persistence.EntityManager;
+//import javax.persistence.PersistenceContext;
 //
-//@WithMockUser(username="Admin",roles = {"ADMIN"})
-//public class CustomerJPATest extends AbstractTest {
+////@WithMockUser(username="Admin", roles = {"ADMIN"})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@DataJpaTest
+//public class CustomerJPATest {
 //
-////    @Test
-////    public void testDeleteCustomer() throws Exception {
-////        customerRepository.delete(CUSTOMER_ID_1);
-////        CUSTOMER_MODEL_MATCHER.assertCollectionEquals(Collections.emptyList(), customerRepository.findAll());
-////    }
-////
+//    @Autowired
+//    private CustomerRepository customerRepository;
+//
+//    @PersistenceContext
+//    private EntityManager em;
+//
+//    private Customer customer;
+//
+//    @Before
+//    public void setUp() {
+//        customer = new Customer();
+//        customer.setCity("Lviv");
+//        customer.setCompanyName("Freelancer");
+//        customer.setCountry("Ukraine");
+//        customer.setCustomerId(11.0);
+//        customer.setPostcode("79005");
+//        customer.setStreet("Voronogo 5/6");
+//        customer.setStreet2("Svobody 1/3");
+//        customer.setVatid(1.0);
+//        this.em.persist(customer);
+//    }
+//
+//    @After
+//    public void tearDown() {
+//        this.em.remove(customer);
+//    }
+//
+//    @Test
+//    public void testDeleteCustomer() throws Exception {
+//        this.customerRepository.delete(customer);
+//        assertEquals(null, customerRepository.findByCustomerId(11.0));
+//    }
+//
 ////    @Test
 ////    public void testSaveCustomer() throws Exception {
 ////        Customer newCustomer = new Customer(null,2.0,"newCompany","newStreet","newStreet2","79005", "Ukraine", "Lviv", 9999999.0);
 ////        Customer created = customerRepository.save(newCustomer);
 ////        newCustomer.setId(created.getId());
-////        CUSTOMER_MODEL_MATCHER.assertEquals(newCustomer, customerRepository.getOne(newCustomer.getId()));
+////         CUSTOMER_MODEL_MATCHER.assertEquals(newCustomer, customerRepository.getOne(newCustomer.getId()));
 ////    }
 ////
 ////    @Test

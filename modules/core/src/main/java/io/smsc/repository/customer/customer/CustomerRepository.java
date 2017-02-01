@@ -29,22 +29,14 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, Custo
 
     @Override
     @Transactional
-    @RestResource(exported = false)
-    void delete(Long id);
-
-    @Override
-    @Transactional
     Customer save(Customer customer);
 
     @Override
-    @EntityGraph(attributePaths = {"parentCustomer", "contacts", "users"})
     Customer findOne(Long id);
 
-    @EntityGraph(attributePaths = {"parentCustomer", "contacts", "users"})
     Customer findByCustomerId(@Param("customerId") Double customerID);
 
     @Override
-    @EntityGraph(attributePaths = {"parentCustomer", "contacts", "users"})
     Page<Customer> findAll(Pageable pageable);
 
 }
