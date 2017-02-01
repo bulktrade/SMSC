@@ -1,8 +1,8 @@
 -- PostgreSQL is not supporting null or empty value in ID column (using default value from hibernate_sequence)
-INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, EMAIL, ACTIVE, BLOCKED, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('user', '541338d92cd0dbf230d7e7666dd99adaea8da7a478f5456947c2445aecea0b1a', 'ad68dc115126d9d1', 'userName', 'user@gmail.com', TRUE, FALSE, current_timestamp, 0);
-INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, EMAIL, ACTIVE, BLOCKED, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'admin@gmail.com', TRUE, FALSE, current_timestamp, 0);
+INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('user', '541338d92cd0dbf230d7e7666dd99adaea8da7a478f5456947c2445aecea0b1a', 'ad68dc115126d9d1', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, current_timestamp, 0);
+INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, current_timestamp, 0);
 
 INSERT INTO ROLE (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
   ('ROLE_USER', current_timestamp, 0);

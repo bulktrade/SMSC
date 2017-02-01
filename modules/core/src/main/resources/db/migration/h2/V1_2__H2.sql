@@ -1,29 +1,3 @@
-    drop table ACL_CLASS if exists;
-
-    drop table ACL_ENTRY if exists;
-
-    drop table ACL_OBJECT_IDENTITY if exists;
-
-    drop table ACL_SID if exists;
-
-    drop table CUSTOMER if exists;
-
-    drop table CUSTOMER_CONTACT if exists;
-
-    drop table CUSTOMER_USER_ACCOUNT if exists;
-
-    drop table DASHBOARD if exists;
-
-    drop table DASHBOARD_BOX if exists;
-
-    drop table DASHBOARD_BOX_TYPE if exists;
-
-    drop table ROLE if exists;
-
-    drop table USER_ACCOUNT if exists;
-
-    drop table USER_ROLE if exists;
-
     create sequence hibernate_sequence;
 
     create table ACL_CLASS (
@@ -175,7 +149,7 @@
         add constraint UK_b9jm6yrofuhriaet5qlvaa2sb  unique (CLASS);
 
     alter table ACL_ENTRY 
-        add constraint acl_entry_object_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
+        add constraint acl_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
 
     alter table ACL_ENTRY 
         add constraint UK_2udy4xgijqxsi2enlqmp1ryoi  unique (ACE_ORDER);
@@ -184,7 +158,7 @@
         add constraint UK_4rfb2hf1mgefbvivqlb3uhc1o  unique (ACL_OBJECT_IDENTITY);
 
     alter table ACL_OBJECT_IDENTITY 
-        add constraint acl_object_id_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
+        add constraint acl_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
 
     alter table ACL_OBJECT_IDENTITY 
         add constraint UK_sqoxny9iftavslu22wdw45s5j  unique (OBJECT_ID_IDENTITY);
@@ -193,7 +167,7 @@
         add constraint UK_93h9hjf8xedn5xo7gagsy6fth  unique (OBJECT_ID_CLASS);
 
     alter table ACL_SID 
-        add constraint acl_sid_sid_principal_idx  unique (SID, PRINCIPAL);
+        add constraint acl_sid_principal_idx  unique (SID, PRINCIPAL);
 
     alter table ACL_SID 
         add constraint UK_iffjecpr10qe7c08yilqi4mi6  unique (SID);

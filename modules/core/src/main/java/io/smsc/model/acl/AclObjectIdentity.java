@@ -15,7 +15,7 @@ import java.util.Set;
  * @since   0.0.1-SNAPSHOT
  */
 @Entity
-@Table(name = "ACL_OBJECT_IDENTITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"OBJECT_ID_CLASS", "OBJECT_ID_IDENTITY"}, name = "acl_object_id_class_identity_idx")})
+@Table(name = "ACL_OBJECT_IDENTITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"OBJECT_ID_CLASS", "OBJECT_ID_IDENTITY"}, name = "acl_class_identity_idx")})
 public class AclObjectIdentity extends BaseEntity {
 
     /**
