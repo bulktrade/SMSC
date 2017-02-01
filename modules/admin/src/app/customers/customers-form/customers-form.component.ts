@@ -3,18 +3,18 @@ import { Location, CommonModule } from "@angular/common";
 import { Router, ActivatedRoute } from "@angular/router";
 import { TranslateModule } from "ng2-translate/ng2-translate";
 import { FormsModule } from "@angular/forms";
+import { ButtonModule } from "primeng/components/button/button";
+import { CheckboxModule } from "primeng/components/checkbox/checkbox";
+import { MultipleSelectModule } from "./contacts-select/contacts-select.component";
+import { ControlErrorsModule } from "../../common/control-errors/control-errors";
 import { PanelModule } from "primeng/components/panel/panel";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
-import { ButtonModule } from "primeng/components/button/button";
 import { DropdownModule } from "primeng/components/dropdown/dropdown";
-import { CheckboxModule } from "primeng/components/checkbox/checkbox";
-import { ControlErrorsModule } from "../../../common/control-errors/control-errors";
-import { MultipleSelectModule } from "./contacts-select/contacts-select.component";
 
 @Component({
     selector: 'dynamic-form',
-    template: require('./dynamic-form.component.html'),
-    styleUrls: ['./dynamic-form.component.scss']
+    template: require('./customers-form.component.html'),
+    styleUrls: ['customers-form.component.scss']
 })
 
 export class DynamicFormComponent {
