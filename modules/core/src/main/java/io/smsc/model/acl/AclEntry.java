@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * @since   0.0.1-SNAPSHOT
  */
 @Entity
-@Table(name = "ACL_ENTRY", uniqueConstraints = {@UniqueConstraint(columnNames = {"ACL_OBJECT_IDENTITY", "ACE_ORDER"}, name = "acl_entry_object_identity_order_idx")})
+@Table(name = "ACL_ENTRY", uniqueConstraints = {@UniqueConstraint(columnNames = {"ACL_OBJECT_IDENTITY", "ACE_ORDER"}, name = "acl_identity_order_idx")})
 public class AclEntry extends BaseEntity {
 
     /**

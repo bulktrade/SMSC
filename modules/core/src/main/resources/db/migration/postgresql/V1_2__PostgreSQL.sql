@@ -1,31 +1,7 @@
-    drop table if exists ACL_CLASS cascade;
-
-    drop table if exists ACL_ENTRY cascade;
-
-    drop table if exists ACL_OBJECT_IDENTITY cascade;
-
-    drop table if exists ACL_SID cascade;
-
-    drop table if exists CUSTOMER cascade;
-
-    drop table if exists CUSTOMER_CONTACT cascade;
-
-    drop table if exists CUSTOMER_USER_ACCOUNT cascade;
-
-    drop table if exists DASHBOARD cascade;
-
-    drop table if exists DASHBOARD_BOX cascade;
-
-    drop table if exists DASHBOARD_BOX_TYPE cascade;
-
-    drop table if exists ROLE cascade;
-
-    drop table if exists USER_ACCOUNT cascade;
-
-    drop table if exists USER_ROLE cascade;
+    create sequence hibernate_sequence;
 
     create table ACL_CLASS (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         CLASS varchar(255) not null,
@@ -33,7 +9,7 @@
     );
 
     create table ACL_ENTRY (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         ACE_ORDER int4 not null,
@@ -47,7 +23,7 @@
     );
 
     create table ACL_OBJECT_IDENTITY (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         ENTRIES_INHERITING boolean not null,
@@ -59,7 +35,7 @@
     );
 
     create table ACL_SID (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         PRINCIPAL boolean not null,
@@ -68,7 +44,7 @@
     );
 
     create table CUSTOMER (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         CITY varchar(255) not null,
@@ -84,7 +60,7 @@
     );
 
     create table CUSTOMER_CONTACT (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         EMAIL_ADDRESS varchar(255) not null,
@@ -106,7 +82,7 @@
     );
 
     create table DASHBOARD (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         ICON varchar(255) not null,
@@ -116,7 +92,7 @@
     );
 
     create table DASHBOARD_BOX (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         DESCRIPTION varchar(255) not null,
@@ -130,7 +106,7 @@
     );
 
     create table DASHBOARD_BOX_TYPE (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         KIND varchar(255) not null,
@@ -140,7 +116,7 @@
     );
 
     create table ROLE (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         NAME varchar(255) not null,
@@ -148,7 +124,7 @@
     );
 
     create table USER_ACCOUNT (
-        ID int8 not null,
+        ID int8 not null default nextval('hibernate_sequence'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,
         ACTIVE boolean,
@@ -173,7 +149,7 @@
         add constraint UK_b9jm6yrofuhriaet5qlvaa2sb  unique (CLASS);
 
     alter table ACL_ENTRY 
-        add constraint acl_entry_object_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
+        add constraint acl_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
 
     alter table ACL_ENTRY 
         add constraint UK_2udy4xgijqxsi2enlqmp1ryoi  unique (ACE_ORDER);
@@ -182,7 +158,7 @@
         add constraint UK_4rfb2hf1mgefbvivqlb3uhc1o  unique (ACL_OBJECT_IDENTITY);
 
     alter table ACL_OBJECT_IDENTITY 
-        add constraint acl_object_id_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
+        add constraint acl_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
 
     alter table ACL_OBJECT_IDENTITY 
         add constraint UK_sqoxny9iftavslu22wdw45s5j  unique (OBJECT_ID_IDENTITY);
@@ -191,7 +167,7 @@
         add constraint UK_93h9hjf8xedn5xo7gagsy6fth  unique (OBJECT_ID_CLASS);
 
     alter table ACL_SID 
-        add constraint acl_sid_sid_principal_idx  unique (SID, PRINCIPAL);
+        add constraint acl_sid_principal_idx  unique (SID, PRINCIPAL);
 
     alter table ACL_SID 
         add constraint UK_iffjecpr10qe7c08yilqi4mi6  unique (SID);
@@ -283,5 +259,3 @@
         add constraint FK_j2j8kpywaghe8i36swcxv8784 
         foreign key (USER_ID) 
         references USER_ACCOUNT;
-
-    create sequence hibernate_sequence;

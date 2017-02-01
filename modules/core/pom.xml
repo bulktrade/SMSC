@@ -281,19 +281,19 @@
                 <version>1.1.0</version>
 
                 <!-- postgres -->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>postgres</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.PostgreSQLDialect</hibernateDialect>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__PostgreSQL.sql</outputFile>-->
-                <!--</configuration>-->
+                <executions>
+                    <execution>
+                        <id>postgres</id>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <hibernateDialect>org.hibernate.dialect.PostgreSQLDialect</hibernateDialect>
+                    <target>SCRIPT</target>
+                    <outputFile>${project.build.directory}/V1_2__PostgreSQL.sql</outputFile>
+                </configuration>
 
                 <!-- oracle -->
                 <!--<executions>-->
@@ -341,19 +341,19 @@
                 <!--</configuration>-->
 
                 <!-- hsqldb -->
-                <executions>
-                    <execution>
-                        <id>hsqldb</id>
-                        <goals>
-                            <goal>export</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                <hibernateDialect>org.hibernate.dialect.HSQLDialect</hibernateDialect>
-                <target>SCRIPT</target>
-                <outputFile>${project.build.directory}/V1_2__HSQLDB.sql</outputFile>
-                </configuration>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>hsqldb</id>-->
+                        <!--<goals>-->
+                            <!--<goal>export</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                <!--<hibernateDialect>org.hibernate.dialect.HSQLDialect</hibernateDialect>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__HSQLDB.sql</outputFile>-->
+                <!--</configuration>-->
             </plugin>
 
             <!--<plugin>-->

@@ -76,6 +76,9 @@ public class Customer extends BaseEntity {
         for (CustomerContact contact : contacts) {
             contact.setCustomer(null);
         }
+        for (User user : users) {
+            user.getCustomers().remove(this);
+        }
     }
 
     public Customer() {

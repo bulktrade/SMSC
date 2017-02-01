@@ -92,7 +92,7 @@ public class User extends BaseEntity {
     }
 
     public User(User user) {
-        this(user.getId(),user.getUsername(),user.getPassword(),user.getFirstname(),user.getSurname(),user.getEmail(),user.isActive(),user.isBlocked());
+        this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked());
     }
 
     public User(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked) {
@@ -186,44 +186,8 @@ public class User extends BaseEntity {
         this.roles = roles;
     }
 
-    public boolean addRole(Role role){
-        return this.roles.add(role);
-    }
-
-    public boolean removeRole(Role role){
-        return this.roles.remove(role);
-    }
-
     public Set<Customer> getCustomers() {
         return customers;
-    }
-
-    public void setCustomers(Set<Customer> customers) {
-        this.customers = customers;
-    }
-
-    public Set<Dashboard> getDashboards() {
-        return dashboards;
-    }
-
-    public void setDashboards(Set<Dashboard> dashboards) {
-        this.dashboards = dashboards;
-    }
-
-    public void addDashboard(Dashboard dashboard) {
-        this.dashboards.add(dashboard);
-    }
-
-    public void removeDashboard(Dashboard dashboard) {
-        this.dashboards.remove(dashboard);
-    }
-
-    public void addCustomer(Customer customer) {
-        this.customers.add(customer);
-    }
-
-    public void removeCustomer(Customer customer) {
-        this.customers.remove(customer);
     }
 
     @Override

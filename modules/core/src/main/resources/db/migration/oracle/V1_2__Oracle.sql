@@ -1,28 +1,6 @@
-    drop table ACL_CLASS cascade constraints;
-
-    drop table ACL_ENTRY cascade constraints;
-
-    drop table ACL_OBJECT_IDENTITY cascade constraints;
-
-    drop table ACL_SID cascade constraints;
-
-    drop table CUSTOMER cascade constraints;
-
-    drop table CUSTOMER_CONTACT cascade constraints;
-
-    drop table CUSTOMER_USER_ACCOUNT cascade constraints;
-
-    drop table DASHBOARD cascade constraints;
-
-    drop table DASHBOARD_BOX cascade constraints;
-
-    drop table DASHBOARD_BOX_TYPE cascade constraints;
-
-    drop table ROLE cascade constraints;
-
-    drop table USER_ACCOUNT cascade constraints;
-
-    drop table USER_ROLE cascade constraints;
+    create sequence hibernate_sequence
+    START WITH 1
+    INCREMENT BY 1;
 
     create table ACL_CLASS (
         ID number(19,0) not null,
@@ -173,7 +151,7 @@
         add constraint UK_b9jm6yrofuhriaet5qlvaa2sb  unique (CLASS);
 
     alter table ACL_ENTRY 
-        add constraint acl_entry_object_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
+        add constraint acl_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
 
     alter table ACL_ENTRY 
         add constraint UK_2udy4xgijqxsi2enlqmp1ryoi  unique (ACE_ORDER);
@@ -182,7 +160,7 @@
         add constraint UK_4rfb2hf1mgefbvivqlb3uhc1o  unique (ACL_OBJECT_IDENTITY);
 
     alter table ACL_OBJECT_IDENTITY 
-        add constraint acl_object_id_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
+        add constraint acl_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
 
     alter table ACL_OBJECT_IDENTITY 
         add constraint UK_sqoxny9iftavslu22wdw45s5j  unique (OBJECT_ID_IDENTITY);
@@ -191,7 +169,7 @@
         add constraint UK_93h9hjf8xedn5xo7gagsy6fth  unique (OBJECT_ID_CLASS);
 
     alter table ACL_SID 
-        add constraint acl_sid_sid_principal_idx  unique (SID, PRINCIPAL);
+        add constraint acl_sid_principal_idx  unique (SID, PRINCIPAL);
 
     alter table ACL_SID 
         add constraint UK_iffjecpr10qe7c08yilqi4mi6  unique (SID);
@@ -283,5 +261,3 @@
         add constraint FK_j2j8kpywaghe8i36swcxv8784 
         foreign key (USER_ID) 
         references USER_ACCOUNT;
-
-    create sequence hibernate_sequence;
