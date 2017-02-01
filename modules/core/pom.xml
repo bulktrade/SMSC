@@ -15,11 +15,11 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>
-        <dependency>
-            <groupId>io.smsc</groupId>
-            <artifactId>admin</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>io.smsc</groupId>-->
+            <!--<artifactId>admin</artifactId>-->
+            <!--<version>0.0.1-SNAPSHOT</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -281,19 +281,19 @@
                 <version>1.1.0</version>
 
                 <!-- postgres -->
-                <executions>
-                    <execution>
-                        <id>postgres</id>
-                        <goals>
-                            <goal>export</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <hibernateDialect>org.hibernate.dialect.PostgreSQLDialect</hibernateDialect>
-                    <target>SCRIPT</target>
-                    <outputFile>${project.build.directory}/V1_2__PostgreSQL.sql</outputFile>
-                </configuration>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>postgres</id>-->
+                        <!--<goals>-->
+                            <!--<goal>export</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<hibernateDialect>org.hibernate.dialect.PostgreSQLDialect</hibernateDialect>-->
+                    <!--<target>SCRIPT</target>-->
+                    <!--<outputFile>${project.build.directory}/V1_2__PostgreSQL.sql</outputFile>-->
+                <!--</configuration>-->
 
                 <!-- oracle -->
                 <!--<executions>-->
@@ -311,19 +311,19 @@
                 <!--</configuration>-->
 
                 <!-- mysql -->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>mysql</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                <!--<hibernateDialect>org.hibernate.dialect.MySQLDialect</hibernateDialect>-->
-                <!--<target>SCRIPT</target>-->
-                <!--<outputFile>${project.build.directory}/V1_2__MySQL.sql</outputFile>-->
-                <!--</configuration>-->
+                <executions>
+                    <execution>
+                        <id>mysql</id>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                <hibernateDialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernateDialect>
+                <target>SCRIPT</target>
+                <outputFile>${project.build.directory}/V1_2__MySQL.sql</outputFile>
+                </configuration>
 
                  <!--h2-->
                 <!--<executions>-->
