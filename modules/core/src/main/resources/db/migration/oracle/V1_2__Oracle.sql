@@ -1,8 +1,8 @@
-    create sequence hibernate_sequence
-    START WITH 1
-    INCREMENT BY 1;
+create sequence hibernate_sequence
+START WITH 1
+INCREMENT BY 1;
 
-    create table ACL_CLASS (
+create table ACL_CLASS (
         ID number(19,0) not null,
         LAST_MODIFIED_DATE timestamp not null,
         VERSION number(19,0) not null,
@@ -77,12 +77,6 @@
         primary key (ID)
     );
 
-    create table CUSTOMER_USER_ACCOUNT (
-        CUSTOMER_ID number(19,0) not null,
-        USER_ID number(19,0) not null,
-        primary key (CUSTOMER_ID, USER_ID)
-    );
-
     create table DASHBOARD (
         ID number(19,0) not null,
         LAST_MODIFIED_DATE timestamp not null,
@@ -138,6 +132,7 @@
         SALT varchar2(255 char),
         SURNAME varchar2(255 char) not null,
         USERNAME varchar2(255 char) not null,
+        CUSTOMER_ID number(19,0),
         primary key (ID)
     );
 
@@ -225,32 +220,32 @@
     alter table CUSTOMER_CONTACT 
         add constraint FK_32q3wpxac3cbvhn1t9bxmcr81 
         foreign key (CUSTOMER_ID) 
-        references CUSTOMER;
-
-    alter table CUSTOMER_USER_ACCOUNT 
-        add constraint FK_qv4ubq6pwdjne8jwuaywdn3p7 
-        foreign key (USER_ID) 
-        references USER_ACCOUNT;
-
-    alter table CUSTOMER_USER_ACCOUNT 
-        add constraint FK_jup37owwps8o8ntgoxdmn0th2 
-        foreign key (CUSTOMER_ID) 
-        references CUSTOMER;
+        references CUSTOMER 
+        on delete cascade;
 
     alter table DASHBOARD 
         add constraint FK_agttn8ptawhkdx8qse4hnkvpr 
         foreign key (USER_ACCOUNT_ID) 
-        references USER_ACCOUNT;
+        references USER_ACCOUNT 
+        on delete cascade;
 
     alter table DASHBOARD_BOX 
         add constraint FK_dgep5oi78i2irrmue308doxrp 
         foreign key (DASHBOARD_ID) 
-        references DASHBOARD;
+        references DASHBOARD 
+        on delete cascade;
 
     alter table DASHBOARD_BOX 
         add constraint FK_pdct77x9bvtflrsx224gkvhhs 
         foreign key (DASHBOARD_BOX_TYPE_ID) 
-        references DASHBOARD_BOX_TYPE;
+        references DASHBOARD_BOX_TYPE 
+        on delete cascade;
+
+    alter table USER_ACCOUNT 
+        add constraint FK_86ubef6e0aau9eyhldbc5aswm 
+        foreign key (CUSTOMER_ID) 
+        references CUSTOMER 
+        on delete cascade;
 
     alter table USER_ROLE 
         add constraint FK_oqmdk7xj0ainhxpvi79fkaq3y 
@@ -261,3 +256,5 @@
         add constraint FK_j2j8kpywaghe8i36swcxv8784 
         foreign key (USER_ID) 
         references USER_ACCOUNT;
+
+    create sequence hibernate_sequence;

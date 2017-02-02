@@ -1,88 +1,5 @@
-
-    alter table ACL_ENTRY 
-        drop 
-        foreign key FK_4rfb2hf1mgefbvivqlb3uhc1o;
-
-    alter table ACL_ENTRY 
-        drop 
-        foreign key FK_pwqqgnc867uhlp6ra8f6cu44d;
-
-    alter table ACL_OBJECT_IDENTITY 
-        drop 
-        foreign key FK_93h9hjf8xedn5xo7gagsy6fth;
-
-    alter table ACL_OBJECT_IDENTITY 
-        drop 
-        foreign key FK_47mv8is8lo3t2rm4n7a9oatpy;
-
-    alter table ACL_OBJECT_IDENTITY 
-        drop 
-        foreign key FK_osevoaw0w5t99q4x25r4ohkm2;
-
-    alter table CUSTOMER 
-        drop 
-        foreign key FK_k3k4147v3m5pjyjgfcrs0cdpj;
-
-    alter table CUSTOMER_CONTACT 
-        drop 
-        foreign key FK_32q3wpxac3cbvhn1t9bxmcr81;
-
-    alter table CUSTOMER_USER_ACCOUNT 
-        drop 
-        foreign key FK_qv4ubq6pwdjne8jwuaywdn3p7;
-
-    alter table CUSTOMER_USER_ACCOUNT 
-        drop 
-        foreign key FK_jup37owwps8o8ntgoxdmn0th2;
-
-    alter table DASHBOARD 
-        drop 
-        foreign key FK_agttn8ptawhkdx8qse4hnkvpr;
-
-    alter table DASHBOARD_BOX 
-        drop 
-        foreign key FK_dgep5oi78i2irrmue308doxrp;
-
-    alter table DASHBOARD_BOX 
-        drop 
-        foreign key FK_pdct77x9bvtflrsx224gkvhhs;
-
-    alter table USER_ROLE 
-        drop 
-        foreign key FK_oqmdk7xj0ainhxpvi79fkaq3y;
-
-    alter table USER_ROLE 
-        drop 
-        foreign key FK_j2j8kpywaghe8i36swcxv8784;
-
-    drop table if exists ACL_CLASS;
-
-    drop table if exists ACL_ENTRY;
-
-    drop table if exists ACL_OBJECT_IDENTITY;
-
-    drop table if exists ACL_SID;
-
-    drop table if exists CUSTOMER;
-
-    drop table if exists CUSTOMER_CONTACT;
-
-    drop table if exists CUSTOMER_USER_ACCOUNT;
-
-    drop table if exists DASHBOARD;
-
-    drop table if exists DASHBOARD_BOX;
-
-    drop table if exists DASHBOARD_BOX_TYPE;
-
-    drop table if exists ROLE;
-
-    drop table if exists USER_ACCOUNT;
-
-    drop table if exists USER_ROLE;
-
     create table ACL_CLASS (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         CLASS varchar(255) not null,
@@ -90,7 +7,7 @@
     ) ENGINE=InnoDB;
 
     create table ACL_ENTRY (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         ACE_ORDER integer not null,
@@ -104,7 +21,7 @@
     ) ENGINE=InnoDB;
 
     create table ACL_OBJECT_IDENTITY (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         ENTRIES_INHERITING bit not null,
@@ -116,7 +33,7 @@
     ) ENGINE=InnoDB;
 
     create table ACL_SID (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         PRINCIPAL bit not null,
@@ -125,7 +42,7 @@
     ) ENGINE=InnoDB;
 
     create table CUSTOMER (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         CITY varchar(255) not null,
@@ -138,10 +55,10 @@
         VATID double precision,
         PARENT_CUSTOMER_ID bigint,
         primary key (ID)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB AUTO_INCREMENT = 1;
 
     create table CUSTOMER_CONTACT (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         EMAIL_ADDRESS varchar(255) not null,
@@ -154,26 +71,20 @@
         TYPE varchar(255) not null,
         CUSTOMER_ID bigint,
         primary key (ID)
-    ) ENGINE=InnoDB;
-
-    create table CUSTOMER_USER_ACCOUNT (
-        CUSTOMER_ID bigint not null,
-        USER_ID bigint not null,
-        primary key (CUSTOMER_ID, USER_ID)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB AUTO_INCREMENT = 2;
 
     create table DASHBOARD (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         ICON varchar(255) not null,
         NAME varchar(255) not null,
         USER_ACCOUNT_ID bigint not null,
         primary key (ID)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB AUTO_INCREMENT = 7;
 
     create table DASHBOARD_BOX (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         DESCRIPTION varchar(255) not null,
@@ -184,28 +95,28 @@
         DASHBOARD_ID bigint not null,
         DASHBOARD_BOX_TYPE_ID bigint not null,
         primary key (ID)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB AUTO_INCREMENT = 14;
 
     create table DASHBOARD_BOX_TYPE (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         KIND varchar(255) not null,
         NAME varchar(255) not null,
         TYPE varchar(255) not null,
         primary key (ID)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB AUTO_INCREMENT = 8;
 
     create table ROLE (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         NAME varchar(255) not null,
         primary key (ID)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB AUTO_INCREMENT = 5;
 
     create table USER_ACCOUNT (
-        ID bigint not null auto_increment,
+        ID bigint not null,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         ACTIVE bit,
@@ -217,8 +128,9 @@
         SALT varchar(255),
         SURNAME varchar(255) not null,
         USERNAME varchar(255) not null,
+        CUSTOMER_ID bigint,
         primary key (ID)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB AUTO_INCREMENT = 3;
 
     create table USER_ROLE (
         USER_ID bigint not null,
@@ -307,30 +219,29 @@
         references CUSTOMER (ID) 
         on delete cascade;
 
-    alter table CUSTOMER_USER_ACCOUNT 
-        add constraint FK_qv4ubq6pwdjne8jwuaywdn3p7 
-        foreign key (USER_ID) 
-        references USER_ACCOUNT (ID);
-
-    alter table CUSTOMER_USER_ACCOUNT 
-        add constraint FK_jup37owwps8o8ntgoxdmn0th2 
-        foreign key (CUSTOMER_ID) 
-        references CUSTOMER (ID);
-
     alter table DASHBOARD 
         add constraint FK_agttn8ptawhkdx8qse4hnkvpr 
         foreign key (USER_ACCOUNT_ID) 
-        references USER_ACCOUNT (ID);
+        references USER_ACCOUNT (ID) 
+        on delete cascade;
 
     alter table DASHBOARD_BOX 
         add constraint FK_dgep5oi78i2irrmue308doxrp 
         foreign key (DASHBOARD_ID) 
-        references DASHBOARD (ID);
+        references DASHBOARD (ID) 
+        on delete cascade;
 
     alter table DASHBOARD_BOX 
         add constraint FK_pdct77x9bvtflrsx224gkvhhs 
         foreign key (DASHBOARD_BOX_TYPE_ID) 
-        references DASHBOARD_BOX_TYPE (ID);
+        references DASHBOARD_BOX_TYPE (ID) 
+        on delete cascade;
+
+    alter table USER_ACCOUNT 
+        add constraint FK_86ubef6e0aau9eyhldbc5aswm 
+        foreign key (CUSTOMER_ID) 
+        references CUSTOMER (ID) 
+        on delete cascade;
 
     alter table USER_ROLE 
         add constraint FK_oqmdk7xj0ainhxpvi79fkaq3y 
@@ -341,3 +252,5 @@
         add constraint FK_j2j8kpywaghe8i36swcxv8784 
         foreign key (USER_ID) 
         references USER_ACCOUNT (ID);
+
+    CREATE TABLE hibernate_sequence(next_val bigint);

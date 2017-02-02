@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.Dashboard;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -67,26 +69,18 @@ public class User extends BaseEntity {
     )
     private Set<Role> roles;
 
-    @ManyToMany(mappedBy = "users")
-    @OrderBy
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="CUSTOMER_ID")
     @JsonBackReference
-    private Set<Customer> customers;
+    private Customer customer;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    @OrderBy
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Dashboard> dashboards;
-
-    /**
-     * This method is used for removing all links on User entity from
-     * appropriate Customer entities before entity is removed. Without
-     * it deleting entity can cause <code>ConstraintViolationException<code/>
-     */
-    @PreRemove
-    private void removeUsersFromCustomers() {
-        for (Customer customer : customers) {
-            customer.getUsers().remove(this);
-        }
-    }
 
     public User() {
     }
@@ -186,8 +180,20 @@ public class User extends BaseEntity {
         this.roles = roles;
     }
 
-    public Set<Customer> getCustomers() {
-        return customers;
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Set<Dashboard> getDashboards() {
+        return dashboards;
+    }
+
+    public void setDashboards(Set<Dashboard> dashboards) {
+        this.dashboards = dashboards;
     }
 
     @Override

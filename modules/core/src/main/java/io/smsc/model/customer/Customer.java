@@ -71,13 +71,12 @@ public class Customer extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<CustomerContact> contacts;
 
-    @ManyToMany()
-    @OrderBy
-    @JoinTable( // @todo change it to 1:n
-            name = "CUSTOMER_USER_ACCOUNT",
-            joinColumns = @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<User> users;
 
     public Customer() {
@@ -98,21 +97,6 @@ public class Customer extends BaseEntity {
         this.country = country;
         this.city = city;
         this.vatid = vatid;
-    }
-
-    /**
-     * This method is used for removing all links on Customer entity from
-     * appropriate CustomerContact entities before entity is removed. Without
-     * it deleting entity can cause <code>ConstraintViolationException<code/>
-     */
-    @PreRemove
-    private void removeCustomerFromContacts() {
-        for (CustomerContact contact : contacts) {
-            contact.setCustomer(null);
-        }
-        for (User user : users) {
-            user.getCustomers().remove(this);
-        }
     }
 
     public Double getCustomerId() {
@@ -201,22 +185,6 @@ public class Customer extends BaseEntity {
 
     public void setUsers(Set<User> users) {
         this.users = users;
-    }
-
-    public void addContact(CustomerContact customerContact) {
-        this.contacts.add(customerContact);
-    }
-
-    public void removeContact(CustomerContact customerContact) {
-        this.contacts.remove(customerContact);
-    }
-
-    public void addUser(User user) {
-        this.users.add(user);
-    }
-
-    public void removeUser(User user) {
-        this.users.remove(user);
     }
 
     @Override
