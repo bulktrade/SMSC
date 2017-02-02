@@ -40,11 +40,11 @@ export class ContactsUpdateComponent implements OnInit {
     onSubmit(model) {
         this.customersContactsService.updateContact(this.contactId, model)
             .subscribe(() => {
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
                 },
                 err => {
                     console.error(err);
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
                 });
     }
 
