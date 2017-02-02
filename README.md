@@ -53,6 +53,10 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
 * Oracle  
 `$ docker run -d --shm-size=2g -p 1521:1521 alexeiled/docker-oracle-xe-11g` 
 
+### HAL Browser
+
+    /rest/repository/browser/index.html
+
 ### Default application properties (can be changed through system properties (use -D))
 * `smsc.database.dialect = postgresql` - database, which is used (other options - mysql, oracle, hsqldb, h2)
 * `encrypt.key = smsc.io` - used in password encryption
