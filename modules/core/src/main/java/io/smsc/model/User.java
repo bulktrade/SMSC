@@ -2,6 +2,7 @@ package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.smsc.listeners.UserPasswordEncryptionListener;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.annotations.OnDelete;
@@ -25,6 +26,7 @@ import java.util.Set;
 @Entity
 //@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
+@EntityListeners(UserPasswordEncryptionListener.class)
 public class User extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)

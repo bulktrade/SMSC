@@ -1,6 +1,7 @@
-package io.smsc.repository.role;
+package io.smsc.repository.customer;
 
-import io.smsc.model.Role;
+import io.smsc.model.customer.Customer;
+import io.smsc.model.projections.CustomerProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,32 +11,32 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This REST repository class is used for providing default {@link JpaRepository}
- * CRUD methods to operate with {@link Role} entities and exporting them to
+ * CRUD methods to operate with {@link Customer} entities and exporting them to
  * appropriate endpoints.
  *
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
+@RepositoryRestResource(collectionResourceRel = "customers", path = "customers", excerptProjection = CustomerProjection.class)
 @Transactional(readOnly = true)
-public interface RoleRepository extends JpaRepository<Role, Long>{
+public interface CustomerRepository extends JpaRepository<Customer, Long>{
 
     //All query method resources are exposed under the resource 'search'.
+
+    @Override
+    @Transactional
+    Customer save(Customer customer);
 
     @Override
     @Transactional
     void delete(Long id);
 
     @Override
-    @Transactional
-    Role save(Role role);
+    Customer findOne(Long id);
+
+    Customer findByCustomerId(@Param("customerId") Double customerID);
 
     @Override
-    Role findOne(Long id);
-
-    Role findByName(@Param("name") String name);
-
-    @Override
-    Page<Role> findAll(Pageable pageable);
+    Page<Customer> findAll(Pageable pageable);
 
 }

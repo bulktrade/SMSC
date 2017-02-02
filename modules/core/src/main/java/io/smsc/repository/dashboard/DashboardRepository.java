@@ -1,4 +1,4 @@
-package io.smsc.repository.dashboard.dashboard;
+package io.smsc.repository.dashboard;
 
 import io.smsc.model.User;
 import io.smsc.model.dashboard.Dashboard;

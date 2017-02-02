@@ -1,4 +1,4 @@
-package io.smsc.repository.dashboard.dashboardBox;
+package io.smsc.repository.dashboard;
 
 import io.smsc.model.dashboard.Dashboard;
 import io.smsc.model.dashboard.DashboardBox;

@@ -1,4 +1,4 @@
-package io.smsc.repository.dashboard.dashboardBoxType;
+package io.smsc.repository.dashboard;
 
 import io.smsc.model.dashboard.DashboardBoxType;
 import io.smsc.model.projections.DashboardBoxTypeProjection;
