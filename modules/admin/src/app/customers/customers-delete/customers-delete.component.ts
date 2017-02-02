@@ -40,6 +40,7 @@ export class CustomersDeleteComponent {
         this.customersService.deleteCustomer(this.id)
             .subscribe(res => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
+                this.location.back();
             }, err => {
                 console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorDelete');

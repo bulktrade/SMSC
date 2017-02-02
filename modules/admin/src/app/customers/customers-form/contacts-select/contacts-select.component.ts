@@ -54,11 +54,11 @@ export class MultipleSelectComponent {
                     this.model.splice(index, 1);
                     this.modelChange.emit(this.model);
 
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteContactFromCustomer');
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteContact');
                 },
                 err => {
                     console.error(err);
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteContactFromCustomer');
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteContact');
                 });
     }
 

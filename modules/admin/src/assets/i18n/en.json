@@ -113,6 +113,7 @@
   "customers.errorDelete": "Data was not deleted",
   "customers.update": "Update",
   "customers.create": "Create",
+  "customers.delete": "Delete",
   "customers.required": "This field is required",
   "customers.confirmDeleteMsg": "You are dropping the record. Are you sure?",
   "customers.numberValidator": "Must be only numbers",

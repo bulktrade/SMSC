@@ -6,8 +6,8 @@
 				<span class="grid-title">{{ 'Customers' | translate}}</span>
 
 				<button type="button" routerLink="/customers/create" pButton icon="fa-plus" style="float:right"
-				        label="Add"></button>
-				<button type="button" pButton icon="fa-remove" style="float:right" label="Delete"></button>
+				        [label]="'customers.create' | translate"></button>
+				<button type="button" pButton icon="fa-remove" style="float:right" [label]="'customers.delete' | translate"></button>
 			</div>
 		</header>
 		<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

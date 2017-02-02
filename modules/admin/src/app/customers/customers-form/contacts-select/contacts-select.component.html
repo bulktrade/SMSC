@@ -2,7 +2,7 @@
 	<div class="ctrl-panel">
 		<i class="fa fa-plus-square-o" [routerLink]="['/customers', 'customers-contacts', 'create', id]"
 		   [title]="'customers.createContact' | translate" aria-hidden="true"></i>
-		<i class="fa fa-minus-square-o" (click)="removeContact()"
+		<i class="fa fa-minus-square-o"
 		   [title]="'customers.removeAllContacts' | translate" aria-hidden="true"></i>
 	</div>
 	<ng-container *ngIf="model.length">
