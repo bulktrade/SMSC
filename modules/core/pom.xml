@@ -320,7 +320,7 @@
                     <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                <!--<hibernateDialect>org.hibernate.dialect.MySQLDialect</hibernateDialect>-->
+                <!--<hibernateDialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernateDialect>-->
                 <!--<target>SCRIPT</target>-->
                 <!--<outputFile>${project.build.directory}/V1_2__MySQL.sql</outputFile>-->
                 <!--</configuration>-->

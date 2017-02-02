@@ -2,6 +2,8 @@ package io.smsc.model.dashboard;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.smsc.model.BaseEntity;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -35,8 +37,12 @@ public class DashboardBoxType extends BaseEntity {
     @NotNull(message = "{dashboardBoxType.kind.validation}")
     private Kind kind;
 
-    @OneToMany(mappedBy = "dashboardBoxType", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonBackReference
+    @OneToMany(
+            mappedBy = "dashboardBoxType",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<DashboardBox> dashboardBoxes;
 
     public DashboardBoxType() {

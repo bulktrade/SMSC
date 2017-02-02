@@ -1,30 +1,8 @@
-    drop table ACL_CLASS cascade constraints;
+create sequence hibernate_sequence
+START WITH 1
+INCREMENT BY 1;
 
-    drop table ACL_ENTRY cascade constraints;
-
-    drop table ACL_OBJECT_IDENTITY cascade constraints;
-
-    drop table ACL_SID cascade constraints;
-
-    drop table CUSTOMER cascade constraints;
-
-    drop table CUSTOMER_CONTACT cascade constraints;
-
-    drop table CUSTOMER_USER_ACCOUNT cascade constraints;
-
-    drop table DASHBOARD cascade constraints;
-
-    drop table DASHBOARD_BOX cascade constraints;
-
-    drop table DASHBOARD_BOX_TYPE cascade constraints;
-
-    drop table ROLE cascade constraints;
-
-    drop table USER_ACCOUNT cascade constraints;
-
-    drop table USER_ROLE cascade constraints;
-
-    create table ACL_CLASS (
+create table ACL_CLASS (
         ID number(19,0) not null,
         LAST_MODIFIED_DATE timestamp not null,
         VERSION number(19,0) not null,
@@ -99,12 +77,6 @@
         primary key (ID)
     );
 
-    create table CUSTOMER_USER_ACCOUNT (
-        CUSTOMER_ID number(19,0) not null,
-        USER_ID number(19,0) not null,
-        primary key (CUSTOMER_ID, USER_ID)
-    );
-
     create table DASHBOARD (
         ID number(19,0) not null,
         LAST_MODIFIED_DATE timestamp not null,
@@ -160,6 +132,7 @@
         SALT varchar2(255 char),
         SURNAME varchar2(255 char) not null,
         USERNAME varchar2(255 char) not null,
+        CUSTOMER_ID number(19,0),
         primary key (ID)
     );
 
@@ -173,7 +146,7 @@
         add constraint UK_b9jm6yrofuhriaet5qlvaa2sb  unique (CLASS);
 
     alter table ACL_ENTRY 
-        add constraint acl_entry_object_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
+        add constraint acl_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
 
     alter table ACL_ENTRY 
         add constraint UK_2udy4xgijqxsi2enlqmp1ryoi  unique (ACE_ORDER);
@@ -182,7 +155,7 @@
         add constraint UK_4rfb2hf1mgefbvivqlb3uhc1o  unique (ACL_OBJECT_IDENTITY);
 
     alter table ACL_OBJECT_IDENTITY 
-        add constraint acl_object_id_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
+        add constraint acl_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
 
     alter table ACL_OBJECT_IDENTITY 
         add constraint UK_sqoxny9iftavslu22wdw45s5j  unique (OBJECT_ID_IDENTITY);
@@ -191,7 +164,7 @@
         add constraint UK_93h9hjf8xedn5xo7gagsy6fth  unique (OBJECT_ID_CLASS);
 
     alter table ACL_SID 
-        add constraint acl_sid_sid_principal_idx  unique (SID, PRINCIPAL);
+        add constraint acl_sid_principal_idx  unique (SID, PRINCIPAL);
 
     alter table ACL_SID 
         add constraint UK_iffjecpr10qe7c08yilqi4mi6  unique (SID);
@@ -247,32 +220,32 @@
     alter table CUSTOMER_CONTACT 
         add constraint FK_32q3wpxac3cbvhn1t9bxmcr81 
         foreign key (CUSTOMER_ID) 
-        references CUSTOMER;
-
-    alter table CUSTOMER_USER_ACCOUNT 
-        add constraint FK_qv4ubq6pwdjne8jwuaywdn3p7 
-        foreign key (USER_ID) 
-        references USER_ACCOUNT;
-
-    alter table CUSTOMER_USER_ACCOUNT 
-        add constraint FK_jup37owwps8o8ntgoxdmn0th2 
-        foreign key (CUSTOMER_ID) 
-        references CUSTOMER;
+        references CUSTOMER 
+        on delete cascade;
 
     alter table DASHBOARD 
         add constraint FK_agttn8ptawhkdx8qse4hnkvpr 
         foreign key (USER_ACCOUNT_ID) 
-        references USER_ACCOUNT;
+        references USER_ACCOUNT 
+        on delete cascade;
 
     alter table DASHBOARD_BOX 
         add constraint FK_dgep5oi78i2irrmue308doxrp 
         foreign key (DASHBOARD_ID) 
-        references DASHBOARD;
+        references DASHBOARD 
+        on delete cascade;
 
     alter table DASHBOARD_BOX 
         add constraint FK_pdct77x9bvtflrsx224gkvhhs 
         foreign key (DASHBOARD_BOX_TYPE_ID) 
-        references DASHBOARD_BOX_TYPE;
+        references DASHBOARD_BOX_TYPE 
+        on delete cascade;
+
+    alter table USER_ACCOUNT 
+        add constraint FK_86ubef6e0aau9eyhldbc5aswm 
+        foreign key (CUSTOMER_ID) 
+        references CUSTOMER 
+        on delete cascade;
 
     alter table USER_ROLE 
         add constraint FK_oqmdk7xj0ainhxpvi79fkaq3y 

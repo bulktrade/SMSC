@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.Dashboard;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -67,32 +69,24 @@ public class User extends BaseEntity {
     )
     private Set<Role> roles;
 
-    @ManyToMany(mappedBy = "users")
-    @OrderBy
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="CUSTOMER_ID")
     @JsonBackReference
-    private Set<Customer> customers;
+    private Customer customer;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
-    @OrderBy
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Dashboard> dashboards;
-
-    /**
-     * This method is used for removing all links on User entity from
-     * appropriate Customer entities before entity is removed. Without
-     * it deleting entity can cause <code>ConstraintViolationException<code/>
-     */
-    @PreRemove
-    private void removeUsersFromCustomers() {
-        for (Customer customer : customers) {
-            customer.getUsers().remove(this);
-        }
-    }
 
     public User() {
     }
 
     public User(User user) {
-        this(user.getId(),user.getUsername(),user.getPassword(),user.getFirstname(),user.getSurname(),user.getEmail(),user.isActive(),user.isBlocked());
+        this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked());
     }
 
     public User(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked) {
@@ -186,20 +180,12 @@ public class User extends BaseEntity {
         this.roles = roles;
     }
 
-    public boolean addRole(Role role){
-        return this.roles.add(role);
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public boolean removeRole(Role role){
-        return this.roles.remove(role);
-    }
-
-    public Set<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(Set<Customer> customers) {
-        this.customers = customers;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Set<Dashboard> getDashboards() {
@@ -208,22 +194,6 @@ public class User extends BaseEntity {
 
     public void setDashboards(Set<Dashboard> dashboards) {
         this.dashboards = dashboards;
-    }
-
-    public void addDashboard(Dashboard dashboard) {
-        this.dashboards.add(dashboard);
-    }
-
-    public void removeDashboard(Dashboard dashboard) {
-        this.dashboards.remove(dashboard);
-    }
-
-    public void addCustomer(Customer customer) {
-        this.customers.add(customer);
-    }
-
-    public void removeCustomer(Customer customer) {
-        this.customers.remove(customer);
     }
 
     @Override

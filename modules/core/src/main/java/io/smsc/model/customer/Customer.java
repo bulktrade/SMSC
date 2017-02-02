@@ -2,6 +2,8 @@ package io.smsc.model.customer;
 
 import io.smsc.model.BaseEntity;
 import io.smsc.model.User;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -11,9 +13,9 @@ import java.util.Set;
 /**
  * Specifies Customer class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "CUSTOMER", uniqueConstraints = {@UniqueConstraint(columnNames = "CUSTOMER_ID", name = "customers_unique_customer_id_idx")})
@@ -50,40 +52,39 @@ public class Customer extends BaseEntity {
     @Column(name = "VATID")
     private Double vatid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="PARENT_CUSTOMER_ID")
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.REFRESH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST
+            })
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @JoinColumn(name = "PARENT_CUSTOMER_ID")
     private Customer parentCustomer;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<CustomerContact> contacts;
 
-    @ManyToMany()
-    @OrderBy
-    @JoinTable(
-            name = "CUSTOMER_USER_ACCOUNT",
-            joinColumns = @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<User> users;
-
-    /**
-     * This method is used for removing all links on Customer entity from
-     * appropriate CustomerContact entities before entity is removed. Without
-     * it deleting entity can cause <code>ConstraintViolationException<code/>
-     */
-    @PreRemove
-    private void removeCustomerFromContacts() {
-        for (CustomerContact contact : contacts) {
-            contact.setCustomer(null);
-        }
-    }
 
     public Customer() {
     }
 
     public Customer(Customer customer) {
-        this(customer.getId(),customer.getCustomerId(),customer.getCompanyName(),customer.getStreet(),customer.getStreet2(),
-                customer.getPostcode(),customer.getCountry(),customer.getCity(),customer.getVatid());
+        this(customer.getId(), customer.getCustomerId(), customer.getCompanyName(), customer.getStreet(), customer.getStreet2(),
+                customer.getPostcode(), customer.getCountry(), customer.getCity(), customer.getVatid());
     }
 
     public Customer(Long id, Double customerId, String companyName, String street, String street2, String postcode, String country, String city, Double vatid) {
@@ -184,22 +185,6 @@ public class Customer extends BaseEntity {
 
     public void setUsers(Set<User> users) {
         this.users = users;
-    }
-
-    public void addContact(CustomerContact customerContact){
-        this.contacts.add(customerContact);
-    }
-
-    public void removeContact(CustomerContact customerContact){
-        this.contacts.remove(customerContact);
-    }
-
-    public void addUser(User user){
-        this.users.add(user);
-    }
-
-    public void removeUser(User user){
-        this.users.remove(user);
     }
 
     @Override

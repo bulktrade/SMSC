@@ -3,6 +3,8 @@ package io.smsc.model.dashboard;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.User;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -33,8 +35,12 @@ public class Dashboard extends BaseEntity {
     @JoinColumn(name="USER_ACCOUNT_ID", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "dashboard", orphanRemoval = true)
-//    @JsonManagedReference
+    @OneToMany(
+            mappedBy = "dashboard",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<DashboardBox> dashboardBoxes;
 
     public Dashboard() {

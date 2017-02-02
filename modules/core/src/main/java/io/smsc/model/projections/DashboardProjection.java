@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * This interface is describing excerpting projection for {@link DashboardBox}
+ * This interface is describing excerpting projection for {@link Dashboard}
  * entity and is used for fetching relation properties in JSON response.
  *
  * @author  Nazar Lipkovskyy
