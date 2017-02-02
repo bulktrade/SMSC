@@ -39,8 +39,15 @@ const CUSTOMERS_ROUTE_PROVIDER = [
         }
     },
     {
-        path: 'customers-contacts',
+        path: 'contacts',
         loadChildren: './customers-contacts/customers-contacts.module#CustomersContactsModule',
+        data: {
+            showInBreadcrumb: false,
+        }
+    },
+    {
+        path: 'users',
+        loadChildren: './customers-users/customers-users.module#UsersModule',
         data: {
             showInBreadcrumb: false,
         }

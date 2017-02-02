@@ -47,6 +47,7 @@ import { URIHandlingService } from "./services/uri-handling";
 // import { CrudLevelService } from "./crud/services/crud-level";
 import { CustomersService } from "./customers/customers.service";
 import { CustomersContactsService } from "./customers/customers-contacts/customers-contacts.service";
+import { CustomersUsersService } from "./customers/customers-users/customers-users.service";
 
 type StoreType = {
     state: InternalStateType,
@@ -70,6 +71,7 @@ export const APP_PROVIDERS = [
     AppState,
     SidebarService,
     CustomersContactsService,
+    CustomersUsersService,
     {
         provide: Http,
         useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) =>

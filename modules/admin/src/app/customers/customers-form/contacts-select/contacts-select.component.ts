@@ -7,6 +7,8 @@ import { FormsModule } from "@angular/forms";
 import { MultipleSelectService } from "./multiple-select.service";
 import { CustomersContactsService } from "../../customers-contacts/customers-contacts.service";
 import { NotificationService } from "../../../services/notification-service";
+import { CustomersUsersService } from "../../customers-users/customers-users.service";
+import { Observable } from "rxjs";
 
 @Component({
     selector: 'contacts-select',
@@ -18,7 +20,11 @@ export class MultipleSelectComponent {
 
     public id: string = '';
 
-    public renderProperties: string[] = ['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress'];
+    @Input('renderProperties')
+    public renderProperties: string[] = [];
+
+    @Input('property')
+    public property: string = '';
 
     @Input()
     public model = [];
@@ -31,6 +37,7 @@ export class MultipleSelectComponent {
                 public router: Router,
                 public location: Location,
                 public customersContactsService: CustomersContactsService,
+                public customersUsersService: CustomersUsersService,
                 public notifications: NotificationService) {
     }
 
@@ -43,26 +50,24 @@ export class MultipleSelectComponent {
         this.modelChange.emit(this.model);
     }
 
-    removeContacts() {
-        this.model = [];
-        this.modelChange.emit(this.model);
-    }
-
     removeContact(index) {
-        this.customersContactsService.deleteCustomerContacts(this.model[index].id)
-            .subscribe(() => {
-                    this.model.splice(index, 1);
-                    this.modelChange.emit(this.model);
+        let deleteResource = Observable.empty();
 
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteContact');
-                },
-                err => {
-                    console.error(err);
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteContact');
-                });
-    }
+        if (this.property === 'contacts') {
+            deleteResource = this.customersContactsService.deleteCustomerContacts(this.model[index].id);
+        } else if (this.property === 'users') {
+            deleteResource = this.customersUsersService.deleteUser(this.model[index].id);
+        }
 
-    updateContact(index) {
+        deleteResource.subscribe(() => {
+                this.model.splice(index, 1);
+                this.modelChange.emit(this.model);
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
+            },
+            err => {
+                console.error(err);
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorDelete');
+            });
     }
 
 }
@@ -74,6 +79,7 @@ export class MultipleSelectComponent {
         TranslateModule,
         RouterModule
     ],
+    providers: [CustomersUsersService],
     exports: [MultipleSelectComponent],
     declarations: [MultipleSelectComponent]
 })

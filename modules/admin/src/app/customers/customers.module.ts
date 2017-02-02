@@ -26,6 +26,8 @@ import { Http, XHRBackend, RequestOptions } from "@angular/http";
 import { HttpInterceptor } from "../common/http-interceptor";
 import { CustomersDeleteComponent } from "./customers-delete/customers-delete.component";
 import { CustomersContactsService } from "./customers-contacts/customers-contacts.service";
+import { UsersModule } from "./customers-users/customers-users.module";
+import { CustomersUsersService } from "./customers-users/customers-users.service";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
@@ -38,6 +40,7 @@ const CUSTOMERS_DECLARATIONS = [
 const CUSTOMERS_PROVIDERS = [
     CustomersService,
     CustomersContactsService,
+    CustomersUsersService,
     {
         provide: Http,
         useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) =>

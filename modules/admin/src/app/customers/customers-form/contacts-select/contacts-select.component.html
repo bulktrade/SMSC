@@ -1,6 +1,6 @@
 <div id="multiple-select-window">
 	<div class="ctrl-panel">
-		<i class="fa fa-plus-square-o" [routerLink]="['/customers', 'customers-contacts', 'create', id]"
+		<i class="fa fa-plus-square-o" [routerLink]="['/customers', property, 'create', id]"
 		   [title]="'customers.createContact' | translate" aria-hidden="true"></i>
 		<i class="fa fa-minus-square-o"
 		   [title]="'customers.removeAllContacts' | translate" aria-hidden="true"></i>
@@ -16,7 +16,7 @@
 					   [title]="'customers.removeContact' | translate"
 					   aria-hidden="true"></i>
 					<i class="fa fa-pencil-square-o"
-					   [routerLink]="['/customers', 'customers-contacts', 'update', model[i].id]"
+					   [routerLink]="['/customers', property, 'update', model[i].id]"
 					   [title]="'customers.updateContact' | translate"
 					   aria-hidden="true"></i>
 				</div>
