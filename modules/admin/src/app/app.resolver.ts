@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/of";
 import { CustomersViewResolve } from "./customers/customers-view/customers-view.resolve";
 import { CustomersEditResolve } from "./customers/customers-update/customers-update.resolve";
+import { ContactsUpdateResolve } from "./customers/customers-contacts/contacts-update/contacts-update.resolve";
 
 @Injectable()
 export class DataResolver implements Resolve<any> {
@@ -20,5 +21,6 @@ export class DataResolver implements Resolve<any> {
 export const APP_RESOLVER_PROVIDERS = [
     DataResolver,
     CustomersViewResolve,
-    CustomersEditResolve
+    CustomersEditResolve,
+    ContactsUpdateResolve
 ];

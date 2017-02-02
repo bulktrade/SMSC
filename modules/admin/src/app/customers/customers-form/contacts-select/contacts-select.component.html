@@ -9,13 +9,14 @@
 		<hr>
 	</ng-container>
 	<div class="row">
-		<div class="col-md-6" *ngFor="let item of model; let i = index">
+		<div class="col-md-12" *ngFor="let item of model; let i = index">
 			<div class="data-item">
 				<div class="ctrl-panel">
 					<i class="fa fa-minus-square-o" (click)="removeContact(i)"
 					   [title]="'customers.removeContact' | translate"
 					   aria-hidden="true"></i>
-					<i class="fa fa-pencil-square-o" (click)="updateContact(i)"
+					<i class="fa fa-pencil-square-o"
+					   [routerLink]="['/customers', 'customers-contacts', 'update', model[i].id]"
 					   [title]="'customers.updateContact' | translate"
 					   aria-hidden="true"></i>
 				</div>

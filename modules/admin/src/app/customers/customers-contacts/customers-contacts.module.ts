@@ -17,6 +17,7 @@ import { ControlErrorsModule } from "../../common/control-errors/control-errors"
 import { CustomersService } from "../customers.service";
 import { RequestOptions, XHRBackend, Http } from "@angular/http";
 import { HttpInterceptor } from "../../common/http-interceptor";
+import { ContactsUpdateComponent } from "./contacts-update/contacts-update";
 
 const CUSTOMERS_CONTACTS_MODULES = [
     CommonModule,
@@ -35,7 +36,11 @@ const CUSTOMERS_CONTACTS_MODULES = [
 @NgModule({
     imports: [CUSTOMERS_CONTACTS_MODULES],
     exports: [CustomersContactsRoutingModule],
-    declarations: [CustomersContactsComponent, ContactsCreateComponent],
+    declarations: [
+        CustomersContactsComponent,
+        ContactsCreateComponent,
+        ContactsUpdateComponent
+    ],
     providers: [
         CustomersContactsService,
         CustomersService,

@@ -46,6 +46,7 @@ import { GrowlService } from "./services/growl/growl.service";
 import { URIHandlingService } from "./services/uri-handling";
 // import { CrudLevelService } from "./crud/services/crud-level";
 import { CustomersService } from "./customers/customers.service";
+import { CustomersContactsService } from "./customers/customers-contacts/customers-contacts.service";
 
 type StoreType = {
     state: InternalStateType,
@@ -68,6 +69,7 @@ export const APP_PROVIDERS = [
     AuthGuard,
     AppState,
     SidebarService,
+    CustomersContactsService,
     {
         provide: Http,
         useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) =>
@@ -123,10 +125,9 @@ export const APP_PROVIDERS = [
     ]
 })
 export class AppModule {
-    constructor(
-        public appRef: ApplicationRef,
-        public appState: AppState
-    ) {}
+    constructor(public appRef: ApplicationRef,
+                public appState: AppState) {
+    }
 
     public hmrOnInit(store: StoreType) {
         if (!store || !store.state) {
@@ -154,7 +155,7 @@ export class AppModule {
         // recreate root elements
         store.disposeOldHosts = createNewHosts(cmpLocation);
         // save input values
-        store.restoreInputValues  = createInputTransfer();
+        store.restoreInputValues = createInputTransfer();
         // remove styles
         removeNgStyles();
     }
