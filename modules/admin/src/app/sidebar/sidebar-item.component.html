@@ -2,12 +2,11 @@
 	<a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
 	   class="{{nameItem.toLowerCase()}} sub-task clear" [routerLink]="[path]"
 	   (click)="setToggle(toggle);">
-		<i class="icon-left material-icons">{{icon}}</i>
+		<i class="icon-left fa" [ngClass]="icon"></i>
 		<div class="show-nav">
 			<span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
-			<i class="isChildren material-icons" *ngIf="submenu" class="isChildren material-icons {{nameItem.toLowerCase()}}-icon">
-				{{getStorageItem(toggle) ? 'chevron_left' : 'expand_more'}}
-			</i>
+			<i *ngIf="submenu" class="isChildren fa {{nameItem.toLowerCase()}}-icon"
+			   [ngClass]="getStorageItem(toggle) ? 'fa-chevron-left' : 'fa-chevron-down'"></i>
 		</div>
 	</a>
 	<ul [@state]="getStorageItem(toggle) ? 'open' : 'closed'" *ngIf="submenu"
@@ -15,7 +14,7 @@
 		<li *ngFor="let item of submenu"><a routerLinkActive="activesub" [routerLinkActiveOptions]="{exact: true}"
 		                                    [routerLink]="item.path === '' ? [path] : [path, item.path]"
 		                                    class="{{item.name.toLowerCase()}}">
-			<i class="subitem-icon-left material-icons">{{item.icon}}</i>
+			<i class="subitem-icon-left fa" [ngClass]="item.icon"></i>
 			{{item.name | uppercase | translate}}</a></li>
 	</ul>
 </div>

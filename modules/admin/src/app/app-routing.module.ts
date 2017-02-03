@@ -68,7 +68,7 @@ export const ROUTES: Routes = [
                     showInBreadcrumb: true,
                     translationKey: 'Customers',
                     showInSubNavigation: true,
-                    icon: 'perm_contact_calendar'
+                    icon: 'fa-users'
                 },
                 loadChildren: './customers/customers.module#CustomersModule'
             },

@@ -2,14 +2,14 @@
 	<div class="card header">
 		<div class="toolbar">
 			<div class="left-panel">
-				<i id="desktopMenu" class="material-icons md-24" (click)="toggle=!toggle">menu</i>
+				<i id="desktopMenu" class="fa fa-bars" (click)="toggle=!toggle"></i>
 				<h1 style="float: left;" [routerLink]="['/']" id="logo">{{ 'project.title' | translate }}</h1>
 			</div>
 			<div style="width: 100%;"></div>
 			<div class="right-panel">
-				<i class="material-icons pull-right">person</i>
-				<i class="material-icons pull-right" (click)="logout()" id="logout">subdirectory_arrow_left</i>
-				<i class="material-icons pull-right" (click)="toggledUp=!toggledUp" id="mobileMenu">menu</i>
+				<i class="fa fa-user pull-right" aria-hidden="true"></i>
+				<i class="fa fa-sign-out pull-right" (click)="logout()" id="logout"></i>
+				<i class="fa fa-bars pull-right" (click)="toggledUp=!toggledUp" id="mobileMenu"></i>
 			</div>
 		</div>
 	</div>
