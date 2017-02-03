@@ -26,7 +26,6 @@ import { Ng2BootstrapModule } from "ng2-bootstrap";
 import { GridService } from "./services/grid.service";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { SidebarItemComponent } from "./sidebar/sidebar-item.component";
-import { LoadingRouterOutletModule } from "./common/loading-router-outlet.component";
 import { ConfigService } from "./config/config.service";
 import { LoadingRouterOutletService } from "./services/loading/loading-router-outlet.service";
 import { LoadingService } from "./services/loading/loading.service";
@@ -35,7 +34,7 @@ import { MetaDataPropertyBindingParameterComponent } from "./crud-meta-data/bind
 import { SidebarService } from "./sidebar/sidebar.service";
 // import { DashboardModule } from "./dashboard/dashboard.module";
 import { HTTP_INTERCEPTOR_PROVIDER } from "./common/http-interceptor";
-import { NoInternetModule } from "./common/no-internet/no-internet.component";
+import { NoInternetModule } from "./common/components/no-internet/no-internet.component";
 // import { CrudMetaFormDataComponent } from "./crud-meta-data/crud-meta-form-data/crud-meta-form-data.component";
 // import { CrudClassMetaDataComponent } from "./crud-meta-data/crud-class-meta-data/crud-class-meta-data.component";
 // import { CrudMetaGridDataComponent } from "./crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component";
@@ -48,6 +47,7 @@ import { CustomersService } from "./customers/customers.service";
 import { CustomersContactsService } from "./customers/customers-contacts/customers-contacts.service";
 import { CustomersUsersService } from "./customers/customers-users/customers-users.service";
 import { MessagesModule } from "primeng/components/messages/messages";
+import { LoadingRouterOutletModule } from "./common/components/loading-router-outlet/loading-router-outlet.component";
 
 type StoreType = {
     state: InternalStateType,

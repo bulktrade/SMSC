@@ -1,9 +1,9 @@
 import { Component, ModuleWithProviders, NgModule, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CubeGridModule } from './spinner/cube-grid/cube-grid.component';
-import { LoadingRouterOutletService } from '../services/loading/loading-router-outlet.service';
-import { RouterOutletService } from '../services/router-outlet-service';
+import { CubeGridModule } from "../cube-grid/cube-grid.component";
+import { LoadingRouterOutletService } from "../../../services/loading/loading-router-outlet.service";
+import { RouterOutletService } from "../../../services/router-outlet-service";
 
 @Component({
     selector: 'loading-router-outlet',

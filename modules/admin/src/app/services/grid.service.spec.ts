@@ -2,7 +2,7 @@ import { TestBed } from "@angular/core/testing";
 import { HttpModule } from "@angular/http";
 import { GridService } from "./grid.service";
 import { APP_PROVIDERS } from "../app.module";
-import { HTTP_PROVIDERS } from "../common/mock/http-providers";
+import { HTTP_PROVIDERS } from "../common/components/mock/http-providers";
 
 describe('Grid Service', () => {
 

@@ -11,10 +11,9 @@ import { PaginatorModule } from "primeng/components/paginator/paginator";
 import { DataTableModule } from "primeng/components/datatable/datatable";
 import { ButtonModule } from "primeng/components/button/button";
 import { SharedModule } from "primeng/components/common/shared";
-import { MdSelectModule } from "../common/material/select/select.component";
-import { LoadingRouterOutletModule } from "../common/loading-router-outlet.component";
-import { CubeGridModule } from "../common/spinner/cube-grid/cube-grid.component";
-import { LoadingGridModule } from "../common/loading-grid.component";
+import { LoadingRouterOutletModule } from "../common/components/loading-router-outlet/loading-router-outlet.component";
+import { CubeGridModule } from "../common/components/cube-grid/cube-grid.component";
+import { LoadingGridModule } from "../common/components/loading-grid/loading-grid.component";
 import { AlertModule } from "ng2-bootstrap";
 import { CustomersService } from "./customers.service";
 import { DynamicFormModule } from "./customers-form/customers-form.component";
@@ -46,7 +45,6 @@ const CUSTOMERS_MODULES = [
     DataTableModule,
     ButtonModule,
     SharedModule,
-    MdSelectModule,
     LoadingRouterOutletModule,
     CubeGridModule,
     LoadingGridModule,

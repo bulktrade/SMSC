@@ -1,7 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
 import { ConfigService } from './config.service';
 import { HttpModule } from '@angular/http';
-import { XMLHttpRequestMock } from '../common/mock/XMLHttpRequest-mock';
+import { XMLHttpRequestMock } from '../common/components/mock/XMLHttpRequest-mock';
 import { Observable } from 'rxjs';
 import { Config } from './config';
 

@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from "@angular/core";
 import { TranslateService } from "ng2-translate";
-import { NOTIFICATION_OPTIONS } from "./common/notification-Options";
+import { NOTIFICATION_OPTIONS } from "./common/notification-options";
 
 @Component({
     selector: 'app',
@@ -16,7 +16,7 @@ import { NOTIFICATION_OPTIONS } from "./common/notification-Options";
         './../../node_modules/font-awesome/css/font-awesome.css',
         './../../node_modules/primeng/resources/themes/omega/theme.css',
         './../../node_modules/primeng/resources/primeng.min.css',
-        './common/spinner/cube-grid/cube-grid.component.scss',
+        'common/components/cube-grid/cube-grid.component.scss',
         './app.component.scss'
     ]
 })

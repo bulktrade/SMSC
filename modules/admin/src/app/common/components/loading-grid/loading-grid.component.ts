@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule, ModuleWithProviders } from '@angular/core';
-import { LoadingGridService } from '../services/loading/loading-grid.service';
-import { CubeGridModule } from './spinner/cube-grid/cube-grid.component';
 import { CommonModule } from '@angular/common';
+import { LoadingGridService } from "../../../services/loading/loading-grid.service";
+import { CubeGridModule } from "../cube-grid/cube-grid.component";
 
 @Component({
     selector: 'loading-grid',

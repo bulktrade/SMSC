@@ -11,7 +11,7 @@ import {
 } from './crud/dashboard-box-create/dashboard-box-create.component';
 import { AgGridModule } from 'ag-grid-ng2';
 import { TranslateModule } from 'ng2-translate';
-import { CubeGridModule } from '../common/spinner/cube-grid/cube-grid.component';
+import { CubeGridModule } from '../common/components/cube-grid/cube-grid.component';
 import { AlertModule } from 'ng2-bootstrap';
 import { BreadcrumbModule } from '../breadcrumb/breadcrumb.component';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
@@ -23,8 +23,8 @@ import { DynamicFormModule } from '../crud/dynamic-form/dynamic-form.component';
 import { LineChartService } from './chart/line-chart.service';
 import { MdSelectModule } from '../common/material/select/select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoadingGridModule } from '../common/loading-grid.component';
-import { LoadingRouterOutletModule } from '../common/loading-router-outlet.component';
+import { LoadingGridModule } from '../common/components/loading-grid/loading-grid.component';
+import { LoadingRouterOutletModule } from '../common/components/loading-router-outlet/loading-router-outlet.component';
 import {
     DashboardCrudDeleteComponent
 } from './crud/dashboard-box-delete/dashboard-box-delete.component';

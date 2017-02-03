@@ -1,5 +1,5 @@
-import { OUser } from '../../common/models/OUser';
-import { MetaData } from '../../common/models/meta-data';
+import { OUser } from '../../common/components/models/OUser';
+import { MetaData } from '../../common/components/models/meta-data';
 
 export class Dashboard {
     metaData: MetaData;

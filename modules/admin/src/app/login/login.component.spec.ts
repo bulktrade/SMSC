@@ -3,7 +3,7 @@ import { LoginComponent } from "./login.component";
 import { AuthService } from "../services/auth/auth.service";
 import { LoginModel } from "./login.model";
 import { HttpModule } from "@angular/http";
-import { HTTP_PROVIDERS } from "../common/mock/http-providers";
+import { HTTP_PROVIDERS } from "../common/components/mock/http-providers";
 import { TokenService } from "../services/auth/token.service";
 import { ConfigService } from "../config/config.service";
 import { RouterTestingModule } from "@angular/router/testing";
