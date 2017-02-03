@@ -1,7 +1,7 @@
 package io.smsc.security.service;
 
 import io.smsc.model.User;
-import io.smsc.repository.user.UserRepository;
+import io.smsc.repository.UserRepository;
 import io.smsc.security.JWTUserFactory;
 import io.smsc.security.model.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
      */
     @Override
     public JWTUser loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
         } else {

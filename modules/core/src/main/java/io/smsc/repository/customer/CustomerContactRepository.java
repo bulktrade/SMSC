@@ -1,4 +1,4 @@
-package io.smsc.repository.customer.customerContact;
+package io.smsc.repository.customer;
 
 import io.smsc.model.customer.CustomerContact;
 import io.smsc.model.projections.CustomerContactProjection;

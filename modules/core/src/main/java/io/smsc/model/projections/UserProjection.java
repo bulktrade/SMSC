@@ -28,8 +28,6 @@ public interface UserProjection {
 
     String getUsername();
 
-    String getPassword();
-
     String getFirstname();
 
     String getSurname();

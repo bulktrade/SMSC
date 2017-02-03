@@ -2,8 +2,6 @@
 //
 //import static org.junit.Assert.*;
 //
-//import io.smsc.model.customer.Customer;
-//import io.smsc.repository.customer.customer.CustomerRepository;
 //import org.junit.After;
 //import org.junit.Before;
 //import org.junit.Test;

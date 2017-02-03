@@ -1,12 +1,18 @@
-package io.smsc.converters;
+package io.smsc.listeners;
 
 import io.smsc.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.keygen.KeyGenerators;
+import org.springframework.stereotype.Component;
 
+import javax.persistence.PostLoad;
+import javax.persistence.PostUpdate;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.security.Permission;
@@ -14,51 +20,66 @@ import java.security.PermissionCollection;
 import java.util.Map;
 
 /**
- * The CryptoConverter class is used for providing custom user's
+ * The UserPasswordEncryptionListener class is used for providing custom user's
  * password encryption\decryption.
  *
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-public class CryptoConverter {
-
-    private static final Logger LOG = LoggerFactory.getLogger(CryptoConverter.class);
+@Component
+public class UserPasswordEncryptionListener {
 
     /**
-     * This is the main method to encrypt password.
-     *
-     * @param  user      the {@link User} whose password should be encrypted
-     * @param  secretKey string, which is used for {@link TextEncryptor} creating
-     * @return           encrypted password
+     * String, which is used for {@link org.springframework.security.crypto.encrypt.TextEncryptor} creating
      */
-    public static String encrypt(User user, String secretKey) {
+    @Value("${encrypt.key}")
+    //This value is not injected (need to find solution)
+    //http://stackoverflow.com/questions/12155632/injecting-a-spring-dependency-into-a-jpa-entitylistener
+    private String secretKey = "smsc.io";
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserPasswordEncryptionListener.class);
+
+    /**
+     * Method to encrypt password before user persisting.
+     *
+     * @param  obj  the {@link User} whose password should be encrypted
+     */
+    @PrePersist
+    @PreUpdate
+    public void encrypt(Object obj) {
+        if(!(obj instanceof User)) {
+            return;
+        }
         //Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
         removeCryptographyRestrictions();
-        String salt = KeyGenerators.string().generateKey();
-        String password = user.getPassword();
-        TextEncryptor encryptor = Encryptors.text(secretKey,salt);
-        String encryptedPassword = encryptor.encrypt(password);
+        User user = (User) obj;
+        if(user.getSalt() == null){
+            String salt = KeyGenerators.string().generateKey();
+            user.setSalt(salt);
+        }
+        TextEncryptor encryptor = Encryptors.text(secretKey, user.getSalt());
+        String encryptedPassword = encryptor.encrypt(user.getPassword());
         user.setPassword(encryptedPassword);
-        user.setSalt(salt);
-        return encryptedPassword;
     }
 
     /**
-     * This is the main method to decrypt password.
+     * Method to decrypt password after user loading.
      *
-     * @param  user      the {@link User} whose password should be decrypted
-     * @param  secretKey string, which is used for {@link TextEncryptor} creating
-     * @return           decrypted password
+     * @param  obj  the {@link User} whose password should be decrypted
      */
-    public static String decrypt(User user, String secretKey) {
-//     Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
-       removeCryptographyRestrictions();
-       String salt = user.getSalt();
-       String password = user.getPassword();
-       TextEncryptor encryptor = Encryptors.text(secretKey,salt);
-       String decryptedPassword = encryptor.decrypt(password);
-       user.setPassword(decryptedPassword);
-       return decryptedPassword;
+    @PostLoad
+    @PostUpdate
+    public void decrypt(Object obj) {
+        if(!(obj instanceof User)) {
+            return;
+        }
+        System.out.println(secretKey);
+        //Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
+        removeCryptographyRestrictions();
+        User user = (User) obj;
+        TextEncryptor encryptor = Encryptors.text(secretKey, user.getSalt());
+        String decryptedPassword = encryptor.decrypt(user.getPassword());
+        user.setPassword(decryptedPassword);
     }
 
     /**
@@ -112,4 +133,5 @@ public class CryptoConverter {
         // This simply matches the Oracle JRE, but not OpenJDK.
         return "Java(TM) SE Runtime Environment".equals(System.getProperty("java.runtime.name"));
     }
+
 }
