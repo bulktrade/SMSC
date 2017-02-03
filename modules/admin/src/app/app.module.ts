@@ -48,6 +48,7 @@ import { CustomersContactsService } from "./customers/customers-contacts/custome
 import { CustomersUsersService } from "./customers/customers-users/customers-users.service";
 import { MessagesModule } from "primeng/components/messages/messages";
 import { LoadingRouterOutletModule } from "./common/components/loading-router-outlet/loading-router-outlet.component";
+import { CommonService } from "./services/common";
 
 type StoreType = {
     state: InternalStateType,
@@ -69,10 +70,14 @@ export const APP_PROVIDERS = [
     NotificationService,
     AuthGuard,
     AppState,
+    ConfigService,
+    GrowlService,
+    URIHandlingService,
     SidebarService,
     CustomersContactsService,
     CustomersUsersService,
-    HTTP_INTERCEPTOR_PROVIDER
+    HTTP_INTERCEPTOR_PROVIDER,
+    CommonService
 ];
 
 @NgModule({
@@ -113,11 +118,6 @@ export const APP_PROVIDERS = [
         BreadcrumbModule.forRoot()
     ],
     providers: [
-        // CrudLevelService,
-        // CrudService,
-        ConfigService,
-        GrowlService,
-        URIHandlingService,
         ENV_PROVIDERS,
         APP_PROVIDERS
     ]

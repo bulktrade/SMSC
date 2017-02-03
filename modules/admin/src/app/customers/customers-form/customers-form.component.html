@@ -137,8 +137,8 @@
 							{{ 'contacts' | translate }}
 						</div>
 						<div class="ui-grid-col-6">
-							<contacts-select [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
-								[(model)]="model['contacts']" property="contacts"></contacts-select>
+							<one-to-many [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
+								[(model)]="model['contacts']" property="contacts"></one-to-many>
 						</div>
 						<div class="ui-grid-col-4">
 							<control-errors control="contacts"
@@ -152,8 +152,8 @@
 							{{ 'users' | translate }}
 						</div>
 						<div class="ui-grid-col-6">
-							<contacts-select [renderProperties]="['firstname', 'surname', 'username', 'email']"
-								[(model)]="model['users']" property="users"></contacts-select>
+							<one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
+								[(model)]="model['users']" property="users"></one-to-many>
 						</div>
 						<div class="ui-grid-col-4">
 							<control-errors control="users"

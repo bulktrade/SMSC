@@ -5,7 +5,7 @@ import { RouterModule } from "@angular/router";
 import { UsersRoutingModule } from "./customers-users-routing.module";
 import { CheckboxModule } from "primeng/components/checkbox/checkbox";
 import { FormsModule } from "@angular/forms";
-import { MultipleSelectModule } from "../customers-form/contacts-select/contacts-select.component";
+import { OneToManyModule } from "../../common/components/one-to-many/one-to-many.component";
 import { TranslateModule } from "ng2-translate";
 import { PanelModule } from "primeng/components/panel/panel";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
@@ -26,7 +26,7 @@ const USERS_CONTACTS_MODULES = [
     CommonModule,
     CheckboxModule,
     FormsModule,
-    MultipleSelectModule,
+    OneToManyModule,
     TranslateModule,
     PanelModule,
     InputTextModule,

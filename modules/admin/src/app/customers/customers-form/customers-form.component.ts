@@ -5,7 +5,7 @@ import { TranslateModule } from "ng2-translate/ng2-translate";
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/components/button/button";
 import { CheckboxModule } from "primeng/components/checkbox/checkbox";
-import { MultipleSelectModule } from "./contacts-select/contacts-select.component";
+import { OneToManyModule } from "../../common/components/one-to-many/one-to-many.component";
 import { ControlErrorsModule } from "../../common/components/control-errors/control-errors";
 import { PanelModule } from "primeng/components/panel/panel";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
@@ -52,7 +52,7 @@ export class DynamicFormComponent {
         CommonModule,
         CheckboxModule,
         FormsModule,
-        MultipleSelectModule,
+        OneToManyModule,
         TranslateModule,
         PanelModule,
         InputTextModule,
