@@ -18,6 +18,8 @@ import { UsersUpdateComponent } from "./users-update/users-update";
 import { CustomersUsersService } from "./customers-users.service";
 import { UsersCreateComponent } from "./users-create/users-create";
 import { BreadcrumbModule } from "../../breadcrumb/breadcrumb.component";
+import { MessagesModule } from "primeng/components/messages/messages";
+import { UsersDeleteComponent } from "./contacts-delete/users-delete.component";
 
 const USERS_CONTACTS_MODULES = [
     UsersRoutingModule,
@@ -32,7 +34,8 @@ const USERS_CONTACTS_MODULES = [
     DropdownModule,
     ControlErrorsModule,
     RouterModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    MessagesModule
 ];
 
 @NgModule({
@@ -41,7 +44,8 @@ const USERS_CONTACTS_MODULES = [
     declarations: [
         CustomersUsersComponent,
         UsersCreateComponent,
-        UsersUpdateComponent
+        UsersUpdateComponent,
+        UsersDeleteComponent
     ],
     providers: [
         CustomersUsersService,

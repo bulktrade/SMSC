@@ -3,22 +3,23 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { Message } from "primeng/components/common/api";
-import { NotificationService } from "../../services/notification-service";
 import { CustomersService } from "../customers.service";
+import { NotificationService } from "../../../services/notification-service";
+import { CustomersContactsService } from "../customers-contacts.service";
+import { CustomersUsersService } from "../customers-users.service";
 
 @Component({
     selector: 'customers-delete',
-    template: require('./../../common/templates/delete.component.html'),
-    styleUrls: ['./../../common/styles/delete.component.scss'],
-    providers: []
+    template: require('./../../../common/templates/delete.component.html'),
+    styleUrls: ['./../../../common/styles/delete.component.scss']
 })
 
-export class CustomersDeleteComponent {
+export class UsersDeleteComponent {
     public id: number;
     public msgs: Message[] = [];
 
     constructor(public translate: TranslateService,
-                public customersService: CustomersService,
+                public customersUsersService: CustomersUsersService,
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
@@ -32,13 +33,13 @@ export class CustomersDeleteComponent {
             });
 
         this.route.params.subscribe((params) => {
-            this.id = +params['id'];
+            this.id = +params['userId'];
         });
     }
 
     deleteResource() {
-        this.customersService.deleteCustomer(this.id)
-            .subscribe(res => {
+        this.customersUsersService.deleteUser(this.id)
+            .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
                 this.location.back();
             }, err => {

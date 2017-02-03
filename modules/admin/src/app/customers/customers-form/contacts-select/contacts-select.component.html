@@ -12,7 +12,8 @@
 		<div class="col-md-12" *ngFor="let item of model; let i = index">
 			<div class="data-item">
 				<div class="ctrl-panel">
-					<i class="fa fa-minus-square-o" (click)="removeContact(i)"
+					<i class="fa fa-minus-square-o"
+					   [routerLink]="['/customers', property, 'delete', model[i].id]"
 					   [title]="'customers.removeContact' | translate"
 					   aria-hidden="true"></i>
 					<i class="fa fa-pencil-square-o"

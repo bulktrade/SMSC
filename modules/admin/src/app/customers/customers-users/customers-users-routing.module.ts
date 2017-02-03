@@ -3,6 +3,7 @@ import { RouterModule } from "@angular/router";
 import { UsersUpdateResolve } from "./users-update/users-update.resolve";
 import { UsersCreateComponent } from "./users-create/users-create";
 import { UsersUpdateComponent } from "./users-update/users-update";
+import { UsersDeleteComponent } from "./contacts-delete/users-delete.component";
 
 const CUSTOMERS_CONTACTS_ROUTE_PROVIDER = [
     {
@@ -16,6 +17,13 @@ const CUSTOMERS_CONTACTS_ROUTE_PROVIDER = [
         path: 'update/:userId',
         component: UsersUpdateComponent,
         resolve: { update: UsersUpdateResolve },
+        data: {
+            showInBreadcrumb: false,
+        }
+    },
+    {
+        path: 'delete/:userId',
+        component: UsersDeleteComponent,
         data: {
             showInBreadcrumb: false,
         }
