@@ -12,7 +12,7 @@ import { CustomersContactsService } from "../customers-contacts.service";
 export class ContactsCreateComponent implements OnInit {
     public model: any = {};
 
-    public customerId: string = '';
+    public customerId: number;
 
     constructor(public customersService: CustomersService,
                 public route: ActivatedRoute,
@@ -24,7 +24,7 @@ export class ContactsCreateComponent implements OnInit {
     ngOnInit() {
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.customerId = params['customerId'];
+            this.customerId = +params['customerId'];
         });
     }
 
@@ -44,7 +44,7 @@ export class ContactsCreateComponent implements OnInit {
             });
     }
 
-    addCustomerURI(id: string) {
+    addCustomerURI(id: number) {
         return this.customersService.getCustomer(id)
             .map(res => res['_links'].self.href);
     }

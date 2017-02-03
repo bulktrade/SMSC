@@ -13,7 +13,7 @@ export class ContactsUpdateComponent implements OnInit {
 
     public model: any = {};
 
-    public contactId: string = '';
+    public contactId: number;
 
     constructor(public customersService: CustomersService,
                 public route: ActivatedRoute,
@@ -25,7 +25,7 @@ export class ContactsUpdateComponent implements OnInit {
     ngOnInit() {
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.contactId = params['contactId'];
+            this.contactId = +params['contactId'];
         });
 
         this.model = this.getModel();

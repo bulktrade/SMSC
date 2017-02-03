@@ -9,9 +9,7 @@ export class UsersUpdateResolve implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let id = route.params['userId'];
-
-        return this.customersUsersService.getUser(id);
+        return this.customersUsersService.getUser(+route.params['userId']);
     }
 
 }

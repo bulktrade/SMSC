@@ -1,4 +1,13 @@
-import { Http, Request, RequestOptionsArgs, Response, RequestOptions, ConnectionBackend, Headers } from "@angular/http";
+import {
+    Http,
+    Request,
+    RequestOptionsArgs,
+    Response,
+    RequestOptions,
+    ConnectionBackend,
+    Headers,
+    XHRBackend
+} from "@angular/http";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs/Observable";
 import { Injectable } from "@angular/core";
@@ -72,3 +81,13 @@ export class HttpInterceptor extends Http {
         });
     }
 }
+
+function httpInterceptorFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) {
+    return new HttpInterceptor(xhrBackend, requestOptions, router);
+}
+
+export const HTTP_INTERCEPTOR_PROVIDER = {
+    provide: Http,
+    useFactory: httpInterceptorFactory,
+    deps: [XHRBackend, RequestOptions, Router]
+};

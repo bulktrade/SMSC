@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CustomersContactsComponent } from "./customers-contacts";
 import { CommonModule } from "@angular/common";
-import { RouterModule, Router } from "@angular/router";
+import { RouterModule } from "@angular/router";
 import { ContactsCreateComponent } from "./contacts-create/contacts-create";
 import { CustomersContactsRoutingModule } from "./customers-contacts-routing.module";
 import { CustomersContactsService } from "./customers-contacts.service";
@@ -15,9 +15,9 @@ import { ButtonModule } from "primeng/components/button/button";
 import { DropdownModule } from "primeng/components/dropdown/dropdown";
 import { ControlErrorsModule } from "../../common/control-errors/control-errors";
 import { CustomersService } from "../customers.service";
-import { RequestOptions, XHRBackend, Http } from "@angular/http";
-import { HttpInterceptor } from "../../common/http-interceptor";
+import { HTTP_INTERCEPTOR_PROVIDER } from "../../common/http-interceptor";
 import { ContactsUpdateComponent } from "./contacts-update/contacts-update";
+import { BreadcrumbModule } from "../../breadcrumb/breadcrumb.component";
 
 const CUSTOMERS_CONTACTS_MODULES = [
     CommonModule,
@@ -30,7 +30,8 @@ const CUSTOMERS_CONTACTS_MODULES = [
     ButtonModule,
     DropdownModule,
     ControlErrorsModule,
-    RouterModule
+    RouterModule,
+    BreadcrumbModule
 ];
 
 @NgModule({
@@ -44,12 +45,7 @@ const CUSTOMERS_CONTACTS_MODULES = [
     providers: [
         CustomersContactsService,
         CustomersService,
-        {
-            provide: Http,
-            useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) =>
-                new HttpInterceptor(xhrBackend, requestOptions, router),
-            deps: [XHRBackend, RequestOptions, Router]
-        }
+        HTTP_INTERCEPTOR_PROVIDER
     ],
 })
 export class CustomersContactsModule {

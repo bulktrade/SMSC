@@ -2,7 +2,6 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from "@angular/r
 import { Injectable } from "@angular/core";
 import { Location } from "@angular/common";
 import { NotificationService } from "../../services/notification-service";
-import { URIHandlingService } from "../../services/uri-handling";
 import { CustomersService } from "../customers.service";
 
 @Injectable()
@@ -10,14 +9,11 @@ export class CustomersEditResolve implements Resolve<any> {
 
     constructor(public customersService: CustomersService,
                 public location: Location,
-                public notification: NotificationService,
-                public URIService: URIHandlingService) {
+                public notification: NotificationService) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let id = route.params['id'];
-
-        return this.customersService.getCustomer(id);
+        return this.customersService.getCustomer(+route.params['id']);
     }
 
 }

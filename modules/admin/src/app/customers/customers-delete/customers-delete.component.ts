@@ -14,7 +14,7 @@ import { CustomersService } from "../customers.service";
 })
 
 export class CustomersDeleteComponent {
-    public id;
+    public id: number;
     public msgs: Message[] = [];
 
     constructor(public translate: TranslateService,
@@ -32,7 +32,7 @@ export class CustomersDeleteComponent {
             });
 
         this.route.params.subscribe((params) => {
-            this.id = params['id'];
+            this.id = +params['id'];
         });
     }
 

@@ -13,7 +13,7 @@ export class UsersUpdateComponent implements OnInit {
 
     public model: any = {};
 
-    public userId: string = '';
+    public userId: number;
 
     constructor(public customersService: CustomersService,
                 public route: ActivatedRoute,
@@ -25,7 +25,7 @@ export class UsersUpdateComponent implements OnInit {
     ngOnInit() {
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.userId = params['userId'];
+            this.userId = +params['userId'];
         });
 
         this.model = this.getModel();

@@ -4,7 +4,6 @@ import { TranslateService } from "ng2-translate/ng2-translate";
 import { LoadingGridService } from "../services/loading/loading-grid.service";
 import { Observable } from "rxjs";
 import { Location } from "@angular/common";
-import { SelectItem } from "primeng/components/common/api";
 import { RequestOptions, Headers, RequestMethod, Http, URLSearchParams } from "@angular/http";
 import { ConfigService } from "../config/config.service";
 import "rxjs/add/operator/map";
@@ -37,30 +36,11 @@ export class CustomersService {
     }
 
     /**
-     * Generates the 'options' property for the dropdown UI component
-     * @param options
-     * @returns {SelectItem[]}
-     */
-    generateOptionsForDropdown(options: string): SelectItem[] {
-        let _options: string[] = options.split(','),
-            _result: SelectItem[] = [];
-
-        _options.forEach(i => {
-            _result.push({
-                label: i,
-                value: i
-            })
-        });
-
-        return _result;
-    }
-
-    /**
      * Creates the new customer
      * @param data
      * @returns {Observable<R>}
      */
-    createCustomer(data): Rx.Observable<Customer> {
+    createCustomer(data: Customer): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -80,7 +60,7 @@ export class CustomersService {
      * @param data
      * @returns {Observable<R>}
      */
-    updateCustomer(id: string = '', data): Rx.Observable<Customer> {
+    updateCustomer(id: number, data: Customer): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -99,7 +79,7 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    deleteCustomer(id: string = ''): Rx.Observable<Customer> {
+    deleteCustomer(id: number): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
@@ -114,7 +94,7 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    getCustomer(id: string = ''): Rx.Observable<Customer> {
+    getCustomer(id: number): Rx.Observable<Customer> {
         let search = new URLSearchParams();
         search.set('projection', PROJECTION_NAME);
 

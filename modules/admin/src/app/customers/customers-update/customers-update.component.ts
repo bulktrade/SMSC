@@ -7,14 +7,17 @@ import { CustomersService } from "../customers.service";
 
 @Component({
     selector: 'customers-update',
-    template: `<dynamic-form [submitButtonName]="submitButtonName" [model]="model"
-                    (onSubmit)="onSubmit($event)"></dynamic-form>`,
+    template: `
+        <breadcrumb></breadcrumb>
+        <dynamic-form [submitButtonName]="submitButtonName" [model]="model"
+                    (onSubmit)="onSubmit($event)"></dynamic-form>
+    `,
     styleUrls: [],
     providers: [Location]
 })
 
 export class CustomersUpdateComponent {
-    public id: string = '';
+    public id: number;
     public submitButtonName: string = 'customers.update';
     public model = {};
 
@@ -28,7 +31,7 @@ export class CustomersUpdateComponent {
     ngOnInit() {
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.id = params['id'];
+            this.id = +params['id'];
         });
 
         this.model = this.getModel();

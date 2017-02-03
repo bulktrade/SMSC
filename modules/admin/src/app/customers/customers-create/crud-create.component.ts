@@ -8,8 +8,11 @@ import { Customer } from "../model/customer";
 
 @Component({
     selector: 'customers-create',
-    template: `<dynamic-form [submitButtonName]="submitButtonName"
-                    (onSubmit)="onSubmit($event)"></dynamic-form>`,
+    template: `
+        <breadcrumb></breadcrumb>
+        <dynamic-form [submitButtonName]="submitButtonName"
+                    (onSubmit)="onSubmit($event)"></dynamic-form>
+    `,
     styleUrls: [],
     providers: [Location]
 })

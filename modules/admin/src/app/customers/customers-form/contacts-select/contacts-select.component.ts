@@ -54,9 +54,9 @@ export class MultipleSelectComponent {
         let deleteResource = Observable.empty();
 
         if (this.property === 'contacts') {
-            deleteResource = this.customersContactsService.deleteCustomerContacts(this.model[index].id);
+            deleteResource = this.customersContactsService.deleteContact(+this.model[index].id);
         } else if (this.property === 'users') {
-            deleteResource = this.customersUsersService.deleteUser(this.model[index].id);
+            deleteResource = this.customersUsersService.deleteUser(+this.model[index].id);
         }
 
         deleteResource.subscribe(() => {

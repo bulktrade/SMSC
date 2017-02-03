@@ -1,6 +1,6 @@
 import { NgModule, ApplicationRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { Http, HttpModule, XHRBackend, RequestOptions } from "@angular/http";
+import { Http, HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { App } from "./app.component";
 import { BreadcrumbModule } from "./breadcrumb/breadcrumb.component";
@@ -9,7 +9,6 @@ import { LoginComponent } from "./login/login.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 // import { CrudMetaDataComponent } from "./crud-meta-data/crud-meta-data.components";
-import { Router } from "@angular/router";
 import { AppState, InternalStateType } from "./app.service";
 import { COMMON_PROVIDERS } from "./common";
 import { AuthService } from "./services/auth/auth.service";
@@ -35,7 +34,7 @@ import { RouterOutletService } from "./services/router-outlet-service";
 import { MetaDataPropertyBindingParameterComponent } from "./crud-meta-data/binding-parameter/binding-parameter.component";
 import { SidebarService } from "./sidebar/sidebar.service";
 // import { DashboardModule } from "./dashboard/dashboard.module";
-import { HttpInterceptor } from "./common/http-interceptor";
+import { HTTP_INTERCEPTOR_PROVIDER } from "./common/http-interceptor";
 import { NoInternetModule } from "./common/no-internet/no-internet.component";
 // import { CrudMetaFormDataComponent } from "./crud-meta-data/crud-meta-form-data/crud-meta-form-data.component";
 // import { CrudClassMetaDataComponent } from "./crud-meta-data/crud-class-meta-data/crud-class-meta-data.component";
@@ -72,12 +71,7 @@ export const APP_PROVIDERS = [
     SidebarService,
     CustomersContactsService,
     CustomersUsersService,
-    {
-        provide: Http,
-        useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) =>
-            new HttpInterceptor(xhrBackend, requestOptions, router),
-        deps: [XHRBackend, RequestOptions, Router]
-    }
+    HTTP_INTERCEPTOR_PROVIDER
 ];
 
 @NgModule({

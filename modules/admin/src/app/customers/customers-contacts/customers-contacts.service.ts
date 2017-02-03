@@ -18,11 +18,11 @@ export class CustomersContactsService {
     }
 
     /**
-     * Delete customerContact
+     * Delete contact
      * @param contactId
      * @returns {Observable<T>}
      */
-    deleteCustomerContacts(contactId: string): Observable<Contact> {
+    deleteContact(contactId: number): Observable<Contact> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -36,11 +36,11 @@ export class CustomersContactsService {
     }
 
     /**
-     * Create customerContact
+     * Create contact
      * @param data
      * @returns {Observable<T>}
      */
-    createContact(data): Observable<Contact> {
+    createContact(data: Contact): Observable<Contact> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export class CustomersContactsService {
      * @param data
      * @returns {Observable<T>}
      */
-    updateContact(id: string = '', data): Observable<Contact> {
+    updateContact(id: number, data: Contact): Observable<Contact> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ export class CustomersContactsService {
      * @param id
      * @returns {Observable<T>}
      */
-    getContact(id: string = ''): Observable<Customer> {
+    getContact(id: number): Observable<Customer> {
         let search = new URLSearchParams();
         search.set('projection', CONTACTS_PROJECTION_NAME);
 

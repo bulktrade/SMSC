@@ -22,7 +22,7 @@ export class CustomersUsersService {
      * @param userId
      * @returns {Observable<T>}
      */
-    deleteUser(userId: string): Observable<User> {
+    deleteUser(userId: number): Observable<User> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export class CustomersUsersService {
      * @param data
      * @returns {Observable<T>}
      */
-    createUser(data): Observable<User> {
+    createUser(data: User): Observable<User> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export class CustomersUsersService {
      * @param data
      * @returns {Observable<T>}
      */
-    updateUser(id: string = '', data): Observable<User> {
+    updateUser(id: number, data: User): Observable<User> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ export class CustomersUsersService {
      * @param id
      * @returns {Observable<T>}
      */
-    getUser(id: string = ''): Observable<Customer> {
+    getUser(id: number): Observable<Customer> {
         let search = new URLSearchParams();
         search.set('projection', USERS_PROJECTION_NAME);
 
