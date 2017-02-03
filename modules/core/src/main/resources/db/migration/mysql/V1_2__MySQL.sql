@@ -1,5 +1,5 @@
-    create table ACL_CLASS (
-        ID bigint not null,
+        create table ACL_CLASS (
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         CLASS varchar(255) not null,
@@ -7,7 +7,7 @@
     ) ENGINE=InnoDB;
 
     create table ACL_ENTRY (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         ACE_ORDER integer not null,
@@ -21,7 +21,7 @@
     ) ENGINE=InnoDB;
 
     create table ACL_OBJECT_IDENTITY (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         ENTRIES_INHERITING bit not null,
@@ -33,7 +33,7 @@
     ) ENGINE=InnoDB;
 
     create table ACL_SID (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         PRINCIPAL bit not null,
@@ -42,23 +42,22 @@
     ) ENGINE=InnoDB;
 
     create table CUSTOMER (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         CITY varchar(255) not null,
         COMPANY_NAME varchar(255) not null,
         COUNTRY varchar(255) not null,
-        CUSTOMER_ID double precision not null,
         POSTCODE varchar(255) not null,
         STREET varchar(255) not null,
         STREET2 varchar(255) not null,
         VATID double precision,
         PARENT_CUSTOMER_ID bigint,
         primary key (ID)
-    ) ENGINE=InnoDB AUTO_INCREMENT = 1;
+    ) ENGINE=InnoDB;
 
     create table CUSTOMER_CONTACT (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         EMAIL_ADDRESS varchar(255) not null,
@@ -71,20 +70,37 @@
         TYPE varchar(255) not null,
         CUSTOMER_ID bigint,
         primary key (ID)
-    ) ENGINE=InnoDB AUTO_INCREMENT = 2;
+    ) ENGINE=InnoDB;
+
+    create table CUSTOMER_USER_ACCOUNT (
+        ID bigint not null auto_increment,
+        LAST_MODIFIED_DATE datetime not null,
+        VERSION bigint not null,
+        ACTIVE bit not null,
+        BLOCKED bit not null,
+        CREATED datetime not null,
+        EMAIL varchar(255) not null,
+        FIRST_NAME varchar(255) not null,
+        PASSWORD varchar(255) not null,
+        SALT varchar(255),
+        SURNAME varchar(255) not null,
+        USERNAME varchar(255) not null,
+        CUSTOMER_ID bigint,
+        primary key (ID)
+    ) ENGINE=InnoDB;
 
     create table DASHBOARD (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         ICON varchar(255) not null,
         NAME varchar(255) not null,
         USER_ACCOUNT_ID bigint not null,
         primary key (ID)
-    ) ENGINE=InnoDB AUTO_INCREMENT = 7;
+    ) ENGINE=InnoDB;
 
     create table DASHBOARD_BOX (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         DESCRIPTION varchar(255) not null,
@@ -95,28 +111,28 @@
         DASHBOARD_ID bigint not null,
         DASHBOARD_BOX_TYPE_ID bigint not null,
         primary key (ID)
-    ) ENGINE=InnoDB AUTO_INCREMENT = 14;
+    ) ENGINE=InnoDB;
 
     create table DASHBOARD_BOX_TYPE (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         KIND varchar(255) not null,
         NAME varchar(255) not null,
         TYPE varchar(255) not null,
         primary key (ID)
-    ) ENGINE=InnoDB AUTO_INCREMENT = 8;
+    ) ENGINE=InnoDB;
 
     create table ROLE (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         NAME varchar(255) not null,
         primary key (ID)
-    ) ENGINE=InnoDB AUTO_INCREMENT = 5;
+    ) ENGINE=InnoDB;
 
     create table USER_ACCOUNT (
-        ID bigint not null,
+        ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
         ACTIVE bit,
@@ -128,9 +144,8 @@
         SALT varchar(255),
         SURNAME varchar(255) not null,
         USERNAME varchar(255) not null,
-        CUSTOMER_ID bigint,
         primary key (ID)
-    ) ENGINE=InnoDB AUTO_INCREMENT = 3;
+    ) ENGINE=InnoDB;
 
     create table USER_ROLE (
         USER_ID bigint not null,
@@ -165,11 +180,11 @@
     alter table ACL_SID 
         add constraint UK_iffjecpr10qe7c08yilqi4mi6  unique (SID);
 
-    alter table CUSTOMER 
-        add constraint UK_8eumjccoobf7t6psn9exu4gnh  unique (CUSTOMER_ID);
-
     alter table CUSTOMER_CONTACT 
         add constraint UK_rt1h2souk5fkc2l0yojlch8ng  unique (EMAIL_ADDRESS);
+
+    alter table CUSTOMER_USER_ACCOUNT 
+        add constraint UK_ocoo1ta18u6p16unw7h8b7i8h  unique (USERNAME);
 
     alter table DASHBOARD 
         add constraint UK_k452w4cpbviagh85ll1q6gfc  unique (NAME);
@@ -219,6 +234,12 @@
         references CUSTOMER (ID) 
         on delete cascade;
 
+    alter table CUSTOMER_USER_ACCOUNT 
+        add constraint FK_jup37owwps8o8ntgoxdmn0th2 
+        foreign key (CUSTOMER_ID) 
+        references CUSTOMER (ID) 
+        on delete cascade;
+
     alter table DASHBOARD 
         add constraint FK_agttn8ptawhkdx8qse4hnkvpr 
         foreign key (USER_ACCOUNT_ID) 
@@ -237,12 +258,6 @@
         references DASHBOARD_BOX_TYPE (ID) 
         on delete cascade;
 
-    alter table USER_ACCOUNT 
-        add constraint FK_86ubef6e0aau9eyhldbc5aswm 
-        foreign key (CUSTOMER_ID) 
-        references CUSTOMER (ID) 
-        on delete cascade;
-
     alter table USER_ROLE 
         add constraint FK_oqmdk7xj0ainhxpvi79fkaq3y 
         foreign key (ROLE_ID) 
@@ -253,4 +268,28 @@
         foreign key (USER_ID) 
         references USER_ACCOUNT (ID);
 
-    CREATE TABLE hibernate_sequence(next_val bigint);
+    create table acl_class_seq(next_val BIGINT);
+
+    create table acl_entry_seq(next_val BIGINT);
+
+    create table acl_object_identity_seq(next_val BIGINT);
+
+    create table acl_sid_seq(next_val BIGINT);
+
+    create table customer_seq(next_val BIGINT);
+
+    create table customer_contact_seq(next_val BIGINT);
+
+    create table customer_user_account_seq(next_val BIGINT);
+
+    create table user_account_seq(next_val BIGINT);
+
+    create table role_seq(next_val BIGINT);
+
+    create table dashboard_seq(next_val BIGINT);
+
+    create table dashboard_box_seq(next_val BIGINT);
+
+    create table dashboard_box_type_seq(next_val BIGINT);
+
+

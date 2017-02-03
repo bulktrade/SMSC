@@ -1,5 +1,6 @@
 package io.smsc.model.acl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 
 import javax.persistence.*;
@@ -15,6 +16,14 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "ACL_ENTRY", uniqueConstraints = {@UniqueConstraint(columnNames = {"ACL_OBJECT_IDENTITY", "ACE_ORDER"}, name = "acl_identity_order_idx")})
 public class AclEntry extends BaseEntity {
+
+    @Id
+    @SequenceGenerator(name = "acl_entry_seq", sequenceName = "acl_entry_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_entry_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
 
     /**
      * Refers to the ordering of the access control entries.
@@ -72,7 +81,7 @@ public class AclEntry extends BaseEntity {
     }
 
     public AclEntry(Long id, AclObjectIdentity aclObjectIdentity, Integer aceOrder, AclSid sid, Integer mask, Boolean granting, Boolean auditSuccess, Boolean auditFailure) {
-        super(id);
+        this.id = id;
         this.aclObjectIdentity = aclObjectIdentity;
         this.aceOrder = aceOrder;
         this.sid = sid;
@@ -80,6 +89,19 @@ public class AclEntry extends BaseEntity {
         this.granting = granting;
         this.auditSuccess = auditSuccess;
         this.auditFailure = auditFailure;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public AclObjectIdentity getAclObjectIdentity() {
@@ -141,12 +163,14 @@ public class AclEntry extends BaseEntity {
     @Override
     public String toString() {
         return "AclEntry{" +
-                "aclObjectIdentity=" + aclObjectIdentity +
+                "id=" + id +
                 ", aceOrder=" + aceOrder +
                 ", mask=" + mask +
                 ", granting=" + granting +
                 ", auditSuccess=" + auditSuccess +
                 ", auditFailure=" + auditFailure +
+                ", aclObjectIdentity=" + aclObjectIdentity +
+                ", sid=" + sid +
                 "} " + super.toString();
     }
 }

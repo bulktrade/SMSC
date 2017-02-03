@@ -1,6 +1,6 @@
 package io.smsc.model.dashboard;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -22,6 +22,14 @@ import java.util.Set;
 @Entity
 @Table(name = "DASHBOARD_BOX_TYPE", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"}, name = "dashboard_box_type's_unique_name_idx")})
 public class DashboardBoxType extends BaseEntity {
+
+    @Id
+    @SequenceGenerator(name = "dashboard_box_type_seq", sequenceName = "dashboard_box_type_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "dashboard_box_type_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
     @NotEmpty(message = "{dashboardBoxType.name.validation}")
@@ -53,10 +61,23 @@ public class DashboardBoxType extends BaseEntity {
     }
 
     public DashboardBoxType(Long id, String name, Type type, Kind kind) {
-        super(id);
+        this.id = id;
         this.name = name;
         this.type = type;
         this.kind = kind;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -94,9 +115,11 @@ public class DashboardBoxType extends BaseEntity {
     @Override
     public String toString() {
         return "DashboardBoxType{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", type=" + type +
                 ", kind=" + kind +
+                ", dashboardBoxes=" + dashboardBoxes +
                 "} " + super.toString();
     }
 }

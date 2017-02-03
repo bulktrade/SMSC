@@ -1,9 +1,10 @@
 package io.smsc.model.projections;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.smsc.model.CustomerUser;
 import io.smsc.model.Role;
 import io.smsc.model.User;
-import io.smsc.model.dashboard.Dashboard;
+import io.smsc.model.customer.Customer;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.Date;
@@ -17,8 +18,8 @@ import java.util.Set;
  * @see     Projection
  * @since   0.0.1-SNAPSHOT
  */
-@Projection(name = "withRoles", types = { User.class })
-public interface UserProjection {
+@Projection(name = "withRoles", types = { CustomerUser.class })
+public interface CustomerUserProjection {
 
     Long getId();
 
@@ -43,7 +44,5 @@ public interface UserProjection {
 
     String getSalt();
 
-    Set<Role> getRoles();
-
-    Set<Dashboard> getDashboards();
+    Customer getCustomer();
 }

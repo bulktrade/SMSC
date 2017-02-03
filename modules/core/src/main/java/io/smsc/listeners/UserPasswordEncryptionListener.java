@@ -87,7 +87,7 @@ public class UserPasswordEncryptionListener {
      * strength limit. When using JDK 9+ this method is not more necessary and
      * should be removed.
      */
-    private static void removeCryptographyRestrictions() {
+    static void removeCryptographyRestrictions() {
         if (!isRestrictedCryptography()) {
             LOG.info("Cryptography restrictions removal not needed");
             return;
@@ -133,5 +133,4 @@ public class UserPasswordEncryptionListener {
         // This simply matches the Oracle JRE, but not OpenJDK.
         return "Java(TM) SE Runtime Environment".equals(System.getProperty("java.runtime.name"));
     }
-
 }
