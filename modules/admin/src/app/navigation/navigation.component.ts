@@ -24,7 +24,7 @@ import { SidebarService } from "../sidebar/sidebar.service";
     ]
 })
 
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
     constructor(public router: Router,
                 public translate: TranslateService,
                 public tokenService: TokenService,

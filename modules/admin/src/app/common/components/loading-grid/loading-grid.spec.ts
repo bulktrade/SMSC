@@ -1,7 +1,7 @@
 import { inject, TestBed } from '@angular/core/testing';
-import { LoadingGridComponent } from './loading-grid.component';
 import { HttpModule } from '@angular/http';
-import { LoadingGridService } from '../../services/loading/loading-grid.service';
+import { LoadingGridComponent } from "./loading-grid.component";
+import { LoadingGridService } from "../../../services/loading/loading-grid.service";
 
 describe('Loading Grid', () => {
     beforeEach(() => {
