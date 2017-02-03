@@ -1,10 +1,10 @@
-import { Component, OnInit, animate, style, trigger, transition, state } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
-import { TokenService } from '../services/auth/token.service';
-import { LoadingRouterOutletService } from '../services/loading/loading-router-outlet.service';
-import { LoadingGridService } from '../services/loading/loading-grid.service';
-import { SidebarService } from '../sidebar/sidebar.service';
+import { Component, OnInit, animate, style, trigger, transition, state } from "@angular/core";
+import { TranslateService } from "ng2-translate/ng2-translate";
+import { Router, NavigationStart, NavigationEnd } from "@angular/router";
+import { TokenService } from "../services/auth/token.service";
+import { LoadingRouterOutletService } from "../services/loading/loading-router-outlet.service";
+import { LoadingGridService } from "../services/loading/loading-grid.service";
+import { SidebarService } from "../sidebar/sidebar.service";
 
 @Component({
     selector: 'navigation',
@@ -25,8 +25,6 @@ import { SidebarService } from '../sidebar/sidebar.service';
 })
 
 export class NavigationComponent implements OnInit {
-    public openedSidenav: boolean;
-
     constructor(public router: Router,
                 public translate: TranslateService,
                 public tokenService: TokenService,
@@ -45,22 +43,8 @@ export class NavigationComponent implements OnInit {
         });
     }
 
-    ngOnInit() {
-        this.hideSidenavInitiallyOnMobileDevice(window.innerWidth);
-    }
-
     logout() {
         this.tokenService.resetToken();
         this.router.navigateByUrl('/login');
-    }
-
-    hideSidenavInitiallyOnMobileDevice(width: number) {
-        let minWidth: number = 992;
-
-        if (width < minWidth) {
-            this.openedSidenav = false;
-        } else {
-            this.openedSidenav = true;
-        }
     }
 }

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, HostListener } from "@angular/core";
 import { Location } from "@angular/common";
 import { TranslateService } from "ng2-translate/ng2-translate";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -13,6 +13,8 @@ import { CustomersService, REPOSITORY_NAME } from "../customers.service";
 })
 
 export class CustomersViewComponent {
+
+    public gridResponsive: boolean = false;
 
     public pagination: Pagination = new Pagination(10, null, null, 0);
 
@@ -32,6 +34,9 @@ export class CustomersViewComponent {
     ngOnInit() {
         this.rowData = this.getRowData();
         this.pagination.totalElements = this.getNumberCustomers();
+
+        // enable responsive mode for grid on mobile devices
+        this.gridResponsive = window.innerWidth < 540;
     }
 
     onPaginate(event) {
@@ -63,5 +68,11 @@ export class CustomersViewComponent {
 
     getNumberCustomers() {
         return this.route.snapshot.data['view'].totalElements;
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        // enable responsive mode for grid on mobile devices
+        this.gridResponsive = event.target.innerWidth < 540;
     }
 }

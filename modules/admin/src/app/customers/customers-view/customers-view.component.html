@@ -1,20 +1,22 @@
 <div id="crud-view-window">
 	<breadcrumb></breadcrumb>
-	<p-dataTable [value]="rowData" [(selection)]="selectedRows" resizableColumns="true"
-	             scrollable="true" scrollHeight="400px" selectionMode="single">
+	<p-dataTable [value]="rowData" [(selection)]="selectedRows" resizableColumns="true" [responsive]="gridResponsive"
+	             scrollable="true" scrollHeight="500px" selectionMode="single">
 		<header class="grid-header">
 			<div class="ui-helper-clearfix" style="width:100%">
 				<span class="grid-title">{{ 'Customers' | translate}}</span>
 
 				<button type="button" routerLink="/customers/create" pButton icon="fa-plus" style="float:right"
 				        [label]="'customers.create' | translate"></button>
-				<button type="button" pButton icon="fa-remove" style="float:right" [label]="'customers.delete' | translate"></button>
+				<button type="button" pButton icon="fa-remove" style="float:right"
+				        [label]="'customers.delete' | translate"></button>
 			</div>
 		</header>
 		<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 		<p-column [style]="{'width':'50px'}">
 			<template pTemplate="body">
-				<span class="fa fa-pencil" style="padding-right: 3px; color: #009688;" (click)="onEdit()"></span>
+				<span class="fa fa-pencil" [style.marginLeft]="gridResponsive?'-25px':'0'"
+				      style="padding-right: 3px; color: #009688;" (click)="onEdit()"></span>
 				<span class="fa fa-trash" style="color: #E53935;" (click)="onDelete()"></span>
 			</template>
 		</p-column>
