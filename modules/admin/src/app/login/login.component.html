@@ -3,6 +3,10 @@
 		<div class="card" style="display: none"></div>
 		<div class="card">
 			<h1 class="title">{{'login.title' | translate}}</h1>
+			<div class="error-growl" *ngIf="growlService.msgs.length">
+				<p-messages [value]="growlService.msgs"
+				            [closable]="true"></p-messages>
+			</div>
 			<form role="form" (ngSubmit)="onSubmit(model)" #loginForm="ngForm" novalidate>
 				<div class="input-container">
 					<input type="text" required
@@ -21,6 +25,7 @@
 				<div class="button-container">
 					<button type="submit" class="submitButton" [disabled]="loginForm.form.invalid">
 						<span>{{'login.btnLogin' | translate}}</span>
+						<i *ngIf="loadingSpinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
 					</button>
 				</div>
 			</form>

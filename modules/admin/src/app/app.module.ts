@@ -47,6 +47,7 @@ import { URIHandlingService } from "./services/uri-handling";
 import { CustomersService } from "./customers/customers.service";
 import { CustomersContactsService } from "./customers/customers-contacts/customers-contacts.service";
 import { CustomersUsersService } from "./customers/customers-users/customers-users.service";
+import { MessagesModule } from "primeng/components/messages/messages";
 
 type StoreType = {
     state: InternalStateType,
@@ -90,6 +91,7 @@ export const APP_PROVIDERS = [
         MetaDataPropertyBindingParameterComponent,
     ],
     imports: [
+        MessagesModule,
         LoadingRouterOutletModule,
         Ng2BootstrapModule,
         BrowserModule,
