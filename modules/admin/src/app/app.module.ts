@@ -50,6 +50,8 @@ import { MessagesModule } from "primeng/components/messages/messages";
 import { LoadingRouterOutletModule } from "./common/components/loading-router-outlet/loading-router-outlet.component";
 import { CommonService } from "./services/common";
 
+import '../styles/styles.scss';
+
 type StoreType = {
     state: InternalStateType,
     restoreInputValues: () => void,
