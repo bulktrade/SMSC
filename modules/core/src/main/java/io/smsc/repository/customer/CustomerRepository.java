@@ -34,8 +34,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>{
     @Override
     Customer findOne(Long id);
 
-    Customer findByCustomerId(@Param("customerId") Double customerID);
-
     @Override
     Page<Customer> findAll(Pageable pageable);
 

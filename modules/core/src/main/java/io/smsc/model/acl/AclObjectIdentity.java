@@ -1,5 +1,6 @@
 package io.smsc.model.acl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 
 import javax.persistence.*;
@@ -17,6 +18,14 @@ import java.util.Set;
 @Entity
 @Table(name = "ACL_OBJECT_IDENTITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"OBJECT_ID_CLASS", "OBJECT_ID_IDENTITY"}, name = "acl_class_identity_idx")})
 public class AclObjectIdentity extends BaseEntity {
+
+    @Id
+    @SequenceGenerator(name = "acl_object_identity_seq", sequenceName = "acl_object_identity_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_object_identity_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
 
     /**
      * Refers to the primary id of the domain object. The id is assigned from another model tables.
@@ -65,12 +74,25 @@ public class AclObjectIdentity extends BaseEntity {
     }
 
     public AclObjectIdentity(Long id, AclClass objectIdClass, Long objectIdIdentity, AclObjectIdentity parentObject, AclSid ownerSid, Boolean entriesInheriting) {
-        super(id);
+        this.id = id;
         this.objectIdClass = objectIdClass;
         this.objectIdIdentity = objectIdIdentity;
         this.parentObject = parentObject;
         this.ownerSid = ownerSid;
         this.entriesInheriting = entriesInheriting;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public AclClass getObjectIdClass() {
@@ -124,9 +146,13 @@ public class AclObjectIdentity extends BaseEntity {
     @Override
     public String toString() {
         return "AclObjectIdentity{" +
-                "objectIdClass=" + objectIdClass +
+                "id=" + id +
                 ", objectIdIdentity=" + objectIdIdentity +
+                ", parentObject=" + parentObject +
+                ", ownerSid=" + ownerSid +
+                ", objectIdClass=" + objectIdClass +
                 ", entriesInheriting=" + entriesInheriting +
+                ", aclEntries=" + aclEntries +
                 "} " + super.toString();
     }
 }

@@ -1,6 +1,7 @@
 package io.smsc.model.dashboard;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -21,6 +22,14 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "DASHBOARD_BOX")
 public class DashboardBox extends BaseEntity {
+
+    @Id
+    @SequenceGenerator(name = "dashboard_box_seq", sequenceName = "dashboard_box_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "dashboard_box_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "WIDTH", nullable = false)
@@ -64,7 +73,7 @@ public class DashboardBox extends BaseEntity {
     }
 
     public DashboardBox(Long id, Width width, Height height, Integer order, String name, String description, Dashboard dashboard, DashboardBoxType dashboardBoxType) {
-        super(id);
+        this.id = id;
         this.width = width;
         this.height = height;
         this.order = order;
@@ -72,6 +81,19 @@ public class DashboardBox extends BaseEntity {
         this.description = description;
         this.dashboard = dashboard;
         this.dashboardBoxType = dashboardBoxType;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Width getWidth() {
