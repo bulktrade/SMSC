@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers, RequestMethod, URLSearchParams } from "@angular/http";
 import { ConfigService } from "../../config/config.service";
 import { Observable } from "rxjs";
-import { User } from "../model/user";
+import { CustomerUser } from "../model/customer-user";
 import { Customer } from "../model/customer";
 
 const USERS_REPOSITORY_NAME: string = 'users';
@@ -22,7 +22,7 @@ export class CustomersUsersService {
      * @param userId
      * @returns {Observable<T>}
      */
-    deleteUser(userId: number): Observable<User> {
+    deleteUser(userId: number): Observable<CustomerUser> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ export class CustomersUsersService {
      * @param data
      * @returns {Observable<T>}
      */
-    createUser(data: User): Observable<User> {
+    createUser(data: CustomerUser): Observable<CustomerUser> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export class CustomersUsersService {
      * @param data
      * @returns {Observable<T>}
      */
-    updateUser(id: number, data: User): Observable<User> {
+    updateUser(id: number, data: CustomerUser): Observable<CustomerUser> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
