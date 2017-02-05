@@ -2,31 +2,33 @@ package io.smsc.controller;
 
 import io.smsc.model.User;
 import io.smsc.repository.UserRepository;
-import io.smsc.security.model.*;
-import io.smsc.security.service.JWTTokenGenerationService;
-import io.smsc.security.service.JWTUserDetailsService;
+import io.smsc.security.model.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.hateoas.Resource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
-import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-@RestController
+@RepositoryRestController
 public class UserProfileController {
     @Autowired
-    UserRepository userRepository;
+    UserRepository repository;
+
+    @Autowired
+    public UserProfileController(UserRepository repo) {
+        repository = repo;
+    }
 
     @PreAuthorize("isFullyAuthenticated()")
-    @RequestMapping(method = GET, value = "/rest/profile")
-    public @ResponseBody User getLoggedUser() {
+    @RequestMapping(method = GET, value = "/users/search/me")
+    public
+    @ResponseBody
+    Resource<User> getLoggedUser() {
         JWTUser jwtUser = (JWTUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.findOne(jwtUser.getId());
+        return new Resource<>(repository.findOne(jwtUser.getId()));
     }
 }
