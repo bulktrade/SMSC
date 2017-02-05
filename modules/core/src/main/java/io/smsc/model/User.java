@@ -28,8 +28,7 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "user_account_seq", sequenceName = "user_account_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_account_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -41,9 +40,11 @@ public class User extends BaseEntity {
 
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
+    @JsonIgnore
     private String password;
 
     @Column(name="SALT")
+    @JsonIgnore
     private String salt;
 
     @Column(name = "FIRST_NAME", nullable = false)
@@ -83,6 +84,7 @@ public class User extends BaseEntity {
             orphanRemoval = true
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Set<Dashboard> dashboards;
 
     public User() {

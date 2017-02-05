@@ -311,19 +311,19 @@
                 <!--</configuration>-->
 
                 <!-- mysql -->
-                <executions>
-                    <execution>
-                        <id>mysql</id>
-                        <goals>
-                            <goal>export</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                <hibernateDialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernateDialect>
-                <target>SCRIPT</target>
-                <outputFile>${project.build.directory}/V1_2__MySQL.sql</outputFile>
-                </configuration>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>mysql</id>-->
+                        <!--<goals>-->
+                            <!--<goal>export</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                <!--<hibernateDialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernateDialect>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__MySQL.sql</outputFile>-->
+                <!--</configuration>-->
 
                  <!--h2-->
                 <!--<executions>-->
@@ -341,28 +341,28 @@
                 <!--</configuration>-->
 
                 <!-- hsqldb -->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>hsqldb</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-                <!--<configuration>-->
-                <!--<driverClassName>org.hsqldb.jdbcDriver</driverClassName>-->
-                <!--<hibernateDialect>org.hibernate.dialect.HSQLDialect</hibernateDialect>-->
-                <!--<url>jdbc:hsqldb:mem:smsc</url>-->
-                <!--<target>SCRIPT</target>-->
-                <!--<outputFile>${project.build.directory}/V1_2__HSQLDB.sql</outputFile>-->
-                <!--</configuration>-->
-                <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.hsqldb</groupId>-->
-                        <!--<artifactId>hsqldb</artifactId>-->
-                        <!--<version>2.3.4</version>-->
-                    <!--</dependency>-->
-                <!--</dependencies>-->
+                <executions>
+                    <execution>
+                        <id>hsqldb</id>
+                        <goals>
+                            <goal>export</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                <driverClassName>org.hsqldb.jdbcDriver</driverClassName>
+                <hibernateDialect>org.hibernate.dialect.HSQLDialect</hibernateDialect>
+                <url>jdbc:hsqldb:mem:smsc</url>
+                <target>SCRIPT</target>
+                <outputFile>${project.build.directory}/V1_2__HSQLDB.sql</outputFile>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                        <version>2.3.4</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <!--<plugin>-->

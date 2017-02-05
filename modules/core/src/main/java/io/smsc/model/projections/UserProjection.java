@@ -41,8 +41,6 @@ public interface UserProjection {
 
     boolean isBlocked();
 
-    String getSalt();
-
     Set<Role> getRoles();
 
     Set<Dashboard> getDashboards();

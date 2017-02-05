@@ -24,8 +24,7 @@ import java.util.Date;
 public class CustomerUser extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "customer_user_account_seq", sequenceName = "customer_user_account_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_user_account_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -37,9 +36,11 @@ public class CustomerUser extends BaseEntity {
 
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
+    @JsonIgnore
     private String password;
 
     @Column(name="SALT")
+    @JsonIgnore
     private String salt;
 
     @Column(name = "FIRST_NAME", nullable = false)

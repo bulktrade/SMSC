@@ -24,8 +24,7 @@ import javax.validation.constraints.NotNull;
 public class CustomerContact extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "customer_contact_seq", sequenceName = "customer_contact_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_contact_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

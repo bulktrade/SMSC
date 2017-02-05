@@ -3,26 +3,27 @@
 import {Injectable} from "@angular/core";
 import {ConfigService} from "../config/config.service";
 import {User} from "../common/model/user";
-import {URLSearchParams} from "@angular/http";
+import * as Rx from "rxjs/Rx";
+import {RequestOptions, RequestMethod, Http} from "@angular/http";
+
+export const REPOSITORY_NAME: string = 'users';
 
 @Injectable()
 export class ProfileService {
     private apiUrl: string;
 
-    constructor(public configService: ConfigService) {
+    constructor(public configService: ConfigService,
+                public http: Http) {
+
         this.apiUrl = configService.config.apiUrl;
     }
 
     public getProfile(): Rx.Observable<User> {
-        let search = new URLSearchParams();
-        search.set('projection', PROJECTION_NAME);
-
         let requestOptions = new RequestOptions({
-            method: RequestMethod.Get,
-            search: search
+            method: RequestMethod.Get
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/profile', requestOptions)
             .map(res => res.json())
             .share();
     }
