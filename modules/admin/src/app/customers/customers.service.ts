@@ -11,6 +11,7 @@ import "rxjs/add/operator/share";
 import * as Rx from "rxjs/Rx";
 import { Customer } from "./model/customer";
 import { URIColumn } from "./model/uri-column";
+import { CrudRepository } from "../common/interfaces/crud-repository";
 const clone = require("js.clone");
 
 export const REPOSITORY_NAME: string = 'customers';
@@ -22,7 +23,7 @@ export const URI_COLUMNS: URIColumn[] = [
 ];
 
 @Injectable()
-export class CustomersService {
+export class CustomersService implements CrudRepository {
     private apiUrl: string;
 
     constructor(public router: Router,
@@ -40,7 +41,7 @@ export class CustomersService {
      * @param data
      * @returns {Observable<R>}
      */
-    createCustomer(data: Customer): Rx.Observable<Customer> {
+    createResource(data: Customer): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -60,7 +61,7 @@ export class CustomersService {
      * @param data
      * @returns {Observable<R>}
      */
-    updateCustomer(id: number, data: Customer): Rx.Observable<Customer> {
+    updateResource(id: number, data: Customer): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -79,7 +80,7 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    deleteCustomer(id: number): Rx.Observable<Customer> {
+    deleteResource(id: number): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
@@ -94,7 +95,7 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    getCustomer(id: number): Rx.Observable<Customer> {
+    getResource(id: number): Rx.Observable<Customer> {
         let search = new URLSearchParams();
         search.set('projection', PROJECTION_NAME);
 
@@ -114,7 +115,7 @@ export class CustomersService {
      * @param size
      * @returns {Observable<R>}
      */
-    getCustomers(page?: number, size?: number): Rx.Observable<Customer[]> {
+    getResources(page?: number, size?: number): Rx.Observable<Customer[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {

@@ -45,7 +45,7 @@ export class ContactsCreateComponent implements OnInit {
     }
 
     addCustomerURI(id: number) {
-        return this.customersService.getCustomer(id)
+        return this.customersService.getResource(id)
             .map(res => res['_links'].self.href);
     }
 

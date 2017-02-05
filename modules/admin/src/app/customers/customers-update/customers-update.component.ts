@@ -42,7 +42,7 @@ export class CustomersUpdateComponent {
     }
 
     onSubmit(data) {
-        this.customersService.updateCustomer(this.id, data)
+        this.customersService.updateResource(this.id, data)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
             }, err => {
