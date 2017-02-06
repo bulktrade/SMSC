@@ -9,7 +9,7 @@ import java.security.Security;
 
 @SpringBootApplication
 @PropertySource(value = "classpath:application.properties")
-@PropertySource(value = "classpath:${smsc.database.dialect:mysql}.properties")
+@PropertySource(value = "classpath:${smsc.database.dialect:h2}.properties")
 @ComponentScan("io.smsc")
 public class Application {
 
