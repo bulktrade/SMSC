@@ -5,6 +5,7 @@ import io.smsc.security.JWTAuthenticationEntryPoint;
 import io.smsc.security.JWTAuthenticationTokenFilter;
 import io.smsc.security.service.JWTTokenGenerationService;
 import io.smsc.security.service.JWTUserDetailsService;
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.management.MXBean;
 
 /**
  * The SecurityConfiguration class is used for configuring Spring

@@ -3,15 +3,11 @@ package io.smsc.model.customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.CustomerUser;
-import io.smsc.model.User;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
