@@ -40,7 +40,7 @@ export class CustomersViewComponent {
     }
 
     onPaginate(event) {
-        this.customersService.getCustomers(event.page, event.rows)
+        this.customersService.getResources(event.page, event.rows)
             .subscribe(rows => {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
             });

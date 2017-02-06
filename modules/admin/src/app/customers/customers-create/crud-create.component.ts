@@ -29,7 +29,7 @@ export class CustomersCreateComponent {
     }
 
     onSubmit(data) {
-        this.customersService.createCustomer(data)
+        this.customersService.createResource(data)
             .subscribe((customer: Customer) => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreate');
 

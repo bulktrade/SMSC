@@ -47,7 +47,7 @@
   "postcode": "Postcode",
   "city": "City",
   "vatid": "VATID",
-  "users": "Users",
+  "customerUsers": "Users",
   "parentCustomer": "Parent Customer",
   "ADD": "Add",
   "DELETE": "Delete",

@@ -20,7 +20,7 @@ export class CustomersViewResolve implements Resolve<any> {
         let gridOptions: GridOptions = <GridOptions>{};
 
         return Observable.create((observer) => {
-            this.customersService.getCustomers(pagination.number, pagination.size)
+            this.customersService.getResources(pagination.number, pagination.size)
                 .subscribe(resources => {
                     gridOptions.rowData = this.URIService.parseUriProps(URI_COLUMNS,
                         resources['_embedded'][REPOSITORY_NAME]);

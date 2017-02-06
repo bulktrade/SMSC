@@ -33,7 +33,7 @@ export class UsersCreateComponent implements OnInit {
             .subscribe((customerURI) => {
                 model['customer'] = customerURI;
 
-                this.customersUsersService.createUser(model)
+                this.customersUsersService.createResource(model)
                     .subscribe(() => {
                             this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
                         },
@@ -45,7 +45,7 @@ export class UsersCreateComponent implements OnInit {
     }
 
     addCustomerURI(id: number) {
-        return this.customersService.getCustomer(id)
+        return this.customersService.getResource(id)
             .map(res => res['_links'].self.href);
     }
 
