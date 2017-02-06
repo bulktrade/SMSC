@@ -1,5 +1,18 @@
 #one-to-one-component {
+    position: relative;
+
     .ui-button {
         right: -2px !important;
+    }
+
+    .btn-remove {
+        position: absolute;
+        right: 39px;
+        top: 8px;
+        cursor: pointer;
+
+        &:hover {
+            color: #d04242;
+        }
     }
 }
