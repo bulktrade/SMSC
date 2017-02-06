@@ -1,6 +1,7 @@
 package io.smsc.model.projections;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.smsc.model.CustomerUser;
 import io.smsc.model.User;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.CustomerContact;
@@ -28,8 +29,6 @@ public interface CustomerProjection {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
     Date getLastModifiedDate();
 
-    Double getCustomerId();
-
     String getCompanyName();
 
     String getStreet();
@@ -48,5 +47,5 @@ public interface CustomerProjection {
 
     Set<CustomerContact> getContacts();
 
-    Set<User> getUsers();
+    Set<CustomerUser> getCustomerUsers();
 }

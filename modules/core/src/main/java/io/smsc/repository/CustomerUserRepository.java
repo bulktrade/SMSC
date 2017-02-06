@@ -1,6 +1,8 @@
 package io.smsc.repository;
 
+import io.smsc.model.CustomerUser;
 import io.smsc.model.User;
+import io.smsc.model.projections.CustomerUserProjection;
 import io.smsc.model.projections.UserProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,9 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "users", path = "users", excerptProjection = UserProjection.class)
+@RepositoryRestResource(collectionResourceRel = "customer-users", path = "customer-users", excerptProjection = CustomerUserProjection.class)
 @Transactional(readOnly = true)
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface CustomerUserRepository extends JpaRepository<CustomerUser, Long> {
 
     //All query method resources are exposed under the resource 'search'.
 
@@ -29,15 +31,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     @Transactional
-    User save(User user);
+    CustomerUser save(CustomerUser customerUser);
 
     @Override
-    User findOne(Long id);
+    CustomerUser findOne(Long id);
 
     User findByUsername(@Param("username") String userName);
 
     User findByEmail(@Param("email") String email);
 
     @Override
-    Page<User> findAll(Pageable pageable);
+    Page<CustomerUser> findAll(Pageable pageable);
 }

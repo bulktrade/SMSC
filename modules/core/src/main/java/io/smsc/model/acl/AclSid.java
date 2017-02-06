@@ -1,5 +1,6 @@
 package io.smsc.model.acl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,6 +19,14 @@ import java.util.Set;
 @Entity
 @Table(name = "ACL_SID", uniqueConstraints = {@UniqueConstraint(columnNames = {"SID", "PRINCIPAL"}, name = "acl_sid_principal_idx")})
 public class AclSid extends BaseEntity {
+
+    @Id
+    @SequenceGenerator(name = "acl_sid_seq", sequenceName = "acl_sid_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_sid_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
 
     /**
      * A flag to indicate if the sid field is a username or a role.
@@ -45,9 +54,22 @@ public class AclSid extends BaseEntity {
     }
 
     public AclSid(Long id, Boolean principal, String sid) {
-        super(id);
+        this.id = id;
         this.principal = principal;
         this.sid = sid;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Boolean getPrincipal() {
@@ -85,8 +107,11 @@ public class AclSid extends BaseEntity {
     @Override
     public String toString() {
         return "AclSid{" +
-                "principal=" + principal +
+                "id=" + id +
+                ", principal=" + principal +
                 ", sid='" + sid + '\'' +
+                ", aclEntries=" + aclEntries +
+                ", aclObjectIdentities=" + aclObjectIdentities +
                 "} " + super.toString();
     }
 }

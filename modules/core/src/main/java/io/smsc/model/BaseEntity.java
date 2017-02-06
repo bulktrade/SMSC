@@ -21,7 +21,7 @@ import java.util.Date;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
-public class BaseEntity implements Persistable<Long>, Serializable {
+public class BaseEntity implements Serializable {
 
     protected static final long serialVersionUID = 1L;
 
@@ -40,29 +40,7 @@ public class BaseEntity implements Persistable<Long>, Serializable {
         lastModifiedDate = new Date();
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = 23)
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    @Column(name = "ID")
-    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
-    @Access(value = AccessType.PROPERTY)
-    protected Long id;
-
     public BaseEntity() {
-    }
-
-    protected BaseEntity(Long id) {
-        this.id = id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
     }
 
     public Long getVersion() {
@@ -82,26 +60,10 @@ public class BaseEntity implements Persistable<Long>, Serializable {
     }
 
     @Override
-    @JsonIgnore
-    public boolean isNew() {
-        return (getId() == null);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
-            return false;
-        }
-        BaseEntity that = (BaseEntity) o;
-
-        return null != getId() && getId().equals(that.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return (getId() == null) ? 0 : getId().hashCode();
+    public String toString() {
+        return "BaseEntity{" +
+                "lastModifiedDate=" + lastModifiedDate +
+                ", version=" + version +
+                '}';
     }
 }
