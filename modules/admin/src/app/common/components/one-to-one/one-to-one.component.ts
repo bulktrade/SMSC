@@ -13,6 +13,7 @@ import { FormsModule } from "@angular/forms";
 import { AutoCompleteModule } from "primeng/components/autocomplete/autocomplete";
 import { CrudRepository } from "../../interfaces/crud-repository";
 import { ActivatedRoute } from "@angular/router";
+import { NotificationService } from "../../../services/notification-service";
 
 @Component({
     selector: 'one-to-one',
@@ -28,6 +29,7 @@ import { ActivatedRoute } from "@angular/router";
                     </div>
                 </template>
             </p-autoComplete>
+            <i class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
         </div>
     `,
     styleUrls: ['./one-to-one.component.scss']
@@ -56,7 +58,8 @@ export class OneToOneComponent implements OnInit {
 
     public id: number;
 
-    constructor(public route: ActivatedRoute) {
+    constructor(public route: ActivatedRoute,
+                public notifications: NotificationService) {
     }
 
     ngOnInit() {
@@ -93,22 +96,48 @@ export class OneToOneComponent implements OnInit {
     }
 
     onSelectResource(event) {
-        let _selfLink = event['_links'].self.href;
+        if (typeof event === 'object') {
+            let _selfLink = event['_links'].self.href;
 
+            this.mainEntityService.getResource(this.id)
+                .subscribe(res => {
+                    res[this.propertyName] = _selfLink;
+
+                    // delete all properties of type URI
+                    delete res['customerUsers'];
+                    delete res['contacts'];
+
+                    this.mainEntityService.updateResource(this.id, res)
+                        .subscribe(() => {
+                            this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                        }, err => {
+                            console.error(err);
+                            this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
+                        });
+                });
+        }
+    }
+
+    removeRelationship() {
         this.mainEntityService.getResource(this.id)
             .subscribe(res => {
-                res[this.propertyName] = _selfLink;
+                if (res[this.propertyName]) {
+                    res[this.propertyName] = null;
 
-                // delete all properties of type URI
-                delete res['customerUsers'];
-                delete res['contacts'];
+                    // delete all properties of type URI
+                    delete res['customerUsers'];
+                    delete res['contacts'];
 
-                this.mainEntityService.updateResource(this.id, res)
-                    .subscribe(_res => {
-                        console.log('success');
-                    }, err => {
-                        console.log(err);
-                    });
+                    this.mainEntityService.updateResource(this.id, res)
+                        .subscribe(() => {
+                            this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+
+                            this.model = {};
+                        }, err => {
+                            console.error(err);
+                            this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
+                        });
+                }
             });
     }
 
