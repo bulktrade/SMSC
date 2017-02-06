@@ -2,6 +2,7 @@ package io.smsc.config;
 
 import io.smsc.model.Role;
 import io.smsc.model.User;
+import io.smsc.model.CustomerUser;
 import io.smsc.model.acl.AclClass;
 import io.smsc.model.acl.AclEntry;
 import io.smsc.model.acl.AclObjectIdentity;
@@ -28,6 +29,7 @@ public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerA
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(User.class);
+        config.exposeIdsFor(CustomerUser.class);
         config.exposeIdsFor(Role.class);
         config.exposeIdsFor(Customer.class);
         config.exposeIdsFor(CustomerContact.class);

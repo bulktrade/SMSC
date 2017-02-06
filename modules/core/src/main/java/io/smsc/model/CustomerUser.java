@@ -3,7 +3,8 @@ package io.smsc.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.smsc.listeners.CustomerUserPasswordEncryptionListener;
+import io.smsc.listeners.Encrypt;
+import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.customer.Customer;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -20,7 +21,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "CUSTOMER_USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
-@EntityListeners(CustomerUserPasswordEncryptionListener.class)
+@EntityListeners(EncryptionListener.class)
 public class CustomerUser extends BaseEntity {
 
     @Id
@@ -34,6 +35,7 @@ public class CustomerUser extends BaseEntity {
     @NotEmpty(message = "{user.username.validation}")
     private String username;
 
+    @Encrypt
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
     @JsonIgnore
@@ -67,7 +69,7 @@ public class CustomerUser extends BaseEntity {
     private Boolean blocked = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CUSTOMER_ID")
+    @JoinColumn(name="CUSTOMER_ID", nullable = false)
     @JsonBackReference
     private Customer customer;
 
