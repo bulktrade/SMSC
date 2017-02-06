@@ -31,7 +31,5 @@ public interface DashboardProjection {
 
     String getIcon();
 
-    User getUser();
-
     Set<DashboardBox> getDashboardBoxes();
 }

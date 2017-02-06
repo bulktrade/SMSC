@@ -1,6 +1,7 @@
 package io.smsc.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,6 +22,14 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "CUSTOMER_CONTACT", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL_ADDRESS", name = "customer_contact_unique_email_address_idx")})
 public class CustomerContact extends BaseEntity {
+
+    @Id
+    @SequenceGenerator(name = "customer_contact_seq", sequenceName = "customer_contact_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_contact_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false)
     @NotEmpty(message = "{customer.contact.firstname.validation}")
@@ -72,7 +81,7 @@ public class CustomerContact extends BaseEntity {
     }
 
     public CustomerContact(Long id, String firstname, String surname, String phone, String mobilePhone, String fax, String emailAddress, Type type, Salutation salutation) {
-        super(id);
+        this.id = id;
         this.firstname = firstname;
         this.surname = surname;
         this.phone = phone;
@@ -81,6 +90,19 @@ public class CustomerContact extends BaseEntity {
         this.emailAddress = emailAddress;
         this.type = type;
         this.salutation = salutation;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstname() {
@@ -158,12 +180,14 @@ public class CustomerContact extends BaseEntity {
     @Override
     public String toString() {
         return "CustomerContact{" +
-                "firstName='" + firstname + '\'' +
-                ", surName='" + surname + '\'' +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", fax='" + fax + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
+                ", customer=" + customer +
                 ", type=" + type +
                 ", salutation=" + salutation +
                 "} " + super.toString();

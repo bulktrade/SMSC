@@ -1,35 +1,31 @@
 package io.smsc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.smsc.listeners.UserPasswordEncryptionListener;
-import io.smsc.model.dashboard.Dashboard;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import io.smsc.listeners.CustomerUserPasswordEncryptionListener;
+import io.smsc.model.customer.Customer;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.Date;
-import java.util.Set;
 
 /**
- * Specifies User class as an entity class.
+ * Specifies CustomerUser class as an entity class.
  *
  * @author  Nazar Lipkovskyy
  * @see     BaseEntity
  * @since   0.0.1-SNAPSHOT
  */
 @Entity
-@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
-@EntityListeners(UserPasswordEncryptionListener.class)
-public class User extends BaseEntity {
+@Table(name = "CUSTOMER_USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
+@EntityListeners(CustomerUserPasswordEncryptionListener.class)
+public class CustomerUser extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "user_account_seq", sequenceName = "user_account_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_account_seq")
+    @SequenceGenerator(name = "customer_user_account_seq", sequenceName = "customer_user_account_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_user_account_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -69,30 +65,19 @@ public class User extends BaseEntity {
     @Column(name = "BLOCKED", nullable = false)
     private Boolean blocked = false;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "USER_ROLE",
-            joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
-    )
-    private Set<Role> roles;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="CUSTOMER_ID")
+    @JsonBackReference
+    private Customer customer;
 
-    @OneToMany(
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Dashboard> dashboards;
-
-    public User() {
+    public CustomerUser() {
     }
 
-    public User(User user) {
+    public CustomerUser(CustomerUser user) {
         this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked());
     }
 
-    public User(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked) {
+    public CustomerUser(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -188,25 +173,17 @@ public class User extends BaseEntity {
         this.salt = salt;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Set<Dashboard> getDashboards() {
-        return dashboards;
-    }
-
-    public void setDashboards(Set<Dashboard> dashboards) {
-        this.dashboards = dashboards;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "CustomerUser{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
@@ -217,8 +194,7 @@ public class User extends BaseEntity {
                 ", active=" + active +
                 ", created=" + created +
                 ", blocked=" + blocked +
-                ", roles=" + roles +
-                ", dashboards=" + dashboards +
+                ", customer=" + customer +
                 "} " + super.toString();
     }
 }

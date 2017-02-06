@@ -1,6 +1,7 @@
 package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -19,6 +20,14 @@ import java.util.Set;
 @Entity
 @Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "roles_unique_name_idx")})
 public class Role extends BaseEntity{
+
+    @Id
+    @SequenceGenerator(name = "role_seq", sequenceName = "role_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "role_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
     @NotEmpty(message = "{role.empty.validation}")
@@ -50,8 +59,21 @@ public class Role extends BaseEntity{
     }
 
     public Role(Long id, String name) {
-        super(id);
+        this.id = id;
         this.name = name;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -70,19 +92,11 @@ public class Role extends BaseEntity{
         this.users = users;
     }
 
-    public boolean addUser(User user){
-        return this.users.add(user);
-    }
-
-    public boolean removeUser(User user){
-        return this.users.remove(user);
-    }
-
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

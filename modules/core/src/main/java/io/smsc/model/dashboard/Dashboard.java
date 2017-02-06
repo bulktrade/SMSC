@@ -1,6 +1,7 @@
 package io.smsc.model.dashboard;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.User;
 import org.hibernate.annotations.OnDelete;
@@ -21,6 +22,14 @@ import java.util.Set;
 @Entity
 @Table(name = "DASHBOARD", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"}, name = "dashboards_unique_name_user_idx")})
 public class Dashboard extends BaseEntity {
+
+    @Id
+    @SequenceGenerator(name = "dashboard_seq", sequenceName = "dashboard_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "dashboard_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
     @NotEmpty(message = "{dashboard.name.validation}")
@@ -51,10 +60,23 @@ public class Dashboard extends BaseEntity {
     }
 
     public Dashboard(Long id, String name, String icon, User user) {
-        super(id);
+        this.id = id;
         this.name = name;
         this.icon = icon;
         this.user = user;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -89,20 +111,14 @@ public class Dashboard extends BaseEntity {
         this.dashboardBoxes = dashboardBoxes;
     }
 
-    public void addDasboardBox(DashboardBox dashboardBox) {
-        this.dashboardBoxes.add(dashboardBox);
-    }
-
-    public void removeDasboardBox(DashboardBox dashboardBox) {
-        this.dashboardBoxes.remove(dashboardBox);
-    }
-
     @Override
     public String toString() {
         return "Dashboard{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", icon='" + icon + '\'' +
-                ", dashboardBoxes='" + dashboardBoxes + '\'' +
+                ", user=" + user +
+                ", dashboardBoxes=" + dashboardBoxes +
                 "} " + super.toString();
     }
 }

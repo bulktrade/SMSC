@@ -1,7 +1,11 @@
 package io.smsc.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
+import io.smsc.model.CustomerUser;
 import io.smsc.model.User;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -18,12 +22,16 @@ import java.util.Set;
  * @since 0.0.1-SNAPSHOT
  */
 @Entity
-@Table(name = "CUSTOMER", uniqueConstraints = {@UniqueConstraint(columnNames = "CUSTOMER_ID", name = "customers_unique_customer_id_idx")})
+@Table(name = "CUSTOMER")
 public class Customer extends BaseEntity {
 
-    @Column(name = "CUSTOMER_ID", nullable = false, unique = true)
-    @NotNull(message = "{customer.customerId.validation}")
-    private Double customerId;
+    @Id
+    @SequenceGenerator(name = "customer_seq", sequenceName = "customer_seq", allocationSize = 1, initialValue = 40000)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
 
     @Column(name = "COMPANY_NAME", nullable = false)
     @NotEmpty(message = "{customer.companyName.validation}")
@@ -77,19 +85,18 @@ public class Customer extends BaseEntity {
             orphanRemoval = true
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<User> users;
+    private Set<CustomerUser> customerUsers;
 
     public Customer() {
     }
 
     public Customer(Customer customer) {
-        this(customer.getId(), customer.getCustomerId(), customer.getCompanyName(), customer.getStreet(), customer.getStreet2(),
+        this(customer.getId(), customer.getCompanyName(), customer.getStreet(), customer.getStreet2(),
                 customer.getPostcode(), customer.getCountry(), customer.getCity(), customer.getVatid());
     }
 
-    public Customer(Long id, Double customerId, String companyName, String street, String street2, String postcode, String country, String city, Double vatid) {
-        super(id);
-        this.customerId = customerId;
+    public Customer(Long id, String companyName, String street, String street2, String postcode, String country, String city, Double vatid) {
+        this.id = id;
         this.companyName = companyName;
         this.street = street;
         this.street2 = street2;
@@ -99,12 +106,17 @@ public class Customer extends BaseEntity {
         this.vatid = vatid;
     }
 
-    public Double getCustomerId() {
-        return customerId;
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
     }
 
-    public void setCustomerId(Double customerId) {
-        this.customerId = customerId;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCompanyName() {
@@ -179,18 +191,18 @@ public class Customer extends BaseEntity {
         this.contacts = contacts;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<CustomerUser> getCustomerUsers() {
+        return customerUsers;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setCustomerUsers(Set<CustomerUser> customerUsers) {
+        this.customerUsers = customerUsers;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "customerId=" + customerId +
+                "id=" + id +
                 ", companyName='" + companyName + '\'' +
                 ", street='" + street + '\'' +
                 ", street2='" + street2 + '\'' +
@@ -200,7 +212,7 @@ public class Customer extends BaseEntity {
                 ", vatid=" + vatid +
                 ", parentCustomer=" + parentCustomer +
                 ", contacts=" + contacts +
-                ", users=" + users +
+                ", customerUsers=" + customerUsers +
                 "} " + super.toString();
     }
 }

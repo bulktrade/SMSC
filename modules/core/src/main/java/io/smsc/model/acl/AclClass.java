@@ -1,5 +1,6 @@
 package io.smsc.model.acl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -18,6 +19,14 @@ import java.util.Set;
 @Table(name = "ACL_CLASS", uniqueConstraints = {@UniqueConstraint(columnNames = "CLASS", name = "acl_class_idx")})
 public class AclClass extends BaseEntity {
 
+    @Id
+    @SequenceGenerator(name = "acl_class_seq", sequenceName = "acl_class_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_class_seq")
+    @Column(name = "ID")
+    // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
+
     /**
      * The fully qualified name of the domain object.
      */
@@ -33,8 +42,21 @@ public class AclClass extends BaseEntity {
     }
 
     public AclClass(Long id, String className) {
-        super(id);
+        this.id = id;
         this.className = className;
+    }
+
+    @JsonIgnore
+    public boolean isNew() {
+        return (getId() == null);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getClassName() {
@@ -56,7 +78,9 @@ public class AclClass extends BaseEntity {
     @Override
     public String toString() {
         return "AclClass{" +
-                "className='" + className + '\'' +
+                "id=" + id +
+                ", className='" + className + '\'' +
+                ", aclObjectIdentities=" + aclObjectIdentities +
                 "} " + super.toString();
     }
 }
