@@ -1,27 +1,45 @@
-import { Component, OnInit, NgModule, ModuleWithProviders, Input, Output, EventEmitter } from "@angular/core";
+import {
+    Component,
+    OnInit,
+    NgModule,
+    ModuleWithProviders,
+    Input,
+    Output,
+    EventEmitter,
+    ViewEncapsulation
+} from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { AutoCompleteModule } from "primeng/components/autocomplete/autocomplete";
 import { CrudRepository } from "../../interfaces/crud-repository";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'one-to-one',
+    encapsulation: ViewEncapsulation.None,
     templateUrl: `
-        <p-autoComplete [ngModel]="model" (ngModelChange)="model=$event[crudRepository.titleColumns];onSelectResource($event)"
-         [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
-            [minLength]="1" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
-            <template let-model pTemplate="item">
-                <div class="ui-helper-clearfix">
-                    <div class="titleColumns">{{ model[crudRepository.titleColumns] || model['id'] }}</div>
-                </div>
-            </template>
-        </p-autoComplete>
-    `
+        <div id="one-to-one-component">
+            <p-autoComplete [ngModel]="model[subEntityService.titleColumns]" (ngModelChange)="model=$event;onSelectResource($event)"
+             [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
+                [minLength]="1" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
+                <template let-model pTemplate="item">
+                    <div class="ui-helper-clearfix">
+                        <div class="titleColumns">{{ model[subEntityService.titleColumns] || model['id'] }}</div>
+                    </div>
+                </template>
+            </p-autoComplete>
+        </div>
+    `,
+    styleUrls: ['./one-to-one.component.scss']
 })
 export class OneToOneComponent implements OnInit {
+    // A entity service. See https://en.wikipedia.org/wiki/One-to-one_(data_model)
+    @Input('mainEntityService')
+    public mainEntityService: CrudRepository<any>;
 
-    @Input('crudRepository')
-    public crudRepository: CrudRepository;
+    // B entity service. See https://en.wikipedia.org/wiki/One-to-one_(data_model)
+    @Input('subEntityService')
+    public subEntityService: CrudRepository<any>;
 
     @Input('propertyName')
     public propertyName: string;
@@ -36,12 +54,17 @@ export class OneToOneComponent implements OnInit {
 
     public filteredResources: any[];
 
-    constructor() {
+    public id: number;
+
+    constructor(public route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.crudRepository.getResources()
-            .map(res => res['_embedded'][this.crudRepository.repositoryName])
+        this.id = this.route.params['value'].id;
+        this.model = this.model || {};
+
+        this.subEntityService.getResources()
+            .map(res => res['_embedded'][this.subEntityService.repositoryName])
             .subscribe(resources => {
                 this.resources = resources;
             });
@@ -52,24 +75,37 @@ export class OneToOneComponent implements OnInit {
 
         this.resources.forEach(i => {
             let resource = i,
-                titleColumns = i[this.crudRepository.titleColumns] ? this.crudRepository.titleColumns : 'id';
-
+                titleColumns = i[this.subEntityService.titleColumns] ? this.subEntityService.titleColumns : 'id';
             if (resource[titleColumns].toLowerCase().includes(event.query.toLowerCase())) {
                 this.filteredResources.push(resource);
             }
-        })
+        });
     }
 
     handleDropdownClick() {
         this.filteredResources = [];
 
-        //mimic remote call
-        setTimeout(() => {
-            this.filteredResources = this.resources;
-        }, 100)
+        this.subEntityService.getResources()
+            .map(res => res['_embedded'][this.subEntityService.repositoryName])
+            .subscribe(resources => {
+                this.filteredResources = resources;
+            });
     }
 
     onSelectResource(event) {
+        let _selfLink = event['_links'].self.href;
+
+        this.mainEntityService.getResource(this.id)
+            .subscribe(res => {
+                res[this.propertyName] = _selfLink;
+
+                this.mainEntityService.updateResource(this.id, res)
+                    .subscribe(_res => {
+                        console.log('success');
+                    }, err => {
+                        console.log(err);
+                    });
+            });
     }
 
 }

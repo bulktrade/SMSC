@@ -1,12 +1,12 @@
 import * as Rx from "rxjs/Rx";
 
-export interface CrudRepository {
+export interface CrudRepository<T> {
     repositoryName: string;
     projectionName: string;
     titleColumns: string;
-    deleteResource(id: number): Rx.Observable<any>;
-    createResource(data: any): Rx.Observable<any>;
-    updateResource(id: number, data: any): Rx.Observable<any>;
-    getResource(id: number): Rx.Observable<any>;
-    getResources(page?: number, size?: number): Rx.Observable<any>;
+    deleteResource(id: number): Rx.Observable<T>;
+    createResource(data: any): Rx.Observable<T>;
+    updateResource(id: number, data: any): Rx.Observable<T>;
+    getResource(id: number): Rx.Observable<T>;
+    getResources(page?: number, size?: number): Rx.Observable<T[]>;
 }

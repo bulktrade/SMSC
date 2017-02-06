@@ -8,7 +8,6 @@
 		<form role="form" (ngSubmit)="onSubmit()" #dynamicForm="ngForm" novalidate>
 			<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
 
-
 				<div class="ui-grid-row">
 					<div class="ui-grid-col-2">
 						{{ 'customerId' | translate }}
@@ -137,7 +136,8 @@
 							{{ 'contacts' | translate }}
 						</div>
 						<div class="ui-grid-col-6">
-							<one-to-many [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
+							<one-to-many
+								[renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
 								[(model)]="model['contacts']" property="contacts"></one-to-many>
 						</div>
 						<div class="ui-grid-col-4">
@@ -149,14 +149,30 @@
 
 					<div class="ui-grid-row">
 						<div class="ui-grid-col-2">
-							{{ 'users' | translate }}
+							{{ 'customerUsers' | translate }}
 						</div>
 						<div class="ui-grid-col-6">
 							<one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
-								[(model)]="model['users']" property="users"></one-to-many>
+							             [(model)]="model['customerUsers']" property="users"></one-to-many>
 						</div>
 						<div class="ui-grid-col-4">
-							<control-errors control="users"
+							<control-errors control="customerUsers"
+							                [errors]="{required: ('customers.required'| translate),
+                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
+						</div>
+					</div>
+
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-2">
+							{{ 'parentCustomer' | translate }}
+						</div>
+						<div class="ui-grid-col-6">
+							<one-to-one name="parentCustomer" propertyName="parentCustomer"
+							            [mainEntityService]="customersService" [subEntityService]="customersService"
+							            [(model)]="model['parentCustomer']"></one-to-one>
+						</div>
+						<div class="ui-grid-col-4">
+							<control-errors control="parentCustomer"
 							                [errors]="{required: ('customers.required'| translate),
                                                     pattern: ('customers.numberValidator' | translate)}"></control-errors>
 						</div>

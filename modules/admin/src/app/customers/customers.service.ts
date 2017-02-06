@@ -17,13 +17,13 @@ const clone = require("js.clone");
 export const REPOSITORY_NAME: string = 'customers';
 export const PROJECTION_NAME: string = 'withContactsAndUsers';
 export const URI_COLUMNS: URIColumn[] = [
-    { name: 'users', columnsTitle: 'username' },
+    { name: 'customerUsers', columnsTitle: 'username' },
     { name: 'contacts', columnsTitle: 'emailAddress' },
     { name: 'parentCustomer', columnsTitle: 'customerId' },
 ];
 
 @Injectable()
-export class CustomersService implements CrudRepository {
+export class CustomersService implements CrudRepository<Customer> {
     public repositoryName = REPOSITORY_NAME;
     public projectionName = PROJECTION_NAME;
     public titleColumns = 'country';
