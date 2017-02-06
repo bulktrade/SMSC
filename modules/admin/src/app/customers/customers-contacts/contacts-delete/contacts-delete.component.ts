@@ -37,7 +37,7 @@ export class ContactsDeleteComponent {
     }
 
     deleteResource() {
-        this.customersContactsService.deleteContact(this.id)
+        this.customersContactsService.deleteResource(this.id)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
                 this.location.back();

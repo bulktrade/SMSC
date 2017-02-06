@@ -99,6 +99,10 @@ export class OneToOneComponent implements OnInit {
             .subscribe(res => {
                 res[this.propertyName] = _selfLink;
 
+                // delete all properties of type URI
+                delete res['customerUsers'];
+                delete res['contacts'];
+
                 this.mainEntityService.updateResource(this.id, res)
                     .subscribe(_res => {
                         console.log('success');

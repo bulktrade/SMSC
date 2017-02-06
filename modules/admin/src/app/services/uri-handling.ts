@@ -19,11 +19,11 @@ export class URIHandlingService {
 
                 if (uriRow) {
                     if (Array.isArray(uriRow)) {
-                        uriRow.forEach((item, i, arr) => {
+                        row[uriColumn.name].forEach((item, i, arr) => {
                             arr[i] = item[uriColumn.columnsTitle || 'id'] || item['id'];
                         });
                     } else {
-                        uriRow = uriRow[uriColumn.columnsTitle || 'id'] || uriRow['id'];
+                        row[uriColumn.name] = uriRow[uriColumn.columnsTitle || 'id'] || uriRow['id'];
                     }
                 }
 

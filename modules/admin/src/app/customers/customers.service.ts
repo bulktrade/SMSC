@@ -19,7 +19,7 @@ export const PROJECTION_NAME: string = 'withContactsAndUsers';
 export const URI_COLUMNS: URIColumn[] = [
     { name: 'customerUsers', columnsTitle: 'username' },
     { name: 'contacts', columnsTitle: 'emailAddress' },
-    { name: 'parentCustomer', columnsTitle: 'customerId' },
+    { name: 'parentCustomer', columnsTitle: 'country' },
 ];
 
 @Injectable()

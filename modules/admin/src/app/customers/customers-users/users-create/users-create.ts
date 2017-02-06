@@ -33,7 +33,7 @@ export class UsersCreateComponent implements OnInit {
             .subscribe((customerURI) => {
                 model['customer'] = customerURI;
 
-                this.customersUsersService.createUser(model)
+                this.customersUsersService.createResource(model)
                     .subscribe(() => {
                             this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
                         },

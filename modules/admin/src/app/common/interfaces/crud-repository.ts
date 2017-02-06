@@ -5,8 +5,8 @@ export interface CrudRepository<T> {
     projectionName: string;
     titleColumns: string;
     deleteResource(id: number): Rx.Observable<T>;
-    createResource(data: any): Rx.Observable<T>;
-    updateResource(id: number, data: any): Rx.Observable<T>;
+    createResource(data: T): Rx.Observable<T>;
+    updateResource(id: number, data: T): Rx.Observable<T>;
     getResource(id: number): Rx.Observable<T>;
     getResources(page?: number, size?: number): Rx.Observable<T[]>;
 }

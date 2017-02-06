@@ -42,6 +42,11 @@ export class CustomersUpdateComponent {
     }
 
     onSubmit(data) {
+        // delete all properties of URI
+        delete data['customerUsers'];
+        delete data['contacts'];
+        delete data['parentCustomer'];
+
         this.customersService.updateResource(this.id, data)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
