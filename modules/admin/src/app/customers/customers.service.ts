@@ -24,7 +24,10 @@ export const URI_COLUMNS: URIColumn[] = [
 
 @Injectable()
 export class CustomersService implements CrudRepository {
-    private apiUrl: string;
+    public repositoryName = REPOSITORY_NAME;
+    public projectionName = PROJECTION_NAME;
+    public titleColumns = 'country';
+    public apiUrl: string;
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
@@ -50,7 +53,7 @@ export class CustomersService implements CrudRepository {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -70,7 +73,7 @@ export class CustomersService implements CrudRepository {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -85,7 +88,7 @@ export class CustomersService implements CrudRepository {
             method: RequestMethod.Delete
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -97,14 +100,14 @@ export class CustomersService implements CrudRepository {
      */
     getResource(id: number): Rx.Observable<Customer> {
         let search = new URLSearchParams();
-        search.set('projection', PROJECTION_NAME);
+        search.set('projection', this.projectionName);
 
         let requestOptions = new RequestOptions({
             method: RequestMethod.Get,
             search: search
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -128,7 +131,7 @@ export class CustomersService implements CrudRepository {
             search: search
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
             .share();
     }
