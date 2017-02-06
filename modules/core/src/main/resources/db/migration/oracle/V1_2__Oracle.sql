@@ -1,6 +1,26 @@
-create sequence hibernate_sequence
-START WITH 1
-INCREMENT BY 1;
+create sequence acl_class_seq;
+
+create sequence acl_entry_seq;
+
+create sequence acl_object_identity_seq;
+
+create sequence acl_sid_seq;
+
+create sequence customer_contact_seq;
+
+create sequence customer_seq;
+
+create sequence customer_user_account_seq;
+
+create sequence dashboard_box_seq;
+
+create sequence dashboard_box_type_seq;
+
+create sequence dashboard_seq;
+
+create sequence role_seq;
+
+create sequence user_account_seq;
 
 create table ACL_CLASS (
         ID number(19,0) not null,
@@ -52,7 +72,6 @@ create table ACL_CLASS (
         CITY varchar2(255 char) not null,
         COMPANY_NAME varchar2(255 char) not null,
         COUNTRY varchar2(255 char) not null,
-        CUSTOMER_ID double precision not null,
         POSTCODE varchar2(255 char) not null,
         STREET varchar2(255 char) not null,
         STREET2 varchar2(255 char) not null,
@@ -73,6 +92,23 @@ create table ACL_CLASS (
         SALUTATION varchar2(255 char) not null,
         SURNAME varchar2(255 char) not null,
         TYPE varchar2(255 char) not null,
+        CUSTOMER_ID number(19,0),
+        primary key (ID)
+    );
+
+    create table CUSTOMER_USER_ACCOUNT (
+        ID number(19,0) not null,
+        LAST_MODIFIED_DATE timestamp not null,
+        VERSION number(19,0) not null,
+        ACTIVE number(1,0) not null,
+        BLOCKED number(1,0) not null,
+        CREATED timestamp not null,
+        EMAIL varchar2(255 char) not null,
+        FIRST_NAME varchar2(255 char) not null,
+        PASSWORD varchar2(255 char) not null,
+        SALT varchar2(255 char),
+        SURNAME varchar2(255 char) not null,
+        USERNAME varchar2(255 char) not null,
         CUSTOMER_ID number(19,0),
         primary key (ID)
     );
@@ -123,16 +159,15 @@ create table ACL_CLASS (
         ID number(19,0) not null,
         LAST_MODIFIED_DATE timestamp not null,
         VERSION number(19,0) not null,
-        ACTIVE number(1,0),
-        BLOCKED number(1,0),
-        CREATED timestamp,
+        ACTIVE number(1,0) not null,
+        BLOCKED number(1,0) not null,
+        CREATED timestamp not null,
         EMAIL varchar2(255 char) not null,
         FIRST_NAME varchar2(255 char) not null,
         PASSWORD varchar2(255 char) not null,
         SALT varchar2(255 char),
         SURNAME varchar2(255 char) not null,
         USERNAME varchar2(255 char) not null,
-        CUSTOMER_ID number(19,0),
         primary key (ID)
     );
 
@@ -169,11 +204,11 @@ create table ACL_CLASS (
     alter table ACL_SID 
         add constraint UK_iffjecpr10qe7c08yilqi4mi6  unique (SID);
 
-    alter table CUSTOMER 
-        add constraint UK_8eumjccoobf7t6psn9exu4gnh  unique (CUSTOMER_ID);
-
     alter table CUSTOMER_CONTACT 
         add constraint UK_rt1h2souk5fkc2l0yojlch8ng  unique (EMAIL_ADDRESS);
+
+    alter table CUSTOMER_USER_ACCOUNT 
+        add constraint UK_ocoo1ta18u6p16unw7h8b7i8h  unique (USERNAME);
 
     alter table DASHBOARD 
         add constraint UK_k452w4cpbviagh85ll1q6gfc  unique (NAME);
@@ -223,6 +258,12 @@ create table ACL_CLASS (
         references CUSTOMER 
         on delete cascade;
 
+    alter table CUSTOMER_USER_ACCOUNT 
+        add constraint FK_jup37owwps8o8ntgoxdmn0th2 
+        foreign key (CUSTOMER_ID) 
+        references CUSTOMER 
+        on delete cascade;
+
     alter table DASHBOARD 
         add constraint FK_agttn8ptawhkdx8qse4hnkvpr 
         foreign key (USER_ACCOUNT_ID) 
@@ -241,12 +282,6 @@ create table ACL_CLASS (
         references DASHBOARD_BOX_TYPE 
         on delete cascade;
 
-    alter table USER_ACCOUNT 
-        add constraint FK_86ubef6e0aau9eyhldbc5aswm 
-        foreign key (CUSTOMER_ID) 
-        references CUSTOMER 
-        on delete cascade;
-
     alter table USER_ROLE 
         add constraint FK_oqmdk7xj0ainhxpvi79fkaq3y 
         foreign key (ROLE_ID) 
@@ -256,5 +291,3 @@ create table ACL_CLASS (
         add constraint FK_j2j8kpywaghe8i36swcxv8784 
         foreign key (USER_ID) 
         references USER_ACCOUNT;
-
-    create sequence hibernate_sequence;

@@ -1,4 +1,28 @@
-    create table ACL_CLASS (
+create sequence acl_class_seq;
+
+create sequence acl_entry_seq;
+
+create sequence acl_object_identity_seq;
+
+create sequence acl_sid_seq;
+
+create sequence customer_contact_seq;
+
+create sequence customer_seq;
+
+create sequence customer_user_account_seq;
+
+create sequence dashboard_box_seq;
+
+create sequence dashboard_box_type_seq;
+
+create sequence dashboard_seq;
+
+create sequence role_seq;
+
+create sequence user_account_seq;
+
+create table ACL_CLASS (
         ID int8 not null default nextval('acl_class_seq'),
         LAST_MODIFIED_DATE timestamp not null,
         VERSION int8 not null,

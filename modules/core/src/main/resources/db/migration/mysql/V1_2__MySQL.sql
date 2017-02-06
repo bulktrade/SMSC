@@ -1,4 +1,4 @@
-        create table ACL_CLASS (
+    create table ACL_CLASS (
         ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
@@ -135,9 +135,9 @@
         ID bigint not null auto_increment,
         LAST_MODIFIED_DATE datetime not null,
         VERSION bigint not null,
-        ACTIVE bit,
-        BLOCKED bit,
-        CREATED datetime,
+        ACTIVE bit not null,
+        BLOCKED bit not null,
+        CREATED datetime not null,
         EMAIL varchar(255) not null,
         FIRST_NAME varchar(255) not null,
         PASSWORD varchar(255) not null,
@@ -267,29 +267,3 @@
         add constraint FK_j2j8kpywaghe8i36swcxv8784 
         foreign key (USER_ID) 
         references USER_ACCOUNT (ID);
-
-    create table acl_class_seq(next_val BIGINT);
-
-    create table acl_entry_seq(next_val BIGINT);
-
-    create table acl_object_identity_seq(next_val BIGINT);
-
-    create table acl_sid_seq(next_val BIGINT);
-
-    create table customer_seq(next_val BIGINT);
-
-    create table customer_contact_seq(next_val BIGINT);
-
-    create table customer_user_account_seq(next_val BIGINT);
-
-    create table user_account_seq(next_val BIGINT);
-
-    create table role_seq(next_val BIGINT);
-
-    create table dashboard_seq(next_val BIGINT);
-
-    create table dashboard_box_seq(next_val BIGINT);
-
-    create table dashboard_box_type_seq(next_val BIGINT);
-
-

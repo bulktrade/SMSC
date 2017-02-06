@@ -6,10 +6,10 @@ SET @id_customer = LAST_INSERT_ID();
 INSERT INTO CUSTOMER_CONTACT (FIRST_NAME, SURNAME, PHONE, MOBILE_PHONE, FAX, EMAIL_ADDRESS, CUSTOMER_ID, SALUTATION, TYPE, LAST_MODIFIED_DATE, VERSION) VALUES
   ('SMSC', 'SMSC', '0674329568', '0504569753', 'fake_fax', 'smsc@bulk.io', @id_customer, 'MR', 'CEO', current_timestamp, 0);
 
-INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('user', '541338d92cd0dbf230d7e7666dd99adaea8da7a478f5456947c2445aecea0b1a', 'ad68dc115126d9d1', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, current_timestamp, current_timestamp, 0);
-INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, current_timestamp, current_timestamp, 0);
+INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, CREATED, LAST_MODIFIED_DATE, VERSION, CUSTOMER_ID) VALUES
+  ('user', '541338d92cd0dbf230d7e7666dd99adaea8da7a478f5456947c2445aecea0b1a', 'ad68dc115126d9d1', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, current_timestamp, current_timestamp, 0, @id_customer);
+INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, CREATED, LAST_MODIFIED_DATE, VERSION, CUSTOMER_ID) VALUES
+  ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, current_timestamp, current_timestamp, 0, @id_customer);
 
 INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
   ('user', '541338d92cd0dbf230d7e7666dd99adaea8da7a478f5456947c2445aecea0b1a', 'ad68dc115126d9d1', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, current_timestamp, current_timestamp, 0);
@@ -88,28 +88,4 @@ INSERT INTO DASHBOARD_BOX (WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHB
   ('WIDTH_50', 'HEIGHT_50', 8, 'Box 8',  'Box 8 desc', @id_dashboard, @id_type_5, current_timestamp, 0);
 INSERT INTO DASHBOARD_BOX (WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHBOARD_ID, DASHBOARD_BOX_TYPE_ID, LAST_MODIFIED_DATE, VERSION) VALUES
   ('WIDTH_50', 'HEIGHT_50', 9, 'Box 9',  'Box 9 desc', @id_dashboard, @id_type_6, current_timestamp, 0);
-
-INSERT INTO acl_class_seq VALUE (1);
-
-INSERT INTO acl_entry_seq VALUE (1);
-
-INSERT INTO acl_object_identity_seq VALUE (1);
-
-INSERT INTO acl_sid_seq VALUE (1);
-
-INSERT INTO customer_seq VALUE (2);
-
-INSERT INTO customer_contact_seq VALUE (2);
-
-INSERT INTO customer_user_account_seq VALUE (3);
-
-INSERT INTO user_account_seq VALUE (3);
-
-INSERT INTO role_seq VALUE (3);
-
-INSERT INTO dashboard_seq VALUE (2);
-
-INSERT INTO dashboard_box_seq VALUE (10);
-
-INSERT INTO dashboard_box_type_seq VALUE (7);
 
