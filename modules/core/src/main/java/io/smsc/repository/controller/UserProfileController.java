@@ -1,4 +1,4 @@
-package io.smsc.controller;
+package io.smsc.repository.controller;
 
 import io.smsc.model.User;
 import io.smsc.repository.UserRepository;
@@ -16,6 +16,8 @@ import static org.springframework.hateoas.TemplateVariable.VariableType.REQUEST_
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RepositoryRestController
+@RequestMapping("/users")
+@ResponseBody
 public class UserProfileController {
     @Autowired
     UserRepository repository;
@@ -29,21 +31,9 @@ public class UserProfileController {
     }
 
     @PreAuthorize("isFullyAuthenticated()")
-    @RequestMapping(method = GET, value = "/users/search/me")
-    public
-    @ResponseBody
-    Resource<User> getLoggedUser() {
+    @RequestMapping(method = GET, value = "/search/me")
+    public Resource<User> getLoggedUser() {
         JWTUser jwtUser = (JWTUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Resource<User> result = new Resource<>(repository.findOne(jwtUser.getId()));
-
-        Link userLink = entityLinks.linkToSingleResource(UserRepository.class, jwtUser.getId());
-        TemplateVariables templateVariables = new TemplateVariables(new TemplateVariable("projection", REQUEST_PARAM));
-
-        result.add(userLink.withSelfRel());
-        result.add(new Link((new UriTemplate(userLink.getHref(), templateVariables).toString()), "user"));
-        result.add(new Link((new UriTemplate(userLink.getHref().concat("/roles"))).toString(), "roles")); // @todo update after roles entitiy change to authorities.
-        result.add(new Link((new UriTemplate(userLink.getHref().concat("/dashboards"))).toString(), "dashboards"));
-
-        return result;
+        return new Resource<>(repository.findOne(jwtUser.getId()));
     }
 }
