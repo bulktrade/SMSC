@@ -54,7 +54,7 @@
         VATID double precision,
         PARENT_CUSTOMER_ID bigint,
         primary key (ID)
-    ) ENGINE=InnoDB;
+    ) ENGINE=InnoDB AUTO_INCREMENT=40000;
 
     create table CUSTOMER_CONTACT (
         ID bigint not null auto_increment,
