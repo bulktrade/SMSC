@@ -65,7 +65,8 @@
 	<p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
 	             [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPaginate($event)"></p-paginator>
 
-	<p-dialog *ngIf="displayRelationshipModal" [header]="relationshipModal.propertyName" [(visible)]="displayRelationshipModal" modal="modal" width="500"
+	<p-dialog *ngIf="displayRelationshipModal" [header]="relationshipModal.propertyName | translate"
+	          [(visible)]="displayRelationshipModal" modal="modal" width="500"
 	          responsive="true">
 		<div class="ui-grid-row">
 			<div class="ui-grid-col-12">

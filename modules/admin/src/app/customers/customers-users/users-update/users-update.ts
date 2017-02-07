@@ -43,11 +43,11 @@ export class UsersUpdateComponent implements OnInit {
 
         this.customersUsersService.updateResource(this.userId, model)
             .subscribe(() => {
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
                 },
                 err => {
                     console.error(err);
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
                 });
     }
 
