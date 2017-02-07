@@ -10,20 +10,18 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/share";
 import * as Rx from "rxjs/Rx";
 import { Customer } from "./model/customer";
-import { URIColumn } from "./model/uri-column";
+import { CrudRepository } from "../common/interfaces/crud-repository";
 const clone = require("js.clone");
 
 export const REPOSITORY_NAME: string = 'customers';
 export const PROJECTION_NAME: string = 'withContactsAndUsers';
-export const URI_COLUMNS: URIColumn[] = [
-    { name: 'users', columnsTitle: 'username' },
-    { name: 'contacts', columnsTitle: 'emailAddress' },
-    { name: 'parentCustomer', columnsTitle: 'customerId' },
-];
 
 @Injectable()
-export class CustomersService {
-    private apiUrl: string;
+export class CustomersService implements CrudRepository<Customer> {
+    public repositoryName = REPOSITORY_NAME;
+    public projectionName = PROJECTION_NAME;
+    public titleColumns = 'country';
+    public apiUrl: string;
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
@@ -40,7 +38,7 @@ export class CustomersService {
      * @param data
      * @returns {Observable<R>}
      */
-    createCustomer(data: Customer): Rx.Observable<Customer> {
+    createResource(data: Customer): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -49,7 +47,7 @@ export class CustomersService {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -60,7 +58,7 @@ export class CustomersService {
      * @param data
      * @returns {Observable<R>}
      */
-    updateCustomer(id: number, data: Customer): Rx.Observable<Customer> {
+    updateResource(id: number, data: Customer): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -69,7 +67,7 @@ export class CustomersService {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -79,12 +77,12 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    deleteCustomer(id: number): Rx.Observable<Customer> {
+    deleteResource(id: number): Rx.Observable<Customer> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -94,16 +92,16 @@ export class CustomersService {
      * @param id
      * @returns {Observable<R>}
      */
-    getCustomer(id: number): Rx.Observable<Customer> {
+    getResource(id: number): Rx.Observable<Customer> {
         let search = new URLSearchParams();
-        search.set('projection', PROJECTION_NAME);
+        search.set('projection', this.projectionName);
 
         let requestOptions = new RequestOptions({
             method: RequestMethod.Get,
             search: search
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -114,7 +112,7 @@ export class CustomersService {
      * @param size
      * @returns {Observable<R>}
      */
-    getCustomers(page?: number, size?: number): Rx.Observable<Customer[]> {
+    getResources(page?: number, size?: number): Rx.Observable<Customer[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {
@@ -127,7 +125,7 @@ export class CustomersService {
             search: search
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + REPOSITORY_NAME, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
             .share();
     }

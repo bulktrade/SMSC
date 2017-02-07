@@ -41,7 +41,6 @@ import { NoInternetModule } from "./common/components/no-internet/no-internet.co
 import { SharedModule } from "./shared.module";
 // import { CrudModule } from "./crud/crud.module";
 import { GrowlService } from "./services/growl/growl.service";
-import { URIHandlingService } from "./services/uri-handling";
 // import { CrudLevelService } from "./crud/services/crud-level";
 import { CustomersService } from "./customers/customers.service";
 import { CustomersContactsService } from "./customers/customers-contacts/customers-contacts.service";
@@ -49,6 +48,8 @@ import { CustomersUsersService } from "./customers/customers-users/customers-use
 import { MessagesModule } from "primeng/components/messages/messages";
 import { LoadingRouterOutletModule } from "./common/components/loading-router-outlet/loading-router-outlet.component";
 import { CommonService } from "./services/common";
+import "../styles/styles.scss";
+import { CustomersViewService } from "./customers/customers-view/customers-view.service";
 
 type StoreType = {
     state: InternalStateType,
@@ -59,6 +60,7 @@ type StoreType = {
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     ...COMMON_PROVIDERS,
+    CustomersViewService,
     CustomersService,
     LoadingGridService,
     LoadingService,
@@ -72,7 +74,6 @@ export const APP_PROVIDERS = [
     AppState,
     ConfigService,
     GrowlService,
-    URIHandlingService,
     SidebarService,
     CustomersContactsService,
     CustomersUsersService,

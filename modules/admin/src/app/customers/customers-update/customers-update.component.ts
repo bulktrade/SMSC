@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { NotificationService } from "../../services/notification-service";
 import { CustomersService } from "../customers.service";
+import * as clone from "js.clone";
 
 @Component({
     selector: 'customers-update',
@@ -42,7 +43,14 @@ export class CustomersUpdateComponent {
     }
 
     onSubmit(data) {
-        this.customersService.updateCustomer(this.id, data)
+        let _data = clone(data);
+
+        // delete all properties of URI
+        delete _data['customerUsers'];
+        delete _data['contacts'];
+        delete _data['parentCustomer'];
+
+        this.customersService.updateResource(this.id, _data)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
             }, err => {

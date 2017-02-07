@@ -38,7 +38,10 @@ export class ContactsUpdateComponent implements OnInit {
     }
 
     onSubmit(model) {
-        this.customersContactsService.updateContact(this.contactId, model)
+        // delete all properties of URI
+        delete model['customer'];
+
+        this.customersContactsService.updateResource(this.contactId, model)
             .subscribe(() => {
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
                 },

@@ -13,7 +13,7 @@ export class CustomersEditResolve implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.customersService.getCustomer(+route.params['id']);
+        return this.customersService.getResource(+route.params['id']);
     }
 
 }

@@ -10,6 +10,8 @@ import { ControlErrorsModule } from "../../common/components/control-errors/cont
 import { PanelModule } from "primeng/components/panel/panel";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
 import { DropdownModule } from "primeng/components/dropdown/dropdown";
+import { OneToOneModule } from "../../common/components/one-to-one/one-to-one.component";
+import { CustomersService } from "../customers.service";
 
 @Component({
     selector: 'dynamic-form',
@@ -27,12 +29,16 @@ export class DynamicFormComponent {
     @Output('onSubmit')
     public _onSubmit = new EventEmitter();
 
+    public id: number;
+
     constructor(public router: Router,
                 public route: ActivatedRoute,
-                public location: Location) {
+                public location: Location,
+                public customersService: CustomersService) {
     }
 
     ngOnInit() {
+        this.id = this.route.params['value'].id;
     }
 
     onSubmit() {
@@ -41,9 +47,6 @@ export class DynamicFormComponent {
 
     back() {
         this.location.back();
-    }
-
-    onAdd(event) {
     }
 }
 
@@ -58,7 +61,8 @@ export class DynamicFormComponent {
         InputTextModule,
         ButtonModule,
         DropdownModule,
-        ControlErrorsModule
+        ControlErrorsModule,
+        OneToOneModule
     ],
     exports: [DynamicFormComponent],
     declarations: [DynamicFormComponent]

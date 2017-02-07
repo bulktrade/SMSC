@@ -1,8 +1,9 @@
 <div id="crud-view-window">
 	<breadcrumb></breadcrumb>
-	<p-dataTable [value]="rowData" [(selection)]="selectedRows" resizableColumns="true" [responsive]="gridResponsive"
-	             scrollable="true" scrollHeight="500px" selectionMode="single">
-		<header class="grid-header">
+	<p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" resizableColumns="true"
+	             [responsive]="gridResponsive" selectionMode="single"
+	             scrollable="true" scrollHeight="500px">
+		<p-header class="grid-header">
 			<div class="ui-helper-clearfix" style="width:100%">
 				<span class="grid-title">{{ 'Customers' | translate}}</span>
 
@@ -11,7 +12,7 @@
 				<button type="button" pButton icon="fa-remove" style="float:right"
 				        [label]="'customers.delete' | translate"></button>
 			</div>
-		</header>
+		</p-header>
 		<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 		<p-column [style]="{'width':'50px'}">
 			<template pTemplate="body">
@@ -20,9 +21,8 @@
 				<span class="fa fa-trash" style="color: #E53935;" (click)="onDelete()"></span>
 			</template>
 		</p-column>
-		<p-column field="customerId" header="{{ 'customerId' | translate }}" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="companyName" header="{{ 'companyName' | translate }}" [style]="{'width':'200px'}"
+		<p-column field="companyName" header="{{ 'companyName' | translate }}"
+		          [style]="{'width':'200px'}"
 		          [sortable]="true"></p-column>
 		<p-column field="street" header="{{ 'street' | translate }}" [style]="{'width':'200px'}"
 		          [sortable]="true"></p-column>
@@ -37,12 +37,44 @@
 		<p-column field="vatid" header="{{ 'vatid' | translate }}" [style]="{'width':'200px'}"
 		          [sortable]="true"></p-column>
 		<p-column field="contacts" header="{{ 'contacts' | translate }}" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="users" header="{{ 'users' | translate }}" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="parentCustomer" header="{{ 'parentCustomer' | translate }}" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
+		          [sortable]="true">
+			<template let-col let-contact="rowData" pTemplate="body">
+				<span class="uri-property" (click)="showDialog(contact[col.field], contact['id'], 'contacts',
+						['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress'])">
+					{{ customersViewService.getParsedURI(contact[col.field], 'emailAddress') }}
+				</span>
+			</template>
+		</p-column>
+		<p-column field="customerUsers" header="{{ 'customerUsers' | translate }}" [style]="{'width':'200px'}"
+		          [sortable]="true">
+			<template let-col let-user="rowData" pTemplate="body">
+				<span class="uri-property" (click)="showDialog(user[col.field], user['id'], 'users',
+						['firstname', 'surname', 'username', 'email'])">
+					{{ customersViewService.getParsedURI(user[col.field], 'username') }}
+				</span>
+			</template>
+		</p-column>
+		<p-column field="parentCustomer" header="{{ 'parentCustomer' | translate }}"
+		          [style]="{'width':'200px'}"
+		          [sortable]="true">
+			<template let-col let-parentCustomer="rowData" pTemplate="body">
+				{{ customersViewService.getParsedURI([parentCustomer[col.field]], 'country') }}
+			</template>
+		</p-column>
 	</p-dataTable>
 	<p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
 	             [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPaginate($event)"></p-paginator>
+
+	<p-dialog *ngIf="displayRelationshipModal" [header]="relationshipModal.propertyName | translate"
+	          [(visible)]="displayRelationshipModal" modal="modal" width="500"
+	          responsive="true">
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-12">
+				<one-to-many [renderProperties]="relationshipModal.renderProperties"
+				             [(model)]="relationshipModal.model"
+				             [mainEntityId]="relationshipModal.mainEntityId"
+				             [property]="relationshipModal.propertyName"></one-to-many>
+			</div>
+		</div>
+	</p-dialog>
 </div>

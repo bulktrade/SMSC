@@ -2,14 +2,17 @@ import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers, RequestMethod, URLSearchParams } from "@angular/http";
 import { ConfigService } from "../../config/config.service";
 import { Observable } from "rxjs";
-import { CustomerUser } from "../model/customer-user";
-import { Customer } from "../model/customer";
+import { User } from "../model/user";
+import { CrudRepository } from "../../common/interfaces/crud-repository";
 
-const USERS_REPOSITORY_NAME: string = 'users';
+const USERS_REPOSITORY_NAME: string = 'customer-users';
 const USERS_PROJECTION_NAME: string = 'withCustomer';
 
 @Injectable()
-export class CustomersUsersService {
+export class CustomersUsersService implements CrudRepository<User> {
+    public repositoryName = USERS_REPOSITORY_NAME;
+    public projectionName = USERS_PROJECTION_NAME;
+    public titleColumns = 'email';
     private apiUrl: string;
 
     constructor(public http: Http,
@@ -22,7 +25,7 @@ export class CustomersUsersService {
      * @param userId
      * @returns {Observable<T>}
      */
-    deleteUser(userId: number): Observable<CustomerUser> {
+    deleteResource(userId: number): Observable<User> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -30,7 +33,7 @@ export class CustomersUsersService {
             method: RequestMethod.Delete,
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + USERS_REPOSITORY_NAME + '/' + userId, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + userId, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -40,7 +43,7 @@ export class CustomersUsersService {
      * @param data
      * @returns {Observable<T>}
      */
-    createUser(data: CustomerUser): Observable<CustomerUser> {
+    createResource(data: User): Observable<User> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -49,7 +52,7 @@ export class CustomersUsersService {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + USERS_REPOSITORY_NAME, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -60,7 +63,7 @@ export class CustomersUsersService {
      * @param data
      * @returns {Observable<T>}
      */
-    updateUser(id: number, data: CustomerUser): Observable<CustomerUser> {
+    updateResource(id: number, data: User): Observable<User> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -69,7 +72,7 @@ export class CustomersUsersService {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + USERS_REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -79,16 +82,40 @@ export class CustomersUsersService {
      * @param id
      * @returns {Observable<T>}
      */
-    getUser(id: number): Observable<Customer> {
+    getResource(id: number): Observable<User> {
         let search = new URLSearchParams();
-        search.set('projection', USERS_PROJECTION_NAME);
+        search.set('projection', this.projectionName);
 
         let requestOptions = new RequestOptions({
             method: RequestMethod.Get,
             search: search
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + USERS_REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
+            .map(res => res.json())
+            .share();
+    }
+
+    /**
+     * Retrieves a list of all customer users with pagination
+     * @param page
+     * @param size
+     * @returns {Observable<T>}
+     */
+    getResources(page?: number, size?: number): Observable<User[]> {
+        let search = new URLSearchParams();
+
+        if (typeof page !== 'undefined' && typeof size !== 'undefined') {
+            search.set('page', page + '');
+            search.set('size', size + '');
+        }
+
+        let requestOptions = new RequestOptions({
+            method: RequestMethod.Get,
+            search: search
+        });
+
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
             .share();
     }

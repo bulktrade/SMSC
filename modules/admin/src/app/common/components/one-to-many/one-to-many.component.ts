@@ -16,6 +16,9 @@ import { CommonService } from "../../../services/common";
 
 export class OneToManyComponent {
 
+    @Input('mainEntityId')
+    public id: number;
+
     @Input('renderProperties')
     public renderProperties: string[] = [];
 
@@ -28,8 +31,6 @@ export class OneToManyComponent {
     @Output()
     public modelChange = new EventEmitter();
 
-    public id: number;
-
     public pathFromRoot: string;
 
     constructor(public translate: TranslateService,
@@ -41,13 +42,7 @@ export class OneToManyComponent {
     }
 
     ngOnInit() {
-        // get id parameter
-        this.route.params.subscribe((params) => {
-            this.id = +params['id'];
-        });
-
         this.modelChange.emit(this.model);
-
         this.pathFromRoot = this.commonService.getPathFromRoot(this.route.parent.pathFromRoot);
     }
 }

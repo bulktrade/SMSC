@@ -3,13 +3,16 @@ import { Http, RequestOptions, Headers, RequestMethod, URLSearchParams } from "@
 import { ConfigService } from "../../config/config.service";
 import { Observable } from "rxjs";
 import { Contact } from "../model/contact";
-import { Customer } from "../model/customer";
+import { CrudRepository } from "../../common/interfaces/crud-repository";
 
 const CONTACTS_REPOSITORY_NAME: string = 'customer-contacts';
 const CONTACTS_PROJECTION_NAME: string = 'withCustomer';
 
 @Injectable()
-export class CustomersContactsService {
+export class CustomersContactsService implements CrudRepository<Contact> {
+    public repositoryName = CONTACTS_REPOSITORY_NAME;
+    public projectionName = CONTACTS_PROJECTION_NAME;
+    public titleColumns = 'emailAddress';
     private apiUrl: string;
 
     constructor(public http: Http,
@@ -22,7 +25,7 @@ export class CustomersContactsService {
      * @param contactId
      * @returns {Observable<T>}
      */
-    deleteContact(contactId: number): Observable<Contact> {
+    deleteResource(contactId: number): Observable<Contact> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -30,7 +33,7 @@ export class CustomersContactsService {
             method: RequestMethod.Delete,
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + CONTACTS_REPOSITORY_NAME + '/' + contactId, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + contactId, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -40,7 +43,7 @@ export class CustomersContactsService {
      * @param data
      * @returns {Observable<T>}
      */
-    createContact(data: Contact): Observable<Contact> {
+    createResource(data: Contact): Observable<Contact> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -49,7 +52,7 @@ export class CustomersContactsService {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + CONTACTS_REPOSITORY_NAME, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -60,7 +63,7 @@ export class CustomersContactsService {
      * @param data
      * @returns {Observable<T>}
      */
-    updateContact(id: number, data: Contact): Observable<Contact> {
+    updateResource(id: number, data: Contact): Observable<Contact> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -69,7 +72,7 @@ export class CustomersContactsService {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + CONTACTS_REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
             .share();
     }
@@ -79,16 +82,40 @@ export class CustomersContactsService {
      * @param id
      * @returns {Observable<T>}
      */
-    getContact(id: number): Observable<Customer> {
+    getResource(id: number): Observable<Contact> {
         let search = new URLSearchParams();
-        search.set('projection', CONTACTS_PROJECTION_NAME);
+        search.set('projection', this.projectionName);
 
         let requestOptions = new RequestOptions({
             method: RequestMethod.Get,
             search: search
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + CONTACTS_REPOSITORY_NAME + '/' + id, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
+            .map(res => res.json())
+            .share();
+    }
+
+    /**
+     * Retrieves a list of all contacts with pagination
+     * @param page
+     * @param size
+     * @returns {Observable<T>}
+     */
+    getResources(page?: number, size?: number): Observable<Contact[]> {
+        let search = new URLSearchParams();
+
+        if (typeof page !== 'undefined' && typeof size !== 'undefined') {
+            search.set('page', page + '');
+            search.set('size', size + '');
+        }
+
+        let requestOptions = new RequestOptions({
+            method: RequestMethod.Get,
+            search: search
+        });
+
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
             .share();
     }

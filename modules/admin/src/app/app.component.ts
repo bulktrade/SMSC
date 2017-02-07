@@ -10,15 +10,7 @@ import { NOTIFICATION_OPTIONS } from "./common/notification-options";
         <router-outlet></router-outlet>
     `,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: [
-        './../../node_modules/normalize.css/normalize.css',
-        './../../node_modules/webpack-material-design-icons/material-design-icons.css',
-        './../../node_modules/font-awesome/css/font-awesome.css',
-        './../../node_modules/primeng/resources/themes/omega/theme.css',
-        './../../node_modules/primeng/resources/primeng.min.css',
-        'common/components/cube-grid/cube-grid.component.scss',
-        './app.component.scss'
-    ]
+    styleUrls: ['./app.component.scss']
 })
 export class App {
     public notificationOptions = NOTIFICATION_OPTIONS;
