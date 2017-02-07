@@ -29,12 +29,16 @@ import { NotificationService } from "../../../services/notification-service";
                     </div>
                 </template>
             </p-autoComplete>
-            <i class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
+            <i *ngIf="model.id" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
         </div>
     `,
     styleUrls: ['./one-to-one.component.scss']
 })
 export class OneToOneComponent implements OnInit {
+
+    @Input('mainEntityId')
+    public id: number;
+
     // A entity service. See https://en.wikipedia.org/wiki/One-to-one_(data_model)
     @Input('mainEntityService')
     public mainEntityService: CrudRepository<any>;
@@ -56,14 +60,11 @@ export class OneToOneComponent implements OnInit {
 
     public filteredResources: any[];
 
-    public id: number;
-
     constructor(public route: ActivatedRoute,
                 public notifications: NotificationService) {
     }
 
     ngOnInit() {
-        this.id = this.route.params['value'].id;
         this.model = this.model || {};
 
         this.subEntityService.getResources()
@@ -103,7 +104,7 @@ export class OneToOneComponent implements OnInit {
                 .subscribe(res => {
                     res[this.propertyName] = _selfLink;
 
-                    // delete all properties of type URI
+                    // delete all properties of URI
                     delete res['customerUsers'];
                     delete res['contacts'];
 
@@ -121,23 +122,21 @@ export class OneToOneComponent implements OnInit {
     removeRelationship() {
         this.mainEntityService.getResource(this.id)
             .subscribe(res => {
-                if (res[this.propertyName]) {
-                    res[this.propertyName] = null;
+                res[this.propertyName] = null;
 
-                    // delete all properties of type URI
-                    delete res['customerUsers'];
-                    delete res['contacts'];
+                // delete all properties of URI
+                delete res['customerUsers'];
+                delete res['contacts'];
 
-                    this.mainEntityService.updateResource(this.id, res)
-                        .subscribe(() => {
-                            this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                this.mainEntityService.updateResource(this.id, res)
+                    .subscribe(() => {
+                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
 
-                            this.model = {};
-                        }, err => {
-                            console.error(err);
-                            this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
-                        });
-                }
+                        this.model = {};
+                    }, err => {
+                        console.error(err);
+                        this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
+                    });
             });
     }
 

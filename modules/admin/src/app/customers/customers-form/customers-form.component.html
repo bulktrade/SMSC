@@ -10,22 +10,6 @@
 
 				<div class="ui-grid-row">
 					<div class="ui-grid-col-2">
-						{{ 'customerId' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['customerId']"
-						       #customerId="ngModel" pattern="^(0|[1-9][0-9]*)$"
-						       required name="customerId" type="number" id="customerId">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="customerId"
-						                [errors]="{required: ('customers.required'| translate),
-                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
-					</div>
-				</div>
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
 						{{ 'companyName' | translate }}
 					</div>
 					<div class="ui-grid-col-6">
@@ -167,7 +151,7 @@
 							{{ 'parentCustomer' | translate }}
 						</div>
 						<div class="ui-grid-col-6">
-							<one-to-one name="parentCustomer" propertyName="parentCustomer"
+							<one-to-one name="parentCustomer" propertyName="parentCustomer" [mainEntityId]="id"
 							            [mainEntityService]="customersService" [subEntityService]="customersService"
 							            [(model)]="model['parentCustomer']"></one-to-one>
 						</div>

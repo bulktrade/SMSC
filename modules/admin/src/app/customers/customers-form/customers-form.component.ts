@@ -29,6 +29,8 @@ export class DynamicFormComponent {
     @Output('onSubmit')
     public _onSubmit = new EventEmitter();
 
+    public id: number;
+
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
@@ -36,6 +38,7 @@ export class DynamicFormComponent {
     }
 
     ngOnInit() {
+        this.id = this.route.params['value'].id;
     }
 
     onSubmit() {
@@ -44,9 +47,6 @@ export class DynamicFormComponent {
 
     back() {
         this.location.back();
-    }
-
-    onAdd(event) {
     }
 }
 
