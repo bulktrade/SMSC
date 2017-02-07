@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.keygen.KeyGenerators;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.PostLoad;
 import javax.persistence.PostUpdate;
@@ -26,8 +25,7 @@ import java.util.Map;
  * @author  Nazar Lipkovskyy
  * @since   0.0.1-SNAPSHOT
  */
-@Component
-public class UserPasswordEncryptionListener {
+public class EncryptionListener {
 
     /**
      * String, which is used for {@link org.springframework.security.crypto.encrypt.TextEncryptor} creating
@@ -37,7 +35,7 @@ public class UserPasswordEncryptionListener {
     //http://stackoverflow.com/questions/12155632/injecting-a-spring-dependency-into-a-jpa-entitylistener
     private String secretKey = "smsc.io";
 
-    private static final Logger LOG = LoggerFactory.getLogger(UserPasswordEncryptionListener.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EncryptionListener.class);
 
     /**
      * Method to encrypt password before user persisting.
@@ -47,6 +45,9 @@ public class UserPasswordEncryptionListener {
     @PrePersist
     @PreUpdate
     public void encrypt(Object obj) {
+
+        //todo add recognition logic using reflection and @Encrypt annotation
+
         if(!(obj instanceof User)) {
             return;
         }
@@ -70,6 +71,9 @@ public class UserPasswordEncryptionListener {
     @PostLoad
     @PostUpdate
     public void decrypt(Object obj) {
+
+        //todo add recognition logic using reflection and @Encrypt annotation
+
         if(!(obj instanceof User)) {
             return;
         }
@@ -87,12 +91,11 @@ public class UserPasswordEncryptionListener {
      * strength limit. When using JDK 9+ this method is not more necessary and
      * should be removed.
      */
-    static void removeCryptographyRestrictions() {
+    private static void removeCryptographyRestrictions() {
         if (!isRestrictedCryptography()) {
             LOG.info("Cryptography restrictions removal not needed");
             return;
-        }
-        try {
+        }        try {
         /*
          * Do the following, but with reflection to bypass access checks:
          *

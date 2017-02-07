@@ -2,7 +2,8 @@ package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.smsc.listeners.UserPasswordEncryptionListener;
+import io.smsc.listeners.Encrypt;
+import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -24,7 +25,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
-@EntityListeners(UserPasswordEncryptionListener.class)
+@EntityListeners(EncryptionListener.class)
 public class User extends BaseEntity {
 
     @Id
@@ -39,6 +40,7 @@ public class User extends BaseEntity {
     @NotEmpty(message = "{user.username.validation}")
     private String username;
 
+    @Encrypt
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
     private String password;
