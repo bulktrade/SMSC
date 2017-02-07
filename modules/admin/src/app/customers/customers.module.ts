@@ -9,6 +9,7 @@ import { BreadcrumbModule } from "../breadcrumb/breadcrumb.component";
 import { MessagesModule } from "primeng/components/messages/messages";
 import { PaginatorModule } from "primeng/components/paginator/paginator";
 import { DataTableModule } from "primeng/components/datatable/datatable";
+import { DialogModule } from "primeng/components/dialog/dialog";
 import { ButtonModule } from "primeng/components/button/button";
 import { SharedModule } from "primeng/components/common/shared";
 import { LoadingRouterOutletModule } from "../common/components/loading-router-outlet/loading-router-outlet.component";
@@ -24,6 +25,8 @@ import { HTTP_INTERCEPTOR_PROVIDER } from "../common/http-interceptor";
 import { CustomersDeleteComponent } from "./customers-delete/customers-delete.component";
 import { CustomersContactsService } from "./customers-contacts/customers-contacts.service";
 import { CustomersUsersService } from "./customers-users/customers-users.service";
+import { OneToManyModule } from "../common/components/one-to-many/one-to-many.component";
+import { OneToOneModule } from "../common/components/one-to-one/one-to-one.component";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
@@ -41,6 +44,9 @@ const CUSTOMERS_PROVIDERS = [
 ];
 
 const CUSTOMERS_MODULES = [
+    OneToManyModule,
+    OneToOneModule,
+    DialogModule,
     PaginatorModule,
     DataTableModule,
     ButtonModule,
