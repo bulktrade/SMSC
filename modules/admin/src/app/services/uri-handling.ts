@@ -29,7 +29,6 @@ export class URIHandlingService {
 
             });
 
-
         });
 
         return _rowData;

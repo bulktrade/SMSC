@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 import { User } from "../model/user";
 import { CrudRepository } from "../../common/interfaces/crud-repository";
 
-const USERS_REPOSITORY_NAME: string = 'users';
+const USERS_REPOSITORY_NAME: string = 'customer-users';
 const USERS_PROJECTION_NAME: string = 'withCustomer';
 
 @Injectable()
