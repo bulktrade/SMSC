@@ -38,6 +38,7 @@ public interface CustomerUserProjection {
 
     boolean isActive();
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
     Date getCreated();
 
     boolean isBlocked();
