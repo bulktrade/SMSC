@@ -1,6 +1,6 @@
 import { Component, Input, NgModule, ModuleWithProviders, Output, EventEmitter } from "@angular/core";
 import { Location, CommonModule } from "@angular/common";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, RouterModule } from "@angular/router";
 import { TranslateModule } from "ng2-translate/ng2-translate";
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/components/button/button";
@@ -54,6 +54,7 @@ export class DynamicFormComponent {
     imports: [
         CommonModule,
         CheckboxModule,
+        RouterModule,
         FormsModule,
         OneToManyModule,
         TranslateModule,
