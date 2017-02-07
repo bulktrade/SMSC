@@ -42,6 +42,23 @@ export class CustomersViewComponent {
                 public notifications: NotificationService) {
     }
 
+    onEditInit(event) {
+        switch (event.column.field) {
+            case 'contacts':
+                this.showDialog(event.data[event.column.field], event.data['id'], 'contacts',
+                    ['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']);
+                break;
+
+            case 'customerUsers':
+                this.showDialog(event.data[event.column.field], event.data['id'], 'users',
+                    ['firstname', 'surname', 'username', 'email']);
+                break;
+
+            default:
+                break;
+        }
+    }
+
     showDialog(model, id: number, propertyName: string, renderProperties: string[]) {
         this.relationshipModal.model = model;
         this.relationshipModal.mainEntityId = id;
