@@ -2,7 +2,7 @@
 	<breadcrumb></breadcrumb>
 	<p-dataTable [value]="rowData" [(selection)]="selectedRows" resizableColumns="true" [responsive]="gridResponsive"
 	             scrollable="true" scrollHeight="500px" selectionMode="single">
-		<header class="grid-header">
+		<p-header class="grid-header">
 			<div class="ui-helper-clearfix" style="width:100%">
 				<span class="grid-title">{{ 'Customers' | translate}}</span>
 
@@ -11,7 +11,7 @@
 				<button type="button" pButton icon="fa-remove" style="float:right"
 				        [label]="'customers.delete' | translate"></button>
 			</div>
-		</header>
+		</p-header>
 		<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
 		<p-column [style]="{'width':'50px'}">
 			<template pTemplate="body">
@@ -20,8 +20,6 @@
 				<span class="fa fa-trash" style="color: #E53935;" (click)="onDelete()"></span>
 			</template>
 		</p-column>
-		<p-column field="customerId" header="{{ 'customerId' | translate }}" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
 		<p-column field="companyName" header="{{ 'companyName' | translate }}" [style]="{'width':'200px'}"
 		          [sortable]="true"></p-column>
 		<p-column field="street" header="{{ 'street' | translate }}" [style]="{'width':'200px'}"
@@ -38,7 +36,7 @@
 		          [sortable]="true"></p-column>
 		<p-column field="contacts" header="{{ 'contacts' | translate }}" [style]="{'width':'200px'}"
 		          [sortable]="true"></p-column>
-		<p-column field="users" header="{{ 'users' | translate }}" [style]="{'width':'200px'}"
+		<p-column field="customerUsers" header="{{ 'customerUsers' | translate }}" [style]="{'width':'200px'}"
 		          [sortable]="true"></p-column>
 		<p-column field="parentCustomer" header="{{ 'parentCustomer' | translate }}" [style]="{'width':'200px'}"
 		          [sortable]="true"></p-column>

@@ -7,6 +7,7 @@ $primaryColor: #009688;
         font-family: 'Open Sans', sans-serif;
         background: $primaryColor;
         border-radius: 0;
+        box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
         color: #fff;
         z-index: 99999;
         align-items: center;
@@ -16,7 +17,7 @@ $primaryColor: #009688;
         left: 0;
 
         .toolbar {
-            height: 64px;
+            height: 51px;
             display: flex;
             align-items: center;
             padding: 0 20px;
@@ -25,6 +26,10 @@ $primaryColor: #009688;
             .right-panel {
                 display: flex;
                 align-items: center;
+            }
+
+            #logout {
+                padding-right: 0;
             }
 
             i {
@@ -42,7 +47,7 @@ $primaryColor: #009688;
 
         h1 {
             margin: 0 0 0 5px;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             line-height: 40px;
             font-weight: 300;
             cursor: pointer;
@@ -73,7 +78,7 @@ $primaryColor: #009688;
             position: relative;
             height: 100%;
             min-height: 525px;
-            padding: 94px 22px 12px 22px;
+            padding: 80px 22px 12px 22px;
 
             & + loading-router-outlet {
                 display: flex;
