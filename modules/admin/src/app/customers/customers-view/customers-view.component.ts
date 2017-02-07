@@ -7,6 +7,8 @@ import { Pagination } from "../model/pagination";
 import { CustomersService, REPOSITORY_NAME } from "../customers.service";
 import { RelationshipModal } from "../model/relationship-modal";
 import { CustomersViewService } from "./customers-view.service";
+import * as clone from "js.clone";
+import { NotificationService } from "../../services/notification-service";
 
 @Component({
     selector: 'customers-view',
@@ -36,7 +38,25 @@ export class CustomersViewComponent {
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public customersViewService: CustomersViewService) {
+                public customersViewService: CustomersViewService,
+                public notifications: NotificationService) {
+    }
+
+    onEditInit(event) {
+        switch (event.column.field) {
+            case 'contacts':
+                this.showDialog(event.data[event.column.field], event.data['id'], 'contacts',
+                    ['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']);
+                break;
+
+            case 'customerUsers':
+                this.showDialog(event.data[event.column.field], event.data['id'], 'users',
+                    ['firstname', 'surname', 'username', 'email']);
+                break;
+
+            default:
+                break;
+        }
     }
 
     showDialog(model, id: number, propertyName: string, renderProperties: string[]) {
@@ -62,20 +82,22 @@ export class CustomersViewComponent {
             });
     }
 
-    back() {
-        this.location.back();
-    }
+    onEditComplete(event) {
+        let data = clone(event.data);
 
-    onEdit() {
-        setTimeout(() => {
-            this.router.navigate(['customers', 'update', this.selectedRows['id']]);
-        }, 50);
-    }
+        delete data['customerUsers'];
+        delete data['contacts'];
+        delete data['parentCustomer'];
 
-    onDelete() {
-        setTimeout(() => {
-            this.router.navigate(['customers', 'delete', this.selectedRows['id']]);
-        }, 50);
+        this.customersService.updateResource(event.data['id'], data)
+            .subscribe(() => {
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+            }, err => {
+                console.error(err);
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
+
+                return false;
+            })
     }
 
     getRowData() {

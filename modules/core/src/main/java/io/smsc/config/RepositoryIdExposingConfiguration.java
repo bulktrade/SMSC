@@ -1,20 +1,16 @@
 package io.smsc.config;
 
-import io.smsc.model.Role;
-import io.smsc.model.User;
-import io.smsc.model.CustomerUser;
-import io.smsc.model.acl.AclClass;
-import io.smsc.model.acl.AclEntry;
-import io.smsc.model.acl.AclObjectIdentity;
-import io.smsc.model.acl.AclSid;
-import io.smsc.model.customer.Customer;
-import io.smsc.model.customer.CustomerContact;
-import io.smsc.model.dashboard.Dashboard;
-import io.smsc.model.dashboard.DashboardBox;
-import io.smsc.model.dashboard.DashboardBoxType;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
+
+import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The RepositoryIdExposingConfiguration class is used for providing ID value exposing
@@ -28,17 +24,19 @@ public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerA
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        config.exposeIdsFor(User.class);
-        config.exposeIdsFor(CustomerUser.class);
-        config.exposeIdsFor(Role.class);
-        config.exposeIdsFor(Customer.class);
-        config.exposeIdsFor(CustomerContact.class);
-        config.exposeIdsFor(Dashboard.class);
-        config.exposeIdsFor(DashboardBox.class);
-        config.exposeIdsFor(DashboardBoxType.class);
-        config.exposeIdsFor(AclClass.class);
-        config.exposeIdsFor(AclEntry.class);
-        config.exposeIdsFor(AclObjectIdentity.class);
-        config.exposeIdsFor(AclSid.class);
+        ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(true);
+        provider.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
+        Set<BeanDefinition> components = provider.findCandidateComponents(this.getClass().getPackage().getName());
+        List<Class<?>> classes = new ArrayList<>();
+
+        components.forEach(component -> {
+            try {
+                classes.add(Class.forName(component.getBeanClassName()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        config.exposeIdsFor(classes.toArray(new Class[classes.size()]));
     }
 }

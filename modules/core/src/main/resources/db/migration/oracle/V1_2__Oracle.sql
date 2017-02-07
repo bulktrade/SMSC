@@ -8,7 +8,7 @@ create sequence acl_sid_seq;
 
 create sequence customer_contact_seq;
 
-create sequence customer_seq;
+create sequence customer_seq START WITH 40000 INCREMENT BY 1;
 
 create sequence customer_user_account_seq;
 
