@@ -205,9 +205,6 @@ public class Customer extends BaseEntity {
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", vatid=" + vatid +
-                ", parentCustomer=" + parentCustomer +
-                ", contacts=" + contacts +
-                ", customerUsers=" + customerUsers +
                 "} " + super.toString();
     }
 }

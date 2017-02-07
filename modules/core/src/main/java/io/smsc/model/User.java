@@ -65,7 +65,7 @@ public class User extends BaseEntity {
     @Column(name = "ACTIVE", nullable = false)
     private Boolean active = true;
 
-    @Column(name = "CREATED", nullable = false)
+    @Column(name = "CREATED",nullable = false, updatable = false)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
     private Date created = new Date();
 
@@ -221,8 +221,6 @@ public class User extends BaseEntity {
                 ", active=" + active +
                 ", created=" + created +
                 ", blocked=" + blocked +
-                ", roles=" + roles +
-                ", dashboards=" + dashboards +
                 "} " + super.toString();
     }
 }

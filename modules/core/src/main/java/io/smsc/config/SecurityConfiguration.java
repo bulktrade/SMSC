@@ -45,7 +45,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.tokenGenerationService = tokenGenerationService;
     }
 
-
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder

@@ -116,8 +116,6 @@ public class Dashboard extends BaseEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", icon='" + icon + '\'' +
-                ", user=" + user +
-                ", dashboardBoxes=" + dashboardBoxes +
                 "} " + super.toString();
     }
 }

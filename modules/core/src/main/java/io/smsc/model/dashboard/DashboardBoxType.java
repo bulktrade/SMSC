@@ -118,7 +118,6 @@ public class DashboardBoxType extends BaseEntity {
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 ", kind=" + kind +
-                ", dashboardBoxes=" + dashboardBoxes +
                 "} " + super.toString();
     }
 }

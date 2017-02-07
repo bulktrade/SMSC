@@ -186,7 +186,6 @@ public class CustomerContact extends BaseEntity {
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", fax='" + fax + '\'' +
                 ", emailAddress='" + emailAddress + '\'' +
-                ", customer=" + customer +
                 ", type=" + type +
                 ", salutation=" + salutation +
                 "} " + super.toString();
