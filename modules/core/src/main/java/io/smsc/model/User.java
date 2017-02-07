@@ -2,7 +2,8 @@ package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.smsc.listeners.Encrypt;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.smsc.annotation.Encrypt;
 import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.annotations.OnDelete;
@@ -42,7 +43,6 @@ public class User extends BaseEntity {
     @Encrypt
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
-    @JsonIgnore
     private String password;
 
     @Column(name="SALT")
@@ -128,10 +128,12 @@ public class User extends BaseEntity {
         this.username = userName;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }

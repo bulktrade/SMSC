@@ -74,7 +74,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 // /rest/auth/** is used for token receiving and updating
-                .antMatchers("/").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/rest/repository/browser/**").permitAll()
                 .antMatchers("/admin/**").permitAll()
                 .antMatchers("/rest/auth/**").permitAll()
