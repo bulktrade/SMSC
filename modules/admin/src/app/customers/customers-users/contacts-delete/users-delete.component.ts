@@ -40,11 +40,11 @@ export class UsersDeleteComponent {
     deleteResource() {
         this.customersUsersService.deleteResource(this.id)
             .subscribe(() => {
-                this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteUser');
                 this.location.back();
             }, err => {
                 console.error(err);
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorDelete');
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteUser');
             })
     }
 }

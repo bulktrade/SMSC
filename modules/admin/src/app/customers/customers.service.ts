@@ -10,17 +10,11 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/share";
 import * as Rx from "rxjs/Rx";
 import { Customer } from "./model/customer";
-import { URIColumn } from "./model/uri-column";
 import { CrudRepository } from "../common/interfaces/crud-repository";
 const clone = require("js.clone");
 
 export const REPOSITORY_NAME: string = 'customers';
 export const PROJECTION_NAME: string = 'withContactsAndUsers';
-export const URI_COLUMNS: URIColumn[] = [
-    { name: 'customerUsers', columnsTitle: 'username' },
-    { name: 'contacts', columnsTitle: 'emailAddress' },
-    { name: 'parentCustomer', columnsTitle: 'country' },
-];
 
 @Injectable()
 export class CustomersService implements CrudRepository<Customer> {

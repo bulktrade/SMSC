@@ -5,11 +5,14 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { ColumnDef } from "../model/column-definition";
 import { Pagination } from "../model/pagination";
 import { CustomersService, REPOSITORY_NAME } from "../customers.service";
+import { RelationshipModal } from "../model/relationship-modal";
+import { CustomersViewService } from "./customers-view.service";
 
 @Component({
     selector: 'customers-view',
     template: require('./customers-view.component.html'),
-    styleUrls: ['./customers-view.component.scss']
+    styleUrls: ['./customers-view.component.scss'],
+    providers: [CustomersViewService]
 })
 
 export class CustomersViewComponent {
@@ -24,11 +27,24 @@ export class CustomersViewComponent {
 
     public selectedRows: ColumnDef[] = [];
 
+    public displayRelationshipModal: boolean = false;
+
+    public relationshipModal: RelationshipModal = <RelationshipModal>{};
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
                 public route: ActivatedRoute,
-                public location: Location) {
+                public location: Location,
+                public customersViewService: CustomersViewService) {
+    }
+
+    showDialog(model, id: number, propertyName: string, renderProperties: string[]) {
+        this.relationshipModal.model = model;
+        this.relationshipModal.mainEntityId = id;
+        this.relationshipModal.renderProperties = renderProperties;
+        this.relationshipModal.propertyName = propertyName;
+        this.displayRelationshipModal = true;
     }
 
     ngOnInit() {

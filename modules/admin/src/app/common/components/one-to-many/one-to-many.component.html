@@ -12,7 +12,7 @@
 				<div class="ctrl-panel">
 					<i class="fa fa-minus-square-o"
 					   [routerLink]="[pathFromRoot, property, 'delete', model[i].id]"
-					   [title]="'1:n.remove' | translate"
+					   [title]="'1:n.delete' | translate"
 					   aria-hidden="true"></i>
 					<i class="fa fa-pencil-square-o"
 					   [routerLink]="[pathFromRoot, property, 'update', model[i].id]"
@@ -21,7 +21,7 @@
 				</div>
 				<hr>
 				<div *ngFor="let renderProp of renderProperties" class="data-title">
-					<div class="data-label pull-left">{{ renderProp }}</div>
+					<div class="data-label pull-left">{{ renderProp | translate }}</div>
 					<span class="separate">:</span>
 					<div class="data-value pull-right">{{ item[renderProp] }}</div>
 				</div>

@@ -2,8 +2,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from "@angular/r
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { NotificationService } from "../../services/notification-service";
-import { URIHandlingService } from "../../services/uri-handling";
-import { CustomersService, REPOSITORY_NAME, URI_COLUMNS } from "../customers.service";
+import { CustomersService, REPOSITORY_NAME } from "../customers.service";
 import { Pagination } from "../model/pagination";
 import { GridOptions } from "../model/grid-options";
 
@@ -11,8 +10,7 @@ import { GridOptions } from "../model/grid-options";
 export class CustomersViewResolve implements Resolve<any> {
 
     constructor(public customersService: CustomersService,
-                public notification: NotificationService,
-                public URIService: URIHandlingService) {
+                public notification: NotificationService) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -22,8 +20,7 @@ export class CustomersViewResolve implements Resolve<any> {
         return Observable.create((observer) => {
             this.customersService.getResources(pagination.number, pagination.size)
                 .subscribe(resources => {
-                    gridOptions.rowData = this.URIService.parseUriProps(URI_COLUMNS,
-                        resources['_embedded'][REPOSITORY_NAME]);
+                    gridOptions.rowData = resources['_embedded'][REPOSITORY_NAME];
                     gridOptions.totalElements = resources['page']['totalElements'];
 
                     observer.next(gridOptions);

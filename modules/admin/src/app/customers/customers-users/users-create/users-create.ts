@@ -35,11 +35,11 @@ export class UsersCreateComponent implements OnInit {
 
                 this.customersUsersService.createResource(model)
                     .subscribe(() => {
-                            this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
+                            this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateUser');
                         },
                         err => {
                             console.error(err);
-                            this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
+                            this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateUser');
                         });
             });
     }
