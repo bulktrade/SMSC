@@ -52,7 +52,7 @@
 				</span>
 			</template>
 		</p-column>
-		<p-column field="customerUsers" [header]="'customerUsers' | translate" [style]="{'width':'200px'}"
+		<p-column field="customerUsers" [header]="'customerUsers' | translate" [editable]="true" [style]="{'width':'200px'}"
 		          [sortable]="true">
 			<template let-col let-user="rowData" pTemplate="body">
 				<span class="uri-property">
