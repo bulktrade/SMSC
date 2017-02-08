@@ -21,8 +21,7 @@ import java.util.Set;
 public class AclSid extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "acl_sid_seq", sequenceName = "acl_sid_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_sid_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

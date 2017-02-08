@@ -2,14 +2,14 @@ import { Injectable } from "@angular/core";
 import { Http, RequestOptions, Headers, RequestMethod, URLSearchParams } from "@angular/http";
 import { ConfigService } from "../../config/config.service";
 import { Observable } from "rxjs";
-import { User } from "../model/user";
+import { CustomerUser } from "../model/customer-user";
 import { CrudRepository } from "../../common/interfaces/crud-repository";
 
 const USERS_REPOSITORY_NAME: string = 'customer-users';
 const USERS_PROJECTION_NAME: string = 'withCustomer';
 
 @Injectable()
-export class CustomersUsersService implements CrudRepository<User> {
+export class CustomersUsersService implements CrudRepository<CustomerUser> {
     public repositoryName = USERS_REPOSITORY_NAME;
     public projectionName = USERS_PROJECTION_NAME;
     public titleColumns = 'email';
@@ -25,7 +25,7 @@ export class CustomersUsersService implements CrudRepository<User> {
      * @param userId
      * @returns {Observable<T>}
      */
-    deleteResource(userId: number): Observable<User> {
+    deleteResource(userId: number): Observable<CustomerUser> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ export class CustomersUsersService implements CrudRepository<User> {
      * @param data
      * @returns {Observable<T>}
      */
-    createResource(data: User): Observable<User> {
+    createResource(data: CustomerUser): Observable<CustomerUser> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ export class CustomersUsersService implements CrudRepository<User> {
      * @param data
      * @returns {Observable<T>}
      */
-    updateResource(id: number, data: User): Observable<User> {
+    updateResource(id: number, data: CustomerUser): Observable<CustomerUser> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -82,7 +82,7 @@ export class CustomersUsersService implements CrudRepository<User> {
      * @param id
      * @returns {Observable<T>}
      */
-    getResource(id: number): Observable<User> {
+    getResource(id: number): Observable<CustomerUser> {
         let search = new URLSearchParams();
         search.set('projection', this.projectionName);
 
@@ -102,7 +102,7 @@ export class CustomersUsersService implements CrudRepository<User> {
      * @param size
      * @returns {Observable<T>}
      */
-    getResources(page?: number, size?: number): Observable<User[]> {
+    getResources(page?: number, size?: number): Observable<CustomerUser[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {
