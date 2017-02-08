@@ -55,4 +55,9 @@ public class StaticResourceServiceImpl implements StaticResourceService {
 
         return null;
     }
+
+    @Override
+    public Resource getResource(String path) {
+        return appContext.getResource(path);
+    }
 }
