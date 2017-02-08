@@ -76,10 +76,10 @@ public class CustomerContact extends BaseEntity {
     public CustomerContact(CustomerContact customerContact) {
         this(customerContact.getId(),customerContact.getFirstname(),customerContact.getSurname(),customerContact.getPhone(),
                 customerContact.getMobilePhone(),customerContact.getFax(),customerContact.getEmailAddress(),customerContact.getType(),
-                customerContact.getSalutation());
+                customerContact.getSalutation(), customerContact.getCustomer());
     }
 
-    public CustomerContact(Long id, String firstname, String surname, String phone, String mobilePhone, String fax, String emailAddress, Type type, Salutation salutation) {
+    public CustomerContact(Long id, String firstname, String surname, String phone, String mobilePhone, String fax, String emailAddress, Type type, Salutation salutation, Customer customer) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
@@ -89,6 +89,7 @@ public class CustomerContact extends BaseEntity {
         this.emailAddress = emailAddress;
         this.type = type;
         this.salutation = salutation;
+        this.customer = customer;
     }
 
     @JsonIgnore

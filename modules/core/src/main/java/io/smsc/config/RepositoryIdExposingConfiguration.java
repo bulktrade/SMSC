@@ -1,5 +1,17 @@
 package io.smsc.config;
 
+import io.smsc.model.CustomerUser;
+import io.smsc.model.Role;
+import io.smsc.model.User;
+import io.smsc.model.acl.AclClass;
+import io.smsc.model.acl.AclEntry;
+import io.smsc.model.acl.AclObjectIdentity;
+import io.smsc.model.acl.AclSid;
+import io.smsc.model.customer.Customer;
+import io.smsc.model.customer.CustomerContact;
+import io.smsc.model.dashboard.Dashboard;
+import io.smsc.model.dashboard.DashboardBox;
+import io.smsc.model.dashboard.DashboardBoxType;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
@@ -24,19 +36,22 @@ public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerA
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(true);
-        provider.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
-        Set<BeanDefinition> components = provider.findCandidateComponents(this.getClass().getPackage().getName());
-        List<Class<?>> classes = new ArrayList<>();
+//        ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(true);
+//        provider.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
+//        Set<BeanDefinition> components = provider.findCandidateComponents(this.getClass().getPackage().getName());
+//        List<Class<?>> classes = new ArrayList<>();
+//
+//        components.forEach(component -> {
+//            try {
+//                classes.add(Class.forName(component.getBeanClassName()));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        config.exposeIdsFor(classes.toArray(new Class[classes.size()]));
 
-        components.forEach(component -> {
-            try {
-                classes.add(Class.forName(component.getBeanClassName()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-        config.exposeIdsFor(classes.toArray(new Class[classes.size()]));
+        // for this time only one solution which works completely
+        config.exposeIdsFor(User.class, CustomerUser.class, Role.class, Customer.class, CustomerContact.class, Dashboard.class,
+                DashboardBox.class, DashboardBoxType.class, AclClass.class, AclEntry.class, AclObjectIdentity.class, AclSid.class);
     }
 }
