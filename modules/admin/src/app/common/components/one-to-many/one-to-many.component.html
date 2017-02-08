@@ -1,5 +1,5 @@
 <div id="multiple-select-window">
-	<div class="ctrl-panel">
+	<div class="title-panel">
 		<i class="fa fa-plus-square-o" [routerLink]="[pathFromRoot, property, 'create', id]"
 		   [title]="'1:n.create' | translate" aria-hidden="true"></i>
 	</div>
@@ -7,7 +7,7 @@
 		<hr>
 	</ng-container>
 	<div class="row">
-		<div class="col-md-12" *ngFor="let item of model; let i = index">
+		<div class="col-sm-12 col-md-6" *ngFor="let item of model; let i = index">
 			<div class="data-item">
 				<div class="ctrl-panel">
 					<i class="fa fa-minus-square-o"

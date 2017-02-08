@@ -6,7 +6,7 @@ import { BaMsgCenterService } from './baMsgCenter.service';
     selector: 'ba-msg-center',
     providers: [BaMsgCenterService],
     styles: [require('./baMsgCenter.scss')],
-    template: require('./baMsgCenter.html')
+    templateUrl: './baMsgCenter.html'
 })
 export class BaMsgCenter {
 

@@ -9,7 +9,7 @@ declare let jQuery;
 
 @Component({
     selector: 'ba-full-calendar',
-    template: require('./baFullCalendar.html'),
+    templateUrl: './baFullCalendar.html',
     encapsulation: ViewEncapsulation.None,
 })
 export class BaFullCalendar {

@@ -1,5 +1,5 @@
 import { Contact } from "./contact";
-import { User } from "./user";
+import { CustomerUser } from "./customer-user";
 
 export interface Customer {
     country: string,
@@ -11,6 +11,6 @@ export interface Customer {
     vatid: number,
     customerId: number,
     contacts: Contact[]
-    users: User[],
+    users: CustomerUser[],
     parentCustomer: Customer
 }

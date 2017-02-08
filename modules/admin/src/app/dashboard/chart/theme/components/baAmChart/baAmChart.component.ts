@@ -11,7 +11,7 @@ declare let AmPieChart;
 
 @Component({
     selector: 'ba-am-chart',
-    template: require('./baAmChart.html'),
+    templateUrl: './baAmChart.html',
     encapsulation: ViewEncapsulation.None,
     providers: [BaAmChartThemeService],
 })

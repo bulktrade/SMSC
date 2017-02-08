@@ -83,3 +83,4 @@ pom.xml
 /modules/admin/src/app/**/*.js.map
 /modules/admin/npm-debug.log*
 /modules/admin/dll/
+/modules/admin/compiled/

@@ -25,6 +25,16 @@
         }
     }
 
+    .title-panel {
+        i {
+            color: #009688;
+
+            &:hover {
+                color: #016f65;
+            }
+        }
+    }
+
     i {
         font-size: 21px;
         cursor: pointer;
@@ -40,5 +50,15 @@
         height: 100%;
         border-radius: 3px;
         color: #222;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-md-6:nth-of-type(even) {
+        padding-left: 3px;
+    }
+
+    .col-md-6:nth-of-type(odd) {
+        padding-right: 3px;
     }
 }

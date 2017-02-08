@@ -3,7 +3,8 @@ package io.smsc.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.smsc.listeners.Encrypt;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.smsc.annotation.Encrypt;
 import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.customer.Customer;
 import org.hibernate.validator.constraints.Email;
@@ -25,8 +26,7 @@ import java.util.Date;
 public class CustomerUser extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "customer_user_account_seq", sequenceName = "customer_user_account_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_user_account_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -39,9 +39,11 @@ public class CustomerUser extends BaseEntity {
     @Encrypt
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
+    @JsonIgnore
     private String password;
 
     @Column(name="SALT")
+    @JsonIgnore
     private String salt;
 
     @Column(name = "FIRST_NAME", nullable = false)
@@ -76,10 +78,10 @@ public class CustomerUser extends BaseEntity {
     }
 
     public CustomerUser(CustomerUser user) {
-        this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked());
+        this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked(), user.getCustomer());
     }
 
-    public CustomerUser(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked) {
+    public CustomerUser(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked, Customer customer) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -88,6 +90,7 @@ public class CustomerUser extends BaseEntity {
         this.email = email;
         this.active = active;
         this.blocked = blocked;
+        this.customer = customer;
     }
 
     @JsonIgnore
@@ -111,10 +114,12 @@ public class CustomerUser extends BaseEntity {
         this.username = userName;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
@@ -167,10 +172,12 @@ public class CustomerUser extends BaseEntity {
         this.blocked = blocked;
     }
 
+    @JsonIgnore
     public String getSalt() {
         return salt;
     }
 
+    @JsonProperty
     public void setSalt(String salt) {
         this.salt = salt;
     }

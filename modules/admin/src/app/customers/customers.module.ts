@@ -15,7 +15,6 @@ import { SharedModule } from "primeng/components/common/shared";
 import { LoadingRouterOutletModule } from "../common/components/loading-router-outlet/loading-router-outlet.component";
 import { CubeGridModule } from "../common/components/cube-grid/cube-grid.component";
 import { LoadingGridModule } from "../common/components/loading-grid/loading-grid.component";
-import { AlertModule } from "ng2-bootstrap";
 import { CustomersService } from "./customers.service";
 import { DynamicFormModule } from "./customers-form/customers-form.component";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
@@ -56,7 +55,6 @@ const CUSTOMERS_MODULES = [
     LoadingRouterOutletModule,
     CubeGridModule,
     LoadingGridModule,
-    AlertModule,
     MessagesModule,
     BreadcrumbModule,
     FormsModule,

@@ -8,7 +8,7 @@ import { CustomersService } from "../customers.service";
 
 @Component({
     selector: 'customers-delete',
-    template: require('./../../common/templates/delete.component.html'),
+    templateUrl: './../../common/templates/delete.component.html',
     styleUrls: ['./../../common/styles/delete.component.scss'],
     providers: []
 })

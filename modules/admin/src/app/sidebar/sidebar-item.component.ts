@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 
 @Component({
     selector: 'sidebar-item',
-    template: require('./sidebar-item.component.html'),
+    templateUrl: './sidebar-item.component.html',
     providers: [],
     animations: [
         trigger('state', [

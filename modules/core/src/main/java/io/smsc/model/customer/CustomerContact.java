@@ -24,8 +24,7 @@ import javax.validation.constraints.NotNull;
 public class CustomerContact extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "customer_contact_seq", sequenceName = "customer_contact_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_contact_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -77,10 +76,10 @@ public class CustomerContact extends BaseEntity {
     public CustomerContact(CustomerContact customerContact) {
         this(customerContact.getId(),customerContact.getFirstname(),customerContact.getSurname(),customerContact.getPhone(),
                 customerContact.getMobilePhone(),customerContact.getFax(),customerContact.getEmailAddress(),customerContact.getType(),
-                customerContact.getSalutation());
+                customerContact.getSalutation(), customerContact.getCustomer());
     }
 
-    public CustomerContact(Long id, String firstname, String surname, String phone, String mobilePhone, String fax, String emailAddress, Type type, Salutation salutation) {
+    public CustomerContact(Long id, String firstname, String surname, String phone, String mobilePhone, String fax, String emailAddress, Type type, Salutation salutation, Customer customer) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
@@ -90,6 +89,7 @@ public class CustomerContact extends BaseEntity {
         this.emailAddress = emailAddress;
         this.type = type;
         this.salutation = salutation;
+        this.customer = customer;
     }
 
     @JsonIgnore

@@ -7,8 +7,8 @@ import { DashboardService } from '../dashboard.service';
 @Component({
     selector: 'line-chart',
     encapsulation: ViewEncapsulation.None,
-    styleUrls: [require('./line-chart.scss')],
-    template: require('./line-chart.html')
+    styleUrls: ['./line-chart.scss'],
+    templateUrl: './line-chart.html'
 })
 export class LineChart {
     @Input()

@@ -10,7 +10,6 @@ import { NavigationComponent } from "./navigation/navigation.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 // import { CrudMetaDataComponent } from "./crud-meta-data/crud-meta-data.components";
 import { AppState, InternalStateType } from "./app.service";
-import { COMMON_PROVIDERS } from "./common";
 import { AuthService } from "./services/auth/auth.service";
 import { TokenService } from "./services/auth/token.service";
 // import { CrudService } from "./crud/crud.service";
@@ -22,7 +21,6 @@ import { createNewHosts, removeNgStyles, createInputTransfer } from "@angularcla
 import { ENV_PROVIDERS } from "./environment";
 import { SimpleNotificationsModule } from "angular2-notifications";
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate";
-import { Ng2BootstrapModule } from "ng2-bootstrap";
 import { GridService } from "./services/grid.service";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { SidebarItemComponent } from "./sidebar/sidebar-item.component";
@@ -57,9 +55,12 @@ type StoreType = {
     disposeOldHosts: () => void
 };
 
+export function translateFactory(http: Http, configService: ConfigService) {
+    return new TranslateStaticLoader(http, configService.config.i18nPath, '.json');
+}
+
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
-    ...COMMON_PROVIDERS,
     CustomersViewService,
     CustomersService,
     LoadingGridService,
@@ -99,7 +100,6 @@ export const APP_PROVIDERS = [
     imports: [
         MessagesModule,
         LoadingRouterOutletModule,
-        Ng2BootstrapModule,
         BrowserModule,
         FormsModule,
         NoInternetModule,
@@ -107,9 +107,7 @@ export const APP_PROVIDERS = [
         AppRoutingModule,
         TranslateModule.forRoot({
             provide: TranslateLoader,
-            useFactory: (http: Http, configService: ConfigService) => {
-                return new TranslateStaticLoader(http, configService.config.i18nPath, '.json');
-            },
+            useFactory: translateFactory,
             deps: [Http, ConfigService]
         }),
         SharedModule.forRoot(),

@@ -53,7 +53,7 @@
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>run</argument>
-                                <argument>build:prod</argument>
+                                <argument>build:aot</argument>
                             </arguments>
                         </configuration>
                         <goals>

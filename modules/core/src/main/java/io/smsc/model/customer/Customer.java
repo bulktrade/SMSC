@@ -22,8 +22,7 @@ import java.util.Set;
 public class Customer extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "customer_seq", sequenceName = "customer_seq", allocationSize = 1, initialValue = 40000)
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

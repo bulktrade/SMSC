@@ -15,7 +15,7 @@ import { CustomersService } from "../customers.service";
 
 @Component({
     selector: 'dynamic-form',
-    template: require('./customers-form.component.html'),
+    templateUrl: './customers-form.component.html',
     styleUrls: ['customers-form.component.scss']
 })
 
