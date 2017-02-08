@@ -3,6 +3,7 @@ package io.smsc.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.smsc.annotation.Encrypt;
 import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.customer.Customer;
@@ -112,10 +113,12 @@ public class CustomerUser extends BaseEntity {
         this.username = userName;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
@@ -168,10 +171,12 @@ public class CustomerUser extends BaseEntity {
         this.blocked = blocked;
     }
 
+    @JsonIgnore
     public String getSalt() {
         return salt;
     }
 
+    @JsonProperty
     public void setSalt(String salt) {
         this.salt = salt;
     }
