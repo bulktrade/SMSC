@@ -34,7 +34,7 @@
                             </outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${basedir}/dist</directory>
+                                    <directory>${basedir}/compiled</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -99,6 +99,9 @@
                     <filesets>
                         <fileset>
                             <directory>${basedir}/dist</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>${basedir}/compiled</directory>
                         </fileset>
                         <fileset>
                             <directory>${basedir}/coverage</directory>
