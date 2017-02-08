@@ -101,6 +101,9 @@
                             <directory>${basedir}/dist</directory>
                         </fileset>
                         <fileset>
+                            <directory>${basedir}/compiled</directory>
+                        </fileset>
+                        <fileset>
                             <directory>${basedir}/coverage</directory>
                         </fileset>
                     </filesets>
