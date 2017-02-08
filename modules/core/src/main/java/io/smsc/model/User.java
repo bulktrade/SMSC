@@ -43,6 +43,7 @@ public class User extends BaseEntity {
     @Encrypt
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
+    @JsonIgnore
     private String password;
 
     @Column(name="SALT")
@@ -186,10 +187,12 @@ public class User extends BaseEntity {
         this.blocked = blocked;
     }
 
+    @JsonIgnore
     public String getSalt() {
         return salt;
     }
 
+    @JsonProperty
     public void setSalt(String salt) {
         this.salt = salt;
     }
