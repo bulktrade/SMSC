@@ -16,6 +16,10 @@ body {
     width: 100% !important;
 }
 
+p-dialog .ui-widget-content {
+    overflow: visible !important;
+}
+
 .md-card,
 navigation,
 login {

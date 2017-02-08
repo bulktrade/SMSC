@@ -27,6 +27,7 @@ import { CustomersContactsService } from "./customers-contacts/customers-contact
 import { CustomersUsersService } from "./customers-users/customers-users.service";
 import { OneToManyModule } from "../common/components/one-to-many/one-to-many.component";
 import { OneToOneModule } from "../common/components/one-to-one/one-to-one.component";
+import { DropdownModule } from "primeng/components/dropdown/dropdown";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
@@ -44,6 +45,7 @@ const CUSTOMERS_PROVIDERS = [
 ];
 
 const CUSTOMERS_MODULES = [
+    DropdownModule,
     OneToManyModule,
     OneToOneModule,
     DialogModule,
