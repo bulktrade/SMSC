@@ -46,14 +46,13 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>build-app</id>
-                        <phase>generate-resources</phase>
+                        <id>exec-npm-install</id>
+                        <phase>process-resources</phase>
                         <configuration>
                             <executable>npm</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
-                                <argument>run</argument>
-                                <argument>build:aot</argument>
+                                <argument>install</argument>
                             </arguments>
                         </configuration>
                         <goals>
@@ -61,13 +60,14 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>exec-npm-install</id>
-                        <phase>initialize</phase>
+                        <id>build-app</id>
+                        <phase>compile</phase>
                         <configuration>
                             <executable>npm</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
-                                <argument>install</argument>
+                                <argument>run</argument>
+                                <argument>build:aot</argument>
                             </arguments>
                         </configuration>
                         <goals>
