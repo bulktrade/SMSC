@@ -98,6 +98,10 @@ export class OneToOneComponent implements OnInit {
 
     onSelectResource(event) {
         if (typeof event === 'object') {
+
+            this.model = event;
+            this.modelChange.emit(event);
+
             let _selfLink = event['_links'].self.href;
 
             this.mainEntityService.getResource(this.id)
@@ -123,6 +127,9 @@ export class OneToOneComponent implements OnInit {
         this.mainEntityService.getResource(this.id)
             .subscribe(res => {
                 res[this.propertyName] = null;
+
+                this.model = null;
+                this.modelChange.emit(event);
 
                 // delete all properties of URI
                 delete res['customerUsers'];
