@@ -58,7 +58,8 @@ module.exports = function (options) {
       'polyfills': './src/polyfills.browser.ts',
       'main': AOT ? './src/main.browser.aot.ts' :
         './src/main.browser.ts',
-      'vendor': './src/vendor.browser.ts'
+      'twbs': 'bootstrap-loader',
+      'fa': 'font-awesome-sass-loader!./config/font-awesome.config.js'
 
     },
 
