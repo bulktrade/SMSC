@@ -1,12 +1,22 @@
 package io.smsc.repository.customer.rest;
 
 import io.smsc.AbstractTest;
+import io.smsc.model.User;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.CustomerContact;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
+import io.smsc.model.dashboard.*;
+import io.smsc.repository.customer.CustomerContactRepository;
+import io.smsc.repository.customer.CustomerRepository;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -52,15 +62,41 @@ public class CustomerContactRestTest extends AbstractTest {
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].salutation", is(Salutation.MR.toString())));
     }
 
+    //need to set customer from db
+//    @Test
+//    public void testCreateCustomerContact() throws Exception {
+//        CustomerContact contact = new CustomerContact();
+//        contact.setId(null);
+//        contact.setFirstname("SMSC");
+//        contact.setSurname("SMSC");
+//        contact.setPhone("0322222222");
+//        contact.setMobilePhone("0632222222");
+//        contact.setFax("new_fake_fax");
+//        contact.setEmailAddress("new_fake1@gmail.com");
+//        contact.setType(Type.PRIMARY);
+//        contact.setSalutation(Salutation.MRS);
+//        contact.setCustomer(new Customer());
+//        String customerContactJson = json(contact);
+//        this.mockMvc.perform(post("/rest/repository/customer-contacts")
+//                .contentType("application/json;charset=UTF-8")
+//                .content(customerContactJson))
+//                .andExpect(status().isCreated());
+//    }
+
     @Test
-    public void testCreateCustomerContact() throws Exception {
-        Customer customer = new Customer(1L, "SMSC", "Amtsgericht", "Amtsgericht", "3254", "Germany", "Stuttgart", 5672394.0);
-        String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.MRS, customer));
-        this.mockMvc.perform(post("/rest/repository/customer-contacts")
+    public void testCreateDashboardBox() throws Exception {
+        String dashboardBoxJson = json(new DashboardBox(null, Width.WIDTH_25, Height.HEIGHT_25, 50,
+                "new dashboardBox", "new dashboardBox desc", DASHBOARD_1, DASHBOARD_BOX_TYPE_1));
+        this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
                 .contentType("application/json;charset=UTF-8")
-                .content(customerContactJson))
+                .content(dashboardBoxJson))
                 .andExpect(status().isCreated());
     }
+
+    public static final Dashboard DASHBOARD_1 = new Dashboard(1L, "default", "user", new User());
+
+    public static final DashboardBoxType DASHBOARD_BOX_TYPE_1 = new DashboardBoxType(1L, "Ivan feeds", io.smsc.model.dashboard.Type.STATUS, Kind.FEEDBACK_STATUS);
+
 
     @Test
     public void testDeleteCustomerContact() throws Exception {
@@ -71,14 +107,18 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testUpdateCustomerContact() throws Exception {
-        Customer customer = new Customer(1L, "SMSC", "Amtsgericht", "Amtsgericht", "3254", "Germany", "Stuttgart", 5672394.0);
-        CustomerContact updated = new CustomerContact(1L, "SMSC", "SMSC", "0674329568", "0504569753", "fake_fax", "smsc@bulk.io", Type.CEO, Salutation.MR, customer);
-        updated.setType(Type.PRIMARY);
-        updated.setSalutation(Salutation.MRS);
-        updated.setEmailAddress("new_email@gmial.com");
-        updated.setMobilePhone("0971234567");
-        updated.setFirstname("newFirstName");
-        String customerContactJson = json(updated);
+        CustomerContact contact = new CustomerContact();
+        contact.setId(1L);
+        contact.setFirstname("SMSC");
+        contact.setSurname("SMSC");
+        contact.setPhone("0322222222");
+        contact.setMobilePhone("0632222222");
+        contact.setFax("new_fake_fax");
+        contact.setEmailAddress("fake@gmail.com");
+        contact.setType(Type.PRIMARY);
+        contact.setSalutation(Salutation.MRS);
+        contact.setCustomer(new Customer());
+        String customerContactJson = json(contact);
         mockMvc.perform(put("/rest/repository/customer-contacts/1")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
@@ -86,12 +126,12 @@ public class CustomerContactRestTest extends AbstractTest {
         mockMvc.perform(get("/rest/repository/customer-contacts/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.firstname", is(updated.getFirstname())))
-                .andExpect(jsonPath("$.surname", is(updated.getSurname())))
-                .andExpect(jsonPath("$.phone", is(updated.getPhone())))
-                .andExpect(jsonPath("$.mobilePhone", is(updated.getMobilePhone())))
-                .andExpect(jsonPath("$.fax", is(updated.getFax())))
-                .andExpect(jsonPath("$.emailAddress", is(updated.getEmailAddress())))
+                .andExpect(jsonPath("$.firstname", is("SMSC")))
+                .andExpect(jsonPath("$.surname", is("SMSC")))
+                .andExpect(jsonPath("$.phone", is("0322222222")))
+                .andExpect(jsonPath("$.mobilePhone", is("0632222222")))
+                .andExpect(jsonPath("$.fax", is("new_fake_fax")))
+                .andExpect(jsonPath("$.emailAddress", is("fake@gmail.com")))
                 .andExpect(jsonPath("$.type", is(Type.PRIMARY.toString())))
                 .andExpect(jsonPath("$.salutation", is(Salutation.MRS.toString())));
     }

@@ -92,7 +92,7 @@ create table ACL_CLASS (
         SALUTATION varchar(255) not null,
         SURNAME varchar(255) not null,
         TYPE varchar(255) not null,
-        CUSTOMER_ID int8,
+        CUSTOMER_ID int8 not null,
         primary key (ID)
     );
 
@@ -109,7 +109,7 @@ create table ACL_CLASS (
         SALT varchar(255),
         SURNAME varchar(255) not null,
         USERNAME varchar(255) not null,
-        CUSTOMER_ID int8,
+        CUSTOMER_ID int8 not null,
         primary key (ID)
     );
 

@@ -68,7 +68,7 @@
         SALUTATION varchar(255) not null,
         SURNAME varchar(255) not null,
         TYPE varchar(255) not null,
-        CUSTOMER_ID bigint,
+        CUSTOMER_ID bigint not null,
         primary key (ID)
     );
 
@@ -85,7 +85,7 @@
         SALT varchar(255),
         SURNAME varchar(255) not null,
         USERNAME varchar(255) not null,
-        CUSTOMER_ID bigint,
+        CUSTOMER_ID bigint not null,
         primary key (ID)
     );
 
