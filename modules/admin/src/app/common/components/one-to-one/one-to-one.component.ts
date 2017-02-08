@@ -11,7 +11,7 @@ import {
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { AutoCompleteModule } from "primeng/components/autocomplete/autocomplete";
-import { CrudRepository } from "../../interfaces/crud-repository";
+import { CrudRepository } from "../../crud-repository";
 import { ActivatedRoute } from "@angular/router";
 import { NotificationService } from "../../../services/notification-service";
 
