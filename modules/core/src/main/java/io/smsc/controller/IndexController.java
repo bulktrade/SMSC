@@ -73,10 +73,7 @@ public class IndexController {
                 Resource resource = staticResourceService.getResource(classFilePath);
 
                 if (resource.exists()) {
-                    File file = resource.getFile();
-                    FileInputStream fileInputStream = new FileInputStream(file);
-
-                    if (servletWebRequest.checkNotModified(DigestUtils.md5Hex(DigestUtils.md5(fileInputStream)), file.lastModified())) {
+                    if (servletWebRequest.checkNotModified(DigestUtils.md5Hex(DigestUtils.md5(resource.getInputStream())), lastModified)) {
                         return null;
                     }
 
@@ -85,11 +82,7 @@ public class IndexController {
             }
 
             Resource resource = staticResourceService.getResource("classpath:META-INF/resources/io.smsc.admin/index.html");
-
-            File file = resource.getFile();
-            FileInputStream fileInputStream = new FileInputStream(file);
-
-            if (servletWebRequest.checkNotModified(DigestUtils.md5Hex(DigestUtils.md5(fileInputStream)), file.lastModified())) {
+            if (servletWebRequest.checkNotModified(DigestUtils.md5Hex(DigestUtils.md5(resource.getInputStream())), lastModified)) {
                 return null;
             }
 

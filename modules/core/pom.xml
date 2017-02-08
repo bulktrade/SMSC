@@ -326,19 +326,19 @@
                 <!--</configuration>-->
 
                  <!--h2-->
-                <executions>
-                    <execution>
-                        <id>h2</id>
-                        <goals>
-                            <goal>export</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                <hibernateDialect>org.hibernate.dialect.H2Dialect</hibernateDialect>
-                <target>SCRIPT</target>
-                <outputFile>${project.build.directory}/V1_2__H2.sql</outputFile>
-                </configuration>
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>h2</id>-->
+                        <!--<goals>-->
+                            <!--<goal>export</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                <!--<hibernateDialect>org.hibernate.dialect.H2Dialect</hibernateDialect>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__H2.sql</outputFile>-->
+                <!--</configuration>-->
 
                 <!-- hsqldb -->
                 <!--<executions>-->
