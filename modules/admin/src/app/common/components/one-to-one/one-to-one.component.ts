@@ -18,11 +18,11 @@ import { NotificationService } from "../../../services/notification-service";
 @Component({
     selector: 'one-to-one',
     encapsulation: ViewEncapsulation.None,
-    templateUrl: `
+    template: `
         <div id="one-to-one-component">
             <p-autoComplete [ngModel]="model[subEntityService.titleColumns]" (ngModelChange)="model=$event;onSelectResource($event)"
              [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
-                [minLength]="1" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
+                [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
                 <template let-model pTemplate="item">
                     <div class="ui-helper-clearfix">
                         <div class="titleColumns">{{ model[subEntityService.titleColumns] || model['id'] }}</div>
@@ -86,7 +86,7 @@ export class OneToOneComponent implements OnInit {
         });
     }
 
-    handleDropdownClick() {
+    onDropdownClick() {
         this.filteredResources = [];
 
         this.subEntityService.getResources()

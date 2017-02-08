@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { ProfileModel } from './profile.model';
-import { ProfileService } from './profile.service';
+import { Component, OnInit } from "@angular/core";
+import { ProfileModel } from "./profile.model";
+import { Router } from "@angular/router";
+import { TranslateService } from "ng2-translate";
+import { ProfileService } from "./profile.service";
 
 @Component({
     selector: 'user',
     providers: [],
-    template: require('./user.html')
+    templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {
     loading: boolean = false;

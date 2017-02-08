@@ -150,7 +150,7 @@ module.exports = function (options) {
         {
           test: /\.html$/,
           use: 'raw-loader',
-          exclude: [ helpers.root('src/index.html') ]
+          exclude: [ helpers.root('src/index.html' ]
         },
 
         /* File loader for supporting images, for example, in CSS files.

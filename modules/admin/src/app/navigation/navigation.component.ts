@@ -9,7 +9,7 @@ import { SidebarService } from "../sidebar/sidebar.service";
 @Component({
     selector: 'navigation',
     providers: [],
-    template: require('./navigation.component.html'),
+    templateUrl: './navigation.component.html',
     animations: [
         trigger('state', [
             state('closed', style({ height: 0 })),
@@ -25,6 +25,9 @@ import { SidebarService } from "../sidebar/sidebar.service";
 })
 
 export class NavigationComponent {
+    public toggleUpSidebar: boolean = false;
+    public toggleLeftSidebar: boolean = false;
+
     constructor(public router: Router,
                 public translate: TranslateService,
                 public tokenService: TokenService,

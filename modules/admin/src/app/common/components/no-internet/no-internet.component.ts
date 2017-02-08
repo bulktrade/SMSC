@@ -1,6 +1,5 @@
 import { Component, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AlertModule } from 'ng2-bootstrap';
 import { TranslateModule } from 'ng2-translate';
 
 @Component({
@@ -13,15 +12,15 @@ import { TranslateModule } from 'ng2-translate';
     `
     ],
     template: `
-        <alert *ngIf="!toggle" type="danger" dismissible="true">
-            {{ 'NO_INTERNET_CONNECTION' | translate }}
-        </alert>
+        <!--<alert *ngIf="!toggle" type="danger" dismissible="true">-->
+            <!--{{ 'NO_INTERNET_CONNECTION' | translate }}-->
+        <!--</alert>-->
         <ng-content *ngIf="toggle"></ng-content>
 `
 })
 
 export class NoInternetComponent {
-    private toggle: boolean = true;
+    public toggle: boolean = true;
 
     constructor() {
     }
@@ -46,7 +45,7 @@ export class NoInternetComponent {
 }
 
 @NgModule({
-    imports: [CommonModule, AlertModule, TranslateModule],
+    imports: [CommonModule, TranslateModule],
     exports: [NoInternetComponent],
     declarations: [NoInternetComponent]
 })

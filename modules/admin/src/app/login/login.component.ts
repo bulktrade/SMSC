@@ -11,7 +11,7 @@ import { GrowlService } from "../services/growl/growl.service";
         AuthService,
         GrowlService
     ],
-    template: require('./login.component.html'),
+    templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {

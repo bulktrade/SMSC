@@ -12,7 +12,7 @@ import { NotificationService } from "../../services/notification-service";
 
 @Component({
     selector: 'customers-view',
-    template: require('./customers-view.component.html'),
+    templateUrl: './customers-view.component.html',
     styleUrls: ['./customers-view.component.scss'],
     providers: [CustomersViewService]
 })
