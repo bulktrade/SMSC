@@ -11,19 +11,20 @@
 				<div class="input-container">
 					<input type="text" required
 					       [(ngModel)]="model.username" id="username" name="username"
-					       autocomplete="on" #username="ngModel"/>
+					       #username="ngModel"/>
 					<label for="Username">{{'login.username' | translate}}</label>
 					<div class="bar"></div>
 				</div>
 				<div class="input-container">
 					<input type="password" required id="password"
 					       maxlength="64" [(ngModel)]="model.password" name="password"
-					       autocomplete="on" #password="ngModel"/>
+					       #password="ngModel"/>
 					<label for="Password">{{"login.password" | translate}}</label>
 					<div class="bar"></div>
 				</div>
 				<div class="button-container">
-					<button type="submit" class="submitButton" [disabled]="loginForm.form.invalid">
+					<button [ngClass]="{'button-submitted': loadingSpinner}" type="submit" class="submitButton"
+					        [disabled]="loginForm.form.invalid">
 						<span>{{'login.btnLogin' | translate}}</span>
 						<i *ngIf="loadingSpinner" class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
 					</button>

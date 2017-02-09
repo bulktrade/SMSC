@@ -25,7 +25,7 @@ export class CustomersViewService {
 
         rowData.forEach((item, i, arr) => {
             if (item) {
-                _rowData += item[titleColumns] || item['id'];
+                _rowData += item[titleColumns] || item['id'] || '';
             }
 
             if (i !== arr.length - 1) {
