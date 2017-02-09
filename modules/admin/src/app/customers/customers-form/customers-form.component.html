@@ -136,7 +136,8 @@
 							{{ 'customerUsers' | translate }}
 						</div>
 						<div class="ui-grid-col-6">
-							<one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']" [mainEntityId]="id"
+							<one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
+							             [mainEntityId]="id"
 							             [(model)]="model['customerUsers']" property="users"></one-to-many>
 						</div>
 						<div class="ui-grid-col-4">
@@ -152,6 +153,7 @@
 						</div>
 						<div class="ui-grid-col-6">
 							<one-to-one name="parentCustomer" propertyName="parentCustomer" [mainEntityId]="id"
+							            [renderProperties]="['companyName', 'country']"
 							            [mainEntityService]="customersService" [subEntityService]="customersService"
 							            [(model)]="model['parentCustomer']"></one-to-one>
 						</div>

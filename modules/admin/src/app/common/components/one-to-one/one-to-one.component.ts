@@ -25,7 +25,12 @@ import { NotificationService } from "../../../services/notification-service";
                 [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
                 <template let-model pTemplate="item">
                     <div class="ui-helper-clearfix">
-                        <div class="titleColumns">{{ model[subEntityService.titleColumns] || model['id'] }}</div>
+                        <div class="titleColumns">
+                            <span class="id">{{ model['id'] }}</span>
+                            <ng-container *ngFor="let item of renderProperties; let last = last;">
+                                <span>{{ model[item] }}<span class="separate" *ngIf="!last">, </span></span>
+                            </ng-container>
+                        </div>
                     </div>
                 </template>
             </p-autoComplete>
@@ -49,6 +54,9 @@ export class OneToOneComponent implements OnInit {
 
     @Input('propertyName')
     public propertyName: string;
+
+    @Input('renderProperties')
+    public renderProperties: string[] = [];
 
     @Input()
     public model;
