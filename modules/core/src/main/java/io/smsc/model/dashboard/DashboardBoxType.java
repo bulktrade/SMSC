@@ -24,7 +24,8 @@ import java.util.Set;
 public class DashboardBoxType extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "dashboard_box_type_seq", sequenceName = "dashboard_box_type_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "dashboard_box_type_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

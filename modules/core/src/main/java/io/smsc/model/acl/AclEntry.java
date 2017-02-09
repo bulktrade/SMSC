@@ -18,7 +18,8 @@ import javax.validation.constraints.NotNull;
 public class AclEntry extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "acl_entry_seq", sequenceName = "acl_entry_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_entry_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

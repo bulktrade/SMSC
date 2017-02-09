@@ -76,7 +76,7 @@ create table ACL_CLASS (
         STREET varchar(255) not null,
         STREET2 varchar(255) not null,
         VATID float8,
-        PARENT_CUSTOMER_ID int8,
+        PARENT_ID int8,
         primary key (ID)
     );
 
@@ -249,7 +249,7 @@ create table ACL_CLASS (
 
     alter table CUSTOMER 
         add constraint FK_k3k4147v3m5pjyjgfcrs0cdpj 
-        foreign key (PARENT_CUSTOMER_ID) 
+        foreign key (PARENT_ID)
         references CUSTOMER;
 
     alter table CUSTOMER_CONTACT 

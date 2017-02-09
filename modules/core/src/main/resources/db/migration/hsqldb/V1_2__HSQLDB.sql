@@ -52,7 +52,7 @@ create table CUSTOMER (
     STREET varchar(255) not null,
     STREET2 varchar(255) not null,
     VATID double,
-    PARENT_CUSTOMER_ID bigint,
+    PARENT_ID bigint,
     primary key (ID)
 );
 
@@ -225,7 +225,7 @@ alter table ACL_OBJECT_IDENTITY
 
 alter table CUSTOMER
     add constraint FK_k3k4147v3m5pjyjgfcrs0cdpj
-    foreign key (PARENT_CUSTOMER_ID)
+    foreign key (PARENT_ID)
     references CUSTOMER;
 
 alter table CUSTOMER_CONTACT

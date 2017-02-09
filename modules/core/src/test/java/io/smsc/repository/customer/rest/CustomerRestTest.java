@@ -37,20 +37,26 @@ public class CustomerRestTest extends AbstractTest {
         mockMvc.perform(get("/rest/repository/customers"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.customers", hasSize(1)))
+                .andExpect(jsonPath("$._embedded.customers", hasSize(2)))
                 .andExpect(jsonPath("$._embedded.customers[0].companyName", is("SMSC")))
                 .andExpect(jsonPath("$._embedded.customers[0].street", is("Amtsgericht")))
                 .andExpect(jsonPath("$._embedded.customers[0].street2", is("Amtsgericht")))
                 .andExpect(jsonPath("$._embedded.customers[0].postcode", is("3254")))
                 .andExpect(jsonPath("$._embedded.customers[0].country", is("Germany")))
                 .andExpect(jsonPath("$._embedded.customers[0].city", is("Stuttgart")))
-                .andExpect(jsonPath("$._embedded.customers[0].vatid", is(5672394.0)));
+                .andExpect(jsonPath("$._embedded.customers[0].vatid", is(5672394.0)))
+                .andExpect(jsonPath("$._embedded.customers[1].companyName", is("Default company")))
+                .andExpect(jsonPath("$._embedded.customers[1].street", is("First default street")))
+                .andExpect(jsonPath("$._embedded.customers[1].street2", is("Second default street")))
+                .andExpect(jsonPath("$._embedded.customers[1].postcode", is("9119")))
+                .andExpect(jsonPath("$._embedded.customers[1].country", is("Ukraine")))
+                .andExpect(jsonPath("$._embedded.customers[1].city", is("Lviv")))
+                .andExpect(jsonPath("$._embedded.customers[1].vatid", is(1234567.0)));
     }
 
     @Test
     public void testCreateCustomer() throws Exception {
         Customer customer = new Customer();
-        customer.setId(2L);
         customer.setCompanyName("newCompany");
         customer.setStreet("newStreet");
         customer.setStreet2("newStreet2");
@@ -98,5 +104,27 @@ public class CustomerRestTest extends AbstractTest {
                 .andExpect(jsonPath("$.country", is("Ukraine")))
                 .andExpect(jsonPath("$.city", is("Lviv")))
                 .andExpect(jsonPath("$.vatid", is(9999999.0)));
+    }
+
+    @Test
+    public void testSetAndDeleteParent() throws Exception {
+        mockMvc.perform(patch("/rest/repository/customers/40000")
+                .contentType("application/json;charset=UTF-8")
+                .content("{\"parent\" : \"/rest/repository/customers/40001\"}"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rest/repository/customers/40000?projection=withContactsAndUsers"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.parent", notNullValue()));
+
+        mockMvc.perform(patch("/rest/repository/customers/40000")
+                .contentType("application/json;charset=UTF-8")
+                .content("{\"parent\" : null}"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/rest/repository/customers/40000?projection=withContactsAndUsers"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.parent", nullValue()));
+
     }
 }

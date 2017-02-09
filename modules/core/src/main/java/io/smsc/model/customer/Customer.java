@@ -26,7 +26,8 @@ import java.util.Set;
 public class Customer extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "customer_seq", sequenceName = "customer_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -59,7 +60,6 @@ public class Customer extends BaseEntity {
     @Column(name = "VATID")
     private Double vatid;
 
-    // cannot update parentCustomer
     @ManyToOne(
             fetch = FetchType.LAZY,
             cascade = {
@@ -68,8 +68,8 @@ public class Customer extends BaseEntity {
                     CascadeType.PERSIST
             })
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JoinColumn(name = "PARENT_CUSTOMER_ID")
-    private Customer parentCustomer;
+    @JoinColumn(name = "PARENT_ID")
+    private Customer parent;
 
     @OneToMany(
             mappedBy = "customer",
@@ -177,12 +177,12 @@ public class Customer extends BaseEntity {
         this.vatid = vatid;
     }
 
-    public Customer getParentCustomer() {
-        return parentCustomer;
+    public Customer getParent() {
+        return parent;
     }
 
-    public void setParentCustomer(Customer parentCustomer) {
-        this.parentCustomer = parentCustomer;
+    public void setParent(Customer parent) {
+        this.parent = parent;
     }
 
     public Set<CustomerContact> getContacts() {

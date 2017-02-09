@@ -1,22 +1,12 @@
 package io.smsc.repository.customer.rest;
 
 import io.smsc.AbstractTest;
-import io.smsc.model.User;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.CustomerContact;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
-import io.smsc.model.dashboard.*;
-import io.smsc.repository.customer.CustomerContactRepository;
-import io.smsc.repository.customer.CustomerRepository;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MvcResult;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -102,7 +92,6 @@ public class CustomerContactRestTest extends AbstractTest {
         contact.setEmailAddress("fake@gmail.com");
         contact.setType(Type.PRIMARY);
         contact.setSalutation(Salutation.MRS);
-        contact.setCustomer(new Customer());
         String customerContactJson = json(contact);
         mockMvc.perform(put("/rest/repository/customer-contacts/1")
                 .contentType("application/json;charset=UTF-8")

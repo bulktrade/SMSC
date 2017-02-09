@@ -24,7 +24,8 @@ import javax.validation.constraints.NotNull;
 public class CustomerContact extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "customer_contact_seq", sequenceName = "customer_contact_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_contact_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -55,7 +56,6 @@ public class CustomerContact extends BaseEntity {
     @NotEmpty(message = "{customer.contact.emailAddress.validation}")
     private String emailAddress;
 
-    // cannot update customer
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="CUSTOMER_ID", nullable = false)
     @JsonBackReference

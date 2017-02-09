@@ -43,7 +43,7 @@ public interface CustomerProjection {
 
     Double getVatid();
 
-    Customer getParentCustomer();
+    Customer getParent();
 
     Set<CustomerContact> getContacts();
 

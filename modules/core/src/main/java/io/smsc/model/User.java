@@ -30,7 +30,8 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "user_account_seq", sequenceName = "user_account_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_account_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

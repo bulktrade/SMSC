@@ -22,7 +22,8 @@ import java.util.Set;
 public class Role extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "role_seq", sequenceName = "role_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "role_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

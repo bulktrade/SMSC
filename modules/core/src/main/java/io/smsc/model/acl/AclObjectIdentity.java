@@ -20,7 +20,8 @@ import java.util.Set;
 public class AclObjectIdentity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "acl_object_identity_seq", sequenceName = "acl_object_identity_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_object_identity_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
