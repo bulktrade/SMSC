@@ -222,7 +222,7 @@ body {
     transition: .3s ease;
 
     .loading-spinner {
-        color: #fff;
+        color: #ddd;
         font-size: 24px
     }
 
@@ -389,8 +389,7 @@ body {
                 }
             }
 
-            &:active,
-            &:focus {
+            &.button-submitted {
                 span {
                     color: $white;
                 }
