@@ -14,12 +14,11 @@ import { AuthService } from "./services/auth/auth.service";
 import { TokenService } from "./services/auth/token.service";
 // import { CrudService } from "./crud/crud.service";
 import { AuthGuard } from "./common/auth.guard";
-import { NotificationService } from "./services/notification-service";
 import { LoadingGridService } from "./services/loading/loading-grid.service";
 import { APP_RESOLVER_PROVIDERS } from "./app.resolver";
 import { createNewHosts, removeNgStyles, createInputTransfer } from "@angularclass/hmr";
 import { ENV_PROVIDERS } from "./environment";
-import { SimpleNotificationsModule } from "angular2-notifications";
+import { SimpleNotificationsModule, NotificationsService } from "angular2-notifications";
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate";
 import { GridService } from "./services/grid.service";
 import { SidebarComponent } from "./sidebar/sidebar.component";
@@ -70,7 +69,7 @@ export const APP_PROVIDERS = [
     GridService,
     TokenService,
     AuthService,
-    NotificationService,
+    NotificationsService,
     AuthGuard,
     AppState,
     ConfigService,
