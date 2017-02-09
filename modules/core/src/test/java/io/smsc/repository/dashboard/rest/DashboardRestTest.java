@@ -37,20 +37,21 @@ public class DashboardRestTest extends AbstractTest {
                 .andExpect(jsonPath("$._embedded.dashboards[0].name", is("default")))
                 .andExpect(jsonPath("$._embedded.dashboards[0].icon", is("user")));
     }
-    //need to set user from db
-//    @Test
-//    public void testCreateDashboard() throws Exception {
-//        Dashboard dashboard = new Dashboard();
-//        dashboard.setId(null);
-//        dashboard.setIcon("admin");
-//        dashboard.setName("default_admin");
-//        dashboard.setUser(new User());
-//        String dashboardJson = json(dashboard);
-//        this.mockMvc.perform(post("/rest/repository/dashboards")
-//                .contentType("application/json;charset=UTF-8")
-//                .content(dashboardJson))
-//                .andExpect(status().isCreated());
-//    }
+
+    @Test
+    public void testCreateDashboard() throws Exception {
+        Dashboard dashboard = new Dashboard();
+        dashboard.setId(null);
+        dashboard.setIcon("admin");
+        dashboard.setName("default_admin");
+        String dashboardJson = json(dashboard);
+        // json is ignoring inserting user through setter
+        dashboardJson = dashboardJson.substring(0, dashboardJson.length()-1).concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
+        this.mockMvc.perform(post("/rest/repository/dashboards")
+                .contentType("application/json;charset=UTF-8")
+                .content(dashboardJson))
+                .andExpect(status().isCreated());
+    }
 
     @Test
     public void testDeleteDashboard() throws Exception {

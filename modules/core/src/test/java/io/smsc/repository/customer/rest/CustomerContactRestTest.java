@@ -62,41 +62,26 @@ public class CustomerContactRestTest extends AbstractTest {
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].salutation", is(Salutation.MR.toString())));
     }
 
-    //need to set customer from db
-//    @Test
-//    public void testCreateCustomerContact() throws Exception {
-//        CustomerContact contact = new CustomerContact();
-//        contact.setId(null);
-//        contact.setFirstname("SMSC");
-//        contact.setSurname("SMSC");
-//        contact.setPhone("0322222222");
-//        contact.setMobilePhone("0632222222");
-//        contact.setFax("new_fake_fax");
-//        contact.setEmailAddress("new_fake1@gmail.com");
-//        contact.setType(Type.PRIMARY);
-//        contact.setSalutation(Salutation.MRS);
-//        contact.setCustomer(new Customer());
-//        String customerContactJson = json(contact);
-//        this.mockMvc.perform(post("/rest/repository/customer-contacts")
-//                .contentType("application/json;charset=UTF-8")
-//                .content(customerContactJson))
-//                .andExpect(status().isCreated());
-//    }
-
     @Test
-    public void testCreateDashboardBox() throws Exception {
-        String dashboardBoxJson = json(new DashboardBox(null, Width.WIDTH_25, Height.HEIGHT_25, 50,
-                "new dashboardBox", "new dashboardBox desc", DASHBOARD_1, DASHBOARD_BOX_TYPE_1));
-        this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
+    public void testCreateCustomerContact() throws Exception {
+        CustomerContact contact = new CustomerContact();
+        contact.setId(null);
+        contact.setFirstname("SMSC");
+        contact.setSurname("SMSC");
+        contact.setPhone("0322222222");
+        contact.setMobilePhone("0632222222");
+        contact.setFax("new_fake_fax");
+        contact.setEmailAddress("new_fake1@gmail.com");
+        contact.setType(Type.PRIMARY);
+        contact.setSalutation(Salutation.MRS);
+        String customerContactJson = json(contact);
+        // json is ignoring inserting customer through setter
+        customerContactJson = customerContactJson.substring(0, customerContactJson.length()-1).concat(", \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
+        this.mockMvc.perform(post("/rest/repository/customer-contacts")
                 .contentType("application/json;charset=UTF-8")
-                .content(dashboardBoxJson))
+                .content(customerContactJson))
                 .andExpect(status().isCreated());
     }
-
-    public static final Dashboard DASHBOARD_1 = new Dashboard(1L, "default", "user", new User());
-
-    public static final DashboardBoxType DASHBOARD_BOX_TYPE_1 = new DashboardBoxType(1L, "Ivan feeds", io.smsc.model.dashboard.Type.STATUS, Kind.FEEDBACK_STATUS);
-
 
     @Test
     public void testDeleteCustomerContact() throws Exception {
