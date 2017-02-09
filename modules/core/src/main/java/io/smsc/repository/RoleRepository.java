@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
  * CRUD methods to operate with {@link Role} entities and exporting them to
  * appropriate endpoints.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
 @Transactional(readOnly = true)
-public interface RoleRepository extends JpaRepository<Role, Long>{
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
     //All query method resources are exposed under the resource 'search'.
 

@@ -14,10 +14,10 @@ import java.util.Set;
 /**
  * Specifies Dashboard class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @see     User
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @see User
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "DASHBOARD", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"}, name = "dashboards_unique_name_user_idx")})
@@ -41,7 +41,7 @@ public class Dashboard extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    @JoinColumn(name="USER_ACCOUNT_ID", nullable = false)
+    @JoinColumn(name = "USER_ACCOUNT_ID", nullable = false)
     private User user;
 
     @OneToMany(

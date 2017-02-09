@@ -12,8 +12,8 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
  * The SpringDataRestValidationConfiguration class is used for customization
  * hibernate bean validation to launch before entity is created or updated
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @Configuration
 public class SpringDataRestValidationConfiguration extends RepositoryRestConfigurerAdapter {

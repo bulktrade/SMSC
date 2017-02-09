@@ -28,8 +28,8 @@ import java.util.Set;
  * The RepositoryIdExposingConfiguration class is used for providing ID value exposing
  * as a normal property for all entity classes.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @Configuration
 public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerAdapter {

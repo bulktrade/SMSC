@@ -13,13 +13,13 @@ import java.util.Set;
 /**
  * Specifies Role class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "roles_unique_name_idx")})
-public class Role extends BaseEntity{
+public class Role extends BaseEntity {
 
     @Id
     @SequenceGenerator(name = "role_seq", sequenceName = "role_seq")

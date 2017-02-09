@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
  * CRUD methods to operate with {@link AclSid} entities and exporting them to
  * appropriate endpoints.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "acl-sid", path = "acl-sid", excerptProjection = AclSidProjection.class)
 @Transactional(readOnly = true)

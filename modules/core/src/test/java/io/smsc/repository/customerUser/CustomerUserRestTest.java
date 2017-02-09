@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WithMockUser(username="Admin",roles = {"ADMIN"})
+@WithMockUser(username = "Admin", roles = {"ADMIN"})
 public class CustomerUserRestTest extends AbstractTest {
 
     @Test
@@ -64,7 +64,7 @@ public class CustomerUserRestTest extends AbstractTest {
         customerUser.setBlocked(false);
         String customerUserJson = json(customerUser);
         // json is ignoring inserting password and customer through setter
-        customerUserJson = customerUserJson.substring(0, customerUserJson.length()-1).concat(", \"password\" : \"john123456\", \"customer\" : \"rest/repository/customers/40000\" \r\n }");
+        customerUserJson = customerUserJson.substring(0, customerUserJson.length() - 1).concat(", \"password\" : \"john123456\", \"customer\" : \"rest/repository/customers/40000\" \r\n }");
         this.mockMvc.perform(post("/rest/repository/users")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerUserJson))
@@ -90,7 +90,7 @@ public class CustomerUserRestTest extends AbstractTest {
         customerUser.setBlocked(true);
         String customerUserJson = json(customerUser);
         // json is ignoring password
-        customerUserJson = customerUserJson.substring(0, customerUserJson.length()-1).concat(", \"password\" : \"john123456\" \r\n }");
+        customerUserJson = customerUserJson.substring(0, customerUserJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
         mockMvc.perform(put("/rest/repository/customer-users/1")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerUserJson))

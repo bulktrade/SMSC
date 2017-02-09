@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username="Admin",roles = {"ADMIN"})
+@WithMockUser(username = "Admin", roles = {"ADMIN"})
 public class DashboardRestTest extends AbstractTest {
 
     @Test
@@ -46,7 +46,7 @@ public class DashboardRestTest extends AbstractTest {
         dashboard.setName("default_admin");
         String dashboardJson = json(dashboard);
         // json is ignoring inserting user through setter
-        dashboardJson = dashboardJson.substring(0, dashboardJson.length()-1).concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
+        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1).concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
         this.mockMvc.perform(post("/rest/repository/dashboards")
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))

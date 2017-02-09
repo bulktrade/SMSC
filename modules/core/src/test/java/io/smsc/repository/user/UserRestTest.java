@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username="Admin",roles = {"ADMIN"})
+@WithMockUser(username = "Admin", roles = {"ADMIN"})
 public class UserRestTest extends AbstractTest {
 
     @Test
@@ -61,7 +61,7 @@ public class UserRestTest extends AbstractTest {
         user.setBlocked(false);
         String userJson = json(user);
         // json is ignoring password
-        userJson = userJson.substring(0, userJson.length()-1).concat(", \"password\" : \"john123456\" \r\n }");
+        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
         this.mockMvc.perform(post("/rest/repository/users")
                 .contentType("application/json;charset=UTF-8")
                 .content(userJson))
@@ -87,7 +87,7 @@ public class UserRestTest extends AbstractTest {
         user.setBlocked(true);
         String userJson = json(user);
         // json is ignoring password
-        userJson = userJson.substring(0, userJson.length()-1).concat(", \"password\" : \"john123456\" \r\n }");
+        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
         mockMvc.perform(put("/rest/repository/users/1")
                 .contentType("application/json;charset=UTF-8")
                 .content(userJson))

@@ -9,8 +9,8 @@ import java.util.Map;
  * This interface is describing methods to provide JWT authentication service.
  * Methods implementation is in {@link JWTTokenGenerationServiceImpl}
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 public interface JWTTokenGenerationService extends Serializable {
 

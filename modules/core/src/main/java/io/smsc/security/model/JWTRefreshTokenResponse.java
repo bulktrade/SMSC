@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  * Class for access token refresh response. Contains refreshed access token string.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 public class JWTRefreshTokenResponse implements Serializable {
 

@@ -14,9 +14,9 @@ import java.util.Date;
  * is applied to the entities that inherit from it. It contains only id property
  * and equals/hashcode implementations.
  *
- * @author  Nazar Lipkovskyy
- * @see     MappedSuperclass
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see MappedSuperclass
+ * @since 0.0.1-SNAPSHOT
  */
 @MappedSuperclass
 @Access(AccessType.FIELD)
@@ -28,7 +28,7 @@ public class BaseEntity implements Serializable {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_MODIFIED_DATE", nullable = false)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     protected Date lastModifiedDate = new Date();
 
     @Version

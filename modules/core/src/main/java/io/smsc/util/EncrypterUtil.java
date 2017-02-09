@@ -62,6 +62,10 @@ public class EncrypterUtil {
                 salt = obj.getClass().getName();
             }
 
+            if (SECRET_KEY == null) {
+                SECRET_KEY = "smsc.io";
+            }
+
             TextEncryptor encryptor = Encryptors.text(SECRET_KEY, salt);
 
             for (Field field : obj.getClass().getDeclaredFields()) {
@@ -117,6 +121,10 @@ public class EncrypterUtil {
                 salt = obj.getClass().getName();
             }
 
+            if (SECRET_KEY == null) {
+                SECRET_KEY = "smsc.io";
+            }
+
             TextEncryptor encryptor = Encryptors.text(SECRET_KEY, salt);
 
             for (Field field : obj.getClass().getDeclaredFields()) {
@@ -144,7 +152,7 @@ public class EncrypterUtil {
      * strength limit. When using JDK 9+ this method is not more necessary and
      * should be removed.
      */
-    private static void removeCryptographyRestrictions() {
+    public static void removeCryptographyRestrictions() {
         if (!isRestrictedCryptography()) {
             LOGGER.info("Cryptography restrictions removal not needed");
             return;

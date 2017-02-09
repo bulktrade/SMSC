@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
  * CRUD methods to operate with {@link DashboardBoxType} entities and exporting them
  * to appropriate endpoints.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "dashboard-box-types", path = "dashboard-box-types", excerptProjection = DashboardBoxTypeProjection.class)
 @Transactional(readOnly = true)

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Defines where to go after successful login. In this implementation just make sure nothing is done (REST API contains no pages)
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 

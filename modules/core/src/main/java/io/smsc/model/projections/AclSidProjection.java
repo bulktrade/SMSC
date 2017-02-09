@@ -11,9 +11,9 @@ import java.util.Set;
  * This interface is describing excerpting projection for {@link AclSid}
  * entity and is used for fetching relation properties in JSON response.
  *
- * @author  Nazar Lipkovskyy
- * @see     Projection
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see Projection
+ * @since 0.0.1-SNAPSHOT
  */
 @Projection(name = "withEntriesAndObjectIdentities", types = {AclSid.class})
 public interface AclSidProjection {

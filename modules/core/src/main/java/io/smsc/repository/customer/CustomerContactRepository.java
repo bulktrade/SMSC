@@ -15,10 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
  * CRUD methods to operate with {@link CustomerContact} entities and exporting them
  * to appropriate endpoints.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "customer-contacts", path = "customer-contacts" ,excerptProjection = CustomerContactProjection.class)
+@RepositoryRestResource(collectionResourceRel = "customer-contacts", path = "customer-contacts", excerptProjection = CustomerContactProjection.class)
 @Transactional(readOnly = true)
 public interface CustomerContactRepository extends JpaRepository<CustomerContact, Long> {
 

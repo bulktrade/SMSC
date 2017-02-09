@@ -3,8 +3,8 @@ package io.smsc.model.dashboard;
 /**
  * Specifies Heights which can be used in {@link DashboardBox}
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 public enum Height {
     HEIGHT_25,

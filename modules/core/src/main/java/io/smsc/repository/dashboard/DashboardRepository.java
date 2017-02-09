@@ -20,12 +20,12 @@ import java.util.List;
  * CRUD methods to operate with {@link Dashboard} entities and exporting them
  * to appropriate endpoints.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards", excerptProjection = DashboardProjection.class)
 @Transactional(readOnly = true)
-public interface DashboardRepository extends JpaRepository<Dashboard, Long>{
+public interface DashboardRepository extends JpaRepository<Dashboard, Long> {
 
     //All query method resources are exposed under the resource 'search'.
 

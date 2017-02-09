@@ -20,9 +20,9 @@ import java.util.Set;
 /**
  * Specifies User class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
@@ -47,7 +47,7 @@ public class User extends BaseEntity {
     @JsonIgnore
     private String password;
 
-    @Column(name="SALT")
+    @Column(name = "SALT")
     @JsonIgnore
     private String salt;
 
@@ -67,8 +67,8 @@ public class User extends BaseEntity {
     @Column(name = "ACTIVE", nullable = false)
     private Boolean active = true;
 
-    @Column(name = "CREATED",nullable = false, updatable = false)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
+    @Column(name = "CREATED", nullable = false, updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Date created = new Date();
 
     @Column(name = "BLOCKED", nullable = false)

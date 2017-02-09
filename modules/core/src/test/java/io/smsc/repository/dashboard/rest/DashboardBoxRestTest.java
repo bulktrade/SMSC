@@ -58,7 +58,7 @@ public class DashboardBoxRestTest extends AbstractTest {
         dashboardBox.setDescription("new box desc");
         String dashboardBoxJson = json(dashboardBox);
         // json is ignoring inserting dashboard and dashboardBoxType through setter
-        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length()-1).concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", \r\n \"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
+        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1).concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", \r\n \"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
         this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxJson))

@@ -13,11 +13,11 @@ import java.util.Set;
 /**
  * Specifies DashboardBoxType class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @see     Type
- * @see     Kind
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @see Type
+ * @see Kind
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "DASHBOARD_BOX_TYPE", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"}, name = "dashboard_box_type's_unique_name_idx")})

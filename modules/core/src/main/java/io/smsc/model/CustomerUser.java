@@ -16,9 +16,9 @@ import java.util.Date;
 /**
  * Specifies CustomerUser class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "CUSTOMER_USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
@@ -43,7 +43,7 @@ public class CustomerUser extends BaseEntity {
     @JsonIgnore
     private String password;
 
-    @Column(name="SALT")
+    @Column(name = "SALT")
     @JsonIgnore
     private String salt;
 
@@ -64,14 +64,14 @@ public class CustomerUser extends BaseEntity {
     private Boolean active = true;
 
     @Column(name = "CREATED", nullable = false, updatable = false)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Date created = new Date();
 
     @Column(name = "BLOCKED", nullable = false)
     private Boolean blocked = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CUSTOMER_ID", nullable = false)
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     @JsonBackReference
     private Customer customer;
 
