@@ -128,7 +128,7 @@ export class OneToOneComponent implements OnInit {
             .subscribe(res => {
                 res[this.propertyName] = null;
 
-                this.model = '';
+                this.model = null;
                 this.modelChange.emit(event);
 
                 // delete all properties of URI

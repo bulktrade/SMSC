@@ -47,6 +47,7 @@ import { LoadingRouterOutletModule } from "./common/components/loading-router-ou
 import { CommonService } from "./services/common";
 import "../styles/styles.scss";
 import { CustomersViewService } from "./customers/customers-view/customers-view.service";
+import { NotificationService } from "./services/notification-service";
 
 type StoreType = {
     state: InternalStateType,
@@ -70,6 +71,7 @@ export const APP_PROVIDERS = [
     TokenService,
     AuthService,
     NotificationsService,
+    NotificationService,
     AuthGuard,
     AppState,
     ConfigService,
