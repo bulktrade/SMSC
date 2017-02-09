@@ -12,7 +12,7 @@ import { NotificationService } from "../../services/notification-service";
 
 @Component({
     selector: 'customers-view',
-    template: require('./customers-view.component.html'),
+    templateUrl: './customers-view.component.html',
     styleUrls: ['./customers-view.component.scss'],
     providers: [CustomersViewService]
 })
@@ -29,7 +29,9 @@ export class CustomersViewComponent {
 
     public selectedRows: ColumnDef[] = [];
 
-    public displayRelationshipModal: boolean = false;
+    public oneToManyModal: boolean = false;
+
+    public oneToOneModal: boolean = false;
 
     public relationshipModal: RelationshipModal = <RelationshipModal>{};
 
@@ -42,12 +44,33 @@ export class CustomersViewComponent {
                 public notifications: NotificationService) {
     }
 
-    showDialog(model, id: number, propertyName: string, renderProperties: string[]) {
-        this.relationshipModal.model = model;
-        this.relationshipModal.mainEntityId = id;
-        this.relationshipModal.renderProperties = renderProperties;
-        this.relationshipModal.propertyName = propertyName;
-        this.displayRelationshipModal = true;
+    onEditInit(event) {
+        switch (event.column.field) {
+            case 'contacts':
+                this.relationshipModal.model = event.data[event.column.field];
+                this.relationshipModal.mainEntityId = event.data['id'];
+                this.relationshipModal.renderProperties = ['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress'];
+                this.relationshipModal.propertyName = 'contacts';
+                this.oneToManyModal = true;
+                break;
+
+            case 'customerUsers':
+                this.relationshipModal.model = event.data[event.column.field];
+                this.relationshipModal.renderProperties = ['firstname', 'surname', 'username', 'email'];
+                this.relationshipModal.propertyName = 'users';
+                this.oneToManyModal = true;
+                break;
+
+            case 'parentCustomer':
+                this.relationshipModal.model = event;
+                this.relationshipModal.mainEntityId = event.data['id'];
+                this.relationshipModal.propertyName = 'parentCustomer';
+                this.oneToOneModal = true;
+                break;
+
+            default:
+                break;
+        }
     }
 
     ngOnInit() {

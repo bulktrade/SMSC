@@ -5,7 +5,7 @@ import { Location } from "@angular/common";
 
 @Component({
     selector: 'crud-delete',
-    template: require('./dashboard-box-delete.component.html'),
+    templateUrl: './dashboard-box-delete.component.html',
     styleUrls: [
         require('./dashboard-box-delete.component.scss'),
         require('../../../crud/common/style.scss')

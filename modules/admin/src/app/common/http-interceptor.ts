@@ -82,7 +82,7 @@ export class HttpInterceptor extends Http {
     }
 }
 
-function httpInterceptorFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) {
+export function httpInterceptorFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router) {
     return new HttpInterceptor(xhrBackend, requestOptions, router);
 }
 

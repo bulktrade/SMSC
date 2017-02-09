@@ -11,18 +11,18 @@ import {
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { AutoCompleteModule } from "primeng/components/autocomplete/autocomplete";
-import { CrudRepository } from "../../interfaces/crud-repository";
+import { CrudRepository } from "../../crud-repository";
 import { ActivatedRoute } from "@angular/router";
 import { NotificationService } from "../../../services/notification-service";
 
 @Component({
     selector: 'one-to-one',
     encapsulation: ViewEncapsulation.None,
-    templateUrl: `
+    template: `
         <div id="one-to-one-component">
             <p-autoComplete [ngModel]="model[subEntityService.titleColumns]" (ngModelChange)="model=$event;onSelectResource($event)"
              [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
-                [minLength]="1" [dropdown]="true" (onDropdownClick)="handleDropdownClick($event)">
+                [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
                 <template let-model pTemplate="item">
                     <div class="ui-helper-clearfix">
                         <div class="titleColumns">{{ model[subEntityService.titleColumns] || model['id'] }}</div>
@@ -86,7 +86,7 @@ export class OneToOneComponent implements OnInit {
         });
     }
 
-    handleDropdownClick() {
+    onDropdownClick() {
         this.filteredResources = [];
 
         this.subEntityService.getResources()
@@ -98,6 +98,10 @@ export class OneToOneComponent implements OnInit {
 
     onSelectResource(event) {
         if (typeof event === 'object') {
+
+            this.model = event;
+            this.modelChange.emit(event);
+
             let _selfLink = event['_links'].self.href;
 
             this.mainEntityService.getResource(this.id)
@@ -123,6 +127,9 @@ export class OneToOneComponent implements OnInit {
         this.mainEntityService.getResource(this.id)
             .subscribe(res => {
                 res[this.propertyName] = null;
+
+                this.model = null;
+                this.modelChange.emit(event);
 
                 // delete all properties of URI
                 delete res['customerUsers'];

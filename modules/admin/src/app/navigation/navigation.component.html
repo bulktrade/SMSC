@@ -2,21 +2,21 @@
 	<div class="card header">
 		<div class="toolbar">
 			<div class="left-panel">
-				<i id="desktopMenu" class="fa fa-bars" (click)="toggle=!toggle"></i>
+				<i id="desktopMenu" class="fa fa-bars" (click)="toggleLeftSidebar=!toggleLeftSidebar"></i>
 				<h1 style="float: left;" [routerLink]="['/']" id="logo">{{ 'project.title' | translate }}</h1>
 			</div>
 			<div style="width: 100%;"></div>
 			<div class="right-panel">
 				<i class="fa fa-user pull-right" aria-hidden="true"></i>
 				<i class="fa fa-sign-out pull-right" (click)="logout()" id="logout"></i>
-				<i class="fa fa-bars pull-right" (click)="toggledUp=!toggledUp" id="mobileMenu"></i>
+				<i class="fa fa-bars pull-right" (click)="toggleUpSidebar=!toggleUpSidebar" id="mobileMenu"></i>
 			</div>
 		</div>
 	</div>
 
-	<div id="wrapper" [ngClass]="{'toggled': toggle || sidebarService.toggle}">
+	<div id="wrapper" [ngClass]="{'toggled': toggleLeftSidebar || sidebarService.toggle}">
 		<!-- Sidebar -->
-		<div id="sidebar-wrapper" [@state]="!toggledUp ? 'open' : 'closed'">
+		<div id="sidebar-wrapper" [@state]="!toggleUpSidebar ? 'open' : 'closed'">
 			<ul class="sidebar-nav">
 				<sidebar></sidebar>
 			</ul>

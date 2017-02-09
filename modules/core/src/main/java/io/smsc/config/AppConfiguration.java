@@ -1,13 +1,10 @@
 package io.smsc.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
-
-import javax.servlet.DispatcherType;
-import java.util.EnumSet;
 
 @Configuration
 @EnableAutoConfiguration
@@ -25,12 +22,12 @@ public class AppConfiguration {
     }
 
     @Bean
-    public FilterRegistrationBean shallowEtagHeaderFilter() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new ShallowEtagHeaderFilter());
-        registration.setDispatcherTypes(EnumSet.allOf(DispatcherType.class));
-        registration.addUrlPatterns("/");
+    FilterRegistrationBean shallowEtagBean() {
+        FilterRegistrationBean frb = new FilterRegistrationBean();
+        frb.setFilter(new ShallowEtagHeaderFilter());
+        frb.addUrlPatterns("/*");
+        frb.setOrder(2);
 
-        return registration;
+        return frb;
     }
 }

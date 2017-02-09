@@ -15,7 +15,6 @@ import { SharedModule } from "primeng/components/common/shared";
 import { LoadingRouterOutletModule } from "../common/components/loading-router-outlet/loading-router-outlet.component";
 import { CubeGridModule } from "../common/components/cube-grid/cube-grid.component";
 import { LoadingGridModule } from "../common/components/loading-grid/loading-grid.component";
-import { AlertModule } from "ng2-bootstrap";
 import { CustomersService } from "./customers.service";
 import { DynamicFormModule } from "./customers-form/customers-form.component";
 import { InputTextModule } from "primeng/components/inputtext/inputtext";
@@ -27,6 +26,7 @@ import { CustomersContactsService } from "./customers-contacts/customers-contact
 import { CustomersUsersService } from "./customers-users/customers-users.service";
 import { OneToManyModule } from "../common/components/one-to-many/one-to-many.component";
 import { OneToOneModule } from "../common/components/one-to-one/one-to-one.component";
+import { DropdownModule } from "primeng/components/dropdown/dropdown";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
@@ -44,6 +44,7 @@ const CUSTOMERS_PROVIDERS = [
 ];
 
 const CUSTOMERS_MODULES = [
+    DropdownModule,
     OneToManyModule,
     OneToOneModule,
     DialogModule,
@@ -54,7 +55,6 @@ const CUSTOMERS_MODULES = [
     LoadingRouterOutletModule,
     CubeGridModule,
     LoadingGridModule,
-    AlertModule,
     MessagesModule,
     BreadcrumbModule,
     FormsModule,

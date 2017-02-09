@@ -10,7 +10,7 @@ import { CommonService } from "../../../services/common";
 
 @Component({
     selector: 'one-to-many',
-    template: require('./one-to-many.component.html'),
+    templateUrl: './one-to-many.component.html',
     styleUrls: ['one-to-many.component.scss']
 })
 

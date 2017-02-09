@@ -16,7 +16,6 @@ cache:
   docker: true
   directories:
     - modules/admin/node_modules
-    - modules/admin/typings
     - .autoconf
     - $HOME/.m2
 

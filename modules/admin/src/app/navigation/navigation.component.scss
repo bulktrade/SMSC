@@ -28,6 +28,12 @@ $primaryColor: #009688;
                 align-items: center;
             }
 
+            .right-panel {
+                i {
+                    padding-left: 7px;
+                }
+            }
+
             #logout {
                 padding-right: 0;
             }

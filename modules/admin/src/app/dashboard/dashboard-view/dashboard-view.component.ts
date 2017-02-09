@@ -14,7 +14,7 @@ import { BoxSizes } from '../models/dashboard-box-sizes';
 
 @Component({
     selector: 'dashboard-view',
-    template: require('./dashboard-view.component.html'),
+    templateUrl: './dashboard-view.component.html',
     styleUrls: [
         require('./dashboard-view.component.scss')
     ],
