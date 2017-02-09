@@ -43,7 +43,7 @@ export abstract class CrudRepository<T> {
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
-            method: RequestMethod.Put,
+            method: RequestMethod.Patch,
             body: data
         });
 
