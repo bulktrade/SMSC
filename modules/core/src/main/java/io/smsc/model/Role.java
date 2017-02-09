@@ -34,7 +34,7 @@ public class Role extends BaseEntity{
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    @OrderBy
+    @OrderBy("id asc")
     @JsonBackReference()
     private Set<User> users;
 

@@ -49,6 +49,7 @@ public class Dashboard extends BaseEntity {
             orphanRemoval = true
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @OrderBy("id asc")
     private Set<DashboardBox> dashboardBoxes;
 
     public Dashboard() {

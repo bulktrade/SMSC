@@ -55,6 +55,7 @@ public class CustomerContact extends BaseEntity {
     @NotEmpty(message = "{customer.contact.emailAddress.validation}")
     private String emailAddress;
 
+    // cannot update customer
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="CUSTOMER_ID", nullable = false)
     @JsonBackReference

@@ -79,6 +79,7 @@ public class User extends BaseEntity {
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
     )
+    @OrderBy("id asc")
     private Set<Role> roles;
 
     @OneToMany(
@@ -88,6 +89,7 @@ public class User extends BaseEntity {
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
+    @OrderBy("id asc")
     private Set<Dashboard> dashboards;
 
     public User() {

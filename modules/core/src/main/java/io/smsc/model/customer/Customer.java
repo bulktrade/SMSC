@@ -3,11 +3,15 @@ package io.smsc.model.customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.CustomerUser;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import java.util.Set;
 
 /**
@@ -55,6 +59,7 @@ public class Customer extends BaseEntity {
     @Column(name = "VATID")
     private Double vatid;
 
+    // cannot update parentCustomer
     @ManyToOne(
             fetch = FetchType.LAZY,
             cascade = {
@@ -72,6 +77,7 @@ public class Customer extends BaseEntity {
             orphanRemoval = true
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @OrderBy("id asc")
     private Set<CustomerContact> contacts;
 
     @OneToMany(
@@ -80,6 +86,7 @@ public class Customer extends BaseEntity {
             orphanRemoval = true
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @OrderBy("id asc")
     private Set<CustomerUser> customerUsers;
 
     public Customer() {
