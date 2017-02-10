@@ -5,6 +5,9 @@
 [![Join the chat at https://gitter.im/smsc-io/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/smsc-io/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Dependency Status](https://david-dm.org/bulktrade/SMSC.svg)](https://david-dm.org/bulktrade/SMSC)
 [![devDependency Status](https://david-dm.org/bulktrade/SMSC/dev-status.svg)](https://david-dm.org/bulktrade/SMSC/?type=dev)
+[![Quality Gate](https://sonarqube.com/api/badges/gate?key=io.smsc:smsc)](https://sonarqube.com/dashboard/index/io.smsc:smsc) 
+[![Technical debt ratio](https://sonarqube.com/api/badges/measure?key=io.smsc:smsc&metric=sqale_debt_ratio)](https://sonarqube.com/dashboard/index/io.smsc:smsc)
+[![javadoc.io](https://javadoc-emblem.rhcloud.com/doc/io.smsc/smsc/badge.svg)](http://www.javadoc.io/doc/io.smsc/smsc)
 [![Selenium Test Status](https://saucelabs.com/buildstatus/smsc)](https://saucelabs.com/beta/builds/1e2ccc4a03864f668fb413c1934255e7)
 
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/smsc.svg)](https://saucelabs.com/u/smsc)
