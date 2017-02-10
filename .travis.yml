@@ -38,8 +38,7 @@ after_success:
     docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push smscio/smsc;
     fi
-  - mvn clean -DrepoToken=$COVERALLS_REPO_TOKEN cobertura:cobertura coveralls:report
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+  - mvn -DrepoToken=$COVERALLS_REPO_TOKEN cobertura:cobertura coveralls:report org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
 
 script:
   - ./bin/deploy.sh
