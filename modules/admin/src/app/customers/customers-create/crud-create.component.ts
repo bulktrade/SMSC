@@ -9,7 +9,6 @@ import { Customer } from "../model/customer";
 @Component({
     selector: 'customers-create',
     template: `
-        <breadcrumb></breadcrumb>
         <dynamic-form [submitButtonName]="submitButtonName"
                     (onSubmit)="onSubmit($event)"></dynamic-form>
     `,

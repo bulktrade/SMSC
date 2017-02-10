@@ -112,6 +112,8 @@
   "customers.numberValidator": "Must be only numbers",
   "contacts.title": "Contacts",
   "contacts.createContacts": "Create",
+  "users.createUser": "Create",
+  "users.updateUser": "Update",
   "contacts.updateContacts": "Update",
   "contacts.customerUsers": "Customer users",
   "customers.successCreateCustomer": "Customer was successfully created",

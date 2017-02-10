@@ -6,6 +6,7 @@ export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
     public abstract projectionName: string;
     public abstract titleColumns: string;
+    public loading: boolean = false;
     public apiUrl: string;
 
     constructor(public http: Http,
@@ -27,9 +28,11 @@ export abstract class CrudRepository<T> {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
+        this.loading = true;
+
+        return this.intercept(this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
-            .share();
+            .share());
     }
 
     /**
@@ -47,9 +50,11 @@ export abstract class CrudRepository<T> {
             body: data
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
+        this.loading = true;
+
+        return this.intercept(this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
-            .share();
+            .share());
     }
 
     /**
@@ -62,9 +67,11 @@ export abstract class CrudRepository<T> {
             method: RequestMethod.Delete
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
+        this.loading = true;
+
+        return this.intercept(this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
             .map(res => res.json())
-            .share();
+            .share());
     }
 
     /**
@@ -108,5 +115,17 @@ export abstract class CrudRepository<T> {
         return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map(res => res.json())
             .share();
+    }
+
+    intercept(observable: Rx.Observable<T>): Rx.Observable<T> {
+        return Rx.Observable.create(obs => {
+            observable.subscribe(res => {
+                this.loading = false;
+                obs.next(res);
+            }, err => {
+                this.loading = false;
+                obs.error(err);
+            });
+        });
     }
 }

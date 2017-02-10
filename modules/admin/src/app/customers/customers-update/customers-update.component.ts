@@ -9,7 +9,6 @@ import * as clone from "js.clone";
 @Component({
     selector: 'customers-update',
     template: `
-        <breadcrumb></breadcrumb>
         <dynamic-form [submitButtonName]="submitButtonName" [model]="model"
                     (onSubmit)="onSubmit($event)"></dynamic-form>
     `,

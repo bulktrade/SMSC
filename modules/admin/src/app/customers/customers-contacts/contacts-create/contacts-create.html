@@ -136,8 +136,10 @@
 				<div class="ui-grid-row">
 					<div class="ui-grid-col-2"></div>
 					<div class="ui-grid-col-6">
-						<button style="width: 100%" type="submit" pButton id="createContacts"
-						        [disabled]="dynamicForm.form.invalid" [label]="'contacts.createContacts' | translate">
+						<button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="createContacts"
+						        [disabled]="dynamicForm.form.invalid">
+							<span>{{ 'contacts.createContacts' | translate }}</span>
+							<i *ngIf="customersContactsService.loading" class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
 						</button>
 					</div>
 					<div class="ui-grid-col-4"></div>
