@@ -1,6 +1,5 @@
 package io.smsc.model.dashboard;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
