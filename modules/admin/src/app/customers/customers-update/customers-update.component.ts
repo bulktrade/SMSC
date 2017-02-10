@@ -52,10 +52,10 @@ export class CustomersUpdateComponent {
 
         this.customersService.updateResource(this.id, _data)
             .subscribe(() => {
-                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
             }, err => {
                 console.error(err);
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
             })
     }
 

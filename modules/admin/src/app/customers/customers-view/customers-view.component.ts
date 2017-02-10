@@ -97,10 +97,10 @@ export class CustomersViewComponent {
 
         this.customersService.updateResource(event.data['id'], data)
             .subscribe(() => {
-                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
             }, err => {
                 console.error(err);
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
 
                 return false;
             })

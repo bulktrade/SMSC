@@ -31,12 +31,12 @@ export class CustomersCreateComponent {
     onSubmit(data) {
         this.customersService.createResource(data)
             .subscribe((customer: Customer) => {
-                this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreate');
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateCustomer');
 
                 this.router.navigate(['/customers', 'update', customer['id']]);
             }, err => {
                 console.error(err);
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorCreate');
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateCustomer');
             })
     }
 
