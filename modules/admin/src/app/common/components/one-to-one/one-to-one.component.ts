@@ -25,7 +25,7 @@ import { NotificationService } from "../../../services/notification-service";
                 [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
                 <template let-model pTemplate="item">
                     <div class="ui-helper-clearfix">
-                        <div class="titleColumns">
+                        <div class="titleColumns" *ngIf="!hideOwn || id != +model['id']">
                             <span class="id">{{ model['id'] }}</span>
                             <ng-container *ngFor="let item of renderProperties; let last = last;">
                                 <span>{{ model[item] }}<span class="separate" *ngIf="!last">, </span></span>
@@ -58,6 +58,9 @@ export class OneToOneComponent implements OnInit {
     @Input('renderProperties')
     public renderProperties: string[] = [];
 
+    @Input('hideOwn')
+    public hideOwn: boolean = false;
+
     @Input()
     public model;
 
@@ -89,7 +92,9 @@ export class OneToOneComponent implements OnInit {
             let resource = i,
                 titleColumns = i[this.subEntityService.titleColumns] ? this.subEntityService.titleColumns : 'id';
             if (resource[titleColumns].toLowerCase().includes(event.query.toLowerCase())) {
-                this.filteredResources.push(resource);
+                if (!this.hideOwn || this.id != +i['id']) {
+                    this.filteredResources.push(resource);
+                }
             }
         });
     }

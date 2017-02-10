@@ -153,7 +153,7 @@
 						</div>
 						<div class="ui-grid-col-6">
 							<one-to-one name="parent" propertyName="parent" [mainEntityId]="id"
-							            [renderProperties]="['companyName', 'country']"
+							            [renderProperties]="['companyName', 'country']" [hideOwn]="true"
 							            [mainEntityService]="customersService" [subEntityService]="customersService"
 							            [(model)]="model['parent']"></one-to-one>
 						</div>
