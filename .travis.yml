@@ -31,15 +31,7 @@ before_install:
 install:
   - nvm install 7
   - nvm use 7
-  - npm install -g yarn
-
-after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push smscio/smsc;
-    fi
-  - mvn -DrepoToken=$COVERALLS_REPO_TOKEN cobertura:cobertura coveralls:report org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar versioneye:update -Dmaven.test.skip=true -Dmaven.integration-test.skip=true -Dmaven.javadoc.skip=true
-  - cd modules/admin && sonar-scanner -X
+  - npm install -g yarn versioneye-update
 
 script:
   - ./bin/deploy.sh
