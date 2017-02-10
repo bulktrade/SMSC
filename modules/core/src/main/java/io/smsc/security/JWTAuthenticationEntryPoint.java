@@ -16,8 +16,8 @@ import java.io.Serializable;
  * Since our API only 'speaks' REST we give a HTTP 401 if user cannot be authenticated. There is no
  * login page top redirect to.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @Component
 public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint, Serializable {
@@ -28,9 +28,9 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
      * Implementation of basic {@link org.springframework.security.web.AuthenticationEntryPoint#commence(HttpServletRequest,
      * HttpServletResponse, AuthenticationException)} method
      *
-     * @param  request that resulted in an <code>AuthenticationException</code>
-     * @param  response so that the user agent can begin authentication
-     * @param  authException that caused the invocation
+     * @param request       that resulted in an <code>AuthenticationException</code>
+     * @param response      so that the user agent can begin authentication
+     * @param authException that caused the invocation
      * @throws IOException on input error
      */
     @Override

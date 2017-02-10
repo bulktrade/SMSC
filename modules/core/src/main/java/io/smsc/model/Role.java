@@ -13,16 +13,17 @@ import java.util.Set;
 /**
  * Specifies Role class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "roles_unique_name_idx")})
-public class Role extends BaseEntity{
+public class Role extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "role_seq", sequenceName = "role_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "role_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -34,7 +35,7 @@ public class Role extends BaseEntity{
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    @OrderBy
+    @OrderBy("id asc")
     @JsonBackReference()
     private Set<User> users;
 

@@ -5,8 +5,8 @@ import java.io.Serializable;
 /**
  * Class for tokens receiving request. Contains username and password strings.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 public class JWTAuthenticationRequest implements Serializable {
 

@@ -54,8 +54,19 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testCreateCustomerContact() throws Exception {
-        Customer customer = new Customer(1L, "SMSC", "Amtsgericht", "Amtsgericht", "3254", "Germany", "Stuttgart", 5672394.0);
-        String customerContactJson = json(new CustomerContact(null, "newName", "newSurname", "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.TECHNICAL, Salutation.MRS, customer));
+        CustomerContact contact = new CustomerContact();
+        contact.setId(null);
+        contact.setFirstname("SMSC");
+        contact.setSurname("SMSC");
+        contact.setPhone("0322222222");
+        contact.setMobilePhone("0632222222");
+        contact.setFax("new_fake_fax");
+        contact.setEmailAddress("new_fake1@gmail.com");
+        contact.setType(Type.PRIMARY);
+        contact.setSalutation(Salutation.MRS);
+        String customerContactJson = json(contact);
+        // json is ignoring inserting customer through setter
+        customerContactJson = customerContactJson.substring(0, customerContactJson.length() - 1).concat(", \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
         this.mockMvc.perform(post("/rest/repository/customer-contacts")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
@@ -71,14 +82,17 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testUpdateCustomerContact() throws Exception {
-        Customer customer = new Customer(1L, "SMSC", "Amtsgericht", "Amtsgericht", "3254", "Germany", "Stuttgart", 5672394.0);
-        CustomerContact updated = new CustomerContact(1L, "SMSC", "SMSC", "0674329568", "0504569753", "fake_fax", "smsc@bulk.io", Type.CEO, Salutation.MR, customer);
-        updated.setType(Type.PRIMARY);
-        updated.setSalutation(Salutation.MRS);
-        updated.setEmailAddress("new_email@gmial.com");
-        updated.setMobilePhone("0971234567");
-        updated.setFirstname("newFirstName");
-        String customerContactJson = json(updated);
+        CustomerContact contact = new CustomerContact();
+        contact.setId(1L);
+        contact.setFirstname("SMSC");
+        contact.setSurname("SMSC");
+        contact.setPhone("0322222222");
+        contact.setMobilePhone("0632222222");
+        contact.setFax("new_fake_fax");
+        contact.setEmailAddress("fake@gmail.com");
+        contact.setType(Type.PRIMARY);
+        contact.setSalutation(Salutation.MRS);
+        String customerContactJson = json(contact);
         mockMvc.perform(put("/rest/repository/customer-contacts/1")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
@@ -86,12 +100,12 @@ public class CustomerContactRestTest extends AbstractTest {
         mockMvc.perform(get("/rest/repository/customer-contacts/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.firstname", is(updated.getFirstname())))
-                .andExpect(jsonPath("$.surname", is(updated.getSurname())))
-                .andExpect(jsonPath("$.phone", is(updated.getPhone())))
-                .andExpect(jsonPath("$.mobilePhone", is(updated.getMobilePhone())))
-                .andExpect(jsonPath("$.fax", is(updated.getFax())))
-                .andExpect(jsonPath("$.emailAddress", is(updated.getEmailAddress())))
+                .andExpect(jsonPath("$.firstname", is("SMSC")))
+                .andExpect(jsonPath("$.surname", is("SMSC")))
+                .andExpect(jsonPath("$.phone", is("0322222222")))
+                .andExpect(jsonPath("$.mobilePhone", is("0632222222")))
+                .andExpect(jsonPath("$.fax", is("new_fake_fax")))
+                .andExpect(jsonPath("$.emailAddress", is("fake@gmail.com")))
                 .andExpect(jsonPath("$.type", is(Type.PRIMARY.toString())))
                 .andExpect(jsonPath("$.salutation", is(Salutation.MRS.toString())));
     }

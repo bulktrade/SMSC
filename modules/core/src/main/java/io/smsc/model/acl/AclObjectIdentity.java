@@ -11,16 +11,17 @@ import java.util.Set;
  * Stores the actual identities of the domain objects. The identities are referenced via a
  * unique id which is retrieved from other model tables.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "ACL_OBJECT_IDENTITY", uniqueConstraints = {@UniqueConstraint(columnNames = {"OBJECT_ID_CLASS", "OBJECT_ID_IDENTITY"}, name = "acl_class_identity_idx")})
 public class AclObjectIdentity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "acl_object_identity_seq", sequenceName = "acl_object_identity_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_object_identity_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -38,7 +39,7 @@ public class AclObjectIdentity extends BaseEntity {
      * Refers to the id of the parent object if existing.
      */
     @ManyToOne
-    @JoinColumn(name="PARENT_OBJECT")
+    @JoinColumn(name = "PARENT_OBJECT")
     private AclObjectIdentity parentObject;
 
     /**
@@ -50,8 +51,8 @@ public class AclObjectIdentity extends BaseEntity {
     private AclSid ownerSid;
 
     /**
-     * 	Refers to the id field in the acl_class. This is a reference to the fully qualified
-     * 	name of the class.
+     * Refers to the id field in the acl_class. This is a reference to the fully qualified
+     * name of the class.
      */
     @ManyToOne
     @JoinColumn(name = "OBJECT_ID_CLASS", nullable = false, unique = true)

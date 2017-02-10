@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 /**
  * Util class for creating {@link JWTUser} objects from {@link User} entities.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 public final class JWTUserFactory {
 
@@ -23,8 +23,8 @@ public final class JWTUserFactory {
     /**
      * Base method which creates {@link JWTUser} objects
      *
-     * @param  user {@link User} entity which is user for {@link JWTUser} creating
-     * @return      appropriate {@link JWTUser} object
+     * @param user {@link User} entity which is user for {@link JWTUser} creating
+     * @return appropriate {@link JWTUser} object
      */
     public static JWTUser create(User user) {
         return new JWTUser(
@@ -45,8 +45,8 @@ public final class JWTUserFactory {
      * Base method which is used for creating set with {@link GrantedAuthority} from
      * set with {@link Role}
      *
-     * @param  roles set with {@link Role} entities
-     * @return       appropriate set with {@link GrantedAuthority} objects
+     * @param roles set with {@link Role} entities
+     * @return appropriate set with {@link GrantedAuthority} objects
      */
     private static Set<GrantedAuthority> mapToGrantedAuthorities(Set<Role> roles) {
         final Set<String> authorities = new HashSet<>();

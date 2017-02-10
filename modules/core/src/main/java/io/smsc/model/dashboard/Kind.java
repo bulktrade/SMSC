@@ -3,8 +3,8 @@ package io.smsc.model.dashboard;
 /**
  * Specifies Kinds which can be used in {@link DashboardBoxType}
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 public enum Kind {
     PIE_CHART,

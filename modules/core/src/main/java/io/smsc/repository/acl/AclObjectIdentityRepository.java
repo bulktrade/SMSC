@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
  * CRUD methods to operate with {@link AclObjectIdentity} entities and exporting them to
  * appropriate endpoints.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "acl-object-identities", path = "acl-object-identities", excerptProjection = AclObjectIdentityProjection.class)
 @Transactional(readOnly = true)

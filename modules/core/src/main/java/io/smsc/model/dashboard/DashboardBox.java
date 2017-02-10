@@ -11,20 +11,21 @@ import javax.validation.constraints.NotNull;
 /**
  * Specifies DashboardBox class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @see     Dashboard
- * @see     DashboardBoxType
- * @see     Width
- * @see     Height
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @see Dashboard
+ * @see DashboardBoxType
+ * @see Width
+ * @see Height
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "DASHBOARD_BOX")
 public class DashboardBox extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "dashboard_box_seq", sequenceName = "dashboard_box_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "dashboard_box_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -54,13 +55,13 @@ public class DashboardBox extends BaseEntity {
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name="DASHBOARD_ID", nullable = false)
+//    @JsonBackReference
+    @JoinColumn(name = "DASHBOARD_ID", nullable = false)
     private Dashboard dashboard;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name="DASHBOARD_BOX_TYPE_ID", nullable = false)
+//    @JsonBackReference
+    @JoinColumn(name = "DASHBOARD_BOX_TYPE_ID", nullable = false)
     private DashboardBoxType dashboardBoxType;
 
     public DashboardBox() {

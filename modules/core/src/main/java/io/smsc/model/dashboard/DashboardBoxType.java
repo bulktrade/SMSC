@@ -13,18 +13,19 @@ import java.util.Set;
 /**
  * Specifies DashboardBoxType class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @see     Type
- * @see     Kind
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @see Type
+ * @see Kind
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "DASHBOARD_BOX_TYPE", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"}, name = "dashboard_box_type's_unique_name_idx")})
 public class DashboardBoxType extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "dashboard_box_type_seq", sequenceName = "dashboard_box_type_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "dashboard_box_type_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -50,6 +51,7 @@ public class DashboardBoxType extends BaseEntity {
             orphanRemoval = true
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @OrderBy("id asc")
     private Set<DashboardBox> dashboardBoxes;
 
     public DashboardBoxType() {

@@ -12,16 +12,17 @@ import java.util.Set;
  * Stores the name of the users which can be a principal (like usernames john, james, mark)
  * or an authority (like roles ROLE_ADMIN, ROLE USER, ROLE_ANYONE).
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "ACL_SID", uniqueConstraints = {@UniqueConstraint(columnNames = {"SID", "PRINCIPAL"}, name = "acl_sid_principal_idx")})
 public class AclSid extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "acl_sid_seq", sequenceName = "acl_sid_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_sid_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

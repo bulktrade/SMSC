@@ -20,8 +20,8 @@ import java.util.List;
  * CRUD methods to operate with {@link DashboardBox} entities and exporting them
  * to appropriate endpoints.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "dashboard-boxes", path = "dashboard-boxes", excerptProjection = DashboardBoxProjection.class)
 @Transactional(readOnly = true)

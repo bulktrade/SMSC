@@ -3,11 +3,15 @@ package io.smsc.model.customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.CustomerUser;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import java.util.Set;
 
 /**
@@ -22,7 +26,8 @@ import java.util.Set;
 public class Customer extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "customer_seq", sequenceName = "customer_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -63,8 +68,8 @@ public class Customer extends BaseEntity {
                     CascadeType.PERSIST
             })
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    @JoinColumn(name = "PARENT_CUSTOMER_ID")
-    private Customer parentCustomer;
+    @JoinColumn(name = "PARENT_ID")
+    private Customer parent;
 
     @OneToMany(
             mappedBy = "customer",
@@ -72,6 +77,7 @@ public class Customer extends BaseEntity {
             orphanRemoval = true
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @OrderBy("id asc")
     private Set<CustomerContact> contacts;
 
     @OneToMany(
@@ -80,6 +86,7 @@ public class Customer extends BaseEntity {
             orphanRemoval = true
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @OrderBy("id asc")
     private Set<CustomerUser> customerUsers;
 
     public Customer() {
@@ -170,12 +177,12 @@ public class Customer extends BaseEntity {
         this.vatid = vatid;
     }
 
-    public Customer getParentCustomer() {
-        return parentCustomer;
+    public Customer getParent() {
+        return parent;
     }
 
-    public void setParentCustomer(Customer parentCustomer) {
-        this.parentCustomer = parentCustomer;
+    public void setParent(Customer parent) {
+        this.parent = parent;
     }
 
     public Set<CustomerContact> getContacts() {

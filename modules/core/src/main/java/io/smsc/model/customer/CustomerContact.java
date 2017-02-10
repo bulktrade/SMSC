@@ -12,19 +12,20 @@ import javax.validation.constraints.NotNull;
 /**
  * Specifies CustomerContact class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @see     Customer
- * @see     Type
- * @see     Salutation
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @see Customer
+ * @see Type
+ * @see Salutation
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "CUSTOMER_CONTACT", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL_ADDRESS", name = "customer_contact_unique_email_address_idx")})
 public class CustomerContact extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "customer_contact_seq", sequenceName = "customer_contact_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_contact_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -56,7 +57,7 @@ public class CustomerContact extends BaseEntity {
     private String emailAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CUSTOMER_ID", nullable = false)
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     @JsonBackReference
     private Customer customer;
 
@@ -74,8 +75,8 @@ public class CustomerContact extends BaseEntity {
     }
 
     public CustomerContact(CustomerContact customerContact) {
-        this(customerContact.getId(),customerContact.getFirstname(),customerContact.getSurname(),customerContact.getPhone(),
-                customerContact.getMobilePhone(),customerContact.getFax(),customerContact.getEmailAddress(),customerContact.getType(),
+        this(customerContact.getId(), customerContact.getFirstname(), customerContact.getSurname(), customerContact.getPhone(),
+                customerContact.getMobilePhone(), customerContact.getFax(), customerContact.getEmailAddress(), customerContact.getType(),
                 customerContact.getSalutation(), customerContact.getCustomer());
     }
 

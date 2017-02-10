@@ -13,18 +13,18 @@ import java.util.Set;
  * This interface is describing excerpting projection for {@link User}
  * entity and is used for fetching relation properties in JSON response.
  *
- * @author  Nazar Lipkovskyy
- * @see     Projection
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see Projection
+ * @since 0.0.1-SNAPSHOT
  */
-@Projection(name = "withRoles", types = { User.class })
+@Projection(name = "withRoles", types = {User.class})
 public interface UserProjection {
 
     Long getId();
 
     Long getVersion();
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     Date getLastModifiedDate();
 
     String getUsername();
@@ -37,7 +37,7 @@ public interface UserProjection {
 
     boolean isActive();
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     Date getCreated();
 
     boolean isBlocked();

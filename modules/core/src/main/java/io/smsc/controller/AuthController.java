@@ -22,8 +22,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
  * The AuthController class is used for mapping HTTP requests for receiving and updating
  * access and refresh tokens onto specific methods
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @RestController
 public class AuthController {
@@ -42,11 +42,11 @@ public class AuthController {
      * Method to receive {@link ResponseEntity} with {@link JWTAuthenticationResponse}
      * which contains access and refresh tokens.
      *
-     * @param  request     the {@link JWTAuthenticationRequest} to take credentials from
-     * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     *                     functionality in sending a response
-     * @return             the {@link JWTAuthenticationResponse} with valid access and
-     *                     refresh tokens
+     * @param request  the {@link JWTAuthenticationRequest} to take credentials from
+     * @param response the {@link HttpServletResponse} to provide HTTP-specific
+     *                 functionality in sending a response
+     * @return the {@link JWTAuthenticationResponse} with valid access and
+     * refresh tokens
      * @throws IOException on input error
      */
     @PostMapping(path = "/rest/auth/token", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -60,7 +60,7 @@ public class AuthController {
         } catch (Exception ex) {
             // going to send error
         }
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Credentials are invalid. Please enter valid username and password");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials are invalid. Please enter valid username and password");
         return null;
     }
 
@@ -68,11 +68,11 @@ public class AuthController {
      * Method to receive {@link ResponseEntity} with {@link JWTRefreshTokenResponse}
      * which contains refreshed access token.
      *
-     * @param  request     the {@link JWTRefreshTokenRequest} to take valid refresh
-     *                     token and expired access token from
-     * @param  response    the {@link HttpServletResponse} to provide HTTP-specific
-     *                     functionality in sending a response
-     * @return             the {@link JWTRefreshTokenResponse} with refreshed access token
+     * @param request  the {@link JWTRefreshTokenRequest} to take valid refresh
+     *                 token and expired access token from
+     * @param response the {@link HttpServletResponse} to provide HTTP-specific
+     *                 functionality in sending a response
+     * @return the {@link JWTRefreshTokenResponse} with refreshed access token
      * @throws IOException on input error
      */
     @PutMapping(path = "/rest/auth/token", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
@@ -85,8 +85,7 @@ public class AuthController {
                 JWTRefreshTokenResponse token = new JWTRefreshTokenResponse(jwtTokenGenerationService.refreshToken(expiredAccessToken));
                 return new ResponseEntity<>(token, HttpStatus.OK);
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             // going to send error
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh or expired access token is invalid. Please enter valid tokens");

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 /**
  * Implementation of base {@link JWTUserDetailsService} which loads user-specific data.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @Service
 public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
@@ -30,8 +30,8 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
      * which takes {@link User} entity by username from database and creates {@link JWTUser} with
      * appropriate parameters.
      *
-     * @param  username                  string which describes user name
-     * @return                           appropriate {@link JWTUser} object
+     * @param username string which describes user name
+     * @return appropriate {@link JWTUser} object
      * @throws UsernameNotFoundException if cannot locate a {@link User} by
      *                                   its username.
      */
@@ -49,8 +49,8 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
      * Additional method which takes {@link User} entity by email from database and creates
      * {@link JWTUser} with appropriate parameters.
      *
-     * @param  email                     string which describes user's email
-     * @return                           appropriate {@link JWTUser} object
+     * @param email string which describes user's email
+     * @return appropriate {@link JWTUser} object
      * @throws UsernameNotFoundException if cannot locate a {@link User} by
      *                                   its email.
      */

@@ -11,16 +11,17 @@ import java.util.Set;
  * Stores the fully qualified name of domain objects. It is made up of the package
  * name and class name of the object.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "ACL_CLASS", uniqueConstraints = {@UniqueConstraint(columnNames = "CLASS", name = "acl_class_idx")})
 public class AclClass extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "acl_class_seq", sequenceName = "acl_class_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_class_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)

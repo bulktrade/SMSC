@@ -15,8 +15,8 @@ import static java.util.Objects.requireNonNull;
  * Implementation of base {@link UserDetails} interface with {@link io.smsc.model.User}
  * information which is later encapsulated into {@link Authentication} objects.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 public class JWTUser implements UserDetails {
 

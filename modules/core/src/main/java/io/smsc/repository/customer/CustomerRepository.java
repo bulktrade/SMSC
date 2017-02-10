@@ -14,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
  * CRUD methods to operate with {@link Customer} entities and exporting them to
  * appropriate endpoints.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "customers", path = "customers", excerptProjection = CustomerProjection.class)
 @Transactional(readOnly = true)
-public interface CustomerRepository extends JpaRepository<Customer, Long>{
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     //All query method resources are exposed under the resource 'search'.
 

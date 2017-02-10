@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
  * CRUD methods to operate with {@link User} entities and exporting them to
  * appropriate endpoints.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "customer-users", path = "customer-users", excerptProjection = CustomerUserProjection.class)
 @Transactional(readOnly = true)

@@ -20,9 +20,9 @@ import java.util.Set;
 /**
  * Specifies User class as an entity class.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
@@ -30,7 +30,8 @@ import java.util.Set;
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "user_account_seq", sequenceName = "user_account_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "user_account_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -46,7 +47,7 @@ public class User extends BaseEntity {
     @JsonIgnore
     private String password;
 
-    @Column(name="SALT")
+    @Column(name = "SALT")
     @JsonIgnore
     private String salt;
 
@@ -66,8 +67,8 @@ public class User extends BaseEntity {
     @Column(name = "ACTIVE", nullable = false)
     private Boolean active = true;
 
-    @Column(name = "CREATED",nullable = false, updatable = false)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="UTC")
+    @Column(name = "CREATED", nullable = false, updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     private Date created = new Date();
 
     @Column(name = "BLOCKED", nullable = false)
@@ -79,6 +80,7 @@ public class User extends BaseEntity {
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
     )
+    @OrderBy("id asc")
     private Set<Role> roles;
 
     @OneToMany(
@@ -88,6 +90,7 @@ public class User extends BaseEntity {
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
+    @OrderBy("id asc")
     private Set<Dashboard> dashboards;
 
     public User() {

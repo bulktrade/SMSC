@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * to locate the user based on the username or email.Methods implementation is in
  * {@link JWTUserDetailsServiceImpl}
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 
 public interface JWTUserDetailsService extends UserDetailsService {

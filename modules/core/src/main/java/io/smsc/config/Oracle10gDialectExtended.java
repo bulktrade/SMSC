@@ -8,8 +8,8 @@ import java.sql.Types;
  * This class is extending base {@link Oracle10gDialect} class to
  * register a double data type as float column type.
  *
- * @author  Nazar Lipkovskyy
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @since 0.0.1-SNAPSHOT
  */
 public class Oracle10gDialectExtended extends Oracle10gDialect {
 

@@ -1,293 +1,293 @@
-create sequence acl_class_seq;
+CREATE SEQUENCE acl_class_seq;
 
-create sequence acl_entry_seq;
+CREATE SEQUENCE acl_entry_seq;
 
-create sequence acl_object_identity_seq;
+CREATE SEQUENCE acl_object_identity_seq;
 
-create sequence acl_sid_seq;
+CREATE SEQUENCE acl_sid_seq;
 
-create sequence customer_contact_seq;
+CREATE SEQUENCE customer_contact_seq;
 
-create sequence customer_seq START WITH 40000 INCREMENT BY 1;
+CREATE SEQUENCE customer_seq START WITH 40000 INCREMENT BY 1;
 
-create sequence customer_user_account_seq;
+CREATE SEQUENCE customer_user_account_seq;
 
-create sequence dashboard_box_seq;
+CREATE SEQUENCE dashboard_box_seq;
 
-create sequence dashboard_box_type_seq;
+CREATE SEQUENCE dashboard_box_type_seq;
 
-create sequence dashboard_seq;
+CREATE SEQUENCE dashboard_seq;
 
-create sequence role_seq;
+CREATE SEQUENCE role_seq;
 
-create sequence user_account_seq;
+CREATE SEQUENCE user_account_seq;
 
-create table ACL_CLASS (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        CLASS varchar2(255 char) not null,
-        primary key (ID)
-    );
+CREATE TABLE ACL_CLASS (
+  ID                 NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP          NOT NULL,
+  VERSION            NUMBER(19, 0)      NOT NULL,
+  CLASS              VARCHAR2(255 CHAR) NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table ACL_ENTRY (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        ACE_ORDER number(10,0) not null,
-        AUDIT_FAILURE number(1,0) not null,
-        AUDIT_SUCCESS number(1,0) not null,
-        GRANTING number(1,0) not null,
-        MASK number(10,0) not null,
-        ACL_OBJECT_IDENTITY number(19,0) not null,
-        SID number(19,0) not null,
-        primary key (ID)
-    );
+CREATE TABLE ACL_ENTRY (
+  ID                  NUMBER(19, 0) NOT NULL,
+  LAST_MODIFIED_DATE  TIMESTAMP     NOT NULL,
+  VERSION             NUMBER(19, 0) NOT NULL,
+  ACE_ORDER           NUMBER(10, 0) NOT NULL,
+  AUDIT_FAILURE       NUMBER(1, 0)  NOT NULL,
+  AUDIT_SUCCESS       NUMBER(1, 0)  NOT NULL,
+  GRANTING            NUMBER(1, 0)  NOT NULL,
+  MASK                NUMBER(10, 0) NOT NULL,
+  ACL_OBJECT_IDENTITY NUMBER(19, 0) NOT NULL,
+  SID                 NUMBER(19, 0) NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table ACL_OBJECT_IDENTITY (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        ENTRIES_INHERITING number(1,0) not null,
-        OBJECT_ID_IDENTITY number(19,0) not null,
-        OBJECT_ID_CLASS number(19,0) not null,
-        OWNER_SID number(19,0) not null,
-        PARENT_OBJECT number(19,0),
-        primary key (ID)
-    );
+CREATE TABLE ACL_OBJECT_IDENTITY (
+  ID                 NUMBER(19, 0) NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP     NOT NULL,
+  VERSION            NUMBER(19, 0) NOT NULL,
+  ENTRIES_INHERITING NUMBER(1, 0)  NOT NULL,
+  OBJECT_ID_IDENTITY NUMBER(19, 0) NOT NULL,
+  OBJECT_ID_CLASS    NUMBER(19, 0) NOT NULL,
+  OWNER_SID          NUMBER(19, 0) NOT NULL,
+  PARENT_OBJECT      NUMBER(19, 0),
+  PRIMARY KEY (ID)
+);
 
-    create table ACL_SID (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        PRINCIPAL number(1,0) not null,
-        SID varchar2(255 char) not null,
-        primary key (ID)
-    );
+CREATE TABLE ACL_SID (
+  ID                 NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP          NOT NULL,
+  VERSION            NUMBER(19, 0)      NOT NULL,
+  PRINCIPAL          NUMBER(1, 0)       NOT NULL,
+  SID                VARCHAR2(255 CHAR) NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table CUSTOMER (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        CITY varchar2(255 char) not null,
-        COMPANY_NAME varchar2(255 char) not null,
-        COUNTRY varchar2(255 char) not null,
-        POSTCODE varchar2(255 char) not null,
-        STREET varchar2(255 char) not null,
-        STREET2 varchar2(255 char) not null,
-        VATID double precision,
-        PARENT_CUSTOMER_ID number(19,0),
-        primary key (ID)
-    );
+CREATE TABLE CUSTOMER (
+  ID                 NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP          NOT NULL,
+  VERSION            NUMBER(19, 0)      NOT NULL,
+  CITY               VARCHAR2(255 CHAR) NOT NULL,
+  COMPANY_NAME       VARCHAR2(255 CHAR) NOT NULL,
+  COUNTRY            VARCHAR2(255 CHAR) NOT NULL,
+  POSTCODE           VARCHAR2(255 CHAR) NOT NULL,
+  STREET             VARCHAR2(255 CHAR) NOT NULL,
+  STREET2            VARCHAR2(255 CHAR) NOT NULL,
+  VATID              DOUBLE PRECISION,
+  PARENT_ID          NUMBER(19, 0),
+  PRIMARY KEY (ID)
+);
 
-    create table CUSTOMER_CONTACT (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        EMAIL_ADDRESS varchar2(255 char) not null,
-        FAX varchar2(255 char) not null,
-        FIRST_NAME varchar2(255 char) not null,
-        MOBILE_PHONE varchar2(255 char) not null,
-        PHONE varchar2(255 char) not null,
-        SALUTATION varchar2(255 char) not null,
-        SURNAME varchar2(255 char) not null,
-        TYPE varchar2(255 char) not null,
-        CUSTOMER_ID number(19,0),
-        primary key (ID)
-    );
+CREATE TABLE CUSTOMER_CONTACT (
+  ID                 NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP          NOT NULL,
+  VERSION            NUMBER(19, 0)      NOT NULL,
+  EMAIL_ADDRESS      VARCHAR2(255 CHAR) NOT NULL,
+  FAX                VARCHAR2(255 CHAR) NOT NULL,
+  FIRST_NAME         VARCHAR2(255 CHAR) NOT NULL,
+  MOBILE_PHONE       VARCHAR2(255 CHAR) NOT NULL,
+  PHONE              VARCHAR2(255 CHAR) NOT NULL,
+  SALUTATION         VARCHAR2(255 CHAR) NOT NULL,
+  SURNAME            VARCHAR2(255 CHAR) NOT NULL,
+  TYPE               VARCHAR2(255 CHAR) NOT NULL,
+  CUSTOMER_ID        NUMBER(19, 0)      NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table CUSTOMER_USER_ACCOUNT (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        ACTIVE number(1,0) not null,
-        BLOCKED number(1,0) not null,
-        CREATED timestamp not null,
-        EMAIL varchar2(255 char) not null,
-        FIRST_NAME varchar2(255 char) not null,
-        PASSWORD varchar2(255 char) not null,
-        SALT varchar2(255 char),
-        SURNAME varchar2(255 char) not null,
-        USERNAME varchar2(255 char) not null,
-        CUSTOMER_ID number(19,0),
-        primary key (ID)
-    );
+CREATE TABLE CUSTOMER_USER_ACCOUNT (
+  ID                 NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP          NOT NULL,
+  VERSION            NUMBER(19, 0)      NOT NULL,
+  ACTIVE             NUMBER(1, 0)       NOT NULL,
+  BLOCKED            NUMBER(1, 0)       NOT NULL,
+  CREATED            TIMESTAMP          NOT NULL,
+  EMAIL              VARCHAR2(255 CHAR) NOT NULL,
+  FIRST_NAME         VARCHAR2(255 CHAR) NOT NULL,
+  PASSWORD           VARCHAR2(255 CHAR) NOT NULL,
+  SALT               VARCHAR2(255 CHAR),
+  SURNAME            VARCHAR2(255 CHAR) NOT NULL,
+  USERNAME           VARCHAR2(255 CHAR) NOT NULL,
+  CUSTOMER_ID        NUMBER(19, 0)      NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table DASHBOARD (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        ICON varchar2(255 char) not null,
-        NAME varchar2(255 char) not null,
-        USER_ACCOUNT_ID number(19,0) not null,
-        primary key (ID)
-    );
+CREATE TABLE DASHBOARD (
+  ID                 NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP          NOT NULL,
+  VERSION            NUMBER(19, 0)      NOT NULL,
+  ICON               VARCHAR2(255 CHAR) NOT NULL,
+  NAME               VARCHAR2(255 CHAR) NOT NULL,
+  USER_ACCOUNT_ID    NUMBER(19, 0)      NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table DASHBOARD_BOX (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        DESCRIPTION varchar2(255 char) not null,
-        HEIGHT varchar2(255 char) not null,
-        NAME varchar2(255 char) not null,
-        ORDER_NUMBER number(10,0) not null,
-        WIDTH varchar2(255 char) not null,
-        DASHBOARD_ID number(19,0) not null,
-        DASHBOARD_BOX_TYPE_ID number(19,0) not null,
-        primary key (ID)
-    );
+CREATE TABLE DASHBOARD_BOX (
+  ID                    NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE    TIMESTAMP          NOT NULL,
+  VERSION               NUMBER(19, 0)      NOT NULL,
+  DESCRIPTION           VARCHAR2(255 CHAR) NOT NULL,
+  HEIGHT                VARCHAR2(255 CHAR) NOT NULL,
+  NAME                  VARCHAR2(255 CHAR) NOT NULL,
+  ORDER_NUMBER          NUMBER(10, 0)      NOT NULL,
+  WIDTH                 VARCHAR2(255 CHAR) NOT NULL,
+  DASHBOARD_ID          NUMBER(19, 0)      NOT NULL,
+  DASHBOARD_BOX_TYPE_ID NUMBER(19, 0)      NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table DASHBOARD_BOX_TYPE (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        KIND varchar2(255 char) not null,
-        NAME varchar2(255 char) not null,
-        TYPE varchar2(255 char) not null,
-        primary key (ID)
-    );
+CREATE TABLE DASHBOARD_BOX_TYPE (
+  ID                 NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP          NOT NULL,
+  VERSION            NUMBER(19, 0)      NOT NULL,
+  KIND               VARCHAR2(255 CHAR) NOT NULL,
+  NAME               VARCHAR2(255 CHAR) NOT NULL,
+  TYPE               VARCHAR2(255 CHAR) NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table ROLE (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        NAME varchar2(255 char) not null,
-        primary key (ID)
-    );
+CREATE TABLE ROLE (
+  ID                 NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP          NOT NULL,
+  VERSION            NUMBER(19, 0)      NOT NULL,
+  NAME               VARCHAR2(255 CHAR) NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table USER_ACCOUNT (
-        ID number(19,0) not null,
-        LAST_MODIFIED_DATE timestamp not null,
-        VERSION number(19,0) not null,
-        ACTIVE number(1,0) not null,
-        BLOCKED number(1,0) not null,
-        CREATED timestamp not null,
-        EMAIL varchar2(255 char) not null,
-        FIRST_NAME varchar2(255 char) not null,
-        PASSWORD varchar2(255 char) not null,
-        SALT varchar2(255 char),
-        SURNAME varchar2(255 char) not null,
-        USERNAME varchar2(255 char) not null,
-        primary key (ID)
-    );
+CREATE TABLE USER_ACCOUNT (
+  ID                 NUMBER(19, 0)      NOT NULL,
+  LAST_MODIFIED_DATE TIMESTAMP          NOT NULL,
+  VERSION            NUMBER(19, 0)      NOT NULL,
+  ACTIVE             NUMBER(1, 0)       NOT NULL,
+  BLOCKED            NUMBER(1, 0)       NOT NULL,
+  CREATED            TIMESTAMP          NOT NULL,
+  EMAIL              VARCHAR2(255 CHAR) NOT NULL,
+  FIRST_NAME         VARCHAR2(255 CHAR) NOT NULL,
+  PASSWORD           VARCHAR2(255 CHAR) NOT NULL,
+  SALT               VARCHAR2(255 CHAR),
+  SURNAME            VARCHAR2(255 CHAR) NOT NULL,
+  USERNAME           VARCHAR2(255 CHAR) NOT NULL,
+  PRIMARY KEY (ID)
+);
 
-    create table USER_ROLE (
-        USER_ID number(19,0) not null,
-        ROLE_ID number(19,0) not null,
-        primary key (USER_ID, ROLE_ID)
-    );
+CREATE TABLE USER_ROLE (
+  USER_ID NUMBER(19, 0) NOT NULL,
+  ROLE_ID NUMBER(19, 0) NOT NULL,
+  PRIMARY KEY (USER_ID, ROLE_ID)
+);
 
-    alter table ACL_CLASS 
-        add constraint UK_b9jm6yrofuhriaet5qlvaa2sb  unique (CLASS);
+ALTER TABLE ACL_CLASS
+  ADD CONSTRAINT UK_b9jm6yrofuhriaet5qlvaa2sb UNIQUE (CLASS);
 
-    alter table ACL_ENTRY 
-        add constraint acl_identity_order_idx  unique (ACL_OBJECT_IDENTITY, ACE_ORDER);
+ALTER TABLE ACL_ENTRY
+  ADD CONSTRAINT acl_identity_order_idx UNIQUE (ACL_OBJECT_IDENTITY, ACE_ORDER);
 
-    alter table ACL_ENTRY 
-        add constraint UK_2udy4xgijqxsi2enlqmp1ryoi  unique (ACE_ORDER);
+ALTER TABLE ACL_ENTRY
+  ADD CONSTRAINT UK_2udy4xgijqxsi2enlqmp1ryoi UNIQUE (ACE_ORDER);
 
-    alter table ACL_ENTRY 
-        add constraint UK_4rfb2hf1mgefbvivqlb3uhc1o  unique (ACL_OBJECT_IDENTITY);
+ALTER TABLE ACL_ENTRY
+  ADD CONSTRAINT UK_4rfb2hf1mgefbvivqlb3uhc1o UNIQUE (ACL_OBJECT_IDENTITY);
 
-    alter table ACL_OBJECT_IDENTITY 
-        add constraint acl_class_identity_idx  unique (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
+ALTER TABLE ACL_OBJECT_IDENTITY
+  ADD CONSTRAINT acl_class_identity_idx UNIQUE (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY);
 
-    alter table ACL_OBJECT_IDENTITY 
-        add constraint UK_sqoxny9iftavslu22wdw45s5j  unique (OBJECT_ID_IDENTITY);
+ALTER TABLE ACL_OBJECT_IDENTITY
+  ADD CONSTRAINT UK_sqoxny9iftavslu22wdw45s5j UNIQUE (OBJECT_ID_IDENTITY);
 
-    alter table ACL_OBJECT_IDENTITY 
-        add constraint UK_93h9hjf8xedn5xo7gagsy6fth  unique (OBJECT_ID_CLASS);
+ALTER TABLE ACL_OBJECT_IDENTITY
+  ADD CONSTRAINT UK_93h9hjf8xedn5xo7gagsy6fth UNIQUE (OBJECT_ID_CLASS);
 
-    alter table ACL_SID 
-        add constraint acl_sid_principal_idx  unique (SID, PRINCIPAL);
+ALTER TABLE ACL_SID
+  ADD CONSTRAINT acl_sid_principal_idx UNIQUE (SID, PRINCIPAL);
 
-    alter table ACL_SID 
-        add constraint UK_iffjecpr10qe7c08yilqi4mi6  unique (SID);
+ALTER TABLE ACL_SID
+  ADD CONSTRAINT UK_iffjecpr10qe7c08yilqi4mi6 UNIQUE (SID);
 
-    alter table CUSTOMER_CONTACT 
-        add constraint UK_rt1h2souk5fkc2l0yojlch8ng  unique (EMAIL_ADDRESS);
+ALTER TABLE CUSTOMER_CONTACT
+  ADD CONSTRAINT UK_rt1h2souk5fkc2l0yojlch8ng UNIQUE (EMAIL_ADDRESS);
 
-    alter table CUSTOMER_USER_ACCOUNT 
-        add constraint UK_ocoo1ta18u6p16unw7h8b7i8h  unique (USERNAME);
+ALTER TABLE CUSTOMER_USER_ACCOUNT
+  ADD CONSTRAINT UK_ocoo1ta18u6p16unw7h8b7i8h UNIQUE (USERNAME);
 
-    alter table DASHBOARD 
-        add constraint UK_k452w4cpbviagh85ll1q6gfc  unique (NAME);
+ALTER TABLE DASHBOARD
+  ADD CONSTRAINT UK_k452w4cpbviagh85ll1q6gfc UNIQUE (NAME);
 
-    alter table DASHBOARD_BOX_TYPE 
-        add constraint UK_calopw9wexb9vek0fnkaotp2n  unique (NAME);
+ALTER TABLE DASHBOARD_BOX_TYPE
+  ADD CONSTRAINT UK_calopw9wexb9vek0fnkaotp2n UNIQUE (NAME);
 
-    alter table ROLE 
-        add constraint UK_lqaytvswxwacb7s84gcw7tk7l  unique (NAME);
+ALTER TABLE ROLE
+  ADD CONSTRAINT UK_lqaytvswxwacb7s84gcw7tk7l UNIQUE (NAME);
 
-    alter table USER_ACCOUNT 
-        add constraint UK_5b1ufubngfek527jhb11aure0  unique (USERNAME);
+ALTER TABLE USER_ACCOUNT
+  ADD CONSTRAINT UK_5b1ufubngfek527jhb11aure0 UNIQUE (USERNAME);
 
-    alter table ACL_ENTRY 
-        add constraint FK_4rfb2hf1mgefbvivqlb3uhc1o 
-        foreign key (ACL_OBJECT_IDENTITY) 
-        references ACL_OBJECT_IDENTITY;
+ALTER TABLE ACL_ENTRY
+  ADD CONSTRAINT FK_4rfb2hf1mgefbvivqlb3uhc1o
+FOREIGN KEY (ACL_OBJECT_IDENTITY)
+REFERENCES ACL_OBJECT_IDENTITY;
 
-    alter table ACL_ENTRY 
-        add constraint FK_pwqqgnc867uhlp6ra8f6cu44d 
-        foreign key (SID) 
-        references ACL_SID;
+ALTER TABLE ACL_ENTRY
+  ADD CONSTRAINT FK_pwqqgnc867uhlp6ra8f6cu44d
+FOREIGN KEY (SID)
+REFERENCES ACL_SID;
 
-    alter table ACL_OBJECT_IDENTITY 
-        add constraint FK_93h9hjf8xedn5xo7gagsy6fth 
-        foreign key (OBJECT_ID_CLASS) 
-        references ACL_CLASS;
+ALTER TABLE ACL_OBJECT_IDENTITY
+  ADD CONSTRAINT FK_93h9hjf8xedn5xo7gagsy6fth
+FOREIGN KEY (OBJECT_ID_CLASS)
+REFERENCES ACL_CLASS;
 
-    alter table ACL_OBJECT_IDENTITY 
-        add constraint FK_47mv8is8lo3t2rm4n7a9oatpy 
-        foreign key (OWNER_SID) 
-        references ACL_SID;
+ALTER TABLE ACL_OBJECT_IDENTITY
+  ADD CONSTRAINT FK_47mv8is8lo3t2rm4n7a9oatpy
+FOREIGN KEY (OWNER_SID)
+REFERENCES ACL_SID;
 
-    alter table ACL_OBJECT_IDENTITY 
-        add constraint FK_osevoaw0w5t99q4x25r4ohkm2 
-        foreign key (PARENT_OBJECT) 
-        references ACL_OBJECT_IDENTITY;
+ALTER TABLE ACL_OBJECT_IDENTITY
+  ADD CONSTRAINT FK_osevoaw0w5t99q4x25r4ohkm2
+FOREIGN KEY (PARENT_OBJECT)
+REFERENCES ACL_OBJECT_IDENTITY;
 
-    alter table CUSTOMER 
-        add constraint FK_k3k4147v3m5pjyjgfcrs0cdpj 
-        foreign key (PARENT_CUSTOMER_ID) 
-        references CUSTOMER;
+ALTER TABLE CUSTOMER
+  ADD CONSTRAINT FK_k3k4147v3m5pjyjgfcrs0cdpj
+FOREIGN KEY (PARENT_ID)
+REFERENCES CUSTOMER;
 
-    alter table CUSTOMER_CONTACT 
-        add constraint FK_32q3wpxac3cbvhn1t9bxmcr81 
-        foreign key (CUSTOMER_ID) 
-        references CUSTOMER 
-        on delete cascade;
+ALTER TABLE CUSTOMER_CONTACT
+  ADD CONSTRAINT FK_32q3wpxac3cbvhn1t9bxmcr81
+FOREIGN KEY (CUSTOMER_ID)
+REFERENCES CUSTOMER
+ON DELETE CASCADE;
 
-    alter table CUSTOMER_USER_ACCOUNT 
-        add constraint FK_jup37owwps8o8ntgoxdmn0th2 
-        foreign key (CUSTOMER_ID) 
-        references CUSTOMER 
-        on delete cascade;
+ALTER TABLE CUSTOMER_USER_ACCOUNT
+  ADD CONSTRAINT FK_jup37owwps8o8ntgoxdmn0th2
+FOREIGN KEY (CUSTOMER_ID)
+REFERENCES CUSTOMER
+ON DELETE CASCADE;
 
-    alter table DASHBOARD 
-        add constraint FK_agttn8ptawhkdx8qse4hnkvpr 
-        foreign key (USER_ACCOUNT_ID) 
-        references USER_ACCOUNT 
-        on delete cascade;
+ALTER TABLE DASHBOARD
+  ADD CONSTRAINT FK_agttn8ptawhkdx8qse4hnkvpr
+FOREIGN KEY (USER_ACCOUNT_ID)
+REFERENCES USER_ACCOUNT
+ON DELETE CASCADE;
 
-    alter table DASHBOARD_BOX 
-        add constraint FK_dgep5oi78i2irrmue308doxrp 
-        foreign key (DASHBOARD_ID) 
-        references DASHBOARD 
-        on delete cascade;
+ALTER TABLE DASHBOARD_BOX
+  ADD CONSTRAINT FK_dgep5oi78i2irrmue308doxrp
+FOREIGN KEY (DASHBOARD_ID)
+REFERENCES DASHBOARD
+ON DELETE CASCADE;
 
-    alter table DASHBOARD_BOX 
-        add constraint FK_pdct77x9bvtflrsx224gkvhhs 
-        foreign key (DASHBOARD_BOX_TYPE_ID) 
-        references DASHBOARD_BOX_TYPE 
-        on delete cascade;
+ALTER TABLE DASHBOARD_BOX
+  ADD CONSTRAINT FK_pdct77x9bvtflrsx224gkvhhs
+FOREIGN KEY (DASHBOARD_BOX_TYPE_ID)
+REFERENCES DASHBOARD_BOX_TYPE
+ON DELETE CASCADE;
 
-    alter table USER_ROLE 
-        add constraint FK_oqmdk7xj0ainhxpvi79fkaq3y 
-        foreign key (ROLE_ID) 
-        references ROLE;
+ALTER TABLE USER_ROLE
+  ADD CONSTRAINT FK_oqmdk7xj0ainhxpvi79fkaq3y
+FOREIGN KEY (ROLE_ID)
+REFERENCES ROLE;
 
-    alter table USER_ROLE 
-        add constraint FK_j2j8kpywaghe8i36swcxv8784 
-        foreign key (USER_ID) 
-        references USER_ACCOUNT;
+ALTER TABLE USER_ROLE
+  ADD CONSTRAINT FK_j2j8kpywaghe8i36swcxv8784
+FOREIGN KEY (USER_ID)
+REFERENCES USER_ACCOUNT;

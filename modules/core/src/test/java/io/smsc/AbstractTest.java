@@ -1,5 +1,7 @@
 package io.smsc;
 
+import io.smsc.security.service.JWTTokenGenerationService;
+import io.smsc.security.service.JWTUserDetailsService;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
@@ -114,11 +116,11 @@ public abstract class AbstractTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-//    @Autowired
-//    protected JWTTokenGenerationService jwtTokenGenerationService;
-//
-//    @Autowired
-//    protected JWTUserDetailsService jwtUserDetailsService;
+    @Autowired
+    protected JWTTokenGenerationService jwtTokenGenerationService;
+
+    @Autowired
+    protected JWTUserDetailsService jwtUserDetailsService;
 
     @Before
     public void setup() throws Exception {

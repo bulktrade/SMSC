@@ -13,12 +13,12 @@ import java.util.*;
 /**
  * Service class used for generating and processing access and refresh tokens.
  *
- * @author  Nazar Lipkovskyy
- * @see     JWTTokenGenerationService
- * @see     io.jsonwebtoken.Claims;
- * @see     io.jsonwebtoken.Jwts;
- * @see     io.jsonwebtoken.SignatureAlgorithm;
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see JWTTokenGenerationService
+ * @see io.jsonwebtoken.Claims;
+ * @see io.jsonwebtoken.Jwts;
+ * @see io.jsonwebtoken.SignatureAlgorithm;
+ * @since 0.0.1-SNAPSHOT
  */
 @Service
 public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService {

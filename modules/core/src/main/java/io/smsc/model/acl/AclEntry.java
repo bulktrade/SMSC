@@ -9,16 +9,17 @@ import javax.validation.constraints.NotNull;
 /**
  * Stores the actual permissions assigned for each user and domain object.
  *
- * @author  Nazar Lipkovskyy
- * @see     BaseEntity
- * @since   0.0.1-SNAPSHOT
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
  */
 @Entity
 @Table(name = "ACL_ENTRY", uniqueConstraints = {@UniqueConstraint(columnNames = {"ACL_OBJECT_IDENTITY", "ACE_ORDER"}, name = "acl_identity_order_idx")})
 public class AclEntry extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "acl_entry_seq", sequenceName = "acl_entry_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acl_entry_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
@@ -47,7 +48,7 @@ public class AclEntry extends BaseEntity {
     private Boolean granting;
 
     /**
-     * 	A flag to indicate whether to audit a successful permission.
+     * A flag to indicate whether to audit a successful permission.
      */
     @Column(name = "AUDIT_SUCCESS", nullable = false)
     @NotNull(message = "{acl.entry.audit.success.validation}")
