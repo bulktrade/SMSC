@@ -27,21 +27,25 @@
 
     .title-panel {
         i {
+            top: 2px;
+            width: 18px;
             color: #009688;
-
-            &:hover {
-                color: #016f65;
-            }
+            position: relative;
         }
+    }
+
+    .update-button:hover,
+    .title-panel i:hover {
+        color: #016f65;
+    }
+
+    .delete-button:hover {
+        color: #d04242;
     }
 
     i {
         font-size: 21px;
         cursor: pointer;
-
-        &:hover {
-            color: green;
-        }
     }
 
     .data-item {

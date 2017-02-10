@@ -10,11 +10,11 @@
 		<div class="col-sm-12 col-md-6" *ngFor="let item of model; let i = index">
 			<div class="data-item">
 				<div class="ctrl-panel">
-					<i class="fa fa-minus-square-o"
+					<i class="fa fa-minus-square-o delete-button"
 					   [routerLink]="[pathFromRoot, property, 'delete', model[i].id]"
 					   [title]="'1:n.delete' | translate"
 					   aria-hidden="true"></i>
-					<i class="fa fa-pencil-square-o"
+					<i class="fa fa-pencil-square-o update-button"
 					   [routerLink]="[pathFromRoot, property, 'update', model[i].id]"
 					   [title]="'1:n.update' | translate"
 					   aria-hidden="true"></i>

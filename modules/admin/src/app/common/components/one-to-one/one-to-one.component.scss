@@ -6,10 +6,11 @@
     }
 
     .btn-remove {
-        position: absolute;
-        right: 39px;
         top: 8px;
+        right: 39px;
+        color: #929292;
         cursor: pointer;
+        position: absolute;
 
         &:hover {
             color: #d04242;
