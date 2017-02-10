@@ -39,6 +39,7 @@ after_success:
     docker push smscio/smsc;
     fi
   - mvn -DrepoToken=$COVERALLS_REPO_TOKEN cobertura:cobertura coveralls:report org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
+  - cd modules/admin && sonar-scanner -X
 
 script:
   - ./bin/deploy.sh
