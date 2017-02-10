@@ -3,10 +3,8 @@
 [![Apache 2.0 License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Coverage Status](https://coveralls.io/repos/github/bulktrade/SMSC/badge.svg?branch=master)](https://coveralls.io/github/bulktrade/SMSC?branch=master)
 [![Join the chat at https://gitter.im/smsc-io/Lobby](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/smsc-io/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Dependency Status](https://david-dm.org/bulktrade/SMSC)]
-(https://david-dm.org/bulktrade/SMSC.svg)
-[![devDependency Status](https://david-dm.org/bulktrade/SMSC/?type=dev)]
-(https://david-dm.org/bulktrade/SMSC/dev-status.svg)
+[![Dependency Status](https://david-dm.org/bulktrade/SMSC)](https://david-dm.org/bulktrade/SMSC.svg)
+[![devDependency Status](https://david-dm.org/bulktrade/SMSC/?type=dev)](https://david-dm.org/bulktrade/SMSC/dev-status.svg)
 [![Selenium Test Status](https://saucelabs.com/buildstatus/smsc)](https://saucelabs.com/beta/builds/1e2ccc4a03864f668fb413c1934255e7)
 
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/smsc.svg)](https://saucelabs.com/beta/builds/1e2ccc4a03864f668fb413c1934255e7)
