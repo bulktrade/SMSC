@@ -67,14 +67,14 @@
 				</span>
 			</template>
 		</p-column>
-		<p-column field="parentCustomer" [header]="'parentCustomer' | translate" [editable]="true"
+		<p-column field="parent" [header]="'parent' | translate" [editable]="true"
 		          [style]="{'width':'200px', 'overflow':'visible'}"
 		          [sortable]="true">
-			<template let-col let-parentCustomer="rowData" pTemplate="body">
-				{{ customersViewService.getParsedURI([parentCustomer[col.field]], 'country') }}
+			<template let-col let-parent="rowData" pTemplate="body">
+				{{ customersViewService.getParsedURI([parent[col.field]], 'country') }}
 			</template>
-			<template let-col let-parentCustomer="rowData" pTemplate="editor">
-				{{ customersViewService.getParsedURI([parentCustomer[col.field]], 'country') }}
+			<template let-col let-parent="rowData" pTemplate="editor">
+				{{ customersViewService.getParsedURI([parent[col.field]], 'country') }}
 			</template>
 		</p-column>
 	</p-dataTable>

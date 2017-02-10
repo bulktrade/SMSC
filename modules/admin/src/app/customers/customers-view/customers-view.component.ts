@@ -61,10 +61,10 @@ export class CustomersViewComponent {
                 this.oneToManyModal = true;
                 break;
 
-            case 'parentCustomer':
+            case 'parent':
                 this.relationshipModal.model = event;
                 this.relationshipModal.mainEntityId = event.data['id'];
-                this.relationshipModal.propertyName = 'parentCustomer';
+                this.relationshipModal.propertyName = 'parent';
                 this.oneToOneModal = true;
                 break;
 
@@ -93,7 +93,7 @@ export class CustomersViewComponent {
 
         delete data['customerUsers'];
         delete data['contacts'];
-        delete data['parentCustomer'];
+        delete data['parent'];
 
         this.customersService.updateResource(event.data['id'], data)
             .subscribe(() => {

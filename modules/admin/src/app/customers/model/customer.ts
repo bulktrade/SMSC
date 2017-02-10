@@ -12,5 +12,5 @@ export interface Customer {
     customerId: number,
     contacts: Contact[]
     users: CustomerUser[],
-    parentCustomer: Customer
+    parent: Customer
 }

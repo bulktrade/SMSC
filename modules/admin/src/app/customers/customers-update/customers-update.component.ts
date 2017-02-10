@@ -48,7 +48,7 @@ export class CustomersUpdateComponent {
         // delete all properties of URI
         delete _data['customerUsers'];
         delete _data['contacts'];
-        delete _data['parentCustomer'];
+        delete _data['parent'];
 
         this.customersService.updateResource(this.id, _data)
             .subscribe(() => {
