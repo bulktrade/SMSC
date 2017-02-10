@@ -75,7 +75,7 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
 
 [<img src="https://www.browserstack.com/images/mail/browserstack-logo-footer.png" width="120">](https://www.browserstack.com/)
 Thank you to [BrowserStack](https://www.browserstack.com/) for providing the infrastructure that allows us to test our project in real browsers.
-[<img src="doc/logos/logo_JetBrains_1.svg" width="120">](http://www.jetbrains.com/)
+[<img src="doc/logos/logo_JetBrains_1.png" width="120">](http://www.jetbrains.com/)
 Thank you to [JetBrains](http://www.jetbrains.com/) for providing the tools that allows us to developer our project in the best IDE's.
 [<img src="https://saucelabs.com/content/images/logo.png" width="120">](https://saucelabs.com)
 Thank you to [Saucelabs](https://saucelabs.com/) for providing the infrastructure that allows us to test our project in real browsers.
