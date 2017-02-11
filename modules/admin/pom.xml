@@ -46,10 +46,10 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>exec-install</id>
+                        <id>exec-npm-install</id>
                         <phase>compile</phase>
                         <configuration>
-                            <executable>yarn</executable>
+                            <executable>npm</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
