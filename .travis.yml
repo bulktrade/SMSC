@@ -34,14 +34,14 @@ before_install:
 install:
   - nvm install 7
   - nvm use 7
-  - npm install -g yarn versioneye-update
+  - npm install -g yarn
 
 script:
   - ./bin/build.sh
 
 deploy:
-  - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
   - ./bin/deploy.sh
+ # - echo "<settings><servers><server><id>ossrh</id><username>\${env.OSSRH_USER}</username><password>\${env.OSSRH_PASS}</password></server></servers></settings>" > ~/settings.xml
 
 before_cache:
   - mkdir -p $HOME/docker && docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}' | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip -2 > $HOME/docker/$1.tar.gz'
