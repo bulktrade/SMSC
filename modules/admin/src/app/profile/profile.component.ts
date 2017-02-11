@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ProfileModel } from "./profile.model";
-import { Router } from "@angular/router";
+import { Profile } from "./profile.model";
+import {Router, ActivatedRoute} from "@angular/router";
 import { TranslateService } from "ng2-translate";
 import { ProfileService } from "./profile.service";
 
@@ -12,15 +12,25 @@ import { ProfileService } from "./profile.service";
 export class ProfileComponent implements OnInit {
     loading: boolean = false;
 
-    model: ProfileModel;
+    model: Profile;
 
-    constructor(public router?: Router,
-                public translate?: TranslateService,
-                public profileService?: ProfileService) {
+    constructor(public router: Router,
+                public route: ActivatedRoute,
+                public translate: TranslateService,
+                public profileService: ProfileService) {
 
-        this.model = new ProfileModel('', '');
+        this.model = new Profile('', '', '', '', '');
     }
 
     ngOnInit() {
+        this.model = this.route.snapshot.data['profile'];
+        console.log(this.model);
+    }
+
+    onSubmit() {
+        this.loading = true;
+        this.profileService.saveProfile(this.model).subscribe(() => {
+            this.loading = false;
+        });
     }
 }

@@ -72,6 +72,10 @@ export const ROUTES: Routes = [
                 },
                 loadChildren: './customers/customers.module#CustomersModule'
             },
+            {
+                path: 'profile',
+                loadChildren: './profile/profile.module#ProfileModule'
+            },
             // {
             //     path: 'metadata',
             //     component: CrudMetaDataComponent,
