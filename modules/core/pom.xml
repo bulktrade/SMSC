@@ -398,8 +398,9 @@
                     <zapPort>8181</zapPort>
                     <targetUrl>http://localhost:${tomcat.http.port}/admin</targetUrl>
                     <shouldRunWithDocker>true</shouldRunWithDocker>
-                    <shouldRunPassiveScanOnly>true</shouldRunPassiveScanOnly>
                     <reportPath>${project.build.directory}/zap-reports/${timestamp}</reportPath>
+                    <activeScanStartingPointUrl>http://localhost:${tomcat.http.port}/admin</activeScanStartingPointUrl>
+                    <shouldStartNewSession>false</shouldStartNewSession>
                 </configuration>
                 <executions>
                     <execution>
@@ -407,6 +408,13 @@
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>startZap</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>perform-analysis</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>analyze</goal>
                         </goals>
                     </execution>
                     <execution>
