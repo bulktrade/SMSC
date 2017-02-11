@@ -154,6 +154,7 @@
     "postcss-loader": "^0.13.0",
     "primeng": "2.0.0",
     "protractor": "^4.0.10",
+    "protractor-html-screenshot-reporter": "0.0.21",
     "raw-loader": "0.5.1",
     "resolve-url-loader": "^1.6.1",
     "rimraf": "^2.5.2",

@@ -104,6 +104,9 @@
                             <directory>${basedir}/dist</directory>
                         </fileset>
                         <fileset>
+                            <directory>${basedir}/integration-tests/screenshots</directory>
+                        </fileset>
+                        <fileset>
                             <directory>${basedir}/compiled</directory>
                         </fileset>
                         <fileset>
