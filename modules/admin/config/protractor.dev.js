@@ -12,8 +12,15 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 
+var baseUrl;
+if (process.env.TOMCAT_HTTP_PORT) {
+    baseUrl = commonConfig.config.baseUrl;
+} else {
+    baseUrl = process.env.PROTRACTOR_BASE_URL ? process.env.PROTRACTOR_BASE_URL : 'http://localhost:3000';
+}
+
 exports.config = objectMerge(commonConfig.config, {
-    baseUrl: process.env.PROTRACTOR_BASE_URL ? process.env.PROTRACTOR_BASE_URL : 'http://localhost:3000',
+    baseUrl: baseUrl,
     directConnect: true,
     capabilities: {
         'browserName': 'chrome',
