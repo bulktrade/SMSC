@@ -1,8 +1,6 @@
 require('ts-node/register');
 var helpers = require('./helpers');
 
-var HtmlReporter = require('protractor-html-screenshot-reporter');
-
 exports.config = {
     baseUrl: 'http://localhost:' + (process.env.TOMCAT_HTTP_PORT ? process.env.TOMCAT_HTTP_PORT : '8080') + '/admin',
 
@@ -25,24 +23,23 @@ exports.config = {
         defaultTimeoutInterval: 400000
     },
 
+    plugins: [{
+        package: 'protractor-screenshoter-plugin',
+        screenshotPath: './REPORTS/e2e',
+        screenshotOnExpect: 'failure+success',
+        screenshotOnSpec: 'none',
+        withLogs: 'true',
+        writeReportFreq: 'asap',
+        imageToAscii: 'failure',
+        clearFoldersBeforeTest: true
+    }],
+
     onPrepare: function () {
         browser.ignoreSynchronization = true;
 
-        jasmine.getEnv().addReporter(new HtmlReporter({
-            baseDirectory: './integration-tests/screenshots',
-            takeScreenShotsOnlyForFailedSpecs: true,
-            pathBuilder: function pathBuilder(spec, descriptions, results, capabilities) {
-                // Return '<browser>/<specname>' as path for screenshots:
-                // Example: 'firefox/list-should work'.
-                return path.join(capabilities.caps_.browser, descriptions.join('-'));
-            },
-            metaDataBuilder: function metaDataBuilder(spec, descriptions, results, capabilities) {
-                // Return the description of the spec and if it has passed or not:
-                return {
-                    description: descriptions.join(' '), passed: results.passed()
-                };
-            }
-        }));
+        return global.browser.getProcessedConfig().then(function(config) {
+            //it is ok to be empty
+        });
     },
 
     /**
