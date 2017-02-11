@@ -393,6 +393,7 @@
                     <zapPort>8181</zapPort>
                     <targetUrl>http://localhost:${tomcat.http.port}/admin</targetUrl>
                     <shouldRunWithDocker>true</shouldRunWithDocker>
+                    <shouldRunPassiveScanOnly>true</shouldRunPassiveScanOnly>
                 </configuration>
                 <executions>
                     <execution>
