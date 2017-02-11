@@ -25,7 +25,7 @@ exports.config = {
 
     plugins: [{
         package: 'protractor-screenshoter-plugin',
-        screenshotPath: './REPORTS/e2e',
+        screenshotPath: './REPORTS/e2e/' + new Date().toISOString(),
         screenshotOnExpect: 'failure+success',
         screenshotOnSpec: 'none',
         withLogs: 'true',
