@@ -399,12 +399,6 @@
                     <zapPort>8181</zapPort>
                     <targetUrl>http://localhost:${tomcat.http.port}/admin</targetUrl>
                     <shouldRunWithDocker>true</shouldRunWithDocker>
-                    <authenticationType>form</authenticationType>
-                    <username>admin</username>
-                    <password>admin</password>
-                    <loginUrl>http://localhost:${tomcat.http.port}/admin/login</loginUrl>
-                    <loggedInRegex><![CDATA[\\Qid=\"logout\"></i>\\E]]></loggedInRegex>
-                    <shouldRunAjaxSpider>true</shouldRunAjaxSpider>
                 </configuration>
                 <executions>
                     <execution>
