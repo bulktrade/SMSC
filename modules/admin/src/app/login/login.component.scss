@@ -2,8 +2,6 @@
     height: 100%;
 }
 
-@import "bourbon";
-
 // Main Colors
 $accent: null;
 $white: #ffffff;
@@ -85,7 +83,7 @@ body {
         padding: 10px 20px;
         color: $white;
         text-decoration: none;
-        @include transition(0.3s ease);
+        transition: 0.3s ease;
 
         &:hover {
             @include materialShadow(2);
@@ -103,7 +101,7 @@ body {
     height: 56px;
     border-radius: 100%;
     @include materialShadow(1);
-    @include transition(0.3s ease);
+    transition: 0.3s ease;
     color: $white;
     text-align: center;
 
@@ -113,21 +111,6 @@ body {
 
     &:hover {
         @include materialShadow(3);
-    }
-}
-
-/* CodePen */
-#portfolio {
-    @extend #codepen;
-    bottom: 96px;
-    right: 36px;
-    background: $accent;
-    width: 44px;
-    height: 44px;
-    @include animation(buttonFadeInUp 1s ease);
-
-    i {
-        line-height: 44px;
     }
 }
 
@@ -170,7 +153,7 @@ body {
                     top: 40px;
                     right: -70px;
                     box-shadow: none;
-                    @include transform(scale(10));
+                    transform: scale(10);
                     transition: transform .3s ease;
 
                     &:before {
@@ -305,7 +288,7 @@ body {
             font-size: 24px;
             font-weight: 300;
             line-height: 60px;
-            @include transition(0.2s ease);
+            transition: 0.2s ease;
         }
 
         .bar {
@@ -396,7 +379,7 @@ body {
 
                 &:before {
                     opacity: 1;
-                    @include transform(scale(10));
+                    transform: scale(10);
                 }
             }
 
@@ -566,14 +549,6 @@ body {
                 }
             }
         }
-    }
-}
-
-/* Keyframes */
-@include keyframes(buttonFadeInUp) {
-    0% {
-        bottom: 30px;
-        opacity: 0;
     }
 }
 

@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const helpers = require('./helpers');
-const bourbon = require('node-bourbon').includePaths;
 
 /*
  * Webpack Plugins
@@ -163,7 +162,7 @@ module.exports = function (options) {
          */
         {
           test: /\.scss$/,
-          use: [ 'to-string-loader', 'css-loader', 'sass-loader?includePaths[]=' + bourbon ],
+          use: [ 'to-string-loader', 'css-loader', 'sass-loader' ],
           exclude: [ helpers.root('src', 'styles') ]
         },
 

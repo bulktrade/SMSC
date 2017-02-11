@@ -1,14 +1,10 @@
-import { JwtHelper } from 'angular2-jwt';
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 export const AUTH_TOKEN_NAME: string = 'OAccessAdminToken';
 
 @Injectable()
 export class TokenService {
-    public jwtHelper: JwtHelper = new JwtHelper();
-
     constructor() {
-
     }
 
     /**
@@ -44,8 +40,8 @@ export class TokenService {
     isTokenExpired(): boolean {
         if (!this.getToken()) {
             return true;
+        } else {
+            return false;
         }
-
-        return this.jwtHelper.isTokenExpired(this.getToken());
     }
 }
