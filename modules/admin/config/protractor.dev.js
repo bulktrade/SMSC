@@ -22,7 +22,8 @@ exports.config = objectMerge(commonConfig.config, {
         },
         'proxy': {
             'proxyType': 'manual',
-            'httpProxy': 'localhost:8191'
+            'httpProxy': 'localhost:8181',
+            'httpsProxy': 'localhost:8181'
         }
     }
 });

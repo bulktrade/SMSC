@@ -37,7 +37,8 @@ exports.config = objectMerge(commonConfig.config, {
             'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
             'proxy': {
                 'proxyType': 'manual',
-                'httpProxy': 'localhost:8191'
+                'httpProxy': 'localhost:8181',
+                'httpsProxy': 'localhost:8181'
             }
         } /*,
          {
