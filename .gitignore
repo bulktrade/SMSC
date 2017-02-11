@@ -84,3 +84,4 @@ pom.xml
 /modules/admin/npm-debug.log*
 /modules/admin/dll/
 /modules/admin/compiled/
+modules/admin/REPORTS

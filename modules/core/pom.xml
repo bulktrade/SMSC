@@ -114,12 +114,6 @@
             <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.tdomzal</groupId>
-            <artifactId>junit-docker-rule</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Encoding -->
         <dependency>
             <groupId>commons-codec</groupId>
@@ -414,10 +408,6 @@
                         <goals>
                             <goal>seleniumAnalyze</goal>
                         </goals>
-                    </execution>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals><goal>analyze</goal></goals>
                     </execution>
                 </executions>
             </plugin>
