@@ -13,6 +13,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <maven.exec.skip>false</maven.exec.skip>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -44,6 +48,9 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <skip>${maven.exec.skip}</skip>
+                </configuration>
                 <executions>
                     <execution>
                         <id>exec-npm-install</id>
@@ -111,4 +118,13 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>skipBuildAndTests</id>
+            <properties>
+                <skipTests>true</skipTests>
+                <maven.exec.skip>true</maven.exec.skip>
+            </properties>
+        </profile>
+    </profiles>
 </project>
