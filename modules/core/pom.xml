@@ -14,10 +14,6 @@
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
-    <properties>
-        <maven.exec.skip>false</maven.exec.skip>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.smsc</groupId>
@@ -398,14 +394,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>skipBuildAndTests</id>
-            <properties>
-                <skipTests>true</skipTests>
-                <maven.exec.skip>true</maven.exec.skip>
-            </properties>
-        </profile>
-    </profiles>
 </project>
