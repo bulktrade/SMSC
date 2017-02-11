@@ -5,7 +5,8 @@ if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; t
 	mvn heroku:deploy -PskipBuildAndTests
 
     # Docker build & push
-    mvn -f modules/core docker:build --settings docker-settings.xml -DpushImage -PskipBuildAndTests
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    mvn -f modules/core docker:build -DpushImage -Dmaven.exec.skip=true
 
     # Release to public repository
 #	mvn --settings sonatype-settings.xml -PskipBuildAndTests -B deploy
