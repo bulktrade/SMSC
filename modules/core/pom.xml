@@ -14,6 +14,11 @@
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
+    <properties>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd-HH:mm</maven.build.timestamp.format>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>io.smsc</groupId>
@@ -394,6 +399,7 @@
                     <targetUrl>http://localhost:${tomcat.http.port}/admin</targetUrl>
                     <shouldRunWithDocker>true</shouldRunWithDocker>
                     <shouldRunPassiveScanOnly>true</shouldRunPassiveScanOnly>
+                    <reportPath>${project.build.directory}/zap-reports/${timestamp}</reportPath>
                 </configuration>
                 <executions>
                     <execution>
