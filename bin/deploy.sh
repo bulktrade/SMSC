@@ -7,7 +7,7 @@ if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; t
 	mvn heroku:deploy -PskipBuildAndTests
 
     # Docker build & push
-    mvn docker:build --settings ~/settings.xml -DpushImage -PskipBuildAndTests
+    mvn -f modules/core docker:build --settings ~/settings.xml -DpushImage -PskipBuildAndTests
 
     # Release to public repository
 #	mvn release:clean release:prepare release:perform --settings ~/settings.xml -PskipBuildAndTests
