@@ -19,6 +19,10 @@ exports.config = objectMerge(commonConfig.config, {
         'browserName': 'chrome',
         'chromeOptions': {
             'args': ['show-fps-counter=true']
+        },
+        'proxy': {
+            'proxyType': 'manual',
+            'httpProxy': 'localhost:8191'
         }
     }
 });

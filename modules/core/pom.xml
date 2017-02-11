@@ -262,7 +262,7 @@
                 </executions>
             </plugin>
             <plugin>
-                 <!--http://mydevnotes.nicus.it/2013/03/generate-ddl-with-maven-jpa-hibernate-4.html-->
+                <!--http://mydevnotes.nicus.it/2013/03/generate-ddl-with-maven-jpa-hibernate-4.html-->
                 <!--http://stackoverflow.com/questions/28615977/how-to-use-hibernate4-maven-plugin-to-generate-multiple-dialects-schemas-->
                 <groupId>de.juplo</groupId>
                 <artifactId>hibernate4-maven-plugin</artifactId>
@@ -270,127 +270,162 @@
 
                 <!-- postgres -->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>postgres</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>postgres</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<username>postgres</username>-->
-                    <!--<password>oe9jaacZLbR9pN</password>-->
-                    <!--<driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.PostgreSQLDialect</hibernateDialect>-->
-                    <!--<url>jdbc:oracle:thin:@//192.168.99.100:1521/XE</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__PostgreSQL.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<username>postgres</username>-->
+                <!--<password>oe9jaacZLbR9pN</password>-->
+                <!--<driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.PostgreSQLDialect</hibernateDialect>-->
+                <!--<url>jdbc:oracle:thin:@//192.168.99.100:1521/XE</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__PostgreSQL.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.postgresql</groupId>-->
-                        <!--<artifactId>postgresql</artifactId>-->
-                        <!--<version>9.4.1212.jre7</version>-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>org.postgresql</groupId>-->
+                <!--<artifactId>postgresql</artifactId>-->
+                <!--<version>9.4.1212.jre7</version>-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
 
                 <!--oracle -->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>oracle</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>oracle</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<username>system</username>-->
-                    <!--<password>oracle</password>-->
-                    <!--<driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.Oracle10gDialect</hibernateDialect>-->
-                    <!--<url>jdbc:oracle:thin:@//192.168.99.100:1521/XE</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__Oracle.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<username>system</username>-->
+                <!--<password>oracle</password>-->
+                <!--<driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.Oracle10gDialect</hibernateDialect>-->
+                <!--<url>jdbc:oracle:thin:@//192.168.99.100:1521/XE</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__Oracle.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
 
                 <!--mysql-->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>mysql</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>mysql</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<username>root</username>-->
-                    <!--<password>password</password>-->
-                    <!--<driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernateDialect>-->
-                    <!--<url>jdbc:mysql://192.168.99.100:3306/smsc</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__MySQL.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<username>root</username>-->
+                <!--<password>password</password>-->
+                <!--<driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernateDialect>-->
+                <!--<url>jdbc:mysql://192.168.99.100:3306/smsc</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__MySQL.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>mysql</groupId>-->
-                        <!--<artifactId>mysql-connector-java</artifactId>-->
-                        <!--<version>6.0.5</version>-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>mysql</groupId>-->
+                <!--<artifactId>mysql-connector-java</artifactId>-->
+                <!--<version>6.0.5</version>-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
 
                 <!--h2-->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>h2</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>h2</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<driverClassName>org.h2.Driver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.H2Dialect</hibernateDialect>-->
-                    <!--<url>jdbc:h2:mem:smsc</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__H2.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<driverClassName>org.h2.Driver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.H2Dialect</hibernateDialect>-->
+                <!--<url>jdbc:h2:mem:smsc</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__H2.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>com.h2database</groupId>-->
-                        <!--<artifactId>h2</artifactId>-->
-                        <!--<version>1.4.193</version>-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>com.h2database</groupId>-->
+                <!--<artifactId>h2</artifactId>-->
+                <!--<version>1.4.193</version>-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
 
-                 <!--hsqldb-->
+                <!--hsqldb-->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>hsqldb</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>hsqldb</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<driverClassName>org.hsqldb.jdbcDriver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.HSQLDialect</hibernateDialect>-->
-                    <!--<url>jdbc:hsqldb:mem:smsc</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__HSQLDB.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<driverClassName>org.hsqldb.jdbcDriver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.HSQLDialect</hibernateDialect>-->
+                <!--<url>jdbc:hsqldb:mem:smsc</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__HSQLDB.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.hsqldb</groupId>-->
-                        <!--<artifactId>hsqldb</artifactId>-->
-                        <!--<version>2.3.4</version>-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>org.hsqldb</groupId>-->
+                <!--<artifactId>hsqldb</artifactId>-->
+                <!--<version>2.3.4</version>-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
+            </plugin>
+            <plugin>
+                <groupId>br.com.softplan.security.zap</groupId>
+                <artifactId>zap-maven-plugin</artifactId>
+                <configuration>
+                    <zapPort>8181</zapPort>
+                    <targetUrl>http://localhost:${tomcat.http.port}/admin</targetUrl>
+                    <shouldRunWithDocker>true</shouldRunWithDocker>
+                    <authenticationType>form</authenticationType>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <loginUrl>http://localhost:${tomcat.http.port}/admin/login</loginUrl>
+                    <loggedInRegex><![CDATA[\\Qid=\"logout\"></i>\\E]]></loggedInRegex>
+                    <shouldRunAjaxSpider>true</shouldRunAjaxSpider>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>start-zap</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>startZap</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>selenium-analyze</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>seleniumAnalyze</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals><goal>analyze</goal></goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

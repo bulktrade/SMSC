@@ -34,7 +34,11 @@ exports.config = objectMerge(commonConfig.config, {
             name: 'chrome-linux-tests',
             build: process.env.TRAVIS_BUILD_NUMBER,
             screenResolution: '1024x768',
-            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER
+            'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
+            'proxy': {
+                'proxyType': 'manual',
+                'httpProxy': 'localhost:8191'
+            }
         } /*,
          {
          browserName: 'firefox',
