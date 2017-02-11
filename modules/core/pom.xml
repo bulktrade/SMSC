@@ -391,41 +391,6 @@
                 <!--</dependency>-->
                 <!--</dependencies>-->
             </plugin>
-            <plugin>
-                <groupId>br.com.softplan.security.zap</groupId>
-                <artifactId>zap-maven-plugin</artifactId>
-                <configuration>
-                    <zapPort>8181</zapPort>
-                    <targetUrl>http://localhost:${tomcat.http.port}/admin</targetUrl>
-                    <shouldRunWithDocker>true</shouldRunWithDocker>
-                    <reportPath>${project.build.directory}/zap-reports/${timestamp}</reportPath>
-                    <activeScanStartingPointUrl>http://localhost:${tomcat.http.port}/admin</activeScanStartingPointUrl>
-                    <shouldStartNewSession>false</shouldStartNewSession>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>start-zap</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>startZap</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>perform-analysis</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>analyze</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>selenium-analyze</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>seleniumAnalyze</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>

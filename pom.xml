@@ -26,7 +26,6 @@
         <enableAssertions>false</enableAssertions>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.javadoc.skip>false</maven.javadoc.skip>
-        <zap-maven-plugin.version>1.2.1-0</zap-maven-plugin.version>
     </properties>
 
     <scm>
@@ -157,11 +156,6 @@
                         <tagNameFormat>v@{project.version}</tagNameFormat>
                         <arguments>-Pskip-integration-tests</arguments>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>br.com.softplan.security.zap</groupId>
-                    <artifactId>zap-maven-plugin</artifactId>
-                    <version>${zap-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

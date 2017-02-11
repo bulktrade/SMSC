@@ -23,23 +23,8 @@ exports.config = {
         defaultTimeoutInterval: 400000
     },
 
-    plugins: [{
-        package: 'protractor-screenshoter-plugin',
-        screenshotPath: './REPORTS/e2e/' + new Date().toISOString(),
-        screenshotOnExpect: 'failure+success',
-        screenshotOnSpec: 'none',
-        withLogs: 'true',
-        writeReportFreq: 'asap',
-        imageToAscii: 'failure',
-        clearFoldersBeforeTest: true
-    }],
-
     onPrepare: function () {
         browser.ignoreSynchronization = true;
-
-        return global.browser.getProcessedConfig().then(function(config) {
-            //it is ok to be empty
-        });
     },
 
     /**
