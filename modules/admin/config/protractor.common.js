@@ -23,7 +23,7 @@ exports.config = {
         defaultTimeoutInterval: 400000
     },
 
-    onPrepare: function() {
+    onPrepare: function () {
         browser.ignoreSynchronization = true;
     },
 
@@ -35,9 +35,9 @@ exports.config = {
      */
     useAllAngular2AppRoots: true,
 
-    onComplete: function() {
-        var printSessionId = function(jobName){
-            browser.getSession().then(function(session) {
+    onComplete: function () {
+        var printSessionId = function (jobName) {
+            browser.getSession().then(function (session) {
                 console.log('SauceOnDemandSessionID=' + session.getId() + ' job-name=' + jobName);
             });
         };

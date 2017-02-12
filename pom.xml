@@ -21,6 +21,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <properties>
+        <maven.exec.skip>false</maven.exec.skip>
+        <enableAssertions>false</enableAssertions>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
+    </properties>
+
     <scm>
         <url>https://github.com/bulktrade/SMSC</url>
         <connection>scm:git:ssh://github.com/bulktrade/SMSC.git</connection>
@@ -237,6 +244,15 @@
     </build>
     <profiles>
         <profile>
+            <id>skipBuildAndTests</id>
+            <properties>
+                <skipTests>true</skipTests>
+                <maven.integration-test.skip>true</maven.integration-test.skip>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+                <maven.exec.skip>true</maven.exec.skip>
+            </properties>
+        </profile>
+        <profile>
             <id>release</id>
             <build>
                 <plugins>
@@ -296,23 +312,12 @@
         </profile>
     </profiles>
 
-    <properties>
-        <enableAssertions>false</enableAssertions>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.jsmpp</groupId>
                 <artifactId>jsmpp</artifactId>
                 <version>2.3.3</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.tdomzal</groupId>
-                <artifactId>junit-docker-rule</artifactId>
-                <version>0.2</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>

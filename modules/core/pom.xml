@@ -14,6 +14,11 @@
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
 
+    <properties>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd-HH:mm</maven.build.timestamp.format>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>io.smsc</groupId>
@@ -114,12 +119,6 @@
             <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.tdomzal</groupId>
-            <artifactId>junit-docker-rule</artifactId>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Encoding -->
         <dependency>
             <groupId>commons-codec</groupId>
@@ -203,24 +202,18 @@
                     <imageName>smscio/smsc</imageName>
                     <baseImage>java:8-alpine</baseImage>
                     <entryPoint>
-                        ["java", "-Xmx800m", "-Dstorage.diskCache.bufferSize=1200", "-XX:+PerfDisableSharedMem", "-XX:MaxDirectMemorySize=32142m", "-jar", "/orientdb/${project.build.finalName}.jar"]
+                        ["java", "$JAVA_OPTS", "-jar", "/app/${project.build.finalName}.jar"]
                     </entryPoint>
-                    <env>
-                        <ORIENTDB_HOME>/orientdb</ORIENTDB_HOME>
-                    </env>
                     <exposes>
                         <expose>8080</expose>
-                        <expose>2480</expose>
-                        <expose>2424</expose>
-                        <expose>2434</expose>
+                        <expose>2775</expose>
                     </exposes>
                     <volumes>
-                        <volume>/orientdb</volume>
-                        <volume>/databases</volume>
+                        <volume>/app</volume>
                     </volumes>
                     <resources>
                         <resource>
-                            <targetPath>/orientdb</targetPath>
+                            <targetPath>/app</targetPath>
                             <directory>${project.build.directory}</directory>
                             <include>${project.build.finalName}.jar</include>
                         </resource>
@@ -230,16 +223,8 @@
                         <imageTag>${project.version}</imageTag>
                         <imageTag>latest</imageTag>
                     </imageTags>
+                    <useConfigFile>true</useConfigFile>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>build-image</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -252,6 +237,9 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <skip>${maven.exec.skip}</skip>
+                </configuration>
                 <executions>
                     <execution>
                         <id>e2e-app</id>
@@ -274,7 +262,7 @@
                 </executions>
             </plugin>
             <plugin>
-                 <!--http://mydevnotes.nicus.it/2013/03/generate-ddl-with-maven-jpa-hibernate-4.html-->
+                <!--http://mydevnotes.nicus.it/2013/03/generate-ddl-with-maven-jpa-hibernate-4.html-->
                 <!--http://stackoverflow.com/questions/28615977/how-to-use-hibernate4-maven-plugin-to-generate-multiple-dialects-schemas-->
                 <groupId>de.juplo</groupId>
                 <artifactId>hibernate4-maven-plugin</artifactId>
@@ -282,126 +270,126 @@
 
                 <!-- postgres -->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>postgres</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>postgres</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<username>postgres</username>-->
-                    <!--<password>oe9jaacZLbR9pN</password>-->
-                    <!--<driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.PostgreSQLDialect</hibernateDialect>-->
-                    <!--<url>jdbc:oracle:thin:@//192.168.99.100:1521/XE</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__PostgreSQL.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<username>postgres</username>-->
+                <!--<password>oe9jaacZLbR9pN</password>-->
+                <!--<driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.PostgreSQLDialect</hibernateDialect>-->
+                <!--<url>jdbc:oracle:thin:@//192.168.99.100:1521/XE</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__PostgreSQL.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.postgresql</groupId>-->
-                        <!--<artifactId>postgresql</artifactId>-->
-                        <!--<version>9.4.1212.jre7</version>-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>org.postgresql</groupId>-->
+                <!--<artifactId>postgresql</artifactId>-->
+                <!--<version>9.4.1212.jre7</version>-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
 
                 <!--oracle -->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>oracle</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>oracle</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<username>system</username>-->
-                    <!--<password>oracle</password>-->
-                    <!--<driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.Oracle10gDialect</hibernateDialect>-->
-                    <!--<url>jdbc:oracle:thin:@//192.168.99.100:1521/XE</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__Oracle.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<username>system</username>-->
+                <!--<password>oracle</password>-->
+                <!--<driverClassName>oracle.jdbc.driver.OracleDriver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.Oracle10gDialect</hibernateDialect>-->
+                <!--<url>jdbc:oracle:thin:@//192.168.99.100:1521/XE</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__Oracle.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
 
                 <!--mysql-->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>mysql</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>mysql</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<username>root</username>-->
-                    <!--<password>password</password>-->
-                    <!--<driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernateDialect>-->
-                    <!--<url>jdbc:mysql://192.168.99.100:3306/smsc</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__MySQL.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<username>root</username>-->
+                <!--<password>password</password>-->
+                <!--<driverClassName>com.mysql.cj.jdbc.Driver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernateDialect>-->
+                <!--<url>jdbc:mysql://192.168.99.100:3306/smsc</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__MySQL.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>mysql</groupId>-->
-                        <!--<artifactId>mysql-connector-java</artifactId>-->
-                        <!--<version>6.0.5</version>-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>mysql</groupId>-->
+                <!--<artifactId>mysql-connector-java</artifactId>-->
+                <!--<version>6.0.5</version>-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
 
                 <!--h2-->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>h2</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>h2</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<driverClassName>org.h2.Driver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.H2Dialect</hibernateDialect>-->
-                    <!--<url>jdbc:h2:mem:smsc</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__H2.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<driverClassName>org.h2.Driver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.H2Dialect</hibernateDialect>-->
+                <!--<url>jdbc:h2:mem:smsc</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__H2.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>com.h2database</groupId>-->
-                        <!--<artifactId>h2</artifactId>-->
-                        <!--<version>1.4.193</version>-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>com.h2database</groupId>-->
+                <!--<artifactId>h2</artifactId>-->
+                <!--<version>1.4.193</version>-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
 
-                 <!--hsqldb-->
+                <!--hsqldb-->
                 <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>hsqldb</id>-->
-                        <!--<goals>-->
-                            <!--<goal>export</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
+                <!--<execution>-->
+                <!--<id>hsqldb</id>-->
+                <!--<goals>-->
+                <!--<goal>export</goal>-->
+                <!--</goals>-->
+                <!--</execution>-->
                 <!--</executions>-->
                 <!--<configuration>-->
-                    <!--<driverClassName>org.hsqldb.jdbcDriver</driverClassName>-->
-                    <!--<hibernateDialect>org.hibernate.dialect.HSQLDialect</hibernateDialect>-->
-                    <!--<url>jdbc:hsqldb:mem:smsc</url>-->
-                    <!--<target>SCRIPT</target>-->
-                    <!--<outputFile>${project.build.directory}/V1_2__HSQLDB.sql</outputFile>-->
-                    <!--<type>create</type>-->
+                <!--<driverClassName>org.hsqldb.jdbcDriver</driverClassName>-->
+                <!--<hibernateDialect>org.hibernate.dialect.HSQLDialect</hibernateDialect>-->
+                <!--<url>jdbc:hsqldb:mem:smsc</url>-->
+                <!--<target>SCRIPT</target>-->
+                <!--<outputFile>${project.build.directory}/V1_2__HSQLDB.sql</outputFile>-->
+                <!--<type>create</type>-->
                 <!--</configuration>-->
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.hsqldb</groupId>-->
-                        <!--<artifactId>hsqldb</artifactId>-->
-                        <!--<version>2.3.4</version>-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>org.hsqldb</groupId>-->
+                <!--<artifactId>hsqldb</artifactId>-->
+                <!--<version>2.3.4</version>-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
             </plugin>
         </plugins>

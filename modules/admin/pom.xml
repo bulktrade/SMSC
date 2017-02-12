@@ -44,10 +44,13 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <skip>${maven.exec.skip}</skip>
+                </configuration>
                 <executions>
                     <execution>
                         <id>exec-npm-install</id>
-                        <phase>process-resources</phase>
+                        <phase>compile</phase>
                         <configuration>
                             <executable>npm</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
@@ -99,6 +102,9 @@
                     <filesets>
                         <fileset>
                             <directory>${basedir}/dist</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>${basedir}/REPORTS</directory>
                         </fileset>
                         <fileset>
                             <directory>${basedir}/compiled</directory>
