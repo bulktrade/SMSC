@@ -10,7 +10,7 @@
 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">
-                        {{ 'profile.firstname' | translate }}
+                        {{ 'user.firstname' | translate }}
                     </div>
                     <div class="ui-grid-col-6">
                         <input pInputText class="form-control" [(ngModel)]="model['firstname']"
@@ -25,7 +25,7 @@
 
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2">
-                        {{ 'profile.surname' | translate }}
+                        {{ 'user.surname' | translate }}
                     </div>
                     <div class="ui-grid-col-6">
                         <input pInputText class="form-control" [(ngModel)]="model['surname']"
@@ -43,7 +43,7 @@
                     <div class="ui-grid-col-6">
                         <button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="updateProfile"
                                 [disabled]="submitForm.form.invalid">
-                            <span>{{ 'profile.submit' | translate }}</span>
+                            <span>{{ 'submit' | translate }}</span>
                             <i *ngIf="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
                         </button>
                     </div>

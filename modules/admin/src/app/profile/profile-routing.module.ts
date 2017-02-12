@@ -7,7 +7,9 @@ const ROUTE_PROVIDER = [
     {
         path: '',
         component: ProfileComponent,
-        resolve: {profile: ProfileResolve}
+        resolve: {
+            user: ProfileResolve
+        }
     }
 ];
 

@@ -4,7 +4,7 @@ import { ConfigService } from "../config/config.service";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/share";
 import { Customer } from "./model/customer";
-import { CrudRepository } from "../common/crud-repository";
+import { CrudRepository } from "../shared/crud-repository";
 const clone = require("js.clone");
 
 export const REPOSITORY_NAME: string = 'customers';

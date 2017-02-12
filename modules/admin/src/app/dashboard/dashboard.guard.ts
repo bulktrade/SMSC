@@ -5,7 +5,7 @@ import {
     RouterStateSnapshot,
     Router
 } from '@angular/router';
-import { AuthGuard } from '../common/auth.guard';
+import { AuthGuard } from '../shared/auth.guard';
 
 @Injectable()
 export class DashboardGuard extends AuthGuard {

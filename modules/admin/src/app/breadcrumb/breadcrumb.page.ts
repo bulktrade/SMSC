@@ -1,5 +1,5 @@
 import { LoginPage } from '../login/login.page';
-import { EC } from '../common/expected-conditions';
+import { EC } from '../shared/expected-conditions';
 import { element, by, browser } from "protractor";
 
 export class BreadcrumbPage {

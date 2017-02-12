@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Profile } from "./profile.model";
 import {Router, ActivatedRoute} from "@angular/router";
 import { TranslateService } from "ng2-translate";
 import { ProfileService } from "./profile.service";
+import {User} from "../users/user.model";
+import {UserService} from "../users/user.service";
 
 @Component({
     selector: 'user',
@@ -12,24 +13,22 @@ import { ProfileService } from "./profile.service";
 export class ProfileComponent implements OnInit {
     loading: boolean = false;
 
-    model: Profile;
+    model: User;
 
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public translate: TranslateService,
-                public profileService: ProfileService) {
-
-        this.model = new Profile('', '', '', '', '');
+                public userService: UserService) {
     }
 
     ngOnInit() {
-        this.model = this.route.snapshot.data['profile'];
+        this.model = this.route.snapshot.data['user'];
         console.log(this.model);
     }
 
     onSubmit() {
         this.loading = true;
-        this.profileService.saveProfile(this.model).subscribe(() => {
+        this.userService.updateResource(this.model).subscribe(() => {
             this.loading = false;
         });
     }

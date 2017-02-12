@@ -1,4 +1,4 @@
-import { MetaData } from '../../common/components/models/meta-data';
+import { MetaData } from '../../shared/components/models/meta-data';
 
 export class ChartType {
     public metaData: MetaData;
