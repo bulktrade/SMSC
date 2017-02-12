@@ -62,7 +62,7 @@ export abstract class CrudRepository<T> {
      * @param id
      * @returns {Observable<T>}
      */
-    deleteResource(id: number): Rx.Observable<T> {
+    deleteResource(id: number) {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
@@ -70,7 +70,6 @@ export abstract class CrudRepository<T> {
         this.loading = true;
 
         return this.intercept(this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
-            .map(res => res.json())
             .share());
     }
 
@@ -117,7 +116,7 @@ export abstract class CrudRepository<T> {
             .share();
     }
 
-    intercept(observable: Rx.Observable<T>): Rx.Observable<T> {
+    intercept(observable) {
         return Rx.Observable.create(obs => {
             observable.subscribe(res => {
                 this.loading = false;

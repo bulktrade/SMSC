@@ -38,12 +38,12 @@ export class CustomersDeleteComponent {
 
     deleteResource() {
         this.customersService.deleteResource(this.id)
-            .subscribe(res => {
+            .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
                 this.location.back();
             }, err => {
                 console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorDelete');
-            })
+            });
     }
 }
