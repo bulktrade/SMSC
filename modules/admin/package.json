@@ -1,6 +1,6 @@
 {
   "name": "SMSCAdmin",
-  "version": "0.1-SNAPSHOT",
+  "version": "0.1.0-SNAPSHOT",
   "description": "Admin module for SMSC.",
   "author": "Bulktrade GmbH",
   "homepage": "https://github.com/bulktrade/SMSC",
