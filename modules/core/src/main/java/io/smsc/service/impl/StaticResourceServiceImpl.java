@@ -40,7 +40,7 @@ public class StaticResourceServiceImpl implements StaticResourceService {
             log.error(e);
         }
 
-        return null;
+        return new byte[0];
     }
 
     @Override

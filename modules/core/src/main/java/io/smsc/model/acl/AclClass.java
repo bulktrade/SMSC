@@ -38,17 +38,9 @@ public class AclClass extends BaseEntity {
     @OrderBy
     private Set<AclObjectIdentity> aclObjectIdentities;
 
-    public AclClass() {
-    }
-
-    public AclClass(Long id, String className) {
-        this.id = id;
-        this.className = className;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {

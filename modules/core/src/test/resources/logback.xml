@@ -12,7 +12,7 @@
     </appender>
 
     <!--<logger name="org.springframework.jdbc" level="debug"/>-->
-    <logger name="io.smsc" level="debug"/>
+    <logger name="io.smsc" level="info"/>
 
     <root level="WARN">
         <appender-ref ref="console"/>

@@ -50,18 +50,9 @@ public class AclSid extends BaseEntity {
     @OrderBy
     private Set<AclObjectIdentity> aclObjectIdentities;
 
-    public AclSid() {
-    }
-
-    public AclSid(Long id, Boolean principal, String sid) {
-        this.id = id;
-        this.principal = principal;
-        this.sid = sid;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {

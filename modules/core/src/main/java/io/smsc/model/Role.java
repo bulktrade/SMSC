@@ -51,21 +51,9 @@ public class Role extends BaseEntity {
         }
     }
 
-    public Role() {
-    }
-
-    public Role(Role role) {
-        this(role.getId(), role.getName());
-    }
-
-    public Role(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {

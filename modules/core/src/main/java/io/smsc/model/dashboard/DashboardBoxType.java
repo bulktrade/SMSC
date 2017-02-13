@@ -54,23 +54,9 @@ public class DashboardBoxType extends BaseEntity {
     @OrderBy("id asc")
     private Set<DashboardBox> dashboardBoxes;
 
-    public DashboardBoxType() {
-    }
-
-    public DashboardBoxType(DashboardBoxType dashboardBoxType) {
-        this(dashboardBoxType.getId(), dashboardBoxType.getName(), dashboardBoxType.getType(), dashboardBoxType.getKind());
-    }
-
-    public DashboardBoxType(Long id, String name, Type type, Kind kind) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.kind = kind;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {

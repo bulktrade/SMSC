@@ -89,28 +89,9 @@ public class Customer extends BaseEntity {
     @OrderBy("id asc")
     private Set<CustomerUser> customerUsers;
 
-    public Customer() {
-    }
-
-    public Customer(Customer customer) {
-        this(customer.getId(), customer.getCompanyName(), customer.getStreet(), customer.getStreet2(),
-                customer.getPostcode(), customer.getCountry(), customer.getCity(), customer.getVatid());
-    }
-
-    public Customer(Long id, String companyName, String street, String street2, String postcode, String country, String city, Double vatid) {
-        this.id = id;
-        this.companyName = companyName;
-        this.street = street;
-        this.street2 = street2;
-        this.postcode = postcode;
-        this.country = country;
-        this.city = city;
-        this.vatid = vatid;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {

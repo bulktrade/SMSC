@@ -53,23 +53,9 @@ public class Dashboard extends BaseEntity {
     @OrderBy("id asc")
     private Set<DashboardBox> dashboardBoxes;
 
-    public Dashboard() {
-    }
-
-    public Dashboard(Dashboard dashboard) {
-        this(dashboard.getId(), dashboard.getName(), dashboard.getIcon(), dashboard.getUser());
-    }
-
-    public Dashboard(Long id, String name, String icon, User user) {
-        this.id = id;
-        this.name = name;
-        this.icon = icon;
-        this.user = user;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {

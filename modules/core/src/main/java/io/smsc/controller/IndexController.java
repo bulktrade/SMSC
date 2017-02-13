@@ -19,10 +19,7 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Optional;
 
@@ -32,14 +29,15 @@ import java.util.Optional;
 public class IndexController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
-    private static final Long lastModified = Calendar.getInstance().getTimeInMillis();
+    private static final Long LAST_MODIFIED = Calendar.getInstance().getTimeInMillis();
+
     @Autowired
     private StaticResourceService staticResourceService;
 
     @RequestMapping("/")
     @ResponseBody
     public String indexAction(ServletWebRequest servletWebRequest, HttpServletResponse response) {
-        if (servletWebRequest.checkNotModified(lastModified)) {
+        if (servletWebRequest.checkNotModified(LAST_MODIFIED)) {
             return null;
         }
 
@@ -72,17 +70,16 @@ public class IndexController {
                 String classFilePath = "classpath:META-INF/resources/io.smsc.admin/" + realFilePath;
                 Resource resource = staticResourceService.getResource(classFilePath);
 
-                if (resource.exists()) {
-                    if (servletWebRequest.checkNotModified(DigestUtils.md5Hex(DigestUtils.md5(resource.getInputStream())), lastModified)) {
-                        return null;
-                    }
-
+                if (resource.exists() && servletWebRequest.checkNotModified(DigestUtils.md5Hex(DigestUtils.md5(resource.getInputStream())), LAST_MODIFIED)) {
+                    return null;
+                }
+                else if(resource.exists()) {
                     return new ResponseEntity<>(resource, HttpStatus.OK);
                 }
             }
 
             Resource resource = staticResourceService.getResource("classpath:META-INF/resources/io.smsc.admin/index.html");
-            if (servletWebRequest.checkNotModified(DigestUtils.md5Hex(DigestUtils.md5(resource.getInputStream())), lastModified)) {
+            if (servletWebRequest.checkNotModified(DigestUtils.md5Hex(DigestUtils.md5(resource.getInputStream())), LAST_MODIFIED)) {
                 return null;
             }
 
@@ -125,9 +122,10 @@ public class IndexController {
             }
 
             if (System.getenv("ADMIN_DEBUG") != null) {
-                config.debug = System.getenv("ADMIN_DEBUG").equals("true");
+                config.debug = "true".equals(System.getenv("ADMIN_DEBUG"));
             }
         } catch (Exception e) {
+            LOGGER.info("Some exception occurred", e);
             config = new Config();
         }
 

@@ -2,10 +2,8 @@ package io.smsc.model.projections;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.smsc.model.CustomerUser;
-import io.smsc.model.User;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.CustomerContact;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.Date;

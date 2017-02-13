@@ -77,23 +77,9 @@ public class AclEntry extends BaseEntity {
     @NotNull(message = "{acl.entry.sid.validation}")
     private AclSid sid;
 
-    public AclEntry() {
-    }
-
-    public AclEntry(Long id, AclObjectIdentity aclObjectIdentity, Integer aceOrder, AclSid sid, Integer mask, Boolean granting, Boolean auditSuccess, Boolean auditFailure) {
-        this.id = id;
-        this.aclObjectIdentity = aclObjectIdentity;
-        this.aceOrder = aceOrder;
-        this.sid = sid;
-        this.mask = mask;
-        this.granting = granting;
-        this.auditSuccess = auditSuccess;
-        this.auditFailure = auditFailure;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {

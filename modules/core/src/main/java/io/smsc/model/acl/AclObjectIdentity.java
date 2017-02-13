@@ -70,21 +70,9 @@ public class AclObjectIdentity extends BaseEntity {
     @OrderBy
     private Set<AclEntry> aclEntries;
 
-    public AclObjectIdentity() {
-    }
-
-    public AclObjectIdentity(Long id, AclClass objectIdClass, Long objectIdIdentity, AclObjectIdentity parentObject, AclSid ownerSid, Boolean entriesInheriting) {
-        this.id = id;
-        this.objectIdClass = objectIdClass;
-        this.objectIdIdentity = objectIdIdentity;
-        this.parentObject = parentObject;
-        this.ownerSid = ownerSid;
-        this.entriesInheriting = entriesInheriting;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
