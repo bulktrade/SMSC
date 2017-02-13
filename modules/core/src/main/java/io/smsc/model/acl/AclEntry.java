@@ -77,23 +77,9 @@ public class AclEntry extends BaseEntity {
     @NotNull(message = "{acl.entry.sid.validation}")
     private AclSid sid;
 
-    public AclEntry() {
-    }
-
-    public AclEntry(Long id, AclObjectIdentity aclObjectIdentity, Integer aceOrder, AclSid sid, Integer mask, Boolean granting, Boolean auditSuccess, Boolean auditFailure) {
-        this.id = id;
-        this.aclObjectIdentity = aclObjectIdentity;
-        this.aceOrder = aceOrder;
-        this.sid = sid;
-        this.mask = mask;
-        this.granting = granting;
-        this.auditSuccess = auditSuccess;
-        this.auditFailure = auditFailure;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -158,6 +144,32 @@ public class AclEntry extends BaseEntity {
 
     public void setAuditFailure(Boolean auditFailure) {
         this.auditFailure = auditFailure;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AclEntry aclEntry = (AclEntry) o;
+
+        if (!getId().equals(aclEntry.getId())) return false;
+        if (!aceOrder.equals(aclEntry.aceOrder)) return false;
+        if (!getMask().equals(aclEntry.getMask())) return false;
+        if (!getGranting().equals(aclEntry.getGranting())) return false;
+        if (!getAuditSuccess().equals(aclEntry.getAuditSuccess())) return false;
+        return getAuditFailure().equals(aclEntry.getAuditFailure());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + aceOrder.hashCode();
+        result = 31 * result + getMask().hashCode();
+        result = 31 * result + getGranting().hashCode();
+        result = 31 * result + getAuditSuccess().hashCode();
+        result = 31 * result + getAuditFailure().hashCode();
+        return result;
     }
 
     @Override

@@ -54,23 +54,9 @@ public class DashboardBoxType extends BaseEntity {
     @OrderBy("id asc")
     private Set<DashboardBox> dashboardBoxes;
 
-    public DashboardBoxType() {
-    }
-
-    public DashboardBoxType(DashboardBoxType dashboardBoxType) {
-        this(dashboardBoxType.getId(), dashboardBoxType.getName(), dashboardBoxType.getType(), dashboardBoxType.getKind());
-    }
-
-    public DashboardBoxType(Long id, String name, Type type, Kind kind) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.kind = kind;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -111,6 +97,28 @@ public class DashboardBoxType extends BaseEntity {
 
     public void setDashboardBoxes(Set<DashboardBox> dashboardBoxes) {
         this.dashboardBoxes = dashboardBoxes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DashboardBoxType that = (DashboardBoxType) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (!getName().equals(that.getName())) return false;
+        if (getType() != that.getType()) return false;
+        return getKind() == that.getKind();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getType().hashCode();
+        result = 31 * result + getKind().hashCode();
+        return result;
     }
 
     @Override

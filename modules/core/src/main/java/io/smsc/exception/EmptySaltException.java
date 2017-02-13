@@ -1,7 +1,9 @@
 package io.smsc.exception;
 
 public class EmptySaltException extends RuntimeException {
+
     public EmptySaltException() {
+        super();
     }
 
     public EmptySaltException(String message) {

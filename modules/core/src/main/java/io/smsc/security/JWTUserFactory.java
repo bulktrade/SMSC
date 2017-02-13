@@ -27,18 +27,7 @@ public final class JWTUserFactory {
      * @return appropriate {@link JWTUser} object
      */
     public static JWTUser create(User user) {
-        return new JWTUser(
-                user.getId(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getSalt(),
-                user.getFirstname(),
-                user.getSurname(),
-                user.getEmail(),
-                user.isActive(),
-                user.isBlocked(),
-                user.getRoles(),
-                mapToGrantedAuthorities(user.getRoles()));
+        return new JWTUser(user, mapToGrantedAuthorities(user.getRoles()));
     }
 
     /**

@@ -89,28 +89,9 @@ public class Customer extends BaseEntity {
     @OrderBy("id asc")
     private Set<CustomerUser> customerUsers;
 
-    public Customer() {
-    }
-
-    public Customer(Customer customer) {
-        this(customer.getId(), customer.getCompanyName(), customer.getStreet(), customer.getStreet2(),
-                customer.getPostcode(), customer.getCountry(), customer.getCity(), customer.getVatid());
-    }
-
-    public Customer(Long id, String companyName, String street, String street2, String postcode, String country, String city, Double vatid) {
-        this.id = id;
-        this.companyName = companyName;
-        this.street = street;
-        this.street2 = street2;
-        this.postcode = postcode;
-        this.country = country;
-        this.city = city;
-        this.vatid = vatid;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -199,6 +180,36 @@ public class Customer extends BaseEntity {
 
     public void setCustomerUsers(Set<CustomerUser> customerUsers) {
         this.customerUsers = customerUsers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (!getId().equals(customer.getId())) return false;
+        if (!getCompanyName().equals(customer.getCompanyName())) return false;
+        if (!getStreet().equals(customer.getStreet())) return false;
+        if (!getStreet2().equals(customer.getStreet2())) return false;
+        if (!getPostcode().equals(customer.getPostcode())) return false;
+        if (!getCountry().equals(customer.getCountry())) return false;
+        if (!getCity().equals(customer.getCity())) return false;
+        return getVatid() != null ? getVatid().equals(customer.getVatid()) : customer.getVatid() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getCompanyName().hashCode();
+        result = 31 * result + getStreet().hashCode();
+        result = 31 * result + getStreet2().hashCode();
+        result = 31 * result + getPostcode().hashCode();
+        result = 31 * result + getCountry().hashCode();
+        result = 31 * result + getCity().hashCode();
+        result = 31 * result + (getVatid() != null ? getVatid().hashCode() : 0);
+        return result;
     }
 
     @Override

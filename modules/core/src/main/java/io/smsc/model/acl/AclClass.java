@@ -38,17 +38,9 @@ public class AclClass extends BaseEntity {
     @OrderBy
     private Set<AclObjectIdentity> aclObjectIdentities;
 
-    public AclClass() {
-    }
-
-    public AclClass(Long id, String className) {
-        this.id = id;
-        this.className = className;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -73,6 +65,24 @@ public class AclClass extends BaseEntity {
 
     public void setAclObjectIdentities(Set<AclObjectIdentity> aclObjectIdentities) {
         this.aclObjectIdentities = aclObjectIdentities;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AclClass aclClass = (AclClass) o;
+
+        if (!getId().equals(aclClass.getId())) return false;
+        return getClassName().equals(aclClass.getClassName());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getClassName().hashCode();
+        return result;
     }
 
     @Override

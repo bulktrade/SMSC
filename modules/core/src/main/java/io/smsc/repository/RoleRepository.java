@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -24,18 +25,22 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     @Override
     @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Role save(Role role);
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Role findOne(Long id);
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Role findByName(@Param("name") String name);
 
-    @Override
-    Page<Role> findAll(Pageable pageable);
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Page<Role> findAllByOrderByIdAsc(Pageable pageable);
 
 }

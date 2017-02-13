@@ -55,10 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * Gets the {@link JWTAuthenticationTokenFilter} bean
      *
      * @return authenticationTokenFilter
-     * @throws Exception if an error occurs
      */
     @Bean
-    public JWTAuthenticationTokenFilter authenticationTokenFilterBean() throws Exception {
+    public JWTAuthenticationTokenFilter authenticationTokenFilterBean() {
         return new JWTAuthenticationTokenFilter(userDetailsService, tokenGenerationService);
     }
 

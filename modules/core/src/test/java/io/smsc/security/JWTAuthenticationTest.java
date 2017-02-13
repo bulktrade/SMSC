@@ -59,6 +59,9 @@ public class JWTAuthenticationTest extends AbstractTest {
     @Test
     public void testRefreshToken() throws Exception {
         User admin = new User();
+        Role role = new Role();
+        role.setId(2L);
+        role.setName("ROLE_ADMIN");
         admin.setId(2L);
         admin.setUsername("admin");
         admin.setPassword("admin");
@@ -67,7 +70,7 @@ public class JWTAuthenticationTest extends AbstractTest {
         admin.setEmail("admin@gmail.com");
         admin.setActive(true);
         admin.setBlocked(false);
-        admin.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
+        admin.setRoles(Collections.singleton(role));
         UserDetails adminDetails = JWTUserFactory.create(admin);
         String expiredAccessToken = jwtTokenGenerationService.generateAccessToken(adminDetails);
         String refreshToken = jwtTokenGenerationService.generateRefreshToken(adminDetails);
