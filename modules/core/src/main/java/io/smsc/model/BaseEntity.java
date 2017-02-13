@@ -1,9 +1,7 @@
 package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.hibernate.Hibernate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -40,15 +38,12 @@ public class BaseEntity implements Serializable {
         lastModifiedDate = new Date();
     }
 
-    public BaseEntity() {
-    }
-
     public Long getVersion() {
         return version;
     }
 
     public void setVersion(Long versionNumber) {
-        this.version = version;
+        this.version = versionNumber;
     }
 
     public Date getLastModifiedDate() {

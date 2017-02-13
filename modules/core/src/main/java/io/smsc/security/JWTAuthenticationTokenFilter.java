@@ -35,7 +35,7 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private final JWTUserDetailsService userDetailsService;
 
-    private final JWTTokenGenerationService JWTTokenGenerationService;
+    private final JWTTokenGenerationService jwtTokenGenerationService;
 
     /**
      * This string is used as a name of request header which contains tokens
@@ -44,9 +44,9 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
     private String tokenHeader;
 
     @Autowired
-    public JWTAuthenticationTokenFilter(JWTUserDetailsService userDetailsService, JWTTokenGenerationService JWTTokenGenerationService) {
+    public JWTAuthenticationTokenFilter(JWTUserDetailsService userDetailsService, JWTTokenGenerationService jwtTokenGenerationService) {
         this.userDetailsService = userDetailsService;
-        this.JWTTokenGenerationService = JWTTokenGenerationService;
+        this.jwtTokenGenerationService = jwtTokenGenerationService;
     }
 
     /**
@@ -68,26 +68,21 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String authToken = request.getHeader(this.tokenHeader);
-        // String authToken = header.substring(7);
-        String username = JWTTokenGenerationService.getUsernameFromToken(authToken);
-
+        String username = jwtTokenGenerationService.getUsernameFromToken(authToken);
         if (username != null) {
-            LOG.info("checking authentication for user " + username);
+            LOG.info(String.format("Checking authentication for user %s ", username));
 
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
-                if (JWTTokenGenerationService.validateToken(authToken, jwtUser)) {
+                if (jwtTokenGenerationService.validateToken(authToken, jwtUser)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    LOG.info("authenticated user " + username + ", setting security context");
-                    LOG.info(username + " has roles: " + jwtUser.getRoles());
-                    LOG.info(username + " has permissions: " + jwtUser.getAuthorities());
-
+                    LOG.info(String.format("Authenticated user %s, setting security context", username));
+                    LOG.info(String.format("%s has authorities: %s", username, jwtUser.getAuthorities()));
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
         }
-
         chain.doFilter(request, response);
     }
 

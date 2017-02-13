@@ -15,7 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface JWTUserDetailsService extends UserDetailsService {
 
-    JWTUser loadUserByUsername(String username) throws UsernameNotFoundException;
+    @Override
+    JWTUser loadUserByUsername(String username);
 
-    JWTUser loadUserByEmail(String email) throws UsernameNotFoundException;
+    JWTUser loadUserByEmail(String email);
 }

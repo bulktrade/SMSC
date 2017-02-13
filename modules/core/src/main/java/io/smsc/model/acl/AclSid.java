@@ -50,18 +50,9 @@ public class AclSid extends BaseEntity {
     @OrderBy
     private Set<AclObjectIdentity> aclObjectIdentities;
 
-    public AclSid() {
-    }
-
-    public AclSid(Long id, Boolean principal, String sid) {
-        this.id = id;
-        this.principal = principal;
-        this.sid = sid;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -102,6 +93,26 @@ public class AclSid extends BaseEntity {
 
     public void setAclObjectIdentities(Set<AclObjectIdentity> aclObjectIdentities) {
         this.aclObjectIdentities = aclObjectIdentities;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AclSid aclSid = (AclSid) o;
+
+        if (!getId().equals(aclSid.getId())) return false;
+        if (!getPrincipal().equals(aclSid.getPrincipal())) return false;
+        return getSid().equals(aclSid.getSid());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getPrincipal().hashCode();
+        result = 31 * result + getSid().hashCode();
+        return result;
     }
 
     @Override

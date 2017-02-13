@@ -63,28 +63,9 @@ public class DashboardBox extends BaseEntity {
     @JoinColumn(name = "DASHBOARD_BOX_TYPE_ID", nullable = false)
     private DashboardBoxType dashboardBoxType;
 
-    public DashboardBox() {
-    }
-
-    public DashboardBox(DashboardBox dashboardBox) {
-        this(dashboardBox.getId(), dashboardBox.getWidth(), dashboardBox.getHeight(), dashboardBox.getOrder(), dashboardBox.getName(),
-                dashboardBox.getDescription(), dashboardBox.getDashboard(), dashboardBox.getDashboardBoxType());
-    }
-
-    public DashboardBox(Long id, Width width, Height height, Integer order, String name, String description, Dashboard dashboard, DashboardBoxType dashboardBoxType) {
-        this.id = id;
-        this.width = width;
-        this.height = height;
-        this.order = order;
-        this.name = name;
-        this.description = description;
-        this.dashboard = dashboard;
-        this.dashboardBoxType = dashboardBoxType;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -149,6 +130,32 @@ public class DashboardBox extends BaseEntity {
 
     public void setDashboardBoxType(DashboardBoxType dashboardBoxType) {
         this.dashboardBoxType = dashboardBoxType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DashboardBox that = (DashboardBox) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (getWidth() != that.getWidth()) return false;
+        if (getHeight() != that.getHeight()) return false;
+        if (!getOrder().equals(that.getOrder())) return false;
+        if (!getName().equals(that.getName())) return false;
+        return getDescription().equals(that.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getWidth().hashCode();
+        result = 31 * result + getHeight().hashCode();
+        result = 31 * result + getOrder().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getDescription().hashCode();
+        return result;
     }
 
     @Override

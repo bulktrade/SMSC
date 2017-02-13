@@ -21,7 +21,7 @@ import java.util.Map;
 public class EncrypterUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EncrypterUtil.class);
-    private static String SECRET_KEY;
+    private static String secretKey;
 
     public EncrypterUtil() {
         //Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
@@ -35,52 +35,18 @@ public class EncrypterUtil {
      */
     public static void encrypt(Object obj) {
         try {
-            CharSequence salt;
-
-            try {
-                Field saltField = obj.getClass().getDeclaredField("salt");
-                Boolean isAccessible = saltField.isAccessible();
-
-                if (!isAccessible) {
-                    saltField.setAccessible(true);
-                }
-
-                salt = (CharSequence) saltField.get(obj);
-
-                if (salt == null || salt.equals("")) {
-                    salt = KeyGenerators.string().generateKey();
-                    saltField.set(obj, salt);
-                }
-
-                if (!isAccessible) {
-                    saltField.setAccessible(false);
-                }
-            } catch (NoSuchFieldException e) {
-                LOGGER.info("Decrypt exception: salt field not found.", e);
-
-                // Use class name as salt, if salt field not available.
-                salt = obj.getClass().getName();
+            CharSequence salt = getSalt(obj);
+            if (secretKey == null) {
+                secretKey = "smsc.io";
             }
-
-            if (SECRET_KEY == null) {
-                SECRET_KEY = "smsc.io";
-            }
-
-            TextEncryptor encryptor = Encryptors.text(SECRET_KEY, salt);
-
+            TextEncryptor encryptor = Encryptors.text(secretKey, salt);
             for (Field field : obj.getClass().getDeclaredFields()) {
-                if (field.isAnnotationPresent(Encrypt.class)) {
-                    Boolean isAccessible = field.isAccessible();
-
-                    if (!isAccessible) {
-                        field.setAccessible(true);
-                    }
-
+                if (field.isAnnotationPresent(Encrypt.class) && !field.isAccessible()) {
+                    field.setAccessible(true);
                     field.set(obj, encryptor.encrypt((String) field.get(obj)));
-
-                    if (!isAccessible) {
-                        field.setAccessible(false);
-                    }
+                    field.setAccessible(false);
+                } else if(field.isAnnotationPresent(Encrypt.class)) {
+                    field.set(obj, encryptor.decrypt((String) field.get(obj)));
                 }
             }
         } catch (IllegalAccessException e) {
@@ -95,56 +61,51 @@ public class EncrypterUtil {
      */
     public static void decrypt(Object obj) {
         try {
-            CharSequence salt;
-
-            try {
-                Field saltField = obj.getClass().getDeclaredField("salt");
-                Boolean isAccessible = saltField.isAccessible();
-
-                if (!isAccessible) {
-                    saltField.setAccessible(true);
-                }
-
-                salt = (CharSequence) saltField.get(obj);
-
-                if (salt == null || salt.equals("")) {
-                    throw new EmptySaltException("salt is empty");
-                }
-
-                if (!isAccessible) {
-                    saltField.setAccessible(false);
-                }
-            } catch (NoSuchFieldException e) {
-                LOGGER.info("Decrypt exception: salt field not found.", e);
-
-                // Use class name as salt, if salt field not available.
-                salt = obj.getClass().getName();
+            CharSequence salt = getSalt(obj);
+            if (secretKey == null) {
+                secretKey = "smsc.io";
             }
-
-            if (SECRET_KEY == null) {
-                SECRET_KEY = "smsc.io";
-            }
-
-            TextEncryptor encryptor = Encryptors.text(SECRET_KEY, salt);
-
+            TextEncryptor encryptor = Encryptors.text(secretKey, salt);
             for (Field field : obj.getClass().getDeclaredFields()) {
-                if (field.isAnnotationPresent(Encrypt.class)) {
-                    Boolean isAccessible = field.isAccessible();
-
-                    if (!isAccessible) {
-                        field.setAccessible(true);
-                    }
-
+                if (field.isAnnotationPresent(Encrypt.class) && !field.isAccessible()) {
+                    field.setAccessible(true);
                     field.set(obj, encryptor.decrypt((String) field.get(obj)));
-
-                    if (!isAccessible) {
-                        field.setAccessible(false);
-                    }
+                    field.setAccessible(false);
+                } else if(field.isAnnotationPresent(Encrypt.class)) {
+                    field.set(obj, encryptor.decrypt((String) field.get(obj)));
                 }
             }
         } catch (IllegalAccessException e) {
             LOGGER.error("Decrypt exception.", e);
         }
+    }
+
+    private static CharSequence getSalt(Object obj) throws IllegalAccessException {
+        CharSequence salt;
+        try {
+            Field saltField = obj.getClass().getDeclaredField("salt");
+            Boolean isAccessible = saltField.isAccessible();
+
+            if (!isAccessible) {
+                saltField.setAccessible(true);
+            }
+
+            salt = (CharSequence) saltField.get(obj);
+
+            if (salt == null || "".equals(salt)) {
+                salt = KeyGenerators.string().generateKey();
+                saltField.set(obj, salt);
+            }
+
+            if (!isAccessible) {
+                saltField.setAccessible(false);
+            }
+        } catch (NoSuchFieldException e) {
+            LOGGER.info("Decrypt exception: salt field not found.", e);
+            // Use class name as salt, if salt field not available.
+            salt = obj.getClass().getName();
+        }
+        return salt;
     }
 
     /**
@@ -159,13 +120,6 @@ public class EncrypterUtil {
         }
 
         try {
-        /*
-         * Do the following, but with reflection to bypass access checks:
-         *
-         * JceSecurity.isRestricted = false;
-         * JceSecurity.defaultPolicy.perms.clear();
-         * JceSecurity.defaultPolicy.add(CryptoAllPermission.INSTANCE);
-         */
             final Class<?> jceSecurity = Class.forName("javax.crypto.JceSecurity");
             final Class<?> cryptoPermissions = Class.forName("javax.crypto.CryptoPermissions");
             final Class<?> cryptoAllPermission = Class.forName("javax.crypto.CryptoAllPermission");
@@ -202,6 +156,6 @@ public class EncrypterUtil {
 
     @Value("${encrypt.key}")
     public void setSecretKey(String secretKey) {
-        SECRET_KEY = secretKey;
+        EncrypterUtil.secretKey = secretKey;
     }
 }

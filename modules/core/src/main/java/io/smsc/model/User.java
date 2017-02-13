@@ -74,7 +74,14 @@ public class User extends BaseEntity {
     @Column(name = "BLOCKED", nullable = false)
     private Boolean blocked = false;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            },
+            targetEntity = Role.class)
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
@@ -82,6 +89,18 @@ public class User extends BaseEntity {
     )
     @OrderBy("id asc")
     private Set<Role> roles;
+
+//    /**
+//     * This method is used for removing all links on User entity from
+//     * appropriate Role entities before entity is removed. Without
+//     * it deleting entity can cause <code>ConstraintViolationException<code/>
+//     */
+//    @PreRemove
+//    private void removeRolesFromUsers() {
+//        for (Role role : roles) {
+//            role.getUsers().remove(this);
+//        }
+//    }
 
     @OneToMany(
             mappedBy = "user",
@@ -93,27 +112,9 @@ public class User extends BaseEntity {
     @OrderBy("id asc")
     private Set<Dashboard> dashboards;
 
-    public User() {
-    }
-
-    public User(User user) {
-        this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked());
-    }
-
-    public User(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.surname = surname;
-        this.email = email;
-        this.active = active;
-        this.blocked = blocked;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -217,11 +218,36 @@ public class User extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!getId().equals(user.getId())) return false;
+        if (!getUsername().equals(user.getUsername())) return false;
+        if (!getFirstname().equals(user.getFirstname())) return false;
+        if (!getSurname().equals(user.getSurname())) return false;
+        if (!getEmail().equals(user.getEmail())) return false;
+        return getCreated().equals(user.getCreated());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getUsername().hashCode();
+        result = 31 * result + getFirstname().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getCreated().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +

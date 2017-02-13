@@ -71,31 +71,9 @@ public class CustomerContact extends BaseEntity {
     @NotNull(message = "{customer.contact.salutation.validation}")
     private Salutation salutation;
 
-    public CustomerContact() {
-    }
-
-    public CustomerContact(CustomerContact customerContact) {
-        this(customerContact.getId(), customerContact.getFirstname(), customerContact.getSurname(), customerContact.getPhone(),
-                customerContact.getMobilePhone(), customerContact.getFax(), customerContact.getEmailAddress(), customerContact.getType(),
-                customerContact.getSalutation(), customerContact.getCustomer());
-    }
-
-    public CustomerContact(Long id, String firstname, String surname, String phone, String mobilePhone, String fax, String emailAddress, Type type, Salutation salutation, Customer customer) {
-        this.id = id;
-        this.firstname = firstname;
-        this.surname = surname;
-        this.phone = phone;
-        this.mobilePhone = mobilePhone;
-        this.fax = fax;
-        this.emailAddress = emailAddress;
-        this.type = type;
-        this.salutation = salutation;
-        this.customer = customer;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -176,6 +154,38 @@ public class CustomerContact extends BaseEntity {
 
     public void setSalutation(Salutation salutation) {
         this.salutation = salutation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CustomerContact contact = (CustomerContact) o;
+
+        if (!getId().equals(contact.getId())) return false;
+        if (!getFirstname().equals(contact.getFirstname())) return false;
+        if (!getSurname().equals(contact.getSurname())) return false;
+        if (!getPhone().equals(contact.getPhone())) return false;
+        if (!getMobilePhone().equals(contact.getMobilePhone())) return false;
+        if (!getFax().equals(contact.getFax())) return false;
+        if (!getEmailAddress().equals(contact.getEmailAddress())) return false;
+        if (getType() != contact.getType()) return false;
+        return getSalutation() == contact.getSalutation();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getFirstname().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getPhone().hashCode();
+        result = 31 * result + getMobilePhone().hashCode();
+        result = 31 * result + getFax().hashCode();
+        result = 31 * result + getEmailAddress().hashCode();
+        result = 31 * result + getType().hashCode();
+        result = 31 * result + getSalutation().hashCode();
+        return result;
     }
 
     @Override

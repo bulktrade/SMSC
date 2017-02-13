@@ -11,10 +11,10 @@
         </encoder>
     </appender>
 
-    <logger name="io.smsc" level="debug"/>
+    <logger name="io.smsc" level="info"/>
 
     <!--log hibernate showSql-->
-    <logger name="org.hibernate.SQL" level="debug"/>
+    <logger name="org.hibernate.SQL" level="info"/>
 
     <root level="info">
         <appender-ref ref="console"/>

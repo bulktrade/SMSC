@@ -25,7 +25,7 @@ public class UserResourceProcessor implements ResourceProcessor<Resource<User>> 
         Object source = resource.getContent();
         Links links = collector.getLinksFor(source, resource.getLinks());
 
-        if (!links.isEmpty() && resource.getLinks().size() == 0) {
+        if (!links.isEmpty() && resource.getLinks().isEmpty()) {
             for (Link link : links) {
                 if (link.getRel().equals(Link.REL_SELF)) {
                     resource.add(entityLinks.linkForSingleResource(resource.getContent().getClass(), resource.getContent().getId()).withSelfRel());

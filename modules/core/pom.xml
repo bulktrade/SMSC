@@ -2,24 +2,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>smsc</artifactId>
-        <groupId>io.smsc</groupId>
+        <parent>
+            <artifactId>smsc</artifactId>
+            <groupId>io.smsc</groupId>
+            <version>0.0.1-SNAPSHOT</version>
+            <relativePath>../../pom.xml</relativePath>
+        </parent>
+        <modelVersion>4.0.0</modelVersion>
+
+        <artifactId>core</artifactId>
+        <packaging>jar</packaging>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>core</artifactId>
-    <packaging>jar</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-
-    <properties>
+        <properties>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd-HH:mm</maven.build.timestamp.format>
-    </properties>
+        </properties>
 
-    <dependencies>
+        <dependencies>
         <dependency>
             <groupId>io.smsc</groupId>
             <artifactId>admin</artifactId>
@@ -129,9 +129,9 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
         </dependency>
-    </dependencies>
+        </dependencies>
 
-    <build>
+        <build>
         <finalName>smsc</finalName>
         <plugins>
             <plugin>
@@ -202,7 +202,7 @@
                     <imageName>smscio/smsc</imageName>
                     <baseImage>java:8-alpine</baseImage>
                     <entryPoint>
-                        ["java", "$JAVA_OPTS", "-jar", "/app/${project.build.finalName}.jar"]
+                        ["java", "-jar", "/app/${project.build.finalName}.jar"]
                     </entryPoint>
                     <exposes>
                         <expose>8080</expose>
@@ -229,10 +229,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

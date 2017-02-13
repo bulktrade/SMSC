@@ -1,6 +1,7 @@
 import * as Rx from "rxjs/Rx";
 import {Http, RequestMethod, RequestOptions, URLSearchParams, Headers, Response} from "@angular/http";
 import {ConfigService} from "../config/config.service";
+import {Entity} from "./entity.model";
 
 export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
@@ -30,9 +31,9 @@ export abstract class CrudRepository<T> {
 
         this.loading = true;
 
-        return this.intercept(this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map((response: Response) => <T>response.json())
-            .share());
+            .share();
     }
 
     /**
@@ -51,9 +52,9 @@ export abstract class CrudRepository<T> {
 
         this.loading = true;
 
-        return this.intercept(this.http.request(entity._links.self.href, requestOptions)
+        return this.http.request(entity._links.self.href, requestOptions)
             .map((response: Response) => <T>response.json())
-            .share());
+            .share();
     }
 
     /**
@@ -68,9 +69,9 @@ export abstract class CrudRepository<T> {
 
         this.loading = true;
 
-        return this.intercept(this.http.request(entity._links.self.href, requestOptions)
+        return this.http.request(entity._links.self.href, requestOptions)
             .map((response: Response) => <T>response.json())
-            .share());
+            .share();
     }
 
     /**

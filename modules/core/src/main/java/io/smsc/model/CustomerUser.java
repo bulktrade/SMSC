@@ -75,28 +75,9 @@ public class CustomerUser extends BaseEntity {
     @JsonBackReference
     private Customer customer;
 
-    public CustomerUser() {
-    }
-
-    public CustomerUser(CustomerUser user) {
-        this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked(), user.getCustomer());
-    }
-
-    public CustomerUser(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked, Customer customer) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.surname = surname;
-        this.email = email;
-        this.active = active;
-        this.blocked = blocked;
-        this.customer = customer;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -192,11 +173,36 @@ public class CustomerUser extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CustomerUser that = (CustomerUser) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (!getUsername().equals(that.getUsername())) return false;
+        if (!getFirstname().equals(that.getFirstname())) return false;
+        if (!getSurname().equals(that.getSurname())) return false;
+        if (!getEmail().equals(that.getEmail())) return false;
+        return getCreated().equals(that.getCreated());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getUsername().hashCode();
+        result = 31 * result + getFirstname().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getCreated().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "CustomerUser{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +

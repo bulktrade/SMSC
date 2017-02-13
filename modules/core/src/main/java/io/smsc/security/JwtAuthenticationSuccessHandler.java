@@ -27,5 +27,6 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
      */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        // In this implementation just make sure nothing is done
     }
 }

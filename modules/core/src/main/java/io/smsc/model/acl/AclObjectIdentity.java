@@ -70,21 +70,9 @@ public class AclObjectIdentity extends BaseEntity {
     @OrderBy
     private Set<AclEntry> aclEntries;
 
-    public AclObjectIdentity() {
-    }
-
-    public AclObjectIdentity(Long id, AclClass objectIdClass, Long objectIdIdentity, AclObjectIdentity parentObject, AclSid ownerSid, Boolean entriesInheriting) {
-        this.id = id;
-        this.objectIdClass = objectIdClass;
-        this.objectIdIdentity = objectIdIdentity;
-        this.parentObject = parentObject;
-        this.ownerSid = ownerSid;
-        this.entriesInheriting = entriesInheriting;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -141,6 +129,26 @@ public class AclObjectIdentity extends BaseEntity {
 
     public void setAclEntries(Set<AclEntry> aclEntries) {
         this.aclEntries = aclEntries;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AclObjectIdentity that = (AclObjectIdentity) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (!getObjectIdIdentity().equals(that.getObjectIdIdentity())) return false;
+        return getEntriesInheriting().equals(that.getEntriesInheriting());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getObjectIdIdentity().hashCode();
+        result = 31 * result + getEntriesInheriting().hashCode();
+        return result;
     }
 
     @Override
