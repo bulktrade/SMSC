@@ -1,11 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { Location } from "@angular/common";
-import { CustomersService } from "../../customers.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import { NotificationService } from "../../../services/notification-service";
-import { CustomersContactsService } from "../customers-contacts.service";
-import {Contact} from "../../model/contact";
-import {Entity} from "../../../shared/entity.model";
+import {Component, OnInit} from "@angular/core";
+import {Location} from "@angular/common";
+import {CustomersService} from "../../customers.service";
+import {ActivatedRoute} from "@angular/router";
+import {NotificationService} from "../../../services/notification-service";
+import {CustomersContactsService} from "../customers-contacts.service";
 
 @Component({
     selector: 'contacts-update',
