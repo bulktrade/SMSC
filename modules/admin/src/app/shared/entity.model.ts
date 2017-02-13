@@ -1,11 +1,11 @@
-export interface Link {
+export class Link {
     href: string;
 }
 
-interface Links {
+export class Links {
     self: Link;
 }
 
-export interface Entity {
+export class Entity {
     _links: Links;
 }

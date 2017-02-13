@@ -37,7 +37,7 @@ export class CustomersDeleteComponent {
     }
 
     deleteResource() {
-        this.customersService.deleteResource(this.id)
+        this.customersService.deleteResourceById(this.id)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
                 this.location.back();

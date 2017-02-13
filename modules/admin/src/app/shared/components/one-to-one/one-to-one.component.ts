@@ -8,12 +8,12 @@ import {
     EventEmitter,
     ViewEncapsulation
 } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { AutoCompleteModule } from "primeng/components/autocomplete/autocomplete";
-import { CrudRepository } from "../../crud-repository";
-import { ActivatedRoute } from "@angular/router";
-import { NotificationService } from "../../../services/notification-service";
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+import {AutoCompleteModule} from "primeng/components/autocomplete/autocomplete";
+import {CrudRepository} from "../../crud-repository";
+import {ActivatedRoute} from "@angular/router";
+import {NotificationService} from "../../../services/notification-service";
 
 @Component({
     selector: 'one-to-one',
@@ -115,48 +115,35 @@ export class OneToOneComponent implements OnInit {
             this.model = event;
             this.modelChange.emit(event);
 
-            let _selfLink = event['_links'].self.href;
+            let entity = {
+                [this.propertyName]: event['_links'].self.href,
+                _links: this.mainEntityService.getSelfLinkedEntityById(this.id)._links
+            };
 
-            this.mainEntityService.getResource(this.id)
-                .subscribe(res => {
-                    res[this.propertyName] = _selfLink;
-
-                    // delete all properties of URI
-                    delete res['customerUsers'];
-                    delete res['contacts'];
-
-                    this.mainEntityService.updateResource(this.id, res)
-                        .subscribe(() => {
-                            this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-                        }, err => {
-                            console.error(err);
-                            this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
-                        });
+            this.mainEntityService.updateResource(entity)
+                .subscribe(() => {
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                }, err => {
+                    console.error(err);
+                    this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
                 });
         }
     }
 
     removeRelationship() {
-        this.mainEntityService.getResource(this.id)
-            .subscribe(res => {
-                res[this.propertyName] = null;
+        let entity = {
+            [this.propertyName]: null,
+            _links: this.mainEntityService.getSelfLinkedEntityById(this.id)._links
+        };
 
-                this.model = null;
-                this.modelChange.emit(event);
+        this.mainEntityService.updateResource(entity)
+            .subscribe(() => {
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
 
-                // delete all properties of URI
-                delete res['customerUsers'];
-                delete res['contacts'];
-
-                this.mainEntityService.updateResource(this.id, res)
-                    .subscribe(() => {
-                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-
-                        this.model = {};
-                    }, err => {
-                        console.error(err);
-                        this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
-                    });
+                this.model = {};
+            }, err => {
+                console.error(err);
+                this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
             });
     }
 

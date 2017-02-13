@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { CustomersContactsService } from "../customers-contacts.service";
+import {Injectable} from "@angular/core";
+import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {CustomersContactsService} from "../customers-contacts.service";
 
 @Injectable()
 export class ContactsUpdateResolve implements Resolve<any> {
@@ -9,7 +9,7 @@ export class ContactsUpdateResolve implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.contactsService.getResource(+route.params['contactId']);
+        return this.contactsService.getResourceById(+route.params['contactId']);
     }
 
 }

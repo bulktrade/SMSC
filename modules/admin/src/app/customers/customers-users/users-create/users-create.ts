@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { Location } from "@angular/common";
-import { CustomersService } from "../../customers.service";
-import { ActivatedRoute } from "@angular/router";
-import { NotificationService } from "../../../services/notification-service";
-import { CustomersUsersService } from "../customers-users.service";
+import {Component, OnInit} from "@angular/core";
+import {Location} from "@angular/common";
+import {CustomersService} from "../../customers.service";
+import {ActivatedRoute} from "@angular/router";
+import {NotificationService} from "../../../services/notification-service";
+import {CustomersUsersService} from "../customers-users.service";
 
 @Component({
     selector: 'users-users',
@@ -29,24 +29,16 @@ export class UsersCreateComponent implements OnInit {
     }
 
     onSubmit(model) {
-        this.addCustomerURI(this.userId)
-            .subscribe((customerURI) => {
-                model['customer'] = customerURI;
+        model['customer'] = this.customersUsersService.getSelfLinkedEntityById(this.userId)._links.self.href;
 
-                this.customersUsersService.createResource(model)
-                    .subscribe(() => {
-                            this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateUser');
-                        },
-                        err => {
-                            console.error(err);
-                            this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateUser');
-                        });
-            });
-    }
-
-    addCustomerURI(id: number) {
-        return this.customersService.getResource(id)
-            .map(res => res['_links'].self.href);
+        this.customersUsersService.createResource(model)
+            .subscribe(() => {
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateUser');
+                },
+                err => {
+                    console.error(err);
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateUser');
+                });
     }
 
 }

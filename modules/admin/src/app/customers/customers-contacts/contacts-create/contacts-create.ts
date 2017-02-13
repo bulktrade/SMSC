@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { Location } from "@angular/common";
-import { CustomersService } from "../../customers.service";
-import { ActivatedRoute } from "@angular/router";
-import { NotificationService } from "../../../services/notification-service";
-import { CustomersContactsService } from "../customers-contacts.service";
+import {Component, OnInit} from "@angular/core";
+import {Location} from "@angular/common";
+import {CustomersService} from "../../customers.service";
+import {ActivatedRoute} from "@angular/router";
+import {NotificationService} from "../../../services/notification-service";
+import {CustomersContactsService} from "../customers-contacts.service";
 
 @Component({
     selector: 'contacts-create',
@@ -29,24 +29,15 @@ export class ContactsCreateComponent implements OnInit {
     }
 
     onSubmit(model) {
-        this.addCustomerURI(this.customerId)
-            .subscribe((customerURI) => {
-                model['customer'] = customerURI;
+        model['customer'] = this.customersService.getSelfLinkedEntityById(this.customerId)._links.self.href;
 
-                this.customersContactsService.createResource(model)
-                    .subscribe(() => {
-                            this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
-                        },
-                        err => {
-                            console.error(err);
-                            this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
-                        });
-            });
+        this.customersContactsService.createResource(model)
+            .subscribe(() => {
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
+                },
+                err => {
+                    console.error(err);
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
+                });
     }
-
-    addCustomerURI(id: number) {
-        return this.customersService.getResource(id)
-            .map(res => res['_links'].self.href);
-    }
-
 }

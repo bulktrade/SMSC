@@ -20,7 +20,6 @@ import { createNewHosts, removeNgStyles, createInputTransfer } from "@angularcla
 import { ENV_PROVIDERS } from "./environment";
 import { SimpleNotificationsModule, NotificationsService } from "angular2-notifications";
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate";
-import { GridService } from "./services/grid.service";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { SidebarItemComponent } from "./sidebar/sidebar-item.component";
 import { ConfigService } from "./config/config.service";
@@ -67,7 +66,6 @@ export const APP_PROVIDERS = [
     LoadingService,
     LoadingRouterOutletService,
     RouterOutletService,
-    GridService,
     TokenService,
     AuthService,
     NotificationsService,

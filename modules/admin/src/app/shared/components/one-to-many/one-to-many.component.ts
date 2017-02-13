@@ -42,6 +42,7 @@ export class OneToManyComponent {
     }
 
     ngOnInit() {
+        this.model = this.model || [];
         this.modelChange.emit(this.model);
         this.pathFromRoot = this.commonService.getPathFromRoot(this.route.parent.pathFromRoot);
     }
