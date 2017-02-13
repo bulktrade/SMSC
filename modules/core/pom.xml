@@ -202,7 +202,7 @@
                     <imageName>smscio/smsc</imageName>
                     <baseImage>java:8-alpine</baseImage>
                     <entryPoint>
-                        ["java", "$JAVA_OPTS", "-jar", "/app/${project.build.finalName}.jar"]
+                        ["java", "-jar", "/app/${project.build.finalName}.jar"]
                     </entryPoint>
                     <exposes>
                         <expose>8080</expose>
