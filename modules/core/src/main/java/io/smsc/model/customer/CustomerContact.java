@@ -157,6 +157,38 @@ public class CustomerContact extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CustomerContact contact = (CustomerContact) o;
+
+        if (!getId().equals(contact.getId())) return false;
+        if (!getFirstname().equals(contact.getFirstname())) return false;
+        if (!getSurname().equals(contact.getSurname())) return false;
+        if (!getPhone().equals(contact.getPhone())) return false;
+        if (!getMobilePhone().equals(contact.getMobilePhone())) return false;
+        if (!getFax().equals(contact.getFax())) return false;
+        if (!getEmailAddress().equals(contact.getEmailAddress())) return false;
+        if (getType() != contact.getType()) return false;
+        return getSalutation() == contact.getSalutation();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getFirstname().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getPhone().hashCode();
+        result = 31 * result + getMobilePhone().hashCode();
+        result = 31 * result + getFax().hashCode();
+        result = 31 * result + getEmailAddress().hashCode();
+        result = 31 * result + getType().hashCode();
+        result = 31 * result + getSalutation().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "CustomerContact{" +
                 "id=" + id +

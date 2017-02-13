@@ -183,6 +183,36 @@ public class Customer extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (!getId().equals(customer.getId())) return false;
+        if (!getCompanyName().equals(customer.getCompanyName())) return false;
+        if (!getStreet().equals(customer.getStreet())) return false;
+        if (!getStreet2().equals(customer.getStreet2())) return false;
+        if (!getPostcode().equals(customer.getPostcode())) return false;
+        if (!getCountry().equals(customer.getCountry())) return false;
+        if (!getCity().equals(customer.getCity())) return false;
+        return getVatid() != null ? getVatid().equals(customer.getVatid()) : customer.getVatid() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getCompanyName().hashCode();
+        result = 31 * result + getStreet().hashCode();
+        result = 31 * result + getStreet2().hashCode();
+        result = 31 * result + getPostcode().hashCode();
+        result = 31 * result + getCountry().hashCode();
+        result = 31 * result + getCity().hashCode();
+        result = 31 * result + (getVatid() != null ? getVatid().hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +

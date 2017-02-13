@@ -2,8 +2,10 @@ package io.smsc.repository.customer.rest;
 
 import io.smsc.AbstractTest;
 import io.smsc.model.customer.Customer;
+import org.apache.catalina.connector.Response;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -112,19 +114,17 @@ public class CustomerRestTest extends AbstractTest {
                 .contentType("application/json;charset=UTF-8")
                 .content("{\"parent\" : \"/rest/repository/customers/40001\"}"))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/customers/40000?projection=withContactsAndUsers"))
+        mockMvc.perform(get("/rest/repository/customers/40000/parent"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.parent", notNullValue()));
+                .andExpect(jsonPath("$.id", is(40001)));
 
         mockMvc.perform(patch("/rest/repository/customers/40000")
                 .contentType("application/json;charset=UTF-8")
                 .content("{\"parent\" : null}"))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/customers/40000?projection=withContactsAndUsers"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.parent", nullValue()));
+        mockMvc.perform(get("/rest/repository/customers/40000/parent"))
+                .andExpect(status().isNotFound());
 
     }
 }

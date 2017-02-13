@@ -70,15 +70,15 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
         String authToken = request.getHeader(this.tokenHeader);
         String username = jwtTokenGenerationService.getUsernameFromToken(authToken);
         if (username != null) {
-            LOG.info("Checking authentication for user %s ", username);
+            LOG.info(String.format("Checking authentication for user %s ", username));
 
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
                 JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
                 if (jwtTokenGenerationService.validateToken(authToken, jwtUser)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    LOG.info("Authenticated user %s, setting security context", username);
-                    LOG.info("%s has authorities: %s", username, jwtUser.getAuthorities());
+                    LOG.info(String.format("Authenticated user %s, setting security context", username));
+                    LOG.info(String.format("%s has authorities: %s", username, jwtUser.getAuthorities()));
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }

@@ -74,7 +74,14 @@ public class User extends BaseEntity {
     @Column(name = "BLOCKED", nullable = false)
     private Boolean blocked = false;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            },
+            targetEntity = Role.class)
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
@@ -82,6 +89,18 @@ public class User extends BaseEntity {
     )
     @OrderBy("id asc")
     private Set<Role> roles;
+
+//    /**
+//     * This method is used for removing all links on User entity from
+//     * appropriate Role entities before entity is removed. Without
+//     * it deleting entity can cause <code>ConstraintViolationException<code/>
+//     */
+//    @PreRemove
+//    private void removeRolesFromUsers() {
+//        for (Role role : roles) {
+//            role.getUsers().remove(this);
+//        }
+//    }
 
     @OneToMany(
             mappedBy = "user",
@@ -196,6 +215,32 @@ public class User extends BaseEntity {
 
     public void setDashboards(Set<Dashboard> dashboards) {
         this.dashboards = dashboards;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!getId().equals(user.getId())) return false;
+        if (!getUsername().equals(user.getUsername())) return false;
+        if (!getFirstname().equals(user.getFirstname())) return false;
+        if (!getSurname().equals(user.getSurname())) return false;
+        if (!getEmail().equals(user.getEmail())) return false;
+        return getCreated().equals(user.getCreated());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getUsername().hashCode();
+        result = 31 * result + getFirstname().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getCreated().hashCode();
+        return result;
     }
 
     @Override

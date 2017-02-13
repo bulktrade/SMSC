@@ -3,7 +3,6 @@ package io.smsc.security.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.smsc.security.JWTAuthenticationTokenFilter;
 import io.smsc.security.model.JWTUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +29,8 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
 
     public static final long serialVersionUID = -3301605591108950415L;
 
+    public static final String TOKEN_EXCEPTION_MESSAGE = "Token is empty or null";
+
     public static final String CLAIM_KEY_USERNAME = "sub";
     public static final String CLAIM_KEY_CREATED = "created";
 
@@ -47,27 +48,28 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
 
     @Override
     public String getUsernameFromToken(String token) {
-        String username;
-        Claims claims;
+        String username = null;
         try {
-            claims = getClaimsFromToken(token);
-            username = claims.getSubject();
+            Claims claims = getClaimsFromToken(token);
+            if(claims != null) {
+                username = claims.getSubject();
+            }
         } catch (Exception e) {
-            LOG.debug("Token is empty or null", e);
-            username = null;
+            LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
         }
         return username;
     }
 
     private Date getExpirationDateFromToken(String token) {
-        Date expirationDate;
+        Date expirationDate = null;
         Claims claims;
         try {
             claims = getClaimsFromToken(token);
-            expirationDate = claims.getExpiration();
+            if(claims != null) {
+                expirationDate = claims.getExpiration();
+            }
         } catch (Exception e) {
-            LOG.debug("Token is empty or null", e);
-            expirationDate = null;
+            LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
         }
         return expirationDate;
     }
@@ -80,7 +82,7 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            LOG.debug("Token is empty or null", e);
+            LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
             claims = null;
         }
         return claims;
@@ -98,24 +100,28 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
         Date expirationDate;
         try {
             expirationDate = getExpirationDateFromToken(token);
-            return expirationDate.before(new Date());
+            if(expirationDate != null) {
+                return expirationDate.before(new Date());
+            }
         }
         catch (Exception e) {
-            LOG.debug("Token is empty or null", e);
+            LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
         }
         return true;
     }
 
     @Override
     public String refreshToken(String token) {
-        String refreshedToken;
+        String refreshedToken = null;
         Claims claims;
         try {
             claims = getClaimsFromToken(token);
-            claims.put(CLAIM_KEY_CREATED, new Date());
-            refreshedToken = generateAccessToken(claims);
+            if(claims != null) {
+                claims.put(CLAIM_KEY_CREATED, new Date());
+                refreshedToken = generateAccessToken(claims);
+            }
         } catch (Exception e) {
-            LOG.debug("Token is empty or null", e);
+            LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
             refreshedToken = null;
         }
         return refreshedToken;
