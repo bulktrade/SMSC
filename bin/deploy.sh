@@ -9,5 +9,5 @@ if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; t
     mvn -f modules/core docker:build -DpushImage -Dmaven.exec.skip=true
 
     # Release to public repository
-#	mvn --settings sonatype-settings.xml -PskipBuildAndTests -B deploy
+    mvn --settings sonatype-settings.xml -PskipBuildAndTests -B deploy
 fi
