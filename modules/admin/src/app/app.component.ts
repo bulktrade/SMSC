@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from "@angular/core";
 import { TranslateService } from "ng2-translate";
-import { NOTIFICATION_OPTIONS } from "./common/notification-options";
+import { NOTIFICATION_OPTIONS } from "./shared/notification-options";
 
 @Component({
     selector: 'app',

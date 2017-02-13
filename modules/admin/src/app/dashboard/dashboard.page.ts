@@ -1,5 +1,5 @@
 import { protractor, element, by, browser } from "protractor";
-import { EC } from "../common/expected-conditions";
+import { EC } from "../shared/expected-conditions";
 import { LoginPage } from "../login/login.page";
 import * as webdriver from "selenium-webdriver";
 

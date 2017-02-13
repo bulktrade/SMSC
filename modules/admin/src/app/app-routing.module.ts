@@ -1,5 +1,5 @@
 import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "./common/auth.guard";
+import { AuthGuard } from "./shared/auth.guard";
 import { LoginComponent } from "./login/login.component";
 import { NavigationComponent } from "./navigation/navigation.component";
 // import { CustomersComponent } from "./customers/customers.components";
@@ -71,6 +71,10 @@ export const ROUTES: Routes = [
                     icon: 'fa-users'
                 },
                 loadChildren: './customers/customers.module#CustomersModule'
+            },
+            {
+                path: 'profile',
+                loadChildren: './profile/profile.module#ProfileModule'
             },
             // {
             //     path: 'metadata',

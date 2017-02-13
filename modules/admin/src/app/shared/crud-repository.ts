@@ -1,6 +1,6 @@
 import * as Rx from "rxjs/Rx";
-import { Http, RequestMethod, RequestOptions, URLSearchParams, Headers } from "@angular/http";
-import { ConfigService } from "../config/config.service";
+import {Http, RequestMethod, RequestOptions, URLSearchParams, Headers, Response} from "@angular/http";
+import {ConfigService} from "../config/config.service";
 
 export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
@@ -16,69 +16,69 @@ export abstract class CrudRepository<T> {
 
     /**
      * Creates the new resource
-     * @param data
      * @returns {Observable<T>}
+     * @param entity
      */
-    createResource(data: T): Rx.Observable<T> {
+    createResource<T extends Entity>(entity: T): Rx.Observable<T> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
             method: RequestMethod.Post,
-            body: data
+            body: entity
         });
 
         this.loading = true;
 
         return this.intercept(this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
-            .map(res => res.json())
+            .map((response: Response) => <T>response.json())
             .share());
     }
 
     /**
-     * Replaces the resource by id
-     * @param id
-     * @param data
+     * Patch the resource by link
      * @returns {Observable<T>}
+     * @param entity
      */
-    updateResource(id: number, data: T): Rx.Observable<T> {
+    updateResource<T extends Entity>(entity: T): Rx.Observable<T> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
             method: RequestMethod.Patch,
-            body: data
+            body: entity
         });
 
         this.loading = true;
 
-        return this.intercept(this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
-            .map(res => res.json())
+        return this.intercept(this.http.request(entity._links.self.href, requestOptions)
+            .map((response: Response) => <T>response.json())
             .share());
     }
 
     /**
      * Removes the resource with id
-     * @param id
      * @returns {Observable<T>}
+     * @param entity
      */
-    deleteResource(id: number) {
+    deleteResource<T extends Entity>(entity: T): Rx.Observable<T> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
 
         this.loading = true;
 
-        return this.intercept(this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
+        return this.intercept(this.http.request(entity._links.self.href, requestOptions)
+            .map((response: Response) => <T>response.json())
             .share());
     }
 
     /**
      * Retrieves a single resource with the given id
-     * @param id
      * @returns {Observable<T>}
+     * @param entity
      */
-    getResource(id: number): Rx.Observable<T> {
+    getResource<T extends Entity>(entity: T): Rx.Observable<T> {
         let search = new URLSearchParams();
         search.set('projection', this.projectionName);
 
@@ -87,8 +87,8 @@ export abstract class CrudRepository<T> {
             search: search
         });
 
-        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName + '/' + id, requestOptions)
-            .map(res => res.json())
+        return this.http.request(entity._links.self.href, requestOptions)
+            .map((response: Response) => <T>response.json())
             .share();
     }
 
@@ -96,7 +96,7 @@ export abstract class CrudRepository<T> {
      * Retrieves a list of all resources with pagination
      * @param page
      * @param size
-     * @returns {Observable<T>}
+     * @returns {Observable<T[]>}
      */
     getResources(page?: number, size?: number): Rx.Observable<T[]> {
         let search = new URLSearchParams();
@@ -112,11 +112,11 @@ export abstract class CrudRepository<T> {
         });
 
         return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
-            .map(res => res.json())
+            .map((response: Response) => <T[]>response.json())
             .share();
     }
 
-    intercept(observable) {
+    intercept<T extends Entity>(observable: Rx.Observable<T>): Rx.Observable<T> {
         return Rx.Observable.create(obs => {
             observable.subscribe(res => {
                 this.loading = false;

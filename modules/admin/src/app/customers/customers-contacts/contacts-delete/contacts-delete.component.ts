@@ -9,8 +9,8 @@ import { CustomersContactsService } from "../customers-contacts.service";
 
 @Component({
     selector: 'customers-delete',
-    templateUrl: './../../../common/templates/delete.component.html',
-    styleUrls: ['./../../../common/styles/delete.component.scss']
+    templateUrl: './../../../shared/templates/delete.component.html',
+    styleUrls: ['./../../../shared/styles/delete.component.scss']
 })
 
 export class ContactsDeleteComponent {
