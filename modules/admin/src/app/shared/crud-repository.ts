@@ -49,9 +49,9 @@ export abstract class CrudRepository<T> {
 
         this.loading = true;
 
-        return this.intercept(this.http.request(entity._links.self.href, requestOptions)
+        return this.http.request(entity._links.self.href, requestOptions)
             .map((response: Response) => <T>response.json())
-            .share());
+            .share();
     }
 
     /**
@@ -139,17 +139,5 @@ export abstract class CrudRepository<T> {
         return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map((response: Response) => <T[]>response.json())
             .share();
-    }
-
-    intercept<T extends Entity>(observable: Rx.Observable<T>): Rx.Observable<T> {
-        return Rx.Observable.create(obs => {
-            observable.subscribe(res => {
-                this.loading = false;
-                obs.next(res);
-            }, err => {
-                this.loading = false;
-                obs.error(err);
-            });
-        });
     }
 }

@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import { NotificationService } from "../../../services/notification-service";
 import { CustomersContactsService } from "../customers-contacts.service";
 import {Contact} from "../../model/contact";
+import {Entity} from "../../../shared/entity.model";
 
 @Component({
     selector: 'contacts-update',
@@ -37,7 +38,7 @@ export class ContactsUpdateComponent implements OnInit {
         return this.route.snapshot.data['update'];
     }
 
-    onSubmit(entity: Contact) {
+    onSubmit(entity) {
         this.customersContactsService.updateResource(entity)
             .subscribe(() => {
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
