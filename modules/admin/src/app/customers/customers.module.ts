@@ -5,7 +5,6 @@ import { TranslateModule } from "ng2-translate";
 import { CustomersViewComponent } from "./customers-view/customers-view.component";
 import { CustomersComponent } from "./customers.components";
 import { CustomersRoutingModule } from "./customers-routing.module";
-import { BreadcrumbModule } from "../breadcrumb/breadcrumb.component";
 import { MessagesModule } from "primeng/components/messages/messages";
 import { PaginatorModule } from "primeng/components/paginator/paginator";
 import { DataTableModule } from "primeng/components/datatable/datatable";
@@ -56,7 +55,6 @@ const CUSTOMERS_MODULES = [
     CubeGridModule,
     LoadingGridModule,
     MessagesModule,
-    BreadcrumbModule,
     FormsModule,
     CommonModule,
     TranslateModule,

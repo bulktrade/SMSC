@@ -92,10 +92,6 @@ export class CustomersViewComponent {
     onEditComplete(event) {
         let data: Customer = clone(event.data);
 
-        delete data['customerUsers'];
-        delete data['contacts'];
-        delete data['parent'];
-
         this.customersService.updateResource(data)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');

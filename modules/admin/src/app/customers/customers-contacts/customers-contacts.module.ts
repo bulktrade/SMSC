@@ -17,7 +17,6 @@ import {ControlErrorsModule} from "../../shared/components/control-errors/contro
 import {CustomersService} from "../customers.service";
 import {HTTP_INTERCEPTOR_PROVIDER} from "../../shared/http-interceptor";
 import {ContactsUpdateComponent} from "./contacts-update/contacts-update";
-import {BreadcrumbModule} from "../../breadcrumb/breadcrumb.component";
 import {ContactsDeleteComponent} from "./contacts-delete/contacts-delete.component";
 import {MessagesModule} from "primeng/components/messages/messages";
 
@@ -33,7 +32,6 @@ const CUSTOMERS_CONTACTS_MODULES = [
     DropdownModule,
     ControlErrorsModule,
     RouterModule,
-    BreadcrumbModule,
     MessagesModule
 ];
 

@@ -17,7 +17,6 @@ import {HTTP_INTERCEPTOR_PROVIDER} from "../../shared/http-interceptor";
 import {UsersUpdateComponent} from "./users-update/users-update";
 import {CustomersUsersService} from "./customers-users.service";
 import {UsersCreateComponent} from "./users-create/users-create";
-import {BreadcrumbModule} from "../../breadcrumb/breadcrumb.component";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {UsersDeleteComponent} from "./contacts-delete/users-delete.component";
 
@@ -34,7 +33,6 @@ const USERS_CONTACTS_MODULES = [
     DropdownModule,
     ControlErrorsModule,
     RouterModule,
-    BreadcrumbModule,
     MessagesModule
 ];
 

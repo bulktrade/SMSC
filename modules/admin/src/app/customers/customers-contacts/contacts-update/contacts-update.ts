@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Location } from "@angular/common";
 import { CustomersService } from "../../customers.service";
-import { ActivatedRoute } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { NotificationService } from "../../../services/notification-service";
 import { CustomersContactsService } from "../customers-contacts.service";
+import {Contact} from "../../model/contact";
 
 @Component({
     selector: 'contacts-update',
@@ -33,14 +34,10 @@ export class ContactsUpdateComponent implements OnInit {
 
     getModel() {
         let model = this.route.snapshot.data['update'];
-        delete model['customer'];
         return this.route.snapshot.data['update'];
     }
 
-    onSubmit(entity) {
-        // delete all properties of URI
-        delete entity['customer'];
-
+    onSubmit(entity: Contact) {
         this.customersContactsService.updateResource(entity)
             .subscribe(() => {
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
