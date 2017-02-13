@@ -68,6 +68,24 @@ public class AclClass extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AclClass aclClass = (AclClass) o;
+
+        if (!getId().equals(aclClass.getId())) return false;
+        return getClassName().equals(aclClass.getClassName());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getClassName().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "AclClass{" +
                 "id=" + id +

@@ -99,6 +99,26 @@ public class Dashboard extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Dashboard dashboard = (Dashboard) o;
+
+        if (!getId().equals(dashboard.getId())) return false;
+        if (!getName().equals(dashboard.getName())) return false;
+        return getIcon().equals(dashboard.getIcon());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getIcon().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Dashboard{" +
                 "id=" + id +

@@ -11,7 +11,7 @@ import java.security.Security;
 @PropertySource(value = "classpath:application.properties")
 @PropertySource(value = "classpath:${smsc.database.dialect:hsqldb}.properties")
 @ComponentScan("io.smsc")
-class Application {
+public class Application {
 
     public static void main(String[] args) {
 //    Solution of JCE problem for JDK 9 (reflection is not more needed)

@@ -133,6 +133,32 @@ public class DashboardBox extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DashboardBox that = (DashboardBox) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (getWidth() != that.getWidth()) return false;
+        if (getHeight() != that.getHeight()) return false;
+        if (!getOrder().equals(that.getOrder())) return false;
+        if (!getName().equals(that.getName())) return false;
+        return getDescription().equals(that.getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getWidth().hashCode();
+        result = 31 * result + getHeight().hashCode();
+        result = 31 * result + getOrder().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getDescription().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "DashboardBox{" +
                 "width=" + width +

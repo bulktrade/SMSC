@@ -147,6 +147,32 @@ public class AclEntry extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AclEntry aclEntry = (AclEntry) o;
+
+        if (!getId().equals(aclEntry.getId())) return false;
+        if (!aceOrder.equals(aclEntry.aceOrder)) return false;
+        if (!getMask().equals(aclEntry.getMask())) return false;
+        if (!getGranting().equals(aclEntry.getGranting())) return false;
+        if (!getAuditSuccess().equals(aclEntry.getAuditSuccess())) return false;
+        return getAuditFailure().equals(aclEntry.getAuditFailure());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + aceOrder.hashCode();
+        result = 31 * result + getMask().hashCode();
+        result = 31 * result + getGranting().hashCode();
+        result = 31 * result + getAuditSuccess().hashCode();
+        result = 31 * result + getAuditFailure().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "AclEntry{" +
                 "id=" + id +

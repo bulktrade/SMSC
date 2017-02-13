@@ -173,6 +173,32 @@ public class CustomerUser extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CustomerUser that = (CustomerUser) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (!getUsername().equals(that.getUsername())) return false;
+        if (!getFirstname().equals(that.getFirstname())) return false;
+        if (!getSurname().equals(that.getSurname())) return false;
+        if (!getEmail().equals(that.getEmail())) return false;
+        return getCreated().equals(that.getCreated());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getUsername().hashCode();
+        result = 31 * result + getFirstname().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getCreated().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "CustomerUser{" +
                 "id=" + id +

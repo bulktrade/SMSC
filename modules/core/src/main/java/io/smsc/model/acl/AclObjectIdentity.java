@@ -132,6 +132,26 @@ public class AclObjectIdentity extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AclObjectIdentity that = (AclObjectIdentity) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (!getObjectIdIdentity().equals(that.getObjectIdIdentity())) return false;
+        return getEntriesInheriting().equals(that.getEntriesInheriting());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getObjectIdIdentity().hashCode();
+        result = 31 * result + getEntriesInheriting().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "AclObjectIdentity{" +
                 "id=" + id +

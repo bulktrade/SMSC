@@ -100,6 +100,28 @@ public class DashboardBoxType extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DashboardBoxType that = (DashboardBoxType) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (!getName().equals(that.getName())) return false;
+        if (getType() != that.getType()) return false;
+        return getKind() == that.getKind();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getType().hashCode();
+        result = 31 * result + getKind().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "DashboardBoxType{" +
                 "id=" + id +

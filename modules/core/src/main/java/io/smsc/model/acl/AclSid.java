@@ -96,6 +96,26 @@ public class AclSid extends BaseEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AclSid aclSid = (AclSid) o;
+
+        if (!getId().equals(aclSid.getId())) return false;
+        if (!getPrincipal().equals(aclSid.getPrincipal())) return false;
+        return getSid().equals(aclSid.getSid());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getPrincipal().hashCode();
+        result = 31 * result + getSid().hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "AclSid{" +
                 "id=" + id +

@@ -1,6 +1,5 @@
 package io.smsc.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -34,22 +33,33 @@ public class Role extends BaseEntity {
     @Pattern(regexp = "[A-Z_]+", message = "{role.name.validation}")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            },
+            targetEntity = User.class)
+    @JoinTable(
+            name = "USER_ROLE",
+            joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
+    )
     @OrderBy("id asc")
-    @JsonBackReference()
     private Set<User> users;
 
-    /**
-     * This method is used for removing all links on Role entity from
-     * appropriate User entities before entity is removed. Without
-     * it deleting entity can cause <code>ConstraintViolationException<code/>
-     */
-    @PreRemove
-    private void removeRolesFromUsers() {
-        for (User user : users) {
-            user.getRoles().remove(this);
-        }
-    }
+//    /**
+//     * This method is used for removing all links on Role entity from
+//     * appropriate User entities before entity is removed. Without
+//     * it deleting entity can cause <code>ConstraintViolationException<code/>
+//     */
+//    @PreRemove
+//    private void removeRolesFromUsers() {
+//        for (User user : users) {
+//            user.getRoles().remove(this);
+//        }
+//    }
 
     @JsonIgnore
     public boolean isNew() {
@@ -78,6 +88,24 @@ public class Role extends BaseEntity {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Role role = (Role) o;
+
+        if (!getId().equals(role.getId())) return false;
+        return getName().equals(role.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        return result;
     }
 
     @Override
