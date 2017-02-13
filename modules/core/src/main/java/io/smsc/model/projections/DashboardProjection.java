@@ -1,7 +1,6 @@
 package io.smsc.model.projections;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.smsc.model.User;
 import io.smsc.model.dashboard.Dashboard;
 import io.smsc.model.dashboard.DashboardBox;
 import org.springframework.data.rest.core.config.Projection;

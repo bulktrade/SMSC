@@ -75,28 +75,9 @@ public class CustomerUser extends BaseEntity {
     @JsonBackReference
     private Customer customer;
 
-    public CustomerUser() {
-    }
-
-    public CustomerUser(CustomerUser user) {
-        this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked(), user.getCustomer());
-    }
-
-    public CustomerUser(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked, Customer customer) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.surname = surname;
-        this.email = email;
-        this.active = active;
-        this.blocked = blocked;
-        this.customer = customer;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -196,7 +177,6 @@ public class CustomerUser extends BaseEntity {
         return "CustomerUser{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +

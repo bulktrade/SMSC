@@ -93,27 +93,9 @@ public class User extends BaseEntity {
     @OrderBy("id asc")
     private Set<Dashboard> dashboards;
 
-    public User() {
-    }
-
-    public User(User user) {
-        this(user.getId(), user.getUsername(), user.getPassword(), user.getFirstname(), user.getSurname(), user.getEmail(), user.isActive(), user.isBlocked());
-    }
-
-    public User(Long id, String username, String password, String firstname, String surname, String email, boolean active, boolean blocked) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstname = firstname;
-        this.surname = surname;
-        this.email = email;
-        this.active = active;
-        this.blocked = blocked;
-    }
-
     @JsonIgnore
     public boolean isNew() {
-        return (getId() == null);
+        return getId() == null;
     }
 
     public Long getId() {
@@ -221,7 +203,6 @@ public class User extends BaseEntity {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
                 ", salt='" + salt + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +

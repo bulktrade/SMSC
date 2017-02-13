@@ -2,6 +2,7 @@ package io.smsc.security.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.Role;
+import io.smsc.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,17 +47,17 @@ public class JWTUser implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public JWTUser(Long id, String username, String password, String salt, String firstName, String surName, String email, boolean active, boolean blocked, Set<Role> roles, Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.salt = salt;
-        this.firstName = firstName;
-        this.surName = surName;
-        this.email = email;
-        this.active = active;
-        this.blocked = blocked;
-        this.roles = roles;
+    public JWTUser(User user, Collection<? extends GrantedAuthority> authorities) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.salt = user.getSalt();
+        this.firstName = user.getFirstname();
+        this.surName = user.getSurname();
+        this.email = user.getEmail();
+        this.active = user.isActive();
+        this.blocked = user.isBlocked();
+        this.roles = user.getRoles();
         this.authorities = authorities;
     }
 

@@ -5,7 +5,6 @@ import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.CustomerContact;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.core.config.Projection;
 
 import java.util.Date;
