@@ -37,11 +37,11 @@ export class ContactsUpdateComponent implements OnInit {
         return this.route.snapshot.data['update'];
     }
 
-    onSubmit(model) {
+    onSubmit(entity) {
         // delete all properties of URI
-        delete model['customer'];
+        delete entity['customer'];
 
-        this.customersContactsService.updateResource(this.contactId, model)
+        this.customersContactsService.updateResource(entity)
             .subscribe(() => {
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
                 },

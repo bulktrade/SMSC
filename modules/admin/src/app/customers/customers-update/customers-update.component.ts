@@ -5,6 +5,7 @@ import { Location } from "@angular/common";
 import { NotificationService } from "../../services/notification-service";
 import { CustomersService } from "../customers.service";
 import * as clone from "js.clone";
+import {Customer} from "../model/customer";
 
 @Component({
     selector: 'customers-update',
@@ -41,15 +42,15 @@ export class CustomersUpdateComponent {
         return this.route.snapshot.data['edit'];
     }
 
-    onSubmit(data) {
-        let _data = clone(data);
+    onSubmit(_entity: Customer) {
+        let entity = clone(_entity);
 
         // delete all properties of URI
-        delete _data['customerUsers'];
-        delete _data['contacts'];
-        delete _data['parent'];
+        delete entity['customerUsers'];
+        delete entity['contacts'];
+        delete entity['parent'];
 
-        this.customersService.updateResource(this.id, _data)
+        this.customersService.updateResource(entity)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
             }, err => {

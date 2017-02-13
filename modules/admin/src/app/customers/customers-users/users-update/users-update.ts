@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { Location } from "@angular/common";
-import { CustomersService } from "../../customers.service";
-import { ActivatedRoute } from "@angular/router";
-import { NotificationService } from "../../../services/notification-service";
-import { CustomersUsersService } from "../customers-users.service";
+import {Component, OnInit} from "@angular/core";
+import {Location} from "@angular/common";
+import {CustomersService} from "../../customers.service";
+import {ActivatedRoute} from "@angular/router";
+import {NotificationService} from "../../../services/notification-service";
+import {CustomersUsersService} from "../customers-users.service";
 
 @Component({
     selector: 'contacts-update',
@@ -37,11 +37,11 @@ export class UsersUpdateComponent implements OnInit {
         return this.route.snapshot.data['update'];
     }
 
-    onSubmit(model) {
+    onSubmit(entity) {
         // delete all properties of URI
-        delete model['customers'];
+        delete entity['customers'];
 
-        this.customersUsersService.updateResource(this.userId, model)
+        this.customersUsersService.updateResource(entity)
             .subscribe(() => {
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
                 },

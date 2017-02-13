@@ -1,6 +1,7 @@
 import * as Rx from "rxjs/Rx";
 import {Http, RequestMethod, RequestOptions, URLSearchParams, Headers, Response} from "@angular/http";
 import {ConfigService} from "../config/config.service";
+import {Entity, Links, Link} from "./entity.model";
 
 export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
@@ -19,7 +20,7 @@ export abstract class CrudRepository<T> {
      * @returns {Observable<T>}
      * @param entity
      */
-    createResource<T extends Entity>(entity: T): Rx.Observable<T> {
+    createResource<T>(entity: T): Rx.Observable<T> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -28,11 +29,9 @@ export abstract class CrudRepository<T> {
             body: entity
         });
 
-        this.loading = true;
-
-        return this.intercept(this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
+        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
             .map((response: Response) => <T>response.json())
-            .share());
+            .share();
     }
 
     /**
@@ -57,24 +56,32 @@ export abstract class CrudRepository<T> {
     }
 
     /**
-     * Removes the resource with id
+     * Removes the resource with entity
      * @returns {Observable<T>}
      * @param entity
      */
-    deleteResource<T extends Entity>(entity: T): Rx.Observable<T> {
+    deleteResource<T extends Entity>(entity: T): Rx.Observable<Response> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
 
         this.loading = true;
 
-        return this.intercept(this.http.request(entity._links.self.href, requestOptions)
-            .map((response: Response) => <T>response.json())
-            .share());
+        return this.http.request(entity._links.self.href, requestOptions)
+            .share();
     }
 
     /**
-     * Retrieves a single resource with the given id
+     * Removes the resource with id
+     * @param id
+     * @returns {Rx.Observable<T>}
+     */
+    deleteResourceById(id: number): Rx.Observable<Response> {
+        return this.deleteResource(this.getSelfLinkedEntityById(id));
+    }
+
+    /**
+     * Retrieves a single resource with the given entity
      * @returns {Observable<T>}
      * @param entity
      */
@@ -90,6 +97,29 @@ export abstract class CrudRepository<T> {
         return this.http.request(entity._links.self.href, requestOptions)
             .map((response: Response) => <T>response.json())
             .share();
+    }
+
+    /**
+     * Retrieves a single resource with the given id
+     * @param id
+     * @returns {Rx.Observable<T>}
+     */
+    getResourceById<T extends Entity>(id: number): Rx.Observable<T> {
+        return this.getResource(this.getSelfLinkedEntityById(id));
+    }
+
+    /**
+     * Retrieves an instance of the entity with set self link
+     * @param id
+     * @returns {T}
+     */
+    getSelfLinkedEntityById<T extends Entity>(id: number): T {
+        let entity: Entity = new Entity();
+        entity._links = new Links();
+        entity._links.self = new Link();
+        entity._links.self.href = this.apiUrl + '/repository/' + this.repositoryName + '/' + id;
+
+        return <T>entity;
     }
 
     /**

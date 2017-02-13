@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
-import { ConfigService } from "../../config/config.service";
-import { Contact } from "../model/contact";
-import { CrudRepository } from "../../shared/crud-repository";
+import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
+import {ConfigService} from "../../config/config.service";
+import {Contact} from "../model/contact";
+import {CrudRepository} from "../../shared/crud-repository";
 
 const CONTACTS_REPOSITORY_NAME: string = 'customer-contacts';
 const CONTACTS_PROJECTION_NAME: string = 'withCustomer';

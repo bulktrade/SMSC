@@ -1,12 +1,12 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
-import { Message } from "primeng/components/common/api";
-import { CustomersService } from "../customers.service";
-import { NotificationService } from "../../../services/notification-service";
-import { CustomersContactsService } from "../customers-contacts.service";
-import { CustomersUsersService } from "../customers-users.service";
+import {Component} from "@angular/core";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {Router, ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
+import {Message} from "primeng/components/common/api";
+import {CustomersService} from "../customers.service";
+import {NotificationService} from "../../../services/notification-service";
+import {CustomersContactsService} from "../customers-contacts.service";
+import {CustomersUsersService} from "../customers-users.service";
 
 @Component({
     selector: 'customers-delete',
@@ -29,7 +29,7 @@ export class UsersDeleteComponent {
     ngOnInit() {
         this.translate.get('customers.confirmDeleteMsg')
             .subscribe(detail => {
-                this.msgs.push({ severity: 'warn', detail: detail });
+                this.msgs.push({severity: 'warn', detail: detail});
             });
 
         this.route.params.subscribe((params) => {
@@ -38,7 +38,7 @@ export class UsersDeleteComponent {
     }
 
     deleteResource() {
-        this.customersUsersService.deleteResource(this.id)
+        this.customersUsersService.deleteResourceById(this.id)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteUser');
                 this.location.back();

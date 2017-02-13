@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { UsersUpdateResolve } from "./users-update/users-update.resolve";
-import { UsersCreateComponent } from "./users-create/users-create";
-import { UsersUpdateComponent } from "./users-update/users-update";
-import { UsersDeleteComponent } from "./contacts-delete/users-delete.component";
+import {NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
+import {UsersUpdateResolve} from "./users-update/users-update.resolve";
+import {UsersCreateComponent} from "./users-create/users-create";
+import {UsersUpdateComponent} from "./users-update/users-update";
+import {UsersDeleteComponent} from "./contacts-delete/users-delete.component";
 
 const CUSTOMERS_CONTACTS_ROUTE_PROVIDER = [
     {
@@ -16,7 +16,7 @@ const CUSTOMERS_CONTACTS_ROUTE_PROVIDER = [
     {
         path: 'update/:userId',
         component: UsersUpdateComponent,
-        resolve: { update: UsersUpdateResolve },
+        resolve: {update: UsersUpdateResolve},
         data: {
             showInBreadcrumb: false,
         }
