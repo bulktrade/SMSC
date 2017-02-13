@@ -5,7 +5,6 @@ import {Entity, Links, Link} from "./entity.model";
 
 export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
-    public abstract projectionName: string;
     public abstract titleColumns: string;
     public loading: boolean = false;
     public apiUrl: string;
@@ -86,12 +85,8 @@ export abstract class CrudRepository<T> {
      * @param entity
      */
     getResource<T extends Entity>(entity: T): Rx.Observable<T> {
-        let search = new URLSearchParams();
-        search.set('projection', this.projectionName);
-
         let requestOptions = new RequestOptions({
-            method: RequestMethod.Get,
-            search: search
+            method: RequestMethod.Get
         });
 
         return this.http.request(entity._links.self.href, requestOptions)

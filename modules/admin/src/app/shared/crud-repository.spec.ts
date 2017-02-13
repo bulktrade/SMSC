@@ -13,7 +13,6 @@ interface Data extends Entity {
 
 class CrudRepositoryService extends CrudRepository<Data> {
     public repositoryName = 'data';
-    public projectionName = 'withData';
     public titleColumns = 'name';
 
     constructor(public http: Http,

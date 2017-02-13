@@ -1,10 +1,9 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
-import { NotificationService } from "../../services/notification-service";
-import { CustomersService } from "../customers.service";
-import * as clone from "js.clone";
+import {Component} from "@angular/core";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
+import {NotificationService} from "../../services/notification-service";
+import {CustomersService} from "../customers.service";
 import {Customer} from "../model/customer";
 
 @Component({
@@ -43,14 +42,7 @@ export class CustomersUpdateComponent {
     }
 
     onSubmit(_entity: Customer) {
-        let entity = clone(_entity);
-
-        // delete all properties of URI
-        delete entity['customerUsers'];
-        delete entity['contacts'];
-        delete entity['parent'];
-
-        this.customersService.updateResource(entity)
+        this.customersService.updateResource(_entity)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
             }, err => {

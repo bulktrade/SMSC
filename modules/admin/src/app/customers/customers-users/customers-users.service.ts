@@ -4,13 +4,11 @@ import {ConfigService} from "../../config/config.service";
 import {CustomerUser} from "../model/customer-user";
 import {CrudRepository} from "../../shared/crud-repository";
 
-const USERS_REPOSITORY_NAME: string = 'customer-users';
-const USERS_PROJECTION_NAME: string = 'withCustomer';
+const REPOSITORY_NAME: string = 'customer-users';
 
 @Injectable()
 export class CustomersUsersService extends CrudRepository<CustomerUser> {
-    public repositoryName = USERS_REPOSITORY_NAME;
-    public projectionName = USERS_PROJECTION_NAME;
+    public repositoryName = REPOSITORY_NAME;
     public titleColumns = 'email';
 
     constructor(public http: Http,

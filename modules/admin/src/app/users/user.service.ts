@@ -9,12 +9,10 @@ import {User} from "./user.model";
 import * as Rx from "rxjs/Rx";
 
 export const REPOSITORY_NAME: string = 'users';
-export const PROJECTION_NAME: string = 'withRoles';
 
 @Injectable()
 export class UserService extends CrudRepository<User> {
     public repositoryName = REPOSITORY_NAME;
-    public projectionName = PROJECTION_NAME;
     public titleColumns = 'username';
 
     constructor(public http: Http,
