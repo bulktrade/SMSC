@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.smsc.annotation.Encrypt;
 import io.smsc.listeners.EncryptionListener;
+import io.smsc.model.customer.Salutation;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -14,6 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
@@ -36,6 +38,11 @@ public class User extends BaseEntity {
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "SALUTATION", nullable = false)
+    @NotNull(message = "{user.salutation.validation}")
+    private Salutation salutation;
 
     @Column(name = "USERNAME", nullable = false, unique = true)
     @NotEmpty(message = "{user.username.validation}")
@@ -121,6 +128,7 @@ public class User extends BaseEntity {
         return id;
     }
 
+    @JsonIgnore
     public void setId(Long id) {
         this.id = id;
     }
@@ -217,6 +225,14 @@ public class User extends BaseEntity {
         this.dashboards = dashboards;
     }
 
+    public Salutation getSalutation() {
+        return salutation;
+    }
+
+    public void setSalutation(Salutation salutation) {
+        this.salutation = salutation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -224,22 +240,36 @@ public class User extends BaseEntity {
 
         User user = (User) o;
 
-        if (!getId().equals(user.getId())) return false;
-        if (!getUsername().equals(user.getUsername())) return false;
-        if (!getFirstname().equals(user.getFirstname())) return false;
-        if (!getSurname().equals(user.getSurname())) return false;
-        if (!getEmail().equals(user.getEmail())) return false;
-        return getCreated().equals(user.getCreated());
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (salutation != user.salutation) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (salt != null ? !salt.equals(user.salt) : user.salt != null) return false;
+        if (firstname != null ? !firstname.equals(user.firstname) : user.firstname != null) return false;
+        if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (active != null ? !active.equals(user.active) : user.active != null) return false;
+        if (created != null ? !created.equals(user.created) : user.created != null) return false;
+        if (blocked != null ? !blocked.equals(user.blocked) : user.blocked != null) return false;
+        if (roles != null ? !roles.equals(user.roles) : user.roles != null) return false;
+        return dashboards != null ? dashboards.equals(user.dashboards) : user.dashboards == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getUsername().hashCode();
-        result = 31 * result + getFirstname().hashCode();
-        result = 31 * result + getSurname().hashCode();
-        result = 31 * result + getEmail().hashCode();
-        result = 31 * result + getCreated().hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (salutation != null ? salutation.hashCode() : 0);
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (salt != null ? salt.hashCode() : 0);
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (active != null ? active.hashCode() : 0);
+        result = 31 * result + (created != null ? created.hashCode() : 0);
+        result = 31 * result + (blocked != null ? blocked.hashCode() : 0);
+        result = 31 * result + (roles != null ? roles.hashCode() : 0);
+        result = 31 * result + (dashboards != null ? dashboards.hashCode() : 0);
         return result;
     }
 
@@ -247,6 +277,7 @@ public class User extends BaseEntity {
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", salutation=" + salutation +
                 ", username='" + username + '\'' +
                 ", salt='" + salt + '\'' +
                 ", firstname='" + firstname + '\'' +
@@ -255,6 +286,8 @@ public class User extends BaseEntity {
                 ", active=" + active +
                 ", created=" + created +
                 ", blocked=" + blocked +
-                "} " + super.toString();
+                ", roles=" + roles +
+                ", dashboards=" + dashboards +
+                '}';
     }
 }

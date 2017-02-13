@@ -1,7 +1,6 @@
 package io.smsc.repository;
 
-import io.smsc.model.CustomerUser;
-import io.smsc.model.User;
+import io.smsc.model.customer.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This REST repository class is used for providing default {@link JpaRepository}
- * CRUD methods to operate with {@link User} entities and exporting them to
+ * CRUD methods to operate with {@link io.smsc.model.User} entities and exporting them to
  * appropriate endpoints.
  *
  * @author Nazar Lipkovskyy
@@ -20,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "customer-users", path = "customer-users")
 @Transactional(readOnly = true)
-public interface CustomerUserRepository extends JpaRepository<CustomerUser, Long> {
+public interface CustomerUserRepository extends JpaRepository<User, Long> {
 
     //All query method resources are exposed under the resource 'search'.
 
@@ -32,11 +31,11 @@ public interface CustomerUserRepository extends JpaRepository<CustomerUser, Long
     @Override
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    CustomerUser save(CustomerUser customerUser);
+    User save(User user);
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    CustomerUser findOne(Long id);
+    User findOne(Long id);
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     User findByUsername(@Param("username") String userName);
@@ -45,5 +44,5 @@ public interface CustomerUserRepository extends JpaRepository<CustomerUser, Long
     User findByEmail(@Param("email") String email);
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<CustomerUser> findAllByOrderByIdAsc(Pageable pageable);
+    Page<User> findAllByOrderByIdAsc(Pageable pageable);
 }

@@ -10,7 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
- * Specifies CustomerContact class as an entity class.
+ * Specifies Contact class as an entity class.
  *
  * @author Nazar Lipkovskyy
  * @see BaseEntity
@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "CUSTOMER_CONTACT", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL_ADDRESS", name = "customer_contact_unique_email_address_idx")})
-public class CustomerContact extends BaseEntity {
+public class Contact extends BaseEntity {
 
     @Id
     @SequenceGenerator(name = "customer_contact_seq", sequenceName = "customer_contact_seq")
@@ -161,7 +161,7 @@ public class CustomerContact extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CustomerContact contact = (CustomerContact) o;
+        Contact contact = (Contact) o;
 
         if (!getId().equals(contact.getId())) return false;
         if (!getFirstname().equals(contact.getFirstname())) return false;
@@ -190,7 +190,7 @@ public class CustomerContact extends BaseEntity {
 
     @Override
     public String toString() {
-        return "CustomerContact{" +
+        return "Contact{" +
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +

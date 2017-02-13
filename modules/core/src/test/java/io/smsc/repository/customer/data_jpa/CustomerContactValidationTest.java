@@ -18,7 +18,7 @@
 //
 ////    @Test(expected = ConstraintViolationException.class)
 ////    public void testEmptyCustomerContactFirstnameSave() throws Exception {
-////        CustomerContact newContact = new CustomerContact(null, "", "newSurname",
+////        Contact newContact = new Contact(null, "", "newSurname",
 ////                "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com", Type.PRIMARY, Salutation.MRS);
 ////        customerContactRepository.save(newContact);
 ////        customerContactRepository.findAll();
@@ -26,7 +26,7 @@
 ////
 ////    @Test(expected = ConstraintViolationException.class)
 ////    public void testEmptyCustomerContactSurnameSave() throws Exception {
-////        CustomerContact newContact = new CustomerContact(null, "newName", "",
+////        Contact newContact = new Contact(null, "newName", "",
 ////                "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com",
 ////                Type.PRIMARY, Salutation.MRS);
 ////        customerContactRepository.save(newContact);
@@ -35,7 +35,7 @@
 ////
 ////    @Test(expected = ConstraintViolationException.class)
 ////    public void testEmptyCustomerContactPhoneSave() throws Exception {
-////        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
+////        Contact newContact = new Contact(null, "newName", "newSurname",
 ////                "", "0632222222", "new_fake_fax", "fake@gmail.com", Type.PRIMARY, Salutation.MRS);
 ////        customerContactRepository.save(newContact);
 ////        customerContactRepository.findAll();
@@ -43,7 +43,7 @@
 ////
 ////    @Test(expected = ConstraintViolationException.class)
 ////    public void testEmptyCustomerContactMobilePhoneSave() throws Exception {
-////        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
+////        Contact newContact = new Contact(null, "newName", "newSurname",
 ////                "0322222222", "", "new_fake_fax", "fake@gmail.com", Type.PRIMARY,
 ////                Salutation.MRS);
 ////        customerContactRepository.save(newContact);
@@ -52,7 +52,7 @@
 ////
 ////    @Test(expected = ConstraintViolationException.class)
 ////    public void testEmptyCustomerContactFaxSave() throws Exception {
-////        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
+////        Contact newContact = new Contact(null, "newName", "newSurname",
 ////                "0322222222", "0632222222", "", "fake@gmail.com", Type.PRIMARY,
 ////                Salutation.MRS);
 ////        customerContactRepository.save(newContact);
@@ -61,7 +61,7 @@
 ////
 ////    @Test(expected = ConstraintViolationException.class)
 ////    public void testEmptyCustomerContactEmailAddressSave() throws Exception {
-////        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
+////        Contact newContact = new Contact(null, "newName", "newSurname",
 ////                "0322222222", "0632222222", "new_fake_fax", "", Type.PRIMARY,
 ////                Salutation.MRS);
 ////        customerContactRepository.save(newContact);
@@ -70,7 +70,7 @@
 ////
 ////    @Test(expected = ConstraintViolationException.class)
 ////    public void testEmptyCustomerContactTypeSave() throws Exception {
-////        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
+////        Contact newContact = new Contact(null, "newName", "newSurname",
 ////                "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com",
 ////                null, Salutation.MRS);
 ////        customerContactRepository.save(newContact);
@@ -79,7 +79,7 @@
 ////
 ////    @Test(expected = ConstraintViolationException.class)
 ////    public void testEmptyCustomerContactSalutationSave() throws Exception {
-////        CustomerContact newContact = new CustomerContact(null, "newName", "newSurname",
+////        Contact newContact = new Contact(null, "newName", "newSurname",
 ////                "0322222222", "0632222222", "new_fake_fax", "fake@gmail.com",
 ////                Type.PRIMARY, null);
 ////        customerContactRepository.save(newContact);
@@ -88,7 +88,7 @@
 ////
 ////    @Test(expected = DataIntegrityViolationException.class)
 ////    public void testDuplicateCustomerContactEmailAddressSave() throws Exception {
-////        CustomerContact newCustomerContact = new CustomerContact(CUSTOMER_CONTACT_1);
+////        Contact newCustomerContact = new Contact(CUSTOMER_CONTACT_1);
 ////        newCustomerContact.setId(null);
 ////        customerContactRepository.save(newCustomerContact);
 ////        CUSTOMER_CONTACT_MODEL_MATCHER.assertCollectionEquals(Arrays.asList(newCustomerContact, CUSTOMER_CONTACT_1), customerContactRepository.findAll());

@@ -1,8 +1,7 @@
-package io.smsc.repository.customerUser;
+package io.smsc.repository.customer.rest;
 
 import io.smsc.AbstractTest;
-import io.smsc.model.CustomerUser;
-import io.smsc.model.User;
+import io.smsc.model.customer.User;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -13,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WithMockUser(username = "Admin", roles = {"ADMIN"})
-public class CustomerUserRestTest extends AbstractTest {
+public class UserRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCustomerUser() throws Exception {
@@ -55,14 +54,14 @@ public class CustomerUserRestTest extends AbstractTest {
 
     @Test
     public void testCreateUser() throws Exception {
-        CustomerUser customerUser = new CustomerUser();
-        customerUser.setUsername("Old Johnny");
-        customerUser.setFirstname("John");
-        customerUser.setSurname("Forrester");
-        customerUser.setEmail("john@gmail.com");
-        customerUser.setActive(true);
-        customerUser.setBlocked(false);
-        String customerUserJson = json(customerUser);
+        User user = new User();
+        user.setUsername("Old Johnny");
+        user.setFirstname("John");
+        user.setSurname("Forrester");
+        user.setEmail("john@gmail.com");
+        user.setActive(true);
+        user.setBlocked(false);
+        String customerUserJson = json(user);
         // json is ignoring inserting password and customer through setter
         customerUserJson = customerUserJson.substring(0, customerUserJson.length() - 1).concat(", \"password\" : \"john123456\", \"customer\" : \"rest/repository/customers/40000\" \r\n }");
         this.mockMvc.perform(post("/rest/repository/users")
@@ -80,15 +79,15 @@ public class CustomerUserRestTest extends AbstractTest {
 
     @Test
     public void testUpdateUser() throws Exception {
-        CustomerUser customerUser = new CustomerUser();
-        customerUser.setId(1L);
-        customerUser.setUsername("Old Johnny");
-        customerUser.setFirstname("John");
-        customerUser.setSurname("Forrester");
-        customerUser.setEmail("john@gmail.com");
-        customerUser.setActive(false);
-        customerUser.setBlocked(true);
-        String customerUserJson = json(customerUser);
+        User user = new User();
+        user.setId(1L);
+        user.setUsername("Old Johnny");
+        user.setFirstname("John");
+        user.setSurname("Forrester");
+        user.setEmail("john@gmail.com");
+        user.setActive(false);
+        user.setBlocked(true);
+        String customerUserJson = json(user);
         // json is ignoring password
         customerUserJson = customerUserJson.substring(0, customerUserJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
         mockMvc.perform(put("/rest/repository/customer-users/1")

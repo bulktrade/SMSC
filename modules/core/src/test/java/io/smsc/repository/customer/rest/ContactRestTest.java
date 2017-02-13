@@ -1,8 +1,7 @@
 package io.smsc.repository.customer.rest;
 
 import io.smsc.AbstractTest;
-import io.smsc.model.customer.Customer;
-import io.smsc.model.customer.CustomerContact;
+import io.smsc.model.customer.Contact;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
 import org.junit.Test;
@@ -13,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"ADMIN"})
-public class CustomerContactRestTest extends AbstractTest {
+public class ContactRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCustomerContact() throws Exception {
@@ -54,7 +53,7 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testCreateCustomerContact() throws Exception {
-        CustomerContact contact = new CustomerContact();
+        Contact contact = new Contact();
         contact.setId(null);
         contact.setFirstname("SMSC");
         contact.setSurname("SMSC");
@@ -82,7 +81,7 @@ public class CustomerContactRestTest extends AbstractTest {
 
     @Test
     public void testUpdateCustomerContact() throws Exception {
-        CustomerContact contact = new CustomerContact();
+        Contact contact = new Contact();
         contact.setId(1L);
         contact.setFirstname("SMSC");
         contact.setSurname("SMSC");
