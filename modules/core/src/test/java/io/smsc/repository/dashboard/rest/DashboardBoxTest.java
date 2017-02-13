@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"ADMIN"})
-public class DashboardBoxRestTest extends AbstractTest {
+public class DashboardBoxTest extends AbstractTest {
 
     @Test
     public void testGetSingleDashboardBox() throws Exception {

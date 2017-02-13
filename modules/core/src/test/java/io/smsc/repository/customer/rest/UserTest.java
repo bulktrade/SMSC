@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WithMockUser(username = "Admin", roles = {"ADMIN"})
-public class UserRestTest extends AbstractTest {
+public class UserTest extends AbstractTest {
 
     @Test
     public void testGetSingleCustomerUser() throws Exception {

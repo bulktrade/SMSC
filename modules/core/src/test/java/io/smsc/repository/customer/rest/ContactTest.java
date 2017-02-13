@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"ADMIN"})
-public class ContactRestTest extends AbstractTest {
+public class ContactTest extends AbstractTest {
 
     @Test
     public void testGetSingleCustomerContact() throws Exception {

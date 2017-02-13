@@ -1,4 +1,4 @@
-package io.smsc.repository.user;
+package io.smsc.repository.user.rest;
 
 import io.smsc.model.User;
 import io.smsc.AbstractTest;
@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"ADMIN"})
-public class UserRestTest extends AbstractTest {
+public class UserTest extends AbstractTest {
 
     @Test
     public void testGetSingleUser() throws Exception {
