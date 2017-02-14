@@ -1,8 +1,7 @@
 package io.smsc.util;
 
 import io.smsc.annotation.Encrypt;
-import io.smsc.exception.EmptySaltException;
-import io.smsc.model.User;
+import io.smsc.model.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

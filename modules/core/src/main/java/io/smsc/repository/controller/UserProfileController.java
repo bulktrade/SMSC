@@ -1,6 +1,6 @@
 package io.smsc.repository.controller;
 
-import io.smsc.model.User;
+import io.smsc.model.user.User;
 import io.smsc.repository.UserRepository;
 import io.smsc.jwt.model.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;

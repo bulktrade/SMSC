@@ -36,7 +36,7 @@ public interface AclEntryRepository extends JpaRepository<AclEntry, Long> {
     AclEntry save(AclEntry aclEntry);
 
     @Override
-    @EntityGraph(attributePaths = {"aclObjectIdentity", "sid", "objectIdClass", ""})
+    @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclEntry findOne(Long id);
 

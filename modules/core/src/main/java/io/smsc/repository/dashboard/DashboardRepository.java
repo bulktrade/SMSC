@@ -1,6 +1,6 @@
 package io.smsc.repository.dashboard;
 
-import io.smsc.model.User;
+import io.smsc.model.user.User;
 import io.smsc.model.dashboard.Dashboard;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

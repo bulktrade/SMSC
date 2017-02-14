@@ -2,7 +2,7 @@ package io.smsc.jwt.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.Role;
-import io.smsc.model.User;
+import io.smsc.model.user.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +13,7 @@ import java.util.*;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Implementation of base {@link UserDetails} interface with {@link io.smsc.model.User}
+ * Implementation of base {@link UserDetails} interface with {@link User}
  * information which is later encapsulated into {@link Authentication} objects.
  *
  * @author Nazar Lipkovskyy

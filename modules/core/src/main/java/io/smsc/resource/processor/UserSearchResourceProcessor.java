@@ -1,6 +1,6 @@
 package io.smsc.resource.processor;
 
-import io.smsc.model.User;
+import io.smsc.model.user.User;
 import io.smsc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositorySearchesResource;

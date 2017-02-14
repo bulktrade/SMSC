@@ -1,6 +1,6 @@
 package io.smsc.repository.user;
 
-import io.smsc.model.User;
+import io.smsc.model.user.User;
 import io.smsc.AbstractTest;
 import io.smsc.model.customer.Salutation;
 import org.junit.Test;
