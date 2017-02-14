@@ -15,5 +15,5 @@ fi
 if [ "$TRAVIS_BRANCH" != "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     # Docker build & push
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    mvn -f modules/core docker:build -Dmaven.exec.skip=true -DpushImageTags -DdockerImageTags=${$TRAVIS_BRANCH//\//-}
+    mvn -f modules/core docker:build -Dmaven.exec.skip=true -DpushImageTags -DdockerImageTags=${TRAVIS_BRANCH//\//-}
 fi
