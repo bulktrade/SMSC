@@ -40,7 +40,8 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Role findByName(@Param("name") String name);
 
+    @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<Role> findAllByOrderByIdAsc(Pageable pageable);
+    Page<Role> findAll(Pageable pageable);
 
 }

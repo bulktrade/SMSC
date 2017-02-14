@@ -1,6 +1,6 @@
 package io.smsc.resource.processor;
 
-import io.smsc.model.User;
+import io.smsc.model.admin.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.mapping.LinkCollector;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;

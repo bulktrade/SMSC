@@ -121,8 +121,6 @@ public class AclSid extends BaseEntity {
                 "id=" + id +
                 ", principal=" + principal +
                 ", sid='" + sid + '\'' +
-                ", aclEntries=" + aclEntries +
-                ", aclObjectIdentities=" + aclObjectIdentities +
                 "} " + super.toString();
     }
 }

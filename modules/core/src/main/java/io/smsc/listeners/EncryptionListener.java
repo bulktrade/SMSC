@@ -1,6 +1,6 @@
 package io.smsc.listeners;
 
-import io.smsc.model.User;
+import io.smsc.model.admin.User;
 import io.smsc.util.EncrypterUtil;
 
 import javax.persistence.PostLoad;

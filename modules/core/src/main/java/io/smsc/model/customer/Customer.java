@@ -2,7 +2,6 @@ package io.smsc.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
-import io.smsc.model.CustomerUser;
 import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -78,7 +77,7 @@ public class Customer extends BaseEntity {
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OrderBy("id asc")
-    private Set<CustomerContact> contacts;
+    private Set<Contact> contacts;
 
     @OneToMany(
             mappedBy = "customer",
@@ -87,7 +86,7 @@ public class Customer extends BaseEntity {
     )
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OrderBy("id asc")
-    private Set<CustomerUser> customerUsers;
+    private Set<User> users;
 
     @JsonIgnore
     public boolean isNew() {
@@ -166,20 +165,20 @@ public class Customer extends BaseEntity {
         this.parent = parent;
     }
 
-    public Set<CustomerContact> getContacts() {
+    public Set<Contact> getContacts() {
         return contacts;
     }
 
-    public void setContacts(Set<CustomerContact> contacts) {
+    public void setContacts(Set<Contact> contacts) {
         this.contacts = contacts;
     }
 
-    public Set<CustomerUser> getCustomerUsers() {
-        return customerUsers;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setCustomerUsers(Set<CustomerUser> customerUsers) {
-        this.customerUsers = customerUsers;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     @Override
