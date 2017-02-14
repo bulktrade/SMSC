@@ -27,7 +27,7 @@ import {RequestOptions, RequestMethod, Http} from "@angular/http";
                     </div>
                 </template>
             </p-autoComplete>
-            <i *ngIf="model.id" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
+            <i *ngIf="model.hasOwnProperty('id')" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
         </div>
     `,
     styleUrls: ['./one-to-one.component.scss']
