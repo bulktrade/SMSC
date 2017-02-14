@@ -5,8 +5,24 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.relationship-tabs .ui-widget-header {
-    border: none;
+.relationship-tabs {
+    .ui-widget-header {
+        border: none;
+    }
+
+    .ui-tabview {
+        width: 700px;
+    }
+
+    .ui-autocomplete-panel {
+        position: static;
+    }
+
+    #one-to-one-component .btn-remove {
+        top: 8px;
+        margin-left: -50px;
+        right: inherit;
+    }
 }
 
 .primeng-primary-btn {
@@ -388,4 +404,18 @@ $slideDuration: .4s;
     }
 }
 
-/*-- STYLE FOR CHECKBOX (BEGIN) --*/
+@media (max-width: 760px) {
+    .relationship-tabs {
+        .ui-widget-content {
+            width: 400px;
+        }
+    }
+}
+
+@media (max-width: 450px) {
+    .relationship-tabs {
+        .ui-widget-content {
+            width: 330px;
+        }
+    }
+}
