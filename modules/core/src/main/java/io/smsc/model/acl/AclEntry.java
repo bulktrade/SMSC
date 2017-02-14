@@ -181,8 +181,6 @@ public class AclEntry extends BaseEntity {
                 ", granting=" + granting +
                 ", auditSuccess=" + auditSuccess +
                 ", auditFailure=" + auditFailure +
-                ", aclObjectIdentity=" + aclObjectIdentity +
-                ", sid=" + sid +
                 "} " + super.toString();
     }
 }

@@ -28,14 +28,14 @@ public class UserRestTest extends AbstractTest {
     }
 
     @Test
-    public void testUserNotFound() throws Exception {
+    public void testCustomerUserNotFound() throws Exception {
         mockMvc.perform(get("/rest/repository/customer-users/999")
                 .contentType("application/json;charset=UTF-8"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testGetAllUsers() throws Exception {
+    public void testGetAllCustomerUsers() throws Exception {
         mockMvc.perform(get("/rest/repository/customer-users"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.users", hasSize(2)))
@@ -54,7 +54,7 @@ public class UserRestTest extends AbstractTest {
     }
 
     @Test
-    public void testCreateUser() throws Exception {
+    public void testCreateCustomerUser() throws Exception {
         User user = new User();
         user.setUsername("Old Johnny");
         user.setFirstname("John");
@@ -73,14 +73,14 @@ public class UserRestTest extends AbstractTest {
     }
 
     @Test
-    public void testDeleteUser() throws Exception {
+    public void testDeleteCustomerUser() throws Exception {
         mockMvc.perform(delete("/rest/repository/customer-users/1"));
         mockMvc.perform(get("/rest/repository/customer-users/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testUpdateUser() throws Exception {
+    public void testUpdateCustomerUser() throws Exception {
         User user = new User();
         user.setId(1L);
         user.setUsername("Old Johnny");
