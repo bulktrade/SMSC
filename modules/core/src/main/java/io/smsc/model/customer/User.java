@@ -21,7 +21,7 @@ import java.util.Date;
  * @see BaseEntity
  * @since 0.0.1-SNAPSHOT
  */
-@Entity
+@Entity(name = "CustomerUser")
 @Table(name = "CUSTOMER_USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
 @EntityListeners(EncryptionListener.class)
 public class User extends BaseEntity {

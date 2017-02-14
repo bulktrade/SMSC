@@ -38,19 +38,19 @@ public class CustomerUserRestTest extends AbstractTest {
     public void testGetAllCustomerUsers() throws Exception {
         mockMvc.perform(get("/rest/repository/customer-users"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.users", hasSize(2)))
-                .andExpect(jsonPath("$._embedded.users[0].username", is("user")))
-                .andExpect(jsonPath("$._embedded.users[0].firstname", is("userName")))
-                .andExpect(jsonPath("$._embedded.users[0].surname", is("userSurname")))
-                .andExpect(jsonPath("$._embedded.users[0].email", is("user@gmail.com")))
-                .andExpect(jsonPath("$._embedded.users[0].active", is(true)))
-                .andExpect(jsonPath("$._embedded.users[0].blocked", is(false)))
-                .andExpect(jsonPath("$._embedded.users[1].username", is("admin")))
-                .andExpect(jsonPath("$._embedded.users[1].firstname", is("adminName")))
-                .andExpect(jsonPath("$._embedded.users[1].surname", is("adminSurname")))
-                .andExpect(jsonPath("$._embedded.users[1].email", is("admin@gmail.com")))
-                .andExpect(jsonPath("$._embedded.users[1].active", is(true)))
-                .andExpect(jsonPath("$._embedded.users[1].blocked", is(false)));
+                .andExpect(jsonPath("$._embedded.customer-users", hasSize(2)))
+                .andExpect(jsonPath("$._embedded.customer-users[0].username", is("user")))
+                .andExpect(jsonPath("$._embedded.customer-users[0].firstname", is("userName")))
+                .andExpect(jsonPath("$._embedded.customer-users[0].surname", is("userSurname")))
+                .andExpect(jsonPath("$._embedded.customer-users[0].email", is("user@gmail.com")))
+                .andExpect(jsonPath("$._embedded.customer-users[0].active", is(true)))
+                .andExpect(jsonPath("$._embedded.customer-users[0].blocked", is(false)))
+                .andExpect(jsonPath("$._embedded.customer-users[1].username", is("admin")))
+                .andExpect(jsonPath("$._embedded.customer-users[1].firstname", is("adminName")))
+                .andExpect(jsonPath("$._embedded.customer-users[1].surname", is("adminSurname")))
+                .andExpect(jsonPath("$._embedded.customer-users[1].email", is("admin@gmail.com")))
+                .andExpect(jsonPath("$._embedded.customer-users[1].active", is(true)))
+                .andExpect(jsonPath("$._embedded.customer-users[1].blocked", is(false)));
     }
 
     @Test

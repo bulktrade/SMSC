@@ -1,7 +1,7 @@
 package io.smsc.jwt.service;
 
-import io.smsc.model.user.User;
-import io.smsc.repository.UserRepository;
+import io.smsc.model.admin.User;
+import io.smsc.repository.admin.UserRepository;
 import io.smsc.jwt.JWTUserFactory;
 import io.smsc.jwt.model.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;

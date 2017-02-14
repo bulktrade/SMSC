@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
-import io.smsc.model.user.User;
+import io.smsc.model.admin.User;
 
 /**
  * Specifies Role class as an entity class.

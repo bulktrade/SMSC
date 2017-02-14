@@ -29,7 +29,7 @@ public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerA
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 
         // for this time only one solution which works completely
-        config.exposeIdsFor(io.smsc.model.user.User.class, User.class, Role.class, Customer.class, Contact.class, Dashboard.class,
+        config.exposeIdsFor(io.smsc.model.admin.User.class, User.class, Role.class, Customer.class, Contact.class, Dashboard.class,
                 DashboardBox.class, DashboardBoxType.class, AclClass.class, AclEntry.class, AclObjectIdentity.class, AclSid.class);
     }
 }

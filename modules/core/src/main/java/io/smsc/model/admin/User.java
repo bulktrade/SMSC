@@ -1,4 +1,4 @@
-package io.smsc.model.user;
+package io.smsc.model.admin;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +28,7 @@ import java.util.Set;
  * @see BaseEntity
  * @since 0.0.1-SNAPSHOT
  */
-@Entity
+@Entity(name = "AdminUser")
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
 @EntityListeners(EncryptionListener.class)
 public class User extends BaseEntity {

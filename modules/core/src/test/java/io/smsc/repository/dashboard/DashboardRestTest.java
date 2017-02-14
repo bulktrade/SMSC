@@ -1,7 +1,7 @@
 package io.smsc.repository.dashboard;
 
 import io.smsc.AbstractTest;
-import io.smsc.model.user.User;
+import io.smsc.model.admin.User;
 import io.smsc.model.dashboard.Dashboard;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;

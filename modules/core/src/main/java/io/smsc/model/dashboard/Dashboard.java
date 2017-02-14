@@ -3,7 +3,7 @@ package io.smsc.model.dashboard;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
-import io.smsc.model.user.User;
+import io.smsc.model.admin.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;

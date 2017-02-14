@@ -2,10 +2,10 @@ package io.smsc.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.smsc.model.user.User;
+import io.smsc.model.admin.User;
 import io.smsc.AbstractTest;
 import io.smsc.model.customer.Salutation;
-import io.smsc.repository.UserRepository;
+import io.smsc.repository.admin.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

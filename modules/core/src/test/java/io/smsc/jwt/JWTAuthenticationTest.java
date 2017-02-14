@@ -2,7 +2,7 @@ package io.smsc.jwt;
 
 import io.smsc.AbstractTest;
 import io.smsc.model.Role;
-import io.smsc.model.user.User;
+import io.smsc.model.admin.User;
 import io.smsc.jwt.model.JWTAuthenticationRequest;
 import io.smsc.jwt.model.JWTRefreshTokenRequest;
 import io.smsc.jwt.service.JWTTokenGenerationServiceImpl;

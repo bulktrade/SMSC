@@ -1,7 +1,7 @@
 package io.smsc.jwt;
 
 import io.smsc.model.Role;
-import io.smsc.model.user.User;
+import io.smsc.model.admin.User;
 import io.smsc.jwt.model.JWTUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
