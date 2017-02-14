@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { DashboardBox } from "./models/dashboard-box";
-import { GridService } from "../services/grid.service";
+// import { GridService } from "../services/grid.service";
 import { ActivatedRouteSnapshot } from "@angular/router";
 import { Location } from "@angular/common";
 import { Observable } from "rxjs/Observable";
@@ -14,7 +14,7 @@ const squel = require('squel');
 @Injectable()
 export class DashboardService {
     constructor(public location: Location,
-                public gridService: GridService,
+                // public gridService: GridService,
                 private authHttp: AuthHttp,
                 private configService: ConfigService) {
 

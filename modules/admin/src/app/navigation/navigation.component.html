@@ -7,7 +7,7 @@
 			</div>
 			<div style="width: 100%;"></div>
 			<div class="right-panel">
-				<i class="fa fa-user pull-right" aria-hidden="true"></i>
+				<i class="fa fa-user pull-right" [routerLink]="['/profile']" aria-hidden="true"></i>
 				<i class="fa fa-sign-out pull-right" (click)="logout()" id="logout"></i>
 				<i class="fa fa-bars pull-right" (click)="toggleUpSidebar=!toggleUpSidebar" id="mobileMenu"></i>
 			</div>

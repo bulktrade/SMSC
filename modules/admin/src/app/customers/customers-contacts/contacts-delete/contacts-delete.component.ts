@@ -1,16 +1,16 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
-import { Message } from "primeng/components/common/api";
-import { CustomersService } from "../customers.service";
-import { NotificationService } from "../../../services/notification-service";
-import { CustomersContactsService } from "../customers-contacts.service";
+import {Component} from "@angular/core";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {Router, ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
+import {Message} from "primeng/components/common/api";
+import {CustomersService} from "../customers.service";
+import {NotificationService} from "../../../services/notification-service";
+import {CustomersContactsService} from "../customers-contacts.service";
 
 @Component({
     selector: 'customers-delete',
-    templateUrl: './../../../common/templates/delete.component.html',
-    styleUrls: ['./../../../common/styles/delete.component.scss']
+    templateUrl: './../../../shared/templates/delete.component.html',
+    styleUrls: ['./../../../shared/styles/delete.component.scss']
 })
 
 export class ContactsDeleteComponent {
@@ -28,7 +28,7 @@ export class ContactsDeleteComponent {
     ngOnInit() {
         this.translate.get('customers.confirmDeleteMsg')
             .subscribe(detail => {
-                this.msgs.push({ severity: 'warn', detail: detail });
+                this.msgs.push({severity: 'warn', detail: detail});
             });
 
         this.route.params.subscribe((params) => {
@@ -37,7 +37,7 @@ export class ContactsDeleteComponent {
     }
 
     deleteResource() {
-        this.customersContactsService.deleteResource(this.id)
+        this.customersContactsService.deleteResourceById(this.id)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
                 this.location.back();

@@ -1,18 +1,18 @@
-import { TestBed, inject } from "@angular/core/testing";
-import { HttpModule, XHRBackend, Http, ResponseOptions, Response } from "@angular/http";
-import { MockBackend } from "@angular/http/testing";
-import { CrudRepository } from "./crud-repository";
-import { ConfigService } from "../config/config.service";
-import { CustomersService } from "../customers/customers.service";
+import {TestBed, inject} from "@angular/core/testing";
+import {HttpModule, XHRBackend, Http, ResponseOptions, Response} from "@angular/http";
+import {MockBackend} from "@angular/http/testing";
+import {CrudRepository} from "./crud-repository";
+import {ConfigService} from "../config/config.service";
+import {CustomersService} from "../customers/customers.service";
+import {Entity} from "./entity.model";
 
-interface Data {
+interface Data extends Entity {
     name: string;
     telephoneNumber: string;
 }
 
 class CrudRepositoryService extends CrudRepository<Data> {
     public repositoryName = 'data';
-    public projectionName = 'withData';
     public titleColumns = 'name';
 
     constructor(public http: Http,
@@ -36,8 +36,8 @@ describe('Crud repository', () => {
         TestBed.configureTestingModule({
             imports: [HttpModule],
             providers: [
-                { provide: XHRBackend, useClass: MockBackend },
-                { provide: ConfigService, useClass: ConfigServiceMock },
+                {provide: XHRBackend, useClass: MockBackend},
+                {provide: ConfigService, useClass: ConfigServiceMock},
                 CustomersService
             ]
         })
@@ -49,12 +49,12 @@ describe('Crud repository', () => {
     }));
 
     it('should create the new resource', () => {
-        let responseData: Data = {
+        let responseData = {
             name: 'mock',
             telephoneNumber: '0986523476'
         };
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
         service.createResource(responseData)
@@ -67,13 +67,14 @@ describe('Crud repository', () => {
     it('should update the resource', () => {
         let responseData: Data = {
             name: 'mock',
-            telephoneNumber: '0986523476'
+            telephoneNumber: '0986523476',
+            _links: {self: {href: 'link'}}
         };
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
-        service.updateResource(1, responseData)
+        service.updateResource(responseData)
             .subscribe((data: Data) => {
                 expect(data.name).toEqual(responseData.name);
                 expect(data.telephoneNumber).toEqual(responseData.telephoneNumber);
@@ -82,10 +83,10 @@ describe('Crud repository', () => {
 
     it('should delete the resource', () => {
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ status: 204, statusText: 'NO CONTENT' });
+            let response = new ResponseOptions({status: 204, statusText: 'NO CONTENT'});
             connection.mockRespond(new Response(response));
         });
-        service.deleteResource(1)
+        service.deleteResourceById(1)
             .subscribe((res: Response) => {
                 expect(res.status).toEqual(204);
                 expect(res.statusText).toEqual('NO CONTENT');
@@ -95,13 +96,14 @@ describe('Crud repository', () => {
     it('should get a single resource', () => {
         let responseData: Data = {
             name: 'mock',
-            telephoneNumber: '0986523476'
+            telephoneNumber: '0986523476',
+            _links: {self: {href: 'link'}}
         };
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
-        service.getResource(1)
+        service.getResourceById(1)
             .subscribe((data: Data) => {
                 expect(data.name).toEqual(responseData.name);
                 expect(data.telephoneNumber).toEqual(responseData.telephoneNumber);
@@ -112,15 +114,17 @@ describe('Crud repository', () => {
         let responseData: Data[] = [
             {
                 name: 'mock',
-                telephoneNumber: '0986523476'
+                telephoneNumber: '0986523476',
+                _links: {self: {href: 'link'}}
             },
             {
                 name: 'mock2',
-                telephoneNumber: '0986523476'
+                telephoneNumber: '0986523476',
+                _links: {self: {href: 'link'}}
             }
         ];
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
         service.getResources()

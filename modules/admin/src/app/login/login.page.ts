@@ -1,5 +1,5 @@
 import { LoginModel } from "./login.model";
-import { EC } from "../common/expected-conditions";
+import { EC } from "../shared/expected-conditions";
 import { browser, element, by } from "protractor";
 
 export class LoginPage {

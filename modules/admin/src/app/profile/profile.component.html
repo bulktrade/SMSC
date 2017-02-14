@@ -1,0 +1,55 @@
+<div class="addingForm">
+    <p-panel>
+        <p-header>
+            <i class="fa fa-chevron-left" aria-hidden="true" title="{{ 'BACK' | translate }}" routerLink="/"
+               id="back-button"></i>
+            <span>{{ 'PROFILE' | translate }}</span>
+        </p-header>
+        <form role="form" (ngSubmit)="onSubmit()" #submitForm="ngForm" novalidate>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'user.firstname' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['firstname']"
+                               #firstname="ngModel"
+                               required name="firstname" type="text" id="firstname">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="firstname"
+                                        [errors]="{required: ('firstname.required'| translate)}"></control-errors>
+                    </div>
+                </div>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'user.surname' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['surname']"
+                               #surname="ngModel"
+                               required name="surname" type="text" id="surname">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="surname"
+                                        [errors]="{required: ('surname.required'| translate)}"></control-errors>
+                    </div>
+                </div>
+
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2"></div>
+                    <div class="ui-grid-col-6">
+                        <button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="updateProfile"
+                                [disabled]="submitForm.form.invalid">
+                            <span>{{ 'submit' | translate }}</span>
+                            <i *ngIf="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
+                        </button>
+                    </div>
+                    <div class="ui-grid-col-4"></div>
+                </div>
+            </div>
+        </form>
+    </p-panel>
+</div>

@@ -114,7 +114,7 @@
     "expose-loader": "^0.7.1",
     "express": "^4.14.0",
     "extract-loader": "0.0.2",
-    "extract-text-webpack-plugin": "^2.0.0-beta",
+    "extract-text-webpack-plugin": "~2.0.0-rc.3",
     "file-loader": "^0.9.0",
     "font-awesome": "^4.7.0",
     "font-awesome-sass-loader": "^1.0.3",

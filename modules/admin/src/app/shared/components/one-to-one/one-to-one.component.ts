@@ -1,19 +1,12 @@
-import {
-    Component,
-    OnInit,
-    NgModule,
-    ModuleWithProviders,
-    Input,
-    Output,
-    EventEmitter,
-    ViewEncapsulation
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { AutoCompleteModule } from "primeng/components/autocomplete/autocomplete";
-import { CrudRepository } from "../../crud-repository";
-import { ActivatedRoute } from "@angular/router";
-import { NotificationService } from "../../../services/notification-service";
+import {Component, OnInit, NgModule, ModuleWithProviders, Input, ViewEncapsulation} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+import {AutoCompleteModule} from "primeng/components/autocomplete/autocomplete";
+import {CrudRepository} from "../../crud-repository";
+import {ActivatedRoute} from "@angular/router";
+import {NotificationService} from "../../../services/notification-service";
+import {Link} from "../../entity.model";
+import {RequestOptions, RequestMethod, Http} from "@angular/http";
 
 @Component({
     selector: 'one-to-one',
@@ -61,23 +54,36 @@ export class OneToOneComponent implements OnInit {
     @Input('hideOwn')
     public hideOwn: boolean = false;
 
-    @Input()
-    public model;
+    @Input('link')
+    public link: Link;
 
-    @Output()
-    public modelChange = new EventEmitter();
+    @Input()
+    public model = {};
 
     public resources: any[] = [];
 
     public filteredResources: any[];
 
     constructor(public route: ActivatedRoute,
-                public notifications: NotificationService) {
+                public notifications: NotificationService,
+                public http: Http) {
     }
 
     ngOnInit() {
-        this.model = this.model || {};
+        /** get the model resources */
+        this.getResource(this.link)
+            .subscribe(_model => {
+                this.model = _model;
+            }, err => {
+                if (err.status === 404) {
+                    this.model = {};
+                } else {
+                    console.error(err);
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                }
+            });
 
+        /** get the list of resources */
         this.subEntityService.getResources()
             .map(res => res['_embedded'][this.subEntityService.repositoryName])
             .subscribe(resources => {
@@ -113,51 +119,51 @@ export class OneToOneComponent implements OnInit {
         if (typeof event === 'object') {
 
             this.model = event;
-            this.modelChange.emit(event);
 
-            let _selfLink = event['_links'].self.href;
+            let entity = {
+                [this.propertyName]: event['_links'].self.href,
+                _links: this.mainEntityService.getSelfLinkedEntityById(this.id)._links
+            };
 
-            this.mainEntityService.getResource(this.id)
-                .subscribe(res => {
-                    res[this.propertyName] = _selfLink;
-
-                    // delete all properties of URI
-                    delete res['customerUsers'];
-                    delete res['contacts'];
-
-                    this.mainEntityService.updateResource(this.id, res)
-                        .subscribe(() => {
-                            this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-                        }, err => {
-                            console.error(err);
-                            this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
-                        });
+            this.mainEntityService.updateResource(entity)
+                .subscribe(() => {
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                }, err => {
+                    console.error(err);
+                    this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
                 });
         }
     }
 
     removeRelationship() {
-        this.mainEntityService.getResource(this.id)
-            .subscribe(res => {
-                res[this.propertyName] = null;
+        let entity = {
+            [this.propertyName]: null,
+            _links: this.mainEntityService.getSelfLinkedEntityById(this.id)._links
+        };
 
-                this.model = null;
-                this.modelChange.emit(event);
-
-                // delete all properties of URI
-                delete res['customerUsers'];
-                delete res['contacts'];
-
-                this.mainEntityService.updateResource(this.id, res)
-                    .subscribe(() => {
-                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-
-                        this.model = {};
-                    }, err => {
-                        console.error(err);
-                        this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
-                    });
+        this.mainEntityService.updateResource(entity)
+            .subscribe(() => {
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                this.model = {};
+            }, err => {
+                console.error(err);
+                this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
             });
+    }
+
+    /**
+     * Retrieves a single resource with the given link
+     * @param link
+     * @returns {Observable<T>}
+     */
+    getResource(link: Link) {
+        let requestOptions = new RequestOptions({
+            method: RequestMethod.Get,
+        });
+
+        return this.http.request(link.href, requestOptions)
+            .map(res => res.json())
+            .share();
     }
 
 }

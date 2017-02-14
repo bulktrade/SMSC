@@ -8,8 +8,8 @@ import { CustomersService } from "../customers.service";
 
 @Component({
     selector: 'customers-delete',
-    templateUrl: './../../common/templates/delete.component.html',
-    styleUrls: ['./../../common/styles/delete.component.scss'],
+    templateUrl: './../../shared/templates/delete.component.html',
+    styleUrls: ['./../../shared/styles/delete.component.scss'],
     providers: []
 })
 
@@ -37,7 +37,7 @@ export class CustomersDeleteComponent {
     }
 
     deleteResource() {
-        this.customersService.deleteResource(this.id)
+        this.customersService.deleteResourceById(this.id)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
                 this.location.back();

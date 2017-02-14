@@ -30,7 +30,6 @@
     "src/**/*.page.ts",
     "src/**/*.definitions.ts",
     "src/app/dashboard/**/*.ts",
-    "src/app/profile/**/*.ts",
     "src/app/crud-meta-data/**/*.ts",
     "src/**/expected-conditions.ts"
   ],

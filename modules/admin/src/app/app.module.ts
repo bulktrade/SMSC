@@ -13,14 +13,13 @@ import { AppState, InternalStateType } from "./app.service";
 import { AuthService } from "./services/auth/auth.service";
 import { TokenService } from "./services/auth/token.service";
 // import { CrudService } from "./crud/crud.service";
-import { AuthGuard } from "./common/auth.guard";
+import { AuthGuard } from "./shared/auth.guard";
 import { LoadingGridService } from "./services/loading/loading-grid.service";
 import { APP_RESOLVER_PROVIDERS } from "./app.resolver";
 import { createNewHosts, removeNgStyles, createInputTransfer } from "@angularclass/hmr";
 import { ENV_PROVIDERS } from "./environment";
 import { SimpleNotificationsModule, NotificationsService } from "angular2-notifications";
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from "ng2-translate";
-import { GridService } from "./services/grid.service";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { SidebarItemComponent } from "./sidebar/sidebar-item.component";
 import { ConfigService } from "./config/config.service";
@@ -30,8 +29,8 @@ import { RouterOutletService } from "./services/router-outlet-service";
 import { MetaDataPropertyBindingParameterComponent } from "./crud-meta-data/binding-parameter/binding-parameter.component";
 import { SidebarService } from "./sidebar/sidebar.service";
 // import { DashboardModule } from "./dashboard/dashboard.module";
-import { HTTP_INTERCEPTOR_PROVIDER } from "./common/http-interceptor";
-import { NoInternetModule } from "./common/components/no-internet/no-internet.component";
+import { HTTP_INTERCEPTOR_PROVIDER } from "./shared/http-interceptor";
+import { NoInternetModule } from "./shared/components/no-internet/no-internet.component";
 // import { CrudMetaFormDataComponent } from "./crud-meta-data/crud-meta-form-data/crud-meta-form-data.component";
 // import { CrudClassMetaDataComponent } from "./crud-meta-data/crud-class-meta-data/crud-class-meta-data.component";
 // import { CrudMetaGridDataComponent } from "./crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component";
@@ -43,7 +42,7 @@ import { CustomersService } from "./customers/customers.service";
 import { CustomersContactsService } from "./customers/customers-contacts/customers-contacts.service";
 import { CustomersUsersService } from "./customers/customers-users/customers-users.service";
 import { MessagesModule } from "primeng/components/messages/messages";
-import { LoadingRouterOutletModule } from "./common/components/loading-router-outlet/loading-router-outlet.component";
+import { LoadingRouterOutletModule } from "./shared/components/loading-router-outlet/loading-router-outlet.component";
 import { CommonService } from "./services/common";
 import "../styles/styles.scss";
 import { CustomersViewService } from "./customers/customers-view/customers-view.service";
@@ -67,7 +66,6 @@ export const APP_PROVIDERS = [
     LoadingService,
     LoadingRouterOutletService,
     RouterOutletService,
-    GridService,
     TokenService,
     AuthService,
     NotificationsService,

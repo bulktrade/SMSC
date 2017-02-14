@@ -9,6 +9,7 @@ import { RelationshipModal } from "../model/relationship-modal";
 import { CustomersViewService } from "./customers-view.service";
 import * as clone from "js.clone";
 import { NotificationService } from "../../services/notification-service";
+import {Customer} from "../model/customer";
 
 @Component({
     selector: 'customers-view',
@@ -89,13 +90,9 @@ export class CustomersViewComponent {
     }
 
     onEditComplete(event) {
-        let data = clone(event.data);
+        let data: Customer = clone(event.data);
 
-        delete data['customerUsers'];
-        delete data['contacts'];
-        delete data['parent'];
-
-        this.customersService.updateResource(event.data['id'], data)
+        this.customersService.updateResource(data)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
             }, err => {
