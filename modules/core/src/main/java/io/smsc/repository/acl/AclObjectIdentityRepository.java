@@ -48,7 +48,8 @@ public interface AclObjectIdentityRepository extends JpaRepository<AclObjectIden
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclObjectIdentity findByObjectIdClass(@Param("objectIdClass") AclClass objectIdClass);
 
+    @Override
     @EntityGraph(attributePaths = {"parentObject", "ownerSid", "aclEntries"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<AclObjectIdentity> findAllByOrderByIdAsc(Pageable pageable);
+    Page<AclObjectIdentity> findAll(Pageable pageable);
 }

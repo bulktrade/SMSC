@@ -43,7 +43,8 @@ public interface AclSidRepository extends JpaRepository<AclSid, Long> {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclSid findBySid(@Param("sid") String sid);
 
+    @Override
     @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<AclSid> findAllByOrderByIdAsc(Pageable pageable);
+    Page<AclSid> findAll(Pageable pageable);
 }

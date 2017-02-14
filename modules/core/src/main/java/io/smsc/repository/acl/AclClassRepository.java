@@ -43,7 +43,8 @@ public interface AclClassRepository extends JpaRepository<AclClass, Long> {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclClass findByClassName(@Param("className") String className);
 
+    @Override
     @EntityGraph(attributePaths = {"aclObjectIdentities"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<AclClass> findAllByOrderByIdAsc(Pageable pageable);
+    Page<AclClass> findAll(Pageable pageable);
 }

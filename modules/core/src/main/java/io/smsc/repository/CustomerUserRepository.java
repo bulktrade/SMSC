@@ -43,6 +43,7 @@ public interface CustomerUserRepository extends JpaRepository<User, Long> {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     User findByEmail(@Param("email") String email);
 
+    @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<User> findAllByOrderByIdAsc(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 }

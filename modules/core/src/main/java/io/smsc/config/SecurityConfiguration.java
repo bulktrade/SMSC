@@ -1,10 +1,10 @@
 package io.smsc.config;
 
-import io.smsc.security.JWTAuthenticationEntryPoint;
+import io.smsc.jwt.JWTAuthenticationEntryPoint;
 
-import io.smsc.security.JWTAuthenticationTokenFilter;
-import io.smsc.security.service.JWTTokenGenerationService;
-import io.smsc.security.service.JWTUserDetailsService;
+import io.smsc.jwt.JWTAuthenticationTokenFilter;
+import io.smsc.jwt.service.JWTTokenGenerationService;
+import io.smsc.jwt.service.JWTUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -72,11 +72,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                // /rest/auth/** is used for token receiving and updating
+                // /rest/auth/token is used for token receiving and updating
                 .antMatchers("/").permitAll()
                 .antMatchers("/rest/repository/browser/**").permitAll()
                 .antMatchers("/admin/**").permitAll()
-                .antMatchers("/rest/auth/**").permitAll()
+                .antMatchers("/rest/auth/token").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // Call our errorHandler if authentication/authorization fails

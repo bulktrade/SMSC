@@ -97,18 +97,6 @@ public class User extends BaseEntity {
     @OrderBy("id asc")
     private Set<Role> roles;
 
-//    /**
-//     * This method is used for removing all links on User entity from
-//     * appropriate Role entities before entity is removed. Without
-//     * it deleting entity can cause <code>ConstraintViolationException<code/>
-//     */
-//    @PreRemove
-//    private void removeRolesFromUsers() {
-//        for (Role role : roles) {
-//            role.getUsers().remove(this);
-//        }
-//    }
-
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,
@@ -128,7 +116,6 @@ public class User extends BaseEntity {
         return id;
     }
 
-    @JsonIgnore
     public void setId(Long id) {
         this.id = id;
     }
