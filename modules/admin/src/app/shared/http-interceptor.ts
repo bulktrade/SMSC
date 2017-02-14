@@ -8,11 +8,11 @@ import {
     Headers,
     XHRBackend
 } from "@angular/http";
-import { Router } from "@angular/router";
-import { Observable } from "rxjs/Observable";
-import { Injectable } from "@angular/core";
+import {Router} from "@angular/router";
+import {Observable} from "rxjs/Observable";
+import {Injectable} from "@angular/core";
 import * as _ from "lodash";
-import { TokenService } from "../services/auth/token.service";
+import {TokenService} from "../services/auth/token.service";
 
 @Injectable()
 export class HttpInterceptor extends Http {

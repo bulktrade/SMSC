@@ -9,8 +9,8 @@ import {Customer} from "../model/customer";
 @Component({
     selector: 'customers-update',
     template: `
-        <dynamic-form [submitButtonName]="submitButtonName" [model]="model"
-                    (onSubmit)="onSubmit($event)"></dynamic-form>
+        <customers-form [submitButtonName]="submitButtonName" [model]="model"
+                    (onSubmit)="onSubmit($event)"></customers-form>
     `,
     styleUrls: [],
     providers: [Location]

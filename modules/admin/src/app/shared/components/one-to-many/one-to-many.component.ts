@@ -15,7 +15,6 @@ import {Http, RequestOptions, RequestMethod} from "@angular/http";
     templateUrl: './one-to-many.component.html',
     styleUrls: ['one-to-many.component.scss']
 })
-
 export class OneToManyComponent {
 
     @Input('mainEntityId')
