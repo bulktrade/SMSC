@@ -47,8 +47,6 @@ export abstract class CrudRepository<T> {
             body: entity
         });
 
-        this.loading = true;
-
         return this.http.request(entity._links.self.href, requestOptions)
             .map((response: Response) => <T>response.json())
             .share();
@@ -63,8 +61,6 @@ export abstract class CrudRepository<T> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
-
-        this.loading = true;
 
         return this.http.request(entity._links.self.href, requestOptions)
             .share();
