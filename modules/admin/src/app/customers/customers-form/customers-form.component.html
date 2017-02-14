@@ -122,7 +122,7 @@
                         <div class="ui-grid-col-6">
                             <one-to-many
                                     [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
-                                    [(model)]="model['_embedded']['contacts']"
+                                    [link]="model['_links']['contacts']"
                                     [mainEntityId]="id" property="contacts"></one-to-many>
                         </div>
                         <div class="ui-grid-col-4">
@@ -134,16 +134,15 @@
 
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-2">
-                            {{ 'users' | translate }}
+                            {{ 'customerUsers' | translate }}
                         </div>
                         <div class="ui-grid-col-6">
                             <one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
-                                         [mainEntityId]="id"
-                                         [(model)]="model['_embedded']['users']"
+                                         [mainEntityId]="id" [link]="model['_links']['customerUsers']"
                                          property="users"></one-to-many>
                         </div>
                         <div class="ui-grid-col-4">
-                            <control-errors control="users"
+                            <control-errors control="customerUsers"
                                             [errors]="{required: ('customers.required'| translate),
                                                     pattern: ('customers.numberValidator' | translate)}"></control-errors>
                         </div>
@@ -155,14 +154,14 @@
                         </div>
                         <div class="ui-grid-col-6">
                             <one-to-one name="parent" propertyName="parent" [mainEntityId]="id"
-                                        [renderProperties]="['companyName', 'country']" [hideOwn]="true"
+                                        [renderProperties]="['companyName', 'country']" [hideOwn]="false"
                                         [mainEntityService]="customersService" [subEntityService]="customersService"
-                                        [(model)]="model['_embedded']['parent']"></one-to-one>
+                                        [link]="model['_links']['parent']"></one-to-one>
                         </div>
                         <div class="ui-grid-col-4">
                             <control-errors control="parent"
                                             [errors]="{required: ('customers.required'| translate),
-                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
+                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
                         </div>
                     </div>
                 </ng-container>
