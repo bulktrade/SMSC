@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.smsc.annotation.Encrypt;
 import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.BaseEntity;
-import io.smsc.model.Role;
+import io.smsc.model.acl.AclSid;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.annotations.OnDelete;
@@ -90,14 +90,14 @@ public class User extends BaseEntity {
                     CascadeType.REFRESH,
                     CascadeType.PERSIST
             },
-            targetEntity = Role.class)
+            targetEntity = Group.class)
     @JoinTable(
-            name = "USER_ROLE",
+            name = "USER_GROUP",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
+            inverseJoinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID")
     )
     @OrderBy("id asc")
-    private Set<Role> roles;
+    private Set<Group> groups;
 
     @OneToMany(
             mappedBy = "user",
@@ -108,6 +108,9 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OrderBy("id asc")
     private Set<Dashboard> dashboards;
+
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
+    private AclSid aclSid;
 
     @JsonIgnore
     public boolean isNew() {
@@ -198,12 +201,12 @@ public class User extends BaseEntity {
         this.salt = salt;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Set<Group> getGroups() {
+        return groups;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 
     public Set<Dashboard> getDashboards() {
@@ -220,6 +223,14 @@ public class User extends BaseEntity {
 
     public void setSalutation(Salutation salutation) {
         this.salutation = salutation;
+    }
+
+    public AclSid getAclSid() {
+        return aclSid;
+    }
+
+    public void setAclSid(AclSid aclSid) {
+        this.aclSid = aclSid;
     }
 
     @Override

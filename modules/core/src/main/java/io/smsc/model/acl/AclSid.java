@@ -2,6 +2,8 @@ package io.smsc.model.acl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
+import io.smsc.model.admin.Group;
+import io.smsc.model.admin.User;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -50,6 +52,14 @@ public class AclSid extends BaseEntity {
     @OrderBy
     private Set<AclObjectIdentity> aclObjectIdentities;
 
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @OneToOne
+    @JoinColumn(name = "GROUP_ID")
+    private Group group;
+
     @JsonIgnore
     public boolean isNew() {
         return getId() == null;
@@ -93,6 +103,22 @@ public class AclSid extends BaseEntity {
 
     public void setAclObjectIdentities(Set<AclObjectIdentity> aclObjectIdentities) {
         this.aclObjectIdentities = aclObjectIdentities;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     @Override

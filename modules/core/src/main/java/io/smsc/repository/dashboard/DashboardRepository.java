@@ -31,30 +31,31 @@ public interface DashboardRepository extends JpaRepository<Dashboard, Long> {
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     Dashboard save(Dashboard dashboard);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxes"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     Dashboard findOne(Long id);
 
     // /rest/repository/dashboards/search/findByUser
     @EntityGraph(attributePaths = {"dashboardBoxes"})
     @RestResource(path = "findByUser")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     List<Dashboard> findAllDistinctByUser(@RequestBody User user);
 
     @EntityGraph(attributePaths = {"dashboardBoxes"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     Dashboard findByName(@Param("name") String name);
 
+    @Override
     @EntityGraph(attributePaths = {"dashboardBoxes"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<Dashboard> findAllByOrderByIdAsc(Pageable pageable);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    Page<Dashboard> findAll(Pageable pageable);
 }

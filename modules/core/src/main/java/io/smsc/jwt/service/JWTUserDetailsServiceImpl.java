@@ -2,12 +2,15 @@ package io.smsc.jwt.service;
 
 import io.smsc.model.admin.User;
 import io.smsc.repository.admin.UserRepository;
-import io.smsc.jwt.JWTUserFactory;
 import io.smsc.jwt.model.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 
 /**
  * Implementation of base {@link JWTUserDetailsService} which loads user-specific data.
@@ -41,7 +44,7 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
         } else {
-            return JWTUserFactory.create(user);
+            return createJwtUser(user);
         }
     }
 
@@ -60,7 +63,19 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with email '%s'.", email));
         } else {
-            return JWTUserFactory.create(user);
+            return createJwtUser(user);
         }
+    }
+
+    public static JWTUser createJwtUser(User user) {
+        String sid;
+        if(null == user.getAclSid()) {
+            sid = "NONE";
+        }
+        else {
+            sid = user.getAclSid().getSid();
+        }
+        GrantedAuthority authority = new SimpleGrantedAuthority(sid);
+        return new JWTUser(user, Collections.singleton(authority));
     }
 }

@@ -26,22 +26,22 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     Customer save(Customer customer);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     void delete(Long id);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     Customer findOne(Long id);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     Page<Customer> findAll(Pageable pageable);
 
 }

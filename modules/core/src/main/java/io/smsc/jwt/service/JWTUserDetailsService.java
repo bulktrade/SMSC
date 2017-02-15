@@ -1,6 +1,7 @@
 package io.smsc.jwt.service;
 
 import io.smsc.jwt.model.JWTUser;
+import io.smsc.model.admin.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**

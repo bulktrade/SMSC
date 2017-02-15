@@ -27,29 +27,29 @@ public interface AclObjectIdentityRepository extends JpaRepository<AclObjectIden
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     AclObjectIdentity save(AclObjectIdentity aclObjectIdentity);
 
     @Override
     @EntityGraph(attributePaths = {"parentObject", "ownerSid", "aclEntries"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     AclObjectIdentity findOne(Long id);
 
     @EntityGraph(attributePaths = {"parentObject", "ownerSid", "aclEntries"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     AclObjectIdentity findByObjectIdIdentity(@Param("objectIdIdentity") Long objectIdIdentity);
 
     @EntityGraph(attributePaths = {"parentObject", "ownerSid", "aclEntries"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     AclObjectIdentity findByObjectIdClass(@Param("objectIdClass") AclClass objectIdClass);
 
     @Override
     @EntityGraph(attributePaths = {"parentObject", "ownerSid", "aclEntries"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     Page<AclObjectIdentity> findAll(Pageable pageable);
 }

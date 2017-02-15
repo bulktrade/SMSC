@@ -18,16 +18,24 @@ INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, 
 INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
   ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0);
 
-INSERT INTO ROLE (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('ROLE_USER', current_timestamp, 0);
+INSERT INTO "GROUP" (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('ADMINS', current_timestamp, 0);
+INSERT INTO "GROUP" (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('USERS', current_timestamp, 0);
 
-INSERT INTO ROLE (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('ROLE_ADMIN', current_timestamp, 0);
+INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
+  ((select id from user_account where username = 'user'), (select id from "GROUP" where group_name = 'USERS'));
+INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
+  ((select id from user_account where username = 'admin'), (select id from "GROUP" where group_name = 'ADMINS'));
 
-INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
-  ((select id from user_account where username = 'user'), (select id from role where name = 'ROLE_USER'));
-INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
-  ((select id from user_account where username = 'admin'), (select id from role where name = 'ROLE_ADMIN'));
+INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
+  (TRUE, 'USER', (select id from user_account where username = 'user'), current_timestamp, 0);
+INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
+  (TRUE, 'ADMIN', (select id from user_account where username = 'admin'), current_timestamp, 0);
+INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
+  (FALSE, 'USERS', (select id from "GROUP" where group_name = 'USERS'), current_timestamp, 0);
+INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
+  (FALSE, 'ADMINS', (select id from "GROUP" where group_name = 'ADMINS'), current_timestamp, 0);
 
 INSERT INTO DASHBOARD (NAME, ICON, USER_ACCOUNT_ID, LAST_MODIFIED_DATE, VERSION) VALUES
   ('default', 'user', (select id from user_account where username = 'user'), current_timestamp, 0);

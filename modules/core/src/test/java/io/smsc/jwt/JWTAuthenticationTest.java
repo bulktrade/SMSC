@@ -1,7 +1,7 @@
 package io.smsc.jwt;
 
 import io.smsc.AbstractTest;
-import io.smsc.model.Role;
+import io.smsc.jwt.service.JWTUserDetailsServiceImpl;
 import io.smsc.model.admin.User;
 import io.smsc.jwt.model.JWTAuthenticationRequest;
 import io.smsc.jwt.model.JWTRefreshTokenRequest;
@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,9 +58,6 @@ public class JWTAuthenticationTest extends AbstractTest {
     @Test
     public void testRefreshToken() throws Exception {
         User admin = new User();
-        Role role = new Role();
-        role.setId(2L);
-        role.setName("ROLE_ADMIN");
         admin.setId(2L);
         admin.setUsername("admin");
         admin.setPassword("admin");
@@ -70,8 +66,7 @@ public class JWTAuthenticationTest extends AbstractTest {
         admin.setEmail("admin@gmail.com");
         admin.setActive(true);
         admin.setBlocked(false);
-        admin.setRoles(Collections.singleton(role));
-        UserDetails adminDetails = JWTUserFactory.create(admin);
+        UserDetails adminDetails = JWTUserDetailsServiceImpl.createJwtUser(admin);
         String expiredAccessToken = jwtTokenGenerationService.generateAccessToken(adminDetails);
         String refreshToken = jwtTokenGenerationService.generateRefreshToken(adminDetails);
         MvcResult result = mockMvc.perform(put("/rest/auth/token")

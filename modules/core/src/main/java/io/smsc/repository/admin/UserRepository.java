@@ -26,26 +26,27 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     User save(User user);
 
     @Override
-    @EntityGraph(attributePaths = {"roles", "dashboards"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
+    @PreAuthorize("hasAuthority('ADMIN')")
     User findOne(Long id);
 
-    @EntityGraph(attributePaths = {"roles", "dashboards"})
+    @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
     User findByUsername(@Param("username") String userName);
 
-    @EntityGraph(attributePaths = {"roles", "dashboards"})
+    @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
     User findByEmail(@Param("email") String email);
 
-    @EntityGraph(attributePaths = {"roles", "dashboards"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Override
+    @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
+    @PreAuthorize("hasAuthority('ADMIN')")
     Page<User> findAll(Pageable pageable);
 }

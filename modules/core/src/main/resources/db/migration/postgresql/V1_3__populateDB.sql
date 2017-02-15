@@ -3,8 +3,8 @@ DO $$
 DECLARE id_customer bigint;
 DECLARE id_user bigint;
 DECLARE id_admin bigint;
-DECLARE id_role_user bigint;
-DECLARE id_role_admin bigint;
+DECLARE id_users bigint;
+DECLARE id_admins bigint;
 DECLARE id_dashboard bigint;
 DECLARE id_type_1 bigint;
 DECLARE id_type_2 bigint;
@@ -31,15 +31,24 @@ BEGIN
   INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
     ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0) RETURNING id INTO id_admin;
 
-  INSERT INTO ROLE (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-    ('ROLE_USER', current_timestamp, 0) RETURNING id INTO id_role_user;
-  INSERT INTO ROLE (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-    ('ROLE_ADMIN', current_timestamp, 0) RETURNING id INTO id_role_admin;
+  INSERT INTO "GROUP" (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+    ('ADMINS', current_timestamp, 0) RETURNING id INTO id_admins;
+  INSERT INTO "GROUP" (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+    ('USERS', current_timestamp, 0) RETURNING id INTO id_users;
 
-  INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
-    (id_user, id_role_user);
-  INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
-    (id_admin, id_role_admin);
+  INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
+    (id_user, id_users);
+  INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
+    (id_admin, id_admins);
+
+  INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
+    (TRUE, 'USER', id_user, current_timestamp, 0);
+  INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
+    (TRUE, 'ADMIN', id_admin, current_timestamp, 0);
+  INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
+    (FALSE, 'USERS', id_users, current_timestamp, 0);
+  INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
+    (FALSE, 'ADMINS', id_admin, current_timestamp, 0);
 
   INSERT INTO DASHBOARD (NAME, ICON, USER_ACCOUNT_ID, LAST_MODIFIED_DATE, VERSION) VALUES
     ('default', 'user', id_user, current_timestamp, 0) RETURNING id INTO id_dashboard;
