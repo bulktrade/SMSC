@@ -5,7 +5,6 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {ColumnDef} from "../model/column-definition";
 import {Pagination} from "../model/pagination";
 import {CustomersService, REPOSITORY_NAME} from "../customers.service";
-import {CustomersViewService} from "./customers-view.service";
 import * as clone from "js.clone";
 import {NotificationService} from "../../services/notification-service";
 import {Customer} from "../model/customer";
@@ -14,7 +13,7 @@ import {Customer} from "../model/customer";
     selector: 'customers-view',
     templateUrl: './customers-view.component.html',
     styleUrls: ['./customers-view.component.scss'],
-    providers: [CustomersViewService]
+    providers: []
 })
 
 export class CustomersViewComponent {
@@ -32,7 +31,6 @@ export class CustomersViewComponent {
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public customersViewService: CustomersViewService,
                 public notifications: NotificationService) {
     }
 
