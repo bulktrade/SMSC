@@ -2,13 +2,9 @@ import {NgModule, ModuleWithProviders} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {TranslateModule} from "ng2-translate";
-import {CustomersViewComponent} from "./customers-view/customers-view.component";
 import {CustomersComponent} from "./customers.components";
 import {CustomersRoutingModule} from "./customers-routing.module";
 import {MessagesModule} from "primeng/components/messages/messages";
-import {PaginatorModule} from "primeng/components/paginator/paginator";
-import {DataTableModule} from "primeng/components/datatable/datatable";
-import {DialogModule} from "primeng/components/dialog/dialog";
 import {ButtonModule} from "primeng/components/button/button";
 import {SharedModule} from "primeng/components/common/shared";
 import {LoadingRouterOutletModule} from "../shared/components/loading-router-outlet/loading-router-outlet.component";
@@ -26,12 +22,10 @@ import {CustomersUsersService} from "./customers-users/customers-users.service";
 import {OneToManyModule} from "../shared/components/one-to-many/one-to-many.component";
 import {OneToOneModule} from "../shared/components/one-to-one/one-to-one.component";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
-import {TabViewModule} from "primeng/components/tabview/tabview";
 import {ParentCustomerModule} from "./parent-customer/parent-customer";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
-    CustomersViewComponent,
     CustomersUpdateComponent,
     CustomersCreateComponent,
     CustomersDeleteComponent
@@ -46,13 +40,9 @@ const CUSTOMERS_PROVIDERS = [
 
 const CUSTOMERS_MODULES = [
     ParentCustomerModule,
-    TabViewModule,
     DropdownModule,
     OneToManyModule,
     OneToOneModule,
-    DialogModule,
-    PaginatorModule,
-    DataTableModule,
     ButtonModule,
     SharedModule,
     LoadingRouterOutletModule,
