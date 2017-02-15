@@ -56,7 +56,8 @@ public interface DashboardBoxRepository extends JpaRepository<DashboardBox, Long
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<DashboardBox> findAllByDashboardBoxType(@RequestBody DashboardBoxType dashboardBoxType);
 
+    @Override
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<DashboardBox> findAllByOrderByIdAsc(Pageable pageable);
+    Page<DashboardBox> findAll(Pageable pageable);
 }

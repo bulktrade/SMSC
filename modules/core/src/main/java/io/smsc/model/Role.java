@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
+import io.smsc.model.admin.User;
+
 /**
  * Specifies Role class as an entity class.
  *
@@ -48,18 +50,6 @@ public class Role extends BaseEntity {
     )
     @OrderBy("id asc")
     private Set<User> users;
-
-//    /**
-//     * This method is used for removing all links on Role entity from
-//     * appropriate User entities before entity is removed. Without
-//     * it deleting entity can cause <code>ConstraintViolationException<code/>
-//     */
-//    @PreRemove
-//    private void removeRolesFromUsers() {
-//        for (User user : users) {
-//            user.getRoles().remove(this);
-//        }
-//    }
 
     @JsonIgnore
     public boolean isNew() {

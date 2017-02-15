@@ -1,6 +1,6 @@
 package io.smsc.repository.customer;
 
-import io.smsc.model.customer.CustomerContact;
+import io.smsc.model.customer.Contact;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This REST repository class is used for providing default {@link JpaRepository}
- * CRUD methods to operate with {@link CustomerContact} entities and exporting them
+ * CRUD methods to operate with {@link Contact} entities and exporting them
  * to appropriate endpoints.
  *
  * @author Nazar Lipkovskyy
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "customer-contacts", path = "customer-contacts")
 @Transactional(readOnly = true)
-public interface CustomerContactRepository extends JpaRepository<CustomerContact, Long> {
+public interface CustomerContactRepository extends JpaRepository<Contact, Long> {
 
     //All query method resources are exposed under the resource 'search'.
 
@@ -32,18 +32,19 @@ public interface CustomerContactRepository extends JpaRepository<CustomerContact
     @Override
     @Transactional
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    CustomerContact save(CustomerContact customer);
+    Contact save(Contact customer);
 
     @Override
     @EntityGraph(attributePaths = {"type", "salutation"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    CustomerContact findOne(Long id);
+    Contact findOne(Long id);
 
     @EntityGraph(attributePaths = {"type", "salutation"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    CustomerContact findByEmailAddress(@Param("emailAddress") String emailAddress);
+    Contact findByEmailAddress(@Param("emailAddress") String emailAddress);
 
+    @Override
     @EntityGraph(attributePaths = {"type", "salutation"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<CustomerContact> findAllByOrderByIdAsc(Pageable pageable);
+    Page<Contact> findAll(Pageable pageable);
 }

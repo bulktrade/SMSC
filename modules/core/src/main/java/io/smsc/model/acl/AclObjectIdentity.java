@@ -156,11 +156,7 @@ public class AclObjectIdentity extends BaseEntity {
         return "AclObjectIdentity{" +
                 "id=" + id +
                 ", objectIdIdentity=" + objectIdIdentity +
-                ", parentObject=" + parentObject +
-                ", ownerSid=" + ownerSid +
-                ", objectIdClass=" + objectIdClass +
                 ", entriesInheriting=" + entriesInheriting +
-                ", aclEntries=" + aclEntries +
                 "} " + super.toString();
     }
 }

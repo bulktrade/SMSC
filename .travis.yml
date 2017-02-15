@@ -39,18 +39,12 @@ install:
 script:
   - ./bin/build.sh
 
-deploy:
-  provider: script
-  script: bin/deploy.sh
-  skip_cleanup: true
-  on:
-    all_branches: true
-
 after_success:
   - ./bin/report.sh
   - bash <(curl -s https://codecov.io/bash)
 
 before_cache:
+  - ./bin/deploy.sh
   - mkdir -p $HOME/docker && docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}' | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip -2 > $HOME/docker/$1.tar.gz'
 
 notifications:

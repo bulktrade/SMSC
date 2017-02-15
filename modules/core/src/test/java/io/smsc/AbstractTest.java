@@ -1,7 +1,7 @@
 package io.smsc;
 
-import io.smsc.security.service.JWTTokenGenerationService;
-import io.smsc.security.service.JWTUserDetailsService;
+import io.smsc.jwt.service.JWTTokenGenerationService;
+import io.smsc.jwt.service.JWTUserDetailsService;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
@@ -36,62 +36,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @TestPropertySource("classpath:hsqldb.properties")
 @Transactional
 public abstract class AbstractTest {
-
-//    @Value("${encrypt.key}")
-//    protected String secretKey;
-//
-//    @Value("${jwt.header}")
-//    protected String tokenHeader;
-//
-//    @Value("${jwt.secret}")
-//    protected String tokenSecret;
-
-//    private static String user;
-//
-//    private static String password;
-//
-//    private static String database;
-//
-//    @Value("${spring.datasource.username}")
-//    public void setUser(String user) {
-//        AbstractTest.user = user;
-//    }
-//
-//    @Value("${spring.datasource.password}")
-//    public void setPassword(String password) {
-//        AbstractTest.password = password;
-//    }
-//
-//    @Value("${spring.datasource.password}")
-//    public void setDatabase(String database) {
-//        AbstractTest.database = database;
-//    }
-//
-//    @ClassRule
-//    public static DockerRule postgreSQLRule = DockerRule.builder()
-//            .imageName("orchardup/postgresql")
-//            .expose("5432","5432")
-//            .env("POSTGRESQL_USER",user)
-//            .env("POSTGRESQL_PASS",password)
-//            .env("POSTGRESQL_DB",database)
-//            .build();
-//
-//    @ClassRule
-//    public static DockerRule mySQLRule = DockerRule.builder()
-//            .imageName("mysql:latest")
-//            .expose("3306","3306")
-//            .env("MYSQL_ROOT_PASSWORD","password")
-//            .env("MYSQL_DATABASE","smsc")
-//            .env("MYSQL_USER","user")
-//            .env("MYSQL_PASSWORD","password")
-//            .build();
-//
-//    @ClassRule
-//    public static DockerRule oracleRule = DockerRule.builder()
-//            .imageName("alexeiled/docker-oracle-xe-11g")
-//            .expose("1521","1521")
-//            .expose("8080","8080")
-//            .build();
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
 
