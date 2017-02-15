@@ -12,14 +12,15 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {OneToOneModule} from "../../shared/components/one-to-one/one-to-one.component";
 import {CustomersService} from "../customers.service";
+import {ParentCustomerModule} from "../parent-customer/parent-customer";
 
 @Component({
-    selector: 'dynamic-form',
+    selector: 'customers-form',
     templateUrl: './customers-form.component.html',
     styleUrls: ['customers-form.component.scss']
 })
 
-export class DynamicFormComponent {
+export class CustomersFormComponent {
     @Input('submitButtonName')
     public submitButtonName: string;
 
@@ -64,15 +65,16 @@ export class DynamicFormComponent {
         ButtonModule,
         DropdownModule,
         ControlErrorsModule,
-        OneToOneModule
+        OneToOneModule,
+        ParentCustomerModule
     ],
-    exports: [DynamicFormComponent],
-    declarations: [DynamicFormComponent]
+    exports: [CustomersFormComponent],
+    declarations: [CustomersFormComponent]
 })
-export class DynamicFormModule {
+export class CustomersFormModule {
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: DynamicFormModule,
+            ngModule: CustomersFormModule,
             providers: []
         };
     }

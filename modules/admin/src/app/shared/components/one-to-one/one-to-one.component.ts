@@ -8,28 +8,12 @@ import {NotificationService} from "../../../services/notification-service";
 import {Link} from "../../entity.model";
 import {RequestOptions, RequestMethod, Http} from "@angular/http";
 
+const lodash = require('lodash');
+
 @Component({
     selector: 'one-to-one',
     encapsulation: ViewEncapsulation.None,
-    template: `
-        <div id="one-to-one-component">
-            <p-autoComplete [ngModel]="model[subEntityService.titleColumns]" (ngModelChange)="model=$event;onSelectResource($event)"
-             [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
-                [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
-                <template let-model pTemplate="item">
-                    <div class="ui-helper-clearfix">
-                        <div class="titleColumns" *ngIf="!hideOwn || id != +model['id']">
-                            <span class="id">{{ model['id'] }}</span>
-                            <ng-container *ngFor="let item of renderProperties; let last = last;">
-                                <span>{{ model[item] }}<span class="separate" *ngIf="!last">, </span></span>
-                            </ng-container>
-                        </div>
-                    </div>
-                </template>
-            </p-autoComplete>
-            <i *ngIf="model.hasOwnProperty('id')" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
-        </div>
-    `,
+    templateUrl: './one-to-one.component.html',
     styleUrls: ['./one-to-one.component.scss']
 })
 export class OneToOneComponent implements OnInit {

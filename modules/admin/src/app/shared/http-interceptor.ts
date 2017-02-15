@@ -8,11 +8,11 @@ import {
     Headers,
     XHRBackend
 } from "@angular/http";
-import { Router } from "@angular/router";
-import { Observable } from "rxjs/Observable";
-import { Injectable } from "@angular/core";
+import {Router} from "@angular/router";
+import {Observable} from "rxjs/Observable";
+import {Injectable} from "@angular/core";
 import * as _ from "lodash";
-import { TokenService } from "../services/auth/token.service";
+import {TokenService} from "../services/auth/token.service";
 
 @Injectable()
 export class HttpInterceptor extends Http {
@@ -74,6 +74,7 @@ export class HttpInterceptor extends Http {
         return observable.catch((err, source) => {
             if (err.status === 401 && !_.includes(err.url, 'auth/token')) {
                 this._router.navigateByUrl('/login').then();
+                this._tokenService.resetToken();
                 return Observable.empty();
             } else {
                 return Observable.throw(err);

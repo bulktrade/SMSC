@@ -153,10 +153,10 @@
                             {{ 'parent' | translate }}
                         </div>
                         <div class="ui-grid-col-6">
-                            <one-to-one name="parent" propertyName="parent" [mainEntityId]="id"
+                            <parent-customer name="parent" propertyName="parent" [mainEntityId]="id"
                                         [renderProperties]="['companyName', 'country']" [hideOwn]="false"
                                         [mainEntityService]="customersService" [subEntityService]="customersService"
-                                        [link]="model['_links']['parent']"></one-to-one>
+                                        [link]="model['_links']['parent']"></parent-customer>
                         </div>
                         <div class="ui-grid-col-4">
                             <control-errors control="parent"
