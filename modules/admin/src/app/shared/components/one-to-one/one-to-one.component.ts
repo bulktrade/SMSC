@@ -1,20 +1,13 @@
-import {Component, OnInit, NgModule, ModuleWithProviders, Input, ViewEncapsulation} from "@angular/core";
-import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
-import {AutoCompleteModule} from "primeng/components/autocomplete/autocomplete";
-import {CrudRepository} from "../../crud-repository";
+import {Component, OnInit, NgModule, ModuleWithProviders, Input} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
-import {NotificationService} from "../../../services/notification-service";
-import {Link} from "../../entity.model";
 import {RequestOptions, RequestMethod, Http} from "@angular/http";
-
-const lodash = require('lodash');
+import {CrudRepository} from "../../crud-repository";
+import {Link} from "../../entity.model";
+import {NotificationService} from "../../../services/notification-service";
 
 @Component({
     selector: 'one-to-one',
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: './one-to-one.component.html',
-    styleUrls: ['./one-to-one.component.scss']
+    template: '',
 })
 export class OneToOneComponent implements OnInit {
 
@@ -153,11 +146,6 @@ export class OneToOneComponent implements OnInit {
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        AutoCompleteModule
-    ],
     exports: [OneToOneComponent],
     declarations: [OneToOneComponent]
 })
