@@ -29,6 +29,8 @@ export class CustomersViewComponent {
 
     public contactsModel: OneToMany[] = [];
 
+    public usersModel: OneToMany[] = [];
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
@@ -39,6 +41,7 @@ export class CustomersViewComponent {
 
     onRowExpand(event) {
         this.contactsModel[event.data['id']] = new OneToMany('contacts', Action.View, null);
+        this.usersModel[event.data['id']] = new OneToMany('users', Action.View, null);
     }
 
     ngOnInit() {

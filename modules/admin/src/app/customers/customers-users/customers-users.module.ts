@@ -14,11 +14,11 @@ import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {ControlErrorsModule} from "../../shared/components/control-errors/control-errors";
 import {CustomersService} from "../customer.service";
 import {HTTP_INTERCEPTOR_PROVIDER} from "../../shared/http-interceptor";
-import {UsersUpdateComponent} from "./users-update/users-update";
 import {CustomersUsersService} from "./customer-user.service";
-import {UsersCreateComponent} from "./users-create/users-create.component";
 import {MessagesModule} from "primeng/components/messages/messages";
-import {UsersDeleteModule} from "./contacts-delete/users-delete.component";
+import {UsersDeleteModule} from "./users-delete/users-delete.component";
+import {UsersCreateModule} from "./users-create/users-create.component";
+import {UsersUpdateModule} from "./users-update/users-update";
 
 const USERS_CONTACTS_MODULES = [
     UsersRoutingModule,
@@ -34,17 +34,15 @@ const USERS_CONTACTS_MODULES = [
     ControlErrorsModule,
     RouterModule,
     MessagesModule,
-    UsersDeleteModule
+    UsersDeleteModule,
+    UsersCreateModule,
+    UsersUpdateModule
 ];
 
 @NgModule({
     imports: [USERS_CONTACTS_MODULES],
     exports: [UsersRoutingModule],
-    declarations: [
-        CustomersUsersComponent,
-        UsersCreateComponent,
-        UsersUpdateComponent
-    ],
+    declarations: [CustomersUsersComponent],
     providers: [
         CustomersUsersService,
         CustomersService,

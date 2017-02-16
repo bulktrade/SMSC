@@ -32,6 +32,8 @@ import {CustomersViewComponent} from "./customers-view/customers-view.component"
 import {ContactsDeleteModule} from "./customers-contacts/contacts-delete/contacts-delete.component";
 import {ContactsCreateModule} from "./customers-contacts/contacts-create/contacts-create.component";
 import {ContactsUpdateModule} from "./customers-contacts/contacts-update/contacts-update.component";
+import {UsersCreateModule} from "./customers-users/users-create/users-create.component";
+import {UsersUpdateModule} from "./customers-users/users-update/users-update";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
@@ -52,6 +54,8 @@ const CUSTOMERS_MODULES = [
     ContactsCreateModule,
     ContactsDeleteModule,
     ContactsUpdateModule,
+    UsersCreateModule,
+    UsersUpdateModule,
     TabViewModule,
     DialogModule,
     PaginatorModule,

@@ -85,6 +85,7 @@ export class UsersDeleteComponent {
 
         observableDelete.subscribe(() => {
             this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteUser');
+            this.onBack();
         }, err => {
             console.error(err);
             this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteUser');

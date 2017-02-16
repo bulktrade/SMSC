@@ -2,7 +2,7 @@
     <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
                  (onRowExpand)="onRowExpand($event)"
                  (onEditComplete)="onEditComplete($event)" [style]="{'overflow-y':'visible'}"
-                 [expandableRows]="true" scrollable="true" scrollHeight="500px">
+                 [expandableRows]="true" scrollable="true">
         <p-header class="grid-header">
             <div class="ui-helper-clearfix" style="width:100%">
                 <span class="grid-title">{{ 'Customers' | translate}}</span>
@@ -75,9 +75,31 @@
                 </p-tabPanel>
                 <!-- tab with users -->
                 <p-tabPanel [header]="'customerUsers' | translate" leftIcon="fa-user-secret">
-                    <one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
-                                 [mainEntityId]="customer['id']" [link]="customer['_links']['users']"
-                                 property="users"></one-to-many>
+                    <ng-container [ngSwitch]="usersModel[customer['id']].action">
+                        <ng-container *ngSwitchDefault>
+                            <one-to-many
+                                    [renderProperties]="['firstname', 'surname', 'username', 'email']"
+                                    [link]="customer['_links']['users']"
+                                    [mainEntityId]="customer['id']" property="contacts"
+                                    (onDelete)="usersModel[customer['id']]=$event"
+                                    (onUpdate)="usersModel[customer['id']]=$event"
+                                    (onCreate)="usersModel[customer['id']]=$event"></one-to-many>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="3">
+                            <contacts-delete (onBack)="usersModel[customer['id']].action=$event"
+                                             [entity]="usersModel[customer['id']].entity"></contacts-delete>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="1">
+                            <users-create (onBack)="usersModel[customer['id']].action=$event"
+                                             [customerId]="customer['id']"></users-create>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="2">
+                            <users-update (onBack)="usersModel[customer['id']].action=$event"
+                                             [entity]="usersModel[customer['id']].entity"></users-update>
+                        </ng-container>
+                    </ng-container>
+
+
                 </p-tabPanel>
                 <!-- tab with parent customer -->
                 <p-tabPanel [header]="'parent' | translate" leftIcon="fa-building">
