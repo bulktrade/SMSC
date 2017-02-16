@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ElementRef, ViewChild} from "@angular/core";
 import {Location} from "@angular/common";
 import {TranslateService} from "ng2-translate/ng2-translate";
 import {Router, ActivatedRoute} from "@angular/router";

@@ -15,10 +15,6 @@ body {
         border: none;
     }
 
-    .ui-tabview {
-        width: 700px;
-    }
-
     .ui-autocomplete-panel {
         position: static;
     }
@@ -406,21 +402,5 @@ $slideDuration: .4s;
     100% {
         -webkit-transform: translateY(0);
         transform: translateY(0);
-    }
-}
-
-@media (max-width: 760px) {
-    .relationship-tabs {
-        .ui-widget-content {
-            width: 400px;
-        }
-    }
-}
-
-@media (max-width: 450px) {
-    .relationship-tabs {
-        .ui-widget-content {
-            width: 330px;
-        }
     }
 }

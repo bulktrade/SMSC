@@ -1,4 +1,4 @@
-<div id="crud-view-window">
+<div id="crud-view-window" #element (window:resize)="$event">
     <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
                  (onRowExpand)="onRowExpand($event)"
                  (onEditComplete)="onEditComplete($event)" [style]="{'overflow-y':'visible'}"
@@ -46,7 +46,7 @@
 
         <template let-customer pTemplate="rowexpansion" style="{'overflow':'visible'}">
 
-            <p-tabView class="relationship-tabs">
+            <p-tabView class="relationship-tabs" [style]="{'width': (element.clientWidth - 20) + 'px'}">
                 <!-- tab with contacts -->
                 <p-tabPanel [header]="'contacts' | translate" leftIcon="fa-users">
                     <ng-container [ngSwitch]="contactsModel[customer['id']].action">
