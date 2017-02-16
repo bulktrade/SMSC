@@ -1,14 +1,14 @@
 /** which component need to show into tab */
-export class Action {
-    public static View = 'view';
-    public static Create = 'create';
-    public static Update = 'update';
-    public static Delete = 'delete';
+export enum Action {
+    View,
+    Create,
+    Update,
+    Delete
 }
 
 export class OneToMany {
     constructor(public propertyName: string,
-                public action: string|Action,
+                public action: number|Action,
                 public entity?) {
     }
 }

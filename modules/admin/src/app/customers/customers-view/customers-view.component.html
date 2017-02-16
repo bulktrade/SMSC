@@ -59,15 +59,15 @@
                                     (onUpdate)="contactsModel[customer['id']]=$event"
                                     (onCreate)="contactsModel[customer['id']]=$event"></one-to-many>
                         </ng-container>
-                        <ng-container *ngSwitchCase="'delete'">
+                        <ng-container *ngSwitchCase="3">
                             <contacts-delete (onBack)="contactsModel[customer['id']].action=$event"
                                              [entity]="contactsModel[customer['id']].entity"></contacts-delete>
                         </ng-container>
-                        <ng-container *ngSwitchCase="'create'">
+                        <ng-container *ngSwitchCase="1">
                             <contacts-create (onBack)="contactsModel[customer['id']].action=$event"
                                              [customerId]="customer['id']"></contacts-create>
                         </ng-container>
-                        <ng-container *ngSwitchCase="'update'">
+                        <ng-container *ngSwitchCase="2">
                             <contacts-update (onBack)="contactsModel[customer['id']].action=$event"
                                              [entity]="contactsModel[customer['id']].entity"></contacts-update>
                         </ng-container>

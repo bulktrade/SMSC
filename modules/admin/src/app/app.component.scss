@@ -5,6 +5,11 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+#back-button {
+    cursor: pointer;
+    padding-right: 5px;
+}
+
 .relationship-tabs {
     .ui-widget-header {
         border: none;
