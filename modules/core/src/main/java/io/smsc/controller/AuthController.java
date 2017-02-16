@@ -61,6 +61,7 @@ public class AuthController {
             LOG.debug("Some exception occurred", ex);
             // going to send error
         }
+
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials are invalid. Please enter valid username and password");
         return null;
     }

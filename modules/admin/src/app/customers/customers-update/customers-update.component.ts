@@ -3,8 +3,8 @@ import {TranslateService} from "ng2-translate/ng2-translate";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {NotificationService} from "../../services/notification-service";
-import {CustomersService} from "../customer.service";
 import {Customer} from "../model/customer";
+import {CustomersService} from "../customer.service";
 
 @Component({
     selector: 'customers-update',
@@ -46,7 +46,6 @@ export class CustomersUpdateComponent {
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
             }, err => {
-                console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
             })
     }
