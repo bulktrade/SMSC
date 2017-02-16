@@ -8,6 +8,7 @@ import {CustomersService, REPOSITORY_NAME} from "../customer.service";
 import * as clone from "js.clone";
 import {NotificationService} from "../../services/notification-service";
 import {Customer} from "../model/customer";
+import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
 
 @Component({
     selector: 'customers-view',
@@ -26,12 +27,18 @@ export class CustomersViewComponent {
 
     public selectedRows: ColumnDef[] = [];
 
+    public contactsModel: OneToMany[] = [];
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
                 public notifications: NotificationService) {
+    }
+
+    onRowExpand(event) {
+        this.contactsModel[event.data['id']] = new OneToMany('contacts', Action.View, null);
     }
 
     ngOnInit() {

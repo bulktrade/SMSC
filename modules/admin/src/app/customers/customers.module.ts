@@ -23,12 +23,22 @@ import {OneToManyModule} from "../shared/components/one-to-many/one-to-many.comp
 import {OneToOneModule} from "../shared/components/one-to-one/one-to-one.component";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {ParentCustomerModule} from "./parent-customer/parent-customer";
+import {TabViewModule} from "primeng/components/tabview/tabview";
+import {DialogModule} from "primeng/components/dialog/dialog";
+import {PaginatorModule} from "primeng/components/paginator/paginator";
+import {DataTableModule} from "primeng/components/datatable/datatable";
+import {RouterModule} from "@angular/router";
+import {CustomersViewComponent} from "./customers-view/customers-view.component";
+import {ContactsDeleteModule} from "./customers-contacts/contacts-delete/contacts-delete.component";
+import {ContactsCreateModule} from "./customers-contacts/contacts-create/contacts-create.component";
+import {ContactsUpdateModule} from "./customers-contacts/contacts-update/contacts-update.component";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,
     CustomersUpdateComponent,
     CustomersCreateComponent,
-    CustomersDeleteComponent
+    CustomersDeleteComponent,
+    CustomersViewComponent
 ];
 
 const CUSTOMERS_PROVIDERS = [
@@ -39,6 +49,14 @@ const CUSTOMERS_PROVIDERS = [
 ];
 
 const CUSTOMERS_MODULES = [
+    ContactsCreateModule,
+    ContactsDeleteModule,
+    ContactsUpdateModule,
+    TabViewModule,
+    DialogModule,
+    PaginatorModule,
+    DataTableModule,
+    RouterModule,
     ParentCustomerModule,
     DropdownModule,
     OneToManyModule,
@@ -54,7 +72,7 @@ const CUSTOMERS_MODULES = [
     TranslateModule,
     CustomersFormModule,
     CustomersRoutingModule,
-    InputTextModule,
+    InputTextModule
 ];
 
 @NgModule({

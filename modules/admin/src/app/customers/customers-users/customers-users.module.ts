@@ -18,7 +18,7 @@ import {UsersUpdateComponent} from "./users-update/users-update";
 import {CustomersUsersService} from "./customer-user.service";
 import {UsersCreateComponent} from "./users-create/users-create.component";
 import {MessagesModule} from "primeng/components/messages/messages";
-import {UsersDeleteComponent} from "./contacts-delete/users-delete.component";
+import {UsersDeleteModule} from "./contacts-delete/users-delete.component";
 
 const USERS_CONTACTS_MODULES = [
     UsersRoutingModule,
@@ -33,7 +33,8 @@ const USERS_CONTACTS_MODULES = [
     DropdownModule,
     ControlErrorsModule,
     RouterModule,
-    MessagesModule
+    MessagesModule,
+    UsersDeleteModule
 ];
 
 @NgModule({
@@ -42,8 +43,7 @@ const USERS_CONTACTS_MODULES = [
     declarations: [
         CustomersUsersComponent,
         UsersCreateComponent,
-        UsersUpdateComponent,
-        UsersDeleteComponent
+        UsersUpdateComponent
     ],
     providers: [
         CustomersUsersService,

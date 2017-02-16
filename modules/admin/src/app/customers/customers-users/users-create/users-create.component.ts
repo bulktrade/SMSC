@@ -29,7 +29,7 @@ export class UsersCreateComponent implements OnInit {
     }
 
     onSubmit(model) {
-        model['customer'] = this.customersUsersService.getSelfLinkedEntityById(this.userId)._links.self.href;
+        model['customer'] = this.customersService.getSelfLinkedEntityById(this.userId)._links.self.href;
 
         this.customersUsersService.createResource(model)
             .subscribe(() => {

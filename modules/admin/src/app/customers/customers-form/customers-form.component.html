@@ -123,6 +123,8 @@
                             <one-to-many
                                     [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
                                     [link]="model['_links']['contacts']"
+                                    (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
+                                    (onDelete)="onDelete($event)"
                                     [mainEntityId]="id" property="contacts"></one-to-many>
                         </div>
                         <div class="ui-grid-col-4">
@@ -139,6 +141,8 @@
                         <div class="ui-grid-col-6">
                             <one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
                                          [mainEntityId]="id" [link]="model['_links']['users']"
+                                         (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
+                                         (onDelete)="onDelete($event)"
                                          property="users"></one-to-many>
                         </div>
                         <div class="ui-grid-col-4">
@@ -154,14 +158,15 @@
                         </div>
                         <div class="ui-grid-col-6">
                             <parent-customer name="parent" propertyName="parent" [mainEntityId]="id"
-                                        [renderProperties]="['companyName', 'country']" [hideOwn]="false"
-                                        [mainEntityService]="customersService" [subEntityService]="customersService"
-                                        [link]="model['_links']['parent']"></parent-customer>
+                                             [renderProperties]="['companyName', 'country']" [hideOwn]="false"
+                                             [mainEntityService]="customersService"
+                                             [subEntityService]="customersService"
+                                             [link]="model['_links']['parent']"></parent-customer>
                         </div>
                         <div class="ui-grid-col-4">
                             <control-errors control="parent"
                                             [errors]="{required: ('customers.required'| translate),
-                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
+                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
                         </div>
                     </div>
                 </ng-container>

@@ -4,12 +4,15 @@ import {CustomersDeleteComponent} from "./customers-delete/customers-delete.comp
 import {CustomersUpdateComponent} from "./customers-update/customers-update.component";
 import {CustomersEditResolve} from "./customers-update/customers-update.resolve";
 import {CustomersCreateComponent} from "./customers-create/crud-create.component";
+import {CustomersViewComponent} from "./customers-view/customers-view.component";
+import {CustomersViewResolve} from "./customers-view/customers-view.resolve";
 
 const CUSTOMERS_ROUTE_PROVIDER = [
     {
         path: '',
-        loadChildren: './customers-view/customers-view.module#CustomersViewModule',
-        data: {showInBreadcrumb: false},
+        component: CustomersViewComponent,
+        resolve: {view: CustomersViewResolve},
+        data: {showInBreadcrumb: false}
     },
     {
         path: 'delete/:id',

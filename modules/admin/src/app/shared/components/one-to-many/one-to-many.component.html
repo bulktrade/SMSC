@@ -1,6 +1,6 @@
 <div id="multiple-select-window">
 	<div class="title-panel">
-		<i class="fa fa-plus-square-o" [routerLink]="[pathFromRoot, property, 'create', id]"
+		<i class="fa fa-plus-square-o" (click)="onCreate()"
 		   [title]="'1:n.create' | translate" aria-hidden="true"></i>
 	</div>
 	<ng-container *ngIf="resources.length">
@@ -11,11 +11,11 @@
 			<div class="data-item">
 				<div class="ctrl-panel">
 					<i class="fa fa-minus-square-o delete-button"
-					   [routerLink]="[pathFromRoot, property, 'delete', resources[i].id]"
+					   (click)="onDelete(resources[i])"
 					   [title]="'1:n.delete' | translate"
 					   aria-hidden="true"></i>
 					<i class="fa fa-pencil-square-o update-button"
-					   [routerLink]="[pathFromRoot, property, 'update', resources[i].id]"
+					   (click)="onUpdate(resources[i])"
 					   [title]="'1:n.update' | translate"
 					   aria-hidden="true"></i>
 				</div>

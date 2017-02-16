@@ -1,5 +1,6 @@
 <div id="crud-view-window">
     <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
+                 (onRowExpand)="onRowExpand($event)"
                  (onEditComplete)="onEditComplete($event)" [style]="{'overflow-y':'visible'}"
                  [expandableRows]="true" scrollable="true" scrollHeight="500px">
         <p-header class="grid-header">
@@ -44,18 +45,41 @@
                   [sortable]="true" [style]="{'width':'200px'}"></p-column>
 
         <template let-customer pTemplate="rowexpansion" style="{'overflow':'visible'}">
+
             <p-tabView class="relationship-tabs">
+                <!-- tab with contacts -->
                 <p-tabPanel [header]="'contacts' | translate" leftIcon="fa-users">
-                    <one-to-many
-                            [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
-                            [link]="customer['_links']['contacts']"
-                            [mainEntityId]="customer['id']" property="contacts"></one-to-many>
+                    <ng-container [ngSwitch]="contactsModel[customer['id']].action">
+                        <ng-container *ngSwitchDefault>
+                            <one-to-many
+                                    [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
+                                    [link]="customer['_links']['contacts']"
+                                    [mainEntityId]="customer['id']" property="contacts"
+                                    (onDelete)="contactsModel[customer['id']]=$event"
+                                    (onUpdate)="contactsModel[customer['id']]=$event"
+                                    (onCreate)="contactsModel[customer['id']]=$event"></one-to-many>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'delete'">
+                            <contacts-delete (onBack)="contactsModel[customer['id']].action=$event"
+                                             [entity]="contactsModel[customer['id']].entity"></contacts-delete>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'create'">
+                            <contacts-create (onBack)="contactsModel[customer['id']].action=$event"
+                                             [customerId]="customer['id']"></contacts-create>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'update'">
+                            <contacts-update (onBack)="contactsModel[customer['id']].action=$event"
+                                             [entity]="contactsModel[customer['id']].entity"></contacts-update>
+                        </ng-container>
+                    </ng-container>
                 </p-tabPanel>
+                <!-- tab with users -->
                 <p-tabPanel [header]="'customerUsers' | translate" leftIcon="fa-user-secret">
                     <one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
-                                 [mainEntityId]="customer['id']" [link]="customer['_links']['customerUsers']"
+                                 [mainEntityId]="customer['id']" [link]="customer['_links']['users']"
                                  property="users"></one-to-many>
                 </p-tabPanel>
+                <!-- tab with parent customer -->
                 <p-tabPanel [header]="'parent' | translate" leftIcon="fa-building">
                     <parent-customer name="parent" propertyName="parent" [mainEntityId]="customer['id']"
                                      [renderProperties]="['companyName', 'country']" [hideOwn]="false"
