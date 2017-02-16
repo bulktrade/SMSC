@@ -109,7 +109,7 @@ public class User extends BaseEntity {
     @OrderBy("id asc")
     private Set<Dashboard> dashboards;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToOne(mappedBy = "user")
     private AclSid aclSid;
 
     @JsonIgnore

@@ -1,5 +1,6 @@
 package io.smsc.jwt.service;
 
+import io.smsc.model.admin.Group;
 import io.smsc.model.admin.User;
 import io.smsc.repository.admin.UserRepository;
 import io.smsc.jwt.model.JWTUser;
@@ -10,7 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Implementation of base {@link JWTUserDetailsService} which loads user-specific data.
@@ -35,8 +37,6 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
      *
      * @param username string which describes user name
      * @return appropriate {@link JWTUser} object
-     * @throws UsernameNotFoundException if cannot locate a {@link User} by
-     *                                   its username.
      */
     @Override
     public JWTUser loadUserByUsername(String username) {
@@ -54,8 +54,6 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
      *
      * @param email string which describes user's email
      * @return appropriate {@link JWTUser} object
-     * @throws UsernameNotFoundException if cannot locate a {@link User} by
-     *                                   its email.
      */
     @Override
     public JWTUser loadUserByEmail(String email) {
@@ -67,15 +65,25 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
         }
     }
 
+    /**
+     * Method to create set with {@link SimpleGrantedAuthority} for logged user. Authorities
+     * are created from user's {@link io.smsc.model.acl.AclSid} and his {@link Group} sid's.
+     *
+     * @param user logged {@link User}
+     * @return appropriate {@link JWTUser} object
+     */
     public static JWTUser createJwtUser(User user) {
-        String sid;
-        if(null == user.getAclSid()) {
-            sid = "NONE";
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        if(null != user.getAclSid()) {
+            authorities.add(new SimpleGrantedAuthority(user.getAclSid().getSid()));
         }
-        else {
-            sid = user.getAclSid().getSid();
+        if(null != user.getGroups() && !user.getGroups().isEmpty()) {
+            for(Group group : user.getGroups()){
+                if(null != group.getAclSid()) {
+                    authorities.add(new SimpleGrantedAuthority(group.getAclSid().getSid()));
+                }
+            }
         }
-        GrantedAuthority authority = new SimpleGrantedAuthority(sid);
-        return new JWTUser(user, Collections.singleton(authority));
+        return new JWTUser(user, authorities);
     }
 }

@@ -19,23 +19,48 @@ INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, 
   ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0);
 
 INSERT INTO "GROUP" (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('ADMINS', current_timestamp, 0);
+  ('GROUP_USER', current_timestamp, 0);
 INSERT INTO "GROUP" (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('USERS', current_timestamp, 0);
+  ('GROUP_ADMIN', current_timestamp, 0);
 
 INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
-  ((select id from user_account where username = 'user'), (select id from "GROUP" where group_name = 'USERS'));
+  ((select id from user_account where username = 'user'), (select id from "GROUP" where group_name = 'GROUP_USER'));
 INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
-  ((select id from user_account where username = 'admin'), (select id from "GROUP" where group_name = 'ADMINS'));
+  ((select id from user_account where username = 'admin'), (select id from "GROUP" where group_name = 'GROUP_ADMIN'));
 
 INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (TRUE, 'USER', (select id from user_account where username = 'user'), current_timestamp, 0);
+  (TRUE, 'USER_1', (select id from user_account where username = 'user'), current_timestamp, 0);
 INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (TRUE, 'ADMIN', (select id from user_account where username = 'admin'), current_timestamp, 0);
+  (TRUE, 'USER_2', (select id from user_account where username = 'admin'), current_timestamp, 0);
 INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (FALSE, 'USERS', (select id from "GROUP" where group_name = 'USERS'), current_timestamp, 0);
+  (FALSE, 'GROUP_1', (select id from "GROUP" where group_name = 'GROUP_USER'), current_timestamp, 0);
 INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (FALSE, 'ADMINS', (select id from "GROUP" where group_name = 'ADMINS'), current_timestamp, 0);
+  (FALSE, 'GROUP_2', (select id from "GROUP" where group_name = 'GROUP_ADMIN'), current_timestamp, 0);
+
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclClass', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclEntry', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclSid', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.admin.User', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.admin.Group', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.Customer', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.Contact', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.User', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);
 
 INSERT INTO DASHBOARD (NAME, ICON, USER_ACCOUNT_ID, LAST_MODIFIED_DATE, VERSION) VALUES
   ('default', 'user', (select id from user_account where username = 'user'), current_timestamp, 0);

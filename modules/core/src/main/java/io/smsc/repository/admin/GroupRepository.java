@@ -25,21 +25,21 @@ public interface GroupRepository extends JpaRepository<Group, Long> {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     Group save(Group group);
 
     @Override
     @EntityGraph(attributePaths = {"aclSid", "users"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     Group findOne(Long id);
 
     @Override
     @EntityGraph(attributePaths = {"aclSid", "users"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     Page<Group> findAll(Pageable pageable);
 }

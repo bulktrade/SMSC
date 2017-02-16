@@ -9,14 +9,14 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "admin", authorities = {"ADMIN"})
+@WithMockUser(username = "admin", authorities = {"USER_2"})
 public class GroupRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleGroup() throws Exception {
         mockMvc.perform(get("/rest/repository/groups/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.groupName", is("ADMINS")));
+                .andExpect(jsonPath("$.groupName", is("GROUP_USER")));
     }
 
     @Test
@@ -31,15 +31,15 @@ public class GroupRestTest extends AbstractTest {
         mockMvc.perform(get("/rest/repository/groups"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.groups", hasSize(2)))
-                .andExpect(jsonPath("$._embedded.groups[0].groupName", is("USERS")))
-                .andExpect(jsonPath("$._embedded.groups[1].groupName", is("ADMINS")));
+                .andExpect(jsonPath("$._embedded.groups[0].groupName", is("GROUP_USER")))
+                .andExpect(jsonPath("$._embedded.groups[1].groupName", is("GROUP_ADMIN")));
 
     }
 
     @Test
     public void testCreateGroup() throws Exception {
         Group group = new Group();
-        group.setGroupName("NEW_GROUP");
+        group.setGroupName("GROUP_ALL_RIGHTS");
         this.mockMvc.perform(post("/rest/repository/groups")
                 .contentType("application/json;charset=UTF-8")
                 .content(json(group)))
@@ -57,13 +57,13 @@ public class GroupRestTest extends AbstractTest {
     public void testUpdateUser() throws Exception {
         Group group = new Group();
         group.setId(2L);
-        group.setGroupName("NEW_GROUP");
+        group.setGroupName("GROUP_ALL_RIGHTS");
         mockMvc.perform(put("/rest/repository/groups/2")
                 .contentType("application/json;charset=UTF-8")
                 .content(json(group)))
                 .andExpect(status().isOk());
         mockMvc.perform(get("/rest/repository/groups/2"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.groupName", is("NEW_GROUP")));
+                .andExpect(jsonPath("$.groupName", is("GROUP_ALL_RIGHTS")));
     }
 }

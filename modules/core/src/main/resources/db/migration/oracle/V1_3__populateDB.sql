@@ -33,9 +33,9 @@ INSERT INTO CUSTOMER (ID, COMPANY_NAME, STREET, STREET2, POSTCODE, COUNTRY, CITY
     (user_account_seq.nextval, 'admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', 1, 0, 'MRS', current_timestamp, current_timestamp, 0) RETURNING ID INTO id_admin;
 
   INSERT INTO "GROUP" (ID, GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-    (group_seq.nextval, 'ADMINS', current_timestamp, 0) RETURNING ID INTO id_admins;
+    (group_seq.nextval, 'GROUP_USER', current_timestamp, 0) RETURNING ID INTO id_users;
   INSERT INTO "GROUP" (ID, GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-    (group_seq.nextval, 'USERS', current_timestamp, 0) RETURNING ID INTO id_users;
+    (group_seq.nextval, 'GROUP_ADMIN', current_timestamp, 0) RETURNING ID INTO id_admins;
 
   INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
     (id_user, id_users);
@@ -43,13 +43,38 @@ INSERT INTO CUSTOMER (ID, COMPANY_NAME, STREET, STREET2, POSTCODE, COUNTRY, CITY
     (id_admin, id_admins);
 
   INSERT INTO ACL_SID (ID, PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (ACL_SID_SEQ.nextval, 1, 'USER', id_user, current_timestamp, 0);
+    (acl_sid_seq.nextval, 1, 'USER_1', id_user, current_timestamp, 0);
   INSERT INTO ACL_SID (ID, PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (ACL_SID_SEQ.nextval, 1, 'ADMIN', id_admin, current_timestamp, 0);
+    (acl_sid_seq.nextval, 1, 'USER_2', id_admin, current_timestamp, 0);
   INSERT INTO ACL_SID (ID, PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (ACL_SID_SEQ.nextval, 0, 'USERS', id_users, current_timestamp, 0);
+    (acl_sid_seq.nextval, 0, 'GROUP_1', id_users, current_timestamp, 0);
   INSERT INTO ACL_SID (ID, PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (ACL_SID_SEQ.nextval, 0, 'ADMINS', id_admin, current_timestamp, 0);
+    (acl_sid_seq.nextval, 0, 'GROUP_2', id_admin, current_timestamp, 0);
+
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.acl.AclClass', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.acl.AclEntry', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.acl.AclSid', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.admin.User', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.admin.Group', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.customer.Customer', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.customer.Contact', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.customer.User', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);
 
   INSERT INTO DASHBOARD (ID, NAME, ICON, USER_ACCOUNT_ID, LAST_MODIFIED_DATE, VERSION) VALUES
     (dashboard_seq.nextval, 'default', 'user', id_user, current_timestamp, 0) RETURNING ID INTO id_dashboard;

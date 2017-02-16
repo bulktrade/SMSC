@@ -26,17 +26,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     User save(User user);
 
     @Override
     @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     User findOne(Long id);
 
     @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
@@ -47,6 +47,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     Page<User> findAll(Pageable pageable);
 }

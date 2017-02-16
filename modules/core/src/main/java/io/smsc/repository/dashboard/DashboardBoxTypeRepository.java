@@ -26,26 +26,26 @@ public interface DashboardBoxTypeRepository extends JpaRepository<DashboardBoxTy
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     DashboardBoxType save(DashboardBoxType dashboardBoxType);
 
     @Override
     @EntityGraph(attributePaths = {"kind", "type"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     DashboardBoxType findOne(Long id);
 
     @EntityGraph(attributePaths = {"kind", "type"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     DashboardBoxType findByName(@Param("name") String name);
 
     @Override
     @EntityGraph(attributePaths = {"kind", "type"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     Page<DashboardBoxType> findAll(Pageable pageable);
 
 }

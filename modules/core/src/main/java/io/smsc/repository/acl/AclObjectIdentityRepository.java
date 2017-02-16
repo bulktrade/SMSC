@@ -27,29 +27,29 @@ public interface AclObjectIdentityRepository extends JpaRepository<AclObjectIden
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     AclObjectIdentity save(AclObjectIdentity aclObjectIdentity);
 
     @Override
     @EntityGraph(attributePaths = {"parentObject", "ownerSid", "aclEntries"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     AclObjectIdentity findOne(Long id);
 
     @EntityGraph(attributePaths = {"parentObject", "ownerSid", "aclEntries"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     AclObjectIdentity findByObjectIdIdentity(@Param("objectIdIdentity") Long objectIdIdentity);
 
     @EntityGraph(attributePaths = {"parentObject", "ownerSid", "aclEntries"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     AclObjectIdentity findByObjectIdClass(@Param("objectIdClass") AclClass objectIdClass);
 
     @Override
     @EntityGraph(attributePaths = {"parentObject", "ownerSid", "aclEntries"})
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
     Page<AclObjectIdentity> findAll(Pageable pageable);
 }
