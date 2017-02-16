@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from "@angular/r
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { NotificationService } from "../../services/notification-service";
-import { CustomersService, REPOSITORY_NAME } from "../customers.service";
+import { CustomersService, REPOSITORY_NAME } from "../customer.service";
 import { Pagination } from "../model/pagination";
 import { GridOptions } from "../model/grid-options";
 

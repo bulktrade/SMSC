@@ -7,14 +7,7 @@ const ROUTE_PROVIDER = [
     {
         path: '',
         component: CustomersViewComponent,
-        resolve: {view: CustomersViewResolve},
-        children: [
-            {
-                path: 'users',
-                loadChildren: './../customers-users/customers-users.module#UsersModule',
-                data: {showInBreadcrumb: false}
-            }
-        ],
+        resolve: {view: CustomersViewResolve}
     }
 ];
 @NgModule({

@@ -1,13 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
-import {CustomersService} from "../../customers.service";
+import {CustomersService} from "../../customer.service";
 import {ActivatedRoute} from "@angular/router";
 import {NotificationService} from "../../../services/notification-service";
-import {CustomersContactsService} from "../customers-contacts.service";
+import {CustomersContactsService} from "../customer-contact.service";
 
 @Component({
     selector: 'contacts-update',
-    templateUrl: './contacts-update.html'
+    templateUrl: 'contacts-update.component.html'
 })
 export class ContactsUpdateComponent implements OnInit {
 

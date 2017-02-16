@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {CustomersUsersComponent} from "./customers-users";
+import {CustomersUsersComponent} from "./customers-users.component";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {UsersRoutingModule} from "./customers-users-routing.module";
@@ -12,11 +12,11 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {ButtonModule} from "primeng/components/button/button";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {ControlErrorsModule} from "../../shared/components/control-errors/control-errors";
-import {CustomersService} from "../customers.service";
+import {CustomersService} from "../customer.service";
 import {HTTP_INTERCEPTOR_PROVIDER} from "../../shared/http-interceptor";
 import {UsersUpdateComponent} from "./users-update/users-update";
-import {CustomersUsersService} from "./customers-users.service";
-import {UsersCreateComponent} from "./users-create/users-create";
+import {CustomersUsersService} from "./customer-user.service";
+import {UsersCreateComponent} from "./users-create/users-create.component";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {UsersDeleteComponent} from "./contacts-delete/users-delete.component";
 

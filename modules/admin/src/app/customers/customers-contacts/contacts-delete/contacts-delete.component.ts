@@ -3,9 +3,8 @@ import {TranslateService} from "ng2-translate/ng2-translate";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {Message} from "primeng/components/common/api";
-import {CustomersService} from "../customers.service";
 import {NotificationService} from "../../../services/notification-service";
-import {CustomersContactsService} from "../customers-contacts.service";
+import {CustomersContactsService} from "../customer-contact.service";
 
 @Component({
     selector: 'customers-delete',

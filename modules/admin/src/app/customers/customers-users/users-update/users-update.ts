@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
-import {CustomersService} from "../../customers.service";
+import {CustomersService} from "../../customer.service";
 import {ActivatedRoute} from "@angular/router";
 import {NotificationService} from "../../../services/notification-service";
-import {CustomersUsersService} from "../customers-users.service";
+import {CustomersUsersService} from "../customer-user.service";
 import {User} from "../../../users/user.model";
 
 @Component({

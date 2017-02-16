@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {CustomersUsersService} from "../customers-users.service";
+import {CustomersUsersService} from "../customer-user.service";
 
 @Injectable()
 export class UsersUpdateResolve implements Resolve<any> {

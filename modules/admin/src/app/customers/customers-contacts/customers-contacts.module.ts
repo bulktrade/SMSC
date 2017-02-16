@@ -1,10 +1,10 @@
 import {NgModule} from "@angular/core";
-import {CustomersContactsComponent} from "./customers-contacts";
+import {CustomersContactsComponent} from "./customers-contacts.component";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
-import {ContactsCreateComponent} from "./contacts-create/contacts-create";
+import {ContactsCreateComponent} from "./contacts-create/contacts-create.component";
 import {CustomersContactsRoutingModule} from "./customers-contacts-routing.module";
-import {CustomersContactsService} from "./customers-contacts.service";
+import {CustomersContactsService} from "./customer-contact.service";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
 import {FormsModule} from "@angular/forms";
 import {OneToManyModule} from "../../shared/components/one-to-many/one-to-many.component";
@@ -14,9 +14,9 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {ButtonModule} from "primeng/components/button/button";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {ControlErrorsModule} from "../../shared/components/control-errors/control-errors";
-import {CustomersService} from "../customers.service";
+import {CustomersService} from "../customer.service";
 import {HTTP_INTERCEPTOR_PROVIDER} from "../../shared/http-interceptor";
-import {ContactsUpdateComponent} from "./contacts-update/contacts-update";
+import {ContactsUpdateComponent} from "./contacts-update/contacts-update.component";
 import {ContactsDeleteComponent} from "./contacts-delete/contacts-delete.component";
 import {MessagesModule} from "primeng/components/messages/messages";
 

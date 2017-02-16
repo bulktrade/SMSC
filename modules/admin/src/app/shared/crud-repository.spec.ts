@@ -3,7 +3,7 @@ import {HttpModule, XHRBackend, Http, ResponseOptions, Response} from "@angular/
 import {MockBackend} from "@angular/http/testing";
 import {CrudRepository} from "./crud-repository";
 import {ConfigService} from "../config/config.service";
-import {CustomersService} from "../customers/customers.service";
+import {CustomersService} from "../customers/customer.service";
 import {Entity} from "./entity.model";
 
 interface Data extends Entity {

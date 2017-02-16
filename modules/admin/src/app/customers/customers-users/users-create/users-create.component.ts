@@ -1,13 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {Location} from "@angular/common";
-import {CustomersService} from "../../customers.service";
+import {CustomersService} from "../../customer.service";
 import {ActivatedRoute} from "@angular/router";
 import {NotificationService} from "../../../services/notification-service";
-import {CustomersUsersService} from "../customers-users.service";
+import {CustomersUsersService} from "../customer-user.service";
 
 @Component({
     selector: 'users-users',
-    templateUrl: 'users-create.html'
+    templateUrl: 'users-create.component.html'
 })
 export class UsersCreateComponent implements OnInit {
     public model: any = {};

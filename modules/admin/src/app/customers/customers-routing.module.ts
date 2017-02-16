@@ -1,9 +1,9 @@
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
+import {CustomersDeleteComponent} from "./customers-delete/customers-delete.component";
 import {CustomersUpdateComponent} from "./customers-update/customers-update.component";
 import {CustomersEditResolve} from "./customers-update/customers-update.resolve";
 import {CustomersCreateComponent} from "./customers-create/crud-create.component";
-import {CustomersDeleteComponent} from "./customers-delete/customers-delete.component";
 
 const CUSTOMERS_ROUTE_PROVIDER = [
     {

@@ -6,7 +6,7 @@ import {Message} from "primeng/components/common/api";
 import {CustomersService} from "../customers.service";
 import {NotificationService} from "../../../services/notification-service";
 import {CustomersContactsService} from "../customers-contacts.service";
-import {CustomersUsersService} from "../customers-users.service";
+import {CustomersUsersService} from "../customer-user.service";
 
 @Component({
     selector: 'customers-delete',

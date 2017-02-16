@@ -4,7 +4,7 @@ import {TranslateService} from "ng2-translate/ng2-translate";
 import {Router, ActivatedRoute} from "@angular/router";
 import {ColumnDef} from "../model/column-definition";
 import {Pagination} from "../model/pagination";
-import {CustomersService, REPOSITORY_NAME} from "../customers.service";
+import {CustomersService, REPOSITORY_NAME} from "../customer.service";
 import * as clone from "js.clone";
 import {NotificationService} from "../../services/notification-service";
 import {Customer} from "../model/customer";

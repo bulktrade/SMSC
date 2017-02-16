@@ -11,7 +11,7 @@ import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {OneToOneModule} from "../../shared/components/one-to-one/one-to-one.component";
-import {CustomersService} from "../customers.service";
+import {CustomersService} from "../customer.service";
 import {ParentCustomerModule} from "../parent-customer/parent-customer";
 
 @Component({
