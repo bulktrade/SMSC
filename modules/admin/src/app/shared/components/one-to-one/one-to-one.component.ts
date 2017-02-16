@@ -1,43 +1,13 @@
-import {
-    Component,
-    OnInit,
-    NgModule,
-    ModuleWithProviders,
-    Input,
-    Output,
-    EventEmitter,
-    ViewEncapsulation
-} from "@angular/core";
-import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
-import {AutoCompleteModule} from "primeng/components/autocomplete/autocomplete";
-import {CrudRepository} from "../../crud-repository";
+import {Component, OnInit, NgModule, ModuleWithProviders, Input} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
+import {RequestOptions, RequestMethod, Http} from "@angular/http";
+import {CrudRepository} from "../../crud-repository";
+import {Link} from "../../entity.model";
 import {NotificationService} from "../../../services/notification-service";
 
 @Component({
     selector: 'one-to-one',
-    encapsulation: ViewEncapsulation.None,
-    template: `
-        <div id="one-to-one-component">
-            <p-autoComplete [ngModel]="model[subEntityService.titleColumns]" (ngModelChange)="model=$event;onSelectResource($event)"
-             [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
-                [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
-                <template let-model pTemplate="item">
-                    <div class="ui-helper-clearfix">
-                        <div class="titleColumns" *ngIf="!hideOwn || id != +model['id']">
-                            <span class="id">{{ model['id'] }}</span>
-                            <ng-container *ngFor="let item of renderProperties; let last = last;">
-                                <span>{{ model[item] }}<span class="separate" *ngIf="!last">, </span></span>
-                            </ng-container>
-                        </div>
-                    </div>
-                </template>
-            </p-autoComplete>
-            <i *ngIf="model.id" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
-        </div>
-    `,
-    styleUrls: ['./one-to-one.component.scss']
+    template: '',
 })
 export class OneToOneComponent implements OnInit {
 
@@ -61,23 +31,36 @@ export class OneToOneComponent implements OnInit {
     @Input('hideOwn')
     public hideOwn: boolean = false;
 
-    @Input()
-    public model;
+    @Input('link')
+    public link: Link;
 
-    @Output()
-    public modelChange = new EventEmitter();
+    @Input()
+    public model = {};
 
     public resources: any[] = [];
 
     public filteredResources: any[];
 
     constructor(public route: ActivatedRoute,
-                public notifications: NotificationService) {
+                public notifications: NotificationService,
+                public http: Http) {
     }
 
     ngOnInit() {
-        this.model = this.model || {};
+        /** get the model resources */
+        this.getResource(this.link)
+            .subscribe(_model => {
+                this.model = _model;
+            }, err => {
+                if (err.status === 404) {
+                    this.model = {};
+                } else {
+                    console.error(err);
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                }
+            });
 
+        /** get the list of resources */
         this.subEntityService.getResources()
             .map(res => res['_embedded'][this.subEntityService.repositoryName])
             .subscribe(resources => {
@@ -113,7 +96,6 @@ export class OneToOneComponent implements OnInit {
         if (typeof event === 'object') {
 
             this.model = event;
-            this.modelChange.emit(event);
 
             let entity = {
                 [this.propertyName]: event['_links'].self.href,
@@ -139,7 +121,6 @@ export class OneToOneComponent implements OnInit {
         this.mainEntityService.updateResource(entity)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-
                 this.model = {};
             }, err => {
                 console.error(err);
@@ -147,14 +128,24 @@ export class OneToOneComponent implements OnInit {
             });
     }
 
+    /**
+     * Retrieves a single resource with the given link
+     * @param link
+     * @returns {Observable<T>}
+     */
+    getResource(link: Link) {
+        let requestOptions = new RequestOptions({
+            method: RequestMethod.Get,
+        });
+
+        return this.http.request(link.href, requestOptions)
+            .map(res => res.json())
+            .share();
+    }
+
 }
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        AutoCompleteModule
-    ],
     exports: [OneToOneComponent],
     declarations: [OneToOneComponent]
 })

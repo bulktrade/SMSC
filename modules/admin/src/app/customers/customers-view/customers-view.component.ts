@@ -1,26 +1,23 @@
-import { Component, HostListener } from "@angular/core";
-import { Location } from "@angular/common";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, ActivatedRoute } from "@angular/router";
-import { ColumnDef } from "../model/column-definition";
-import { Pagination } from "../model/pagination";
-import { CustomersService, REPOSITORY_NAME } from "../customers.service";
-import { RelationshipModal } from "../model/relationship-modal";
-import { CustomersViewService } from "./customers-view.service";
+import {Component, ElementRef, ViewChild} from "@angular/core";
+import {Location} from "@angular/common";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {Router, ActivatedRoute} from "@angular/router";
+import {ColumnDef} from "../model/column-definition";
+import {Pagination} from "../model/pagination";
+import {CustomersService, REPOSITORY_NAME} from "../customer.service";
 import * as clone from "js.clone";
-import { NotificationService } from "../../services/notification-service";
+import {NotificationService} from "../../services/notification-service";
 import {Customer} from "../model/customer";
+import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
 
 @Component({
     selector: 'customers-view',
     templateUrl: './customers-view.component.html',
     styleUrls: ['./customers-view.component.scss'],
-    providers: [CustomersViewService]
+    providers: []
 })
 
 export class CustomersViewComponent {
-
-    public gridResponsive: boolean = false;
 
     public pagination: Pagination = new Pagination(10, null, null, 0);
 
@@ -30,56 +27,26 @@ export class CustomersViewComponent {
 
     public selectedRows: ColumnDef[] = [];
 
-    public oneToManyModal: boolean = false;
+    public contactsModel: OneToMany[] = [];
 
-    public oneToOneModal: boolean = false;
-
-    public relationshipModal: RelationshipModal = <RelationshipModal>{};
+    public usersModel: OneToMany[] = [];
 
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public customersViewService: CustomersViewService,
                 public notifications: NotificationService) {
     }
 
-    onEditInit(event) {
-        switch (event.column.field) {
-            case 'contacts':
-                this.relationshipModal.model = event.data[event.column.field];
-                this.relationshipModal.mainEntityId = event.data['id'];
-                this.relationshipModal.renderProperties = ['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress'];
-                this.relationshipModal.propertyName = 'contacts';
-                this.oneToManyModal = true;
-                break;
-
-            case 'customerUsers':
-                this.relationshipModal.model = event.data[event.column.field];
-                this.relationshipModal.renderProperties = ['firstname', 'surname', 'username', 'email'];
-                this.relationshipModal.propertyName = 'users';
-                this.oneToManyModal = true;
-                break;
-
-            case 'parent':
-                this.relationshipModal.model = event;
-                this.relationshipModal.mainEntityId = event.data['id'];
-                this.relationshipModal.propertyName = 'parent';
-                this.oneToOneModal = true;
-                break;
-
-            default:
-                break;
-        }
+    onRowExpand(event) {
+        this.contactsModel[event.data['id']] = new OneToMany('contacts', Action.View, null);
+        this.usersModel[event.data['id']] = new OneToMany('users', Action.View, null);
     }
 
     ngOnInit() {
         this.rowData = this.getRowData();
         this.pagination.totalElements = this.getNumberCustomers();
-
-        // enable responsive mode for grid on mobile devices
-        this.gridResponsive = window.innerWidth < 540;
     }
 
     onPaginate(event) {
@@ -109,11 +76,5 @@ export class CustomersViewComponent {
 
     getNumberCustomers() {
         return this.route.snapshot.data['view'].totalElements;
-    }
-
-    @HostListener('window:resize', ['$event'])
-    onResize(event) {
-        // enable responsive mode for grid on mobile devices
-        this.gridResponsive = event.target.innerWidth < 540;
     }
 }

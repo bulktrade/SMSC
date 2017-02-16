@@ -2,7 +2,7 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot, Resolve} from "@angular/rou
 import {Injectable} from "@angular/core";
 import {Location} from "@angular/common";
 import {NotificationService} from "../../services/notification-service";
-import {CustomersService} from "../customers.service";
+import {CustomersService} from "../customer.service";
 
 @Injectable()
 export class CustomersEditResolve implements Resolve<any> {

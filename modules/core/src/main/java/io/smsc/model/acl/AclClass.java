@@ -90,7 +90,6 @@ public class AclClass extends BaseEntity {
         return "AclClass{" +
                 "id=" + id +
                 ", className='" + className + '\'' +
-                ", aclObjectIdentities=" + aclObjectIdentities +
                 "} " + super.toString();
     }
 }

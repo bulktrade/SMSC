@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,12 +35,13 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     void delete(Long id);
 
     @Override
-    @EntityGraph(attributePaths = {"customerUsers", "contacts", "parent"})
+    @EntityGraph(attributePaths = {"users", "contacts", "parent"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Customer findOne(Long id);
 
-    @EntityGraph(attributePaths = {"customerUsers", "contacts", "parent"})
+    @Override
+    @EntityGraph(attributePaths = {"users", "contacts", "parent"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<Customer> findAllByOrderByIdAsc(Pageable pageable);
+    Page<Customer> findAll(Pageable pageable);
 
 }

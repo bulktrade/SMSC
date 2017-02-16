@@ -1,7 +1,7 @@
 package io.smsc.resource.processor;
 
-import io.smsc.model.User;
-import io.smsc.repository.UserRepository;
+import io.smsc.model.admin.User;
+import io.smsc.repository.admin.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositorySearchesResource;
 import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;

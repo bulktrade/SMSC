@@ -26,11 +26,12 @@ public class BaseEntity implements Serializable {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_MODIFIED_DATE", nullable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
+    @JsonIgnore
     protected Date lastModifiedDate = new Date();
 
     @Version
     @Column(name = "VERSION", nullable = false)
+    @JsonIgnore
     protected Long version;
 
     @PreUpdate
@@ -38,18 +39,23 @@ public class BaseEntity implements Serializable {
         lastModifiedDate = new Date();
     }
 
+    @JsonProperty
     public Long getVersion() {
         return version;
     }
 
+    @JsonIgnore
     public void setVersion(Long versionNumber) {
         this.version = versionNumber;
     }
 
+    @JsonProperty
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
     public Date getLastModifiedDate() {
         return lastModifiedDate;
     }
 
+    @JsonIgnore
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }

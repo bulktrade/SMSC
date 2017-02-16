@@ -5,6 +5,27 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+#back-button {
+    cursor: pointer;
+    padding-right: 5px;
+}
+
+.relationship-tabs {
+    .ui-widget-header {
+        border: none;
+    }
+
+    .ui-autocomplete-panel {
+        position: static;
+    }
+
+    #one-to-one-component .btn-remove {
+        top: 8px;
+        margin-left: -50px;
+        right: inherit;
+    }
+}
+
 .primeng-primary-btn {
     border: 1px solid #2399e5;
     color: #fff;
@@ -383,5 +404,3 @@ $slideDuration: .4s;
         transform: translateY(0);
     }
 }
-
-/*-- STYLE FOR CHECKBOX (BEGIN) --*/

@@ -21,7 +21,7 @@ import java.util.Date;
  * @see BaseEntity
  * @since 0.0.1-SNAPSHOT
  */
-@Entity
+@Entity(name = "CustomerUser")
 @Table(name = "CUSTOMER_USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
 @EntityListeners(EncryptionListener.class)
 public class User extends BaseEntity {
@@ -90,7 +90,6 @@ public class User extends BaseEntity {
         return id;
     }
 
-    @JsonIgnore
     public void setId(Long id) {
         this.id = id;
     }
@@ -194,34 +193,26 @@ public class User extends BaseEntity {
 
         User user = (User) o;
 
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (salutation != user.salutation) return false;
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (salt != null ? !salt.equals(user.salt) : user.salt != null) return false;
-        if (firstname != null ? !firstname.equals(user.firstname) : user.firstname != null) return false;
-        if (surname != null ? !surname.equals(user.surname) : user.surname != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (active != null ? !active.equals(user.active) : user.active != null) return false;
-        if (created != null ? !created.equals(user.created) : user.created != null) return false;
-        if (blocked != null ? !blocked.equals(user.blocked) : user.blocked != null) return false;
-        return customer != null ? customer.equals(user.customer) : user.customer == null;
+        if (!getId().equals(user.getId())) return false;
+        if (getSalutation() != user.getSalutation()) return false;
+        if (!getUsername().equals(user.getUsername())) return false;
+        if (!getSalt().equals(user.getSalt())) return false;
+        if (!getFirstname().equals(user.getFirstname())) return false;
+        if (!getSurname().equals(user.getSurname())) return false;
+        if (!getEmail().equals(user.getEmail())) return false;
+        return getCreated().equals(user.getCreated());
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (salutation != null ? salutation.hashCode() : 0);
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (salt != null ? salt.hashCode() : 0);
-        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (active != null ? active.hashCode() : 0);
-        result = 31 * result + (created != null ? created.hashCode() : 0);
-        result = 31 * result + (blocked != null ? blocked.hashCode() : 0);
-        result = 31 * result + (customer != null ? customer.hashCode() : 0);
+        int result = getId().hashCode();
+        result = 31 * result + getSalutation().hashCode();
+        result = 31 * result + getUsername().hashCode();
+        result = 31 * result + getSalt().hashCode();
+        result = 31 * result + getFirstname().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getCreated().hashCode();
         return result;
     }
 
@@ -238,7 +229,6 @@ public class User extends BaseEntity {
                 ", active=" + active +
                 ", created=" + created +
                 ", blocked=" + blocked +
-                ", customer=" + customer +
                 '}';
     }
 }

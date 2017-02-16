@@ -1,8 +1,8 @@
 package io.smsc.controller;
 
-import io.smsc.security.model.*;
-import io.smsc.security.service.JWTTokenGenerationService;
-import io.smsc.security.service.JWTUserDetailsService;
+import io.smsc.jwt.model.*;
+import io.smsc.jwt.service.JWTTokenGenerationService;
+import io.smsc.jwt.service.JWTUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,108 +1,117 @@
-<div id="crud-view-window">
-	<p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
-	             [responsive]="gridResponsive" (onEditComplete)="onEditComplete($event)"
-	             [style]="{'overflow-y':'visible'}"
-	             (onEditInit)="onEditInit($event)"
-	             scrollable="true" scrollHeight="500px">
-		<p-header class="grid-header">
-			<div class="ui-helper-clearfix" style="width:100%">
-				<span class="grid-title">{{ 'Customers' | translate}}</span>
+<div id="crud-view-window" #element (window:resize)="$event">
+    <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
+                 (onRowExpand)="onRowExpand($event)"
+                 (onEditComplete)="onEditComplete($event)" [style]="{'overflow-y':'visible'}"
+                 [expandableRows]="true" scrollable="true">
+        <p-header class="grid-header">
+            <div class="ui-helper-clearfix" style="width:100%">
+                <span class="grid-title">{{ 'Customers' | translate}}</span>
 
-				<button type="button" routerLink="/customers/create" pButton icon="fa-plus" style="float:right"
-				        [label]="'customers.create' | translate"></button>
-				<button type="button" pButton icon="fa-remove" style="float:right"
-				        [label]="'customers.delete' | translate"></button>
-			</div>
-		</p-header>
-		<p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-		<p-column [style]="{'width':'55px'}">
-			<template pTemplate="body" let-col let-row="rowData">
-				<span class="fa fa-pencil" [style.marginLeft]="gridResponsive?'-25px':'0'"
-				      style="padding-right: 3px; color: #009688;"
-				      [routerLink]="['/customers', 'update', row['id']]"></span>
-				<span class="fa fa-trash" style="color: #E53935;"
-				      [routerLink]="['/customers', 'delete', row['id']]"></span>
-			</template>
-		</p-column>
-		<p-column field="companyName" [header]="'companyName' | translate" [editable]="true"
-		          [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="street" [header]="'street' | translate" [editable]="true" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="street2" [header]="'street2' | translate" [editable]="true" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="postcode" [header]="'postcode' | translate" [editable]="true" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="country" [header]="'country' | translate" [editable]="true" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="city" [header]="'city' | translate" [editable]="true" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="vatid" [header]="'vatid' | translate" [editable]="true" [style]="{'width':'200px'}"
-		          [sortable]="true"></p-column>
-		<p-column field="contacts" [header]="'contacts' | translate" [editable]="true" [style]="{'width':'200px'}"
-		          [sortable]="true">
-			<template let-col let-contact="rowData" pTemplate="body">
-				<span class="uri-property">
-					{{ customersViewService.getParsedURI(contact[col.field], 'emailAddress') }}
-				</span>
-			</template>
-			<template let-col let-contact="rowData" pTemplate="editor">
-				<span class="uri-property">
-					{{ customersViewService.getParsedURI(contact[col.field], 'emailAddress') }}
-				</span>
-			</template>
-		</p-column>
-		<p-column field="users" [header]="'users' | translate" [editable]="true"
-		          [style]="{'width':'200px'}"
-		          [sortable]="true">
-			<template let-col let-user="rowData" pTemplate="body">
-				<span class="uri-property">
-					{{ customersViewService.getParsedURI(user[col.field], 'username') }}
-				</span>
-			</template>
-			<template let-col let-user="rowData" pTemplate="editor">
-				<span class="uri-property">
-					{{ customersViewService.getParsedURI(user[col.field], 'username') }}
-				</span>
-			</template>
-		</p-column>
-		<p-column field="parent" [header]="'parent' | translate" [editable]="true"
-		          [style]="{'width':'200px', 'overflow':'visible'}"
-		          [sortable]="true">
-			<template let-col let-parent="rowData" pTemplate="body">
-				{{ customersViewService.getParsedURI([parent[col.field]], 'country') }}
-			</template>
-			<template let-col let-parent="rowData" pTemplate="editor">
-				{{ customersViewService.getParsedURI([parent[col.field]], 'country') }}
-			</template>
-		</p-column>
-	</p-dataTable>
-	<p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
-	             [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPaginate($event)"></p-paginator>
+                <button type="button" routerLink="/customers/create" pButton icon="fa-plus" style="float:right"
+                        [label]="'customers.create' | translate"></button>
+                <button type="button" pButton icon="fa-remove" style="float:right"
+                        [label]="'customers.delete' | translate"></button>
+            </div>
+        </p-header>
+        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+        <p-column expander="true" styleClass="col-icon" [style]="{'width':'40px'}"></p-column>
+        <p-column [style]="{'width':'40px'}">
+            <template pTemplate="body" let-col let-row="rowData">
+				<span class="fa fa-pencil update-button"
+                      style="padding-right: 3px; color: #009688;"
+                      [routerLink]="['/customers', 'update', row['id']]"></span>
+            </template>
+        </p-column>
+        <p-column [style]="{'width':'40px'}">
+            <template pTemplate="body" let-col let-row="rowData">
+                <span class="fa fa-trash delete-button" style="color: #E53935;"
+                      [routerLink]="['/customers', 'delete', row['id']]"></span>
+            </template>
+        </p-column>
+        <p-column field="companyName" [header]="'companyName' | translate" [editable]="true"
+                  [sortable]="true"
+                  [style]="{'width':'200px'}"></p-column>
+        <p-column field="street" [header]="'street' | translate" [editable]="true"
+                  [sortable]="true" [style]="{'width':'200px'}"></p-column>
+        <p-column field="street2" [header]="'street2' | translate" [editable]="true"
+                  [sortable]="true" [style]="{'width':'200px'}"></p-column>
+        <p-column field="postcode" [header]="'postcode' | translate" [editable]="true"
+                  [sortable]="true" [style]="{'width':'200px'}"></p-column>
+        <p-column field="country" [header]="'country' | translate" [editable]="true"
+                  [sortable]="true" [style]="{'width':'200px'}"></p-column>
+        <p-column field="city" [header]="'city' | translate" [editable]="true"
+                  [sortable]="true" [style]="{'width':'200px'}"></p-column>
+        <p-column field="vatid" [header]="'vatid' | translate" [editable]="true"
+                  [sortable]="true" [style]="{'width':'200px'}"></p-column>
 
-	<p-dialog *ngIf="oneToManyModal" [header]="relationshipModal.propertyName | translate"
-	          [(visible)]="oneToManyModal" modal="modal" width="500"
-	          responsive="true">
-		<div class="ui-grid-row">
-			<div class="ui-grid-col-12">
-				<one-to-many [renderProperties]="relationshipModal.renderProperties"
-				             [(model)]="relationshipModal.model"
-				             [mainEntityId]="relationshipModal.mainEntityId"
-				             [property]="relationshipModal.propertyName"></one-to-many>
-			</div>
-		</div>
-	</p-dialog>
+        <template let-customer pTemplate="rowexpansion" style="{'overflow':'visible'}">
 
-	<p-dialog *ngIf="oneToOneModal" [header]="relationshipModal.propertyName | translate"
-	          [(visible)]="oneToOneModal" modal="modal" width="339"
-	          responsive="true">
-		<div class="ui-grid-row">
-			<one-to-one [propertyName]="relationshipModal.propertyName"
-			            [mainEntityId]="relationshipModal.mainEntityId"
-			            [renderProperties]="['companyName', 'country']" [hideOwn]="true"
-			            [mainEntityService]="customersService" [subEntityService]="customersService"
-			            [(model)]="relationshipModal.model.data[relationshipModal.propertyName]"></one-to-one>
-		</div>
-	</p-dialog>
+            <p-tabView class="relationship-tabs" [style]="{'width': (element.clientWidth - 20) + 'px'}">
+                <!-- tab with contacts -->
+                <p-tabPanel [header]="'contacts' | translate" leftIcon="fa-users">
+                    <ng-container [ngSwitch]="contactsModel[customer['id']].action">
+                        <ng-container *ngSwitchDefault>
+                            <one-to-many
+                                    [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
+                                    [link]="customer['_links']['contacts']"
+                                    [mainEntityId]="customer['id']" property="contacts"
+                                    (onDelete)="contactsModel[customer['id']]=$event"
+                                    (onUpdate)="contactsModel[customer['id']]=$event"
+                                    (onCreate)="contactsModel[customer['id']]=$event"></one-to-many>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="3">
+                            <contacts-delete (onBack)="contactsModel[customer['id']].action=$event"
+                                             [entity]="contactsModel[customer['id']].entity"></contacts-delete>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="1">
+                            <contacts-create (onBack)="contactsModel[customer['id']].action=$event"
+                                             [customerId]="customer['id']"></contacts-create>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="2">
+                            <contacts-update (onBack)="contactsModel[customer['id']].action=$event"
+                                             [entity]="contactsModel[customer['id']].entity"></contacts-update>
+                        </ng-container>
+                    </ng-container>
+                </p-tabPanel>
+                <!-- tab with users -->
+                <p-tabPanel [header]="'customerUsers' | translate" leftIcon="fa-user-secret">
+                    <ng-container [ngSwitch]="usersModel[customer['id']].action">
+                        <ng-container *ngSwitchDefault>
+                            <one-to-many
+                                    [renderProperties]="['firstname', 'surname', 'username', 'email']"
+                                    [link]="customer['_links']['users']"
+                                    [mainEntityId]="customer['id']" property="contacts"
+                                    (onDelete)="usersModel[customer['id']]=$event"
+                                    (onUpdate)="usersModel[customer['id']]=$event"
+                                    (onCreate)="usersModel[customer['id']]=$event"></one-to-many>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="3">
+                            <contacts-delete (onBack)="usersModel[customer['id']].action=$event"
+                                             [entity]="usersModel[customer['id']].entity"></contacts-delete>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="1">
+                            <users-create (onBack)="usersModel[customer['id']].action=$event"
+                                             [customerId]="customer['id']"></users-create>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="2">
+                            <users-update (onBack)="usersModel[customer['id']].action=$event"
+                                             [entity]="usersModel[customer['id']].entity"></users-update>
+                        </ng-container>
+                    </ng-container>
 
+
+                </p-tabPanel>
+                <!-- tab with parent customer -->
+                <p-tabPanel [header]="'parent' | translate" leftIcon="fa-building">
+                    <parent-customer name="parent" propertyName="parent" [mainEntityId]="customer['id']"
+                                     [renderProperties]="['companyName', 'country']" [hideOwn]="false"
+                                     [mainEntityService]="customersService" [subEntityService]="customersService"
+                                     [link]="customer['_links']['parent']"></parent-customer>
+                </p-tabPanel>
+            </p-tabView>
+        </template>
+
+    </p-dataTable>
+    <p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
+                 [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPaginate($event)"></p-paginator>
 </div>

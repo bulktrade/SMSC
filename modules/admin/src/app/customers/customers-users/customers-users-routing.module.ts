@@ -1,9 +1,9 @@
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
 import {UsersUpdateResolve} from "./users-update/users-update.resolve";
-import {UsersCreateComponent} from "./users-create/users-create";
+import {UsersCreateComponent} from "./users-create/users-create.component";
 import {UsersUpdateComponent} from "./users-update/users-update";
-import {UsersDeleteComponent} from "./contacts-delete/users-delete.component";
+import {UsersDeleteComponent} from "./users-delete/users-delete.component";
 
 const CUSTOMERS_CONTACTS_ROUTE_PROVIDER = [
     {

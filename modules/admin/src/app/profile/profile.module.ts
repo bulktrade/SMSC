@@ -13,7 +13,7 @@ import {BreadcrumbModule} from "../breadcrumb/breadcrumb.component";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {ButtonModule} from "primeng/components/button/button";
 import {ProfileResolve} from "./profile.resolve";
-import {DynamicFormModule} from "../customers/customers-form/customers-form.component";
+import {CustomersFormModule} from "../customers/customers-form/customers-form.component";
 import {RouterModule} from "@angular/router";
 import {PanelModule} from "primeng/components/panel/panel";
 import {ControlErrorsModule} from "../shared/components/control-errors/control-errors";
@@ -32,7 +32,7 @@ import {UsersModule} from "../users/users.module";
         CommonModule,
         TranslateModule,
         InputTextModule,
-        DynamicFormModule,
+        CustomersFormModule,
         RouterModule,
         PanelModule,
         ControlErrorsModule,

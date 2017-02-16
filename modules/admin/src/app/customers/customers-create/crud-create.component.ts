@@ -1,16 +1,16 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from "@angular/common";
-import { NotificationService } from "../../services/notification-service";
-import { CustomersService } from "../customers.service";
-import { Customer } from "../model/customer";
+import {Component} from "@angular/core";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Location} from "@angular/common";
+import {NotificationService} from "../../services/notification-service";
+import {CustomersService} from "../customer.service";
+import {Customer} from "../model/customer";
 
 @Component({
     selector: 'customers-create',
     template: `
-        <dynamic-form [submitButtonName]="submitButtonName"
-                    (onSubmit)="onSubmit($event)"></dynamic-form>
+        <customers-form [submitButtonName]="submitButtonName"
+                    (onSubmit)="onSubmit($event)"></customers-form>
     `,
     styleUrls: [],
     providers: [Location]

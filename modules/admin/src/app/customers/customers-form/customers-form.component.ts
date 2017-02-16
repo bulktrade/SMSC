@@ -11,15 +11,18 @@ import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {OneToOneModule} from "../../shared/components/one-to-one/one-to-one.component";
-import {CustomersService} from "../customers.service";
+import {CustomersService} from "../customer.service";
+import {ParentCustomerModule} from "../parent-customer/parent-customer";
+import {OneToMany} from "../../shared/components/one-to-many/one-to-many.model";
+import {CommonService} from "../../services/common";
 
 @Component({
-    selector: 'dynamic-form',
+    selector: 'customers-form',
     templateUrl: './customers-form.component.html',
     styleUrls: ['customers-form.component.scss']
 })
 
-export class DynamicFormComponent {
+export class CustomersFormComponent {
     @Input('submitButtonName')
     public submitButtonName: string;
 
@@ -31,15 +34,19 @@ export class DynamicFormComponent {
 
     public id: number;
 
+    public pathFromRoot: string;
+
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
+                public commonService: CommonService,
                 public customersService: CustomersService) {
     }
 
     ngOnInit() {
         this.model['_embedded'] = this.model['_embedded'] || {};
         this.id = this.route.params['value'].id;
+        this.pathFromRoot = this.commonService.getPathFromRoot(this.route.parent.pathFromRoot);
     }
 
     onSubmit() {
@@ -48,6 +55,18 @@ export class DynamicFormComponent {
 
     back() {
         this.location.back();
+    }
+
+    onCreate(event: OneToMany) {
+        this.router.navigate([this.pathFromRoot, event.propertyName, 'create', this.id]).then();
+    }
+
+    onUpdate(event: OneToMany) {
+        this.router.navigate([this.pathFromRoot, event.propertyName, 'update', event.entity['id']]).then();
+    }
+
+    onDelete(event: OneToMany) {
+        this.router.navigate([this.pathFromRoot, event.propertyName, 'delete', event.entity['id']]).then();
     }
 }
 
@@ -64,15 +83,16 @@ export class DynamicFormComponent {
         ButtonModule,
         DropdownModule,
         ControlErrorsModule,
-        OneToOneModule
+        OneToOneModule,
+        ParentCustomerModule
     ],
-    exports: [DynamicFormComponent],
-    declarations: [DynamicFormComponent]
+    exports: [CustomersFormComponent],
+    declarations: [CustomersFormComponent]
 })
-export class DynamicFormModule {
+export class CustomersFormModule {
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: DynamicFormModule,
+            ngModule: CustomersFormModule,
             providers: []
         };
     }

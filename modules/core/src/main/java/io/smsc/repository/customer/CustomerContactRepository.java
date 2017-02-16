@@ -43,7 +43,8 @@ public interface CustomerContactRepository extends JpaRepository<Contact, Long> 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Contact findByEmailAddress(@Param("emailAddress") String emailAddress);
 
+    @Override
     @EntityGraph(attributePaths = {"type", "salutation"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<Contact> findAllByOrderByIdAsc(Pageable pageable);
+    Page<Contact> findAll(Pageable pageable);
 }

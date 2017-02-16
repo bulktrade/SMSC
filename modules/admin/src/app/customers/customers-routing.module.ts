@@ -1,56 +1,44 @@
-import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { CustomersViewResolve } from "./customers-view/customers-view.resolve";
-import { CustomersViewComponent } from "./customers-view/customers-view.component";
-import { CustomersUpdateComponent } from "./customers-update/customers-update.component";
-import { CustomersEditResolve } from "./customers-update/customers-update.resolve";
-import { CustomersCreateComponent } from "./customers-create/crud-create.component";
-import { CustomersDeleteComponent } from "./customers-delete/customers-delete.component";
+import {NgModule} from "@angular/core";
+import {RouterModule} from "@angular/router";
+import {CustomersDeleteComponent} from "./customers-delete/customers-delete.component";
+import {CustomersUpdateComponent} from "./customers-update/customers-update.component";
+import {CustomersEditResolve} from "./customers-update/customers-update.resolve";
+import {CustomersCreateComponent} from "./customers-create/crud-create.component";
+import {CustomersViewComponent} from "./customers-view/customers-view.component";
+import {CustomersViewResolve} from "./customers-view/customers-view.resolve";
 
 const CUSTOMERS_ROUTE_PROVIDER = [
     {
         path: '',
         component: CustomersViewComponent,
-        resolve: { view: CustomersViewResolve },
-        data: {
-            showInBreadcrumb: false,
-        }
+        resolve: {view: CustomersViewResolve},
+        data: {showInBreadcrumb: false}
     },
     {
         path: 'delete/:id',
         component: CustomersDeleteComponent,
-        data: {
-            showInBreadcrumb: false,
-        }
+        data: {showInBreadcrumb: false}
     },
     {
         path: 'update/:id',
         component: CustomersUpdateComponent,
-        resolve: { edit: CustomersEditResolve },
-        data: {
-            showInBreadcrumb: false,
-        }
+        resolve: {edit: CustomersEditResolve},
+        data: {showInBreadcrumb: false}
     },
     {
         path: 'create',
         component: CustomersCreateComponent,
-        data: {
-            showInBreadcrumb: false,
-        }
+        data: {showInBreadcrumb: false}
     },
     {
         path: 'contacts',
         loadChildren: './customers-contacts/customers-contacts.module#CustomersContactsModule',
-        data: {
-            showInBreadcrumb: false,
-        }
+        data: {showInBreadcrumb: false}
     },
     {
         path: 'users',
         loadChildren: './customers-users/customers-users.module#UsersModule',
-        data: {
-            showInBreadcrumb: false,
-        }
+        data: {showInBreadcrumb: false}
     }
 ];
 
