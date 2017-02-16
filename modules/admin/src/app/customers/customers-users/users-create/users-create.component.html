@@ -1,147 +1,146 @@
 <div class="addingForm">
-	<p-panel>
-		<p-header>
-			<i class="fa fa-chevron-left" aria-hidden="true" title="{{ 'BACK' | translate }}" (click)="onBack()"
-			   id="back-button"></i>
-			<span>{{ 'users' | translate }}</span>
-		</p-header>
-		<form role="form" (ngSubmit)="onSubmit(model)" #dynamicForm="ngForm" novalidate>
-			<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
+    <p-panel>
+        <p-header>
+            <i class="fa fa-chevron-left" aria-hidden="true" title="{{ 'BACK' | translate }}" (click)="onBack()"
+               id="back-button"></i>
+            <span *ngIf="!isDirectiveCall">{{ 'users' | translate }}</span>
+        </p-header>
+        <form role="form" (ngSubmit)="onSubmit(model)" #dynamicForm="ngForm" novalidate>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'firstname' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['firstname']"
+                               #firstname="ngModel"
+                               required name="firstname" type="text" id="firstname">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="firstname"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'surname' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['surname']"
+                               #surname="ngModel"
+                               required name="surname" type="text" id="surname">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="surname"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'firstname' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['firstname']"
-						       #firstname="ngModel"
-						       required name="firstname" type="text" id="firstname">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="firstname"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'username' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['username']"
+                               #username="ngModel"
+                               required name="username" type="text" id="username">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="username"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'surname' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['surname']"
-						       #surname="ngModel"
-						       required name="surname" type="text" id="surname">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="surname"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'active' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <p-checkbox [(ngModel)]="model['active']" binary="true" name="active" #active="ngModel"
+                                    id="active"></p-checkbox>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="active"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'username' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['username']"
-						       #username="ngModel"
-						       required name="username" type="text" id="username">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="username"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'blocked' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <p-checkbox [(ngModel)]="model['blocked']" binary="true" name="blocked" #blocked="ngModel"
+                                    id="blocked"></p-checkbox>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="blocked"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'active' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<p-checkbox [(ngModel)]="model['active']" binary="true" name="active" #active="ngModel"
-						            id="active"></p-checkbox>
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="active"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'password' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['password']"
+                               #password="ngModel"
+                               required name="password" type="password" id="password">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="password"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'blocked' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<p-checkbox [(ngModel)]="model['blocked']" binary="true" name="blocked" #blocked="ngModel"
-						            id="blocked"></p-checkbox>
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="blocked"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'password' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['password']"
-						       #password="ngModel"
-						       required name="password" type="password" id="password">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="password"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'email' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['email']"
-						       #email="ngModel"
-						       pattern='^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$'
-						       required name="email" type="text" id="email">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="email"
-						                [errors]="{required: ('customers.required'| translate),
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'email' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['email']"
+                               #email="ngModel"
+                               pattern='^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$'
+                               required name="email" type="text" id="email">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="email"
+                                        [errors]="{required: ('customers.required'| translate),
 						                            pattern: ('customers.emailValidator' | translate)}"></control-errors>
-					</div>
-				</div>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'salutation' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<p-dropdown
-								[options]="[{label: '', value: null},{label: 'MR', value: 'MR'},{label: 'MRS', value: 'MRS'}]"
-								[(ngModel)]="model['salutation']" #salutation="ngModel" name="salutation"
-								id="salutation"></p-dropdown>
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="salutation"
-										[errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'salutation' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <p-dropdown
+                                [options]="[{label: '', value: null},{label: 'MR', value: 'MR'},{label: 'MRS', value: 'MRS'}]"
+                                [(ngModel)]="model['salutation']" #salutation="ngModel" name="salutation"
+                                id="salutation"></p-dropdown>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="salutation"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2"></div>
-					<div class="ui-grid-col-6">
-						<button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="createUsers"
-						        [disabled]="dynamicForm.form.invalid">
-							<span>{{ 'users.createUser' | translate }}</span>
-							<i *ngIf="customersUsersService.loading" class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
-						</button>
-					</div>
-					<div class="ui-grid-col-4"></div>
-				</div>
-			</div>
-		</form>
-	</p-panel>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2"></div>
+                    <div class="ui-grid-col-6">
+                        <button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="createUsers"
+                                [disabled]="dynamicForm.form.invalid">
+                            <span>{{ 'users.createUser' | translate }}</span>
+                            <i *ngIf="customersUsersService.loading"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
+                        </button>
+                    </div>
+                    <div class="ui-grid-col-4"></div>
+                </div>
+            </div>
+        </form>
+    </p-panel>
 </div>

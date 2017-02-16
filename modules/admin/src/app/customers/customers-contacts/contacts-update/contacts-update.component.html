@@ -1,149 +1,148 @@
 <div class="addingForm">
-	<p-panel>
-		<p-header>
-			<i class="fa fa-chevron-left" aria-hidden="true" title="{{ 'BACK' | translate }}" (click)="onBack()"
-			   id="back-button"></i>
-			<span>{{ 'contacts' | translate }}</span>
-		</p-header>
-		<form role="form" (ngSubmit)="onSubmit(model)" #dynamicForm="ngForm" novalidate>
-			<div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
+    <p-panel>
+        <p-header>
+            <i class="fa fa-chevron-left" aria-hidden="true" title="{{ 'BACK' | translate }}" (click)="onBack()"
+               id="back-button"></i>
+            <span *ngIf="!isDirectiveCall">{{ 'contacts' | translate }}</span>
+        </p-header>
+        <form role="form" (ngSubmit)="onSubmit(model)" #dynamicForm="ngForm" novalidate>
+            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'firstname' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['firstname']"
+                               #firstname="ngModel"
+                               required name="firstname" type="text" id="firstname">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="firstname"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'surname' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['surname']"
+                               #surname="ngModel"
+                               required name="surname" type="text" id="surname">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="surname"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'firstname' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['firstname']"
-						       #firstname="ngModel"
-						       required name="firstname" type="text" id="firstname">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="firstname"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'phone' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['phone']"
+                               #phone="ngModel"
+                               required name="phone" type="text" id="phone">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="phone"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'surname' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['surname']"
-						       #surname="ngModel"
-						       required name="surname" type="text" id="surname">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="surname"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'mobilePhone' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['mobilePhone']"
+                               #mobilePhone="ngModel"
+                               required name="mobilePhone" type="text" id="mobilePhone">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="mobilePhone"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'phone' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['phone']"
-						       #phone="ngModel"
-						       required name="phone" type="text" id="phone">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="phone"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'fax' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['fax']"
+                               #fax="ngModel"
+                               required name="fax" type="text" id="fax">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="fax"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'mobilePhone' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['mobilePhone']"
-						       #mobilePhone="ngModel"
-						       required name="mobilePhone" type="text" id="mobilePhone">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="mobilePhone"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'fax' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['fax']"
-						       #fax="ngModel"
-						       required name="fax" type="text" id="fax">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="fax"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
-
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'emailAddress' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<input pInputText class="form-control" [(ngModel)]="model['emailAddress']"
-						       #emailAddress="ngModel"
-						       pattern='^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$'
-						       required name="emailAddress" type="text" id="emailAddress">
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="emailAddress"
-						                [errors]="{required: ('customers.required'| translate),
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'emailAddress' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <input pInputText class="form-control" [(ngModel)]="model['emailAddress']"
+                               #emailAddress="ngModel"
+                               pattern='^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$'
+                               required name="emailAddress" type="text" id="emailAddress">
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="emailAddress"
+                                        [errors]="{required: ('customers.required'| translate),
 						                            pattern: ('customers.emailValidator' | translate)}"></control-errors>
-					</div>
-				</div>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'type' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<p-dropdown
-							[options]="[{label: '', value: null},{label: 'CEO', value: 'CEO'},{label: 'TECHNICAL', value: 'TECHNICAL'},{label: 'PRIMARY', value: 'PRIMARY'}]"
-							[(ngModel)]="model['type']" #type="ngModel" name="type" id="type"></p-dropdown>
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="type"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'type' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <p-dropdown
+                                [options]="[{label: '', value: null},{label: 'CEO', value: 'CEO'},{label: 'TECHNICAL', value: 'TECHNICAL'},{label: 'PRIMARY', value: 'PRIMARY'}]"
+                                [(ngModel)]="model['type']" #type="ngModel" name="type" id="type"></p-dropdown>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="type"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2">
-						{{ 'salutation' | translate }}
-					</div>
-					<div class="ui-grid-col-6">
-						<p-dropdown
-							[options]="[{label: '', value: null},{label: 'MR', value: 'MR'},{label: 'MRS', value: 'MRS'}]"
-							[(ngModel)]="model['salutation']" #salutation="ngModel" name="salutation"
-							id="salutation"></p-dropdown>
-					</div>
-					<div class="ui-grid-col-4">
-						<control-errors control="salutation"
-						                [errors]="{required: ('customers.required'| translate)}"></control-errors>
-					</div>
-				</div>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2">
+                        {{ 'salutation' | translate }}
+                    </div>
+                    <div class="ui-grid-col-6">
+                        <p-dropdown
+                                [options]="[{label: '', value: null},{label: 'MR', value: 'MR'},{label: 'MRS', value: 'MRS'}]"
+                                [(ngModel)]="model['salutation']" #salutation="ngModel" name="salutation"
+                                id="salutation"></p-dropdown>
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <control-errors control="salutation"
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                    </div>
+                </div>
 
-				<div class="ui-grid-row">
-					<div class="ui-grid-col-2"></div>
-					<div class="ui-grid-col-6">
-						<button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="updateContacts"
-						        [disabled]="dynamicForm.form.invalid">
-							<span>{{ 'contacts.updateContacts' | translate }}</span>
-							<i *ngIf="contactsService.loading" class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
-						</button>
-					</div>
-					<div class="ui-grid-col-4"></div>
-				</div>
-			</div>
-		</form>
-	</p-panel>
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-2"></div>
+                    <div class="ui-grid-col-6">
+                        <button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="updateContacts"
+                                [disabled]="dynamicForm.form.invalid">
+                            <span>{{ 'contacts.updateContacts' | translate }}</span>
+                            <i *ngIf="contactsService.loading"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
+                        </button>
+                    </div>
+                    <div class="ui-grid-col-4"></div>
+                </div>
+            </div>
+        </form>
+    </p-panel>
 </div>
