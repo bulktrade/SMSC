@@ -1,10 +1,10 @@
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Resolve } from "@angular/router";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { NotificationService } from "../../services/notification-service";
-import { CustomersService, REPOSITORY_NAME } from "../customer.service";
-import { Pagination } from "../model/pagination";
-import { GridOptions } from "../model/grid-options";
+import {ActivatedRouteSnapshot, RouterStateSnapshot, Resolve} from "@angular/router";
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs";
+import {NotificationService} from "../../services/notification-service";
+import {CustomersService, REPOSITORY_NAME} from "../customer.service";
+import {Pagination} from "../model/pagination";
+import {GridOptions} from "../model/grid-options";
 
 @Injectable()
 export class CustomersViewResolve implements Resolve<any> {
@@ -22,12 +22,14 @@ export class CustomersViewResolve implements Resolve<any> {
                 .subscribe(resources => {
                     gridOptions.rowData = resources['_embedded'][REPOSITORY_NAME];
                     gridOptions.totalElements = resources['page']['totalElements'];
-
                     observer.next(gridOptions);
                     observer.complete();
                 }, err => {
                     this.notification.createNotificationOnResponse(err);
                     observer.error(err);
+                }, () => {
+                    observer.next(true);
+                    observer.complete();
                 });
         });
     }

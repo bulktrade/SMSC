@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 
-export const AUTH_TOKEN_NAME: string = 'OAccessAdminToken';
+export const AUTH_TOKEN_NAME: string = 'AdminToken';
 
 @Injectable()
 export class TokenService {
