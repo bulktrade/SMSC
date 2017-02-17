@@ -1,8 +1,7 @@
 <div id="crud-view-window" #element (window:resize)="$event">
     <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
-                 (onRowExpand)="onRowExpand($event)"
-                 (onEditComplete)="onEditComplete($event)" [style]="{'overflow-y':'visible'}"
-                 [expandableRows]="true" scrollable="true">
+                 (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
+                 [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">
         <p-header class="grid-header">
             <div class="ui-helper-clearfix" style="width:100%">
                 <span class="grid-title">{{ 'customers.title' | translate}}</span>
@@ -111,5 +110,13 @@
 
     </p-dataTable>
     <p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
-                 [rowsPerPageOptions]="[10,20,30]" (onPageChange)="onPaginate($event)"></p-paginator>
+                 [rowsPerPageOptions]="[10,20,30,50,100,200]" (onPageChange)="onPaginate($event)"></p-paginator>
+
+    <div *ngIf="isLoading" class="loading-mask"></div>
+    <div *ngIf="isLoading" class="loading-layer">
+        <div class="container">
+            <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+        </div>
+    </div>
+
 </div>

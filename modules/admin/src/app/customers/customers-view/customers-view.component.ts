@@ -33,6 +33,8 @@ export class CustomersViewComponent {
 
     public action = Action;
 
+    public isLoading: boolean = false;
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
@@ -52,9 +54,14 @@ export class CustomersViewComponent {
     }
 
     onPaginate(event) {
+        this.isLoading = true;
         this.customersService.getResources(event.page, event.rows)
             .subscribe(rows => {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
+                this.isLoading = false;
+            }, err => {
+                console.error(err);
+                this.isLoading = false;
             });
     }
 
@@ -67,7 +74,6 @@ export class CustomersViewComponent {
             }, err => {
                 console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
-
                 return false;
             })
     }

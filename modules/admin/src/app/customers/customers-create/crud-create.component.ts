@@ -32,7 +32,7 @@ export class CustomersCreateComponent {
             .subscribe((customer: Customer) => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateCustomer');
 
-                this.router.navigate(['/customers', 'update', customer['id']]);
+                this.router.navigate(['/customers', customer['id'], 'update']);
             }, err => {
                 console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateCustomer');
