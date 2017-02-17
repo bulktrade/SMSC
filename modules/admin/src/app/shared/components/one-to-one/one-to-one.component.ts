@@ -88,7 +88,11 @@ export class OneToOneComponent implements OnInit {
         this.subEntityService.getResources()
             .map(res => res['_embedded'][this.subEntityService.repositoryName])
             .subscribe(resources => {
-                this.filteredResources = resources;
+                resources.forEach(resource => {
+                    if (!this.hideOwn || this.id != +resource['id']) {
+                        this.filteredResources.push(resource);
+                    }
+                });
             });
     }
 

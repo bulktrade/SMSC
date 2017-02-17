@@ -98,12 +98,11 @@
                         </ng-container>
                     </ng-container>
 
-
                 </p-tabPanel>
                 <!-- tab with parent customer -->
                 <p-tabPanel [header]="'parent' | translate" leftIcon="fa-building">
                     <parent-customer name="parent" propertyName="parent" [mainEntityId]="customer['id']"
-                                     [renderProperties]="['companyName', 'country']" [hideOwn]="false"
+                                     [renderProperties]="['companyName', 'country']" [hideOwn]="true"
                                      [mainEntityService]="customersService" [subEntityService]="customersService"
                                      [link]="customer['_links']['parent']"></parent-customer>
                 </p-tabPanel>

@@ -18,7 +18,7 @@ import {Customer} from "../model/customer";
                         [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
             <template let-model pTemplate="item">
                 <div class="ui-helper-clearfix">
-                    <div class="titleColumns" *ngIf="!hideOwn || id != +model['id']">
+                    <div class="titleColumns">
                         <span class="id">{{ model['id'] }}</span>
                         <ng-container *ngFor="let item of renderProperties; let last = last;">
                             <span>{{ model[item] }}<span class="separate" *ngIf="!last">, </span></span>
