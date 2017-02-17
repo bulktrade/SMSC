@@ -12,6 +12,6 @@ export class CustomersEditResolve implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.customersService.getResourceById(route.params['id']);
+        return this.customersService.getResourceById(route.params['customerId']);
     }
 }

@@ -15,12 +15,12 @@ const CUSTOMERS_ROUTE_PROVIDER = [
         data: {showInBreadcrumb: false}
     },
     {
-        path: 'delete/:id',
+        path: ':customerId/delete',
         component: CustomersDeleteComponent,
         data: {showInBreadcrumb: false}
     },
     {
-        path: 'update/:id',
+        path: ':customerId/update',
         component: CustomersUpdateComponent,
         resolve: {edit: CustomersEditResolve},
         data: {showInBreadcrumb: false}
@@ -31,12 +31,12 @@ const CUSTOMERS_ROUTE_PROVIDER = [
         data: {showInBreadcrumb: false}
     },
     {
-        path: 'contacts',
+        path: ':customerId/contacts',
         loadChildren: './customers-contacts/customers-contacts.module#CustomersContactsModule',
         data: {showInBreadcrumb: false}
     },
     {
-        path: 'users',
+        path: ':customerId/users',
         loadChildren: './customers-users/customers-users.module#UsersModule',
         data: {showInBreadcrumb: false}
     }

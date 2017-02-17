@@ -36,7 +36,7 @@ export class CustomersUpdateComponent {
     ngOnInit() {
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.id = +params['id'];
+            this.id = +params['customerId'];
         });
 
         this.model = this.getModel();

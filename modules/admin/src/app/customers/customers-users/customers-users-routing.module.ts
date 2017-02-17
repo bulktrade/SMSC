@@ -7,7 +7,7 @@ import {UsersDeleteComponent} from "./users-delete/users-delete.component";
 
 const CUSTOMERS_CONTACTS_ROUTE_PROVIDER = [
     {
-        path: 'create/:customerId',
+        path: 'create',
         component: UsersCreateComponent,
         data: {
             showInBreadcrumb: false,

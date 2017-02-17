@@ -32,7 +32,7 @@ export class CustomersDeleteComponent {
             });
 
         this.route.params.subscribe((params) => {
-            this.id = +params['id'];
+            this.id = +params['customerId'];
         });
     }
 
