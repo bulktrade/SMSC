@@ -343,7 +343,19 @@
             <dependency>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-core</artifactId>
-                <version>4.1.0</version>
+                <version>${flyway.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-jpa</artifactId>
+                <version>${querydsl.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.querydsl</groupId>
+                <artifactId>querydsl-apt</artifactId>
+                <version>${querydsl.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
