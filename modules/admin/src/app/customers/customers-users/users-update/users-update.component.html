@@ -14,7 +14,7 @@
                     </div>
                     <div class="ui-grid-col-6">
                         <p-dropdown
-                                [options]="[{label: '', value: null},{label: 'MR', value: 'MR'},{label: 'MRS', value: 'MRS'}]"
+                                [options]="[{label: '', value: null},{label: 'MR' | translate, value: 'MR'},{label: 'MRS' | translate, value: 'MRS'}]"
                                 [(ngModel)]="model['salutation']" #salutation="ngModel" name="salutation"
                                 id="salutation"></p-dropdown>
                     </div>
