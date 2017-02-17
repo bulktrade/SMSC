@@ -208,9 +208,9 @@
                         <expose>8080</expose>
                         <expose>2775</expose>
                     </exposes>
-                    <volumes>
-                        <volume>/app</volume>
-                    </volumes>
+                    <!--<volumes>-->
+                        <!--<volume>/app</volume>-->
+                    <!--</volumes>-->
                     <resources>
                         <resource>
                             <targetPath>/app</targetPath>
