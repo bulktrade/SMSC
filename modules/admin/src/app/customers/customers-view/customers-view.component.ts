@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild} from "@angular/core";
+import {Component} from "@angular/core";
 import {Location} from "@angular/common";
 import {TranslateService} from "ng2-translate/ng2-translate";
 import {Router, ActivatedRoute} from "@angular/router";
@@ -13,8 +13,7 @@ import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many
 @Component({
     selector: 'customers-view',
     templateUrl: './customers-view.component.html',
-    styleUrls: ['./customers-view.component.scss'],
-    providers: []
+    styleUrls: ['./customers-view.component.scss']
 })
 
 export class CustomersViewComponent {
@@ -43,19 +42,25 @@ export class CustomersViewComponent {
                 public notifications: NotificationService) {
     }
 
-    onRowExpand(event) {
-        this.contactsModel[event.data['id']] = new OneToMany('contacts', Action.View, null);
-        this.usersModel[event.data['id']] = new OneToMany('users', Action.View, null);
-    }
-
     ngOnInit() {
         this.rowData = this.getRowData();
         this.pagination.totalElements = this.getNumberCustomers();
     }
 
+    onFilter(event) {
+    }
+
+    onRowExpand(event) {
+        this.contactsModel[event.data['id']] = new OneToMany('contacts', Action.View, null);
+        this.usersModel[event.data['id']] = new OneToMany('users', Action.View, null);
+    }
+
     onPaginate(event) {
+        this.pagination.number = event.page;
+        this.pagination.size = event.size;
         this.isLoading = true;
-        this.customersService.getResources(event.page, event.rows)
+
+        this.customersService.getResources(this.pagination.number, this.pagination.size)
             .subscribe(rows => {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
                 this.isLoading = false;
