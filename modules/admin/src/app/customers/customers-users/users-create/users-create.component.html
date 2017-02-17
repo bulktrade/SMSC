@@ -134,7 +134,7 @@
                         <button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="createUsers"
                                 [disabled]="dynamicForm.form.invalid">
                             <span>{{ 'users.createUser' | translate }}</span>
-                            <i *ngIf="customersUsersService.loading"
+                            <i *ngIf="isLoading"
                                class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
                         </button>
                     </div>

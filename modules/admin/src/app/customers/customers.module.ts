@@ -33,7 +33,7 @@ import {ContactsDeleteModule} from "./customers-contacts/contacts-delete/contact
 import {ContactsCreateModule} from "./customers-contacts/contacts-create/contacts-create.component";
 import {ContactsUpdateModule} from "./customers-contacts/contacts-update/contacts-update.component";
 import {UsersCreateModule} from "./customers-users/users-create/users-create.component";
-import {UsersUpdateModule} from "./customers-users/users-update/users-update";
+import {UsersUpdateModule} from "./customers-users/users-update/users-update.component";
 
 const CUSTOMERS_DECLARATIONS = [
     CustomersComponent,

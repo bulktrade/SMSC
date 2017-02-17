@@ -31,6 +31,8 @@ export class CustomersViewComponent {
 
     public usersModel: OneToMany[] = [];
 
+    public action = Action;
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,

@@ -6,10 +6,9 @@
         <p-header class="grid-header">
             <div class="ui-helper-clearfix" style="width:100%">
                 <span class="grid-title">{{ 'Customers' | translate}}</span>
-
-                <button type="button" routerLink="/customers/create" pButton icon="fa-plus" style="float:right"
-                        [label]="'customers.create' | translate"></button>
-                <button type="button" pButton icon="fa-remove" style="float:right"
+                <button type="button" class="ui-button-success pull-right" routerLink="/customers/create"
+                        pButton icon="fa-plus" [label]="'customers.create' | translate"></button>
+                <button type="button" pButton class="ui-button-danger pull-right" icon="fa-remove"
                         [label]="'customers.delete' | translate"></button>
             </div>
         </p-header>
@@ -59,15 +58,15 @@
                                     (onUpdate)="contactsModel[customer['id']]=$event"
                                     (onCreate)="contactsModel[customer['id']]=$event"></one-to-many>
                         </ng-container>
-                        <ng-container *ngSwitchCase="3">
+                        <ng-container *ngSwitchCase="action.Delete">
                             <contacts-delete (onBack)="contactsModel[customer['id']].action=$event"
                                              [entity]="contactsModel[customer['id']].entity"></contacts-delete>
                         </ng-container>
-                        <ng-container *ngSwitchCase="1">
+                        <ng-container *ngSwitchCase="action.Create">
                             <contacts-create (onBack)="contactsModel[customer['id']].action=$event"
                                              [customerId]="customer['id']"></contacts-create>
                         </ng-container>
-                        <ng-container *ngSwitchCase="2">
+                        <ng-container *ngSwitchCase="action.Update">
                             <contacts-update (onBack)="contactsModel[customer['id']].action=$event"
                                              [entity]="contactsModel[customer['id']].entity"></contacts-update>
                         </ng-container>
@@ -85,17 +84,17 @@
                                     (onUpdate)="usersModel[customer['id']]=$event"
                                     (onCreate)="usersModel[customer['id']]=$event"></one-to-many>
                         </ng-container>
-                        <ng-container *ngSwitchCase="3">
+                        <ng-container *ngSwitchCase="action.Delete">
                             <contacts-delete (onBack)="usersModel[customer['id']].action=$event"
                                              [entity]="usersModel[customer['id']].entity"></contacts-delete>
                         </ng-container>
-                        <ng-container *ngSwitchCase="1">
+                        <ng-container *ngSwitchCase="action.Create">
                             <users-create (onBack)="usersModel[customer['id']].action=$event"
-                                             [customerId]="customer['id']"></users-create>
+                                          [customerId]="customer['id']"></users-create>
                         </ng-container>
-                        <ng-container *ngSwitchCase="2">
+                        <ng-container *ngSwitchCase="action.Update">
                             <users-update (onBack)="usersModel[customer['id']].action=$event"
-                                             [entity]="usersModel[customer['id']].entity"></users-update>
+                                          [entity]="usersModel[customer['id']].entity"></users-update>
                         </ng-container>
                     </ng-container>
 

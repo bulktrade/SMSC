@@ -31,6 +31,8 @@ export class ContactsUpdateComponent implements OnInit {
 
     public isDirectiveCall: boolean = false;
 
+    public isLoading: boolean = false;
+
     constructor(public customersService: CustomersService,
                 public route: ActivatedRoute,
                 public contactsService: CustomersContactsService,
@@ -54,12 +56,16 @@ export class ContactsUpdateComponent implements OnInit {
     }
 
     onSubmit(entity) {
+        this.isLoading = true;
         this.contactsService.updateResource(entity)
             .subscribe(() => {
+                    this.onBack();
+                    this.isLoading = false;
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
                 },
                 err => {
                     console.error(err);
+                    this.isLoading = false;
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
                 });
     }

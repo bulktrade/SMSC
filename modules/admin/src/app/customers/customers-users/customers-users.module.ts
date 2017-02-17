@@ -18,7 +18,7 @@ import {CustomersUsersService} from "./customer-user.service";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {UsersDeleteModule} from "./users-delete/users-delete.component";
 import {UsersCreateModule} from "./users-create/users-create.component";
-import {UsersUpdateModule} from "./users-update/users-update";
+import {UsersUpdateModule} from "./users-update/users-update.component";
 
 const USERS_CONTACTS_MODULES = [
     UsersRoutingModule,

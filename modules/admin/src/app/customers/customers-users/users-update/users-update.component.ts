@@ -16,7 +16,7 @@ import {CheckboxModule} from "primeng/components/checkbox/checkbox";
 
 @Component({
     selector: 'users-update',
-    templateUrl: 'users-update.html'
+    templateUrl: 'users-update.component.html'
 })
 export class UsersUpdateComponent implements OnInit {
 
@@ -31,6 +31,8 @@ export class UsersUpdateComponent implements OnInit {
     public _onBack: EventEmitter<Action> = new EventEmitter();
 
     public isDirectiveCall: boolean = false;
+
+    public isLoading: boolean = false;
 
     constructor(public customersService: CustomersService,
                 public route: ActivatedRoute,
@@ -55,12 +57,16 @@ export class UsersUpdateComponent implements OnInit {
     }
 
     onSubmit(entity: CustomerUser) {
+        this.isLoading = true;
         this.customersUsersService.updateResource(entity)
             .subscribe(() => {
+                    this.onBack();
+                    this.isLoading = false;
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
                 },
                 err => {
                     console.error(err);
+                    this.isLoading = false;
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
                 });
     }

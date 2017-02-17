@@ -1,31 +1,34 @@
-<div id="multiple-select-window">
-	<div class="title-panel">
-		<i class="fa fa-plus-square-o" (click)="onCreate()"
-		   [title]="'1:n.create' | translate" aria-hidden="true"></i>
-	</div>
-	<ng-container *ngIf="resources.length">
-		<hr>
-	</ng-container>
-	<div class="row">
-		<div class="col-sm-12 col-md-6" *ngFor="let item of resources; let i = index">
-			<div class="data-item">
-				<div class="ctrl-panel">
-					<i class="fa fa-minus-square-o delete-button"
-					   (click)="onDelete(resources[i])"
-					   [title]="'1:n.delete' | translate"
-					   aria-hidden="true"></i>
-					<i class="fa fa-pencil-square-o update-button"
-					   (click)="onUpdate(resources[i])"
-					   [title]="'1:n.update' | translate"
-					   aria-hidden="true"></i>
-				</div>
-				<hr>
-				<div *ngFor="let renderProp of renderProperties" class="data-title">
-					<div class="data-label pull-left">{{ renderProp | translate }}</div>
-					<span class="separate">:</span>
-					<div class="data-value pull-right">{{ item[renderProp] }}</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div id="multiple-select-window" [hidden]="isLoading">
+    <div class="title-panel">
+        <i class="fa fa-plus-square-o" (click)="onCreate()"
+           [title]="'1:n.create' | translate" aria-hidden="true"></i>
+    </div>
+    <ng-container *ngIf="resources.length">
+        <hr>
+    </ng-container>
+    <div class="row">
+        <div class="col-sm-12 col-md-6" *ngFor="let item of resources; let i = index">
+            <div class="data-item">
+                <div class="ctrl-panel">
+                    <i class="fa fa-minus-square-o delete-button"
+                       (click)="onDelete(resources[i])"
+                       [title]="'1:n.delete' | translate"
+                       aria-hidden="true"></i>
+                    <i class="fa fa-pencil-square-o update-button"
+                       (click)="onUpdate(resources[i])"
+                       [title]="'1:n.update' | translate"
+                       aria-hidden="true"></i>
+                </div>
+                <hr>
+                <div *ngFor="let renderProp of renderProperties" class="data-title">
+                    <div class="data-label pull-left">{{ renderProp | translate }}</div>
+                    <span class="separate">:</span>
+                    <div class="data-value pull-right">{{ item[renderProp] }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading-spinner">
+    <i [hidden]="!isLoading" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 </div>

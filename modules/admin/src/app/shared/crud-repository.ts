@@ -6,7 +6,6 @@ import {Entity, Links, Link} from "./entity.model";
 export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
     public abstract titleColumns: string;
-    public loading: boolean = false;
     public apiUrl: string;
 
     constructor(public http: Http,

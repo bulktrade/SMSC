@@ -46,6 +46,8 @@ export class OneToManyComponent {
 
     public pathFromRoot: string;
 
+    public isLoading: boolean = false;
+
     constructor(public translate: TranslateService,
                 public route: ActivatedRoute,
                 public router: Router,
@@ -57,10 +59,14 @@ export class OneToManyComponent {
 
     ngOnInit() {
         this.pathFromRoot = this.commonService.getPathFromRoot(this.route.parent.pathFromRoot);
-
+        this.isLoading = true;
         this.getResources(this.link)
             .subscribe(resources => {
                 this.resources = resources[Object.keys(resources)[0]];
+                this.isLoading = false;
+            }, err => {
+                console.error(err);
+                this.isLoading = false;
             });
     }
 

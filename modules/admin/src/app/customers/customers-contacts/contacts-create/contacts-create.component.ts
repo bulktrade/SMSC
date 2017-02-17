@@ -28,6 +28,8 @@ export class ContactsCreateComponent implements OnInit {
 
     public isDirectiveCall: boolean = false;
 
+    public isLoading: boolean = false;
+
     constructor(public customersService: CustomersService,
                 public route: ActivatedRoute,
                 public customersContactsService: CustomersContactsService,
@@ -46,13 +48,17 @@ export class ContactsCreateComponent implements OnInit {
 
     onSubmit(model) {
         model['customer'] = this.customersService.getSelfLinkedEntityById(this.customerId)._links.self.href;
+        this.isLoading = true;
 
         this.customersContactsService.createResource(model)
             .subscribe(() => {
+                    this.onBack();
+                    this.isLoading = false;
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
                 },
                 err => {
                     console.error(err);
+                    this.isLoading = false;
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
                 });
     }

@@ -26,6 +26,9 @@ export class CustomersFormComponent {
     @Input('submitButtonName')
     public submitButtonName: string;
 
+    @Input('isLoading')
+    public isLoading: boolean = false;
+
     @Input('model')
     public model = {};
 

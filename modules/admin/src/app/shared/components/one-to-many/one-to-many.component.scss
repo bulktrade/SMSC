@@ -58,6 +58,17 @@
     }
 }
 
+.loading-spinner {
+    display: flex;
+    margin: auto;
+
+    i {
+        margin: auto;
+        font-size: 36px;
+        color: #009688;
+    }
+}
+
 @media (min-width: 768px) {
     .col-md-6:nth-of-type(even) {
         padding-left: 3px;

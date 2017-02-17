@@ -136,7 +136,7 @@
                         <button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="updateContacts"
                                 [disabled]="dynamicForm.form.invalid">
                             <span>{{ 'contacts.updateContacts' | translate }}</span>
-                            <i *ngIf="contactsService.loading"
+                            <i *ngIf="isLoading"
                                class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
                         </button>
                     </div>

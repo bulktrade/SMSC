@@ -10,6 +10,18 @@ body {
     padding-right: 5px;
 }
 
+.ui-button.ui-button-success:enabled:hover,
+.ui-button.ui-button-success:focus {
+    background-color: #4cae4c;
+    border-color: #4cae4c;
+}
+
+.ui-button.ui-button-danger:enabled:hover,
+.ui-button.ui-button-danger:focus {
+    background-color: #d43f3a;
+    border-color: #d43f3a;
+}
+
 .relationship-tabs {
     .ui-widget-header {
         border: none;
