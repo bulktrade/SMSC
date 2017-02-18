@@ -1,5 +1,6 @@
 package io.smsc.repository.customer;
 
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
 import io.smsc.model.customer.Customer;
@@ -32,7 +33,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>,
 
     @Override
     default public void customize(QuerydslBindings bindings, QCustomer root) {
-        bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::containsIgnoreCase);
+        bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::startsWithIgnoreCase);
+//        bindings.bind(Long.class).first((SingleValueBinding<NumberPath<Long>, Long>) StringExpression::);
     }
 
     @Override
