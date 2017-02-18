@@ -26,25 +26,25 @@ public interface CustomerContactRepository extends JpaRepository<Contact, Long> 
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Contact save(Contact customer);
 
     @Override
     @EntityGraph(attributePaths = {"type", "salutation"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Contact findOne(Long id);
 
     @EntityGraph(attributePaths = {"type", "salutation"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Contact findByEmailAddress(@Param("emailAddress") String emailAddress);
 
     @Override
     @EntityGraph(attributePaths = {"type", "salutation"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<Contact> findAll(Pageable pageable);
 }

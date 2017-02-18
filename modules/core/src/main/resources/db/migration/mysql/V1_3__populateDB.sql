@@ -24,54 +24,20 @@ INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, 
 
 SET @id_admin = LAST_INSERT_ID();
 
-INSERT INTO `GROUP` (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('GROUP_USER', current_timestamp, 0);
+INSERT INTO ROLE (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('ROLE_USER', current_timestamp, 0);
 
-SET @id_users = LAST_INSERT_ID();
+SET @id_role_user = LAST_INSERT_ID();
 
-INSERT INTO `GROUP` (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('GROUP_ADMIN', current_timestamp, 0);
+INSERT INTO ROLE (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('ROLE_ADMIN', current_timestamp, 0);
 
-SET @id_admins = LAST_INSERT_ID();
+SET @id_role_admin = LAST_INSERT_ID();
 
-INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
-  (@id_user, @id_users);
-INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
-  (@id_admin, @id_admins);
-
-INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (TRUE, 'USER_1', @id_user, current_timestamp, 0);
-INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (TRUE, 'USER_2', @id_admin, current_timestamp, 0);
-INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (FALSE, 'GROUP_1', @id_users, current_timestamp, 0);
-INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (FALSE, 'GROUP_2', @id_admins, current_timestamp, 0);
-
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.acl.AclClass', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.acl.AclEntry', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.acl.AclSid', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.admin.User', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.admin.Group', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.customer.Customer', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.customer.Contact', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.customer.User', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);
+INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
+  (@id_user, @id_role_user);
+INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
+  (@id_admin, @id_role_admin);
 
 INSERT INTO DASHBOARD (NAME, ICON, USER_ACCOUNT_ID, LAST_MODIFIED_DATE, VERSION) VALUES
   ('default', 'user', @id_user, current_timestamp, 0);
@@ -125,4 +91,36 @@ INSERT INTO DASHBOARD_BOX (WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHB
   ('WIDTH_50', 'HEIGHT_50', 8, 'Box 8',  'Box 8 desc', @id_dashboard, @id_type_5, current_timestamp, 0);
 INSERT INTO DASHBOARD_BOX (WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHBOARD_ID, DASHBOARD_BOX_TYPE_ID, LAST_MODIFIED_DATE, VERSION) VALUES
   ('WIDTH_50', 'HEIGHT_50', 9, 'Box 9',  'Box 9 desc', @id_dashboard, @id_type_6, current_timestamp, 0);
+
+INSERT INTO ACL_SID (PRINCIPAL, SID, LAST_MODIFIED_DATE, VERSION) VALUES
+  (TRUE, 'user', current_timestamp, 0);
+INSERT INTO ACL_SID (PRINCIPAL, SID, LAST_MODIFIED_DATE, VERSION) VALUES
+  (TRUE, 'admin', current_timestamp, 0);
+
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclClass', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclEntry', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclSid', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.admin.User', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.Role', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.Authority', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.Customer', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.Contact', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.User', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);
 

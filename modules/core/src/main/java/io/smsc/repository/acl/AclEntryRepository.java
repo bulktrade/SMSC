@@ -27,29 +27,29 @@ public interface AclEntryRepository extends JpaRepository<AclEntry, Long> {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclEntry save(AclEntry aclEntry);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclEntry findOne(Long id);
 
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclEntry findByAceOrder(@Param("aceOrder") Integer aceOrder);
 
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclEntry findByAclObjectIdentity(@Param("aclObjectIdentity") AclObjectIdentity aclObjectIdentity);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<AclEntry> findAll(Pageable pageable);
 }

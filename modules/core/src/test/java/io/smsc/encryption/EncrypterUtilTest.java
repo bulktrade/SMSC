@@ -22,10 +22,7 @@ public class EncrypterUtilTest extends AbstractTest {
         io.smsc.model.admin.User user = new io.smsc.model.admin.User();
         user.setPassword("john123456");
         EncrypterUtil.encrypt(user);
-        System.out.println("Encrypted password: " + user.getPassword());
-        System.out.println("Salt: " + user.getSalt());
         EncrypterUtil.decrypt(user);
-        System.out.println("Decrypted password: " + user.getPassword());
         Assert.assertEquals("john123456", user.getPassword());
     }
 
@@ -33,12 +30,8 @@ public class EncrypterUtilTest extends AbstractTest {
     public void testNewCustomerUserEncryptDecryptPassword() {
         User user = new User();
         user.setPassword("john123456");
-        System.out.println("Raw password: " + user.getPassword());
         EncrypterUtil.encrypt(user);
-        System.out.println("Encrypted password: " + user.getPassword());
-        System.out.println("Salt: " + user.getSalt());
         EncrypterUtil.decrypt(user);
-        System.out.println("Decrypted password: " + user.getPassword());
         Assert.assertEquals("john123456", user.getPassword());
     }
 
@@ -48,12 +41,8 @@ public class EncrypterUtilTest extends AbstractTest {
         user.setPassword("john123456");
         String salt = KeyGenerators.string().generateKey();
         user.setSalt(salt);
-        System.out.println("Raw password: " + user.getPassword());
         EncrypterUtil.encrypt(user);
-        System.out.println("Encrypted password: " + user.getPassword());
-        System.out.println("Salt: " + user.getSalt());
         EncrypterUtil.decrypt(user);
-        System.out.println("Decrypted password: " + user.getPassword());
         Assert.assertEquals("john123456", user.getPassword());
         Assert.assertEquals(salt, user.getSalt());
     }
@@ -64,12 +53,8 @@ public class EncrypterUtilTest extends AbstractTest {
         user.setPassword("john123456");
         String salt = KeyGenerators.string().generateKey();
         user.setSalt(salt);
-        System.out.println("Raw password: " + user.getPassword());
         EncrypterUtil.encrypt(user);
-        System.out.println("Encrypted password: " + user.getPassword());
-        System.out.println("Salt: " + user.getSalt());
         EncrypterUtil.decrypt(user);
-        System.out.println("Decrypted password: " + user.getPassword());
         Assert.assertEquals("john123456", user.getPassword());
         Assert.assertEquals(salt, user.getSalt());
     }

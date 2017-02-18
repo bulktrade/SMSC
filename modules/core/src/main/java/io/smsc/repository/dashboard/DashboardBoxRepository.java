@@ -31,33 +31,33 @@ public interface DashboardBoxRepository extends JpaRepository<DashboardBox, Long
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     DashboardBox save(DashboardBox dashboardBox);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     DashboardBox findOne(Long id);
 
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<DashboardBox> findAllByName(@Param("name") String name);
 
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<DashboardBox> findAllByDashboard(@RequestBody Dashboard dashboard);
 
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<DashboardBox> findAllByDashboardBoxType(@RequestBody DashboardBoxType dashboardBoxType);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<DashboardBox> findAll(Pageable pageable);
 }

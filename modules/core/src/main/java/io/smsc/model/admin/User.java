@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.smsc.annotation.Encrypt;
 import io.smsc.listeners.EncryptionListener;
+import io.smsc.model.Authority;
 import io.smsc.model.BaseEntity;
+import io.smsc.model.Role;
 import io.smsc.model.acl.AclSid;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.dashboard.Dashboard;
@@ -90,14 +92,30 @@ public class User extends BaseEntity {
                     CascadeType.REFRESH,
                     CascadeType.PERSIST
             },
-            targetEntity = Group.class)
+            targetEntity = Role.class)
     @JoinTable(
-            name = "USER_GROUP",
+            name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID")
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
     )
     @OrderBy("id asc")
-    private Set<Group> groups;
+    private Set<Role> roles;
+
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            },
+            targetEntity = Authority.class)
+    @JoinTable(
+            name = "USER_AUTHORITY",
+            joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")
+    )
+    @OrderBy("id asc")
+    private Set<Authority> authorities;
 
     @OneToMany(
             mappedBy = "user",
@@ -108,9 +126,6 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OrderBy("id asc")
     private Set<Dashboard> dashboards;
-
-    @OneToOne(mappedBy = "user")
-    private AclSid aclSid;
 
     @JsonIgnore
     public boolean isNew() {
@@ -201,14 +216,6 @@ public class User extends BaseEntity {
         this.salt = salt;
     }
 
-    public Set<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
-    }
-
     public Set<Dashboard> getDashboards() {
         return dashboards;
     }
@@ -225,12 +232,20 @@ public class User extends BaseEntity {
         this.salutation = salutation;
     }
 
-    public AclSid getAclSid() {
-        return aclSid;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setAclSid(AclSid aclSid) {
-        this.aclSid = aclSid;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     @Override

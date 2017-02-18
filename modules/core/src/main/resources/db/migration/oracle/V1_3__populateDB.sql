@@ -2,8 +2,8 @@ DECLARE
 id_customer number(19,0);
 id_user number(19,0);
 id_admin number(19,0);
-id_users number(19,0);
-id_admins number(19,0);
+id_role_user number(19,0);
+id_role_admin number(19,0);
 id_dashboard number(19,0);
 id_type_1 number(19,0);
 id_type_2 number(19,0);
@@ -32,49 +32,15 @@ INSERT INTO CUSTOMER (ID, COMPANY_NAME, STREET, STREET2, POSTCODE, COUNTRY, CITY
   INSERT INTO USER_ACCOUNT (ID, USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
     (user_account_seq.nextval, 'admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', 1, 0, 'MRS', current_timestamp, current_timestamp, 0) RETURNING ID INTO id_admin;
 
-  INSERT INTO "GROUP" (ID, GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-    (group_seq.nextval, 'GROUP_USER', current_timestamp, 0) RETURNING ID INTO id_users;
-  INSERT INTO "GROUP" (ID, GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-    (group_seq.nextval, 'GROUP_ADMIN', current_timestamp, 0) RETURNING ID INTO id_admins;
+  INSERT INTO ROLE (ID, NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+    (role_seq.nextval, 'ROLE_USER', current_timestamp, 0) RETURNING ID INTO id_role_user;
+  INSERT INTO ROLE (ID, NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+    (role_seq.nextval, 'ROLE_ADMIN', current_timestamp, 0) RETURNING ID INTO id_role_admin;
 
-  INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
-    (id_user, id_users);
-  INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
-    (id_admin, id_admins);
-
-  INSERT INTO ACL_SID (ID, PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_sid_seq.nextval, 1, 'USER_1', id_user, current_timestamp, 0);
-  INSERT INTO ACL_SID (ID, PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_sid_seq.nextval, 1, 'USER_2', id_admin, current_timestamp, 0);
-  INSERT INTO ACL_SID (ID, PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_sid_seq.nextval, 0, 'GROUP_1', id_users, current_timestamp, 0);
-  INSERT INTO ACL_SID (ID, PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_sid_seq.nextval, 0, 'GROUP_2', id_admin, current_timestamp, 0);
-
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.acl.AclClass', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.acl.AclEntry', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.acl.AclSid', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.admin.User', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.admin.Group', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.customer.Customer', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.customer.Contact', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.customer.User', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);
+  INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
+    (id_user, id_role_user);
+  INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
+    (id_admin, id_role_admin);
 
   INSERT INTO DASHBOARD (ID, NAME, ICON, USER_ACCOUNT_ID, LAST_MODIFIED_DATE, VERSION) VALUES
     (dashboard_seq.nextval, 'default', 'user', id_user, current_timestamp, 0) RETURNING ID INTO id_dashboard;
@@ -110,5 +76,37 @@ INSERT INTO CUSTOMER (ID, COMPANY_NAME, STREET, STREET2, POSTCODE, COUNTRY, CITY
     (dashboard_box_seq.nextval, 'WIDTH_50', 'HEIGHT_50', 8, 'Box 8',  'Box 8 desc', id_dashboard, id_type_5, current_timestamp, 0);
   INSERT INTO DASHBOARD_BOX (ID, WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHBOARD_ID, DASHBOARD_BOX_TYPE_ID, LAST_MODIFIED_DATE, VERSION) VALUES
     (dashboard_box_seq.nextval, 'WIDTH_50', 'HEIGHT_50', 9, 'Box 9',  'Box 9 desc', id_dashboard, id_type_6, current_timestamp, 0);
+
+  INSERT INTO ACL_SID (ID, PRINCIPAL, SID, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_sid_seq.nextval, 1, 'user', current_timestamp, 0);
+  INSERT INTO ACL_SID (ID, PRINCIPAL, SID, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_sid_seq.nextval, 1, 'admin', current_timestamp, 0);
+
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.acl.AclClass', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.acl.AclEntry', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.acl.AclSid', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.admin.User', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.Role', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.Authority', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.customer.Customer', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.customer.Contact', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.customer.User', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
+  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+    (acl_class_seq.nextval, 'io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);
 END;
 

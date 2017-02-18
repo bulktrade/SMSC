@@ -26,25 +26,25 @@ public interface AclClassRepository extends JpaRepository<AclClass, Long> {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclClass save(AclClass aclClass);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclClass findOne(Long id);
 
     @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclClass findByClassName(@Param("className") String className);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<AclClass> findAll(Pageable pageable);
 }

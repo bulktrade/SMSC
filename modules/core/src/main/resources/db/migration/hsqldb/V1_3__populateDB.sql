@@ -18,49 +18,25 @@ INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, 
 INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
   ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0);
 
-INSERT INTO "GROUP" (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('GROUP_USER', current_timestamp, 0);
-INSERT INTO "GROUP" (GROUP_NAME, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('GROUP_ADMIN', current_timestamp, 0);
+INSERT INTO ROLE (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('ROLE_USER', current_timestamp, 0);
+INSERT INTO ROLE (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('ROLE_ADMIN', current_timestamp, 0);
 
-INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
-  ((select id from user_account where username = 'user'), (select id from "GROUP" where group_name = 'GROUP_USER'));
-INSERT INTO USER_GROUP (USER_ID, GROUP_ID) VALUES
-  ((select id from user_account where username = 'admin'), (select id from "GROUP" where group_name = 'GROUP_ADMIN'));
+INSERT INTO AUTHORITY (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('EXECUTE_PROCESS', current_timestamp, 0);
+INSERT INTO AUTHORITY (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('KILL_PROCESS', current_timestamp, 0);
 
-INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (TRUE, 'USER_1', (select id from user_account where username = 'user'), current_timestamp, 0);
-INSERT INTO ACL_SID (PRINCIPAL, SID, USER_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (TRUE, 'USER_2', (select id from user_account where username = 'admin'), current_timestamp, 0);
-INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (FALSE, 'GROUP_1', (select id from "GROUP" where group_name = 'GROUP_USER'), current_timestamp, 0);
-INSERT INTO ACL_SID (PRINCIPAL, SID, GROUP_ID, LAST_MODIFIED_DATE, VERSION) VALUES
-  (FALSE, 'GROUP_2', (select id from "GROUP" where group_name = 'GROUP_ADMIN'), current_timestamp, 0);
+INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
+  ((select id from user_account where username = 'user'), (select id from role where name = 'ROLE_USER'));
+INSERT INTO USER_ROLE (USER_ID, ROLE_ID) VALUES
+  ((select id from user_account where username = 'admin'), (select id from role where name = 'ROLE_ADMIN'));
 
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.acl.AclClass', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.acl.AclEntry', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.acl.AclSid', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.admin.User', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.admin.Group', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.customer.Customer', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.customer.Contact', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.customer.User', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
-INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);
+INSERT INTO USER_AUTHORITY (USER_ID, AUTHORITY_ID) VALUES
+  ((select id from user_account where username = 'admin'), (select id from authority where name = 'EXECUTE_PROCESS'));
+INSERT INTO USER_AUTHORITY (USER_ID, AUTHORITY_ID) VALUES
+  ((select id from user_account where username = 'admin'), (select id from authority where name = 'KILL_PROCESS'));
 
 INSERT INTO DASHBOARD (NAME, ICON, USER_ACCOUNT_ID, LAST_MODIFIED_DATE, VERSION) VALUES
   ('default', 'user', (select id from user_account where username = 'user'), current_timestamp, 0);
@@ -101,3 +77,35 @@ INSERT INTO DASHBOARD_BOX (WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHB
   ('WIDTH_50', 'HEIGHT_50', 8, 'Box 8',  'Box 8 desc', (select id from dashboard where name = 'default'), (select id from dashboard_box_type where name = 'Kolia chart profit'), current_timestamp, 0);
 INSERT INTO DASHBOARD_BOX (WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHBOARD_ID, DASHBOARD_BOX_TYPE_ID, LAST_MODIFIED_DATE, VERSION) VALUES
   ('WIDTH_50', 'HEIGHT_50', 9, 'Box 9',  'Box 9 desc', (select id from dashboard where name = 'default'), (select id from dashboard_box_type where name = 'Masha bubble chartat'), current_timestamp, 0);
+
+INSERT INTO ACL_SID (PRINCIPAL, SID, LAST_MODIFIED_DATE, VERSION) VALUES
+  (TRUE, 'user', current_timestamp, 0);
+INSERT INTO ACL_SID (PRINCIPAL, SID,LAST_MODIFIED_DATE, VERSION) VALUES
+  (TRUE, 'admin', current_timestamp, 0);
+
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclClass', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclEntry', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclSid', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.admin.User', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.Role', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.Authority', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.Customer', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.Contact', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.User', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);

@@ -1,30 +1,39 @@
-package io.smsc.model.admin;
+package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.smsc.model.BaseEntity;
-import io.smsc.model.acl.AclSid;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 
+import io.smsc.model.admin.User;
+
+/**
+ * Specifies Role class as an entity class.
+ *
+ * @author Nazar Lipkovskyy
+ * @see BaseEntity
+ * @since 0.0.1-SNAPSHOT
+ */
 @Entity
-@Table(name = "GROUP")
-public class Group extends BaseEntity {
+@Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "roles_unique_name_idx")})
+public class Role extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "group_seq", sequenceName = "group_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "group_seq")
+    @SequenceGenerator(name = "role_seq", sequenceName = "role_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "role_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
     private Long id;
 
-    @Column(name = "GROUP_NAME", nullable = false)
-    @NotEmpty(message = "{group.name.empty.validation}")
-    @Pattern(regexp = "[A-Z_]+", message = "{group.name.pattern.validation}")
-    private String groupName;
+    @Column(name = "NAME", nullable = false, unique = true)
+    @NotEmpty(message = "{role.empty.validation}")
+    @Pattern(regexp = "[R][O][L][E][_][A-Z_]+", message = "{role.name.validation}")
+    private String name;
 
     @ManyToMany(cascade =
             {
@@ -35,15 +44,12 @@ public class Group extends BaseEntity {
             },
             targetEntity = User.class)
     @JoinTable(
-            name = "USER_GROUP",
-            joinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID"),
+            name = "USER_ROLE",
+            joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     )
     @OrderBy("id asc")
     private Set<User> users;
-
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "group")
-    private AclSid aclSid;
 
     @JsonIgnore
     public boolean isNew() {
@@ -58,12 +64,12 @@ public class Group extends BaseEntity {
         this.id = id;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getName() {
+        return name;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<User> getUsers() {
@@ -74,37 +80,29 @@ public class Group extends BaseEntity {
         this.users = users;
     }
 
-    public AclSid getAclSid() {
-        return aclSid;
-    }
-
-    public void setAclSid(AclSid aclSid) {
-        this.aclSid = aclSid;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Group group = (Group) o;
+        Role role = (Role) o;
 
-        if (!getId().equals(group.getId())) return false;
-        return getGroupName().equals(group.getGroupName());
+        if (!getId().equals(role.getId())) return false;
+        return getName().equals(role.getName());
     }
 
     @Override
     public int hashCode() {
         int result = getId().hashCode();
-        result = 31 * result + getGroupName().hashCode();
+        result = 31 * result + getName().hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "Group{" +
+        return "Role{" +
                 "id=" + id +
-                ", groupName='" + groupName + '\'' +
+                ", name='" + name + '\'' +
                 "} " + super.toString();
     }
 }

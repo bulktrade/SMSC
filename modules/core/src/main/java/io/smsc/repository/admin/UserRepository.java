@@ -26,27 +26,27 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     User save(User user);
 
     @Override
-    @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     User findOne(Long id);
 
-    @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
+    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
     User findByUsername(@Param("username") String userName);
 
-    @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
+    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
     User findByEmail(@Param("email") String email);
 
     @Override
-    @EntityGraph(attributePaths = {"aclSid", "dashboards", "groups"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<User> findAll(Pageable pageable);
 }

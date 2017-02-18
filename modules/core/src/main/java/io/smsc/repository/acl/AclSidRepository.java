@@ -26,25 +26,25 @@ public interface AclSidRepository extends JpaRepository<AclSid, Long> {
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclSid save(AclSid aclSid);
 
     @Override
     @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclSid findOne(Long id);
 
     @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclSid findBySid(@Param("sid") String sid);
 
     @Override
     @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
-    @PreAuthorize("hasAuthority('USER_2') or hasAuthority('GROUP_2')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<AclSid> findAll(Pageable pageable);
 }

@@ -1,6 +1,7 @@
 package io.smsc.jwt.service;
 
-import io.smsc.model.admin.Group;
+import io.smsc.model.Authority;
+import io.smsc.model.Role;
 import io.smsc.model.admin.User;
 import io.smsc.repository.admin.UserRepository;
 import io.smsc.jwt.model.JWTUser;
@@ -67,21 +68,21 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
 
     /**
      * Method to create set with {@link SimpleGrantedAuthority} for logged user. Authorities
-     * are created from user's {@link io.smsc.model.acl.AclSid} and his {@link Group} sid's.
+     * are created from user's {@link io.smsc.model.Authority}.
      *
      * @param user logged {@link User}
      * @return appropriate {@link JWTUser} object
      */
     public static JWTUser createJwtUser(User user) {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        if(null != user.getAclSid()) {
-            authorities.add(new SimpleGrantedAuthority(user.getAclSid().getSid()));
+        if(null != user.getAuthorities() && !user.getAuthorities().isEmpty()) {
+            for(Authority authority : user.getAuthorities()){
+                authorities.add(new SimpleGrantedAuthority(authority.getName()));
+            }
         }
-        if(null != user.getGroups() && !user.getGroups().isEmpty()) {
-            for(Group group : user.getGroups()){
-                if(null != group.getAclSid()) {
-                    authorities.add(new SimpleGrantedAuthority(group.getAclSid().getSid()));
-                }
+        if(null != user.getRoles() && !user.getRoles().isEmpty()) {
+            for(Role role : user.getRoles()){
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
             }
         }
         return new JWTUser(user, authorities);
