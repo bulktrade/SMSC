@@ -1,6 +1,8 @@
 package io.smsc.jwt.service;
 
+import io.smsc.jwt.service.impl.JWTTokenGenerationServiceImpl;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Map;
