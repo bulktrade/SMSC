@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
@@ -61,4 +62,8 @@ public interface UserRepository extends JpaRepository<User, Long>,
     @EntityGraph(attributePaths = {"roles", "dashboards"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<User> findAll(Pageable pageable);
+
+    @PreAuthorize("isAuthenticated()")
+    @Query("select u from AdminUser u where u.id = ?#{ principal?.id }")
+    User me();
 }

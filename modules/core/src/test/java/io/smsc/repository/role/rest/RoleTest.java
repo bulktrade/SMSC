@@ -1,4 +1,4 @@
-package io.smsc.repository.role;
+package io.smsc.repository.role.rest;
 
 import io.smsc.model.Role;
 import io.smsc.AbstractTest;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"ADMIN"})
-public class RoleRestTest extends AbstractTest {
+public class RoleTest extends AbstractTest {
 
     @Test
     public void testGetSingleRole() throws Exception {

@@ -153,5 +153,14 @@
   "1:n.update": "Update",
   "1:n.delete": "Delete",
   "MR": "Mister",
-  "MRS": "Missus"
+  "MRS": "Missus",
+    "update": "Update",
+
+    "user.firstname": "Firstname",
+    "user.surname": "Surname",
+    "user.email": "E-Mail",
+    "user.username": "Username",
+
+    "profile.successUpdate": "Profile was successfully updated.",
+    "profile.errorUpdate": "Profile can't be updated."
 }
