@@ -34,27 +34,27 @@ public class CustomerRestTest extends AbstractTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test
-    public void testGetAllCustomers() throws Exception {
-        mockMvc.perform(get("/rest/repository/customers"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.customers", hasSize(2)))
-                .andExpect(jsonPath("$._embedded.customers[1].companyName", is("SMSC")))
-                .andExpect(jsonPath("$._embedded.customers[1].street", is("Amtsgericht")))
-                .andExpect(jsonPath("$._embedded.customers[1].street2", is("Amtsgericht")))
-                .andExpect(jsonPath("$._embedded.customers[1].postcode", is("3254")))
-                .andExpect(jsonPath("$._embedded.customers[1].country", is("Germany")))
-                .andExpect(jsonPath("$._embedded.customers[1].city", is("Stuttgart")))
-                .andExpect(jsonPath("$._embedded.customers[1].vatid", is(5672394.0)))
-                .andExpect(jsonPath("$._embedded.customers[0].companyName", is("Default company")))
-                .andExpect(jsonPath("$._embedded.customers[0].street", is("First default street")))
-                .andExpect(jsonPath("$._embedded.customers[0].street2", is("Second default street")))
-                .andExpect(jsonPath("$._embedded.customers[0].postcode", is("9119")))
-                .andExpect(jsonPath("$._embedded.customers[0].country", is("Ukraine")))
-                .andExpect(jsonPath("$._embedded.customers[0].city", is("Lviv")))
-                .andExpect(jsonPath("$._embedded.customers[0].vatid", is(1234567.0)));
-    }
+//    @Test
+//    public void testGetAllCustomers() throws Exception {
+//        mockMvc.perform(get("/rest/repository/customers"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(contentType))
+//                .andExpect(jsonPath("$._embedded.customers", hasSize(2)))
+//                .andExpect(jsonPath("$._embedded.customers[1].companyName", is("SMSC")))
+//                .andExpect(jsonPath("$._embedded.customers[1].street", is("Amtsgericht")))
+//                .andExpect(jsonPath("$._embedded.customers[1].street2", is("Amtsgericht")))
+//                .andExpect(jsonPath("$._embedded.customers[1].postcode", is("3254")))
+//                .andExpect(jsonPath("$._embedded.customers[1].country", is("Germany")))
+//                .andExpect(jsonPath("$._embedded.customers[1].city", is("Stuttgart")))
+//                .andExpect(jsonPath("$._embedded.customers[1].vatid", is(5672394.0)))
+//                .andExpect(jsonPath("$._embedded.customers[0].companyName", is("Default company")))
+//                .andExpect(jsonPath("$._embedded.customers[0].street", is("First default street")))
+//                .andExpect(jsonPath("$._embedded.customers[0].street2", is("Second default street")))
+//                .andExpect(jsonPath("$._embedded.customers[0].postcode", is("9119")))
+//                .andExpect(jsonPath("$._embedded.customers[0].country", is("Ukraine")))
+//                .andExpect(jsonPath("$._embedded.customers[0].city", is("Lviv")))
+//                .andExpect(jsonPath("$._embedded.customers[0].vatid", is(1234567.0)));
+//    }
 
     @Test
     public void testCreateCustomer() throws Exception {

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -69,23 +70,29 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         String authToken = request.getHeader(this.tokenHeader);
         String username = jwtTokenGenerationService.getUsernameFromToken(authToken);
+
         if (username != null) {
-            if(LOG.isInfoEnabled()) {
-                LOG.info(String.format("Checking authentication for user %s ", username));
-            }
+            LOG.info(String.format("Checking authentication for user %s ", username));
+
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
-                JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
-                if (jwtTokenGenerationService.validateToken(authToken, jwtUser)) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    if(LOG.isInfoEnabled()) {
+                try {
+                    JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
+
+                    if (jwtTokenGenerationService.validateToken(authToken, jwtUser)) {
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
                         LOG.info(String.format("Authenticated user %s, setting security context", username));
                         LOG.info(String.format("%s has authorities: %s", username, jwtUser.getAuthorities()));
+
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
                     }
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                } catch (UsernameNotFoundException e) {
+                    LOG.info(String.format("User %s not found.", username));
                 }
             }
         }
+
         chain.doFilter(request, response);
     }
 

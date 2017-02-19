@@ -6,7 +6,6 @@ import io.smsc.jwt.service.JWTUserDetailsService;
 import io.smsc.model.admin.User;
 import io.smsc.repository.admin.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -20,8 +19,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public JWTUserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     /**
      * Implementation of basic {@link UserDetailsService#loadUserByUsername(String)} method
