@@ -1,7 +1,6 @@
 package io.smsc.config;
 
 import io.smsc.jwt.JWTAuthenticationEntryPoint;
-
 import io.smsc.jwt.JWTAuthenticationTokenFilter;
 import io.smsc.jwt.service.JWTTokenGenerationService;
 import io.smsc.jwt.service.JWTUserDetailsService;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -36,13 +36,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final JWTUserDetailsService userDetailsService;
-
     private final JWTAuthenticationEntryPoint unauthorizedHandler;
-
     private final JWTTokenGenerationService tokenGenerationService;
 
     @Autowired
-    public SecurityConfiguration(JWTUserDetailsService userDetailsService, JWTAuthenticationEntryPoint unauthorizedHandler, JWTTokenGenerationService tokenGenerationService) {
+    public SecurityConfiguration(
+            JWTUserDetailsService userDetailsService,
+            JWTAuthenticationEntryPoint unauthorizedHandler,
+            JWTTokenGenerationService tokenGenerationService
+    ) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
         this.tokenGenerationService = tokenGenerationService;

@@ -1,4 +1,4 @@
-package io.smsc.repository.customer;
+package io.smsc.repository;
 
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.core.types.dsl.NumberPath;
