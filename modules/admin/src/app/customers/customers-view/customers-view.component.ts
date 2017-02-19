@@ -22,7 +22,7 @@ export class CustomersViewComponent {
 
     public columnDefs: ColumnDef[];
 
-    public rowData = [];
+    public rowData: Customer[] = [];
 
     public selectedRows: ColumnDef[] = [];
 
@@ -33,6 +33,8 @@ export class CustomersViewComponent {
     public action = Action;
 
     public isLoading: boolean = false;
+
+    public filters = {};
 
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
@@ -47,7 +49,18 @@ export class CustomersViewComponent {
         this.pagination.totalElements = this.getNumberCustomers();
     }
 
-    onFilter(event) {
+    onFilter(column: string, data: string) {
+        this.filters[column] = data;
+        this.isLoading = true;
+
+        this.customersService.getResources(this.pagination.number, this.pagination.size, this.filters)
+            .subscribe(rows => {
+                this.isLoading = false;
+                this.rowData = rows['_embedded'][REPOSITORY_NAME];
+            }, err => {
+                console.error(err);
+                this.isLoading = false;
+            });
     }
 
     onRowExpand(event) {
@@ -60,7 +73,7 @@ export class CustomersViewComponent {
         this.pagination.size = event.size;
         this.isLoading = true;
 
-        this.customersService.getResources(this.pagination.number, this.pagination.size)
+        this.customersService.getResources(this.pagination.number, this.pagination.size, this.filters)
             .subscribe(rows => {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
                 this.isLoading = false;
