@@ -46,9 +46,6 @@
         </p-column>
         <p-column field="postcode" [header]="'postcode' | translate" [editable]="true"
                   [sortable]="true" [style]="{'width':'200px'}">
-            <template pTemplate="filter" let-col>
-                <input type="text" pInputText ngModel (ngModelChange)="onFilter(col.field, $event)"/>
-            </template>
         </p-column>
         <p-column field="country" [header]="'country' | translate" [editable]="true"
                   [sortable]="true" [style]="{'width':'200px'}">
