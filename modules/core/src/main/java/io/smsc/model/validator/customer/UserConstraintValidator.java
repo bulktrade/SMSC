@@ -1,6 +1,6 @@
-package io.smsc.model.validator;
+package io.smsc.model.validator.customer;
 
-import io.smsc.annotation.UserExistsValidator;
+import io.smsc.annotation.admin.UserExistsValidator;
 import io.smsc.model.admin.User;
 import io.smsc.repository.admin.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

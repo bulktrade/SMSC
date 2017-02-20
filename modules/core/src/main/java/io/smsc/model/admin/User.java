@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.smsc.annotation.Encrypt;
-import io.smsc.annotation.UserExistsValidator;
+import io.smsc.annotation.admin.UserExistsValidator;
 import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.Authority;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.Role;
-import io.smsc.model.acl.AclSid;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.annotations.OnDelete;
@@ -20,7 +19,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.Constraint;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
@@ -35,7 +33,6 @@ import java.util.Set;
 @Entity(name = "AdminUser")
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
 @EntityListeners(EncryptionListener.class)
-@UserExistsValidator
 public class User extends BaseEntity {
 
     @Id
@@ -51,6 +48,7 @@ public class User extends BaseEntity {
     @NotNull(message = "{user.salutation.validation}")
     private Salutation salutation;
 
+    @UserExistsValidator
     @Column(name = "USERNAME", nullable = false, unique = true)
     @NotEmpty(message = "{user.username.validation}")
     private String username;
