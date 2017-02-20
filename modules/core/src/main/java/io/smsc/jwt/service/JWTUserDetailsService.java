@@ -1,7 +1,9 @@
 package io.smsc.jwt.service;
 
 import io.smsc.jwt.model.JWTUser;
+import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
 /**
  * This interface is extending basic {@link UserDetailsService} and describing methods
@@ -11,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author Nazar Lipkovskyy
  * @since 0.0.1-SNAPSHOT
  */
-
 public interface JWTUserDetailsService extends UserDetailsService {
 
     @Override

@@ -5,7 +5,7 @@ import io.smsc.model.Role;
 import io.smsc.model.admin.User;
 import io.smsc.jwt.model.JWTAuthenticationRequest;
 import io.smsc.jwt.model.JWTRefreshTokenRequest;
-import io.smsc.jwt.service.JWTTokenGenerationServiceImpl;
+import io.smsc.jwt.service.impl.JWTTokenGenerationServiceImpl;
 import org.assertj.core.util.DateUtil;
 import org.junit.Test;
 import org.springframework.http.MediaType;

@@ -30,6 +30,7 @@
             top: 2px;
             width: 18px;
             color: #009688;
+            padding-left: 1px;
             position: relative;
         }
     }
@@ -54,6 +55,17 @@
         height: 100%;
         border-radius: 3px;
         color: #222;
+    }
+}
+
+.loading-spinner {
+    display: flex;
+    margin: auto;
+
+    i {
+        margin: auto;
+        font-size: 36px;
+        color: #009688;
     }
 }
 

@@ -6,7 +6,6 @@ import {Entity, Links, Link} from "./entity.model";
 export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
     public abstract titleColumns: string;
-    public loading: boolean = false;
     public apiUrl: string;
 
     constructor(public http: Http,
@@ -114,17 +113,36 @@ export abstract class CrudRepository<T> {
     }
 
     /**
-     * Retrieves a list of all resources with pagination
+     * Retrieves a list of all resources with pagination and filtering
+     *
+     * @example
+     * let pageIndex: number = 0;
+     * let pageSize: number = 10;
+     * let query = {
+     *      property: 'value',
+     *      property2: 'value2'
+     * };
+     * getResources(pageIndex, pageSize, query);
+     *
      * @param page
      * @param size
-     * @returns {Observable<T[]>}
+     * @param query
+     * @returns {Observable<T>}
      */
-    getResources(page?: number, size?: number): Rx.Observable<T[]> {
+    getResources(page?: number, size?: number, query?: Object): Rx.Observable<T[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {
             search.set('page', page + '');
             search.set('size', size + '');
+        }
+
+        if (query) {
+            for (let i in query) {
+                if (query.hasOwnProperty(i)) {
+                    search.set(i, query[i]);
+                }
+            }
         }
 
         let requestOptions = new RequestOptions({

@@ -1,11 +1,19 @@
-package io.smsc.repository.customer;
+package io.smsc.repository;
 
+import com.querydsl.core.types.dsl.NumberExpression;
+import com.querydsl.core.types.dsl.NumberPath;
+import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.core.types.dsl.StringPath;
 import io.smsc.model.customer.Customer;
+import io.smsc.model.customer.QCustomer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
+import org.springframework.data.querydsl.binding.QuerydslBindings;
+import org.springframework.data.querydsl.binding.SingleValueBinding;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +28,15 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "customers", path = "customers")
 @Transactional(readOnly = true)
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long>,
+        QueryDslPredicateExecutor<Customer>,
+        QuerydslBinderCustomizer<QCustomer> {
 
-    //All query method resources are exposed under the resource 'search'.
+    @Override
+    default public void customize(QuerydslBindings bindings, QCustomer root) {
+        bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::startsWithIgnoreCase);
+        bindings.bind(Long.class).first((SingleValueBinding<NumberPath<Long>, Long>) NumberExpression::in);
+    }
 
     @Override
     @Transactional

@@ -11,8 +11,10 @@ import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {OneToOneModule} from "../../shared/components/one-to-one/one-to-one.component";
-import {CustomersService} from "../customers.service";
+import {CustomersService} from "../customer.service";
 import {ParentCustomerModule} from "../parent-customer/parent-customer";
+import {OneToMany} from "../../shared/components/one-to-many/one-to-many.model";
+import {CommonService} from "../../services/common";
 
 @Component({
     selector: 'customers-form',
@@ -24,6 +26,9 @@ export class CustomersFormComponent {
     @Input('submitButtonName')
     public submitButtonName: string;
 
+    @Input('isLoading')
+    public isLoading: boolean = false;
+
     @Input('model')
     public model = {};
 
@@ -32,15 +37,19 @@ export class CustomersFormComponent {
 
     public id: number;
 
+    public pathFromRoot: string;
+
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
+                public commonService: CommonService,
                 public customersService: CustomersService) {
     }
 
     ngOnInit() {
         this.model['_embedded'] = this.model['_embedded'] || {};
-        this.id = this.route.params['value'].id;
+        this.id = this.route.params['value'].customerId;
+        this.pathFromRoot = this.commonService.getPathFromRoot(this.route.parent.pathFromRoot);
     }
 
     onSubmit() {
@@ -49,6 +58,18 @@ export class CustomersFormComponent {
 
     back() {
         this.location.back();
+    }
+
+    onCreate(event: OneToMany) {
+        this.router.navigate([this.pathFromRoot, this.id, event.propertyName, 'create']).then();
+    }
+
+    onUpdate(event: OneToMany) {
+        this.router.navigate([this.pathFromRoot, this.id, event.propertyName, 'update', event.entity['id']]).then();
+    }
+
+    onDelete(event: OneToMany) {
+        this.router.navigate([this.pathFromRoot, this.id, event.propertyName, 'delete', event.entity['id']]).then();
     }
 }
 

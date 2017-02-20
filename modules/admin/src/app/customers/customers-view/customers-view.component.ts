@@ -4,17 +4,16 @@ import {TranslateService} from "ng2-translate/ng2-translate";
 import {Router, ActivatedRoute} from "@angular/router";
 import {ColumnDef} from "../model/column-definition";
 import {Pagination} from "../model/pagination";
-import {CustomersService, REPOSITORY_NAME} from "../customers.service";
-import {CustomersViewService} from "./customers-view.service";
+import {CustomersService, REPOSITORY_NAME} from "../customer.service";
 import * as clone from "js.clone";
 import {NotificationService} from "../../services/notification-service";
 import {Customer} from "../model/customer";
+import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
 
 @Component({
     selector: 'customers-view',
     templateUrl: './customers-view.component.html',
-    styleUrls: ['./customers-view.component.scss'],
-    providers: [CustomersViewService]
+    styleUrls: ['./customers-view.component.scss']
 })
 
 export class CustomersViewComponent {
@@ -27,12 +26,19 @@ export class CustomersViewComponent {
 
     public selectedRows: ColumnDef[] = [];
 
+    public contactsModel: OneToMany[] = [];
+
+    public usersModel: OneToMany[] = [];
+
+    public action = Action;
+
+    public isLoading: boolean = false;
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public customersViewService: CustomersViewService,
                 public notifications: NotificationService) {
     }
 
@@ -41,10 +47,26 @@ export class CustomersViewComponent {
         this.pagination.totalElements = this.getNumberCustomers();
     }
 
+    onFilter(event) {
+    }
+
+    onRowExpand(event) {
+        this.contactsModel[event.data['id']] = new OneToMany('contacts', Action.View, null);
+        this.usersModel[event.data['id']] = new OneToMany('users', Action.View, null);
+    }
+
     onPaginate(event) {
-        this.customersService.getResources(event.page, event.rows)
+        this.pagination.number = event.page;
+        this.pagination.size = event.size;
+        this.isLoading = true;
+
+        this.customersService.getResources(this.pagination.number, this.pagination.size)
             .subscribe(rows => {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
+                this.isLoading = false;
+            }, err => {
+                console.error(err);
+                this.isLoading = false;
             });
     }
 
@@ -57,7 +79,6 @@ export class CustomersViewComponent {
             }, err => {
                 console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
-
                 return false;
             })
     }

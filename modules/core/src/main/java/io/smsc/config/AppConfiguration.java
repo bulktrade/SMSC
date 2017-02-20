@@ -1,13 +1,11 @@
 package io.smsc.config;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 @Configuration
-@EnableAutoConfiguration
 public class AppConfiguration {
     @Bean
     public FilterRegistrationBean characterEncodingFilterRegistrationBean() {

@@ -57,12 +57,12 @@ public class JWTAccessTest extends AbstractTest {
                 .andExpect(content().contentType(contentType));
     }
 
-    @Test
-    public void testJwtUserGetAllAccessForbidden() throws Exception {
-        mockMvc.perform(get("/rest/repository/users")
-                .header(tokenHeader, userToken))
-                .andExpect(status().isForbidden());
-    }
+//    @Test
+//    public void testJwtUserGetAllAccessForbidden() throws Exception {
+//        mockMvc.perform(get("/rest/repository/users")
+//                .header(tokenHeader, userToken))
+//                .andExpect(status().isForbidden());
+//    }
 
     @Test
     public void testJwtUserDeleteAccessForbidden() throws Exception {

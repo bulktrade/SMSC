@@ -18,5 +18,5 @@ fi
 
 if [ "$TRAVIS_BRANCH" != "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     # Docker push
-    mvn -f modules/core docker:push -DpushImageTag -PskipBuildAndTests -DdockerImageTags=${TRAVIS_BRANCH//\//-}
+    docker push smscio/smsc:${TRAVIS_BRANCH//\//-}
 fi
