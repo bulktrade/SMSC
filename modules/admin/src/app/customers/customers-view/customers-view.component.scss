@@ -44,17 +44,15 @@
 
     .loading-layer {
         .container {
-            opacity: 1;
             padding: 0;
             margin: auto;
             display: flex;
             width: inherit;
             height: inherit;
 
-            i {
-                opacity: 1;
+            .sk-cube-grid {
+                padding: 0;
                 margin: auto;
-                color: #009688;
             }
         }
     }

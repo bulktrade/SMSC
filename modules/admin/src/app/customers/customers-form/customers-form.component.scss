@@ -1,6 +1,11 @@
 $colorHint: #A94442;
 
-.addingForm {
+:host {
+    display: flex;
+    padding-bottom: 15px;
+}
+
+#customers-form {
 	width: 100%;
 
     #back-button {

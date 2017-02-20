@@ -129,7 +129,7 @@ export abstract class CrudRepository<T> {
      * @param query
      * @returns {Observable<T>}
      */
-    getResources(page?: number, size?: number, query?: Object): Rx.Observable<T[]> {
+    getResources(page?: number, size?: number, query?: T): Rx.Observable<T[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {
@@ -140,7 +140,7 @@ export abstract class CrudRepository<T> {
         if (query) {
             for (let i in query) {
                 if (query.hasOwnProperty(i)) {
-                    search.set(i, query[i]);
+                    search.set(i, String(query[i]));
                 }
             }
         }
