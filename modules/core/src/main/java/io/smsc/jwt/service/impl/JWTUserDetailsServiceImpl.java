@@ -1,5 +1,6 @@
-package io.smsc.jwt.service;
+package io.smsc.jwt.service.impl;
 
+import io.smsc.jwt.service.JWTUserDetailsService;
 import io.smsc.model.Authority;
 import io.smsc.model.Role;
 import io.smsc.model.admin.User;

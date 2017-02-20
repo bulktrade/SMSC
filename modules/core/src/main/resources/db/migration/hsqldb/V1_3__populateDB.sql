@@ -126,14 +126,12 @@ INSERT INTO ACL_OBJECT_IDENTITY (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY, PARENT_OBJ
   ((select id from acl_class where class = 'io.smsc.model.Authority'), (select id from authority where name = 'KILL_PROCESS'), null, (select id from acl_sid where sid = 'admin'), 0, current_timestamp, 0);
 
 INSERT INTO ACL_OBJECT_IDENTITY (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY, PARENT_OBJECT, OWNER_SID, ENTRIES_INHERITING, LAST_MODIFIED_DATE, VERSION) VALUES
-  ((select id from acl_class where class = 'io.smsc.model.customer.Customer'), (select id from customer where name = 'SMSC'), null, (select id from acl_sid where sid = 'admin'), 0, current_timestamp, 0);
+  ((select id from acl_class where class = 'io.smsc.model.customer.Customer'), (select id from customer where company_name = 'SMSC'), null, (select id from acl_sid where sid = 'admin'), 0, current_timestamp, 0);
 INSERT INTO ACL_OBJECT_IDENTITY (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY, PARENT_OBJECT, OWNER_SID, ENTRIES_INHERITING, LAST_MODIFIED_DATE, VERSION) VALUES
-  ((select id from acl_class where class = 'io.smsc.model.customer.Customer'), (select id from customer where name = 'Default company'), null, (select id from acl_sid where sid = 'admin'), 0, current_timestamp, 0);
+  ((select id from acl_class where class = 'io.smsc.model.customer.Customer'), (select id from customer where company_name = 'Default company'), null, (select id from acl_sid where sid = 'admin'), 0, current_timestamp, 0);
 
 INSERT INTO ACL_OBJECT_IDENTITY (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY, PARENT_OBJECT, OWNER_SID, ENTRIES_INHERITING, LAST_MODIFIED_DATE, VERSION) VALUES
-  ((select id from acl_class where class = 'io.smsc.model.customer.Contact'), (select id from customer where name = 'SMSC'), null, (select id from acl_sid where sid = 'admin'), 0, current_timestamp, 0);
-INSERT INTO ACL_OBJECT_IDENTITY (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY, PARENT_OBJECT, OWNER_SID, ENTRIES_INHERITING, LAST_MODIFIED_DATE, VERSION) VALUES
-  ((select id from acl_class where class = 'io.smsc.model.customer.Contact'), (select id from customer where name = 'Default company'), null, (select id from acl_sid where sid = 'admin'), 0, current_timestamp, 0);
+  ((select id from acl_class where class = 'io.smsc.model.customer.Contact'), (select id from customer_contact where email_address = 'smsc@bulk.io'), null, (select id from acl_sid where sid = 'admin'), 0, current_timestamp, 0);
 
 INSERT INTO ACL_OBJECT_IDENTITY (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY, PARENT_OBJECT, OWNER_SID, ENTRIES_INHERITING, LAST_MODIFIED_DATE, VERSION) VALUES
   ((select id from acl_class where class = 'io.smsc.model.customer.User'), (select id from customer_user_account where username = 'user'), null, (select id from acl_sid where sid = 'user'), 0, current_timestamp, 0);
@@ -174,4 +172,31 @@ INSERT INTO ACL_OBJECT_IDENTITY (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY, PARENT_OBJ
   ((select id from acl_class where class = 'io.smsc.model.dashboard.DashboardBoxType'), (select id from dashboard_box_type where name = 'Kolia chart profit'), null, (select id from acl_sid where sid = 'user'), 0, current_timestamp, 0);
 INSERT INTO ACL_OBJECT_IDENTITY (OBJECT_ID_CLASS, OBJECT_ID_IDENTITY, PARENT_OBJECT, OWNER_SID, ENTRIES_INHERITING, LAST_MODIFIED_DATE, VERSION) VALUES
   ((select id from acl_class where class = 'io.smsc.model.dashboard.DashboardBoxType'), (select id from dashboard_box_type where name = 'Masha bubble chartat'), null, (select id from acl_sid where sid = 'user'), 0, current_timestamp, 0);
+
+-- admin has all rights for both users, user can only read his data
+
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'user')), 1, (select id from acl_sid where sid = 'admin'), 1, 1, 1, 1, current_timestamp, 0);
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'user')), 2, (select id from acl_sid where sid = 'admin'), 2, 1, 1, 1, current_timestamp, 0);
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'user')), 3, (select id from acl_sid where sid = 'admin'), 4, 1, 1, 1, current_timestamp, 0);
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'user')), 4, (select id from acl_sid where sid = 'admin'), 8, 1, 1, 1, current_timestamp, 0);
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'user')), 5, (select id from acl_sid where sid = 'admin'), 16, 1, 1, 1, current_timestamp, 0);
+
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'admin')), 1, (select id from acl_sid where sid = 'admin'), 1, 1, 1, 1, current_timestamp, 0);
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'admin')), 2, (select id from acl_sid where sid = 'admin'), 2, 1, 1, 1, current_timestamp, 0);
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'admin')), 3, (select id from acl_sid where sid = 'admin'), 4, 1, 1, 1, current_timestamp, 0);
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'admin')), 4, (select id from acl_sid where sid = 'admin'), 8, 1, 1, 1, current_timestamp, 0);
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'admin')), 5, (select id from acl_sid where sid = 'admin'), 16, 1, 1, 1, current_timestamp, 0);
+
+INSERT INTO ACL_ENTRY(ACL_OBJECT_IDENTITY, ACE_ORDER, SID, MASK, GRANTING, AUDIT_SUCCESS, AUDIT_FAILURE, LAST_MODIFIED_DATE, VERSION) VALUES
+  ((select id from acl_object_identity where object_id_class = (select id from acl_class where class = 'io.smsc.model.admin.User') and object_id_identity = (select id from user_account where username = 'user')), 6, (select id from acl_sid where sid = 'user'), 1, 1, 1, 1, current_timestamp, 0);
 

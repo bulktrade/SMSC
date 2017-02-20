@@ -1,5 +1,6 @@
 package io.smsc.repository.admin;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
 import io.smsc.model.admin.QUser;
@@ -65,6 +66,11 @@ public interface UserRepository extends JpaRepository<User, Long>,
     @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<User> findAll(Pageable pageable);
+
+    @Override
+    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Page<User> findAll(Predicate predicate, Pageable pageable);
 
     @PreAuthorize("isAuthenticated()")
     @Query("select u from AdminUser u where u.id = ?#{ principal?.id }")

@@ -1,5 +1,6 @@
 package io.smsc.repository.dashboard;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
 import io.smsc.model.admin.User;
@@ -70,4 +71,9 @@ public interface DashboardRepository extends JpaRepository<Dashboard, Long>,
     @EntityGraph(attributePaths = {"dashboardBoxes"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<Dashboard> findAll(Pageable pageable);
+
+    @Override
+    @EntityGraph(attributePaths = {"dashboardBoxes"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Page<Dashboard> findAll(Predicate predicate, Pageable pageable);
 }

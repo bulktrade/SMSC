@@ -28,7 +28,7 @@ public class AclEntry extends BaseEntity {
     /**
      * Refers to the ordering of the access control entries.
      */
-    @Column(name = "ACE_ORDER", nullable = false, unique = true)
+    @Column(name = "ACE_ORDER", nullable = false)
     @NotNull(message = "{acl.entry.order.validation}")
     private Integer aceOrder;
 
@@ -65,7 +65,7 @@ public class AclEntry extends BaseEntity {
      * Refers to the id field in the acl_object_identity table.
      */
     @ManyToOne
-    @JoinColumn(name = "ACL_OBJECT_IDENTITY", nullable = false, unique = true)
+    @JoinColumn(name = "ACL_OBJECT_IDENTITY", nullable = false)
     @NotNull(message = "{acl.entry.object.identity.validation}")
     private AclObjectIdentity aclObjectIdentity;
 
