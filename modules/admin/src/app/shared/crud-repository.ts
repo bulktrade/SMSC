@@ -2,6 +2,7 @@ import * as Rx from "rxjs/Rx";
 import {Http, RequestMethod, RequestOptions, URLSearchParams, Headers, Response} from "@angular/http";
 import {ConfigService} from "../config/config.service";
 import {Entity, Links, Link} from "./entity.model";
+import {Sort} from "./sort.model";
 
 export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
@@ -123,13 +124,13 @@ export abstract class CrudRepository<T> {
      *      property2: 'value2'
      * };
      * getResources(pageIndex, pageSize, query);
-     *
      * @param page
      * @param size
      * @param query
+     * @param sort
      * @returns {Observable<T>}
      */
-    getResources(page?: number, size?: number, query?: Object): Rx.Observable<T[]> {
+    getResources(page?: number, size?: number, query?: T, sort?: Sort): Rx.Observable<T[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {
@@ -137,10 +138,14 @@ export abstract class CrudRepository<T> {
             search.set('size', size + '');
         }
 
+        if (sort) {
+            search.set('sort', sort.orderBy + ',' + sort.sortType);
+        }
+
         if (query) {
             for (let i in query) {
                 if (query.hasOwnProperty(i)) {
-                    search.set(i, query[i]);
+                    search.set(i, String(query[i]));
                 }
             }
         }

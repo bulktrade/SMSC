@@ -10,6 +10,7 @@ import {CommonService} from "../../../services/common";
 import {Link} from "../../entity.model";
 import {Http, RequestOptions, RequestMethod} from "@angular/http";
 import {OneToMany, Action} from "./one-to-many.model";
+import {CubeGridModule} from "../cube-grid/cube-grid.component";
 
 @Component({
     selector: 'one-to-many',
@@ -107,7 +108,8 @@ export class OneToManyComponent {
         CommonModule,
         FormsModule,
         TranslateModule,
-        RouterModule
+        RouterModule,
+        CubeGridModule
     ],
     exports: [OneToManyComponent],
     declarations: [OneToManyComponent]

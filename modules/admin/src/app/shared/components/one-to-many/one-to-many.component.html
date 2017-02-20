@@ -1,4 +1,4 @@
-<div id="multiple-select-window" [hidden]="isLoading">
+<div id="multiple-select-window" *ngIf="!isLoading">
     <div class="title-panel">
         <i class="fa fa-plus-square-o" (click)="onCreate()"
            [title]="'1:n.create' | translate" aria-hidden="true"></i>
@@ -30,5 +30,5 @@
     </div>
 </div>
 <div class="loading-spinner">
-    <i [hidden]="!isLoading" class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+    <sk-cube-grid *ngIf="isLoading" class="sk-cube-grid"></sk-cube-grid>
 </div>

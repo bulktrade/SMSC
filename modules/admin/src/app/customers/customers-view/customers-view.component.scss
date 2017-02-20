@@ -1,6 +1,26 @@
 #crud-view-window {
     position: relative;
 
+    .filter-input-field {
+        width: 100%;
+    }
+
+    .search-panel {
+        border-bottom: 0 none;
+
+        .search-field {
+            width: 100%;
+        }
+
+        i {
+            top: 12px;
+            right: 12px;
+            color: #009688;
+            position: absolute;
+            margin: 4px 4px 0 0;
+        }
+    }
+
     #back-button {
         cursor: pointer;
         padding-right: 5px;
@@ -44,17 +64,15 @@
 
     .loading-layer {
         .container {
-            opacity: 1;
             padding: 0;
             margin: auto;
             display: flex;
             width: inherit;
             height: inherit;
 
-            i {
-                opacity: 1;
+            .sk-cube-grid {
+                padding: 0;
                 margin: auto;
-                color: #009688;
             }
         }
     }

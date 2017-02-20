@@ -9,6 +9,7 @@ import * as clone from "js.clone";
 import {NotificationService} from "../../services/notification-service";
 import {Customer} from "../model/customer";
 import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
+import {Sort, SortType} from "../../shared/sort.model";
 
 @Component({
     selector: 'customers-view',
@@ -22,7 +23,7 @@ export class CustomersViewComponent {
 
     public columnDefs: ColumnDef[];
 
-    public rowData = [];
+    public rowData: Customer[] = [];
 
     public selectedRows: ColumnDef[] = [];
 
@@ -33,6 +34,10 @@ export class CustomersViewComponent {
     public action = Action;
 
     public isLoading: boolean = false;
+
+    public filters: Customer = <Customer>{};
+
+    public sort: Sort = null;
 
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
@@ -47,7 +52,24 @@ export class CustomersViewComponent {
         this.pagination.totalElements = this.getNumberCustomers();
     }
 
-    onFilter(event) {
+    onSort(event) {
+        this.sort = new Sort(event.field, null);
+        switch (event.order) {
+            case 1:
+                this.sort.sortType = SortType.ASC;
+                break;
+            case -1:
+                this.sort.sortType = SortType.DESC;
+                break;
+            default:
+                break;
+        }
+        this.setRowData();
+    }
+
+    onFilter(column: string, data: string) {
+        this.filters[column] = data;
+        this.setRowData();
     }
 
     onRowExpand(event) {
@@ -57,17 +79,8 @@ export class CustomersViewComponent {
 
     onPaginate(event) {
         this.pagination.number = event.page;
-        this.pagination.size = event.size;
-        this.isLoading = true;
-
-        this.customersService.getResources(this.pagination.number, this.pagination.size)
-            .subscribe(rows => {
-                this.rowData = rows['_embedded'][REPOSITORY_NAME];
-                this.isLoading = false;
-            }, err => {
-                console.error(err);
-                this.isLoading = false;
-            });
+        this.pagination.size = event.rows;
+        this.setRowData();
     }
 
     onEditComplete(event) {
@@ -81,6 +94,19 @@ export class CustomersViewComponent {
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
                 return false;
             })
+    }
+
+    setRowData() {
+        this.isLoading = true;
+        this.customersService.getResources(this.pagination.number, this.pagination.size,
+            this.filters, this.sort)
+            .subscribe(rows => {
+                this.rowData = rows['_embedded'][REPOSITORY_NAME];
+                this.isLoading = false;
+            }, err => {
+                console.error(err);
+                this.isLoading = false;
+            });
     }
 
     getRowData() {
