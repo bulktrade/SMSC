@@ -13,7 +13,7 @@ import {Customer} from "../model/customer";
     selector: 'parent-customer',
     template: `
     <div id="one-to-one-component">
-        <p-autoComplete [ngModel]="model[subEntityService.titleColumns]" (ngModelChange)="model=$event;onSelectResource($event)"
+        <p-autoComplete [ngModel]="getModelBySchema(model)" (ngModelChange)="onSelectResource($event)"
                         [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
                         [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
             <template let-model pTemplate="item">
