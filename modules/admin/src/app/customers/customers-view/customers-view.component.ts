@@ -34,7 +34,7 @@ export class CustomersViewComponent {
 
     public isLoading: boolean = false;
 
-    public filters = {};
+    public filters: Customer = <Customer>{};
 
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
