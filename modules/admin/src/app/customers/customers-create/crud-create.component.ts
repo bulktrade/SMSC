@@ -3,7 +3,7 @@ import {TranslateService} from "ng2-translate/ng2-translate";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {NotificationService} from "../../services/notification-service";
-import {CustomersService} from "../customers.service";
+import {CustomersService} from "../customer.service";
 import {Customer} from "../model/customer";
 
 @Component({
@@ -32,7 +32,7 @@ export class CustomersCreateComponent {
             .subscribe((customer: Customer) => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateCustomer');
 
-                this.router.navigate(['/customers', 'update', customer['id']]);
+                this.router.navigate(['/customers', customer['id'], 'update']).then();
             }, err => {
                 console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateCustomer');

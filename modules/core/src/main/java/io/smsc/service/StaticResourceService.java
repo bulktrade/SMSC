@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 
-@Service
 public interface StaticResourceService {
 
     String getContent(String path);

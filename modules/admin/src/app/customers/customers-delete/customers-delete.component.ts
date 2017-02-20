@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { Message } from "primeng/components/common/api";
 import { NotificationService } from "../../services/notification-service";
-import { CustomersService } from "../customers.service";
+import { CustomersService } from "../customer.service";
 
 @Component({
     selector: 'customers-delete',
@@ -32,7 +32,7 @@ export class CustomersDeleteComponent {
             });
 
         this.route.params.subscribe((params) => {
-            this.id = +params['id'];
+            this.id = +params['customerId'];
         });
     }
 

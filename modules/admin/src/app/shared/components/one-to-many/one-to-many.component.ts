@@ -1,4 +1,4 @@
-import {Component, Input, ModuleWithProviders, NgModule} from "@angular/core";
+import {Component, Input, ModuleWithProviders, NgModule, Output, EventEmitter} from "@angular/core";
 import {TranslateService, TranslateModule} from "ng2-translate/ng2-translate";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {Location, CommonModule} from "@angular/common";
@@ -9,6 +9,8 @@ import {NotificationService} from "../../../services/notification-service";
 import {CommonService} from "../../../services/common";
 import {Link} from "../../entity.model";
 import {Http, RequestOptions, RequestMethod} from "@angular/http";
+import {OneToMany, Action} from "./one-to-many.model";
+import {CubeGridModule} from "../cube-grid/cube-grid.component";
 
 @Component({
     selector: 'one-to-many',
@@ -29,9 +31,23 @@ export class OneToManyComponent {
     @Input('link')
     public link: Link;
 
+    @Output('onBack')
+    public _onBack: EventEmitter<OneToMany> = new EventEmitter();
+
+    @Output('onCreate')
+    public _onCreate: EventEmitter<OneToMany> = new EventEmitter();
+
+    @Output('onUpdate')
+    public _onUpdate: EventEmitter<OneToMany> = new EventEmitter();
+
+    @Output('onDelete')
+    public _onDelete: EventEmitter<OneToMany> = new EventEmitter();
+
     public resources = [];
 
     public pathFromRoot: string;
+
+    public isLoading: boolean = false;
 
     constructor(public translate: TranslateService,
                 public route: ActivatedRoute,
@@ -44,11 +60,31 @@ export class OneToManyComponent {
 
     ngOnInit() {
         this.pathFromRoot = this.commonService.getPathFromRoot(this.route.parent.pathFromRoot);
-
+        this.isLoading = true;
         this.getResources(this.link)
             .subscribe(resources => {
                 this.resources = resources[Object.keys(resources)[0]];
+                this.isLoading = false;
+            }, err => {
+                console.error(err);
+                this.isLoading = false;
             });
+    }
+
+    onBack() {
+        this._onBack.emit(new OneToMany(this.property, Action.View));
+    }
+
+    onCreate() {
+        this._onCreate.emit(new OneToMany(this.property, Action.Create));
+    }
+
+    onUpdate(entity) {
+        this._onUpdate.emit(new OneToMany(this.property, Action.Update, entity));
+    }
+
+    onDelete(entity) {
+        this._onDelete.emit(new OneToMany(this.property, Action.Delete, entity));
     }
 
     /**
@@ -72,7 +108,8 @@ export class OneToManyComponent {
         CommonModule,
         FormsModule,
         TranslateModule,
-        RouterModule
+        RouterModule,
+        CubeGridModule
     ],
     exports: [OneToManyComponent],
     declarations: [OneToManyComponent]

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
-import {CustomersContactsService} from "../customers-contacts.service";
+import {CustomersContactsService} from "../customer-contact.service";
 
 @Injectable()
 export class ContactsUpdateResolve implements Resolve<any> {

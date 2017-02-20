@@ -1,11 +1,11 @@
 #!/bin/bash
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
-    # Heroku deploy
-	mvn heroku:deploy -PskipBuildAndTests
-
     # Docker push
-    mvn -f modules/core docker:push -Dmaven.exec.skip=true
+    mvn -f modules/core docker:push -DpushImage -PskipBuildAndTests
+
+    # Heroku deploy
+    mvn heroku:deploy -PskipBuildAndTests
 
     # Raise the version
     #mvn release:clean
@@ -17,6 +17,6 @@ if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; t
 fi
 
 if [ "$TRAVIS_BRANCH" != "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
-    # Docker push for feature branches
-    docker push smscio/smsc:${TRAVIS_BRANCH//\//-}
+    # Docker push
+    mvn -f modules/core docker:push -DpushImageTag -PskipBuildAndTests -DdockerImageTags=${TRAVIS_BRANCH//\//-}
 fi

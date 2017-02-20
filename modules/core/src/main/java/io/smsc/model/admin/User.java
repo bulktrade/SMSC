@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.smsc.annotation.Encrypt;
+import io.smsc.annotation.UserExistsValidator;
 import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.Authority;
 import io.smsc.model.BaseEntity;
@@ -19,6 +20,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.Constraint;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
@@ -33,6 +35,7 @@ import java.util.Set;
 @Entity(name = "AdminUser")
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
 @EntityListeners(EncryptionListener.class)
+@UserExistsValidator
 public class User extends BaseEntity {
 
     @Id

@@ -1,16 +1,19 @@
-package io.smsc.jwt.service;
+package io.smsc.jwt.service.impl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.smsc.jwt.model.JWTUser;
+import io.smsc.jwt.service.JWTTokenGenerationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Service class used for generating and processing access and refresh tokens.
@@ -25,15 +28,11 @@ import java.util.*;
 @Service
 public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JWTTokenGenerationServiceImpl.class);
-
     public static final long serialVersionUID = -3301605591108950415L;
-
     public static final String TOKEN_EXCEPTION_MESSAGE = "Token is empty or null";
-
     public static final String CLAIM_KEY_USERNAME = "sub";
     public static final String CLAIM_KEY_CREATED = "created";
-
+    private static final Logger LOG = LoggerFactory.getLogger(JWTTokenGenerationServiceImpl.class);
     /**
      * This string is used as a name of request header which contains tokens
      */
@@ -51,7 +50,7 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
         String username = null;
         try {
             Claims claims = getClaimsFromToken(token);
-            if(claims != null) {
+            if (claims != null) {
                 username = claims.getSubject();
             }
         } catch (Exception e) {
@@ -65,7 +64,7 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
         Claims claims;
         try {
             claims = getClaimsFromToken(token);
-            if(claims != null) {
+            if (claims != null) {
                 expirationDate = claims.getExpiration();
             }
         } catch (Exception e) {
@@ -100,11 +99,10 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
         Date expirationDate;
         try {
             expirationDate = getExpirationDateFromToken(token);
-            if(expirationDate != null) {
+            if (expirationDate != null) {
                 return expirationDate.before(new Date());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
         }
         return true;
@@ -116,7 +114,7 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
         Claims claims;
         try {
             claims = getClaimsFromToken(token);
-            if(claims != null) {
+            if (claims != null) {
                 claims.put(CLAIM_KEY_CREATED, new Date());
                 refreshedToken = generateAccessToken(claims);
             }

@@ -1,11 +1,18 @@
 package io.smsc.repository.dashboard;
 
+import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.core.types.dsl.StringPath;
 import io.smsc.model.admin.User;
 import io.smsc.model.dashboard.Dashboard;
+import io.smsc.model.dashboard.QDashboard;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
+import org.springframework.data.querydsl.binding.QuerydslBindings;
+import org.springframework.data.querydsl.binding.SingleValueBinding;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -25,9 +32,14 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards")
 @Transactional(readOnly = true)
-public interface DashboardRepository extends JpaRepository<Dashboard, Long> {
+public interface DashboardRepository extends JpaRepository<Dashboard, Long>,
+        QueryDslPredicateExecutor<Dashboard>,
+        QuerydslBinderCustomizer<QDashboard> {
 
-    //All query method resources are exposed under the resource 'search'.
+    @Override
+    default public void customize(QuerydslBindings bindings, QDashboard root) {
+        bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::containsIgnoreCase);
+    }
 
     @Override
     @Transactional

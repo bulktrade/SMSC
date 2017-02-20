@@ -3,23 +3,28 @@ import {TranslateService} from "ng2-translate/ng2-translate";
 import {ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {NotificationService} from "../../services/notification-service";
-import {CustomersService} from "../customers.service";
+import {CustomersService} from "../customer.service";
 import {Customer} from "../model/customer";
 
 @Component({
     selector: 'customers-update',
     template: `
         <customers-form [submitButtonName]="submitButtonName" [model]="model"
-                    (onSubmit)="onSubmit($event)"></customers-form>
+                    [isLoading]="isLoading" (onSubmit)="onSubmit($event)"></customers-form>
     `,
     styleUrls: [],
     providers: [Location]
 })
 
 export class CustomersUpdateComponent {
+
     public id: number;
+
     public submitButtonName: string = 'customers.update';
+
     public model = {};
+
+    public isLoading: boolean = false;
 
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
@@ -31,7 +36,7 @@ export class CustomersUpdateComponent {
     ngOnInit() {
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.id = +params['id'];
+            this.id = +params['customerId'];
         });
 
         this.model = this.getModel();
@@ -41,12 +46,15 @@ export class CustomersUpdateComponent {
         return this.route.snapshot.data['edit'];
     }
 
-    onSubmit(_entity: Customer) {
-        this.customersService.updateResource(_entity)
+    onSubmit(entity: Customer) {
+        this.isLoading = true;
+        this.customersService.updateResource(entity)
             .subscribe(() => {
+                this.isLoading = false;
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
             }, err => {
                 console.error(err);
+                this.isLoading = false;
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
             })
     }

@@ -1,7 +1,6 @@
 package io.smsc.config;
 
 import io.smsc.jwt.JWTAuthenticationEntryPoint;
-
 import io.smsc.jwt.JWTAuthenticationTokenFilter;
 import io.smsc.jwt.service.JWTTokenGenerationService;
 import io.smsc.jwt.service.JWTUserDetailsService;
@@ -9,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -29,17 +31,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableAutoConfiguration
+@Import(RepositoryIdExposingConfiguration.class)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final JWTUserDetailsService userDetailsService;
-
     private final JWTAuthenticationEntryPoint unauthorizedHandler;
-
     private final JWTTokenGenerationService tokenGenerationService;
 
     @Autowired
-    public SecurityConfiguration(JWTUserDetailsService userDetailsService, JWTAuthenticationEntryPoint unauthorizedHandler, JWTTokenGenerationService tokenGenerationService) {
+    public SecurityConfiguration(
+            JWTUserDetailsService userDetailsService,
+            JWTAuthenticationEntryPoint unauthorizedHandler,
+            JWTTokenGenerationService tokenGenerationService
+    ) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
         this.tokenGenerationService = tokenGenerationService;
@@ -96,5 +101,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/admin/**");
+    }
+
+    @Bean
+    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+        return new SecurityEvaluationContextExtension();
     }
 }

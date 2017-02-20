@@ -5,13 +5,26 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+#back-button {
+    cursor: pointer;
+    padding-right: 5px;
+}
+
+.ui-button.ui-button-success:enabled:hover,
+.ui-button.ui-button-success:focus {
+    background-color: #4cae4c;
+    border-color: #4cae4c;
+}
+
+.ui-button.ui-button-danger:enabled:hover,
+.ui-button.ui-button-danger:focus {
+    background-color: #d43f3a;
+    border-color: #d43f3a;
+}
+
 .relationship-tabs {
     .ui-widget-header {
         border: none;
-    }
-
-    .ui-tabview {
-        width: 700px;
     }
 
     .ui-autocomplete-panel {
@@ -401,21 +414,5 @@ $slideDuration: .4s;
     100% {
         -webkit-transform: translateY(0);
         transform: translateY(0);
-    }
-}
-
-@media (max-width: 760px) {
-    .relationship-tabs {
-        .ui-widget-content {
-            width: 400px;
-        }
-    }
-}
-
-@media (max-width: 450px) {
-    .relationship-tabs {
-        .ui-widget-content {
-            width: 330px;
-        }
     }
 }
