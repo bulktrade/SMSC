@@ -1,6 +1,10 @@
 #crud-view-window {
     position: relative;
 
+    .filter-input-field {
+        width: 100%;
+    }
+
     .search-panel {
         border-bottom: 0 none;
 
