@@ -70,7 +70,7 @@ export class CustomersViewComponent {
 
     onPaginate(event) {
         this.pagination.number = event.page;
-        this.pagination.size = event.size;
+        this.pagination.size = event.rows;
         this.isLoading = true;
 
         this.customersService.getResources(this.pagination.number, this.pagination.size, this.filters)

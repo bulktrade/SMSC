@@ -1,6 +1,22 @@
 #crud-view-window {
     position: relative;
 
+    .search-panel {
+        border-bottom: 0 none;
+
+        .search-field {
+            width: 100%;
+        }
+
+        i {
+            top: 12px;
+            right: 12px;
+            color: #009688;
+            position: absolute;
+            margin: 4px 4px 0 0;
+        }
+    }
+
     #back-button {
         cursor: pointer;
         padding-right: 5px;
