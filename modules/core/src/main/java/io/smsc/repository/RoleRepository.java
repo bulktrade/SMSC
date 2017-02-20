@@ -1,5 +1,6 @@
 package io.smsc.repository;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
 import io.smsc.model.QRole;
@@ -55,5 +56,9 @@ public interface RoleRepository extends JpaRepository<Role, Long>,
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<Role> findAll(Pageable pageable);
+
+    @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Page<Role> findAll(Predicate predicate, Pageable pageable);
 
 }

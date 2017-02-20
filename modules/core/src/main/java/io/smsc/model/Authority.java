@@ -12,27 +12,27 @@ import java.util.Set;
 import io.smsc.model.admin.User;
 
 /**
- * Specifies Role class as an entity class.
+ * Specifies Authority class as an entity class.
  *
  * @author Nazar Lipkovskyy
  * @see BaseEntity
  * @since 0.0.1-SNAPSHOT
  */
 @Entity
-@Table(name = "ROLE", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "roles_unique_name_idx")})
-public class Role extends BaseEntity {
+@Table(name = "AUTHORITY", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "authority_unique_name_idx")})
+public class Authority extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "role_seq", sequenceName = "role_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "role_seq")
+    @SequenceGenerator(name = "authority_seq", sequenceName = "authority_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "authority_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
     private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
-    @NotEmpty(message = "{role.empty.validation}")
-    @Pattern(regexp = "[R][O][L][E][_][A-Z_]+", message = "{role.name.validation}")
+    @NotEmpty(message = "{authority.empty.validation}")
+    @Pattern(regexp = "[A-Z_]+", message = "{authority.name.validation}")
     private String name;
 
     @ManyToMany(cascade =
@@ -44,8 +44,8 @@ public class Role extends BaseEntity {
             },
             targetEntity = User.class)
     @JoinTable(
-            name = "USER_ROLE",
-            joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"),
+            name = "USER_AUTHORITY",
+            joinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     )
     @OrderBy("id asc")
@@ -85,10 +85,10 @@ public class Role extends BaseEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Role role = (Role) o;
+        Authority authority = (Authority) o;
 
-        if (!getId().equals(role.getId())) return false;
-        return getName().equals(role.getName());
+        if (!getId().equals(authority.getId())) return false;
+        return getName().equals(authority.getName());
     }
 
     @Override
@@ -100,7 +100,7 @@ public class Role extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "Authority{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 "} " + super.toString();

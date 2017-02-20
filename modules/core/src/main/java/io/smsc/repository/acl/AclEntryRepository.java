@@ -1,5 +1,6 @@
 package io.smsc.repository.acl;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
 import io.smsc.model.acl.AclEntry;
@@ -64,4 +65,9 @@ public interface AclEntryRepository extends JpaRepository<AclEntry, Long>,
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<AclEntry> findAll(Pageable pageable);
+
+    @Override
+    @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Page<AclEntry> findAll(Predicate predicate, Pageable pageable);
 }

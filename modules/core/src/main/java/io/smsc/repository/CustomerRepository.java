@@ -1,5 +1,6 @@
 package io.smsc.repository;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringExpression;
@@ -57,5 +58,10 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>,
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<Customer> findAll(Pageable pageable);
+
+    @Override
+    @EntityGraph(attributePaths = {"users", "contacts", "parent"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Page<Customer> findAll(Predicate predicate, Pageable pageable);
 
 }

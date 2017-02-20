@@ -68,3 +68,35 @@ INSERT INTO DASHBOARD_BOX (WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHB
   ('WIDTH_50', 'HEIGHT_50', 8, 'Box 8',  'Box 8 desc', (select id from dashboard where name = 'default'), (select id from dashboard_box_type where name = 'Kolia chart profit'), current_timestamp, 0);
 INSERT INTO DASHBOARD_BOX (WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHBOARD_ID, DASHBOARD_BOX_TYPE_ID, LAST_MODIFIED_DATE, VERSION) VALUES
   ('WIDTH_50', 'HEIGHT_50', 9, 'Box 9',  'Box 9 desc', (select id from dashboard where name = 'default'), (select id from dashboard_box_type where name = 'Masha bubble chartat'), current_timestamp, 0);
+
+INSERT INTO ACL_SID (PRINCIPAL, SID, LAST_MODIFIED_DATE, VERSION) VALUES
+  (TRUE, 'user', current_timestamp, 0);
+INSERT INTO ACL_SID (PRINCIPAL, SID, LAST_MODIFIED_DATE, VERSION) VALUES
+  (TRUE, 'admin', current_timestamp, 0);
+
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclClass', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclEntry', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.acl.AclSid', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.admin.User', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.Role', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.Authority', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.Customer', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.Contact', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.customer.User', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
+INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);

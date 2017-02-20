@@ -1,5 +1,6 @@
 package io.smsc.config;
 
+import io.smsc.model.Authority;
 import io.smsc.model.Role;
 import io.smsc.model.acl.AclClass;
 import io.smsc.model.acl.AclEntry;
@@ -29,7 +30,7 @@ public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerA
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 
         // for this time only one solution which works completely
-        config.exposeIdsFor(io.smsc.model.admin.User.class, User.class, Role.class, Customer.class, Contact.class, Dashboard.class,
+        config.exposeIdsFor(io.smsc.model.admin.User.class, User.class, Role.class, Authority.class, Customer.class, Contact.class, Dashboard.class,
                 DashboardBox.class, DashboardBoxType.class, AclClass.class, AclEntry.class, AclObjectIdentity.class, AclSid.class);
     }
 }

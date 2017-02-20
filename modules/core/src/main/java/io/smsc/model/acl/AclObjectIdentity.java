@@ -31,7 +31,7 @@ public class AclObjectIdentity extends BaseEntity {
      * Refers to the primary id of the domain object. The id is assigned from another model tables.
      * Every domain object in the application needs to have a unique id.
      */
-    @Column(name = "OBJECT_ID_IDENTITY", nullable = false, unique = true)
+    @Column(name = "OBJECT_ID_IDENTITY", nullable = false)
     @NotNull(message = "{acl.object.id.identity.validation}")
     private Long objectIdIdentity;
 
@@ -55,7 +55,7 @@ public class AclObjectIdentity extends BaseEntity {
      * name of the class.
      */
     @ManyToOne
-    @JoinColumn(name = "OBJECT_ID_CLASS", nullable = false, unique = true)
+    @JoinColumn(name = "OBJECT_ID_CLASS", nullable = false)
     @NotNull(message = "{acl.object.id.class.validation}")
     private AclClass objectIdClass;
 

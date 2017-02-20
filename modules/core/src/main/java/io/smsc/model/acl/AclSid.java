@@ -38,7 +38,7 @@ public class AclSid extends BaseEntity {
     /**
      * The actual username (ie. john) or role (ie. ROLE_ADMIN).
      */
-    @Column(name = "SID", nullable = false, unique = true)
+    @Column(name = "SID", nullable = false)
     @NotEmpty(message = "{acl.sid.sid.validation}")
     private String sid;
 

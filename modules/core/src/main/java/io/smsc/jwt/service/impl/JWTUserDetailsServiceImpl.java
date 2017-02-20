@@ -1,14 +1,20 @@
 package io.smsc.jwt.service.impl;
 
-import io.smsc.jwt.JWTUserFactory;
-import io.smsc.jwt.model.JWTUser;
 import io.smsc.jwt.service.JWTUserDetailsService;
+import io.smsc.model.Authority;
+import io.smsc.model.Role;
 import io.smsc.model.admin.User;
 import io.smsc.repository.admin.UserRepository;
+import io.smsc.jwt.model.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Implementation of base {@link JWTUserDetailsService} which loads user-specific data.
@@ -33,8 +39,6 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
      *
      * @param username string which describes user name
      * @return appropriate {@link JWTUser} object
-     * @throws UsernameNotFoundException if cannot locate a {@link User} by
-     *                                   its username.
      */
     @Override
     public JWTUser loadUserByUsername(String username) {
@@ -42,7 +46,7 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
         } else {
-            return JWTUserFactory.create(user);
+            return createJwtUser(user);
         }
     }
 
@@ -52,8 +56,6 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
      *
      * @param email string which describes user's email
      * @return appropriate {@link JWTUser} object
-     * @throws UsernameNotFoundException if cannot locate a {@link User} by
-     *                                   its email.
      */
     @Override
     public JWTUser loadUserByEmail(String email) {
@@ -61,7 +63,29 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with email '%s'.", email));
         } else {
-            return JWTUserFactory.create(user);
+            return createJwtUser(user);
         }
+    }
+
+    /**
+     * Method to create set with {@link SimpleGrantedAuthority} for logged user. Authorities
+     * are created from user's {@link io.smsc.model.Authority}.
+     *
+     * @param user logged {@link User}
+     * @return appropriate {@link JWTUser} object
+     */
+    public static JWTUser createJwtUser(User user) {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        if(null != user.getAuthorities() && !user.getAuthorities().isEmpty()) {
+            for(Authority authority : user.getAuthorities()){
+                authorities.add(new SimpleGrantedAuthority(authority.getName()));
+            }
+        }
+        if(null != user.getRoles() && !user.getRoles().isEmpty()) {
+            for(Role role : user.getRoles()){
+                authorities.add(new SimpleGrantedAuthority(role.getName()));
+            }
+        }
+        return new JWTUser(user, authorities);
     }
 }
