@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "Admin", roles = {"ADMIN"})
+@WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
 public class RoleTest extends AbstractTest {
 
     @Test
@@ -20,7 +20,7 @@ public class RoleTest extends AbstractTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.name", is("ROLE_USER")));
+                .andExpect(jsonPath("$.name", is("ROLE_ADMIN_USER")));
     }
 
     @Test
@@ -35,8 +35,8 @@ public class RoleTest extends AbstractTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.roles", hasSize(2)))
-                .andExpect(jsonPath("$._embedded.roles[0].name", is("ROLE_USER")))
-                .andExpect(jsonPath("$._embedded.roles[1].name", is("ROLE_ADMIN")));
+                .andExpect(jsonPath("$._embedded.roles[0].name", is("ROLE_ADMIN_USER")))
+                .andExpect(jsonPath("$._embedded.roles[1].name", is("ROLE_POWER_ADMIN_USER")));
     }
 
     @Test
@@ -52,8 +52,7 @@ public class RoleTest extends AbstractTest {
 
     @Test
     public void testDeleteRole() throws Exception {
-        mockMvc.perform(delete("/rest/repository/roles/1"))
-                .andDo(print());
+        mockMvc.perform(delete("/rest/repository/roles/1"));
         mockMvc.perform(get("/rest/repository/roles/1"))
                 .andExpect(status().isNotFound());
     }

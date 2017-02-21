@@ -28,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "customer-contacts", path = "customer-contacts")
 @Transactional(readOnly = true)
+// until role hierarchy is implemented
+@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
 public interface ContactRepository extends JpaRepository<Contact, Long>,
         QueryDslPredicateExecutor<Contact>,
         QuerydslBinderCustomizer<QContact> {
@@ -39,30 +41,30 @@ public interface ContactRepository extends JpaRepository<Contact, Long>,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Contact save(Contact customer);
 
     @Override
     @EntityGraph(attributePaths = {"type", "salutation"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Contact findOne(Long id);
 
     @EntityGraph(attributePaths = {"type", "salutation"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Contact findByEmailAddress(@Param("emailAddress") String emailAddress);
 
     @Override
     @EntityGraph(attributePaths = {"type", "salutation"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<Contact> findAll(Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"type", "salutation"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<Contact> findAll(Predicate predicate, Pageable pageable);
 }

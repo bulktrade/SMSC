@@ -15,6 +15,8 @@ import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.querydsl.binding.SingleValueBinding;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "acl-classes", path = "acl-classes")
 @Transactional(readOnly = true)
+// until role hierarchy is implemented
+@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
 public interface AclClassRepository extends JpaRepository<AclClass, Long>,
         QueryDslPredicateExecutor<AclClass>,
         QuerydslBinderCustomizer<QAclClass> {
@@ -39,30 +43,30 @@ public interface AclClassRepository extends JpaRepository<AclClass, Long>,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(#id, 'io.smsc.model.acl.AclClass', 'delete')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(#aclClass, 'write')")
     AclClass save(AclClass aclClass);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(#id, 'io.smsc.model.acl.AclClass', 'read')")
     AclClass findOne(Long id);
 
     @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(returnObject, 'read')")
     AclClass findByClassName(@Param("className") String className);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostFilter("hasPermission(filterObject, 'read')")
     Page<AclClass> findAll(Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostFilter("hasPermission(filterObject, 'read')")
     Page<AclClass> findAll(Predicate predicate, Pageable pageable);
 }

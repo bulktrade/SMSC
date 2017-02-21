@@ -43,17 +43,17 @@ public interface UserRepository extends JpaRepository<User, Long>,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     User save(User user);
 
     @Override
     @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     User findOne(Long id);
 
     @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
@@ -64,12 +64,12 @@ public interface UserRepository extends JpaRepository<User, Long>,
 
     @Override
     @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<User> findAll(Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<User> findAll(Predicate predicate, Pageable pageable);
 
     @PreAuthorize("isAuthenticated()")

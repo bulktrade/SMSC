@@ -33,6 +33,8 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards")
 @Transactional(readOnly = true)
+// until role hierarchy is implemented
+@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
 public interface DashboardRepository extends JpaRepository<Dashboard, Long>,
         QueryDslPredicateExecutor<Dashboard>,
         QuerydslBinderCustomizer<QDashboard> {
@@ -44,36 +46,36 @@ public interface DashboardRepository extends JpaRepository<Dashboard, Long>,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Dashboard save(Dashboard dashboard);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxes"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Dashboard findOne(Long id);
 
     // /rest/repository/dashboards/search/findByUser
     @EntityGraph(attributePaths = {"dashboardBoxes"})
     @RestResource(path = "findByUser")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<Dashboard> findAllDistinctByUser(@RequestBody User user);
 
     @EntityGraph(attributePaths = {"dashboardBoxes"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Dashboard findByName(@Param("name") String name);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxes"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<Dashboard> findAll(Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxes"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<Dashboard> findAll(Predicate predicate, Pageable pageable);
 }

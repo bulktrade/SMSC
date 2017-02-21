@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "admin", roles = {"ADMIN"})
+@WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
 public class UserRestTest extends AbstractTest {
 
     @Test

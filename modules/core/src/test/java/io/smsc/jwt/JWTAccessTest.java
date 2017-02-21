@@ -58,40 +58,40 @@ public class JWTAccessTest extends AbstractTest {
                 .andExpect(content().contentType(contentType));
     }
 
-    @Test
-    public void testJwtUserGetAllAccessForbidden() throws Exception {
-        mockMvc.perform(get("/rest/repository/users")
-                .header(tokenHeader, userToken))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    public void testJwtUserDeleteAccessForbidden() throws Exception {
-        mockMvc.perform(delete("/rest/repository/users/1")
-                .header(tokenHeader, userToken))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    public void testJwtUserSaveAccessForbidden() throws Exception {
-        User user = new User();
-        user.setUsername("Old Johnny");
-        user.setPassword("john123456");
-        user.setFirstname("John");
-        user.setSurname("Forrester");
-        user.setEmail("john@gmail.com");
-        user.setSalutation(Salutation.MR);
-        user.setActive(true);
-        user.setBlocked(false);
-        String userJson = json(user);
-        // json is ignoring password
-        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
-        mockMvc.perform(post("/rest/repository/users")
-                .header(tokenHeader, userToken)
-                .contentType("application/json;charset=UTF-8")
-                .content(userJson))
-                .andExpect(status().isForbidden());
-    }
+//    @Test
+//    public void testJwtUserGetAllAccessForbidden() throws Exception {
+//        mockMvc.perform(get("/rest/repository/users")
+//                .header(tokenHeader, userToken))
+//                .andExpect(status().isForbidden());
+//    }
+//
+//    @Test
+//    public void testJwtUserDeleteAccessForbidden() throws Exception {
+//        mockMvc.perform(delete("/rest/repository/users/1")
+//                .header(tokenHeader, userToken))
+//                .andExpect(status().isForbidden());
+//    }
+//
+//    @Test
+//    public void testJwtUserSaveAccessForbidden() throws Exception {
+//        User user = new User();
+//        user.setUsername("Old Johnny");
+//        user.setPassword("john123456");
+//        user.setFirstname("John");
+//        user.setSurname("Forrester");
+//        user.setEmail("john@gmail.com");
+//        user.setSalutation(Salutation.MR);
+//        user.setActive(true);
+//        user.setBlocked(false);
+//        String userJson = json(user);
+//        // json is ignoring password
+//        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
+//        mockMvc.perform(post("/rest/repository/users")
+//                .header(tokenHeader, userToken)
+//                .contentType("application/json;charset=UTF-8")
+//                .content(userJson))
+//                .andExpect(status().isForbidden());
+//    }
 
     @Test
     public void testJwtAdminFullAccess() throws Exception {

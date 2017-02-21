@@ -28,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "acl-sid", path = "acl-sid")
 @Transactional(readOnly = true)
+// until role hierarchy is implemented
+@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
 public interface AclSidRepository extends JpaRepository<AclSid, Long>,
         QueryDslPredicateExecutor<AclSid>,
         QuerydslBinderCustomizer<QAclSid> {
@@ -39,30 +41,30 @@ public interface AclSidRepository extends JpaRepository<AclSid, Long>,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclSid save(AclSid aclSid);
 
     @Override
     @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclSid findOne(Long id);
 
     @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclSid findBySid(@Param("sid") String sid);
 
     @Override
     @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<AclSid> findAll(Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"aclEntries", "aclObjectIdentities"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<AclSid> findAll(Predicate predicate, Pageable pageable);
 }

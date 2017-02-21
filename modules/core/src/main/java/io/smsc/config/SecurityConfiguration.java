@@ -6,9 +6,19 @@ import io.smsc.jwt.service.JWTTokenGenerationService;
 import io.smsc.jwt.service.JWTUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.*;
+import org.springframework.cache.ehcache.EhCacheFactoryBean;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.acls.AclPermissionCacheOptimizer;
+import org.springframework.security.acls.AclPermissionEvaluator;
+import org.springframework.security.acls.domain.AclAuthorizationStrategyImpl;
+import org.springframework.security.acls.domain.ConsoleAuditLogger;
+import org.springframework.security.acls.domain.DefaultPermissionGrantingStrategy;
+import org.springframework.security.acls.domain.EhCacheBasedAclCache;
+import org.springframework.security.acls.jdbc.BasicLookupStrategy;
+import org.springframework.security.acls.jdbc.JdbcMutableAclService;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,7 +41,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableAutoConfiguration
 @Import(RepositoryIdExposingConfiguration.class)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final JWTUserDetailsService userDetailsService;
@@ -49,6 +59,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.tokenGenerationService = tokenGenerationService;
     }
 
+   @Autowired
+   private ApplicationContext context;
+
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
@@ -64,6 +77,59 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public JWTAuthenticationTokenFilter authenticationTokenFilterBean() {
         return new JWTAuthenticationTokenFilter(userDetailsService, tokenGenerationService);
     }
+
+//    @Bean
+//    public DefaultMethodSecurityExpressionHandler expressionHandler() {
+//        DefaultMethodSecurityExpressionHandler securityExpressionHandler = new DefaultMethodSecurityExpressionHandler();
+//        securityExpressionHandler.setPermissionEvaluator(permissionEvaluator());
+//        securityExpressionHandler.setPermissionCacheOptimizer(permissionCacheOptimizer());
+//        return new DefaultMethodSecurityExpressionHandler();
+//    }
+//
+//    @Bean
+//    public AclPermissionCacheOptimizer permissionCacheOptimizer() {
+//        return new AclPermissionCacheOptimizer(aclService());
+//    }
+//
+//    @Bean
+//    public AclPermissionEvaluator permissionEvaluator() {
+//        return new AclPermissionEvaluator(aclService());
+//    }
+//
+//    @Bean
+//    public JdbcMutableAclService aclService() {
+//        DataSource dataSource =(DataSource) context.getBean("dataSource");
+//        return new JdbcMutableAclService(dataSource, lookupStrategy(), aclCache());
+//    }
+//
+//    @Bean
+//    public BasicLookupStrategy lookupStrategy() {
+//        return new BasicLookupStrategy((DataSource)context.getBean("dataSource"), aclCache(), aclAuthorizationStrategy(), auditLogger());
+//    }
+//
+//    @Bean
+//    public ConsoleAuditLogger auditLogger() {
+//        return new ConsoleAuditLogger();
+//    }
+//
+//    @Bean
+//    public AclAuthorizationStrategyImpl aclAuthorizationStrategy() {
+//        return new AclAuthorizationStrategyImpl(grantedAuthority(), grantedAuthority(), grantedAuthority());
+//    }
+//
+//    @Bean
+//    public SimpleGrantedAuthority grantedAuthority() {
+//        return new SimpleGrantedAuthority("ROLE_ADMIN_POWER_USER");
+////      return new SimpleGrantedAuthority("ROLE_ADMINISTRATOR");
+//    }
+//
+//    @Bean
+//    public EhCacheBasedAclCache aclCache() {
+//        EhCacheFactoryBean bean = new EhCacheFactoryBean();
+//        bean.setCacheManager(new EhCacheManagerFactoryBean().getObject());
+//        bean.setCacheName("aclCache");
+//        return new EhCacheBasedAclCache(bean.getObject(), new DefaultPermissionGrantingStrategy(auditLogger()), aclAuthorizationStrategy());
+//    }
 
     /**
      * This is the main method to configure the {@link HttpSecurity}.

@@ -29,6 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "acl-entries", path = "acl-entries")
 @Transactional(readOnly = true)
+// until role hierarchy is implemented
+@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
 public interface AclEntryRepository extends JpaRepository<AclEntry, Long>,
         QueryDslPredicateExecutor<AclEntry>,
         QuerydslBinderCustomizer<QAclEntry> {
@@ -40,34 +42,34 @@ public interface AclEntryRepository extends JpaRepository<AclEntry, Long>,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclEntry save(AclEntry aclEntry);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclEntry findOne(Long id);
 
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclEntry findByAceOrder(@Param("aceOrder") Integer aceOrder);
 
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     AclEntry findByAclObjectIdentity(@Param("aclObjectIdentity") AclObjectIdentity aclObjectIdentity);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<AclEntry> findAll(Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"aclObjectIdentity", "sid"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<AclEntry> findAll(Predicate predicate, Pageable pageable);
 }

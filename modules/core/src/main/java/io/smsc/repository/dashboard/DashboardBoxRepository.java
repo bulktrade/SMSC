@@ -33,6 +33,8 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "dashboard-boxes", path = "dashboard-boxes")
 @Transactional(readOnly = true)
+// until role hierarchy is implemented
+@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
 public interface DashboardBoxRepository extends JpaRepository<DashboardBox, Long>,
         QueryDslPredicateExecutor<DashboardBox>,
         QuerydslBinderCustomizer<QDashboardBox> {
@@ -44,38 +46,38 @@ public interface DashboardBoxRepository extends JpaRepository<DashboardBox, Long
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     DashboardBox save(DashboardBox dashboardBox);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     DashboardBox findOne(Long id);
 
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<DashboardBox> findAllByName(@Param("name") String name);
 
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<DashboardBox> findAllByDashboard(@RequestBody Dashboard dashboard);
 
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     List<DashboardBox> findAllByDashboardBoxType(@RequestBody DashboardBoxType dashboardBoxType);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<DashboardBox> findAll(Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxType", "width", "height"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<DashboardBox> findAll(Predicate predicate, Pageable pageable);
 }

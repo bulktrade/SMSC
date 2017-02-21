@@ -28,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "dashboard-box-types", path = "dashboard-box-types")
 @Transactional(readOnly = true)
+// until role hierarchy is implemented
+@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
 public interface DashboardBoxTypeRepository extends JpaRepository<DashboardBoxType, Long>,
         QueryDslPredicateExecutor<DashboardBoxType>,
         QuerydslBinderCustomizer<QDashboardBoxType> {
@@ -39,31 +41,31 @@ public interface DashboardBoxTypeRepository extends JpaRepository<DashboardBoxTy
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     DashboardBoxType save(DashboardBoxType dashboardBoxType);
 
     @Override
     @EntityGraph(attributePaths = {"kind", "type"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     DashboardBoxType findOne(Long id);
 
     @EntityGraph(attributePaths = {"kind", "type"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     DashboardBoxType findByName(@Param("name") String name);
 
     @Override
     @EntityGraph(attributePaths = {"kind", "type"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<DashboardBoxType> findAll(Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"kind", "type"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<DashboardBoxType> findAll(Predicate predicate, Pageable pageable);
 
 }

@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "Admin", roles = {"ADMIN"})
+@WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
 public class AuthorityRestTest extends AbstractTest {
 
     @Test

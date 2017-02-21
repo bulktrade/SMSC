@@ -29,6 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RepositoryRestResource(collectionResourceRel = "customer-users", path = "customer-users")
 @Transactional(readOnly = true)
 @Repository("CustomerUserRepository")
+// until role hierarchy is implemented
+@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
 public interface UserRepository extends JpaRepository<User, Long>,
         QueryDslPredicateExecutor<User>,
         QuerydslBinderCustomizer<QUser> {
@@ -41,29 +43,27 @@ public interface UserRepository extends JpaRepository<User, Long>,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     User save(User user);
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     User findOne(Long id);
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     User findByUsername(@Param("username") String userName);
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     User findByEmail(@Param("email") String email);
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<User> findAll(Pageable pageable);
 
     @Override
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<User> findAll(Predicate predicate, Pageable pageable);
 }

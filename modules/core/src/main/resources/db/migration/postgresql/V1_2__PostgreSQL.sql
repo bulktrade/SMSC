@@ -75,7 +75,7 @@ CREATE TABLE CUSTOMER (
   POSTCODE           VARCHAR(255) NOT NULL,
   STREET             VARCHAR(255) NOT NULL,
   STREET2            VARCHAR(255) NOT NULL,
-  VATID              FLOAT8,
+  VATID              VARCHAR(255),
   PARENT_ID          INT8,
   PRIMARY KEY (ID)
 );
