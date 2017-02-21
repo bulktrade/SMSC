@@ -60,9 +60,10 @@ describe('Component: CustomersViewComponent', () => {
     it('should get rows with filter', async(() => {
         let event = {
             column: 'company',
-            value: 'SMSC'
+            filterName: 'globalFilter'
         };
-        componentFixture.instance.onFilter(event.column, event.value);
+        componentFixture.instance.searchModel[event.filterName] = 'SMSC';
+        componentFixture.instance.onFilter(event.column, event.filterName);
         expect(componentFixture.instance.filters['company']).toEqual('SMSC');
     }));
 });
