@@ -41,58 +41,58 @@
         <p-column field="companyName" [header]="'companyName' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
+                <input type="text" class="ui-sm-12 ui-md-12" pInputText ngModel [placeholder]="'SEARCH' | translate"
                        (ngModelChange)="onFilter(col.field, $event)"/>
             </template>
         </p-column>
         <p-column field="street" [header]="'street' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
+                <input type="text" class="ui-sm-12 ui-md-12" pInputText ngModel [placeholder]="'SEARCH' | translate"
                        (ngModelChange)="onFilter(col.field, $event)"/>
             </template>
         </p-column>
         <p-column field="street2" [header]="'street2' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
+                <input type="text" class="ui-sm-12 ui-md-12" pInputText ngModel [placeholder]="'SEARCH' | translate"
                        (ngModelChange)="onFilter(col.field, $event)"/>
             </template>
         </p-column>
         <p-column field="postcode" [header]="'postcode' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
+                <input type="text" class="ui-sm-12 ui-md-12" pInputText ngModel [placeholder]="'SEARCH' | translate"
                        (ngModelChange)="onFilter(col.field, $event)"/>
             </template>
         </p-column>
         <p-column field="country" [header]="'country' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
+                <input type="text" class="ui-sm-12 ui-md-12" pInputText ngModel [placeholder]="'SEARCH' | translate"
                        (ngModelChange)="onFilter(col.field, $event)"/>
             </template>
         </p-column>
         <p-column field="city" [header]="'city' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
+                <input type="text" class="ui-sm-12 ui-md-12" pInputText ngModel [placeholder]="'SEARCH' | translate"
                        (ngModelChange)="onFilter(col.field, $event)"/>
             </template>
         </p-column>
         <p-column field="vatid" [header]="'vatid' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
+                <input type="text" class="ui-sm-12 ui-md-12" pInputText ngModel [placeholder]="'SEARCH' | translate"
                        (ngModelChange)="onFilter(col.field, $event)"/>
             </template>
         </p-column>
 
         <template let-customer pTemplate="rowexpansion" style="{'overflow':'visible'}">
 
-            <p-tabView class="relationship-tabs" [style]="{'width': (element.clientWidth - 20) + 'px'}">
+            <p-tabView headerStyleClass="ui-sm-12 ui-md-12" class="relationship-tabs" [style]="{'width': (element.clientWidth - 20) + 'px'}">
                 <!-- tab with contacts -->
-                <p-tabPanel [header]="'contacts' | translate" leftIcon="fa-users">
+                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'contacts' | translate" leftIcon="fa-users">
                     <ng-container [ngSwitch]="contactsModel[customer['id']].action">
                         <ng-container *ngSwitchDefault>
                             <one-to-many
@@ -118,7 +118,7 @@
                     </ng-container>
                 </p-tabPanel>
                 <!-- tab with users -->
-                <p-tabPanel [header]="'customerUsers' | translate" leftIcon="fa-user-secret">
+                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'customerUsers' | translate" leftIcon="fa-user-secret">
                     <ng-container [ngSwitch]="usersModel[customer['id']].action">
                         <ng-container *ngSwitchDefault>
                             <one-to-many
@@ -145,7 +145,7 @@
 
                 </p-tabPanel>
                 <!-- tab with parent customer -->
-                <p-tabPanel [header]="'parent' | translate" leftIcon="fa-building">
+                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'parent' | translate" leftIcon="fa-building">
                     <parent-customer name="parent" propertyName="parent" [mainEntityId]="customer['id']"
                                      [renderProperties]="['companyName', 'country']" [hideOwn]="true"
                                      [mainEntityService]="customersService" [subEntityService]="customersService"

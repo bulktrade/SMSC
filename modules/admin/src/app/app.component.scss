@@ -31,10 +31,6 @@ body {
         border: none;
     }
 
-    .ui-autocomplete {
-        width: 100%;
-    }
-
     input {
         width: calc(100% - 2em);
     }
@@ -429,10 +425,6 @@ $slideDuration: .4s;
 }
 
 @media screen and (max-width: 640px) {
-    .ui-tabview.ui-tabview-top > .ui-tabview-nav li {
-        width: 100%;
-    }
-
     .ui-panel .ui-panel-content {
         padding: 0;
     }
