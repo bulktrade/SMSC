@@ -132,24 +132,28 @@
                                                     pattern: ('customers.numberValidator' | translate)}"></control-errors>
                         </div>
                     </div>
-                    <div class="relationship-tabs">
-                        <p-tabView>
-                            <p-tabPanel headerStyleClass="ui-sm-12" [header]="'contacts' | translate" leftIcon="fa-users">
-                                <one-to-many
-                                        [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
-                                        [link]="model['_links']['contacts']"
-                                        (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
-                                        (onDelete)="onDelete($event)"
-                                        [mainEntityId]="id" property="contacts"></one-to-many>
-                            </p-tabPanel>
-                            <p-tabPanel headerStyleClass="ui-sm-12" [header]="'customerUsers' | translate" leftIcon="fa-user-secret">
-                                <one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
-                                             [mainEntityId]="id" [link]="model['_links']['users']"
-                                             (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
-                                             (onDelete)="onDelete($event)"
-                                             property="users"></one-to-many>
-                            </p-tabPanel>
-                        </p-tabView>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8 ui-g-nopad relationship-tabs">
+                            <p-tabView>
+                                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'contacts' | translate"
+                                            leftIcon="fa-users">
+                                    <one-to-many
+                                            [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
+                                            [link]="model['_links']['contacts']"
+                                            (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
+                                            (onDelete)="onDelete($event)"
+                                            [mainEntityId]="id" property="contacts"></one-to-many>
+                                </p-tabPanel>
+                                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'customerUsers' | translate"
+                                            leftIcon="fa-user-secret">
+                                    <one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
+                                                 [mainEntityId]="id" [link]="model['_links']['users']"
+                                                 (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
+                                                 (onDelete)="onDelete($event)"
+                                                 property="users"></one-to-many>
+                                </p-tabPanel>
+                            </p-tabView>
+                        </div>
                     </div>
                 </ng-container>
 
