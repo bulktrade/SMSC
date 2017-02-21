@@ -15,6 +15,7 @@ import {CustomersService} from "../customer.service";
 import {ParentCustomerModule} from "../parent-customer/parent-customer";
 import {OneToMany} from "../../shared/components/one-to-many/one-to-many.model";
 import {CommonService} from "../../services/common";
+import {TabViewModule} from "primeng/components/tabview/tabview";
 
 @Component({
     selector: 'customers-form',
@@ -87,7 +88,8 @@ export class CustomersFormComponent {
         DropdownModule,
         ControlErrorsModule,
         OneToOneModule,
-        ParentCustomerModule
+        ParentCustomerModule,
+        TabViewModule
     ],
     exports: [CustomersFormComponent],
     declarations: [CustomersFormComponent]

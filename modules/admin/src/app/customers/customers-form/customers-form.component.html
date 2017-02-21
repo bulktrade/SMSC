@@ -117,43 +117,6 @@
                 <ng-container *ngIf="submitButtonName === 'customers.update'">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-2">
-                            {{ 'contacts' | translate }}
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <one-to-many
-                                    [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
-                                    [link]="model['_links']['contacts']"
-                                    (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
-                                    (onDelete)="onDelete($event)"
-                                    [mainEntityId]="id" property="contacts"></one-to-many>
-                        </div>
-                        <div class="ui-grid-col-4">
-                            <control-errors control="contacts"
-                                            [errors]="{required: ('customers.required'| translate),
-                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
-                        </div>
-                    </div>
-
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-2">
-                            {{ 'customerUsers' | translate }}
-                        </div>
-                        <div class="ui-grid-col-6">
-                            <one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
-                                         [mainEntityId]="id" [link]="model['_links']['users']"
-                                         (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
-                                         (onDelete)="onDelete($event)"
-                                         property="users"></one-to-many>
-                        </div>
-                        <div class="ui-grid-col-4">
-                            <control-errors control="customerUsers"
-                                            [errors]="{required: ('customers.required'| translate),
-                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
-                        </div>
-                    </div>
-
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-2">
                             {{ 'parent' | translate }}
                         </div>
                         <div class="ui-grid-col-6">
@@ -168,6 +131,25 @@
                                             [errors]="{required: ('customers.required'| translate),
                                                     pattern: ('customers.numberValidator' | translate)}"></control-errors>
                         </div>
+                    </div>
+                    <div class="relationship-tabs">
+                        <p-tabView>
+                            <p-tabPanel [header]="'contacts' | translate" leftIcon="fa-users">
+                                <one-to-many
+                                        [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
+                                        [link]="model['_links']['contacts']"
+                                        (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
+                                        (onDelete)="onDelete($event)"
+                                        [mainEntityId]="id" property="contacts"></one-to-many>
+                            </p-tabPanel>
+                            <p-tabPanel [header]="'customerUsers' | translate" leftIcon="fa-user-secret">
+                                <one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
+                                             [mainEntityId]="id" [link]="model['_links']['users']"
+                                             (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
+                                             (onDelete)="onDelete($event)"
+                                             property="users"></one-to-many>
+                            </p-tabPanel>
+                        </p-tabView>
                     </div>
                 </ng-container>
 
