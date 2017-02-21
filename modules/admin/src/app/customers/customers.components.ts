@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
+import {Component} from "@angular/core";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {BreadcrumbComponent} from "../breadcrumb/breadcrumb.component";
 
 @Component({
-    providers: [BreadcrumbComponent],
     selector: 'customers',
-    template: ''
+    template: '',
+    providers: [BreadcrumbComponent]
 })
 
 export class CustomersComponent {

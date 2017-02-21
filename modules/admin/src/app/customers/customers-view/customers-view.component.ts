@@ -16,7 +16,6 @@ import {Sort, SortType} from "../../shared/sort.model";
     templateUrl: './customers-view.component.html',
     styleUrls: ['./customers-view.component.scss']
 })
-
 export class CustomersViewComponent {
 
     public pagination: Pagination = new Pagination(10, null, null, 0);
@@ -69,8 +68,8 @@ export class CustomersViewComponent {
         this.setRowData();
     }
 
-    onFilter(column: string) {
-        this.filters[column] = this.searchModel;
+    onFilter(column: string, data: string) {
+        this.filters[column] = data;
         this.setRowData();
     }
 
@@ -112,10 +111,12 @@ export class CustomersViewComponent {
     }
 
     getRowData() {
-        return this.route.snapshot.data['view'].rowData;
+        return this.route.snapshot.data.hasOwnProperty('view') ?
+            this.route.snapshot.data['view'].rowData : [];
     }
 
     getNumberCustomers() {
-        return this.route.snapshot.data['view'].totalElements;
+        return this.route.snapshot.data.hasOwnProperty('view') ?
+            this.route.snapshot.data['view'].totalElements : 0;
     }
 }

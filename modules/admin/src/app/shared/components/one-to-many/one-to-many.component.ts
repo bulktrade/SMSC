@@ -59,7 +59,8 @@ export class OneToManyComponent {
     }
 
     ngOnInit() {
-        this.pathFromRoot = this.commonService.getPathFromRoot(this.route.parent.pathFromRoot);
+        this.pathFromRoot = this.commonService
+            .getPathFromRoot(this.route.hasOwnProperty('parent') ? this.route.parent : null);
         this.isLoading = true;
         this.getResources(this.link)
             .subscribe(resources => {

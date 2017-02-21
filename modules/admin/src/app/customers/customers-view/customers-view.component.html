@@ -8,10 +8,10 @@
                     <div class="ui-g-12 ui-md-6 search-panel">
                         <i class="fa fa-search"></i>
                         <input class="search-field" type="text" [ngModel]="searchModel"
-                               (ngModelChange)="searchModel=$event;onFilter('companyName')"
+                               (ngModelChange)="searchModel=$event;onFilter('companyName', searchModel)"
                                pInputText [placeholder]="'customers.filter' | translate">
                         <i *ngIf="searchModel" class="fa fa-times clear-search-button"
-                           (click)="searchModel='';onFilter('companyName')" aria-hidden="true"></i>
+                           (click)="searchModel='';onFilter('companyName', searchModel)" aria-hidden="true"></i>
                     </div>
                     <div class="ui-g-12 ui-md-6 button-panel">
                         <button type="button" class="ui-button-success"

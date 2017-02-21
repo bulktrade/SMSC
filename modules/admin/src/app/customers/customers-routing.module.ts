@@ -7,7 +7,7 @@ import {CustomersCreateComponent} from "./customers-create/crud-create.component
 import {CustomersViewComponent} from "./customers-view/customers-view.component";
 import {CustomersViewResolve} from "./customers-view/customers-view.resolve";
 
-const CUSTOMERS_ROUTE_PROVIDER = [
+export const CUSTOMERS_ROUTE_PROVIDER = [
     {
         path: '',
         component: CustomersViewComponent,
