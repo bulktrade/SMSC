@@ -3,7 +3,7 @@ package io.smsc.config;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 @Configuration
@@ -30,13 +30,14 @@ public class AppConfiguration {
         return frb;
     }
 
-    @Bean
-    public ResourceBundleMessageSource messageSource() {
-        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-        source.setBasename("messages");
-        source.setUseCodeAsDefaultMessage(true);
-        source.setDefaultEncoding("UTF-8");
+    @Bean(name = "messageSource")
+    public ReloadableResourceBundleMessageSource messageSource() { // @todo not working
+        ReloadableResourceBundleMessageSource messageBundle = new ReloadableResourceBundleMessageSource();
+        messageBundle.setBasename("classpath:messages/messages");
+        messageBundle.setUseCodeAsDefaultMessage(true);
+        messageBundle.setDefaultEncoding("UTF-8");
+        messageBundle.setFallbackToSystemLocale(true);
 
-        return source;
+        return messageBundle;
     }
 }
