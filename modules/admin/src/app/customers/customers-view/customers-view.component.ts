@@ -38,7 +38,9 @@ export class CustomersViewComponent {
 
     public sort: Sort = null;
 
-    public searchModel: string = null;
+    public searchModel: Customer[] = [];
+
+    public isFilterLoading: Customer[] = [];
 
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
@@ -68,9 +70,19 @@ export class CustomersViewComponent {
         this.setRowData();
     }
 
-    onFilter(column: string, data: string) {
-        this.filters[column] = data;
-        this.setRowData();
+    onFilter(column: string, filterName: string) {
+        this.filters[column] = this.searchModel[filterName];
+        this.isFilterLoading[filterName] = true;
+
+        this.customersService.getResources(this.pagination.number, this.pagination.size,
+            this.filters, this.sort)
+            .subscribe(rows => {
+                this.rowData = rows['_embedded'][REPOSITORY_NAME];
+                this.isFilterLoading[filterName] = false;
+            }, err => {
+                console.error(err);
+                this.isFilterLoading[filterName] = false;
+            });
     }
 
     onRowExpand(event) {

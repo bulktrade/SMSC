@@ -12,6 +12,21 @@
     justify-content: flex-end;
   }
 
+  .filter-container {
+    position: relative;
+
+    i {
+      position: absolute;
+      font-size: 16px;
+      right: 14px;
+      top: 16px;
+    }
+  }
+
+  .search-loading-spinner {
+    color: #009688;
+  }
+
   .search-panel {
     border-bottom: 0 none;
     position: relative;
@@ -21,16 +36,20 @@
     }
 
     i {
-      padding-right: 5px;
+      margin-right: 5px;
+    }
+
+    .search-icon {
+      position: absolute;
+      cursor: pointer;
+      right: 0;
+      top: 10px;
+      font-size: 16px;
     }
 
     .clear-search-button {
-      position: absolute;
-      cursor: pointer;
-      right: 1px;
-      top: 8px;
-      transition: .1s all;
-      
+      right: 3px;
+
       &:hover {
         color: #d9534f;
       }
