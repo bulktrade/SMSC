@@ -1,21 +1,26 @@
 <div id="crud-view-window" #element (window:resize)="$event">
-    <div class="ui-widget-header search-panel">
-        <div class="ui-md-12">
-            <i class="fa fa-search"></i>
-            <input class="search-field" type="text" ngModel (ngModelChange)="onFilter('companyName', $event)"
-                   pInputText [placeholder]="'SEARCH' | translate">
-        </div>
-    </div>
     <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
                  (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
                  [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">
         <p-header class="grid-header">
             <div class="ui-helper-clearfix" style="width:100%">
-                <span class="grid-title">{{ 'customers.title' | translate}}</span>
-                <button type="button" class="ui-button-success pull-right" routerLink="/customers/create"
-                        pButton icon="fa-plus" [label]="'customers.create' | translate"></button>
-                <button type="button" pButton class="ui-button-danger pull-right" icon="fa-remove"
-                        [label]="'customers.delete' | translate"></button>
+                <div class="ui-g ctrl-panel">
+                    <div class="ui-g-12 ui-md-6 search-panel">
+                        <i class="fa fa-search"></i>
+                        <input class="search-field" type="text" [ngModel]="searchModel"
+                               (ngModelChange)="searchModel=$event;onFilter('companyName')"
+                               pInputText [placeholder]="'customers.filter' | translate">
+                        <i *ngIf="searchModel" class="fa fa-times clear-search-button"
+                           (click)="searchModel='';onFilter('companyName')" aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 button-panel">
+                        <button type="button" class="ui-button-success"
+                                routerLink="/customers/create"
+                                pButton icon="fa-plus" [label]="'customers.create' | translate"></button>
+                        <button type="button" pButton class="ui-button-danger" icon="fa-remove"
+                                [label]="'customers.delete' | translate"></button>
+                    </div>
+                </div>
             </div>
         </p-header>
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>

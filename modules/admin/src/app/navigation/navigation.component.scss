@@ -80,7 +80,7 @@ $primaryColor: #009688;
             overflow-y: hidden;
         }
 
-        .mainContent {
+        .main-content {
             position: relative;
             height: 100%;
             min-height: 525px;
@@ -95,7 +95,7 @@ $primaryColor: #009688;
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 640px) {
     #desktopMenu {
         display: block;
     }
@@ -115,9 +115,15 @@ $primaryColor: #009688;
     }
 }
 
-@media (max-width: 540px) {
-    .mainContent {
-        padding: 82px 10px 12px 10px !important;
+@media screen and (max-width: 640px) {
+    #navigation-window #wrapper .main-content {
+        padding: 13px 10px 12px 10px;
+    }
+
+    #navigation-window .header {
+        position: relative;
+        z-index: 9999;
+        margin: 0;
     }
 }
 

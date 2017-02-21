@@ -31,11 +31,11 @@ import {Customer} from "../model/customer";
     </div>
     `,
     styles: [`
-        #one-to-one-component {position: relative;}
+        #one-to-one-component {position: relative;padding-top:7px;}
         #one-to-one-component .ui-button {height: 34px;}
         #one-to-one-component .btn-remove:hover {color: #d04242;}
         #one-to-one-component .btn-remove {
-            top: 8px;
+            top: 14px;
             right: 39px;
             color: #929292;
             cursor: pointer;

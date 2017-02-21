@@ -109,6 +109,7 @@
   "contacts.updateContacts": "Update",
   "contacts.customerUsers": "Customer users",
   "customers.title": "Customers",
+  "customers.filter": "Customers Filter",
   "customers.successDelete": "Data has been successfully deleted",
   "customers.errorDelete": "Data was not deleted",
   "customers.update": "Update",

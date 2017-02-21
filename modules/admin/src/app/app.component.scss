@@ -10,6 +10,10 @@ body {
     padding-right: 5px;
 }
 
+.ui-tabview .ui-tabview-panel {
+    padding: 0 .2em;
+}
+
 .ui-button.ui-button-success:enabled:hover,
 .ui-button.ui-button-success:focus {
     background-color: #4cae4c;
@@ -27,14 +31,21 @@ body {
         border: none;
     }
 
+    .ui-autocomplete {
+        width: 100%;
+    }
+
+    input {
+        width: calc(100% - 2em);
+    }
+
     .ui-autocomplete-panel {
         position: static;
     }
 
     #one-to-one-component .btn-remove {
-        top: 8px;
-        margin-left: -50px;
-        right: inherit;
+        top: 15px;
+        right: 38px;
     }
 }
 
@@ -414,5 +425,15 @@ $slideDuration: .4s;
     100% {
         -webkit-transform: translateY(0);
         transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .ui-tabview.ui-tabview-top > .ui-tabview-nav li {
+        width: 100%;
+    }
+
+    .ui-panel .ui-panel-content {
+        padding: 0;
     }
 }

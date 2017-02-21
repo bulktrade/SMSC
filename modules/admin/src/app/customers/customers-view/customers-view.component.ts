@@ -39,6 +39,8 @@ export class CustomersViewComponent {
 
     public sort: Sort = null;
 
+    public searchModel: string = null;
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
@@ -67,8 +69,8 @@ export class CustomersViewComponent {
         this.setRowData();
     }
 
-    onFilter(column: string, data: string) {
-        this.filters[column] = data;
+    onFilter(column: string) {
+        this.filters[column] = this.searchModel;
         this.setRowData();
     }
 

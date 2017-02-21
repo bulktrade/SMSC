@@ -114,16 +114,17 @@ export abstract class CrudRepository<T> {
     }
 
     /**
-     * Retrieves a list of all resources with pagination and filtering
+     * Retrieves a list of all resources with pagination, filtering and sorting
      *
      * @example
      * let pageIndex: number = 0;
      * let pageSize: number = 10;
+     * let sort: Sort = new Sort('id', SortType.ASC);
      * let query = {
      *      property: 'value',
      *      property2: 'value2'
      * };
-     * getResources(pageIndex, pageSize, query);
+     * getResources(pageIndex, pageSize, query, sort);
      * @param page
      * @param size
      * @param query
