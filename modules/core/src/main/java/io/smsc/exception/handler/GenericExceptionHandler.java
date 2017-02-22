@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.rest.core.RepositoryConstraintViolationException;
 import org.springframework.data.rest.webmvc.RepositoryRestExceptionHandler;
 import org.springframework.http.HttpHeaders;
@@ -39,6 +40,14 @@ public class GenericExceptionHandler {
         for (FieldError error : e.getErrors().getFieldErrors()) {
             messages.add(new Message(messageSourceAccessor.getMessage(error.getDefaultMessage()), MessageType.ERROR, error.getField()));
         }
+
+        return new ResponseEntity(messages, new HttpHeaders(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    ResponseEntity handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        List<Message> messages = new ArrayList<>();
+        messages.add(new Message(e.getCause().getCause().getClass().getSimpleName(), MessageType.ERROR, null));
 
         return new ResponseEntity(messages, new HttpHeaders(), HttpStatus.CONFLICT);
     }
