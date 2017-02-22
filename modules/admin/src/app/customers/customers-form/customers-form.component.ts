@@ -15,6 +15,8 @@ import {CustomersService} from "../customer.service";
 import {ParentCustomerModule} from "../parent-customer/parent-customer";
 import {OneToMany} from "../../shared/components/one-to-many/one-to-many.model";
 import {CommonService} from "../../services/common";
+import {TabViewModule} from "primeng/components/tabview/tabview";
+import {Customer} from "../model/customer";
 
 @Component({
     selector: 'customers-form',
@@ -30,7 +32,7 @@ export class CustomersFormComponent {
     public isLoading: boolean = false;
 
     @Input('model')
-    public model = {};
+    public model: Customer = <Customer>{};
 
     @Output('onSubmit')
     public _onSubmit = new EventEmitter();
@@ -49,7 +51,8 @@ export class CustomersFormComponent {
     ngOnInit() {
         this.model['_embedded'] = this.model['_embedded'] || {};
         this.id = this.route.params['value'].customerId;
-        this.pathFromRoot = this.commonService.getPathFromRoot(this.route.parent.pathFromRoot);
+        this.pathFromRoot = this.commonService
+            .getPathFromRoot(this.route.hasOwnProperty('parent') ? this.route.parent : null);
     }
 
     onSubmit() {
@@ -87,7 +90,8 @@ export class CustomersFormComponent {
         DropdownModule,
         ControlErrorsModule,
         OneToOneModule,
-        ParentCustomerModule
+        ParentCustomerModule,
+        TabViewModule
     ],
     exports: [CustomersFormComponent],
     declarations: [CustomersFormComponent]

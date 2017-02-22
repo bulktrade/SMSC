@@ -16,7 +16,6 @@ import {Sort, SortType} from "../../shared/sort.model";
     templateUrl: './customers-view.component.html',
     styleUrls: ['./customers-view.component.scss']
 })
-
 export class CustomersViewComponent {
 
     public pagination: Pagination = new Pagination(10, null, null, 0);
@@ -38,6 +37,10 @@ export class CustomersViewComponent {
     public filters: Customer = <Customer>{};
 
     public sort: Sort = null;
+
+    public searchModel: Customer[] = [];
+
+    public isFilterLoading: Customer[] = [];
 
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
@@ -67,9 +70,19 @@ export class CustomersViewComponent {
         this.setRowData();
     }
 
-    onFilter(column: string, data: string) {
-        this.filters[column] = data;
-        this.setRowData();
+    onFilter(column: string, filterName: string) {
+        this.filters[column] = this.searchModel[filterName];
+        this.isFilterLoading[filterName] = true;
+
+        this.customersService.getResources(this.pagination.number, this.pagination.size,
+            this.filters, this.sort)
+            .subscribe(rows => {
+                this.rowData = rows['_embedded'][REPOSITORY_NAME];
+                this.isFilterLoading[filterName] = false;
+            }, err => {
+                console.error(err);
+                this.isFilterLoading[filterName] = false;
+            });
     }
 
     onRowExpand(event) {
@@ -110,10 +123,12 @@ export class CustomersViewComponent {
     }
 
     getRowData() {
-        return this.route.snapshot.data['view'].rowData;
+        return this.route.snapshot.data.hasOwnProperty('view') ?
+            this.route.snapshot.data['view'].rowData : [];
     }
 
     getNumberCustomers() {
-        return this.route.snapshot.data['view'].totalElements;
+        return this.route.snapshot.data.hasOwnProperty('view') ?
+            this.route.snapshot.data['view'].totalElements : 0;
     }
 }

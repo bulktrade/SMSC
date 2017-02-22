@@ -1,21 +1,30 @@
 <div id="crud-view-window" #element (window:resize)="$event">
-    <div class="ui-widget-header search-panel">
-        <div class="ui-md-12">
-            <i class="fa fa-search"></i>
-            <input class="search-field" type="text" ngModel (ngModelChange)="onFilter('companyName', $event)"
-                   pInputText [placeholder]="'SEARCH' | translate">
-        </div>
-    </div>
     <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
                  (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
                  [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">
         <p-header class="grid-header">
             <div class="ui-helper-clearfix" style="width:100%">
-                <span class="grid-title">{{ 'customers.title' | translate}}</span>
-                <button type="button" class="ui-button-success pull-right" routerLink="/customers/create"
-                        pButton icon="fa-plus" [label]="'customers.create' | translate"></button>
-                <button type="button" pButton class="ui-button-danger pull-right" icon="fa-remove"
-                        [label]="'customers.delete' | translate"></button>
+                <div class="ui-g ctrl-panel">
+                    <div class="ui-g-12 ui-md-6 search-panel">
+                        <i class="fa fa-search"></i>
+                        <input class="search-field" type="text" [ngModel]="searchModel['globalFilter']"
+                               (ngModelChange)="searchModel['globalFilter']=$event;onFilter('companyName', 'globalFilter')"
+                               pInputText [placeholder]="'customers.filter' | translate">
+                        <i *ngIf="searchModel['globalFilter'] && !isFilterLoading['globalFilter']"
+                           class="fa fa-times search-icon clear-search-button"
+                           (click)="searchModel['globalFilter']='';onFilter('companyName', 'globalFilter')"
+                           aria-hidden="true"></i>
+                        <i *ngIf="isFilterLoading['globalFilter']"
+                           class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                    </div>
+                    <div class="ui-g-12 ui-md-6 button-panel">
+                        <button type="button" class="ui-button-success"
+                                routerLink="/customers/create"
+                                pButton icon="fa-plus" [label]="'customers.create' | translate"></button>
+                        <button type="button" pButton class="ui-button-danger" icon="fa-remove"
+                                [label]="'customers.delete' | translate"></button>
+                    </div>
+                </div>
             </div>
         </p-header>
         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
@@ -36,58 +45,115 @@
         <p-column field="companyName" [header]="'companyName' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
-                       (ngModelChange)="onFilter(col.field, $event)"/>
+                <div class="ui-sm-12 ui-md-12 filter-container">
+                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
+                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
+                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
+                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
+                       class="fa fa-times search-icon clear-search-button"
+                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
+                    <i *ngIf="isFilterLoading[col.field]"
+                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                </div>
             </template>
         </p-column>
         <p-column field="street" [header]="'street' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
-                       (ngModelChange)="onFilter(col.field, $event)"/>
+                <div class="ui-sm-12 ui-md-12 filter-container">
+                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
+                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
+                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
+                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
+                       class="fa fa-times search-icon clear-search-button"
+                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
+                    <i *ngIf="isFilterLoading[col.field]"
+                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                </div>
             </template>
         </p-column>
         <p-column field="street2" [header]="'street2' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
-                       (ngModelChange)="onFilter(col.field, $event)"/>
+                <div class="ui-sm-12 ui-md-12 filter-container">
+                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
+                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
+                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
+                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
+                       class="fa fa-times search-icon clear-search-button"
+                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
+                    <i *ngIf="isFilterLoading[col.field]"
+                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                </div>
             </template>
         </p-column>
         <p-column field="postcode" [header]="'postcode' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
-                       (ngModelChange)="onFilter(col.field, $event)"/>
+                <div class="ui-sm-12 ui-md-12 filter-container">
+                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
+                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
+                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
+                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
+                       class="fa fa-times search-icon clear-search-button"
+                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
+                    <i *ngIf="isFilterLoading[col.field]"
+                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                </div>
             </template>
         </p-column>
         <p-column field="country" [header]="'country' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
-                       (ngModelChange)="onFilter(col.field, $event)"/>
+                <div class="ui-sm-12 ui-md-12 filter-container">
+                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
+                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
+                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
+                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
+                       class="fa fa-times search-icon clear-search-button"
+                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
+                    <i *ngIf="isFilterLoading[col.field]"
+                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                </div>
             </template>
         </p-column>
         <p-column field="city" [header]="'city' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
-                       (ngModelChange)="onFilter(col.field, $event)"/>
+                <div class="ui-sm-12 ui-md-12 filter-container">
+                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
+                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
+                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
+                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
+                       class="fa fa-times search-icon clear-search-button"
+                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
+                    <i *ngIf="isFilterLoading[col.field]"
+                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                </div>
             </template>
         </p-column>
         <p-column field="vatid" [header]="'vatid' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
-                <input type="text" class="filter-input-field" pInputText ngModel [placeholder]="'SEARCH' | translate"
-                       (ngModelChange)="onFilter(col.field, $event)"/>
+                <div class="ui-sm-12 ui-md-12 filter-container">
+                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
+                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
+                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
+                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
+                       class="fa fa-times search-icon clear-search-button"
+                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
+                    <i *ngIf="isFilterLoading[col.field]"
+                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                </div>
             </template>
         </p-column>
 
         <template let-customer pTemplate="rowexpansion" style="{'overflow':'visible'}">
 
-            <p-tabView class="relationship-tabs" [style]="{'width': (element.clientWidth - 20) + 'px'}">
+            <p-tabView headerStyleClass="ui-sm-12 ui-md-12" class="relationship-tabs"
+                       [style]="{'width': (element.clientWidth - 20) + 'px'}">
                 <!-- tab with contacts -->
-                <p-tabPanel [header]="'contacts' | translate" leftIcon="fa-users">
+                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'contacts' | translate" leftIcon="fa-users">
                     <ng-container [ngSwitch]="contactsModel[customer['id']].action">
                         <ng-container *ngSwitchDefault>
                             <one-to-many
@@ -113,7 +179,8 @@
                     </ng-container>
                 </p-tabPanel>
                 <!-- tab with users -->
-                <p-tabPanel [header]="'customerUsers' | translate" leftIcon="fa-user-secret">
+                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'customerUsers' | translate"
+                            leftIcon="fa-user-secret">
                     <ng-container [ngSwitch]="usersModel[customer['id']].action">
                         <ng-container *ngSwitchDefault>
                             <one-to-many
@@ -140,7 +207,7 @@
 
                 </p-tabPanel>
                 <!-- tab with parent customer -->
-                <p-tabPanel [header]="'parent' | translate" leftIcon="fa-building">
+                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'parent' | translate" leftIcon="fa-building">
                     <parent-customer name="parent" propertyName="parent" [mainEntityId]="customer['id']"
                                      [renderProperties]="['companyName', 'country']" [hideOwn]="true"
                                      [mainEntityService]="customersService" [subEntityService]="customersService"

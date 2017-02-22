@@ -1,80 +1,130 @@
 #crud-view-window {
+  position: relative;
+
+  .ctrl-panel {
+    div {
+      padding: 0;
+    }
+  }
+
+  .button-panel {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .filter-container {
     position: relative;
 
-    .filter-input-field {
-        width: 100%;
+    i {
+      position: absolute;
+      font-size: 16px;
+      right: 14px;
+      top: 16px;
+    }
+  }
+
+  .search-loading-spinner {
+    color: #009688;
+  }
+
+  .search-panel {
+    border-bottom: 0 none;
+    position: relative;
+
+    .search-field {
+      width: calc(100% - 24px);
     }
 
-    .search-panel {
-        border-bottom: 0 none;
-
-        .search-field {
-            width: 100%;
-        }
-
-        i {
-            top: 12px;
-            right: 12px;
-            color: #009688;
-            position: absolute;
-            margin: 4px 4px 0 0;
-        }
+    i {
+      margin-right: 5px;
     }
 
-    #back-button {
-        cursor: pointer;
-        padding-right: 5px;
+    .search-icon {
+      position: absolute;
+      cursor: pointer;
+      right: 0;
+      top: 10px;
+      font-size: 16px;
     }
 
-    .grid-header {
-        text-align: left;
+    .clear-search-button {
+      right: 3px;
 
-        button {
-            margin-left: 8px;
-        }
+      &:hover {
+        color: #d9534f;
+      }
     }
+  }
 
-    #grid-pagination {
-        position: relative;
-        top: -2px;
+  #back-button {
+    cursor: pointer;
+    padding-right: 5px;
+  }
+
+  .grid-header {
+    text-align: left;
+
+    button {
+      margin-left: 8px;
     }
+  }
 
-    .uri-property {
-        cursor: pointer;
+  #grid-pagination {
+    position: relative;
+    top: -2px;
+  }
+
+  .uri-property {
+    cursor: pointer;
+  }
+
+  .update-button,
+  .delete-button {
+    padding-left: 5px;
+    cursor: pointer;
+  }
+
+  .loading-layer,
+  .loading-mask {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  .loading-mask {
+    opacity: .3;
+    background: #666;
+  }
+
+  .loading-layer {
+    .container {
+      padding: 0;
+      margin: auto;
+      display: flex;
+      width: inherit;
+      height: inherit;
+
+      .sk-cube-grid {
+        padding: 0;
+        margin: auto;
+      }
     }
+  }
+}
 
-    .update-button,
-    .delete-button {
-        padding-left: 5px;
-        cursor: pointer;
+@media screen and (max-width: 640px) {
+  .search-panel {
+    padding-bottom: 8px !important;
+  }
+
+  .button-panel {
+    button {
+      flex-grow: 1;
+
+      &:first-of-type {
+        margin: 0 !important;
+      }
     }
-
-    .loading-layer,
-    .loading-mask {
-        top: 0;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-    }
-
-    .loading-mask {
-        opacity: .3;
-        background: #666;
-    }
-
-    .loading-layer {
-        .container {
-            padding: 0;
-            margin: auto;
-            display: flex;
-            width: inherit;
-            height: inherit;
-
-            .sk-cube-grid {
-                padding: 0;
-                margin: auto;
-            }
-        }
-    }
-
+  }
 }

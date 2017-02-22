@@ -279,4 +279,4 @@ module.exports = function (options) {
     }
 
   };
-}
+};

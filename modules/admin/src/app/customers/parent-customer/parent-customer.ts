@@ -15,7 +15,7 @@ import {Customer} from "../model/customer";
     <div id="one-to-one-component">
         <p-autoComplete [ngModel]="getModelBySchema(model)" (ngModelChange)="onSelectResource($event)"
                         [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
-                        [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
+                         styleClass="ui-sm-12 ui-md-12 ui-g-nopad" [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
             <template let-model pTemplate="item">
                 <div class="ui-helper-clearfix">
                     <div class="titleColumns">
@@ -31,11 +31,12 @@ import {Customer} from "../model/customer";
     </div>
     `,
     styles: [`
-        #one-to-one-component {position: relative;}
+        #one-to-one-component {position: relative;padding-top:7px;}
+        p-autoComplete {display: block;}
         #one-to-one-component .ui-button {height: 34px;}
         #one-to-one-component .btn-remove:hover {color: #d04242;}
         #one-to-one-component .btn-remove {
-            top: 8px;
+            top: 14px;
             right: 39px;
             color: #929292;
             cursor: pointer;
