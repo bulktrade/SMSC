@@ -1,12 +1,13 @@
-package io.smsc.repository;
+package io.smsc.repository.admin;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
-import io.smsc.model.QRole;
-import io.smsc.model.Role;
+import io.smsc.model.admin.Authority;
+import io.smsc.model.admin.QAuthority;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
@@ -19,22 +20,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This REST repository class is used for providing default {@link JpaRepository}
- * CRUD methods to operate with {@link Role} entities and exporting them to
+ * CRUD methods to operate with {@link Authority} entities and exporting them to
  * appropriate endpoints.
  *
  * @author Nazar Lipkovskyy
  * @since 0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
+@RepositoryRestResource(collectionResourceRel = "authorities", path = "authorities")
 @Transactional(readOnly = true)
 // until role hierarchy is implemented
 @PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
-public interface RoleRepository extends JpaRepository<Role, Long>,
-        QueryDslPredicateExecutor<Role>,
-        QuerydslBinderCustomizer<QRole> {
+public interface AuthorityRepository extends JpaRepository<Authority, Long>,
+        QueryDslPredicateExecutor<Authority>,
+        QuerydslBinderCustomizer<QAuthority> {
 
     @Override
-    default public void customize(QuerydslBindings bindings, QRole root) {
+    default public void customize(QuerydslBindings bindings, QAuthority root) {
         bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::containsIgnoreCase);
     }
 
@@ -46,21 +47,24 @@ public interface RoleRepository extends JpaRepository<Role, Long>,
     @Override
     @Transactional
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Role save(Role role);
+    Authority save(Authority authority);
 
     @Override
+    @EntityGraph(attributePaths = {"groups", "users"})
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Role findOne(Long id);
+    Authority findOne(Long id);
 
+    @EntityGraph(attributePaths = {"groups", "users"})
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Role findByName(@Param("name") String name);
-
-    @Override
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<Role> findAll(Pageable pageable);
+    Authority findByName(@Param("name") String name);
 
     @Override
+    @EntityGraph(attributePaths = {"groups", "users"})
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<Role> findAll(Predicate predicate, Pageable pageable);
+    Page<Authority> findAll(Pageable pageable);
 
+    @Override
+    @EntityGraph(attributePaths = {"groups", "users"})
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Page<Authority> findAll(Predicate predicate, Pageable pageable);
 }

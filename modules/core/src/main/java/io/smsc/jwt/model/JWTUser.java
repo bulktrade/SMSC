@@ -1,7 +1,6 @@
 package io.smsc.jwt.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.smsc.model.Role;
 import io.smsc.model.admin.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

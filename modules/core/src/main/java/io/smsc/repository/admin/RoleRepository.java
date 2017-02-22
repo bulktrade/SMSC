@@ -1,10 +1,10 @@
-package io.smsc.repository;
+package io.smsc.repository.admin;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
-import io.smsc.model.Authority;
-import io.smsc.model.QAuthority;
+import io.smsc.model.admin.QRole;
+import io.smsc.model.admin.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,22 +19,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This REST repository class is used for providing default {@link JpaRepository}
- * CRUD methods to operate with {@link Authority} entities and exporting them to
+ * CRUD methods to operate with {@link Role} entities and exporting them to
  * appropriate endpoints.
  *
  * @author Nazar Lipkovskyy
  * @since 0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "authorities", path = "authorities")
+@RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
 @Transactional(readOnly = true)
 // until role hierarchy is implemented
 @PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
-public interface AuthorityRepository extends JpaRepository<Authority, Long>,
-        QueryDslPredicateExecutor<Authority>,
-        QuerydslBinderCustomizer<QAuthority> {
+public interface RoleRepository extends JpaRepository<Role, Long>,
+        QueryDslPredicateExecutor<Role>,
+        QuerydslBinderCustomizer<QRole> {
 
     @Override
-    default public void customize(QuerydslBindings bindings, QAuthority root) {
+    default public void customize(QuerydslBindings bindings, QRole root) {
         bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::containsIgnoreCase);
     }
 
@@ -46,20 +46,21 @@ public interface AuthorityRepository extends JpaRepository<Authority, Long>,
     @Override
     @Transactional
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Authority save(Authority authority);
+    Role save(Role role);
 
     @Override
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Authority findOne(Long id);
+    Role findOne(Long id);
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Authority findByName(@Param("name") String name);
-
-    @Override
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<Authority> findAll(Pageable pageable);
+    Role findByName(@Param("name") String name);
 
     @Override
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    Page<Authority> findAll(Predicate predicate, Pageable pageable);
+    Page<Role> findAll(Pageable pageable);
+
+    @Override
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    Page<Role> findAll(Predicate predicate, Pageable pageable);
+
 }

@@ -52,23 +52,23 @@ public interface UserRepository extends JpaRepository<User, Long>,
     User save(User user);
 
     @Override
-    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
+    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities", "groups"})
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     User findOne(Long id);
 
-    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
+    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities", "groups"})
     User findByUsername(@Param("username") String userName);
 
     @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
     User findByEmail(@Param("email") String email);
 
     @Override
-    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
+    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities", "groups"})
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<User> findAll(Pageable pageable);
 
     @Override
-    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities"})
+    @EntityGraph(attributePaths = {"dashboards", "roles", "authorities", "groups"})
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     Page<User> findAll(Predicate predicate, Pageable pageable);
 

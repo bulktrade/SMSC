@@ -6,10 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.smsc.annotation.Encrypt;
 import io.smsc.annotation.UserExistsValidator;
 import io.smsc.listeners.EncryptionListener;
-import io.smsc.model.Authority;
 import io.smsc.model.BaseEntity;
-import io.smsc.model.Role;
-import io.smsc.model.acl.AclSid;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.annotations.OnDelete;
@@ -20,7 +17,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.Constraint;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
@@ -103,6 +99,22 @@ public class User extends BaseEntity {
     )
     @OrderBy("id asc")
     private Set<Role> roles;
+
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            },
+            targetEntity = Group.class)
+    @JoinTable(
+            name = "USER_GROUP",
+            joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID")
+    )
+    @OrderBy("id asc")
+    private Set<Group> groups;
 
     @ManyToMany(cascade =
             {
@@ -249,6 +261,14 @@ public class User extends BaseEntity {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 
     @Override

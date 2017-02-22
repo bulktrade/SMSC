@@ -1,6 +1,6 @@
-package io.smsc.repository.role.rest;
+package io.smsc.repository.admin;
 
-import io.smsc.model.Role;
+import io.smsc.model.admin.Role;
 import io.smsc.AbstractTest;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;

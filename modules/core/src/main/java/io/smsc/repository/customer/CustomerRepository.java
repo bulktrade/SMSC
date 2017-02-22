@@ -1,4 +1,4 @@
-package io.smsc.repository;
+package io.smsc.repository.customer;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
@@ -49,7 +49,7 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(#customer, 'write')")
     Customer save(Customer customer);
 
     @Override
@@ -143,7 +143,8 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
     @PreAuthorize("hasRole('POWER_ADMIN_USER')")
     void deleteAll();
 
-//     is not working
-//     @Override
-//     <S extends T> Iterable<S> save(Iterable<S> entities);
+    @Override
+    @Transactional
+    @PreFilter("hasRole('POWER_ADMIN_USER') or (hasPermission(filterObject.isNew()) and hasAuthority('CUSTOMER_CREATE')) or (hasPermission(!filterObject.isNew()) and (hasAuthority('CUSTOMER_WRITE') or hasPermission(filterObject, 'write')))")
+    <S extends Customer> Iterable<S> save(Iterable<S> entities);
 }

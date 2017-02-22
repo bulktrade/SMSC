@@ -93,9 +93,9 @@ INSERT INTO CUSTOMER (ID, COMPANY_NAME, STREET, STREET2, POSTCODE, COUNTRY, CITY
   INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
     (acl_class_seq.nextval, 'io.smsc.model.admin.User', current_timestamp, 0);
   INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.Role', current_timestamp, 0);
+    (acl_class_seq.nextval, 'io.smsc.model.admin.Role', current_timestamp, 0);
   INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.Authority', current_timestamp, 0);
+    (acl_class_seq.nextval, 'io.smsc.model.admin.Authority', current_timestamp, 0);
   INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
     (acl_class_seq.nextval, 'io.smsc.model.customer.Customer', current_timestamp, 0);
   INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
