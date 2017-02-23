@@ -1,4 +1,4 @@
-import {TestBed, async} from "@angular/core/testing";
+import {TestBed, async, inject} from "@angular/core/testing";
 import {CustomersModule} from "../customers.module";
 import {TranslateModule} from "ng2-translate";
 import {APP_PROVIDERS} from "../../app.module";
@@ -7,20 +7,23 @@ import {ComponentHelper} from "../../shared/component-fixture";
 import {MockBackend} from "@angular/http/testing";
 import {XHRBackend} from "@angular/http";
 import {CustomersCreateComponent} from "./crud-create.component";
-import {CUSTOMERS_ROUTE_PROVIDER} from "../customers-routing.module";
 
 describe('Component: CustomersCreateComponent', () => {
     let componentFixture: ComponentHelper<CustomersCreateComponent> =
         new ComponentHelper<CustomersCreateComponent>(null, null, null, null);
+    let mockBackend;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 CustomersModule,
-                RouterTestingModule.withRoutes(CUSTOMERS_ROUTE_PROVIDER),
+                RouterTestingModule,
                 TranslateModule.forRoot()
             ],
-            providers: [{provide: XHRBackend, useClass: MockBackend}, APP_PROVIDERS]
+            providers: [
+                {provide: XHRBackend, useClass: MockBackend},
+                APP_PROVIDERS
+            ]
         });
 
         componentFixture.fixture = TestBed.createComponent(CustomersCreateComponent);
@@ -29,11 +32,23 @@ describe('Component: CustomersCreateComponent', () => {
         componentFixture.debugElement = componentFixture.fixture.debugElement;
     });
 
+    beforeEach(inject([XHRBackend], (_mockBackend) => {
+        mockBackend = _mockBackend;
+    }));
+
     it('should have `<p-panel>` and `<form>`', async(() => {
         componentFixture.fixture.detectChanges();
         componentFixture.fixture.whenStable().then(() => {
             expect(componentFixture.element.querySelector('p-panel')).toBeTruthy();
             expect(componentFixture.element.querySelector('form')).toBeTruthy();
+        });
+    }));
+
+    it('submit button name should be `customers.create`', async(() => {
+        componentFixture.fixture.detectChanges();
+        componentFixture.fixture.whenStable().then(() => {
+            expect(componentFixture.instance.submitButtonName).toEqual('customers.create');
+            expect(componentFixture.element.querySelector('#submit-button').innerText).toEqual('customers.create');
         });
     }));
 });

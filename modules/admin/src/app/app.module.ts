@@ -79,44 +79,38 @@ export const APP_PROVIDERS = [
     CommonService
 ];
 
+export const APP_DECLARATIONS = [
+    App,
+    LoginComponent,
+    SidebarComponent,
+    NotFoundComponent,
+    NavigationComponent,
+    SidebarItemComponent,
+    MetaDataPropertyBindingParameterComponent
+];
+
+export const APP_IMPORTS = [
+    MessagesModule,
+    LoadingRouterOutletModule,
+    BrowserModule,
+    FormsModule,
+    NoInternetModule,
+    HttpModule,
+    AppRoutingModule,
+    SimpleNotificationsModule,
+    BreadcrumbModule.forRoot(),
+    TranslateModule.forRoot({
+        provide: TranslateLoader,
+        useFactory: translateFactory,
+        deps: [Http, ConfigService]
+    })
+];
+
 @NgModule({
     bootstrap: [App],
-    declarations: [
-        SidebarComponent,
-        SidebarItemComponent,
-        App,
-        LoginComponent,
-        NavigationComponent,
-        NotFoundComponent,
-        // // CrudMetaDataComponent,
-        // // CrudMetaFormDataComponent,
-        // // CrudClassMetaDataComponent,
-        // // CrudMetaGridDataComponent,
-        MetaDataPropertyBindingParameterComponent,
-    ],
-    imports: [
-        MessagesModule,
-        LoadingRouterOutletModule,
-        BrowserModule,
-        FormsModule,
-        NoInternetModule,
-        HttpModule,
-        AppRoutingModule,
-        TranslateModule.forRoot({
-            provide: TranslateLoader,
-            useFactory: translateFactory,
-            deps: [Http, ConfigService]
-        }),
-        SharedModule.forRoot(),
-        SimpleNotificationsModule,
-        // CrudModule,
-        // DashboardModule,
-        BreadcrumbModule.forRoot()
-    ],
-    providers: [
-        ENV_PROVIDERS,
-        APP_PROVIDERS
-    ]
+    declarations: [APP_DECLARATIONS],
+    imports: [APP_IMPORTS],
+    providers: [ENV_PROVIDERS, APP_PROVIDERS]
 })
 export class AppModule {
     constructor(public appRef: ApplicationRef,
