@@ -14,7 +14,6 @@ import {OneToOneModule} from "../../shared/components/one-to-one/one-to-one.comp
 import {CustomersService} from "../customer.service";
 import {ParentCustomerModule} from "../parent-customer/parent-customer";
 import {OneToMany} from "../../shared/components/one-to-many/one-to-many.model";
-import {CommonService} from "../../services/common";
 import {TabViewModule} from "primeng/components/tabview/tabview";
 import {Customer} from "../model/customer";
 
@@ -39,20 +38,15 @@ export class CustomersFormComponent {
 
     public id: number;
 
-    public pathFromRoot: string;
-
     constructor(public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public commonService: CommonService,
                 public customersService: CustomersService) {
     }
 
     ngOnInit() {
         this.model['_embedded'] = this.model['_embedded'] || {};
         this.id = this.route.params['value'].customerId;
-        this.pathFromRoot = this.commonService
-            .getPathFromRoot(this.route.hasOwnProperty('parent') ? this.route.parent : null);
     }
 
     onSubmit() {
@@ -64,15 +58,15 @@ export class CustomersFormComponent {
     }
 
     onCreate(event: OneToMany) {
-        this.router.navigate([this.pathFromRoot, this.id, event.propertyName, 'create']).then();
+        this.router.navigate(['/customers', this.id, event.propertyName, 'create']).then();
     }
 
     onUpdate(event: OneToMany) {
-        this.router.navigate([this.pathFromRoot, this.id, event.propertyName, 'update', event.entity['id']]).then();
+        this.router.navigate(['/customers', this.id, event.propertyName, 'update', event.entity['id']]).then();
     }
 
     onDelete(event: OneToMany) {
-        this.router.navigate([this.pathFromRoot, this.id, event.propertyName, 'delete', event.entity['id']]).then();
+        this.router.navigate(['/customers', this.id, event.propertyName, 'delete', event.entity['id']]).then();
     }
 }
 

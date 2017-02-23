@@ -43,7 +43,6 @@ import {CustomersContactsService} from "./customers/customers-contacts/customer-
 import {CustomersUsersService} from "./customers/customers-users/customer-user.service";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {LoadingRouterOutletModule} from "./shared/components/loading-router-outlet/loading-router-outlet.component";
-import {CommonService} from "./services/common";
 import "../styles/styles.scss";
 import {NotificationService} from "./services/notification-service";
 
@@ -75,8 +74,7 @@ export const APP_PROVIDERS = [
     SidebarService,
     CustomersContactsService,
     CustomersUsersService,
-    HTTP_INTERCEPTOR_PROVIDER,
-    CommonService
+    HTTP_INTERCEPTOR_PROVIDER
 ];
 
 export const APP_DECLARATIONS = [

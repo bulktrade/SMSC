@@ -6,7 +6,6 @@ import {CrudService} from "../../crud.service";
 import {FormsModule} from "@angular/forms";
 import {MultipleSelectService} from "./multiple-select.service";
 import {NotificationService} from "../../../services/notification-service";
-import {CommonService} from "../../../services/common";
 import {Link} from "../../entity.model";
 import {Http, RequestOptions, RequestMethod} from "@angular/http";
 import {OneToMany, Action} from "./one-to-many.model";
@@ -45,8 +44,6 @@ export class OneToManyComponent {
 
     public resources = [];
 
-    public pathFromRoot: string;
-
     public isLoading: boolean = false;
 
     constructor(public translate: TranslateService,
@@ -54,13 +51,10 @@ export class OneToManyComponent {
                 public router: Router,
                 public location: Location,
                 public notifications: NotificationService,
-                public commonService: CommonService,
                 public http: Http) {
     }
 
     ngOnInit() {
-        this.pathFromRoot = this.commonService
-            .getPathFromRoot(this.route.hasOwnProperty('parent') ? this.route.parent : null);
         this.isLoading = true;
         this.getResources(this.link)
             .subscribe(resources => {

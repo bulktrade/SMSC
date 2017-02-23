@@ -1,4 +1,4 @@
-#crud-view-window {
+#customers-view-window {
   position: relative;
 
   .ctrl-panel {
@@ -134,7 +134,7 @@
 }
 
 @media screen and (max-width: 640px) {
-  #crud-view-window {
+  #customers-view-window {
     .search-panel {
       padding-bottom: 8px !important;
     }

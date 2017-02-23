@@ -17,17 +17,7 @@ import {TranslateModule} from "ng2-translate";
 
 @Component({
     selector: 'users-delete',
-    template: `
-        <div id="confirm-delete-window">
-            <div class="warning-growl">
-                <p-messages [value]="msgs" [closable]="false"></p-messages>
-            </div>
-            <div class="formButtons">
-                <button pButton (click)="onBack()" id="cancel" [label]="'CANCEL' | translate"></button>
-                <button pButton (click)="deleteResource()" id="ok" [label]="'OK' | translate"></button>
-            </div>
-        </div>
-    `,
+    templateUrl: './../../../shared/templates/delete.component.html',
     styleUrls: ['./../../../shared/styles/delete.component.scss']
 })
 

@@ -37,12 +37,16 @@ export class CustomersDeleteComponent {
         });
     }
 
+    onBack() {
+        this.location.back();
+    }
+
     deleteResource() {
         return Observable.create(obs => {
             this.customersService.deleteResourceById(this.id)
                 .subscribe((res) => {
                     obs.next(res);
-                    this.location.back();
+                    this.onBack();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
                 }, err => {
                     obs.error(err);
