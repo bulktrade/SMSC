@@ -117,6 +117,7 @@
   "customers.delete": "Delete",
   "customers.required": "This field is required",
   "customers.confirmDeleteMsg": "You are dropping the record. Are you sure?",
+  "customers.multipleDeleteRecords": "You are dropping the records. Are you sure?",
   "customers.numberValidator": "Must be only numbers",
   "customers.successCreateCustomer": "Customer was successfully created",
   "customers.errorCreateCustomer": "Customer wasn't created",

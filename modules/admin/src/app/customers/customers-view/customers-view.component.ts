@@ -11,6 +11,7 @@ import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many
 import {Sort, SortType} from "../../shared/sort.model";
 import {DOCUMENT} from "@angular/platform-browser";
 import * as clone from "js.clone";
+import {Message} from "primeng/components/common/api";
 
 @Component({
     selector: 'customers-view',
@@ -18,6 +19,9 @@ import * as clone from "js.clone";
     styleUrls: ['./customers-view.component.scss']
 })
 export class CustomersViewComponent {
+
+    public showConfirmDeletionWindow: boolean = false;
+
     public pagination: Pagination = new Pagination(10, null, null, 0);
 
     public columnDefs: ColumnDef[];
@@ -46,6 +50,8 @@ export class CustomersViewComponent {
 
     public tableBodyHeight: number;
 
+    public msgs: Message[] = [];
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
@@ -56,6 +62,11 @@ export class CustomersViewComponent {
     }
 
     ngOnInit() {
+        this.translate.get('customers.multipleDeleteRecords')
+            .subscribe(detail => {
+                this.msgs.push({ severity: 'warn', detail: detail });
+            });
+
         this.rowData = this.getRowData();
         this.pagination.totalElements = this.getNumberCustomers();
     }
@@ -130,6 +141,10 @@ export class CustomersViewComponent {
                 console.error(err);
                 this.isLoading = false;
             });
+    }
+
+    deleteResources() {
+        console.log(this.selectedRows);
     }
 
     onResize(event) {
