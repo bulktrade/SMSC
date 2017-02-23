@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -53,11 +54,23 @@ public class AuthController {
     public ResponseEntity<JWTAuthenticationResponse> token(@RequestBody JWTAuthenticationRequest request, HttpServletResponse response) throws IOException {
         try {
             JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername(request.getUsername());
+            Boolean hasRoles = false;
+            for(GrantedAuthority authority : jwtUser.getAuthorities()) {
+                if(authority.getAuthority().equals("ROLE_ADMIN_USER") || authority.getAuthority().equals("ROLE_POWER_ADMIN_USER")) {
+                    hasRoles = true;
+                    break;
+                }
+            }
+            if(!hasRoles) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Current user has no appropriate roles. Please contact your administrator");
+                return null;
+            }
             if (jwtUser.getPassword().equals(request.getPassword())) {
                 JWTAuthenticationResponse token = new JWTAuthenticationResponse(jwtTokenGenerationService.generateAccessToken(jwtUser), jwtTokenGenerationService.generateRefreshToken(jwtUser));
                 return new ResponseEntity<>(token, HttpStatus.OK);
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             LOG.debug("Some exception occurred", ex);
             // going to send error
         }

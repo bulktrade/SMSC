@@ -57,7 +57,7 @@ public class Customer extends BaseEntity {
     private String city;
 
     @Column(name = "VATID")
-    private Double vatid;
+    private String vatid;
 
     @ManyToOne(
             fetch = FetchType.LAZY,
@@ -149,11 +149,11 @@ public class Customer extends BaseEntity {
         this.city = city;
     }
 
-    public Double getVatid() {
+    public String getVatid() {
         return vatid;
     }
 
-    public void setVatid(Double vatid) {
+    public void setVatid(String vatid) {
         this.vatid = vatid;
     }
 

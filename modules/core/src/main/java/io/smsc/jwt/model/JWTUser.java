@@ -1,7 +1,6 @@
 package io.smsc.jwt.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.smsc.model.Role;
 import io.smsc.model.admin.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -43,8 +42,6 @@ public class JWTUser implements UserDetails {
 
     private final boolean blocked;
 
-    private final Set<Role> roles;
-
     private final Collection<? extends GrantedAuthority> authorities;
 
     public JWTUser(User user, Collection<? extends GrantedAuthority> authorities) {
@@ -57,7 +54,6 @@ public class JWTUser implements UserDetails {
         this.email = user.getEmail();
         this.active = user.isActive();
         this.blocked = user.isBlocked();
-        this.roles = user.getRoles();
         this.authorities = authorities;
     }
 
@@ -105,11 +101,6 @@ public class JWTUser implements UserDetails {
 
     public Date getCreated() {
         return created;
-    }
-
-    //enabling may cause a loop
-    public Set<Role> getRoles() {
-        return roles;
     }
 
     @Override
