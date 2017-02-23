@@ -1,4 +1,4 @@
-<div id="crud-view-window" #element (window:resize)="onResize($even)">
+<div id="crud-view-window" #element (window:resize)="onResize($event)">
     <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
                  (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
                  [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">

@@ -5,12 +5,12 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {ColumnDef} from "../model/column-definition";
 import {Pagination} from "../model/pagination";
 import {CustomersService, REPOSITORY_NAME} from "../customer.service";
-import * as clone from "js.clone";
 import {NotificationService} from "../../services/notification-service";
 import {Customer} from "../model/customer";
 import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
 import {Sort, SortType} from "../../shared/sort.model";
 import {DOCUMENT} from "@angular/platform-browser";
+import * as clone from "js.clone";
 
 @Component({
     selector: 'customers-view',
@@ -22,7 +22,7 @@ export class CustomersViewComponent {
 
     public columnDefs: ColumnDef[];
 
-    private rowData: Customer[] = [];
+    public rowData: Customer[] = [];
 
     public selectedRows: ColumnDef[] = [];
 
