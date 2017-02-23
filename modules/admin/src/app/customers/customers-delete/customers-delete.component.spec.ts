@@ -7,6 +7,8 @@ import {ComponentHelper} from "../../shared/component-fixture";
 import {CustomersDeleteComponent} from "./customers-delete.component";
 import {APP_PROVIDERS} from "../../app.module";
 import {CustomersModule} from "../customers.module";
+import {ConfigServiceMock} from "../../shared/test/stub/config.service";
+import {ConfigService} from "../../config/config.service";
 
 describe('Component: CustomersDeleteComponent', () => {
     let componentFixture: ComponentHelper<CustomersDeleteComponent> =
@@ -16,7 +18,11 @@ describe('Component: CustomersDeleteComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [CustomersModule, RouterTestingModule, TranslateModule.forRoot()],
-            providers: [{provide: XHRBackend, useClass: MockBackend}, APP_PROVIDERS]
+            providers: [
+                APP_PROVIDERS,
+                {provide: XHRBackend, useClass: MockBackend},
+                {provide: ConfigService, useClass: ConfigServiceMock},
+            ]
         });
 
         componentFixture.fixture = TestBed.createComponent(CustomersDeleteComponent);

@@ -6,7 +6,9 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {ComponentHelper} from "../../shared/component-fixture";
 import {MockBackend} from "@angular/http/testing";
 import {XHRBackend} from "@angular/http";
-import {CustomersCreateComponent} from "./crud-create.component";
+import {CustomersCreateComponent} from "./customers-create.component";
+import {ConfigServiceMock} from "../../shared/test/stub/config.service";
+import {ConfigService} from "../../config/config.service";
 
 describe('Component: CustomersCreateComponent', () => {
     let componentFixture: ComponentHelper<CustomersCreateComponent> =
@@ -21,8 +23,9 @@ describe('Component: CustomersCreateComponent', () => {
                 TranslateModule.forRoot()
             ],
             providers: [
+                APP_PROVIDERS,
                 {provide: XHRBackend, useClass: MockBackend},
-                APP_PROVIDERS
+                {provide: ConfigService, useClass: ConfigServiceMock}
             ]
         });
 

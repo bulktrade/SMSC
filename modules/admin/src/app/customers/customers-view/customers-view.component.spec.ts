@@ -8,6 +8,8 @@ import {ComponentHelper} from "../../shared/component-fixture";
 import {MockBackend} from "@angular/http/testing";
 import {XHRBackend} from "@angular/http";
 import {SortType} from "../../shared/sort.model";
+import {ConfigServiceMock} from "../../shared/test/stub/config.service";
+import {ConfigService} from "../../config/config.service";
 
 describe('Component: CustomersViewComponent', () => {
     let componentFixture: ComponentHelper<CustomersViewComponent> =
@@ -20,7 +22,11 @@ describe('Component: CustomersViewComponent', () => {
                 RouterTestingModule,
                 TranslateModule.forRoot()
             ],
-            providers: [{provide: XHRBackend, useClass: MockBackend}, APP_PROVIDERS]
+            providers: [
+                {provide: XHRBackend, useClass: MockBackend},
+                APP_PROVIDERS,
+                {provide: ConfigService, useClass: ConfigServiceMock},
+            ]
         });
 
         componentFixture.fixture = TestBed.createComponent(CustomersViewComponent);
