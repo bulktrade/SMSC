@@ -153,12 +153,12 @@ export class CustomersViewComponent {
     }
 
     getTableHeaderHeight(): number {
-        return this.document.querySelector('#crud-view-window p-dataTable .ui-datatable-header').offsetHeight +
-            this.document.querySelector('#crud-view-window p-dataTable .ui-datatable-scrollable-header').offsetHeight
+        return this.document.querySelector('#customers-view-window p-dataTable .ui-datatable-header').offsetHeight +
+            this.document.querySelector('#customers-view-window p-dataTable .ui-datatable-scrollable-header').offsetHeight
     }
 
     getTableBodyHeight(): number {
-        return this.document.querySelector('#crud-view-window p-dataTable tbody').offsetHeight;
+        return this.document.querySelector('#customers-view-window p-dataTable tbody').offsetHeight;
     }
 
     getRowData() {
