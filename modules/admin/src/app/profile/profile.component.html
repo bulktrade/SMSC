@@ -5,7 +5,7 @@
                id="back-button"></i>
             <span>{{ 'PROFILE' | translate }}</span>
         </p-header>
-        <form role="form" (ngSubmit)="onSubmit()" autocomplete="off" #submitForm="ngForm" novalidate>
+        <form role="form" (ngSubmit)="onSubmit(profileForm)" autocomplete="off" #profileForm="ngForm" novalidate>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
 
                 <div class="ui-grid-row">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="ui-grid-col-4">
                         <control-errors control="firstname"
-                                        [errors]="{required: ('firstname.required'| translate)}"></control-errors>
+                                        [errors]="{required: 'firstname.required'}"></control-errors>
                     </div>
                 </div>
 
@@ -34,7 +34,7 @@
                     </div>
                     <div class="ui-grid-col-4">
                         <control-errors control="surname"
-                                        [errors]="{required: ('surname.required'| translate)}"></control-errors>
+                                        [errors]="{required: 'surname.required'}"></control-errors>
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@
                     </div>
                     <div class="ui-grid-col-4">
                         <control-errors control="username"
-                                        [errors]="{required: ('username.required'| translate)}"></control-errors>
+                                        [errors]="{required: 'username.required'}"></control-errors>
                     </div>
                 </div>
 
@@ -64,7 +64,7 @@
                     </div>
                     <div class="ui-grid-col-4">
                         <control-errors control="email"
-                                        [errors]="{required: ('email.required'| translate)}"></control-errors>
+                                        [errors]="{required: 'email.required'}"></control-errors>
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@
                     <div class="ui-grid-col-2"></div>
                     <div class="ui-grid-col-6">
                         <button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="updateProfile"
-                                [disabled]="submitForm.form.invalid">
+                                [disabled]="profileForm.form.invalid">
                             <span>{{ 'update' | translate }}</span>
                             <i *ngIf="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
                         </button>

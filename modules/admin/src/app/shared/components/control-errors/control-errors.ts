@@ -1,20 +1,20 @@
 import {Component, Host, Input, Optional, NgModule, ModuleWithProviders} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {TranslateModule} from "ng2-translate";
 
 @Component({
     selector: 'control-errors',
     template: `
         <div class="ui-message ui-messages-error ui-corner-all" *ngIf="error">
             <i class="fa fa-close"></i>
-            {{ error }}
+            {{ error | translate }}
         </div>
     `
 })
 export class ControlErrorsComponent {
 
     @Input() control: string;
-
     @Input() errors: Object;
 
     private _error: string;
@@ -27,25 +27,24 @@ export class ControlErrorsComponent {
 
     get error() {
         const control = this.form.controls[this.control];
-
         if (control && control.dirty) {
-            let firstError;
-
-            Object.keys(this.errors).some(err => {
-                if (control.hasError(err)) {
-                    firstError = this.errors[err];
-                    return true;
+            for (let key in control.errors) {
+                if (this.errors[key] !== undefined) {
+                    return this.errors[key];
+                } else {
+                    return control.errors[key];
                 }
-            });
-
-            return firstError;
+            }
         }
     }
 
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [
+        CommonModule,
+        TranslateModule
+    ],
     exports: [ControlErrorsComponent],
     declarations: [ControlErrorsComponent]
 })

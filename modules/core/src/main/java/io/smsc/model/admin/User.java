@@ -68,8 +68,8 @@ public class User extends BaseEntity {
     private String surname;
 
     @Column(name = "EMAIL", nullable = false)
-    @Email(message = "{user.email.format.validation}")
-    @NotEmpty(message = "{user.email.empty.validation}")
+    @Email(message = "user.email.format.validation")
+    @NotEmpty(message = "user.email.empty.validation")
     private String email;
 
     @Column(name = "ACTIVE", nullable = false)

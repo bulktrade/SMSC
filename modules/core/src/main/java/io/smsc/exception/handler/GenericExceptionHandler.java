@@ -52,8 +52,8 @@ public class GenericExceptionHandler {
         return new ResponseEntity(messages, new HttpHeaders(), HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler
-    ResponseEntity handle(Exception e) {
-        return new ResponseEntity("Some message", new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+//    @ExceptionHandler
+//    ResponseEntity handle(Exception e) {
+//        return new ResponseEntity("Some message", new HttpHeaders(), HttpStatus.BAD_REQUEST);
+//    }
 }
