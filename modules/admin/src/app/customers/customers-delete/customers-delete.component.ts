@@ -1,10 +1,11 @@
-import { Component } from "@angular/core";
-import { TranslateService } from "ng2-translate/ng2-translate";
-import { Router, ActivatedRoute } from "@angular/router";
-import { Location } from "@angular/common";
-import { Message } from "primeng/components/common/api";
-import { NotificationService } from "../../services/notification-service";
-import { CustomersService } from "../customer.service";
+import {Component} from "@angular/core";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {Router, ActivatedRoute} from "@angular/router";
+import {Location} from "@angular/common";
+import {Message} from "primeng/components/common/api";
+import {NotificationService} from "../../services/notification-service";
+import {CustomersService} from "../customer.service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'customers-delete',
@@ -28,7 +29,7 @@ export class CustomersDeleteComponent {
     ngOnInit() {
         this.translate.get('customers.confirmDeleteMsg')
             .subscribe(detail => {
-                this.msgs.push({ severity: 'warn', detail: detail });
+                this.msgs.push({severity: 'warn', detail: detail});
             });
 
         this.route.params.subscribe((params) => {
@@ -37,13 +38,17 @@ export class CustomersDeleteComponent {
     }
 
     deleteResource() {
-        this.customersService.deleteResourceById(this.id)
-            .subscribe(() => {
-                this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
-                this.location.back();
-            }, err => {
-                console.error(err);
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorDelete');
-            });
+        return Observable.create(obs => {
+            this.customersService.deleteResourceById(this.id)
+                .subscribe((res) => {
+                    obs.next(res);
+                    this.location.back();
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
+                }, err => {
+                    obs.error(err);
+                    console.error(err);
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorDelete');
+                });
+        });
     }
 }
