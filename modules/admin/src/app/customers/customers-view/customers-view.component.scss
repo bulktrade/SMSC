@@ -86,9 +86,9 @@
 
   .loading-layer,
   .loading-mask {
-    top: 0;
+    top: 135px;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 176px);
     position: absolute;
   }
 
@@ -102,8 +102,8 @@
       padding: 0;
       margin: auto;
       display: flex;
-      width: inherit;
-      height: inherit;
+      width: 100%;
+      height: 100%;
 
       .sk-cube-grid {
         padding: 0;
@@ -114,16 +114,26 @@
 }
 
 @media screen and (max-width: 640px) {
-  .search-panel {
-    padding-bottom: 8px !important;
-  }
+  #crud-view-window {
+    .search-panel {
+      padding-bottom: 8px !important;
+    }
 
-  .button-panel {
-    button {
-      flex-grow: 1;
+    .loading-layer,
+    .loading-mask {
+      top: 172px;
+      width: 100%;
+      height: calc(100% - 214px);
+      position: absolute;
+    }
 
-      &:first-of-type {
-        margin: 0 !important;
+    .button-panel {
+      button {
+        flex-grow: 1;
+
+        &:first-of-type {
+          margin: 0 !important;
+        }
       }
     }
   }
