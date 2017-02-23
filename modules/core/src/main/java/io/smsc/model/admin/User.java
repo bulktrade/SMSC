@@ -93,7 +93,7 @@ public class User extends BaseEntity {
             },
             targetEntity = Role.class)
     @JoinTable(
-            name = "USER_ROLE",
+            name = "ADMIN_USER_ROLE_USER",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
     )
@@ -109,7 +109,7 @@ public class User extends BaseEntity {
             },
             targetEntity = Group.class)
     @JoinTable(
-            name = "USER_GROUP",
+            name = "ADMIN_USER_GROUP_USER",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID")
     )
@@ -125,7 +125,7 @@ public class User extends BaseEntity {
             },
             targetEntity = Authority.class)
     @JoinTable(
-            name = "USER_AUTHORITY",
+            name = "ADMIN_USER_AUTHORITY_USER",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")
     )

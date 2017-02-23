@@ -41,7 +41,7 @@ public class Group extends BaseEntity {
             },
             targetEntity = User.class)
     @JoinTable(
-            name = "USER_GROUP",
+            name = "ADMIN_USER_GROUP_USER",
             joinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     )
@@ -57,7 +57,7 @@ public class Group extends BaseEntity {
             },
             targetEntity = Authority.class)
     @JoinTable(
-            name = "GROUP_AUTHORITY",
+            name = "ADMIN_USER_GROUP_AUTHORITY",
             joinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")
     )

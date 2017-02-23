@@ -76,37 +76,5 @@ INSERT INTO CUSTOMER (ID, COMPANY_NAME, STREET, STREET2, POSTCODE, COUNTRY, CITY
     (dashboard_box_seq.nextval, 'WIDTH_50', 'HEIGHT_50', 8, 'Box 8',  'Box 8 desc', id_dashboard, id_type_5, current_timestamp, 0);
   INSERT INTO DASHBOARD_BOX (ID, WIDTH, HEIGHT, ORDER_NUMBER, NAME, DESCRIPTION, DASHBOARD_ID, DASHBOARD_BOX_TYPE_ID, LAST_MODIFIED_DATE, VERSION) VALUES
     (dashboard_box_seq.nextval, 'WIDTH_50', 'HEIGHT_50', 9, 'Box 9',  'Box 9 desc', id_dashboard, id_type_6, current_timestamp, 0);
-
-  INSERT INTO ACL_SID (ID, PRINCIPAL, SID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_sid_seq.nextval, 1, 'user', current_timestamp, 0);
-  INSERT INTO ACL_SID (ID, PRINCIPAL, SID, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_sid_seq.nextval, 1, 'admin', current_timestamp, 0);
-
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.acl.AclClass', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.acl.AclEntry', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.acl.AclObjectIdentity', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.acl.AclSid', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.admin.User', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.admin.Role', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.admin.Authority', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.customer.Customer', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.customer.Contact', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.customer.User', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.dashboard.Dashboard', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.dashboard.DashboardBox', current_timestamp, 0);
-  INSERT INTO ACL_CLASS (ID, CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    (acl_class_seq.nextval, 'io.smsc.model.dashboard.DashboardBoxType', current_timestamp, 0);
 END;
 

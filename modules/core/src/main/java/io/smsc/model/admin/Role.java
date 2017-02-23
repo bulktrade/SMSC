@@ -43,7 +43,7 @@ public class Role extends BaseEntity {
             },
             targetEntity = User.class)
     @JoinTable(
-            name = "USER_ROLE",
+            name = "ADMIN_USER_ROLE_USER",
             joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     )

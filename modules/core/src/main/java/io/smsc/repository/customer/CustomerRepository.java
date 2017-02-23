@@ -20,7 +20,6 @@ import org.springframework.data.querydsl.binding.SingleValueBinding;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,102 +48,104 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(#customer, 'write')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#customer?.isNew() and hasAuthority('CUSTOMER_CREATE')) or " +
+            "(!#customer?.isNew() and hasAuthority('CUSTOMER_WRITE'))")
     Customer save(Customer customer);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(#id, 'io.smsc.model.customer.Customer', 'delete')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_DELETE')")
     void delete(Long id);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(#id, 'io.smsc.model.customer.Customer', 'read')")
+    @PostAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Customer findOne(Long id);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'read')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Page<Customer> findAll(Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'read')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Page<Customer> findAll(Predicate predicate, Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(returnObject, 'read')")
+    @PostAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Customer findOne(Predicate predicate);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'read')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Iterable<Customer> findAll(Predicate predicate);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'read')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Iterable<Customer> findAll(Predicate predicate, Sort sort);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'read')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Iterable<Customer> findAll(Predicate predicate, OrderSpecifier<?>[] orders);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'read')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Iterable<Customer> findAll(OrderSpecifier<?>[] orders);
 
     @Override
-    @PreAuthorize("hasRole('POWER_ADMIN_USER')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_COUNT')")
     long count(Predicate predicate);
 
     @Override
-    @PreAuthorize("hasRole('POWER_ADMIN_USER')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_EXISTS')")
     boolean exists(Predicate predicate);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'read')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Iterable<Customer> findAll(Sort sort);
 
     @Override
-    @PreAuthorize("hasRole('POWER_ADMIN_USER')")
-    boolean exists(Long aLong);
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_EXISTS')")
+    boolean exists(Long id);
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'read')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
     Iterable<Customer> findAll();
 
     @Override
     @EntityGraph(attributePaths = {"users", "contacts", "parent"})
-    @PostFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'read')")
-    Iterable<Customer> findAll(Iterable<Long> longs);
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_READ')")
+    Iterable<Customer> findAll(Iterable<Long> ids);
 
     @Override
-    @PreAuthorize("hasRole('POWER_ADMIN_USER')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_COUNT')")
     long count();
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasPermission(#customer, 'delete')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_DELETE')")
     void delete(Customer customer);
 
     @Override
     @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or hasPermission(filterObject, 'delete')")
-    void delete(Iterable<? extends Customer> entities);
+    @PreFilter("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_DELETE')")
+    void delete(Iterable<? extends Customer> customers);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER')")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('CUSTOMER_DELETE')")
     void deleteAll();
 
     @Override
     @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or (hasPermission(filterObject.isNew()) and hasAuthority('CUSTOMER_CREATE')) or (hasPermission(!filterObject.isNew()) and (hasAuthority('CUSTOMER_WRITE') or hasPermission(filterObject, 'write')))")
-    <S extends Customer> Iterable<S> save(Iterable<S> entities);
+    @PreFilter("hasRole('POWER_ADMIN_USER') or (filterObject.isNew() and hasAuthority('CUSTOMER_CREATE')) or " +
+            "(!filterObject.isNew() and hasAuthority('CUSTOMER_WRITE'))")
+    <S extends Customer> Iterable<S> save(Iterable<S> customers);
 }

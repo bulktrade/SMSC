@@ -59,9 +59,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.tokenGenerationService = tokenGenerationService;
     }
 
-   @Autowired
-   private ApplicationContext context;
-
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
@@ -77,59 +74,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public JWTAuthenticationTokenFilter authenticationTokenFilterBean() {
         return new JWTAuthenticationTokenFilter(userDetailsService, tokenGenerationService);
     }
-
-//    @Bean
-//    public DefaultMethodSecurityExpressionHandler expressionHandler() {
-//        DefaultMethodSecurityExpressionHandler securityExpressionHandler = new DefaultMethodSecurityExpressionHandler();
-//        securityExpressionHandler.setPermissionEvaluator(permissionEvaluator());
-//        securityExpressionHandler.setPermissionCacheOptimizer(permissionCacheOptimizer());
-//        return new DefaultMethodSecurityExpressionHandler();
-//    }
-//
-//    @Bean
-//    public AclPermissionCacheOptimizer permissionCacheOptimizer() {
-//        return new AclPermissionCacheOptimizer(aclService());
-//    }
-//
-//    @Bean
-//    public AclPermissionEvaluator permissionEvaluator() {
-//        return new AclPermissionEvaluator(aclService());
-//    }
-//
-//    @Bean
-//    public JdbcMutableAclService aclService() {
-//        DataSource dataSource =(DataSource) context.getBean("dataSource");
-//        return new JdbcMutableAclService(dataSource, lookupStrategy(), aclCache());
-//    }
-//
-//    @Bean
-//    public BasicLookupStrategy lookupStrategy() {
-//        return new BasicLookupStrategy((DataSource)context.getBean("dataSource"), aclCache(), aclAuthorizationStrategy(), auditLogger());
-//    }
-//
-//    @Bean
-//    public ConsoleAuditLogger auditLogger() {
-//        return new ConsoleAuditLogger();
-//    }
-//
-//    @Bean
-//    public AclAuthorizationStrategyImpl aclAuthorizationStrategy() {
-//        return new AclAuthorizationStrategyImpl(grantedAuthority(), grantedAuthority(), grantedAuthority());
-//    }
-//
-//    @Bean
-//    public SimpleGrantedAuthority grantedAuthority() {
-//        return new SimpleGrantedAuthority("ROLE_ADMIN_POWER_USER");
-////      return new SimpleGrantedAuthority("ROLE_ADMINISTRATOR");
-//    }
-//
-//    @Bean
-//    public EhCacheBasedAclCache aclCache() {
-//        EhCacheFactoryBean bean = new EhCacheFactoryBean();
-//        bean.setCacheManager(new EhCacheManagerFactoryBean().getObject());
-//        bean.setCacheName("aclCache");
-//        return new EhCacheBasedAclCache(bean.getObject(), new DefaultPermissionGrantingStrategy(auditLogger()), aclAuthorizationStrategy());
-//    }
 
     /**
      * This is the main method to configure the {@link HttpSecurity}.

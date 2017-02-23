@@ -18,7 +18,7 @@ import java.util.Set;
  * @since 0.0.1-SNAPSHOT
  */
 @Entity
-@Table(name = "AUTHORITY", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "authority_unique_name_idx")})
+@Table(name = "ADMIN_USER_AUTHORITY", uniqueConstraints = {@UniqueConstraint(columnNames = "NAME", name = "authority_unique_name_idx")})
 public class Authority extends BaseEntity {
 
     @Id
@@ -43,7 +43,7 @@ public class Authority extends BaseEntity {
             },
             targetEntity = User.class)
     @JoinTable(
-            name = "USER_AUTHORITY",
+            name = "ADMIN_USER_AUTHORITY_USER",
             joinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
     )
@@ -59,7 +59,7 @@ public class Authority extends BaseEntity {
             },
             targetEntity = Group.class)
     @JoinTable(
-            name = "GROUP_AUTHORITY",
+            name = "ADMIN_USER_GROUP_AUTHORITY",
             joinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID")
     )
