@@ -1,4 +1,4 @@
-<div id="crud-view-window" #element (window:resize)="$event">
+<div id="crud-view-window" #element (window:resize)="onResize($even)">
     <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
                  (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
                  [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">
@@ -220,8 +220,8 @@
     <p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
                  [rowsPerPageOptions]="[10,20,30,50,100,200]" (onPageChange)="onPaginate($event)"></p-paginator>
 
-    <div *ngIf="isLoading" class="loading-mask"></div>
-    <div *ngIf="isLoading" class="loading-layer">
+    <div *ngIf="isLoading" class="loading-mask" [ngStyle]="{top: tableHeaderHeight+'px', height: tableBodyHeight+'px'}"></div>
+    <div *ngIf="isLoading" class="loading-layer" [ngStyle]="{top: tableHeaderHeight+'px', height: tableBodyHeight+'px'}">
         <div class="container">
             <sk-cube-grid class="sk-cube-grid"></sk-cube-grid>
         </div>

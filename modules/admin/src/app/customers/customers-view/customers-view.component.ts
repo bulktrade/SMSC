@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Inject} from "@angular/core";
 import {Location} from "@angular/common";
 import {TranslateService} from "ng2-translate/ng2-translate";
 import {Router, ActivatedRoute} from "@angular/router";
@@ -10,6 +10,7 @@ import {NotificationService} from "../../services/notification-service";
 import {Customer} from "../model/customer";
 import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
 import {Sort, SortType} from "../../shared/sort.model";
+import {DOCUMENT} from "@angular/platform-browser";
 
 @Component({
     selector: 'customers-view',
@@ -17,12 +18,11 @@ import {Sort, SortType} from "../../shared/sort.model";
     styleUrls: ['./customers-view.component.scss']
 })
 export class CustomersViewComponent {
-
     public pagination: Pagination = new Pagination(10, null, null, 0);
 
     public columnDefs: ColumnDef[];
 
-    public rowData: Customer[] = [];
+    private rowData: Customer[] = [];
 
     public selectedRows: ColumnDef[] = [];
 
@@ -42,17 +42,27 @@ export class CustomersViewComponent {
 
     public isFilterLoading: Customer[] = [];
 
+    public tableHeaderHeight: number;
+
+    public tableBodyHeight: number;
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public notifications: NotificationService) {
+                public notifications: NotificationService,
+                @Inject(DOCUMENT) private document) {
     }
 
     ngOnInit() {
         this.rowData = this.getRowData();
         this.pagination.totalElements = this.getNumberCustomers();
+    }
+
+    ngAfterViewChecked() {
+        this.tableHeaderHeight = this.getTableHeaderHeight();
+        this.tableBodyHeight = this.getTableBodyHeight();
     }
 
     onSort(event) {
@@ -120,6 +130,20 @@ export class CustomersViewComponent {
                 console.error(err);
                 this.isLoading = false;
             });
+    }
+
+    onResize(event) {
+        this.tableHeaderHeight = this.getTableHeaderHeight();
+        this.tableBodyHeight = this.getTableBodyHeight();
+    }
+
+    getTableHeaderHeight(): number {
+        return this.document.querySelector('#crud-view-window p-dataTable .ui-datatable-header').offsetHeight +
+            this.document.querySelector('#crud-view-window p-dataTable .ui-datatable-scrollable-header').offsetHeight
+    }
+
+    getTableBodyHeight(): number {
+        return this.document.querySelector('#crud-view-window p-dataTable tbody').offsetHeight;
     }
 
     getRowData() {

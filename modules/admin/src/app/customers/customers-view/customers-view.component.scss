@@ -86,9 +86,7 @@
 
   .loading-layer,
   .loading-mask {
-    top: 135px;
     width: 100%;
-    height: calc(100% - 176px);
     position: absolute;
   }
 
@@ -117,14 +115,6 @@
   #crud-view-window {
     .search-panel {
       padding-bottom: 8px !important;
-    }
-
-    .loading-layer,
-    .loading-mask {
-      top: 172px;
-      width: 100%;
-      height: calc(100% - 214px);
-      position: absolute;
     }
 
     .button-panel {
