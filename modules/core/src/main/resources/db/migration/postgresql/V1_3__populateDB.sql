@@ -92,9 +92,9 @@ BEGIN
   INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
     ('io.smsc.model.admin.User', current_timestamp, 0);
   INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    ('io.smsc.model.Role', current_timestamp, 0);
+    ('io.smsc.model.admin.Role', current_timestamp, 0);
   INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
-    ('io.smsc.model.Authority', current_timestamp, 0);
+    ('io.smsc.model.admin.Authority', current_timestamp, 0);
   INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES
     ('io.smsc.model.customer.Customer', current_timestamp, 0);
   INSERT INTO ACL_CLASS (CLASS, LAST_MODIFIED_DATE, VERSION) VALUES

@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.smsc.annotation.Encrypt;
 import io.smsc.listeners.EncryptionListener;
-import io.smsc.model.Authority;
 import io.smsc.model.BaseEntity;
-import io.smsc.model.Role;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.dashboard.Dashboard;
 import org.hibernate.annotations.OnDelete;
@@ -15,9 +13,28 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.*;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -28,7 +45,8 @@ import java.util.Set;
  * @since 0.0.1-SNAPSHOT
  */
 @Entity(name = "AdminUser")
-@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
+@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = "USERNAME", name = "users_username_idx"),
+        @UniqueConstraint(columnNames = "EMAIL", name = "users_email_idx")})
 @EntityListeners(EncryptionListener.class)
 public class User extends BaseEntity {
 
@@ -67,7 +85,7 @@ public class User extends BaseEntity {
     @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String surname;
 
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     @Email(message = "EMAIL_FORMAT_VALIDATION_ERROR")
     @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String email;
@@ -91,7 +109,7 @@ public class User extends BaseEntity {
             },
             targetEntity = Role.class)
     @JoinTable(
-            name = "USER_ROLE",
+            name = "ADMIN_USER_ROLE_USER",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")
     )
@@ -105,9 +123,25 @@ public class User extends BaseEntity {
                     CascadeType.REFRESH,
                     CascadeType.PERSIST
             },
+            targetEntity = Group.class)
+    @JoinTable(
+            name = "ADMIN_USER_GROUP_USER",
+            joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "GROUP_ID", referencedColumnName = "ID")
+    )
+    @OrderBy("id asc")
+    private Set<Group> groups;
+
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            },
             targetEntity = Authority.class)
     @JoinTable(
-            name = "USER_AUTHORITY",
+            name = "ADMIN_USER_AUTHORITY_USER",
             joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
             inverseJoinColumns = @JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")
     )
@@ -245,6 +279,14 @@ public class User extends BaseEntity {
         this.authorities = authorities;
     }
 
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -264,14 +306,14 @@ public class User extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getSalutation().hashCode();
-        result = 31 * result + getUsername().hashCode();
-        result = 31 * result + getSalt().hashCode();
-        result = 31 * result + getFirstname().hashCode();
-        result = 31 * result + getSurname().hashCode();
-        result = 31 * result + getEmail().hashCode();
-        result = 31 * result + getCreated().hashCode();
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getSalutation());
+        result = 31 * result + Objects.hashCode(getUsername());
+        result = 31 * result + Objects.hashCode(getSalt());
+        result = 31 * result + Objects.hashCode(getFirstname());
+        result = 31 * result + Objects.hashCode(getSurname());
+        result = 31 * result + Objects.hashCode(getEmail());
+        result = 31 * result + Objects.hashCode(getCreated());
         return result;
     }
 

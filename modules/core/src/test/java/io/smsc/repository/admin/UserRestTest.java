@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "admin", roles = {"ADMIN"})
+@WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
 public class UserRestTest extends AbstractTest {
 
     @Test
@@ -36,17 +36,23 @@ public class UserRestTest extends AbstractTest {
     public void testGetAllUsers() throws Exception {
         mockMvc.perform(get("/rest/repository/users"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.users", hasSize(2)))
+                .andExpect(jsonPath("$._embedded.users", hasSize(3)))
                 .andExpect(jsonPath("$._embedded.users[0].username", is("user")))
                 .andExpect(jsonPath("$._embedded.users[0].firstname", is("userName")))
                 .andExpect(jsonPath("$._embedded.users[0].surname", is("userSurname")))
                 .andExpect(jsonPath("$._embedded.users[0].email", is("user@gmail.com")))
                 .andExpect(jsonPath("$._embedded.users[0].active", is(true)))
                 .andExpect(jsonPath("$._embedded.users[0].blocked", is(false)))
-                .andExpect(jsonPath("$._embedded.users[1].username", is("admin")))
-                .andExpect(jsonPath("$._embedded.users[1].firstname", is("adminName")))
-                .andExpect(jsonPath("$._embedded.users[1].surname", is("adminSurname")))
-                .andExpect(jsonPath("$._embedded.users[1].email", is("admin@gmail.com")))
+                .andExpect(jsonPath("$._embedded.users[2].username", is("admin")))
+                .andExpect(jsonPath("$._embedded.users[2].firstname", is("adminName")))
+                .andExpect(jsonPath("$._embedded.users[2].surname", is("adminSurname")))
+                .andExpect(jsonPath("$._embedded.users[2].email", is("admin@gmail.com")))
+                .andExpect(jsonPath("$._embedded.users[2].active", is(true)))
+                .andExpect(jsonPath("$._embedded.users[2].blocked", is(false)))
+                .andExpect(jsonPath("$._embedded.users[1].username", is("demo")))
+                .andExpect(jsonPath("$._embedded.users[1].firstname", is("demoName")))
+                .andExpect(jsonPath("$._embedded.users[1].surname", is("demoSurname")))
+                .andExpect(jsonPath("$._embedded.users[1].email", is("demo@gmail.com")))
                 .andExpect(jsonPath("$._embedded.users[1].active", is(true)))
                 .andExpect(jsonPath("$._embedded.users[1].blocked", is(false)));
     }

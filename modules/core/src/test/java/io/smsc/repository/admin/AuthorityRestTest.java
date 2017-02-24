@@ -1,8 +1,8 @@
-package io.smsc.repository;
+package io.smsc.repository.admin;
 
 import io.smsc.AbstractTest;
-import io.smsc.model.Authority;
-import io.smsc.model.Role;
+import io.smsc.model.admin.Authority;
+import io.smsc.model.admin.Role;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "Admin", roles = {"ADMIN"})
+@WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
 public class AuthorityRestTest extends AbstractTest {
 
     @Test
@@ -21,7 +21,7 @@ public class AuthorityRestTest extends AbstractTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.name", is("EXECUTE_PROCESS")));
+                .andExpect(jsonPath("$.name", is("ADMIN_USER_READ")));
     }
 
     @Test
@@ -35,9 +35,9 @@ public class AuthorityRestTest extends AbstractTest {
         mockMvc.perform(get("/rest/repository/authorities"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.authorities", hasSize(2)))
-                .andExpect(jsonPath("$._embedded.authorities[0].name", is("EXECUTE_PROCESS")))
-                .andExpect(jsonPath("$._embedded.authorities[1].name", is("KILL_PROCESS")));
+                .andExpect(jsonPath("$._embedded.authorities", hasSize(20)))
+                .andExpect(jsonPath("$._embedded.authorities[0].name", is("ADMIN_USER_READ")))
+                .andExpect(jsonPath("$._embedded.authorities[19].name", is("DASHBOARD_WRITE")));
     }
 
     @Test

@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -112,9 +113,9 @@ public class Dashboard extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getIcon().hashCode();
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getName());
+        result = 31 * result + Objects.hashCode(getIcon());
         return result;
     }
 

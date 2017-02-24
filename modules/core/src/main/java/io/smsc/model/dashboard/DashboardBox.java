@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * Specifies DashboardBox class as an entity class.
@@ -149,12 +150,12 @@ public class DashboardBox extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getWidth().hashCode();
-        result = 31 * result + getHeight().hashCode();
-        result = 31 * result + getOrder().hashCode();
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getDescription().hashCode();
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getWidth());
+        result = 31 * result + Objects.hashCode(getHeight());
+        result = 31 * result + Objects.hashCode(getOrder());
+        result = 31 * result + Objects.hashCode(getName());
+        result = 31 * result + Objects.hashCode(getDescription());
         return result;
     }
 

@@ -1,5 +1,7 @@
 package io.smsc.jwt;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.smsc.AbstractTest;
 import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
 import io.smsc.model.admin.User;
@@ -12,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,22 +26,26 @@ public class JWTAuthenticationTest extends AbstractTest {
 
     @Test
     public void testLoginUser() throws Exception {
-        MvcResult result = mockMvc.perform(post("/rest/auth/token")
+        mockMvc.perform(post("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTAuthenticationRequest("user", "password"))))
-                .andExpect(status().isOk())
-                .andReturn();
-        System.out.println("Tokens for user: " + result.getResponse().getContentAsString());
+                .andExpect(status().isOk());
     }
 
     @Test
     public void testLoginAdmin() throws Exception {
-        MvcResult result = mockMvc.perform(post("/rest/auth/token")
+        mockMvc.perform(post("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTAuthenticationRequest("admin", "admin"))))
-                .andExpect(status().isOk())
-                .andReturn();
-        System.out.println("Tokens for admin: " + result.getResponse().getContentAsString());
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testLoginDemo() throws Exception {
+        mockMvc.perform(post("/rest/auth/token")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json(new JWTAuthenticationRequest("demo", "demo"))))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -75,6 +82,21 @@ public class JWTAuthenticationTest extends AbstractTest {
                 .andExpect(status().isOk())
                 .andReturn();
         System.out.println("Refreshed token: " + result.getResponse().getContentAsString());
+    }
+
+    @Test
+    public void testJwtAccessWithExpiredToken() throws Exception {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("sub", "admin");
+        claims.put("created", new Date(System.currentTimeMillis() - 100000));
+        String expiredToken = Jwts.builder()
+                .setClaims(claims)
+                .setExpiration(new Date(System.currentTimeMillis() - 100000))
+                .signWith(SignatureAlgorithm.HS512, tokenSecret)
+                .compact();
+        mockMvc.perform(get("/rest/repository/users")
+                .header(tokenHeader, expiredToken))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test

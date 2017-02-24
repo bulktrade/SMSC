@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -57,7 +58,7 @@ public class Customer extends BaseEntity {
     private String city;
 
     @Column(name = "VATID")
-    private Double vatid;
+    private String vatid;
 
     @ManyToOne(
             fetch = FetchType.LAZY,
@@ -149,11 +150,11 @@ public class Customer extends BaseEntity {
         this.city = city;
     }
 
-    public Double getVatid() {
+    public String getVatid() {
         return vatid;
     }
 
-    public void setVatid(Double vatid) {
+    public void setVatid(String vatid) {
         this.vatid = vatid;
     }
 
@@ -200,14 +201,14 @@ public class Customer extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getCompanyName().hashCode();
-        result = 31 * result + getStreet().hashCode();
-        result = 31 * result + getStreet2().hashCode();
-        result = 31 * result + getPostcode().hashCode();
-        result = 31 * result + getCountry().hashCode();
-        result = 31 * result + getCity().hashCode();
-        result = 31 * result + (getVatid() != null ? getVatid().hashCode() : 0);
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getCompanyName());
+        result = 31 * result + Objects.hashCode(getStreet());
+        result = 31 * result + Objects.hashCode(getStreet2());
+        result = 31 * result + Objects.hashCode(getPostcode());
+        result = 31 * result + Objects.hashCode(getCountry());
+        result = 31 * result + Objects.hashCode(getCity());
+        result = 31 * result + Objects.hashCode(getVatid());
         return result;
     }
 

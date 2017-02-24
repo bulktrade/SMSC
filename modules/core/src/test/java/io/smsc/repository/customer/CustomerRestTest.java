@@ -11,12 +11,12 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "Admin", roles = {"ADMIN"})
+@WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
 public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCustomer() throws Exception {
-        mockMvc.perform(get("/rest/repository/customers/40000"))
+        mockMvc.perform(get("/rest/repository/customers/40001"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.companyName", is("SMSC")))
@@ -25,7 +25,7 @@ public class CustomerRestTest extends AbstractTest {
                 .andExpect(jsonPath("$.postcode", is("3254")))
                 .andExpect(jsonPath("$.country", is("Germany")))
                 .andExpect(jsonPath("$.city", is("Stuttgart")))
-                .andExpect(jsonPath("$.vatid", is(5672394.0)));
+                .andExpect(jsonPath("$.vatid", is("5672394.0")));
     }
 
     @Test
@@ -46,14 +46,14 @@ public class CustomerRestTest extends AbstractTest {
                 .andExpect(jsonPath("$._embedded.customers[1].postcode", is("3254")))
                 .andExpect(jsonPath("$._embedded.customers[1].country", is("Germany")))
                 .andExpect(jsonPath("$._embedded.customers[1].city", is("Stuttgart")))
-                .andExpect(jsonPath("$._embedded.customers[1].vatid", is(5672394.0)))
+                .andExpect(jsonPath("$._embedded.customers[1].vatid", is("5672394.0")))
                 .andExpect(jsonPath("$._embedded.customers[0].companyName", is("Default company")))
                 .andExpect(jsonPath("$._embedded.customers[0].street", is("First default street")))
                 .andExpect(jsonPath("$._embedded.customers[0].street2", is("Second default street")))
                 .andExpect(jsonPath("$._embedded.customers[0].postcode", is("9119")))
                 .andExpect(jsonPath("$._embedded.customers[0].country", is("Ukraine")))
                 .andExpect(jsonPath("$._embedded.customers[0].city", is("Lviv")))
-                .andExpect(jsonPath("$._embedded.customers[0].vatid", is(1234567.0)));
+                .andExpect(jsonPath("$._embedded.customers[0].vatid", is("1234567.0")));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class CustomerRestTest extends AbstractTest {
         customer.setPostcode("79005");
         customer.setCountry("Ukraine");
         customer.setCity("Lviv");
-        customer.setVatid(9999999.0);
+        customer.setVatid("9999999.0");
         String customerJson = json(customer);
         this.mockMvc.perform(post("/rest/repository/customers")
                 .contentType("application/json;charset=UTF-8")
@@ -83,20 +83,20 @@ public class CustomerRestTest extends AbstractTest {
     @Test
     public void testUpdateCustomer() throws Exception {
         Customer customer = new Customer();
-        customer.setId(40000L);
+        customer.setId(40001L);
         customer.setCompanyName("newCompany");
         customer.setStreet("newStreet");
         customer.setStreet2("newStreet2");
         customer.setPostcode("79005");
         customer.setCountry("Ukraine");
         customer.setCity("Lviv");
-        customer.setVatid(9999999.0);
+        customer.setVatid("9999999.0");
         String customerJson = json(customer);
-        mockMvc.perform(put("/rest/repository/customers/40000")
+        mockMvc.perform(put("/rest/repository/customers/40001")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/customers/40000"))
+        mockMvc.perform(get("/rest/repository/customers/40001"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.companyName", is("newCompany")))
@@ -105,7 +105,7 @@ public class CustomerRestTest extends AbstractTest {
                 .andExpect(jsonPath("$.postcode", is("79005")))
                 .andExpect(jsonPath("$.country", is("Ukraine")))
                 .andExpect(jsonPath("$.city", is("Lviv")))
-                .andExpect(jsonPath("$.vatid", is(9999999.0)));
+                .andExpect(jsonPath("$.vatid", is("9999999.0")));
     }
 
     @Test

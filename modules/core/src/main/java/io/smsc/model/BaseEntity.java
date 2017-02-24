@@ -19,7 +19,7 @@ import java.util.Date;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
-public class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
 
     protected static final long serialVersionUID = 1L;
 

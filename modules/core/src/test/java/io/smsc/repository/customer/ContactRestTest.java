@@ -11,12 +11,12 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "Admin", roles = {"ADMIN"})
+@WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
 public class ContactRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleCustomerContact() throws Exception {
-        mockMvc.perform(get("/rest/repository/customer-contacts/1"))
+        mockMvc.perform(get("/rest/repository/customer-contacts/2"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.firstname", is("SMSC")))
@@ -40,15 +40,23 @@ public class ContactRestTest extends AbstractTest {
         mockMvc.perform(get("/rest/repository/customer-contacts"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.customer-contacts", hasSize(1)))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].firstname", is("SMSC")))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].surname", is("SMSC")))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].phone", is("0674329568")))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].mobilePhone", is("0504569753")))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].fax", is("fake_fax")))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].emailAddress", is("smsc@bulk.io")))
+                .andExpect(jsonPath("$._embedded.customer-contacts", hasSize(2)))
+                .andExpect(jsonPath("$._embedded.customer-contacts[1].firstname", is("SMSC")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[1].surname", is("SMSC")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[1].phone", is("0674329568")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[1].mobilePhone", is("0504569753")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[1].fax", is("fake_fax")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[1].emailAddress", is("smsc@bulk.io")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[1].type", is(Type.CEO.toString())))
+                .andExpect(jsonPath("$._embedded.customer-contacts[1].salutation", is(Salutation.MR.toString())))
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].firstname", is("Default first name")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].surname", is("Default surname")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].phone", is("0671234567")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].mobilePhone", is("0501234567")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].fax", is("default fax")))
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].emailAddress", is("default@gmail.com")))
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].type", is(Type.CEO.toString())))
-                .andExpect(jsonPath("$._embedded.customer-contacts[0].salutation", is(Salutation.MR.toString())));
+                .andExpect(jsonPath("$._embedded.customer-contacts[0].salutation", is(Salutation.MRS.toString())));
     }
 
     @Test
@@ -60,7 +68,7 @@ public class ContactRestTest extends AbstractTest {
         contact.setPhone("0322222222");
         contact.setMobilePhone("0632222222");
         contact.setFax("new_fake_fax");
-        contact.setEmailAddress("new_fake1@gmail.com");
+        contact.setEmailAddress("new_fake@gmail.com");
         contact.setType(Type.PRIMARY);
         contact.setSalutation(Salutation.MRS);
         String customerContactJson = json(contact);
@@ -82,7 +90,7 @@ public class ContactRestTest extends AbstractTest {
     @Test
     public void testUpdateCustomerContact() throws Exception {
         Contact contact = new Contact();
-        contact.setId(1L);
+        contact.setId(2L);
         contact.setFirstname("SMSC");
         contact.setSurname("SMSC");
         contact.setPhone("0322222222");
@@ -92,11 +100,11 @@ public class ContactRestTest extends AbstractTest {
         contact.setType(Type.PRIMARY);
         contact.setSalutation(Salutation.MRS);
         String customerContactJson = json(contact);
-        mockMvc.perform(put("/rest/repository/customer-contacts/1")
+        mockMvc.perform(put("/rest/repository/customer-contacts/2")
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isOk());
-        mockMvc.perform(get("/rest/repository/customer-contacts/1"))
+        mockMvc.perform(get("/rest/repository/customer-contacts/2"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.firstname", is("SMSC")))
