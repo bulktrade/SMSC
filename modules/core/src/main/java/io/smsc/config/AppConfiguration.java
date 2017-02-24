@@ -37,7 +37,7 @@ public class AppConfiguration {
         ReloadableResourceBundleMessageSource messageBundle = new ReloadableResourceBundleMessageSource();
         messageBundle.setBasename("classpath:messages");
         messageBundle.addBasenames("classpath:messages", "classpath:validation");
-        messageBundle.setUseCodeAsDefaultMessage(false);
+        messageBundle.setUseCodeAsDefaultMessage(true);
         messageBundle.setDefaultEncoding("UTF-8");
         messageBundle.setFallbackToSystemLocale(true);
 
