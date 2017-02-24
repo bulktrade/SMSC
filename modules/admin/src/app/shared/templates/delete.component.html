@@ -4,6 +4,6 @@
 	</div>
 	<div class="toolbars">
 		<button pButton (click)="onBack()" id="cancel-button" [label]="'CANCEL' | translate"></button>
-		<button pButton (click)="deleteResource()" id="ok-button" [label]="'OK' | translate"></button>
+		<button pButton (click)="deleteResource().subscribe()" id="ok-button" [label]="'OK' | translate"></button>
 	</div>
 </div>
