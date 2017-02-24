@@ -32,8 +32,8 @@ before_install:
   - sleep 3
 
 install:
-  - nvm install 6.9.1
-  - nvm use 6.9.1
+  - nvm install 7
+  - nvm use 7
   - npm install -g yarn
 
 script:
