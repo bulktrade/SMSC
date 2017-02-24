@@ -6,6 +6,7 @@ import {Message} from "primeng/components/common/api";
 import {NotificationService} from "../../services/notification-service";
 import {CustomersService} from "../customer.service";
 import {Observable} from "rxjs";
+import {Response} from "@angular/http";
 
 @Component({
     selector: 'customers-delete',
@@ -41,7 +42,7 @@ export class CustomersDeleteComponent {
         this.location.back();
     }
 
-    deleteResource() {
+    deleteResource(): Observable<Response> {
         return Observable.create(obs => {
             this.customersService.deleteResourceById(this.id)
                 .subscribe((res) => {
