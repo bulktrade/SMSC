@@ -12,6 +12,8 @@ import {Sort, SortType} from "../../shared/sort.model";
 import {DOCUMENT} from "@angular/platform-browser";
 import * as clone from "js.clone";
 import {Message} from "primeng/components/common/api";
+import {Observable} from "rxjs";
+import {Response} from "@angular/http";
 
 @Component({
     selector: 'customers-view',
@@ -28,7 +30,7 @@ export class CustomersViewComponent {
 
     public rowData: Customer[] = [];
 
-    public selectedRows: ColumnDef[] = [];
+    public selectedRows: Customer[] = [];
 
     public contactsModel: OneToMany[] = [];
 
@@ -64,7 +66,7 @@ export class CustomersViewComponent {
     ngOnInit() {
         this.translate.get('customers.multipleDeleteRecords')
             .subscribe(detail => {
-                this.msgs.push({ severity: 'warn', detail: detail });
+                this.msgs.push({severity: 'warn', detail: detail});
             });
 
         this.rowData = this.getRowData();
@@ -137,14 +139,30 @@ export class CustomersViewComponent {
             .subscribe(rows => {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
                 this.isLoading = false;
+                this.showConfirmDeletionWindow = false;
             }, err => {
                 console.error(err);
                 this.isLoading = false;
             });
     }
 
-    deleteResources() {
-        console.log(this.selectedRows);
+    onDeleteCustomers() {
+        let batchObservables: Observable<Response>[] = [];
+        this.selectedRows.forEach(i => {
+            batchObservables.push(this.customersService.deleteResource(i));
+        });
+        return Observable.create(obs => {
+            Observable.forkJoin(batchObservables)
+                .subscribe(res => {
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteCustomers');
+                    this.setRowData();
+                    obs.next(res);
+                }, err => {
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteCustomers');
+                    console.error(err);
+                    obs.error(err);
+                });
+        });
     }
 
     onResize(event) {

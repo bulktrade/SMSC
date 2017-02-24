@@ -54,16 +54,16 @@ export class ContactsCreateComponent implements OnInit {
         return Observable.create(obs => {
             this.customersContactsService.createResource(model)
                 .subscribe((res) => {
-                        obs.next(res);
                         this.onBack();
                         this.isLoading = false;
                         this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
+                        obs.next(res);
                     },
                     err => {
-                        obs.error(err);
                         console.error(err);
                         this.isLoading = false;
                         this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
+                        obs.error(err);
                     });
         });
     }

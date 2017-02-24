@@ -111,6 +111,8 @@
   "customers.title": "Customers",
   "customers.filter": "Customers Filter",
   "customers.successDelete": "Data has been successfully deleted",
+  "customers.successDeleteCustomers": "Customers were successfully deleted",
+  "customers.errorDeleteCustomers": "Customers were not deleted",
   "customers.errorDelete": "Data was not deleted",
   "customers.update": "Update",
   "customers.create": "Create",

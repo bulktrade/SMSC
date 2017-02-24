@@ -21,8 +21,8 @@
                         <button type="button" class="ui-button-success"
                                 routerLink="/customers/create"
                                 pButton icon="fa-plus" [label]="'customers.create' | translate"></button>
-                        <button type="button" pButton class="ui-button-danger" icon="fa-remove"
-                                (click)="showConfirmDeletionWindow=true;"
+                        <button type="button" pButton class="ui-button-danger" [disabled]="!selectedRows.length"
+                                icon="fa-remove" (click)="showConfirmDeletionWindow=true;"
                                 [label]="'customers.delete' | translate"></button>
                     </div>
                 </div>
@@ -236,6 +236,6 @@
     </div>
     <div class="buttons-panel">
         <button pButton (click)="showConfirmDeletionWindow=false" id="cancel-button" [label]="'CANCEL' | translate"></button>
-        <button pButton (click)="deleteResources()" id="ok-button" [label]="'OK' | translate"></button>
+        <button pButton (click)="onDeleteCustomers().subscribe()" id="ok-button" [label]="'OK' | translate"></button>
     </div>
 </div>

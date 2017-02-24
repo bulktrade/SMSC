@@ -77,9 +77,9 @@ export class ContactsDeleteComponent {
                 this.onBack();
                 obs.next(res);
             }, err => {
-                obs.error(err);
                 console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteUser');
+                obs.error(err);
             });
         });
     }

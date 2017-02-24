@@ -46,13 +46,13 @@ export class CustomersDeleteComponent {
         return Observable.create(obs => {
             this.customersService.deleteResourceById(this.id)
                 .subscribe((res) => {
-                    obs.next(res);
                     this.onBack();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successDelete');
+                    obs.next(res);
                 }, err => {
-                    obs.error(err);
                     console.error(err);
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorDelete');
+                    obs.error(err);
                 });
         });
     }
