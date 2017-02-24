@@ -21,6 +21,10 @@ cache:
 language: java
 install: true
 
+node_js:
+  - "6"
+  - "7"
+
 jdk:
   - oraclejdk8
 
@@ -32,8 +36,6 @@ before_install:
   - sleep 3
 
 install:
-  - nvm install 7
-  - nvm use 7
   - npm install -g yarn
 
 script:
