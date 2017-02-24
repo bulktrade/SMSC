@@ -30,7 +30,8 @@ import java.util.Set;
  * @since 0.0.1-SNAPSHOT
  */
 @Entity(name = "AdminUser")
-@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = {"USERNAME"}, name = "users_username_idx")})
+@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = "USERNAME", name = "users_username_idx"),
+                                                    @UniqueConstraint(columnNames = "EMAIL", name = "users_email_idx")})
 @EntityListeners(EncryptionListener.class)
 @UserExistsValidator
 public class User extends BaseEntity {
@@ -70,7 +71,7 @@ public class User extends BaseEntity {
     @NotEmpty(message = "{user.surname.validation}")
     private String surname;
 
-    @Column(name = "EMAIL", nullable = false)
+    @Column(name = "EMAIL", nullable = false, unique = true)
     @Email(message = "{user.email.format.validation}")
     @NotEmpty(message = "{user.email.empty.validation}")
     private String email;
