@@ -33,8 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "groups", path = "groups")
 @Transactional(readOnly = true)
-// until role hierarchy is implemented
-@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
+@PreAuthorize("hasRole('ADMIN_USER')")
 public interface GroupRepository extends PagingAndSortingRepository<Group, Long>,
         QueryDslPredicateExecutor<Group>,
         QuerydslBinderCustomizer<QGroup> {
@@ -53,7 +52,7 @@ public interface GroupRepository extends PagingAndSortingRepository<Group, Long>
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#group?.isNew() and hasAuthority('GROUP_CREATE')) or " +
             "(!#group?.isNew() and hasAuthority('GROUP_WRITE'))")
-    Group save(Group group);
+    Group save(@Param("group") Group group);
 
     @Override
     @EntityGraph(attributePaths = {"authorities"})

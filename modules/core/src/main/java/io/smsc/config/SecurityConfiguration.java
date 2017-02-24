@@ -58,12 +58,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .userDetailsService(this.userDetailsService);
     }
 
+    /**
+     * Gets the {@link SecurityExpressionHandler} which is used for role hierarchy definition
+     *
+     * @return authenticationTokenFilter
+     */
     private SecurityExpressionHandler<FilterInvocation> expressionHandler() {
         DefaultWebSecurityExpressionHandler defaultWebSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
         defaultWebSecurityExpressionHandler.setRoleHierarchy(roleHierarchy());
         return defaultWebSecurityExpressionHandler;
     }
 
+    /**
+     * Gets the {@link RoleHierarchy} bean
+     *
+     * @return roleHierarchy
+     */
     @Bean
     public RoleHierarchy roleHierarchy(){
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
@@ -91,6 +101,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                // enable role hierarchy
                 .authorizeRequests().expressionHandler(expressionHandler())
                 // /rest/auth/token is used for token receiving and updating
                 .antMatchers("/").permitAll()

@@ -55,7 +55,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>,
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#user?.isNew() and hasAuthority('ADMIN_USER_CREATE')) or " +
             "(!#user?.isNew() and hasAuthority('ADMIN_USER_WRITE'))")
-    User save(User user);
+    User save(@Param("user") User user);
 
     @Override
     @EntityGraph(attributePaths = {"dashboards", "roles", "authorities", "groups", "salutation"})

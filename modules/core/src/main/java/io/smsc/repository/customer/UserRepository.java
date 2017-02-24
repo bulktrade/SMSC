@@ -35,8 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RepositoryRestResource(collectionResourceRel = "customer-users", path = "customer-users")
 @Transactional(readOnly = true)
 @Repository("CustomerUserRepository")
-// until role hierarchy is implemented
-@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
+@PreAuthorize("hasRole('ADMIN_USER')")
 public interface UserRepository extends PagingAndSortingRepository<User, Long>,
         QueryDslPredicateExecutor<User>,
         QuerydslBinderCustomizer<QUser> {
@@ -56,7 +55,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>,
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#user?.isNew() and hasAuthority('CUSTOMER_USER_CREATE')) or " +
             "(!#user?.isNew() and hasAuthority('CUSTOMER_USER_WRITE'))")
-    User save(User user);
+    User save(@Param("user") User user);
 
     @Override
     @EntityGraph(attributePaths = {"customer"})

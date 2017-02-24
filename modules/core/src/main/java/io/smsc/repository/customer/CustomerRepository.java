@@ -18,6 +18,7 @@ import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.querydsl.binding.SingleValueBinding;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,8 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "customers", path = "customers")
 @Transactional(readOnly = true)
-// until role hierarchy is implemented
-@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
+@PreAuthorize("hasRole('ADMIN_USER')")
 public interface CustomerRepository extends PagingAndSortingRepository<Customer, Long>,
         QueryDslPredicateExecutor<Customer>,
         QuerydslBinderCustomizer<QCustomer> {
@@ -50,7 +50,7 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#customer?.isNew() and hasAuthority('CUSTOMER_CREATE')) or " +
             "(!#customer?.isNew() and hasAuthority('CUSTOMER_WRITE'))")
-    Customer save(Customer customer);
+    Customer save(@Param("customer") Customer customer);
 
     @Override
     @Transactional

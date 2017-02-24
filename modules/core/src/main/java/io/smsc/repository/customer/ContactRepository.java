@@ -33,8 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "customer-contacts", path = "customer-contacts")
 @Transactional(readOnly = true)
-// until role hierarchy is implemented
-@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
+@PreAuthorize("hasRole('ADMIN_USER')")
 public interface ContactRepository extends PagingAndSortingRepository<Contact, Long>,
         QueryDslPredicateExecutor<Contact>,
         QuerydslBinderCustomizer<QContact> {
@@ -53,7 +52,7 @@ public interface ContactRepository extends PagingAndSortingRepository<Contact, L
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#contact?.isNew() and hasAuthority('CONTACT_CREATE')) or " +
             "(!#contact?.isNew() and hasAuthority('CONTACT_WRITE'))")
-    Contact save(Contact contact);
+    Contact save(@Param("contact") Contact contact);
 
     @Override
     @EntityGraph(attributePaths = {"type", "salutation"})

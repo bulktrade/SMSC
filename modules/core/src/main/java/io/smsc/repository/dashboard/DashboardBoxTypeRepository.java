@@ -33,8 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "dashboard-box-types", path = "dashboard-box-types")
 @Transactional(readOnly = true)
-// until role hierarchy is implemented
-@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
+@PreAuthorize("hasRole('ADMIN_USER')")
 public interface DashboardBoxTypeRepository extends PagingAndSortingRepository<DashboardBoxType, Long>,
         QueryDslPredicateExecutor<DashboardBoxType>,
         QuerydslBinderCustomizer<QDashboardBoxType> {
@@ -53,7 +52,7 @@ public interface DashboardBoxTypeRepository extends PagingAndSortingRepository<D
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#dashboardBoxType?.isNew() and hasAuthority('DASHBOARD_BOX_TYPE_CREATE')) or " +
             "(!#dashboardBoxType?.isNew() and hasAuthority('DASHBOARD_BOX_TYPE_WRITE'))")
-    DashboardBoxType save(DashboardBoxType dashboardBoxType);
+    DashboardBoxType save(@Param("dashboardBoxType") DashboardBoxType dashboardBoxType);
 
     @Override
     @EntityGraph(attributePaths = {"kind", "type"})

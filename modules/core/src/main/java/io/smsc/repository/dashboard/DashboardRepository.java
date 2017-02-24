@@ -38,8 +38,7 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards")
 @Transactional(readOnly = true)
-// until role hierarchy is implemented
-@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
+@PreAuthorize("hasRole('ADMIN_USER')")
 public interface DashboardRepository extends PagingAndSortingRepository<Dashboard, Long>,
         QueryDslPredicateExecutor<Dashboard>,
         QuerydslBinderCustomizer<QDashboard> {
@@ -58,7 +57,7 @@ public interface DashboardRepository extends PagingAndSortingRepository<Dashboar
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#dashboard?.isNew() and hasAuthority('DASHBOARD_CREATE')) or " +
             "(!#dashboard?.isNew() and hasAuthority('DASHBOARD_WRITE'))")
-    Dashboard save(Dashboard dashboard);
+    Dashboard save(@Param("dashboard") Dashboard dashboard);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxes"})

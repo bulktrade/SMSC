@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Specifies User class as an entity class.
@@ -205,14 +206,14 @@ public class User extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getSalutation().hashCode();
-        result = 31 * result + getUsername().hashCode();
-        result = 31 * result + getSalt().hashCode();
-        result = 31 * result + getFirstname().hashCode();
-        result = 31 * result + getSurname().hashCode();
-        result = 31 * result + getEmail().hashCode();
-        result = 31 * result + getCreated().hashCode();
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getSalutation());
+        result = 31 * result + Objects.hashCode(getUsername());
+        result = 31 * result + Objects.hashCode(getSalt());
+        result = 31 * result + Objects.hashCode(getFirstname());
+        result = 31 * result + Objects.hashCode(getSurname());
+        result = 31 * result + Objects.hashCode(getEmail());
+        result = 31 * result + Objects.hashCode(getCreated());
         return result;
     }
 
