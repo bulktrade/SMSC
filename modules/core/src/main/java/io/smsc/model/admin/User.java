@@ -42,16 +42,16 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "SALUTATION", nullable = false)
-    @NotNull(message = "{user.salutation.validation}")
+    @NotNull(message = "EMPTY_VALIDATION_ERROR")
     private Salutation salutation;
 
     @Column(name = "USERNAME", nullable = false, unique = true)
-    @NotEmpty(message = "{user.username.validation}")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String username;
 
     @Encrypt
     @Column(name = "PASSWORD", nullable = false)
-    @NotEmpty(message = "{user.password.empty.validation}")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     @JsonIgnore
     private String password;
 
@@ -60,16 +60,16 @@ public class User extends BaseEntity {
     private String salt;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "{user.firstname.validation}")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String firstname;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "{user.surname.validation}")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String surname;
 
     @Column(name = "EMAIL", nullable = false)
-    @Email(message = "user.email.format.validation")
-    @NotEmpty(message = "user.email.empty.validation")
+    @Email(message = "EMAIL_FORMAT_VALIDATION_ERROR")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String email;
 
     @Column(name = "ACTIVE", nullable = false)
