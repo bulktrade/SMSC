@@ -14,7 +14,7 @@ import {CustomersService} from "./customer.service";
 import {CustomersFormModule} from "./customers-form/customers-form.component";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {CustomersUpdateComponent} from "./customers-update/customers-update.component";
-import {CustomersCreateComponent} from "./customers-create/crud-create.component";
+import {CustomersCreateComponent} from "./customers-create/customers-create.component";
 import {HTTP_INTERCEPTOR_PROVIDER} from "../shared/http-interceptor";
 import {CustomersDeleteComponent} from "./customers-delete/customers-delete.component";
 import {CustomersContactsService} from "./customers-contacts/customer-contact.service";

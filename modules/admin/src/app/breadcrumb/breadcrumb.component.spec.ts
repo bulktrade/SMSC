@@ -22,7 +22,7 @@ describe('BreadcrumbComponent', () => {
                 BreadcrumbService
             ],
             imports: [
-                TranslateModule,
+                TranslateModule.forRoot(),
                 HttpModule,
                 RouterModule
             ]

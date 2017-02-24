@@ -115,7 +115,11 @@ $primaryColor: #009688;
     }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 992px) {
+    #sidebar-wrapper {
+        top: 0;
+    }
+
     #navigation-window #wrapper .main-content {
         padding: 13px 10px 12px 10px;
     }

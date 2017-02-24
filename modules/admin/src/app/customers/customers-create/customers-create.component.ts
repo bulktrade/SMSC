@@ -12,7 +12,6 @@ import {Customer} from "../model/customer";
         <customers-form [submitButtonName]="submitButtonName"
                     (onSubmit)="onSubmit($event)"></customers-form>
     `,
-    styleUrls: [],
     providers: [Location]
 })
 

@@ -15,17 +15,7 @@ import {Contact} from "../../model/contact";
 
 @Component({
     selector: 'contacts-delete',
-    template: `
-        <div id="confirm-delete-window">
-            <div class="warning-growl">
-                <p-messages [value]="msgs" [closable]="false"></p-messages>
-            </div>
-            <div class="formButtons">
-                <button pButton (click)="onBack()" id="cancel" [label]="'CANCEL' | translate"></button>
-                <button pButton (click)="deleteResource()" id="ok" [label]="'OK' | translate"></button>
-            </div>
-        </div>
-    `,
+    templateUrl: './../../../shared/templates/delete.component.html',
     styleUrls: ['./../../../shared/styles/delete.component.scss']
 })
 
@@ -72,7 +62,7 @@ export class ContactsDeleteComponent {
         }
     }
 
-    deleteResource() {
+    deleteResource(): Observable<Response> {
         let observableDelete: Observable<Response>;
 
         if (this.isDirectiveCall) {
@@ -81,12 +71,16 @@ export class ContactsDeleteComponent {
             observableDelete = this.contactsService.deleteResourceById(this.id);
         }
 
-        observableDelete.subscribe(() => {
-            this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteUser');
-            this.onBack();
-        }, err => {
-            console.error(err);
-            this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteUser');
+        return Observable.create(obs => {
+            observableDelete.subscribe((res) => {
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteUser');
+                this.onBack();
+                obs.next(res);
+            }, err => {
+                console.error(err);
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteUser');
+                obs.error(err);
+            });
         });
     }
 }

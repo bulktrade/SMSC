@@ -1,4 +1,4 @@
-#crud-view-window {
+#customers-view-window {
   position: relative;
 
   .ctrl-panel {
@@ -86,9 +86,7 @@
 
   .loading-layer,
   .loading-mask {
-    top: 0;
     width: 100%;
-    height: 100%;
     position: absolute;
   }
 
@@ -102,8 +100,8 @@
       padding: 0;
       margin: auto;
       display: flex;
-      width: inherit;
-      height: inherit;
+      width: 100%;
+      height: 100%;
 
       .sk-cube-grid {
         padding: 0;
@@ -113,17 +111,41 @@
   }
 }
 
-@media screen and (max-width: 640px) {
-  .search-panel {
-    padding-bottom: 8px !important;
+#confirm-deletion-window {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  color: #485a6a;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  background: #fff;
+
+  h1 {
+    font-size: 16px;
   }
 
-  .button-panel {
-    button {
-      flex-grow: 1;
+  .warning-growl {
+    padding: 5px 16px 0 16px;
+  }
 
-      &:first-of-type {
-        margin: 0 !important;
+  .buttons-panel {
+    float: right;
+    padding: 0 16px 14px 0;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  #customers-view-window {
+    .search-panel {
+      padding-bottom: 8px !important;
+    }
+
+    .button-panel {
+      button {
+        flex-grow: 1;
+
+        &:first-of-type {
+          margin: 0 !important;
+        }
       }
     }
   }
