@@ -139,11 +139,11 @@ export class OneToOneComponent implements OnInit {
             result = `${model['id']} `;
 
             this.renderProperties.forEach((item, i) => {
-               result += model[item];
+                result += model[item];
 
-               if (i !== this.renderProperties.length - 1) {
+                if (i !== this.renderProperties.length - 1) {
                     result += ', '
-               }
+                }
             });
 
             return result;
@@ -176,8 +176,7 @@ export class OneToOneComponent implements OnInit {
 export class OneToOneModule {
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: OneToOneModule,
-            providers: []
+            ngModule: OneToOneModule
         };
     }
 }

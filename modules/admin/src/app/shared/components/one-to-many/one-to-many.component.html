@@ -1,11 +1,9 @@
 <div id="one-to-many-window" *ngIf="!isLoading">
     <div class="title-panel">
-        <i class="fa fa-plus-square-o" (click)="onCreate()"
+        <i class="fa fa-plus-square-o create-button" (click)="onCreate()"
            [title]="'1:n.create' | translate" aria-hidden="true"></i>
     </div>
-    <ng-container *ngIf="resources.length">
-        <hr>
-    </ng-container>
+    <hr *ngIf="resources.length">
     <div class="row">
         <div class="col-sm-12 col-md-6" *ngFor="let item of resources; let i = index">
             <div class="data-item">
