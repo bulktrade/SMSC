@@ -10,7 +10,7 @@
 
     <artifactId>core</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.2</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <properties>
         <timestamp>${maven.build.timestamp}</timestamp>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>io.smsc</groupId>
             <artifactId>admin</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
