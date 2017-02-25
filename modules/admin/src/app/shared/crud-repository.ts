@@ -107,8 +107,7 @@ export abstract class CrudRepository<T> {
     getSelfLinkedEntityById<T extends Entity>(id: number): T {
         let entity: Entity = new Entity();
         entity._links = new Links();
-        entity._links.self = new Link();
-        entity._links.self.href = this.apiUrl + '/repository/' + this.repositoryName + '/' + id;
+        entity._links.self = new Link(this.apiUrl + '/repository/' + this.repositoryName + '/' + id);
 
         return <T>entity;
     }
