@@ -50,7 +50,8 @@ before_cache:
 deploy:
   skip_cleanup: true
   provider: releases
-  file: "modules/core/target/smsc.jar"
+  file:
+    - "modules/core/target/smsc.jar"
   on:
     tags: true
 

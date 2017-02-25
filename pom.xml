@@ -149,7 +149,7 @@
                         <releaseProfiles>release</releaseProfiles>
                         <goals>deploy</goals>
                         <tagNameFormat>v@{project.version}</tagNameFormat>
-                        <arguments>-Pskip-integration-tests</arguments>
+                        <arguments>-PskipBuildAndTests</arguments>
                     </configuration>
                 </plugin>
             </plugins>
