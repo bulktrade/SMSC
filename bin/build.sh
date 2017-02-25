@@ -12,5 +12,6 @@ fi
 
 if [ "$TRAVIS_BRANCH" != "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     # Docker build
-    mvn -f modules/core docker:build -PskipBuildAndTests -DdockerImageTags=${TRAVIS_BRANCH//\//-}
+    DOCKER_IMAGE_TAG=${TRAVIS_BRANCH//\//-}
+    mvn -f modules/core docker:build -PskipBuildAndTests -DdockerImageTags=${DOCKER_IMAGE_TAG//release-/}
 fi
