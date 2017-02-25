@@ -3,14 +3,14 @@
     <parent>
         <artifactId>smsc</artifactId>
         <groupId>io.smsc</groupId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.0.2</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>core</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
 
     <properties>
         <timestamp>${maven.build.timestamp}</timestamp>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>io.smsc</groupId>
             <artifactId>admin</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
