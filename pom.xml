@@ -6,7 +6,7 @@
     <groupId>io.smsc</groupId>
     <artifactId>smsc</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
 
     <name>SMSC</name>
     <description>Open Source SMSC solution with monitoring, billing, SMPP, SS7 and REST API support.</description>
@@ -30,7 +30,7 @@
         <url>https://github.com/bulktrade/SMSC</url>
         <connection>scm:git:ssh://github.com/bulktrade/SMSC.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/bulktrade/SMSC.git</developerConnection>
-        <tag>v0.0.1</tag>
+        <tag>v0.0.2</tag>
     </scm>
 
     <issueManagement>
