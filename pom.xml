@@ -29,7 +29,7 @@
     <scm>
         <url>https://github.com/bulktrade/SMSC</url>
         <connection>scm:git:ssh://github.com/bulktrade/SMSC.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:bulktrade/SMSC.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com/bulktrade/SMSC.git</developerConnection>
         <tag>v0.0.2</tag>
     </scm>
 
