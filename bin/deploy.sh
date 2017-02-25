@@ -6,9 +6,6 @@ if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; t
 
     # Heroku deploy
     mvn heroku:deploy -PskipBuildAndTests
-
-    # Release to public repository
-    mvn --settings sonatype-settings.xml -PskipBuildAndTests -B deploy
 fi
 
 if [ "$TRAVIS_BRANCH" != "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
