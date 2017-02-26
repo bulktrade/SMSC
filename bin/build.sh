@@ -1,10 +1,11 @@
 #!/bin/bash
 set -e
-mvn clean install
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     # Raise the version
     mvn -B release:clean release:prepare release:perform --settings sonatype-settings.xml
+else
+    mvn clean install
 fi
 
 # Docker login
