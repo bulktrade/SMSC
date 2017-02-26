@@ -3,9 +3,9 @@ set -e
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     # Raise the version
-    mvn -B release:clean release:prepare release:perform --settings sonatype-settings.xml
+    mvn -B jgitflow:release-start jgitflow:release-finish --settings sonatype-settings.xml
 else
-    mvn clean install
+    mvn -B clean install
 fi
 
 # Docker login
