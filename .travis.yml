@@ -67,7 +67,3 @@ addons:
   srcclr: true
   sonarqube: true
   sauce_connect: true
-
-env:
-  global:
-  - REPO="git@github.com:bulktrade/SMSC.git"

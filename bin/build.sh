@@ -3,7 +3,7 @@ set -e
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     openssl aes-256-cbc -K $encrypted_c5c9d3eefa3c_key -iv $encrypted_c5c9d3eefa3c_iv -in codesigning.asc.enc -out codesigning.asc -d
-    gpg --fast-import signingkey.asc
+    gpg --fast-import codesigning.asc
 
     # Raise the version
     mvn -B clean deploy --settings sonatype-settings.xml -Prelease
