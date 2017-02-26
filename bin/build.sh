@@ -3,7 +3,7 @@ set -e
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     # Raise the version
-    mvn -B jgitflow:release-start jgitflow:release-finish --settings sonatype-settings.xml
+    mvn -B clean deploy --settings sonatype-settings.xml -Prelease
 else
     mvn -B clean install
 fi
