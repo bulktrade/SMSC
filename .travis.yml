@@ -59,7 +59,14 @@ before_script:
            && printf "%s\n" \
                 "Host github.com" \
                 "  IdentityFile $SSH_FILE" \
+                "  BatchMode yes" \
+                "  PasswordAuthentication no" \
+                "  StrictHostKeyChecking no" \
+                "  CheckHostIP no" \
                 "  LogLevel ERROR" >> ~/.ssh/config
+  - git remote set-url origin $REPO
+  - git config --global user.email "$GH_USER_EMAIL"
+  - git config --global user.name "$GH_USER_NAME"
 
 script:
   - ./bin/build.sh
@@ -70,7 +77,6 @@ after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 before_cache:
-
   - mkdir -p $HOME/docker && docker images -a --filter='dangling=false' --format '{{.Repository}}:{{.Tag}} {{.ID}}' | xargs -n 2 -t sh -c 'test -e $HOME/docker/$1.tar.gz || docker save $0 | gzip -2 > $HOME/docker/$1.tar.gz'
 
 deploy:
@@ -94,3 +100,7 @@ addons:
   srcclr: true
   sonarqube: true
   sauce_connect: true
+
+env:
+  global:
+  - REPO="git@github.com:bulktrade/SMSC.git"
