@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     # Docker push
-    mvn -f modules/core docker:push -DpushImage -PskipBuildAndTests
+    mvn -B -f modules/core docker:push -DpushImage -PskipBuildAndTests
 
     # Heroku deploy
-    mvn heroku:deploy -PskipBuildAndTests
+    mvn -B heroku:deploy -PskipBuildAndTests
 fi
 
 if [ "$TRAVIS_BRANCH" != "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
