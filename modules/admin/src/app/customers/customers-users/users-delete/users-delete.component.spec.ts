@@ -9,6 +9,8 @@ import {APP_PROVIDERS} from "../../../app.module";
 import {ConfigService} from "../../../config/config.service";
 import {ConfigServiceMock} from "../../../shared/test/stub/config.service";
 import {UsersModule} from "../customers-users.module";
+import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
 
 describe('Component: UsersDeleteComponent', () => {
     let componentFixture: ComponentHelper<UsersDeleteComponent> =
@@ -21,6 +23,10 @@ describe('Component: UsersDeleteComponent', () => {
             providers: [
                 APP_PROVIDERS,
                 {provide: XHRBackend, useClass: MockBackend},
+                {
+                    provide: ActivatedRoute,
+                    useValue: {params: Observable.of({userId: 40000}), component: UsersDeleteComponent}
+                },
                 {provide: ConfigService, useClass: ConfigServiceMock},
             ]
         });
@@ -71,5 +77,17 @@ describe('Component: UsersDeleteComponent', () => {
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorDeleteUser');
         expect(console.error).toHaveBeenCalledWith(new Response(new ResponseOptions({status: 500})));
+    }));
+
+    it('.onBack()', async(() => {
+        spyOn(componentFixture.instance.location, 'back');
+        componentFixture.instance.onBack();
+        expect(componentFixture.instance.location.back).toHaveBeenCalled();
+    }));
+
+    it('.ngOnInit()', async(() => {
+        componentFixture.instance.ngOnInit();
+        expect(componentFixture.instance.id).toEqual(40000);
+        expect(componentFixture.instance.isDirectiveCall).toBeFalsy();
     }));
 });

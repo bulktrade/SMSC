@@ -48,7 +48,7 @@ export class ContactsDeleteComponent {
             });
 
         this.route.params.subscribe((params) => {
-            this.id = +params['contactId'];
+            this.id = params['contactId'];
         });
 
         this.isDirectiveCall = !(this.route.component === ContactsDeleteComponent);

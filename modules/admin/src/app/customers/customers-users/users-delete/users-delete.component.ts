@@ -50,7 +50,7 @@ export class UsersDeleteComponent {
             });
 
         this.route.params.subscribe((params) => {
-            this.id = +params['userId'];
+            this.id = params['userId'];
         });
 
         this.isDirectiveCall = !(this.route.component === UsersDeleteComponent);
