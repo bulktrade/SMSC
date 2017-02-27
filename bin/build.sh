@@ -16,11 +16,11 @@ docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
 
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     # Docker build
-    mvn -B -f modules/core docker:build -DpushImage -PskipBuildAndTests
+    mvn -B -f modules/core docker:build -DskipDockerPush -PskipBuildAndTests
 fi
 
 if [ "$TRAVIS_BRANCH" != "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
     # Docker build
     DOCKER_IMAGE_TAG=${TRAVIS_BRANCH//\//-}
-    mvn -B -f modules/core docker:build -PskipBuildAndTests -DdockerImageTags=${DOCKER_IMAGE_TAG//release-/}
+    mvn -B -f modules/core docker:build -DskipDockerPush -PskipBuildAndTests -DdockerImageTags=${DOCKER_IMAGE_TAG//release-/}
 fi
