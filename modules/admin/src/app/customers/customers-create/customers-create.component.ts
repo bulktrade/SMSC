@@ -5,17 +5,17 @@ import {Location} from "@angular/common";
 import {NotificationService} from "../../services/notification-service";
 import {CustomersService} from "../customer.service";
 import {Customer} from "../model/customer";
-import {Observable} from "rxjs";
 
 @Component({
     selector: 'customers-create',
     template: `
         <customers-form [submitButtonName]="submitButtonName"
-                    (onSubmit)="onSubmit($event).subscribe()"></customers-form>
+                    (onSubmit)="onSubmit($event)"></customers-form>
     `,
     providers: [Location]
 })
 export class CustomersCreateComponent {
+
     public submitButtonName: string = 'customers.create';
 
     public isLoading: boolean = false;
@@ -30,20 +30,16 @@ export class CustomersCreateComponent {
 
     onSubmit(data) {
         this.isLoading = true;
-        return Observable.create(obs => {
-            this.customersService.createResource(data)
-                .subscribe((customer: Customer) => {
-                    this.isLoading = false;
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateCustomer');
-                    this.router.navigate(['/customers', customer['id'], 'update']).then();
-                    obs.next(customer);
-                }, err => {
-                    console.error(err);
-                    this.isLoading = false;
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateCustomer');
-                    obs.error(err);
-                })
-        });
+        this.customersService.createResource(data)
+            .subscribe((customer: Customer) => {
+                this.isLoading = false;
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateCustomer');
+                this.router.navigate(['/customers', customer['id'], 'update']);
+            }, err => {
+                console.error(err);
+                this.isLoading = false;
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateCustomer');
+            })
     }
 
 }

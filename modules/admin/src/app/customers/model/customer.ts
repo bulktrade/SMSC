@@ -18,7 +18,6 @@ export interface Customer extends Entity {
     street2: string;
     postcode: string;
     vatid: string;
-    customerId: number;
     contacts: Contact[];
     users: CustomerUser[];
     parent: Customer;

@@ -14,7 +14,8 @@ describe('Config Service', () => {
             imports: [HttpModule]
         });
 
-        spyOn(window, 'XMLHttpRequest').and.returnValue(mockXHR);
+        spyOn(XMLHttpRequest.prototype, 'open').and.callThrough();
+        spyOn(XMLHttpRequest.prototype, 'send');
     });
 
     it('should get config.json settings', inject([ConfigService], (configService) => {
@@ -30,6 +31,7 @@ describe('Config Service', () => {
             expect(res.apiUrl).toEqual(responseText.apiUrl);
             expect(res.i18nPath).toEqual(responseText.i18nPath);
             expect(res.debug).toEqual(responseText.debug);
+            expect(XMLHttpRequest.prototype.open).toHaveBeenCalledWith('GET', 'config.json');
         });
     }));
 

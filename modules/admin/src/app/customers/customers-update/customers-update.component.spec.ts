@@ -16,6 +16,23 @@ describe('Component: CustomersUpdateComponent', () => {
     let componentFixture: ComponentHelper<CustomersUpdateComponent> =
         new ComponentHelper<CustomersUpdateComponent>(null, null, null, null);
     let mockBackend;
+    let customer: Customer = <Customer>{
+        country: '',
+        city: '',
+        companyName: '',
+        street: '',
+        street2: '',
+        postcode: '',
+        vatid: '',
+        contacts: [],
+        users: [],
+        parent: <Customer>{},
+        _links: {
+            self: {
+                href: ''
+            }
+        }
+    };
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -58,26 +75,41 @@ describe('Component: CustomersUpdateComponent', () => {
         });
     }));
 
-    it('should get resources', async(() => {
-        let data: Customer = <Customer>{
-            vatid: '1234',
-            country: 'Ukraine',
-            _links: {
-                self: {
-                    href: ''
-                }
-            }
-        };
+    it('submit button name should be `customers.update`', async(() => {
+        componentFixture.fixture.detectChanges();
+        componentFixture.fixture.whenStable().then(() => {
+            expect(componentFixture.instance.submitButtonName).toEqual('customers.update');
+            expect(componentFixture.element.querySelector('#submit-button').innerText).toEqual('customers.update');
+        });
+    }));
 
+    it('should get an success message about update new customer', async(() => {
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({body: data});
+            let response = new ResponseOptions({body: {id: 1}});
             connection.mockRespond(new Response(response));
         });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
 
-        componentFixture.instance.onSubmit(data)
-            .subscribe(res => {
-                expect(res.vatid).toEqual('1234');
-                expect(res.country).toEqual('Ukraine');
-            });
+        componentFixture.instance.onSubmit(customer);
+
+        expect(componentFixture.instance.isLoading).toBeFalsy();
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdateCustomer');
+    }));
+
+    it('should get an error if customer was not updated', async(() => {
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({status: 500});
+            connection.mockError(new Response(response));
+        });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(console, 'error');
+
+        componentFixture.instance.onSubmit(customer);
+
+        expect(componentFixture.instance.isLoading).toBeFalsy();
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdateCustomer');
+        expect(console.error).toHaveBeenCalledWith(new Response(new ResponseOptions({status: 500})));
     }));
 });

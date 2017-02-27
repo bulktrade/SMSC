@@ -5,13 +5,12 @@ import {Location} from "@angular/common";
 import {NotificationService} from "../../services/notification-service";
 import {CustomersService} from "../customer.service";
 import {Customer} from "../model/customer";
-import {Observable} from "rxjs";
 
 @Component({
     selector: 'customers-update',
     template: `
         <customers-form [submitButtonName]="submitButtonName" [model]="model"
-                    [isLoading]="isLoading" (onSubmit)="onSubmit($event).subscribe()"></customers-form>
+                    [isLoading]="isLoading" (onSubmit)="onSubmit($event)"></customers-form>
     `,
     styleUrls: [],
     providers: [Location]
@@ -49,19 +48,15 @@ export class CustomersUpdateComponent {
 
     onSubmit(entity: Customer) {
         this.isLoading = true;
-        return Observable.create(obs => {
-            this.customersService.updateResource(entity)
-                .subscribe((res) => {
-                    this.isLoading = false;
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
-                    obs.next(res);
-                }, err => {
-                    console.error(err);
-                    this.isLoading = false;
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
-                    obs.error(err);
-                });
-        });
+        this.customersService.updateResource(entity)
+            .subscribe(() => {
+                this.isLoading = false;
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
+            }, err => {
+                console.error(err);
+                this.isLoading = false;
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
+            });
     }
 
 }
