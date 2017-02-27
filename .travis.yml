@@ -40,6 +40,8 @@ script:
 
 after_success:
   - ./bin/deploy.sh
+  
+after_deploy:
   - ./bin/report.sh
   - bash <(curl -s https://codecov.io/bash)
 
