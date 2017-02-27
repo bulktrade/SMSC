@@ -1,11 +1,11 @@
-<div class="addingForm">
+<div id="users-update-form">
     <p-panel>
         <p-header>
             <i class="fa fa-chevron-left" aria-hidden="true" title="{{ 'BACK' | translate }}" (click)="onBack()"
                id="back-button"></i>
             <span *ngIf="!isDirectiveCall">{{ 'users' | translate }}</span>
         </p-header>
-        <form role="form" (ngSubmit)="onSubmit(model)" #dynamicForm="ngForm" novalidate>
+        <form role="form" (ngSubmit)="onSubmit(model).subscribe()" #dynamicForm="ngForm" novalidate>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
 
                 <div class="ui-grid-row">

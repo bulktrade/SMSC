@@ -12,6 +12,7 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'contacts-update',
@@ -19,7 +20,7 @@ import {ControlErrorsModule} from "../../../shared/components/control-errors/con
 })
 export class ContactsUpdateComponent implements OnInit {
 
-    public model: any = {};
+    public model: Contact = null;
 
     public contactId: number;
 
@@ -52,22 +53,26 @@ export class ContactsUpdateComponent implements OnInit {
     }
 
     getModel() {
-        return this.route.snapshot.data['update'];
+        return this.model || this.route.snapshot.data['update'];
     }
 
     onSubmit(entity) {
         this.isLoading = true;
-        this.contactsService.updateResource(entity)
-            .subscribe(() => {
-                    this.onBack();
-                    this.isLoading = false;
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
-                },
-                err => {
-                    console.error(err);
-                    this.isLoading = false;
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
-                });
+        return Observable.create(obs => {
+            this.contactsService.updateResource(entity)
+                .subscribe((res) => {
+                        this.onBack();
+                        this.isLoading = false;
+                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
+                        obs.next(res);
+                    },
+                    err => {
+                        console.error(err);
+                        this.isLoading = false;
+                        this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
+                        obs.error(err);
+                    });
+        });
     }
 
     onBack() {

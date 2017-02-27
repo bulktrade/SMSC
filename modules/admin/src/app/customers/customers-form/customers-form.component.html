@@ -104,13 +104,12 @@
                     </div>
                     <div class="ui-grid-col-6">
                         <input pInputText class="form-control" [(ngModel)]="model['vatid']"
-                               #vatid="ngModel" pattern="^(0|[1-9][0-9]*)$"
-                               required name="vatid" type="number" id="vatid">
+                               #vatid="ngModel"
+                               required name="vatid" type="text" id="vatid">
                     </div>
                     <div class="ui-grid-col-4">
                         <control-errors control="vatid"
-                                        [errors]="{required: ('customers.required'| translate),
-                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
                     </div>
                 </div>
 

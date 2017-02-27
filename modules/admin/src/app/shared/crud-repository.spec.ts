@@ -3,7 +3,6 @@ import {HttpModule, XHRBackend, Http, ResponseOptions, Response} from "@angular/
 import {MockBackend} from "@angular/http/testing";
 import {CrudRepository} from "./crud-repository";
 import {ConfigService} from "../config/config.service";
-import {CustomersService} from "../customers/customer.service";
 import {Entity} from "./entity.model";
 import {ConfigServiceMock} from "./test/stub/config.service";
 
@@ -22,7 +21,7 @@ class CrudRepositoryService extends CrudRepository<Data> {
     }
 }
 
-describe('Crud repository', () => {
+describe('Service:  CrudRepository', () => {
     let mockBackend, service: CrudRepositoryService;
 
     beforeEach(() => {
@@ -31,12 +30,18 @@ describe('Crud repository', () => {
             providers: [
                 {provide: XHRBackend, useClass: MockBackend},
                 {provide: ConfigService, useClass: ConfigServiceMock},
-                CustomersService
+                {
+                    provide: CrudRepositoryService,
+                    useFactory: (http: Http, configService: ConfigService) => {
+                        return new CrudRepositoryService(http, configService)
+                    },
+                    deps: [Http, ConfigService]
+                }
             ]
         })
     });
 
-    beforeEach(inject([CustomersService, XHRBackend], (_service, _mockBackend) => {
+    beforeEach(inject([CrudRepositoryService, XHRBackend], (_service, _mockBackend) => {
         service = _service;
         mockBackend = _mockBackend;
     }));

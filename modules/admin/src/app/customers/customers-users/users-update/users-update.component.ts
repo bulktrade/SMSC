@@ -13,6 +13,7 @@ import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'users-update',
@@ -20,7 +21,7 @@ import {CheckboxModule} from "primeng/components/checkbox/checkbox";
 })
 export class UsersUpdateComponent implements OnInit {
 
-    public model: any = {};
+    public model: CustomerUser = null;
 
     public userId: number;
 
@@ -53,22 +54,26 @@ export class UsersUpdateComponent implements OnInit {
     }
 
     getModel() {
-        return this.route.snapshot.data['update'];
+        return this.model || this.route.snapshot.data['update'];
     }
 
     onSubmit(entity: CustomerUser) {
         this.isLoading = true;
-        this.customersUsersService.updateResource(entity)
-            .subscribe(() => {
-                    this.onBack();
-                    this.isLoading = false;
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
-                },
-                err => {
-                    console.error(err);
-                    this.isLoading = false;
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
-                });
+        return Observable.create(obs => {
+            this.customersUsersService.updateResource(entity)
+                .subscribe((res) => {
+                        this.onBack();
+                        this.isLoading = false;
+                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
+                        obs.next(res);
+                    },
+                    err => {
+                        console.error(err);
+                        this.isLoading = false;
+                        this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
+                        obs.next(err);
+                    });
+        });
     }
 
     onBack() {
