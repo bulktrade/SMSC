@@ -13,9 +13,9 @@ import {Customer} from "../model/customer";
     selector: 'parent-customer',
     template: `
     <div id="one-to-one-component">
-        <p-autoComplete [ngModel]="getModelBySchema(model)" (ngModelChange)="onSelectResource($event)"
+        <p-autoComplete [ngModel]="getModelBySchema(model)" (ngModelChange)="onSelectResource($event).subscribe()"
                         [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
-                         styleClass="ui-sm-12 ui-md-12 ui-g-nopad" [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
+                         styleClass="ui-sm-12 ui-md-12 ui-g-nopad" [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick().subscribe()">
             <template let-model pTemplate="item">
                 <div class="ui-helper-clearfix">
                     <div class="titleColumns">
@@ -27,7 +27,7 @@ import {Customer} from "../model/customer";
                 </div>
             </template>
         </p-autoComplete>
-        <i *ngIf="model.hasOwnProperty('id')" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
+        <i *ngIf="model.hasOwnProperty('id')" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship().subscribe()"></i>
     </div>
     `,
     styles: [`
@@ -53,6 +53,19 @@ export class ParentCustomerComponent extends OneToOneComponent implements OnInit
                 public notifications: NotificationService,
                 public http: Http) {
         super(route, notifications, http);
+    }
+
+    filterResources(event) {
+        this.filteredResources = [];
+        this.resources.forEach(i => {
+            let resource = i;
+            if (resource['companyName'].toLowerCase().includes(event.query.toLowerCase()) ||
+                String(resource['id']).includes(event.query)) {
+                if (!this.hideOwn || this.id != +i['id']) {
+                    this.filteredResources.push(resource);
+                }
+            }
+        });
     }
 }
 
