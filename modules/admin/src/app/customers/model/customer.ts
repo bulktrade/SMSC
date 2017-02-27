@@ -7,7 +7,7 @@ interface Links {
     customer: Link;
     contacts: Link;
     parent: Link;
-    customerUsers: Link;
+    users: Link;
 }
 
 export interface Customer extends Entity {

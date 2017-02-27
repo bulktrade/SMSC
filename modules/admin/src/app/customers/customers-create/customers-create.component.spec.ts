@@ -55,7 +55,7 @@ describe('Component: CustomersCreateComponent', () => {
         });
     }));
 
-    it('should get an success message about create new customer', async(() => {
+    it('should get a success message about create new customer', async(() => {
         mockBackend.connections.subscribe(connection => {
             let response = new ResponseOptions({body: {id: 1}});
             connection.mockRespond(new Response(response));

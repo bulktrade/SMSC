@@ -64,7 +64,7 @@ export class UsersDeleteComponent {
         }
     }
 
-    deleteResource(): Observable<Response> {
+    deleteResource() {
         let observableDelete: Observable<Response>;
 
         if (this.isDirectiveCall) {
@@ -73,16 +73,12 @@ export class UsersDeleteComponent {
             observableDelete = this.customersUsersService.deleteResourceById(this.id);
         }
 
-        return Observable.create(obs => {
-            observableDelete.subscribe((res) => {
-                this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteUser');
-                this.onBack();
-                obs.next(res);
-            }, err => {
-                console.error(err);
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteUser');
-                obs.error(err);
-            });
+        observableDelete.subscribe(() => {
+            this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteUser');
+            this.onBack();
+        }, err => {
+            console.error(err);
+            this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteUser');
         });
     }
 }

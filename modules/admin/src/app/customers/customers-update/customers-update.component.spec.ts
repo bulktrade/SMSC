@@ -11,6 +11,8 @@ import {APP_PROVIDERS} from "../../app.module";
 import {ConfigService} from "../../config/config.service";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {Customer} from "../model/customer";
+import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
 
 describe('Component: CustomersUpdateComponent', () => {
     let componentFixture: ComponentHelper<CustomersUpdateComponent> =
@@ -40,6 +42,7 @@ describe('Component: CustomersUpdateComponent', () => {
             providers: [
                 APP_PROVIDERS,
                 {provide: XHRBackend, useClass: MockBackend},
+                {provide: ActivatedRoute, useValue: {params: Observable.of({customerId: 40000})}},
                 {provide: ConfigService, useClass: ConfigServiceMock},
             ]
         });
@@ -52,13 +55,13 @@ describe('Component: CustomersUpdateComponent', () => {
         componentFixture.instance.model = <any>{
             _links: {
                 parent: {
-                    href: ''
+                    href: 'parent'
                 },
                 contacts: {
-                    href: ''
+                    href: 'contacts'
                 },
                 users: {
-                    href: ''
+                    href: 'users'
                 }
             }
         };
@@ -83,7 +86,7 @@ describe('Component: CustomersUpdateComponent', () => {
         });
     }));
 
-    it('should get an success message about update new customer', async(() => {
+    it('should get a success message about update new customer', async(() => {
         mockBackend.connections.subscribe(connection => {
             let response = new ResponseOptions({body: {id: 1}});
             connection.mockRespond(new Response(response));
@@ -111,5 +114,13 @@ describe('Component: CustomersUpdateComponent', () => {
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdateCustomer');
         expect(console.error).toHaveBeenCalledWith(new Response(new ResponseOptions({status: 500})));
+    }));
+
+    it('.ngOnInit()', async(() => {
+        componentFixture.instance.ngOnInit();
+        expect(componentFixture.instance.id).toEqual(40000);
+        expect(componentFixture.instance.model._links.parent.href).toEqual('parent');
+        expect(componentFixture.instance.model._links.contacts.href).toEqual('contacts');
+        expect(componentFixture.instance.model._links.users.href).toEqual('users');
     }));
 });

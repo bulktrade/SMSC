@@ -43,15 +43,33 @@ describe('Component: UsersDeleteComponent', () => {
         });
     }));
 
-    it('deleteResource()', async(() => {
+    it('should get a success message about delete user', async(() => {
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({status: 204});
+            let response = new ResponseOptions({body: {id: 1}});
             connection.mockRespond(new Response(response));
         });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(componentFixture.instance, 'onBack');
 
-        componentFixture.instance.deleteResource()
-            .subscribe(res => {
-                expect(res.status).toEqual(204);
-            });
+        componentFixture.instance.deleteResource();
+
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successDeleteUser');
+        expect(componentFixture.instance.onBack).toHaveBeenCalled();
+    }));
+
+    it('should get an error if user was not deleted', async(() => {
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({status: 500});
+            connection.mockError(new Response(response));
+        });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(console, 'error');
+
+        componentFixture.instance.deleteResource();
+
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorDeleteUser');
+        expect(console.error).toHaveBeenCalledWith(new Response(new ResponseOptions({status: 500})));
     }));
 });
