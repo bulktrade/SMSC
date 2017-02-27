@@ -49,6 +49,8 @@ before_cache:
 deploy:
   skip_cleanup: true
   provider: releases
+  api_key:
+    secure: "Eo4CmDoNjsl8Wjwby7+HEPMPYIm7wi434vNbABsIWMP1PXFugy7V+9hyPSVynA+dRTGMOquL0DG34xRIUOohrBquZxx7xc6zzhBFrLt4I6LqbQpaG5ZpR5dYmuRY3bQEjNtt8N1juxdJjivUDVr88IklHTnyLGYIHr92K3/HRQxh3+61gFP+qVEZUOrk4CClN00kPJvm9s1B/OQPacwLkTRp2OtoitkNfLmSOk1t4LjBi8Yy8IfVqERogPKqdLPYHl1GnsTCLK0A7mg3XZpPZ3iIRpRyIBCxcQ7JIpz29Y2VB0CHNaJnkn37RXl0HWM+WqROrKPPVdk2ZWbvsqKdaH3ncJkd1Uz7uhTRAOuQmsQMbH50AbBLa3puOokpwwBeyQh+gjsmEbq0ZVk0BWyJS/S03QkM3zrUdAwOynXEB6X5EVpBqAcckdHZUt/pXFQj1HtG3/D6WqQrNhKB2o/7YfqK2gsQ6ewDXHz8m+KuoxbEl21ATrUnVRK37o16tGpPlQ+eFJrz56LZu8zb6ZJn4PaOiPSKqT0j0GJpBz21s/cEuB5lqNSPn/gjNJtQGrTBLtqkiDP6lLxGNoedPX1DpmR8F9n06dm/5LGmA8jKaLfBFVLbQUdDtnMXKE8hxEBNLUdnC8bChs7WNWQUTApdi4Wi897qrt7Io4IXJc9WQ1o="
   file:
     - "modules/core/target/smsc.jar"
   on:
