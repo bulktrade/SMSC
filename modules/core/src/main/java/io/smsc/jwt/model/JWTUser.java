@@ -74,7 +74,7 @@ public class JWTUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return blocked;
+        return !blocked;
     }
 
     @JsonIgnore
