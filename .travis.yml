@@ -40,6 +40,8 @@ script:
 
 after_success:
   - ./bin/deploy.sh
+  
+after_deploy:
   - ./bin/report.sh
   - bash <(curl -s https://codecov.io/bash)
 
@@ -49,9 +51,11 @@ before_cache:
 deploy:
   skip_cleanup: true
   provider: releases
-  file:
-    - "modules/core/target/smsc.jar"
+  api_key:
+    secure: F6CCxY9W3dCmtDhXVUls/6TZUe1v6TYH6PCr4PoRmECw7hBcpEwaWOSjAWc8gQZGDRmcjYsBH9qHN8RhBB76Aub9z+pQEV5HonqxqXRo/SFD5TMMZE66hcM2mKRBeAnKicckVigGpn7OwjuMqUjbFlff9HtGDvX/h0WX6f3qFHJwVMXjfA8jO+SzJ1rl+d/3/aeWVUu+WJt1Ty0gIMyzRe3iNqm17tQC/Ne66lsZtwqEOf+8Cb5CfpLRz834GMfu5oOCU3SssNEM0MldKhJza0lEP7vu/VJFvcEbgKalbTQw+bq00olq60g2/B8ldyA9+9hIzw1WHh36729Tx31DnUSdSqEn5mYmtwc0BNdJZm5UTV1jnJDrvWN5XoGgJqvoyDtiefAMTPcYMHShooUlMhblFoyJOjZFqmWTP04nq8p+rfs8ZHjTH5iG5Uu5M/quzRGYE4TaxcJyDCWoW4bwnc0VzgdD5vY2weHIA31I+8KEaknhQhDsMIobICup+G8bNqvIKLIWINraZxJBQL1nGy7EV/ghJ/6OPb77pY17UIrnHB/+k10g6xzcJX2wojAgGdmAAhV4WsiW/S/KQ2rCto5iBnmh7X1qUaNE5ZVEO1XGvJrTAna821EfNrIOyTuCz2yqs7F0h6v2w6h7yYpRam/I8hhzgv4pFrtlWnpKgRs=
+  file: modules/core/target/smsc.jar
   on:
+    repo: bulktrade/SMSC
     branch: master
 
 notifications:
@@ -67,7 +71,3 @@ addons:
   srcclr: true
   sonarqube: true
   sauce_connect: true
-
-env:
-  global:
-  - REPO="git@github.com:bulktrade/SMSC.git"
