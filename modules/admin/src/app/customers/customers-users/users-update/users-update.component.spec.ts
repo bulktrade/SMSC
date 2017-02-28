@@ -74,7 +74,7 @@ describe('Component: UsersUpdateComponent', () => {
         expect(componentFixture.instance.location.back).toHaveBeenCalled();
     }));
 
-    it('should get an error if customer was not created', async(() => {
+    it('should get an error if user was not created', async(() => {
         mockBackend.connections.subscribe(connection => {
             let response = new ResponseOptions({status: 500});
             connection.mockError(new Response(response));

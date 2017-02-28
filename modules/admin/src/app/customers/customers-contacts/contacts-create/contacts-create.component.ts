@@ -11,7 +11,6 @@ import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors";
 import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
-import {Observable} from "rxjs";
 
 @Component({
     selector: 'contacts-create',
@@ -40,32 +39,26 @@ export class ContactsCreateComponent implements OnInit {
 
     ngOnInit() {
         this.isDirectiveCall = !(this.route.component === ContactsCreateComponent);
-
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.customerId = this.isDirectiveCall ? this.customerId : +params['customerId'];
+            this.customerId = this.isDirectiveCall ? this.customerId : params['customerId'];
         });
     }
 
     onSubmit(model) {
+        this.model = model;
         model['customer'] = this.customersService.getSelfLinkedEntityById(this.customerId)._links.self.href;
-        this.isLoading = true;
-
-        return Observable.create(obs => {
-            this.customersContactsService.createResource(model)
-                .subscribe((res) => {
-                        this.onBack();
-                        this.isLoading = false;
-                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
-                        obs.next(res);
-                    },
-                    err => {
-                        console.error(err);
-                        this.isLoading = false;
-                        this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
-                        obs.error(err);
-                    });
-        });
+        this.toggleLoading(true);
+        this.customersContactsService.createResource(model)
+            .subscribe(() => {
+                    this.onBack();
+                    this.toggleLoading(false);
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
+                },
+                err => {
+                    this.toggleLoading(false);
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
+                });
     }
 
     onBack() {
@@ -74,6 +67,10 @@ export class ContactsCreateComponent implements OnInit {
         } else {
             this.location.back();
         }
+    }
+
+    toggleLoading(value: boolean) {
+        this.isLoading = value;
     }
 }
 

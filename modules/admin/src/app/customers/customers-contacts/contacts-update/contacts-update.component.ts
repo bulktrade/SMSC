@@ -12,7 +12,6 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors";
-import {Observable} from "rxjs";
 
 @Component({
     selector: 'contacts-update',
@@ -42,13 +41,11 @@ export class ContactsUpdateComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isDirectiveCall = !(this.route.component === ContactsUpdateComponent);
-
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.contactId = this.isDirectiveCall ? this.contactId : +params['customerId'];
+            this.contactId = this.isDirectiveCall ? this.contactId : params['contactId'];
         });
-
+        this.isDirectiveCall = !(this.route.component === ContactsUpdateComponent);
         this.model = this.isDirectiveCall ? this.entity : this.getModel();
     }
 
@@ -57,22 +54,18 @@ export class ContactsUpdateComponent implements OnInit {
     }
 
     onSubmit(entity) {
-        this.isLoading = true;
-        return Observable.create(obs => {
-            this.contactsService.updateResource(entity)
-                .subscribe((res) => {
-                        this.onBack();
-                        this.isLoading = false;
-                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
-                        obs.next(res);
-                    },
-                    err => {
-                        console.error(err);
-                        this.isLoading = false;
-                        this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
-                        obs.error(err);
-                    });
-        });
+        this.toggleLoading(true);
+        this.contactsService.updateResource(entity)
+            .subscribe(() => {
+                    this.onBack();
+                    this.toggleLoading(false);
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
+                },
+                err => {
+                    console.error(err);
+                    this.toggleLoading(false);
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
+                });
     }
 
     onBack() {
@@ -81,6 +74,10 @@ export class ContactsUpdateComponent implements OnInit {
         } else {
             this.location.back();
         }
+    }
+
+    toggleLoading(value: boolean) {
+        this.isLoading = value;
     }
 }
 
