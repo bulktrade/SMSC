@@ -3,12 +3,14 @@ package io.smsc.controller;
 import io.smsc.jwt.model.*;
 import io.smsc.jwt.service.JWTTokenGenerationService;
 import io.smsc.jwt.service.JWTUserDetailsService;
+import io.smsc.util.EncrypterUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -33,10 +35,13 @@ public class AuthController {
 
     private final JWTUserDetailsService jwtUserDetailsService;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public AuthController(JWTTokenGenerationService jwtTokenGenerationService, JWTUserDetailsService jwtUserDetailsService) {
+    public AuthController(JWTTokenGenerationService jwtTokenGenerationService, JWTUserDetailsService jwtUserDetailsService, PasswordEncoder passwordEncoder) {
         this.jwtTokenGenerationService = jwtTokenGenerationService;
         this.jwtUserDetailsService = jwtUserDetailsService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -65,7 +70,7 @@ public class AuthController {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Current user has no appropriate roles. Please contact your administrator");
                 return null;
             }
-            if (jwtUser.getPassword().equals(request.getPassword())) {
+            if (passwordEncoder.matches(request.getPassword(), jwtUser.getPassword())) {
                 JWTAuthenticationResponse token = new JWTAuthenticationResponse(jwtTokenGenerationService.generateAccessToken(jwtUser), jwtTokenGenerationService.generateRefreshToken(jwtUser));
                 return new ResponseEntity<>(token, HttpStatus.OK);
             }

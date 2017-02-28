@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * Specifies Contact class as an entity class.
@@ -176,15 +177,15 @@ public class Contact extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getFirstname().hashCode();
-        result = 31 * result + getSurname().hashCode();
-        result = 31 * result + getPhone().hashCode();
-        result = 31 * result + getMobilePhone().hashCode();
-        result = 31 * result + getFax().hashCode();
-        result = 31 * result + getEmailAddress().hashCode();
-        result = 31 * result + getType().hashCode();
-        result = 31 * result + getSalutation().hashCode();
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getFirstname());
+        result = 31 * result + Objects.hashCode(getSurname());
+        result = 31 * result + Objects.hashCode(getPhone());
+        result = 31 * result + Objects.hashCode(getMobilePhone());
+        result = 31 * result + Objects.hashCode(getFax());
+        result = 31 * result + Objects.hashCode(getEmailAddress());
+        result = 31 * result + Objects.hashCode(getType());
+        result = 31 * result + Objects.hashCode(getSalutation());
         return result;
     }
 

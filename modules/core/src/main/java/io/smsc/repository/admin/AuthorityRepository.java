@@ -32,8 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "authorities", path = "authorities")
 @Transactional(readOnly = true)
-// until role hierarchy is implemented
-@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
+@PreAuthorize("hasRole('ADMIN_USER')")
 public interface AuthorityRepository extends PagingAndSortingRepository<Authority, Long>,
         QueryDslPredicateExecutor<Authority>,
         QuerydslBinderCustomizer<QAuthority> {

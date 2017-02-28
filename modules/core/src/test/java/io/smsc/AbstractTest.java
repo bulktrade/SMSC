@@ -2,6 +2,7 @@ package io.smsc;
 
 import io.smsc.jwt.service.JWTTokenGenerationService;
 import io.smsc.jwt.service.JWTUserDetailsService;
+import io.smsc.repository.admin.UserRepository;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
@@ -12,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -40,6 +42,16 @@ public abstract class AbstractTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
 
     private static StringBuilder results = new StringBuilder();
+
+    @Autowired
+    protected UserRepository userRepository;
+
+    @Value("${jwt.header}")
+    protected String tokenHeader;
+
+    @Value("${jwt.secret}")
+    protected String tokenSecret;
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     @Rule

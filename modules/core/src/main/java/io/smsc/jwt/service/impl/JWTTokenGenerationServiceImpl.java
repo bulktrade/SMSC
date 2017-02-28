@@ -19,10 +19,7 @@ import java.util.Map;
  * Service class used for generating and processing access and refresh tokens.
  *
  * @author Nazar Lipkovskyy
- * @see JWTTokenGenerationService
- * @see io.jsonwebtoken.Claims;
- * @see io.jsonwebtoken.Jwts;
- * @see io.jsonwebtoken.SignatureAlgorithm;
+ * @see io.smsc.jwt.service.impl.JWTTokenGenerationServiceImpl
  * @since 0.0.1-SNAPSHOT
  */
 @Service
@@ -33,6 +30,7 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
     public static final String CLAIM_KEY_USERNAME = "sub";
     public static final String CLAIM_KEY_CREATED = "created";
     private static final Logger LOG = LoggerFactory.getLogger(JWTTokenGenerationServiceImpl.class);
+
     /**
      * This string is used as a name of request header which contains tokens
      */

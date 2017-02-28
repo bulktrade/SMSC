@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -200,14 +201,14 @@ public class Customer extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getCompanyName().hashCode();
-        result = 31 * result + getStreet().hashCode();
-        result = 31 * result + getStreet2().hashCode();
-        result = 31 * result + getPostcode().hashCode();
-        result = 31 * result + getCountry().hashCode();
-        result = 31 * result + getCity().hashCode();
-        result = 31 * result + (getVatid() != null ? getVatid().hashCode() : 0);
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getCompanyName());
+        result = 31 * result + Objects.hashCode(getStreet());
+        result = 31 * result + Objects.hashCode(getStreet2());
+        result = 31 * result + Objects.hashCode(getPostcode());
+        result = 31 * result + Objects.hashCode(getCountry());
+        result = 31 * result + Objects.hashCode(getCity());
+        result = 31 * result + Objects.hashCode(getVatid());
         return result;
     }
 

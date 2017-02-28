@@ -10,17 +10,17 @@ INSERT INTO CUSTOMER_CONTACT (FIRST_NAME, SURNAME, PHONE, MOBILE_PHONE, FAX, EMA
 INSERT INTO CUSTOMER_CONTACT (FIRST_NAME, SURNAME, PHONE, MOBILE_PHONE, FAX, EMAIL_ADDRESS, CUSTOMER_ID, SALUTATION, TYPE, LAST_MODIFIED_DATE, VERSION) VALUES
   ('SMSC', 'SMSC', '0674329568', '0504569753', 'fake_fax', 'smsc@bulk.io', (select id from customer where company_name = 'SMSC'), 'MR', 'CEO', current_timestamp, 0);
 
-INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION, CUSTOMER_ID) VALUES
-  ('user', '541338d92cd0dbf230d7e7666dd99adaea8da7a478f5456947c2445aecea0b1a', 'ad68dc115126d9d1', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, 'MR', current_timestamp, current_timestamp, 0, (select id from customer where company_name = 'Default company'));
-INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION, CUSTOMER_ID) VALUES
-  ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0, (select id from customer where company_name = 'SMSC'));
+INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION, CUSTOMER_ID) VALUES
+  ('user', '$2a$10$a3a2Kyi1qbe/SHxTM51khOFMM5kWtzhZgEPcwjmr.DlT8oLh6Eeda', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, 'MR', current_timestamp, current_timestamp, 0, (select id from customer where company_name = 'Default company'));
+INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION, CUSTOMER_ID) VALUES
+  ('admin', '$2a$10$i2sFEDw4WXZt7tKz9bpin.kkA0NrEJnJ07Uf5e0JEcKRhXeHOvF1K', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0, (select id from customer where company_name = 'SMSC'));
 
-INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('user', '541338d92cd0dbf230d7e7666dd99adaea8da7a478f5456947c2445aecea0b1a', 'ad68dc115126d9d1', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, 'MR', current_timestamp, current_timestamp, 0);
-INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('admin', 'b03209e6c608cdf3753ab36449703abeab6aa7aab628e569b37a55381d4aa021', '94bd6b18b8f70298', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0);
-INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, SALT, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
-  ('demo', 'b62bb8ecd8507ac00d8afec0a6fcc227f84d29a815b31403dcbeaf02e387b1b0', 'b2768bc59dd37586', 'demoName', 'demoSurname', 'demo@gmail.com', TRUE, FALSE, 'MR', current_timestamp, current_timestamp, 0);
+INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('user', '$2a$10$a3a2Kyi1qbe/SHxTM51khOFMM5kWtzhZgEPcwjmr.DlT8oLh6Eeda', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, 'MR', current_timestamp, current_timestamp, 0);
+INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('admin', '$2a$10$i2sFEDw4WXZt7tKz9bpin.kkA0NrEJnJ07Uf5e0JEcKRhXeHOvF1K', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0);
+INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION) VALUES
+  ('demo', '$2a$10$iWvz1Yik784hP54My05uTekx7XxDfLekDyoCJjxK6PuyDnTMzswSK', 'demoName', 'demoSurname', 'demo@gmail.com', TRUE, FALSE, 'MR', current_timestamp, current_timestamp, 0);
 
 INSERT INTO ADMIN_USER_GROUP (NAME, LAST_MODIFIED_DATE, VERSION) VALUES
   ('ADMIN_USER_ADMIN', current_timestamp, 0);

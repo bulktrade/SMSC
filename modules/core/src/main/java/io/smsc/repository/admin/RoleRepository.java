@@ -32,8 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
 @Transactional(readOnly = true)
-// until role hierarchy is implemented
-@PreAuthorize("hasRole('ADMIN_USER') or hasRole('POWER_ADMIN_USER')")
+@PreAuthorize("hasRole('ADMIN_USER')")
 public interface RoleRepository extends PagingAndSortingRepository<Role, Long>,
         QueryDslPredicateExecutor<Role>,
         QuerydslBinderCustomizer<QRole> {
@@ -52,7 +51,7 @@ public interface RoleRepository extends PagingAndSortingRepository<Role, Long>,
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#role?.isNew() and hasAuthority('ADMIN_USER_ROLE_CREATE')) or " +
             "(!#role?.isNew() and hasAuthority('ADMIN_USER_ROLE_WRITE'))")
-    Role save(Role role);
+    Role save(@Param("role") Role role);
 
     @Override
     @PostAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('ADMIN_USER_ROLE_READ')")
