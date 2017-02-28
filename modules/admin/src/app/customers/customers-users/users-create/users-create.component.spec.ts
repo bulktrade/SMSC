@@ -9,7 +9,8 @@ import {APP_PROVIDERS} from "../../../app.module";
 import {ConfigService} from "../../../config/config.service";
 import {UsersModule} from "../customers-users.module";
 import {ConfigServiceMock} from "../../../shared/test/stub/config.service";
-import {CustomerUser} from "../../model/customer-user";
+import {Observable} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 describe('Component: UsersCreateComponent', () => {
     let componentFixture: ComponentHelper<UsersCreateComponent> =
@@ -26,6 +27,10 @@ describe('Component: UsersCreateComponent', () => {
             providers: [
                 APP_PROVIDERS,
                 {provide: XHRBackend, useClass: MockBackend},
+                {
+                    provide: ActivatedRoute,
+                    useValue: {params: Observable.of({customerId: 40000}), component: UsersCreateComponent}
+                },
                 {provide: ConfigService, useClass: ConfigServiceMock}
             ]
         });
@@ -48,22 +53,53 @@ describe('Component: UsersCreateComponent', () => {
         });
     }));
 
-    it('onSubmit()', async(() => {
-        let data: CustomerUser = <CustomerUser>{
-            username: 'username',
-            firstname: "firstname"
-        };
-
+    it('should get a success message about create new user', async(() => {
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({body: data});
+            let response = new ResponseOptions({body: {id: 1}});
             connection.mockRespond(new Response(response));
         });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(componentFixture.instance.location, 'back');
+        spyOn(componentFixture.instance, 'toggleLoading');
 
-        componentFixture.instance.onSubmit(data)
-            .subscribe((res: CustomerUser) => {
-                expect(res.username).toEqual('username');
-                expect(res.firstname).toEqual('firstname');
-                expect(componentFixture.instance.isLoading).toBeFalsy();
-            });
+        componentFixture.instance.ngOnInit();
+        componentFixture.instance.onSubmit({id: 1});
+
+        expect(componentFixture.instance.model['customer']).toEqual('/rest/repository/customers/40000');
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successCreateUser');
+        expect(componentFixture.instance.location.back).toHaveBeenCalled();
+    }));
+
+    it('should get an error if customer was not created', async(() => {
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({status: 500});
+            connection.mockError(new Response(response));
+        });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(componentFixture.instance, 'toggleLoading');
+
+        componentFixture.instance.ngOnInit();
+        componentFixture.instance.onSubmit({id: 1});
+
+        expect(componentFixture.instance.model['customer']).toEqual('/rest/repository/customers/40000');
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorCreateUser');
+    }));
+
+    it('.ngOnInit()', async(() => {
+        componentFixture.instance.ngOnInit();
+        expect(componentFixture.instance.isDirectiveCall).toBeFalsy();
+        expect(componentFixture.instance.customerId).toEqual(40000);
+    }));
+
+    it('.onBack()', async(() => {
+        spyOn(componentFixture.instance.location, 'back');
+        componentFixture.instance.onBack();
+        expect(componentFixture.instance.location.back).toHaveBeenCalled();
     }));
 });

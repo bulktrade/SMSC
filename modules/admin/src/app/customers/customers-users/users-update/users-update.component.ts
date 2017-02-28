@@ -13,7 +13,6 @@ import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
-import {Observable} from "rxjs";
 
 @Component({
     selector: 'users-update',
@@ -47,7 +46,7 @@ export class UsersUpdateComponent implements OnInit {
 
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.userId = this.isDirectiveCall ? this.userId : +params['customerId'];
+            this.userId = this.isDirectiveCall ? this.userId : params['userId'];
         });
 
         this.model = this.isDirectiveCall ? this.entity : this.getModel();
@@ -58,22 +57,17 @@ export class UsersUpdateComponent implements OnInit {
     }
 
     onSubmit(entity: CustomerUser) {
-        this.isLoading = true;
-        return Observable.create(obs => {
-            this.customersUsersService.updateResource(entity)
-                .subscribe((res) => {
-                        this.onBack();
-                        this.isLoading = false;
-                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
-                        obs.next(res);
-                    },
-                    err => {
-                        console.error(err);
-                        this.isLoading = false;
-                        this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
-                        obs.next(err);
-                    });
-        });
+        this.toggleLoading(true);
+        this.customersUsersService.updateResource(entity)
+            .subscribe(() => {
+                    this.onBack();
+                    this.toggleLoading(false);
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
+                },
+                err => {
+                    this.toggleLoading(false);
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
+                });
     }
 
     onBack() {
@@ -84,6 +78,9 @@ export class UsersUpdateComponent implements OnInit {
         }
     }
 
+    toggleLoading(value: boolean) {
+        this.isLoading = value;
+    }
 }
 
 @NgModule({
