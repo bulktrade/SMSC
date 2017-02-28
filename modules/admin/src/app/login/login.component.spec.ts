@@ -1,118 +1,99 @@
-import { inject, TestBed } from "@angular/core/testing";
-import { LoginComponent } from "./login.component";
-import { AuthService } from "../services/auth/auth.service";
-import { LoginModel } from "./login.model";
-import { HttpModule } from "@angular/http";
-import { HTTP_PROVIDERS } from "../shared/components/mock/http-providers";
-import { TokenService } from "../services/auth/token.service";
-import { ConfigService } from "../config/config.service";
-import { RouterTestingModule } from "@angular/router/testing";
-import { NotificationService } from "../services/notification-service";
-import { TranslateModule } from "ng2-translate";
+import {TestBed, async, inject} from "@angular/core/testing";
+import {TranslateModule} from "ng2-translate";
+import {RouterTestingModule} from "@angular/router/testing";
+import {MockBackend} from "@angular/http/testing";
+import {XHRBackend, ResponseOptions, Response} from "@angular/http";
+import {ComponentHelper} from "../shared/component-fixture";
+import {LoginComponent} from "./login.component";
+import {ConfigService} from "../config/config.service";
+import {APP_PROVIDERS, AppModule} from "../app.module";
+import {ConfigServiceMock} from "../shared/test/stub/config.service";
+import {LoginModel} from "./login.model";
+import {Observable} from "rxjs";
 
-class MockTokenService {
-    setToken(token: string) {
-    };
+describe('Component: LoginComponent', () => {
+    let componentFixture: ComponentHelper<LoginComponent> =
+        new ComponentHelper<LoginComponent>(null, null, null, null);
+    let mockBackend;
 
-    getToken() {
-    };
-}
-
-describe('Authentication', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [
-                NotificationService,
-                ...HTTP_PROVIDERS,
-                { provide: TokenService, useClass: MockTokenService },
-                ConfigService,
-                LoginComponent,
-                AuthService
-            ],
             imports: [
-                HttpModule,
+                AppModule,
                 RouterTestingModule,
                 TranslateModule.forRoot()
+            ],
+            providers: [
+                APP_PROVIDERS,
+                {provide: XHRBackend, useClass: MockBackend},
+                {provide: ConfigService, useClass: ConfigServiceMock}
             ]
         });
+
+        componentFixture.fixture = TestBed.createComponent(LoginComponent);
+        componentFixture.instance = componentFixture.fixture.componentInstance;
+        componentFixture.element = componentFixture.fixture.nativeElement;
+        componentFixture.debugElement = componentFixture.fixture.debugElement;
     });
 
-    // it('should be model', inject([LoginComponent], (login) => {
-    //     let model = new LoginModel('', '', false);
-    //
-    //     expect(login.model).toEqual(model);
-    // }));
-    //
-    // it('loading should be is false', inject([LoginComponent], (login) => {
-    //     expect(login.loading).toBeFalsy();
-    // }));
+    beforeEach(inject([XHRBackend], (_mockBackend) => {
+        mockBackend = _mockBackend;
+    }));
 
-    // it('should to login', inject([LoginComponent, MockBackend],
-    //     (login: LoginComponent, backend: MockBackend) => {
-    //         let model = new LoginModel('admin', 'admin', false);
-    //         let path = '/orientdb/token/smsc';
-    //         let responseBody = {
-    //             'json': () => {
-    //                 return {
-    //                     '@type': 'd',
-    //                     '@version': '0',
-    //                     'access_token': 'eyJAdHlwZSI6ImQ=',
-    //                     'expires_in': '3600'
-    //                 };
-    //             }
-    //         };
-    //
-    //         backend.connections.subscribe(c => {
-    //             expect(c.request.url).toEqual(path);
-    //             let response = new ResponseOptions({ body: JSON.stringify(responseBody) });
-    //             c.mockRespond(new Response(response));
-    //         });
-    //
-    //         login.onSubmit(model)
-    //             .then(res => {
-    //                 expect(login.isErrorMessage).toBeFalsy();
-    //             });
-    //     }));
-    //
-    // it('should get an error message with text user not found', inject([LoginComponent, MockBackend],
-    //     (login: LoginComponent, backend: MockBackend) => {
-    //         let model = new LoginModel('admin', 'admin', false);
-    //         let path = '/orientdb/token/smsc';
-    //
-    //         backend.connections.subscribe(c => {
-    //             expect(c.request.url).toEqual(path);
-    //             c.mockError(new Response(new ResponseOptions({
-    //                 body: {},
-    //                 status: 400
-    //             })));
-    //         });
-    //
-    //         login.onSubmit(model)
-    //             .then(res => {
-    //             })
-    //             .catch((error) => {
-    //                 expect(login.isErrorMessage).toBeTruthy();
-    //             });
-    //     }));
-    //
-    // it('should to get the common error message', inject([LoginComponent, MockBackend],
-    //     (login: LoginComponent, backend: MockBackend) => {
-    //         let model = new LoginModel('admin', 'admin', false);
-    //         let path = '/orientdb/token/smsc';
-    //
-    //         backend.connections.subscribe(c => {
-    //             expect(c.request.url).toEqual(path);
-    //             c.mockError(new Response(new ResponseOptions({
-    //                 body: {},
-    //                 status: 502
-    //             })));
-    //         });
-    //
-    //         login.onSubmit(model)
-    //             .then(res => {
-    //             })
-    //             .catch((error) => {
-    //                 expect(login.isErrorMessage).toBeTruthy();
-    //             });
-    //     }));
+    it('should render `login.title`', async(() => {
+        componentFixture.fixture.detectChanges();
+        componentFixture.fixture.whenStable().then(() => {
+            expect(componentFixture.element.querySelector('.title').innerText.toLowerCase()).toEqual('login.title');
+        });
+    }));
+
+    it('should have loadingSpinner and model', async(() => {
+        let model = new LoginModel('', '', false);
+        expect(componentFixture.instance.loadingSpinner).toBeFalsy();
+        expect(componentFixture.instance.model).toEqual(jasmine.objectContaining(model));
+    }));
+
+    it('.onSubmit() - status: 200', async(() => {
+        spyOn(componentFixture.instance, 'toggleLoading');
+        spyOn(componentFixture.instance.router, 'navigateByUrl');
+        spyOn(componentFixture.instance.authService, 'login').and.callFake((username: string, password: string) => {
+            return Observable.of(new Response(new ResponseOptions({status: 200})));
+        });
+
+        componentFixture.instance.onSubmit(new LoginModel('', '', false));
+
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.router.navigateByUrl).toHaveBeenCalledWith('/customers');
+    }));
+
+    it('.onSubmit() - status: 401', async(() => {
+        spyOn(componentFixture.instance, 'toggleLoading');
+        spyOn(componentFixture.instance.router, 'navigateByUrl');
+        spyOn(componentFixture.instance.growlService, 'show');
+        spyOn(componentFixture.instance.authService, 'login').and.callFake((username: string, password: string) => {
+            return Observable.throw(new Response(new ResponseOptions({status: 401})));
+        });
+
+        componentFixture.instance.onSubmit(new LoginModel('', '', false));
+
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.growlService.show).toHaveBeenCalledWith({severity: 'error', detail: 'login.userNotFound'});
+    }));
+
+    it('.onSubmit() - status: 500', async(() => {
+        spyOn(componentFixture.instance, 'toggleLoading');
+        spyOn(componentFixture.instance.router, 'navigateByUrl');
+        spyOn(componentFixture.instance.growlService, 'show');
+        spyOn(componentFixture.instance.authService, 'login').and.callFake((username: string, password: string) => {
+            return Observable.throw(new Response(new ResponseOptions({status: 500})));
+        });
+
+        componentFixture.instance.onSubmit(new LoginModel('', '', false));
+
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.growlService.show).toHaveBeenCalledWith({severity: 'error', detail: 'login.commonError'});
+    }));
 });
