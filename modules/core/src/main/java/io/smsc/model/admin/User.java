@@ -3,8 +3,8 @@ package io.smsc.model.admin;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.smsc.annotation.Encrypt;
 import io.smsc.annotation.UserExistsValidator;
+import io.smsc.converters.CryptoConverter;
 import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.customer.Salutation;
@@ -32,7 +32,6 @@ import java.util.Set;
 @Entity(name = "AdminUser")
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = "USERNAME", name = "users_username_idx"),
                                                     @UniqueConstraint(columnNames = "EMAIL", name = "users_email_idx")})
-@EntityListeners(EncryptionListener.class)
 @UserExistsValidator
 public class User extends BaseEntity {
 
@@ -53,15 +52,11 @@ public class User extends BaseEntity {
     @NotEmpty(message = "{user.username.validation}")
     private String username;
 
-    @Encrypt
+    @Convert(converter = CryptoConverter.class)
     @Column(name = "PASSWORD", nullable = false)
     @NotEmpty(message = "{user.password.empty.validation}")
     @JsonIgnore
     private String password;
-
-    @Column(name = "SALT")
-    @JsonIgnore
-    private String salt;
 
     @Column(name = "FIRST_NAME", nullable = false)
     @NotEmpty(message = "{user.firstname.validation}")
@@ -223,16 +218,6 @@ public class User extends BaseEntity {
         this.blocked = blocked;
     }
 
-    @JsonIgnore
-    public String getSalt() {
-        return salt;
-    }
-
-    @JsonProperty
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
     public Set<Dashboard> getDashboards() {
         return dashboards;
     }
@@ -283,7 +268,6 @@ public class User extends BaseEntity {
         if (!getId().equals(user.getId())) return false;
         if (getSalutation() != user.getSalutation()) return false;
         if (!getUsername().equals(user.getUsername())) return false;
-        if (!getSalt().equals(user.getSalt())) return false;
         if (!getFirstname().equals(user.getFirstname())) return false;
         if (!getSurname().equals(user.getSurname())) return false;
         if (!getEmail().equals(user.getEmail())) return false;
@@ -295,7 +279,6 @@ public class User extends BaseEntity {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getSalutation());
         result = 31 * result + Objects.hashCode(getUsername());
-        result = 31 * result + Objects.hashCode(getSalt());
         result = 31 * result + Objects.hashCode(getFirstname());
         result = 31 * result + Objects.hashCode(getSurname());
         result = 31 * result + Objects.hashCode(getEmail());
@@ -309,7 +292,6 @@ public class User extends BaseEntity {
                 "id=" + id +
                 ", salutation=" + salutation +
                 ", username='" + username + '\'' +
-                ", salt='" + salt + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +

@@ -5,6 +5,7 @@ import io.smsc.jwt.JWTAuthenticationTokenFilter;
 import io.smsc.jwt.service.JWTTokenGenerationService;
 import io.smsc.jwt.service.JWTUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.*;
 import org.springframework.security.access.expression.SecurityExpressionHandler;
@@ -17,10 +18,14 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.security.SecureRandom;
 
 /**
  * The SecurityConfiguration class is used for configuring Spring
@@ -41,6 +46,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final JWTAuthenticationEntryPoint unauthorizedHandler;
     private final JWTTokenGenerationService tokenGenerationService;
 
+    @Value("${encrypt.key}")
+    private String encryptionKey;
+
+    @Value("${encrypt.strength}")
+    private Integer encryptionStrength;
+
     @Autowired
     public SecurityConfiguration(
             JWTUserDetailsService userDetailsService,
@@ -55,7 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
-                .userDetailsService(this.userDetailsService);
+                .userDetailsService(this.userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     /**
@@ -67,6 +79,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         DefaultWebSecurityExpressionHandler defaultWebSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
         defaultWebSecurityExpressionHandler.setRoleHierarchy(roleHierarchy());
         return defaultWebSecurityExpressionHandler;
+    }
+
+    /**
+     * Gets the {@link BCryptPasswordEncoder} which is used for user's password encoding
+     *
+     * @return passwordEncoder
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        if(null == encryptionStrength || encryptionStrength < 4 || encryptionStrength > 31) {
+            encryptionStrength = 10;
+        }
+        return new BCryptPasswordEncoder(encryptionStrength, new SecureRandom(encryptionKey.getBytes()));
     }
 
     /**

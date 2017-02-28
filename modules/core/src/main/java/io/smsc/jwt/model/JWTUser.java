@@ -28,8 +28,6 @@ public class JWTUser implements UserDetails {
 
     private final String password;
 
-    private final String salt;
-
     private final String firstName;
 
     private final String surName;
@@ -48,7 +46,6 @@ public class JWTUser implements UserDetails {
         this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.salt = user.getSalt();
         this.firstName = user.getFirstname();
         this.surName = user.getSurname();
         this.email = user.getEmail();
@@ -85,10 +82,6 @@ public class JWTUser implements UserDetails {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getSalt() {
-        return salt;
     }
 
     public String getFirstName() {

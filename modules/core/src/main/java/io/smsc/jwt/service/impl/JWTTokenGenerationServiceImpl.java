@@ -30,6 +30,7 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
     public static final String CLAIM_KEY_USERNAME = "sub";
     public static final String CLAIM_KEY_CREATED = "created";
     private static final Logger LOG = LoggerFactory.getLogger(JWTTokenGenerationServiceImpl.class);
+
     /**
      * This string is used as a name of request header which contains tokens
      */

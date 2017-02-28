@@ -1,13 +1,14 @@
 package io.smsc.util;
 
 import io.smsc.annotation.Encrypt;
-import io.smsc.model.admin.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.keygen.KeyGenerators;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -21,16 +22,23 @@ public class EncrypterUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EncrypterUtil.class);
     private static String secretKey;
+    private static PasswordEncoder passwordEncoder;
 
+    @Autowired
     public EncrypterUtil() {
         //Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
         removeCryptographyRestrictions();
     }
 
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        EncrypterUtil.passwordEncoder = passwordEncoder;
+    }
+
     /**
-     * Method to encrypt password before user persisting.
+     * Method to encrypt fields based on {@link Encrypt} annotation.
      *
-     * @param obj the {@link User} whose password should be encrypted
+     * @param obj entity object
      */
     public static void encrypt(Object obj) {
         try {
@@ -44,7 +52,7 @@ public class EncrypterUtil {
                     field.setAccessible(true);
                     field.set(obj, encryptor.encrypt((String) field.get(obj)));
                     field.setAccessible(false);
-                } else if(field.isAnnotationPresent(Encrypt.class)) {
+                } else if (field.isAnnotationPresent(Encrypt.class)) {
                     field.set(obj, encryptor.decrypt((String) field.get(obj)));
                 }
             }
@@ -54,7 +62,7 @@ public class EncrypterUtil {
     }
 
     /**
-     * Method to decrypt fields based on io.smsc.annotation.Encrypt annotation.
+     * Method to decrypt fields based on {@link Encrypt} annotation.
      *
      * @param obj entity object
      */
@@ -70,7 +78,7 @@ public class EncrypterUtil {
                     field.setAccessible(true);
                     field.set(obj, encryptor.decrypt((String) field.get(obj)));
                     field.setAccessible(false);
-                } else if(field.isAnnotationPresent(Encrypt.class)) {
+                } else if (field.isAnnotationPresent(Encrypt.class)) {
                     field.set(obj, encryptor.decrypt((String) field.get(obj)));
                 }
             }
@@ -79,6 +87,12 @@ public class EncrypterUtil {
         }
     }
 
+    /**
+     * Additional method to get salt from object.
+     *
+     * @param obj entity object
+     * @return string with salt
+     */
     private static CharSequence getSalt(Object obj) throws IllegalAccessException {
         CharSequence salt;
         try {
@@ -105,6 +119,16 @@ public class EncrypterUtil {
             salt = obj.getClass().getName();
         }
         return salt;
+    }
+
+    /**
+     * Main method to hash user's password before persisting.
+     *
+     * @param rawPassword user's password
+     * @return encoded password
+     */
+    public static String hashPassword(String rawPassword) {
+        return passwordEncoder.encode(rawPassword);
     }
 
     /**
