@@ -62,10 +62,12 @@ describe('Component: CustomersCreateComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance.router, 'navigate');
+        spyOn(componentFixture.instance, 'toggleLoading');
 
         componentFixture.instance.onSubmit({id: 1});
 
-        expect(componentFixture.instance.isLoading).toBeFalsy();
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successCreateCustomer');
         expect(componentFixture.instance.router.navigate).toHaveBeenCalledWith(['/customers', 1, 'update']);
@@ -77,13 +79,13 @@ describe('Component: CustomersCreateComponent', () => {
             connection.mockError(new Response(response));
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
-        spyOn(console, 'error');
+        spyOn(componentFixture.instance, 'toggleLoading');
 
         componentFixture.instance.onSubmit({id: 1});
 
-        expect(componentFixture.instance.isLoading).toBeFalsy();
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorCreateCustomer');
-        expect(console.error).toHaveBeenCalledWith(new Response(new ResponseOptions({status: 500})));
     }));
 });

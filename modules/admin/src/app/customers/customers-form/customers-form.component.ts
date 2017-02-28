@@ -45,7 +45,6 @@ export class CustomersFormComponent {
     }
 
     ngOnInit() {
-        this.model['_embedded'] = this.model['_embedded'] || {};
         this.id = this.route.params['value'].customerId;
     }
 
@@ -58,15 +57,15 @@ export class CustomersFormComponent {
     }
 
     onCreate(event: OneToMany) {
-        this.router.navigate(['/customers', this.id, event.propertyName, 'create']).then();
+        this.router.navigate(['/customers', this.id, event.propertyName, 'create']);
     }
 
     onUpdate(event: OneToMany) {
-        this.router.navigate(['/customers', this.id, event.propertyName, 'update', event.entity['id']]).then();
+        this.router.navigate(['/customers', this.id, event.propertyName, 'update', event.entity['id']]);
     }
 
     onDelete(event: OneToMany) {
-        this.router.navigate(['/customers', this.id, event.propertyName, 'delete', event.entity['id']]).then();
+        this.router.navigate(['/customers', this.id, event.propertyName, 'delete', event.entity['id']]);
     }
 }
 

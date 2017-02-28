@@ -47,16 +47,18 @@ export class CustomersUpdateComponent {
     }
 
     onSubmit(entity: Customer) {
-        this.isLoading = true;
+        this.toggleLoading(true);
         this.customersService.updateResource(entity)
             .subscribe(() => {
-                this.isLoading = false;
+                this.toggleLoading(false);
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
             }, err => {
-                console.error(err);
-                this.isLoading = false;
+                this.toggleLoading(false);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
             });
     }
 
+    toggleLoading(value: boolean) {
+        this.isLoading = value;
+    }
 }

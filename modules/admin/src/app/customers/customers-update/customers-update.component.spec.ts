@@ -92,9 +92,12 @@ describe('Component: CustomersUpdateComponent', () => {
             connection.mockRespond(new Response(response));
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(componentFixture.instance, 'toggleLoading');
 
         componentFixture.instance.onSubmit(customer);
 
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
         expect(componentFixture.instance.isLoading).toBeFalsy();
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdateCustomer');
@@ -106,14 +109,15 @@ describe('Component: CustomersUpdateComponent', () => {
             connection.mockError(new Response(response));
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
-        spyOn(console, 'error');
+        spyOn(componentFixture.instance, 'toggleLoading');
 
         componentFixture.instance.onSubmit(customer);
 
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
         expect(componentFixture.instance.isLoading).toBeFalsy();
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdateCustomer');
-        expect(console.error).toHaveBeenCalledWith(new Response(new ResponseOptions({status: 500})));
     }));
 
     it('.ngOnInit()', async(() => {
