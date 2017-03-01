@@ -2,15 +2,19 @@ import {browser, element, by} from "protractor";
 import {ProtractorHelpers} from "../../shared/protractor-helpers";
 import {promise as wdpromise} from "selenium-webdriver";
 
-export class CustomersCreatePage {
+export class CustomersUpdatePage {
     protHelper = new ProtractorHelpers();
 
     // DOM elements
-    customersViewCreateButton = element(by.className('create-button'));
+    columnCompanyName = element(by.cssContainingText('.ui-column-title', 'Company Name'));
+    rowUpdateButton = element.all(by.className('update-button')).first();
+    postcodeInputField = element(by.id('postcode'));
+    messageTitle = element(by.css('simple-notification .sn-title'));
     submitButton = element(by.id('submit-button'));
     customersUpdateSelector = element(by.tagName('customers-update'));
-    successfulMessage = element(by.tagName('simple-notification'));
-    customersForm = element(by.id('customers-form'));
+    parentCustomerComponent = element(by.id('parent-customer'));
+    customerContactsComponent = element(by.id('customer-contacts'));
+    customerUserComponent = element(by.id('customer-users'));
     inputFields = [
         {
             element: element(by.id('companyName')),
@@ -46,34 +50,40 @@ export class CustomersCreatePage {
         browser.get(browser.baseUrl + '/customers');
     }
 
-    clickOnCustomersViewCreateButton() {
-        this.protHelper.clickOnElement(this.customersViewCreateButton);
+    clickOnColumnCompanyName() {
+        this.protHelper.clickOnElement(this.columnCompanyName);
+    }
+
+    clickOnRowUpdateButton() {
+        this.protHelper.clickOnElement(this.rowUpdateButton);
+    }
+
+    sendKeysToPostcodeInputField() {
+        this.protHelper.sendKeys(this.postcodeInputField, '32454');
+    }
+
+    getMessageTitle() {
+        return this.protHelper.getElementText(this.messageTitle);
     }
 
     clickOnSubmitButton() {
         this.protHelper.clickOnElement(this.submitButton);
     }
 
-    fillInputFields() {
-        this.inputFields.forEach(i => {
-            this.protHelper.sendKeys(i.element, i.value);
-        });
-    }
-
-    isEnabledSubmitButton() {
-        return this.protHelper.isEnabledElement(this.submitButton);
-    }
-
-    isDisplayedCustomersForm() {
-        return this.protHelper.isElementPresence(this.customersForm);
-    }
-
-    isDisplayedSuccessfulMessage() {
-        return this.protHelper.isElementPresence(this.successfulMessage);
-    }
-
     isDisplayedCustomersUpdateSelector() {
         return this.protHelper.isElementPresence(this.customersUpdateSelector);
+    }
+
+    isDisplayedParentCustomerComponent() {
+        return this.protHelper.isElementPresence(this.parentCustomerComponent);
+    }
+
+    isDisplayedCustomerContactsComponent() {
+        return this.protHelper.isElementPresence(this.customerContactsComponent);
+    }
+
+    isDisplayedCustomerUserComponent() {
+        return this.protHelper.isElementPresence(this.customerUserComponent);
     }
 
     isDisplayedInputFields() {

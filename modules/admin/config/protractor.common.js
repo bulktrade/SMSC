@@ -9,6 +9,7 @@ exports.config = {
     helpers.root('src/app/*.e2e.ts'),
     helpers.root('src/app/login/*.e2e.ts'),
     helpers.root('src/app/customers/customers-create/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-update/*.e2e.ts'),
     helpers.root('src/**/**.e2e.ts'),
     helpers.root('src/**/*.e2e.ts')
   ],

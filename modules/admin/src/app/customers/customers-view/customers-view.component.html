@@ -43,7 +43,7 @@
                       [routerLink]="['/customers', row['id'], 'delete']"></span>
             </template>
         </p-column>
-        <p-column field="companyName" [header]="'companyName' | translate" [editable]="true"
+        <p-column field="companyName" styleClass="col-company-name" [header]="'companyName' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
                 <div class="ui-sm-12 ui-md-12 filter-container">

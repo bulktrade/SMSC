@@ -25,7 +25,7 @@ describe('Create customers', () => {
         expect(page.isEnabledSubmitButton()).toBeTruthy();
     });
 
-    it('should display create new customer', () => {
+    it('should create the customer', () => {
         page.clickOnSubmitButton();
         expect(page.isDisplayedSuccessfulMessage()).toBeTruthy();
     });
