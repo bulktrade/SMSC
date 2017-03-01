@@ -15,6 +15,16 @@ export class ProtractorHelpers {
         return element.isPresent();
     }
 
+    isEnabledElement(element: ElementFinder): wdpromise.Promise<boolean> {
+        browser.wait(EC.presenceOf(element), this.timeout);
+        return element.isEnabled();
+    }
+
+    getElementText(element): Promise<string> {
+        browser.wait(EC.presenceOf(element), this.timeout);
+        return element.getText();
+    }
+
     sendKeys(element: ElementFinder, value: string) {
         browser.wait(EC.elementToBeClickable(element), this.timeout);
         element.clear();

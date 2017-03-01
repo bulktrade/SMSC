@@ -10,9 +10,15 @@ describe('LoginComponent page', () => {
     });
 
     it('should display alert danger', () => {
-        let incorrectData: LoginModel = new LoginModel('root', '123t', false);
-        loginPage.fillLoginForm(incorrectData);
+        let model: LoginModel = new LoginModel('root', '123t', false);
+        loginPage.fillLoginForm(model);
         expect(loginPage.isPresentErrorAlert()).toBeTruthy();
+    });
+
+    it('should log in', () => {
+        let model: LoginModel = new LoginModel('admin', 'admin', false);
+        loginPage.fillLoginForm(model);
+        expect(loginPage.isPresentNavigation()).toBeTruthy();
     });
 
     it('is exist page 404 not found', () => {

@@ -1,11 +1,11 @@
-import { TestBed, inject } from "@angular/core/testing";
-import { HttpModule, XHRBackend, ResponseOptions, Response } from "@angular/http";
-import { MockBackend } from "@angular/http/testing";
-import { CrudRepository } from "./crud-repository";
-import { AuthService } from "./auth.service";
-import { TokenService } from "./token.service";
-import { AuthModel } from "./auth.model";
-import { ConfigService } from "../../config/config.service";
+import {TestBed, inject} from "@angular/core/testing";
+import {HttpModule, XHRBackend, ResponseOptions, Response} from "@angular/http";
+import {MockBackend} from "@angular/http/testing";
+import {CrudRepository} from "./crud-repository";
+import {AuthService} from "./auth.service";
+import {TokenService} from "./token.service";
+import {AuthModel} from "./auth.model";
+import {ConfigService} from "../../config/config.service";
 
 class ConfigServiceMock {
     config = {
@@ -15,15 +15,15 @@ class ConfigServiceMock {
     }
 }
 
-describe('Auth service', () => {
+describe('Service: AuthService', () => {
     let mockBackend, authService: AuthService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpModule],
             providers: [
-                { provide: XHRBackend, useClass: MockBackend },
-                { provide: ConfigService, useClass: ConfigServiceMock },
+                {provide: XHRBackend, useClass: MockBackend},
+                {provide: ConfigService, useClass: ConfigServiceMock},
                 AuthService,
                 TokenService
             ]
@@ -41,7 +41,7 @@ describe('Auth service', () => {
             refreshToken: 'refreshToken'
         };
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
         authService.login('login', 'password')
@@ -56,7 +56,7 @@ describe('Auth service', () => {
             refreshToken: 'refreshToken'
         };
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
         authService.authentication('login', 'password')
@@ -71,7 +71,7 @@ describe('Auth service', () => {
             token: 'token',
         };
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
         authService.refreshAccessToken('expiredToken', 'refreshToken')

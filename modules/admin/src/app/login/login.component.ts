@@ -29,7 +29,6 @@ export class LoginComponent {
         this.authService.login(model.username, model.password)
             .subscribe(
                 () => {
-                    this.toggleLoading(false);
                     this.router.navigateByUrl('/customers');
                 },
                 (err: Response) => {
