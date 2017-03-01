@@ -63,7 +63,6 @@ describe('Component: LoginComponent', () => {
         componentFixture.instance.onSubmit(new LoginModel('', '', false));
 
         expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
         expect(componentFixture.instance.router.navigateByUrl).toHaveBeenCalledWith('/customers');
     }));
 
