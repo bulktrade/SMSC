@@ -135,7 +135,7 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-8 ui-g-nopad relationship-tabs">
                             <p-tabView>
-                                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'contacts' | translate"
+                                <p-tabPanel headerStyleClass="ui-sm-12 customer-contacts-tab" [header]="'contacts' | translate"
                                             leftIcon="fa-users">
                                     <one-to-many id="customer-contacts"
                                                  [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
@@ -144,7 +144,7 @@
                                                  (onDelete)="onDelete($event)"
                                                  [mainEntityId]="id" property="contacts"></one-to-many>
                                 </p-tabPanel>
-                                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'customerUsers' | translate"
+                                <p-tabPanel headerStyleClass="ui-sm-12 customer-users-tab" [header]="'customerUsers' | translate"
                                             leftIcon="fa-user-secret">
                                     <one-to-many id="customer-users"
                                                  [renderProperties]="['firstname', 'surname', 'username', 'email']"
