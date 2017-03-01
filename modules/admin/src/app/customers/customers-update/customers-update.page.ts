@@ -7,7 +7,7 @@ export class CustomersUpdatePage {
 
     // DOM elements
     columnCompanyName = element(by.cssContainingText('.ui-column-title', 'Company Name'));
-    rowUpdateButton = element.all(by.className('update-button')).first();
+    rowUpdateButton = element.all(by.className('update-icon')).first();
     postcodeInputField = element(by.id('postcode'));
     messageTitle = element(by.css('simple-notification .sn-title'));
     submitButton = element(by.id('submit-button'));
