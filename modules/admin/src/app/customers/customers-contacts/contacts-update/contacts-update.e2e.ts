@@ -1,7 +1,7 @@
-import {ContactsCreatePage} from "./contacts-create.page";
+import {ContactsUpdatePage} from "./contacts-update.page";
 
-describe('Create the contact', () => {
-    let page = new ContactsCreatePage();
+describe('Update the contact', () => {
+    let page = new ContactsUpdatePage();
 
     beforeAll(() => {
         page.get();
@@ -13,10 +13,10 @@ describe('Create the contact', () => {
         expect(page.isDisplayedCustomersUpdateSelector()).toBeTruthy()
     });
 
-    it('should click on the create new contact button', () => {
+    it('should click on the update contact button', () => {
         page.clickOnCustomerContactsTab();
-        page.clickOnCreateContactButton();
-        expect(page.isDisplayedContactsCreateSelector()).toBeTruthy();
+        page.clickOnUpdateContactButton();
+        expect(page.isDisplayedUpdateSelector()).toBeTruthy();
     });
 
     it('should have input fields', () => {

@@ -11,6 +11,8 @@ exports.config = {
     helpers.root('src/app/customers/customers-create/*.e2e.ts'),
     helpers.root('src/app/customers/customers-update/*.e2e.ts'),
     helpers.root('src/app/customers/customers-contacts/contacts-create/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-contacts/contacts-update/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-contacts/contacts-delete/*.e2e.ts'),
     helpers.root('src/app/customers/customers-delete/*.e2e.ts'),
     helpers.root('src/**/**.e2e.ts'),
     helpers.root('src/**/*.e2e.ts')

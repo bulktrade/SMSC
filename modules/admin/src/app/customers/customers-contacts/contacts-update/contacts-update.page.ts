@@ -2,16 +2,16 @@ import {browser, element, by} from "protractor";
 import {ProtractorHelpers} from "../../../shared/protractor-helpers";
 import {promise as wdpromise} from "selenium-webdriver";
 
-export class ContactsCreatePage {
+export class ContactsUpdatePage {
     protHelper = new ProtractorHelpers();
 
     // DOM elements
     columnCompanyName = element(by.cssContainingText('.ui-column-title', 'Company Name'));
     rowUpdateButton = element.all(by.className('update-icon')).first();
     customerContactsTab = element(by.className('customer-contacts-tab'));
-    createContactButton = element(by.css('#customer-contacts .create-button'));
+    updateContactButton = element(by.css('#customer-contacts .items-container > div:last-child .update-button'));
     customersUpdateSelector = element(by.tagName('customers-update'));
-    contactsCreateSelector = element(by.tagName('contacts-create'));
+    contactsUpdateSelector = element(by.tagName('contacts-update'));
     submitButton = element(by.id('submit-button'));
     salutationDropdown = element(by.id('salutation'));
     salutationLabel = element(by.css('#salutation label'));
@@ -61,16 +61,16 @@ export class ContactsCreatePage {
         this.protHelper.clickOnElement(this.customerContactsTab);
     }
 
-    clickOnCreateContactButton() {
-        this.protHelper.clickOnElement(this.createContactButton);
+    clickOnUpdateContactButton() {
+        this.protHelper.clickOnElement(this.updateContactButton);
     }
 
     isDisplayedCustomersUpdateSelector() {
         return this.protHelper.isElementPresence(this.customersUpdateSelector);
     }
 
-    isDisplayedContactsCreateSelector() {
-        return this.protHelper.isElementPresence(this.contactsCreateSelector);
+    isDisplayedUpdateSelector() {
+        return this.protHelper.isElementPresence(this.contactsUpdateSelector);
     }
 
     // set salutation dropdown field
