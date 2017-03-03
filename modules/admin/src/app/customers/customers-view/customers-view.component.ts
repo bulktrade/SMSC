@@ -125,10 +125,10 @@ export class CustomersViewComponent {
         this.customersService.updateResource(data)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
+                this.setRowData();
             }, err => {
-                console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
-                return false;
+                this.setRowData();
             })
     }
 
@@ -137,6 +137,7 @@ export class CustomersViewComponent {
         this.customersService.getResources(this.pagination.number, this.pagination.size,
             this.filters, this.sort)
             .subscribe(rows => {
+                this.pagination.totalElements = rows['page']['totalElements'];
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
                 this.isLoading = false;
                 this.showConfirmDeletionWindow = false;

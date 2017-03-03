@@ -54,9 +54,9 @@ export class CustomersCreatePage {
         this.protHelper.clickOnElement(this.submitButton);
     }
 
-    fillInputFields() {
+    fillInputFields(valueSuffix: number) {
         this.inputFields.forEach(i => {
-            this.protHelper.sendKeys(i.element, i.value);
+            this.protHelper.sendKeys(i.element, i.value + valueSuffix);
         });
     }
 
