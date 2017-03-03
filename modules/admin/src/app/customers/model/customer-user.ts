@@ -8,7 +8,6 @@ interface Links {
 export interface CustomerUser extends Entity {
     username: string;
     password: string;
-    salt: string;
     firstname: string;
     surname: string;
     email: string;
