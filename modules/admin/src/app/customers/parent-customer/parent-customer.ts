@@ -12,18 +12,13 @@ import {Customer} from "../model/customer";
     encapsulation: ViewEncapsulation.None,
     selector: 'parent-customer',
     template: `
-    <div id="one-to-one-component">
+    <div id="one-to-one-component" class="parent-customer">
         <p-autoComplete [ngModel]="getModelBySchema(model)" (ngModelChange)="onSelectResource($event).subscribe()"
                         [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
                          styleClass="ui-sm-12 ui-md-12 ui-g-nopad" [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick().subscribe()">
             <template let-model pTemplate="item">
                 <div class="ui-helper-clearfix">
-                    <div class="titleColumns">
-                        <span class="id">{{ model['id'] }}</span>
-                        <ng-container *ngFor="let item of renderProperties; let last = last;">
-                            <span>{{ model[item] }}<span class="separate" *ngIf="!last">, </span></span>
-                        </ng-container>
-                    </div>
+                    {{ getModelBySchema(model) }}
                 </div>
             </template>
         </p-autoComplete>
