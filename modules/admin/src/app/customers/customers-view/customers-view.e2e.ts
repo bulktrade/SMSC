@@ -15,6 +15,10 @@ describe('Create view', () => {
     });
 
     describe('global filtering', () => {
+        beforeAll(() => {
+            page.get();
+        });
+
         it('should filter the data by global filter', () => {
             page.sendKeysToSearchField('Aaaaaaaaaaaaaaaa1');
             expect(page.getCountRows()).toEqual(2);
@@ -27,6 +31,10 @@ describe('Create view', () => {
     });
 
     describe('inline editing', () => {
+        beforeAll(() => {
+            page.get();
+        });
+
         it('should editing the first row', () => {
             page.cellsOfFirstRow.count()
                 .then((length) => {
@@ -43,6 +51,10 @@ describe('Create view', () => {
     });
 
     describe('multiple deleting', () => {
+        beforeAll(() => {
+            page.get();
+        });
+
         it('should select 10 rows and navigate to delete window', () => {
             page.clickOnColumnCompanyName(); // sorting rows by company name
             page.clickOnSelectAllRowsCheckbox();

@@ -28,7 +28,7 @@ describe('Delete the contact', () => {
         expect(page.isDisplayedOkButton()).toBeTruthy();
     });
 
-    it('should delete the customer', () => {
+    it('should delete the contact', () => {
         page.clickOnOkButton();
         expect(page.getMessageTitle()).toEqual('SUCCESS');
     });
