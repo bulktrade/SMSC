@@ -22,6 +22,7 @@ describe('Create view', () => {
         it('should filter the data by global filter', () => {
             page.sendKeysToSearchField('Aaaaaaaaaaaaaaaa9');
             expect(page.isDisplayedClearGlobalSearchField()).toBeTruthy();
+            browser.sleep(5000);
             expect(page.getCountRows()).toEqual(1);
         });
 
