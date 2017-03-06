@@ -20,8 +20,9 @@ describe('Create view', () => {
         });
 
         it('should filter the data by global filter', () => {
-            page.sendKeysToSearchField('Aaaaaaaaaaaaaaaa1');
-            expect(page.getCountRows()).toEqual(2);
+            page.sendKeysToSearchField('Aaaaaaaaaaaaaaaa10');
+            expect(page.isDisplayedClearGlobalSearchField()).toBeTruthy();
+            expect(page.getCountRows()).toEqual(1);
         });
 
         it('should clear the global search field', () => {

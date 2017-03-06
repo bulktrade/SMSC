@@ -67,6 +67,9 @@ export class CustomersViewPage {
         this.protHelpers.clickOnElement(this.clearGlobalSearchField);
     }
 
+    isDisplayedClearGlobalSearchField() {
+        return this.protHelpers.isElementPresence(this.clearGlobalSearchField);
+    }
 
     isDisplayedConfirmDeleteMessage() {
         return this.protHelpers.isElementPresence(this.confirmDeleteMessage);
