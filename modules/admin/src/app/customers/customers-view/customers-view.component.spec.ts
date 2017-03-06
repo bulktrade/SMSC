@@ -87,6 +87,9 @@ describe('Component: CustomersViewComponent', () => {
             },
             _embedded: {
                 customers: []
+            },
+            page: {
+                totalElements: 10
             }
         };
         componentFixture.instance.selectedRows = [data];
