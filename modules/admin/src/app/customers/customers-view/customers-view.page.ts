@@ -4,7 +4,6 @@ import {ProtractorHelpers} from "../../shared/protractor-helpers";
 export class CustomersViewPage {
     public protHelpers = new ProtractorHelpers();
 
-    // DOM elements
     columnCompanyName = element(by.cssContainingText('.ui-column-title', 'Company Name'));
     pDataTable = element(by.tagName('p-dataTable'));
     pHeader = element(by.tagName('p-header'));
@@ -19,6 +18,15 @@ export class CustomersViewPage {
     cancelDeleteButton = element(by.css('#confirm-deletion-window #cancel-button'));
     okDeleteButton = element(by.css('#confirm-deletion-window #ok-button'));
     messageTitle = element(by.css('simple-notification .sn-title'));
+
+    // pagination elements
+    firstPage = element(by.className('ui-paginator-first'));
+    previousPage = element(by.className('ui-paginator-prev'));
+    nextPage = element(by.className('ui-paginator-next'));
+    lastPage = element(by.className('ui-paginator-last'));
+    rowsPerPageDropdown = element(by.className('ui-paginator-rpp-options'));
+    optionWith20Rows = element.all(by.css('.ui-paginator-rpp-options option')).get(1);
+    pageLinks = element.all(by.css('.ui-paginator-pages a'));
 
     get() {
         browser.get(browser.baseUrl + '/customers');
@@ -93,5 +101,29 @@ export class CustomersViewPage {
 
     clickOnColumnCompanyName() {
         this.protHelpers.clickOnElement(this.columnCompanyName);
+    }
+
+    clickOnFirstPage() {
+        this.protHelpers.clickOnElement(this.firstPage);
+    }
+
+    clickOnPreviousPage() {
+        this.protHelpers.clickOnElement(this.previousPage);
+    }
+
+    clickOnNextPage() {
+        this.protHelpers.clickOnElement(this.nextPage);
+    }
+
+    clickOnLastPage() {
+        this.protHelpers.clickOnElement(this.lastPage);
+    }
+
+    clickOnRowsPerPageDropdown() {
+        this.protHelpers.clickOnElement(this.rowsPerPageDropdown);
+    }
+
+    clickOnOptionWith20Rows() {
+        this.protHelpers.clickOnElement(this.optionWith20Rows);
     }
 }

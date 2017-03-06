@@ -103,7 +103,6 @@ export class CustomersViewComponent {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
                 this.isFilterLoading[filterName] = false;
             }, err => {
-                console.error(err);
                 this.isFilterLoading[filterName] = false;
             });
     }

@@ -14,15 +14,66 @@ describe('Create view', () => {
         expect(page.isDisplayedHeader()).toBeTruthy();
     });
 
+    describe('pagination', () => {
+        beforeAll(() => {
+            page.get();
+        });
+
+        it('should get the next page', () => {
+            page.clickOnNextPage();
+            // get the class attribute of the second page link and check for the presence of `ui-state-active` class
+            page.pageLinks.get(1).getAttribute('class')
+                .then(className => {
+                    expect(className.includes('ui-state-active')).toBeTruthy();
+                });
+            expect(page.getCountRows()).toEqual(2);
+        });
+
+        it('should get the previous page', () => {
+            page.clickOnPreviousPage();
+            // get the class attribute of the first page link and check for the presence of `ui-state-active` class
+            page.pageLinks.get(0).getAttribute('class')
+                .then(className => {
+                    expect(className.includes('ui-state-active')).toBeTruthy();
+                });
+            expect(page.getCountRows()).toEqual(10);
+        });
+
+        it('should get the last page', () => {
+            page.clickOnLastPage();
+            // get the class attribute of the second page link and check for the presence of `ui-state-active` class
+            page.pageLinks.get(1).getAttribute('class')
+                .then(className => {
+                    expect(className.includes('ui-state-active')).toBeTruthy();
+                });
+            expect(page.getCountRows()).toEqual(2);
+        });
+
+        it('should get the first page', () => {
+            page.clickOnFirstPage();
+            // get the class attribute of the first page link and check for the presence of `ui-state-active` class
+            page.pageLinks.get(0).getAttribute('class')
+                .then(className => {
+                    expect(className.includes('ui-state-active')).toBeTruthy();
+                });
+            expect(page.getCountRows()).toEqual(10);
+        });
+
+        it('should choose 20 rows per page', () => {
+            page.clickOnRowsPerPageDropdown();
+            page.clickOnOptionWith20Rows();
+            expect(page.getCountRows()).toEqual(12);
+        });
+    });
+
     describe('global filtering', () => {
         beforeAll(() => {
             page.get();
         });
 
         it('should filter the data by global filter', () => {
-            page.sendKeysToSearchField('Aaaaaaaaaaaaaaaa9');
+            page.sendKeysToSearchField('Default');
             expect(page.isDisplayedClearGlobalSearchField()).toBeTruthy();
-            browser.sleep(5000);
             expect(page.getCountRows()).toEqual(1);
         });
 
