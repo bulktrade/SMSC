@@ -47,11 +47,20 @@ describe('Component: ContactsUpdateComponent', () => {
         mockBackend = _mockBackend;
     }));
 
-    it('should have `<p-panel>` and `<form>`', async(() => {
+    it('should have `<p-panel>`, `<form>` and input fields', async(() => {
         componentFixture.fixture.detectChanges();
         componentFixture.fixture.whenStable().then(() => {
             expect(componentFixture.element.querySelector('p-panel')).toBeTruthy();
             expect(componentFixture.element.querySelector('form')).toBeTruthy();
+            // input fields
+            expect(componentFixture.element.querySelector('#salutation')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#type')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#firstname')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#surname')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#emailAddress')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#phone')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#mobilePhone')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#fax')).toBeTruthy();
         });
     }));
 

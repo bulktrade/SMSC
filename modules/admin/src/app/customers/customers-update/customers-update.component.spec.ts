@@ -71,10 +71,18 @@ describe('Component: CustomersUpdateComponent', () => {
         mockBackend = _mockBackend;
     }));
 
-    it('should have the `customers-form`', async(() => {
+    it('should have the `customers-form` and input fields', async(() => {
         componentFixture.fixture.detectChanges();
         componentFixture.fixture.whenStable().then(() => {
             expect(componentFixture.element.querySelector('#customers-form')).toBeDefined();
+            // input fields
+            expect(componentFixture.element.querySelector('#companyName')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#street')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#street2')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#postcode')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#country')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#city')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#vatid')).toBeTruthy();
         });
     }));
 
