@@ -1,10 +1,9 @@
-import { Component, ViewEncapsulation } from "@angular/core";
-import { TranslateService } from "ng2-translate";
-import { NOTIFICATION_OPTIONS } from "./shared/notification-options";
+import {Component, ViewEncapsulation} from "@angular/core";
+import {TranslateService} from "ng2-translate";
+import {NOTIFICATION_OPTIONS} from "./shared/notification-options";
 
 @Component({
     selector: 'app',
-    providers: [],
     template: `
         <simple-notifications style="z-index:999999" id="growl" [options]="notificationOptions"></simple-notifications>
         <router-outlet></router-outlet>

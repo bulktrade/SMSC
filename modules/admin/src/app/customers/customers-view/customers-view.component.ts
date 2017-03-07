@@ -118,7 +118,7 @@ export class CustomersViewComponent {
     }
 
     onEditComplete(event) {
-        this.customersService.updateResource(event)
+        this.customersService.updateResource(event.data)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
                 this.setRowData();
