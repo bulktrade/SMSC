@@ -10,7 +10,6 @@ import {Customer} from "../model/customer";
 import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
 import {Sort, SortType} from "../../shared/sort.model";
 import {DOCUMENT} from "@angular/platform-browser";
-import * as clone from "js.clone";
 import {Message} from "primeng/components/common/api";
 import {Observable} from "rxjs";
 import {Response} from "@angular/http";
@@ -119,9 +118,7 @@ export class CustomersViewComponent {
     }
 
     onEditComplete(event) {
-        let data: Customer = clone(event.data);
-
-        this.customersService.updateResource(data)
+        this.customersService.updateResource(event)
             .subscribe(() => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
                 this.setRowData();
@@ -141,7 +138,6 @@ export class CustomersViewComponent {
                 this.isLoading = false;
                 this.showConfirmDeletionWindow = false;
             }, err => {
-                console.error(err);
                 this.isLoading = false;
             });
     }
@@ -159,7 +155,6 @@ export class CustomersViewComponent {
                     obs.next(res);
                 }, err => {
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteCustomers');
-                    console.error(err);
                     obs.error(err);
                 });
         });
@@ -181,11 +176,11 @@ export class CustomersViewComponent {
 
     getRowData() {
         return this.route.snapshot.data.hasOwnProperty('view') ?
-            this.route.snapshot.data['view'].rowData : [];
+            this.route.snapshot.data['view']['_embedded'][REPOSITORY_NAME] : [];
     }
 
     getNumberCustomers() {
         return this.route.snapshot.data.hasOwnProperty('view') ?
-            this.route.snapshot.data['view'].totalElements : 0;
+            this.route.snapshot.data['view']['page']['totalElements'] : 0;
     }
 }
