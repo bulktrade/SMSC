@@ -8,7 +8,6 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {TranslateModule} from "ng2-translate";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
-import {BreadcrumbModule} from "../breadcrumb/breadcrumb.component";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {ButtonModule} from "primeng/components/button/button";
 import {ProfileResolve} from "./profile.resolve";
@@ -26,7 +25,6 @@ import {SharedModule} from "primeng/components/common/shared";
         ButtonModule,
         SharedModule,
         MessagesModule,
-        BreadcrumbModule,
         FormsModule,
         CommonModule,
         TranslateModule,

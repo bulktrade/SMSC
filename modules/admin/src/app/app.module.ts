@@ -3,7 +3,6 @@ import {BrowserModule} from "@angular/platform-browser";
 import {Http, HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {App} from "./app.component";
-import {BreadcrumbModule} from "./breadcrumb/breadcrumb.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {LoginComponent} from "./login/login.component";
 import {NavigationComponent} from "./navigation/navigation.component";
@@ -26,7 +25,6 @@ import {ConfigService} from "./config/config.service";
 import {LoadingRouterOutletService} from "./services/loading/loading-router-outlet.service";
 import {LoadingService} from "./services/loading/loading.service";
 import {RouterOutletService} from "./services/router-outlet-service";
-import {MetaDataPropertyBindingParameterComponent} from "./crud-meta-data/binding-parameter/binding-parameter.component";
 import {SidebarService} from "./sidebar/sidebar.service";
 // import { DashboardModule } from "./dashboard/dashboard.module";
 import {HTTP_INTERCEPTOR_PROVIDER} from "./shared/http-interceptor";
@@ -83,8 +81,7 @@ export const APP_DECLARATIONS = [
     SidebarComponent,
     NotFoundComponent,
     NavigationComponent,
-    SidebarItemComponent,
-    MetaDataPropertyBindingParameterComponent
+    SidebarItemComponent
 ];
 
 export const APP_IMPORTS = [
@@ -96,7 +93,6 @@ export const APP_IMPORTS = [
     HttpModule,
     AppRoutingModule,
     SimpleNotificationsModule,
-    BreadcrumbModule.forRoot(),
     TranslateModule.forRoot({
         provide: TranslateLoader,
         useFactory: translateFactory,
