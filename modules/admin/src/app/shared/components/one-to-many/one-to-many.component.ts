@@ -1,4 +1,4 @@
-import {Component, Input, ModuleWithProviders, NgModule, Output, EventEmitter} from "@angular/core";
+import {Component, Input, NgModule, Output, EventEmitter} from "@angular/core";
 import {TranslateService, TranslateModule} from "ng2-translate/ng2-translate";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {Location, CommonModule} from "@angular/common";
@@ -110,10 +110,4 @@ export class OneToManyComponent {
     declarations: [OneToManyComponent]
 })
 export class OneToManyModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: OneToManyModule,
-            providers: []
-        };
-    }
 }

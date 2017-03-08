@@ -1,4 +1,4 @@
-import {Component, ModuleWithProviders, NgModule, ViewEncapsulation} from "@angular/core";
+import {Component, NgModule, ViewEncapsulation} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {CubeGridModule} from "../cube-grid/cube-grid.component";
@@ -42,10 +42,4 @@ export class LoadingRouterOutletComponent {
     declarations: [LoadingRouterOutletComponent]
 })
 export class LoadingRouterOutletModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: LoadingRouterOutletModule,
-            providers: []
-        };
-    }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, NgModule, ModuleWithProviders, Output, EventEmitter} from "@angular/core";
+import {Component, Input, NgModule, Output, EventEmitter} from "@angular/core";
 import {Location, CommonModule} from "@angular/common";
 import {Router, ActivatedRoute, RouterModule} from "@angular/router";
 import {TranslateModule} from "ng2-translate/ng2-translate";
@@ -90,10 +90,4 @@ export class CustomersFormComponent {
     declarations: [CustomersFormComponent]
 })
 export class CustomersFormModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: CustomersFormModule,
-            providers: []
-        };
-    }
 }

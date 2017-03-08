@@ -1,7 +1,6 @@
-import { Component, Host, Input, Optional, NgModule, ModuleWithProviders } from "@angular/core";
-import { NgForm } from "@angular/forms";
-import { CommonModule } from "@angular/common";
-
+import {Component, Host, Input, Optional, NgModule} from "@angular/core";
+import {NgForm} from "@angular/forms";
+import {CommonModule} from "@angular/common";
 
 @Component({
     selector: 'control-errors',
@@ -52,10 +51,4 @@ export class ControlErrorsComponent {
     declarations: [ControlErrorsComponent]
 })
 export class ControlErrorsModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: ControlErrorsModule,
-            providers: []
-        };
-    }
 }

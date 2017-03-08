@@ -1,4 +1,4 @@
-import {Component, OnInit, NgModule, ModuleWithProviders, Input} from "@angular/core";
+import {Component, OnInit, NgModule, Input} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {RequestOptions, RequestMethod, Http} from "@angular/http";
 import {CrudRepository} from "../../crud-repository";
@@ -185,9 +185,4 @@ export class OneToOneComponent implements OnInit {
     declarations: [OneToOneComponent]
 })
 export class OneToOneModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: OneToOneModule
-        };
-    }
 }

@@ -73,8 +73,10 @@ export class CustomersViewComponent {
     }
 
     ngAfterViewChecked() {
-        this.tableHeaderHeight = this.getTableHeaderHeight();
-        this.tableBodyHeight = this.getTableBodyHeight();
+        if (this.document.querySelector('#customers-view-window')) {
+            this.tableHeaderHeight = this.getTableHeaderHeight();
+            this.tableBodyHeight = this.getTableBodyHeight();
+        }
     }
 
     onSort(event) {
