@@ -54,8 +54,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#user?.isNew() and hasRole('ADMIN_USER') and hasAuthority('ADMIN_USER_CREATE')) or " +
-            "(!#user?.isNew() and hasRole('ADMIN_USER') and hasAuthority('ADMIN_USER_WRITE'))")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#user?.id == null) and hasRole('ADMIN_USER') and hasAuthority('ADMIN_USER_CREATE')) or " +
+            "(!(#user?.id == null) and hasRole('ADMIN_USER') and hasAuthority('ADMIN_USER_WRITE'))")
     User save(@Param("user") User user);
 
     @Override
@@ -126,8 +126,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>,
 
     @Override
     @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or (filterObject.isNew() and hasRole('ADMIN_USER') and hasAuthority('ADMIN_USER_CREATE')) or " +
-            "(!filterObject.isNew() and hasRole('ADMIN_USER') and hasAuthority('ADMIN_USER_WRITE'))")
+    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasRole('ADMIN_USER') and hasAuthority('ADMIN_USER_CREATE')) or " +
+            "(!(filterObject.id == null) and hasRole('ADMIN_USER') and hasAuthority('ADMIN_USER_WRITE'))")
     <S extends User> Iterable<S> save(Iterable<S> users);
 
     @Override

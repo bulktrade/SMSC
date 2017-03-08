@@ -77,7 +77,6 @@ public class AuthController {
         }
         catch (Exception ex) {
             LOG.debug("Some exception occurred", ex);
-            // going to send error
         }
 
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials are invalid. Please enter valid username and password");
@@ -107,7 +106,6 @@ public class AuthController {
             }
         } catch (Exception ex) {
             LOG.debug("Some exception occurred", ex);
-            // going to send error
         }
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh or expired access token is invalid. Please enter valid tokens");
         return null;

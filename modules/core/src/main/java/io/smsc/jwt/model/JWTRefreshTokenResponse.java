@@ -14,10 +14,6 @@ public class JWTRefreshTokenResponse implements Serializable {
 
     private String refreshedToken;
 
-    public JWTRefreshTokenResponse() {
-        super();
-    }
-
     public JWTRefreshTokenResponse(String refreshedToken) {
         this.refreshedToken = refreshedToken;
     }

@@ -51,11 +51,6 @@ public class Role extends BaseEntity {
     @OrderBy("id asc")
     private Set<User> users;
 
-    @JsonIgnore
-    public boolean isNew() {
-        return getId() == null;
-    }
-
     public Long getId() {
         return id;
     }
@@ -100,9 +95,10 @@ public class Role extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Role{" +
-                "id=" + id +
+        return "{ id=" + id +
                 ", name='" + name + '\'' +
-                "} " + super.toString();
+                ", version='" + version + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                "}";
     }
 }

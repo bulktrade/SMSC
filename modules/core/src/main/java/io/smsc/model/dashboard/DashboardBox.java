@@ -64,11 +64,6 @@ public class DashboardBox extends BaseEntity {
     @JoinColumn(name = "DASHBOARD_BOX_TYPE_ID", nullable = false)
     private DashboardBoxType dashboardBoxType;
 
-    @JsonIgnore
-    public boolean isNew() {
-        return getId() == null;
-    }
-
     public Long getId() {
         return id;
     }
@@ -161,12 +156,14 @@ public class DashboardBox extends BaseEntity {
 
     @Override
     public String toString() {
-        return "DashboardBox{" +
+        return "id=" + id +
                 "width=" + width +
                 ", height=" + height +
                 ", order=" + order +
                 ", name=" + name +
                 ", description='" + description + '\'' +
-                "} " + super.toString();
+                ", version='" + version + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                "}";
     }
 }

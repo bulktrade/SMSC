@@ -42,6 +42,7 @@ public class DemoAccessTest extends AbstractTest {
         customer.setCity("Lviv");
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
+        System.out.println(customerJson);
         this.mockMvc.perform(post("/rest/repository/customers")
                 .header(tokenHeader, demoToken)
                 .contentType("application/json;charset=UTF-8")

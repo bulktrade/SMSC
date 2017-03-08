@@ -62,8 +62,7 @@ public abstract class BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "BaseEntity{" +
-                "lastModifiedDate=" + lastModifiedDate +
+        return "{lastModifiedDate=" + lastModifiedDate +
                 ", version=" + version +
                 '}';
     }

@@ -110,23 +110,4 @@ public class JWTUser implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
-
-    private static JWTUser safeGet() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null) {
-            return null;
-        }
-        Object principal = auth.getPrincipal();
-        return (principal instanceof JWTUser) ? (JWTUser) principal : null;
-    }
-
-    public static JWTUser get() {
-        JWTUser user = safeGet();
-        requireNonNull(user, "No authorized user found");
-        return user;
-    }
-
-    public static Long id() {
-        return get().getId();
-    }
 }

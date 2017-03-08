@@ -1,6 +1,5 @@
 package io.smsc.model.customer;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -88,11 +87,6 @@ public class Customer extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OrderBy("id asc")
     private Set<User> users;
-
-    @JsonIgnore
-    public boolean isNew() {
-        return getId() == null;
-    }
 
     public Long getId() {
         return id;
@@ -214,8 +208,7 @@ public class Customer extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "id=" + id +
+        return "{ id=" + id +
                 ", companyName='" + companyName + '\'' +
                 ", street='" + street + '\'' +
                 ", street2='" + street2 + '\'' +
@@ -223,6 +216,8 @@ public class Customer extends BaseEntity {
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", vatid=" + vatid +
-                "} " + super.toString();
+                ", version='" + version + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                "}";
     }
 }

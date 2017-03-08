@@ -65,11 +65,6 @@ public class Group extends BaseEntity {
     @OrderBy("id asc")
     private Set<Authority> authorities;
 
-    @JsonIgnore
-    public boolean isNew() {
-        return getId() == null;
-    }
-
     public Long getId() {
         return id;
     }
@@ -122,9 +117,10 @@ public class Group extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Group{" +
-                "id=" + id +
+        return "{ id=" + id +
                 ", name='" + name + '\'' +
-                "} " + super.toString();
+                ", version='" + version + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                "}";
     }
 }

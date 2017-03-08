@@ -50,8 +50,8 @@ public interface ContactRepository extends PagingAndSortingRepository<Contact, L
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#contact?.isNew() and hasAuthority('CONTACT_CREATE')) or " +
-            "(!#contact?.isNew() and hasAuthority('CONTACT_WRITE'))")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#contact?.id == null) and hasAuthority('CONTACT_CREATE')) or " +
+            "(!(#contact?.id == null) and hasAuthority('CONTACT_WRITE'))")
     Contact save(@Param("contact") Contact contact);
 
     @Override
@@ -107,8 +107,8 @@ public interface ContactRepository extends PagingAndSortingRepository<Contact, L
 
     @Override
     @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or (filterObject.isNew() and hasAuthority('CONTACT_CREATE')) or " +
-            "(!filterObject.isNew() and hasAuthority('CONTACT_WRITE'))")
+    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasAuthority('CONTACT_CREATE')) or " +
+            "(!(filterObject.id == null) and hasAuthority('CONTACT_WRITE'))")
     <S extends Contact> Iterable<S> save(Iterable<S> entities);
 
     @Override
