@@ -1,6 +1,6 @@
 import {TestBed, inject} from "@angular/core/testing";
 import {HttpModule, XHRBackend, ResponseOptions, Response} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
+import {MockBackend, MockConnection} from "@angular/http/testing";
 import {CrudRepository} from "./crud-repository";
 import {AuthService} from "./auth.service";
 import {TokenService} from "./token.service";
@@ -47,6 +47,17 @@ describe('Service: AuthService', () => {
         authService.login('login', 'password')
             .subscribe(data => {
                 expect(data).toEqual(responseData.token);
+            });
+    });
+
+    it('should not log in', () => {
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+            connection.mockError(new Error('invalid credentials'));
+        });
+        authService.login('login', 'password')
+            .subscribe(() => {
+            }, (err: Error) => {
+                expect(err.message).toEqual('invalid credentials');
             });
     });
 
