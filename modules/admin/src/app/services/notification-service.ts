@@ -21,8 +21,6 @@ export class NotificationService {
                     case 'info':
                         this.notificationsService.info(titleTranslate, contentTranslate);
                         break;
-                    default:
-                        break;
                 }
             });
         });

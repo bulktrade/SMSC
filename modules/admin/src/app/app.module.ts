@@ -2,7 +2,7 @@ import {NgModule, ApplicationRef} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {Http, HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
-import {App} from "./app.component";
+import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {LoginComponent} from "./login/login.component";
 import {NavigationComponent} from "./navigation/navigation.component";
@@ -67,7 +67,7 @@ export const APP_PROVIDERS = [
 ];
 
 export const APP_DECLARATIONS = [
-    App,
+    AppComponent,
     LoginComponent,
     SidebarComponent,
     NotFoundComponent,
@@ -92,7 +92,7 @@ export const APP_IMPORTS = [
 ];
 
 @NgModule({
-    bootstrap: [App],
+    bootstrap: [AppComponent],
     declarations: [APP_DECLARATIONS],
     imports: [APP_IMPORTS],
     providers: [ENV_PROVIDERS, APP_PROVIDERS]
