@@ -7,11 +7,9 @@ import {AppRoutingModule} from "./app-routing.module";
 import {LoginComponent} from "./login/login.component";
 import {NavigationComponent} from "./navigation/navigation.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
-// import { CrudMetaDataComponent } from "./crud-meta-data/crud-meta-data.components";
 import {AppState, InternalStateType} from "./app.service";
 import {AuthService} from "./services/auth/auth.service";
 import {TokenService} from "./services/auth/token.service";
-// import { CrudService } from "./crud/crud.service";
 import {AuthGuard} from "./shared/auth.guard";
 import {LoadingGridService} from "./services/loading/loading-grid.service";
 import {APP_RESOLVER_PROVIDERS} from "./app.resolver";
@@ -24,25 +22,19 @@ import {SidebarItemComponent} from "./sidebar/sidebar-item.component";
 import {ConfigService} from "./config/config.service";
 import {LoadingRouterOutletService} from "./services/loading/loading-router-outlet.service";
 import {LoadingService} from "./services/loading/loading.service";
-import {RouterOutletService} from "./services/router-outlet-service";
 import {SidebarService} from "./sidebar/sidebar.service";
 // import { DashboardModule } from "./dashboard/dashboard.module";
 import {HTTP_INTERCEPTOR_PROVIDER} from "./shared/http-interceptor";
 import {NoInternetModule} from "./shared/components/no-internet/no-internet.component";
-// import { CrudMetaFormDataComponent } from "./crud-meta-data/crud-meta-form-data/crud-meta-form-data.component";
-// import { CrudClassMetaDataComponent } from "./crud-meta-data/crud-class-meta-data/crud-class-meta-data.component";
-// import { CrudMetaGridDataComponent } from "./crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component";
 import {SharedModule} from "./shared.module";
-// import { CrudModule } from "./crud/crud.module";
 import {GrowlService} from "./services/growl/growl.service";
-// import { CrudLevelService } from "./crud/services/crud-level";
 import {CustomersService} from "./customers/customer.service";
 import {CustomersContactsService} from "./customers/customers-contacts/customer-contact.service";
 import {CustomersUsersService} from "./customers/customers-users/customer-user.service";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {LoadingRouterOutletModule} from "./shared/components/loading-router-outlet/loading-router-outlet.component";
-import "../styles/styles.scss";
 import {NotificationService} from "./services/notification-service";
+import "../styles/styles.scss";
 
 type StoreType = {
     state: InternalStateType,
@@ -60,7 +52,6 @@ export const APP_PROVIDERS = [
     LoadingGridService,
     LoadingService,
     LoadingRouterOutletService,
-    RouterOutletService,
     TokenService,
     AuthService,
     NotificationsService,
