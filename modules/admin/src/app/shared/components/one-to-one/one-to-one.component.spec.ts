@@ -40,6 +40,66 @@ describe('Component: OneToOneComponent', () => {
         customersService = _customersService;
     }));
 
+    it('.ngOnInit() - successful response', async(() => {
+        let data = {
+            _embedded: {customers: []},
+            property1: 'property1',
+            property2: 'property2'
+        };
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({body: data});
+            connection.mockRespond(new Response(response));
+        });
+        componentFixture.instance.id = 1;
+        componentFixture.instance.hideOwn = true;
+        componentFixture.instance.subEntityService = customersService;
+
+        componentFixture.instance.ngOnInit();
+
+        expect(componentFixture.instance.model).toBeDefined();
+        expect(componentFixture.instance.resources).toBeDefined();
+    }));
+
+    it('.ngOnInit() - error response (404)', async(() => {
+        let data = {
+            _embedded: {customers: []},
+            property1: 'property1',
+            property2: 'property2'
+        };
+        mockBackend.connections.subscribe(connection => {
+            connection.mockError({status: 404});
+        });
+        componentFixture.instance.id = 1;
+        componentFixture.instance.hideOwn = true;
+        componentFixture.instance.subEntityService = customersService;
+
+        componentFixture.instance.ngOnInit();
+
+        expect(componentFixture.instance.model).toEqual(jasmine.objectContaining({}));
+    }));
+
+    it('.ngOnInit() - error response (500)', async(() => {
+        let data = {
+            _embedded: {customers: []},
+            property1: 'property1',
+            property2: 'property2'
+        };
+        mockBackend.connections.subscribe(connection => {
+            connection.mockError({status: 500});
+        });
+        componentFixture.instance.id = 1;
+        componentFixture.instance.hideOwn = true;
+        componentFixture.instance.subEntityService = customersService;
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+
+        componentFixture.instance.ngOnInit();
+
+        expect(componentFixture.instance.notifications.createNotification['calls'].argsFor(0))
+            .toEqual(['error', 'ERROR', 'customers.errorUpdate']);
+        expect(componentFixture.instance.notifications.createNotification['calls'].argsFor(1))
+            .toEqual(['error', 'ERROR', 'customers.notFound']);
+    }));
+
     it('should get resources', async(() => {
         let data = {
             _embedded: [],
@@ -69,7 +129,7 @@ describe('Component: OneToOneComponent', () => {
         expect(componentFixture.instance.getModelBySchema(model)).toEqual('1 companyName, country');
     }));
 
-    it('should remove relationship', async(() => {
+    it('should remove relationship - successful response', async(() => {
         let model = {
             id: 1,
             companyName: 'companyName',
@@ -80,14 +140,33 @@ describe('Component: OneToOneComponent', () => {
             connection.mockRespond(new Response(response));
         });
         componentFixture.instance.mainEntityService = customersService;
-        componentFixture.instance.removeRelationship()
-            .subscribe(res => {
-                expect(res.companyName).toEqual('companyName');
-                expect(res.country).toEqual('country');
-            });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+
+        componentFixture.instance.removeRelationship();
+
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdate');
     }));
 
-    it('should remove relationship', async(() => {
+    it('should remove relationship - error response', async(() => {
+        let model = {
+            id: 1,
+            companyName: 'companyName',
+            country: 'country'
+        };
+        mockBackend.connections.subscribe(connection => {
+            connection.mockError(new Error('not found'));
+        });
+        componentFixture.instance.mainEntityService = customersService;
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+
+        componentFixture.instance.removeRelationship();
+
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdate');
+    }));
+
+    it('should remove relationship - successful response', async(() => {
         let model = {
             id: 1,
             username: 'user',
@@ -104,11 +183,36 @@ describe('Component: OneToOneComponent', () => {
         });
         componentFixture.instance.mainEntityService = customersService;
         componentFixture.instance.propertyName = 'customer';
-        componentFixture.instance.onSelectResource(model)
-            .subscribe(res => {
-                expect(res.username).toEqual('user');
-                expect(res.firstname).toEqual('userName');
-            });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+
+        componentFixture.instance.onSelectResource(model);
+
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdate');
+    }));
+
+    it('should remove relationship - error response', async(() => {
+        let model = {
+            id: 1,
+            username: 'user',
+            firstname: 'userName',
+            _links: {
+                self: {
+                    href: 'http://...'
+                }
+            }
+        };
+        mockBackend.connections.subscribe(connection => {
+            connection.mockError(new Error('not found'));
+        });
+        componentFixture.instance.mainEntityService = customersService;
+        componentFixture.instance.propertyName = 'customer';
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+
+        componentFixture.instance.onSelectResource(model);
+
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdate');
     }));
 
     it('should get all resources with `hideOwn` to displaying in the dropdown', async(() => {

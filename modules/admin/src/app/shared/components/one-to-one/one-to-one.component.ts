@@ -56,16 +56,17 @@ export class OneToOneComponent implements OnInit {
                 if (err.status === 404) {
                     this.model = {};
                 } else {
-                    console.error(err);
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
                 }
             });
 
         /** get the list of resources */
         this.subEntityService.getResources()
-            .map(res => res['_embedded'][this.subEntityService.repositoryName])
+        .map(res => res['_embedded'][this.subEntityService.repositoryName])
             .subscribe(resources => {
                 this.resources = resources;
+            }, err => {
+                this.notifications.createNotification('error', 'ERROR', 'customers.notFound');
             });
     }
 
@@ -107,17 +108,12 @@ export class OneToOneComponent implements OnInit {
                 _links: this.mainEntityService.getSelfLinkedEntityById(this.id)._links
             };
 
-            return Observable.create(obs => {
-                this.mainEntityService.updateResource(entity)
-                    .subscribe((res) => {
-                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-                        obs.next(res);
-                    }, err => {
-                        console.error(err);
-                        this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
-                        obs.error(err);
-                    });
-            });
+            this.mainEntityService.updateResource(entity)
+                .subscribe((res) => {
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                }, err => {
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
+                });
         } else {
             return Observable.empty();
         }
@@ -129,18 +125,13 @@ export class OneToOneComponent implements OnInit {
             _links: this.mainEntityService.getSelfLinkedEntityById(this.id)._links
         };
 
-        return Observable.create(obs => {
-            this.mainEntityService.updateResource(entity)
-                .subscribe((res) => {
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-                    this.model = {};
-                    obs.next(res);
-                }, err => {
-                    console.error(err);
-                    this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
-                    obs.error(err);
-                });
-        });
+        this.mainEntityService.updateResource(entity)
+            .subscribe((res) => {
+                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                this.model = {};
+            }, err => {
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
+            });
     }
 
     getModelBySchema(model) {

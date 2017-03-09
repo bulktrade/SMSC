@@ -22,7 +22,6 @@ import {SidebarItemComponent} from "./sidebar/sidebar-item.component";
 import {ConfigService} from "./config/config.service";
 import {LoadingRouterOutletService} from "./services/loading/loading-router-outlet.service";
 import {LoadingService} from "./services/loading/loading.service";
-import {SidebarService} from "./sidebar/sidebar.service";
 // import { DashboardModule } from "./dashboard/dashboard.module";
 import {HTTP_INTERCEPTOR_PROVIDER} from "./shared/http-interceptor";
 import {NoInternetModule} from "./shared/components/no-internet/no-internet.component";
@@ -60,7 +59,6 @@ export const APP_PROVIDERS = [
     AppState,
     ConfigService,
     GrowlService,
-    SidebarService,
     CustomersContactsService,
     CustomersUsersService,
     HTTP_INTERCEPTOR_PROVIDER

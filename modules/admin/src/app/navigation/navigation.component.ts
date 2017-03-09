@@ -2,7 +2,6 @@ import {Component, animate, style, trigger, transition, state, OnInit} from "@an
 import {Router, NavigationStart, NavigationEnd} from "@angular/router";
 import {TokenService} from "../services/auth/token.service";
 import {LoadingRouterOutletService} from "../services/loading/loading-router-outlet.service";
-import {SidebarService} from "../sidebar/sidebar.service";
 
 @Component({
     selector: 'navigation',
@@ -28,8 +27,7 @@ export class NavigationComponent implements OnInit {
 
     constructor(public router: Router,
                 public tokenService: TokenService,
-                public loadingROService: LoadingRouterOutletService,
-                public sidebarService: SidebarService) {
+                public loadingROService: LoadingRouterOutletService) {
     }
 
     ngOnInit() {
