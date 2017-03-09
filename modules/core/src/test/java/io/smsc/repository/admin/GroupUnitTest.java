@@ -1,14 +1,16 @@
 package io.smsc.repository.admin;
 
-import com.google.common.testing.EqualsTester;
 import io.smsc.AbstractTest;
 import io.smsc.model.admin.Group;
 import io.smsc.model.admin.User;
-import junit.framework.AssertionFailedError;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class GroupUnitTest extends AbstractTest {
 
@@ -30,30 +32,36 @@ public class GroupUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodeSameGroups() throws Exception {
-        new EqualsTester().addEqualityGroup(group1, group1)
-                .addEqualityGroup(group1.hashCode(), group1.hashCode()).testEquals();
+    public void testEqualsAndHashcodeSameGroup() throws Exception {
+        assertThat(group1).isEqualTo(group1);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfEqualGroups() throws Exception {
-        new EqualsTester().addEqualityGroup(group1, group2)
-                .addEqualityGroup(group1.hashCode(), group2.hashCode()).testEquals();
+        assertThat(group1).isEqualTo(group2);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testEqualsAndHashcodeGroupAndNull() throws Exception {
-        new EqualsTester().addEqualityGroup(null, group1).testEquals();
+        assertThat(group1).isNotEqualTo(null);
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodeGroupAndOtherObject() throws Exception {
-        new EqualsTester().addEqualityGroup(group1, new User()).testEquals();
+        assertThat(group1).isNotEqualTo(new User());
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodePairOfNonEqualGroups() throws Exception {
         group2.setId(2L);
-        new EqualsTester().addEqualityGroup(group1, group2).testEquals();
+        assertThat(group1).isNotEqualTo(group2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodeEqualGroupInSet() throws Exception {
+        Set<Group> set = new HashSet<>();
+        set.add(group1);
+        set.add(group2);
+        assertThat(set.size()).isEqualTo(1);
     }
 }

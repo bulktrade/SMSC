@@ -1,16 +1,18 @@
 package io.smsc.repository.admin;
 
 
-import com.google.common.testing.EqualsTester;
 import io.smsc.AbstractTest;
 import io.smsc.model.admin.User;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.Salutation;
-import junit.framework.AssertionFailedError;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserUnitTest extends AbstractTest {
 
@@ -48,30 +50,36 @@ public class UserUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodeSameUsers() throws Exception {
-        new EqualsTester().addEqualityGroup(user1, user1)
-                .addEqualityGroup(user1.hashCode(), user1.hashCode()).testEquals();
+    public void testEqualsAndHashcodeSameUser() throws Exception {
+        assertThat(user1).isEqualTo(user1);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfEqualUsers() throws Exception {
-        new EqualsTester().addEqualityGroup(user1, user2)
-                .addEqualityGroup(user1.hashCode(), user2.hashCode()).testEquals();
+        assertThat(user1).isEqualTo(user2);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testEqualsAndHashcodeUserAndNull() throws Exception {
-        new EqualsTester().addEqualityGroup(null, user1).testEquals();
+        assertThat(user1).isNotEqualTo(null);
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodeUserAndOtherObject() throws Exception {
-        new EqualsTester().addEqualityGroup(user1, new Customer()).testEquals();
+        assertThat(user1).isNotEqualTo(new Customer());
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodePairOfNonEqualUsers() throws Exception {
         user2.setId(2L);
-        new EqualsTester().addEqualityGroup(user1, user2).testEquals();
+        assertThat(user1).isNotEqualTo(user2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodeEqualUserInSet() throws Exception {
+        Set<User> set = new HashSet<>();
+        set.add(user1);
+        set.add(user2);
+        assertThat(set.size()).isEqualTo(1);
     }
 }

@@ -1,15 +1,17 @@
 package io.smsc.repository.customer;
 
-import com.google.common.testing.EqualsTester;
 import io.smsc.AbstractTest;
-import io.smsc.model.admin.User;
 import io.smsc.model.customer.Contact;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
-import junit.framework.AssertionFailedError;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ContactUnitTest extends AbstractTest {
 
@@ -43,30 +45,36 @@ public class ContactUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodeSameContacts() throws Exception {
-        new EqualsTester().addEqualityGroup(contact1, contact1)
-                .addEqualityGroup(contact1.hashCode(), contact1.hashCode()).testEquals();
+    public void testEqualsAndHashcodeSameContact() throws Exception {
+        assertThat(contact1).isEqualTo(contact1);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfEqualContacts() throws Exception {
-        new EqualsTester().addEqualityGroup(contact1, contact2)
-                .addEqualityGroup(contact1.hashCode(), contact2.hashCode()).testEquals();
+        assertThat(contact1).isEqualTo(contact2);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testEqualsAndHashcodeContactAndNull() throws Exception {
-        new EqualsTester().addEqualityGroup(null, contact1).testEquals();
+        assertThat(contact1).isNotEqualTo(null);
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodeContactAndOtherObject() throws Exception {
-        new EqualsTester().addEqualityGroup(contact1, new User()).testEquals();
+        assertThat(contact1).isNotEqualTo(new Customer());
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts() throws Exception {
         contact2.setId(2L);
-        new EqualsTester().addEqualityGroup(contact1, contact2).testEquals();
+        assertThat(contact1).isNotEqualTo(contact2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodeEqualContactsInSet() throws Exception {
+        Set<Contact> set = new HashSet<>();
+        set.add(contact1);
+        set.add(contact2);
+        assertThat(set.size()).isEqualTo(1);
     }
 }

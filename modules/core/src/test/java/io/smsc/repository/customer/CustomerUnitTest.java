@@ -1,14 +1,16 @@
 package io.smsc.repository.customer;
 
-import com.google.common.testing.EqualsTester;
 import io.smsc.AbstractTest;
 import io.smsc.model.admin.User;
 import io.smsc.model.customer.Customer;
-import junit.framework.AssertionFailedError;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CustomerUnitTest extends AbstractTest {
 
@@ -44,30 +46,36 @@ public class CustomerUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodeSameCustomers() throws Exception {
-        new EqualsTester().addEqualityGroup(customer1, customer1)
-                .addEqualityGroup(customer1.hashCode(), customer1.hashCode()).testEquals();
+    public void testEqualsAndHashcodeSameCustomer() throws Exception {
+        assertThat(customer1).isEqualTo(customer1);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfEqualCustomers() throws Exception {
-        new EqualsTester().addEqualityGroup(customer1, customer2)
-                .addEqualityGroup(customer1.hashCode(), customer2.hashCode()).testEquals();
+        assertThat(customer1).isEqualTo(customer2);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testEqualsAndHashcodeCustomerAndNull() throws Exception {
-        new EqualsTester().addEqualityGroup(null, customer1).testEquals();
+        assertThat(customer1).isNotEqualTo(null);
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodeCustomerAndOtherObject() throws Exception {
-        new EqualsTester().addEqualityGroup(customer1, new User()).testEquals();
+        assertThat(customer1).isNotEqualTo(new User());
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers() throws Exception {
         customer2.setId(2L);
-        new EqualsTester().addEqualityGroup(customer1, customer2).testEquals();
+        assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodeEqualCustomersInSet() throws Exception {
+        Set<Customer> set = new HashSet<>();
+        set.add(customer1);
+        set.add(customer2);
+        assertThat(set.size()).isEqualTo(1);
     }
 }

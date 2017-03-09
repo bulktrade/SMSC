@@ -3,13 +3,14 @@ package io.smsc.repository.admin;
 import io.smsc.AbstractTest;
 import io.smsc.model.admin.Authority;
 import io.smsc.model.admin.User;
-import junit.framework.AssertionFailedError;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.testing.EqualsTester;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AuthorityUnitTest extends AbstractTest {
 
@@ -32,29 +33,35 @@ public class AuthorityUnitTest extends AbstractTest {
 
     @Test
     public void testEqualsAndHashcodeSameAuthority() throws Exception {
-        new EqualsTester().addEqualityGroup(authority1, authority1)
-                .addEqualityGroup(authority1.hashCode(), authority1.hashCode()).testEquals();
+       assertThat(authority1).isEqualTo(authority1);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfEqualAuthorities() throws Exception {
-        new EqualsTester().addEqualityGroup(authority1, authority2)
-                .addEqualityGroup(authority1.hashCode(), authority2.hashCode()).testEquals();
+        assertThat(authority1).isEqualTo(authority2);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testEqualsAndHashcodeAuthorityAndNull() throws Exception {
-        new EqualsTester().addEqualityGroup(null, authority1).testEquals();
+        assertThat(authority1).isNotEqualTo(null);
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodeAuthorityAndOtherObject() throws Exception {
-        new EqualsTester().addEqualityGroup(authority1, new User()).testEquals();
+        assertThat(authority1).isNotEqualTo(new User());
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodePairOfNonEqualAuthorities() throws Exception {
         authority2.setId(2L);
-        new EqualsTester().addEqualityGroup(authority1, authority2).testEquals();
+        assertThat(authority1).isNotEqualTo(authority2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodeEqualAuthoritiesInSet() throws Exception {
+        Set<Authority> set = new HashSet<>();
+        set.add(authority1);
+        set.add(authority2);
+        assertThat(set.size()).isEqualTo(1);
     }
 }

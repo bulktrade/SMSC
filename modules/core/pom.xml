@@ -155,11 +155,6 @@
             <artifactId>spring-data-commons</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava-testlib</artifactId>
-            <version>21.0</version>
-        </dependency>
     </dependencies>
 
     <build>

@@ -1,12 +1,15 @@
 package io.smsc.repository.dashboard;
 
-import com.google.common.testing.EqualsTester;
 import io.smsc.AbstractTest;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.*;
-import junit.framework.AssertionFailedError;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class DashboardBoxUnitTest extends AbstractTest {
 
@@ -36,30 +39,36 @@ public class DashboardBoxUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodeSameDashboardBoxes() throws Exception {
-        new EqualsTester().addEqualityGroup(dashboardBox1, dashboardBox1)
-                .addEqualityGroup(dashboardBox1.hashCode(), dashboardBox1.hashCode()).testEquals();
+    public void testEqualsAndHashcodeSameDashboardBox() throws Exception {
+        assertThat(dashboardBox1).isEqualTo(dashboardBox1);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfEqualDashboardBoxes() throws Exception {
-        new EqualsTester().addEqualityGroup(dashboardBox1, dashboardBox2)
-                .addEqualityGroup(dashboardBox1.hashCode(), dashboardBox2.hashCode()).testEquals();
+        assertThat(dashboardBox1).isEqualTo(dashboardBox2);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test
     public void testEqualsAndHashcodeDashboardBoxAndNull() throws Exception {
-        new EqualsTester().addEqualityGroup(null, dashboardBox1).testEquals();
+        assertThat(dashboardBox1).isNotEqualTo(null);
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodeDashboardBoxAndOtherObject() throws Exception {
-        new EqualsTester().addEqualityGroup(dashboardBox1, new Customer()).testEquals();
+        assertThat(dashboardBox1).isNotEqualTo(new Customer());
     }
 
-    @Test(expected = AssertionFailedError.class)
+    @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxes() throws Exception {
         dashboardBox2.setId(2L);
-        new EqualsTester().addEqualityGroup(dashboardBox1, dashboardBox2).testEquals();
+        assertThat(dashboardBox1).isNotEqualTo(dashboardBox2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodeEqualDashboardBoxesInSet() throws Exception {
+        Set<DashboardBox> set = new HashSet<>();
+        set.add(dashboardBox1);
+        set.add(dashboardBox2);
+        assertThat(set.size()).isEqualTo(1);
     }
 }
