@@ -73,10 +73,6 @@ describe('Component: CustomersViewComponent', () => {
             column: 'company',
             filterName: 'globalFilter'
         };
-        mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({status: 204, body: {}});
-            connection.mockRespond(new Response(response));
-        });
         componentFixture.instance.searchModel[event.filterName] = 'SMSC';
         componentFixture.instance.onFilter(event.column, event.filterName);
         expect(componentFixture.instance.filters['company']).toEqual('SMSC');
