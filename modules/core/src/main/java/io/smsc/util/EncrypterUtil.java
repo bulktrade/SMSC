@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.codec.Hex;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.keygen.KeyGenerators;
@@ -53,7 +54,7 @@ public class EncrypterUtil {
                     field.set(obj, encryptor.encrypt((String) field.get(obj)));
                     field.setAccessible(false);
                 } else if (field.isAnnotationPresent(Encrypt.class)) {
-                    field.set(obj, encryptor.decrypt((String) field.get(obj)));
+                    field.set(obj, encryptor.encrypt((String) field.get(obj)));
                 }
             }
         } catch (IllegalAccessException e) {
@@ -114,9 +115,9 @@ public class EncrypterUtil {
                 saltField.setAccessible(false);
             }
         } catch (NoSuchFieldException e) {
-            LOGGER.info("Decrypt exception: salt field not found.", e);
-            // Use class name as salt, if salt field not available.
-            salt = obj.getClass().getName();
+            LOGGER.info("Decrypt exception: salt field not found.");
+            // Use encoded class name as salt, if salt field not available.
+            salt = new String(Hex.encode(obj.getClass().getName().getBytes()));
         }
         return salt;
     }

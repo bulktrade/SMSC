@@ -1,6 +1,5 @@
 package io.smsc.converters;
 
-
 import io.smsc.util.EncrypterUtil;
 
 import javax.persistence.AttributeConverter;
