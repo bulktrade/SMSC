@@ -137,11 +137,6 @@ public class User extends BaseEntity {
     @OrderBy("id asc")
     private Set<Dashboard> dashboards;
 
-    @JsonIgnore
-    public boolean isNew() {
-        return getId() == null;
-    }
-
     public Long getId() {
         return id;
     }
@@ -286,8 +281,7 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
+        return "{ id=" + id +
                 ", salutation=" + salutation +
                 ", username='" + username + '\'' +
                 ", firstname='" + firstname + '\'' +
@@ -296,6 +290,8 @@ public class User extends BaseEntity {
                 ", active=" + active +
                 ", created=" + created +
                 ", blocked=" + blocked +
-                '}';
+                ", version='" + version + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                "}";
     }
 }
