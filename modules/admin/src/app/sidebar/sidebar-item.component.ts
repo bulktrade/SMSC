@@ -1,4 +1,4 @@
-import {Component, Input, Injectable, trigger, style, animate, state, transition} from "@angular/core";
+import {Component, Input, trigger, style, animate, state, transition} from "@angular/core";
 
 @Component({
     selector: 'sidebar-item',
@@ -14,23 +14,18 @@ import {Component, Input, Injectable, trigger, style, animate, state, transition
     ],
     styleUrls: ['./sidebar-item.component.scss']
 })
-
-@Injectable()
 export class SidebarItemComponent {
     @Input('icon') public icon;
+
     @Input('path') public path;
+
     @Input('paramsAsDefault') public paramsAsDefault;
+
     @Input('nameItem') public nameItem;
+
     @Input('showInSubNavigation') public showInSubNavigation;
+
     @Input('submenu') public submenu;
+
     @Input('toggle') public toggle;
-
-    getStorageItem(item) {
-        return this[item.substring(1, item.length)];
-    }
-
-    setToggle(name) {
-        this[name.substring(1, name.length)] = !this[name.substring(1, name.length)];
-    }
-
 }

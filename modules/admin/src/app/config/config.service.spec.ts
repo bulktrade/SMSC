@@ -39,7 +39,6 @@ describe('Service: ConfigService', () => {
             expect(err.status).toEqual(404);
         });
     }));
-
 });
 
 
