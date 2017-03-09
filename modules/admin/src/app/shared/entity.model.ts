@@ -1,5 +1,6 @@
 export class Link {
-    href: string;
+    constructor(public href: string) {
+    }
 }
 
 export class Links {

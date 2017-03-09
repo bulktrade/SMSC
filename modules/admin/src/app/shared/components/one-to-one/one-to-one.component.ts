@@ -132,6 +132,26 @@ export class OneToOneComponent implements OnInit {
             });
     }
 
+    getModelBySchema(model) {
+        let result: string = '';
+
+        if (Object.keys(model).length) {
+            result = `${model['id']} `;
+
+            this.renderProperties.forEach((item, i) => {
+                result += model[item];
+
+                if (i !== this.renderProperties.length - 1) {
+                    result += ', '
+                }
+            });
+
+            return result;
+        } else {
+            return result;
+        }
+    }
+
     /**
      * Retrieves a single resource with the given link
      * @param link
@@ -156,8 +176,7 @@ export class OneToOneComponent implements OnInit {
 export class OneToOneModule {
     static forRoot(): ModuleWithProviders {
         return {
-            ngModule: OneToOneModule,
-            providers: []
+            ngModule: OneToOneModule
         };
     }
 }

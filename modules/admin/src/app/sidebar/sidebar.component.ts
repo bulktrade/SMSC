@@ -5,8 +5,7 @@ import { SidebarModel } from './sidebar.model';
 
 @Component({
     selector: 'sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss']
+    templateUrl: './sidebar.component.html'
 })
 
 export class SidebarComponent {

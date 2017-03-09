@@ -4,7 +4,6 @@ import {ProfileComponent} from "./profile.component";
 import {ProfileService} from "./profile.service";
 import {ProfileRoutingModule} from "./profile-routing.module";
 import {LoadingRouterOutletModule} from "../shared/components/loading-router-outlet/loading-router-outlet.component";
-import {SharedModule} from "../shared.module";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {TranslateModule} from "ng2-translate";
 import {CommonModule} from "@angular/common";
@@ -18,11 +17,11 @@ import {RouterModule} from "@angular/router";
 import {PanelModule} from "primeng/components/panel/panel";
 import {ControlErrorsModule} from "../shared/components/control-errors/control-errors";
 import {UsersModule} from "../users/users.module";
+import {SharedModule} from "primeng/components/common/shared";
 
 @NgModule({
     imports: [
         LoadingRouterOutletModule,
-        SharedModule,
         ProfileRoutingModule,
         ButtonModule,
         SharedModule,

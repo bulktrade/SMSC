@@ -1,22 +1,28 @@
-import {Component} from "@angular/core";
+import {Component, Inject} from "@angular/core";
 import {Location} from "@angular/common";
 import {TranslateService} from "ng2-translate/ng2-translate";
 import {Router, ActivatedRoute} from "@angular/router";
 import {ColumnDef} from "../model/column-definition";
 import {Pagination} from "../model/pagination";
 import {CustomersService, REPOSITORY_NAME} from "../customer.service";
-import * as clone from "js.clone";
 import {NotificationService} from "../../services/notification-service";
 import {Customer} from "../model/customer";
 import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
+import {Sort, SortType} from "../../shared/sort.model";
+import {DOCUMENT} from "@angular/platform-browser";
+import * as clone from "js.clone";
+import {Message} from "primeng/components/common/api";
+import {Observable} from "rxjs";
+import {Response} from "@angular/http";
 
 @Component({
     selector: 'customers-view',
     templateUrl: './customers-view.component.html',
     styleUrls: ['./customers-view.component.scss']
 })
-
 export class CustomersViewComponent {
+
+    public showConfirmDeletionWindow: boolean = false;
 
     public pagination: Pagination = new Pagination(10, null, null, 0);
 
@@ -24,7 +30,7 @@ export class CustomersViewComponent {
 
     public rowData: Customer[] = [];
 
-    public selectedRows: ColumnDef[] = [];
+    public selectedRows: Customer[] = [];
 
     public contactsModel: OneToMany[] = [];
 
@@ -36,30 +42,69 @@ export class CustomersViewComponent {
 
     public filters: Customer = <Customer>{};
 
+    public sort: Sort = null;
+
+    public searchModel: Customer[] = [];
+
+    public isFilterLoading: Customer[] = [];
+
+    public tableHeaderHeight: number;
+
+    public tableBodyHeight: number;
+
+    public msgs: Message[] = [];
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
-                public notifications: NotificationService) {
+                public notifications: NotificationService,
+                @Inject(DOCUMENT) private document) {
     }
 
     ngOnInit() {
+        this.translate.get('customers.multipleDeleteRecords')
+            .subscribe(detail => {
+                this.msgs.push({severity: 'warn', detail: detail});
+            });
+
         this.rowData = this.getRowData();
         this.pagination.totalElements = this.getNumberCustomers();
     }
 
-    onFilter(column: string, data: string) {
-        this.filters[column] = data;
-        this.isLoading = true;
+    ngAfterViewChecked() {
+        this.tableHeaderHeight = this.getTableHeaderHeight();
+        this.tableBodyHeight = this.getTableBodyHeight();
+    }
 
-        this.customersService.getResources(this.pagination.number, this.pagination.size, this.filters)
+    onSort(event) {
+        this.sort = new Sort(event.field, null);
+        switch (event.order) {
+            case 1:
+                this.sort.sortType = SortType.ASC;
+                break;
+            case -1:
+                this.sort.sortType = SortType.DESC;
+                break;
+            default:
+                break;
+        }
+        this.setRowData();
+    }
+
+    onFilter(column: string, filterName: string) {
+        this.filters[column] = this.searchModel[filterName];
+        this.isFilterLoading[filterName] = true;
+
+        this.customersService.getResources(this.pagination.number, this.pagination.size,
+            this.filters, this.sort)
             .subscribe(rows => {
-                this.isLoading = false;
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
+                this.isFilterLoading[filterName] = false;
             }, err => {
                 console.error(err);
-                this.isLoading = false;
+                this.isFilterLoading[filterName] = false;
             });
     }
 
@@ -70,17 +115,8 @@ export class CustomersViewComponent {
 
     onPaginate(event) {
         this.pagination.number = event.page;
-        this.pagination.size = event.size;
-        this.isLoading = true;
-
-        this.customersService.getResources(this.pagination.number, this.pagination.size, this.filters)
-            .subscribe(rows => {
-                this.rowData = rows['_embedded'][REPOSITORY_NAME];
-                this.isLoading = false;
-            }, err => {
-                console.error(err);
-                this.isLoading = false;
-            });
+        this.pagination.size = event.rows;
+        this.setRowData();
     }
 
     onEditComplete(event) {
@@ -96,11 +132,60 @@ export class CustomersViewComponent {
             })
     }
 
+    setRowData() {
+        this.isLoading = true;
+        this.customersService.getResources(this.pagination.number, this.pagination.size,
+            this.filters, this.sort)
+            .subscribe(rows => {
+                this.rowData = rows['_embedded'][REPOSITORY_NAME];
+                this.isLoading = false;
+                this.showConfirmDeletionWindow = false;
+            }, err => {
+                console.error(err);
+                this.isLoading = false;
+            });
+    }
+
+    onDeleteCustomers() {
+        let batchObservables: Observable<Response>[] = [];
+        this.selectedRows.forEach(i => {
+            batchObservables.push(this.customersService.deleteResource(i));
+        });
+        return Observable.create(obs => {
+            Observable.forkJoin(batchObservables)
+                .subscribe(res => {
+                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successDeleteCustomers');
+                    this.setRowData();
+                    obs.next(res);
+                }, err => {
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorDeleteCustomers');
+                    console.error(err);
+                    obs.error(err);
+                });
+        });
+    }
+
+    onResize(event) {
+        this.tableHeaderHeight = this.getTableHeaderHeight();
+        this.tableBodyHeight = this.getTableBodyHeight();
+    }
+
+    getTableHeaderHeight(): number {
+        return this.document.querySelector('#customers-view-window p-dataTable .ui-datatable-header').offsetHeight +
+            this.document.querySelector('#customers-view-window p-dataTable .ui-datatable-scrollable-header').offsetHeight
+    }
+
+    getTableBodyHeight(): number {
+        return this.document.querySelector('#customers-view-window p-dataTable tbody').offsetHeight;
+    }
+
     getRowData() {
-        return this.route.snapshot.data['view'].rowData;
+        return this.route.snapshot.data.hasOwnProperty('view') ?
+            this.route.snapshot.data['view'].rowData : [];
     }
 
     getNumberCustomers() {
-        return this.route.snapshot.data['view'].totalElements;
+        return this.route.snapshot.data.hasOwnProperty('view') ?
+            this.route.snapshot.data['view'].totalElements : 0;
     }
 }

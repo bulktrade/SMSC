@@ -12,6 +12,7 @@ import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'users-create',
@@ -51,17 +52,21 @@ export class UsersCreateComponent implements OnInit {
         model['customer'] = this.customersService.getSelfLinkedEntityById(this.customerId)._links.self.href;
         this.isLoading = true;
 
-        this.customersUsersService.createResource(model)
-            .subscribe(() => {
-                    this.onBack();
-                    this.isLoading = false;
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateUser');
-                },
-                err => {
-                    console.error(err);
-                    this.isLoading = false;
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateUser');
-                });
+        return Observable.create(obs => {
+            this.customersUsersService.createResource(model)
+                .subscribe((res) => {
+                        this.onBack();
+                        this.isLoading = false;
+                        this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateUser');
+                        obs.next(res);
+                    },
+                    err => {
+                        console.error(err);
+                        this.isLoading = false;
+                        this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateUser');
+                        obs.error(err);
+                    });
+        });
     }
 
     onBack() {

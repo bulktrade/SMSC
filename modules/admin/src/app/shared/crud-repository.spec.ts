@@ -5,6 +5,7 @@ import {CrudRepository} from "./crud-repository";
 import {ConfigService} from "../config/config.service";
 import {CustomersService} from "../customers/customer.service";
 import {Entity} from "./entity.model";
+import {ConfigServiceMock} from "./test/stub/config.service";
 
 interface Data extends Entity {
     name: string;
@@ -18,14 +19,6 @@ class CrudRepositoryService extends CrudRepository<Data> {
     constructor(public http: Http,
                 public configService: ConfigService) {
         super(http, configService);
-    }
-}
-
-class ConfigServiceMock {
-    config = {
-        "apiUrl": "/rest",
-        "i18nPath": "assets/i18n",
-        "debug": false
     }
 }
 

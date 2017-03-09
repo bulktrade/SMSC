@@ -10,6 +10,7 @@
     "noEmit": true,
     "noEmitHelpers": true,
     "strictNullChecks": false,
+    "skipLibCheck": true,
     "lib": [
       "es2015",
       "dom"

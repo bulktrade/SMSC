@@ -1,18 +1,15 @@
-import { AppTest } from './app.page';
-import { protractor, browser } from "protractor";
+import {AppTest} from "./app.page";
+import {browser} from "protractor";
 
 describe('App', () => {
-    let ptor = protractor.wrapDriver(browser.driver);
-
     beforeEach(() => {
         this.apptest = new AppTest();
-        ptor = protractor.wrapDriver(browser.driver);
     });
 
     it('should have a title', () => {
         let width = 1024,
             height = 768;
-        ptor.manage().window().setSize(width, height);
+        browser.driver.manage().window().setSize(width, height);
 
         this.apptest.get();
         let subject = browser.getTitle();

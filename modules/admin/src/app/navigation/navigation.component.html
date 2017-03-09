@@ -1,34 +1,36 @@
 <div id="navigation-window">
-	<div class="card header">
-		<div class="toolbar">
-			<div class="left-panel">
-				<i id="desktopMenu" class="fa fa-bars" (click)="toggleLeftSidebar=!toggleLeftSidebar"></i>
-				<h1 style="float: left;" [routerLink]="['/']" id="logo">{{ 'project.title' | translate }}</h1>
-			</div>
-			<div style="width: 100%;"></div>
-			<div class="right-panel">
-				<i class="fa fa-user pull-right" [routerLink]="['/profile']" aria-hidden="true"></i>
-				<i class="fa fa-sign-out pull-right" (click)="logout()" id="logout"></i>
-				<i class="fa fa-bars pull-right" (click)="toggleUpSidebar=!toggleUpSidebar" id="mobileMenu"></i>
-			</div>
-		</div>
-	</div>
+    <div id="wrapper" [ngClass]="{'toggled': toggleLeftSidebar || sidebarService.toggle}">
+        <!-- Header -->
+        <div class="card header">
+            <div class="toolbar">
+                <div class="left-panel">
+                    <i id="desktopMenu" class="fa fa-bars" (click)="toggleLeftSidebar=!toggleLeftSidebar"></i>
+                    <h1 style="float: left;" [routerLink]="['/']" id="logo">{{ 'project.title' | translate }}</h1>
+                </div>
+                <div style="width: 100%;"></div>
+                <div class="right-panel">
+                    <i class="fa fa-user pull-right" [routerLink]="['/profile']" aria-hidden="true"></i>
+                    <i class="fa fa-sign-out pull-right" (click)="logout()" id="logout"></i>
+                    <i class="fa fa-bars pull-right" (click)="toggleUpSidebar=!toggleUpSidebar" id="mobileMenu"></i>
+                </div>
+            </div>
+        </div>
+        <!-- /#header -->
 
-	<div id="wrapper" [ngClass]="{'toggled': toggleLeftSidebar || sidebarService.toggle}">
-		<!-- Sidebar -->
-		<div id="sidebar-wrapper" [@state]="!toggleUpSidebar ? 'open' : 'closed'">
-			<ul class="sidebar-nav">
-				<sidebar></sidebar>
-			</ul>
-		</div>
-		<!-- /#sidebar-wrapper -->
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper" [@state]="!toggleUpSidebar ? 'open' : 'closed'">
+            <ul class="sidebar-nav">
+                <sidebar></sidebar>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
 
-		<!-- Page Content -->
-		<main class="mainContent">
-			<no-internet>
-				<loading-router-outlet></loading-router-outlet>
-			</no-internet>
-		</main>
-		<!-- /#page-content-wrapper -->
-	</div>
+        <!-- Page Content -->
+        <main class="main-content">
+            <no-internet>
+                <loading-router-outlet></loading-router-outlet>
+            </no-internet>
+        </main>
+        <!-- /#page-content-wrapper -->
+    </div>
 </div>

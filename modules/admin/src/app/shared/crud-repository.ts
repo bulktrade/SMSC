@@ -2,6 +2,7 @@ import * as Rx from "rxjs/Rx";
 import {Http, RequestMethod, RequestOptions, URLSearchParams, Headers, Response} from "@angular/http";
 import {ConfigService} from "../config/config.service";
 import {Entity, Links, Link} from "./entity.model";
+import {Sort} from "./sort.model";
 
 export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
@@ -106,35 +107,39 @@ export abstract class CrudRepository<T> {
     getSelfLinkedEntityById<T extends Entity>(id: number): T {
         let entity: Entity = new Entity();
         entity._links = new Links();
-        entity._links.self = new Link();
-        entity._links.self.href = this.apiUrl + '/repository/' + this.repositoryName + '/' + id;
+        entity._links.self = new Link(this.apiUrl + '/repository/' + this.repositoryName + '/' + id);
 
         return <T>entity;
     }
 
     /**
-     * Retrieves a list of all resources with pagination and filtering
+     * Retrieves a list of all resources with pagination, filtering and sorting
      *
      * @example
      * let pageIndex: number = 0;
      * let pageSize: number = 10;
+     * let sort: Sort = new Sort('id', SortType.ASC);
      * let query = {
      *      property: 'value',
      *      property2: 'value2'
      * };
-     * getResources(pageIndex, pageSize, query);
-     *
+     * getResources(pageIndex, pageSize, query, sort);
      * @param page
      * @param size
      * @param query
+     * @param sort
      * @returns {Observable<T>}
      */
-    getResources(page?: number, size?: number, query?: T): Rx.Observable<T[]> {
+    getResources(page?: number, size?: number, query?: T, sort?: Sort): Rx.Observable<T[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {
             search.set('page', page + '');
             search.set('size', size + '');
+        }
+
+        if (sort) {
+            search.set('sort', sort.orderBy + ',' + sort.sortType);
         }
 
         if (query) {

@@ -22,7 +22,7 @@ export class CustomersUpdateComponent {
 
     public submitButtonName: string = 'customers.update';
 
-    public model = {};
+    public model: Customer = <Customer>{};
 
     public isLoading: boolean = false;
 
@@ -36,14 +36,15 @@ export class CustomersUpdateComponent {
     ngOnInit() {
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.id = +params['customerId'];
+            this.id = params['customerId'];
         });
 
         this.model = this.getModel();
     }
 
-    getModel() {
-        return this.route.snapshot.data['edit'];
+    getModel(): Customer {
+        return this.route.snapshot.data.hasOwnProperty('edit') ?
+            this.route.snapshot.data['edit'] : <Customer>{};
     }
 
     onSubmit(entity: Customer) {

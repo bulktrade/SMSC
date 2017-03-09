@@ -43,7 +43,6 @@ import {CustomersContactsService} from "./customers/customers-contacts/customer-
 import {CustomersUsersService} from "./customers/customers-users/customer-user.service";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {LoadingRouterOutletModule} from "./shared/components/loading-router-outlet/loading-router-outlet.component";
-import {CommonService} from "./services/common";
 import "../styles/styles.scss";
 import {NotificationService} from "./services/notification-service";
 
@@ -75,48 +74,41 @@ export const APP_PROVIDERS = [
     SidebarService,
     CustomersContactsService,
     CustomersUsersService,
-    HTTP_INTERCEPTOR_PROVIDER,
-    CommonService
+    HTTP_INTERCEPTOR_PROVIDER
+];
+
+export const APP_DECLARATIONS = [
+    App,
+    LoginComponent,
+    SidebarComponent,
+    NotFoundComponent,
+    NavigationComponent,
+    SidebarItemComponent,
+    MetaDataPropertyBindingParameterComponent
+];
+
+export const APP_IMPORTS = [
+    MessagesModule,
+    LoadingRouterOutletModule,
+    BrowserModule,
+    FormsModule,
+    NoInternetModule,
+    HttpModule,
+    AppRoutingModule,
+    SimpleNotificationsModule,
+    BreadcrumbModule.forRoot(),
+    TranslateModule.forRoot({
+        provide: TranslateLoader,
+        useFactory: translateFactory,
+        deps: [Http, ConfigService]
+    })
 ];
 
 @NgModule({
     bootstrap: [App],
-    declarations: [
-        SidebarComponent,
-        SidebarItemComponent,
-        App,
-        LoginComponent,
-        NavigationComponent,
-        NotFoundComponent,
-        // // CrudMetaDataComponent,
-        // // CrudMetaFormDataComponent,
-        // // CrudClassMetaDataComponent,
-        // // CrudMetaGridDataComponent,
-        MetaDataPropertyBindingParameterComponent,
-    ],
-    imports: [
-        MessagesModule,
-        LoadingRouterOutletModule,
-        BrowserModule,
-        FormsModule,
-        NoInternetModule,
-        HttpModule,
-        AppRoutingModule,
-        TranslateModule.forRoot({
-            provide: TranslateLoader,
-            useFactory: translateFactory,
-            deps: [Http, ConfigService]
-        }),
-        SharedModule.forRoot(),
-        SimpleNotificationsModule,
-        // CrudModule,
-        // DashboardModule,
-        BreadcrumbModule.forRoot()
-    ],
-    providers: [
-        ENV_PROVIDERS,
-        APP_PROVIDERS
-    ]
+    declarations: [APP_DECLARATIONS],
+    imports: [APP_IMPORTS],
+    providers: [ENV_PROVIDERS, APP_PROVIDERS]
 })
 export class AppModule {
     constructor(public appRef: ApplicationRef,

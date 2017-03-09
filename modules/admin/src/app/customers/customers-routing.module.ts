@@ -3,11 +3,11 @@ import {RouterModule} from "@angular/router";
 import {CustomersDeleteComponent} from "./customers-delete/customers-delete.component";
 import {CustomersUpdateComponent} from "./customers-update/customers-update.component";
 import {CustomersEditResolve} from "./customers-update/customers-update.resolve";
-import {CustomersCreateComponent} from "./customers-create/crud-create.component";
+import {CustomersCreateComponent} from "./customers-create/customers-create.component";
 import {CustomersViewComponent} from "./customers-view/customers-view.component";
 import {CustomersViewResolve} from "./customers-view/customers-view.resolve";
 
-const CUSTOMERS_ROUTE_PROVIDER = [
+export const CUSTOMERS_ROUTE_PROVIDER = [
     {
         path: '',
         component: CustomersViewComponent,
