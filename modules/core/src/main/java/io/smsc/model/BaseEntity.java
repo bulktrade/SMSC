@@ -1,9 +1,10 @@
 package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.*;
 
 import javax.persistence.*;
+import javax.persistence.AccessType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -29,14 +30,14 @@ public abstract class BaseEntity implements Serializable {
     @JsonIgnore
     protected Date lastModifiedDate = new Date();
 
-    @Version
     @Column(name = "VERSION", nullable = false)
     @JsonIgnore
-    protected Long version;
+    protected Long version = 0L;
 
     @PreUpdate
     protected void onUpdate() {
         lastModifiedDate = new Date();
+        version = ++version;
     }
 
     @JsonProperty
@@ -58,12 +59,5 @@ public abstract class BaseEntity implements Serializable {
     @JsonIgnore
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
-    }
-
-    @Override
-    public String toString() {
-        return "{lastModifiedDate=" + lastModifiedDate +
-                ", version=" + version +
-                '}';
     }
 }
