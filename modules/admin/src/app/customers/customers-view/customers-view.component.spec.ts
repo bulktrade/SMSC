@@ -10,6 +10,7 @@ import {XHRBackend, ResponseOptions, Response} from "@angular/http";
 import {SortType} from "../../shared/sort.model";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {ConfigService} from "../../config/config.service";
+import {Action} from "../../shared/components/one-to-many/one-to-many.model";
 
 describe('Component: CustomersViewComponent', () => {
     let componentFixture: ComponentHelper<CustomersViewComponent> =
@@ -49,13 +50,12 @@ describe('Component: CustomersViewComponent', () => {
     }));
 
     it('should sort rows by field name', async(() => {
-        let event = {
-            field: 'country',
-            order: 1
-        };
-        componentFixture.instance.onSort(event);
+        componentFixture.instance.onSort({field: 'country', order: 1});
         expect(componentFixture.instance.sort.orderBy).toEqual('country');
         expect(componentFixture.instance.sort.sortType).toEqual(SortType.ASC);
+        componentFixture.instance.onSort({field: 'country', order: -1});
+        expect(componentFixture.instance.sort.orderBy).toEqual('country');
+        expect(componentFixture.instance.sort.sortType).toEqual(SortType.DESC);
     }));
 
     it('should get rows with pagination', async(() => {
@@ -73,6 +73,10 @@ describe('Component: CustomersViewComponent', () => {
             column: 'company',
             filterName: 'globalFilter'
         };
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({status: 204, body: {}});
+            connection.mockRespond(new Response(response));
+        });
         componentFixture.instance.searchModel[event.filterName] = 'SMSC';
         componentFixture.instance.onFilter(event.column, event.filterName);
         expect(componentFixture.instance.filters['company']).toEqual('SMSC');
@@ -101,5 +105,40 @@ describe('Component: CustomersViewComponent', () => {
             .subscribe(res => {
                 expect(res).toBeDefined();
             });
+    }));
+
+    it('.onRowExpand()', async(() => {
+        componentFixture.instance.onRowExpand({data: {id: 1}});
+        expect(componentFixture.instance.contactsModel[1])
+            .toEqual(jasmine.objectContaining({propertyName: 'contacts', action: Action.View, entity: null}));
+        expect(componentFixture.instance.usersModel[1])
+            .toEqual(jasmine.objectContaining({propertyName: 'users', action: Action.View, entity: null}));
+    }));
+
+    it('.onEditComplete() - successful response', async(() => {
+        spyOn(componentFixture.instance, 'setRowData');
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({body: {}});
+            connection.mockRespond(new Response(response));
+        });
+
+        componentFixture.instance.onEditComplete(<any>{data: {_links: {self: {href: ''}}}});
+        expect(componentFixture.instance.setRowData).toHaveBeenCalled();
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdateCustomer');
+    }));
+
+    it('.onEditComplete() - error response', async(() => {
+        spyOn(componentFixture.instance, 'setRowData');
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        mockBackend.connections.subscribe(connection => {
+            connection.mockError(new Error());
+        });
+
+        componentFixture.instance.onEditComplete(<any>{data: {_links: {self: {href: ''}}}});
+        expect(componentFixture.instance.setRowData).toHaveBeenCalled();
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdateCustomer');
     }));
 });

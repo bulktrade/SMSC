@@ -88,8 +88,6 @@ export class CustomersViewComponent {
             case -1:
                 this.sort.sortType = SortType.DESC;
                 break;
-            default:
-                break;
         }
         this.setRowData();
     }
