@@ -3,8 +3,7 @@ package io.smsc.model.admin;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.smsc.annotation.UserExistsValidator;
-import io.smsc.converters.CryptoConverter;
+import io.smsc.annotation.Encrypt;
 import io.smsc.listeners.EncryptionListener;
 import io.smsc.model.BaseEntity;
 import io.smsc.model.customer.Salutation;
@@ -31,8 +30,7 @@ import java.util.Set;
  */
 @Entity(name = "AdminUser")
 @Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = "USERNAME", name = "users_username_idx"),
-                                                    @UniqueConstraint(columnNames = "EMAIL", name = "users_email_idx")})
-@UserExistsValidator
+        @UniqueConstraint(columnNames = "EMAIL", name = "users_email_idx")})
 public class User extends BaseEntity {
 
     @Id
@@ -45,30 +43,30 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "SALUTATION", nullable = false)
-    @NotNull(message = "{user.salutation.validation}")
+    @NotNull(message = "EMPTY_VALIDATION_ERROR")
     private Salutation salutation;
 
     @Column(name = "USERNAME", nullable = false, unique = true)
-    @NotEmpty(message = "{user.username.validation}")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String username;
 
-    @Convert(converter = CryptoConverter.class)
+    @Encrypt
     @Column(name = "PASSWORD", nullable = false)
-    @NotEmpty(message = "{user.password.empty.validation}")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     @JsonIgnore
     private String password;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "{user.firstname.validation}")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String firstname;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "{user.surname.validation}")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String surname;
 
     @Column(name = "EMAIL", nullable = false, unique = true)
-    @Email(message = "{user.email.format.validation}")
-    @NotEmpty(message = "{user.email.empty.validation}")
+    @Email(message = "EMAIL_FORMAT_VALIDATION_ERROR")
+    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
     private String email;
 
     @Column(name = "ACTIVE", nullable = false)
@@ -138,6 +136,11 @@ public class User extends BaseEntity {
     @JsonIgnore
     @OrderBy("id asc")
     private Set<Dashboard> dashboards;
+
+    @JsonIgnore
+    public boolean isNew() {
+        return getId() == null;
+    }
 
     public Long getId() {
         return id;
@@ -283,7 +286,8 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return "{ id=" + id +
+        return "User{" +
+                "id=" + id +
                 ", salutation=" + salutation +
                 ", username='" + username + '\'' +
                 ", firstname='" + firstname + '\'' +
@@ -292,8 +296,6 @@ public class User extends BaseEntity {
                 ", active=" + active +
                 ", created=" + created +
                 ", blocked=" + blocked +
-                ", version='" + version + '\'' +
-                ", lastModifiedDate='" + lastModifiedDate + '\'' +
-                "}";
+                '}';
     }
 }
