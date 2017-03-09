@@ -6,7 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/components/button/button";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
 import {OneToManyModule} from "../../shared/components/one-to-many/one-to-many.component";
-import {ControlErrorsModule} from "../../shared/components/control-errors/control-errors";
+import {ControlErrorsModule} from "../../shared/components/control-errors/control-errors.component";
 import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";

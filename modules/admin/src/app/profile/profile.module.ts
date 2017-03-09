@@ -14,7 +14,7 @@ import {ProfileResolve} from "./profile.resolve";
 import {CustomersFormModule} from "../customers/customers-form/customers-form.component";
 import {RouterModule} from "@angular/router";
 import {PanelModule} from "primeng/components/panel/panel";
-import {ControlErrorsModule} from "../shared/components/control-errors/control-errors";
+import {ControlErrorsModule} from "../shared/components/control-errors/control-errors.component";
 import {UsersModule} from "../users/users.module";
 import {SharedModule} from "primeng/components/common/shared";
 

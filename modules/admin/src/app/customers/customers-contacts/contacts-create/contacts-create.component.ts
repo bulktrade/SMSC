@@ -9,7 +9,7 @@ import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
-import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors";
+import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors.component";
 import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
 
 @Component({
