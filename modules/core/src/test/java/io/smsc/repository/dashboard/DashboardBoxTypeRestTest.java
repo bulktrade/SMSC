@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -52,6 +53,7 @@ public class DashboardBoxTypeRestTest extends AbstractTest {
         dashboardBoxType.setKind(Kind.BAR_CHART);
         String dashboardBoxTypeJson = json(dashboardBoxType);
         this.mockMvc.perform(post("/rest/repository/dashboard-box-types")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxTypeJson))
                 .andExpect(status().isCreated());
@@ -59,7 +61,8 @@ public class DashboardBoxTypeRestTest extends AbstractTest {
 
     @Test
     public void testDeleteDashboardBoxType() throws Exception {
-        mockMvc.perform(delete("/rest/repository/dashboard-box-types/1"));
+        mockMvc.perform(delete("/rest/repository/dashboard-box-types/1")
+                .with(csrf()));
         mockMvc.perform(get("/rest/repository/dashboard-box-types/1"))
                 .andExpect(status().isNotFound());
     }
@@ -73,6 +76,7 @@ public class DashboardBoxTypeRestTest extends AbstractTest {
         dashboardBoxType.setKind(Kind.BAR_CHART);
         String dashboardBoxTypeJson = json(dashboardBoxType);
         mockMvc.perform(put("/rest/repository/dashboard-box-types/1")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxTypeJson))
                 .andExpect(status().isOk());

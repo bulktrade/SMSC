@@ -1,16 +1,17 @@
 package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.*;
 
 import javax.persistence.*;
+import javax.persistence.AccessType;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Specifies Base entity class as an mapped superclass. It's mapping information
- * is applied to the entities that inherit from it. It contains only id property
- * and equals/hashcode implementations.
+ * is applied to the entities that inherit from it. It contains only lastModifiedData
+ * and version properties.
  *
  * @author Nazar Lipkovskyy
  * @see MappedSuperclass
@@ -29,14 +30,15 @@ public abstract class BaseEntity implements Serializable {
     @JsonIgnore
     protected Date lastModifiedDate = new Date();
 
-    @Version
+//    @Version
     @Column(name = "VERSION", nullable = false)
     @JsonIgnore
-    protected Long version;
+    protected Long version = 0L;
 
     @PreUpdate
     protected void onUpdate() {
         lastModifiedDate = new Date();
+        version = ++version;
     }
 
     @JsonProperty
@@ -58,12 +60,5 @@ public abstract class BaseEntity implements Serializable {
     @JsonIgnore
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
-    }
-
-    @Override
-    public String toString() {
-        return "{lastModifiedDate=" + lastModifiedDate +
-                ", version=" + version +
-                '}';
     }
 }

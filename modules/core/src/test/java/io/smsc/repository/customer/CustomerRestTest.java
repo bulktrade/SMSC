@@ -8,6 +8,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -68,6 +69,7 @@ public class CustomerRestTest extends AbstractTest {
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
         this.mockMvc.perform(post("/rest/repository/customers")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
                 .andExpect(status().isCreated());
@@ -75,7 +77,8 @@ public class CustomerRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCustomer() throws Exception {
-        mockMvc.perform(delete("/rest/repository/customers/40000"));
+        mockMvc.perform(delete("/rest/repository/customers/40000")
+                .with(csrf()));
         mockMvc.perform(get("/rest/repository/customers/40000"))
                 .andExpect(status().isNotFound());
     }
@@ -93,6 +96,7 @@ public class CustomerRestTest extends AbstractTest {
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
         mockMvc.perform(put("/rest/repository/customers/40001")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
                 .andExpect(status().isOk());
@@ -111,6 +115,7 @@ public class CustomerRestTest extends AbstractTest {
     @Test
     public void testSetAndDeleteParent() throws Exception {
         mockMvc.perform(patch("/rest/repository/customers/40000")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content("{\"parent\" : \"/rest/repository/customers/40001\"}"))
                 .andExpect(status().isOk());
@@ -120,6 +125,7 @@ public class CustomerRestTest extends AbstractTest {
                 .andExpect(jsonPath("$.id", is(40001)));
 
         mockMvc.perform(patch("/rest/repository/customers/40000")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content("{\"parent\" : null}"))
                 .andExpect(status().isOk());

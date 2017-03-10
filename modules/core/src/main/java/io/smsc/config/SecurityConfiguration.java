@@ -24,6 +24,7 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import java.security.SecureRandom;
 
@@ -125,7 +126,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                // enable csrf protection for Angular
+                .csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository
+                        .withHttpOnlyFalse())
+                .ignoringAntMatchers("/rest/auth/token")
+                .and()
                 // enable role hierarchy
                 .authorizeRequests().expressionHandler(expressionHandler())
                 // /rest/auth/token is used for token receiving and updating
