@@ -1,6 +1,6 @@
-import { LoginModel } from "./login.model";
-import { EC } from "../shared/expected-conditions";
-import { browser, element, by } from "protractor";
+import {LoginModel} from "./login.model";
+import {EC} from "../shared/expected-conditions";
+import {browser, element, by} from "protractor";
 
 export class LoginPage {
     public elemNotFound = element(by.tagName('notfound'));
@@ -11,9 +11,7 @@ export class LoginPage {
     public passwordField = element(by.id('password'));
     public logoutBtn = element(by.id('logout'));
     public loginComponent = element(by.tagName('login'));
-
-    constructor() {
-    }
+    public navigation = element(by.tagName('navigation'));
 
     get() {
         browser.get(browser.baseUrl + '/');
@@ -45,7 +43,9 @@ export class LoginPage {
 
         browser.wait(EC.and(isClickableUsername, isClickablePassword, isClickableSubmit), 5000);
 
+        this.usernameField.clear();
         this.usernameField.sendKeys(loginModel.username);
+        this.passwordField.clear();
         this.passwordField.sendKeys(loginModel.password);
         this.submitButton.submit();
     }
@@ -63,5 +63,10 @@ export class LoginPage {
     isPresentLogin() {
         browser.wait(EC.presenceOf(this.loginComponent), 5000);
         return this.loginComponent.isPresent();
+    }
+
+    isPresentNavigation() {
+        browser.wait(EC.presenceOf(this.navigation), 5000);
+        return this.navigation.isPresent();
     }
 }

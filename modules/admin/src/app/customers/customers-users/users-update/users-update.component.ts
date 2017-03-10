@@ -11,7 +11,7 @@ import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
-import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors";
+import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors.component";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
 
 @Component({
@@ -20,7 +20,7 @@ import {CheckboxModule} from "primeng/components/checkbox/checkbox";
 })
 export class UsersUpdateComponent implements OnInit {
 
-    public model: any = {};
+    public model: CustomerUser = null;
 
     public userId: number;
 
@@ -46,27 +46,26 @@ export class UsersUpdateComponent implements OnInit {
 
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.userId = this.isDirectiveCall ? this.userId : +params['customerId'];
+            this.userId = this.isDirectiveCall ? this.userId : params['userId'];
         });
 
         this.model = this.isDirectiveCall ? this.entity : this.getModel();
     }
 
     getModel() {
-        return this.route.snapshot.data['update'];
+        return this.model || this.route.snapshot.data['update'];
     }
 
     onSubmit(entity: CustomerUser) {
-        this.isLoading = true;
+        this.toggleLoading(true);
         this.customersUsersService.updateResource(entity)
             .subscribe(() => {
                     this.onBack();
-                    this.isLoading = false;
+                    this.toggleLoading(false);
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
                 },
                 err => {
-                    console.error(err);
-                    this.isLoading = false;
+                    this.toggleLoading(false);
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
                 });
     }
@@ -79,6 +78,9 @@ export class UsersUpdateComponent implements OnInit {
         }
     }
 
+    toggleLoading(value: boolean) {
+        this.isLoading = value;
+    }
 }
 
 @NgModule({

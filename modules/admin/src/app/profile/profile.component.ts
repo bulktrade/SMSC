@@ -1,4 +1,4 @@
-import {Component, OnInit, Host, Optional} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {TranslateService} from "ng2-translate";
 import {ProfileService} from "./profile.service";
@@ -10,7 +10,6 @@ import {Message} from "../shared/components/models/error/Message";
 
 @Component({
     selector: 'user',
-    providers: [],
     templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {

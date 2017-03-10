@@ -1,7 +1,7 @@
-import { Component, OnInit, NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LoadingGridService } from "../../../services/loading/loading-grid.service";
-import { CubeGridModule } from "../cube-grid/cube-grid.component";
+import {Component, OnInit, NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {LoadingGridService} from "../../../services/loading/loading-grid.service";
+import {CubeGridModule} from "../cube-grid/cube-grid.component";
 
 @Component({
     selector: 'loading-grid',
@@ -26,10 +26,4 @@ export class LoadingGridComponent implements OnInit {
     declarations: [LoadingGridComponent]
 })
 export class LoadingGridModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: LoadingGridModule,
-            providers: []
-        };
-    }
 }

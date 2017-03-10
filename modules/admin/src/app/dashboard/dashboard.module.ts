@@ -1,4 +1,4 @@
-import {NgModule, ModuleWithProviders} from "@angular/core";
+import {NgModule} from "@angular/core";
 import {DashboardService} from "./dashboard.service";
 import {OrderBy} from "./pipe/orderby";
 import {DashboardComponent} from "./dashboard.component";
@@ -75,9 +75,4 @@ const DASHBOARD_DECLARATION = [
     ]
 })
 export class DashboardModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: DashboardModule
-        };
-    }
 }

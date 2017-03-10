@@ -6,7 +6,19 @@ exports.config = {
 
   // use `npm run e2e`
   specs: [
-    helpers.root('src/app/login/login.component.e2e.ts'),
+    helpers.root('src/app/*.e2e.ts'),
+    helpers.root('src/app/login/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-create/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-update/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-contacts/contacts-create/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-contacts/contacts-update/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-contacts/contacts-delete/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-users/users-create/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-users/users-update/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-users/users-delete/*.e2e.ts'),
+    helpers.root('src/app/customers/parent-customer/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-delete/*.e2e.ts'),
+    helpers.root('src/app/customers/customers-view/*.e2e.ts'),
     helpers.root('src/**/**.e2e.ts'),
     helpers.root('src/**/*.e2e.ts')
   ],

@@ -1,20 +1,18 @@
 <div *ngIf="showInSubNavigation" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav" #isIcon>
-	<a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-	   class="{{nameItem.toLowerCase()}} sub-task clear" [routerLink]="[path]"
-	   (click)="setToggle(toggle);">
-		<i class="icon-left fa" [ngClass]="icon"></i>
-		<div class="show-nav">
-			<span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
-			<i *ngIf="submenu" class="isChildren fa {{nameItem.toLowerCase()}}-icon"
-			   [ngClass]="getStorageItem(toggle) ? 'fa-chevron-left' : 'fa-chevron-down'"></i>
-		</div>
-	</a>
-	<ul [@state]="getStorageItem(toggle) ? 'open' : 'closed'" *ngIf="submenu"
-	    class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
-		<li *ngFor="let item of submenu"><a routerLinkActive="activesub" [routerLinkActiveOptions]="{exact: true}"
-		                                    [routerLink]="item.path === '' ? [path] : [path, item.path]"
-		                                    class="{{item.name.toLowerCase()}}">
-			<i class="subitem-icon-left fa" [ngClass]="item.icon"></i>
-			{{item.name | uppercase | translate}}</a></li>
-	</ul>
+    <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+       class="{{nameItem.toLowerCase()}} sub-task clear" [routerLink]="[path]">
+        <i class="icon-left fa" [ngClass]="icon"></i>
+        <div class="show-nav">
+            <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
+            <i *ngIf="submenu" class="isChildren fa {{nameItem.toLowerCase()}}-icon"></i>
+        </div>
+    </a>
+    <ul *ngIf="submenu"
+        class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
+        <li *ngFor="let item of submenu"><a routerLinkActive="activesub" [routerLinkActiveOptions]="{exact: true}"
+                                            [routerLink]="item.path === '' ? [path] : [path, item.path]"
+                                            class="{{item.name.toLowerCase()}}">
+            <i class="subitem-icon-left fa" [ngClass]="item.icon"></i>
+            {{item.name | uppercase | translate}}</a></li>
+    </ul>
 </div>

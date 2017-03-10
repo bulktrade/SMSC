@@ -11,7 +11,7 @@ import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
-import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors";
+import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors.component";
 
 @Component({
     selector: 'contacts-update',
@@ -19,7 +19,7 @@ import {ControlErrorsModule} from "../../../shared/components/control-errors/con
 })
 export class ContactsUpdateComponent implements OnInit {
 
-    public model: any = {};
+    public model: Contact = null;
 
     public contactId: number;
 
@@ -41,31 +41,29 @@ export class ContactsUpdateComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isDirectiveCall = !(this.route.component === ContactsUpdateComponent);
-
         // get id parameter
         this.route.params.subscribe((params) => {
-            this.contactId = this.isDirectiveCall ? this.contactId : +params['customerId'];
+            this.contactId = this.isDirectiveCall ? this.contactId : params['contactId'];
         });
-
+        this.isDirectiveCall = !(this.route.component === ContactsUpdateComponent);
         this.model = this.isDirectiveCall ? this.entity : this.getModel();
     }
 
     getModel() {
-        return this.route.snapshot.data['update'];
+        return this.model || this.route.snapshot.data['update'];
     }
 
     onSubmit(entity) {
-        this.isLoading = true;
+        this.toggleLoading(true);
         this.contactsService.updateResource(entity)
             .subscribe(() => {
                     this.onBack();
-                    this.isLoading = false;
+                    this.toggleLoading(false);
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
                 },
                 err => {
                     console.error(err);
-                    this.isLoading = false;
+                    this.toggleLoading(false);
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
                 });
     }
@@ -76,6 +74,10 @@ export class ContactsUpdateComponent implements OnInit {
         } else {
             this.location.back();
         }
+    }
+
+    toggleLoading(value: boolean) {
+        this.isLoading = value;
     }
 }
 

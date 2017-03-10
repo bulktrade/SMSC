@@ -1,9 +1,10 @@
-import {Component, OnInit, NgModule, ModuleWithProviders, Input} from "@angular/core";
+import {Component, OnInit, NgModule, Input} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {RequestOptions, RequestMethod, Http} from "@angular/http";
 import {CrudRepository} from "../../crud-repository";
 import {Link} from "../../entity.model";
 import {NotificationService} from "../../../services/notification-service";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'one-to-one',
@@ -55,26 +56,27 @@ export class OneToOneComponent implements OnInit {
                 if (err.status === 404) {
                     this.model = {};
                 } else {
-                    console.error(err);
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
                 }
             });
 
         /** get the list of resources */
         this.subEntityService.getResources()
-            .map(res => res['_embedded'][this.subEntityService.repositoryName])
+        .map(res => res['_embedded'][this.subEntityService.repositoryName])
             .subscribe(resources => {
                 this.resources = resources;
+            }, err => {
+                this.notifications.createNotification('error', 'ERROR', 'customers.notFound');
             });
     }
 
     filterResources(event) {
         this.filteredResources = [];
-
         this.resources.forEach(i => {
             let resource = i,
                 titleColumns = i[this.subEntityService.titleColumns] ? this.subEntityService.titleColumns : 'id';
-            if (resource[titleColumns].toLowerCase().includes(event.query.toLowerCase())) {
+            if (resource[titleColumns].toLowerCase().includes(event.query.toLowerCase()) ||
+                String(resource['id']).includes(event.query)) {
                 if (!this.hideOwn || this.id != +i['id']) {
                     this.filteredResources.push(resource);
                 }
@@ -84,15 +86,15 @@ export class OneToOneComponent implements OnInit {
 
     onDropdownClick() {
         this.filteredResources = [];
-
-        this.subEntityService.getResources()
+        return this.subEntityService.getResources()
             .map(res => res['_embedded'][this.subEntityService.repositoryName])
-            .subscribe(resources => {
+            .map(resources => {
                 resources.forEach(resource => {
                     if (!this.hideOwn || this.id != +resource['id']) {
                         this.filteredResources.push(resource);
                     }
                 });
+                return this.filteredResources;
             });
     }
 
@@ -107,12 +109,13 @@ export class OneToOneComponent implements OnInit {
             };
 
             this.mainEntityService.updateResource(entity)
-                .subscribe(() => {
+                .subscribe((res) => {
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
                 }, err => {
-                    console.error(err);
-                    this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
+                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
                 });
+        } else {
+            return Observable.empty();
         }
     }
 
@@ -123,12 +126,11 @@ export class OneToOneComponent implements OnInit {
         };
 
         this.mainEntityService.updateResource(entity)
-            .subscribe(() => {
+            .subscribe((res) => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
                 this.model = {};
             }, err => {
-                console.error(err);
-                this.notifications.createNotification('error', 'SUCCESS', 'customers.errorUpdate');
+                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
             });
     }
 
@@ -174,9 +176,4 @@ export class OneToOneComponent implements OnInit {
     declarations: [OneToOneComponent]
 })
 export class OneToOneModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: OneToOneModule
-        };
-    }
 }

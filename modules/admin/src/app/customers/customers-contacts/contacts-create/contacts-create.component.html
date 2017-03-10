@@ -5,7 +5,7 @@
                id="back-button"></i>
             <span *ngIf="!isDirectiveCall">{{ 'contacts' | translate }}</span>
         </p-header>
-        <form role="form" (ngSubmit)="onSubmit(model).subscribe()" #dynamicForm="ngForm" novalidate>
+        <form role="form" (ngSubmit)="onSubmit(model)" #dynamicForm="ngForm" novalidate>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
 
                 <div class="ui-grid-row">
@@ -134,7 +134,7 @@
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2"></div>
                     <div class="ui-grid-col-6">
-                        <button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="createContacts"
+                        <button type="submit" class="btn primeng-primary-btn ui-md-12 ui-sm-12" id="submit-button"
                                 [disabled]="dynamicForm.form.invalid">
                             <span>{{ 'contacts.createContacts' | translate }}</span>
                             <i *ngIf="isLoading"

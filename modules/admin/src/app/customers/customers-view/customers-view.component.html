@@ -3,7 +3,7 @@
                  (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
                  [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">
         <p-header class="grid-header">
-            <div class="ui-helper-clearfix" style="width:100%">
+            <div class="ui-helper-clearfix">
                 <div class="ui-g ctrl-panel">
                     <div class="ui-g-12 ui-md-6 search-panel">
                         <i class="fa fa-search"></i>
@@ -18,10 +18,10 @@
                            class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
                     </div>
                     <div class="ui-g-12 ui-md-6 button-panel">
-                        <button type="button" class="ui-button-success"
+                        <button type="button" class="ui-button-success create-button"
                                 routerLink="/customers/create"
                                 pButton icon="fa-plus" [label]="'customers.create' | translate"></button>
-                        <button type="button" pButton class="ui-button-danger" [disabled]="!selectedRows.length"
+                        <button type="button" pButton class="ui-button-danger delete-button" [disabled]="!selectedRows.length"
                                 icon="fa-remove" (click)="showConfirmDeletionWindow=true;"
                                 [label]="'customers.delete' | translate"></button>
                     </div>
@@ -32,18 +32,18 @@
         <p-column expander="true" styleClass="col-icon" [style]="{'width':'40px'}"></p-column>
         <p-column [style]="{'width':'40px'}">
             <template pTemplate="body" let-col let-row="rowData">
-				<span class="fa fa-pencil update-button"
+				<span class="fa fa-pencil update-icon"
                       style="padding-right: 3px; color: #009688;"
                       [routerLink]="['/customers', row['id'], 'update']"></span>
             </template>
         </p-column>
         <p-column [style]="{'width':'40px'}">
             <template pTemplate="body" let-col let-row="rowData">
-                <span class="fa fa-trash delete-button" style="color: #E53935;"
+                <span class="fa fa-trash delete-icon" style="color: #E53935;"
                       [routerLink]="['/customers', row['id'], 'delete']"></span>
             </template>
         </p-column>
-        <p-column field="companyName" [header]="'companyName' | translate" [editable]="true"
+        <p-column field="companyName" styleClass="col-company-name" [header]="'companyName' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
             <template pTemplate="filter" let-col>
                 <div class="ui-sm-12 ui-md-12 filter-container">

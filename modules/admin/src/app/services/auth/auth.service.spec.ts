@@ -1,11 +1,11 @@
-import { TestBed, inject } from "@angular/core/testing";
-import { HttpModule, XHRBackend, ResponseOptions, Response } from "@angular/http";
-import { MockBackend } from "@angular/http/testing";
-import { CrudRepository } from "./crud-repository";
-import { AuthService } from "./auth.service";
-import { TokenService } from "./token.service";
-import { AuthModel } from "./auth.model";
-import { ConfigService } from "../../config/config.service";
+import {TestBed, inject} from "@angular/core/testing";
+import {HttpModule, XHRBackend, ResponseOptions, Response} from "@angular/http";
+import {MockBackend, MockConnection} from "@angular/http/testing";
+import {CrudRepository} from "./crud-repository";
+import {AuthService} from "./auth.service";
+import {TokenService} from "./token.service";
+import {AuthModel} from "./auth.model";
+import {ConfigService} from "../../config/config.service";
 
 class ConfigServiceMock {
     config = {
@@ -15,15 +15,15 @@ class ConfigServiceMock {
     }
 }
 
-describe('Auth service', () => {
+describe('Service: AuthService', () => {
     let mockBackend, authService: AuthService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpModule],
             providers: [
-                { provide: XHRBackend, useClass: MockBackend },
-                { provide: ConfigService, useClass: ConfigServiceMock },
+                {provide: XHRBackend, useClass: MockBackend},
+                {provide: ConfigService, useClass: ConfigServiceMock},
                 AuthService,
                 TokenService
             ]
@@ -41,12 +41,23 @@ describe('Auth service', () => {
             refreshToken: 'refreshToken'
         };
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
         authService.login('login', 'password')
             .subscribe(data => {
                 expect(data).toEqual(responseData.token);
+            });
+    });
+
+    it('should not log in', () => {
+        mockBackend.connections.subscribe((connection: MockConnection) => {
+            connection.mockError(new Error('invalid credentials'));
+        });
+        authService.login('login', 'password')
+            .subscribe(() => {
+            }, (err: Error) => {
+                expect(err.message).toEqual('invalid credentials');
             });
     });
 
@@ -56,7 +67,7 @@ describe('Auth service', () => {
             refreshToken: 'refreshToken'
         };
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
         authService.authentication('login', 'password')
@@ -71,7 +82,7 @@ describe('Auth service', () => {
             token: 'token',
         };
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({ body: responseData });
+            let response = new ResponseOptions({body: responseData});
             connection.mockRespond(new Response(response));
         });
         authService.refreshAccessToken('expiredToken', 'refreshToken')

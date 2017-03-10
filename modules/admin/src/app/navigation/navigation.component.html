@@ -1,5 +1,5 @@
 <div id="navigation-window">
-    <div id="wrapper" [ngClass]="{'toggled': toggleLeftSidebar || sidebarService.toggle}">
+    <div id="wrapper" [ngClass]="{'toggled': toggleLeftSidebar}">
         <!-- Header -->
         <div class="card header">
             <div class="toolbar">
@@ -7,8 +7,8 @@
                     <i id="desktopMenu" class="fa fa-bars" (click)="toggleLeftSidebar=!toggleLeftSidebar"></i>
                     <h1 style="float: left;" [routerLink]="['/']" id="logo">{{ 'project.title' | translate }}</h1>
                 </div>
-                <div style="width: 100%;"></div>
-                <div class="right-panel">
+                <div class="ui-md-12 ui-sm-12"></div>
+                <div class="right-panel pull-right">
                     <i class="fa fa-user pull-right" [routerLink]="['/profile']" aria-hidden="true"></i>
                     <i class="fa fa-sign-out pull-right" (click)="logout()" id="logout"></i>
                     <i class="fa fa-bars pull-right" (click)="toggleUpSidebar=!toggleUpSidebar" id="mobileMenu"></i>

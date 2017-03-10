@@ -1,9 +1,6 @@
 export class DashboardListItem<T> {
     private list: Array<T> = [];
 
-    constructor() {
-    }
-
     /**
      * Set/Add item
      *

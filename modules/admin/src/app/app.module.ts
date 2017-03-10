@@ -1,18 +1,15 @@
 import {NgModule, ApplicationRef} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
-import {Http, HttpModule} from "@angular/http";
+import {Http, HttpModule, XSRFStrategy, CookieXSRFStrategy} from "@angular/http";
 import {FormsModule} from "@angular/forms";
-import {App} from "./app.component";
-import {BreadcrumbModule} from "./breadcrumb/breadcrumb.component";
+import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {LoginComponent} from "./login/login.component";
 import {NavigationComponent} from "./navigation/navigation.component";
 import {NotFoundComponent} from "./not-found/not-found.component";
-// import { CrudMetaDataComponent } from "./crud-meta-data/crud-meta-data.components";
 import {AppState, InternalStateType} from "./app.service";
 import {AuthService} from "./services/auth/auth.service";
 import {TokenService} from "./services/auth/token.service";
-// import { CrudService } from "./crud/crud.service";
 import {AuthGuard} from "./shared/auth.guard";
 import {LoadingGridService} from "./services/loading/loading-grid.service";
 import {APP_RESOLVER_PROVIDERS} from "./app.resolver";
@@ -25,26 +22,18 @@ import {SidebarItemComponent} from "./sidebar/sidebar-item.component";
 import {ConfigService} from "./config/config.service";
 import {LoadingRouterOutletService} from "./services/loading/loading-router-outlet.service";
 import {LoadingService} from "./services/loading/loading.service";
-import {RouterOutletService} from "./services/router-outlet-service";
-import {MetaDataPropertyBindingParameterComponent} from "./crud-meta-data/binding-parameter/binding-parameter.component";
-import {SidebarService} from "./sidebar/sidebar.service";
 // import { DashboardModule } from "./dashboard/dashboard.module";
 import {HTTP_INTERCEPTOR_PROVIDER} from "./shared/http-interceptor";
 import {NoInternetModule} from "./shared/components/no-internet/no-internet.component";
-// import { CrudMetaFormDataComponent } from "./crud-meta-data/crud-meta-form-data/crud-meta-form-data.component";
-// import { CrudClassMetaDataComponent } from "./crud-meta-data/crud-class-meta-data/crud-class-meta-data.component";
-// import { CrudMetaGridDataComponent } from "./crud-meta-data/crud-meta-grid-data/crud-meta-grid-data.component";
 import {SharedModule} from "./shared.module";
-// import { CrudModule } from "./crud/crud.module";
 import {GrowlService} from "./services/growl/growl.service";
-// import { CrudLevelService } from "./crud/services/crud-level";
 import {CustomersService} from "./customers/customer.service";
 import {CustomersContactsService} from "./customers/customers-contacts/customer-contact.service";
 import {CustomersUsersService} from "./customers/customers-users/customer-user.service";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {LoadingRouterOutletModule} from "./shared/components/loading-router-outlet/loading-router-outlet.component";
-import "../styles/styles.scss";
 import {NotificationService} from "./services/notification-service";
+import "../styles/styles.scss";
 
 type StoreType = {
     state: InternalStateType,
@@ -62,7 +51,6 @@ export const APP_PROVIDERS = [
     LoadingGridService,
     LoadingService,
     LoadingRouterOutletService,
-    RouterOutletService,
     TokenService,
     AuthService,
     NotificationsService,
@@ -71,20 +59,22 @@ export const APP_PROVIDERS = [
     AppState,
     ConfigService,
     GrowlService,
-    SidebarService,
     CustomersContactsService,
     CustomersUsersService,
-    HTTP_INTERCEPTOR_PROVIDER
+    HTTP_INTERCEPTOR_PROVIDER,
+    {
+        provide: XSRFStrategy,
+        useValue: new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN')
+    }
 ];
 
 export const APP_DECLARATIONS = [
-    App,
+    AppComponent,
     LoginComponent,
     SidebarComponent,
     NotFoundComponent,
     NavigationComponent,
-    SidebarItemComponent,
-    MetaDataPropertyBindingParameterComponent
+    SidebarItemComponent
 ];
 
 export const APP_IMPORTS = [
@@ -96,7 +86,6 @@ export const APP_IMPORTS = [
     HttpModule,
     AppRoutingModule,
     SimpleNotificationsModule,
-    BreadcrumbModule.forRoot(),
     TranslateModule.forRoot({
         provide: TranslateLoader,
         useFactory: translateFactory,
@@ -105,7 +94,7 @@ export const APP_IMPORTS = [
 ];
 
 @NgModule({
-    bootstrap: [App],
+    bootstrap: [AppComponent],
     declarations: [APP_DECLARATIONS],
     imports: [APP_IMPORTS],
     providers: [ENV_PROVIDERS, APP_PROVIDERS]

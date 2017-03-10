@@ -108,7 +108,6 @@ export abstract class CrudRepository<T> {
         let entity: Entity = new Entity();
         entity._links = new Links();
         entity._links.self = new Link(this.apiUrl + '/repository/' + this.repositoryName + '/' + id);
-
         return <T>entity;
     }
 

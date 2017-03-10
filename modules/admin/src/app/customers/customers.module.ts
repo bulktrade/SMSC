@@ -1,4 +1,4 @@
-import {NgModule, ModuleWithProviders} from "@angular/core";
+import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {TranslateModule} from "ng2-translate";
@@ -86,9 +86,4 @@ const CUSTOMERS_MODULES = [
     providers: [CUSTOMERS_PROVIDERS]
 })
 export class CustomersModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: CustomersModule
-        };
-    }
 }

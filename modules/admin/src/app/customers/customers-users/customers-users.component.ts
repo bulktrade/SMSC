@@ -5,8 +5,4 @@ import {Component} from "@angular/core";
     template: `<router-outlet></router-outlet><h1>Test</h1>`
 })
 export class CustomersUsersComponent {
-
-    constructor() {
-    }
-
 }

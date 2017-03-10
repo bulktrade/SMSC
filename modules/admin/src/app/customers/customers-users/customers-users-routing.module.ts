@@ -8,25 +8,16 @@ import {UsersDeleteComponent} from "./users-delete/users-delete.component";
 const CUSTOMERS_CONTACTS_ROUTE_PROVIDER = [
     {
         path: 'create',
-        component: UsersCreateComponent,
-        data: {
-            showInBreadcrumb: false,
-        }
+        component: UsersCreateComponent
     },
     {
         path: 'update/:userId',
         component: UsersUpdateComponent,
-        resolve: {update: UsersUpdateResolve},
-        data: {
-            showInBreadcrumb: false,
-        }
+        resolve: {update: UsersUpdateResolve}
     },
     {
         path: 'delete/:userId',
-        component: UsersDeleteComponent,
-        data: {
-            showInBreadcrumb: false,
-        }
+        component: UsersDeleteComponent
     }
 ];
 
