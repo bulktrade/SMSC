@@ -22,7 +22,6 @@ import {SidebarItemComponent} from "./sidebar/sidebar-item.component";
 import {ConfigService} from "./config/config.service";
 import {LoadingRouterOutletService} from "./services/loading/loading-router-outlet.service";
 import {LoadingService} from "./services/loading/loading.service";
-// import { DashboardModule } from "./dashboard/dashboard.module";
 import {HTTP_INTERCEPTOR_PROVIDER} from "./shared/http-interceptor";
 import {NoInternetModule} from "./shared/components/no-internet/no-internet.component";
 import {SharedModule} from "./shared.module";
@@ -33,6 +32,7 @@ import {CustomersUsersService} from "./customers/customers-users/customer-user.s
 import {MessagesModule} from "primeng/components/messages/messages";
 import {LoadingRouterOutletModule} from "./shared/components/loading-router-outlet/loading-router-outlet.component";
 import {NotificationService} from "./services/notification-service";
+// import {DashboardModule} from "./dashboard/dashboard.module";
 import "../styles/styles.scss";
 
 type StoreType = {
@@ -43,6 +43,10 @@ type StoreType = {
 
 export function translateFactory(http: Http, configService: ConfigService) {
     return new TranslateStaticLoader(http, configService.config.i18nPath, '.json');
+}
+
+export function _XSRFStrategy() {
+    return new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN')
 }
 
 export const APP_PROVIDERS = [
@@ -64,7 +68,7 @@ export const APP_PROVIDERS = [
     HTTP_INTERCEPTOR_PROVIDER,
     {
         provide: XSRFStrategy,
-        useValue: new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN')
+        useValue: _XSRFStrategy
     }
 ];
 
