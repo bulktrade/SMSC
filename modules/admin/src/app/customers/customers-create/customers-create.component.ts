@@ -29,19 +29,19 @@ export class CustomersCreateComponent {
     }
 
     onSubmit(data) {
-        this.toggleLoading(true);
+        this.toggleLoading();
         this.customersService.createResource(data)
             .subscribe((customer: Customer) => {
-                this.toggleLoading(false);
+                this.toggleLoading();
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateCustomer');
                 this.router.navigate(['/customers', customer['id'], 'update']);
             }, err => {
-                this.toggleLoading(false);
+                this.toggleLoading();
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateCustomer');
             });
     }
 
-    toggleLoading(value: boolean) {
-        this.isLoading = value;
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 }

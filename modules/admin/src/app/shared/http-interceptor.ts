@@ -19,7 +19,7 @@ export class HttpInterceptor extends Http {
     readonly _tokenService = new TokenService();
 
     constructor(backend: ConnectionBackend, defaultOptions: RequestOptions,
-                private _router: Router) {
+                public _router: Router) {
         super(backend, defaultOptions);
     }
 
@@ -73,7 +73,7 @@ export class HttpInterceptor extends Http {
     intercept(observable: Observable<Response>): Observable<Response> {
         return observable.catch((err, source) => {
             if (err.status === 401 && !_.includes(err.url, 'auth/token')) {
-                this._router.navigateByUrl('/login').then();
+                this._router.navigateByUrl('/login');
                 this._tokenService.resetToken();
                 return Observable.empty();
             } else {

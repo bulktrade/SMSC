@@ -100,7 +100,6 @@ export class OneToOneComponent implements OnInit {
 
     onSelectResource(event) {
         if (typeof event === 'object') {
-
             this.model = event;
 
             let entity = {

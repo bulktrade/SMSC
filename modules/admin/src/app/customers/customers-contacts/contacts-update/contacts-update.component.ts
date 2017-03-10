@@ -54,16 +54,16 @@ export class ContactsUpdateComponent implements OnInit {
     }
 
     onSubmit(entity) {
-        this.toggleLoading(true);
+        this.toggleLoading();
         this.contactsService.updateResource(entity)
             .subscribe(() => {
                     this.onBack();
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
                 },
                 err => {
                     console.error(err);
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
                 });
     }
@@ -76,8 +76,8 @@ export class ContactsUpdateComponent implements OnInit {
         }
     }
 
-    toggleLoading(value: boolean) {
-        this.isLoading = value;
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 }
 

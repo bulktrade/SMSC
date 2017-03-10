@@ -74,8 +74,7 @@ describe('Component: CustomersCreateComponent', () => {
 
         componentFixture.instance.onSubmit({id: 1});
 
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successCreateCustomer');
         expect(componentFixture.instance.router.navigate).toHaveBeenCalledWith(['/customers', 1, 'update']);
@@ -91,8 +90,7 @@ describe('Component: CustomersCreateComponent', () => {
 
         componentFixture.instance.onSubmit({id: 1});
 
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorCreateCustomer');
     }));

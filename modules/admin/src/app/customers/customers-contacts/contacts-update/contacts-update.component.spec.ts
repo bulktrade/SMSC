@@ -75,8 +75,7 @@ describe('Component: ContactsUpdateComponent', () => {
 
         componentFixture.instance.onSubmit(<any>{id: 1, _links: {self: {href: ''}}});
 
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdateContact');
         expect(componentFixture.instance.location.back).toHaveBeenCalled();
@@ -92,8 +91,7 @@ describe('Component: ContactsUpdateComponent', () => {
 
         componentFixture.instance.onSubmit(<any>{id: 1, _links: {self: {href: ''}}});
 
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdateContact');
     }));

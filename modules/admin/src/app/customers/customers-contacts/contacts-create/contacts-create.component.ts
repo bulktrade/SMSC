@@ -48,15 +48,15 @@ export class ContactsCreateComponent implements OnInit {
     onSubmit(model) {
         this.model = model;
         model['customer'] = this.customersService.getSelfLinkedEntityById(this.customerId)._links.self.href;
-        this.toggleLoading(true);
+        this.toggleLoading();
         this.customersContactsService.createResource(model)
             .subscribe(() => {
                     this.onBack();
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
                 },
                 err => {
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
                 });
     }
@@ -69,8 +69,8 @@ export class ContactsCreateComponent implements OnInit {
         }
     }
 
-    toggleLoading(value: boolean) {
-        this.isLoading = value;
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 }
 

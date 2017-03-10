@@ -57,15 +57,15 @@ export class UsersUpdateComponent implements OnInit {
     }
 
     onSubmit(entity: CustomerUser) {
-        this.toggleLoading(true);
+        this.toggleLoading();
         this.customersUsersService.updateResource(entity)
             .subscribe(() => {
                     this.onBack();
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
                 },
                 err => {
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
                 });
     }
@@ -78,8 +78,8 @@ export class UsersUpdateComponent implements OnInit {
         }
     }
 
-    toggleLoading(value: boolean) {
-        this.isLoading = value;
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 }
 
