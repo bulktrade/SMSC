@@ -13,9 +13,6 @@ export class LoginPage {
     public loginComponent = element(by.tagName('login'));
     public navigation = element(by.tagName('navigation'));
 
-    constructor() {
-    }
-
     get() {
         browser.get(browser.baseUrl + '/');
     }
