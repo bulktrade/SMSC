@@ -25,7 +25,7 @@ public class AppConfiguration {
     FilterRegistrationBean shallowEtagBean() {
         FilterRegistrationBean frb = new FilterRegistrationBean();
         frb.setFilter(new ShallowEtagHeaderFilter());
-        frb.addUrlPatterns("/*");
+        frb.addUrlPatterns("/" ,"/admin", "/admin/*");
         frb.setOrder(2);
 
         return frb;
