@@ -5,6 +5,7 @@ import org.springframework.data.annotation.*;
 
 import javax.persistence.*;
 import javax.persistence.AccessType;
+import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -30,15 +31,14 @@ public abstract class BaseEntity implements Serializable {
     @JsonIgnore
     protected Date lastModifiedDate = new Date();
 
-//    @Version
+    @Version
     @Column(name = "VERSION", nullable = false)
     @JsonIgnore
-    protected Long version = 0L;
+    protected Long version;
 
     @PreUpdate
     protected void onUpdate() {
         lastModifiedDate = new Date();
-        version = ++version;
     }
 
     @JsonProperty
