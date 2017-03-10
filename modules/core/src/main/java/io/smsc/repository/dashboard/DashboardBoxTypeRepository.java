@@ -50,8 +50,8 @@ public interface DashboardBoxTypeRepository extends PagingAndSortingRepository<D
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#dashboardBoxType?.isNew() and hasAuthority('DASHBOARD_BOX_TYPE_CREATE')) or " +
-            "(!#dashboardBoxType?.isNew() and hasAuthority('DASHBOARD_BOX_TYPE_WRITE'))")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#dashboardBoxType?.id == null) and hasAuthority('DASHBOARD_BOX_TYPE_CREATE')) or " +
+            "(!(#dashboardBoxType?.id == null) and hasAuthority('DASHBOARD_BOX_TYPE_WRITE'))")
     DashboardBoxType save(@Param("dashboardBoxType") DashboardBoxType dashboardBoxType);
 
     @Override
@@ -113,8 +113,8 @@ public interface DashboardBoxTypeRepository extends PagingAndSortingRepository<D
 
     @Override
     @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or (filterObject.isNew() and hasAuthority('DASHBOARD_BOX_TYPE_CREATE')) or " +
-            "(!filterObject.isNew() and hasAuthority('DASHBOARD_BOX_TYPE_WRITE'))")
+    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasAuthority('DASHBOARD_BOX_TYPE_CREATE')) or " +
+            "(!(filterObject.id == null) and hasAuthority('DASHBOARD_BOX_TYPE_WRITE'))")
     <S extends DashboardBoxType> Iterable<S> save(Iterable<S> dashboardBoxTypes);
 
     @Override

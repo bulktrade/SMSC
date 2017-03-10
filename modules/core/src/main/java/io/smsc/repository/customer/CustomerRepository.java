@@ -48,8 +48,8 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#customer?.isNew() and hasAuthority('CUSTOMER_CREATE')) or " +
-            "(!#customer?.isNew() and hasAuthority('CUSTOMER_WRITE'))")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#customer?.id == null) and hasAuthority('CUSTOMER_CREATE')) or " +
+            "(!(#customer?.id == null) and hasAuthority('CUSTOMER_WRITE'))")
     Customer save(@Param("customer") Customer customer);
 
     @Override
@@ -145,7 +145,7 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
 
     @Override
     @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or (filterObject.isNew() and hasAuthority('CUSTOMER_CREATE')) or " +
-            "(!filterObject.isNew() and hasAuthority('CUSTOMER_WRITE'))")
+    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasAuthority('CUSTOMER_CREATE')) or " +
+            "(!(filterObject.id == null) and hasAuthority('CUSTOMER_WRITE'))")
     <S extends Customer> Iterable<S> save(Iterable<S> customers);
 }

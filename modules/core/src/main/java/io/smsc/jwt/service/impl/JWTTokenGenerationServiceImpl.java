@@ -46,27 +46,18 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
     @Override
     public String getUsernameFromToken(String token) {
         String username = null;
-        try {
-            Claims claims = getClaimsFromToken(token);
-            if (claims != null) {
-                username = claims.getSubject();
-            }
-        } catch (Exception e) {
-            LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
+        Claims claims = getClaimsFromToken(token);
+        if (null != claims) {
+            username = claims.getSubject();
         }
         return username;
     }
 
     private Date getExpirationDateFromToken(String token) {
         Date expirationDate = null;
-        Claims claims;
-        try {
-            claims = getClaimsFromToken(token);
-            if (claims != null) {
-                expirationDate = claims.getExpiration();
-            }
-        } catch (Exception e) {
-            LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
+        Claims claims = getClaimsFromToken(token);
+        if (null != claims) {
+            expirationDate = claims.getExpiration();
         }
         return expirationDate;
     }
@@ -94,31 +85,17 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
     }
 
     private Boolean isTokenExpired(String token) {
-        Date expirationDate;
-        try {
-            expirationDate = getExpirationDateFromToken(token);
-            if (expirationDate != null) {
-                return expirationDate.before(new Date());
-            }
-        } catch (Exception e) {
-            LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
-        }
-        return true;
+        Date expirationDate = getExpirationDateFromToken(token);
+        return null == expirationDate || expirationDate.before(new Date());
     }
 
     @Override
     public String refreshToken(String token) {
         String refreshedToken = null;
-        Claims claims;
-        try {
-            claims = getClaimsFromToken(token);
-            if (claims != null) {
-                claims.put(CLAIM_KEY_CREATED, new Date());
-                refreshedToken = generateAccessToken(claims);
-            }
-        } catch (Exception e) {
-            LOG.debug(TOKEN_EXCEPTION_MESSAGE, e);
-            refreshedToken = null;
+        Claims claims = getClaimsFromToken(token);
+        if (null != claims) {
+            claims.put(CLAIM_KEY_CREATED, new Date());
+            refreshedToken = generateAccessToken(claims);
         }
         return refreshedToken;
     }

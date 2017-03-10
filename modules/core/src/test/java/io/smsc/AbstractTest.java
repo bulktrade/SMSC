@@ -1,5 +1,6 @@
 package io.smsc;
 
+import io.smsc.config.*;
 import io.smsc.jwt.service.JWTTokenGenerationService;
 import io.smsc.jwt.service.JWTUserDetailsService;
 import io.smsc.repository.admin.UserRepository;
@@ -19,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -36,6 +38,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @TestPropertySource("classpath:hsqldb.properties")
+@ContextConfiguration(classes = {Application.class, AppConfiguration.class, MvcConfiguration.class, Oracle10gDialectExtended.class,
+        RepositoryIdExposingConfiguration.class, SecurityConfiguration.class, SecurityInit.class, SpringDataRestValidationConfiguration.class})
 @Transactional
 public abstract class AbstractTest {
 

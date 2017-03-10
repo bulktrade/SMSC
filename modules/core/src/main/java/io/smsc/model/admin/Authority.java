@@ -1,6 +1,5 @@
 package io.smsc.model.admin;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -67,11 +66,6 @@ public class Authority extends BaseEntity {
     @OrderBy("id asc")
     private Set<Group> groups;
 
-    @JsonIgnore
-    public boolean isNew() {
-        return getId() == null;
-    }
-
     public Long getId() {
         return id;
     }
@@ -124,9 +118,10 @@ public class Authority extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Authority{" +
-                "id=" + id +
+        return "{id=" + id +
                 ", name='" + name + '\'' +
-                "} " + super.toString();
+                ", version='" + version + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                "}";
     }
 }

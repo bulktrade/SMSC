@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,7 +43,9 @@ public class DemoAccessTest extends AbstractTest {
         customer.setCity("Lviv");
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
+        System.out.println(customerJson);
         this.mockMvc.perform(post("/rest/repository/customers")
+                .with(csrf())
                 .header(tokenHeader, demoToken)
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
@@ -62,6 +65,7 @@ public class DemoAccessTest extends AbstractTest {
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
         mockMvc.perform(put("/rest/repository/customers/40001")
+                .with(csrf())
                 .header(tokenHeader, demoToken)
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
@@ -71,6 +75,7 @@ public class DemoAccessTest extends AbstractTest {
     @Test
     public void testDemoDeleteAccess() throws Exception {
         mockMvc.perform(delete("/rest/repository/customers/40000")
+                .with(csrf())
                 .header(tokenHeader, demoToken))
                 .andExpect(status().isForbidden());
     }

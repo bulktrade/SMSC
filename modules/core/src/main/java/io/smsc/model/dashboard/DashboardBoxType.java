@@ -55,11 +55,6 @@ public class DashboardBoxType extends BaseEntity {
     @OrderBy("id asc")
     private Set<DashboardBox> dashboardBoxes;
 
-    @JsonIgnore
-    public boolean isNew() {
-        return getId() == null;
-    }
-
     public Long getId() {
         return id;
     }
@@ -124,11 +119,12 @@ public class DashboardBoxType extends BaseEntity {
 
     @Override
     public String toString() {
-        return "DashboardBoxType{" +
-                "id=" + id +
+        return "id=" + id +
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 ", kind=" + kind +
-                "} " + super.toString();
+                ", version='" + version + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                "}";
     }
 }

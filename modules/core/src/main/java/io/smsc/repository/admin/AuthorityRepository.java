@@ -49,8 +49,8 @@ public interface AuthorityRepository extends PagingAndSortingRepository<Authorit
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#authority?.isNew() and hasAuthority('AUTHORITY_CREATE')) or " +
-            "(!#authority?.isNew() and hasAuthority('AUTHORITY_WRITE'))")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#authority?.id == null) and hasAuthority('AUTHORITY_CREATE')) or " +
+            "(!(#authority?.id == null) and hasAuthority('AUTHORITY_WRITE'))")
     Authority save(@Param("authority") Authority authority);
 
     @Override
@@ -101,8 +101,8 @@ public interface AuthorityRepository extends PagingAndSortingRepository<Authorit
     Iterable<Authority> findAll(Sort sort);
 
     @Override
-    @PreFilter("hasRole('POWER_ADMIN_USER') or (filterObject.isNew() and hasAuthority('AUTHORITY_CREATE')) or " +
-            "(!filterObject.isNew() and hasAuthority('AUTHORITY_WRITE'))")
+    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasAuthority('AUTHORITY_CREATE')) or " +
+            "(!(filterObject.id == null) and hasAuthority('AUTHORITY_WRITE'))")
     <S extends Authority> Iterable<S> save(Iterable<S> authorities);
 
     @Override

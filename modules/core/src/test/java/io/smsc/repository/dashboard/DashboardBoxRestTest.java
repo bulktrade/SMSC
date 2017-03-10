@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -60,6 +61,7 @@ public class DashboardBoxRestTest extends AbstractTest {
         // json is ignoring inserting dashboard and dashboardBoxType through setter
         dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1).concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", \r\n \"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
         this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxJson))
                 .andExpect(status().isCreated());
@@ -67,7 +69,8 @@ public class DashboardBoxRestTest extends AbstractTest {
 
     @Test
     public void testDeleteDashboardBox() throws Exception {
-        mockMvc.perform(delete("/rest/repository/dashboard-boxes/1"));
+        mockMvc.perform(delete("/rest/repository/dashboard-boxes/1")
+                .with(csrf()));
         mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
                 .andExpect(status().isNotFound());
     }
@@ -83,6 +86,7 @@ public class DashboardBoxRestTest extends AbstractTest {
         dashboardBox.setDescription("new box desc");
         String dashboardBoxJson = json(dashboardBox);
         mockMvc.perform(put("/rest/repository/dashboard-boxes/1")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxJson))
                 .andExpect(status().isOk());

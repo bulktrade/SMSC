@@ -9,6 +9,7 @@
 [![javadoc.io](https://javadoc-emblem.rhcloud.com/doc/io.smsc/smsc/badge.svg)](http://www.javadoc.io/doc/io.smsc/smsc)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.smsc/smsc/badge.svg?style=flat-square)](https://maven-badges.herokuapp.com/maven-central/io.smsc/smsc/)
 [![codecov](https://codecov.io/gh/bulktrade/SMSC/branch/master/graph/badge.svg)](https://codecov.io/gh/bulktrade/SMSC) 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9379d50271ab4ef38c26f5fe8fbcbe0b)](https://www.codacy.com/app/SMSC/SMSC?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=bulktrade/SMSC&amp;utm_campaign=Badge_Grade)
 [![Selenium Test Status](https://saucelabs.com/buildstatus/smsc)](https://saucelabs.com/beta/builds/1e2ccc4a03864f668fb413c1934255e7)
 
 [![Selenium Test Status](https://saucelabs.com/browser-matrix/smsc.svg)](https://saucelabs.com/u/smsc)

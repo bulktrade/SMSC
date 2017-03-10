@@ -55,8 +55,8 @@ public interface DashboardBoxRepository extends PagingAndSortingRepository<Dashb
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#dashboardBox?.isNew() and hasAuthority('DASHBOARD_BOX_CREATE')) or " +
-            "(!#dashboardBox?.isNew() and hasAuthority('DASHBOARD_BOX_WRITE'))")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#dashboardBox?.id == null) and hasAuthority('DASHBOARD_BOX_CREATE')) or " +
+            "(!(#dashboardBox?.id == null) and hasAuthority('DASHBOARD_BOX_WRITE'))")
     DashboardBox save(@Param("dashboardBox") DashboardBox dashboardBox);
 
     @Override
@@ -126,8 +126,8 @@ public interface DashboardBoxRepository extends PagingAndSortingRepository<Dashb
 
     @Override
     @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or (filterObject.isNew() and hasAuthority('DASHBOARD_BOX_CREATE')) or " +
-            "(!filterObject.isNew() and hasAuthority('DASHBOARD_BOX_WRITE'))")
+    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasAuthority('DASHBOARD_BOX_CREATE')) or " +
+            "(!(filterObject.id == null) and hasAuthority('DASHBOARD_BOX_WRITE'))")
     <S extends DashboardBox> Iterable<S> save(Iterable<S> dashboardBoxes);
 
     @Override

@@ -72,8 +72,7 @@ public class IndexController {
 
                 if (resource.exists() && servletWebRequest.checkNotModified(DigestUtils.md5Hex(DigestUtils.md5(resource.getInputStream())), LAST_MODIFIED)) {
                     return null;
-                }
-                else if(resource.exists()) {
+                } else if (resource.exists()) {
                     return new ResponseEntity<>(resource, HttpStatus.OK);
                 }
             }

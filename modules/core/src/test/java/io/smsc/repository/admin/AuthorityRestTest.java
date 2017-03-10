@@ -8,6 +8,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -46,6 +47,7 @@ public class AuthorityRestTest extends AbstractTest {
         authority.setName("NEW_AUTHORITY");
         String authorityJson = json(authority);
         this.mockMvc.perform(post("/rest/repository/authorities")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(authorityJson))
                 .andExpect(status().isCreated());
@@ -53,7 +55,8 @@ public class AuthorityRestTest extends AbstractTest {
 
     @Test
     public void testDeleteAuthority() throws Exception {
-        mockMvc.perform(delete("/rest/repository/authorities/1"));
+        mockMvc.perform(delete("/rest/repository/authorities/1")
+                .with(csrf()));
         mockMvc.perform(get("/rest/repository/authorities/1"))
                 .andExpect(status().isNotFound());
     }
@@ -65,6 +68,7 @@ public class AuthorityRestTest extends AbstractTest {
         role.setName("NEW_AUTHORITY");
         String authorityJson = json(role);
         mockMvc.perform(put("/rest/repository/authorities/1")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(authorityJson))
                 .andExpect(status().isOk());

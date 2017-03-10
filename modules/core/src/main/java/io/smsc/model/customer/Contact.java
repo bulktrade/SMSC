@@ -72,11 +72,6 @@ public class Contact extends BaseEntity {
     @NotNull(message = "{customer.contact.salutation.validation}")
     private Salutation salutation;
 
-    @JsonIgnore
-    public boolean isNew() {
-        return getId() == null;
-    }
-
     public Long getId() {
         return id;
     }
@@ -191,8 +186,7 @@ public class Contact extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "id=" + id +
+        return "{ id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +
                 ", phone='" + phone + '\'' +
@@ -201,6 +195,8 @@ public class Contact extends BaseEntity {
                 ", emailAddress='" + emailAddress + '\'' +
                 ", type=" + type +
                 ", salutation=" + salutation +
-                "} " + super.toString();
+                ", version='" + version + '\'' +
+                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+                "}";
     }
 }

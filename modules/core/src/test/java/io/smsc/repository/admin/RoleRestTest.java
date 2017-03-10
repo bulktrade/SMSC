@@ -7,12 +7,13 @@ import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class RoleTest extends AbstractTest {
+public class RoleRestTest extends AbstractTest {
 
     @Test
     public void testGetSingleRole() throws Exception {
@@ -45,6 +46,7 @@ public class RoleTest extends AbstractTest {
         role.setName("ROLE_GOD");
         String roleJson = json(role);
         this.mockMvc.perform(post("/rest/repository/roles")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(roleJson))
                 .andExpect(status().isCreated());
@@ -52,7 +54,8 @@ public class RoleTest extends AbstractTest {
 
     @Test
     public void testDeleteRole() throws Exception {
-        mockMvc.perform(delete("/rest/repository/roles/1"));
+        mockMvc.perform(delete("/rest/repository/roles/1")
+                .with(csrf()));
         mockMvc.perform(get("/rest/repository/roles/1"))
                 .andExpect(status().isNotFound());
     }
@@ -64,6 +67,7 @@ public class RoleTest extends AbstractTest {
         role.setName("ROLE_GOD");
         String roleJson = json(role);
         mockMvc.perform(put("/rest/repository/roles/1")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(roleJson))
                 .andExpect(status().isOk());

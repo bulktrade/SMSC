@@ -49,8 +49,8 @@ public interface RoleRepository extends PagingAndSortingRepository<Role, Long>,
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#role?.isNew() and hasAuthority('ADMIN_USER_ROLE_CREATE')) or " +
-            "(!#role?.isNew() and hasAuthority('ADMIN_USER_ROLE_WRITE'))")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#role?.id == null) and hasAuthority('ADMIN_USER_ROLE_CREATE')) or " +
+            "(!(#role?.id == null) and hasAuthority('ADMIN_USER_ROLE_WRITE'))")
     Role save(@Param("role") Role role);
 
     @Override
@@ -102,8 +102,8 @@ public interface RoleRepository extends PagingAndSortingRepository<Role, Long>,
 
     @Override
     @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or (filterObject.isNew() and hasAuthority('ADMIN_USER_ROLE_CREATE')) or " +
-            "(!filterObject.isNew() and hasAuthority('ADMIN_USER_ROLE_WRITE'))")
+    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasAuthority('ADMIN_USER_ROLE_CREATE')) or " +
+            "(!(filterObject.id == null) and hasAuthority('ADMIN_USER_ROLE_WRITE'))")
     <S extends Role> Iterable<S> save(Iterable<S> entities);
 
     @Override

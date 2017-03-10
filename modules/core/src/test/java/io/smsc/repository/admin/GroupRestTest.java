@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -41,6 +42,7 @@ public class GroupRestTest extends AbstractTest {
         Group group = new Group();
         group.setName("GROUP_ALL_RIGHTS");
         this.mockMvc.perform(post("/rest/repository/groups")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(json(group)))
                 .andExpect(status().isCreated());
@@ -48,7 +50,8 @@ public class GroupRestTest extends AbstractTest {
 
     @Test
     public void testDeleteUser() throws Exception {
-        mockMvc.perform(delete("/rest/repository/groups/1"));
+        mockMvc.perform(delete("/rest/repository/groups/1")
+                .with(csrf()));
         mockMvc.perform(get("/rest/repository/groups/1"))
                 .andExpect(status().isNotFound());
     }
@@ -59,6 +62,7 @@ public class GroupRestTest extends AbstractTest {
         group.setId(2L);
         group.setName("GROUP_ALL_RIGHTS");
         mockMvc.perform(put("/rest/repository/groups/2")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(json(group)))
                 .andExpect(status().isOk());

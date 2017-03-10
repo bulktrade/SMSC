@@ -50,8 +50,8 @@ public interface GroupRepository extends PagingAndSortingRepository<Group, Long>
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or (#group?.isNew() and hasAuthority('GROUP_CREATE')) or " +
-            "(!#group?.isNew() and hasAuthority('GROUP_WRITE'))")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#group?.id == null) and hasAuthority('GROUP_CREATE')) or " +
+            "(!(#group?.id == null) and hasAuthority('GROUP_WRITE'))")
     Group save(@Param("group") Group group);
 
     @Override
@@ -113,8 +113,8 @@ public interface GroupRepository extends PagingAndSortingRepository<Group, Long>
 
     @Override
     @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or (filterObject.isNew() and hasAuthority('GROUP_CREATE')) or " +
-            "(!filterObject.isNew() and hasAuthority('GROUP_WRITE'))")
+    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasAuthority('GROUP_CREATE')) or " +
+            "(!(filterObject.id == null) and hasAuthority('GROUP_WRITE'))")
     <S extends Group> Iterable<S> save(Iterable<S> groups);
 
     @Override
