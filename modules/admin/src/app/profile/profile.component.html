@@ -5,7 +5,7 @@
                id="back-button"></i>
             <span>{{ 'PROFILE' | translate }}</span>
         </p-header>
-        <form role="form" (ngSubmit)="onSubmit()" autocomplete="off" #submitForm="ngForm" novalidate>
+        <form role="form" (ngSubmit)="onSubmit(submitForm)" autocomplete="off" #submitForm="ngForm" novalidate>
             <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
 
                 <div class="ui-grid-row">
