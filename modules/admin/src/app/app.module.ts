@@ -32,7 +32,6 @@ import {CustomersUsersService} from "./customers/customers-users/customer-user.s
 import {MessagesModule} from "primeng/components/messages/messages";
 import {LoadingRouterOutletModule} from "./shared/components/loading-router-outlet/loading-router-outlet.component";
 import {NotificationService} from "./services/notification-service";
-// import {DashboardModule} from "./dashboard/dashboard.module";
 import "../styles/styles.scss";
 
 type StoreType = {
@@ -45,8 +44,8 @@ export function translateFactory(http: Http, configService: ConfigService) {
     return new TranslateStaticLoader(http, configService.config.i18nPath, '.json');
 }
 
-export function _XSRFStrategy() {
-    return new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN')
+export function _XSRFFactory() {
+    return new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN');
 }
 
 export const APP_PROVIDERS = [
@@ -68,7 +67,7 @@ export const APP_PROVIDERS = [
     HTTP_INTERCEPTOR_PROVIDER,
     {
         provide: XSRFStrategy,
-        useValue: _XSRFStrategy
+        useFactory: _XSRFFactory
     }
 ];
 
