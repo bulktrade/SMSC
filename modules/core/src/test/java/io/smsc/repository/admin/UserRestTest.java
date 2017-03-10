@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -71,6 +72,7 @@ public class UserRestTest extends AbstractTest {
         // json is ignoring password
         userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
         this.mockMvc.perform(post("/rest/repository/users")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(userJson))
                 .andExpect(status().isCreated());
@@ -78,7 +80,8 @@ public class UserRestTest extends AbstractTest {
 
     @Test
     public void testDeleteUser() throws Exception {
-        mockMvc.perform(delete("/rest/repository/users/1"));
+        mockMvc.perform(delete("/rest/repository/users/1")
+                .with(csrf()));
         mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isNotFound());
     }
@@ -98,6 +101,7 @@ public class UserRestTest extends AbstractTest {
         // json is ignoring password
         userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
         mockMvc.perform(put("/rest/repository/users/1")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(userJson))
                 .andExpect(status().isOk());

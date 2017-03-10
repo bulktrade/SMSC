@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -75,6 +76,7 @@ public class ContactRestTest extends AbstractTest {
         // json is ignoring inserting customer through setter
         customerContactJson = customerContactJson.substring(0, customerContactJson.length() - 1).concat(", \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
         this.mockMvc.perform(post("/rest/repository/customer-contacts")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isCreated());
@@ -82,7 +84,8 @@ public class ContactRestTest extends AbstractTest {
 
     @Test
     public void testDeleteCustomerContact() throws Exception {
-        mockMvc.perform(delete("/rest/repository/customer-contacts/1"));
+        mockMvc.perform(delete("/rest/repository/customer-contacts/1")
+                .with(csrf()));
         mockMvc.perform(get("/rest/repository/customer-contacts/1"))
                 .andExpect(status().isNotFound());
     }
@@ -101,6 +104,7 @@ public class ContactRestTest extends AbstractTest {
         contact.setSalutation(Salutation.MRS);
         String customerContactJson = json(contact);
         mockMvc.perform(put("/rest/repository/customer-contacts/2")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isOk());

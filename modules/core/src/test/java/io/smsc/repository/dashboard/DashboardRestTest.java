@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -48,6 +49,7 @@ public class DashboardRestTest extends AbstractTest {
         // json is ignoring inserting user through setter
         dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1).concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
         this.mockMvc.perform(post("/rest/repository/dashboards")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isCreated());
@@ -55,7 +57,8 @@ public class DashboardRestTest extends AbstractTest {
 
     @Test
     public void testDeleteDashboard() throws Exception {
-        mockMvc.perform(delete("/rest/repository/dashboards/1"));
+        mockMvc.perform(delete("/rest/repository/dashboards/1")
+                .with(csrf()));
         mockMvc.perform(get("/rest/repository/dashboards/1"))
                 .andExpect(status().isNotFound());
     }
@@ -69,6 +72,7 @@ public class DashboardRestTest extends AbstractTest {
         dashboard.setUser(new User());
         String dashboardJson = json(dashboard);
         mockMvc.perform(put("/rest/repository/dashboards/1")
+                .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isOk());

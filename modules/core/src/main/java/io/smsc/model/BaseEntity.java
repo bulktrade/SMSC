@@ -10,8 +10,8 @@ import java.util.Date;
 
 /**
  * Specifies Base entity class as an mapped superclass. It's mapping information
- * is applied to the entities that inherit from it. It contains only id property
- * and equals/hashcode implementations.
+ * is applied to the entities that inherit from it. It contains only lastModifiedData
+ * and version properties.
  *
  * @author Nazar Lipkovskyy
  * @see MappedSuperclass
@@ -30,6 +30,7 @@ public abstract class BaseEntity implements Serializable {
     @JsonIgnore
     protected Date lastModifiedDate = new Date();
 
+//    @Version
     @Column(name = "VERSION", nullable = false)
     @JsonIgnore
     protected Long version = 0L;
