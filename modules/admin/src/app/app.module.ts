@@ -1,6 +1,6 @@
 import {NgModule, ApplicationRef} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
-import {Http, HttpModule} from "@angular/http";
+import {Http, HttpModule, XSRFStrategy, CookieXSRFStrategy} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
@@ -61,7 +61,11 @@ export const APP_PROVIDERS = [
     GrowlService,
     CustomersContactsService,
     CustomersUsersService,
-    HTTP_INTERCEPTOR_PROVIDER
+    HTTP_INTERCEPTOR_PROVIDER,
+    {
+        provide: XSRFStrategy,
+        useValue: new CookieXSRFStrategy('XSRF-TOKEN', 'X-XSRF-TOKEN')
+    }
 ];
 
 export const APP_DECLARATIONS = [
