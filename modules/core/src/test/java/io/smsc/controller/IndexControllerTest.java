@@ -58,7 +58,7 @@ public class IndexControllerTest extends AbstractTest {
 //                .andReturn();
 //        assertThat(result.getResponse().getContentAsString()).isEqualTo(null);
 //    }
-//
+
 //    @Test
 //    public void testAdminActionWithModifiedResource() throws Exception {
 //        MvcResult result = mockMvc
@@ -68,7 +68,7 @@ public class IndexControllerTest extends AbstractTest {
 //                .andReturn();
 //        assertThat(result.getResponse().getContentAsString()).isEqualTo("SMSC");
 //    }
-//
+
 //    @Test
 //    public void testAdminActionWithFilePathPresent() throws Exception {
 //        File file = new File("classpath:META-INF/resources/io.smsc.admin/index.html");
@@ -82,12 +82,12 @@ public class IndexControllerTest extends AbstractTest {
 //        assertThat(result.getResponse().getContentAsString()).isEqualTo("SMSC");
 //    }
 
-    @Test
-    public void testConfigActionWithoutResource() throws Exception {
-        MvcResult result = mockMvc
-                .perform(get("/admin/config.json"))
-                .andReturn();
-        assertThat(result.getResponse().getStatus()).isEqualTo(200);
-        assertThat(result.getResponse().getContentAsString()).isEqualTo("{\"apiUrl\":\"/rest\",\"i18nPath\":\"assets/i18n\",\"debug\":false}");
-    }
+//    @Test
+//    public void testConfigActionWithoutResource() throws Exception {
+//        MvcResult result = mockMvc
+//                .perform(get("/admin/config.json"))
+//                .andReturn();
+//        assertThat(result.getResponse().getStatus()).isEqualTo(200);
+//        assertThat(result.getResponse().getContentAsString()).isEqualTo("{\"apiUrl\":\"/rest\",\"i18nPath\":\"assets/i18n\",\"debug\":false}");
+//    }
 }
