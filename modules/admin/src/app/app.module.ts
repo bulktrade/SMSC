@@ -34,7 +34,7 @@ import {LoadingRouterOutletModule} from "./shared/components/loading-router-outl
 import {NotificationService} from "./services/notification-service";
 import "../styles/styles.scss";
 
-type StoreType = {
+export type StoreType = {
     state: InternalStateType,
     restoreInputValues: () => void,
     disposeOldHosts: () => void
