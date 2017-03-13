@@ -9,6 +9,7 @@ import {XHRBackend, ResponseOptions, Response} from "@angular/http";
 import {CustomersCreateComponent} from "./customers-create.component";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {ConfigService} from "../../config/config.service";
+import {CustomersFormModel} from "../customers-form/customers-form.model";
 
 describe('Component: CustomersCreateComponent', () => {
     let componentFixture: ComponentHelper<CustomersCreateComponent> =
@@ -72,7 +73,7 @@ describe('Component: CustomersCreateComponent', () => {
         spyOn(componentFixture.instance.router, 'navigate');
         spyOn(componentFixture.instance, 'toggleLoading');
 
-        componentFixture.instance.onSubmit({id: 1});
+        componentFixture.instance.onSubmit(new CustomersFormModel(<any>{id: 1}, <any>{}));
 
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.notifications.createNotification)
@@ -87,11 +88,11 @@ describe('Component: CustomersCreateComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'toggleLoading');
+        spyOn(componentFixture.instance.controlErrorService, 'controlErrors');
 
-        componentFixture.instance.onSubmit({id: 1});
+        componentFixture.instance.onSubmit(new CustomersFormModel(<any>{id: 1}, <any>{}));
 
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
-        expect(componentFixture.instance.notifications.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorCreateCustomer');
+        expect(componentFixture.instance.controlErrorService.controlErrors).toHaveBeenCalled();
     }));
 });

@@ -5,6 +5,8 @@ import {Location} from "@angular/common";
 import {NotificationService} from "../../services/notification-service";
 import {CustomersService} from "../customer.service";
 import {Customer} from "../model/customer";
+import {ControlErrorService} from "../../services/control-error";
+import {CustomersFormModel} from "../customers-form/customers-form.model";
 
 @Component({
     selector: 'customers-update',
@@ -29,7 +31,8 @@ export class CustomersUpdateComponent {
                 public customersService: CustomersService,
                 public route: ActivatedRoute,
                 public location: Location,
-                public notifications: NotificationService) {
+                public notifications: NotificationService,
+                public controlErrorService: ControlErrorService) {
     }
 
     ngOnInit() {
@@ -45,15 +48,15 @@ export class CustomersUpdateComponent {
         return this.model || this.route.snapshot.data['edit'];
     }
 
-    onSubmit(entity: Customer) {
+    onSubmit(customersFormModel: CustomersFormModel) {
         this.toggleLoading();
-        this.customersService.updateResource(entity)
+        this.customersService.updateResource(customersFormModel.model)
             .subscribe(() => {
                 this.toggleLoading();
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
-            }, err => {
+            }, (e) => {
                 this.toggleLoading();
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
+                this.controlErrorService.controlErrors(e.json(), customersFormModel.customersForm);
             });
     }
 

@@ -74,7 +74,7 @@ describe('Component: ContactsCreateComponent', () => {
         spyOn(componentFixture.instance, 'toggleLoading');
 
         componentFixture.instance.ngOnInit();
-        componentFixture.instance.onSubmit({id: 1});
+        componentFixture.instance.onSubmit(<any>{id: 1}, <any>{});
 
         expect(componentFixture.instance.model['customer']).toEqual('/rest/repository/customers/40000');
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
@@ -90,14 +90,14 @@ describe('Component: ContactsCreateComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'toggleLoading');
+        spyOn(componentFixture.instance.controlErrorService, 'controlErrors');
 
         componentFixture.instance.ngOnInit();
-        componentFixture.instance.onSubmit({id: 1});
+        componentFixture.instance.onSubmit(<any>{id: 1}, <any>{});
 
         expect(componentFixture.instance.model['customer']).toEqual('/rest/repository/customers/40000');
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
-        expect(componentFixture.instance.notifications.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorCreateContact');
+        expect(componentFixture.instance.controlErrorService.controlErrors).toHaveBeenCalled();
     }));
 
     it('.ngOnInit()', async(() => {

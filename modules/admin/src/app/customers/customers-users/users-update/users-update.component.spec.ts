@@ -74,7 +74,7 @@ describe('Component: UsersUpdateComponent', () => {
         spyOn(componentFixture.instance.location, 'back');
         spyOn(componentFixture.instance, 'toggleLoading');
 
-        componentFixture.instance.onSubmit(<any>{id: 1, _links: {self: {href: ''}}});
+        componentFixture.instance.onSubmit(<any>{id: 1, _links: {self: {href: ''}}}, <any>{});
 
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.notifications.createNotification)
@@ -89,12 +89,12 @@ describe('Component: UsersUpdateComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'toggleLoading');
+        spyOn(componentFixture.instance.controlErrorService, 'controlErrors');
 
-        componentFixture.instance.onSubmit(<any>{id: 1, _links: {self: {href: ''}}});
+        componentFixture.instance.onSubmit(<any>{id: 1, _links: {self: {href: ''}}}, <any>{});
 
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
-        expect(componentFixture.instance.notifications.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdateUser');
+        expect(componentFixture.instance.controlErrorService.controlErrors).toHaveBeenCalled();
     }));
 
     it('.ngOnInit()', async(() => {

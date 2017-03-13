@@ -6,13 +6,14 @@ import {NotificationService} from "../../../services/notification-service";
 import {CustomersUsersService} from "../customer-user.service";
 import {CustomerUser} from "../../model/customer-user";
 import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
 import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors.component";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
+import {ControlErrorService} from "../../../services/control-error";
 
 @Component({
     selector: 'users-update',
@@ -38,7 +39,9 @@ export class UsersUpdateComponent implements OnInit {
                 public route: ActivatedRoute,
                 public customersUsersService: CustomersUsersService,
                 public notifications: NotificationService,
-                public location: Location) {
+                public location: Location,
+                public controlErrorService: ControlErrorService
+    ) {
     }
 
     ngOnInit() {
@@ -56,7 +59,7 @@ export class UsersUpdateComponent implements OnInit {
         return this.model || this.route.snapshot.data['update'];
     }
 
-    onSubmit(entity: CustomerUser) {
+    onSubmit(entity: CustomerUser, usersForm: NgForm) {
         this.toggleLoading();
         this.customersUsersService.updateResource(entity)
             .subscribe(() => {
@@ -64,9 +67,9 @@ export class UsersUpdateComponent implements OnInit {
                     this.toggleLoading();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
                 },
-                err => {
+                (e) => {
                     this.toggleLoading();
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
+                    this.controlErrorService.controlErrors(e.json(), usersForm);
                 });
     }
 

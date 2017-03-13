@@ -5,6 +5,8 @@ import {Location} from "@angular/common";
 import {NotificationService} from "../../services/notification-service";
 import {CustomersService} from "../customer.service";
 import {Customer} from "../model/customer";
+import {CustomersFormModel} from "../customers-form/customers-form.model";
+import {ControlErrorService} from "../../services/control-error";
 
 @Component({
     selector: 'customers-create',
@@ -25,19 +27,20 @@ export class CustomersCreateComponent {
                 public route: ActivatedRoute,
                 public router: Router,
                 public location: Location,
-                public notifications: NotificationService) {
+                public notifications: NotificationService,
+                public controlErrorService: ControlErrorService) {
     }
 
-    onSubmit(data) {
+    onSubmit(customersFormModel: CustomersFormModel) {
         this.toggleLoading();
-        this.customersService.createResource(data)
+        this.customersService.createResource(customersFormModel.model)
             .subscribe((customer: Customer) => {
                 this.toggleLoading();
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateCustomer');
                 this.router.navigate(['/customers', customer['id'], 'update']);
-            }, err => {
+            }, (e) => {
                 this.toggleLoading();
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateCustomer');
+                this.controlErrorService.controlErrors(e.json(), customersFormModel.customersForm);
             });
     }
 

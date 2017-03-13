@@ -6,7 +6,7 @@ import {User} from "../users/user.model";
 import {UserService} from "../users/user.service";
 import {NotificationService} from "../services/notification-service";
 import {NgForm} from "@angular/forms";
-import {Message} from "../shared/components/models/error/Message";
+import {ControlErrorService} from "../services/control-error";
 
 @Component({
     selector: 'user',
@@ -21,12 +21,12 @@ export class ProfileComponent implements OnInit {
                 public route: ActivatedRoute,
                 public translate: TranslateService,
                 public userService: UserService,
-                public notifications: NotificationService) {
+                public notifications: NotificationService,
+                public controlErrorService: ControlErrorService) {
     }
 
     ngOnInit() {
         this.model = this.route.snapshot.data['user'];
-        console.log(this.model);
     }
 
     onSubmit(profileForm: NgForm) {
@@ -38,27 +38,7 @@ export class ProfileComponent implements OnInit {
                     this.notifications.createNotification('success', 'SUCCESS', 'profile.successUpdate');
                 },
                 (e) => {
-                    let messages: Array<Message> = e.json();
-                    if (messages.length > 0) {
-                        for (let errorMessage of messages) {
-                            if (errorMessage.field) {
-                                let control = profileForm.controls[errorMessage.field];
-                                if (control != undefined) {
-                                    control.setErrors({
-                                        remote: errorMessage.message
-                                    });
-
-                                    this.notifications.createNotification('error', 'ERROR', errorMessage.message);
-                                } else {
-                                    this.notifications.createNotification('error', 'ERROR', 'profile.errorUpdate');
-                                }
-                            } else {
-                                this.notifications.createNotification('error', 'ERROR', errorMessage.message);
-                            }
-                        }
-                    } else {
-                        this.notifications.createNotification('error', 'ERROR', 'profile.errorUpdate');
-                    }
+                    this.controlErrorService.controlErrors(e.json(), profileForm);
                 }
             );
     }

@@ -33,6 +33,7 @@ import {MessagesModule} from "primeng/components/messages/messages";
 import {LoadingRouterOutletModule} from "./shared/components/loading-router-outlet/loading-router-outlet.component";
 import {NotificationService} from "./services/notification-service";
 import "../styles/styles.scss";
+import {ControlErrorService} from "./services/control-error";
 
 export type StoreType = {
     state: InternalStateType,
@@ -50,6 +51,7 @@ export function _XSRFFactory() {
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
+    ControlErrorService,
     CustomersService,
     LoadingGridService,
     LoadingService,
