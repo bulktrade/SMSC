@@ -4,9 +4,6 @@ export const AUTH_TOKEN_NAME: string = 'AdminToken';
 
 @Injectable()
 export class TokenService {
-    constructor() {
-    }
-
     /**
      * Get token from local storage.
      *

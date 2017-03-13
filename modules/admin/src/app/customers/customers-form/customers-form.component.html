@@ -104,13 +104,12 @@
                     </div>
                     <div class="ui-grid-col-6">
                         <input pInputText class="form-control" [(ngModel)]="model['vatid']"
-                               #vatid="ngModel" pattern="^(0|[1-9][0-9]*)$"
-                               required name="vatid" type="number" id="vatid">
+                               #vatid="ngModel"
+                               required name="vatid" type="text" id="vatid">
                     </div>
                     <div class="ui-grid-col-4">
                         <control-errors control="vatid"
-                                        [errors]="{required: ('customers.required'| translate),
-                                                    pattern: ('customers.numberValidator' | translate)}"></control-errors>
+                                        [errors]="{required: ('customers.required'| translate)}"></control-errors>
                     </div>
                 </div>
 
@@ -120,7 +119,8 @@
                             {{ 'parent' | translate }}
                         </div>
                         <div class="ui-grid-col-6">
-                            <parent-customer name="parent" propertyName="parent" [mainEntityId]="id"
+                            <parent-customer id="parent-customer" name="parent" propertyName="parent"
+                                             [mainEntityId]="id"
                                              [renderProperties]="['companyName', 'country']" [hideOwn]="true"
                                              [mainEntityService]="customersService"
                                              [subEntityService]="customersService"
@@ -135,22 +135,22 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-8 ui-g-nopad relationship-tabs">
                             <p-tabView>
-                                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'contacts' | translate"
+                                <p-tabPanel headerStyleClass="ui-sm-12 customer-contacts-tab" [header]="'contacts' | translate"
                                             leftIcon="fa-users">
-                                    <one-to-many
-                                            [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
-                                            [link]="model['_links']['contacts']"
-                                            (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
-                                            (onDelete)="onDelete($event)"
-                                            [mainEntityId]="id" property="contacts"></one-to-many>
-                                </p-tabPanel>
-                                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'customerUsers' | translate"
-                                            leftIcon="fa-user-secret">
-                                    <one-to-many [renderProperties]="['firstname', 'surname', 'username', 'email']"
-                                                 [mainEntityId]="id" [link]="model['_links']['users']"
+                                    <one-to-many id="customer-contacts"
+                                                 [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
+                                                 [link]="model['_links']['contacts']"
                                                  (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
                                                  (onDelete)="onDelete($event)"
-                                                 property="users"></one-to-many>
+                                                 [mainEntityId]="id" property="contacts"></one-to-many>
+                                </p-tabPanel>
+                                <p-tabPanel headerStyleClass="ui-sm-12 customer-users-tab" [header]="'customerUsers' | translate"
+                                            leftIcon="fa-user-secret">
+                                    <one-to-many id="customer-users"
+                                                 [renderProperties]="['firstname', 'surname', 'username', 'email']"
+                                                 [mainEntityId]="id" [link]="model['_links']['users']"
+                                                 (onCreate)="onCreate($event)" (onUpdate)="onUpdate($event)"
+                                                 (onDelete)="onDelete($event)" property="users"></one-to-many>
                                 </p-tabPanel>
                             </p-tabView>
                         </div>
@@ -160,7 +160,7 @@
                 <div class="ui-grid-row">
                     <div class="ui-grid-col-2"></div>
                     <div class="ui-grid-col-6">
-                        <button style="width: 100%" type="submit" class="btn primeng-primary-btn" id="submit-button"
+                        <button type="submit" class="btn primeng-primary-btn ui-md-12 ui-sm-12" id="submit-button"
                                 [disabled]="customersForm.form.invalid">
                             <span>{{ submitButtonName | translate }}</span>
                             <i *ngIf="isLoading"

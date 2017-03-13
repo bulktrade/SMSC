@@ -7,7 +7,7 @@ interface Links {
     customer: Link;
     contacts: Link;
     parent: Link;
-    customerUsers: Link;
+    users: Link;
 }
 
 export interface Customer extends Entity {
@@ -17,8 +17,7 @@ export interface Customer extends Entity {
     street: string;
     street2: string;
     postcode: string;
-    vatid: number;
-    customerId: number;
+    vatid: string;
     contacts: Contact[];
     users: CustomerUser[];
     parent: Customer;

@@ -5,7 +5,7 @@ import {APP_PROVIDERS} from "../../app.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {ComponentHelper} from "../../shared/component-fixture";
 import {MockBackend} from "@angular/http/testing";
-import {XHRBackend} from "@angular/http";
+import {XHRBackend, ResponseOptions, Response} from "@angular/http";
 import {CustomersCreateComponent} from "./customers-create.component";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {ConfigService} from "../../config/config.service";
@@ -39,11 +39,19 @@ describe('Component: CustomersCreateComponent', () => {
         mockBackend = _mockBackend;
     }));
 
-    it('should have `<p-panel>` and `<form>`', async(() => {
+    it('should have `<p-panel>`, `<form>` and input fields', async(() => {
         componentFixture.fixture.detectChanges();
         componentFixture.fixture.whenStable().then(() => {
             expect(componentFixture.element.querySelector('p-panel')).toBeTruthy();
             expect(componentFixture.element.querySelector('form')).toBeTruthy();
+            // input fields
+            expect(componentFixture.element.querySelector('#companyName')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#street')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#street2')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#postcode')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#country')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#city')).toBeTruthy();
+            expect(componentFixture.element.querySelector('#vatid')).toBeTruthy();
         });
     }));
 
@@ -53,5 +61,39 @@ describe('Component: CustomersCreateComponent', () => {
             expect(componentFixture.instance.submitButtonName).toEqual('customers.create');
             expect(componentFixture.element.querySelector('#submit-button').innerText).toEqual('customers.create');
         });
+    }));
+
+    it('should get a success message about create new customer', async(() => {
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({body: {id: 1}});
+            connection.mockRespond(new Response(response));
+        });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(componentFixture.instance.router, 'navigate');
+        spyOn(componentFixture.instance, 'toggleLoading');
+
+        componentFixture.instance.onSubmit({id: 1});
+
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successCreateCustomer');
+        expect(componentFixture.instance.router.navigate).toHaveBeenCalledWith(['/customers', 1, 'update']);
+    }));
+
+    it('should get an error if customer was not created', async(() => {
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({status: 500});
+            connection.mockError(new Response(response));
+        });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(componentFixture.instance, 'toggleLoading');
+
+        componentFixture.instance.onSubmit({id: 1});
+
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorCreateCustomer');
     }));
 });

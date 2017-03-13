@@ -9,6 +9,8 @@ import {APP_PROVIDERS} from "../../app.module";
 import {CustomersModule} from "../customers.module";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {ConfigService} from "../../config/config.service";
+import {Observable} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 describe('Component: CustomersDeleteComponent', () => {
     let componentFixture: ComponentHelper<CustomersDeleteComponent> =
@@ -21,6 +23,7 @@ describe('Component: CustomersDeleteComponent', () => {
             providers: [
                 APP_PROVIDERS,
                 {provide: XHRBackend, useClass: MockBackend},
+                {provide: ActivatedRoute, useValue: {params: Observable.of({customerId: 40000})}},
                 {provide: ConfigService, useClass: ConfigServiceMock},
             ]
         });
@@ -43,15 +46,44 @@ describe('Component: CustomersDeleteComponent', () => {
         });
     }));
 
-    it('deleteResource()', async(() => {
+    it('should get a success message about delete customer', async(() => {
         mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({status: 204});
+            let response = new ResponseOptions({body: {id: 1}});
             connection.mockRespond(new Response(response));
         });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(componentFixture.instance, 'onBack');
 
-        componentFixture.instance.deleteResource()
-            .subscribe(res => {
-                expect(res.status).toEqual(204);
-            });
+        componentFixture.instance.deleteResource();
+
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successDeleteCustomer');
+        expect(componentFixture.instance.onBack).toHaveBeenCalled();
+    }));
+
+    it('should get an error if customer was not deleted', async(() => {
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({status: 500});
+            connection.mockError(new Response(response));
+        });
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        spyOn(console, 'error');
+
+        componentFixture.instance.deleteResource();
+
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorDeleteCustomer');
+        expect(console.error).toHaveBeenCalledWith(new Response(new ResponseOptions({status: 500})));
+    }));
+
+    it('.onBack()', async(() => {
+        spyOn(componentFixture.instance.location, 'back');
+        componentFixture.instance.onBack();
+        expect(componentFixture.instance.location.back).toHaveBeenCalled();
+    }));
+
+    it('.ngOnInit()', async(() => {
+        componentFixture.instance.ngOnInit();
+        expect(componentFixture.instance.id).toEqual(40000);
     }));
 });

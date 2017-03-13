@@ -13,10 +13,6 @@ export class NavigationPage {
     public dashboard = element(by.tagName('dashboard'));
     public customers = element(by.tagName('customers'));
 
-
-    constructor() {
-    }
-
     get() {
         browser.get(browser.baseUrl + '/');
     }

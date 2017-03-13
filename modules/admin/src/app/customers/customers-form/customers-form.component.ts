@@ -1,4 +1,4 @@
-import {Component, Input, NgModule, ModuleWithProviders, Output, EventEmitter} from "@angular/core";
+import {Component, Input, NgModule, Output, EventEmitter} from "@angular/core";
 import {Location, CommonModule} from "@angular/common";
 import {Router, ActivatedRoute, RouterModule} from "@angular/router";
 import {TranslateModule} from "ng2-translate/ng2-translate";
@@ -6,7 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {ButtonModule} from "primeng/components/button/button";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
 import {OneToManyModule} from "../../shared/components/one-to-many/one-to-many.component";
-import {ControlErrorsModule} from "../../shared/components/control-errors/control-errors";
+import {ControlErrorsModule} from "../../shared/components/control-errors/control-errors.component";
 import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
@@ -45,7 +45,6 @@ export class CustomersFormComponent {
     }
 
     ngOnInit() {
-        this.model['_embedded'] = this.model['_embedded'] || {};
         this.id = this.route.params['value'].customerId;
     }
 
@@ -58,15 +57,15 @@ export class CustomersFormComponent {
     }
 
     onCreate(event: OneToMany) {
-        this.router.navigate(['/customers', this.id, event.propertyName, 'create']).then();
+        this.router.navigate(['/customers', this.id, event.propertyName, 'create']);
     }
 
     onUpdate(event: OneToMany) {
-        this.router.navigate(['/customers', this.id, event.propertyName, 'update', event.entity['id']]).then();
+        this.router.navigate(['/customers', this.id, event.propertyName, 'update', event.entity['id']]);
     }
 
     onDelete(event: OneToMany) {
-        this.router.navigate(['/customers', this.id, event.propertyName, 'delete', event.entity['id']]).then();
+        this.router.navigate(['/customers', this.id, event.propertyName, 'delete', event.entity['id']]);
     }
 }
 
@@ -91,10 +90,4 @@ export class CustomersFormComponent {
     declarations: [CustomersFormComponent]
 })
 export class CustomersFormModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: CustomersFormModule,
-            providers: []
-        };
-    }
 }

@@ -8,25 +8,16 @@ import {ContactsDeleteComponent} from "./contacts-delete/contacts-delete.compone
 const CUSTOMERS_CONTACTS_ROUTE_PROVIDER = [
     {
         path: 'create',
-        component: ContactsCreateComponent,
-        data: {
-            showInBreadcrumb: false,
-        }
+        component: ContactsCreateComponent
     },
     {
         path: 'update/:contactId',
         component: ContactsUpdateComponent,
-        resolve: {update: ContactsUpdateResolve},
-        data: {
-            showInBreadcrumb: false,
-        }
+        resolve: {update: ContactsUpdateResolve}
     },
     {
         path: 'delete/:contactId',
-        component: ContactsDeleteComponent,
-        data: {
-            showInBreadcrumb: false,
-        }
+        component: ContactsDeleteComponent
     }
 ];
 

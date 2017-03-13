@@ -1,5 +1,5 @@
-import { Component, Input, NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, Input, NgModule} from "@angular/core";
+import {CommonModule} from "@angular/common";
 
 @Component({
     selector: 'sk-cube-grid',
@@ -25,10 +25,4 @@ export class CubeGridComponent {
     declarations: [CubeGridComponent],
 })
 export class CubeGridModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: CubeGridModule,
-            providers: []
-        };
-    }
 }

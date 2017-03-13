@@ -1,11 +1,10 @@
-import {Component, Input, ModuleWithProviders, NgModule, Output, EventEmitter} from "@angular/core";
+import {Component, Input, NgModule, Output, EventEmitter} from "@angular/core";
 import {TranslateService, TranslateModule} from "ng2-translate/ng2-translate";
-import {ActivatedRoute, Router, RouterModule} from "@angular/router";
+import {Router, RouterModule} from "@angular/router";
 import {Location, CommonModule} from "@angular/common";
 import {CrudService} from "../../crud.service";
 import {FormsModule} from "@angular/forms";
 import {MultipleSelectService} from "./multiple-select.service";
-import {NotificationService} from "../../../services/notification-service";
 import {Link} from "../../entity.model";
 import {Http, RequestOptions, RequestMethod} from "@angular/http";
 import {OneToMany, Action} from "./one-to-many.model";
@@ -47,22 +46,19 @@ export class OneToManyComponent {
     public isLoading: boolean = false;
 
     constructor(public translate: TranslateService,
-                public route: ActivatedRoute,
                 public router: Router,
                 public location: Location,
-                public notifications: NotificationService,
                 public http: Http) {
     }
 
     ngOnInit() {
-        this.isLoading = true;
+        this.toggleLoading();
         this.getResources(this.link)
             .subscribe(resources => {
                 this.resources = resources[Object.keys(resources)[0]];
-                this.isLoading = false;
-            }, err => {
-                console.error(err);
-                this.isLoading = false;
+                this.toggleLoading();
+            }, () => {
+                this.toggleLoading();
             });
     }
 
@@ -80,6 +76,10 @@ export class OneToManyComponent {
 
     onDelete(entity) {
         this._onDelete.emit(new OneToMany(this.property, Action.Delete, entity));
+    }
+
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 
     /**
@@ -110,10 +110,4 @@ export class OneToManyComponent {
     declarations: [OneToManyComponent]
 })
 export class OneToManyModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: OneToManyModule,
-            providers: []
-        };
-    }
 }

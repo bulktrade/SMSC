@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/ng2-translate';
-import { Router } from '@angular/router';
-import { SidebarModel } from './sidebar.model';
+import {Component} from "@angular/core";
+import {TranslateService} from "ng2-translate/ng2-translate";
+import {Router} from "@angular/router";
+import {SidebarModel} from "./sidebar.model";
 
 @Component({
     selector: 'sidebar',
@@ -21,8 +21,6 @@ export class SidebarComponent {
 
     initDataNavItems(router) {
         let result: Array<SidebarModel> = [];
-        let decoratorValue;
-
         let routeConfig = router.config;
 
         for (let l in routeConfig) {
@@ -39,31 +37,6 @@ export class SidebarComponent {
                                 item.data.hasOwnProperty('showInSubNavigation') &&
                                 item.data.showInSubNavigation
                             ) {
-                                if (item.hasOwnProperty('children')) {
-                                    decoratorValue = item.children;
-
-                                    for (let k in decoratorValue) {
-                                        if (decoratorValue.hasOwnProperty(k)) {
-                                            let subItem = decoratorValue[k];
-
-                                            if (
-                                                subItem.hasOwnProperty('data') &&
-                                                subItem.data.hasOwnProperty('showInSubNavigation')
-                                                && subItem.data.showInSubNavigation
-                                            ) {
-                                                let submenu: SidebarModel = {
-                                                    name: subItem.data.translationKey
-                                                        .toLowerCase(),
-                                                    path: subItem.path,
-                                                    icon: subItem.data.icon
-                                                };
-
-                                                result.push(submenu);
-                                            }
-                                        }
-                                    }
-                                }
-
                                 if (result.length === 0) {
                                     result = undefined;
                                 }

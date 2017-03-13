@@ -1,4 +1,4 @@
-import {NgModule, ModuleWithProviders} from "@angular/core";
+import {NgModule} from "@angular/core";
 import {HTTP_INTERCEPTOR_PROVIDER} from "../shared/http-interceptor";
 import {ProfileComponent} from "./profile.component";
 import {ProfileService} from "./profile.service";
@@ -16,9 +16,4 @@ import {UserService} from "./user.service";
     ]
 })
 export class UsersModule {
-    static forRoot(): ModuleWithProviders {
-        return {
-            ngModule: UsersModule
-        };
-    }
 }

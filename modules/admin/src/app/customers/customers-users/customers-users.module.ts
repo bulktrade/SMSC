@@ -11,7 +11,7 @@ import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {ButtonModule} from "primeng/components/button/button";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
-import {ControlErrorsModule} from "../../shared/components/control-errors/control-errors";
+import {ControlErrorsModule} from "../../shared/components/control-errors/control-errors.component";
 import {CustomersService} from "../customer.service";
 import {HTTP_INTERCEPTOR_PROVIDER} from "../../shared/http-interceptor";
 import {CustomersUsersService} from "./customer-user.service";

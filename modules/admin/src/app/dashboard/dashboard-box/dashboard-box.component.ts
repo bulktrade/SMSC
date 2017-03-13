@@ -7,7 +7,6 @@ import {
     HostListener, Inject
 } from '@angular/core';
 import { DashboardBoxConfig } from './dashboard-box-config';
-import { SidebarService } from '../../sidebar/sidebar.service';
 import { DashboardResizeConfig } from '../models/dashboard-resize-config';
 import { BrowserDomAdapter } from '@angular/platform-browser/src/browser/browser_adapter';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -47,8 +46,7 @@ export class DashboardBoxComponent {
     public chart: any;
     public kindClass: string;
 
-    constructor(private sidebarService: SidebarService,
-                @Inject(DOCUMENT) private document: any) {
+    constructor(@Inject(DOCUMENT) private document: any) {
     }
 
     ngOnInit() {
@@ -67,40 +65,40 @@ export class DashboardBoxComponent {
     handleKeyboardEvent(event: KeyboardEvent) {
         event.stopImmediatePropagation();
 
-        if (event.key === 'Escape' && this.sidebarService.fullScreenMode === true) {
-            this.toggleFullscreen(true);
-
-            let dom: BrowserDomAdapter = new BrowserDomAdapter();
-            dom.removeClass(dom.query('.box .fullscreen'), 'fullscreen');
-        }
+        // if (event.key === 'Escape' && this.sidebarService.fullScreenMode === true) {
+        //     this.toggleFullscreen(true);
+        //
+        //     let dom: BrowserDomAdapter = new BrowserDomAdapter();
+        //     dom.removeClass(dom.query('.box .fullscreen'), 'fullscreen');
+        // }
     }
 
     /**
      * Toggle fullscreen for dashboard box.
      */
     toggleFullscreen(esc?: boolean) {
-        this.sidebarService.toggleSidenav();
-
-        let dom: BrowserDomAdapter = new BrowserDomAdapter();
-
-        if (!this.sidebarService.toggle) {
-            dom.removeStyle(dom.query('#wrapper'), 'overflow');
-            dom.removeClass(dom.query('.header'), 'fullscreen-header');
-
-            if (esc === undefined) {
-                dom.removeClass(dom.query('.box[data-boxrid="' +
-                    this.config.customData['rid'] + '"] .content'), 'fullscreen');
-            }
-
-            this.sidebarService.fullScreenMode = false;
-        } else {
-            dom.setStyle(dom.query('#wrapper'), 'overflow', 'hidden');
-            dom.addClass(dom.query('.header'), 'fullscreen-header');
-            dom.addClass(dom.query('.box[data-boxrid="' +
-                this.config.customData['rid'] + '"] .content'), 'fullscreen');
-
-            this.sidebarService.fullScreenMode = true;
-        }
+        // this.sidebarService.toggleSidenav();
+        //
+        // let dom: BrowserDomAdapter = new BrowserDomAdapter();
+        //
+        // if (!this.sidebarService.toggle) {
+        //     dom.removeStyle(dom.query('#wrapper'), 'overflow');
+        //     dom.removeClass(dom.query('.header'), 'fullscreen-header');
+        //
+        //     if (esc === undefined) {
+        //         dom.removeClass(dom.query('.box[data-boxrid="' +
+        //             this.config.customData['rid'] + '"] .content'), 'fullscreen');
+        //     }
+        //
+        //     this.sidebarService.fullScreenMode = false;
+        // } else {
+        //     dom.setStyle(dom.query('#wrapper'), 'overflow', 'hidden');
+        //     dom.addClass(dom.query('.header'), 'fullscreen-header');
+        //     dom.addClass(dom.query('.box[data-boxrid="' +
+        //         this.config.customData['rid'] + '"] .content'), 'fullscreen');
+        //
+        //     this.sidebarService.fullScreenMode = true;
+        // }
     }
 
     /**
