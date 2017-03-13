@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IndexControllerTestWithoutProperties extends AbstractTest {
+public class IndexControllerWithoutPropertiesTest extends AbstractTest {
 
     @MockBean
     private StaticResourceService staticResourceService;
