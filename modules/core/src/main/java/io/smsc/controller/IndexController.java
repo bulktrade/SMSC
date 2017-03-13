@@ -7,6 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +34,15 @@ public class IndexController {
 
     @Autowired
     private StaticResourceService staticResourceService;
+
+    @Value("${ADMIN_API_URL:#{null}}")
+    public String apiUrl;
+
+    @Value("${ADMIN_I18N_PATH:#{null}}")
+    private String i18nPath;
+
+    @Value("${ADMIN_DEBUG:#{null}}")
+    private String debug;
 
     @RequestMapping("/")
     @ResponseBody
@@ -83,8 +93,8 @@ public class IndexController {
             }
 
             return new ResponseEntity<>(resource, HttpStatus.OK);
-        } catch (IOException e) {
-            LOGGER.info("Resource not found.", e);
+        } catch (Exception e) {
+            LOGGER.info("Resource not found.");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -110,18 +120,16 @@ public class IndexController {
             ObjectMapper mapper = new ObjectMapper();
             config = mapper.readValue(configJson, Config.class);
 
-            if (System.getenv("ADMIN_API_URL") != null) {
-                config.apiUrl = System.getenv("ADMIN_API_URL");
-            } else if (System.getProperty("admin.api.url") != null) {
-                config.apiUrl = System.getProperty("admin.api.url");
+            if (apiUrl != null) {
+                config.apiUrl = this.apiUrl;
             }
 
-            if (System.getenv("ADMIN_I18N_PATH") != null) {
-                config.i18nPath = System.getenv("ADMIN_I18N_PATH");
+            if (i18nPath != null) {
+                config.i18nPath = this.i18nPath;
             }
 
-            if (System.getenv("ADMIN_DEBUG") != null) {
-                config.debug = "true".equals(System.getenv("ADMIN_DEBUG"));
+            if (debug != null) {
+                config.debug = "true".equals(this.debug);
             }
         } catch (Exception e) {
             LOGGER.info("Some exception occurred", e);
