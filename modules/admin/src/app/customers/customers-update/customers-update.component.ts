@@ -56,7 +56,7 @@ export class CustomersUpdateComponent {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
             }, (e) => {
                 this.toggleLoading();
-                this.controlErrorService.controlErrors(e.json(), customersFormModel.customersForm);
+                this.controlErrorService.formControlErrors(e.json(), customersFormModel.customersForm);
             });
     }
 

@@ -40,7 +40,7 @@ export class CustomersCreateComponent {
                 this.router.navigate(['/customers', customer['id'], 'update']);
             }, (e) => {
                 this.toggleLoading();
-                this.controlErrorService.controlErrors(e.json(), customersFormModel.customersForm);
+                this.controlErrorService.formControlErrors(e.json(), customersFormModel.customersForm);
             });
     }
 

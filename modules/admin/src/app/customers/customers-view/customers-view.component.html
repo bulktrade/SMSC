@@ -45,6 +45,11 @@
         </p-column>
         <p-column field="companyName" styleClass="col-company-name" [header]="'companyName' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+            <template let-col let-customer="rowData" pTemplate="body">
+                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                    {{ customer[col.field] }}
+                </div>
+            </template>
             <template pTemplate="filter" let-col>
                 <div class="ui-sm-12 ui-md-12 filter-container">
                     <input type="text" class="ui-sm-12 ui-md-12" pInputText
@@ -60,6 +65,11 @@
         </p-column>
         <p-column field="street" [header]="'street' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+            <template let-col let-customer="rowData" pTemplate="body">
+                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                    {{ customer[col.field] }}
+                </div>
+            </template>
             <template pTemplate="filter" let-col>
                 <div class="ui-sm-12 ui-md-12 filter-container">
                     <input type="text" class="ui-sm-12 ui-md-12" pInputText
@@ -75,6 +85,11 @@
         </p-column>
         <p-column field="street2" [header]="'street2' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+            <template let-col let-customer="rowData" pTemplate="body">
+                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                    {{ customer[col.field] }}
+                </div>
+            </template>
             <template pTemplate="filter" let-col>
                 <div class="ui-sm-12 ui-md-12 filter-container">
                     <input type="text" class="ui-sm-12 ui-md-12" pInputText
@@ -90,6 +105,11 @@
         </p-column>
         <p-column field="postcode" [header]="'postcode' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+            <template let-col let-customer="rowData" pTemplate="body">
+                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                    {{ customer[col.field] }}
+                </div>
+            </template>
             <template pTemplate="filter" let-col>
                 <div class="ui-sm-12 ui-md-12 filter-container">
                     <input type="text" class="ui-sm-12 ui-md-12" pInputText
@@ -105,6 +125,11 @@
         </p-column>
         <p-column field="country" [header]="'country' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+            <template let-col let-customer="rowData" pTemplate="body">
+                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                    {{ customer[col.field] }}
+                </div>
+            </template>
             <template pTemplate="filter" let-col>
                 <div class="ui-sm-12 ui-md-12 filter-container">
                     <input type="text" class="ui-sm-12 ui-md-12" pInputText
@@ -120,6 +145,11 @@
         </p-column>
         <p-column field="city" [header]="'city' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+            <template let-col let-customer="rowData" pTemplate="body">
+                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                    {{ customer[col.field] }}
+                </div>
+            </template>
             <template pTemplate="filter" let-col>
                 <div class="ui-sm-12 ui-md-12 filter-container">
                     <input type="text" class="ui-sm-12 ui-md-12" pInputText
@@ -135,6 +165,11 @@
         </p-column>
         <p-column field="vatid" [header]="'vatid' | translate" [editable]="true"
                   sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+            <template let-col let-customer="rowData" pTemplate="body">
+                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                    {{ customer[col.field] }}
+                </div>
+            </template>
             <template pTemplate="filter" let-col>
                 <div class="ui-sm-12 ui-md-12 filter-container">
                     <input type="text" class="ui-sm-12 ui-md-12" pInputText

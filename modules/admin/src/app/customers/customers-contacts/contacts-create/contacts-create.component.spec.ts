@@ -90,14 +90,14 @@ describe('Component: ContactsCreateComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'toggleLoading');
-        spyOn(componentFixture.instance.controlErrorService, 'controlErrors');
+        spyOn(componentFixture.instance.controlErrorService, 'formControlErrors');
 
         componentFixture.instance.ngOnInit();
         componentFixture.instance.onSubmit(<any>{id: 1}, <any>{});
 
         expect(componentFixture.instance.model['customer']).toEqual('/rest/repository/customers/40000');
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
-        expect(componentFixture.instance.controlErrorService.controlErrors).toHaveBeenCalled();
+        expect(componentFixture.instance.controlErrorService.formControlErrors).toHaveBeenCalled();
     }));
 
     it('.ngOnInit()', async(() => {

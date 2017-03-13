@@ -36,7 +36,7 @@ describe('Service: ControlErrorService', () => {
                 }
             }
         };
-        service.controlErrors(messages, controls);
+        service.formControlErrors(messages, controls);
         expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', messages[0].message);
     });
 
@@ -52,7 +52,7 @@ describe('Service: ControlErrorService', () => {
         let controls = <any>{
             controls: {}
         };
-        service.controlErrors(messages, controls);
+        service.formControlErrors(messages, controls);
         expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', 'ERROR_UPDATE');
     });
 
@@ -67,7 +67,7 @@ describe('Service: ControlErrorService', () => {
         let controls = <any>{
             controls: {}
         };
-        service.controlErrors(messages, controls);
+        service.formControlErrors(messages, controls);
         expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', messages[0].message);
     });
 
@@ -77,7 +77,7 @@ describe('Service: ControlErrorService', () => {
         let controls = <any>{
             controls: {}
         };
-        service.controlErrors(messages, controls);
+        service.formControlErrors(messages, controls);
         expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', 'ERROR_UPDATE');
     });
 });

@@ -65,7 +65,7 @@ export class ContactsUpdateComponent implements OnInit {
                 },
                 (e) => {
                     this.toggleLoading();
-                    this.controlErrorService.controlErrors(e.json(), contactsForm);
+                    this.controlErrorService.formControlErrors(e.json(), contactsForm);
                 });
     }
 

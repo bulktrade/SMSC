@@ -62,7 +62,7 @@ export class UsersCreateComponent implements OnInit {
                 },
                 (e) => {
                     this.toggleLoading();
-                    this.controlErrorService.controlErrors(e.json(), usersForm);
+                    this.controlErrorService.formControlErrors(e.json(), usersForm);
                 });
     }
 

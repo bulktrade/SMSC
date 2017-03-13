@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
                     this.notifications.createNotification('success', 'SUCCESS', 'profile.successUpdate');
                 },
                 (e) => {
-                    this.controlErrorService.controlErrors(e.json(), profileForm);
+                    this.controlErrorService.formControlErrors(e.json(), profileForm);
                 }
             );
     }

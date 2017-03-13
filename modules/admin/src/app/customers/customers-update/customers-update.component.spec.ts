@@ -118,13 +118,13 @@ describe('Component: CustomersUpdateComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'toggleLoading');
-        spyOn(componentFixture.instance.controlErrorService, 'controlErrors');
+        spyOn(componentFixture.instance.controlErrorService, 'formControlErrors');
 
         componentFixture.instance.onSubmit(new CustomersFormModel(customer, <any>{}));
 
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.isLoading).toBeFalsy();
-        expect(componentFixture.instance.controlErrorService.controlErrors).toHaveBeenCalled();
+        expect(componentFixture.instance.controlErrorService.formControlErrors).toHaveBeenCalled();
     }));
 
     it('.ngOnInit()', async(() => {

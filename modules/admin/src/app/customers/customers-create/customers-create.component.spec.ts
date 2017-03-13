@@ -88,11 +88,11 @@ describe('Component: CustomersCreateComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'toggleLoading');
-        spyOn(componentFixture.instance.controlErrorService, 'controlErrors');
+        spyOn(componentFixture.instance.controlErrorService, 'formControlErrors');
 
         componentFixture.instance.onSubmit(new CustomersFormModel(<any>{id: 1}, <any>{}));
 
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
-        expect(componentFixture.instance.controlErrorService.controlErrors).toHaveBeenCalled();
+        expect(componentFixture.instance.controlErrorService.formControlErrors).toHaveBeenCalled();
     }));
 });
