@@ -24,6 +24,14 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Optional;
 
+/**
+ * The IndexController class is used for mapping HTTP requests for receiving base application page,
+ * specific admin resource or app configuration from internal json file or external system\environment
+ * variables onto specific methods.
+ *
+ * @author Sergej Kunz
+ * @since 0.0.1-SNAPSHOT
+ */
 @Controller(
         value = "IndexController"
 )
@@ -35,15 +43,23 @@ public class IndexController {
     @Autowired
     private StaticResourceService staticResourceService;
 
-    @Value("${ADMIN_API_URL:#{null}}")
+    @Value("${admin.api.url:#{null}}")
     public String apiUrl;
 
-    @Value("${ADMIN_I18N_PATH:#{null}}")
+    @Value("${admin.i18n.path:#{null}}")
     private String i18nPath;
 
-    @Value("${ADMIN_DEBUG:#{null}}")
+    @Value("${admin.debug:#{null}}")
     private String debug;
 
+    /**
+     * Method to receive base app representation.
+     *
+     * @param servletWebRequest the {@link ServletWebRequest}
+     * @param response          the {@link HttpServletResponse} to provide HTTP-specific
+     *                          functionality in sending a response
+     * @return String with app representation
+     */
     @RequestMapping("/")
     @ResponseBody
     public String indexAction(ServletWebRequest servletWebRequest, HttpServletResponse response) {
@@ -57,6 +73,14 @@ public class IndexController {
         return "SMSC";
     }
 
+    /**
+     * Method to receive specific admin resource or basic index.html file.
+     *
+     * @param servletWebRequest the {@link ServletWebRequest}
+     * @param request           the {@link HttpServletResponse} to provide HTTP-specific
+     *                          functionality in sending a response
+     * @return {@link ResponseEntity} with requested resource
+     */
     @RequestMapping(
             value = {
                     "/admin",
@@ -93,12 +117,21 @@ public class IndexController {
             }
 
             return new ResponseEntity<>(resource, HttpStatus.OK);
-        } catch (Exception e) {
+        } catch (IOException e) {
             LOGGER.info("Resource not found.");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
+    /**
+     * Method to receive domain object with app configuration from internal json file or
+     * external system\environment variables.
+     *
+     * @param response the {@link HttpServletResponse} to provide HTTP-specific
+     *                 functionality in sending a response
+     * @return {@link Config} with application configuration
+     * @throws IOException on input error
+     */
     @RequestMapping(
             value = {
                     "/admin/config.json"
@@ -120,20 +153,21 @@ public class IndexController {
             ObjectMapper mapper = new ObjectMapper();
             config = mapper.readValue(configJson, Config.class);
 
-            if (apiUrl != null) {
-                config.apiUrl = this.apiUrl;
-            }
-
-            if (i18nPath != null) {
-                config.i18nPath = this.i18nPath;
-            }
-
-            if (debug != null) {
-                config.debug = "true".equals(this.debug);
-            }
         } catch (Exception e) {
             LOGGER.info("Some exception occurred", e);
             config = new Config();
+        }
+
+        if (apiUrl != null) {
+            config.apiUrl = this.apiUrl;
+        }
+
+        if (i18nPath != null) {
+            config.i18nPath = this.i18nPath;
+        }
+
+        if (debug != null) {
+            config.debug = "true".equals(this.debug);
         }
 
         return config;

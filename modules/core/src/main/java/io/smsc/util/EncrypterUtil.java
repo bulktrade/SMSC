@@ -26,7 +26,7 @@ public class EncrypterUtil {
     private static PasswordEncoder passwordEncoder;
 
     @Autowired
-    public EncrypterUtil() {
+    public EncrypterUtil() throws Exception {
         //Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
         removeCryptographyRestrictions();
     }
@@ -44,9 +44,6 @@ public class EncrypterUtil {
     public static void encrypt(Object obj) {
         try {
             CharSequence salt = getSalt(obj);
-            if (secretKey == null) {
-                secretKey = "smsc.io";
-            }
             TextEncryptor encryptor = Encryptors.text(secretKey, salt);
             for (Field field : obj.getClass().getDeclaredFields()) {
                 if (field.isAnnotationPresent(Encrypt.class) && !field.isAccessible()) {
@@ -70,9 +67,6 @@ public class EncrypterUtil {
     public static void decrypt(Object obj) {
         try {
             CharSequence salt = getSalt(obj);
-            if (secretKey == null) {
-                secretKey = "smsc.io";
-            }
             TextEncryptor encryptor = Encryptors.text(secretKey, salt);
             for (Field field : obj.getClass().getDeclaredFields()) {
                 if (field.isAnnotationPresent(Encrypt.class) && !field.isAccessible()) {
@@ -137,13 +131,7 @@ public class EncrypterUtil {
      * strength limit. When using JDK 9+ this method is not more necessary and
      * should be removed.
      */
-    public static void removeCryptographyRestrictions() {
-        if (!isRestrictedCryptography()) {
-            LOGGER.info("Cryptography restrictions removal not needed");
-            return;
-        }
-
-        try {
+    public static void removeCryptographyRestrictions() throws Exception {
             final Class<?> jceSecurity = Class.forName("javax.crypto.JceSecurity");
             final Class<?> cryptoPermissions = Class.forName("javax.crypto.CryptoPermissions");
             final Class<?> cryptoAllPermission = Class.forName("javax.crypto.CryptoAllPermission");
@@ -168,17 +156,9 @@ public class EncrypterUtil {
             defaultPolicy.add((Permission) instance.get(null));
 
             LOGGER.info("Successfully removed cryptography restrictions");
-        } catch (final Exception e) {
-            LOGGER.debug("WARNING", "Failed to remove cryptography restrictions", e);
-        }
     }
 
-    private static boolean isRestrictedCryptography() {
-        // This simply matches the Oracle JRE, but not OpenJDK.
-        return "Java(TM) SE Runtime Environment".equals(System.getProperty("java.runtime.name"));
-    }
-
-    @Value("${encrypt.key}")
+    @Value("${encrypt.key:smsc.io}")
     public void setSecretKey(String secretKey) {
         EncrypterUtil.secretKey = secretKey;
     }

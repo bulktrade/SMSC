@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 import static io.smsc.util.EncrypterUtil.removeCryptographyRestrictions;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EncrypterUtilTest extends AbstractTest {
+public class EncrypterUtilTest extends AbstractTest{
 
     private final static String RAW_PASSWORD = "john123456";
     private final static String STRING_FOR_ENCODING  = "someString";
@@ -27,6 +27,7 @@ public class EncrypterUtilTest extends AbstractTest {
     @Before
     public void removeCryptographyRestriction() throws Exception {
         removeCryptographyRestrictions();
+
         obj1 = new EncryptionTestClassWithPrivateFieldWithoutSalt();
         obj1.setFieldToBeEncoded(STRING_FOR_ENCODING);
         obj2 = new EncryptionTestClassWithPublicFieldAndSalt();
