@@ -29,7 +29,7 @@ export class LoginComponent {
         this.authService.login(model.username, model.password)
             .subscribe(
                 () => {
-                    this.router.navigateByUrl('/customers');
+                    this.router.navigateByUrl('/');
                 },
                 (err: Response) => {
                     switch (err.status) {
