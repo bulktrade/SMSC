@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IndexControllerWithoutPropertiesTest extends AbstractTest {
+public class IndexControllerTest extends AbstractTest {
 
     @MockBean
     private StaticResourceService staticResourceService;
@@ -32,7 +32,7 @@ public class IndexControllerWithoutPropertiesTest extends AbstractTest {
     public void testIndexActionWithUnmodifiedData() throws Exception {
         MvcResult result = mockMvc
                 .perform(get("/")
-                        .header("If-Unmodified-Since", lastModified - 100000L))
+                .header("If-Unmodified-Since", lastModified - 100000L))
                 .andReturn();
 
         assertThat(result.getResponse().getContentAsString()).isEqualTo("");
@@ -51,7 +51,7 @@ public class IndexControllerWithoutPropertiesTest extends AbstractTest {
     }
 
     @Test
-    public void testAdminActionWithoutResource() throws Exception {
+    public void testAdminActionWithoutFilePathAndResource() throws Exception {
         given(this.staticResourceService.getResource("classpath:META-INF/resources/io.smsc.admin/index.html")).willReturn(new ClassPathResource("not-exists.html"));
 
         MvcResult result = mockMvc
@@ -62,7 +62,19 @@ public class IndexControllerWithoutPropertiesTest extends AbstractTest {
     }
 
     @Test
-    public void testAdminActionWithMockedResource() throws Exception {
+    public void testAdminActionWithoutFilePathWithMockedResourceNotModified() throws Exception {
+        given(this.staticResourceService.getResource("classpath:META-INF/resources/io.smsc.admin/index.html")).willReturn(new ClassPathResource("index.html"));
+
+        MvcResult result = mockMvc
+                .perform(get("/admin")
+                .header("If-Unmodified-Since", lastModified - 100000L))
+                .andReturn();
+
+        assertThat(result.getResponse().getStatus()).isEqualTo(412);
+    }
+
+    @Test
+    public void testAdminActionWithoutFilePathWithMockedResourceModified() throws Exception {
         given(this.staticResourceService.getResource("classpath:META-INF/resources/io.smsc.admin/index.html")).willReturn(new ClassPathResource("index.html"));
 
         MvcResult result = mockMvc
@@ -74,7 +86,7 @@ public class IndexControllerWithoutPropertiesTest extends AbstractTest {
     }
 
     @Test
-    public void testAdminActionWithPresentFilePathAndMockedResource() throws Exception {
+    public void testAdminActionWithFilePathAndMockedResourceModified() throws Exception {
         given(this.staticResourceService.getResource("classpath:META-INF/resources/io.smsc.admin/index.html")).willReturn(new ClassPathResource("index.html"));
 
         MvcResult result = mockMvc
@@ -83,6 +95,18 @@ public class IndexControllerWithoutPropertiesTest extends AbstractTest {
 
         assertThat(result.getResponse().getStatus()).isEqualTo(200);
         assertThat(result.getResponse().getContentAsString()).contains("SMSC");
+    }
+
+    @Test
+    public void testAdminActionWithFilePathAndMockedResourceNotModified() throws Exception {
+        given(this.staticResourceService.getResource("classpath:META-INF/resources/io.smsc.admin/index.html")).willReturn(new ClassPathResource("index.html"));
+
+        MvcResult result = mockMvc
+                .perform(get("/admin/index.html")
+                .header("If-Unmodified-Since", lastModified - 100000L))
+                .andReturn();
+
+        assertThat(result.getResponse().getStatus()).isEqualTo(412);
     }
 
     @Test

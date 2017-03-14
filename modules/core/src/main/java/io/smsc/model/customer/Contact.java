@@ -186,17 +186,17 @@ public class Contact extends BaseEntity {
 
     @Override
     public String toString() {
-        return "{ id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", surname='" + surname + '\'' +
-                ", phone='" + phone + '\'' +
-                ", mobilePhone='" + mobilePhone + '\'' +
-                ", fax='" + fax + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", type=" + type +
-                ", salutation=" + salutation +
-                ", version='" + version + '\'' +
-                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+        return "{id = " + id +
+                ", firstname = '" + firstname + '\'' +
+                ", surname = '" + surname + '\'' +
+                ", phone = '" + phone + '\'' +
+                ", mobilePhone = '" + mobilePhone + '\'' +
+                ", fax = '" + fax + '\'' +
+                ", emailAddress = '" + emailAddress + '\'' +
+                ", type = '" + type + '\'' +
+                ", salutation = '" + salutation + '\'' +
+                ", version = " + version +
+                ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }
 }

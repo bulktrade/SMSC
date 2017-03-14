@@ -1,6 +1,5 @@
 package io.smsc.repository.dashboard;
 
-import io.smsc.AbstractTest;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.*;
 import org.junit.Before;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DashboardBoxTypeUnitTest extends AbstractTest {
+public class DashboardBoxTypeUnitTest {
 
     private DashboardBoxType dashboardBoxType1;
     private DashboardBoxType dashboardBoxType2;
@@ -36,6 +35,7 @@ public class DashboardBoxTypeUnitTest extends AbstractTest {
     @Test
     public void testEqualsAndHashcodeSameDashboardBoxType() throws Exception {
         assertThat(dashboardBoxType1).isEqualTo(dashboardBoxType1);
+        assertThat(dashboardBoxType1.getDashboardBoxes()).isEqualTo(dashboardBoxType1.getDashboardBoxes());
     }
 
     @Test
@@ -54,8 +54,26 @@ public class DashboardBoxTypeUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodePairOfNonEqualDashboardBoxTypes() throws Exception {
+    public void testEqualsAndHashcodePairOfNonEqualDashboardBoxTypes1() throws Exception {
         dashboardBoxType2.setId(2L);
+        assertThat(dashboardBoxType1).isNotEqualTo(dashboardBoxType2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualDashboardBoxTypes2() throws Exception {
+        dashboardBoxType2.setName("some name");
+        assertThat(dashboardBoxType1).isNotEqualTo(dashboardBoxType2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualDashboardBoxTypes3() throws Exception {
+        dashboardBoxType2.setType(Type.STATUS);
+        assertThat(dashboardBoxType1).isNotEqualTo(dashboardBoxType2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualDashboardBoxTypes4() throws Exception {
+        dashboardBoxType2.setKind(Kind.FEEDBACK_STATUS);
         assertThat(dashboardBoxType1).isNotEqualTo(dashboardBoxType2);
     }
 
@@ -65,5 +83,16 @@ public class DashboardBoxTypeUnitTest extends AbstractTest {
         set.add(dashboardBoxType1);
         set.add(dashboardBoxType2);
         assertThat(set.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void testDashboardBoxTypeToString() throws Exception {
+        assertThat(dashboardBoxType1.toString()).isEqualTo("{id = " + dashboardBoxType1.getId() +
+                ", name = '" + dashboardBoxType1.getName() + '\'' +
+                ", type = '" + dashboardBoxType1.getType() + '\'' +
+                ", kind = '" + dashboardBoxType1.getKind() + '\'' +
+                ", version = " + dashboardBoxType1.getVersion() +
+                ", lastModifiedDate = '" + dashboardBoxType1.getLastModifiedDate() + '\'' +
+                "}");
     }
 }

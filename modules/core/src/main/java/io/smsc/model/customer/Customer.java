@@ -190,7 +190,7 @@ public class Customer extends BaseEntity {
         if (!getPostcode().equals(customer.getPostcode())) return false;
         if (!getCountry().equals(customer.getCountry())) return false;
         if (!getCity().equals(customer.getCity())) return false;
-        return getVatid() != null ? getVatid().equals(customer.getVatid()) : customer.getVatid() == null;
+        return null != getVatid() ? getVatid().equals(customer.getVatid()) : null == customer.getVatid();
     }
 
     @Override
@@ -208,16 +208,16 @@ public class Customer extends BaseEntity {
 
     @Override
     public String toString() {
-        return "{ id=" + id +
-                ", companyName='" + companyName + '\'' +
-                ", street='" + street + '\'' +
-                ", street2='" + street2 + '\'' +
-                ", postcode='" + postcode + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", vatid=" + vatid +
-                ", version='" + version + '\'' +
-                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+        return "{id = " + id +
+                ", companyName = '" + companyName + '\'' +
+                ", street = '" + street + '\'' +
+                ", street2 = '" + street2 + '\'' +
+                ", postcode = '" + postcode + '\'' +
+                ", country = '" + country + '\'' +
+                ", city = '" + city + '\'' +
+                ", vatid = '" + vatid + '\'' +
+                ", version = " + version +
+                ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }
 }

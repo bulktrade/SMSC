@@ -1,6 +1,5 @@
 package io.smsc.repository.customer;
 
-import io.smsc.AbstractTest;
 import io.smsc.model.admin.User;
 import io.smsc.model.customer.Customer;
 import org.junit.Before;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CustomerUnitTest extends AbstractTest {
+public class CustomerUnitTest {
 
     private Customer customer1;
     private Customer customer2;
@@ -29,7 +28,6 @@ public class CustomerUnitTest extends AbstractTest {
         customer1.setCountry("Ukraine");
         customer1.setCity("Lviv");
         customer1.setVatid("9999999.0");
-        customer1.setParent(new Customer());
         customer1.setUsers(Collections.emptySet());
         customer1.setContacts(Collections.emptySet());
         customer2.setId(1L);
@@ -40,7 +38,6 @@ public class CustomerUnitTest extends AbstractTest {
         customer2.setCountry("Ukraine");
         customer2.setCity("Lviv");
         customer2.setVatid("9999999.0");
-        customer2.setParent(new Customer());
         customer2.setUsers(Collections.emptySet());
         customer2.setContacts(Collections.emptySet());
     }
@@ -51,7 +48,17 @@ public class CustomerUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodePairOfEqualCustomers() throws Exception {
+    public void testEqualsAndHashcodePairOfEqualCustomers1() throws Exception {
+        assertThat(customer1).isEqualTo(customer2);
+        assertThat(customer1.getParent()).isEqualTo(customer2.getParent());
+        assertThat(customer1.getUsers()).isEqualTo(customer2.getUsers());
+        assertThat(customer1.getContacts()).isEqualTo(customer2.getContacts());
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfEqualCustomers2() throws Exception {
+        customer1.setVatid(null);
+        customer2.setVatid(null);
         assertThat(customer1).isEqualTo(customer2);
     }
 
@@ -66,8 +73,56 @@ public class CustomerUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodePairOfNonEqualCustomers() throws Exception {
+    public void testEqualsAndHashcodePairOfNonEqualCustomers1() throws Exception {
         customer2.setId(2L);
+        assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualCustomers2() throws Exception {
+        customer2.setCompanyName("some company");
+        assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualCustomers3() throws Exception {
+        customer2.setStreet("some street");
+        assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualCustomers4() throws Exception {
+        customer2.setStreet2("some street");
+        assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualCustomers5() throws Exception {
+        customer2.setPostcode("some postcode");
+        assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualCustomers6() throws Exception {
+        customer2.setCountry("some country");
+        assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualCustomers7() throws Exception {
+        customer2.setCity("some sity");
+        assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualCustomers8() throws Exception {
+        customer2.setVatid(null);
+        assertThat(customer1).isNotEqualTo(customer2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualCustomers9() throws Exception {
+        customer1.setVatid(null);
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
@@ -77,5 +132,20 @@ public class CustomerUnitTest extends AbstractTest {
         set.add(customer1);
         set.add(customer2);
         assertThat(set.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void testCustomerToString() throws Exception {
+        assertThat(customer1.toString()).isEqualTo("{id = " + customer1.getId() +
+                ", companyName = '" + customer1.getCompanyName() + '\'' +
+                ", street = '" + customer1.getStreet() + '\'' +
+                ", street2 = '" + customer1.getStreet2() + '\'' +
+                ", postcode = '" + customer1.getPostcode() + '\'' +
+                ", country = '" + customer1.getCountry() + '\'' +
+                ", city = '" + customer1.getCity() + '\'' +
+                ", vatid = '" + customer1.getVatid() + '\'' +
+                ", version = " + customer1.getVersion() +
+                ", lastModifiedDate = '" + customer1.getLastModifiedDate() + '\'' +
+                "}");
     }
 }

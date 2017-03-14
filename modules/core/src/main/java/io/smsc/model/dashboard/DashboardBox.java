@@ -156,14 +156,14 @@ public class DashboardBox extends BaseEntity {
 
     @Override
     public String toString() {
-        return "id=" + id +
-                "width=" + width +
-                ", height=" + height +
-                ", order=" + order +
-                ", name=" + name +
-                ", description='" + description + '\'' +
-                ", version='" + version + '\'' +
-                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+        return "{id = " + id +
+                ", width = '" + width + '\'' +
+                ", height = '" + height + '\'' +
+                ", order = " + order +
+                ", name = '" + name + '\'' +
+                ", description = '" + description + '\'' +
+                ", version = " + version +
+                ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }
 }
