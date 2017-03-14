@@ -19,7 +19,7 @@ describe('Service: ControlErrorService', () => {
         service = _service;
     }));
 
-    it('should have the email control', () => {
+    it('.formControlErrors() - should have the email control', () => {
         spyOn(service.notificationService, 'createNotification');
         let messages: Message[] = [
             <Message>{
@@ -40,7 +40,7 @@ describe('Service: ControlErrorService', () => {
         expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', messages[0].message);
     });
 
-    it('should not have the email control', () => {
+    it('.formControlErrors() - should not have the email control', () => {
         spyOn(service.notificationService, 'createNotification');
         let messages: Message[] = [
             <Message>{
@@ -56,7 +56,7 @@ describe('Service: ControlErrorService', () => {
         expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', 'ERROR_UPDATE');
     });
 
-    it('should not have the field property in the message', () => {
+    it('.formControlErrors() - should not have the field property in the message', () => {
         spyOn(service.notificationService, 'createNotification');
         let messages: Message[] = [
             <any>{
@@ -71,7 +71,7 @@ describe('Service: ControlErrorService', () => {
         expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', messages[0].message);
     });
 
-    it('should not have the list of error messages', () => {
+    it('.formControlErrors() - should not have the list of error messages', () => {
         spyOn(service.notificationService, 'createNotification');
         let messages: Message[] = [];
         let controls = <any>{
@@ -79,5 +79,34 @@ describe('Service: ControlErrorService', () => {
         };
         service.formControlErrors(messages, controls);
         expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', 'ERROR_UPDATE');
+    });
+
+    it('.gridControlErrors() - should not have the field property in the message', () => {
+        spyOn(service.notificationService, 'createNotification');
+        let messages: Message[] = [
+            <any>{
+                message: 'EMAIL_FORMAT_VALIDATION_ERROR',
+                type: 'ERROR'
+            }
+        ];
+        service.gridControlErrors(messages, <any>{}, <any>{});
+        expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', messages[0].message);
+    });
+
+    it('.gridControlErrors() - should get an error message depending of cell', () => {
+        spyOn(service.notificationService, 'createNotification');
+        let messages: Message[] = [
+            <Message>{
+                field: 'email',
+                message: 'EMAIL_FORMAT_VALIDATION_ERROR',
+                type: 'ERROR'
+            }
+        ];
+        let onEditCompleteEvent = {
+            column: {field: 'email'},
+            data: {id: 400000}
+        };
+        service.gridControlErrors(messages, onEditCompleteEvent, <any>{email: {}});
+        expect(service.notificationService.createNotification).toHaveBeenCalledWith('error', 'ERROR', 'EMAIL_FORMAT_VALIDATION_ERROR');
     });
 });
