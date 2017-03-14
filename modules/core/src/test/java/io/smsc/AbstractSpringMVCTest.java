@@ -41,9 +41,9 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @ContextConfiguration(classes = {Application.class, AppConfiguration.class, MvcConfiguration.class, Oracle10gDialectExtended.class,
         RepositoryIdExposingConfiguration.class, SecurityConfiguration.class, SecurityInit.class, SpringDataRestValidationConfiguration.class})
 @Transactional
-public abstract class AbstractTest {
+public abstract class AbstractSpringMVCTest {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractSpringMVCTest.class);
 
     private static StringBuilder results = new StringBuilder();
 

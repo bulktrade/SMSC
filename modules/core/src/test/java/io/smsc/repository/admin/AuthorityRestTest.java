@@ -1,6 +1,6 @@
 package io.smsc.repository.admin;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.admin.Authority;
 import io.smsc.model.admin.Role;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
-public class AuthorityRestTest extends AbstractTest {
+public class AuthorityRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleAuthority() throws Exception {

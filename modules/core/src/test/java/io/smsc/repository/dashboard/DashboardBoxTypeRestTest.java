@@ -1,6 +1,6 @@
 package io.smsc.repository.dashboard;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.dashboard.DashboardBoxType;
 import io.smsc.model.dashboard.Kind;
 import io.smsc.model.dashboard.Type;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class DashboardBoxTypeRestTest extends AbstractTest {
+public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleDashboardBoxType() throws Exception {

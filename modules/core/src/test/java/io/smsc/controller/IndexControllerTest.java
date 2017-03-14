@@ -1,6 +1,6 @@
 package io.smsc.controller;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.service.StaticResourceService;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IndexControllerTest extends AbstractTest {
+public class IndexControllerTest extends AbstractSpringMVCTest {
 
     @MockBean
     private StaticResourceService staticResourceService;

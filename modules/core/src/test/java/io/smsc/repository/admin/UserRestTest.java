@@ -1,7 +1,7 @@
 package io.smsc.repository.admin;
 
 import io.smsc.model.admin.User;
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.customer.Salutation;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
-public class UserRestTest extends AbstractTest {
+public class UserRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleUser() throws Exception {

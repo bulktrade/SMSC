@@ -1,6 +1,6 @@
 package io.smsc.controller;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.service.StaticResourceService;
 import org.junit.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -12,7 +12,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @TestPropertySource("classpath:index_controller.properties")
-public class IndexControllerConfigActionWithPropertiesTest extends AbstractTest {
+public class IndexControllerConfigActionWithPropertiesTest extends AbstractSpringMVCTest {
 
     @MockBean
     private StaticResourceService staticResourceService;

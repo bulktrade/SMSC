@@ -1,6 +1,6 @@
 package io.smsc.jwt;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.jwt.model.JWTUser;
 import io.smsc.model.admin.User;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class JWTUserTest extends AbstractTest {
+public class JWTUserTest extends AbstractSpringMVCTest {
 
     @Test
     public void testLoadAdminUserByUsernameAndCreateJWTUser() throws Exception {

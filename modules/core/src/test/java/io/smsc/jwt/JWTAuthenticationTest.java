@@ -2,7 +2,7 @@ package io.smsc.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
 import io.smsc.model.admin.User;
 import io.smsc.jwt.model.JWTAuthenticationRequest;
@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class JWTAuthenticationTest extends AbstractTest {
+public class JWTAuthenticationTest extends AbstractSpringMVCTest {
 
     @Test
     public void testLoginUser() throws Exception {

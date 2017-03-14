@@ -30,7 +30,8 @@ import java.util.Optional;
  * variables onto specific methods.
  *
  * @author Sergej Kunz
- * @since 0.0.1-SNAPSHOT
+ * @see StaticResourceService
+ * @since 0.0.2-SNAPSHOT
  */
 @Controller(
         value = "IndexController"

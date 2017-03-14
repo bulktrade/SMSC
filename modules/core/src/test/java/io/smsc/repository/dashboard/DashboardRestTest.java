@@ -1,6 +1,6 @@
 package io.smsc.repository.dashboard;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.admin.User;
 import io.smsc.model.dashboard.Dashboard;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class DashboardRestTest extends AbstractTest {
+public class DashboardRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleDashboard() throws Exception {

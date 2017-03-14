@@ -1,6 +1,6 @@
 package io.smsc.controller;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.service.StaticResourceService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @ContextConfiguration(initializers = IndexControllerConfigActionWithEnvironmentVariablesTest.MockPropertyInitializer.class)
-public class IndexControllerConfigActionWithEnvironmentVariablesTest extends AbstractTest {
+public class IndexControllerConfigActionWithEnvironmentVariablesTest extends AbstractSpringMVCTest {
 
     @MockBean
     private StaticResourceService staticResourceService;

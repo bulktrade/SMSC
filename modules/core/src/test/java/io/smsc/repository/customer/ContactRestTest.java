@@ -1,6 +1,6 @@
 package io.smsc.repository.customer;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.customer.Contact;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class ContactRestTest extends AbstractTest {
+public class ContactRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleCustomerContact() throws Exception {

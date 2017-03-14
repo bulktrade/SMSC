@@ -1,6 +1,6 @@
 package io.smsc.encryption;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.util.EncrypterUtil;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import java.lang.reflect.Field;
 import static io.smsc.util.EncrypterUtil.removeCryptographyRestrictions;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EncrypterUtilTest extends AbstractTest{
+public class EncrypterUtilTest extends AbstractSpringMVCTest {
 
     private final static String RAW_PASSWORD = "john123456";
     private final static String STRING_FOR_ENCODING  = "someString";

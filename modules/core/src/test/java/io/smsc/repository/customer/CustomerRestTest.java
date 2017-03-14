@@ -1,11 +1,9 @@
 package io.smsc.repository.customer;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.customer.Customer;
-import org.apache.catalina.connector.Response;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -13,7 +11,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class CustomerRestTest extends AbstractTest {
+public class CustomerRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleCustomer() throws Exception {

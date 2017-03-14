@@ -1,6 +1,6 @@
 package io.smsc.security;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
 import io.smsc.model.customer.Customer;
 import org.junit.Before;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class AdminAccessTest extends AbstractTest {
+public class AdminAccessTest extends AbstractSpringMVCTest {
 
     private String adminToken;
 

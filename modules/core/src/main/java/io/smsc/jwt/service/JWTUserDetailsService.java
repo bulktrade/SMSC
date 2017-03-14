@@ -3,11 +3,10 @@ package io.smsc.jwt.service;
 import io.smsc.jwt.model.JWTUser;
 import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
 
 /**
  * This interface is extending basic {@link UserDetailsService} and describing methods
- * to locate the user based on the username or email.Methods implementation is in
+ * to locate the user based on the username or email. Methods implementation is in
  * {@link JWTUserDetailsServiceImpl}
  *
  * @author Nazar Lipkovskyy
