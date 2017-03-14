@@ -165,5 +165,6 @@
     "user.username": "Username",
     "profile.successUpdate": "Profile was successfully updated.",
     "profile.errorUpdate": "Profile can't be updated.",
-    "EMAIL_FORMAT_VALIDATION_ERROR": "Not valid email address."
+    "EMAIL_FORMAT_VALIDATION_ERROR": "Not valid email address.",
+    "PROFILE": "Profile"
 }

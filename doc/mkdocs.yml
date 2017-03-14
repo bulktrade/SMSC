@@ -1,1 +1,10 @@
 site_name: SMSC
+pages:
+    - Home: index.md
+    - Modules:
+      - 'Admin':
+        - 'Login': 'modules/admin/login.md'
+        - 'Customer GRID': 'modules/admin/customers.md'
+        - 'Profile': 'modules/admin/profile.md'
+    - SMSC API: api.md
+theme: readthedocs
