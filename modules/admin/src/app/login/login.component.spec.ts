@@ -63,7 +63,7 @@ describe('Component: LoginComponent', () => {
         componentFixture.instance.onSubmit(new LoginModel('', '', false));
 
         expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.router.navigateByUrl).toHaveBeenCalledWith('/customers');
+        expect(componentFixture.instance.router.navigateByUrl).toHaveBeenCalledWith('/');
     }));
 
     it('.onSubmit() - status: 401', async(() => {
