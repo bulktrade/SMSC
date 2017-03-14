@@ -154,7 +154,7 @@ public class IndexController {
             config = mapper.readValue(configJson, Config.class);
 
         } catch (Exception e) {
-            LOGGER.info("Some exception occurred", e);
+            LOGGER.info("No config file or inappropriate data");
             config = new Config();
         }
 
