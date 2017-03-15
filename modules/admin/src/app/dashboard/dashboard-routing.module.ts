@@ -9,7 +9,7 @@ import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.comp
 
 const ROUTE_PROVIDER = [
     {
-        path: ':id/create',
+        path: 'create',
         component: DashboardCreateComponent
     },
     {
