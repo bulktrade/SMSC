@@ -73,23 +73,15 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
 
         if (username != null) {
             LOG.info(String.format("Checking authentication for user %s ", username));
-
-            if (SecurityContextHolder.getContext().getAuthentication() == null) {
-                try {
-                    JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
-
-                    if (jwtTokenGenerationService.validateToken(authToken, jwtUser)) {
-                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
-                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                        LOG.info(String.format("Authenticated user %s, setting security context", username));
-                        LOG.info(String.format("%s has authorities: %s", username, jwtUser.getAuthorities()));
-
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
-                    }
-                } catch (UsernameNotFoundException e) {
-                    LOG.info(String.format("User %s not found.", username));
-                }
+            try {
+                JWTUser jwtUser = this.userDetailsService.loadUserByUsername(username);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(jwtUser, null, jwtUser.getAuthorities());
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                LOG.info(String.format("Authenticated user %s, setting security context", username));
+                LOG.info(String.format("%s has authorities: %s", username, jwtUser.getAuthorities()));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } catch (UsernameNotFoundException e) {
+                LOG.info(String.format("User %s not found.", username));
             }
         }
         chain.doFilter(request, response);

@@ -44,6 +44,10 @@ public class EncrypterUtil {
     public static void encrypt(Object obj) {
         try {
             CharSequence salt = getSalt(obj);
+            if(null == secretKey) {
+                secretKey = "smsc.io";
+            }
+
             TextEncryptor encryptor = Encryptors.text(secretKey, salt);
             for (Field field : obj.getClass().getDeclaredFields()) {
                 if (field.isAnnotationPresent(Encrypt.class) && !field.isAccessible()) {

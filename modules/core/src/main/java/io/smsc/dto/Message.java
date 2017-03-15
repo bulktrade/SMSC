@@ -1,9 +1,18 @@
 package io.smsc.dto;
 
+/**
+ * Class for exception information transfer. Contains error message, type and field.
+ *
+ * @author Sergej Kunz
+ * @since 0.0.2-SNAPSHOT
+ */
 public class Message {
     private String message;
     private MessageType type;
     private String field;
+
+    public Message() {
+    }
 
     public Message(String message, MessageType type, String field) {
         this.message = message;

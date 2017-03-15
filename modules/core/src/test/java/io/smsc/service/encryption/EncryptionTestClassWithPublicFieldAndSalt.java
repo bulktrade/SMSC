@@ -1,4 +1,4 @@
-package io.smsc.encryption;
+package io.smsc.service.encryption;
 
 import io.smsc.annotation.Encrypt;
 

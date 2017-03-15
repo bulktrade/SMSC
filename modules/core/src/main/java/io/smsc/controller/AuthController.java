@@ -3,13 +3,13 @@ package io.smsc.controller;
 import io.smsc.jwt.model.*;
 import io.smsc.jwt.service.JWTTokenGenerationService;
 import io.smsc.jwt.service.JWTUserDetailsService;
-import io.smsc.util.EncrypterUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,21 +66,26 @@ public class AuthController {
                     break;
                 }
             }
+
             if(!hasRoles) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Current user has no appropriate roles. Please contact your administrator");
                 return null;
             }
+
             if (passwordEncoder.matches(request.getPassword(), jwtUser.getPassword())) {
-                JWTAuthenticationResponse token = new JWTAuthenticationResponse(jwtTokenGenerationService.generateAccessToken(jwtUser), jwtTokenGenerationService.generateRefreshToken(jwtUser));
+                JWTAuthenticationResponse token = new JWTAuthenticationResponse(jwtTokenGenerationService.generateAccessToken(jwtUser),
+                        jwtTokenGenerationService.generateRefreshToken(jwtUser));
                 return new ResponseEntity<>(token, HttpStatus.OK);
             }
-        }
-        catch (Exception ex) {
-            LOG.debug("Some exception occurred", ex);
-        }
 
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials are invalid. Please enter valid username and password");
-        return null;
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials are invalid. Please enter valid username and password");
+            return null;
+        }
+        catch (UsernameNotFoundException ex) {
+            LOG.debug("Invalid credentials", ex);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials are invalid. Please enter valid username and password");
+            return null;
+        }
     }
 
     /**
@@ -99,15 +104,18 @@ public class AuthController {
         try {
             String expiredAccessToken = request.getExpiredToken();
             String refreshToken = request.getRefreshToken();
-            JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername(jwtTokenGenerationService.getUsernameFromToken(refreshToken));
-            if (jwtTokenGenerationService.validateToken(refreshToken, jwtUser) || jwtTokenGenerationService.getUsernameFromToken(expiredAccessToken).equals(jwtUser.getUsername())) {
+            JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername(jwtTokenGenerationService.getUsernameFromToken(expiredAccessToken));
+            if (jwtTokenGenerationService.validateToken(refreshToken, jwtUser)) {
                 JWTRefreshTokenResponse token = new JWTRefreshTokenResponse(jwtTokenGenerationService.refreshToken(expiredAccessToken));
                 return new ResponseEntity<>(token, HttpStatus.OK);
             }
-        } catch (Exception ex) {
-            LOG.debug("Some exception occurred", ex);
+
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh or expired access token is invalid. Please enter valid tokens");
+            return null;
+        } catch (UsernameNotFoundException ex) {
+            LOG.debug("Invalid access token", ex);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh or expired access token is invalid. Please enter valid tokens");
+            return null;
         }
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh or expired access token is invalid. Please enter valid tokens");
-        return null;
     }
 }

@@ -61,6 +61,14 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
     }
 
     @Test
+    public void testLoginWithWrongPassword() throws Exception {
+        mockMvc.perform(post("/rest/auth/token")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json(new JWTAuthenticationRequest("admin", "unknown"))))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     @WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
     public void testLoginWithoutAdminUserRole() throws Exception {
         User fake = new User();
