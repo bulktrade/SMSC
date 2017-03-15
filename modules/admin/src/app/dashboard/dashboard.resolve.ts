@@ -1,14 +1,14 @@
-import {ActivatedRouteSnapshot, RouterStateSnapshot, Resolve} from "@angular/router";
+import {ActivatedRouteSnapshot, RouterStateSnapshot, Resolve, Params} from "@angular/router";
 import {Injectable} from "@angular/core";
 import {DashboardService} from "./dashboard.service";
 
 @Injectable()
-export class DashboardsResolve implements Resolve<any> {
+export class DashboardResolve implements Resolve<any> {
 
     constructor(public dashboardService: DashboardService) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.dashboardService.getDashboards();
+        return this.dashboardService.getResourceById(Number(route.params['id']));
     }
 }

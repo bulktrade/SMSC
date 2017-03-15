@@ -16,6 +16,15 @@ export const ROUTES: Routes = [
         canActivate: [AuthGuard],
         children: [
             {
+                path: 'dashboard',
+                loadChildren: './dashboard/dashboard.module#DashboardModule',
+                data: {
+                    translationKey: 'Dashboard',
+                    showInSubNavigation: true,
+                    icon: 'fa-tachometer'
+                },
+            },
+            {
                 path: 'customers',
                 data: {
                     translationKey: 'Customers',
@@ -27,15 +36,6 @@ export const ROUTES: Routes = [
             {
                 path: 'profile',
                 loadChildren: './profile/profile.module#ProfileModule'
-            },
-            {
-                path: '',
-                loadChildren: './dashboards/dashboards.module#DashboardsModule',
-                data: {
-                    translationKey: 'Dashboard',
-                    showInSubNavigation: true,
-                    icon: 'fa-tachometer'
-                },
             }
         ]
     },

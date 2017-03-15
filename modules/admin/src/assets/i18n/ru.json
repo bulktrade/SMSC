@@ -169,5 +169,12 @@
     "profile.successUpdate": "Profile was successfully updated.",
     "profile.errorUpdate": "Profile can't be updated.",
     "EMAIL_FORMAT_VALIDATION_ERROR": "Not valid email address.",
-    "PROFILE": "Profile"
+    "PROFILE": "Profile",
+    "dashboard.createDashboard": "Create dashboard",
+    "dashboard.updateDashboard": "Update dashboard",
+    "dashboard.deleteDashboard": "Delete dashboard",
+    "dashboard.successCreateDashboard": "Dashboard was successfully created",
+    "dashboard.successUpdateDashboard": "Dashboard was successfully updated",
+    "dashboard.successDeleteDashboard": "Dashboard was successfully deleted",
+    "dashboard.errorDeleteDashboard": "Dashboard was not deleted"
 }

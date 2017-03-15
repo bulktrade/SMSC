@@ -1,4 +1,7 @@
 import {Component, Input, trigger, style, animate, state, transition} from "@angular/core";
+import {DashboardService} from "../dashboard/dashboard.service";
+import {Dashboard} from "../dashboard/dashboard.model";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'sidebar-item',
@@ -28,4 +31,25 @@ export class SidebarItemComponent {
     @Input('submenu') public submenu;
 
     @Input('toggle') public toggle;
+
+    public dashboards: Dashboard[] = [];
+
+    public navItemState: boolean[] = [];
+
+    constructor(public dashboardService: DashboardService,
+                public router: Router) {
+    }
+
+    isActive(instruction: any[]): boolean {
+        return this.router.isActive(this.router.createUrlTree(instruction), true);
+    }
+
+    ngOnInit() {
+        this.dashboardService.onResourceChange.subscribe(() => this.updateDashboards());
+        this.updateDashboards();
+    }
+
+    updateDashboards() {
+        this.dashboardService.getDashboards().subscribe((_dashboards: Dashboard[]) => this.dashboards = _dashboards);
+    }
 }

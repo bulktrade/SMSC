@@ -47,7 +47,7 @@ describe('Service:  CrudRepository', () => {
     }));
 
     it('should create the new resource', () => {
-        let responseData = {
+        let responseData: Data = <Data>{
             name: 'mock',
             telephoneNumber: '0986523476'
         };

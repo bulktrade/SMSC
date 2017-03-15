@@ -63,12 +63,11 @@ describe('Component: LoginComponent', () => {
         componentFixture.instance.onSubmit(new LoginModel('', '', false));
 
         expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.router.navigateByUrl).toHaveBeenCalledWith('/');
+        expect(componentFixture.instance.router.navigateByUrl).toHaveBeenCalledWith('/customers');
     }));
 
     it('.onSubmit() - status: 401', async(() => {
         spyOn(componentFixture.instance, 'toggleLoading');
-        spyOn(componentFixture.instance.router, 'navigateByUrl');
         spyOn(componentFixture.instance.growlService, 'show');
         spyOn(componentFixture.instance.authService, 'login').and.callFake((username: string, password: string) => {
             return Observable.throw(new Response(new ResponseOptions({status: 401})));
@@ -83,7 +82,6 @@ describe('Component: LoginComponent', () => {
 
     it('.onSubmit() - status: 500', async(() => {
         spyOn(componentFixture.instance, 'toggleLoading');
-        spyOn(componentFixture.instance.router, 'navigateByUrl');
         spyOn(componentFixture.instance.growlService, 'show');
         spyOn(componentFixture.instance.authService, 'login').and.callFake((username: string, password: string) => {
             return Observable.throw(new Response(new ResponseOptions({status: 500})));

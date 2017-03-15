@@ -34,6 +34,8 @@ import {LoadingRouterOutletModule} from "./shared/components/loading-router-outl
 import {NotificationService} from "./services/notification-service";
 import "../styles/styles.scss";
 import {ControlErrorService} from "./services/control-error";
+import {DashboardService} from "./dashboard/dashboard.service";
+import {UserService} from "./users/user.service";
 
 export type StoreType = {
     state: InternalStateType,
@@ -51,6 +53,8 @@ export function _XSRFFactory() {
 
 export const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
+    DashboardService,
+    UserService,
     ControlErrorService,
     CustomersService,
     LoadingGridService,

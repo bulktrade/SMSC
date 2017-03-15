@@ -1,10 +1,8 @@
 import {NgModule} from "@angular/core";
-import {DashboardsComponent} from "./dashboards.component";
-import {DashboardsRoutingModule} from "./dashboards-routing.module";
-import {DashboardService} from "./dashboard.service";
-import {DashboardsResolve} from "./dashboards.resolve";
+import {DashboardComponent} from "./dashboard.component";
+import {DashboardRoutingModule} from "./dashboard-routing.module";
+import {DashboardResolve} from "./dashboard.resolve";
 import {HTTP_INTERCEPTOR_PROVIDER} from "../shared/http-interceptor";
-import {UserService} from "../users/user.service";
 import {RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {TranslateModule} from "ng2-translate";
@@ -18,10 +16,15 @@ import {DashboardCreateComponent} from "./dashboard-create/dashboard-create.comp
 import {CommonModule} from "@angular/common";
 import {NotificationService} from "../services/notification-service";
 import {ControlErrorService} from "../services/control-error";
+import {SplitButtonModule} from "primeng/components/splitbutton/splitbutton";
+import {DashboardUpdateComponent} from "./dashboard-update/dashboard-update.component";
+import {DashboardUpdateResolve} from "./dashboard-update/dashboard-update.resolve";
+import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.component";
+import {MessagesModule} from "primeng/components/messages/messages";
 
 @NgModule({
     imports: [
-        DashboardsRoutingModule,
+        DashboardRoutingModule,
         CommonModule,
         RouterModule,
         FormsModule,
@@ -32,20 +35,23 @@ import {ControlErrorService} from "../services/control-error";
         DropdownModule,
         ControlErrorsModule,
         OneToOneModule,
+        SplitButtonModule,
+        MessagesModule
     ],
-    exports: [DashboardsComponent],
+    exports: [DashboardComponent],
     declarations: [
-        DashboardsComponent,
-        DashboardCreateComponent
+        DashboardComponent,
+        DashboardCreateComponent,
+        DashboardUpdateComponent,
+        DashboardDeleteComponent
     ],
     providers: [
-        DashboardService,
-        UserService,
         ControlErrorService,
         NotificationService,
-        DashboardsResolve,
+        DashboardResolve,
+        DashboardUpdateResolve,
         HTTP_INTERCEPTOR_PROVIDER
     ],
 })
-export class DashboardsModule {
+export class DashboardModule {
 }
