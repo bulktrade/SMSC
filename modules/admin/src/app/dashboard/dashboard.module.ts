@@ -21,6 +21,9 @@ import {DashboardUpdateComponent} from "./dashboard-update/dashboard-update.comp
 import {DashboardUpdateResolve} from "./dashboard-update/dashboard-update.resolve";
 import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.component";
 import {MessagesModule} from "primeng/components/messages/messages";
+import {DashboardsComponent} from "./dashboards/dashboards.component";
+import {DashboardsResolve} from "./dashboards/dashboards.resolve";
+import {DataScrollerModule} from "primeng/components/datascroller/datascroller";
 
 @NgModule({
     imports: [
@@ -36,19 +39,22 @@ import {MessagesModule} from "primeng/components/messages/messages";
         ControlErrorsModule,
         OneToOneModule,
         SplitButtonModule,
-        MessagesModule
+        MessagesModule,
+        DataScrollerModule
     ],
     exports: [DashboardComponent],
     declarations: [
         DashboardComponent,
         DashboardCreateComponent,
         DashboardUpdateComponent,
-        DashboardDeleteComponent
+        DashboardDeleteComponent,
+        DashboardsComponent
     ],
     providers: [
         ControlErrorService,
         NotificationService,
         DashboardResolve,
+        DashboardsResolve,
         DashboardUpdateResolve,
         HTTP_INTERCEPTOR_PROVIDER
     ],

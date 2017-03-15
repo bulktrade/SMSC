@@ -11,7 +11,7 @@
     "login.rememberMe": "Remember Me",
     "login.userNotFound": "The credentials you supplied were not correct!",
     "login.commonError": "An error has occurred!",
-    "DASHBOARDS": "Dashboard",
+    "DASHBOARDS": "Dashboards",
     "DASHBOARD": "Dashboard",
     "DASHBOARDVIEW": "Dashboard",
     "GSM": "GSM",
@@ -176,5 +176,7 @@
     "dashboard.successCreateDashboard": "Dashboard was successfully created",
     "dashboard.successUpdateDashboard": "Dashboard was successfully updated",
     "dashboard.successDeleteDashboard": "Dashboard was successfully deleted",
-    "dashboard.errorDeleteDashboard": "Dashboard was not deleted"
+    "dashboard.errorDeleteDashboard": "Dashboard was not deleted",
+    "CREATE": "Create",
+    "UPDATE": "Update"
 }

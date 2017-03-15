@@ -26,7 +26,6 @@ export class DashboardUpdateComponent {
     ngOnInit() {
         this.route.params.subscribe((params: Params) => this.id = Number(params['id']));
         this.model = this.getDashboard();
-        console.log(this.model);
     }
 
     onSubmit(dashboardForm: NgForm) {

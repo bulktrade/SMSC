@@ -1,6 +1,6 @@
 <div *ngIf="showInSubNavigation" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav" #isIcon>
     <a (click)="navItemState[nameItem]=!navItemState[nameItem]" [class.active]="isActive([path])"
-       class="{{nameItem.toLowerCase()}} sub-task clear" (click)="nameItem !== 'dashboard' && router.navigateByUrl(path)">
+       class="{{nameItem.toLowerCase()}} sub-task clear" (click)="router.navigateByUrl(path)">
         <i class="icon-left fa" [ngClass]="icon"></i>
         <div class="show-nav">
             <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>

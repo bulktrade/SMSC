@@ -6,6 +6,8 @@ import {DashboardCreateComponent} from "./dashboard-create/dashboard-create.comp
 import {DashboardUpdateComponent} from "./dashboard-update/dashboard-update.component";
 import {DashboardUpdateResolve} from "./dashboard-update/dashboard-update.resolve";
 import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.component";
+import {DashboardsComponent} from "./dashboards/dashboards.component";
+import {DashboardsResolve} from "./dashboards/dashboards.resolve";
 
 const ROUTE_PROVIDER = [
     {
@@ -28,6 +30,13 @@ const ROUTE_PROVIDER = [
         component: DashboardComponent,
         resolve: {
             dashboard: DashboardResolve
+        }
+    },
+    {
+        path: '',
+        component: DashboardsComponent,
+        resolve: {
+            dashboards: DashboardsResolve
         }
     }
 ];
