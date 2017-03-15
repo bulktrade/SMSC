@@ -30,6 +30,7 @@ public class CustomerUserUnitTest {
         user1.setActive(true);
         user1.setBlocked(false);
         user1.setSalutation(Salutation.MR);
+        user1.setCustomer(null);
         user2.setId(1L);
         user2.setUsername("Old Johnny");
         user2.setFirstname("John");
@@ -38,6 +39,7 @@ public class CustomerUserUnitTest {
         user2.setActive(true);
         user2.setBlocked(false);
         user2.setSalutation(Salutation.MR);
+        user2.setCustomer(null);
     }
 
     @Test

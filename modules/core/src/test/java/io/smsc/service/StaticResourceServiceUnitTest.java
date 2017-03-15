@@ -8,10 +8,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.test.util.ReflectionTestUtils;
-
-import java.io.InputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,49 +32,57 @@ public class StaticResourceServiceUnitTest {
 
     @Test
     public void getContentWithResourceTest() throws Exception {
-        when(context.getResource(PATH)).thenReturn(new ClassPathResource("index.html"));
+        mockExistingResource();
         assertThat(resourceService.getContent(PATH)).contains("SMSC");
     }
 
     @Test
     public void getContentWithoutResourceTest() throws Exception {
-        when(context.getResource(PATH)).thenReturn(new ClassPathResource("not-exist.html"));
+        mockNotExistingResource();
         assertThat(resourceService.getContent(PATH)).isNull();
     }
 
     @Test
     public void getBinarayContentWithResourceTest() throws Exception {
-        when(context.getResource(PATH)).thenReturn(new ClassPathResource("index.html"));
+        mockExistingResource();
         assertThat(resourceService.getBinarayContent(PATH)).contains("SMSC".getBytes());
     }
 
     @Test
     public void getBinarayContentWithoutResourceTest() throws Exception {
-        when(context.getResource(PATH)).thenReturn(new ClassPathResource("not-exist.html"));
+        mockNotExistingResource();
         assertThat(resourceService.getBinarayContent(PATH)).isEmpty();
     }
 
     @Test
     public void getInputStreamWithResourceTest() throws Exception {
-        when(context.getResource(PATH)).thenReturn(new ClassPathResource("index.html"));
+        mockExistingResource();
         assertThat(resourceService.getInputStream(PATH)).hasSameContentAs(new ClassPathResource("index.html").getInputStream());
     }
 
     @Test
     public void getInputStreamWithoutResourceTest() throws Exception {
-        when(context.getResource(PATH)).thenReturn(new ClassPathResource("not-exist.html"));
+        mockNotExistingResource();
         assertThat(resourceService.getInputStream(PATH)).isNull();
     }
 
     @Test
     public void getResourceWithResourceTest() throws Exception {
-        when(context.getResource(PATH)).thenReturn(new ClassPathResource("index.html"));
+        mockExistingResource();
         assertThat(resourceService.getResource(PATH)).isEqualTo(new ClassPathResource("index.html"));
     }
 
     @Test
     public void getResourceWithoutResourceTest() throws Exception {
-        when(context.getResource(PATH)).thenReturn(new ClassPathResource("not-exist.html"));
+        mockNotExistingResource();
         assertThat(resourceService.getResource(PATH)).isEqualTo(new ClassPathResource("not-exist.html"));
+    }
+
+    private void mockExistingResource() {
+        when(context.getResource(PATH)).thenReturn(new ClassPathResource("index.html"));
+    }
+
+    private void mockNotExistingResource() {
+        when(context.getResource(PATH)).thenReturn(new ClassPathResource("not-exist.html"));
     }
 }
