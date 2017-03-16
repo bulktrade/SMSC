@@ -110,6 +110,29 @@ public class IndexControllerTest extends AbstractSpringMVCTest {
     }
 
     @Test
+    public void testAdminActionWithFilePathAndWithoutResourceNotModified() throws Exception {
+        given(this.staticResourceService.getResource("classpath:META-INF/resources/io.smsc.admin/index.html")).willReturn(new ClassPathResource("not-exist.html"));
+
+        MvcResult result = mockMvc
+                .perform(get("/admin/index.html")
+                        .header("If-Unmodified-Since", lastModified - 100000L))
+                .andReturn();
+
+        assertThat(result.getResponse().getStatus()).isEqualTo(404);
+    }
+
+    @Test
+    public void testAdminActionWithFilePathAndWithoutResourceModified() throws Exception {
+        given(this.staticResourceService.getResource("classpath:META-INF/resources/io.smsc.admin/index.html")).willReturn(new ClassPathResource("not-exist.html"));
+
+        MvcResult result = mockMvc
+                .perform(get("/admin/index.html"))
+                .andReturn();
+
+        assertThat(result.getResponse().getStatus()).isEqualTo(404);
+    }
+
+    @Test
     public void testConfigActionWithoutResourceAndProperties() throws Exception {
         given(this.staticResourceService.getContent("classpath:META-INF/resources/io.smsc.admin/config.json")).willReturn("");
 

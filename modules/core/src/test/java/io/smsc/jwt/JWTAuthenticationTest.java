@@ -150,6 +150,28 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
     }
 
     @Test
+    public void testRefreshTokenWithInvalidExpiredAccessToken() throws Exception {
+        User admin = new User();
+        admin.setId(2L);
+        admin.setUsername("admin");
+        admin.setPassword("admin");
+        admin.setFirstname("adminName");
+        admin.setSurname("adminSurname");
+        admin.setEmail("admin@gmail.com");
+        admin.setActive(true);
+        admin.setBlocked(false);
+        UserDetails adminDetails = JWTUserDetailsServiceImpl.createJwtUser(admin);
+        String invalidExpiredAccessToken = "invalidToken";
+        String refreshToken = jwtTokenGenerationService.generateRefreshToken(adminDetails);
+        MvcResult result =  mockMvc.perform(put("/rest/auth/token")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json(new JWTRefreshTokenRequest(invalidExpiredAccessToken, refreshToken))))
+                .andExpect(status().isUnauthorized())
+                .andReturn();
+        assertThat(result.getResponse().getErrorMessage()).isEqualTo("Refresh or expired access token is invalid. Please enter valid tokens");
+    }
+
+    @Test
     public void testJwtAccessWithExpiredToken() throws Exception {
         Map<String, Object> claims = new HashMap<>();
         claims.put("sub", "admin");
