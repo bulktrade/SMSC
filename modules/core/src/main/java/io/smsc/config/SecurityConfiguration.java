@@ -89,9 +89,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        if(null == encryptionStrength || encryptionStrength < 4 || encryptionStrength > 31) {
-            encryptionStrength = 10;
-        }
         return new BCryptPasswordEncoder(encryptionStrength, new SecureRandom(encryptionKey.getBytes()));
     }
 

@@ -90,7 +90,7 @@ public class AuthController {
 
     /**
      * Method to receive {@link ResponseEntity} with {@link JWTRefreshTokenResponse}
-     * which contains refreshed access token.
+     * which contains new access token.
      *
      * @param request  the {@link JWTRefreshTokenRequest} to take valid refresh
      *                 token and expired access token from
@@ -102,19 +102,14 @@ public class AuthController {
     @PutMapping(path = "/rest/auth/token", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<JWTRefreshTokenResponse> token(@RequestBody JWTRefreshTokenRequest request, HttpServletResponse response) throws IOException {
         try {
-            String expiredAccessToken = request.getExpiredToken();
             String refreshToken = request.getRefreshToken();
-            JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername(jwtTokenGenerationService.getUsernameFromToken(expiredAccessToken));
-            if (jwtTokenGenerationService.validateToken(refreshToken, jwtUser)) {
-                JWTRefreshTokenResponse token = new JWTRefreshTokenResponse(jwtTokenGenerationService.refreshToken(expiredAccessToken));
-                return new ResponseEntity<>(token, HttpStatus.OK);
-            }
+            JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername(jwtTokenGenerationService.getUsernameFromToken(refreshToken));
+            JWTRefreshTokenResponse token = new JWTRefreshTokenResponse(jwtTokenGenerationService.generateAccessToken(jwtUser));
+            return new ResponseEntity<>(token, HttpStatus.OK);
 
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh or expired access token is invalid. Please enter valid tokens");
-            return null;
         } catch (UsernameNotFoundException ex) {
             LOG.debug("Invalid access token", ex);
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh or expired access token is invalid. Please enter valid tokens");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Refresh token is invalid. Please enter valid token");
             return null;
         }
     }

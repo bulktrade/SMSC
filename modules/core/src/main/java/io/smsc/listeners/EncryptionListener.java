@@ -24,7 +24,7 @@ public class EncryptionListener {
      */
     @PrePersist
     @PreUpdate
-    public void encrypt(Object obj) {
+    public void encrypt(Object obj) throws IllegalAccessException {
         EncrypterUtil.encrypt(obj);
     }
 
@@ -35,7 +35,7 @@ public class EncryptionListener {
      */
     @PostLoad
     @PostUpdate
-    public void decrypt(Object obj) {
+    public void decrypt(Object obj) throws IllegalAccessException {
         EncrypterUtil.decrypt(obj);
     }
 }

@@ -53,15 +53,6 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
         return username;
     }
 
-    private Date getExpirationDateFromToken(String token) {
-        Date expirationDate = null;
-        Claims claims = getClaimsFromToken(token);
-        if (null != claims) {
-            expirationDate = claims.getExpiration();
-        }
-        return expirationDate;
-    }
-
     private Claims getClaimsFromToken(String token) {
         Claims claims;
         try {
@@ -82,29 +73,6 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
 
     private Date generateExpirationDateForRefreshToken() {
         return new Date(System.currentTimeMillis() + expiration * 24 * 1000);
-    }
-
-    private Boolean isTokenExpired(String token) {
-        Date expirationDate = getExpirationDateFromToken(token);
-        return null == expirationDate || expirationDate.before(new Date());
-    }
-
-    @Override
-    public String refreshToken(String token) {
-        String refreshedToken = null;
-        Claims claims = getClaimsFromToken(token);
-        if (null != claims) {
-            claims.put(CLAIM_KEY_CREATED, new Date());
-            refreshedToken = generateAccessToken(claims);
-        }
-        return refreshedToken;
-    }
-
-    @Override
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        JWTUser user = (JWTUser) userDetails;
-        final String username = getUsernameFromToken(token);
-        return null != username && username.equals(user.getUsername()) && !isTokenExpired(token);
     }
 
     @Override

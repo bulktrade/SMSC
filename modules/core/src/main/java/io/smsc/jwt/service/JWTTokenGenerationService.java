@@ -18,10 +18,6 @@ public interface JWTTokenGenerationService extends Serializable {
 
     String getUsernameFromToken(String token);
 
-    String refreshToken(String token);
-
-    Boolean validateToken(String token, UserDetails userDetails);
-
     String generateAccessToken(UserDetails userDetails);
 
     String generateRefreshToken(UserDetails userDetails);

@@ -16,12 +16,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class JWTUserUnitTest {
 
     private User user;
+    private Group group;
 
     @Before
     public void setUp() {
         user = new User();
+        group = new Group();
         Role role = new Role();
-        Group group = new Group();
         Authority authority = new Authority();
         role.setName("ROLE_ROLE");
         group.setName("GROUP_GROUP");
@@ -33,7 +34,21 @@ public class JWTUserUnitTest {
     }
 
     @Test
-    public void createJWTUser() {
+    public void createJWTUserWithGroupWithAuthority() {
+        JWTUser jwtUser = JWTUserDetailsServiceImpl.createJwtUser(user);
+        assertThat(jwtUser.getAuthorities()).hasSize(2);
+    }
+
+    @Test
+    public void createJWTUserWithGroupWithoutAuthorities() {
+        group.setAuthorities(Collections.emptySet());
+        JWTUser jwtUser = JWTUserDetailsServiceImpl.createJwtUser(user);
+        assertThat(jwtUser.getAuthorities()).hasSize(2);
+    }
+
+    @Test
+    public void createJWTUserWithGroupWithNullAuthorities() {
+        group.setAuthorities(null);
         JWTUser jwtUser = JWTUserDetailsServiceImpl.createJwtUser(user);
         assertThat(jwtUser.getAuthorities()).hasSize(2);
     }
