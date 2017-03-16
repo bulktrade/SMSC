@@ -13,6 +13,8 @@ export class DashboardBoxComponent {
 
     @HostBinding('class.fullscreen') fullscreen: boolean = false;
 
+    isSettings: boolean = false;
+
     constructor(@Inject(DOCUMENT) public document) {
     }
 
@@ -24,6 +26,10 @@ export class DashboardBoxComponent {
             this.document.querySelector('#navigation-window .topbar').style.display = 'none';
             this.fullscreen = true;
         }
+    }
+
+    toggleSettings() {
+        this.isSettings = !this.isSettings;
     }
 
     @HostListener('document:keydown', ['$event'])

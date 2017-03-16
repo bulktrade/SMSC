@@ -1,13 +1,13 @@
 $colorScheme: #2ab4c0;
 
 :host {
-  height: 150px;
   margin-bottom: 20px;
 
   .dashboard-box {
+    position: relative;
     height: inherit;
     background: #fff;
-    padding: 15px;
+    padding: 15px 15px 30px 15px;
 
     hr {
       margin-top: 1.9rem;
@@ -41,11 +41,41 @@ $colorScheme: #2ab4c0;
       color: #aab5bc;
       font-weight: 600;
     }
-    
+
     .bottom-bar {
+      position: absolute;
+      width: calc(100% - 30px);
+      bottom: 16px;
       background: $colorScheme;
-      margin-top: 15px;
       height: 4px;
+    }
+  }
+
+  .dashboard-box-settings {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    padding: 15px;
+    background: #fff;
+    top: 0;
+    left: 0;
+
+    > div {
+      display: inline-table;
+      margin: auto;
+    }
+
+    i {
+      top: 15px;
+      right: 15px;
+      color: #aab5bc;
+      cursor: pointer;
+      position: absolute;
+
+      &:hover {
+        color: #d9534f;
+      }
     }
   }
 }

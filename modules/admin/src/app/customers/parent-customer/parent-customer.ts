@@ -13,16 +13,16 @@ import {Customer} from "../model/customer";
     selector: 'parent-customer',
     template: `
     <div id="one-to-one-component" class="parent-customer">
-        <p-autoComplete [ngModel]="getModelBySchema(model)" (ngModelChange)="onSelectResource($event).subscribe()"
+        <p-autoComplete [ngModel]="getModelBySchema(model)" (ngModelChange)="onSelectResource($event)"
                         [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
-                         styleClass="ui-sm-12 ui-md-12 ui-g-nopad" [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick().subscribe()">
+                         styleClass="ui-sm-12 ui-md-12 ui-g-nopad" [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick()">
             <template let-model pTemplate="item">
                 <div class="ui-helper-clearfix">
                     {{ getModelBySchema(model) }}
                 </div>
             </template>
         </p-autoComplete>
-        <i *ngIf="model.hasOwnProperty('id')" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship().subscribe()"></i>
+        <i *ngIf="model.hasOwnProperty('id')" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
     </div>
     `,
     styles: [`

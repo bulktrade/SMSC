@@ -1,6 +1,6 @@
 <div class="dashboard-box">
     <div class="toolbar pull-right">
-        <i class="fa fa-cog" aria-hidden="true"></i>
+        <i class="fa fa-cog" aria-hidden="true" (click)="toggleSettings()"></i>
         <i class="fa fa-pencil" aria-hidden="true"></i>
         <i class="fa fa-trash" aria-hidden="true"></i>
         <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
@@ -11,4 +11,15 @@
     </div>
     <div class="dashboard-description">{{ dashboardBox.description }}</div>
     <div class="bottom-bar"></div>
+    <div class="dashboard-box-settings" *ngIf="isSettings">
+        <div>
+            <i class="fa fa-times" (click)="toggleSettings()"></i>
+            <span>Width:</span>
+            <p-dropdown [style]="{'color': '#aab5bc'}" [options]="[{label:'25%', value: 'WIDTH_25'},{label:'50%', value: 'WIDTH_50'},
+                                    {label:'75%', value: 'WIDTH_75'},{label:'100%', value: 'WIDTH_100'}]"></p-dropdown>
+            <span>Height:</span>
+            <p-dropdown [options]="[{label:'25%', value: 'HEIGHT_25'},{label:'50%', value: 'HEIGHT_50'},
+                                    {label:'75%', value: 'HEIGHT_75'},{label:'100%', value: 'HEIGHT_100'}]"></p-dropdown>
+        </div>
+    </div>
 </div>
