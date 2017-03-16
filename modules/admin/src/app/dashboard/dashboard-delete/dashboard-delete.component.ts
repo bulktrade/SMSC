@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {TranslateService} from "ng2-translate/ng2-translate";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Message} from "primeng/components/common/api";
 import {NotificationService} from "../../services/notification-service";
@@ -20,6 +20,7 @@ export class DashboardDeleteComponent {
     constructor(public translate: TranslateService,
                 public dashboardService: DashboardService,
                 public route: ActivatedRoute,
+                public router: Router,
                 public location: Location,
                 public notifications: NotificationService) {
     }
@@ -39,9 +40,9 @@ export class DashboardDeleteComponent {
     deleteResource() {
         this.dashboardService.deleteResourceById(this.id)
             .subscribe(() => {
+                this.router.navigateByUrl('/dashboard');
                 this.notifications.createNotification('success', 'SUCCESS', 'dashboard.successDeleteDashboard');
             }, err => {
-                console.error(err);
                 this.notifications.createNotification('error', 'ERROR', 'dashboard.errorDeleteDashboard');
             });
     }

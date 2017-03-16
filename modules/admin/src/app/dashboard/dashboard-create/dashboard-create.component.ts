@@ -31,6 +31,7 @@ export class DashboardCreateComponent {
                 this.dashboardService.createResource(this.model)
                     .subscribe((dashboard: Dashboard) => {
                         this.toggleLoading();
+                        this.location.back();
                         this.notification.createNotification('success', 'SUCCESS', 'dashboard.successCreateDashboard');
                     }, (e) => {
                         this.toggleLoading();

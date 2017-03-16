@@ -33,6 +33,7 @@ export class DashboardUpdateComponent {
         this.dashboardService.updateResource(this.model)
             .subscribe((dashboard: Dashboard) => {
                 this.toggleLoading();
+                this.location.back();
                 this.notification.createNotification('success', 'SUCCESS', 'dashboard.successUpdateDashboard');
             }, (e) => {
                 this.toggleLoading();
