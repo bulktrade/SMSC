@@ -60,11 +60,13 @@
                     <div class="ui-grid-col-6">
                         <input pInputText class="form-control" [(ngModel)]="model['email']"
                                #email="ngModel"
+                               pattern='^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$'
                                required name="email" type="email" id="email">
                     </div>
                     <div class="ui-grid-col-4">
                         <control-errors control="email"
-                                        [errors]="{required: ('email.required'| translate)}"></control-errors>
+                                        [errors]="{required: ('email.required'| translate),
+                                                    pattern: 'EMAIL_FORMAT_VALIDATION_ERROR' | translate}"></control-errors>
                     </div>
                 </div>
 

@@ -13,6 +13,7 @@ import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {Customer} from "../model/customer";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
+import {CustomersFormModel} from "../customers-form/customers-form.model";
 
 describe('Component: CustomersUpdateComponent', () => {
     let componentFixture: ComponentHelper<CustomersUpdateComponent> =
@@ -102,10 +103,9 @@ describe('Component: CustomersUpdateComponent', () => {
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'toggleLoading');
 
-        componentFixture.instance.onSubmit(customer);
+        componentFixture.instance.onSubmit(new CustomersFormModel(customer, <any>{}));
 
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.isLoading).toBeFalsy();
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdateCustomer');
@@ -118,14 +118,13 @@ describe('Component: CustomersUpdateComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'toggleLoading');
+        spyOn(componentFixture.instance.controlErrorService, 'formControlErrors');
 
-        componentFixture.instance.onSubmit(customer);
+        componentFixture.instance.onSubmit(new CustomersFormModel(customer, <any>{}));
 
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.isLoading).toBeFalsy();
-        expect(componentFixture.instance.notifications.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdateCustomer');
+        expect(componentFixture.instance.controlErrorService.formControlErrors).toHaveBeenCalled();
     }));
 
     it('.ngOnInit()', async(() => {

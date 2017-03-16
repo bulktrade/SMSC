@@ -33,21 +33,20 @@ public abstract class BaseEntity implements Serializable {
 
     @Version
     @Column(name = "VERSION", nullable = false)
-//    @JsonIgnore
+    @JsonIgnore
     protected Long version;
 
     @PreUpdate
     protected void onUpdate() {
         lastModifiedDate = new Date();
-//        version = ++version;
     }
 
-//    @JsonProperty
+    @JsonProperty
     public Long getVersion() {
         return version;
     }
 
-//    @JsonIgnore
+    @JsonIgnore
     public void setVersion(Long versionNumber) {
         this.version = versionNumber;
     }

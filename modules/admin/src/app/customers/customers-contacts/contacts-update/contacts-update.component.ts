@@ -6,12 +6,13 @@ import {NotificationService} from "../../../services/notification-service";
 import {CustomersContactsService} from "../customer-contact.service";
 import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
 import {Contact} from "../../model/contact";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
 import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors.component";
+import {ControlErrorService} from "../../../services/control-error";
 
 @Component({
     selector: 'contacts-update',
@@ -37,7 +38,8 @@ export class ContactsUpdateComponent implements OnInit {
                 public route: ActivatedRoute,
                 public contactsService: CustomersContactsService,
                 public notifications: NotificationService,
-                public location: Location) {
+                public location: Location,
+                public controlErrorService: ControlErrorService) {
     }
 
     ngOnInit() {
@@ -53,18 +55,17 @@ export class ContactsUpdateComponent implements OnInit {
         return this.model || this.route.snapshot.data['update'];
     }
 
-    onSubmit(entity) {
-        this.toggleLoading(true);
+    onSubmit(entity: Contact, contactsForm: NgForm) {
+        this.toggleLoading();
         this.contactsService.updateResource(entity)
             .subscribe(() => {
                     this.onBack();
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateContact');
                 },
-                err => {
-                    console.error(err);
-                    this.toggleLoading(false);
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateContact');
+                (e) => {
+                    this.toggleLoading();
+                    this.controlErrorService.formControlErrors(e.json(), contactsForm);
                 });
     }
 
@@ -76,8 +77,8 @@ export class ContactsUpdateComponent implements OnInit {
         }
     }
 
-    toggleLoading(value: boolean) {
-        this.isLoading = value;
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 }
 

@@ -13,6 +13,8 @@ import {DOCUMENT} from "@angular/platform-browser";
 import {Message} from "primeng/components/common/api";
 import {Observable} from "rxjs";
 import {Response} from "@angular/http";
+import {ControlCellErrors} from "../model/control-cell-errors";
+import {ControlErrorService} from "../../services/control-error";
 
 @Component({
     selector: 'customers-view',
@@ -53,13 +55,17 @@ export class CustomersViewComponent {
 
     public msgs: Message[] = [];
 
+    public cellsModel: ControlCellErrors = null;
+
     constructor(public translate: TranslateService,
                 public customersService: CustomersService,
                 public router: Router,
                 public route: ActivatedRoute,
                 public location: Location,
                 public notifications: NotificationService,
+                public controlErrorService: ControlErrorService,
                 @Inject(DOCUMENT) private document) {
+        this.cellsModel = new ControlCellErrors();
     }
 
     ngOnInit() {
@@ -118,12 +124,16 @@ export class CustomersViewComponent {
     }
 
     onEditComplete(event) {
+        console.log(event);
         this.customersService.updateResource(event.data)
             .subscribe(() => {
+                for (let column in this.cellsModel) {
+                    this.cellsModel[column][event.data.id] = false;
+                }
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
                 this.setRowData();
-            }, err => {
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
+            }, (e) => {
+                this.controlErrorService.gridControlErrors(e.json(), event, this.cellsModel);
                 this.setRowData();
             })
     }

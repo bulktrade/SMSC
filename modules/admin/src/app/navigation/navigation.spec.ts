@@ -53,11 +53,19 @@ describe('Component: NavigationComponent', () => {
     it('.ngOnInit()', async(() => {
         spyOn(componentFixture.instance.loadingROService, 'start');
         spyOn(componentFixture.instance.loadingROService, 'stop');
+        spyOn(componentFixture.instance, 'hideSidebarOnLargeScreen');
         componentFixture.instance.router = <any>{events: Observable.of(new NavigationStart(1, ''), new NavigationEnd(1, '', ''))};
 
         componentFixture.instance.ngOnInit();
 
         expect(componentFixture.instance.loadingROService.start).toHaveBeenCalled();
         expect(componentFixture.instance.loadingROService.stop).toHaveBeenCalled();
+        expect(componentFixture.instance.hideSidebarOnLargeScreen).toHaveBeenCalled();
+    }));
+
+    it('.hideSidebarOnLargeScreen()', async(() => {
+        document.querySelector('body').style.width = '500px';
+        componentFixture.instance.hideSidebarOnLargeScreen();
+        expect(componentFixture.instance.toggleUpSidebar).toBeTruthy();
     }));
 });

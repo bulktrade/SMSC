@@ -11,6 +11,7 @@ import {ConfigServiceMock} from "../../test/stub/config.service";
 import {Link} from "../../entity.model";
 import {OneToOneComponent, OneToOneModule} from "./one-to-one.component";
 import {CustomersService} from "../../../customers/customer.service";
+import {Observable} from "rxjs";
 
 describe('Component: OneToOneComponent', () => {
     let componentFixture: ComponentHelper<OneToOneComponent> =
@@ -184,11 +185,10 @@ describe('Component: OneToOneComponent', () => {
         componentFixture.instance.mainEntityService = customersService;
         componentFixture.instance.propertyName = 'customer';
         spyOn(componentFixture.instance.notifications, 'createNotification');
-
         componentFixture.instance.onSelectResource(model);
-
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdate');
+        expect(componentFixture.instance.onSelectResource(()=>{})).toEqual(Observable.empty());
     }));
 
     it('should remove relationship - error response', async(() => {

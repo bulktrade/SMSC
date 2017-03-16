@@ -3,10 +3,13 @@ import {Http, RequestMethod, RequestOptions, URLSearchParams, Headers, Response}
 import {ConfigService} from "../config/config.service";
 import {Entity, Links, Link} from "./entity.model";
 import {Sort} from "./sort.model";
+import {EventEmitter} from "@angular/core";
+import {Observable} from "rxjs";
 
 export abstract class CrudRepository<T> {
     public abstract repositoryName: string;
     public abstract titleColumns: string;
+    public onResourceChange = new EventEmitter();
     public apiUrl: string;
 
     constructor(public http: Http,
@@ -19,7 +22,7 @@ export abstract class CrudRepository<T> {
      * @returns {Observable<T>}
      * @param entity
      */
-    createResource<T>(entity: T): Rx.Observable<T> {
+    createResource(entity: T): Rx.Observable<T> {
         let requestOptions = new RequestOptions({
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -27,10 +30,19 @@ export abstract class CrudRepository<T> {
             method: RequestMethod.Post,
             body: entity
         });
-
-        return this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
-            .map((response: Response) => <T>response.json())
-            .share();
+        return Observable.create(o => {
+            this.http.request(this.apiUrl + '/repository/' + this.repositoryName, requestOptions)
+                .map((response: Response) => <T>response.json())
+                .share()
+                .subscribe((_entity: T) => {
+                    this.onResourceChange.emit(_entity);
+                    o.next(_entity);
+                    o.complete();
+                }, e => {
+                    o.error(e);
+                    o.complete();
+                });
+        });
     }
 
     /**
@@ -46,10 +58,19 @@ export abstract class CrudRepository<T> {
             method: RequestMethod.Patch,
             body: entity
         });
-
-        return this.http.request(entity._links.self.href, requestOptions)
-            .map((response: Response) => <T>response.json())
-            .share();
+        return Observable.create(o => {
+            this.http.request(entity._links.self.href, requestOptions)
+                .map((response: Response) => <T>response.json())
+                .share()
+                .subscribe((_entity: T) => {
+                    this.onResourceChange.emit(_entity);
+                    o.next(_entity);
+                    o.complete();
+                }, e => {
+                    o.error(e);
+                    o.complete();
+                });
+        });
     }
 
     /**
@@ -61,9 +82,18 @@ export abstract class CrudRepository<T> {
         let requestOptions = new RequestOptions({
             method: RequestMethod.Delete
         });
-
-        return this.http.request(entity._links.self.href, requestOptions)
-            .share();
+        return Observable.create(o => {
+            return this.http.request(entity._links.self.href, requestOptions)
+                .share()
+                .subscribe((res: Response) => {
+                    this.onResourceChange.emit(res);
+                    o.next(res);
+                    o.complete();
+                }, e => {
+                    o.error(e);
+                    o.complete();
+                });
+        });
     }
 
     /**

@@ -1,78 +1,63 @@
 import {NgModule} from "@angular/core";
-import {DashboardService} from "./dashboard.service";
-import {OrderBy} from "./pipe/orderby";
 import {DashboardComponent} from "./dashboard.component";
-import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
-import {DashboardCrudUpdateComponent} from "./crud/dashbaord-box-update/dashboard-box-update.component";
-import {DashboardCrudCreateComponent} from "./crud/dashboard-box-create/dashboard-box-create.component";
-import {AgGridModule} from "ag-grid-ng2";
-import {TranslateModule} from "ng2-translate";
-import {CubeGridModule} from "../shared/components/cube-grid/cube-grid.component";
-import {AlertModule} from "ng2-bootstrap";
-import {BreadcrumbModule} from "../breadcrumb/breadcrumb.component";
-import {DragulaModule} from "ng2-dragula/ng2-dragula";
-import {DashboardsComponent} from "./dashboards/dashboards.components";
-import {BaThemeConfigProvider} from "./chart/theme/theme.configProvider";
-import {LineChart} from "./chart/line-chart.component";
-import {BaAmChart} from "./chart/theme/components/baAmChart/baAmChart.component";
-import {DynamicFormModule} from "../crud/dynamic-form/dynamic-form.component";
-import {LineChartService} from "./chart/line-chart.service";
-import {MdSelectModule} from "../shared/material/select/select.component";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {LoadingGridModule} from "../shared/components/loading-grid/loading-grid.component";
-import {LoadingRouterOutletModule} from "../shared/components/loading-router-outlet/loading-router-outlet.component";
-import {DashboardCrudDeleteComponent} from "./crud/dashboard-box-delete/dashboard-box-delete.component";
-import {DashboardCrudUpdateResolve} from "./crud/dashboard-crud-update.resolve";
-import {DashboardCrudCreateResolve} from "./crud/dashboard-crud-create.resolve";
-import {DashboardViewResolve} from "./dashboard-view/dashboard-view.resolve";
-import {CommonModule} from "@angular/common";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
-import {DashboardViewComponent} from "./dashboard-view/dashboard-view.component";
-// import { CrudLinksetModule } from "../crud/crud-linkset/crud-linkset.module";
-
-const DASHBOARD_DECLARATION = [
-    OrderBy,
-    DashboardComponent,
-    DashboardViewComponent,
-    DashboardBoxComponent,
-    DashboardCrudUpdateComponent,
-    DashboardCrudCreateComponent,
-    DashboardCrudDeleteComponent,
-    DashboardsComponent,
-    BaAmChart,
-    LineChart
-];
+import {DashboardResolve} from "./dashboard.resolve";
+import {HTTP_INTERCEPTOR_PROVIDER} from "../shared/http-interceptor";
+import {RouterModule} from "@angular/router";
+import {FormsModule} from "@angular/forms";
+import {TranslateModule} from "ng2-translate";
+import {PanelModule} from "primeng/components/panel/panel";
+import {InputTextModule} from "primeng/components/inputtext/inputtext";
+import {ButtonModule} from "primeng/components/button/button";
+import {DropdownModule} from "primeng/components/dropdown/dropdown";
+import {ControlErrorsModule} from "../shared/components/control-errors/control-errors.component";
+import {OneToOneModule} from "../shared/components/one-to-one/one-to-one.component";
+import {DashboardCreateComponent} from "./dashboard-create/dashboard-create.component";
+import {CommonModule} from "@angular/common";
+import {NotificationService} from "../services/notification-service";
+import {ControlErrorService} from "../services/control-error";
+import {SplitButtonModule} from "primeng/components/splitbutton/splitbutton";
+import {DashboardUpdateComponent} from "./dashboard-update/dashboard-update.component";
+import {DashboardUpdateResolve} from "./dashboard-update/dashboard-update.resolve";
+import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.component";
+import {MessagesModule} from "primeng/components/messages/messages";
+import {DashboardsComponent} from "./dashboards/dashboards.component";
+import {DashboardsResolve} from "./dashboards/dashboards.resolve";
+import {DataScrollerModule} from "primeng/components/datascroller/datascroller";
 
 @NgModule({
     imports: [
-        MdSelectModule,
-        LoadingRouterOutletModule,
-        CubeGridModule,
-        LoadingGridModule,
-        AlertModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        TranslateModule,
-        AgGridModule.withComponents([]),
-        DragulaModule,
-        DynamicFormModule,
-        BreadcrumbModule,
-        // CrudLinksetModule,
         DashboardRoutingModule,
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        TranslateModule,
+        PanelModule,
+        InputTextModule,
+        ButtonModule,
+        DropdownModule,
+        ControlErrorsModule,
+        OneToOneModule,
+        SplitButtonModule,
+        MessagesModule,
+        DataScrollerModule
     ],
-    exports: [DASHBOARD_DECLARATION],
+    exports: [DashboardComponent],
     declarations: [
-        DASHBOARD_DECLARATION
+        DashboardComponent,
+        DashboardCreateComponent,
+        DashboardUpdateComponent,
+        DashboardDeleteComponent,
+        DashboardsComponent
     ],
     providers: [
-        DashboardService,
-        BaThemeConfigProvider,
-        LineChartService,
-        DashboardCrudUpdateResolve,
-        DashboardCrudCreateResolve,
-        DashboardViewResolve
-    ]
+        ControlErrorService,
+        NotificationService,
+        DashboardResolve,
+        DashboardsResolve,
+        DashboardUpdateResolve,
+        HTTP_INTERCEPTOR_PROVIDER
+    ],
 })
 export class DashboardModule {
 }

@@ -18,9 +18,8 @@
     }
     .isChildren {
         margin-left: auto;
-    }
-    .dashboard-icon {
-        margin-top: -18px;
+        font-size: 12px;
+        padding-top: 4px;
     }
     .name-sub {
         float: left;
@@ -70,6 +69,8 @@ ul {
             color: rgb(91, 155, 209) !important;
         }
         .subitem-icon-left {
+            position: relative;
+            top: 6px;
             float: left;
             font-size: 18px;
             color: rgb(167, 189, 205);

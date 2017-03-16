@@ -1,18 +1,21 @@
 <div *ngIf="showInSubNavigation" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav" #isIcon>
-    <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-       class="{{nameItem.toLowerCase()}} sub-task clear" [routerLink]="[path]">
+    <a (click)="navItemState[nameItem]=!navItemState[nameItem]" [class.active]="isActive([path])"
+       class="{{nameItem.toLowerCase()}} sub-task clear" (click)="router.navigateByUrl(path)">
         <i class="icon-left fa" [ngClass]="icon"></i>
         <div class="show-nav">
             <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
-            <i *ngIf="submenu" class="isChildren fa {{nameItem.toLowerCase()}}-icon"></i>
+            <i *ngIf="nameItem === 'dashboard' && dashboards.length"
+               class="isChildren fa {{nameItem.toLowerCase()}}-icon"
+               [ngClass]="navItemState[nameItem] ? 'fa-chevron-left' : 'fa-chevron-down'"></i>
         </div>
     </a>
-    <ul *ngIf="submenu"
+    <ul [@state]="navItemState[nameItem] ? 'open' : 'closed'" *ngIf="nameItem === 'dashboard' && dashboards.length"
         class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
-        <li *ngFor="let item of submenu"><a routerLinkActive="activesub" [routerLinkActiveOptions]="{exact: true}"
-                                            [routerLink]="item.path === '' ? [path] : [path, item.path]"
-                                            class="{{item.name.toLowerCase()}}">
-            <i class="subitem-icon-left fa" [ngClass]="item.icon"></i>
-            {{item.name | uppercase | translate}}</a></li>
+        <li *ngFor="let dashboard of dashboards">
+            <a routerLinkActive="activesub" [routerLinkActiveOptions]="{exact: true}"
+               [routerLink]="[path, dashboard.id]" [ngClass]="dashboard.name">
+                <i class="subitem-icon-left fa" [ngClass]="dashboard.icon"></i>
+                {{dashboard.name}}</a>
+        </li>
     </ul>
 </div>

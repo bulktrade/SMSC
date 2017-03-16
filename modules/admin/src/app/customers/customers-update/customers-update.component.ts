@@ -5,6 +5,8 @@ import {Location} from "@angular/common";
 import {NotificationService} from "../../services/notification-service";
 import {CustomersService} from "../customer.service";
 import {Customer} from "../model/customer";
+import {ControlErrorService} from "../../services/control-error";
+import {CustomersFormModel} from "../customers-form/customers-form.model";
 
 @Component({
     selector: 'customers-update',
@@ -29,7 +31,8 @@ export class CustomersUpdateComponent {
                 public customersService: CustomersService,
                 public route: ActivatedRoute,
                 public location: Location,
-                public notifications: NotificationService) {
+                public notifications: NotificationService,
+                public controlErrorService: ControlErrorService) {
     }
 
     ngOnInit() {
@@ -45,19 +48,19 @@ export class CustomersUpdateComponent {
         return this.model || this.route.snapshot.data['edit'];
     }
 
-    onSubmit(entity: Customer) {
-        this.toggleLoading(true);
-        this.customersService.updateResource(entity)
+    onSubmit(customersFormModel: CustomersFormModel) {
+        this.toggleLoading();
+        this.customersService.updateResource(customersFormModel.model)
             .subscribe(() => {
-                this.toggleLoading(false);
+                this.toggleLoading();
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
-            }, err => {
-                this.toggleLoading(false);
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateCustomer');
+            }, (e) => {
+                this.toggleLoading();
+                this.controlErrorService.formControlErrors(e.json(), customersFormModel.customersForm);
             });
     }
 
-    toggleLoading(value: boolean) {
-        this.isLoading = value;
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 }

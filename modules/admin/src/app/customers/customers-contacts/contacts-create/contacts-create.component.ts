@@ -4,13 +4,15 @@ import {CustomersService} from "../../customer.service";
 import {ActivatedRoute} from "@angular/router";
 import {NotificationService} from "../../../services/notification-service";
 import {CustomersContactsService} from "../customer-contact.service";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
 import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors.component";
 import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
+import {Contact} from "../../model/contact";
+import {ControlErrorService} from "../../../services/control-error";
 
 @Component({
     selector: 'contacts-create',
@@ -21,7 +23,7 @@ export class ContactsCreateComponent implements OnInit {
     @Output('onBack')
     public _onBack: EventEmitter<Action> = new EventEmitter();
 
-    public model: any = {};
+    public model: Contact = <Contact>{};
 
     @Input('customerId')
     public customerId: number;
@@ -34,7 +36,8 @@ export class ContactsCreateComponent implements OnInit {
                 public route: ActivatedRoute,
                 public customersContactsService: CustomersContactsService,
                 public notifications: NotificationService,
-                public location: Location) {
+                public location: Location,
+                public controlErrorService: ControlErrorService) {
     }
 
     ngOnInit() {
@@ -45,19 +48,19 @@ export class ContactsCreateComponent implements OnInit {
         });
     }
 
-    onSubmit(model) {
+    onSubmit(model: Contact, contactsForm: NgForm) {
         this.model = model;
         model['customer'] = this.customersService.getSelfLinkedEntityById(this.customerId)._links.self.href;
-        this.toggleLoading(true);
+        this.toggleLoading();
         this.customersContactsService.createResource(model)
             .subscribe(() => {
                     this.onBack();
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateContact');
                 },
-                err => {
-                    this.toggleLoading(false);
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateContact');
+                (e) => {
+                    this.toggleLoading();
+                    this.controlErrorService.formControlErrors(e.json(), contactsForm);
                 });
     }
 
@@ -69,8 +72,8 @@ export class ContactsCreateComponent implements OnInit {
         }
     }
 
-    toggleLoading(value: boolean) {
-        this.isLoading = value;
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 }
 

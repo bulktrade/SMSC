@@ -11,6 +11,7 @@ import {ConfigService} from "../../config/config.service";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {Customer} from "../model/customer";
 import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
+import {CustomersFormModel} from "./customers-form.model";
 
 describe('Component: CustomersFormComponent', () => {
     let componentFixture: ComponentHelper<CustomersFormComponent> =
@@ -63,8 +64,9 @@ describe('Component: CustomersFormComponent', () => {
 
     it('.onSubmit()', async(() => {
         spyOn(componentFixture.instance._onSubmit, 'emit');
-        componentFixture.instance.onSubmit();
-        expect(componentFixture.instance._onSubmit.emit).toHaveBeenCalledWith(model);
+        componentFixture.instance.onSubmit(<any>{});
+        expect(componentFixture.instance._onSubmit.emit)
+            .toHaveBeenCalledWith(new CustomersFormModel(componentFixture.instance.model, <any>{}));
     }));
 
     it('.back()', async(() => {

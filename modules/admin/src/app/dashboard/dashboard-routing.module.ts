@@ -1,74 +1,49 @@
-import {DashboardCrudUpdateComponent} from "./crud/dashbaord-box-update/dashboard-box-update.component";
-import {DashboardCrudUpdateResolve} from "./crud/dashboard-crud-update.resolve";
-import {DashboardCrudCreateResolve} from "./crud/dashboard-crud-create.resolve";
-// import { CrudLinksetComponent } from '../crud/crud-linkset/crud-linkset.component';
-// import { CrudLinksetResolve } from '../crud/crud-linkset/crud-linkset.resolve';
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
-import {DashboardViewResolve} from "./dashboard-view/dashboard-view.resolve";
-import {DashboardCrudDeleteComponent} from "./crud/dashboard-box-delete/dashboard-box-delete.component";
-import {DashboardViewComponent} from "./dashboard-view/dashboard-view.component";
-import {DashboardCrudCreateComponent} from "./crud/dashboard-box-create/dashboard-box-create.component";
+import {DashboardComponent} from "./dashboard.component";
+import {DashboardResolve} from "./dashboard.resolve";
+import {DashboardCreateComponent} from "./dashboard-create/dashboard-create.component";
+import {DashboardUpdateComponent} from "./dashboard-update/dashboard-update.component";
+import {DashboardUpdateResolve} from "./dashboard-update/dashboard-update.resolve";
+import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.component";
+import {DashboardsComponent} from "./dashboards/dashboards.component";
+import {DashboardsResolve} from "./dashboards/dashboards.resolve";
 
-const DASHBOARD_CRUD_ROUTES = [
+const ROUTE_PROVIDER = [
+    {
+        path: 'create',
+        component: DashboardCreateComponent
+    },
+    {
+        path: ':id/update',
+        component: DashboardUpdateComponent,
+        resolve: {
+            update: DashboardUpdateResolve
+        }
+    },
+    {
+        path: ':id/delete',
+        component: DashboardDeleteComponent,
+    },
+    {
+        path: ':id',
+        component: DashboardComponent,
+        resolve: {
+            dashboard: DashboardResolve
+        }
+    },
     {
         path: '',
-        component: DashboardViewComponent,
+        component: DashboardsComponent,
         resolve: {
-            data: DashboardViewResolve
-        },
-        data: {
-            translationKey: 'DashboardView'
+            dashboards: DashboardsResolve
         }
-    },
-    {
-        path: 'edit/:id',
-        component: DashboardCrudUpdateComponent,
-        resolve: {edit: DashboardCrudUpdateResolve},
-        data: {
-            translationKey: 'DashboardUpdate'
-        }
-    },
-    {
-        path: 'create/:className',
-        component: DashboardCrudCreateComponent,
-        resolve: {create: DashboardCrudCreateResolve},
-        data: {
-            translationKey: 'DashboardCreate'
-        }
-    },
-    {
-        path: 'create/:className/:dashboard',
-        component: DashboardCrudCreateComponent,
-        resolve: {create: DashboardCrudCreateResolve},
-        data: {
-            translationKey: 'DashboardCreate'
-        }
-    },
-    {
-        path: 'delete/:id',
-        component: DashboardCrudDeleteComponent,
-        data: {
-            translationKey: 'DashboardDelete'
-        }
-    },
-    // {
-    //     path: 'linkset/:className',
-    //     component: CrudLinksetComponent,
-    //     resolve: { linkset: CrudLinksetResolve },
-    //     data: {
-    //         translationKey: 'DashboardLinkset'
-    //     }
-    // }
+    }
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(DASHBOARD_CRUD_ROUTES)
-    ],
-    exports: [
-        RouterModule
-    ]
+    imports: [RouterModule.forChild(ROUTE_PROVIDER)],
+    exports: [RouterModule]
 })
 export class DashboardRoutingModule {
 }
