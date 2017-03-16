@@ -28,11 +28,7 @@
     "dist",
     "src/**/*.spec.ts",
     "src/**/*.e2e.ts",
-    "src/**/*.page.ts",
-    "src/**/*.definitions.ts",
-    "src/app/dashboard(deprecated)/**/*.ts",
-    "src/app/crud-meta-data/**/*.ts",
-    "src/**/expected-conditions.ts"
+    "src/**/*.page.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
