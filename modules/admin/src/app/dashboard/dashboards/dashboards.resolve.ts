@@ -2,6 +2,7 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot, Resolve} from "@angular/rou
 import {Injectable} from "@angular/core";
 import {DashboardService} from "../dashboard.service";
 import {Dashboard} from "../dashboard.model";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class DashboardsResolve implements Resolve<Dashboard[]> {
@@ -10,6 +11,26 @@ export class DashboardsResolve implements Resolve<Dashboard[]> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.dashboardService.getDashboards();
+        return Observable.create(o => {
+            this.dashboardService.getDashboards()
+                .subscribe((dashboards: Dashboard[]) => {
+                    if (!dashboards.length) {
+                        this.dashboardService.createDefaultDashboard()
+                            .subscribe((dashboard: Dashboard) => {
+                                o.next([dashboard]);
+                                o.complete();
+                            }, e => {
+                                o.error(e);
+                                o.complete();
+                            });
+                    } else {
+                        o.next(dashboards);
+                        o.complete();
+                    }
+                }, e => {
+                    o.error(e);
+                    o.complete();
+                });
+        });
     }
 }

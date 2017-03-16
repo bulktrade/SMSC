@@ -1,0 +1,76 @@
+$colorScheme: #2ab4c0;
+
+:host {
+  height: 150px;
+  margin-bottom: 20px;
+
+  .dashboard-box {
+    height: inherit;
+    background: #fff;
+    padding: 15px;
+
+    hr {
+      margin-top: 1.9rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: flex-end;
+
+      i {
+        cursor: pointer;
+        padding-left: 5px;
+        font-size: 16px;
+        color: #a0a0a0;
+
+        &:hover {
+          color: #8a8989;
+        }
+      }
+    }
+
+    .dashboard-name {
+      display: block;
+      font-size: 30px;
+      color: $colorScheme;
+    }
+
+    .dashboard-description {
+      font-size: 14px;
+      color: #aab5bc;
+      font-weight: 600;
+    }
+    
+    .bottom-bar {
+      background: $colorScheme;
+      margin-top: 15px;
+      height: 4px;
+    }
+  }
+}
+
+:host(.fullscreen) {
+  position: absolute;
+  padding: 0;
+  top: 0;
+  z-index: 9999;
+  height: 100%;
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  :host(.fullscreen) {
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  :host(.fullscreen) {
+    left: -250px;
+    width: calc(100% + 250px);
+    max-width: calc(100% + 250px);
+  }
+}
