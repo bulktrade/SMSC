@@ -7,9 +7,24 @@ $colorScheme: #2ab4c0;
 
   .dashboard-box {
     position: relative;
+    overflow: auto;
     height: inherit;
     background: #fff;
     padding: 15px 15px 30px 15px;
+
+    .chart-box-title {
+      color: #2f353b;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .chart-box-desc {
+      color: #9eacb4;
+      font-size: 15px;
+      padding-left: 7px;
+      line-height: 25px;
+    }
 
     hr {
       margin-top: 1.9rem;
