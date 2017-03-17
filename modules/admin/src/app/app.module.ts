@@ -33,6 +33,7 @@ import {MessagesModule} from "primeng/components/messages/messages";
 import {LoadingRouterOutletModule} from "./shared/components/loading-router-outlet/loading-router-outlet.component";
 import {NotificationService} from "./services/notification-service";
 import "../styles/styles.scss";
+import "chart.js";
 import {ControlErrorService} from "./services/control-error";
 import {DashboardService} from "./dashboard/dashboard.service";
 import {UserService} from "./users/user.service";

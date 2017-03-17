@@ -1,6 +1,8 @@
 import {Component, Input, HostBinding, HostListener, Renderer, ElementRef} from "@angular/core";
 import {DashboardBox} from "./dashboard-box.model";
 import {DashboardBoxService} from "./dashboard-box.service";
+import {DashboardBoxTypeService} from "../dashboard-box-type/dashboard-box-type.service";
+import {DashboardBoxType} from "../dashboard-box-type/dashboard-box-type.model";
 
 @Component({
     selector: 'dashboard-box',
@@ -17,12 +19,39 @@ export class DashboardBoxComponent {
 
     public isSettings: boolean = false;
 
+    public dashboardBoxType: DashboardBoxType = <DashboardBoxType>{};
+
+    public data: any;
+
     constructor(public dashboardBoxService: DashboardBoxService,
                 public renderer: Renderer,
-                public element: ElementRef) {
+                public element: ElementRef,
+                public dashboardBoxTypeService: DashboardBoxTypeService) {
+        this.data = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [
+                {
+                    label: 'First Dataset',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    fill: false,
+                    borderColor: '#4bc0c0'
+                },
+                {
+                    label: 'Second Dataset',
+                    data: [28, 48, 40, 19, 86, 27, 90],
+                    fill: false,
+                    borderColor: '#565656'
+                }
+            ]
+        }
     }
 
     ngOnInit() {
+        this.dashboardBoxTypeService.getDashboardBoxType(this.dashboardBox)
+            .subscribe((_dashboardBoxType: DashboardBoxType) => {
+                this.dashboardBoxType = _dashboardBoxType;
+            });
+
         this.widthChange(String(this.dashboardBox.width));
         this.heightChange(String(this.dashboardBox.height));
     }

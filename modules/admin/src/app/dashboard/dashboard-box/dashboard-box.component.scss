@@ -59,6 +59,7 @@ $colorScheme: #2ab4c0;
     display: flex;
     position: absolute;
     padding: 15px;
+    opacity: .9;
     background: #fff;
     top: 0;
     left: 0;
@@ -78,6 +79,13 @@ $colorScheme: #2ab4c0;
       &:hover {
         color: #d9534f;
       }
+    }
+  }
+
+  .chart-wrap {
+    display: flex;
+    p-chart {
+      display: flex;
     }
   }
 }

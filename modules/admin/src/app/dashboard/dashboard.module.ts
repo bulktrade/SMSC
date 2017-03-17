@@ -26,6 +26,8 @@ import {DashboardsResolve} from "./dashboards/dashboards.resolve";
 import {DataScrollerModule} from "primeng/components/datascroller/datascroller";
 import {DashboardBoxService} from "./dashboard-box/dashboard-box.service";
 import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
+import {DashboardBoxTypeService} from "./dashboard-box-type/dashboard-box-type.service";
+import {ChartModule} from "primeng/components/chart/chart";
 
 @NgModule({
     imports: [
@@ -42,7 +44,8 @@ import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
         OneToOneModule,
         SplitButtonModule,
         MessagesModule,
-        DataScrollerModule
+        DataScrollerModule,
+        ChartModule
     ],
     exports: [DashboardComponent],
     declarations: [
@@ -60,6 +63,7 @@ import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
         DashboardsResolve,
         DashboardUpdateResolve,
         DashboardBoxService,
+        DashboardBoxTypeService,
         HTTP_INTERCEPTOR_PROVIDER
     ],
 })
