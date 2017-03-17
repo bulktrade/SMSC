@@ -3,13 +3,12 @@ package io.smsc.jwt.service.impl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.smsc.jwt.model.JWTUser;
 import io.smsc.jwt.service.JWTTokenGenerationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ import java.util.Map;
  * @see io.smsc.jwt.service.impl.JWTTokenGenerationServiceImpl
  * @since 0.0.1-SNAPSHOT
  */
-@Service
+@Component
 public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService {
 
     public static final long serialVersionUID = -3301605591108950415L;
@@ -53,15 +52,6 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
         return username;
     }
 
-    private Date getExpirationDateFromToken(String token) {
-        Date expirationDate = null;
-        Claims claims = getClaimsFromToken(token);
-        if (null != claims) {
-            expirationDate = claims.getExpiration();
-        }
-        return expirationDate;
-    }
-
     private Claims getClaimsFromToken(String token) {
         Claims claims;
         try {
@@ -82,29 +72,6 @@ public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService 
 
     private Date generateExpirationDateForRefreshToken() {
         return new Date(System.currentTimeMillis() + expiration * 24 * 1000);
-    }
-
-    private Boolean isTokenExpired(String token) {
-        Date expirationDate = getExpirationDateFromToken(token);
-        return null == expirationDate || expirationDate.before(new Date());
-    }
-
-    @Override
-    public String refreshToken(String token) {
-        String refreshedToken = null;
-        Claims claims = getClaimsFromToken(token);
-        if (null != claims) {
-            claims.put(CLAIM_KEY_CREATED, new Date());
-            refreshedToken = generateAccessToken(claims);
-        }
-        return refreshedToken;
-    }
-
-    @Override
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        JWTUser user = (JWTUser) userDetails;
-        final String username = getUsernameFromToken(token);
-        return username.equals(user.getUsername()) && !isTokenExpired(token);
     }
 
     @Override

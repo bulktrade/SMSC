@@ -1,6 +1,6 @@
 package io.smsc.jwt;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.jwt.model.JWTUser;
 import io.smsc.model.admin.User;
 import org.junit.Test;
@@ -12,12 +12,13 @@ import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class JWTUserTest extends AbstractTest {
+public class JWTUserTest extends AbstractSpringMVCTest {
 
     @Test
     public void testLoadAdminUserByUsernameAndCreateJWTUser() throws Exception {
         User admin = userRepository.findByUsername("admin");
         JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername("admin");
+
         assertThat(jwtUser.getId()).isEqualTo(2);
         assertThat(jwtUser.getUsername()).isEqualTo("admin");
         assertThat(jwtUser.isAccountNonExpired()).isEqualTo(true);
@@ -35,6 +36,7 @@ public class JWTUserTest extends AbstractTest {
     public void testLoadAdminUserByEmailAndCreateJWTUser() throws Exception {
         User admin = userRepository.findByUsername("admin");
         JWTUser jwtUser = jwtUserDetailsService.loadUserByEmail("admin@gmail.com");
+
         assertThat(jwtUser.getId()).isEqualTo(2);
         assertThat(jwtUser.getUsername()).isEqualTo("admin");
         assertThat(jwtUser.isAccountNonExpired()).isEqualTo(true);
@@ -59,6 +61,7 @@ public class JWTUserTest extends AbstractTest {
         user.setRoles(Collections.emptySet());
         userRepository.save(user);
         JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername("user");
+
         assertThat(jwtUser.getAuthorities()).isEqualTo(Collections.emptySet());
     }
 

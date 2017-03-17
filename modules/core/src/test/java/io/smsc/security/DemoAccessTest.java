@@ -1,6 +1,6 @@
 package io.smsc.security;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
 import io.smsc.model.customer.Customer;
 import org.junit.Before;
@@ -12,12 +12,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class DemoAccessTest extends AbstractTest {
+public class DemoAccessTest extends AbstractSpringMVCTest {
 
     private String demoToken;
 
     @Before
-    public void generateTokens() throws Exception {
+    public void generateToken() throws Exception {
         UserDetails demo = JWTUserDetailsServiceImpl.createJwtUser(userRepository.findByUsername("demo"));
         demoToken = jwtTokenGenerationService.generateAccessToken(demo);
     }
@@ -44,7 +44,8 @@ public class DemoAccessTest extends AbstractTest {
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
         System.out.println(customerJson);
-        this.mockMvc.perform(post("/rest/repository/customers")
+
+        mockMvc.perform(post("/rest/repository/customers")
                 .with(csrf())
                 .header(tokenHeader, demoToken)
                 .contentType("application/json;charset=UTF-8")
@@ -64,6 +65,7 @@ public class DemoAccessTest extends AbstractTest {
         customer.setCity("Lviv");
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
+
         mockMvc.perform(put("/rest/repository/customers/40001")
                 .with(csrf())
                 .header(tokenHeader, demoToken)

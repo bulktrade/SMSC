@@ -7,8 +7,20 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
+/**
+ * The AppConfiguration class is used for customizing encoding and etag.
+ *
+ * @author Sergej Kunz
+ * @since 0.0.2-SNAPSHOT
+ */
 @Configuration
 public class AppConfiguration {
+
+    /**
+     * Define filter to force UTF-8 encoding.
+     *
+     * @return filter
+     */
     @Bean
     public FilterRegistrationBean characterEncodingFilterRegistrationBean() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
@@ -21,11 +33,16 @@ public class AppConfiguration {
         return registrationBean;
     }
 
+    /**
+     * Define filter to enable etag.
+     *
+     * @return filter
+     */
     @Bean
-    FilterRegistrationBean shallowEtagBean() {
+    public FilterRegistrationBean shallowEtagBean() {
         FilterRegistrationBean frb = new FilterRegistrationBean();
         frb.setFilter(new ShallowEtagHeaderFilter());
-        frb.addUrlPatterns("/" ,"/admin", "/admin/*");
+        frb.addUrlPatterns("/", "/admin", "/admin/*");
         frb.setOrder(2);
 
         return frb;

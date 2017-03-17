@@ -1,6 +1,6 @@
 package io.smsc.repository.dashboard;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.dashboard.*;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class DashboardBoxRestTest extends AbstractTest {
+public class DashboardBoxRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleDashboardBox() throws Exception {
@@ -60,6 +60,7 @@ public class DashboardBoxRestTest extends AbstractTest {
         String dashboardBoxJson = json(dashboardBox);
         // json is ignoring inserting dashboard and dashboardBoxType through setter
         dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1).concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", \r\n \"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
+
         this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
@@ -71,6 +72,7 @@ public class DashboardBoxRestTest extends AbstractTest {
     public void testDeleteDashboardBox() throws Exception {
         mockMvc.perform(delete("/rest/repository/dashboard-boxes/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
                 .andExpect(status().isNotFound());
     }
@@ -85,11 +87,13 @@ public class DashboardBoxRestTest extends AbstractTest {
         dashboardBox.setHeight(Height.HEIGHT_100);
         dashboardBox.setDescription("new box desc");
         String dashboardBoxJson = json(dashboardBox);
+
         mockMvc.perform(put("/rest/repository/dashboard-boxes/1")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

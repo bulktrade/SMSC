@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -24,7 +24,7 @@ import java.util.Set;
  * @author Nazar Lipkovskyy
  * @since 0.0.1-SNAPSHOT
  */
-@Service
+@Component
 public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
 
     private final UserRepository userRepository;
@@ -102,13 +102,13 @@ public class JWTUserDetailsServiceImpl implements JWTUserDetailsService {
      */
     private static Collection<? extends GrantedAuthority> getAuthoritiesFromGroups(Collection<Group> groups) {
         Set<GrantedAuthority> authorities = new HashSet<>();
-            for (Group group : groups) {
-                if (null != group.getAuthorities() && !group.getAuthorities().isEmpty()) {
-                    for (Authority authority : group.getAuthorities()) {
-                        authorities.add(new SimpleGrantedAuthority(authority.getName()));
-                    }
+        for (Group group : groups) {
+            if (null != group.getAuthorities() && !group.getAuthorities().isEmpty()) {
+                for (Authority authority : group.getAuthorities()) {
+                    authorities.add(new SimpleGrantedAuthority(authority.getName()));
                 }
             }
+        }
         return authorities;
     }
 }

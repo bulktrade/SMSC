@@ -1,6 +1,5 @@
 package io.smsc.repository.admin;
 
-import io.smsc.AbstractTest;
 import io.smsc.model.admin.Role;
 import io.smsc.model.admin.User;
 import org.junit.Before;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RoleUnitTest extends AbstractTest {
+public class RoleUnitTest {
 
     private Role role1;
     private Role role2;
@@ -24,11 +23,9 @@ public class RoleUnitTest extends AbstractTest {
         role1.setId(1L);
         role1.setName("ROLE_NEW");
         role1.setUsers(Collections.emptySet());
-        role1.setUsers(Collections.emptySet());
         role2.setId(1L);
         role2.setName("ROLE_NEW");
-        role1.setUsers(Collections.emptySet());
-        role1.setUsers(Collections.emptySet());
+        role2.setUsers(Collections.emptySet());
     }
 
     @Test
@@ -37,8 +34,9 @@ public class RoleUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodePairOfEqualRoles() throws Exception {
+    public void testEqualsAndHashcodePairOfEqualRoles1() throws Exception {
         assertThat(role1).isEqualTo(role2);
+        assertThat(role1.getUsers()).isEqualTo(role2.getUsers());
     }
 
     @Test
@@ -52,8 +50,16 @@ public class RoleUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodePairOfNonEqualRoles() throws Exception {
+    public void testEqualsAndHashcodePairOfNonEqualRoles1() throws Exception {
         role2.setId(2L);
+
+        assertThat(role1).isNotEqualTo(role2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualRoles2() throws Exception {
+        role2.setName("some name");
+
         assertThat(role1).isNotEqualTo(role2);
     }
 
@@ -62,6 +68,16 @@ public class RoleUnitTest extends AbstractTest {
         Set<Role> set = new HashSet<>();
         set.add(role1);
         set.add(role2);
+
         assertThat(set.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void testRoleToString() throws Exception {
+        assertThat(role1.toString()).isEqualTo("{id = " + role1.getId() +
+                ", name = '" + role1.getName() + '\'' +
+                ", version = " + role1.getVersion() +
+                ", lastModifiedDate = '" + role1.getLastModifiedDate() + '\'' +
+                "}");
     }
 }

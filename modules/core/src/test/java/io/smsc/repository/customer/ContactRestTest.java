@@ -1,6 +1,6 @@
 package io.smsc.repository.customer;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.customer.Contact;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class ContactRestTest extends AbstractTest {
+public class ContactRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleCustomerContact() throws Exception {
@@ -75,7 +75,8 @@ public class ContactRestTest extends AbstractTest {
         String customerContactJson = json(contact);
         // json is ignoring inserting customer through setter
         customerContactJson = customerContactJson.substring(0, customerContactJson.length() - 1).concat(", \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
-        this.mockMvc.perform(post("/rest/repository/customer-contacts")
+
+        mockMvc.perform(post("/rest/repository/customer-contacts")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
@@ -86,6 +87,7 @@ public class ContactRestTest extends AbstractTest {
     public void testDeleteCustomerContact() throws Exception {
         mockMvc.perform(delete("/rest/repository/customer-contacts/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/customer-contacts/1"))
                 .andExpect(status().isNotFound());
     }
@@ -103,11 +105,13 @@ public class ContactRestTest extends AbstractTest {
         contact.setType(Type.PRIMARY);
         contact.setSalutation(Salutation.MRS);
         String customerContactJson = json(contact);
+
         mockMvc.perform(put("/rest/repository/customer-contacts/2")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/customer-contacts/2"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

@@ -116,11 +116,11 @@ public class Dashboard extends BaseEntity {
 
     @Override
     public String toString() {
-        return "id=" + id +
-                ", name='" + name + '\'' +
-                ", icon='" + icon + '\'' +
-                ", version='" + version + '\'' +
-                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+        return "{id = " + id +
+                ", name = '" + name + '\'' +
+                ", icon = '" + icon + '\'' +
+                ", version = " + version +
+                ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }
 }

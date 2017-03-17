@@ -1,6 +1,5 @@
 package io.smsc.repository.admin;
 
-import io.smsc.AbstractTest;
 import io.smsc.model.admin.Group;
 import io.smsc.model.admin.User;
 import org.junit.Before;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GroupUnitTest extends AbstractTest {
+public class GroupUnitTest {
 
     private Group group1;
     private Group group2;
@@ -27,8 +26,8 @@ public class GroupUnitTest extends AbstractTest {
         group1.setAuthorities(Collections.emptySet());
         group2.setId(1L);
         group2.setName("NEW_GROUP");
-        group1.setUsers(Collections.emptySet());
-        group1.setAuthorities(Collections.emptySet());
+        group2.setUsers(Collections.emptySet());
+        group2.setAuthorities(Collections.emptySet());
     }
 
     @Test
@@ -37,8 +36,10 @@ public class GroupUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodePairOfEqualGroups() throws Exception {
+    public void testEqualsAndHashcodePairOfEqualGroups1() throws Exception {
         assertThat(group1).isEqualTo(group2);
+        assertThat(group1.getUsers()).isEqualTo(group2.getUsers());
+        assertThat(group1.getAuthorities()).isEqualTo(group2.getAuthorities());
     }
 
     @Test
@@ -52,8 +53,16 @@ public class GroupUnitTest extends AbstractTest {
     }
 
     @Test
-    public void testEqualsAndHashcodePairOfNonEqualGroups() throws Exception {
+    public void testEqualsAndHashcodePairOfNonEqualGroups1() throws Exception {
         group2.setId(2L);
+
+        assertThat(group1).isNotEqualTo(group2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualGroups2() throws Exception {
+        group2.setName("some name");
+
         assertThat(group1).isNotEqualTo(group2);
     }
 
@@ -62,6 +71,16 @@ public class GroupUnitTest extends AbstractTest {
         Set<Group> set = new HashSet<>();
         set.add(group1);
         set.add(group2);
+
         assertThat(set.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void testGroupToString() throws Exception {
+        assertThat(group1.toString()).isEqualTo("{id = " + group1.getId() +
+                ", name = '" + group1.getName() + '\'' +
+                ", version = " + group1.getVersion() +
+                ", lastModifiedDate = '" + group1.getLastModifiedDate() + '\'' +
+                "}");
     }
 }

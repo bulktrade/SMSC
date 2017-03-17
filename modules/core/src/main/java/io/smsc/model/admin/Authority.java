@@ -118,10 +118,10 @@ public class Authority extends BaseEntity {
 
     @Override
     public String toString() {
-        return "{id=" + id +
-                ", name='" + name + '\'' +
-                ", version='" + version + '\'' +
-                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+        return "{id = " + id +
+                ", name = '" + name + '\'' +
+                ", version = " + version +
+                ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }
 }

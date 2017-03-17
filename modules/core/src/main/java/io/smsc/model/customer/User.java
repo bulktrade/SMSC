@@ -197,17 +197,17 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return "{ id=" + id +
-                ", salutation=" + salutation +
-                ", username='" + username + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", active=" + active +
-                ", created=" + created +
-                ", blocked=" + blocked +
-                ", version='" + version + '\'' +
-                ", lastModifiedDate='" + lastModifiedDate + '\'' +
+        return "{id = " + id +
+                ", salutation = '" + salutation + '\'' +
+                ", username = '" + username + '\'' +
+                ", firstname = '" + firstname + '\'' +
+                ", surname = '" + surname + '\'' +
+                ", email = '" + email + '\'' +
+                ", active = " + active +
+                ", created = '" + created + '\'' +
+                ", blocked = " + blocked +
+                ", version = " + version +
+                ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }
 }

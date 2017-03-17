@@ -1,6 +1,6 @@
 package io.smsc.repository.dashboard;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.admin.User;
 import io.smsc.model.dashboard.Dashboard;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class DashboardRestTest extends AbstractTest {
+public class DashboardRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleDashboard() throws Exception {
@@ -48,6 +48,7 @@ public class DashboardRestTest extends AbstractTest {
         String dashboardJson = json(dashboard);
         // json is ignoring inserting user through setter
         dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1).concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
+
         this.mockMvc.perform(post("/rest/repository/dashboards")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
@@ -59,6 +60,7 @@ public class DashboardRestTest extends AbstractTest {
     public void testDeleteDashboard() throws Exception {
         mockMvc.perform(delete("/rest/repository/dashboards/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/dashboards/1"))
                 .andExpect(status().isNotFound());
     }
@@ -71,11 +73,13 @@ public class DashboardRestTest extends AbstractTest {
         dashboard.setName("default_admin");
         dashboard.setUser(new User());
         String dashboardJson = json(dashboard);
+
         mockMvc.perform(put("/rest/repository/dashboards/1")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/dashboards/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

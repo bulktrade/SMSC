@@ -1,6 +1,6 @@
 package io.smsc.repository.admin;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.admin.Authority;
 import io.smsc.model.admin.Role;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
-public class AuthorityRestTest extends AbstractTest {
+public class AuthorityRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleAuthority() throws Exception {
@@ -46,6 +46,7 @@ public class AuthorityRestTest extends AbstractTest {
         Authority authority = new Authority();
         authority.setName("NEW_AUTHORITY");
         String authorityJson = json(authority);
+
         this.mockMvc.perform(post("/rest/repository/authorities")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
@@ -57,6 +58,7 @@ public class AuthorityRestTest extends AbstractTest {
     public void testDeleteAuthority() throws Exception {
         mockMvc.perform(delete("/rest/repository/authorities/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/authorities/1"))
                 .andExpect(status().isNotFound());
     }
@@ -67,11 +69,13 @@ public class AuthorityRestTest extends AbstractTest {
         role.setId(1L);
         role.setName("NEW_AUTHORITY");
         String authorityJson = json(role);
+
         mockMvc.perform(put("/rest/repository/authorities/1")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(authorityJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/authorities/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

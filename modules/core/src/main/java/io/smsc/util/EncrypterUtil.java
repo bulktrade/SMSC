@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
@@ -18,6 +19,13 @@ import java.security.Permission;
 import java.security.PermissionCollection;
 import java.util.Map;
 
+/**
+ * This class contains static methods to encrypt\decrypt properties, annotated with {@link Encrypt}
+ * and hash user's password using default Spring {@link BCryptPasswordEncoder}
+ *
+ * @author Nazar Lipkovskyy
+ * @since 0.0.2-SNAPSHOT
+ */
 @Component
 public class EncrypterUtil {
 
@@ -26,7 +34,7 @@ public class EncrypterUtil {
     private static PasswordEncoder passwordEncoder;
 
     @Autowired
-    public EncrypterUtil() {
+    public EncrypterUtil() throws Exception {
         //Solution of JCE problem for JDK up to 1.8.0.112 (should not be used for JDK 9)
         removeCryptographyRestrictions();
     }
@@ -41,24 +49,16 @@ public class EncrypterUtil {
      *
      * @param obj entity object
      */
-    public static void encrypt(Object obj) {
-        try {
-            CharSequence salt = getSalt(obj);
-            if (secretKey == null) {
-                secretKey = "smsc.io";
+    public static void encrypt(Object obj) throws IllegalAccessException {
+        CharSequence salt = getSalt(obj);
+
+        TextEncryptor encryptor = Encryptors.text(secretKey, salt);
+        for (Field field : obj.getClass().getDeclaredFields()) {
+            if (field.isAnnotationPresent(Encrypt.class)) {
+                field.setAccessible(true);
+                field.set(obj, encryptor.encrypt((String) field.get(obj)));
+                field.setAccessible(false);
             }
-            TextEncryptor encryptor = Encryptors.text(secretKey, salt);
-            for (Field field : obj.getClass().getDeclaredFields()) {
-                if (field.isAnnotationPresent(Encrypt.class) && !field.isAccessible()) {
-                    field.setAccessible(true);
-                    field.set(obj, encryptor.encrypt((String) field.get(obj)));
-                    field.setAccessible(false);
-                } else if (field.isAnnotationPresent(Encrypt.class)) {
-                    field.set(obj, encryptor.encrypt((String) field.get(obj)));
-                }
-            }
-        } catch (IllegalAccessException e) {
-            LOGGER.error("Encrypt exception.", e);
         }
     }
 
@@ -67,24 +67,16 @@ public class EncrypterUtil {
      *
      * @param obj entity object
      */
-    public static void decrypt(Object obj) {
-        try {
-            CharSequence salt = getSalt(obj);
-            if (secretKey == null) {
-                secretKey = "smsc.io";
+    public static void decrypt(Object obj) throws IllegalAccessException {
+        CharSequence salt = getSalt(obj);
+
+        TextEncryptor encryptor = Encryptors.text(secretKey, salt);
+        for (Field field : obj.getClass().getDeclaredFields()) {
+            if (field.isAnnotationPresent(Encrypt.class)) {
+                field.setAccessible(true);
+                field.set(obj, encryptor.decrypt((String) field.get(obj)));
+                field.setAccessible(false);
             }
-            TextEncryptor encryptor = Encryptors.text(secretKey, salt);
-            for (Field field : obj.getClass().getDeclaredFields()) {
-                if (field.isAnnotationPresent(Encrypt.class) && !field.isAccessible()) {
-                    field.setAccessible(true);
-                    field.set(obj, encryptor.decrypt((String) field.get(obj)));
-                    field.setAccessible(false);
-                } else if (field.isAnnotationPresent(Encrypt.class)) {
-                    field.set(obj, encryptor.decrypt((String) field.get(obj)));
-                }
-            }
-        } catch (IllegalAccessException e) {
-            LOGGER.error("Decrypt exception.", e);
         }
     }
 
@@ -98,27 +90,22 @@ public class EncrypterUtil {
         CharSequence salt;
         try {
             Field saltField = obj.getClass().getDeclaredField("salt");
-            Boolean isAccessible = saltField.isAccessible();
-
-            if (!isAccessible) {
-                saltField.setAccessible(true);
-            }
-
+            saltField.setAccessible(true);
             salt = (CharSequence) saltField.get(obj);
 
-            if (salt == null || "".equals(salt)) {
+            if (salt == null || salt.toString().isEmpty()) {
                 salt = KeyGenerators.string().generateKey();
                 saltField.set(obj, salt);
             }
 
-            if (!isAccessible) {
-                saltField.setAccessible(false);
-            }
+            saltField.setAccessible(false);
+
         } catch (NoSuchFieldException e) {
             LOGGER.info("Decrypt exception: salt field not found.");
             // Use encoded class name as salt, if salt field not available.
             salt = new String(Hex.encode(obj.getClass().getName().getBytes()));
         }
+
         return salt;
     }
 
@@ -137,45 +124,31 @@ public class EncrypterUtil {
      * strength limit. When using JDK 9+ this method is not more necessary and
      * should be removed.
      */
-    public static void removeCryptographyRestrictions() {
-        if (!isRestrictedCryptography()) {
-            LOGGER.info("Cryptography restrictions removal not needed");
-            return;
-        }
+    public static void removeCryptographyRestrictions() throws Exception {
+        final Class<?> jceSecurity = Class.forName("javax.crypto.JceSecurity");
+        final Class<?> cryptoPermissions = Class.forName("javax.crypto.CryptoPermissions");
+        final Class<?> cryptoAllPermission = Class.forName("javax.crypto.CryptoAllPermission");
 
-        try {
-            final Class<?> jceSecurity = Class.forName("javax.crypto.JceSecurity");
-            final Class<?> cryptoPermissions = Class.forName("javax.crypto.CryptoPermissions");
-            final Class<?> cryptoAllPermission = Class.forName("javax.crypto.CryptoAllPermission");
+        final Field isRestrictedField = jceSecurity.getDeclaredField("isRestricted");
+        isRestrictedField.setAccessible(true);
+        final Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(isRestrictedField, isRestrictedField.getModifiers() & ~Modifier.FINAL);
+        isRestrictedField.set(null, false);
 
-            final Field isRestrictedField = jceSecurity.getDeclaredField("isRestricted");
-            isRestrictedField.setAccessible(true);
-            final Field modifiersField = Field.class.getDeclaredField("modifiers");
-            modifiersField.setAccessible(true);
-            modifiersField.setInt(isRestrictedField, isRestrictedField.getModifiers() & ~Modifier.FINAL);
-            isRestrictedField.set(null, false);
+        final Field defaultPolicyField = jceSecurity.getDeclaredField("defaultPolicy");
+        defaultPolicyField.setAccessible(true);
+        final PermissionCollection defaultPolicy = (PermissionCollection) defaultPolicyField.get(null);
 
-            final Field defaultPolicyField = jceSecurity.getDeclaredField("defaultPolicy");
-            defaultPolicyField.setAccessible(true);
-            final PermissionCollection defaultPolicy = (PermissionCollection) defaultPolicyField.get(null);
+        final Field perms = cryptoPermissions.getDeclaredField("perms");
+        perms.setAccessible(true);
+        ((Map<?, ?>) perms.get(defaultPolicy)).clear();
 
-            final Field perms = cryptoPermissions.getDeclaredField("perms");
-            perms.setAccessible(true);
-            ((Map<?, ?>) perms.get(defaultPolicy)).clear();
+        final Field instance = cryptoAllPermission.getDeclaredField("INSTANCE");
+        instance.setAccessible(true);
+        defaultPolicy.add((Permission) instance.get(null));
 
-            final Field instance = cryptoAllPermission.getDeclaredField("INSTANCE");
-            instance.setAccessible(true);
-            defaultPolicy.add((Permission) instance.get(null));
-
-            LOGGER.info("Successfully removed cryptography restrictions");
-        } catch (final Exception e) {
-            LOGGER.debug("WARNING", "Failed to remove cryptography restrictions", e);
-        }
-    }
-
-    private static boolean isRestrictedCryptography() {
-        // This simply matches the Oracle JRE, but not OpenJDK.
-        return "Java(TM) SE Runtime Environment".equals(System.getProperty("java.runtime.name"));
+        LOGGER.info("Successfully removed cryptography restrictions");
     }
 
     @Value("${encrypt.key}")

@@ -1,11 +1,9 @@
 package io.smsc.repository.customer;
 
-import io.smsc.AbstractTest;
+import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.customer.Customer;
-import org.apache.catalina.connector.Response;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -13,7 +11,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class CustomerRestTest extends AbstractTest {
+public class CustomerRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleCustomer() throws Exception {
@@ -68,7 +66,8 @@ public class CustomerRestTest extends AbstractTest {
         customer.setCity("Lviv");
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
-        this.mockMvc.perform(post("/rest/repository/customers")
+
+        mockMvc.perform(post("/rest/repository/customers")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
@@ -95,11 +94,13 @@ public class CustomerRestTest extends AbstractTest {
         customer.setCity("Lviv");
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
+
         mockMvc.perform(put("/rest/repository/customers/40001")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/customers/40001"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -119,6 +120,7 @@ public class CustomerRestTest extends AbstractTest {
                 .contentType("application/json;charset=UTF-8")
                 .content("{\"parent\" : \"/rest/repository/customers/40001\"}"))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/customers/40000/parent"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -129,6 +131,7 @@ public class CustomerRestTest extends AbstractTest {
                 .contentType("application/json;charset=UTF-8")
                 .content("{\"parent\" : null}"))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/customers/40000/parent"))
                 .andExpect(status().isNotFound());
 
