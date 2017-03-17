@@ -33,6 +33,6 @@
     </template>
 </p-dataScroller>
 <p-panel *ngIf="!idDashboards()">
-    <p-header>{{ 'DASHBOARDS' | translate }}</p-header>
-    <span>No dashboards found</span>
+    <p-header>{{ 'dashboards.title' | translate }}</p-header>
+    <span>{{ 'dashboards.notFound' | translate }}</span>
 </p-panel>

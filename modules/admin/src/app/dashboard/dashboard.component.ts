@@ -16,8 +16,8 @@ import {DashboardBox} from "./dashboard-box/dashboard-box.model";
         <dashboard-box *ngFor="let dashboardBox of dashboardBoxes" [dashboardBox]="dashboardBox"></dashboard-box>
     </div>
     <p-panel *ngIf="!isDashboardBoxes()">
-        <p-header>{{ 'DASHBOARD_BOXES' | translate }}</p-header>
-        <span>No dashboard boxes found</span>
+        <p-header>{{ 'dashboardBoxes.title' | translate }}</p-header>
+        <span>{{ 'dashboardBoxes.notFound' | translate }}</span>
     </p-panel>
     `,
     styleUrls: ['./dashboard.component.scss']
