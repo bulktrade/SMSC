@@ -15,10 +15,12 @@
         <div>
             <i class="fa fa-times" (click)="toggleSettings()"></i>
             <span>Width:</span>
-            <p-dropdown [style]="{'color': '#aab5bc'}" [options]="[{label:'25%', value: 'WIDTH_25'},{label:'50%', value: 'WIDTH_50'},
+            <p-dropdown (onChange)="onWidthChange($event)" [(ngModel)]="dashboardBox.width"
+                        [options]="[{label:'25%', value: 'WIDTH_25'},{label:'50%', value: 'WIDTH_50'},
                                     {label:'75%', value: 'WIDTH_75'},{label:'100%', value: 'WIDTH_100'}]"></p-dropdown>
             <span>Height:</span>
-            <p-dropdown [options]="[{label:'25%', value: 'HEIGHT_25'},{label:'50%', value: 'HEIGHT_50'},
+            <p-dropdown (onChange)="onHeightChange($event)" [(ngModel)]="dashboardBox.height"
+                        [options]="[{label:'25%', value: 'HEIGHT_25'},{label:'50%', value: 'HEIGHT_50'},
                                     {label:'75%', value: 'HEIGHT_75'},{label:'100%', value: 'HEIGHT_100'}]"></p-dropdown>
         </div>
     </div>

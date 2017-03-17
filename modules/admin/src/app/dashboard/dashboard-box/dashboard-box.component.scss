@@ -1,6 +1,8 @@
 $colorScheme: #2ab4c0;
 
 :host {
+  transition: all .5s;
+  height: 146px;
   margin-bottom: 20px;
 
   .dashboard-box {
@@ -81,26 +83,14 @@ $colorScheme: #2ab4c0;
 }
 
 :host(.fullscreen) {
-  position: absolute;
+  transition: none;
+  position: fixed;
   padding: 0;
   top: 0;
-  z-index: 9999;
-  height: 100%;
+  z-index: 999999999;
+  height: 100% !important;
   margin: 0;
-}
-
-@media (max-width: 992px) {
-  :host(.fullscreen) {
-    left: 0;
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
-@media (min-width: 992px) {
-  :host(.fullscreen) {
-    left: -250px;
-    width: calc(100% + 250px);
-    max-width: calc(100% + 250px);
-  }
+  left: 0;
+  width: 100%;
+  max-width: 100%;
 }

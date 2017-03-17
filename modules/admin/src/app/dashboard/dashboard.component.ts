@@ -13,8 +13,7 @@ import {DashboardBox} from "./dashboard-box/dashboard-box.model";
          [model]="menuItems"></p-splitButton>
     </div>
     <div class="row" *ngIf="isDashboardBoxes()">
-        <dashboard-box class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
-            *ngFor="let dashboardBox of dashboardBoxes" [dashboardBox]="dashboardBox"></dashboard-box>
+        <dashboard-box *ngFor="let dashboardBox of dashboardBoxes" [dashboardBox]="dashboardBox"></dashboard-box>
     </div>
     <p-panel *ngIf="!isDashboardBoxes()">
         <p-header>{{ 'DASHBOARD_BOXES' | translate }}</p-header>
