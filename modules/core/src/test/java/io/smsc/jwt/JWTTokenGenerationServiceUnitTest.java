@@ -25,7 +25,7 @@ import static org.powermock.api.support.membermodification.MemberMatcher.method;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(JWTTokenGenerationServiceImpl.class)
-@PowerMockIgnore({"javax.crypto.*" })
+@PowerMockIgnore({"javax.crypto.*"})
 public class JWTTokenGenerationServiceUnitTest {
 
     private String token;

@@ -17,6 +17,7 @@ public class EncrypterUtilHashingTest extends AbstractSpringMVCTest {
     @Test
     public void testHashPasswordWithBCrypt() {
         String encodedPassword = EncrypterUtil.hashPassword(RAW_PASSWORD);
+
         Assert.assertTrue(passwordEncoder.matches(RAW_PASSWORD, encodedPassword));
     }
 }

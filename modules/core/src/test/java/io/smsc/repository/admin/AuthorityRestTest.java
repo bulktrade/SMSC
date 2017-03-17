@@ -46,6 +46,7 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
         Authority authority = new Authority();
         authority.setName("NEW_AUTHORITY");
         String authorityJson = json(authority);
+
         this.mockMvc.perform(post("/rest/repository/authorities")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
@@ -57,6 +58,7 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
     public void testDeleteAuthority() throws Exception {
         mockMvc.perform(delete("/rest/repository/authorities/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/authorities/1"))
                 .andExpect(status().isNotFound());
     }
@@ -67,11 +69,13 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
         role.setId(1L);
         role.setName("NEW_AUTHORITY");
         String authorityJson = json(role);
+
         mockMvc.perform(put("/rest/repository/authorities/1")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(authorityJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/authorities/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

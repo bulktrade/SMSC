@@ -11,7 +11,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DashboardUnitTest{
+public class DashboardUnitTest {
 
     private Dashboard dashboard1;
     private Dashboard dashboard2;
@@ -55,12 +55,14 @@ public class DashboardUnitTest{
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboards1() throws Exception {
         dashboard2.setId(2L);
+
         assertThat(dashboard1).isNotEqualTo(dashboard2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboards2() throws Exception {
         dashboard2.setName("some name");
+
         assertThat(dashboard1).isNotEqualTo(dashboard2);
     }
 
@@ -69,6 +71,7 @@ public class DashboardUnitTest{
         Set<Dashboard> set = new HashSet<>();
         set.add(dashboard1);
         set.add(dashboard2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

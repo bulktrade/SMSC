@@ -37,6 +37,7 @@ public class GenericExceptionHandlerTest extends AbstractSpringMVCTest {
                 .content(json(new Role())))
                 .andExpect(status().isConflict())
                 .andReturn();
+
         this.compareMessages(result, "name", "{role.empty.validation}", MessageType.ERROR);
 
     }
@@ -54,12 +55,14 @@ public class GenericExceptionHandlerTest extends AbstractSpringMVCTest {
         String userJson = json(user);
         // json is ignoring password
         userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
+
         MvcResult result = this.mockMvc.perform(post("/rest/repository/users")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(userJson))
                 .andExpect(status().isConflict())
                 .andReturn();
+
         this.compareMessages(result, null, "SQLIntegrityConstraintViolationException", MessageType.ERROR);
     }
 
@@ -69,6 +72,7 @@ public class GenericExceptionHandlerTest extends AbstractSpringMVCTest {
         expectedMessage.setMessage(message);
         expectedMessage.setType(type);
         Message returnedMessage = mapper.readValue(result.getResponse().getContentAsString().replaceAll("\\[", "").replaceAll("]", ""), Message.class);
+
         assertThat(returnedMessage.getField()).isEqualTo(expectedMessage.getField());
         assertThat(returnedMessage.getType()).isEqualTo(expectedMessage.getType());
         assertThat(returnedMessage.getMessage()).isEqualTo(expectedMessage.getMessage());

@@ -17,7 +17,7 @@ public class UserAccessTest extends AbstractSpringMVCTest {
     private String userToken;
 
     @Before
-    public void generateTokens() throws Exception {
+    public void generateToken() throws Exception {
         UserDetails user = JWTUserDetailsServiceImpl.createJwtUser(userRepository.findByUsername("user"));
         userToken = jwtTokenGenerationService.generateAccessToken(user);
     }
@@ -43,7 +43,8 @@ public class UserAccessTest extends AbstractSpringMVCTest {
         customer.setCity("Lviv");
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
-        this.mockMvc.perform(post("/rest/repository/customers")
+
+        mockMvc.perform(post("/rest/repository/customers")
                 .with(csrf())
                 .header(tokenHeader, userToken)
                 .contentType("application/json;charset=UTF-8")
@@ -63,6 +64,7 @@ public class UserAccessTest extends AbstractSpringMVCTest {
         customer.setCity("Lviv");
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
+
         mockMvc.perform(put("/rest/repository/customers/40001")
                 .with(csrf())
                 .header(tokenHeader, userToken)

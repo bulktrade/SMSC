@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ContactUnitTest{
+public class ContactUnitTest {
 
     private Contact contact1;
     private Contact contact2;
@@ -65,54 +65,63 @@ public class ContactUnitTest{
     @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts1() throws Exception {
         contact2.setId(2L);
+
         assertThat(contact1).isNotEqualTo(contact2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts2() throws Exception {
         contact2.setFirstname("some firstname");
+
         assertThat(contact1).isNotEqualTo(contact2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts3() throws Exception {
         contact2.setSurname("some surname");
+
         assertThat(contact1).isNotEqualTo(contact2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts4() throws Exception {
         contact2.setPhone("12345678");
+
         assertThat(contact1).isNotEqualTo(contact2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts5() throws Exception {
         contact2.setMobilePhone("87654321");
+
         assertThat(contact1).isNotEqualTo(contact2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts6() throws Exception {
         contact2.setFax("81726354");
+
         assertThat(contact1).isNotEqualTo(contact2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts7() throws Exception {
         contact2.setEmailAddress("email@gmail.com");
+
         assertThat(contact1).isNotEqualTo(contact2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts8() throws Exception {
         contact2.setType(Type.TECHNICAL);
+
         assertThat(contact1).isNotEqualTo(contact2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualContacts9() throws Exception {
         contact2.setSalutation(Salutation.MR);
+
         assertThat(contact1).isNotEqualTo(contact2);
     }
 
@@ -121,6 +130,7 @@ public class ContactUnitTest{
         Set<Contact> set = new HashSet<>();
         set.add(contact1);
         set.add(contact2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

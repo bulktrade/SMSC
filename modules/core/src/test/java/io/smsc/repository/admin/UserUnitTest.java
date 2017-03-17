@@ -78,24 +78,28 @@ public class UserUnitTest {
     @Test
     public void testEqualsAndHashcodePairOfNonEqualUsers1() throws Exception {
         user2.setId(2L);
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualUsers2() throws Exception {
         user2.setSalutation(Salutation.MRS);
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualUsers3() throws Exception {
         user2.setUsername("some username");
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualUsers4() throws Exception {
         user2.setFirstname("some firstname");
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
@@ -108,12 +112,14 @@ public class UserUnitTest {
     @Test
     public void testEqualsAndHashcodePairOfNonEqualUsers6() throws Exception {
         user2.setEmail("email@gmail.com");
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualUsers7() throws Exception {
         user2.setCreated(Date.from(Instant.EPOCH));
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
@@ -122,6 +128,7 @@ public class UserUnitTest {
         Set<User> set = new HashSet<>();
         set.add(user1);
         set.add(user2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

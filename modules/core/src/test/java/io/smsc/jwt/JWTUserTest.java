@@ -18,6 +18,7 @@ public class JWTUserTest extends AbstractSpringMVCTest {
     public void testLoadAdminUserByUsernameAndCreateJWTUser() throws Exception {
         User admin = userRepository.findByUsername("admin");
         JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername("admin");
+
         assertThat(jwtUser.getId()).isEqualTo(2);
         assertThat(jwtUser.getUsername()).isEqualTo("admin");
         assertThat(jwtUser.isAccountNonExpired()).isEqualTo(true);
@@ -35,6 +36,7 @@ public class JWTUserTest extends AbstractSpringMVCTest {
     public void testLoadAdminUserByEmailAndCreateJWTUser() throws Exception {
         User admin = userRepository.findByUsername("admin");
         JWTUser jwtUser = jwtUserDetailsService.loadUserByEmail("admin@gmail.com");
+
         assertThat(jwtUser.getId()).isEqualTo(2);
         assertThat(jwtUser.getUsername()).isEqualTo("admin");
         assertThat(jwtUser.isAccountNonExpired()).isEqualTo(true);
@@ -59,6 +61,7 @@ public class JWTUserTest extends AbstractSpringMVCTest {
         user.setRoles(Collections.emptySet());
         userRepository.save(user);
         JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername("user");
+
         assertThat(jwtUser.getAuthorities()).isEqualTo(Collections.emptySet());
     }
 

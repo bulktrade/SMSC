@@ -13,7 +13,7 @@ import java.io.InputStream;
 
 /**
  * The StaticResourceServiceImpl class is an implementation of {@link StaticResourceService} interface and
- * is used for receiving static resources in different representations using {@link ApplicationContext}
+ * is used for receiving static resources in different representations using {@link ApplicationContext}.
  *
  * @author Sergej Kunz
  * @since 0.0.2-SNAPSHOT
@@ -26,7 +26,7 @@ public class StaticResourceServiceImpl implements StaticResourceService {
     private ApplicationContext appContext;
 
     /**
-     * Method to receive resource as string
+     * Method to receive resource as string.
      *
      * @param path to resource
      * @return resource as string
@@ -44,7 +44,7 @@ public class StaticResourceServiceImpl implements StaticResourceService {
     }
 
     /**
-     * Method to receive resource as binary code
+     * Method to receive resource as binary code.
      *
      * @param path to resource
      * @return resource as binary code
@@ -52,7 +52,6 @@ public class StaticResourceServiceImpl implements StaticResourceService {
     @Override
     public byte[] getBinarayContent(String path) {
         Resource resource = appContext.getResource(path);
-
         try {
             return IOUtils.toByteArray(resource.getInputStream());
         } catch (IOException e) {
@@ -63,7 +62,7 @@ public class StaticResourceServiceImpl implements StaticResourceService {
     }
 
     /**
-     * Method to receive resource as input stream
+     * Method to receive resource as input stream.
      *
      * @param path to resource
      * @return resource as input stream
@@ -71,7 +70,6 @@ public class StaticResourceServiceImpl implements StaticResourceService {
     @Override
     public InputStream getInputStream(String path) {
         Resource resource = appContext.getResource(path);
-
         try {
             return resource.getInputStream();
         } catch (IOException e) {
@@ -82,7 +80,7 @@ public class StaticResourceServiceImpl implements StaticResourceService {
     }
 
     /**
-     * Method to receive resource as class object
+     * Method to receive resource as class object.
      *
      * @param path to resource
      * @return resource as class object

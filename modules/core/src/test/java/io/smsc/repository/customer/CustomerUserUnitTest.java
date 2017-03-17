@@ -67,42 +67,49 @@ public class CustomerUserUnitTest {
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomerUsers1() throws Exception {
         user2.setId(2L);
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomerUsers2() throws Exception {
         user2.setSalutation(Salutation.MRS);
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomerUsers3() throws Exception {
         user2.setUsername("some username");
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomerUsers4() throws Exception {
         user2.setFirstname("some firstname");
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomerUsers5() throws Exception {
         user2.setSurname("some surname");
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomerUsers6() throws Exception {
         user2.setEmail("email@gmail.com");
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomerUsers7() throws Exception {
         user2.setCreated(Date.from(Instant.EPOCH));
+
         assertThat(user1).isNotEqualTo(user2);
     }
 
@@ -111,6 +118,7 @@ public class CustomerUserUnitTest {
         Set<User> set = new HashSet<>();
         set.add(user1);
         set.add(user2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

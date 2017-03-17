@@ -84,6 +84,7 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
                 LOG.info(String.format("User %s not found.", username));
             }
         }
+
         chain.doFilter(request, response);
     }
 

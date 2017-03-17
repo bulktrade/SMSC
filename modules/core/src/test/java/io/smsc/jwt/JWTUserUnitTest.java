@@ -36,6 +36,7 @@ public class JWTUserUnitTest {
     @Test
     public void createJWTUserWithGroupWithAuthority() {
         JWTUser jwtUser = JWTUserDetailsServiceImpl.createJwtUser(user);
+
         assertThat(jwtUser.getAuthorities()).hasSize(2);
     }
 
@@ -43,6 +44,7 @@ public class JWTUserUnitTest {
     public void createJWTUserWithGroupWithoutAuthorities() {
         group.setAuthorities(Collections.emptySet());
         JWTUser jwtUser = JWTUserDetailsServiceImpl.createJwtUser(user);
+
         assertThat(jwtUser.getAuthorities()).hasSize(2);
     }
 
@@ -50,6 +52,7 @@ public class JWTUserUnitTest {
     public void createJWTUserWithGroupWithNullAuthorities() {
         group.setAuthorities(null);
         JWTUser jwtUser = JWTUserDetailsServiceImpl.createJwtUser(user);
+
         assertThat(jwtUser.getAuthorities()).hasSize(2);
     }
 }

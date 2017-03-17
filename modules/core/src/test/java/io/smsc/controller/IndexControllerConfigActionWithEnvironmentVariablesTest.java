@@ -28,7 +28,7 @@ public class IndexControllerConfigActionWithEnvironmentVariablesTest extends Abs
     private static final String MOCK_CONTENT = "{\"apiUrl\":\"/rest\",\"i18nPath\":\"assets/i18n\",\"debug\":false}";
 
     @Test
-    public void testConfigActionWithMockedResourceAndSystemVariables() throws Exception {
+    public void testConfigActionWithMockedResourceAndEnvironmentVariables() throws Exception {
         given(this.staticResourceService.getContent("classpath:META-INF/resources/io.smsc.admin/config.json")).willReturn(MOCK_CONTENT);
 
         MvcResult result = mockMvc
@@ -40,7 +40,7 @@ public class IndexControllerConfigActionWithEnvironmentVariablesTest extends Abs
     }
 
     @Test
-    public void testConfigActionWithoutResourceWithSystemVariables() throws Exception {
+    public void testConfigActionWithoutResourceWithEnvironmentVariables() throws Exception {
         given(this.staticResourceService.getContent("classpath:META-INF/resources/io.smsc.admin/config.json")).willReturn("");
 
         MvcResult result = mockMvc

@@ -59,6 +59,7 @@ public class CustomerUnitTest {
     public void testEqualsAndHashcodePairOfEqualCustomers2() throws Exception {
         customer1.setVatid(null);
         customer2.setVatid(null);
+
         assertThat(customer1).isEqualTo(customer2);
     }
 
@@ -75,54 +76,63 @@ public class CustomerUnitTest {
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers1() throws Exception {
         customer2.setId(2L);
+
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers2() throws Exception {
         customer2.setCompanyName("some company");
+
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers3() throws Exception {
         customer2.setStreet("some street");
+
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers4() throws Exception {
         customer2.setStreet2("some street");
+
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers5() throws Exception {
         customer2.setPostcode("some postcode");
+
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers6() throws Exception {
         customer2.setCountry("some country");
+
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers7() throws Exception {
         customer2.setCity("some sity");
+
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers8() throws Exception {
         customer2.setVatid(null);
+
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualCustomers9() throws Exception {
         customer1.setVatid(null);
+
         assertThat(customer1).isNotEqualTo(customer2);
     }
 
@@ -131,6 +141,7 @@ public class CustomerUnitTest {
         Set<Customer> set = new HashSet<>();
         set.add(customer1);
         set.add(customer2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

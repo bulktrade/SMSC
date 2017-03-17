@@ -66,7 +66,8 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
         customer.setCity("Lviv");
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
-        this.mockMvc.perform(post("/rest/repository/customers")
+
+        mockMvc.perform(post("/rest/repository/customers")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
@@ -93,11 +94,13 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
         customer.setCity("Lviv");
         customer.setVatid("9999999.0");
         String customerJson = json(customer);
+
         mockMvc.perform(put("/rest/repository/customers/40001")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/customers/40001"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -117,6 +120,7 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
                 .contentType("application/json;charset=UTF-8")
                 .content("{\"parent\" : \"/rest/repository/customers/40001\"}"))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/customers/40000/parent"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -127,6 +131,7 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
                 .contentType("application/json;charset=UTF-8")
                 .content("{\"parent\" : null}"))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/customers/40000/parent"))
                 .andExpect(status().isNotFound());
 

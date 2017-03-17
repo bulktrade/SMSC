@@ -75,7 +75,8 @@ public class ContactRestTest extends AbstractSpringMVCTest {
         String customerContactJson = json(contact);
         // json is ignoring inserting customer through setter
         customerContactJson = customerContactJson.substring(0, customerContactJson.length() - 1).concat(", \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
-        this.mockMvc.perform(post("/rest/repository/customer-contacts")
+
+        mockMvc.perform(post("/rest/repository/customer-contacts")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
@@ -86,6 +87,7 @@ public class ContactRestTest extends AbstractSpringMVCTest {
     public void testDeleteCustomerContact() throws Exception {
         mockMvc.perform(delete("/rest/repository/customer-contacts/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/customer-contacts/1"))
                 .andExpect(status().isNotFound());
     }
@@ -103,11 +105,13 @@ public class ContactRestTest extends AbstractSpringMVCTest {
         contact.setType(Type.PRIMARY);
         contact.setSalutation(Salutation.MRS);
         String customerContactJson = json(contact);
+
         mockMvc.perform(put("/rest/repository/customer-contacts/2")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/customer-contacts/2"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

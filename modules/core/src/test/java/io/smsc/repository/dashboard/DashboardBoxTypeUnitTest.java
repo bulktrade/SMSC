@@ -18,8 +18,8 @@ public class DashboardBoxTypeUnitTest {
 
     @Before
     public void initDashboardBoxTypes() throws Exception {
-        this.dashboardBoxType1 = new DashboardBoxType();
-        this.dashboardBoxType2 = new DashboardBoxType();
+        dashboardBoxType1 = new DashboardBoxType();
+        dashboardBoxType2 = new DashboardBoxType();
         dashboardBoxType1.setId(1L);
         dashboardBoxType1.setName("new dashboard box type");
         dashboardBoxType1.setType(Type.CHART);
@@ -56,24 +56,28 @@ public class DashboardBoxTypeUnitTest {
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxTypes1() throws Exception {
         dashboardBoxType2.setId(2L);
+
         assertThat(dashboardBoxType1).isNotEqualTo(dashboardBoxType2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxTypes2() throws Exception {
         dashboardBoxType2.setName("some name");
+
         assertThat(dashboardBoxType1).isNotEqualTo(dashboardBoxType2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxTypes3() throws Exception {
         dashboardBoxType2.setType(Type.STATUS);
+
         assertThat(dashboardBoxType1).isNotEqualTo(dashboardBoxType2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxTypes4() throws Exception {
         dashboardBoxType2.setKind(Kind.FEEDBACK_STATUS);
+
         assertThat(dashboardBoxType1).isNotEqualTo(dashboardBoxType2);
     }
 
@@ -82,6 +86,7 @@ public class DashboardBoxTypeUnitTest {
         Set<DashboardBoxType> set = new HashSet<>();
         set.add(dashboardBoxType1);
         set.add(dashboardBoxType2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

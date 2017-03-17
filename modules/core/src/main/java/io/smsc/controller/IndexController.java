@@ -97,11 +97,11 @@ public class IndexController {
             ServletWebRequest servletWebRequest
     ) {
         try {
-            Optional<Object> filePath = Optional.of(request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE));
+            Object filePath = request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
             Integer prefixLength = "/admin/".length();
 
-            if (filePath.isPresent() && filePath.get().toString().length() > prefixLength) {
-                String realFilePath = filePath.get().toString().substring(prefixLength);
+            if (filePath.toString().length() > prefixLength) {
+                String realFilePath = filePath.toString().substring(prefixLength);
                 String classFilePath = "classpath:META-INF/resources/io.smsc.admin/" + realFilePath;
                 Resource resource = staticResourceService.getResource(classFilePath);
 

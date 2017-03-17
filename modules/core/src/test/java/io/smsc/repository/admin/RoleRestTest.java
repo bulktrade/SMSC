@@ -45,6 +45,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
         Role role = new Role();
         role.setName("ROLE_GOD");
         String roleJson = json(role);
+
         this.mockMvc.perform(post("/rest/repository/roles")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
@@ -56,6 +57,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
     public void testDeleteRole() throws Exception {
         mockMvc.perform(delete("/rest/repository/roles/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/roles/1"))
                 .andExpect(status().isNotFound());
     }
@@ -66,11 +68,13 @@ public class RoleRestTest extends AbstractSpringMVCTest {
         role.setId(1L);
         role.setName("ROLE_GOD");
         String roleJson = json(role);
+
         mockMvc.perform(put("/rest/repository/roles/1")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(roleJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/roles/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

@@ -18,11 +18,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(EncrypterUtil.class)
-@PowerMockIgnore({"javax.crypto.*" })
+@PowerMockIgnore({"javax.crypto.*"})
 public class EncrypterUtilEncryptionTest {
 
     private final static String STRING_FOR_ENCODING = "someString";
+
     private EncryptionTestClassWithPrivateFieldWithoutSalt obj1;
+
     private EncryptionTestClassWithPublicFieldAndSalt obj2;
 
     @Before
@@ -57,13 +59,15 @@ public class EncrypterUtilEncryptionTest {
     @Test(expected = IllegalStateException.class)
     public void testDecryptObjectWithOtherSecretKey() throws Exception {
         EncrypterUtil.encrypt(obj1);
+
         Whitebox.setInternalState(EncrypterUtil.class, "fake");
+
         EncrypterUtil.decrypt(obj1);
     }
 
     @Test
     public void testEncryptAndDecryptPrivateFieldForObjectWithoutSalt() throws Exception {
-       checkStringForEncryptedAndDecryptedFieldForFirstObject(obj1);
+        checkStringForEncryptedAndDecryptedFieldForFirstObject(obj1);
     }
 
     @Test
@@ -74,12 +78,14 @@ public class EncrypterUtilEncryptionTest {
     @Test
     public void testEncryptAndDecryptPublicFieldForObjectWithEmptySalt() throws Exception {
         obj2.setSalt("");
+
         checkStringForEncryptedAndDecryptedFieldForSecondObject(obj2);
     }
 
     @Test
     public void testEncryptAndDecryptPublicFieldForObjectWithNullSalt() throws Exception {
         obj2.setSalt(null);
+
         checkStringForEncryptedAndDecryptedFieldForSecondObject(obj2);
     }
 

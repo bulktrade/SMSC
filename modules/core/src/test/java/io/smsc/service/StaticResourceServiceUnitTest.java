@@ -27,54 +27,63 @@ public class StaticResourceServiceUnitTest {
     @Before
     public void setUp() {
         resourceService = new StaticResourceServiceImpl();
+
         ReflectionTestUtils.setField(resourceService, "appContext", context);
     }
 
     @Test
     public void getContentWithResourceTest() throws Exception {
         mockExistingResource();
+
         assertThat(resourceService.getContent(PATH)).contains("SMSC");
     }
 
     @Test
     public void getContentWithoutResourceTest() throws Exception {
         mockNotExistingResource();
+
         assertThat(resourceService.getContent(PATH)).isNull();
     }
 
     @Test
     public void getBinarayContentWithResourceTest() throws Exception {
         mockExistingResource();
+
         assertThat(resourceService.getBinarayContent(PATH)).contains("SMSC".getBytes());
     }
 
     @Test
     public void getBinarayContentWithoutResourceTest() throws Exception {
         mockNotExistingResource();
+
         assertThat(resourceService.getBinarayContent(PATH)).isEmpty();
     }
 
     @Test
     public void getInputStreamWithResourceTest() throws Exception {
         mockExistingResource();
+
         assertThat(resourceService.getInputStream(PATH)).hasSameContentAs(new ClassPathResource("index.html").getInputStream());
     }
 
     @Test
     public void getInputStreamWithoutResourceTest() throws Exception {
         mockNotExistingResource();
+
         assertThat(resourceService.getInputStream(PATH)).isNull();
     }
 
     @Test
     public void getResourceWithResourceTest() throws Exception {
         mockExistingResource();
+
         assertThat(resourceService.getResource(PATH)).isEqualTo(new ClassPathResource("index.html"));
     }
 
     @Test
     public void getResourceWithoutResourceTest() throws Exception {
         mockNotExistingResource();
+
         assertThat(resourceService.getResource(PATH)).isEqualTo(new ClassPathResource("not-exist.html"));
     }
 

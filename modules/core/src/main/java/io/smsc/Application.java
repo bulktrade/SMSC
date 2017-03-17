@@ -14,6 +14,7 @@ import java.security.Security;
 public class Application {
 
     public static void main(String[] args) {
+
 //    Solution of JCE problem for JDK 9 (reflection is not more needed)
         Security.setProperty("crypto.policy", "unlimited");
         SpringApplication.run(Application.class, args);

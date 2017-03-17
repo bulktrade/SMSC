@@ -16,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SpringMainTest {
 
     private static final String SPRING_STARTUP = ":: Spring Boot ::";
+
     private ByteArrayOutputStream output;
 
     @Before
@@ -27,24 +28,26 @@ public class SpringMainTest {
     @Test
     public void testEmptyApplicationContext() throws Exception {
         Application.main(getArgs());
+
         assertThat(getOutput()).contains(SPRING_STARTUP);
     }
 
     @Test
     public void testBasePackageScan() throws Exception {
-        Application
-                .main(getArgs(ClassUtils.getPackageName(getClass())));
+        Application.main(getArgs(ClassUtils.getPackageName(getClass())));
+
         assertThat(getOutput()).contains(SPRING_STARTUP);
     }
 
     private String[] getArgs(String... args) {
         List<String> list = new ArrayList<>(Arrays.asList(
                 "--spring.main.webEnvironment=true", "--spring.main.showBanner=OFF",
-                "--spring.main.registerShutdownHook=false","--server.port=0"));
+                "--spring.main.registerShutdownHook=false", "--server.port=0"));
         if (args.length > 0) {
             list.add("--spring.main.sources="
                     + StringUtils.arrayToCommaDelimitedString(args));
         }
+
         return list.toArray(new String[list.size()]);
     }
 

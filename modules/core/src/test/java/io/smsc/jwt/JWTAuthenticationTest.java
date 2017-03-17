@@ -83,11 +83,13 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
         fake.setBlocked(false);
         fake.setSalutation(Salutation.MR);
         userRepository.save(fake);
-        MvcResult result =  mockMvc.perform(post("/rest/auth/token")
+
+        MvcResult result = mockMvc.perform(post("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTAuthenticationRequest("fake", "fake"))))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
+
         assertThat(result.getResponse().getErrorMessage()).isEqualTo("Current user has no appropriate roles. Please contact your administrator");
     }
 
@@ -110,6 +112,7 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
     public void testRefreshToken() throws Exception {
         UserDetails adminDetails = createJWTUser();
         String refreshToken = jwtTokenGenerationService.generateRefreshToken(adminDetails);
+
         mockMvc.perform(put("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTRefreshTokenRequest(refreshToken))))
@@ -119,22 +122,26 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
     @Test
     public void testRefreshTokenWithInvalidRefreshToken() throws Exception {
         String invalidRefreshToken = "invalidToken";
-        MvcResult result =  mockMvc.perform(put("/rest/auth/token")
+
+        MvcResult result = mockMvc.perform(put("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTRefreshTokenRequest(invalidRefreshToken))))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
+
         assertThat(result.getResponse().getErrorMessage()).isEqualTo("Refresh token is invalid. Please enter valid token");
     }
 
     @Test
     public void testRefreshTokenWithExpiredRefreshToken() throws Exception {
         String expiredRefreshToken = createExpiredToken();
-        MvcResult result =  mockMvc.perform(put("/rest/auth/token")
+
+        MvcResult result = mockMvc.perform(put("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTRefreshTokenRequest(expiredRefreshToken))))
                 .andExpect(status().isUnauthorized())
                 .andReturn();
+
         assertThat(result.getResponse().getErrorMessage()).isEqualTo("Refresh token is invalid. Please enter valid token");
     }
 
@@ -170,7 +177,7 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
         return claims;
     }
 
-    private JWTUser createJWTUser(){
+    private JWTUser createJWTUser() {
         User admin = new User();
         admin.setId(2L);
         admin.setUsername("admin");
@@ -181,6 +188,7 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
         admin.setSalutation(Salutation.MR);
         admin.setActive(true);
         admin.setBlocked(false);
+
         return JWTUserDetailsServiceImpl.createJwtUser(admin);
     }
 
@@ -188,6 +196,7 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
         Map<String, Object> claims = new HashMap<>();
         claims.put("sub", "admin");
         claims.put("created", new Date(System.currentTimeMillis() - 100000));
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(new Date(System.currentTimeMillis() - 10000))

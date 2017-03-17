@@ -60,14 +60,14 @@ public class AuthController {
         try {
             JWTUser jwtUser = jwtUserDetailsService.loadUserByUsername(request.getUsername());
             Boolean hasRoles = false;
-            for(GrantedAuthority authority : jwtUser.getAuthorities()) {
-                if(authority.getAuthority().equals("ROLE_ADMIN_USER") || authority.getAuthority().equals("ROLE_POWER_ADMIN_USER")) {
+            for (GrantedAuthority authority : jwtUser.getAuthorities()) {
+                if (authority.getAuthority().equals("ROLE_ADMIN_USER") || authority.getAuthority().equals("ROLE_POWER_ADMIN_USER")) {
                     hasRoles = true;
                     break;
                 }
             }
 
-            if(!hasRoles) {
+            if (!hasRoles) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Current user has no appropriate roles. Please contact your administrator");
                 return null;
             }
@@ -80,8 +80,7 @@ public class AuthController {
 
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials are invalid. Please enter valid username and password");
             return null;
-        }
-        catch (UsernameNotFoundException ex) {
+        } catch (UsernameNotFoundException ex) {
             LOG.debug("Invalid credentials", ex);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials are invalid. Please enter valid username and password");
             return null;

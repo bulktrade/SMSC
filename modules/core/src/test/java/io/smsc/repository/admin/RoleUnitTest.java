@@ -52,12 +52,14 @@ public class RoleUnitTest {
     @Test
     public void testEqualsAndHashcodePairOfNonEqualRoles1() throws Exception {
         role2.setId(2L);
+
         assertThat(role1).isNotEqualTo(role2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualRoles2() throws Exception {
         role2.setName("some name");
+
         assertThat(role1).isNotEqualTo(role2);
     }
 
@@ -66,6 +68,7 @@ public class RoleUnitTest {
         Set<Role> set = new HashSet<>();
         set.add(role1);
         set.add(role2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

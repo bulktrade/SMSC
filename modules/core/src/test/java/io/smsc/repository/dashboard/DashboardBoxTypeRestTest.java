@@ -52,7 +52,8 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
         dashboardBoxType.setType(Type.CHART);
         dashboardBoxType.setKind(Kind.BAR_CHART);
         String dashboardBoxTypeJson = json(dashboardBoxType);
-        this.mockMvc.perform(post("/rest/repository/dashboard-box-types")
+
+        mockMvc.perform(post("/rest/repository/dashboard-box-types")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxTypeJson))
@@ -63,6 +64,7 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
     public void testDeleteDashboardBoxType() throws Exception {
         mockMvc.perform(delete("/rest/repository/dashboard-box-types/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/dashboard-box-types/1"))
                 .andExpect(status().isNotFound());
     }
@@ -75,11 +77,13 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
         dashboardBoxType.setType(Type.CHART);
         dashboardBoxType.setKind(Kind.BAR_CHART);
         String dashboardBoxTypeJson = json(dashboardBoxType);
+
         mockMvc.perform(put("/rest/repository/dashboard-box-types/1")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxTypeJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/dashboard-box-types/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

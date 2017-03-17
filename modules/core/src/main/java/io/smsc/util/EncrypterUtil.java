@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
@@ -18,6 +19,13 @@ import java.security.Permission;
 import java.security.PermissionCollection;
 import java.util.Map;
 
+/**
+ * This class contains static methods to encrypt\decrypt properties, annotated with {@link Encrypt}
+ * and hash user's password using default Spring {@link BCryptPasswordEncoder}
+ *
+ * @author Nazar Lipkovskyy
+ * @since 0.0.2-SNAPSHOT
+ */
 @Component
 public class EncrypterUtil {
 
@@ -97,6 +105,7 @@ public class EncrypterUtil {
             // Use encoded class name as salt, if salt field not available.
             salt = new String(Hex.encode(obj.getClass().getName().getBytes()));
         }
+
         return salt;
     }
 

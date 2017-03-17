@@ -55,12 +55,14 @@ public class GroupUnitTest {
     @Test
     public void testEqualsAndHashcodePairOfNonEqualGroups1() throws Exception {
         group2.setId(2L);
+
         assertThat(group1).isNotEqualTo(group2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualGroups2() throws Exception {
         group2.setName("some name");
+
         assertThat(group1).isNotEqualTo(group2);
     }
 
@@ -69,6 +71,7 @@ public class GroupUnitTest {
         Set<Group> set = new HashSet<>();
         set.add(group1);
         set.add(group2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

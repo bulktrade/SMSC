@@ -7,6 +7,7 @@ package io.smsc.dto;
  * @since 0.0.2-SNAPSHOT
  */
 public class Message {
+
     private String message;
     private MessageType type;
     private String field;

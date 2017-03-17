@@ -41,6 +41,7 @@ public class GroupRestTest extends AbstractSpringMVCTest {
     public void testCreateGroup() throws Exception {
         Group group = new Group();
         group.setName("GROUP_ALL_RIGHTS");
+
         this.mockMvc.perform(post("/rest/repository/groups")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
@@ -52,6 +53,7 @@ public class GroupRestTest extends AbstractSpringMVCTest {
     public void testDeleteUser() throws Exception {
         mockMvc.perform(delete("/rest/repository/groups/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/groups/1"))
                 .andExpect(status().isNotFound());
     }
@@ -61,11 +63,13 @@ public class GroupRestTest extends AbstractSpringMVCTest {
         Group group = new Group();
         group.setId(2L);
         group.setName("GROUP_ALL_RIGHTS");
+
         mockMvc.perform(put("/rest/repository/groups/2")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(json(group)))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/groups/2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("GROUP_ALL_RIGHTS")));

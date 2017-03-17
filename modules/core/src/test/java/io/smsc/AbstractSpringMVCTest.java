@@ -58,6 +58,7 @@ public abstract class AbstractSpringMVCTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {
         @Override
@@ -67,13 +68,19 @@ public abstract class AbstractSpringMVCTest {
             LOG.info(result + " ms\n");
         }
     };
+
     protected MockMvc mockMvc;
+
     protected MediaType contentType = MediaType.valueOf("application/hal+json;charset=UTF-8");
+
     @Autowired
     protected JWTTokenGenerationService jwtTokenGenerationService;
+
     @Autowired
     protected JWTUserDetailsService jwtUserDetailsService;
+
     private HttpMessageConverter mappingJackson2HttpMessageConverter;
+
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -94,6 +101,7 @@ public abstract class AbstractSpringMVCTest {
                 .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
                 .findAny()
                 .orElse(null);
+
         assertNotNull("the JSON message converter must not be null",
                 this.mappingJackson2HttpMessageConverter);
     }
@@ -109,6 +117,7 @@ public abstract class AbstractSpringMVCTest {
         MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
         this.mappingJackson2HttpMessageConverter.write(
                 o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
+
         return mockHttpOutputMessage.getBodyAsString();
     }
 }

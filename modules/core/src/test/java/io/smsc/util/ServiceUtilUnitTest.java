@@ -10,6 +10,6 @@ public class ServiceUtilUnitTest extends AbstractSpringMVCTest {
 
     @Test
     public void getUserRepositoryBean() throws Exception {
-       assertThat(ServiceUtil.getUserRepository()).isInstanceOf(UserRepository.class);
+        assertThat(ServiceUtil.getUserRepository()).isInstanceOf(UserRepository.class);
     }
 }

@@ -33,6 +33,7 @@ public class SpringDataRestValidationConfiguration extends RepositoryRestConfigu
     @Override
     public void configureValidatingRepositoryEventListener(ValidatingRepositoryEventListener validatingListener) {
         Validator validator = validator();
+
         //bean validation always before save and create
         validatingListener.addValidator("beforeCreate", validator);
         validatingListener.addValidator("beforeSave", validator);

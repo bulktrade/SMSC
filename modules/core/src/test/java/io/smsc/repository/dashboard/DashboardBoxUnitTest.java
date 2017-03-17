@@ -17,8 +17,8 @@ public class DashboardBoxUnitTest {
 
     @Before
     public void initDashboardBoxes() throws Exception {
-        this.dashboardBox1 = new DashboardBox();
-        this.dashboardBox2 = new DashboardBox();
+        dashboardBox1 = new DashboardBox();
+        dashboardBox2 = new DashboardBox();
         dashboardBox1.setId(1L);
         dashboardBox1.setName("new box");
         dashboardBox1.setOrder(99);
@@ -58,36 +58,42 @@ public class DashboardBoxUnitTest {
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxes1() throws Exception {
         dashboardBox2.setId(2L);
+
         assertThat(dashboardBox1).isNotEqualTo(dashboardBox2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxes2() throws Exception {
         dashboardBox2.setWidth(Width.WIDTH_25);
+
         assertThat(dashboardBox1).isNotEqualTo(dashboardBox2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxes3() throws Exception {
         dashboardBox2.setHeight(Height.HEIGHT_25);
+
         assertThat(dashboardBox1).isNotEqualTo(dashboardBox2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxes4() throws Exception {
         dashboardBox2.setOrder(1);
+
         assertThat(dashboardBox1).isNotEqualTo(dashboardBox2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxes5() throws Exception {
         dashboardBox2.setName("some name");
+
         assertThat(dashboardBox1).isNotEqualTo(dashboardBox2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualDashboardBoxes6() throws Exception {
         dashboardBox2.setDescription("some description");
+
         assertThat(dashboardBox1).isNotEqualTo(dashboardBox2);
     }
 
@@ -96,6 +102,7 @@ public class DashboardBoxUnitTest {
         Set<DashboardBox> set = new HashSet<>();
         set.add(dashboardBox1);
         set.add(dashboardBox2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

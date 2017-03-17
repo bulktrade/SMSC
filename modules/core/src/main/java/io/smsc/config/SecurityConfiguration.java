@@ -79,6 +79,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private SecurityExpressionHandler<FilterInvocation> expressionHandler() {
         DefaultWebSecurityExpressionHandler defaultWebSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
         defaultWebSecurityExpressionHandler.setRoleHierarchy(roleHierarchy());
+
         return defaultWebSecurityExpressionHandler;
     }
 
@@ -98,9 +99,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * @return roleHierarchy
      */
     @Bean
-    public RoleHierarchy roleHierarchy(){
+    public RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
         roleHierarchy.setHierarchy("ROLE_POWER_ADMIN_USER > ROLE_ADMIN_USER");
+
         return roleHierarchy;
     }
 
@@ -143,6 +145,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 // don't create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         // Custom JWT based security filter
         http
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

@@ -55,12 +55,14 @@ public class AuthorityUnitTest {
     @Test
     public void testEqualsAndHashcodePairOfNonEqualAuthorities1() throws Exception {
         authority2.setId(2L);
+
         assertThat(authority1).isNotEqualTo(authority2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualAuthorities2() throws Exception {
         authority2.setName("some name");
+
         assertThat(authority1).isNotEqualTo(authority2);
     }
 
@@ -69,6 +71,7 @@ public class AuthorityUnitTest {
         Set<Authority> set = new HashSet<>();
         set.add(authority1);
         set.add(authority2);
+
         assertThat(set.size()).isEqualTo(1);
     }
 

@@ -71,6 +71,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
         String userJson = json(user);
         // json is ignoring password
         userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
+
         this.mockMvc.perform(post("/rest/repository/users")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
@@ -82,6 +83,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
     public void testDeleteUser() throws Exception {
         mockMvc.perform(delete("/rest/repository/users/1")
                 .with(csrf()));
+
         mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isNotFound());
     }
@@ -100,11 +102,13 @@ public class UserRestTest extends AbstractSpringMVCTest {
         String userJson = json(user);
         // json is ignoring password
         userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
+
         mockMvc.perform(put("/rest/repository/users/1")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(userJson))
                 .andExpect(status().isOk());
+
         mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username", is("Old Johnny")))

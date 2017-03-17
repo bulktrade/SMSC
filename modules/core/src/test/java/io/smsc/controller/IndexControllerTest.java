@@ -32,7 +32,7 @@ public class IndexControllerTest extends AbstractSpringMVCTest {
     public void testIndexActionWithUnmodifiedData() throws Exception {
         MvcResult result = mockMvc
                 .perform(get("/")
-                .header("If-Unmodified-Since", lastModified - 100000L))
+                        .header("If-Unmodified-Since", lastModified - 100000L))
                 .andReturn();
 
         assertThat(result.getResponse().getContentAsString()).isEqualTo("");
@@ -42,7 +42,7 @@ public class IndexControllerTest extends AbstractSpringMVCTest {
     public void testIndexActionWithModifiedData() throws Exception {
         MvcResult result = mockMvc
                 .perform(get("/")
-                .header("If-Unmodified-Since", lastModified + 100000L))
+                        .header("If-Unmodified-Since", lastModified + 100000L))
                 .andReturn();
 
         assertThat(result.getResponse().getContentAsString()).isEqualTo("SMSC");
@@ -67,7 +67,7 @@ public class IndexControllerTest extends AbstractSpringMVCTest {
 
         MvcResult result = mockMvc
                 .perform(get("/admin")
-                .header("If-Unmodified-Since", lastModified - 100000L))
+                        .header("If-Unmodified-Since", lastModified - 100000L))
                 .andReturn();
 
         assertThat(result.getResponse().getStatus()).isEqualTo(412);
@@ -103,7 +103,7 @@ public class IndexControllerTest extends AbstractSpringMVCTest {
 
         MvcResult result = mockMvc
                 .perform(get("/admin/index.html")
-                .header("If-Unmodified-Since", lastModified - 100000L))
+                        .header("If-Unmodified-Since", lastModified - 100000L))
                 .andReturn();
 
         assertThat(result.getResponse().getStatus()).isEqualTo(412);
