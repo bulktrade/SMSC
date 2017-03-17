@@ -72,11 +72,10 @@ describe('Component: UsersCreateComponent', () => {
         spyOn(componentFixture.instance, 'toggleLoading');
 
         componentFixture.instance.ngOnInit();
-        componentFixture.instance.onSubmit({id: 1});
+        componentFixture.instance.onSubmit(<any>{id: 1}, <any>{});
 
         expect(componentFixture.instance.model['customer']).toEqual('/rest/repository/customers/40000');
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successCreateUser');
         expect(componentFixture.instance.location.back).toHaveBeenCalled();
@@ -89,15 +88,14 @@ describe('Component: UsersCreateComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'toggleLoading');
+        spyOn(componentFixture.instance.controlErrorService, 'formControlErrors');
 
         componentFixture.instance.ngOnInit();
-        componentFixture.instance.onSubmit({id: 1});
+        componentFixture.instance.onSubmit(<any>{id: 1}, <any>{});
 
         expect(componentFixture.instance.model['customer']).toEqual('/rest/repository/customers/40000');
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
-        expect(componentFixture.instance.notifications.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorCreateUser');
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
+        expect(componentFixture.instance.controlErrorService.formControlErrors).toHaveBeenCalled();
     }));
 
     it('.ngOnInit()', async(() => {

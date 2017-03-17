@@ -6,13 +6,14 @@ import {NotificationService} from "../../../services/notification-service";
 import {CustomersUsersService} from "../customer-user.service";
 import {CustomerUser} from "../../model/customer-user";
 import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
 import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors.component";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
+import {ControlErrorService} from "../../../services/control-error";
 
 @Component({
     selector: 'users-update',
@@ -38,7 +39,9 @@ export class UsersUpdateComponent implements OnInit {
                 public route: ActivatedRoute,
                 public customersUsersService: CustomersUsersService,
                 public notifications: NotificationService,
-                public location: Location) {
+                public location: Location,
+                public controlErrorService: ControlErrorService
+    ) {
     }
 
     ngOnInit() {
@@ -56,17 +59,17 @@ export class UsersUpdateComponent implements OnInit {
         return this.model || this.route.snapshot.data['update'];
     }
 
-    onSubmit(entity: CustomerUser) {
-        this.toggleLoading(true);
+    onSubmit(entity: CustomerUser, usersForm: NgForm) {
+        this.toggleLoading();
         this.customersUsersService.updateResource(entity)
             .subscribe(() => {
                     this.onBack();
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateUser');
                 },
-                err => {
-                    this.toggleLoading(false);
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdateUser');
+                (e) => {
+                    this.toggleLoading();
+                    this.controlErrorService.formControlErrors(e.json(), usersForm);
                 });
     }
 
@@ -78,8 +81,8 @@ export class UsersUpdateComponent implements OnInit {
         }
     }
 
-    toggleLoading(value: boolean) {
-        this.isLoading = value;
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 }
 

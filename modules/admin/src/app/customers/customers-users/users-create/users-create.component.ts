@@ -5,13 +5,15 @@ import {ActivatedRoute} from "@angular/router";
 import {NotificationService} from "../../../services/notification-service";
 import {CustomersUsersService} from "../customer-user.service";
 import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
 import {PanelModule} from "primeng/components/panel/panel";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {TranslateModule} from "ng2-translate";
 import {ControlErrorsModule} from "../../../shared/components/control-errors/control-errors.component";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
+import {CustomerUser} from "../../model/customer-user";
+import {ControlErrorService} from "../../../services/control-error";
 
 @Component({
     selector: 'users-create',
@@ -35,7 +37,8 @@ export class UsersCreateComponent implements OnInit {
                 public route: ActivatedRoute,
                 public customersUsersService: CustomersUsersService,
                 public notifications: NotificationService,
-                public location: Location) {
+                public location: Location,
+                public controlErrorService: ControlErrorService) {
     }
 
     ngOnInit() {
@@ -47,19 +50,19 @@ export class UsersCreateComponent implements OnInit {
         });
     }
 
-    onSubmit(model) {
+    onSubmit(model: CustomerUser, usersForm: NgForm) {
         this.model = model;
         this.model['customer'] = this.customersService.getSelfLinkedEntityById(this.customerId)._links.self.href;
-        this.toggleLoading(true);
+        this.toggleLoading();
         this.customersUsersService.createResource(this.model)
             .subscribe(() => {
                     this.onBack();
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                     this.notifications.createNotification('success', 'SUCCESS', 'customers.successCreateUser');
                 },
-                err => {
-                    this.toggleLoading(false);
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorCreateUser');
+                (e) => {
+                    this.toggleLoading();
+                    this.controlErrorService.formControlErrors(e.json(), usersForm);
                 });
     }
 
@@ -71,8 +74,8 @@ export class UsersCreateComponent implements OnInit {
         }
     }
 
-    toggleLoading(value: boolean) {
-        this.isLoading = value;
+    toggleLoading() {
+        this.isLoading = !this.isLoading;
     }
 }
 

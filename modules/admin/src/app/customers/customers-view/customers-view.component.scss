@@ -27,6 +27,14 @@
     color: #009688;
   }
 
+  .clear-search-button {
+    color: #555;
+    
+    &:hover {
+      color: #d9534f;
+    }
+  }
+
   .search-panel {
     border-bottom: 0 none;
     position: relative;
@@ -43,16 +51,12 @@
       position: absolute;
       cursor: pointer;
       right: 0;
-      top: 10px;
+      top: 8px;
       font-size: 16px;
     }
 
     .clear-search-button {
       right: 3px;
-
-      &:hover {
-        color: #d9534f;
-      }
     }
   }
 

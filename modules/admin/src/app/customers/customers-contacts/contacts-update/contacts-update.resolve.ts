@@ -9,7 +9,7 @@ export class ContactsUpdateResolve implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.contactsService.getResourceById(+route.params['contactId']);
+        return this.contactsService.getResourceById(route.params['contactId']);
     }
 
 }

@@ -2,7 +2,7 @@ import {Component, Input, NgModule, Output, EventEmitter} from "@angular/core";
 import {Location, CommonModule} from "@angular/common";
 import {Router, ActivatedRoute, RouterModule} from "@angular/router";
 import {TranslateModule} from "ng2-translate/ng2-translate";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, NgForm} from "@angular/forms";
 import {ButtonModule} from "primeng/components/button/button";
 import {CheckboxModule} from "primeng/components/checkbox/checkbox";
 import {OneToManyModule} from "../../shared/components/one-to-many/one-to-many.component";
@@ -16,6 +16,7 @@ import {ParentCustomerModule} from "../parent-customer/parent-customer";
 import {OneToMany} from "../../shared/components/one-to-many/one-to-many.model";
 import {TabViewModule} from "primeng/components/tabview/tabview";
 import {Customer} from "../model/customer";
+import {CustomersFormModel} from "./customers-form.model";
 
 @Component({
     selector: 'customers-form',
@@ -48,8 +49,8 @@ export class CustomersFormComponent {
         this.id = this.route.params['value'].customerId;
     }
 
-    onSubmit() {
-        this._onSubmit.emit(this.model);
+    onSubmit(customersForm: NgForm) {
+        this._onSubmit.emit(new CustomersFormModel(this.model, customersForm));
     }
 
     back() {

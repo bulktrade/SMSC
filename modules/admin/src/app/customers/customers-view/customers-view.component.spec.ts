@@ -129,12 +129,12 @@ describe('Component: CustomersViewComponent', () => {
         spyOn(componentFixture.instance, 'setRowData');
         spyOn(componentFixture.instance.notifications, 'createNotification');
         mockBackend.connections.subscribe(connection => {
-            connection.mockError(new Error());
+            connection.mockError(<any>{json: () => []});
         });
 
         componentFixture.instance.onEditComplete(<any>{data: {_links: {self: {href: ''}}}});
         expect(componentFixture.instance.setRowData).toHaveBeenCalled();
         expect(componentFixture.instance.notifications.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorUpdateCustomer');
+            .toHaveBeenCalledWith('error', 'ERROR', 'ERROR_UPDATE');
     }));
 });
