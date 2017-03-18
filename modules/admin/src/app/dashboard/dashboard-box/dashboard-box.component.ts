@@ -1,8 +1,9 @@
 import {Component, Input, HostBinding, HostListener, Renderer, ElementRef} from "@angular/core";
-import {DashboardBox} from "./dashboard-box.model";
+import {DashboardBox, Width, Height} from "./dashboard-box.model";
 import {DashboardBoxService} from "./dashboard-box.service";
 import {DashboardBoxTypeService} from "../dashboard-box-type/dashboard-box-type.service";
-import {DashboardBoxType} from "../dashboard-box-type/dashboard-box-type.model";
+import {DashboardBoxType, Kind} from "../dashboard-box-type/dashboard-box-type.model";
+import {CHART_DATA} from "./chart-data";
 
 @Component({
     selector: 'dashboard-box',
@@ -21,29 +22,12 @@ export class DashboardBoxComponent {
 
     public dashboardBoxType: DashboardBoxType = <DashboardBoxType>{};
 
-    public data: any;
+    public chartData = CHART_DATA;
 
     constructor(public dashboardBoxService: DashboardBoxService,
                 public renderer: Renderer,
                 public element: ElementRef,
                 public dashboardBoxTypeService: DashboardBoxTypeService) {
-        this.data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    borderColor: '#4bc0c0'
-                },
-                {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    fill: false,
-                    borderColor: '#565656'
-                }
-            ]
-        }
     }
 
     ngOnInit() {
@@ -52,8 +36,8 @@ export class DashboardBoxComponent {
                 this.dashboardBoxType = _dashboardBoxType;
             });
 
-        this.widthChange(String(this.dashboardBox.width));
-        this.heightChange(String(this.dashboardBox.height));
+        this.widthChange(<Width>(this.dashboardBox.width));
+        this.heightChange(<Height>(this.dashboardBox.height));
     }
 
     onFullscreenMode() {
@@ -74,8 +58,8 @@ export class DashboardBoxComponent {
         this.dashboardBoxService.updateResource(this.dashboardBox).subscribe();
     }
 
-    widthChange(width: string) {
-        switch (width) {
+    widthChange(width: Width) {
+        switch (String(width)) {
             case 'WIDTH_25':
                 this.hostClasses = 'col-lg-3 col-md-3 col-sm-6 col-xs-12';
                 break;
@@ -91,8 +75,8 @@ export class DashboardBoxComponent {
         }
     }
 
-    heightChange(height: string) {
-        switch (height) {
+    heightChange(height: Height) {
+        switch (String(height)) {
             case 'HEIGHT_25':
                 this.renderer.setElementStyle(this.element.nativeElement, 'height', '146px');
                 break;
@@ -105,6 +89,23 @@ export class DashboardBoxComponent {
             case 'HEIGHT_100':
                 this.renderer.setElementStyle(this.element.nativeElement, 'height', '644px');
                 break;
+        }
+    }
+
+    getKindOfChart(kind: Kind): string {
+        switch (String(kind)) {
+            case 'PIE_CHART':
+                return 'doughnut';
+            case 'SERIAL_CHART':
+                return 'pie';
+            case 'LINE_CHART':
+                return 'line';
+            case 'BAR_CHART':
+                return 'bar';
+            case 'BUBBLE_CHART':
+                return 'bubble';
+            default:
+                return null;
         }
     }
 

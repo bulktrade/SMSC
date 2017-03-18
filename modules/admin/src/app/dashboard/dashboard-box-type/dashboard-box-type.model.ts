@@ -1,11 +1,11 @@
 import {Link, Entity} from "../../shared/entity.model";
 
-enum Type {
+export enum Type {
     STATUS,
     CHART
 }
 
-enum Kind {
+export enum Kind {
     PIE_CHART,
     SERIAL_CHART,
     LINE_CHART,

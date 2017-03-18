@@ -27,7 +27,8 @@
                 <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
             </div>
             <hr>
-            <p-chart type="line" [options]="{maintainAspectRatio: false, responsive: true}" [data]="data"></p-chart>
+            <p-chart [type]="getKindOfChart(dashboardBoxType.kind)"
+                     [options]="{maintainAspectRatio: false, responsive: true}" [data]="chartData[getKindOfChart(dashboardBoxType.kind)]"></p-chart>
             <!-- /#chart box -->
         </ng-container>
     </ng-container>
