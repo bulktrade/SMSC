@@ -1,0 +1,48 @@
+<div class="dashboard-box" #dashboardBoxElement>
+    <ng-container [ngSwitch]="dashboardBoxType.type">
+        <ng-container *ngSwitchCase="'STATUS'">
+            <!-- Status box -->
+            <div class="toolbar pull-right">
+                <i class="fa fa-cog" aria-hidden="true" (click)="toggleSettings()"></i>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
+            </div>
+            <hr>
+            <div class="dashboard-name">
+                <span>{{ dashboardBox.name }}</span>
+            </div>
+            <div class="dashboard-description">{{ dashboardBox.description }}</div>
+            <div class="bottom-bar"></div>
+            <!-- /#status box -->
+        </ng-container>
+        <ng-container *ngSwitchCase="'CHART'">
+            <!-- Chart box -->
+            <div class="pull-left chart-box-title">{{ dashboardBox.name }}</div>
+            <div class="pull-left chart-box-desc">{{ dashboardBox.description }}</div>
+            <div class="toolbar pull-right">
+                <i class="fa fa-cog" aria-hidden="true" (click)="toggleSettings()"></i>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <i class="fa fa-trash" aria-hidden="true"></i>
+                <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
+            </div>
+            <hr>
+            <p-chart [type]="getKindOfChart(dashboardBoxType.kind)"
+                     [options]="{maintainAspectRatio: false, responsive: true}" [data]="chartData[getKindOfChart(dashboardBoxType.kind)]"></p-chart>
+            <!-- /#chart box -->
+        </ng-container>
+    </ng-container>
+    <div class="dashboard-box-settings" *ngIf="isSettings">
+        <div>
+            <i class="fa fa-times" (click)="toggleSettings()"></i>
+            <span>Width:</span>
+            <p-dropdown (onChange)="onWidthChange($event)" [(ngModel)]="dashboardBox.width"
+                        [options]="[{label:'50%', value: 'WIDTH_50'},
+                                    {label:'75%', value: 'WIDTH_75'},{label:'100%', value: 'WIDTH_100'}]"></p-dropdown>
+            <span>Height:</span>
+            <p-dropdown (onChange)="onHeightChange($event)" [(ngModel)]="dashboardBox.height"
+                        [options]="[{label:'50%', value: 'HEIGHT_50'},
+                                    {label:'75%', value: 'HEIGHT_75'},{label:'100%', value: 'HEIGHT_100'}]"></p-dropdown>
+        </div>
+    </div>
+</div>

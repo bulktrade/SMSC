@@ -18,6 +18,10 @@ export class DashboardsComponent {
         this.dashboards = this.getDashboards();
     }
 
+    idDashboards() {
+        return this.dashboards.length > 0;
+    }
+
     getDashboards(): Dashboard[] {
         return <Dashboard[]>this.route.snapshot.data['dashboards'];
     }

@@ -3,7 +3,7 @@
         <i class="fa fa-plus"></i>
     </div>
 </div>
-<p-dataScroller [value]="dashboards" [rows]="10" [buffer]="0.4" *ngIf="dashboards.length">
+<p-dataScroller [value]="dashboards" [rows]="10" [buffer]="0.4" *ngIf="idDashboards()">
     <p-header>{{ 'DASHBOARDS' | translate }}</p-header>
     <template let-dashboard pTemplate="item">
         <div class="ui-grid ui-grid-responsive ui-fluid dashboard-list-item">
@@ -32,7 +32,7 @@
         </div>
     </template>
 </p-dataScroller>
-<p-panel *ngIf="!dashboards.length">
-    <p-header>{{ 'DASHBOARDS' | translate }}</p-header>
-    <span>No dashboards found</span>
+<p-panel *ngIf="!idDashboards()">
+    <p-header>{{ 'dashboards.title' | translate }}</p-header>
+    <span>{{ 'dashboards.notFound' | translate }}</span>
 </p-panel>

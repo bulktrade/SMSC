@@ -178,5 +178,9 @@
     "dashboard.successDeleteDashboard": "Dashboard was successfully deleted",
     "dashboard.errorDeleteDashboard": "Dashboard was not deleted",
     "CREATE": "Create",
-    "UPDATE": "Update"
+    "UPDATE": "Update",
+    "dashboardBoxes.title": "Dashboard boxes",
+    "dashboardBoxes.notFound": "No dashboard boxes found",
+    "dashboards.title": "Dashboards",
+    "dashboards.notFound": "No dashboards found"
 }

@@ -1,9 +1,9 @@
 import {Component} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
-import {Dashboard} from "./dashboard.model";
 import {DashboardService} from "./dashboard.service";
 import {MenuItem} from "primeng/components/common/api";
 import {TranslateService} from "ng2-translate";
+import {DashboardBox} from "./dashboard-box/dashboard-box.model";
 
 @Component({
     selector: 'dashboard',
@@ -12,18 +12,19 @@ import {TranslateService} from "ng2-translate";
         <p-splitButton icon="fa-cog" menuStyleClass="ui-button-success"
          [model]="menuItems"></p-splitButton>
     </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div></div></div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div></div></div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div></div></div>
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"><div></div></div>
+    <div class="row" *ngIf="isDashboardBoxes()">
+        <dashboard-box *ngFor="let dashboardBox of dashboardBoxes" [dashboardBox]="dashboardBox"></dashboard-box>
     </div>
+    <p-panel *ngIf="!isDashboardBoxes()">
+        <p-header>{{ 'dashboardBoxes.title' | translate }}</p-header>
+        <span>{{ 'dashboardBoxes.notFound' | translate }}</span>
+    </p-panel>
     `,
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
     id: number = null;
-    dashboard: Dashboard = null;
+    dashboardBoxes: DashboardBox[] = [];
     menuItems: MenuItem[];
 
     constructor(public route: ActivatedRoute,
@@ -34,7 +35,7 @@ export class DashboardComponent {
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             this.id = Number(params['id']);
-            this.dashboard = this.getDashboard();
+            this.dashboardBoxes = this.getDashboardBoxes();
             this.menuItems = [
                 {label: 'dashboard.createDashboard', icon: 'fa-plus', routerLink: ['/dashboard', 'create']},
                 {label: 'dashboard.updateDashboard', icon: 'fa-pencil', routerLink: ['/dashboard', this.id, 'update']},
@@ -53,7 +54,11 @@ export class DashboardComponent {
         });
     }
 
-    getDashboard(): Dashboard {
-        return this.route.snapshot.data['dashboard'];
+    isDashboardBoxes(): boolean {
+        return this.dashboardBoxes.length > 0;
+    }
+
+    getDashboardBoxes(): DashboardBox[] {
+        return <DashboardBox[]>this.route.snapshot.data['dashboard'];
     }
 }
