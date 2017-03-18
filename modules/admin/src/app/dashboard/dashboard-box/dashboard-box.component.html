@@ -1,6 +1,7 @@
 <div class="dashboard-box" #dashboardBoxElement>
     <ng-container [ngSwitch]="dashboardBoxType.type">
         <ng-container *ngSwitchCase="'STATUS'">
+            <!-- Status box -->
             <div class="toolbar pull-right">
                 <i class="fa fa-cog" aria-hidden="true" (click)="toggleSettings()"></i>
                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -13,8 +14,10 @@
             </div>
             <div class="dashboard-description">{{ dashboardBox.description }}</div>
             <div class="bottom-bar"></div>
+            <!-- /#status box -->
         </ng-container>
         <ng-container *ngSwitchCase="'CHART'">
+            <!-- Chart box -->
             <div class="pull-left chart-box-title">{{ dashboardBox.name }}</div>
             <div class="pull-left chart-box-desc">{{ dashboardBox.description }}</div>
             <div class="toolbar pull-right">
@@ -24,7 +27,8 @@
                 <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
             </div>
             <hr>
-            <p-chart type="line" [data]="data"></p-chart>
+            <p-chart type="line" [options]="{maintainAspectRatio: false, responsive: true}" [data]="data"></p-chart>
+            <!-- /#chart box -->
         </ng-container>
     </ng-container>
     <div class="dashboard-box-settings" *ngIf="isSettings">

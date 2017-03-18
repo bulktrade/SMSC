@@ -5,6 +5,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.dashboard-box p-chart > div {
+    height: calc(100% - 20px);
+}
+
 p-dropdown .ui-inputtext {
     padding-left: 0.75rem;
 }
