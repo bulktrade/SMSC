@@ -95,9 +95,9 @@ export class DashboardBoxComponent {
     getKindOfChart(kind: Kind): string {
         switch (String(kind)) {
             case 'PIE_CHART':
-                return 'doughnut';
-            case 'SERIAL_CHART':
                 return 'pie';
+            case 'SERIAL_CHART':
+                return 'doughnut';
             case 'LINE_CHART':
                 return 'line';
             case 'BAR_CHART':
