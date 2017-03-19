@@ -28,6 +28,7 @@ import {DashboardBoxService} from "./dashboard-box/dashboard-box.service";
 import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
 import {DashboardBoxTypeService} from "./dashboard-box-type/dashboard-box-type.service";
 import {ChartModule} from "primeng/components/chart/chart";
+import {DragulaModule} from "ng2-dragula";
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import {ChartModule} from "primeng/components/chart/chart";
         SplitButtonModule,
         MessagesModule,
         DataScrollerModule,
-        ChartModule
+        ChartModule,
+        DragulaModule
     ],
     exports: [DashboardComponent],
     declarations: [
