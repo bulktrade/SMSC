@@ -4,6 +4,7 @@ import {DashboardBoxService} from "./dashboard-box.service";
 import {DashboardBoxTypeService} from "../dashboard-box-type/dashboard-box-type.service";
 import {DashboardBoxType, Kind} from "../dashboard-box-type/dashboard-box-type.model";
 import {CHART_DATA} from "./chart-data";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
     selector: 'dashboard-box',
@@ -28,19 +29,26 @@ export class DashboardBoxComponent {
 
     public chartData = CHART_DATA;
 
+    public dashboardId: number = null;
+
     constructor(public dashboardBoxService: DashboardBoxService,
                 public renderer: Renderer,
                 public element: ElementRef,
+                public route: ActivatedRoute,
                 public dashboardBoxTypeService: DashboardBoxTypeService) {
     }
 
     ngOnInit() {
         this.loadInit.emit();
-        this.dashboardBoxTypeService.getDashboardBoxType(this.dashboardBox)
-            .subscribe((_dashboardBoxType: DashboardBoxType) => {
-                this.loadEnd.emit();
-                this.dashboardBoxType = _dashboardBoxType;
-            });
+        this.route.params.subscribe((params: Params) => {
+            this.dashboardId = Number(params['id']);
+
+            this.dashboardBoxTypeService.getDashboardBoxType(this.dashboardBox)
+                .subscribe((_dashboardBoxType: DashboardBoxType) => {
+                    this.loadEnd.emit();
+                    this.dashboardBoxType = _dashboardBoxType;
+                });
+        });
 
         this.widthChange(<Width>(this.dashboardBox.width));
         this.heightChange(<Height>(this.dashboardBox.height));

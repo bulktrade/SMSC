@@ -1,0 +1,97 @@
+<p-panel>
+    <p-header>
+        <i class="fa fa-chevron-left" (click)="location.back()" aria-hidden="true" title="{{ 'BACK' | translate }}"
+           id="back-button"></i>
+        <span>{{ 'dashboardBox.formTitle' | translate }}</span>
+    </p-header>
+    <form role="form" (ngSubmit)="onSubmit(dashboardBoxForm)" #dashboardBoxForm="ngForm" novalidate>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'dashboardBox.name' | translate }}
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText class="form-control" [(ngModel)]="model['name']"
+                           #name="ngModel"
+                           required name="name" type="text" id="name">
+                </div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="name"
+                                    [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'dashboardBox.description' | translate }}
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText class="form-control" [(ngModel)]="model['description']"
+                           #description="ngModel"
+                           required name="description" type="text" id="description">
+                </div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="description"
+                                    [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'dashboardBox.order' | translate }}
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText class="form-control" [(ngModel)]="model['order']"
+                           #order="ngModel"
+                           required name="order" type="text" id="order">
+                </div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="order"
+                                    [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'dashboardBox.width' | translate }}
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown
+                            [options]="[{label:'25%', value: 'WIDTH_25'},{label:'50%', value: 'WIDTH_50'},
+                                        {label:'75%', value: 'WIDTH_75'},{label:'100%', value: 'WIDTH_100'}]"
+                            [(ngModel)]="model['width']" #width="ngModel" name="width"
+                            id="width"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="width"
+                                    [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'dashboardBox.height' | translate }}
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown
+                            [options]="[{label:'25%', value: 'HEIGHT_25'},{label:'50%', value: 'HEIGHT_50'},
+                                        {label:'75%', value: 'HEIGHT_75'},{label:'100%', value: 'HEIGHT_100'}]"
+                            [(ngModel)]="model['height']" #height="ngModel" name="height"
+                            id="height"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="height"
+                                    [errors]="{required: ('customers.required'| translate)}"></control-errors>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"></div>
+                <div class="ui-grid-col-6">
+                    <button type="submit" class="btn primeng-primary-btn ui-md-12 ui-sm-12" id="submit-button"
+                            [disabled]="dashboardBoxForm.form.invalid">
+                        <span>{{ 'UPDATE' | translate }}</span>
+                        <i *ngIf="isLoading"
+                           class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
+                    </button>
+                </div>
+                <div class="ui-grid-col-4"></div>
+            </div>
+        </div>
+    </form>
+</p-panel>

@@ -30,6 +30,9 @@ import {DashboardBoxTypeService} from "./dashboard-box-type/dashboard-box-type.s
 import {ChartModule} from "primeng/components/chart/chart";
 import {DragulaModule} from "ng2-dragula";
 import {CubeGridModule} from "../shared/components/cube-grid/cube-grid.component";
+import {DashboardBoxDeleteComponent} from "./dashboard-box/dashboard-box-delete/dashboard-delete.component";
+import {DashboardBoxUpdateResolve} from "./dashboard-box/dashboard-box-update/dashboard-box-update.resolve";
+import {DashboardBoxUpdateComponent} from "./dashboard-box/dashboard-box-update/dashboard-box-update.component";
 
 @NgModule({
     imports: [
@@ -58,7 +61,9 @@ import {CubeGridModule} from "../shared/components/cube-grid/cube-grid.component
         DashboardUpdateComponent,
         DashboardDeleteComponent,
         DashboardBoxComponent,
-        DashboardsComponent
+        DashboardsComponent,
+        DashboardBoxDeleteComponent,
+        DashboardBoxUpdateComponent
     ],
     providers: [
         ControlErrorService,
@@ -66,6 +71,7 @@ import {CubeGridModule} from "../shared/components/cube-grid/cube-grid.component
         DashboardResolve,
         DashboardsResolve,
         DashboardUpdateResolve,
+        DashboardBoxUpdateResolve,
         DashboardBoxService,
         DashboardBoxTypeService,
         HTTP_INTERCEPTOR_PROVIDER

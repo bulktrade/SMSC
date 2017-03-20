@@ -66,24 +66,27 @@ describe('Service: HttpInterceptor', () => {
         spyOn(service._router, 'navigateByUrl');
         spyOn(service._tokenService, 'resetToken');
         service.intercept(Observable.create(obs => {
-           obs.error(new Response(
-               new ResponseOptions({status: 401, url: 'http://localhost:8080/rest/repository'})));
-           obs.complete();
-        })).subscribe();
-        expect(service._router.navigateByUrl).toHaveBeenCalledWith('/login');
-        expect(service._tokenService.resetToken).toHaveBeenCalled();
+            obs.error(new Response(
+                new ResponseOptions({status: 401, url: 'http://localhost:8080/rest/repository'})));
+            obs.complete();
+        })).catch((err) => {
+            expect(err).toThrow();
+            expect(service._router.navigateByUrl).toHaveBeenCalledWith('/login');
+            expect(service._tokenService.resetToken).toHaveBeenCalled();
+            return Observable.empty();
+        });
     });
 
     it('.intercept() - status: 500', () => {
         spyOn(service._router, 'navigateByUrl');
         spyOn(service._tokenService, 'resetToken');
         service.intercept(Observable.create(obs => {
-           obs.error(new Response(
-               new ResponseOptions({status: 500, url: 'http://localhost:8080/rest/repository'})));
-           obs.complete();
-        })).subscribe(() => {},
-        err => {
+            obs.error(new Response(
+                new ResponseOptions({status: 500, url: 'http://localhost:8080/rest/repository'})));
+            obs.complete();
+        })).catch((err) => {
             expect(err.status).toEqual(500);
+            return Observable.empty();
         });
     });
 });
