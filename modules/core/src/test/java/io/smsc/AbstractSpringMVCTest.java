@@ -20,6 +20,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
+import org.springframework.restdocs.JUnitRestDocumentation;
+import org.springframework.restdocs.RestDocumentation;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,6 +34,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -68,6 +71,10 @@ public abstract class AbstractSpringMVCTest {
             LOG.info(result + " ms\n");
         }
     };
+
+    @Rule
+   public final JUnitRestDocumentation restDocumentation =
+            new JUnitRestDocumentation("target/generated-snippets");
 
     protected MockMvc mockMvc;
 
@@ -110,6 +117,7 @@ public abstract class AbstractSpringMVCTest {
     public void setup() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
+                .apply(documentationConfiguration(this.restDocumentation))
                 .build();
     }
 
