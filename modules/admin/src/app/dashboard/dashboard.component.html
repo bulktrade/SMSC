@@ -9,7 +9,7 @@
 <!-- /#loading layer -->
 
 <!-- Dashboard boxes -->
-<div class="row" *ngIf="isDashboardBoxes()" [hidden]="loading" dragula='dashboard-boxes'
+<div class="row dashboard-boxes" *ngIf="isDashboardBoxes()" [hidden]="loading" dragula='dashboard-boxes'
      [dragulaModel]='dashboardBoxes'>
     <dashboard-box *ngFor="let dashboardBox of dashboardBoxes; let first = first; let last = last"
                    [dashboardBox]="dashboardBox"
