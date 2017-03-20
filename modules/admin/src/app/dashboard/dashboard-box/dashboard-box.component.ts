@@ -1,9 +1,10 @@
-import {Component, Input, HostBinding, HostListener, Renderer, ElementRef} from "@angular/core";
+import {Component, Input, HostBinding, HostListener, Renderer, ElementRef, Output, EventEmitter} from "@angular/core";
 import {DashboardBox, Width, Height} from "./dashboard-box.model";
 import {DashboardBoxService} from "./dashboard-box.service";
 import {DashboardBoxTypeService} from "../dashboard-box-type/dashboard-box-type.service";
 import {DashboardBoxType, Kind} from "../dashboard-box-type/dashboard-box-type.model";
 import {CHART_DATA} from "./chart-data";
+import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
     selector: 'dashboard-box',
@@ -11,6 +12,10 @@ import {CHART_DATA} from "./chart-data";
     styleUrls: ['dashboard-box.component.scss']
 })
 export class DashboardBoxComponent {
+
+    @Output('loadInit') public loadInit: EventEmitter<any> = new EventEmitter();
+
+    @Output('loadEnd') public loadEnd: EventEmitter<any> = new EventEmitter();
 
     @Input('dashboardBox') public dashboardBox: DashboardBox;
 
@@ -24,17 +29,26 @@ export class DashboardBoxComponent {
 
     public chartData = CHART_DATA;
 
+    public dashboardId: number = null;
+
     constructor(public dashboardBoxService: DashboardBoxService,
                 public renderer: Renderer,
                 public element: ElementRef,
+                public route: ActivatedRoute,
                 public dashboardBoxTypeService: DashboardBoxTypeService) {
     }
 
     ngOnInit() {
-        this.dashboardBoxTypeService.getDashboardBoxType(this.dashboardBox)
-            .subscribe((_dashboardBoxType: DashboardBoxType) => {
-                this.dashboardBoxType = _dashboardBoxType;
-            });
+        this.loadInit.emit();
+        this.route.params.subscribe((params: Params) => {
+            this.dashboardId = Number(params['id']);
+
+            this.dashboardBoxTypeService.getDashboardBoxType(this.dashboardBox)
+                .subscribe((_dashboardBoxType: DashboardBoxType) => {
+                    this.loadEnd.emit();
+                    this.dashboardBoxType = _dashboardBoxType;
+                });
+        });
 
         this.widthChange(<Width>(this.dashboardBox.width));
         this.heightChange(<Height>(this.dashboardBox.height));

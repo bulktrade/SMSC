@@ -1,0 +1,25 @@
+<!-- Dashboard toolbar -->
+<div class="dashboard-toolbar">
+    <p-splitButton icon="fa-cog" menuStyleClass="ui-button-success" [model]="menuItems"></p-splitButton>
+</div>
+<!-- /#dashboard toolbar -->
+
+<!-- Loading layer -->
+<sk-cube-grid [hidden]="!loading"></sk-cube-grid>
+<!-- /#loading layer -->
+
+<!-- Dashboard boxes -->
+<div class="row dashboard-boxes" *ngIf="isDashboardBoxes()" [hidden]="loading" dragula='dashboard-boxes'
+     [dragulaModel]='dashboardBoxes'>
+    <dashboard-box *ngFor="let dashboardBox of dashboardBoxes; let first = first; let last = last"
+                   [dashboardBox]="dashboardBox"
+                   (loadInit)="first && toggleLoading()" (loadEnd)="last && toggleLoading()"></dashboard-box>
+</div>
+<!-- /#dashboard boxes -->
+
+<!-- Have no dashboard boxes panel -->
+<p-panel *ngIf="!isDashboardBoxes()">
+    <p-header>{{ 'dashboardBoxes.title' | translate }}</p-header>
+    <span>{{ 'dashboardBoxes.notFound' | translate }}</span>
+</p-panel>
+<!-- /#have no dashboard boxes panel -->

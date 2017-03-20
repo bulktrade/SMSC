@@ -112,7 +112,6 @@ describe('Component: CustomersViewComponent', () => {
     }));
 
     it('.onEditComplete() - successful response', async(() => {
-        spyOn(componentFixture.instance, 'setRowData');
         spyOn(componentFixture.instance.notifications, 'createNotification');
         mockBackend.connections.subscribe(connection => {
             let response = new ResponseOptions({body: {}});
@@ -120,7 +119,6 @@ describe('Component: CustomersViewComponent', () => {
         });
 
         componentFixture.instance.onEditComplete(<any>{data: {_links: {self: {href: ''}}}});
-        expect(componentFixture.instance.setRowData).toHaveBeenCalled();
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdateCustomer');
     }));

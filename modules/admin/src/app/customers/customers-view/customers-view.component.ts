@@ -124,14 +124,12 @@ export class CustomersViewComponent {
     }
 
     onEditComplete(event) {
-        console.log(event);
         this.customersService.updateResource(event.data)
             .subscribe(() => {
                 for (let column in this.cellsModel) {
                     this.cellsModel[column][event.data.id] = false;
                 }
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
-                this.setRowData();
             }, (e) => {
                 this.controlErrorService.gridControlErrors(e.json(), event, this.cellsModel);
                 this.setRowData();

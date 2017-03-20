@@ -182,5 +182,18 @@
     "dashboardBoxes.title": "Dashboard boxes",
     "dashboardBoxes.notFound": "No dashboard boxes found",
     "dashboards.title": "Dashboards",
-    "dashboards.notFound": "No dashboards found"
+    "dashboards.notFound": "No dashboards found",
+    "dashboard.settings": "Settings",
+    "dashboard.confirmDelete": "You are dropping the dashboard. Are you sure?",
+    "dashboardBox.confirmDelete": "You are dropping the dashboard box. Are you sure?",
+    "dashboardBox.successDeleteDashboardBox": "Dashboard box was successfully deleted",
+    "dashboardBox.errorDeleteDashboardBox": "Dashboard box was not deleted",
+    "dashboardBox.successUpdateDashboardBox": "Dashboard box was successfully updated",
+    "dashboardBox.formTitle": "Dashboard box",
+    "dashboardBox.name": "Name",
+    "dashboardBox.description": "Description",
+    "dashboardBox.width": "Width",
+    "dashboardBox.height": "Height",
+    "dashboardBox.order": "Order",
+    "dashboardBox.type": "Type"
 }

@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {RouterModule} from "@angular/router";
+import {RouterModule, Route} from "@angular/router";
 import {DashboardComponent} from "./dashboard.component";
 import {DashboardResolve} from "./dashboard.resolve";
 import {DashboardCreateComponent} from "./dashboard-create/dashboard-create.component";
@@ -8,8 +8,9 @@ import {DashboardUpdateResolve} from "./dashboard-update/dashboard-update.resolv
 import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.component";
 import {DashboardsComponent} from "./dashboards/dashboards.component";
 import {DashboardsResolve} from "./dashboards/dashboards.resolve";
+import {dashboardBoxRoutes} from "./dashboard-box/dashboard-box-routing.module";
 
-const ROUTE_PROVIDER = [
+const ROUTE_PROVIDER: Route[] = [
     {
         path: 'create',
         component: DashboardCreateComponent
@@ -24,6 +25,14 @@ const ROUTE_PROVIDER = [
     {
         path: ':id/delete',
         component: DashboardDeleteComponent,
+    },
+    {
+        path: ':id/delete',
+        component: DashboardDeleteComponent,
+    },
+    {
+        path: ':id/dashboard-box',
+        children: dashboardBoxRoutes
     },
     {
         path: ':id',

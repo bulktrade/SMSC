@@ -28,6 +28,11 @@ import {DashboardBoxService} from "./dashboard-box/dashboard-box.service";
 import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
 import {DashboardBoxTypeService} from "./dashboard-box-type/dashboard-box-type.service";
 import {ChartModule} from "primeng/components/chart/chart";
+import {DragulaModule} from "ng2-dragula";
+import {CubeGridModule} from "../shared/components/cube-grid/cube-grid.component";
+import {DashboardBoxDeleteComponent} from "./dashboard-box/dashboard-box-delete/dashboard-delete.component";
+import {DashboardBoxUpdateResolve} from "./dashboard-box/dashboard-box-update/dashboard-box-update.resolve";
+import {DashboardBoxUpdateComponent} from "./dashboard-box/dashboard-box-update/dashboard-box-update.component";
 
 @NgModule({
     imports: [
@@ -45,7 +50,9 @@ import {ChartModule} from "primeng/components/chart/chart";
         SplitButtonModule,
         MessagesModule,
         DataScrollerModule,
-        ChartModule
+        ChartModule,
+        DragulaModule,
+        CubeGridModule
     ],
     exports: [DashboardComponent],
     declarations: [
@@ -54,7 +61,9 @@ import {ChartModule} from "primeng/components/chart/chart";
         DashboardUpdateComponent,
         DashboardDeleteComponent,
         DashboardBoxComponent,
-        DashboardsComponent
+        DashboardsComponent,
+        DashboardBoxDeleteComponent,
+        DashboardBoxUpdateComponent
     ],
     providers: [
         ControlErrorService,
@@ -62,6 +71,7 @@ import {ChartModule} from "primeng/components/chart/chart";
         DashboardResolve,
         DashboardsResolve,
         DashboardUpdateResolve,
+        DashboardBoxUpdateResolve,
         DashboardBoxService,
         DashboardBoxTypeService,
         HTTP_INTERCEPTOR_PROVIDER

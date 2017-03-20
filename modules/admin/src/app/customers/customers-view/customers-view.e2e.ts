@@ -1,7 +1,7 @@
 import {CustomersViewPage} from "./customers-view.page";
 import {protractor, by, browser} from "protractor";
 
-describe('Create view', () => {
+describe('Customers view', () => {
     let page = new CustomersViewPage();
 
     beforeAll(() => {
@@ -89,17 +89,12 @@ describe('Create view', () => {
         });
 
         it('should editing the first row', () => {
-            page.cellsOfFirstRow.count()
-                .then((length) => {
-                    for (let i = 0; i < length; i++) {
-                        let inputField = page.cellsOfFirstRow.get(i).element(by.tagName('input')); // get input field
-                        page.protHelpers.clickOnElement(page.cellsOfFirstRow.get(i)); // click on cell
-                        page.protHelpers.sendKeys(inputField, 'Aaaaaaaaaaaaaaaaaaa'); // enter new value to the cell
-                        inputField.sendKeys(protractor.Key.ENTER); // update the row
-                        browser.sleep(1000); // delay 1000ms
-                        expect(inputField.getAttribute('value')).toEqual('Aaaaaaaaaaaaaaaaaaa'); // to compare the old value with the updated
-                    }
-                });
+            let inputField = page.cellsOfFirstRow.get(1).element(by.tagName('input')); // get input field
+            page.protHelpers.clickOnElement(page.cellsOfFirstRow.get(1)); // click on cell
+            page.protHelpers.sendKeys(inputField, 'Aaaaaaaaaaaaaaaaaaa'); // enter new value to the cell
+            inputField.sendKeys(protractor.Key.ENTER); // update the row
+            browser.sleep(2000); // delay 1000ms
+            expect(inputField.getAttribute('value')).toEqual('Aaaaaaaaaaaaaaaaaaa'); // to compare the old value with the updated
         });
     });
 

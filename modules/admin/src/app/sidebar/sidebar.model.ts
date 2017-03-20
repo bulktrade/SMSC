@@ -1,8 +1,6 @@
-export class SidebarModel {
-    public name: string;
-    public path: string;
-    public icon: string;
-    public toggle?: string;
-    public submenu?: Array<SidebarModel>;
-    public showInSubNavigation?: boolean;
+export interface SidebarModel {
+    name: string;
+    path: string;
+    icon: string;
+    showInNavigation: boolean;
 }
