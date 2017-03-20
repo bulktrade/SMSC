@@ -19,16 +19,17 @@ export const ROUTES: Routes = [
                 path: 'dashboard',
                 loadChildren: './dashboard/dashboard.module#DashboardModule',
                 data: {
-                    translationKey: 'Dashboard',
-                    showInSubNavigation: true,
+                    translationKey: 'DASHBOARDS',
+                    showInNavigation: true,
                     icon: 'fa-tachometer'
                 },
             },
             {
+
                 path: 'customers',
                 data: {
-                    translationKey: 'Customers',
-                    showInSubNavigation: true,
+                    translationKey: 'CUSTOMERS',
+                    showInNavigation: true,
                     icon: 'fa-users'
                 },
                 loadChildren: './customers/customers.module#CustomersModule'

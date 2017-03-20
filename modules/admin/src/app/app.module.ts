@@ -37,6 +37,7 @@ import "chart.js";
 import {ControlErrorService} from "./services/control-error";
 import {DashboardService} from "./dashboard/dashboard.service";
 import {UserService} from "./users/user.service";
+import {SidebarService} from "./sidebar/sidebar.service";
 
 export type StoreType = {
     state: InternalStateType,
@@ -69,6 +70,7 @@ export const APP_PROVIDERS = [
     AppState,
     ConfigService,
     GrowlService,
+    SidebarService,
     CustomersContactsService,
     CustomersUsersService,
     HTTP_INTERCEPTOR_PROVIDER,

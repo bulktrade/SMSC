@@ -12,7 +12,7 @@
     "login.userNotFound": "The credentials you supplied were not correct!",
     "login.commonError": "An error has occurred!",
     "DASHBOARDS": "Dashboards",
-    "DASHBOARD": "Dashboards",
+    "DASHBOARD": "Dashboard",
     "DASHBOARDVIEW": "Dashboard",
     "GSM": "GSM",
     "SMSTRAFFIC": "SMS Traffic",
@@ -182,5 +182,7 @@
     "dashboardBoxes.title": "Dashboard boxes",
     "dashboardBoxes.notFound": "No dashboard boxes found",
     "dashboards.title": "Dashboards",
-    "dashboards.notFound": "No dashboards found"
+    "dashboards.notFound": "No dashboards found",
+    "dashboard.settings": "Settings",
+    "dashboard.confirmDelete": "You are dropping the dashboard. Are you sure?"
 }

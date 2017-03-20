@@ -1,21 +1,30 @@
-<div *ngIf="showInSubNavigation" class="item-menu clear {{nameItem.toLowerCase()}}-item-nav" #isIcon>
-    <a (click)="navItemState[nameItem]=!navItemState[nameItem]" [class.active]="isActive([path])"
-       class="{{nameItem.toLowerCase()}} sub-task clear" (click)="router.navigateByUrl(path)">
-        <i class="icon-left fa" [ngClass]="icon"></i>
+<div *ngIf="sidebarItem.showInNavigation" class="item-menu clear {{sidebarItem.name.toLowerCase()}}-item-nav" #isIcon>
+    <a (click)="navItemState[sidebarItem.name]=!navItemState[sidebarItem.name]" [class.active]="isActive([sidebarItem.path])"
+       class="{{sidebarItem.name.toLowerCase()}} sub-task clear" (click)="navigate(sidebarItem)">
+        <i class="icon-left fa" [ngClass]="sidebarItem.icon"></i>
         <div class="show-nav">
-            <span class="name-sub {{nameItem.toLowerCase()}}-item">{{nameItem | uppercase | translate}}</span>
-            <i *ngIf="nameItem === 'dashboard' && dashboards.length"
-               class="isChildren fa {{nameItem.toLowerCase()}}-icon"
-               [ngClass]="navItemState[nameItem] ? 'fa-chevron-left' : 'fa-chevron-down'"></i>
+            <span class="name-sub {{sidebarItem.name.toLowerCase()}}-item">{{sidebarItem.name | uppercase | translate}}</span>
+            <i *ngIf="sidebarItem.name === 'DASHBOARDS' && dashboards.length"
+               class="isChildren fa {{sidebarItem.name.toLowerCase()}}-icon"
+               [ngClass]="navItemState[sidebarItem.name] ? 'fa-chevron-left' : 'fa-chevron-down'"></i>
         </div>
     </a>
-    <ul [@state]="navItemState[nameItem] ? 'open' : 'closed'" *ngIf="nameItem === 'dashboard' && dashboards.length"
-        class="{{nameItem.toLowerCase()}}-submenu sub-menu-item">
-        <li *ngFor="let dashboard of dashboards">
-            <a routerLinkActive="activesub" [routerLinkActiveOptions]="{exact: true}"
-               [routerLink]="[path, dashboard.id]" [ngClass]="dashboard.name">
-                <i class="subitem-icon-left fa" [ngClass]="dashboard.icon"></i>
-                {{dashboard.name}}</a>
+    <ul [@state]="navItemState[sidebarItem.name] ? 'open' : 'closed'"
+        *ngIf="sidebarItem.name === 'DASHBOARDS' && dashboards.length" class="sub-menu-item">
+        <ng-container *ngFor="let dashboard of dashboards">
+            <li *ngIf="dashboard.name !== 'default'">
+                <a routerLinkActive="activesub" [routerLinkActiveOptions]="{exact: true}"
+                   [routerLink]="[sidebarItem.path, dashboard.id]" [ngClass]="dashboard.name">
+                    <i class="subitem-icon-left fa" [ngClass]="dashboard.icon"></i>
+                    {{dashboard.name}}</a>
+            </li>
+        </ng-container>
+        <li>
+            <a routerLinkActive="activesub dashboard-settings"
+               [routerLinkActiveOptions]="{exact: true}" [routerLink]="[sidebarItem.path]">
+                <i class="subitem-icon-left fa fa-cog"></i>
+                {{'dashboard.settings' | translate}}
+            </a>
         </li>
     </ul>
 </div>
