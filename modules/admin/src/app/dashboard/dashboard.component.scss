@@ -1,3 +1,13 @@
+:host {
+  display: block;
+  height: calc(100% - 29px);
+}
+
+sk-cube-grid {
+  display: flex;
+  height: 100%;
+}
+
 .dashboard-toolbar {
   display: flex;
   justify-content: flex-end;

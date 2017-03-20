@@ -11,25 +11,18 @@ import {NotificationService} from "../services/notification-service";
 
 @Component({
     selector: 'dashboard',
-    template: `
-    <div class="dashboard-toolbar">
-        <p-splitButton icon="fa-cog" menuStyleClass="ui-button-success"
-         [model]="menuItems"></p-splitButton>
-    </div>
-    <div class="row" *ngIf="isDashboardBoxes()" dragula='dashboard-boxes' [dragulaModel]='dashboardBoxes'>
-        <dashboard-box *ngFor="let dashboardBox of dashboardBoxes" [dashboardBox]="dashboardBox"></dashboard-box>
-    </div>
-    <p-panel *ngIf="!isDashboardBoxes()">
-        <p-header>{{ 'dashboardBoxes.title' | translate }}</p-header>
-        <span>{{ 'dashboardBoxes.notFound' | translate }}</span>
-    </p-panel>
-    `,
+    templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+
     id: number = null;
+
     dashboardBoxes: DashboardBox[] = [];
+
     menuItems: MenuItem[];
+
+    loading: boolean = false;
 
     constructor(public route: ActivatedRoute,
                 public translateService: TranslateService,
@@ -78,6 +71,10 @@ export class DashboardComponent {
                     arr[i].label = label;
                 });
         });
+    }
+
+    toggleLoading() {
+        this.loading = !this.loading;
     }
 
     isDashboardBoxes(): boolean {

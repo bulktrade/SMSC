@@ -1,4 +1,4 @@
-import {Component, Input, HostBinding, HostListener, Renderer, ElementRef} from "@angular/core";
+import {Component, Input, HostBinding, HostListener, Renderer, ElementRef, Output, EventEmitter} from "@angular/core";
 import {DashboardBox, Width, Height} from "./dashboard-box.model";
 import {DashboardBoxService} from "./dashboard-box.service";
 import {DashboardBoxTypeService} from "../dashboard-box-type/dashboard-box-type.service";
@@ -11,6 +11,10 @@ import {CHART_DATA} from "./chart-data";
     styleUrls: ['dashboard-box.component.scss']
 })
 export class DashboardBoxComponent {
+
+    @Output('loadInit') public loadInit: EventEmitter<any> = new EventEmitter();
+
+    @Output('loadEnd') public loadEnd: EventEmitter<any> = new EventEmitter();
 
     @Input('dashboardBox') public dashboardBox: DashboardBox;
 
@@ -31,8 +35,10 @@ export class DashboardBoxComponent {
     }
 
     ngOnInit() {
+        this.loadInit.emit();
         this.dashboardBoxTypeService.getDashboardBoxType(this.dashboardBox)
             .subscribe((_dashboardBoxType: DashboardBoxType) => {
+                this.loadEnd.emit();
                 this.dashboardBoxType = _dashboardBoxType;
             });
 
