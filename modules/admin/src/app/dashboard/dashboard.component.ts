@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DashboardService} from "./dashboard.service";
 import {MenuItem} from "primeng/components/common/api";
 import {TranslateService} from "ng2-translate";
@@ -23,6 +23,7 @@ export class DashboardComponent {
     menuItems: MenuItem[];
 
     constructor(public route: ActivatedRoute,
+                public router: Router,
                 public translateService: TranslateService,
                 public dashboardService: DashboardService,
                 public dashboardBoxService: DashboardBoxService,

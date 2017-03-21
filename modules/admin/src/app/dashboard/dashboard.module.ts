@@ -32,6 +32,8 @@ import {DragulaModule} from "ng2-dragula";
 import {DashboardBoxDeleteComponent} from "./dashboard-box/dashboard-box-delete/dashboard-delete.component";
 import {DashboardBoxUpdateComponent} from "./dashboard-box/dashboard-box-update/dashboard-box-update.component";
 import {DialogModule} from "primeng/components/dialog/dialog";
+import {DashboardBoxCreateComponent} from "./dashboard-box/dashboard-box-create/dashboard-box-create.component";
+import {DashboardBoxCreateResolve} from "./dashboard-box/dashboard-box-create/dashboard-box-create.resolve";
 
 @NgModule({
     imports: [
@@ -62,7 +64,8 @@ import {DialogModule} from "primeng/components/dialog/dialog";
         DashboardBoxComponent,
         DashboardsComponent,
         DashboardBoxDeleteComponent,
-        DashboardBoxUpdateComponent
+        DashboardBoxUpdateComponent,
+        DashboardBoxCreateComponent
     ],
     providers: [
         ControlErrorService,
@@ -70,6 +73,7 @@ import {DialogModule} from "primeng/components/dialog/dialog";
         DashboardResolve,
         DashboardsResolve,
         DashboardUpdateResolve,
+        DashboardBoxCreateResolve,
         DashboardBoxService,
         DashboardBoxTypeService,
         HTTP_INTERCEPTOR_PROVIDER
