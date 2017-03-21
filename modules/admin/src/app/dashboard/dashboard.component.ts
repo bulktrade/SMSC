@@ -22,8 +22,6 @@ export class DashboardComponent {
 
     menuItems: MenuItem[];
 
-    loading: boolean = false;
-
     constructor(public route: ActivatedRoute,
                 public translateService: TranslateService,
                 public dashboardService: DashboardService,
@@ -71,10 +69,6 @@ export class DashboardComponent {
                     arr[i].label = label;
                 });
         });
-    }
-
-    toggleLoading() {
-        this.loading = !this.loading;
     }
 
     isDashboardBoxes(): boolean {

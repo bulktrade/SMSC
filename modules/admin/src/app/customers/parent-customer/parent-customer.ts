@@ -5,15 +5,15 @@ import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {OneToOneComponent} from "../../shared/components/one-to-one/one-to-one.component";
 import {NotificationService} from "../../services/notification-service";
-import {AutoCompleteModule} from "primeng/components/autocomplete/autocomplete";
 import {Customer} from "../model/customer";
+import {AutoCompleteModule} from "primeng/components/autocomplete/autocomplete";
 
 @Component({
     encapsulation: ViewEncapsulation.None,
     selector: 'parent-customer',
     template: `
     <div id="one-to-one-component" class="parent-customer">
-        <p-autoComplete [ngModel]="getModelBySchema(model)" (ngModelChange)="onSelectResource($event)"
+        <p-autoComplete [(ngModel)]="model" (onSelect)="onSelectResource($event)"
                         [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
                          styleClass="ui-sm-12 ui-md-12 ui-g-nopad" [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick().subscribe()">
             <template let-model pTemplate="item">

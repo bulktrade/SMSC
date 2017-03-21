@@ -1,5 +1,5 @@
 <div class="dashboard-box" #dashboardBoxElement>
-    <ng-container [ngSwitch]="dashboardBoxType.type">
+    <ng-container [ngSwitch]="dashboardBox.dashboardBoxType.type">
         <ng-container *ngSwitchCase="'STATUS'">
             <!-- Status box -->
             <div class="toolbar pull-right">
@@ -31,9 +31,9 @@
                 <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
             </div>
             <hr>
-            <p-chart [type]="getKindOfChart(dashboardBoxType.kind)"
+            <p-chart [type]="getKindOfChart(dashboardBox.dashboardBoxType.kind)"
                      [options]="{maintainAspectRatio: false, responsive: true}"
-                     [data]="chartData[getKindOfChart(dashboardBoxType.kind)]"></p-chart>
+                     [data]="chartData[getKindOfChart(dashboardBox.dashboardBoxType.kind)]"></p-chart>
             <!-- /#chart box -->
         </ng-container>
     </ng-container>

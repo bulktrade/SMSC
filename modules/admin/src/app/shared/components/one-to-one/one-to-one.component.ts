@@ -62,7 +62,7 @@ export class OneToOneComponent implements OnInit {
 
         /** get the list of resources */
         this.subEntityService.getResources()
-        .map(res => res['_embedded'][this.subEntityService.repositoryName])
+            .map(res => res['_embedded'][this.subEntityService.repositoryName])
             .subscribe(resources => {
                 this.resources = resources;
             }, err => {
