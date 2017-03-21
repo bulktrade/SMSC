@@ -21,7 +21,7 @@ export class DashboardBoxComponent {
 
     @HostBinding('class.fullscreen') public fullscreen: boolean = false;
 
-    @HostBinding('class') public hostClasses = 'col-lg-3 col-md-3 col-sm-6 col-xs-12';
+    @HostBinding('class') public hostClasses = 'ui-g-12 ui-md-6';
 
     public dashboardBoxType: DashboardBoxType = null;
 
@@ -81,16 +81,16 @@ export class DashboardBoxComponent {
     widthChange(width: Width) {
         switch (String(width)) {
             case 'WIDTH_25':
-                this.hostClasses = 'col-lg-3 col-md-3 col-sm-6 col-xs-12';
+                this.hostClasses = 'ui-g-12 ui-md-3 ui-g-nopad';
                 break;
             case 'WIDTH_50':
-                this.hostClasses = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
+                this.hostClasses = 'ui-g-12 ui-md-6 ui-g-nopad';
                 break;
             case 'WIDTH_75':
-                this.hostClasses = 'col-lg-9 col-md-9 col-sm-6 col-xs-12';
+                this.hostClasses = 'ui-g-12 ui-md-9 ui-g-nopad';
                 break;
             case 'WIDTH_100':
-                this.hostClasses = 'col-lg-12 col-md-12 col-sm-6 col-xs-12';
+                this.hostClasses = 'ui-g-12 ui-md-9 ui-g-nopad';
                 break;
         }
     }

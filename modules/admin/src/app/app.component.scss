@@ -442,4 +442,9 @@ $slideDuration: .4s;
     z-index: 9999 !important;
     width: 100% !important;
   }
+
+  .ui-dialog.ui-widget .ui-dialog-content,
+  .ui-dialog.ui-widget .ui-dialog-titlebar {
+    padding: .5em;
+  }
 }

@@ -12,10 +12,17 @@ sk-cube-grid {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 13px;
+  padding-right: 8px;
 }
 
 @media (min-width: 992px) {
   .dashboard-toolbar {
     margin-bottom: 17px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .dashboard-toolbar {
+    padding: 0;
   }
 }

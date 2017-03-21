@@ -3,7 +3,9 @@ $colorScheme: #2ab4c0;
 :host {
   transition: all .5s;
   height: 146px;
-  margin-bottom: 30px;
+  margin-bottom: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
 
   .dashboard-box {
     position: relative;
@@ -116,4 +118,11 @@ $colorScheme: #2ab4c0;
   left: 0;
   width: 100%;
   max-width: 100%;
+}
+
+@media screen and (max-width: 640px) {
+  :host {
+    padding: 0;
+    margin-bottom: 10px;
+  }
 }
