@@ -196,10 +196,10 @@
                         <configuration>
                             <backend>html</backend>
                             <doctype>book</doctype>
-                            <sourceDocumentName>index.adoc</sourceDocumentName>
                             <attributes>
                                 <snippets>${snippetsDirectory}</snippets>
                             </attributes>
+                            <sourceDirectory>src/docs/asciidocs</sourceDirectory>
                         </configuration>
                     </execution>
                 </executions>

@@ -6,14 +6,11 @@ import io.smsc.model.customer.Salutation;
 import org.junit.Test;
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.restdocs.request.ParameterDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.*;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -24,11 +21,11 @@ public class UserRestTest extends AbstractSpringMVCTest {
     @Test
     public void testGetSingleUser() throws Exception {
 
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getUser");
+        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getAdminUser");
 
         document
-                .document(pathParameters(userPathParams()),
-                        responseFields(userFields(false)));
+                .document(pathParameters(getPathParam("AdminUser")),
+                        responseFields(adminUserFields(false)));
 
         mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isOk())
@@ -38,6 +35,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$.email", is("user@gmail.com")))
                 .andExpect(jsonPath("$.active", is(true)))
                 .andExpect(jsonPath("$.blocked", is(false)))
+                .andExpect(jsonPath("$.salutation", is(Salutation.MR.toString())))
                 .andDo(document);
     }
 
@@ -51,10 +49,13 @@ public class UserRestTest extends AbstractSpringMVCTest {
     @Test
     public void testGetAllUsers() throws Exception {
 
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getUsers");
+        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getAdminUsers");
 
         document
-                .document(responseFields(userFields(true)));
+                .document(pathParameters(
+                        parameterWithName("page").description("Page of results"),
+                        parameterWithName("size").description("Size of results")),
+                        responseFields(adminUserFields(true)));
 
         mockMvc.perform(get("/rest/repository/users"))
                 .andExpect(status().isOk())
@@ -65,29 +66,45 @@ public class UserRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$._embedded.users[0].email", is("user@gmail.com")))
                 .andExpect(jsonPath("$._embedded.users[0].active", is(true)))
                 .andExpect(jsonPath("$._embedded.users[0].blocked", is(false)))
-                .andExpect(jsonPath("$._embedded.users[2].username", is("admin")))
-                .andExpect(jsonPath("$._embedded.users[2].firstname", is("adminName")))
-                .andExpect(jsonPath("$._embedded.users[2].surname", is("adminSurname")))
-                .andExpect(jsonPath("$._embedded.users[2].email", is("admin@gmail.com")))
-                .andExpect(jsonPath("$._embedded.users[2].active", is(true)))
-                .andExpect(jsonPath("$._embedded.users[2].blocked", is(false)))
+                .andExpect(jsonPath("$._embedded.users[0].salutation", is(Salutation.MR.toString())))
                 .andExpect(jsonPath("$._embedded.users[1].username", is("demo")))
                 .andExpect(jsonPath("$._embedded.users[1].firstname", is("demoName")))
                 .andExpect(jsonPath("$._embedded.users[1].surname", is("demoSurname")))
                 .andExpect(jsonPath("$._embedded.users[1].email", is("demo@gmail.com")))
                 .andExpect(jsonPath("$._embedded.users[1].active", is(true)))
                 .andExpect(jsonPath("$._embedded.users[1].blocked", is(false)))
+                .andExpect(jsonPath("$._embedded.users[1].salutation", is(Salutation.MR.toString())))
+                .andExpect(jsonPath("$._embedded.users[2].username", is("admin")))
+                .andExpect(jsonPath("$._embedded.users[2].firstname", is("adminName")))
+                .andExpect(jsonPath("$._embedded.users[2].surname", is("adminSurname")))
+                .andExpect(jsonPath("$._embedded.users[2].email", is("admin@gmail.com")))
+                .andExpect(jsonPath("$._embedded.users[2].active", is(true)))
+                .andExpect(jsonPath("$._embedded.users[2].blocked", is(false)))
+                .andExpect(jsonPath("$._embedded.users[2].salutation", is(Salutation.MRS.toString())))
                 .andDo(document);
     }
 
     @Test
     public void testCreateUser() throws Exception {
 
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("insertUser");
+        RestDocumentationResultHandler document = documentPrettyPrintReqResp("createAdminUser");
+
+        FieldDescriptor[] fieldsWithPassword = new FieldDescriptor[]{
+                fieldWithPath("id").description("AdminUser's id"),
+                fieldWithPath("salutation").description("AdminUser's salutation"),
+                fieldWithPath("username").description("AdminUser's username"),
+                fieldWithPath("password").description("AdminUser's password"),
+                fieldWithPath("firstname").description("AdminUser's firstname"),
+                fieldWithPath("surname").description("AdminUser's surname"),
+                fieldWithPath("email").description("AdminUser's email"),
+                fieldWithPath("active").description("AdminUser's active"),
+                fieldWithPath("created").description("AdminUser's created"),
+                fieldWithPath("blocked").description("AdminUser's blocked")
+        };
 
         document
-                .document(requestFields(userFields(false)),
-                        responseFields(userFields(false)));
+                .document(requestFields(fieldsWithPassword),
+                        responseFields(adminUserFields(false)));
 
         User user = new User();
         user.setUsername("Old Johnny");
@@ -112,11 +129,11 @@ public class UserRestTest extends AbstractSpringMVCTest {
     @Test
     public void testDeleteUser() throws Exception {
 
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("deleteUser");
+        RestDocumentationResultHandler document = documentPrettyPrintReqResp("deleteAdminUser");
 
         document
-                .document(pathParameters(userPathParams()),
-                        responseFields(userFields(false)));
+                .document(pathParameters(getPathParam("AdminUser")),
+                        responseFields(adminUserFields(false)));
 
         mockMvc.perform(delete("/rest/repository/users/1")
                 .with(csrf()))
@@ -127,14 +144,14 @@ public class UserRestTest extends AbstractSpringMVCTest {
     }
 
     @Test
-    public void testUpdateUser() throws Exception {
+    public void testReplaceUser() throws Exception {
 
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("updateUser");
+        RestDocumentationResultHandler document = documentPrettyPrintReqResp("replaceAdminUser");
 
         document
-                .document(pathParameters(userPathParams()),
-                        requestFields(userFields(false)),
-                        responseFields(userFields(false)));
+                .document(pathParameters(getPathParam("AdminUser")),
+                        requestFields(adminUserFields(false)),
+                        responseFields(adminUserFields(false)));
 
         User user = new User();
         user.setId(1L);
@@ -167,59 +184,36 @@ public class UserRestTest extends AbstractSpringMVCTest {
     }
 
     /**
-     * Pretty print request and response
-     *
-     * @param useCase the name of the snippet
-     * @return RestDocumentationResultHandler
-     */
-    private RestDocumentationResultHandler documentPrettyPrintReqResp(String useCase) {
-        return document(useCase,
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()));
-    }
-
-    /**
-     * User fields used in requests and responses.
+     * AdminUser fields used in requests and responses.
      * An array field equivalent can be provided
      *
      * @param isJsonArray if the fields are used in a JsonArray
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] userFields(boolean isJsonArray) {
+    private FieldDescriptor[] adminUserFields(boolean isJsonArray) {
         return isJsonArray ?
                 new FieldDescriptor[]{
-                        fieldWithPath("[]").description("Users list"),
-                        fieldWithPath("[].id").description("User's id"),
-                        fieldWithPath("[].salutation").description("User's salutation"),
-                        fieldWithPath("[].username").description("User's username"),
-                        fieldWithPath("[].firstname").description("User's firstname"),
-                        fieldWithPath("[].surname").description("User's surname"),
-                        fieldWithPath("[].email").description("User's email"),
-                        fieldWithPath("[].active").description("User's active"),
-                        fieldWithPath("[].created").description("User's created"),
-                        fieldWithPath("[].blocked").description("User's blocked")
+                        fieldWithPath("_embedded.users[]").description("AdminUsers list"),
+                        fieldWithPath("_embedded.users[].id").description("AdminUser's id"),
+                        fieldWithPath("_embedded.users[].salutation").description("AdminUser's salutation"),
+                        fieldWithPath("_embedded.users[].username").description("AdminUser's username"),
+                        fieldWithPath("_embedded.users[].firstname").description("AdminUser's firstname"),
+                        fieldWithPath("_embedded.users[].surname").description("AdminUser's surname"),
+                        fieldWithPath("_embedded.users[].email").description("AdminUser's email"),
+                        fieldWithPath("_embedded.users[].active").description("AdminUser's active"),
+                        fieldWithPath("_embedded.users[].created").description("AdminUser's created"),
+                        fieldWithPath("_embedded.users[].blocked").description("AdminUser's blocked"),
                 } :
                 new FieldDescriptor[]{
-                        fieldWithPath("id").description("User's id"),
-                        fieldWithPath("salutation").description("User's salutation"),
-                        fieldWithPath("username").description("User's username"),
-                        fieldWithPath("firstname").description("User's firstname"),
-                        fieldWithPath("surname").description("User's surname"),
-                        fieldWithPath("email").description("User's email"),
-                        fieldWithPath("active").description("User's active"),
-                        fieldWithPath("created").description("User's created"),
-                        fieldWithPath("blocked").description("User's blocked")
+                        fieldWithPath("id").description("AdminUser's id"),
+                        fieldWithPath("salutation").description("AdminUser's salutation"),
+                        fieldWithPath("username").description("AdminUser's username"),
+                        fieldWithPath("firstname").description("AdminUser's firstname"),
+                        fieldWithPath("surname").description("AdminUser's surname"),
+                        fieldWithPath("email").description("AdminUser's email"),
+                        fieldWithPath("active").description("AdminUser's active"),
+                        fieldWithPath("created").description("AdminUser's created"),
+                        fieldWithPath("blocked").description("AdminUser's blocked")
                 };
-    }
-
-    /**
-     * userId in path variables
-     *
-     * @return ParameterDescriptor
-     */
-    private ParameterDescriptor[] userPathParams() {
-        return new ParameterDescriptor[]{
-                parameterWithName("id").description("User's id")
-        };
     }
 }

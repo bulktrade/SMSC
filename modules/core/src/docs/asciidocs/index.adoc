@@ -1,0 +1,184 @@
+= REST API documentation of SMSC
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+
+This RESTful API tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP verbs.
+
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PUT`
+| Used to substitute an existing resource with new one
+
+| `PATCH`
+| Used to update an existing resource partially or fully
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+
+This RESTful API tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully
+
+| `201 Created`
+| A new resource has been created successfully. The resource's URI is available from the response's
+`Location` header
+
+| `204 No Content`
+| Resource was deleted successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `401 Unauthorized`
+| User used wrong credentials while receiving JWT token or tried to access resource without token
+
+| `404 Not Found`
+| The requested resource did not exist
+
+| `409 Conflict`
+| The request could not be completed due to a conflict with the current state of the target resource
+|===
+
+[[resources]]
+= Resources
+
+[[resources-admin-user]]
+== AdminUser
+
+[[resources-admin-user-get]]
+=== Get single AdminUser
+
+A `GET` request will return single AdminUser.
+
+==== Request structure
+
+include::{snippets}/getAdminUser/http-request.adoc[]
+
+==== CURL request
+
+include::{snippets}/getAdminUser/curl-request.adoc[]
+
+==== Response structure
+
+include::{snippets}/getAdminUser/http-response.adoc[]
+
+
+[[resources-admin-user-getAll]]
+=== Get all AdminUsers
+
+A `GET` request will return all AdminUsers.
+
+==== Request structure
+
+include::{snippets}/getAdminUsers/http-request.adoc[]
+
+==== CURL request
+
+include::{snippets}/getAdminUsers/curl-request.adoc[]
+
+==== Response structure
+
+include::{snippets}/getAdminUsers/http-response.adoc[]
+
+
+[[resources-admin-user-create]]
+=== Create AdminUser
+
+A `POST` request will create new AdminUser.
+
+==== Request structure
+
+include::{snippets}/createAdminUser/http-request.adoc[]
+
+==== CURL request
+
+include::{snippets}/createAdminUser/curl-request.adoc[]
+
+==== Response structure
+
+include::{snippets}/createAdminUser/http-response.adoc[]
+
+
+[[resources-admin-user-replace]]
+=== Replace existing AdminUser with new one
+
+A `PUT` request will replace existing AdminUser with new AdminUser.
+
+==== Request structure
+
+include::{snippets}/replaceAdminUser/http-request.adoc[]
+
+==== CURL request
+
+include::{snippets}/replaceAdminUser/curl-request.adoc[]
+
+==== Response structure
+
+include::{snippets}/replaceAdminUser/http-response.adoc[]
+
+
+[[resources-admin-user-update]]
+=== Update AdminUser
+
+A `PATCH` request will update existing AdminUser partially or fully.
+
+==== Request structure
+
+include::{snippets}/updateAdminUser/http-request.adoc[]
+
+==== CURL request
+
+include::{snippets}/updateAdminUser/curl-request.adoc[]
+
+==== Response structure
+
+include::{snippets}/updateAdminUser/http-response.adoc[]
+
+
+[[resources-admin-user-delete]]
+=== Delete AdminUser
+
+A `DELETE` request will delete existing AdminUser.
+
+==== Request structure
+
+include::{snippets}/deleteAdminUser/http-request.adoc[]
+
+==== CURL request
+
+include::{snippets}/deleteAdminUser/curl-request.adoc[]
+
+==== Response structure
+
+include::{snippets}/deleteAdminUser/http-response.adoc[]
+
+
+
+
