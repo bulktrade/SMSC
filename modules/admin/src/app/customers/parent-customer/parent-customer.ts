@@ -13,7 +13,7 @@ import {AutoCompleteModule} from "primeng/components/autocomplete/autocomplete";
     selector: 'parent-customer',
     template: `
     <div id="one-to-one-component" class="parent-customer">
-        <p-autoComplete [(ngModel)]="model" (onSelect)="onSelectResource($event)"
+        <p-autoComplete [(ngModel)]="model" (onSelect)="onSelectResource($event)" field="country"
                         [suggestions]="filteredResources" (completeMethod)="filterResources($event)" [size]="30"
                          styleClass="ui-sm-12 ui-md-12 ui-g-nopad" [minLength]="1" [dropdown]="true" (onDropdownClick)="onDropdownClick().subscribe()">
             <template let-model pTemplate="item">
@@ -22,7 +22,7 @@ import {AutoCompleteModule} from "primeng/components/autocomplete/autocomplete";
                 </div>
             </template>
         </p-autoComplete>
-        <i *ngIf="model.hasOwnProperty('id')" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
+        <i *ngIf="model" class="fa fa-times btn-remove" aria-hidden="true" (click)="removeRelationship()"></i>
     </div>
     `,
     styles: [`
@@ -41,8 +41,7 @@ import {AutoCompleteModule} from "primeng/components/autocomplete/autocomplete";
 })
 export class ParentCustomerComponent extends OneToOneComponent implements OnInit {
 
-    @Input()
-    public model: Customer = <Customer>{};
+    @Input() public model: Customer = <Customer>{};
 
     constructor(public route: ActivatedRoute,
                 public notifications: NotificationService,

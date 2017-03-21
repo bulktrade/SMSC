@@ -54,7 +54,7 @@ export class OneToOneComponent implements OnInit {
                 this.model = _model;
             }, err => {
                 if (err.status === 404) {
-                    this.model = {};
+                    this.model = null;
                 } else {
                     this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
                 }
@@ -65,7 +65,7 @@ export class OneToOneComponent implements OnInit {
             .map(res => res['_embedded'][this.subEntityService.repositoryName])
             .subscribe(resources => {
                 this.resources = resources;
-            }, err => {
+            }, (e) => {
                 this.notifications.createNotification('error', 'ERROR', 'customers.notFound');
             });
     }
@@ -100,8 +100,6 @@ export class OneToOneComponent implements OnInit {
 
     onSelectResource(event) {
         if (typeof event === 'object') {
-            this.model = event;
-
             let entity = {
                 [this.propertyName]: event['_links'].self.href,
                 _links: this.mainEntityService.getSelfLinkedEntityById(this.id)._links
@@ -127,7 +125,7 @@ export class OneToOneComponent implements OnInit {
         this.mainEntityService.updateResource(entity)
             .subscribe((res) => {
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-                this.model = {};
+                this.model = null;
             }, err => {
                 this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
             });
