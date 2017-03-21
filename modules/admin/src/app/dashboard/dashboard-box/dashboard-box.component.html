@@ -1,11 +1,10 @@
 <div class="dashboard-box" #dashboardBoxElement>
-    <ng-container [ngSwitch]="dashboardBox.dashboardBoxType.type">
+    <ng-container [ngSwitch]="dashboardBoxType.type">
         <ng-container *ngSwitchCase="'STATUS'">
             <!-- Status box -->
             <div class="toolbar pull-right">
                 <i class="fa fa-cog" aria-hidden="true" (click)="toggleSettings()"></i>
-                <i class="fa fa-pencil" aria-hidden="true"
-                   [routerLink]="['/dashboard', dashboardId, 'dashboard-box', 'update', dashboardBox['id']]"></i>
+                <i class="fa fa-pencil" aria-hidden="true" (click)="toggleDialog()"></i>
                 <i class="fa fa-trash" aria-hidden="true"
                    [routerLink]="['/dashboard', dashboardId, 'dashboard-box', 'delete', dashboardBox['id']]"></i>
                 <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
@@ -24,16 +23,15 @@
             <div class="pull-left chart-box-desc">{{ dashboardBox.description }}</div>
             <div class="toolbar pull-right">
                 <i class="fa fa-cog" aria-hidden="true" (click)="toggleSettings()"></i>
-                <i class="fa fa-pencil" aria-hidden="true"
-                   [routerLink]="['/dashboard', dashboardId, 'dashboard-box', 'update', dashboardBox['id']]"></i>
+                <i class="fa fa-pencil" aria-hidden="true" (click)="toggleDialog()"></i>
                 <i class="fa fa-trash" aria-hidden="true"
                    [routerLink]="['/dashboard', dashboardId, 'dashboard-box', 'delete', dashboardBox['id']]"></i>
                 <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
             </div>
             <hr>
-            <p-chart [type]="getKindOfChart(dashboardBox.dashboardBoxType.kind)"
+            <p-chart [type]="getKindOfChart(dashboardBoxType.kind)"
                      [options]="{maintainAspectRatio: false, responsive: true}"
-                     [data]="chartData[getKindOfChart(dashboardBox.dashboardBoxType.kind)]"></p-chart>
+                     [data]="chartData[getKindOfChart(dashboardBoxType.kind)]"></p-chart>
             <!-- /#chart box -->
         </ng-container>
     </ng-container>
@@ -51,3 +49,8 @@
         </div>
     </div>
 </div>
+
+<p-dialog [header]="dashboardBox.name" [(visible)]="displayDialog" width="600"
+          [draggable]="false" modal="modal" [responsive]="true" closeOnEscape="true">
+    <dashboard-box-update [model]="dashboardBoxModel" (modelChange)="onModelChange($event)"></dashboard-box-update>
+</p-dialog>

@@ -1,9 +1,10 @@
 import {Component, Input, HostBinding, HostListener, Renderer, ElementRef, Output, EventEmitter} from "@angular/core";
 import {DashboardBox, Width, Height} from "./dashboard-box.model";
 import {DashboardBoxService} from "./dashboard-box.service";
-import {Kind} from "../dashboard-box-type/dashboard-box-type.model";
+import {Kind, DashboardBoxType} from "../dashboard-box-type/dashboard-box-type.model";
 import {CHART_DATA} from "./chart-data";
 import {ActivatedRoute, Params} from "@angular/router";
+import * as _clone from "js.clone";
 
 @Component({
     selector: 'dashboard-box',
@@ -16,17 +17,23 @@ export class DashboardBoxComponent {
 
     @Output('loadEnd') public loadEnd: EventEmitter<any> = new EventEmitter();
 
-    @Input('dashboardBox') public dashboardBox: DashboardBox;
+    @Input('dashboardBox') public dashboardBox: DashboardBox = null;
 
     @HostBinding('class.fullscreen') public fullscreen: boolean = false;
 
     @HostBinding('class') public hostClasses = 'col-lg-3 col-md-3 col-sm-6 col-xs-12';
+
+    public dashboardBoxType: DashboardBoxType = null;
 
     public isSettings: boolean = false;
 
     public chartData = CHART_DATA;
 
     public dashboardId: number = null;
+
+    public displayDialog: boolean = false;
+
+    public dashboardBoxModel: DashboardBox = null;
 
     constructor(public dashboardBoxService: DashboardBoxService,
                 public renderer: Renderer,
@@ -36,8 +43,11 @@ export class DashboardBoxComponent {
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => this.dashboardId = Number(params['id']));
+        this.dashboardBoxType = this.dashboardBox.dashboardBoxType;
+        delete this.dashboardBox.dashboardBoxType;
         this.widthChange(<Width>(this.dashboardBox.width));
         this.heightChange(<Height>(this.dashboardBox.height));
+        this.dashboardBoxModel = _clone(this.dashboardBox);
     }
 
     onFullscreenMode() {
@@ -56,6 +66,16 @@ export class DashboardBoxComponent {
     onWidthChange(event) {
         this.widthChange(event.value);
         this.dashboardBoxService.updateResource(this.dashboardBox).subscribe();
+    }
+
+    onModelChange(dashboardBox: DashboardBox) {
+        this.dashboardBox = dashboardBox;
+        this.widthChange(dashboardBox.width);
+        this.heightChange(dashboardBox.height);
+    }
+
+    toggleDialog() {
+        this.displayDialog = !this.displayDialog;
     }
 
     widthChange(width: Width) {
