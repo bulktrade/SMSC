@@ -1,4 +1,5 @@
 import {Link, Entity} from "../../shared/entity.model";
+import {DashboardBoxType} from "../dashboard-box-type/dashboard-box-type.model";
 
 export enum Width {
     WIDTH_25,
@@ -27,5 +28,6 @@ export interface DashboardBox extends Entity {
     width: Width;
     height: Height;
     order: number;
+    dashboardBoxType: DashboardBoxType
     _links: Links;
 }

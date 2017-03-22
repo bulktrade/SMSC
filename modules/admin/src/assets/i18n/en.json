@@ -195,5 +195,10 @@
     "dashboardBox.width": "Width",
     "dashboardBox.height": "Height",
     "dashboardBox.order": "Order",
-    "dashboardBox.type": "Type"
+    "dashboardBox.type": "Type",
+    "dashboardBox.createDashboardBox": "Create dashboard box",
+    "dashboardBox.successCreateDashboardBox": "Dashboard box was successfully created!",
+    "oneToOne.successUpdate": "Relationships were successful updated!",
+    "oneToOne.errorUpdate": "Relationships were not updated!",
+    "oneToOne.notFound": "Data was not found"
 }

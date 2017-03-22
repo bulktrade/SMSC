@@ -18,9 +18,7 @@ const ROUTE_PROVIDER: Route[] = [
     {
         path: ':id/update',
         component: DashboardUpdateComponent,
-        resolve: {
-            update: DashboardUpdateResolve
-        }
+        resolve: {update: DashboardUpdateResolve}
     },
     {
         path: ':id/delete',
@@ -37,16 +35,12 @@ const ROUTE_PROVIDER: Route[] = [
     {
         path: ':id',
         component: DashboardComponent,
-        resolve: {
-            dashboard: DashboardResolve
-        }
+        resolve: {dashboard: DashboardResolve}
     },
     {
         path: '',
         component: DashboardsComponent,
-        resolve: {
-            dashboards: DashboardsResolve
-        }
+        resolve: {dashboards: DashboardsResolve}
     }
 ];
 

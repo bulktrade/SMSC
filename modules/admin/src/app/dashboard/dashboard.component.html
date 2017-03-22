@@ -1,19 +1,14 @@
 <!-- Dashboard toolbar -->
 <div class="dashboard-toolbar">
-    <p-splitButton icon="fa-cog" menuStyleClass="ui-button-success" [model]="menuItems"></p-splitButton>
+    <p-splitButton icon="fa-plus" [title]="'dashboardBox.createDashboardBox' | translate"
+                   menuStyleClass="ui-button-success" (onClick)="router.navigate(['/dashboard', id, 'dashboard-box', 'create'])" [model]="menuItems"></p-splitButton>
 </div>
 <!-- /#dashboard toolbar -->
 
-<!-- Loading layer -->
-<sk-cube-grid [hidden]="!loading"></sk-cube-grid>
-<!-- /#loading layer -->
-
 <!-- Dashboard boxes -->
-<div class="row dashboard-boxes" *ngIf="isDashboardBoxes()" [hidden]="loading" dragula='dashboard-boxes'
+<div class="ui-g dashboard-boxes" *ngIf="isDashboardBoxes()" dragula='dashboard-boxes'
      [dragulaModel]='dashboardBoxes'>
-    <dashboard-box *ngFor="let dashboardBox of dashboardBoxes; let first = first; let last = last"
-                   [dashboardBox]="dashboardBox"
-                   (loadInit)="first && toggleLoading()" (loadEnd)="last && toggleLoading()"></dashboard-box>
+    <dashboard-box *ngFor="let dashboardBox of dashboardBoxes" [dashboardBox]="dashboardBox"></dashboard-box>
 </div>
 <!-- /#dashboard boxes -->
 

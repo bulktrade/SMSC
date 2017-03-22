@@ -12,7 +12,6 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
 import {OneToOneModule} from "../../shared/components/one-to-one/one-to-one.component";
 import {CustomersService} from "../customer.service";
-import {ParentCustomerModule} from "../parent-customer/parent-customer";
 import {OneToMany} from "../../shared/components/one-to-many/one-to-many.model";
 import {TabViewModule} from "primeng/components/tabview/tabview";
 import {Customer} from "../model/customer";
@@ -84,7 +83,6 @@ export class CustomersFormComponent {
         DropdownModule,
         ControlErrorsModule,
         OneToOneModule,
-        ParentCustomerModule,
         TabViewModule
     ],
     exports: [CustomersFormComponent],

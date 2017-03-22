@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Location} from "@angular/common";
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -12,8 +12,13 @@ import {ControlErrorService} from "../../../services/control-error";
     templateUrl: 'dashboard-box-update.component.html'
 })
 export class DashboardBoxUpdateComponent {
+
     isLoading: boolean = false;
-    model: DashboardBox = <DashboardBox>{};
+
+    @Input() model: DashboardBox = <DashboardBox>{};
+
+    @Output() modelChange: EventEmitter<DashboardBox> = new EventEmitter();
+
     id: number = null;
 
     constructor(public dashboardBoxService: DashboardBoxService,
@@ -25,24 +30,19 @@ export class DashboardBoxUpdateComponent {
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => this.id = Number(params['dashboardBoxId']));
-        this.model = this.getDashboardBox();
     }
 
     onSubmit(dashboardBoxForm: NgForm) {
         this.toggleLoading();
         this.dashboardBoxService.updateResource(this.model)
-            .subscribe((dashboard: DashboardBox) => {
+            .subscribe((dashboardBox: DashboardBox) => {
                 this.toggleLoading();
-                this.location.back();
                 this.notification.createNotification('success', 'SUCCESS', 'dashboardBox.successUpdateDashboardBox');
+                this.modelChange.emit(dashboardBox);
             }, (e) => {
                 this.toggleLoading();
                 this.controlErrorService.formControlErrors(e.json(), dashboardBoxForm);
             });
-    }
-
-    getDashboardBox(): DashboardBox {
-        return this.route.snapshot.data['update'];
     }
 
     toggleLoading() {
