@@ -121,7 +121,7 @@
                         <div class="ui-grid-col-6">
                             <one-to-one [hideOwn]="true" [crudRepositoryB]="customersService"
                                         [fields]="['country', 'companyName']" [entity]="model"
-                                        [(ngModel)]="model['parent']" name="parent"></one-to-one>
+                                        [(ngModel)]="model['parent']" name="parent" id="parent-customer"></one-to-one>
                         </div>
                         <div class="ui-grid-col-4">
                             <control-errors control="parent" [errors]="{required: ('customers.required'| translate),
