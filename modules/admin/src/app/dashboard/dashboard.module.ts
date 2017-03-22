@@ -33,7 +33,6 @@ import {DashboardBoxDeleteComponent} from "./dashboard-box/dashboard-box-delete/
 import {DashboardBoxUpdateComponent} from "./dashboard-box/dashboard-box-update/dashboard-box-update.component";
 import {DialogModule} from "primeng/components/dialog/dialog";
 import {DashboardBoxCreateComponent} from "./dashboard-box/dashboard-box-create/dashboard-box-create.component";
-import {DashboardBoxCreateResolve} from "./dashboard-box/dashboard-box-create/dashboard-box-create.resolve";
 
 @NgModule({
     imports: [
@@ -73,7 +72,6 @@ import {DashboardBoxCreateResolve} from "./dashboard-box/dashboard-box-create/da
         DashboardResolve,
         DashboardsResolve,
         DashboardUpdateResolve,
-        DashboardBoxCreateResolve,
         DashboardBoxService,
         DashboardBoxTypeService,
         HTTP_INTERCEPTOR_PROVIDER

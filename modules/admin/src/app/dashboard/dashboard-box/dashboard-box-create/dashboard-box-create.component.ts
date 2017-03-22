@@ -7,8 +7,7 @@ import {NotificationService} from "../../../services/notification-service";
 import {ControlErrorService} from "../../../services/control-error";
 import {ActivatedRoute, Params} from "@angular/router";
 import {DashboardService} from "../../dashboard.service";
-import {SelectItem} from "primeng/components/common/api";
-import {DashboardBoxType} from "../../dashboard-box-type/dashboard-box-type.model";
+import {DashboardBoxTypeService} from "../../dashboard-box-type/dashboard-box-type.service";
 
 @Component({
     selector: 'dashboard-box-create',
@@ -20,35 +19,19 @@ export class DashboardBoxCreateComponent {
 
     public model: DashboardBox = <DashboardBox>{};
 
-    dashboardId: number = null;
-
-    dashboardBoxTypeItems: SelectItem[] = [];
+    public dashboardId: number = null;
 
     constructor(public dashboardBoxService: DashboardBoxService,
                 public dashboardService: DashboardService,
                 public notification: NotificationService,
                 public controlErrorService: ControlErrorService,
                 public location: Location,
-                public route: ActivatedRoute) {
+                public route: ActivatedRoute,
+                public dashboardBoxTypeService: DashboardBoxTypeService) {
     }
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => this.dashboardId = Number(params['id']));
-        this.dashboardBoxTypeItems = this.getDashboardBoxTypeItems();
-    }
-
-    getDashboardBoxTypeItems(): SelectItem[] {
-        let dashboardBoxTypes: DashboardBoxType[] = <DashboardBoxType[]>this.route.snapshot.data['create'];
-        let dashboardBoxTypeItems: SelectItem[] = [{label: '', value: null}];
-
-        dashboardBoxTypes.forEach((dashboardBoxType: DashboardBoxType) => {
-            dashboardBoxTypeItems.push({
-                label: `${dashboardBoxType['id']}: ${dashboardBoxType.kind}`,
-                value: dashboardBoxType._links.self.href
-            });
-        });
-
-        return dashboardBoxTypeItems;
     }
 
     onSubmit(dashboardBoxForm: NgForm) {

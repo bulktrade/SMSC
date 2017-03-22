@@ -90,7 +90,7 @@ export class DashboardBoxComponent {
                 this.hostClasses = 'ui-g-12 ui-md-9 ui-g-nopad';
                 break;
             case 'WIDTH_100':
-                this.hostClasses = 'ui-g-12 ui-md-9 ui-g-nopad';
+                this.hostClasses = 'ui-g-12 ui-md-12 ui-g-nopad';
                 break;
         }
     }
