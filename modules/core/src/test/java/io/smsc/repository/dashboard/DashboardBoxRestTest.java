@@ -3,18 +3,18 @@ package io.smsc.repository.dashboard;
 import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.dashboard.*;
 import org.junit.Test;
-import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import java.util.Date;
+
 import static org.hamcrest.Matchers.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
@@ -22,14 +22,7 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleDashboardBox() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getDashboardBox");
-
-        document
-                .document(pathParameters(getPathParam("DashboardBox")),
-                        responseFields(dashboardBoxFields(false)));
-
-        mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.width", is(Width.WIDTH_25.toString())))
@@ -37,7 +30,11 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$.order", is(1)))
                 .andExpect(jsonPath("$.name", is("Box 1")))
                 .andExpect(jsonPath("$.description", is("Box 1 desc")))
-                .andDo(document);
+                .andDo(document("getDashboardBox",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("DashboardBox")),
+                        responseFields(dashboardBoxFieldsForResponse(false))));
     }
 
     @Test
@@ -48,16 +45,7 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllDashboardBoxes() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getDashboardBoxes");
-
-        document
-                .document(pathParameters(
-                        parameterWithName("page").description("Page of results"),
-                        parameterWithName("size").description("Size of results")),
-                        responseFields(dashboardBoxFields(true)));
-
-        mockMvc.perform(get("/rest/repository/dashboard-boxes"))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes?page=0&size=20"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes", hasSize(9)))
@@ -71,18 +59,17 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[8].order", is(9)))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[8].name", is("Box 9")))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[8].description", is("Box 9 desc")))
-                .andDo(document);
+                .andDo(document("getDashboardBoxes",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestParameters(
+                                parameterWithName("page").description("Page of results"),
+                                parameterWithName("size").description("Size of results")),
+                        responseFields(dashboardBoxFieldsForResponse(true))));
     }
 
     @Test
     public void testCreateDashboardBox() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("createDashboardBox");
-
-        document
-                .document(requestFields(dashboardBoxFields(false)),
-                        responseFields(dashboardBoxFields(false)));
-
         DashboardBox dashboardBox = new DashboardBox();
         dashboardBox.setName("new box");
         dashboardBox.setOrder(99);
@@ -98,36 +85,48 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxJson))
                 .andExpect(status().isCreated())
-                .andDo(document);
+                .andDo(document("createDashboardBox",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(dashboardFieldsForRequest()),
+                        responseFields(dashboardBoxFieldsForResponse(false))));
     }
 
     @Test
     public void testDeleteDashboardBox() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("deleteDashboardBox");
-
-        document
-                .document(pathParameters(getPathParam("DashboardBox")),
-                        responseFields(dashboardBoxFields(false)));
-
-        mockMvc.perform(delete("/rest/repository/dashboard-boxes/1")
+        mockMvc.perform(delete("/rest/repository/dashboard-boxes/{id}", 1)
                 .with(csrf()))
-                .andDo(document);
+                .andDo(document("deleteDashboardBox",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("DashboardBox"))));
 
         mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
+    public void testUpdateDashboardBox() throws Exception {
+        mockMvc.perform(patch("/rest/repository/dashboard-boxes/{id}", 1)
+                .with(csrf())
+                .contentType("application/json;charset=UTF-8")
+                .content("{ \"name\" : \"new box\" }"))
+                .andExpect(status().isOk())
+                .andDo(document("updateDashboardBox",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("DashboardBox")),
+                        requestFields(dashboardFieldsForRequest()),
+                        responseFields(dashboardBoxFieldsForResponse(false))));
+
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.name", is("new box")));
+    }
+
+    @Test
     public void testReplaceDashboardBox() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("replaceDashboardBox");
-
-        document
-                .document(pathParameters(getPathParam("DashboardBox")),
-                        requestFields(dashboardBoxFields(false)),
-                        responseFields(dashboardBoxFields(false)));
-
         DashboardBox dashboardBox = new DashboardBox();
         dashboardBox.setId(1L);
         dashboardBox.setName("new box");
@@ -137,12 +136,17 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
         dashboardBox.setDescription("new box desc");
         String dashboardBoxJson = json(dashboardBox);
 
-        mockMvc.perform(put("/rest/repository/dashboard-boxes/1")
+        mockMvc.perform(put("/rest/repository/dashboard-boxes/{id}", 1)
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxJson))
                 .andExpect(status().isOk())
-                .andDo(document);
+                .andDo(document("replaceDashboardBox",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("DashboardBox")),
+                        requestFields(dashboardFieldsForRequest()),
+                        responseFields(dashboardBoxFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
                 .andExpect(status().isOk())
@@ -155,13 +159,13 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
     }
 
     /**
-     * DashboardBox fields used in requests and responses.
+     * DashboardBox fields used in responses.
      * An array field equivalent can be provided
      *
      * @param isJsonArray if the fields are used in a JsonArray
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] dashboardBoxFields(boolean isJsonArray) {
+    private FieldDescriptor[] dashboardBoxFieldsForResponse(boolean isJsonArray) {
         return isJsonArray ?
                 new FieldDescriptor[]{
                         fieldWithPath("_embedded.dashboard-boxes[]").description("DashboardBox list"),
@@ -170,7 +174,12 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.dashboard-boxes[].height").description("DashboardBox's height"),
                         fieldWithPath("_embedded.dashboard-boxes[].order").description("DashboardBox's order"),
                         fieldWithPath("_embedded.dashboard-boxes[].name").description("DashboardBox's name"),
-                        fieldWithPath("_embedded.dashboard-boxes[].description").description("DashboardBox's description")
+                        fieldWithPath("_embedded.dashboard-boxes[].description")
+                                .description("DashboardBox's description"),
+                        fieldWithPath("_embedded.dashboard-boxes[].lastModifiedDate").type(Date.class)
+                                .description("DashboardBox's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 } :
                 new FieldDescriptor[]{
                         fieldWithPath("id").description("DashboardBox's id"),
@@ -178,7 +187,32 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("height").description("DashboardBox's height"),
                         fieldWithPath("order").description("DashboardBox's order"),
                         fieldWithPath("name").description("DashboardBox's name"),
-                        fieldWithPath("description").description("DashboardBox's description")
+                        fieldWithPath("description").description("DashboardBox's description"),
+                        fieldWithPath("lastModifiedDate").type(Date.class)
+                                .description("DashboardBox's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 };
+    }
+
+    /**
+     * DashboardBox fields used in requests.
+     *
+     * @return FieldDescriptor
+     */
+    private FieldDescriptor[] dashboardFieldsForRequest() {
+        return new FieldDescriptor[]{
+                fieldWithPath("width").optional().type(Width.class).description("DashboardBox's width"),
+                fieldWithPath("height").optional().type(Height.class).description("DashboardBox's height"),
+                fieldWithPath("order").optional().type(Number.class).description("DashboardBox's order"),
+                fieldWithPath("name").optional().type(String.class).description("DashboardBox's name"),
+                fieldWithPath("description").optional().type(String.class).description("DashboardBox's description"),
+                fieldWithPath("dashboard").optional().type(Dashboard.class).description("DashboardBox's dashboard"),
+                fieldWithPath("dashboardBoxType").optional().type(DashboardBoxType.class).description("DashboardBox's dashboardBoxType"),
+                fieldWithPath("id").optional().ignored(),
+                fieldWithPath("lastModifiedDate").optional().ignored(),
+                fieldWithPath("_links").optional().ignored(),
+                fieldWithPath("page").optional().ignored()
+        };
     }
 }

@@ -2,36 +2,30 @@ package io.smsc.repository.customer;
 
 import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.customer.Contact;
+import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.Type;
 import org.junit.Test;
-import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import java.util.Date;
+
 import static org.hamcrest.Matchers.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
 public class ContactRestTest extends AbstractSpringMVCTest {
 
     @Test
-    public void testGetSingleCustomerContact() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getContact");
-
-        document
-                .document(pathParameters(getPathParam("Contact")),
-                        responseFields(contactFields(false)));
-
-        mockMvc.perform(get("/rest/repository/customer-contacts/2"))
+    public void testGetSingleContact() throws Exception {
+        mockMvc.perform(get("/rest/repository/customer-contacts/{id}", 2))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.firstname", is("SMSC")))
@@ -42,27 +36,22 @@ public class ContactRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$.emailAddress", is("smsc@bulk.io")))
                 .andExpect(jsonPath("$.type", is(Type.CEO.toString())))
                 .andExpect(jsonPath("$.salutation", is(Salutation.MR.toString())))
-                .andDo(document);
+                .andDo(document("getContact",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Contact")),
+                        responseFields(contactFieldsForResponse(false))));
     }
 
     @Test
-    public void testCustomerContactNotFound() throws Exception {
+    public void testContactNotFound() throws Exception {
         mockMvc.perform(get("/rest/repository/customer-contacts/999"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testGetAllCustomerContacts() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getContacts");
-
-        document
-                .document(pathParameters(
-                        parameterWithName("page").description("Page of results"),
-                        parameterWithName("size").description("Size of results")),
-                        responseFields(contactFields(true)));
-
-        mockMvc.perform(get("/rest/repository/customer-contacts"))
+    public void testGetAllContacts() throws Exception {
+        mockMvc.perform(get("/rest/repository/customer-contacts?page=0&size=20"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.customer-contacts", hasSize(2)))
@@ -82,18 +71,17 @@ public class ContactRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].emailAddress", is("default@gmail.com")))
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].type", is(Type.CEO.toString())))
                 .andExpect(jsonPath("$._embedded.customer-contacts[0].salutation", is(Salutation.MRS.toString())))
-                .andDo(document);
+                .andDo(document("getContacts",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestParameters(
+                                parameterWithName("page").description("Page of results"),
+                                parameterWithName("size").description("Size of results")),
+                        responseFields(contactFieldsForResponse(true))));
     }
 
     @Test
-    public void testCreateCustomerContact() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("createContact");
-
-        document
-                .document(requestFields(contactFields(false)),
-                        responseFields(contactFields(false)));
-
+    public void testCreateContact() throws Exception {
         Contact contact = new Contact();
         contact.setId(null);
         contact.setFirstname("SMSC");
@@ -113,35 +101,47 @@ public class ContactRestTest extends AbstractSpringMVCTest {
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isCreated())
-                .andDo(document);
+                .andDo(document("createContact",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(contactFieldsForRequest()),
+                        responseFields(contactFieldsForResponse(false))));
     }
 
     @Test
-    public void testDeleteCustomerContact() throws Exception {
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("deleteContact");
-
-        document
-                .document(pathParameters(getPathParam("Contact")),
-                        responseFields(contactFields(false)));
-
-        mockMvc.perform(delete("/rest/repository/customer-contacts/1")
+    public void testDeleteContact() throws Exception {
+        mockMvc.perform(delete("/rest/repository/customer-contacts/{id}", 1)
                 .with(csrf()))
-                .andDo(document);
+                .andDo(document("deleteContact",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Contact"))));
 
         mockMvc.perform(get("/rest/repository/customer-contacts/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testReplaceCustomerContact() throws Exception {
+    public void testUpdateContact() throws Exception {
+        mockMvc.perform(patch("/rest/repository/customer-contacts/{id}", 2)
+                .with(csrf())
+                .contentType("application/json;charset=UTF-8")
+                .content("{ \"emailAddress\" : \"fake@gmail.com\" }"))
+                .andExpect(status().isOk())
+                .andDo(document("updateContact",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Contact")),
+                        requestFields(contactFieldsForRequest()),
+                        responseFields(contactFieldsForResponse(false))));
 
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("replaceContact");
+        mockMvc.perform(get("/rest/repository/customer-contacts/2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.emailAddress", is("fake@gmail.com")));
+    }
 
-        document
-                .document(pathParameters(getPathParam("Contact")),
-                        requestFields(contactFields(false)),
-                        responseFields(contactFields(false)));
-
+    @Test
+    public void testReplaceContact() throws Exception {
         Contact contact = new Contact();
         contact.setId(2L);
         contact.setFirstname("SMSC");
@@ -154,12 +154,17 @@ public class ContactRestTest extends AbstractSpringMVCTest {
         contact.setSalutation(Salutation.MRS);
         String customerContactJson = json(contact);
 
-        mockMvc.perform(put("/rest/repository/customer-contacts/2")
+        mockMvc.perform(put("/rest/repository/customer-contacts/{id}", 2)
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(customerContactJson))
                 .andExpect(status().isOk())
-                .andDo(document);
+                .andDo(document("replaceContact",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Contact")),
+                        requestFields(contactFieldsForRequest()),
+                        responseFields(contactFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/customer-contacts/2"))
                 .andExpect(status().isOk())
@@ -175,13 +180,13 @@ public class ContactRestTest extends AbstractSpringMVCTest {
     }
 
     /**
-     * Contact fields used in requests and responses.
+     * Contact fields used in responses.
      * An array field equivalent can be provided
      *
      * @param isJsonArray if the fields are used in a JsonArray
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] contactFields(boolean isJsonArray) {
+    private FieldDescriptor[] contactFieldsForResponse(boolean isJsonArray) {
         return isJsonArray ?
                 new FieldDescriptor[]{
                         fieldWithPath("_embedded.customer-contacts[]").description("Contact list"),
@@ -192,8 +197,11 @@ public class ContactRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.customer-contacts[].mobilePhone").description("Contact's mobilePhone"),
                         fieldWithPath("_embedded.customer-contacts[].fax").description("Contact's fax"),
                         fieldWithPath("_embedded.customer-contacts[].emailAddress").description("Contact's emailAddress"),
-                        fieldWithPath("_embedded.customer-contacts[].type").description("Contact's type"),
-                        fieldWithPath("_embedded.customer-contacts[].salutation").description("Contact's salutation")
+                        fieldWithPath("_embedded.customer-contacts[].type").type(Type.class).description("Contact's type"),
+                        fieldWithPath("_embedded.customer-contacts[].salutation").type(Salutation.class).description("Contact's salutation"),
+                        fieldWithPath("_embedded.customer-contacts[].lastModifiedDate").type(Date.class).description("Contact's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 } :
                 new FieldDescriptor[]{
                         fieldWithPath("id").description("Contact's id"),
@@ -201,10 +209,36 @@ public class ContactRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("surname").description("Contact's surname"),
                         fieldWithPath("phone").description("Contact's phone"),
                         fieldWithPath("mobilePhone").description("Contact's mobilePhone"),
-                        fieldWithPath(".fax").description("Contact's fax"),
+                        fieldWithPath("fax").description("Contact's fax"),
                         fieldWithPath("emailAddress").description("Contact's emailAddress"),
-                        fieldWithPath("type").description("Contact's type"),
-                        fieldWithPath("salutation").description("Contact's salutation")
+                        fieldWithPath("type").type(Type.class).description("Contact's type"),
+                        fieldWithPath("salutation").type(Salutation.class).description("Contact's salutation"),
+                        fieldWithPath("lastModifiedDate").type(Date.class).description("Contact's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 };
+    }
+
+    /**
+     * Contact fields used in requests.
+     *
+     * @return FieldDescriptor
+     */
+    private FieldDescriptor[] contactFieldsForRequest() {
+        return new FieldDescriptor[]{
+                fieldWithPath("firstname").optional().type(String.class).description("Contact's firstname"),
+                fieldWithPath("surname").optional().type(String.class).description("Contact's surname"),
+                fieldWithPath("phone").optional().type(String.class).description("Contact's phone"),
+                fieldWithPath("mobilePhone").optional().type(String.class).description("Contact's mobilePhone"),
+                fieldWithPath("fax").optional().type(String.class).description("Contact's fax"),
+                fieldWithPath("emailAddress").optional().type(String.class).description("Contact's emailAddress"),
+                fieldWithPath("type").optional().type(Type.class).description("Contact's type"),
+                fieldWithPath("salutation").optional().type(Salutation.class).description("Contact's salutation"),
+                fieldWithPath("customer").optional().type(Customer.class).description("Contact's customer"),
+                fieldWithPath("id").optional().ignored(),
+                fieldWithPath("lastModifiedDate").optional().ignored(),
+                fieldWithPath("_links").optional().ignored(),
+                fieldWithPath("page").optional().ignored()
+        };
     }
 }

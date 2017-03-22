@@ -1,38 +1,30 @@
 package io.smsc.repository.customer;
 
 import io.smsc.AbstractSpringMVCTest;
+import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.Salutation;
 import io.smsc.model.customer.User;
 import org.junit.Test;
-import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.util.Date;
 
-@WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
+import static org.hamcrest.Matchers.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
 public class CustomerUserRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleCustomerUser() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getCustomerUser");
-
-        document
-                .document(pathParameters(getPathParam("CustomerUser")),
-                        responseFields(customerUserFields(false)));
-
-        mockMvc.perform(get("/rest/repository/customer-users/1"))
+        mockMvc.perform(get("/rest/repository/customer-users/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username", is("user")))
                 .andExpect(jsonPath("$.firstname", is("userName")))
@@ -40,7 +32,12 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$.email", is("user@gmail.com")))
                 .andExpect(jsonPath("$.active", is(true)))
                 .andExpect(jsonPath("$.blocked", is(false)))
-                .andDo(document);
+                .andExpect(jsonPath("$.salutation", is(Salutation.MR.toString())))
+                .andDo(document("getCustomerUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("CustomerUser")),
+                        responseFields(customerUserFieldsForResponse(false))));
     }
 
     @Test
@@ -52,16 +49,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllCustomerUsers() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getCustomerUsers");
-
-        document
-                .document(pathParameters(
-                        parameterWithName("page").description("Page of results"),
-                        parameterWithName("size").description("Size of results")),
-                        responseFields(customerUserFields(true)));
-
-        mockMvc.perform(get("/rest/repository/customer-users"))
+        mockMvc.perform(get("/rest/repository/customer-users?page=0&size=20"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.customer-users", hasSize(2)))
                 .andExpect(jsonPath("$._embedded.customer-users[0].username", is("user")))
@@ -70,37 +58,25 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$._embedded.customer-users[0].email", is("user@gmail.com")))
                 .andExpect(jsonPath("$._embedded.customer-users[0].active", is(true)))
                 .andExpect(jsonPath("$._embedded.customer-users[0].blocked", is(false)))
+                .andExpect(jsonPath("$._embedded.customer-users[0].salutation", is(Salutation.MR.toString())))
                 .andExpect(jsonPath("$._embedded.customer-users[1].username", is("admin")))
                 .andExpect(jsonPath("$._embedded.customer-users[1].firstname", is("adminName")))
                 .andExpect(jsonPath("$._embedded.customer-users[1].surname", is("adminSurname")))
                 .andExpect(jsonPath("$._embedded.customer-users[1].email", is("admin@gmail.com")))
                 .andExpect(jsonPath("$._embedded.customer-users[1].active", is(true)))
                 .andExpect(jsonPath("$._embedded.customer-users[1].blocked", is(false)))
-                .andDo(document);
+                .andExpect(jsonPath("$._embedded.customer-users[1].salutation", is(Salutation.MRS.toString())))
+                .andDo(document("getCustomerUsers",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestParameters(
+                                parameterWithName("page").description("Page of results"),
+                                parameterWithName("size").description("Size of results")),
+                        responseFields(customerUserFieldsForResponse(true))));
     }
 
     @Test
     public void testCreateCustomerUser() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("createCustomerUser");
-
-        FieldDescriptor[] fieldsWithPassword = new FieldDescriptor[]{
-                fieldWithPath("id").description("CustomerUser's id"),
-                fieldWithPath("salutation").description("CustomerUser's salutation"),
-                fieldWithPath("username").description("CustomerUser's username"),
-                fieldWithPath("password").description("CustomerUser's password"),
-                fieldWithPath("firstname").description("CustomerUser's firstname"),
-                fieldWithPath("surname").description("CustomerUser's surname"),
-                fieldWithPath("email").description("CustomerUser's email"),
-                fieldWithPath("active").description("CustomerUser's active"),
-                fieldWithPath("created").description("CustomerUser's created"),
-                fieldWithPath("blocked").description("CustomerUser's blocked")
-        };
-
-        document
-                .document(requestFields(fieldsWithPassword),
-                        responseFields(customerUserFields(false)));
-
         User user = new User();
         user.setUsername("Old Johnny");
         user.setFirstname("John");
@@ -109,45 +85,56 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
         user.setActive(true);
         user.setBlocked(false);
         user.setSalutation(Salutation.MR);
-        String customerUserJson = json(user);
-        // json is ignoring inserting password and customer through setter
-        customerUserJson = customerUserJson.substring(0, customerUserJson.length() - 1).concat(", \"password\" : \"john123456\", \"customer\" : \"rest/repository/customers/40000\" \r\n }");
+        String userJson = json(user);
+        // json is ignoring password and customer
+        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\", \r\n  \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
 
-        mockMvc.perform(post("/rest/repository/users")
+        this.mockMvc.perform(post("/rest/repository/customer-users")
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
-                .content(customerUserJson))
+                .content(userJson))
                 .andExpect(status().isCreated())
-                .andDo(document);
+                .andDo(document("createCustomerUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(customerUserFieldsForRequest()),
+                        responseFields(customerUserFieldsForResponse(false))));
     }
 
     @Test
     public void testDeleteCustomerUser() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("deleteCustomerUser");
-
-        document
-                .document(pathParameters(getPathParam("CustomerUser")),
-                        responseFields(customerUserFields(false)));
-
-        mockMvc.perform(delete("/rest/repository/customer-users/1")
+        mockMvc.perform(delete("/rest/repository/customer-users/{id}", 1)
                 .with(csrf()))
-                .andDo(document);
+                .andDo(document("deleteAdminUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("CustomerUser"))));
 
         mockMvc.perform(get("/rest/repository/customer-users/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
+    public void testUpdateCustomerUser() throws Exception {
+        mockMvc.perform(patch("/rest/repository/customer-users/{id}", 1)
+                .with(csrf())
+                .contentType("application/json;charset=UTF-8")
+                .content("{ \"username\" : \"Old Johnny\" }"))
+                .andExpect(status().isOk())
+                .andDo(document("updateCustomerUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("CustomerUser")),
+                        requestFields(customerUserFieldsForRequest()),
+                        responseFields(customerUserFieldsForResponse(false))));
+
+        mockMvc.perform(get("/rest/repository/customer-users/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.username", is("Old Johnny")));
+    }
+
+    @Test
     public void testReplaceCustomerUser() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("replaceCustomerUser");
-
-        document
-                .document(pathParameters(getPathParam("CustomerUser")),
-                        requestFields(customerUserFields(false)),
-                        responseFields(customerUserFields(false)));
-
         User user = new User();
         user.setId(1L);
         user.setUsername("Old Johnny");
@@ -157,16 +144,21 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
         user.setActive(false);
         user.setBlocked(true);
         user.setSalutation(Salutation.MR);
-        String customerUserJson = json(user);
+        String userJson = json(user);
         // json is ignoring password
-        customerUserJson = customerUserJson.substring(0, customerUserJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
+        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
 
-        mockMvc.perform(put("/rest/repository/customer-users/1")
+        mockMvc.perform(put("/rest/repository/customer-users/{id}", 1)
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
-                .content(customerUserJson))
+                .content(userJson))
                 .andExpect(status().isOk())
-                .andDo(document);
+                .andDo(document("replaceCustomerUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("CustomerUser")),
+                        requestFields(customerUserFieldsForRequest()),
+                        responseFields(customerUserFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/customer-users/1"))
                 .andExpect(status().isOk())
@@ -179,36 +171,66 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
     }
 
     /**
-     * CustomerUser fields used in requests and responses.
+     * CustomerUser fields used in responses.
      * An array field equivalent can be provided
      *
      * @param isJsonArray if the fields are used in a JsonArray
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] customerUserFields(boolean isJsonArray) {
+    private FieldDescriptor[] customerUserFieldsForResponse(boolean isJsonArray) {
         return isJsonArray ?
                 new FieldDescriptor[]{
                         fieldWithPath("_embedded.customer-users[]").description("CustomerUsers list"),
                         fieldWithPath("_embedded.customer-users[].id").description("CustomerUser's id"),
-                        fieldWithPath("_embedded.customer-users[].salutation").description("CustomerUser's salutation"),
+                        fieldWithPath("_embedded.customer-users[].salutation").type(Salutation.class).description("CustomerUser's salutation"),
                         fieldWithPath("_embedded.customer-users[].username").description("CustomerUser's username"),
                         fieldWithPath("_embedded.customer-users[].firstname").description("CustomerUser's firstname"),
                         fieldWithPath("_embedded.customer-users[].surname").description("CustomerUser's surname"),
                         fieldWithPath("_embedded.customer-users[].email").description("CustomerUser's email"),
                         fieldWithPath("_embedded.customer-users[].active").description("CustomerUser's active"),
                         fieldWithPath("_embedded.customer-users[].created").description("CustomerUser's created"),
-                        fieldWithPath("_embedded.customer-users [].blocked").description("CustomerUser's blocked"),
+                        fieldWithPath("_embedded.customer-users[].blocked").description("CustomerUser's blocked"),
+                        fieldWithPath("_embedded.customer-users[].lastModifiedDate").type(Date.class).description("CustomerUser's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 } :
                 new FieldDescriptor[]{
                         fieldWithPath("id").description("CustomerUser's id"),
-                        fieldWithPath("salutation").description("CustomerUser's salutation"),
+                        fieldWithPath("salutation").type(Salutation.class).description("CustomerUser's salutation"),
                         fieldWithPath("username").description("CustomerUser's username"),
                         fieldWithPath("firstname").description("CustomerUser's firstname"),
                         fieldWithPath("surname").description("CustomerUser's surname"),
                         fieldWithPath("email").description("CustomerUser's email"),
                         fieldWithPath("active").description("CustomerUser's active"),
                         fieldWithPath("created").description("CustomerUser's created"),
-                        fieldWithPath("blocked").description("CustomerUser's blocked")
+                        fieldWithPath("blocked").description("CustomerUser's blocked"),
+                        fieldWithPath("lastModifiedDate").type(Date.class).description("CustomerUser's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 };
+    }
+
+    /**
+     * CustomerUser fields used in requests.
+     *
+     * @return FieldDescriptor
+     */
+    private FieldDescriptor[] customerUserFieldsForRequest() {
+        return new FieldDescriptor[]{
+                fieldWithPath("salutation").optional().type(Salutation.class).description("CustomerUser's salutation"),
+                fieldWithPath("username").optional().type(String.class).description("CustomerUser's username"),
+                fieldWithPath("password").optional().type(String.class).description("CustomerUser's password"),
+                fieldWithPath("firstname").optional().type(String.class).description("CustomerUser's firstname"),
+                fieldWithPath("surname").optional().type(String.class).description("CustomerUser's surname"),
+                fieldWithPath("email").optional().type(String.class).description("CustomerUser's email"),
+                fieldWithPath("active").type(Boolean.class).optional().description("CustomerUser's active"),
+                fieldWithPath("blocked").type(Boolean.class).optional().description("CustomerUser's blocked"),
+                fieldWithPath("customer").optional().type(Customer.class).description("CustomerUser's customer"),
+                fieldWithPath("created").optional().ignored(),
+                fieldWithPath("id").optional().ignored(),
+                fieldWithPath("lastModifiedDate").optional().ignored(),
+                fieldWithPath("_links").optional().ignored(),
+                fieldWithPath("page").optional().ignored()
+        };
     }
 }

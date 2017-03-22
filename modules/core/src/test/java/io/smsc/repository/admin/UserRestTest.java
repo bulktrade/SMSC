@@ -4,14 +4,17 @@ import io.smsc.model.admin.User;
 import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.customer.Salutation;
 import org.junit.Test;
-import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import java.util.Date;
+
 import static org.hamcrest.Matchers.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 
@@ -19,15 +22,8 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 public class UserRestTest extends AbstractSpringMVCTest {
 
     @Test
-    public void testGetSingleUser() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getAdminUser");
-
-        document
-                .document(pathParameters(getPathParam("AdminUser")),
-                        responseFields(adminUserFields(false)));
-
-        mockMvc.perform(get("/rest/repository/users/1"))
+    public void testGetSingleAdminUser() throws Exception {
+        mockMvc.perform(get("/rest/repository/users/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username", is("user")))
                 .andExpect(jsonPath("$.firstname", is("userName")))
@@ -36,28 +32,23 @@ public class UserRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$.active", is(true)))
                 .andExpect(jsonPath("$.blocked", is(false)))
                 .andExpect(jsonPath("$.salutation", is(Salutation.MR.toString())))
-                .andDo(document);
+                .andDo(document("getAdminUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("AdminUser")),
+                        responseFields(adminUserFieldsForResponse(false))));
     }
 
     @Test
-    public void testUserNotFound() throws Exception {
+    public void testAdminUserNotFound() throws Exception {
         mockMvc.perform(get("/rest/repository/users/999")
                 .contentType("application/json;charset=UTF-8"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testGetAllUsers() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getAdminUsers");
-
-        document
-                .document(pathParameters(
-                        parameterWithName("page").description("Page of results"),
-                        parameterWithName("size").description("Size of results")),
-                        responseFields(adminUserFields(true)));
-
-        mockMvc.perform(get("/rest/repository/users"))
+    public void testGetAllAdminUsers() throws Exception {
+        mockMvc.perform(get("/rest/repository/users?page=0&size=20"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.users", hasSize(3)))
                 .andExpect(jsonPath("$._embedded.users[0].username", is("user")))
@@ -81,31 +72,17 @@ public class UserRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$._embedded.users[2].active", is(true)))
                 .andExpect(jsonPath("$._embedded.users[2].blocked", is(false)))
                 .andExpect(jsonPath("$._embedded.users[2].salutation", is(Salutation.MRS.toString())))
-                .andDo(document);
+                .andDo(document("getAdminUsers",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestParameters(
+                                parameterWithName("page").description("Page of results"),
+                                parameterWithName("size").description("Size of results")),
+                        responseFields(adminUserFieldsForResponse(true))));
     }
 
     @Test
-    public void testCreateUser() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("createAdminUser");
-
-        FieldDescriptor[] fieldsWithPassword = new FieldDescriptor[]{
-                fieldWithPath("id").description("AdminUser's id"),
-                fieldWithPath("salutation").description("AdminUser's salutation"),
-                fieldWithPath("username").description("AdminUser's username"),
-                fieldWithPath("password").description("AdminUser's password"),
-                fieldWithPath("firstname").description("AdminUser's firstname"),
-                fieldWithPath("surname").description("AdminUser's surname"),
-                fieldWithPath("email").description("AdminUser's email"),
-                fieldWithPath("active").description("AdminUser's active"),
-                fieldWithPath("created").description("AdminUser's created"),
-                fieldWithPath("blocked").description("AdminUser's blocked")
-        };
-
-        document
-                .document(requestFields(fieldsWithPassword),
-                        responseFields(adminUserFields(false)));
-
+    public void testCreateAdminUser() throws Exception {
         User user = new User();
         user.setUsername("Old Johnny");
         user.setFirstname("John");
@@ -123,36 +100,47 @@ public class UserRestTest extends AbstractSpringMVCTest {
                 .contentType("application/json;charset=UTF-8")
                 .content(userJson))
                 .andExpect(status().isCreated())
-                .andDo(document);
+                .andDo(document("createAdminUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(adminUserFieldsForRequest()),
+                        responseFields(adminUserFieldsForResponse(false))));
     }
 
     @Test
-    public void testDeleteUser() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("deleteAdminUser");
-
-        document
-                .document(pathParameters(getPathParam("AdminUser")),
-                        responseFields(adminUserFields(false)));
-
-        mockMvc.perform(delete("/rest/repository/users/1")
+    public void testDeleteAdminUser() throws Exception {
+        mockMvc.perform(delete("/rest/repository/users/{id}", 1)
                 .with(csrf()))
-                .andDo(document);
+                .andDo(document("deleteAdminUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("AdminUser"))));
 
         mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testReplaceUser() throws Exception {
+    public void testUpdateAdminUser() throws Exception {
+        mockMvc.perform(patch("/rest/repository/users/{id}", 1)
+                .with(csrf())
+                .contentType("application/json;charset=UTF-8")
+                .content("{ \"username\" : \"Old Johnny\" }"))
+                .andExpect(status().isOk())
+                .andDo(document("updateAdminUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("AdminUser")),
+                        requestFields(adminUserFieldsForRequest()),
+                        responseFields(adminUserFieldsForResponse(false))));
 
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("replaceAdminUser");
+        mockMvc.perform(get("/rest/repository/users/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.username", is("Old Johnny")));
+    }
 
-        document
-                .document(pathParameters(getPathParam("AdminUser")),
-                        requestFields(adminUserFields(false)),
-                        responseFields(adminUserFields(false)));
-
+    @Test
+    public void testReplaceAdminUser() throws Exception {
         User user = new User();
         user.setId(1L);
         user.setUsername("Old Johnny");
@@ -166,12 +154,17 @@ public class UserRestTest extends AbstractSpringMVCTest {
         // json is ignoring password
         userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
 
-        mockMvc.perform(put("/rest/repository/users/1")
+        mockMvc.perform(put("/rest/repository/users/{id}", 1)
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(userJson))
                 .andExpect(status().isOk())
-                .andDo(document);
+                .andDo(document("replaceAdminUser",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("AdminUser")),
+                        requestFields(adminUserFieldsForRequest()),
+                        responseFields(adminUserFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/users/1"))
                 .andExpect(status().isOk())
@@ -184,18 +177,18 @@ public class UserRestTest extends AbstractSpringMVCTest {
     }
 
     /**
-     * AdminUser fields used in requests and responses.
+     * AdminUser fields used in responses.
      * An array field equivalent can be provided
      *
      * @param isJsonArray if the fields are used in a JsonArray
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] adminUserFields(boolean isJsonArray) {
+    private FieldDescriptor[] adminUserFieldsForResponse(boolean isJsonArray) {
         return isJsonArray ?
                 new FieldDescriptor[]{
                         fieldWithPath("_embedded.users[]").description("AdminUsers list"),
                         fieldWithPath("_embedded.users[].id").description("AdminUser's id"),
-                        fieldWithPath("_embedded.users[].salutation").description("AdminUser's salutation"),
+                        fieldWithPath("_embedded.users[].salutation").type(Salutation.class).description("AdminUser's salutation"),
                         fieldWithPath("_embedded.users[].username").description("AdminUser's username"),
                         fieldWithPath("_embedded.users[].firstname").description("AdminUser's firstname"),
                         fieldWithPath("_embedded.users[].surname").description("AdminUser's surname"),
@@ -203,17 +196,46 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.users[].active").description("AdminUser's active"),
                         fieldWithPath("_embedded.users[].created").description("AdminUser's created"),
                         fieldWithPath("_embedded.users[].blocked").description("AdminUser's blocked"),
+                        fieldWithPath("_embedded.users[].lastModifiedDate").type(Date.class).description("AdminUser's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 } :
                 new FieldDescriptor[]{
                         fieldWithPath("id").description("AdminUser's id"),
-                        fieldWithPath("salutation").description("AdminUser's salutation"),
+                        fieldWithPath("salutation").type(Salutation.class).description("AdminUser's salutation"),
                         fieldWithPath("username").description("AdminUser's username"),
                         fieldWithPath("firstname").description("AdminUser's firstname"),
                         fieldWithPath("surname").description("AdminUser's surname"),
                         fieldWithPath("email").description("AdminUser's email"),
                         fieldWithPath("active").description("AdminUser's active"),
                         fieldWithPath("created").description("AdminUser's created"),
-                        fieldWithPath("blocked").description("AdminUser's blocked")
+                        fieldWithPath("blocked").description("AdminUser's blocked"),
+                        fieldWithPath("lastModifiedDate").type(Date.class).description("AdminUser's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 };
+    }
+
+    /**
+     * AdminUser fields used in requests.
+     *
+     * @return FieldDescriptor
+     */
+    private FieldDescriptor[] adminUserFieldsForRequest() {
+        return new FieldDescriptor[]{
+                fieldWithPath("salutation").optional().type(Salutation.class).description("AdminUser's salutation"),
+                fieldWithPath("username").optional().type(String.class).description("AdminUser's username"),
+                fieldWithPath("password").optional().type(String.class).description("AdminUser's password"),
+                fieldWithPath("firstname").optional().type(String.class).description("AdminUser's firstname"),
+                fieldWithPath("surname").optional().type(String.class).description("AdminUser's surname"),
+                fieldWithPath("email").optional().type(String.class).description("AdminUser's email"),
+                fieldWithPath("active").optional().type(Boolean.class).description("AdminUser's active"),
+                fieldWithPath("blocked").optional().type(Boolean.class).description("AdminUser's blocked"),
+                fieldWithPath("created").optional().ignored(),
+                fieldWithPath("id").optional().ignored(),
+                fieldWithPath("lastModifiedDate").optional().ignored(),
+                fieldWithPath("_links").optional().ignored(),
+                fieldWithPath("page").optional().ignored()
+        };
     }
 }

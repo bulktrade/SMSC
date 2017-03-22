@@ -2,22 +2,18 @@ package io.smsc.repository.admin;
 
 import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.admin.Authority;
-import io.smsc.model.admin.Role;
 import org.junit.Test;
-import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.restdocs.request.ParameterDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -26,19 +22,16 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleAuthority() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getAuthority");
-
-        document
-                .document(pathParameters(getPathParam("Authority")),
-                        responseFields(authorityFields(false)));
-
-        mockMvc.perform(get("/rest/repository/authorities/1"))
+        mockMvc.perform(get("/rest/repository/authorities/{id}", 1))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is("ADMIN_USER_READ")))
-                .andDo(document);
+                .andDo(document("getAuthority",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Authority")),
+                        responseFields(authorityFieldsForResponse(false))));
     }
 
     @Test
@@ -49,33 +42,23 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllAuthorities() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getAuthorities");
-
-        document
-                .document(pathParameters(
-                        parameterWithName("page").description("Page of results"),
-                        parameterWithName("size").description("Size of results")),
-                        responseFields(authorityFields(true)));
-
-        mockMvc.perform(get("/rest/repository/authorities"))
+        mockMvc.perform(get("/rest/repository/authorities?page=0&size=20"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.authorities", hasSize(20)))
                 .andExpect(jsonPath("$._embedded.authorities[0].name", is("ADMIN_USER_READ")))
                 .andExpect(jsonPath("$._embedded.authorities[19].name", is("DASHBOARD_WRITE")))
-                .andDo(document);
+                .andDo(document("getAuthorities",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestParameters(
+                                parameterWithName("page").description("Page of results"),
+                                parameterWithName("size").description("Size of results")),
+                        responseFields(authorityFieldsForResponse(true))));
     }
 
     @Test
     public void testCreateAuthority() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("createAuthority");
-
-        document
-                .document(requestFields(authorityFields(false)),
-                        responseFields(authorityFields(false)));
-
         Authority authority = new Authority();
         authority.setName("NEW_AUTHORITY");
         String authorityJson = json(authority);
@@ -85,47 +68,65 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
                 .contentType("application/json;charset=UTF-8")
                 .content(authorityJson))
                 .andExpect(status().isCreated())
-                .andDo(document);
+                .andDo(document("createAuthority",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(authorityFieldsForRequest()),
+                        responseFields(authorityFieldsForResponse(false))));
     }
 
     @Test
     public void testDeleteAuthority() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("deleteAuthority");
-
-        document
-                .document(pathParameters(getPathParam("Authority")),
-                        responseFields(authorityFields(false)));
-
-        mockMvc.perform(delete("/rest/repository/authorities/1")
+        mockMvc.perform(delete("/rest/repository/authorities/{id}",1)
                 .with(csrf()))
-                .andDo(document);
+                .andExpect(status().isNoContent())
+                .andDo(document("deleteAuthority",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Authority"))));
 
         mockMvc.perform(get("/rest/repository/authorities/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
+    public void testUpdateAuthority() throws Exception {
+        mockMvc.perform(patch("/rest/repository/authorities/{id}", 1)
+                .with(csrf())
+                .contentType("application/json;charset=UTF-8")
+                .content("{ \"name\" : \"NEW_AUTHORITY\" }"))
+                .andExpect(status().isOk())
+                .andDo(document("updateAuthority",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Authority")),
+                        requestFields(authorityFieldsForRequest()),
+                        responseFields(authorityFieldsForResponse(false))));
+
+        mockMvc.perform(get("/rest/repository/authorities/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.name", is("NEW_AUTHORITY")));
+    }
+
+    @Test
     public void testReplaceAuthority() throws Exception {
+        Authority authority = new Authority();
+        authority.setId(1L);
+        authority.setName("NEW_AUTHORITY");
+        String authorityJson = json(authority);
 
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("replaceAuthority");
-
-        document
-                .document(pathParameters(getPathParam("Authority")),
-                        requestFields(authorityFields(false)),
-                        responseFields(authorityFields(false)));
-
-        Role role = new Role();
-        role.setId(1L);
-        role.setName("NEW_AUTHORITY");
-        String authorityJson = json(role);
-
-        mockMvc.perform(put("/rest/repository/authorities/1")
+        mockMvc.perform(put("/rest/repository/authorities/{id}", 1)
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(authorityJson))
                 .andExpect(status().isOk())
-                .andDo(document);
+                .andDo(document("replaceAuthority",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Authority")),
+                        requestFields(authorityFieldsForRequest()),
+                        responseFields(authorityFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/authorities/1"))
                 .andExpect(status().isOk())
@@ -134,22 +135,43 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
     }
 
     /**
-     * Authority fields used in requests and responses.
-     * An array field equivalent can be provided
+     * Authority fields used in responses.
+     * An array field equivalent can be provided.
      *
      * @param isJsonArray if the fields are used in a JsonArray
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] authorityFields(boolean isJsonArray) {
+    private FieldDescriptor[] authorityFieldsForResponse(boolean isJsonArray) {
         return isJsonArray ?
                 new FieldDescriptor[]{
                         fieldWithPath("_embedded.authorities[]").description("Authorities list"),
                         fieldWithPath("_embedded.authorities[].id").description("Authority's id"),
                         fieldWithPath("_embedded.authorities[].name").description("Authority's name"),
+                        fieldWithPath("_embedded.authorities[].lastModifiedDate").description("Authority's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 } :
                 new FieldDescriptor[]{
                         fieldWithPath("id").description("Authority's id"),
-                        fieldWithPath("name").description("Authority's name")
+                        fieldWithPath("name").description("Authority's name"),
+                        fieldWithPath("lastModifiedDate").description("Authority's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                };
+    }
+
+    /**
+     * Authority fields used in requests.
+     *
+     * @return FieldDescriptor
+     */
+    private FieldDescriptor[] authorityFieldsForRequest() {
+        return new FieldDescriptor[]{
+                fieldWithPath("name").optional().type(String.class).description("Authority's name"),
+                fieldWithPath("id").optional().ignored(),
+                fieldWithPath("lastModifiedDate").optional().ignored(),
+                fieldWithPath("_links").optional().ignored(),
+                fieldWithPath("page").optional().ignored()
                 };
     }
 }

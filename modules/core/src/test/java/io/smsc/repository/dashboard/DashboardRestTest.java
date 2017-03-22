@@ -4,18 +4,18 @@ import io.smsc.AbstractSpringMVCTest;
 import io.smsc.model.admin.User;
 import io.smsc.model.dashboard.Dashboard;
 import org.junit.Test;
-import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import java.util.Date;
+
 import static org.hamcrest.Matchers.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
@@ -23,19 +23,16 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleDashboard() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getDashboard");
-
-        document
-                .document(pathParameters(getPathParam("Dashboard")),
-                        responseFields(dashboardFields(false)));
-
-        mockMvc.perform(get("/rest/repository/dashboards/1"))
+        mockMvc.perform(get("/rest/repository/dashboards/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is("default")))
                 .andExpect(jsonPath("$.icon", is("user")))
-                .andDo(document);
+                .andDo(document("getDashboard",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Dashboard")),
+                        responseFields(dashboardFieldsForResponse(false))));
     }
 
     @Test
@@ -46,33 +43,23 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllDashboards() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("getDashboards");
-
-        document
-                .document(pathParameters(
-                        parameterWithName("page").description("Page of results"),
-                        parameterWithName("size").description("Size of results")),
-                        responseFields(dashboardFields(true)));
-
-        mockMvc.perform(get("/rest/repository/dashboards"))
+        mockMvc.perform(get("/rest/repository/dashboards?page=0&size=20"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.dashboards", hasSize(1)))
                 .andExpect(jsonPath("$._embedded.dashboards[0].name", is("default")))
                 .andExpect(jsonPath("$._embedded.dashboards[0].icon", is("user")))
-                .andDo(document);
+                .andDo(document("getDashboards",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestParameters(
+                                parameterWithName("page").description("Page of results"),
+                                parameterWithName("size").description("Size of results")),
+                        responseFields(dashboardFieldsForResponse(true))));
     }
 
     @Test
     public void testCreateDashboard() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("createDashboard");
-
-        document
-                .document(requestFields(dashboardFields(false)),
-                        responseFields(dashboardFields(false)));
-
         Dashboard dashboard = new Dashboard();
         dashboard.setId(null);
         dashboard.setIcon("admin");
@@ -86,36 +73,48 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isCreated())
-                .andDo(document);
+                .andDo(document("createDashboard",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(dashboardFieldsForRequest()),
+                        responseFields(dashboardFieldsForResponse(false))));
     }
 
     @Test
     public void testDeleteDashboard() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("deleteDashboard");
-
-        document
-                .document(pathParameters(getPathParam("Dashboard")),
-                        responseFields(dashboardFields(false)));
-
-        mockMvc.perform(delete("/rest/repository/dashboards/1")
+        mockMvc.perform(delete("/rest/repository/dashboards/{id}", 1)
                 .with(csrf()))
-                .andDo(document);
+                .andDo(document("deleteDashboard",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Dashboard"))));
 
         mockMvc.perform(get("/rest/repository/dashboards/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
+    public void testUpdateDashboard() throws Exception {
+        mockMvc.perform(patch("/rest/repository/dashboards/{id}", 1)
+                .with(csrf())
+                .contentType("application/json;charset=UTF-8")
+                .content("{ \"name\" : \"default_admin\" }"))
+                .andExpect(status().isOk())
+                .andDo(document("updateDashboard",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Dashboard")),
+                        requestFields(dashboardFieldsForRequest()),
+                        responseFields(dashboardFieldsForResponse(false))));
+
+        mockMvc.perform(get("/rest/repository/dashboards/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.name", is("default_admin")));
+    }
+
+    @Test
     public void testReplaceDashboard() throws Exception {
-
-        RestDocumentationResultHandler document = documentPrettyPrintReqResp("replaceDashboard");
-
-        document
-                .document(pathParameters(getPathParam("Dashboard")),
-                        requestFields(dashboardFields(false)),
-                        responseFields(dashboardFields(false)));
-
         Dashboard dashboard = new Dashboard();
         dashboard.setId(1L);
         dashboard.setIcon("admin");
@@ -123,12 +122,17 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
         dashboard.setUser(new User());
         String dashboardJson = json(dashboard);
 
-        mockMvc.perform(put("/rest/repository/dashboards/1")
+        mockMvc.perform(put("/rest/repository/dashboards/{id}", 1)
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isOk())
-                .andDo(document);
+                .andDo(document("replaceDashboard",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Dashboard")),
+                        requestFields(dashboardFieldsForRequest()),
+                        responseFields(dashboardFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/dashboards/1"))
                 .andExpect(status().isOk())
@@ -138,25 +142,50 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
     }
 
     /**
-     * Dashboard fields used in requests and responses.
+     * Dashboard fields used in responses.
      * An array field equivalent can be provided
      *
      * @param isJsonArray if the fields are used in a JsonArray
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] dashboardFields(boolean isJsonArray) {
+    private FieldDescriptor[] dashboardFieldsForResponse(boolean isJsonArray) {
         return isJsonArray ?
                 new FieldDescriptor[]{
-                        fieldWithPath("_embedded.dashboardss[]").description("Dashboard list"),
+                        fieldWithPath("_embedded.dashboards[]").description("Dashboard list"),
                         fieldWithPath("_embedded.dashboards[].id").description("Dashboard's id"),
                         fieldWithPath("_embedded.dashboards[].name").description("Dashboard's name"),
-                        fieldWithPath("_embedded.dashboards[].icon").description("Dashboard's icon")
+                        fieldWithPath("_embedded.dashboards[].icon").description("Dashboard's icon"),
+                        fieldWithPath("_embedded.dashboards[].lastModifiedDate").type(Date.class)
+                                .description("AdminUser's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
 
                 } :
                 new FieldDescriptor[]{
-                        fieldWithPath("_embedded.dashboards[].id").description("Dashboard's id"),
-                        fieldWithPath("_embedded.dashboards[].name").description("Dashboard's name"),
-                        fieldWithPath("_embedded.dashboards[].icon").description("Dashboard's icon")
+                        fieldWithPath("id").description("Dashboard's id"),
+                        fieldWithPath("name").description("Dashboard's name"),
+                        fieldWithPath("icon").description("Dashboard's icon"),
+                        fieldWithPath("lastModifiedDate").type(Date.class)
+                                .description("Dashboard's date of last modification"),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 };
+    }
+
+    /**
+     * Dashboard fields used in requests.
+     *
+     * @return FieldDescriptor
+     */
+    private FieldDescriptor[] dashboardFieldsForRequest() {
+        return new FieldDescriptor[]{
+                fieldWithPath("name").optional().type(String.class).description("Dashboard's name"),
+                fieldWithPath("icon").optional().type(String.class).description("Dashboard's icon"),
+                fieldWithPath("user").optional().type(User.class).description("Dashboard's user"),
+                fieldWithPath("id").optional().ignored(),
+                fieldWithPath("lastModifiedDate").optional().ignored(),
+                fieldWithPath("_links").optional().ignored(),
+                fieldWithPath("page").optional().ignored()
+        };
     }
 }
