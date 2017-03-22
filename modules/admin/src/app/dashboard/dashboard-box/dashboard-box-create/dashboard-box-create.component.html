@@ -85,10 +85,8 @@
                         {{ 'dashboardBox.type' | translate }}
                     </div>
                     <div class="ui-grid-col-6">
-                        <p-dropdown
-                                [options]="dashboardBoxTypeItems"
-                                [(ngModel)]="model['type']" #type="ngModel" name="type"
-                                id="type"></p-dropdown>
+                        <p-dropdown [options]="dashboardBoxTypeItems" [filter]="true"
+                                    [(ngModel)]="model['type']" #type="ngModel" name="type" id="type"></p-dropdown>
                     </div>
                     <div class="ui-grid-col-4">
                         <control-errors control="type"

@@ -43,7 +43,7 @@ export class DashboardBoxCreateComponent {
 
         dashboardBoxTypes.forEach((dashboardBoxType: DashboardBoxType) => {
             dashboardBoxTypeItems.push({
-                label: `${dashboardBoxType['id']}: ${dashboardBoxType.name}`,
+                label: `${dashboardBoxType['id']}: ${dashboardBoxType.kind}`,
                 value: dashboardBoxType._links.self.href
             });
         });
