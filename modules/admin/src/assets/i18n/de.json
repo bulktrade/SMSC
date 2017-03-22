@@ -200,5 +200,6 @@
     "dashboardBox.successCreateDashboardBox": "Dashboard box was successfully created!",
     "oneToOne.successUpdate": "Relationships were successful updated!",
     "oneToOne.errorUpdate": "Relationships were not updated!",
-    "oneToOne.notFound": "Data was not found"
+    "oneToOne.notFound": "Data was not found",
+    "dashboardBoxType.title": "Dashboard box types"
 }

@@ -23,7 +23,6 @@ import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.comp
 import {MessagesModule} from "primeng/components/messages/messages";
 import {DashboardsComponent} from "./dashboards/dashboards.component";
 import {DashboardsResolve} from "./dashboards/dashboards.resolve";
-import {DataScrollerModule} from "primeng/components/datascroller/datascroller";
 import {DashboardBoxService} from "./dashboard-box/dashboard-box.service";
 import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
 import {DashboardBoxTypeService} from "./dashboard-box-type/dashboard-box-type.service";
@@ -33,6 +32,8 @@ import {DashboardBoxDeleteComponent} from "./dashboard-box/dashboard-box-delete/
 import {DashboardBoxUpdateComponent} from "./dashboard-box/dashboard-box-update/dashboard-box-update.component";
 import {DialogModule} from "primeng/components/dialog/dialog";
 import {DashboardBoxCreateComponent} from "./dashboard-box/dashboard-box-create/dashboard-box-create.component";
+import {DataGridModule} from "primeng/components/datagrid/datagrid";
+import {TabViewModule} from "primeng/components/tabview/tabview";
 
 @NgModule({
     imports: [
@@ -49,10 +50,11 @@ import {DashboardBoxCreateComponent} from "./dashboard-box/dashboard-box-create/
         OneToOneModule,
         SplitButtonModule,
         MessagesModule,
-        DataScrollerModule,
         ChartModule,
         DragulaModule,
-        DialogModule
+        DialogModule,
+        DataGridModule,
+        TabViewModule
     ],
     exports: [DashboardComponent],
     declarations: [

@@ -1,38 +1,46 @@
-<div class="mat-fab-wrap">
-    <div class="mat-fab" routerLink="/dashboard/create">
-        <i class="fa fa-plus"></i>
-    </div>
-</div>
-<p-dataScroller [value]="dashboards" [rows]="10" [buffer]="0.4" *ngIf="idDashboards()">
-    <p-header>{{ 'DASHBOARDS' | translate }}</p-header>
-    <template let-dashboard pTemplate="item">
-        <div class="ui-grid ui-grid-responsive ui-fluid dashboard-list-item">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-3 toolbar">
-                    <div class="control">
-                        <button class="ui-button-success" pButton type="button"
-                                [routerLink]="['/dashboard', dashboard.id, 'update']" [label]="'UPDATE' | translate"></button>
-                        <button class="ui-button-danger" pButton type="button"
-                                [routerLink]="['/dashboard', dashboard.id, 'delete']"[label]="'DELETE' | translate"></button>
-                    </div>
-                </div>
-                <div class="ui-grid-col-9">
-                    <div class="ui-grid ui-grid-responsive ui-fluid">
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-2 column-name">Name:</div>
-                            <div class="ui-grid-col-10 column-value">{{dashboard.name}}</div>
-                        </div>
-                        <div class="ui-grid-row">
-                            <div class="ui-grid-col-2 column-name">Icon:</div>
-                            <div class="ui-grid-col-10 column-value">{{dashboard.icon}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div id="dashboard-settings-window">
+    <div class="mat-fab-wrap">
+        <div class="mat-fab" routerLink="/dashboard/create">
+            <i class="fa fa-plus"></i>
         </div>
-    </template>
-</p-dataScroller>
-<p-panel *ngIf="!idDashboards()">
-    <p-header>{{ 'dashboards.title' | translate }}</p-header>
-    <span>{{ 'dashboards.notFound' | translate }}</span>
-</p-panel>
+    </div>
+
+    <p-tabView>
+        <p-tabPanel headerStyleClass="ui-sm-12" [header]="'DASHBOARDS' | translate">
+            <p-dataGrid [value]="dashboards" [paginator]="false" [rows]="20">
+                <template let-dashboard pTemplate="item">
+                    <div class="ui-g-12 ui-md-3 item">
+                        <p-panel [header]="dashboard.name" [style]="{'text-align':'center'}">
+                            <span class="colunm-name">icon:</span> {{ dashboard.icon }}
+                            <hr class="ui-widget-content" style="border-top:0">
+                            <button class="ui-button-success" pButton type="button"
+                                    [routerLink]="['/dashboard', dashboard.id, 'update']" icon="fa-pencil"></button>
+                            <button class="ui-button-danger" pButton type="button"
+                                    [routerLink]="['/dashboard', dashboard.id, 'delete']" icon="fa-remove"></button>
+                        </p-panel>
+                    </div>
+                </template>
+            </p-dataGrid>
+        </p-tabPanel>
+        <p-tabPanel headerStyleClass="ui-sm-12" [header]="'dashboardBoxType.title' | translate">
+            <p-dataGrid [value]="dashboardBoxTypes" [paginator]="false" [rows]="20">
+                <template let-dashboardBoxType pTemplate="item">
+                    <div class="ui-g-12 ui-md-3 item">
+                        <p-panel [header]="dashboardBoxType.name" [style]="{'text-align':'center'}">
+                            <span class="colunm-name">type:</span> {{ dashboardBoxType.type }} <br>
+                            <span class="colunm-name">kind:</span> {{ dashboardBoxType.kind }}
+                            <hr class="ui-widget-content" style="border-top:0">
+                            <button class="ui-button-success" pButton type="button" icon="fa-pencil"></button>
+                            <button class="ui-button-danger" pButton type="button" icon="fa-remove"></button>
+                        </p-panel>
+                    </div>
+                </template>
+            </p-dataGrid>
+        </p-tabPanel>
+    </p-tabView>
+
+    <p-panel *ngIf="!idDashboards()">
+        <p-header>{{ 'dashboards.title' | translate }}</p-header>
+        <span>{{ 'dashboards.notFound' | translate }}</span>
+    </p-panel>
+</div>

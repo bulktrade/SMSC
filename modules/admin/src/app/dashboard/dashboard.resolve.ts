@@ -45,7 +45,7 @@ export class DashboardResolve implements Resolve<DashboardBox[]> {
     }
 
     getDashboardBoxTypes(dashboardBoxes: DashboardBox[]): Observable<DashboardBox[]> {
-        let obsBatch: Observable<DashboardBox>[] = [];
+        let obsBatch: Observable<DashboardBox>[] = [Observable.of(<DashboardBox>{})];
 
         dashboardBoxes.forEach((dashboardBox: DashboardBox, i: number, dashboardBoxes: DashboardBox[]) => {
             obsBatch.push(Observable.create(o => {
