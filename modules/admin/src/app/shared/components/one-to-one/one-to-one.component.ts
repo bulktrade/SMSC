@@ -1,176 +1,133 @@
-import {Component, OnInit, NgModule, Input} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {RequestOptions, RequestMethod, Http} from "@angular/http";
-import {CrudRepository} from "../../crud-repository";
-import {Link} from "../../entity.model";
+import {Component, NgModule, OnInit, forwardRef, Input, ViewEncapsulation} from "@angular/core";
+import {Http, RequestMethod} from "@angular/http";
 import {NotificationService} from "../../../services/notification-service";
-import {Observable} from "rxjs";
+import {FormsModule, ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {CommonModule} from "@angular/common";
+import {DropdownModule} from "primeng/components/dropdown/dropdown";
+import {CrudRepository} from "../../crud-repository";
+import {SelectItem} from "primeng/components/common/api";
+import {Entity} from "../../entity.model";
+import {HTTP_INTERCEPTOR_PROVIDER} from "../../http-interceptor";
+
+export const ONE_TO_ONE_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => OneToOneComponent),
+    multi: true
+};
 
 @Component({
+    encapsulation: ViewEncapsulation.None,
     selector: 'one-to-one',
-    template: '',
+    template: `<p-dropdown [options]="options" class="one-to-one-element" [filter]="true" (onChange)="onChange($event)" [(ngModel)]="value"></p-dropdown>`,
+    providers: [ONE_TO_ONE_VALUE_ACCESSOR],
+    styles: ['.one-to-one-element .ui-inputtext { color: #555 }']
 })
-export class OneToOneComponent implements OnInit {
+export class OneToOneComponent implements OnInit, ControlValueAccessor {
 
-    @Input('mainEntityId')
-    public id: number;
+    @Input() crudRepositoryA: CrudRepository<any>;
 
-    // A entity service. See https://en.wikipedia.org/wiki/One-to-one_(data_model)
-    @Input('mainEntityService')
-    public mainEntityService: CrudRepository<any>;
+    @Input() crudRepositoryB: CrudRepository<any>;
 
-    // B entity service. See https://en.wikipedia.org/wiki/One-to-one_(data_model)
-    @Input('subEntityService')
-    public subEntityService: CrudRepository<any>;
+    @Input() fields: string[] = [];
 
-    @Input('propertyName')
-    public propertyName: string;
+    @Input() entity: Entity = <Entity>{};
 
-    @Input('renderProperties')
-    public renderProperties: string[] = [];
+    @Input() name: string;
 
-    @Input('hideOwn')
-    public hideOwn: boolean = false;
+    @Input() hideOwn: boolean = false;
 
-    @Input('link')
-    public link: Link;
+    @Input() updateResource: boolean = false;
 
-    @Input()
-    public model = {};
+    private _value: any;
 
-    public resources: any[] = [];
+    onModelChange: Function = () => {
+    };
 
-    public filteredResources: any[];
+    options: SelectItem[] = [{label: '', value: null}];
 
-    constructor(public route: ActivatedRoute,
-                public notifications: NotificationService,
+    constructor(public notification: NotificationService,
                 public http: Http) {
     }
 
-    ngOnInit() {
-        /** get the model resources */
-        this.getResource(this.link)
-            .subscribe(_model => {
-                this.model = _model;
-            }, err => {
-                if (err.status === 404) {
-                    this.model = null;
-                } else {
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
-                }
-            });
-
-        /** get the list of resources */
-        this.subEntityService.getResources()
-            .map(res => res['_embedded'][this.subEntityService.repositoryName])
-            .subscribe(resources => {
-                this.resources = resources;
-            }, (e) => {
-                this.notifications.createNotification('error', 'ERROR', 'customers.notFound');
-            });
+    get value(): any {
+        return this._value;
     }
 
-    filterResources(event) {
-        this.filteredResources = [];
-        this.resources.forEach(i => {
-            let resource = i,
-                titleColumns = i[this.subEntityService.titleColumns] ? this.subEntityService.titleColumns : 'id';
-            if (resource[titleColumns].toLowerCase().includes(event.query.toLowerCase()) ||
-                String(resource['id']).includes(event.query)) {
-                if (!this.hideOwn || this.id != +i['id']) {
-                    this.filteredResources.push(resource);
+    set value(value: any) {
+        this._value = value;
+        this.onModelChange(value);
+    }
+
+    writeValue(value) {
+        if (value) {
+            this.value = value;
+        }
+    }
+
+    registerOnChange(fn) {
+        this.onModelChange = fn;
+    }
+
+    registerOnTouched() {
+    }
+
+    onChange(event) {
+        if (this.crudRepositoryA && this.updateResource && this.name) {
+            this.entity[this.name] = event.value;
+            this.crudRepositoryA.updateResource(this.entity)
+                .subscribe(
+                    () => this.notification.createNotification('success', 'SUCCESS', 'oneToOne.successUpdate'),
+                    () => this.notification.createNotification('error', 'ERROR', 'oneToOne.errorUpdate')
+                );
+        }
+    }
+
+    ngOnInit(): void {
+        if (this.name && this.entity.hasOwnProperty('_links') && this.entity['_links'].hasOwnProperty(this.name)) {
+            this.http.request(this.entity._links[this.name].href, {method: RequestMethod.Get})
+                .map(data => data.json())
+                .subscribe(resource => {
+                    this.value = resource._links.self.href;
+                });
+        }
+
+        if (this.crudRepositoryB) {
+            this.crudRepositoryB.getResources()
+                .map(res => res['_embedded'][this.crudRepositoryB.repositoryName])
+                .subscribe((resources: any[]) => {
+                    resources.forEach(resource => {
+                        // hide own resource if the id equal to the id of resource
+                        if (!this.hideOwn || resource['id'] !== Number(this.entity['id'])) {
+                            this.options.push({
+                                label: this.getLabelByFileds(resource),
+                                value: resource._links.self.href
+                            });
+                        }
+                    });
+                }, () => this.notification.createNotification('error', 'ERROR', 'oneToOne.notFound'));
+        }
+    }
+
+    getLabelByFileds(resource: any): string {
+        let _label: string = resource['id'];
+        if (this.fields.length) {
+            for (let i = 0; i < this.fields.length; i++) {
+                _label += ` ${resource[this.fields[i]]}`;
+                if (this.fields.length - 1 !== i) {
+                    _label += ',';
                 }
             }
-        });
-    }
-
-    onDropdownClick() {
-        this.filteredResources = [];
-        return this.subEntityService.getResources()
-            .map(res => res['_embedded'][this.subEntityService.repositoryName])
-            .map(resources => {
-                resources.forEach(resource => {
-                    if (!this.hideOwn || this.id != +resource['id']) {
-                        this.filteredResources.push(resource);
-                    }
-                });
-                return this.filteredResources;
-            });
-    }
-
-    onSelectResource(event) {
-        if (typeof event === 'object') {
-            let entity = {
-                [this.propertyName]: event['_links'].self.href,
-                _links: this.mainEntityService.getSelfLinkedEntityById(this.id)._links
-            };
-
-            this.mainEntityService.updateResource(entity)
-                .subscribe((res) => {
-                    this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-                }, err => {
-                    this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
-                });
-        } else {
-            return Observable.empty();
         }
-    }
-
-    removeRelationship() {
-        let entity = {
-            [this.propertyName]: null,
-            _links: this.mainEntityService.getSelfLinkedEntityById(this.id)._links
-        };
-
-        this.mainEntityService.updateResource(entity)
-            .subscribe((res) => {
-                this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdate');
-                this.model = null;
-            }, err => {
-                this.notifications.createNotification('error', 'ERROR', 'customers.errorUpdate');
-            });
-    }
-
-    getModelBySchema(model) {
-        let result: string = '';
-
-        if (Object.keys(model).length) {
-            result = `${model['id']} `;
-
-            this.renderProperties.forEach((item, i) => {
-                result += model[item];
-
-                if (i !== this.renderProperties.length - 1) {
-                    result += ', '
-                }
-            });
-
-            return result;
-        } else {
-            return result;
-        }
-    }
-
-    /**
-     * Retrieves a single resource with the given link
-     * @param link
-     * @returns {Observable<T>}
-     */
-    getResource(link: Link) {
-        let requestOptions = new RequestOptions({
-            method: RequestMethod.Get,
-        });
-
-        return this.http.request(link.href, requestOptions)
-            .map(res => res.json())
-            .share();
+        return _label;
     }
 
 }
 
 @NgModule({
+    imports: [CommonModule, FormsModule, DropdownModule],
     exports: [OneToOneComponent],
-    declarations: [OneToOneComponent]
+    declarations: [OneToOneComponent],
+    providers: [HTTP_INTERCEPTOR_PROVIDER]
 })
 export class OneToOneModule {
 }

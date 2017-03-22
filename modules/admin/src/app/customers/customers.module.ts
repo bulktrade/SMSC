@@ -22,7 +22,6 @@ import {CustomersUsersService} from "./customers-users/customer-user.service";
 import {OneToManyModule} from "../shared/components/one-to-many/one-to-many.component";
 import {OneToOneModule} from "../shared/components/one-to-one/one-to-one.component";
 import {DropdownModule} from "primeng/components/dropdown/dropdown";
-import {ParentCustomerModule} from "./parent-customer/parent-customer";
 import {TabViewModule} from "primeng/components/tabview/tabview";
 import {DialogModule} from "primeng/components/dialog/dialog";
 import {PaginatorModule} from "primeng/components/paginator/paginator";
@@ -61,7 +60,6 @@ const CUSTOMERS_MODULES = [
     PaginatorModule,
     DataTableModule,
     RouterModule,
-    ParentCustomerModule,
     DropdownModule,
     OneToManyModule,
     OneToOneModule,

@@ -119,16 +119,12 @@
                             {{ 'parent' | translate }}
                         </div>
                         <div class="ui-grid-col-6">
-                            <parent-customer id="parent-customer" name="parent" propertyName="parent"
-                                             [mainEntityId]="id"
-                                             [renderProperties]="['companyName', 'country']" [hideOwn]="true"
-                                             [mainEntityService]="customersService"
-                                             [subEntityService]="customersService"
-                                             [link]="model['_links']['parent']"></parent-customer>
+                            <one-to-one [hideOwn]="true" [crudRepositoryB]="customersService"
+                                        [fields]="['country', 'companyName']" [entity]="model"
+                                        [(ngModel)]="model['parent']" name="parent"></one-to-one>
                         </div>
                         <div class="ui-grid-col-4">
-                            <control-errors control="parent"
-                                            [errors]="{required: ('customers.required'| translate),
+                            <control-errors control="parent" [errors]="{required: ('customers.required'| translate),
                                                     pattern: ('customers.numberValidator' | translate)}"></control-errors>
                         </div>
                     </div>
