@@ -13,6 +13,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -47,7 +48,7 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllCustomers() throws Exception {
-        mockMvc.perform(get("/rest/repository/customers?page=0&size=20"))
+        mockMvc.perform(get("/rest/repository/customers?page=0&size=5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.customers", hasSize(2)))
@@ -94,7 +95,7 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
                 .andDo(document("createCustomer",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(customerFieldsForRequest()),
+                        requestFields(customerFieldsForRequest(false)),
                         responseFields(customerFieldsForResponse(false))));
     }
 
@@ -122,7 +123,7 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Customer")),
-                        requestFields(customerFieldsForRequest()),
+                        requestFields(customerFieldsForRequest(true)),
                         responseFields(customerFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/customers/40001"))
@@ -153,7 +154,7 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Customer")),
-                        requestFields(customerFieldsForRequest()),
+                        requestFields(customerFieldsForRequest(false)),
                         responseFields(customerFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/customers/40001"))
@@ -235,20 +236,51 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
      *
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] customerFieldsForRequest() {
-        return new FieldDescriptor[]{
-                fieldWithPath("companyName").optional().type(String.class).description("Customer's companyName"),
-                fieldWithPath("street").optional().type(String.class).description("Customer's street"),
-                fieldWithPath("street2").optional().type(String.class).description("Customer's street2"),
-                fieldWithPath("postcode").optional().type(String.class).description("Customer's postcode"),
-                fieldWithPath("country").optional().type(String.class).description("Customer's country"),
-                fieldWithPath("city").optional().type(String.class).description("Customer's city"),
-                fieldWithPath("vatid").optional().type(String.class).description("Customer's vatid"),
-                fieldWithPath("parent").optional().type(Customer.class).description("Customer's parent"),
-                fieldWithPath("id").optional().ignored(),
-                fieldWithPath("lastModifiedDate").optional().ignored(),
-                fieldWithPath("_links").optional().ignored(),
-                fieldWithPath("page").optional().ignored()
-        };
+    private FieldDescriptor[] customerFieldsForRequest(boolean isPatchRequest) {
+        return isPatchRequest ?
+                new FieldDescriptor[]{
+                        fieldWithPath("companyName").optional().type(String.class).description("Customer's companyName")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("street").optional().type(String.class).description("Customer's street")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("street2").optional().type(String.class).description("Customer's street2")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("postcode").optional().type(String.class).description("Customer's postcode")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("country").optional().type(String.class).description("Customer's country")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("city").optional().type(String.class).description("Customer's city")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("vatid").optional().type(String.class).description("Customer's vatid")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("parent").optional().type(Customer.class).description("Customer's parent")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                } :
+                new FieldDescriptor[]{
+                        fieldWithPath("companyName").type(String.class).description("Customer's companyName")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("street").type(String.class).description("Customer's street")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("street2").type(String.class).description("Customer's street2")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("postcode").type(String.class).description("Customer's postcode")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("country").type(String.class).description("Customer's country")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("city").type(String.class).description("Customer's city")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("vatid").optional().type(String.class).description("Customer's vatid")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("parent").optional().type(Customer.class).description("Customer's parent")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                };
     }
 }

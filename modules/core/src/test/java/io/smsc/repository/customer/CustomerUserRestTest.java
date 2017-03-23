@@ -15,6 +15,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -49,7 +50,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllCustomerUsers() throws Exception {
-        mockMvc.perform(get("/rest/repository/customer-users?page=0&size=20"))
+        mockMvc.perform(get("/rest/repository/customer-users?page=0&size=5"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.customer-users", hasSize(2)))
                 .andExpect(jsonPath("$._embedded.customer-users[0].username", is("user")))
@@ -97,7 +98,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                 .andDo(document("createCustomerUser",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(customerUserFieldsForRequest()),
+                        requestFields(customerUserFieldsForRequest(false)),
                         responseFields(customerUserFieldsForResponse(false))));
     }
 
@@ -105,7 +106,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
     public void testDeleteCustomerUser() throws Exception {
         mockMvc.perform(delete("/rest/repository/customer-users/{id}", 1)
                 .with(csrf()))
-                .andDo(document("deleteAdminUser",
+                .andDo(document("deleteCustomerUser",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("CustomerUser"))));
@@ -125,7 +126,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("CustomerUser")),
-                        requestFields(customerUserFieldsForRequest()),
+                        requestFields(customerUserFieldsForRequest(true)),
                         responseFields(customerUserFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/customer-users/1"))
@@ -145,8 +146,8 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
         user.setBlocked(true);
         user.setSalutation(Salutation.MR);
         String userJson = json(user);
-        // json is ignoring password
-        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n }");
+        // json is ignoring password and customer
+        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\", \r\n  \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
 
         mockMvc.perform(put("/rest/repository/customer-users/{id}", 1)
                 .with(csrf())
@@ -157,7 +158,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("CustomerUser")),
-                        requestFields(customerUserFieldsForRequest()),
+                        requestFields(customerUserFieldsForRequest(false)),
                         responseFields(customerUserFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/customer-users/1"))
@@ -182,7 +183,8 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                 new FieldDescriptor[]{
                         fieldWithPath("_embedded.customer-users[]").description("CustomerUsers list"),
                         fieldWithPath("_embedded.customer-users[].id").description("CustomerUser's id"),
-                        fieldWithPath("_embedded.customer-users[].salutation").type(Salutation.class).description("CustomerUser's salutation"),
+                        fieldWithPath("_embedded.customer-users[].salutation").type(Salutation.class)
+                                .description("CustomerUser's salutation"),
                         fieldWithPath("_embedded.customer-users[].username").description("CustomerUser's username"),
                         fieldWithPath("_embedded.customer-users[].firstname").description("CustomerUser's firstname"),
                         fieldWithPath("_embedded.customer-users[].surname").description("CustomerUser's surname"),
@@ -190,7 +192,8 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.customer-users[].active").description("CustomerUser's active"),
                         fieldWithPath("_embedded.customer-users[].created").description("CustomerUser's created"),
                         fieldWithPath("_embedded.customer-users[].blocked").description("CustomerUser's blocked"),
-                        fieldWithPath("_embedded.customer-users[].lastModifiedDate").type(Date.class).description("CustomerUser's date of last modification"),
+                        fieldWithPath("_embedded.customer-users[].lastModifiedDate").type(Date.class)
+                                .description("CustomerUser's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -204,7 +207,8 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("active").description("CustomerUser's active"),
                         fieldWithPath("created").description("CustomerUser's created"),
                         fieldWithPath("blocked").description("CustomerUser's blocked"),
-                        fieldWithPath("lastModifiedDate").type(Date.class).description("CustomerUser's date of last modification"),
+                        fieldWithPath("lastModifiedDate").type(Date.class)
+                                .description("CustomerUser's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -215,22 +219,58 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
      *
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] customerUserFieldsForRequest() {
-        return new FieldDescriptor[]{
-                fieldWithPath("salutation").optional().type(Salutation.class).description("CustomerUser's salutation"),
-                fieldWithPath("username").optional().type(String.class).description("CustomerUser's username"),
-                fieldWithPath("password").optional().type(String.class).description("CustomerUser's password"),
-                fieldWithPath("firstname").optional().type(String.class).description("CustomerUser's firstname"),
-                fieldWithPath("surname").optional().type(String.class).description("CustomerUser's surname"),
-                fieldWithPath("email").optional().type(String.class).description("CustomerUser's email"),
-                fieldWithPath("active").type(Boolean.class).optional().description("CustomerUser's active"),
-                fieldWithPath("blocked").type(Boolean.class).optional().description("CustomerUser's blocked"),
-                fieldWithPath("customer").optional().type(Customer.class).description("CustomerUser's customer"),
-                fieldWithPath("created").optional().ignored(),
-                fieldWithPath("id").optional().ignored(),
-                fieldWithPath("lastModifiedDate").optional().ignored(),
-                fieldWithPath("_links").optional().ignored(),
-                fieldWithPath("page").optional().ignored()
-        };
+    private FieldDescriptor[] customerUserFieldsForRequest(boolean isPatchRequest) {
+        return isPatchRequest ?
+                new FieldDescriptor[]{
+                        fieldWithPath("salutation").optional().type(Salutation.class).description("CustomerUser's salutation")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("username").optional().type(String.class).description("CustomerUser's username")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("password").optional().type(String.class).description("CustomerUser's password")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("firstname").optional().type(String.class).description("CustomerUser's firstname")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("surname").optional().type(String.class).description("CustomerUser's surname")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("email").optional().type(String.class).description("CustomerUser's email")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("active").optional().type(Boolean.class).description("CustomerUser's active")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("blocked").optional().type(Boolean.class).description("CustomerUser's blocked")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("customer").optional().type(Customer.class).description("CustomerUser's customer")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("created").optional().ignored(),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                } :
+                new FieldDescriptor[]{
+                        fieldWithPath("salutation").type(Salutation.class).description("CustomerUser's salutation")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("username").type(String.class).description("CustomerUser's username")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("password").type(String.class).description("CustomerUser's password")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("firstname").type(String.class).description("CustomerUser's firstname")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("surname").type(String.class).description("CustomerUser's surname")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("email").type(String.class).description("CustomerUser's email")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("active").type(Boolean.class).optional().description("CustomerUser's active")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("blocked").type(Boolean.class).optional().description("CustomerUser's blocked")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("customer").type(Customer.class).description("CustomerUser's customer")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("created").optional().ignored(),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                };
+
     }
 }

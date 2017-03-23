@@ -13,6 +13,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -45,20 +46,15 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllDashboardBoxes() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboard-boxes?page=0&size=20"))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes?page=0&size=5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes", hasSize(9)))
+                .andExpect(jsonPath("$._embedded.dashboard-boxes", hasSize(5)))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[0].width", is(Width.WIDTH_25.toString())))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[0].height", is(Height.HEIGHT_25.toString())))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[0].order", is(1)))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[0].name", is("Box 1")))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes[0].description", is("Box 1 desc")))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes[8].width", is(Width.WIDTH_50.toString())))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes[8].height", is(Height.HEIGHT_50.toString())))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes[8].order", is(9)))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes[8].name", is("Box 9")))
-                .andExpect(jsonPath("$._embedded.dashboard-boxes[8].description", is("Box 9 desc")))
                 .andDo(document("getDashboardBoxes",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
@@ -78,7 +74,9 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
         dashboardBox.setDescription("new box desc");
         String dashboardBoxJson = json(dashboardBox);
         // json is ignoring inserting dashboard and dashboardBoxType through setter
-        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1).concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", \r\n \"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
+        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1)
+                .concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", \r\n " +
+                        "\"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
 
         this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
                 .with(csrf())
@@ -88,7 +86,7 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                 .andDo(document("createDashboardBox",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(dashboardFieldsForRequest()),
+                        requestFields(dashboardFieldsForRequest(false)),
                         responseFields(dashboardBoxFieldsForResponse(false))));
     }
 
@@ -116,7 +114,7 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("DashboardBox")),
-                        requestFields(dashboardFieldsForRequest()),
+                        requestFields(dashboardFieldsForRequest(true)),
                         responseFields(dashboardBoxFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
@@ -135,6 +133,10 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
         dashboardBox.setHeight(Height.HEIGHT_100);
         dashboardBox.setDescription("new box desc");
         String dashboardBoxJson = json(dashboardBox);
+        // json is ignoring inserting dashboard and dashboardBoxType through setter
+        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1)
+                .concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", " +
+                        "\r\n \"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
 
         mockMvc.perform(put("/rest/repository/dashboard-boxes/{id}", 1)
                 .with(csrf())
@@ -145,7 +147,7 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("DashboardBox")),
-                        requestFields(dashboardFieldsForRequest()),
+                        requestFields(dashboardFieldsForRequest(false)),
                         responseFields(dashboardBoxFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
@@ -200,19 +202,47 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
      *
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] dashboardFieldsForRequest() {
-        return new FieldDescriptor[]{
-                fieldWithPath("width").optional().type(Width.class).description("DashboardBox's width"),
-                fieldWithPath("height").optional().type(Height.class).description("DashboardBox's height"),
-                fieldWithPath("order").optional().type(Number.class).description("DashboardBox's order"),
-                fieldWithPath("name").optional().type(String.class).description("DashboardBox's name"),
-                fieldWithPath("description").optional().type(String.class).description("DashboardBox's description"),
-                fieldWithPath("dashboard").optional().type(Dashboard.class).description("DashboardBox's dashboard"),
-                fieldWithPath("dashboardBoxType").optional().type(DashboardBoxType.class).description("DashboardBox's dashboardBoxType"),
-                fieldWithPath("id").optional().ignored(),
-                fieldWithPath("lastModifiedDate").optional().ignored(),
-                fieldWithPath("_links").optional().ignored(),
-                fieldWithPath("page").optional().ignored()
-        };
+    private FieldDescriptor[] dashboardFieldsForRequest(boolean isPatchRequest) {
+        return isPatchRequest ?
+                new FieldDescriptor[]{
+                        fieldWithPath("width").optional().type(Width.class).description("DashboardBox's width")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("height").optional().type(Height.class).description("DashboardBox's height")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("order").optional().type(Number.class).description("DashboardBox's order")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("name").optional().type(String.class).description("DashboardBox's name")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("description").optional().type(String.class).description("DashboardBox's description")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("dashboard").optional().type(Dashboard.class).description("DashboardBox's dashboard")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("dashboardBoxType").optional().type(DashboardBoxType.class).description("DashboardBox's dashboardBoxType")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                } :
+                new FieldDescriptor[]{
+                        fieldWithPath("width").type(Width.class).description("DashboardBox's width")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("height").type(Height.class).description("DashboardBox's height")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("order").type(Number.class).description("DashboardBox's order")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("name").type(String.class).description("DashboardBox's name")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("description").type(String.class).description("DashboardBox's description")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("dashboard").type(Dashboard.class).description("DashboardBox's dashboard")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("dashboardBoxType").type(DashboardBoxType.class).description("DashboardBox's dashboardBoxType")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                };
     }
 }

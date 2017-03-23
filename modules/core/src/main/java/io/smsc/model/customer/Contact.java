@@ -21,40 +21,40 @@ import java.util.Objects;
  * @since 0.0.1-SNAPSHOT
  */
 @Entity
-@Table(name = "CUSTOMER_CONTACT", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL_ADDRESS", name = "customer_contact_unique_email_address_idx")})
+@Table(name = "CONTACT", uniqueConstraints = {@UniqueConstraint(columnNames = "EMAIL_ADDRESS", name = "contact_unique_email_address_idx")})
 public class Contact extends BaseEntity {
 
     @Id
-    @SequenceGenerator(name = "customer_contact_seq", sequenceName = "customer_contact_seq")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "customer_contact_seq")
+    @SequenceGenerator(name = "contact_seq", sequenceName = "contact_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "contact_seq")
     @Column(name = "ID")
     // PROPERTY access for id due to bug: https://hibernate.atlassian.net/browse/HHH-3718
     @Access(value = AccessType.PROPERTY)
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "{customer.contact.firstname.validation}")
+    @NotEmpty(message = "{contact.firstname.validation}")
     private String firstname;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "{customer.contact.surname.validation}")
+    @NotEmpty(message = "{contact.surname.validation}")
     private String surname;
 
     @Column(name = "PHONE", nullable = false)
-    @NotEmpty(message = "{customer.contact.phone.validation}")
+    @NotEmpty(message = "{contact.phone.validation}")
     private String phone;
 
     @Column(name = "MOBILE_PHONE", nullable = false)
-    @NotEmpty(message = "{customer.contact.mobilePhone.validation}")
+    @NotEmpty(message = "{contact.mobilePhone.validation}")
     private String mobilePhone;
 
     @Column(name = "FAX", nullable = false)
-    @NotEmpty(message = "{customer.contact.fax.validation}")
+    @NotEmpty(message = "{contact.fax.validation}")
     private String fax;
 
     @Column(name = "EMAIL_ADDRESS", nullable = false, unique = true)
-    @Email(message = "{customer.contact.emailAddress.format.validation}")
-    @NotEmpty(message = "{customer.contact.emailAddress.validation}")
+    @Email(message = "{contact.emailAddress.format.validation}")
+    @NotEmpty(message = "{contact.emailAddress.validation}")
     private String emailAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,12 +64,12 @@ public class Contact extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
-    @NotNull(message = "{customer.contact.type.validation}")
+    @NotNull(message = "{contact.type.validation}")
     private Type type;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "SALUTATION", nullable = false)
-    @NotNull(message = "{customer.contact.salutation.validation}")
+    @NotNull(message = "{contact.salutation.validation}")
     private Salutation salutation;
 
     public Long getId() {

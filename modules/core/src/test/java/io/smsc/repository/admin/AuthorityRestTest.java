@@ -6,12 +6,15 @@ import org.junit.Test;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import java.util.Date;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -42,12 +45,11 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllAuthorities() throws Exception {
-        mockMvc.perform(get("/rest/repository/authorities?page=0&size=20"))
+        mockMvc.perform(get("/rest/repository/authorities?page=0&size=5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.authorities", hasSize(20)))
+                .andExpect(jsonPath("$._embedded.authorities", hasSize(5)))
                 .andExpect(jsonPath("$._embedded.authorities[0].name", is("ADMIN_USER_READ")))
-                .andExpect(jsonPath("$._embedded.authorities[19].name", is("DASHBOARD_WRITE")))
                 .andDo(document("getAuthorities",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
@@ -71,13 +73,13 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
                 .andDo(document("createAuthority",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(authorityFieldsForRequest()),
+                        requestFields(authorityFieldsForRequest(false)),
                         responseFields(authorityFieldsForResponse(false))));
     }
 
     @Test
     public void testDeleteAuthority() throws Exception {
-        mockMvc.perform(delete("/rest/repository/authorities/{id}",1)
+        mockMvc.perform(delete("/rest/repository/authorities/{id}", 1)
                 .with(csrf()))
                 .andExpect(status().isNoContent())
                 .andDo(document("deleteAuthority",
@@ -100,7 +102,7 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Authority")),
-                        requestFields(authorityFieldsForRequest()),
+                        requestFields(authorityFieldsForRequest(true)),
                         responseFields(authorityFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/authorities/1"))
@@ -125,7 +127,7 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Authority")),
-                        requestFields(authorityFieldsForRequest()),
+                        requestFields(authorityFieldsForRequest(false)),
                         responseFields(authorityFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/authorities/1"))
@@ -147,14 +149,14 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.authorities[]").description("Authorities list"),
                         fieldWithPath("_embedded.authorities[].id").description("Authority's id"),
                         fieldWithPath("_embedded.authorities[].name").description("Authority's name"),
-                        fieldWithPath("_embedded.authorities[].lastModifiedDate").description("Authority's date of last modification"),
+                        fieldWithPath("_embedded.authorities[].lastModifiedDate").type(Date.class).description("Authority's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
                 new FieldDescriptor[]{
                         fieldWithPath("id").description("Authority's id"),
                         fieldWithPath("name").description("Authority's name"),
-                        fieldWithPath("lastModifiedDate").description("Authority's date of last modification"),
+                        fieldWithPath("lastModifiedDate").type(Date.class).description("Authority's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -165,13 +167,23 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
      *
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] authorityFieldsForRequest() {
-        return new FieldDescriptor[]{
-                fieldWithPath("name").optional().type(String.class).description("Authority's name"),
-                fieldWithPath("id").optional().ignored(),
-                fieldWithPath("lastModifiedDate").optional().ignored(),
-                fieldWithPath("_links").optional().ignored(),
-                fieldWithPath("page").optional().ignored()
+    private FieldDescriptor[] authorityFieldsForRequest(boolean isPatchRequest) {
+        return isPatchRequest ?
+                new FieldDescriptor[]{
+                        fieldWithPath("name").optional().type(String.class).description("Authority's name")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                } :
+                new FieldDescriptor[]{
+                        fieldWithPath("name").type(String.class).description("Authority's name")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
                 };
     }
 }

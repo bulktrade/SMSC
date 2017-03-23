@@ -6,11 +6,14 @@ import org.junit.Test;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
 
+import java.util.Date;
+
 import static org.hamcrest.Matchers.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -39,11 +42,10 @@ public class GroupRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllGroups() throws Exception {
-        mockMvc.perform(get("/rest/repository/groups?page=0&size=20"))
+        mockMvc.perform(get("/rest/repository/groups?page=0&size=5"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._embedded.groups", hasSize(20)))
+                .andExpect(jsonPath("$._embedded.groups", hasSize(5)))
                 .andExpect(jsonPath("$._embedded.groups[0].name", is("ADMIN_USER_ADMIN")))
-                .andExpect(jsonPath("$._embedded.groups[19].name", is("ADMIN_USER_ROLE_READ_ONLY")))
                 .andDo(document("getGroups",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
@@ -67,7 +69,7 @@ public class GroupRestTest extends AbstractSpringMVCTest {
                 .andDo(document("createGroup",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(groupFieldsForRequest()),
+                        requestFields(groupFieldsForRequest(false)),
                         responseFields(groupFieldsForResponse(false))));
     }
 
@@ -95,7 +97,7 @@ public class GroupRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Group")),
-                        requestFields(groupFieldsForRequest()),
+                        requestFields(groupFieldsForRequest(true)),
                         responseFields(groupFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/groups/1"))
@@ -118,7 +120,7 @@ public class GroupRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Group")),
-                        requestFields(groupFieldsForRequest()),
+                        requestFields(groupFieldsForRequest(false)),
                         responseFields(groupFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/groups/2"))
@@ -139,14 +141,14 @@ public class GroupRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.groups[]").description("Groups list"),
                         fieldWithPath("_embedded.groups[].id").description("Group's id"),
                         fieldWithPath("_embedded.groups[].name").description("Group's name"),
-                        fieldWithPath("_embedded.groups[].lastModifiedDate").description("Group's date of last modification"),
+                        fieldWithPath("_embedded.groups[].lastModifiedDate").type(Date.class).description("Group's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
                 new FieldDescriptor[]{
                         fieldWithPath("id").description("Group's id"),
                         fieldWithPath("name").description("Group's name"),
-                        fieldWithPath("lastModifiedDate").description("Group's date of last modification"),
+                        fieldWithPath("lastModifiedDate").type(Date.class).description("Group's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -157,13 +159,23 @@ public class GroupRestTest extends AbstractSpringMVCTest {
      *
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] groupFieldsForRequest() {
-        return new FieldDescriptor[]{
-                fieldWithPath("name").optional().type(String.class).description("Group's name"),
-                fieldWithPath("id").optional().ignored(),
-                fieldWithPath("lastModifiedDate").optional().ignored(),
-                fieldWithPath("_links").optional().ignored(),
-                fieldWithPath("page").optional().ignored()
-        };
+    private FieldDescriptor[] groupFieldsForRequest(boolean isPatchRequest) {
+        return isPatchRequest ?
+                new FieldDescriptor[]{
+                        fieldWithPath("name").optional().type(String.class).description("Group's name")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                } :
+                new FieldDescriptor[]{
+                        fieldWithPath("name").type(String.class).description("Group's name")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                };
     }
 }

@@ -41,7 +41,7 @@ public class LinksAndPagesTest extends AbstractSpringMVCTest {
             linkWithRel("next").optional().description("The next page of results"),
             linkWithRel("prev").optional().description("The previous page of results"),
             linkWithRel("self").optional().description("The page of current result"),
-            linkWithRel("search").optional().description("The page for searching results results"),
+            linkWithRel("search").optional().description("The page for searching results"),
             linkWithRel("profile").optional().description("The page with common information about current resource"),
             linkWithRel("{name_of_resource}").optional().description("The page with resource which is related to current"));
 

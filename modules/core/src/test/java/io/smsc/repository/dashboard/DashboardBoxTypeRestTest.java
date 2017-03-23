@@ -15,6 +15,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -45,16 +46,13 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllDashboardBoxTypes() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboard-box-types?page=0&size=20"))
+        mockMvc.perform(get("/rest/repository/dashboard-box-types?page=0&size=5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$._embedded.dashboard-box-types", hasSize(6)))
+                .andExpect(jsonPath("$._embedded.dashboard-box-types", hasSize(5)))
                 .andExpect(jsonPath("$._embedded.dashboard-box-types[0].name", is("Ivan feeds")))
                 .andExpect(jsonPath("$._embedded.dashboard-box-types[0].type", is(Type.STATUS.toString())))
                 .andExpect(jsonPath("$._embedded.dashboard-box-types[0].kind", is(Kind.FEEDBACK_STATUS.toString())))
-                .andExpect(jsonPath("$._embedded.dashboard-box-types[5].name", is("Masha bubble chartat")))
-                .andExpect(jsonPath("$._embedded.dashboard-box-types[5].type", is(Type.CHART.toString())))
-                .andExpect(jsonPath("$._embedded.dashboard-box-types[5].kind", is(Kind.BUBBLE_CHART.toString())))
                 .andDo(document("getDashboardBoxTypes",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
@@ -80,7 +78,7 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
                 .andDo(document("createDashboardBoxType",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(dashboardBoxTypeFieldsForRequest()),
+                        requestFields(dashboardBoxTypeFieldsForRequest(false)),
                         responseFields(dashboardBoxTypeFieldsForResponse(false))));
     }
 
@@ -108,7 +106,7 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("DashboardBoxType")),
-                        requestFields(dashboardBoxTypeFieldsForRequest()),
+                        requestFields(dashboardBoxTypeFieldsForRequest(true)),
                         responseFields(dashboardBoxTypeFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/dashboard-box-types/1"))
@@ -135,7 +133,7 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("DashboardBoxType")),
-                        requestFields(dashboardBoxTypeFieldsForRequest()),
+                        requestFields(dashboardBoxTypeFieldsForRequest(false)),
                         responseFields(dashboardBoxTypeFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/dashboard-box-types/1"))
@@ -162,7 +160,7 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.dashboard-box-types[].type").description("DashboardBoxType's type"),
                         fieldWithPath("_embedded.dashboard-box-types[].kind").description("DashboardBoxType's kind"),
                         fieldWithPath("_embedded.dashboard-box-types[].lastModifiedDate").type(Date.class)
-                                .description("DashboardBox's date of last modification"),
+                                .description("DashboardBoxType's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -172,7 +170,7 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("type").description("DashboardBoxType's type"),
                         fieldWithPath("kind").description("DashboardBoxType's kind"),
                         fieldWithPath("lastModifiedDate").type(Date.class)
-                                .description("DashboardBox's date of last modification"),
+                                .description("DashboardBoxType's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -183,15 +181,31 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
      *
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] dashboardBoxTypeFieldsForRequest() {
-        return new FieldDescriptor[]{
-                fieldWithPath("name").optional().type(String.class).description("DashboardBoxType's name"),
-                fieldWithPath("type").optional().type(Type.class).description("DashboardBoxType's type"),
-                fieldWithPath("kind").optional().type(Kind.class).description("DashboardBoxType's kind"),
-                fieldWithPath("id").optional().ignored(),
-                fieldWithPath("lastModifiedDate").optional().ignored(),
-                fieldWithPath("_links").optional().ignored(),
-                fieldWithPath("page").optional().ignored()
-        };
+    private FieldDescriptor[] dashboardBoxTypeFieldsForRequest(boolean isPatchRequest) {
+        return isPatchRequest ?
+                new FieldDescriptor[]{
+                        fieldWithPath("name").optional().type(String.class).description("DashboardBoxType's name")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("type").optional().type(Type.class).description("DashboardBoxType's type")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("kind").optional().type(Kind.class).description("DashboardBoxType's kind")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                } :
+                new FieldDescriptor[]{
+                        fieldWithPath("name").type(String.class).description("DashboardBoxType's name")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("type").type(Type.class).description("DashboardBoxType's type")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("kind").type(Kind.class).description("DashboardBoxType's kind")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                };
     }
 }

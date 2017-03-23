@@ -2,10 +2,11 @@ package io.smsc.repository.admin;
 
 import io.smsc.model.admin.Role;
 import io.smsc.AbstractSpringMVCTest;
-import io.smsc.model.customer.Salutation;
 import org.junit.Test;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.test.context.support.WithMockUser;
+
+import java.util.Date;
 
 import static org.hamcrest.Matchers.*;
 
@@ -13,6 +14,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -44,7 +46,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllRoles() throws Exception {
-        mockMvc.perform(get("/rest/repository/roles?page=0&size=20"))
+        mockMvc.perform(get("/rest/repository/roles?page=0&size=5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.roles", hasSize(2)))
@@ -73,7 +75,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
                 .andDo(document("createRole",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(roleFieldsForRequest()),
+                        requestFields(roleFieldsForRequest(false)),
                         responseFields(roleFieldsForResponse(false))));
     }
 
@@ -101,7 +103,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Role")),
-                        requestFields(roleFieldsForRequest()),
+                        requestFields(roleFieldsForRequest(true)),
                         responseFields(roleFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/roles/1"))
@@ -126,7 +128,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Role")),
-                        requestFields(roleFieldsForRequest()),
+                        requestFields(roleFieldsForRequest(false)),
                         responseFields(roleFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/roles/1"))
@@ -148,14 +150,14 @@ public class RoleRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.roles[]").description("Roles list"),
                         fieldWithPath("_embedded.roles[].id").description("Role's id"),
                         fieldWithPath("_embedded.roles[].name").description("Role's name"),
-                        fieldWithPath("_embedded.roles[].lastModifiedDate").description("Role's date of last modification"),
+                        fieldWithPath("_embedded.roles[].lastModifiedDate").type(Date.class).description("Role's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
                 new FieldDescriptor[]{
                         fieldWithPath("id").description("Role's id"),
                         fieldWithPath("name").description("Role's name"),
-                        fieldWithPath("lastModifiedDate").description("Role's date of last modification"),
+                        fieldWithPath("lastModifiedDate").type(Date.class).description("Role's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -166,13 +168,23 @@ public class RoleRestTest extends AbstractSpringMVCTest {
      *
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] roleFieldsForRequest() {
-        return new FieldDescriptor[]{
-                fieldWithPath("name").optional().type(String.class).description("Role's name"),
-                fieldWithPath("id").optional().ignored(),
-                fieldWithPath("lastModifiedDate").optional().ignored(),
-                fieldWithPath("_links").optional().ignored(),
-                fieldWithPath("page").optional().ignored()
-        };
+    private FieldDescriptor[] roleFieldsForRequest(boolean isPatchRequest) {
+        return isPatchRequest ?
+                new FieldDescriptor[]{
+                        fieldWithPath("name").optional().type(String.class).description("Role's name")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                } :
+                new FieldDescriptor[]{
+                        fieldWithPath("name").type(String.class).description("Role's name")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                };
     }
 }

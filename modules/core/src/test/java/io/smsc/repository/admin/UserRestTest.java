@@ -12,6 +12,7 @@ import java.util.Date;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -48,7 +49,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllAdminUsers() throws Exception {
-        mockMvc.perform(get("/rest/repository/users?page=0&size=20"))
+        mockMvc.perform(get("/rest/repository/users?page=0&size=5"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$._embedded.users", hasSize(3)))
                 .andExpect(jsonPath("$._embedded.users[0].username", is("user")))
@@ -103,7 +104,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
                 .andDo(document("createAdminUser",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(adminUserFieldsForRequest()),
+                        requestFields(adminUserFieldsForRequest(false)),
                         responseFields(adminUserFieldsForResponse(false))));
     }
 
@@ -131,7 +132,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("AdminUser")),
-                        requestFields(adminUserFieldsForRequest()),
+                        requestFields(adminUserFieldsForRequest(true)),
                         responseFields(adminUserFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/users/1"))
@@ -163,7 +164,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("AdminUser")),
-                        requestFields(adminUserFieldsForRequest()),
+                        requestFields(adminUserFieldsForRequest(false)),
                         responseFields(adminUserFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/users/1"))
@@ -188,7 +189,8 @@ public class UserRestTest extends AbstractSpringMVCTest {
                 new FieldDescriptor[]{
                         fieldWithPath("_embedded.users[]").description("AdminUsers list"),
                         fieldWithPath("_embedded.users[].id").description("AdminUser's id"),
-                        fieldWithPath("_embedded.users[].salutation").type(Salutation.class).description("AdminUser's salutation"),
+                        fieldWithPath("_embedded.users[].salutation").type(Salutation.class)
+                                .description("AdminUser's salutation"),
                         fieldWithPath("_embedded.users[].username").description("AdminUser's username"),
                         fieldWithPath("_embedded.users[].firstname").description("AdminUser's firstname"),
                         fieldWithPath("_embedded.users[].surname").description("AdminUser's surname"),
@@ -196,7 +198,8 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.users[].active").description("AdminUser's active"),
                         fieldWithPath("_embedded.users[].created").description("AdminUser's created"),
                         fieldWithPath("_embedded.users[].blocked").description("AdminUser's blocked"),
-                        fieldWithPath("_embedded.users[].lastModifiedDate").type(Date.class).description("AdminUser's date of last modification"),
+                        fieldWithPath("_embedded.users[].lastModifiedDate").type(Date.class)
+                                .description("AdminUser's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -210,7 +213,8 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("active").description("AdminUser's active"),
                         fieldWithPath("created").description("AdminUser's created"),
                         fieldWithPath("blocked").description("AdminUser's blocked"),
-                        fieldWithPath("lastModifiedDate").type(Date.class).description("AdminUser's date of last modification"),
+                        fieldWithPath("lastModifiedDate").type(Date.class).type(Date.class)
+                                .description("AdminUser's date of last modification"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -221,21 +225,53 @@ public class UserRestTest extends AbstractSpringMVCTest {
      *
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] adminUserFieldsForRequest() {
-        return new FieldDescriptor[]{
-                fieldWithPath("salutation").optional().type(Salutation.class).description("AdminUser's salutation"),
-                fieldWithPath("username").optional().type(String.class).description("AdminUser's username"),
-                fieldWithPath("password").optional().type(String.class).description("AdminUser's password"),
-                fieldWithPath("firstname").optional().type(String.class).description("AdminUser's firstname"),
-                fieldWithPath("surname").optional().type(String.class).description("AdminUser's surname"),
-                fieldWithPath("email").optional().type(String.class).description("AdminUser's email"),
-                fieldWithPath("active").optional().type(Boolean.class).description("AdminUser's active"),
-                fieldWithPath("blocked").optional().type(Boolean.class).description("AdminUser's blocked"),
-                fieldWithPath("created").optional().ignored(),
-                fieldWithPath("id").optional().ignored(),
-                fieldWithPath("lastModifiedDate").optional().ignored(),
-                fieldWithPath("_links").optional().ignored(),
-                fieldWithPath("page").optional().ignored()
-        };
+    private FieldDescriptor[] adminUserFieldsForRequest(boolean isPatchRequest) {
+        return isPatchRequest ?
+                new FieldDescriptor[]{
+                        fieldWithPath("salutation").optional().type(Salutation.class).description("AdminUser's salutation")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("username").optional().type(String.class).description("AdminUser's username")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("password").optional().type(String.class).description("AdminUser's password")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("firstname").optional().type(String.class).description("AdminUser's firstname")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("surname").optional().type(String.class).description("AdminUser's surname")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("email").optional().type(String.class).description("AdminUser's email")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("active").optional().type(Boolean.class).description("AdminUser's active")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("blocked").optional().type(Boolean.class).description("AdminUser's blocked")
+                                .attributes(key("mandatory").value(false)),
+                        fieldWithPath("created").optional().ignored(),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                } :
+                new FieldDescriptor[]{
+                        fieldWithPath("salutation").type(Salutation.class).description("AdminUser's salutation")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("username").type(String.class).description("AdminUser's username")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("password").type(String.class).description("AdminUser's password")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("firstname").type(String.class).description("AdminUser's firstname")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("surname").type(String.class).description("AdminUser's surname")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("email").type(String.class).description("AdminUser's email")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("active").type(Boolean.class).description("AdminUser's active")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("blocked").type(Boolean.class).description("AdminUser's blocked")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("created").optional().ignored(),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                };
     }
 }

@@ -29,6 +29,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,8 +46,10 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
     @Test
     public void testLoginAdmin() throws Exception {
         FieldDescriptor[] JWTAuthenticationRequestFields = new FieldDescriptor[]{
-                fieldWithPath("username").description("User's username"),
+                fieldWithPath("username").description("User's username")
+                        .attributes(key("mandatory").value(true)),
                 fieldWithPath("password").description("User's password")
+                .attributes(key("mandatory").value(true))
         };
 
         FieldDescriptor[] JWTAuthenticationResponseFields = new FieldDescriptor[]{
@@ -130,6 +133,7 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
     public void testRefreshToken() throws Exception {
         FieldDescriptor[] JWTRefreshTokenRequestFields = new FieldDescriptor[]{
                 fieldWithPath("refreshToken").description("Refresh token")
+                        .attributes(key("mandatory").value(true))
         };
 
         FieldDescriptor[] JWTRefreshTokenResponseFields = new FieldDescriptor[]{

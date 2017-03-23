@@ -14,6 +14,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -43,7 +44,7 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetAllDashboards() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboards?page=0&size=20"))
+        mockMvc.perform(get("/rest/repository/dashboards?page=0&size=5"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.dashboards", hasSize(1)))
@@ -76,7 +77,7 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                 .andDo(document("createDashboard",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        requestFields(dashboardFieldsForRequest()),
+                        requestFields(dashboardFieldsForRequest(false)),
                         responseFields(dashboardFieldsForResponse(false))));
     }
 
@@ -104,7 +105,7 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Dashboard")),
-                        requestFields(dashboardFieldsForRequest()),
+                        requestFields(dashboardFieldsForRequest(true)),
                         responseFields(dashboardFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/dashboards/1"))
@@ -121,6 +122,8 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
         dashboard.setName("default_admin");
         dashboard.setUser(new User());
         String dashboardJson = json(dashboard);
+        // json is ignoring inserting user through setter
+        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1).concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
 
         mockMvc.perform(put("/rest/repository/dashboards/{id}", 1)
                 .with(csrf())
@@ -131,7 +134,7 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Dashboard")),
-                        requestFields(dashboardFieldsForRequest()),
+                        requestFields(dashboardFieldsForRequest(false)),
                         responseFields(dashboardFieldsForResponse(false))));
 
         mockMvc.perform(get("/rest/repository/dashboards/1"))
@@ -177,15 +180,31 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
      *
      * @return FieldDescriptor
      */
-    private FieldDescriptor[] dashboardFieldsForRequest() {
-        return new FieldDescriptor[]{
-                fieldWithPath("name").optional().type(String.class).description("Dashboard's name"),
-                fieldWithPath("icon").optional().type(String.class).description("Dashboard's icon"),
-                fieldWithPath("user").optional().type(User.class).description("Dashboard's user"),
+    private FieldDescriptor[] dashboardFieldsForRequest(boolean isPatchRequest) {
+        return isPatchRequest ?
+                new FieldDescriptor[]{
+                fieldWithPath("name").optional().type(String.class).description("Dashboard's name")
+                        .attributes(key("mandatory").value(false)),
+                fieldWithPath("icon").optional().type(String.class).description("Dashboard's icon")
+                        .attributes(key("mandatory").value(false)),
+                fieldWithPath("user").optional().type(User.class).description("Dashboard's user")
+                        .attributes(key("mandatory").value(false)),
                 fieldWithPath("id").optional().ignored(),
                 fieldWithPath("lastModifiedDate").optional().ignored(),
                 fieldWithPath("_links").optional().ignored(),
                 fieldWithPath("page").optional().ignored()
-        };
+        } :
+                new FieldDescriptor[]{
+                        fieldWithPath("name").type(String.class).description("Dashboard's name")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("icon").type(String.class).description("Dashboard's icon")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("user").type(User.class).description("Dashboard's user")
+                                .attributes(key("mandatory").value(true)),
+                        fieldWithPath("id").optional().ignored(),
+                        fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("_links").optional().ignored(),
+                        fieldWithPath("page").optional().ignored()
+                };
     }
 }
