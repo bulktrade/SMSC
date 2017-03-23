@@ -1,7 +1,6 @@
 $colorScheme: #2ab4c0;
 
 :host {
-  transition: all .5s;
   height: 146px;
   margin-bottom: 16px;
   padding-left: 8px;
@@ -108,7 +107,6 @@ $colorScheme: #2ab4c0;
 }
 
 :host(.fullscreen) {
-  transition: none;
   position: fixed;
   padding: 0;
   top: 0;
