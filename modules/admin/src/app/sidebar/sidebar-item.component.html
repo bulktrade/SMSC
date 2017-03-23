@@ -21,7 +21,7 @@
         </ng-container>
         <li>
             <a routerLinkActive="activesub dashboard-settings"
-               [routerLinkActiveOptions]="{exact: true}" [routerLink]="[sidebarItem.path]">
+               [routerLinkActiveOptions]="{exact: true}" [routerLink]="[sidebarItem.path, 'settings']">
                 <i class="subitem-icon-left fa fa-cog"></i>
                 {{'dashboard.settings' | translate}}
             </a>

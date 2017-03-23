@@ -6,10 +6,10 @@ import {DashboardBoxType} from "../dashboard-box-type/dashboard-box-type.model";
 @Component({
     encapsulation: ViewEncapsulation.None,
     selector: 'dashboards',
-    templateUrl: 'dashboards.component.html',
-    styleUrls: ['dashboards.component.scss']
+    templateUrl: 'dashboard-settings.component.html',
+    styleUrls: ['dashboard-settings.component.scss']
 })
-export class DashboardsComponent {
+export class DashboardSettingsComponent {
     public dashboards: Dashboard[] = [];
     public dashboardBoxTypes: DashboardBoxType[] = [];
 

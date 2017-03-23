@@ -40,7 +40,7 @@ export class DashboardDeleteComponent {
     deleteResource() {
         this.dashboardService.deleteResourceById(this.id)
             .subscribe(() => {
-                this.router.navigateByUrl('/dashboard');
+                this.router.navigate(['/dashboard', 'settings']);
                 this.notifications.createNotification('success', 'SUCCESS', 'dashboard.successDeleteDashboard');
             }, err => {
                 this.notifications.createNotification('error', 'ERROR', 'dashboard.errorDeleteDashboard');

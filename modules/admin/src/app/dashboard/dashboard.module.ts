@@ -21,8 +21,8 @@ import {DashboardUpdateComponent} from "./dashboard-update/dashboard-update.comp
 import {DashboardUpdateResolve} from "./dashboard-update/dashboard-update.resolve";
 import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.component";
 import {MessagesModule} from "primeng/components/messages/messages";
-import {DashboardsComponent} from "./dashboards/dashboards.component";
-import {DashboardsResolve} from "./dashboards/dashboards.resolve";
+import {DashboardSettingsComponent} from "./dashboard-settings/dashboard-settings.component";
+import {DashboardSettingsResolve} from "./dashboard-settings/dashboard-settings.resolve";
 import {DashboardBoxService} from "./dashboard-box/dashboard-box.service";
 import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
 import {DashboardBoxTypeService} from "./dashboard-box-type/dashboard-box-type.service";
@@ -67,7 +67,7 @@ import {DashboardBoxTypeDeleteComponent} from "./dashboard-box-type/dashboard-bo
         DashboardUpdateComponent,
         DashboardDeleteComponent,
         DashboardBoxComponent,
-        DashboardsComponent,
+        DashboardSettingsComponent,
         DashboardBoxDeleteComponent,
         DashboardBoxUpdateComponent,
         DashboardBoxCreateComponent,
@@ -79,7 +79,7 @@ import {DashboardBoxTypeDeleteComponent} from "./dashboard-box-type/dashboard-bo
         ControlErrorService,
         NotificationService,
         DashboardResolve,
-        DashboardsResolve,
+        DashboardSettingsResolve,
         DashboardBoxTypeUpdateResolve,
         DashboardUpdateResolve,
         DashboardBoxService,

@@ -7,7 +7,7 @@ import {DashboardBoxTypeService} from "../dashboard-box-type/dashboard-box-type.
 import {DashboardBoxType} from "../dashboard-box-type/dashboard-box-type.model";
 
 @Injectable()
-export class DashboardsResolve implements Resolve<{dashboards: Dashboard[], dashboardBoxTypes: DashboardBoxType[]}> {
+export class DashboardSettingsResolve implements Resolve<{dashboards: Dashboard[], dashboardBoxTypes: DashboardBoxType[]}> {
 
     constructor(public dashboardService: DashboardService,
                 public dashboardBoxTypeService: DashboardBoxTypeService) {
