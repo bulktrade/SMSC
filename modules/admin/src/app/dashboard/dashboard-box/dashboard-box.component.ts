@@ -79,7 +79,6 @@ export class DashboardBoxComponent {
     }
 
     widthChange(width: Width) {
-        this.animation();
         switch (String(width)) {
             case 'WIDTH_25':
                 this.hostClasses = 'ui-g-12 ui-md-3';
@@ -96,13 +95,7 @@ export class DashboardBoxComponent {
         }
     }
 
-    animation() {
-        this.renderer.setElementStyle(this.element.nativeElement, 'transition', 'all .5s');
-        setTimeout(() => this.renderer.setElementStyle(this.element.nativeElement, 'transition', 'none'), 500);
-    }
-
     heightChange(height: Height) {
-        this.animation();
         switch (String(height)) {
             case 'HEIGHT_25':
                 this.renderer.setElementStyle(this.element.nativeElement, 'height', '146px');

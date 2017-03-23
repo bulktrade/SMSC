@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Message} from "../shared/components/models/error/Message";
+import {Message} from "../shared/components/models/error/message";
 import {NgForm} from "@angular/forms";
 import {NotificationService} from "./notification-service";
 import {ControlCellErrors} from "../customers/model/control-cell-errors";
