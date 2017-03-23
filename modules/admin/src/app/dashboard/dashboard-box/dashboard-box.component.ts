@@ -79,23 +79,30 @@ export class DashboardBoxComponent {
     }
 
     widthChange(width: Width) {
+        this.animation();
         switch (String(width)) {
             case 'WIDTH_25':
-                this.hostClasses = 'ui-g-12 ui-md-3 ui-g-nopad';
+                this.hostClasses = 'ui-g-12 ui-md-3';
                 break;
             case 'WIDTH_50':
-                this.hostClasses = 'ui-g-12 ui-md-6 ui-g-nopad';
+                this.hostClasses = 'ui-g-12 ui-md-6';
                 break;
             case 'WIDTH_75':
-                this.hostClasses = 'ui-g-12 ui-md-9 ui-g-nopad';
+                this.hostClasses = 'ui-g-12 ui-md-9';
                 break;
             case 'WIDTH_100':
-                this.hostClasses = 'ui-g-12 ui-md-12 ui-g-nopad';
+                this.hostClasses = 'ui-g-12 ui-md-12';
                 break;
         }
     }
 
+    animation() {
+        this.renderer.setElementStyle(this.element.nativeElement, 'transition', 'all .5s');
+        setTimeout(() => this.renderer.setElementStyle(this.element.nativeElement, 'transition', 'none'), 500);
+    }
+
     heightChange(height: Height) {
+        this.animation();
         switch (String(height)) {
             case 'HEIGHT_25':
                 this.renderer.setElementStyle(this.element.nativeElement, 'height', '146px');
