@@ -9,6 +9,7 @@ import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.comp
 import {DashboardsComponent} from "./dashboards/dashboards.component";
 import {DashboardsResolve} from "./dashboards/dashboards.resolve";
 import {dashboardBoxRoutes} from "./dashboard-box/dashboard-box-routing.module";
+import {dashboardBoxTypeRoutes} from "./dashboard-box-type/dashboard-box-type-routing.module";
 
 const ROUTE_PROVIDER: Route[] = [
     {
@@ -31,6 +32,10 @@ const ROUTE_PROVIDER: Route[] = [
     {
         path: ':id/dashboard-box',
         children: dashboardBoxRoutes
+    },
+    {
+        path: 'dashboard-box-type',
+        children: dashboardBoxTypeRoutes
     },
     {
         path: ':id',

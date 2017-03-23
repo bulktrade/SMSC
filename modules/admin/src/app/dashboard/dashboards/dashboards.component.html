@@ -1,9 +1,12 @@
 <div id="dashboard-settings-window">
-    <div class="mat-fab-wrap">
-        <div class="mat-fab" routerLink="/dashboard/create">
-            <i class="fa fa-plus"></i>
-        </div>
+    <!-- Dashboard toolbar -->
+    <div class="dashboard-toolbar">
+        <p-splitButton icon="fa-plus" [model]="[
+            {label: 'dashboard.createDashboard' | translate, icon: 'fa-tachometer', routerLink: ['/dashboard', 'create']},
+            {label: 'dashboardBoxType.createDashboardBoxType' | translate, icon: 'fa-th-large', routerLink: ['/dashboard', 'dashboard-box-type', 'create']}
+        ]"></p-splitButton>
     </div>
+    <!-- /#dashboard toolbar -->
 
     <p-tabView>
         <p-tabPanel headerStyleClass="ui-sm-12" [header]="'DASHBOARDS' | translate">
@@ -30,8 +33,10 @@
                             <span class="colunm-name">type:</span> {{ dashboardBoxType.type }} <br>
                             <span class="colunm-name">kind:</span> {{ dashboardBoxType.kind }}
                             <hr class="ui-widget-content" style="border-top:0">
-                            <button class="ui-button-success" pButton type="button" icon="fa-pencil"></button>
-                            <button class="ui-button-danger" pButton type="button" icon="fa-remove"></button>
+                            <button [routerLink]="['/dashboard', 'dashboard-box-type', dashboardBoxType.id, 'update']"
+                                    class="ui-button-success" pButton type="button" icon="fa-pencil"></button>
+                            <button [routerLink]="['/dashboard', 'dashboard-box-type', dashboardBoxType.id, 'delete']"
+                                    class="ui-button-danger" pButton type="button" icon="fa-remove"></button>
                         </p-panel>
                     </div>
                 </template>

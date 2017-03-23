@@ -1,0 +1,71 @@
+<p-panel>
+    <p-header>
+        <i class="fa fa-chevron-left" (click)="location.back()" aria-hidden="true" title="{{ 'BACK' | translate }}"
+           id="back-button"></i>
+        <span>{{ 'dashboardBoxType.formTitle' | translate }}</span>
+    </p-header>
+    <form role="form" (ngSubmit)="onSubmit(f)" #f="ngForm" novalidate>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'dashboardBoxType.name' | translate }}
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText class="form-control" ngModel #name="ngModel"
+                           required name="name" type="text" id="name">
+                </div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="name"
+                                    [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'dashboardBoxType.type' | translate }}
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="[{label:'', value: null},
+                                {label:'dashboardBoxType.status' | translate, value: 'STATUS'},
+                                {label:'dashboardBoxType.chart' | translate, value: 'CHART'}]"
+                                ngModel #type="ngModel" name="type" id="type"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="dashboardBoxType"
+                                    [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'dashboardBoxType.kind' | translate }}
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="[{label:'', value: null},
+                                {label:'dashboardBoxType.pieChart' | translate, value: 'PIE_CHART'},
+                                {label:'dashboardBoxType.serialChart' | translate, value: 'SERIAL_CHART'},
+                                {label:'dashboardBoxType.lineChart' | translate, value: 'LINE_CHART'},
+                                {label:'dashboardBoxType.barChart' | translate, value: 'BAR_CHART'},
+                                {label:'dashboardBoxType.bubbleChart' | translate, value: 'BUBBLE_CHART'},
+                                {label:'dashboardBoxType.feedbackStatus' | translate, value: 'FEEDBACK_STATUS'},
+                                {label:'dashboardBoxType.profitStatus' | translate, value: 'PROFIT_STATUS'},
+                                {label:'dashboardBoxType.ordersStatus' | translate, value: 'ORDERS_STATUS'},
+                                {label:'dashboardBoxType.usersStatus' | translate, value: 'USERS_STATUS'}]"
+                                ngModel #kind="ngModel" name="kind" id="kind"></p-dropdown>
+                </div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="kind" [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"></div>
+                <div class="ui-grid-col-6">
+                    <button type="submit" class="btn primeng-primary-btn ui-md-12 ui-sm-12" id="submit-button"
+                            [disabled]="f.form.invalid">
+                        <span>{{ 'CREATE' | translate }}</span>
+                        <i *ngIf="isLoading" class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
+                    </button>
+                </div>
+                <div class="ui-grid-col-4"></div>
+            </div>
+        </div>
+    </form>
+</p-panel>

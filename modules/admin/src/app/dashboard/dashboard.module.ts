@@ -34,6 +34,10 @@ import {DialogModule} from "primeng/components/dialog/dialog";
 import {DashboardBoxCreateComponent} from "./dashboard-box/dashboard-box-create/dashboard-box-create.component";
 import {DataGridModule} from "primeng/components/datagrid/datagrid";
 import {TabViewModule} from "primeng/components/tabview/tabview";
+import {DashboardBoxTypeCreateComponent} from "./dashboard-box-type/dashboard-box-type-create/dashboard-box-type-create.component";
+import {DashboardBoxTypeUpdateResolve} from "./dashboard-box-type/dashboard-box-type-update/dashboard-box-type-update.resolve";
+import {DashboardBoxTypeUpdateComponent} from "./dashboard-box-type/dashboard-box-type-update/dashboard-box-type-update";
+import {DashboardBoxTypeDeleteComponent} from "./dashboard-box-type/dashboard-box-type-delete/dashboard-delete.component";
 
 @NgModule({
     imports: [
@@ -66,13 +70,17 @@ import {TabViewModule} from "primeng/components/tabview/tabview";
         DashboardsComponent,
         DashboardBoxDeleteComponent,
         DashboardBoxUpdateComponent,
-        DashboardBoxCreateComponent
+        DashboardBoxCreateComponent,
+        DashboardBoxTypeCreateComponent,
+        DashboardBoxTypeUpdateComponent,
+        DashboardBoxTypeDeleteComponent
     ],
     providers: [
         ControlErrorService,
         NotificationService,
         DashboardResolve,
         DashboardsResolve,
+        DashboardBoxTypeUpdateResolve,
         DashboardUpdateResolve,
         DashboardBoxService,
         DashboardBoxTypeService,
