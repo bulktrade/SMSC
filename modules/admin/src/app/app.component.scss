@@ -1,280 +1,288 @@
 $primaryColor: #009688;
 
 body {
-    background: #E9ECF3 !important;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #E9ECF3 !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.dashboard-box p-chart > div {
+  height: calc(100% - 20px);
 }
 
 p-dropdown .ui-inputtext {
-    padding-left: 0.75rem;
+  padding-left: 0.75rem;
 }
 
 #back-button {
-    cursor: pointer;
-    padding-right: 5px;
+  cursor: pointer;
+  padding-right: 5px;
 }
 
 .ui-tabview .ui-tabview-panel {
-    padding: .6em .2em;
+  padding: .6em .2em;
 }
 
 .ui-button.ui-button-success:enabled:hover,
 .ui-button.ui-button-success:focus {
-    background-color: #4cae4c;
-    border-color: #4cae4c;
+  background-color: #4cae4c;
+  border-color: #4cae4c;
 }
 
 .ui-button.ui-button-danger:enabled:hover,
 .ui-button.ui-button-danger:focus {
-    background-color: #d43f3a;
-    border-color: #d43f3a;
+  background-color: #d43f3a;
+  border-color: #d43f3a;
 }
 
 .relationship-tabs {
-    .ui-widget-header {
-        border: none;
-    }
+  .ui-widget-header {
+    border: none;
+  }
 
-    input {
-        width: calc(100% - 2em);
-    }
+  input {
+    width: calc(100% - 2em);
+  }
 
-    .ui-autocomplete-panel {
-        position: static;
-    }
+  .ui-autocomplete-panel {
+    position: static;
+  }
 
-    #one-to-one-component .btn-remove {
-        top: 15px;
-        right: 38px;
-    }
+  #one-to-one-component .btn-remove {
+    top: 15px;
+    right: 38px;
+  }
 }
 
 .primeng-primary-btn {
-    border: 1px solid #2399e5;
+  border: 1px solid #2399e5;
+  color: #fff;
+  background: #2399e5;
+  -webkit-transition: background-color .2s;
+  -moz-transition: background-color .2s;
+  transition: background-color .2s;
+
+  &:focus,
+  &:hover {
+    border: 1px solid #1f89ce;
+    background: #1f89ce;
+    outline: 0 none;
     color: #fff;
-    background: #2399e5;
-    -webkit-transition: background-color .2s;
-    -moz-transition: background-color .2s;
-    transition: background-color .2s;
+  }
 
-    &:focus,
-    &:hover {
-        border: 1px solid #1f89ce;
-        background: #1f89ce;
-        outline: 0 none;
-        color: #fff;
-    }
+  &:active {
+    border: 1px solid #156090;
+    background: #186ba0;
+    color: #fff;
+  }
 
-    &:active {
-        border: 1px solid #156090;
-        background: #186ba0;
-        color: #fff;
-    }
-
-    .loading-spinner {
-        font-size: 16px;
-        color: #fff;
-    }
+  .loading-spinner {
+    font-size: 16px;
+    color: #fff;
+  }
 }
 
 .ag-material {
-    .ag-cell-not-inline-editing {
-        padding-top: 2px !important;
-        outline: none;
-    }
+  .ag-cell-not-inline-editing {
+    padding-top: 2px !important;
+    outline: none;
+  }
 }
 
 .ui-dropdown {
-    width: 100% !important;
+  width: 100% !important;
+}
+
+.ui-dropdown-panel .ui-dropdown-filter-container {
+  width: 100%;
 }
 
 p-dialog .ui-widget-content {
-    overflow: visible !important;
+  overflow: visible !important;
 }
 
 .md-card,
 navigation,
 login {
-    height: 100%;
+  height: 100%;
 }
 
 .ag-control-panel {
-    > i {
-        margin-right: 5px;
-    }
+  > i {
+    margin-right: 5px;
+  }
 }
 
 .card {
-    border-radius: 0;
+  border-radius: 0;
 }
 
 .hint {
-    font-size: 12px;
-    color: #A94442;
+  font-size: 12px;
+  color: #A94442;
 }
 
 .btn {
-    border-radius: 3px;
+  border-radius: 3px;
 }
 
 .back {
-    background: #212121;
-    margin-right: 5px;
-    color: #fff;
+  background: #212121;
+  margin-right: 5px;
+  color: #fff;
 }
 
 @media all and (max-width: 992px) {
-    breadcrumb {
-        display: none;
-    }
+  breadcrumb {
+    display: none;
+  }
 }
 
 /*-- STYLE FOR ICON BUTTON (BEGIN) --*/
 
 .btn-icon {
-    display: flex;
-    float: left;
-    background-color: transparent;
-    padding: 7px;
-    color: $primaryColor;
-    border-radius: 50px;
+  display: flex;
+  float: left;
+  background-color: transparent;
+  padding: 7px;
+  color: $primaryColor;
+  border-radius: 50px;
 
-    &:hover {
-        background-color: #e1f3f1;
-    }
+  &:hover {
+    background-color: #e1f3f1;
+  }
 
-    &:focus {
-        outline: none;
-    }
+  &:focus {
+    outline: none;
+  }
 }
 
 /*-- STYLE FOR ICON BUTTON (END) --*/
 
 @media (max-width: 992px) {
-    .md-sidenav-content {
-        margin-left: 0 !important;
-    }
+  .md-sidenav-content {
+    margin-left: 0 !important;
+  }
 }
 
 /*-- STYLE FOR INPUT FIELD (BEGIN) --*/
 
 .group {
+  position: relative;
+
+  input {
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #757575;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  /* LABEL ======================================= */
+  .label-input {
+    color: #999;
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  /* active state */
+  input:focus ~ .label-input, .in {
+    top: -20px;
+    font-size: 14px;
+    color: $primaryColor;
+  }
+
+  /* BOTTOM BARS ================================= */
+  .bar {
     position: relative;
+    display: block;
+    width: 100%;
+  }
 
-    input {
-        font-size: 16px;
-        padding: 10px 10px 10px 5px;
-        display: block;
-        width: 100%;
-        border: none;
-        border-bottom: 1px solid #757575;
-    }
+  .bar:before, .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: $primaryColor;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
 
-    input:focus {
-        outline: none;
-    }
+  .bar:before {
+    left: 50%;
+  }
 
-    /* LABEL ======================================= */
-    .label-input {
-        color: #999;
-        font-size: 16px;
-        font-weight: normal;
-        position: absolute;
-        pointer-events: none;
-        left: 5px;
-        top: 10px;
-        transition: 0.2s ease all;
-        -moz-transition: 0.2s ease all;
-        -webkit-transition: 0.2s ease all;
-    }
+  .bar:after {
+    right: 50%;
+  }
 
-    /* active state */
-    input:focus ~ .label-input, .in {
-        top: -20px;
-        font-size: 14px;
-        color: $primaryColor;
-    }
+  /* active state */
+  input:focus ~ .bar:before, input:focus ~ .bar:after {
+    width: 50%;
+  }
 
-    /* BOTTOM BARS ================================= */
-    .bar {
-        position: relative;
-        display: block;
-        width: 100%;
-    }
+  /* HIGHLIGHTER ================================== */
+  .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
 
-    .bar:before, .bar:after {
-        content: '';
-        height: 2px;
-        width: 0;
-        bottom: 1px;
-        position: absolute;
-        background: $primaryColor;
-        transition: 0.2s ease all;
-        -moz-transition: 0.2s ease all;
-        -webkit-transition: 0.2s ease all;
-    }
+  /* active state */
+  input:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+  }
 
-    .bar:before {
-        left: 50%;
+  /* ANIMATIONS ================ */
+  @-webkit-keyframes inputHighlighter {
+    from {
+      background: $primaryColor;
     }
+    to {
+      width: 0;
+      background: transparent;
+    }
+  }
 
-    .bar:after {
-        right: 50%;
+  @-moz-keyframes inputHighlighter {
+    from {
+      background: $primaryColor;
     }
+    to {
+      width: 0;
+      background: transparent;
+    }
+  }
 
-    /* active state */
-    input:focus ~ .bar:before, input:focus ~ .bar:after {
-        width: 50%;
+  @keyframes inputHighlighter {
+    from {
+      background: $primaryColor;
     }
-
-    /* HIGHLIGHTER ================================== */
-    .highlight {
-        position: absolute;
-        height: 60%;
-        width: 100px;
-        top: 25%;
-        left: 0;
-        pointer-events: none;
-        opacity: 0.5;
+    to {
+      width: 0;
+      background: transparent;
     }
-
-    /* active state */
-    input:focus ~ .highlight {
-        -webkit-animation: inputHighlighter 0.3s ease;
-        -moz-animation: inputHighlighter 0.3s ease;
-        animation: inputHighlighter 0.3s ease;
-    }
-
-    /* ANIMATIONS ================ */
-    @-webkit-keyframes inputHighlighter {
-        from {
-            background: $primaryColor;
-        }
-        to {
-            width: 0;
-            background: transparent;
-        }
-    }
-
-    @-moz-keyframes inputHighlighter {
-        from {
-            background: $primaryColor;
-        }
-        to {
-            width: 0;
-            background: transparent;
-        }
-    }
-
-    @keyframes inputHighlighter {
-        from {
-            background: $primaryColor;
-        }
-        to {
-            width: 0;
-            background: transparent;
-        }
-    }
+  }
 }
 
 /*-- STYLE FOR INPUT FIELD (END) --*/
@@ -291,145 +299,156 @@ $slideDistance: 100;
 $slideDuration: .4s;
 
 @function rem($val) {
-    @return #{$val / $baseFontSize}rem;
+  @return #{$val / $baseFontSize}rem;
 }
 
 .label-checkbox {
+  position: relative;
+
+  margin: .5rem;
+
+  font-family: Arial, sans-serif;
+  line-height: 135%;
+
+  cursor: pointer;
+
+  > input {
     position: relative;
-
-    margin: .5rem;
-
-    font-family: Arial, sans-serif;
-    line-height: 135%;
-
-    cursor: pointer;
-
-    > input {
-        position: relative;
-        top: 1px;
-    }
+    top: 1px;
+  }
 }
 
 .checkbox {
-    position: relative;
-    top: rem(-6);
+  position: relative;
+  top: rem(-6);
 
-    margin: 0 1rem 0 0 ;
+  margin: 0 1rem 0 0;
+
+  cursor: pointer;
+
+  &:before {
+    transition: all .3s ease-in-out;
+
+    content: "";
+
+    position: absolute;
+    left: 0;
+    z-index: 1;
+
+    width: 1rem;
+    height: 1rem;
+
+    border: 2px solid #f2f2f2;
+  }
+
+  &:checked {
+    &:before {
+      transform: rotate(-45deg);
+
+      height: .5rem;
+
+      border-color: $green;
+      border-top-style: none;
+      border-right-style: none;
+    }
+  }
+
+  &:after {
+    content: "";
+
+    position: absolute;
+    top: rem(-2);
+    left: 0;
+
+    width: 1.1rem;
+    height: 1.1rem;
+
+    background: #fff;
 
     cursor: pointer;
-
-    &:before {
-        transition: all .3s ease-in-out;
-
-        content: "";
-
-        position: absolute;
-        left: 0;
-        z-index: 1;
-
-        width: 1rem;
-        height: 1rem;
-
-        border: 2px solid #f2f2f2;
-    }
-
-    &:checked {
-        &:before {
-            transform: rotate(-45deg);
-
-            height: .5rem;
-
-            border-color: $green;
-            border-top-style: none;
-            border-right-style: none;
-        }
-    }
-
-    &:after {
-        content: "";
-
-        position: absolute;
-        top: rem(-2);
-        left: 0;
-
-        width: 1.1rem;
-        height: 1.1rem;
-
-        background: #fff;
-
-        cursor: pointer;
-    }
+  }
 }
 
 .button--round {
-    transition: .3s background ease-in-out;
+  transition: .3s background ease-in-out;
 
-    width: 2rem;
-    height: 2rem;
+  width: 2rem;
+  height: 2rem;
 
-    background: $blue;
+  background: $blue;
 
-    border-radius: 50%;
-    box-shadow: 0 rem(2) rem(5) 0 rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  box-shadow: 0 rem(2) rem(5) 0 rgba(0, 0, 0, 0.25);
 
-    color: #fff;
-    text-decoration: none;
-    text-align: center;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
 
-    i {
-        font-size: 1rem;
-        line-height: 220%;
-        vertical-align: middle;
-    }
+  i {
+    font-size: 1rem;
+    line-height: 220%;
+    vertical-align: middle;
+  }
 
-    &:hover {
-        background: $blueDark;
-    }
+  &:hover {
+    background: $blueDark;
+  }
 }
 
 .button--sticky {
-    position: fixed;
-    right: 2rem;
-    top: 16rem;
+  position: fixed;
+  right: 2rem;
+  top: 16rem;
 }
 
 %slide-up {
-    -webkit-animation-duration: $slideDuration;
-    animation-duration: $slideDuration;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation-name: slideUp;
-    animation-name: slideUp;
-    -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation-duration: $slideDuration;
+  animation-duration: $slideDuration;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-name: slideUp;
+  animation-name: slideUp;
+  -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @-webkit-keyframes slideUp {
-    0% {
-        -webkit-transform: translateY(rem($slideDistance));
-        transform: translateY(rem($slideDistance));
-    }
+  0% {
+    -webkit-transform: translateY(rem($slideDistance));
+    transform: translateY(rem($slideDistance));
+  }
 
-    100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-    }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideUp {
-    0% {
-        -webkit-transform: translateY(rem($slideDistance));
-        transform: translateY(rem($slideDistance));
-    }
+  0% {
+    -webkit-transform: translateY(rem($slideDistance));
+    transform: translateY(rem($slideDistance));
+  }
 
-    100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-    }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
 }
 
 @media screen and (max-width: 640px) {
-    .ui-panel .ui-panel-content {
-        padding: 0;
-    }
+  .ui-panel .ui-panel-content {
+    padding: 0;
+  }
+
+  .ui-dialog {
+    top: 0 !important;
+    z-index: 9999 !important;
+    width: 100% !important;
+  }
+
+  .ui-dialog.ui-widget .ui-dialog-content,
+  .ui-dialog.ui-widget .ui-dialog-titlebar {
+    padding: .5em;
+  }
 }

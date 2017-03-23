@@ -1,7 +1,7 @@
 import {TestBed, inject} from "@angular/core/testing";
 import {ControlErrorService} from "./control-error";
 import {NotificationService} from "./notification-service";
-import {Message} from "../shared/components/models/error/Message";
+import {Message} from "../shared/components/models/error/message";
 import {TranslateModule} from "ng2-translate";
 import {NotificationsService} from "angular2-notifications/components";
 

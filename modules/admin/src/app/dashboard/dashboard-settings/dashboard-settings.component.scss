@@ -1,0 +1,38 @@
+#dashboard-settings-window {
+  .colunm-name {
+    font-weight: bold;
+  }
+
+  .dashboard-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 13px;
+  }
+
+  .item {
+    padding: 3px;
+  }
+
+  .ui-tabview {
+    background: #fff;
+    border: 1px solid #D5D5D5;
+  }
+
+  .ui-tabview-nav {
+    border: none;
+  }
+
+  @media screen and (max-width: 640px) {
+    .ui-panel-content {
+      padding: 8px;
+    }
+
+    .ui-tabview {
+      padding: 0;
+    }
+
+    .ui-datagrid-content {
+      border: none;
+    }
+  }
+}

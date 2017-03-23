@@ -1,4 +1,4 @@
-import {Component, Inject} from "@angular/core";
+import {Component, Inject, ViewEncapsulation} from "@angular/core";
 import {Location} from "@angular/common";
 import {TranslateService} from "ng2-translate/ng2-translate";
 import {Router, ActivatedRoute} from "@angular/router";
@@ -17,6 +17,7 @@ import {ControlCellErrors} from "../model/control-cell-errors";
 import {ControlErrorService} from "../../services/control-error";
 
 @Component({
+    encapsulation: ViewEncapsulation.None,
     selector: 'customers-view',
     templateUrl: './customers-view.component.html',
     styleUrls: ['./customers-view.component.scss']
@@ -124,14 +125,12 @@ export class CustomersViewComponent {
     }
 
     onEditComplete(event) {
-        console.log(event);
         this.customersService.updateResource(event.data)
             .subscribe(() => {
                 for (let column in this.cellsModel) {
                     this.cellsModel[column][event.data.id] = false;
                 }
                 this.notifications.createNotification('success', 'SUCCESS', 'customers.successUpdateCustomer');
-                this.setRowData();
             }, (e) => {
                 this.controlErrorService.gridControlErrors(e.json(), event, this.cellsModel);
                 this.setRowData();

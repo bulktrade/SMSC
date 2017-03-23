@@ -43,4 +43,28 @@ export class DashboardService extends CrudRepository<Dashboard> {
                 });
         });
     }
+
+    createDefaultDashboard(): Observable<Dashboard> {
+        let dashboard: Dashboard = <Dashboard>{
+            name: 'default',
+            icon: 'fa-desktop'
+        };
+
+        return Observable.create(o => {
+            this.userService.getLoggedUser()
+                .subscribe((user: User) => {
+                    dashboard['user'] = user._links.self.href;
+                    this.createResource(dashboard).subscribe((dashboard: Dashboard) => {
+                        o.next(dashboard);
+                        o.complete();
+                    }, e => {
+                        o.error(e);
+                        o.complete();
+                    });
+                }, e => {
+                    o.error(e);
+                    o.complete();
+                });
+        });
+    }
 }

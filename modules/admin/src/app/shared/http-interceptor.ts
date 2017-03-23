@@ -75,7 +75,7 @@ export class HttpInterceptor extends Http {
             if (err.status === 401 && !_.includes(err.url, 'auth/token')) {
                 this._router.navigateByUrl('/login');
                 this._tokenService.resetToken();
-                return Observable.empty();
+                return Observable.throw(err);
             } else {
                 return Observable.throw(err);
             }

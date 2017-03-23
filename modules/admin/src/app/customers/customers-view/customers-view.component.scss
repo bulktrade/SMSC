@@ -1,6 +1,16 @@
 #customers-view-window {
   position: relative;
 
+  one-to-one {
+    .ui-dropdown-panel {
+      position: static;
+    }
+
+    .ui-dropdown .ui-dropdown-trigger {
+      height: 32px;
+    }
+  }
+
   .ctrl-panel {
     div {
       padding: 0;
@@ -29,7 +39,7 @@
 
   .clear-search-button {
     color: #555;
-    
+
     &:hover {
       color: #d9534f;
     }

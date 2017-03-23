@@ -21,9 +21,23 @@ import {DashboardUpdateComponent} from "./dashboard-update/dashboard-update.comp
 import {DashboardUpdateResolve} from "./dashboard-update/dashboard-update.resolve";
 import {DashboardDeleteComponent} from "./dashboard-delete/dashboard-delete.component";
 import {MessagesModule} from "primeng/components/messages/messages";
-import {DashboardsComponent} from "./dashboards/dashboards.component";
-import {DashboardsResolve} from "./dashboards/dashboards.resolve";
-import {DataScrollerModule} from "primeng/components/datascroller/datascroller";
+import {DashboardSettingsComponent} from "./dashboard-settings/dashboard-settings.component";
+import {DashboardSettingsResolve} from "./dashboard-settings/dashboard-settings.resolve";
+import {DashboardBoxService} from "./dashboard-box/dashboard-box.service";
+import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
+import {DashboardBoxTypeService} from "./dashboard-box-type/dashboard-box-type.service";
+import {ChartModule} from "primeng/components/chart/chart";
+import {DragulaModule} from "ng2-dragula";
+import {DashboardBoxDeleteComponent} from "./dashboard-box/dashboard-box-delete/dashboard-delete.component";
+import {DashboardBoxUpdateComponent} from "./dashboard-box/dashboard-box-update/dashboard-box-update.component";
+import {DialogModule} from "primeng/components/dialog/dialog";
+import {DashboardBoxCreateComponent} from "./dashboard-box/dashboard-box-create/dashboard-box-create.component";
+import {DataGridModule} from "primeng/components/datagrid/datagrid";
+import {TabViewModule} from "primeng/components/tabview/tabview";
+import {DashboardBoxTypeCreateComponent} from "./dashboard-box-type/dashboard-box-type-create/dashboard-box-type-create.component";
+import {DashboardBoxTypeUpdateResolve} from "./dashboard-box-type/dashboard-box-type-update/dashboard-box-type-update.resolve";
+import {DashboardBoxTypeUpdateComponent} from "./dashboard-box-type/dashboard-box-type-update/dashboard-box-type-update";
+import {DashboardBoxTypeDeleteComponent} from "./dashboard-box-type/dashboard-box-type-delete/dashboard-delete.component";
 
 @NgModule({
     imports: [
@@ -40,7 +54,11 @@ import {DataScrollerModule} from "primeng/components/datascroller/datascroller";
         OneToOneModule,
         SplitButtonModule,
         MessagesModule,
-        DataScrollerModule
+        ChartModule,
+        DragulaModule,
+        DialogModule,
+        DataGridModule,
+        TabViewModule
     ],
     exports: [DashboardComponent],
     declarations: [
@@ -48,14 +66,24 @@ import {DataScrollerModule} from "primeng/components/datascroller/datascroller";
         DashboardCreateComponent,
         DashboardUpdateComponent,
         DashboardDeleteComponent,
-        DashboardsComponent
+        DashboardBoxComponent,
+        DashboardSettingsComponent,
+        DashboardBoxDeleteComponent,
+        DashboardBoxUpdateComponent,
+        DashboardBoxCreateComponent,
+        DashboardBoxTypeCreateComponent,
+        DashboardBoxTypeUpdateComponent,
+        DashboardBoxTypeDeleteComponent
     ],
     providers: [
         ControlErrorService,
         NotificationService,
         DashboardResolve,
-        DashboardsResolve,
+        DashboardSettingsResolve,
+        DashboardBoxTypeUpdateResolve,
         DashboardUpdateResolve,
+        DashboardBoxService,
+        DashboardBoxTypeService,
         HTTP_INTERCEPTOR_PROVIDER
     ],
 })

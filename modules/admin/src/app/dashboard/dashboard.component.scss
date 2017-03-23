@@ -1,22 +1,23 @@
+:host {
+  display: block;
+  height: calc(100% - 29px);
+}
+
 .dashboard-toolbar {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 13px;
-}
-
-.row {
-  > div {
-    height: 150px;
-    margin-bottom: 20px;
-    > div {
-      background: #fff;
-      height: inherit;
-    }
-  }
+  padding-right: 8px;
 }
 
 @media (min-width: 992px) {
   .dashboard-toolbar {
     margin-bottom: 17px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .dashboard-toolbar {
+    padding: 0;
   }
 }

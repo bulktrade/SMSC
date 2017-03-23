@@ -1,0 +1,20 @@
+<!-- Dashboard toolbar -->
+<div class="dashboard-toolbar">
+    <p-splitButton icon="fa-plus" [title]="'dashboardBox.createDashboardBox' | translate"
+                   menuStyleClass="ui-button-success" (onClick)="router.navigate(['/dashboard', id, 'dashboard-box', 'create'])" [model]="menuItems"></p-splitButton>
+</div>
+<!-- /#dashboard toolbar -->
+
+<!-- Dashboard boxes -->
+<div class="ui-g dashboard-boxes" *ngIf="isDashboardBoxes()" dragula='dashboard-boxes'
+     [dragulaModel]='dashboardBoxes'>
+    <dashboard-box *ngFor="let dashboardBox of dashboardBoxes" [dashboardBox]="dashboardBox"></dashboard-box>
+</div>
+<!-- /#dashboard boxes -->
+
+<!-- Have no dashboard boxes panel -->
+<p-panel *ngIf="!isDashboardBoxes()">
+    <p-header>{{ 'dashboardBoxes.title' | translate }}</p-header>
+    <span>{{ 'dashboardBoxes.notFound' | translate }}</span>
+</p-panel>
+<!-- /#have no dashboard boxes panel -->

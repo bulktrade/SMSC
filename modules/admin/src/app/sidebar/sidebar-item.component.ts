@@ -1,7 +1,8 @@
 import {Component, Input, trigger, style, animate, state, transition} from "@angular/core";
-import {DashboardService} from "../dashboard/dashboard.service";
 import {Dashboard} from "../dashboard/dashboard.model";
 import {Router} from "@angular/router";
+import {SidebarModel} from "./sidebar.model";
+import {DashboardService, REPOSITORY_NAME} from "../dashboard/dashboard.service";
 
 @Component({
     selector: 'sidebar-item',
@@ -18,38 +19,30 @@ import {Router} from "@angular/router";
     styleUrls: ['./sidebar-item.component.scss']
 })
 export class SidebarItemComponent {
-    @Input('icon') public icon;
 
-    @Input('path') public path;
+    @Input('sidebarItem') public sidebarItem: SidebarModel;
 
-    @Input('paramsAsDefault') public paramsAsDefault;
-
-    @Input('nameItem') public nameItem;
-
-    @Input('showInSubNavigation') public showInSubNavigation;
-
-    @Input('submenu') public submenu;
-
-    @Input('toggle') public toggle;
-
-    public dashboards: Dashboard[] = [];
+    @Input('dashboards') public dashboards: Dashboard[] = [];
 
     public navItemState: boolean[] = [];
 
-    constructor(public dashboardService: DashboardService,
-                public router: Router) {
+    constructor(public router: Router,
+                public dashboardService: DashboardService) {
     }
 
     isActive(instruction: any[]): boolean {
         return this.router.isActive(this.router.createUrlTree(instruction), true);
     }
 
-    ngOnInit() {
-        this.dashboardService.onResourceChange.subscribe(() => this.updateDashboards());
-        this.updateDashboards();
-    }
-
-    updateDashboards() {
-        this.dashboardService.getDashboards().subscribe((_dashboards: Dashboard[]) => this.dashboards = _dashboards);
+    navigate(sidebarItem: SidebarModel) {
+        if (sidebarItem.name === 'DASHBOARDS') {
+            this.dashboardService.getResources(null, null, <Dashboard>{name: 'default'})
+                .subscribe((dashboards: Dashboard[]) => {
+                    let dashboard = dashboards['_embedded'][REPOSITORY_NAME][0];
+                    this.router.navigate(['/dashboard', dashboard['id']]);
+                });
+        } else {
+            this.router.navigateByUrl(sidebarItem.path);
+        }
     }
 }
