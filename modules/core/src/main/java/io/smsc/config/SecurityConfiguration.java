@@ -138,6 +138,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rest/repository/browser/**").permitAll()
                 .antMatchers("/admin/**").permitAll()
                 .antMatchers("/rest/auth/token").permitAll()
+                .antMatchers("/docs/index.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // Call our errorHandler if authentication/authorization fails

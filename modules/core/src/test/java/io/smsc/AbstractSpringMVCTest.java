@@ -15,11 +15,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
+import org.springframework.restdocs.JUnitRestDocumentation;
+import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
+import org.springframework.restdocs.request.ParameterDescriptor;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,6 +36,12 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessRequest;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -40,6 +50,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @TestPropertySource("classpath:hsqldb.properties")
 @ContextConfiguration(classes = {Application.class, AppConfiguration.class, MvcConfiguration.class, Oracle10gDialectExtended.class,
         RepositoryIdExposingConfiguration.class, SecurityConfiguration.class, SecurityInit.class, SpringDataRestValidationConfiguration.class})
+@AutoConfigureRestDocs(outputDir = "target/generated-snippets")
 @Transactional
 public abstract class AbstractSpringMVCTest {
 
@@ -68,6 +79,10 @@ public abstract class AbstractSpringMVCTest {
             LOG.info(result + " ms\n");
         }
     };
+
+    @Rule
+    public final JUnitRestDocumentation restDocumentation =
+            new JUnitRestDocumentation("target/generated-snippets");
 
     protected MockMvc mockMvc;
 
@@ -110,6 +125,7 @@ public abstract class AbstractSpringMVCTest {
     public void setup() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext)
                 .apply(springSecurity())
+                .apply(documentationConfiguration(this.restDocumentation))
                 .build();
     }
 
@@ -119,5 +135,28 @@ public abstract class AbstractSpringMVCTest {
                 o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
 
         return mockHttpOutputMessage.getBodyAsString();
+    }
+
+    /**
+     * Pretty print request and response
+     *
+     * @param useCase the name of the snippet
+     * @return RestDocumentationResultHandler
+     */
+    protected RestDocumentationResultHandler documentPrettyPrintReqResp(String useCase) {
+        return document(useCase,
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()));
+    }
+
+    /**
+     * Entity's id in path variables
+     *
+     * @return ParameterDescriptor
+     */
+    protected ParameterDescriptor[] getPathParam(String name) {
+        return new ParameterDescriptor[]{
+                parameterWithName("id").description(String.format("%s's id", name))
+        };
     }
 }

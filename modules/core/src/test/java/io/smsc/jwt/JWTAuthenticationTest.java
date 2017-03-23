@@ -12,6 +12,7 @@ import io.smsc.model.customer.Salutation;
 import org.assertj.core.util.DateUtil;
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
@@ -24,6 +25,11 @@ import java.util.Map;
 import static io.smsc.jwt.service.impl.JWTTokenGenerationServiceImpl.CLAIM_KEY_CREATED;
 import static io.smsc.jwt.service.impl.JWTTokenGenerationServiceImpl.CLAIM_KEY_USERNAME;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,10 +45,25 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
 
     @Test
     public void testLoginAdmin() throws Exception {
+        FieldDescriptor[] JWTAuthenticationRequestFields = new FieldDescriptor[]{
+                fieldWithPath("username").description("User's username")
+                        .attributes(key("mandatory").value(true)),
+                fieldWithPath("password").description("User's password")
+                .attributes(key("mandatory").value(true))
+        };
+
+        FieldDescriptor[] JWTAuthenticationResponseFields = new FieldDescriptor[]{
+                fieldWithPath("token").description("Access token"),
+                fieldWithPath("refreshToken").description("Refresh token")
+        };
+
         mockMvc.perform(post("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTAuthenticationRequest("admin", "admin"))))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(document("getTokens",
+                        requestFields(JWTAuthenticationRequestFields),
+                        responseFields(JWTAuthenticationResponseFields)));
     }
 
     @Test
@@ -110,13 +131,25 @@ public class JWTAuthenticationTest extends AbstractSpringMVCTest {
 
     @Test
     public void testRefreshToken() throws Exception {
+        FieldDescriptor[] JWTRefreshTokenRequestFields = new FieldDescriptor[]{
+                fieldWithPath("refreshToken").description("Refresh token")
+                        .attributes(key("mandatory").value(true))
+        };
+
+        FieldDescriptor[] JWTRefreshTokenResponseFields = new FieldDescriptor[]{
+                fieldWithPath("refreshedToken").description("New access token")
+        };
+
         UserDetails adminDetails = createJWTUser();
         String refreshToken = jwtTokenGenerationService.generateRefreshToken(adminDetails);
 
         mockMvc.perform(put("/rest/auth/token")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json(new JWTRefreshTokenRequest(refreshToken))))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andDo(document("refreshToken",
+                        requestFields(JWTRefreshTokenRequestFields),
+                        responseFields(JWTRefreshTokenResponseFields)));
     }
 
     @Test

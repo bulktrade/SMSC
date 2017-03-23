@@ -1,0 +1,1773 @@
+= REST API documentation of SMSC
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+
+This RESTful API tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP verbs.
+
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PUT`
+| Used to substitute an existing resource with new one
+
+| `PATCH`
+| Used to update an existing resource partially or fully
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+
+This RESTful API tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully
+
+| `201 Created`
+| A new resource has been created successfully. The resource's URI is available from the response's
+`Location` header
+
+| `204 No Content`
+| Resource was deleted successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `401 Unauthorized`
+| User used wrong credentials while receiving JWT token or tried to access resource without token
+
+| `404 Not Found`
+| The requested resource did not exist
+
+| `409 Conflict`
+| The request could not be completed due to a conflict with the current state of the target resource
+|===
+
+[[overview-links-information]]
+== Links information
+
+Each HTTP response contains HAL links on current and related resources.
+
+include::{snippets}/getLinks/links.adoc[]
+
+[[overview-pagination-information]]
+== Pagination information
+
+Each HTTP response contains page section with information about pagination
+for current resource.
+
+include::{snippets}/getPages/response-fields.adoc[]
+
+[[resources]]
+= Resources
+
+[[resources-tokens]]
+== JWT tokens
+
+[[resources-tokens-get]]
+=== Get access and refresh tokens
+
+A `POST` request with valid credentials will return access and refresh tokens.
+
+==== Request fields
+
+include::{snippets}/getTokens/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getTokens/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getTokens/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getTokens/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getTokens/http-response.adoc[]
+
+
+[[resources-tokens-refresh]]
+=== Refresh access token
+
+A `PUT` request with valid refresh token will return new access token.
+
+==== Request fields
+
+include::{snippets}/refreshToken/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/refreshToken/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/refreshToken/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/refreshToken/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/refreshToken/http-response.adoc[]
+
+
+[[resources-admin-user]]
+== AdminUser
+
+[[resources-admin-user-get]]
+=== Get single AdminUser
+
+A `GET` request will return single AdminUser.
+
+==== Path parameters
+
+include::{snippets}/getAdminUser/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getAdminUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getAdminUser/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getAdminUser/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getAdminUser/http-response.adoc[]
+
+
+[[resources-admin-user-getAll]]
+=== Get all AdminUsers
+
+A `GET` request will return all AdminUsers.
+
+==== Request parameters
+
+include::{snippets}/getAdminUsers/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getAdminUsers/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getAdminUsers/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getAdminUsers/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getAdminUsers/http-response.adoc[]
+
+
+[[resources-admin-user-create]]
+=== Create AdminUser
+
+A `POST` request will create new AdminUser.
+
+==== Request fields
+
+include::{snippets}/createAdminUser/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createAdminUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createAdminUser/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createAdminUser/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createAdminUser/http-response.adoc[]
+
+
+[[resources-admin-user-replace]]
+=== Replace existing AdminUser with new one
+
+A `PUT` request will replace existing AdminUser with new AdminUser.
+
+==== Path parameters
+
+include::{snippets}/replaceAdminUser/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceAdminUser/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceAdminUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceAdminUser/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceAdminUser/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceAdminUser/http-response.adoc[]
+
+
+[[resources-admin-user-update]]
+=== Update AdminUser
+
+A `PATCH` request will update existing AdminUser partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateAdminUser/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateAdminUser/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateAdminUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateAdminUser/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateAdminUser/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateAdminUser/http-response.adoc[]
+
+
+[[resources-admin-user-delete]]
+=== Delete AdminUser
+
+A `DELETE` request will delete existing AdminUser.
+
+==== Path parameters
+
+include::{snippets}/deleteAdminUser/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteAdminUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteAdminUser/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteAdminUser/http-response.adoc[]
+
+
+[[resources-group]]
+== Group
+
+[[resources-group-get]]
+=== Get single Group
+
+A `GET` request will return single Group.
+
+==== Path parameters
+
+include::{snippets}/getGroup/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getGroup/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getGroup/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getGroup/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getGroup/http-response.adoc[]
+
+
+[[resources-group-getAll]]
+=== Get all Groups
+
+A `GET` request will return all Groups.
+
+==== Request parameters
+
+include::{snippets}/getGroups/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getGroups/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getGroups/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getGroups/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getGroups/http-response.adoc[]
+
+
+[[resources-group-create]]
+=== Create Group
+
+A `POST` request will create new Group.
+
+==== Request fields
+
+include::{snippets}/createGroup/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createGroup/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createGroup/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createGroup/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createGroup/http-response.adoc[]
+
+
+[[resources-group-replace]]
+=== Replace existing Group with new one
+
+A `PUT` request will replace existing Group with new Group.
+
+==== Path parameters
+
+include::{snippets}/replaceGroup/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceGroup/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceGroup/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceGroup/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceGroup/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceGroup/http-response.adoc[]
+
+
+[[resources-group-update]]
+=== Update Group
+
+A `PATCH` request will update existing Group partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateGroup/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateGroup/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateGroup/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateGroup/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateGroup/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateGroup/http-response.adoc[]
+
+
+[[resources-group-delete]]
+=== Delete Group
+
+A `DELETE` request will delete existing Group.
+
+==== Path parameters
+
+include::{snippets}/deleteGroup/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteGroup/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteGroup/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteGroup/http-response.adoc[]
+
+
+[[resources-role]]
+== Role
+
+[[resources-role-get]]
+=== Get single Role
+
+A `GET` request will return single Role.
+
+==== Path parameters
+
+include::{snippets}/getRole/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getRole/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getRole/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getRole/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getRole/http-response.adoc[]
+
+
+[[resources-role-getAll]]
+=== Get all Roles
+
+A `GET` request will return all Roles.
+
+==== Request parameters
+
+include::{snippets}/getRoles/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getRoles/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getRoles/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getRoles/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getRoles/http-response.adoc[]
+
+
+[[resources-role-create]]
+=== Create Role
+
+A `POST` request will create new Role.
+
+==== Request fields
+
+include::{snippets}/createRole/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createRole/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createRole/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createRole/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createRole/http-response.adoc[]
+
+
+[[resources-role-replace]]
+=== Replace existing Role with new one
+
+A `PUT` request will replace existing Role with new Role.
+
+==== Path parameters
+
+include::{snippets}/replaceRole/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceRole/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceRole/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceRole/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceRole/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceRole/http-response.adoc[]
+
+
+[[resources-role-update]]
+=== Update Role
+
+A `PATCH` request will update existing Role partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateRole/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateRole/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateRole/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateRole/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateRole/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateRole/http-response.adoc[]
+
+
+[[resources-role-delete]]
+=== Delete Role
+
+A `DELETE` request will delete existing Role.
+
+==== Path parameters
+
+include::{snippets}/deleteRole/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteRole/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteRole/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteRole/http-response.adoc[]
+
+
+[[resources-authority]]
+== Authority
+
+[[resources-authority-get]]
+=== Get single Authority
+
+A `GET` request will return single Authority.
+
+==== Path parameters
+
+include::{snippets}/getAuthority/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getAuthority/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getAuthority/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getAuthority/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getAuthority/http-response.adoc[]
+
+
+[[resources-authority-getAll]]
+=== Get all Authorities
+
+A `GET` request will return all Authorities.
+
+==== Request parameters
+
+include::{snippets}/getAuthorities/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getAuthorities/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getAuthorities/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getAuthorities/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getAuthorities/http-response.adoc[]
+
+
+[[resources-authority-create]]
+=== Create Authority
+
+A `POST` request will create new Authority.
+
+==== Request fields
+
+include::{snippets}/createAuthority/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createAuthority/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createAuthority/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createAuthority/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createAuthority/http-response.adoc[]
+
+
+[[resources-authority-replace]]
+=== Replace existing Authority with new one
+
+A `PUT` request will replace existing Authority with new Authority.
+
+==== Path parameters
+
+include::{snippets}/replaceAuthority/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceAuthority/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceAuthority/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceAuthority/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceAuthority/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceAuthority/http-response.adoc[]
+
+
+[[resources-authority-update]]
+=== Update Authority
+
+A `PATCH` request will update existing Authority partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateAuthority/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateAuthority/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateAuthority/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateAuthority/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateAuthority/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateAuthority/http-response.adoc[]
+
+
+[[resources-authority-delete]]
+=== Delete Authority
+
+A `DELETE` request will delete existing Authority.
+
+==== Path parameters
+
+include::{snippets}/deleteAuthority/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteAuthority/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteAuthority/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteAuthority/http-response.adoc[]
+
+
+[[resources-customer]]
+== Customer
+
+[[resources-customer-get]]
+=== Get single Customer
+
+A `GET` request will return single Customer.
+
+==== Path parameters
+
+include::{snippets}/getCustomer/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getCustomer/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getCustomer/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getCustomer/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getCustomer/http-response.adoc[]
+
+
+[[resources-customer-getAll]]
+=== Get all Customers
+
+A `GET` request will return all Customers.
+
+==== Request parameters
+
+include::{snippets}/getCustomers/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getCustomers/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getCustomers/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getCustomers/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getCustomers/http-response.adoc[]
+
+
+[[resources-customer-create]]
+=== Create Customer
+
+A `POST` request will create new Customer.
+
+==== Request fields
+
+include::{snippets}/createCustomer/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createCustomer/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createCustomer/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createCustomer/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createCustomer/http-response.adoc[]
+
+
+[[resources-customer-replace]]
+=== Replace existing Customer with new one
+
+A `PUT` request will replace existing Customer with new Customer.
+
+==== Path parameters
+
+include::{snippets}/replaceCustomer/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceCustomer/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceCustomer/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceCustomer/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceCustomer/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceCustomer/http-response.adoc[]
+
+
+[[resources-customer-update]]
+=== Update Customer
+
+A `PATCH` request will update existing Customer partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateCustomer/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateCustomer/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateCustomer/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateCustomer/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateCustomer/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateCustomer/http-response.adoc[]
+
+
+[[resources-customer-delete]]
+=== Delete Customer
+
+A `DELETE` request will delete existing Customer.
+
+==== Path parameters
+
+include::{snippets}/deleteCustomer/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteCustomer/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteCustomer/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteCustomer/http-response.adoc[]
+
+
+[[resources-contact]]
+== Contact
+
+[[resources-contact-get]]
+=== Get single Contact
+
+A `GET` request will return single Contact.
+
+==== Path parameters
+
+include::{snippets}/getContact/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getContact/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getContact/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getContact/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getContact/http-response.adoc[]
+
+
+[[resources-contact-getAll]]
+=== Get all Contacts
+
+A `GET` request will return all Contacts.
+
+==== Request parameters
+
+include::{snippets}/getContacts/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getContacts/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getContacts/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getContacts/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getContacts/http-response.adoc[]
+
+
+[[resources-contact-create]]
+=== Create Contact
+
+A `POST` request will create new Contact.
+
+==== Request fields
+
+include::{snippets}/createContact/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createContact/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createContact/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createContact/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createContact/http-response.adoc[]
+
+
+[[resources-contact-replace]]
+=== Replace existing Contact with new one
+
+A `PUT` request will replace existing Contact with new Contact.
+
+==== Path parameters
+
+include::{snippets}/replaceContact/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceContact/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceContact/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceContact/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceContact/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceContact/http-response.adoc[]
+
+
+[[resources-contact-update]]
+=== Update Contact
+
+A `PATCH` request will update existing Contact partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateContact/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateContact/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateContact/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateContact/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateContact/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateContact/http-response.adoc[]
+
+
+[[resources-contact-delete]]
+=== Delete Contact
+
+A `DELETE` request will delete existing Contact.
+
+==== Path parameters
+
+include::{snippets}/deleteContact/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteContact/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteContact/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteContact/http-response.adoc[]
+
+
+[[resources-customer-user]]
+== CustomerUser
+
+[[resources-customer-user-get]]
+=== Get single CustomerUser
+
+A `GET` request will return single CustomerUser.
+
+==== Path parameters
+
+include::{snippets}/getCustomerUser/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getCustomerUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getCustomerUser/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getCustomerUser/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getCustomerUser/http-response.adoc[]
+
+
+[[resources-customer-user-getAll]]
+=== Get all CustomerUsers
+
+A `GET` request will return all CustomerUsers.
+
+==== Request parameters
+
+include::{snippets}/getCustomerUsers/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getCustomerUsers/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getCustomerUsers/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getCustomerUsers/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getCustomerUsers/http-response.adoc[]
+
+
+[[resources-customer-user-create]]
+=== Create CustomerUser
+
+A `POST` request will create new CustomerUser.
+
+==== Request fields
+
+include::{snippets}/createCustomerUser/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createCustomerUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createCustomerUser/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createCustomerUser/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createCustomerUser/http-response.adoc[]
+
+
+[[resources-customer-user-replace]]
+=== Replace existing CustomerUser with new one
+
+A `PUT` request will replace existing CustomerUser with new CustomerUser.
+
+==== Path parameters
+
+include::{snippets}/replaceCustomerUser/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceCustomerUser/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceCustomerUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceCustomerUser/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceCustomerUser/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceCustomerUser/http-response.adoc[]
+
+
+[[resources-customer-user-update]]
+=== Update CustomerUser
+
+A `PATCH` request will update existing CustomerUser partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateCustomerUser/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateCustomerUser/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateCustomerUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateCustomerUser/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateCustomerUser/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateCustomerUser/http-response.adoc[]
+
+
+[[resources-customer-user-delete]]
+=== Delete CustomerUser
+
+A `DELETE` request will delete existing CustomerUser.
+
+==== Path parameters
+
+include::{snippets}/deleteCustomerUser/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteCustomerUser/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteCustomerUser/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteCustomerUser/http-response.adoc[]
+
+
+[[resources-dashboard]]
+== Dashboard
+
+[[resources-dashboard-get]]
+=== Get single Dashboard
+
+A `GET` request will return single Dashboard.
+
+==== Path parameters
+
+include::{snippets}/getDashboard/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getDashboard/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getDashboard/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getDashboard/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getDashboard/http-response.adoc[]
+
+
+[[resources-dashboard-getAll]]
+=== Get all Dashboards
+
+A `GET` request will return all Dashboards.
+
+==== Request parameters
+
+include::{snippets}/getDashboards/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getDashboards/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getDashboards/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getDashboards/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getDashboards/http-response.adoc[]
+
+
+[[resources-dashboard-create]]
+=== Create Dashboard
+
+A `POST` request will create new Dashboard.
+
+==== Request fields
+
+include::{snippets}/createDashboard/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createDashboard/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createDashboard/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createDashboard/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createDashboard/http-response.adoc[]
+
+
+[[resources-dashboard-replace]]
+=== Replace existing Dashboard with new one
+
+A `PUT` request will replace existing Dashboard with new Dashboard.
+
+==== Path parameters
+
+include::{snippets}/replaceDashboard/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceDashboard/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceDashboard/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceDashboard/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceDashboard/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceDashboard/http-response.adoc[]
+
+
+[[resources-dashboard-update]]
+=== Update Dashboard
+
+A `PATCH` request will update existing Dashboard partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateDashboard/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateDashboard/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateDashboard/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateDashboard/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateDashboard/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateDashboard/http-response.adoc[]
+
+
+[[resources-dashboard-delete]]
+=== Delete Dashboard
+
+A `DELETE` request will delete existing Dashboard.
+
+==== Path parameters
+
+include::{snippets}/deleteDashboard/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteDashboard/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteDashboard/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteDashboard/http-response.adoc[]
+
+
+[[resources-dashboard-box]]
+== DashboardBox
+
+[[resources-dashboard-box-get]]
+=== Get single DashboardBox
+
+A `GET` request will return single DashboardBox.
+
+==== Path parameters
+
+include::{snippets}/getDashboardBox/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getDashboardBox/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getDashboardBox/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getDashboardBox/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getDashboardBox/http-response.adoc[]
+
+
+[[resources-dashboard-box-getAll]]
+=== Get all DashboardBoxes
+
+A `GET` request will return all DashboardBoxes.
+
+==== Request parameters
+
+include::{snippets}/getDashboardBoxes/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getDashboardBoxes/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getDashboardBoxes/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getDashboardBoxes/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getDashboardBoxes/http-response.adoc[]
+
+
+[[resources-dashboard-box-create]]
+=== Create DashboardBox
+
+A `POST` request will create new DashboardBox.
+
+==== Request fields
+
+include::{snippets}/createDashboardBox/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createDashboardBox/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createDashboardBox/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createDashboardBox/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createDashboardBox/http-response.adoc[]
+
+
+[[resources-dashboard-box-replace]]
+=== Replace existing DashboardBox with new one
+
+A `PUT` request will replace existing DashboardBox with new DashboardBox.
+
+==== Path parameters
+
+include::{snippets}/replaceDashboardBox/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceDashboardBox/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceDashboardBox/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceDashboardBox/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceDashboardBox/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceDashboardBox/http-response.adoc[]
+
+
+[[resources-dashboard-box-update]]
+=== Update DashboardBox
+
+A `PATCH` request will update existing DashboardBox partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateDashboardBox/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateDashboardBox/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateDashboardBox/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateDashboardBox/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateDashboardBox/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateDashboardBox/http-response.adoc[]
+
+
+[[resources-dashboard-box-delete]]
+=== Delete DashboardBox
+
+A `DELETE` request will delete existing DashboardBox.
+
+==== Path parameters
+
+include::{snippets}/deleteDashboardBox/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteDashboardBox/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteDashboardBox/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteDashboardBox/http-response.adoc[]
+
+
+[[resources-dashboard-box-type]]
+== DashboardBoxType
+
+[[resources-dashboard-box-type-get]]
+=== Get single DashboardBoxType
+
+A `GET` request will return single DashboardBoxType.
+
+==== Path parameters
+
+include::{snippets}/getDashboardBoxType/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getDashboardBoxType/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getDashboardBoxType/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getDashboardBoxType/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getDashboardBoxType/http-response.adoc[]
+
+
+[[resources-dashboard-box-type-getAll]]
+=== Get all DashboardBoxTypes
+
+A `GET` request will return all DashboardBoxTypes.
+
+==== Request parameters
+
+include::{snippets}/getDashboardBoxTypes/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getDashboardBoxTypes/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getDashboardBoxTypes/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getDashboardBoxTypes/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getDashboardBoxTypes/http-response.adoc[]
+
+
+[[resources-dashboard-box-type-create]]
+=== Create DashboardBoxType
+
+A `POST` request will create new DashboardBoxType.
+
+==== Request fields
+
+include::{snippets}/createDashboardBoxType/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createDashboardBoxType/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createDashboardBoxType/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createDashboardBoxType/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createDashboardBoxType/http-response.adoc[]
+
+
+[[resources-dashboard-box-type-replace]]
+=== Replace existing DashboardBoxType with new one
+
+A `PUT` request will replace existing DashboardBoxType
+with new DashboardBoxType.
+
+==== Path parameters
+
+include::{snippets}/replaceDashboardBoxType/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceDashboardBoxType/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceDashboardBoxType/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceDashboardBoxType/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceDashboardBoxType/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceDashboardBoxType/http-response.adoc[]
+
+
+[[resources-dashboard-box-type-update]]
+=== Update DashboardBoxType
+
+A `PATCH` request will update existing DashboardBoxType partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateDashboardBoxType/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateDashboardBoxType/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateDashboardBoxType/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateDashboardBoxType/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateDashboardBoxType/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateDashboardBoxType/http-response.adoc[]
+
+
+[[resources-dashboard-box-type-delete]]
+=== Delete DashboardBoxType
+
+A `DELETE` request will delete existing DashboardBoxType.
+
+==== Path parameters
+
+include::{snippets}/deleteDashboardBoxType/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteDashboardBoxType/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteDashboardBoxType/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteDashboardBoxType/http-response.adoc[]
+
+
+
