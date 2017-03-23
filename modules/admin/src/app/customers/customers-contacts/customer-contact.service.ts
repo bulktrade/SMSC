@@ -4,7 +4,7 @@ import {ConfigService} from "../../config/config.service";
 import {Contact} from "../model/contact";
 import {CrudRepository} from "../../shared/crud-repository";
 
-const REPOSITORY_NAME: string = 'customer-contacts';
+const REPOSITORY_NAME: string = 'contacts';
 
 @Injectable()
 export class CustomersContactsService extends CrudRepository<Contact> {
