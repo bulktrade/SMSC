@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import java.util.Map;
  * @see io.smsc.jwt.service.impl.JWTTokenGenerationServiceImpl
  * @since 0.0.1-SNAPSHOT
  */
-@Component
+@Service
 public class JWTTokenGenerationServiceImpl implements JWTTokenGenerationService {
 
     public static final long serialVersionUID = -3301605591108950415L;
