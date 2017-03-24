@@ -11,7 +11,7 @@
     <p-tabView>
         <p-tabPanel headerStyleClass="ui-sm-12" [header]="'DASHBOARDS' | translate">
             <p-dataGrid [value]="dashboards" [paginator]="false" [rows]="20">
-                <template let-dashboard pTemplate="item">
+                <ng-template let-dashboard pTemplate="item">
                     <div class="ui-g-12 ui-md-3 item">
                         <p-panel [header]="dashboard.name" [style]="{'text-align':'center'}">
                             <span class="colunm-name">icon:</span> {{ dashboard.icon }}
@@ -22,12 +22,12 @@
                                     [routerLink]="['/dashboard', dashboard.id, 'delete']" icon="fa-remove"></button>
                         </p-panel>
                     </div>
-                </template>
+                </ng-template>
             </p-dataGrid>
         </p-tabPanel>
         <p-tabPanel headerStyleClass="ui-sm-12" [header]="'dashboardBoxType.title' | translate">
             <p-dataGrid [value]="dashboardBoxTypes" [paginator]="false" [rows]="20">
-                <template let-dashboardBoxType pTemplate="item">
+                <ng-template let-dashboardBoxType pTemplate="item">
                     <div class="ui-g-12 ui-md-3 item">
                         <p-panel [header]="dashboardBoxType.name" [style]="{'text-align':'center'}">
                             <span class="colunm-name">type:</span> {{ dashboardBoxType.type }} <br>
@@ -39,7 +39,7 @@
                                     class="ui-button-danger" pButton type="button" icon="fa-remove"></button>
                         </p-panel>
                     </div>
-                </template>
+                </ng-template>
             </p-dataGrid>
         </p-tabPanel>
     </p-tabView>
