@@ -11,6 +11,7 @@ import {UsersModule} from "../customers-users.module";
 import {ConfigServiceMock} from "../../../shared/test/stub/config.service";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('Component: UsersCreateComponent', () => {
     let componentFixture: ComponentHelper<UsersCreateComponent> =
@@ -20,6 +21,7 @@ describe('Component: UsersCreateComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
+                BrowserAnimationsModule,
                 UsersModule,
                 RouterTestingModule,
                 TranslateModule.forRoot()

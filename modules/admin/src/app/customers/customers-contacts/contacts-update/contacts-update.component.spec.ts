@@ -11,6 +11,7 @@ import {CustomersContactsModule} from "../customers-contacts.module";
 import {APP_PROVIDERS} from "../../../app.module";
 import {ConfigService} from "../../../config/config.service";
 import {ConfigServiceMock} from "../../../shared/test/stub/config.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('Component: ContactsUpdateComponent', () => {
     let componentFixture: ComponentHelper<ContactsUpdateComponent> =
@@ -20,6 +21,7 @@ describe('Component: ContactsUpdateComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
+                BrowserAnimationsModule,
                 CustomersContactsModule,
                 RouterTestingModule,
                 TranslateModule.forRoot()

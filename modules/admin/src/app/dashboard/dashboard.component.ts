@@ -8,13 +8,15 @@ import {DragulaService} from "ng2-dragula";
 import {DashboardBoxService} from "./dashboard-box/dashboard-box.service";
 import * as _ from "lodash";
 import {NotificationService} from "../services/notification-service";
+import {OnInit} from "@angular/core";
 
 @Component({
     selector: 'dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss']
+    styleUrls: ['./dashboard.component.scss'],
+    providers: [DragulaService]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
     id: number = null;
 

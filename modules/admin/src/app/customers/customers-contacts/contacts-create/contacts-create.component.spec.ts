@@ -13,6 +13,7 @@ import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {ContactsCreateComponent} from "./contacts-create.component";
 import {CustomersContactsModule} from "../customers-contacts.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('Component: ContactsCreateComponent', () => {
     let componentFixture: ComponentHelper<ContactsCreateComponent> =
@@ -22,6 +23,7 @@ describe('Component: ContactsCreateComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
+                BrowserAnimationsModule,
                 CustomersContactsModule,
                 RouterTestingModule,
                 TranslateModule.forRoot()

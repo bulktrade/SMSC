@@ -12,6 +12,7 @@ import {ConfigServiceMock} from "../../../shared/test/stub/config.service";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {UsersUpdateComponent} from "./users-update.component";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('Component: UsersUpdateComponent', () => {
     let componentFixture: ComponentHelper<UsersUpdateComponent> =
@@ -21,6 +22,7 @@ describe('Component: UsersUpdateComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
+                BrowserAnimationsModule,
                 UsersModule,
                 RouterTestingModule,
                 TranslateModule.forRoot()

@@ -6,7 +6,8 @@
 <!-- /#dashboard toolbar -->
 
 <!-- Dashboard boxes -->
-<div class="ui-g dashboard-boxes" *ngIf="isDashboardBoxes()" dragula='dashboard-boxes'
+<div class="ui-g dashboard-boxes" *ngIf="isDashboardBoxes()" dragula='dashboard-box
+'
      [dragulaModel]='dashboardBoxes'>
     <dashboard-box *ngFor="let dashboardBox of dashboardBoxes" [dashboardBox]="dashboardBox"></dashboard-box>
 </div>

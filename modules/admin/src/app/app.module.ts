@@ -38,6 +38,7 @@ import {ControlErrorService} from "./services/control-error";
 import {DashboardService} from "./dashboard/dashboard.service";
 import {UserService} from "./users/user.service";
 import {SidebarService} from "./sidebar/sidebar.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 export type StoreType = {
     state: InternalStateType,
@@ -90,6 +91,7 @@ export const APP_DECLARATIONS = [
 ];
 
 export const APP_IMPORTS = [
+    BrowserAnimationsModule,
     MessagesModule,
     LoadingRouterOutletModule,
     BrowserModule,

@@ -1,8 +1,9 @@
-import {Component, Input, trigger, style, animate, state, transition} from "@angular/core";
+import {trigger, style, animate, state, transition} from "@angular/animations";
 import {Dashboard} from "../dashboard/dashboard.model";
 import {Router} from "@angular/router";
 import {SidebarModel} from "./sidebar.model";
 import {DashboardService, REPOSITORY_NAME} from "../dashboard/dashboard.service";
+import {Input, Component} from "@angular/core";
 
 @Component({
     selector: 'sidebar-item',
