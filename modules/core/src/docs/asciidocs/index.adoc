@@ -954,167 +954,167 @@ include::{snippets}/deleteCustomer/curl-request.adoc[]
 include::{snippets}/deleteCustomer/http-response.adoc[]
 
 
-[[resources-contact]]
-== Contact
+[[resources-customer-contact]]
+== CustomerContact
 
-[[resources-contact-get]]
-=== Get single Contact
+[[resources-customer-contact-get]]
+=== Get single CustomerContact
 
-A `GET` request will return single Contact.
+A `GET` request will return single CustomerContact.
 
 ==== Path parameters
 
-include::{snippets}/getContact/path-parameters.adoc[]
+include::{snippets}/getCustomerContact/path-parameters.adoc[]
 
 ==== HTTP request example
 
-include::{snippets}/getContact/http-request.adoc[]
+include::{snippets}/getCustomerContact/http-request.adoc[]
 
 ==== CURL request example
 
-include::{snippets}/getContact/curl-request.adoc[]
+include::{snippets}/getCustomerContact/curl-request.adoc[]
 
 ==== Response fields
 
-include::{snippets}/getContact/response-fields.adoc[]
+include::{snippets}/getCustomerContact/response-fields.adoc[]
 
 ==== HTTP response example
 
-include::{snippets}/getContact/http-response.adoc[]
+include::{snippets}/getCustomerContact/http-response.adoc[]
 
 
-[[resources-contact-getAll]]
-=== Get all Contacts
+[[resources-customer-contact-getAll]]
+=== Get all CustomerContacts
 
-A `GET` request will return all Contacts.
+A `GET` request will return all CustomerContacts.
 
 ==== Request parameters
 
-include::{snippets}/getContacts/request-parameters.adoc[]
+include::{snippets}/getCustomerContacts/request-parameters.adoc[]
 
 ==== HTTP request example
 
-include::{snippets}/getContacts/http-request.adoc[]
+include::{snippets}/getCustomerContacts/http-request.adoc[]
 
 ==== CURL request example
 
-include::{snippets}/getContacts/curl-request.adoc[]
+include::{snippets}/getCustomerContacts/curl-request.adoc[]
 
 ==== Response fields
 
-include::{snippets}/getContacts/response-fields.adoc[]
+include::{snippets}/getCustomerContacts/response-fields.adoc[]
 
 ==== HTTP response example
 
-include::{snippets}/getContacts/http-response.adoc[]
+include::{snippets}/getCustomerContacts/http-response.adoc[]
 
 
-[[resources-contact-create]]
-=== Create Contact
+[[resources-customer-contact-create]]
+=== Create CustomerContact
 
-A `POST` request will create new Contact.
+A `POST` request will create new CustomerContact.
 
 ==== Request fields
 
-include::{snippets}/createContact/request-fields.adoc[]
+include::{snippets}/createCustomerContact/request-fields.adoc[]
 
 ==== HTTP request example
 
-include::{snippets}/createContact/http-request.adoc[]
+include::{snippets}/createCustomerContact/http-request.adoc[]
 
 ==== CURL request example
 
-include::{snippets}/createContact/curl-request.adoc[]
+include::{snippets}/createCustomerContact/curl-request.adoc[]
 
 ==== Response fields
 
-include::{snippets}/createContact/response-fields.adoc[]
+include::{snippets}/createCustomerContact/response-fields.adoc[]
 
 ==== HTTP response example
 
-include::{snippets}/createContact/http-response.adoc[]
+include::{snippets}/createCustomerContact/http-response.adoc[]
 
 
-[[resources-contact-replace]]
-=== Replace existing Contact with new one
+[[resources-customer-contact-replace]]
+=== Replace existing CustomerContact with new one
 
-A `PUT` request will replace existing Contact with new Contact.
+A `PUT` request will replace existing CustomerContact with new CustomerContact.
 
 ==== Path parameters
 
-include::{snippets}/replaceContact/path-parameters.adoc[]
+include::{snippets}/replaceCustomerContact/path-parameters.adoc[]
 
 ==== Request fields
 
-include::{snippets}/replaceContact/request-fields.adoc[]
+include::{snippets}/replaceCustomerContact/request-fields.adoc[]
 
 ==== HTTP request example
 
-include::{snippets}/replaceContact/http-request.adoc[]
+include::{snippets}/replaceCustomerContact/http-request.adoc[]
 
 ==== CURL request example
 
-include::{snippets}/replaceContact/curl-request.adoc[]
+include::{snippets}/replaceCustomerContact/curl-request.adoc[]
 
 ==== Response fields
 
-include::{snippets}/replaceContact/response-fields.adoc[]
+include::{snippets}/replaceCustomerContact/response-fields.adoc[]
 
 ==== HTTP response example
 
-include::{snippets}/replaceContact/http-response.adoc[]
+include::{snippets}/replaceCustomerContact/http-response.adoc[]
 
 
-[[resources-contact-update]]
-=== Update Contact
+[[resources-customer-contact-update]]
+=== Update CustomerContact
 
-A `PATCH` request will update existing Contact partially or fully.
+A `PATCH` request will update existing CustomerContact partially or fully.
 
 ==== Path parameters
 
-include::{snippets}/updateContact/path-parameters.adoc[]
+include::{snippets}/updateCustomerContact/path-parameters.adoc[]
 
 ==== Request fields
 
-include::{snippets}/updateContact/request-fields.adoc[]
+include::{snippets}/updateCustomerContact/request-fields.adoc[]
 
 ==== HTTP request example
 
-include::{snippets}/updateContact/http-request.adoc[]
+include::{snippets}/updateCustomerContact/http-request.adoc[]
 
 ==== CURL request example
 
-include::{snippets}/updateContact/curl-request.adoc[]
+include::{snippets}/updateCustomerContact/curl-request.adoc[]
 
 ==== Response fields
 
-include::{snippets}/updateContact/response-fields.adoc[]
+include::{snippets}/updateCustomerContact/response-fields.adoc[]
 
 ==== HTTP response example
 
-include::{snippets}/updateContact/http-response.adoc[]
+include::{snippets}/updateCustomerContact/http-response.adoc[]
 
 
-[[resources-contact-delete]]
-=== Delete Contact
+[[resources-customer-contact-delete]]
+=== Delete CustomerContact
 
-A `DELETE` request will delete existing Contact.
+A `DELETE` request will delete existing CustomerContact.
 
 ==== Path parameters
 
-include::{snippets}/deleteContact/path-parameters.adoc[]
+include::{snippets}/deleteCustomerContact/path-parameters.adoc[]
 
 ==== HTTP request example
 
-include::{snippets}/deleteContact/http-request.adoc[]
+include::{snippets}/deleteCustomerContact/http-request.adoc[]
 
 ==== CURL request example
 
-include::{snippets}/deleteContact/curl-request.adoc[]
+include::{snippets}/deleteCustomerContact/curl-request.adoc[]
 
 ==== HTTP response example
 
-include::{snippets}/deleteContact/http-response.adoc[]
+include::{snippets}/deleteCustomerContact/http-response.adoc[]
 
 
 [[resources-customer-user]]

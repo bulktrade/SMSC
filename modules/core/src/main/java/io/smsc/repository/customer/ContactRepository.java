@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Nazar Lipkovskyy
  * @since 0.0.1-SNAPSHOT
  */
-@RepositoryRestResource(collectionResourceRel = "contacts", path = "contacts")
+@RepositoryRestResource(collectionResourceRel = "customer-contacts", path = "customer-contacts")
 @Transactional(readOnly = true)
 @PreAuthorize("hasRole('ADMIN_USER')")
 public interface ContactRepository extends PagingAndSortingRepository<Contact, Long>,
