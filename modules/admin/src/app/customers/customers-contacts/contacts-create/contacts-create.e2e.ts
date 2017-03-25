@@ -30,16 +30,16 @@ describe('Create the contact', () => {
 
     it('should set the value to salutation input field', () => {
         page.setSalutation();
-        expect(page.getSalutationLabelText()).toEqual('Missus');
+        page.getSalutationLabelText().then(label => expect(label).toEqual('Missus'));
     });
 
     it('should set the value to type input field', () => {
         page.setType();
-        expect(page.getTypeLabelText()).toEqual('PRIMARY');
+        page.getTypeLabelText().then(label => expect(label).toEqual('PRIMARY'));
     });
 
     it('should create the contact', () => {
         page.clickOnSubmitButton();
-        expect(page.getMessageTitle()).toEqual('SUCCESS');
+        page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
     });
 });

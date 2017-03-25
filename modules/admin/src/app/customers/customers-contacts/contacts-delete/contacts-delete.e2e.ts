@@ -30,6 +30,6 @@ describe('Delete the contact', () => {
 
     it('should delete the contact', () => {
         page.clickOnOkButton();
-        expect(page.getMessageTitle()).toEqual('SUCCESS');
+        page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
     });
 });

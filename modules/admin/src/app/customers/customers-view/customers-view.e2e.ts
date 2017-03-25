@@ -26,7 +26,7 @@ describe('Customers view', () => {
                 .then(className => {
                     expect(className.includes('ui-state-active')).toBeTruthy();
                 });
-            expect(page.getCountRows()).toEqual(2);
+            page.getCountRows().then(count => expect(count).toEqual(2));
         });
 
         it('should get the previous page', () => {
@@ -36,7 +36,7 @@ describe('Customers view', () => {
                 .then(className => {
                     expect(className.includes('ui-state-active')).toBeTruthy();
                 });
-            expect(page.getCountRows()).toEqual(10);
+            page.getCountRows().then(count => expect(count).toEqual(10));
         });
 
         it('should get the last page', () => {
@@ -46,7 +46,7 @@ describe('Customers view', () => {
                 .then(className => {
                     expect(className.includes('ui-state-active')).toBeTruthy();
                 });
-            expect(page.getCountRows()).toEqual(2);
+            page.getCountRows().then(count => expect(count).toEqual(2));
         });
 
         it('should get the first page', () => {
@@ -56,13 +56,13 @@ describe('Customers view', () => {
                 .then(className => {
                     expect(className.includes('ui-state-active')).toBeTruthy();
                 });
-            expect(page.getCountRows()).toEqual(10);
+            page.getCountRows().then(count => expect(count).toEqual(10));
         });
 
         it('should choose 20 rows per page', () => {
             page.clickOnRowsPerPageDropdown();
             page.clickOnOptionWith20Rows();
-            expect(page.getCountRows()).toEqual(12);
+            page.getCountRows().then(count => expect(count).toEqual(12));
         });
     });
 
@@ -74,12 +74,12 @@ describe('Customers view', () => {
         it('should filter the data by global filter', () => {
             page.sendKeysToSearchField('Default');
             expect(page.isDisplayedClearGlobalSearchField()).toBeTruthy();
-            expect(page.getCountRows()).toEqual(1);
+            page.getCountRows().then(count => expect(count).toEqual(1));
         });
 
         it('should clear the global search field', () => {
             page.clickOnClearGlobalSearchField();
-            expect(page.getValueOfSearchField()).toEqual('');
+            page.getValueOfSearchField().then(value => expect(value).toEqual(''));
         });
     });
 
@@ -94,7 +94,7 @@ describe('Customers view', () => {
             page.protHelpers.sendKeys(inputField, 'Aaaaaaaaaaaaaaaaaaa'); // enter new value to the cell
             inputField.sendKeys(protractor.Key.ENTER); // update the row
             browser.sleep(2000); // delay 1000ms
-            expect(inputField.getAttribute('value')).toEqual('Aaaaaaaaaaaaaaaaaaa'); // to compare the old value with the updated
+            inputField.getAttribute('value').then(value => expect(value).toEqual('Aaaaaaaaaaaaaaaaaaa')); // to compare the old value with the updated
         });
     });
 
@@ -117,7 +117,7 @@ describe('Customers view', () => {
 
         it('should delete the customers', () => {
             page.clickOnConfirmDeleteRowsButton();
-            expect(page.getMessageTitle()).toEqual('SUCCESS');
+            page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
         });
     });
 });

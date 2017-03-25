@@ -12,10 +12,9 @@ describe('App', () => {
         browser.driver.manage().window().setSize(width, height);
 
         this.apptest.get();
-        let subject = browser.getTitle();
-        let result = 'SMSC Admin';
+        let result: string = 'SMSC Admin';
 
-        expect(subject).toEqual(result);
+        browser.getTitle().then(title => expect(title).toEqual(result));
     });
 
     it('should have input username', () => {

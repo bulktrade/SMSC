@@ -30,6 +30,6 @@ describe('Delete the user', () => {
 
     it('should delete the customer', () => {
         page.clickOnOkButton();
-        expect(page.getMessageTitle()).toEqual('SUCCESS');
+        page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
     });
 });
