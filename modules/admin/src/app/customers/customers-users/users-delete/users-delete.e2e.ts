@@ -28,7 +28,7 @@ describe('Delete the user', () => {
         expect(page.isDisplayedOkButton()).toBeTruthy();
     });
 
-    it('should delete the customer', () => {
+    it('should delete the user', () => {
         page.clickOnOkButton();
         page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
     });
