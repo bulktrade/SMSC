@@ -1,9 +1,8 @@
 <!-- Dashboard toolbar -->
 <div class="dashboard-toolbar">
-    <p-splitButton icon="fa-plus" [title]="'dashboardBox.createDashboardBox' | translate"
-                   menuStyleClass="ui-button-success"
-                   (onClick)="router.navigate(['/dashboard', id, 'dashboard-box', 'create'])"
-                   [model]="menuItems"></p-splitButton>
+    <div class="create-box-button" [routerLink]="['/dashboard', id, 'dashboard-box', 'create']">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </div>
 </div>
 <!-- /#dashboard toolbar -->
 

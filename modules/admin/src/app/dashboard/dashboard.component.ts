@@ -49,26 +49,11 @@ export class DashboardComponent implements OnInit {
             this.id = Number(params.get('id'));
             this.dashboardBoxes = this.getDashboardBoxes();
             this.dashboardBoxes = this.sortDashboardBoxes(this.dashboardBoxes);
-            this.menuItems = [
-                {label: 'dashboard.createDashboard', icon: 'fa-plus', routerLink: ['/dashboard', 'create']},
-                {label: 'dashboard.updateDashboard', icon: 'fa-pencil', routerLink: ['/dashboard', this.id, 'update']},
-                {label: 'dashboard.deleteDashboard', icon: 'fa-minus', routerLink: ['/dashboard', this.id, 'delete']}
-            ];
-            this.translateMenuItems();
         });
     }
 
     sortDashboardBoxes(dashboardBoxes: DashboardBox[]) {
         return _.sortBy(dashboardBoxes, [(dashboardBox: DashboardBox) => dashboardBox.order]);
-    }
-
-    translateMenuItems() {
-        this.menuItems.forEach((item, i, arr) => {
-            this.translateService.get(item.label)
-                .subscribe(label => {
-                    arr[i].label = label;
-                });
-        });
     }
 
     isDashboardBoxes(): boolean {
