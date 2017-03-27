@@ -13,7 +13,6 @@ import {Dashboard} from "../dashboard/dashboard.model";
                 [sidebarItem]="sidebarItem" [dashboards]="dashboards"></sidebar-item>
     `
 })
-
 export class SidebarComponent {
     public sidebarItems: SidebarModel[];
 

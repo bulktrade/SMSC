@@ -8,7 +8,6 @@ import {Input, Component} from "@angular/core";
 @Component({
     selector: 'sidebar-item',
     templateUrl: './sidebar-item.component.html',
-    providers: [],
     animations: [
         trigger('state', [
             state('closed', style({height: 0})),
@@ -21,7 +20,7 @@ import {Input, Component} from "@angular/core";
 })
 export class SidebarItemComponent {
 
-    @Input('sidebarItem') public sidebarItem: SidebarModel;
+    @Input('sidebarItem') public sidebarItem: SidebarModel = <SidebarModel>{};
 
     @Input('dashboards') public dashboards: Dashboard[] = [];
 
