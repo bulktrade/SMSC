@@ -29,7 +29,7 @@ export class DashboardBoxTypeUpdateComponent {
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params: Params) => this.id = Number(params['id']));
+        this.id = Number(this.route.snapshot.paramMap.get('id'));
         this.model = this.getDashboardBoxType();
     }
 

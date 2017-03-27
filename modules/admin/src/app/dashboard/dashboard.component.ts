@@ -1,14 +1,12 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {DashboardService} from "./dashboard.service";
 import {MenuItem} from "primeng/components/common/api";
 import {TranslateService} from "ng2-translate";
 import {DashboardBox} from "./dashboard-box/dashboard-box.model";
 import {DragulaService} from "ng2-dragula";
 import {DashboardBoxService} from "./dashboard-box/dashboard-box.service";
-import * as _ from "lodash";
 import {NotificationService} from "../services/notification-service";
-import {OnInit} from "@angular/core";
+import * as _ from "lodash";
 
 @Component({
     selector: 'dashboard',
@@ -27,7 +25,6 @@ export class DashboardComponent implements OnInit {
     constructor(public route: ActivatedRoute,
                 public router: Router,
                 public translateService: TranslateService,
-                public dashboardService: DashboardService,
                 public dashboardBoxService: DashboardBoxService,
                 public dragulaService: DragulaService,
                 public notification: NotificationService) {
@@ -48,8 +45,8 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params: Params) => {
-            this.id = Number(params['id']);
+        this.route.paramMap.subscribe((params: Params) => {
+            this.id = Number(params.get('id'));
             this.dashboardBoxes = this.getDashboardBoxes();
             this.dashboardBoxes = this.sortDashboardBoxes(this.dashboardBoxes);
             this.menuItems = [

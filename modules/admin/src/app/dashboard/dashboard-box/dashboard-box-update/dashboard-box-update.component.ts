@@ -13,13 +13,13 @@ import {ControlErrorService} from "../../../services/control-error";
 })
 export class DashboardBoxUpdateComponent {
 
-    isLoading: boolean = false;
-
     @Input() model: DashboardBox = <DashboardBox>{};
 
     @Output() modelChange: EventEmitter<DashboardBox> = new EventEmitter();
 
     id: number = null;
+
+    isLoading: boolean = false;
 
     constructor(public dashboardBoxService: DashboardBoxService,
                 public notification: NotificationService,
@@ -29,7 +29,7 @@ export class DashboardBoxUpdateComponent {
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params: Params) => this.id = Number(params['dashboardBoxId']));
+        this.id = Number(this.route.snapshot.paramMap.get('dashboardBoxId'));
     }
 
     onSubmit(dashboardBoxForm: NgForm) {
