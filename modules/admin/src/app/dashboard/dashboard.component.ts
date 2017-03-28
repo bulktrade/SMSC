@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MenuItem} from "primeng/components/common/api";
-import {TranslateService} from "ng2-translate";
 import {DashboardBox} from "./dashboard-box/dashboard-box.model";
 import {DragulaService} from "ng2-dragula";
 import {DashboardBoxService} from "./dashboard-box/dashboard-box.service";
@@ -24,7 +23,6 @@ export class DashboardComponent implements OnInit {
 
     constructor(public route: ActivatedRoute,
                 public router: Router,
-                public translateService: TranslateService,
                 public dashboardBoxService: DashboardBoxService,
                 public dragulaService: DragulaService,
                 public notification: NotificationService) {

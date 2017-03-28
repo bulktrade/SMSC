@@ -1,8 +1,6 @@
-import {async, inject, TestBed} from "@angular/core/testing";
-import {SimpleNotificationsModule} from "angular2-notifications";
+import {inject, TestBed} from "@angular/core/testing";
 import {MockBackend} from "@angular/http/testing";
-import {Http, HttpModule, ResponseOptions, XHRBackend} from "@angular/http";
-import {RouterTestingModule} from "@angular/router/testing";
+import {Http, HttpModule, XHRBackend} from "@angular/http";
 import {DashboardService} from "./dashboard.service";
 import {ConfigService} from "../config/config.service";
 import {ConfigServiceMock} from "../shared/test/stub/config.service";
@@ -57,6 +55,8 @@ describe('Service: DashboardService', () => {
     it('.createDefaultDashboard() - should get an error during creating the default dashboard', () => {
         let error: Error = new Error('the dashboards was not created');
         spyOn(service, 'createResource').and.returnValue(Observable.create(obs => obs.error(error)));
+        spyOn(service.userService, 'getLoggedUser').and
+            .returnValue(Observable.of({_links: {self: {href: 'href'}}}));
         service.createDefaultDashboard().subscribe(null,
             (e) => expect(e.message).toEqual(error.message)
         );
@@ -77,7 +77,8 @@ describe('Service: DashboardService', () => {
                 }
             }
         };
-        spyOn(service.userService, 'getLoggedUser').and.returnValue(Observable.of({_links: {dashboards: {href: 'href'}}}));
+        spyOn(service.userService, 'getLoggedUser').and
+            .returnValue(Observable.of({_links: {dashboards: {href: 'href'}}}));
         spyOn(service.http, 'request').and.returnValue(Observable.of(response));
         service.getDashboards().subscribe(
             (res) => expect(res).toEqual(jasmine.objectContaining(response.json()['_embedded']['dashboards']))
@@ -92,6 +93,8 @@ describe('Service: DashboardService', () => {
 
     it('.getDashboards() - should get an error during retrieving dashboards', () => {
         let error: Error = new Error('the dashboards was not found');
+        spyOn(service.userService, 'getLoggedUser').and
+            .returnValue(Observable.of({_links: {dashboards: {href: 'href'}}}));
         spyOn(service.http, 'request').and.returnValue(Observable.create(obs => obs.error(error)));
         service.getDashboards().subscribe(null, (e) => expect(e.message).toEqual(error.message));
     });
