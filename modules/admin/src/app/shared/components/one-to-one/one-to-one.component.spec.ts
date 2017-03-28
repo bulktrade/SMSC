@@ -147,4 +147,14 @@ describe('Component: OneToOneComponent', () => {
         componentFixture.instance.writeValue('http://foo.bar');
         expect(componentFixture.instance.value).toEqual('http://foo.bar');
     }));
+
+    it('should get label by fields', async(() => {
+        let resource = {
+            id: 1,
+            foo: 'foo',
+            bar: 'bar'
+        };
+        componentFixture.instance.fields = ['foo', 'bar'];
+        expect(componentFixture.instance.getLabelByFileds(resource)).toEqual('1 foo, bar');
+    }));
 });
