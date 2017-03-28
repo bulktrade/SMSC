@@ -68,6 +68,10 @@ SMSC Open Source Solution with Monitoring, Billing, SMPP, SS7 and REST API suppo
 ### HAL Browser
 
     /rest/repository/browser/index.html
+    
+### Release
+
+    mvn release:prepare
 
 ### Default application properties (can be changed through system properties (use -D))
 * `smsc.database.dialect = postgresql` - database, which is used (other options - mysql, oracle, hsqldb, h2)
