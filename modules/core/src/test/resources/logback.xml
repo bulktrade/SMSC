@@ -14,6 +14,9 @@
     <!--<logger name="org.springframework.jdbc" level="debug"/>-->
     <logger name="io.smsc" level="info"/>
 
+    <!--log hibernate showSql-->
+    <logger name="org.hibernate.SQL" level="error"/>
+
     <root level="WARN">
         <appender-ref ref="console"/>
     </root>
