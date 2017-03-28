@@ -5,7 +5,7 @@ import {NgForm} from "@angular/forms";
 import {DashboardService} from "../dashboard.service";
 import {NotificationService} from "../../services/notification-service";
 import {ControlErrorService} from "../../services/control-error";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'dashboard-update',

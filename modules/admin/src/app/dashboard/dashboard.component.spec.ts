@@ -4,6 +4,8 @@ import {HttpModule, RequestMethod, ResponseOptions, XHRBackend} from "@angular/h
 import {RouterTestingModule} from "@angular/router/testing";
 import {TranslateModule} from "ng2-translate";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {Observable} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 import {ComponentHelper} from "../shared/component-fixture";
 import {DashboardComponent} from "./dashboard.component";
@@ -11,8 +13,6 @@ import {DashboardModule} from "./dashboard.module";
 import {ConfigService} from "../config/config.service";
 import {ConfigServiceMock} from "../shared/test/stub/config.service";
 import {APP_PROVIDERS} from "../app.module";
-import {Observable} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
 import {DashboardBox} from "./dashboard-box/dashboard-box.model";
 
 const ActivatedRouteStub = {
@@ -128,6 +128,6 @@ describe('Component: DashboardComponent', () => {
         spyOn(componentFixture.instance.notification, 'createNotification');
         componentFixture.instance.onDropModel();
         expect(componentFixture.instance.notification.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'ERROR_UPDATE')
+            .toHaveBeenCalledWith('error', 'ERROR', 'ERROR_UPDATE');
     }));
 });

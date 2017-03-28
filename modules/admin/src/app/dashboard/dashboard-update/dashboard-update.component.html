@@ -12,13 +12,11 @@
                         {{ 'name' | translate }}
                     </div>
                     <div class="ui-grid-col-6">
-                        <input pInputText class="form-control" [(ngModel)]="model['name']"
-                               #name="ngModel"
+                        <input pInputText class="form-control" [(ngModel)]="model['name']" #name="ngModel"
                                required name="name" type="text" id="name">
                     </div>
                     <div class="ui-grid-col-4">
-                        <control-errors control="name"
-                                        [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
+                        <control-errors control="name" [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
                     </div>
                 </div>
                 <div class="ui-grid-row">
@@ -26,13 +24,11 @@
                         {{ 'icon' | translate }}
                     </div>
                     <div class="ui-grid-col-6">
-                        <input pInputText class="form-control" [(ngModel)]="model['icon']"
-                               #icon="ngModel"
+                        <input pInputText class="form-control" [(ngModel)]="model['icon']" #icon="ngModel"
                                required name="icon" type="text" id="icon">
                     </div>
                     <div class="ui-grid-col-4">
-                        <control-errors control="icon"
-                                        [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
+                        <control-errors control="icon" [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
                     </div>
                 </div>
                 <div class="ui-grid-row">
