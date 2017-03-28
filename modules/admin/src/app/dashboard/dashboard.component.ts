@@ -26,11 +26,9 @@ export class DashboardComponent implements OnInit {
                 public dashboardBoxService: DashboardBoxService,
                 public dragulaService: DragulaService,
                 public notification: NotificationService) {
-        dragulaService.setOptions('dashboard-boxes', {direction: 'horizontal'});
-        dragulaService.dropModel.subscribe((value) => this.onDropModel());
     }
 
-    private onDropModel() {
+    public onDropModel() {
         this.dashboardBoxes.forEach((dashboardBox, i, dashboardBoxes) => {
             if (dashboardBox.order !== i + 1) {
                 dashboardBoxes[i].order = i + 1;
@@ -43,6 +41,9 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.dragulaService.setOptions('dashboard-boxes', {direction: 'horizontal'});
+        this.dragulaService.dropModel.subscribe((value) => this.onDropModel());
+
         this.route.paramMap.subscribe((params: Params) => {
             this.id = Number(params.get('id'));
             this.dashboardBoxes = this.getDashboardBoxes();
