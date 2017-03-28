@@ -196,6 +196,7 @@ public class Contact extends BaseEntity {
                 ", type = '" + type + '\'' +
                 ", salutation = '" + salutation + '\'' +
                 ", version = " + version +
+                ", createdDate = '" + createdDate + '\'' +
                 ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }

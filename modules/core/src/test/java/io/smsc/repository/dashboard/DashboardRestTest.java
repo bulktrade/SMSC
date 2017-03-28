@@ -67,7 +67,8 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
         dashboard.setName("default_admin");
         String dashboardJson = json(dashboard);
         // json is ignoring inserting user through setter
-        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1).concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
+        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1)
+                .concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
 
         this.mockMvc.perform(post("/rest/repository/dashboards")
                 .with(csrf())
@@ -123,7 +124,8 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
         dashboard.setUser(new User());
         String dashboardJson = json(dashboard);
         // json is ignoring inserting user through setter
-        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1).concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
+        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1)
+                .concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
 
         mockMvc.perform(put("/rest/repository/dashboards/{id}", 1)
                 .with(csrf())
@@ -160,6 +162,8 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.dashboards[].icon").description("Dashboard's icon"),
                         fieldWithPath("_embedded.dashboards[].lastModifiedDate").type(Date.class)
                                 .description("AdminUser's date of last modification"),
+                        fieldWithPath("_embedded.dashboards[].createdDate").type(Date.class)
+                                .description("Dashboard's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
 
@@ -170,6 +174,7 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("icon").description("Dashboard's icon"),
                         fieldWithPath("lastModifiedDate").type(Date.class)
                                 .description("Dashboard's date of last modification"),
+                        fieldWithPath("createdDate").type(Date.class).description("Dashboard's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -191,6 +196,7 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                         .attributes(key("mandatory").value(false)),
                 fieldWithPath("id").optional().ignored(),
                 fieldWithPath("lastModifiedDate").optional().ignored(),
+                fieldWithPath("createdDate").optional().ignored(),
                 fieldWithPath("_links").optional().ignored(),
                 fieldWithPath("page").optional().ignored()
         } :
@@ -203,6 +209,7 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };

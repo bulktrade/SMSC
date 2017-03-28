@@ -120,6 +120,7 @@ public class Dashboard extends BaseEntity {
                 ", name = '" + name + '\'' +
                 ", icon = '" + icon + '\'' +
                 ", version = " + version +
+                ", createdDate = '" + createdDate + '\'' +
                 ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }

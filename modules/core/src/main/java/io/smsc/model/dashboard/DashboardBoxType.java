@@ -1,6 +1,5 @@
 package io.smsc.model.dashboard;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -124,6 +123,7 @@ public class DashboardBoxType extends BaseEntity {
                 ", type = '" + type + '\'' +
                 ", kind = '" + kind + '\'' +
                 ", version = " + version +
+                ", createdDate = '" + createdDate + '\'' +
                 ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }

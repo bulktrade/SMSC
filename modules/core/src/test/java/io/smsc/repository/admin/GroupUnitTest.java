@@ -80,6 +80,7 @@ public class GroupUnitTest {
         assertThat(group1.toString()).isEqualTo("{id = " + group1.getId() +
                 ", name = '" + group1.getName() + '\'' +
                 ", version = " + group1.getVersion() +
+                ", createdDate = '" + group1.getCreatedDate() + '\'' +
                 ", lastModifiedDate = '" + group1.getLastModifiedDate() + '\'' +
                 "}");
     }

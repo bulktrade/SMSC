@@ -24,6 +24,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -83,7 +84,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>,
 
     @PreAuthorize("isAuthenticated()")
     @EntityGraph(attributePaths = {"dashboards", "roles", "authorities", "groups", "salutation"})
-    @Query("select u from AdminUser u where u.id = ?#{ principal?.id }")
+    @Query("select u from AdminUser u where u.id = ?#{ principal.id }")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     User me();
 
     @Override

@@ -134,6 +134,7 @@ public class CustomerUserUnitTest {
                 ", created = '" + user1.getCreated() + '\'' +
                 ", blocked = " + user1.isBlocked() +
                 ", version = " + user1.getVersion() +
+                ", createdDate = '" + user1.getCreatedDate() + '\'' +
                 ", lastModifiedDate = '" + user1.getLastModifiedDate() + '\'' +
                 "}");
     }

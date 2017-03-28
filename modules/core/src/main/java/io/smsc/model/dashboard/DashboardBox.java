@@ -163,6 +163,7 @@ public class DashboardBox extends BaseEntity {
                 ", name = '" + name + '\'' +
                 ", description = '" + description + '\'' +
                 ", version = " + version +
+                ", createdDate = '" + createdDate + '\'' +
                 ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }

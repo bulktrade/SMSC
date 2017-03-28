@@ -115,6 +115,7 @@ public class DashboardBoxUnitTest {
                 ", name = '" + dashboardBox1.getName() + '\'' +
                 ", description = '" + dashboardBox1.getDescription() + '\'' +
                 ", version = " + dashboardBox1.getVersion() +
+                ", createdDate = '" + dashboardBox1.getCreatedDate() + '\'' +
                 ", lastModifiedDate = '" + dashboardBox1.getLastModifiedDate() + '\'' +
                 "}");
     }

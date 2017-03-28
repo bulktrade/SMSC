@@ -213,6 +213,8 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.customers[].vatid").description("Customer's vatid"),
                         fieldWithPath("_embedded.customers[].lastModifiedDate").type(Date.class)
                                 .description("Customer's date of last modification"),
+                        fieldWithPath("_embedded.customers[].createdDate").type(Date.class)
+                                .description("Customer's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -225,7 +227,9 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("country").description("Customer's country"),
                         fieldWithPath("city").description("Customer's city"),
                         fieldWithPath("vatid").description("Customer's vatid"),
-                        fieldWithPath("lastModifiedDate").type(Date.class).description("Customer's date of last modification"),
+                        fieldWithPath("lastModifiedDate").type(Date.class)
+                                .description("Customer's date of last modification"),
+                        fieldWithPath("createdDate").type(Date.class).description("Customer's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -257,6 +261,7 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -279,6 +284,7 @@ public class CustomerRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };

@@ -120,6 +120,7 @@ public class Group extends BaseEntity {
         return "{id = " + id +
                 ", name = '" + name + '\'' +
                 ", version = " + version +
+                ", createdDate = '" + createdDate + '\'' +
                 ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }

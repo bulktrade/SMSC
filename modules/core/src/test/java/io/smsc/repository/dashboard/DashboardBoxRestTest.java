@@ -180,6 +180,8 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                                 .description("DashboardBox's description"),
                         fieldWithPath("_embedded.dashboard-boxes[].lastModifiedDate").type(Date.class)
                                 .description("DashboardBox's date of last modification"),
+                        fieldWithPath("_embedded.dashboard-boxes[].createdDate").type(Date.class)
+                                .description("DashboardBox's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -192,6 +194,7 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("description").description("DashboardBox's description"),
                         fieldWithPath("lastModifiedDate").type(Date.class)
                                 .description("DashboardBox's date of last modification"),
+                        fieldWithPath("createdDate").type(Date.class).description("DashboardBox's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -213,14 +216,18 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("name").optional().type(String.class).description("DashboardBox's name")
                                 .attributes(key("mandatory").value(false)),
-                        fieldWithPath("description").optional().type(String.class).description("DashboardBox's description")
+                        fieldWithPath("description").optional().type(String.class)
+                                .description("DashboardBox's description")
                                 .attributes(key("mandatory").value(false)),
-                        fieldWithPath("dashboard").optional().type(Dashboard.class).description("DashboardBox's dashboard")
+                        fieldWithPath("dashboard").optional().type(Dashboard.class)
+                                .description("DashboardBox's dashboard")
                                 .attributes(key("mandatory").value(false)),
-                        fieldWithPath("dashboardBoxType").optional().type(DashboardBoxType.class).description("DashboardBox's dashboardBoxType")
+                        fieldWithPath("dashboardBoxType").optional().type(DashboardBoxType.class)
+                                .description("DashboardBox's dashboardBoxType")
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -237,10 +244,12 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("dashboard").type(Dashboard.class).description("DashboardBox's dashboard")
                                 .attributes(key("mandatory").value(true)),
-                        fieldWithPath("dashboardBoxType").type(DashboardBoxType.class).description("DashboardBox's dashboardBoxType")
+                        fieldWithPath("dashboardBoxType").type(DashboardBoxType.class)
+                                .description("DashboardBox's dashboardBoxType")
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };

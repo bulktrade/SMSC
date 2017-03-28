@@ -142,6 +142,7 @@ public class GroupRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.groups[].id").description("Group's id"),
                         fieldWithPath("_embedded.groups[].name").description("Group's name"),
                         fieldWithPath("_embedded.groups[].lastModifiedDate").type(Date.class).description("Group's date of last modification"),
+                        fieldWithPath("_embedded.groups[].createdDate").type(Date.class).description("Group's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -149,6 +150,7 @@ public class GroupRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("id").description("Group's id"),
                         fieldWithPath("name").description("Group's name"),
                         fieldWithPath("lastModifiedDate").type(Date.class).description("Group's date of last modification"),
+                        fieldWithPath("createdDate").type(Date.class).description("Group's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -166,6 +168,7 @@ public class GroupRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -174,6 +177,7 @@ public class GroupRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };

@@ -200,6 +200,8 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.users[].blocked").description("AdminUser's blocked"),
                         fieldWithPath("_embedded.users[].lastModifiedDate").type(Date.class)
                                 .description("AdminUser's date of last modification"),
+                        fieldWithPath("_embedded.users[].createdDate").type(Date.class)
+                                .description("AdminUser's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -215,6 +217,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("blocked").description("AdminUser's blocked"),
                         fieldWithPath("lastModifiedDate").type(Date.class).type(Date.class)
                                 .description("AdminUser's date of last modification"),
+                        fieldWithPath("createdDate").type(Date.class).description("AdminUser's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -247,6 +250,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("created").optional().ignored(),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -270,6 +274,7 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("created").optional().ignored(),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };

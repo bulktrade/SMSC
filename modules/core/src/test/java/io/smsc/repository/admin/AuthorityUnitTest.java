@@ -80,6 +80,7 @@ public class AuthorityUnitTest {
         assertThat(authority1.toString()).isEqualTo("{id = " + authority1.getId() +
                 ", name = '" + authority1.getName() + '\'' +
                 ", version = " + authority1.getVersion() +
+                ", createdDate = '" + authority1.getCreatedDate() + '\'' +
                 ", lastModifiedDate = '" + authority1.getLastModifiedDate() + '\'' +
                 "}");
     }

@@ -88,7 +88,8 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
         user.setSalutation(Salutation.MR);
         String userJson = json(user);
         // json is ignoring password and customer
-        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\", \r\n  \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
+        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\", \r\n  " +
+                "\"customer\" : \"/rest/repository/customers/40000\" \r\n }");
 
         this.mockMvc.perform(post("/rest/repository/customer-users")
                 .with(csrf())
@@ -147,7 +148,8 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
         user.setSalutation(Salutation.MR);
         String userJson = json(user);
         // json is ignoring password and customer
-        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\", \r\n  \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
+        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\", \r\n  " +
+                "\"customer\" : \"/rest/repository/customers/40000\" \r\n }");
 
         mockMvc.perform(put("/rest/repository/customer-users/{id}", 1)
                 .with(csrf())
@@ -194,6 +196,8 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.customer-users[].blocked").description("CustomerUser's blocked"),
                         fieldWithPath("_embedded.customer-users[].lastModifiedDate").type(Date.class)
                                 .description("CustomerUser's date of last modification"),
+                        fieldWithPath("_embedded.customer-users[].createdDate").type(Date.class)
+                                .description("CustomerUser's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -209,6 +213,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("blocked").description("CustomerUser's blocked"),
                         fieldWithPath("lastModifiedDate").type(Date.class)
                                 .description("CustomerUser's date of last modification"),
+                        fieldWithPath("createdDate").type(Date.class).description("CustomerUser's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -243,6 +248,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("created").optional().ignored(),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -268,6 +274,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("created").optional().ignored(),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };

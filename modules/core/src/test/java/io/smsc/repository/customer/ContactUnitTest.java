@@ -146,6 +146,7 @@ public class ContactUnitTest {
                 ", type = '" + contact1.getType() + '\'' +
                 ", salutation = '" + contact1.getSalutation() + '\'' +
                 ", version = " + contact1.getVersion() +
+                ", createdDate = '" + contact1.getCreatedDate() + '\'' +
                 ", lastModifiedDate = '" + contact1.getLastModifiedDate() + '\'' +
                 "}");
     }

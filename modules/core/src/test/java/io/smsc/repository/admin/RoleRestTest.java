@@ -151,6 +151,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.roles[].id").description("Role's id"),
                         fieldWithPath("_embedded.roles[].name").description("Role's name"),
                         fieldWithPath("_embedded.roles[].lastModifiedDate").type(Date.class).description("Role's date of last modification"),
+                        fieldWithPath("_embedded.roles[].createdDate").type(Date.class).description("Role's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -158,6 +159,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("id").description("Role's id"),
                         fieldWithPath("name").description("Role's name"),
                         fieldWithPath("lastModifiedDate").type(Date.class).description("Role's date of last modification"),
+                        fieldWithPath("createdDate").type(Date.class).description("Role's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -175,6 +177,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -183,6 +186,7 @@ public class RoleRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };

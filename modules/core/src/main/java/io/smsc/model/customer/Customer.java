@@ -217,6 +217,7 @@ public class Customer extends BaseEntity {
                 ", city = '" + city + '\'' +
                 ", vatid = '" + vatid + '\'' +
                 ", version = " + version +
+                ", createdDate = '" + createdDate + '\'' +
                 ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }
