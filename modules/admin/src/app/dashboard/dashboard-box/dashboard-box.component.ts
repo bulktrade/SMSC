@@ -1,9 +1,9 @@
-import {Component, Input, HostBinding, HostListener, Renderer2, ElementRef, Output, EventEmitter} from "@angular/core";
-import {DashboardBox, Width, Height} from "./dashboard-box.model";
+import {Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, Renderer2} from "@angular/core";
+import {DashboardBox, Height, Width} from "./dashboard-box.model";
 import {DashboardBoxService} from "./dashboard-box.service";
-import {Kind, DashboardBoxType} from "../dashboard-box-type/dashboard-box-type.model";
+import {DashboardBoxType, Kind} from "../dashboard-box-type/dashboard-box-type.model";
 import {CHART_DATA} from "./chart-data";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import * as _clone from "js.clone";
 
 @Component({
@@ -42,7 +42,7 @@ export class DashboardBoxComponent {
     }
 
     ngOnInit() {
-        this.route.paramMap.subscribe(params => this.dashboardId = Number(params.get('id')));
+        this.dashboardId = Number(this.route.snapshot.paramMap.get('id'));
         this.dashboardBoxType = this.dashboardBox.dashboardBoxType;
         delete this.dashboardBox.dashboardBoxType;
         this.widthChange(<Width>(this.dashboardBox.width));
