@@ -1,10 +1,9 @@
 import {inject, TestBed} from "@angular/core/testing";
 import {MockBackend} from "@angular/http/testing";
-import {Http, HttpModule, XHRBackend} from "@angular/http";
+import {HttpModule, XHRBackend} from "@angular/http";
 import {DashboardService} from "./dashboard.service";
 import {ConfigService} from "../config/config.service";
 import {ConfigServiceMock} from "../shared/test/stub/config.service";
-import {CrudRepositoryService} from "../shared/crud-repository.spec";
 import {UserService} from "../users/user.service";
 import {Observable} from "rxjs";
 import {Dashboard} from "./dashboard.model";
@@ -18,13 +17,6 @@ describe('Service: DashboardService', () => {
             providers: [
                 DashboardService,
                 UserService,
-                {
-                    provide: CrudRepositoryService,
-                    useFactory: (http: Http, configService: ConfigService) => {
-                        return new CrudRepositoryService(http, configService)
-                    },
-                    deps: [Http, ConfigService]
-                },
                 {provide: XHRBackend, useClass: MockBackend},
                 {provide: ConfigService, useClass: ConfigServiceMock}
             ]

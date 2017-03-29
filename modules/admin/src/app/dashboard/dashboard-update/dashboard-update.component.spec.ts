@@ -78,4 +78,15 @@ describe('Component: DashboardUpdateComponent', () => {
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.controlErrorService.formControlErrors).toHaveBeenCalled()
     }));
+
+    it('should retrieve the dashboard', async(() => {
+        componentFixture.instance.route.snapshot.data['update'] = [{}, {}];
+        expect(componentFixture.instance.getDashboard()['length']).toEqual(2);
+    }));
+
+    it('.ngOnInit()', async(() => {
+        componentFixture.instance.route.snapshot.paramMap.get = () => '54';
+        componentFixture.instance.ngOnInit();
+        expect(componentFixture.instance.id).toEqual(54);
+    }));
 });
