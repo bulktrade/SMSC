@@ -28,7 +28,7 @@ import {DashboardBoxComponent} from "./dashboard-box/dashboard-box.component";
 import {DashboardBoxTypeService} from "./dashboard-box-type/dashboard-box-type.service";
 import {ChartModule} from "primeng/components/chart/chart";
 import {DragulaModule} from "ng2-dragula";
-import {DashboardBoxDeleteComponent} from "./dashboard-box/dashboard-box-delete/dashboard-delete.component";
+import {DashboardBoxDeleteComponent} from "./dashboard-box/dashboard-box-delete/dashboard-box-delete.component";
 import {DashboardBoxUpdateComponent} from "./dashboard-box/dashboard-box-update/dashboard-box-update.component";
 import {DialogModule} from "primeng/components/dialog/dialog";
 import {DashboardBoxCreateComponent} from "./dashboard-box/dashboard-box-create/dashboard-box-create.component";
@@ -37,7 +37,7 @@ import {TabViewModule} from "primeng/components/tabview/tabview";
 import {DashboardBoxTypeCreateComponent} from "./dashboard-box-type/dashboard-box-type-create/dashboard-box-type-create.component";
 import {DashboardBoxTypeUpdateResolve} from "./dashboard-box-type/dashboard-box-type-update/dashboard-box-type-update.resolve";
 import {DashboardBoxTypeUpdateComponent} from "./dashboard-box-type/dashboard-box-type-update/dashboard-box-type-update";
-import {DashboardBoxTypeDeleteComponent} from "./dashboard-box-type/dashboard-box-type-delete/dashboard-delete.component";
+import {DashboardBoxTypeDeleteComponent} from "./dashboard-box-type/dashboard-box-type-delete/dashboard-box-type-delete.component";
 
 @NgModule({
     imports: [
