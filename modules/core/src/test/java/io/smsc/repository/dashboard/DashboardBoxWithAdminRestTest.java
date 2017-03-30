@@ -1,10 +1,12 @@
 package io.smsc.repository.dashboard;
 
 import io.smsc.AbstractSpringMVCTest;
+import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
 import io.smsc.model.dashboard.*;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
 
@@ -18,12 +20,20 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class DashboardBoxRestTest extends AbstractSpringMVCTest {
+public class DashboardBoxWithAdminRestTest extends AbstractSpringMVCTest {
+
+    private String adminToken;
+
+    @Before
+    public void generateToken() throws Exception {
+        UserDetails admin = JWTUserDetailsServiceImpl.createJwtUser(userRepository.findByUsername("admin"));
+        adminToken = jwtTokenGenerationService.generateAccessToken(admin);
+    }
 
     @Test
-    public void testGetSingleDashboardBox() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboard-boxes/{id}", 1))
+    public void testGetOwnedSingleDashboardBox() throws Exception {
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/{id}", 1)
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.width", is(Width.WIDTH_25.toString())))
@@ -40,13 +50,15 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testDashboardBoxNotFound() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboard-boxes/999"))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/999")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testGetAllDashboardBoxes() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboard-boxes?page=0&size=5"))
+    public void testGetOwnedAllDashboardBoxes() throws Exception {
+        mockMvc.perform(get("/rest/repository/dashboard-boxes?page=0&size=5")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.dashboard-boxes", hasSize(5)))
@@ -80,6 +92,7 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
 
         this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
                 .with(csrf())
+                .header(tokenHeader, adminToken)
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxJson))
                 .andExpect(status().isCreated())
@@ -91,22 +104,26 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
     }
 
     @Test
-    public void testDeleteDashboardBox() throws Exception {
+    public void testDeleteOwnedDashboardBox() throws Exception {
         mockMvc.perform(delete("/rest/repository/dashboard-boxes/{id}", 1)
-                .with(csrf()))
+                .with(csrf())
+                .header(tokenHeader, adminToken))
+                .andExpect(status().isNoContent())
                 .andDo(document("deleteDashboardBox",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("DashboardBox"))));
 
-        mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/1")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testUpdateDashboardBox() throws Exception {
+    public void testUpdateOwnedDashboardBox() throws Exception {
         mockMvc.perform(patch("/rest/repository/dashboard-boxes/{id}", 1)
                 .with(csrf())
+                .header(tokenHeader, adminToken)
                 .contentType("application/json;charset=UTF-8")
                 .content("{ \"name\" : \"new box\" }"))
                 .andExpect(status().isOk())
@@ -117,14 +134,15 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                         requestFields(dashboardFieldsForRequest(true)),
                         responseFields(dashboardBoxFieldsForResponse(false))));
 
-        mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/1")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is("new box")));
     }
 
     @Test
-    public void testReplaceDashboardBox() throws Exception {
+    public void testReplaceOwnedDashboardBox() throws Exception {
         DashboardBox dashboardBox = new DashboardBox();
         dashboardBox.setId(1L);
         dashboardBox.setName("new box");
@@ -140,6 +158,7 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
 
         mockMvc.perform(put("/rest/repository/dashboard-boxes/{id}", 1)
                 .with(csrf())
+                .header(tokenHeader, adminToken)
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardBoxJson))
                 .andExpect(status().isOk())
@@ -150,7 +169,8 @@ public class DashboardBoxRestTest extends AbstractSpringMVCTest {
                         requestFields(dashboardFieldsForRequest(false)),
                         responseFields(dashboardBoxFieldsForResponse(false))));
 
-        mockMvc.perform(get("/rest/repository/dashboard-boxes/1"))
+        mockMvc.perform(get("/rest/repository/dashboard-boxes/1")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.width", is(Width.WIDTH_100.toString())))

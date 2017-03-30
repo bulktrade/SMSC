@@ -1,11 +1,13 @@
 package io.smsc.repository.dashboard;
 
 import io.smsc.AbstractSpringMVCTest;
+import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
 import io.smsc.model.admin.User;
 import io.smsc.model.dashboard.Dashboard;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
 
@@ -19,12 +21,20 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
-public class DashboardRestTest extends AbstractSpringMVCTest {
+public class DashboardWithAdminRestTest extends AbstractSpringMVCTest {
+
+    private String adminToken;
+
+    @Before
+    public void generateToken() throws Exception {
+        UserDetails admin = JWTUserDetailsServiceImpl.createJwtUser(userRepository.findByUsername("admin"));
+        adminToken = jwtTokenGenerationService.generateAccessToken(admin);
+    }
 
     @Test
-    public void testGetSingleDashboard() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboards/{id}", 1))
+    public void testGetOwnedSingleDashboard() throws Exception {
+        mockMvc.perform(get("/rest/repository/dashboards/{id}", 1)
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is("default")))
@@ -38,13 +48,15 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testDashboardNotFound() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboards/999"))
+        mockMvc.perform(get("/rest/repository/dashboards/999")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testGetAllDashboards() throws Exception {
-        mockMvc.perform(get("/rest/repository/dashboards?page=0&size=5"))
+    public void testGetOwnedAllDashboards() throws Exception {
+        mockMvc.perform(get("/rest/repository/dashboards?page=0&size=5")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$._embedded.dashboards", hasSize(1)))
@@ -72,6 +84,7 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
 
         this.mockMvc.perform(post("/rest/repository/dashboards")
                 .with(csrf())
+                .header(tokenHeader, adminToken)
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isCreated())
@@ -83,22 +96,26 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
     }
 
     @Test
-    public void testDeleteDashboard() throws Exception {
+    public void testDeleteOwnedDashboard() throws Exception {
         mockMvc.perform(delete("/rest/repository/dashboards/{id}", 1)
-                .with(csrf()))
+                .with(csrf())
+                .header(tokenHeader, adminToken))
+                .andExpect(status().isNoContent())
                 .andDo(document("deleteDashboard",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         pathParameters(getPathParam("Dashboard"))));
 
-        mockMvc.perform(get("/rest/repository/dashboards/1"))
+        mockMvc.perform(get("/rest/repository/dashboards/1")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    public void testUpdateDashboard() throws Exception {
+    public void testUpdateOwnedDashboard() throws Exception {
         mockMvc.perform(patch("/rest/repository/dashboards/{id}", 1)
                 .with(csrf())
+                .header(tokenHeader, adminToken)
                 .contentType("application/json;charset=UTF-8")
                 .content("{ \"name\" : \"default_admin\" }"))
                 .andExpect(status().isOk())
@@ -109,14 +126,15 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                         requestFields(dashboardFieldsForRequest(true)),
                         responseFields(dashboardFieldsForResponse(false))));
 
-        mockMvc.perform(get("/rest/repository/dashboards/1"))
+        mockMvc.perform(get("/rest/repository/dashboards/1")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is("default_admin")));
     }
 
     @Test
-    public void testReplaceDashboard() throws Exception {
+    public void testReplaceOwnedDashboard() throws Exception {
         Dashboard dashboard = new Dashboard();
         dashboard.setId(1L);
         dashboard.setIcon("admin");
@@ -129,6 +147,7 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
 
         mockMvc.perform(put("/rest/repository/dashboards/{id}", 1)
                 .with(csrf())
+                .header(tokenHeader, adminToken)
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
                 .andExpect(status().isOk())
@@ -139,7 +158,8 @@ public class DashboardRestTest extends AbstractSpringMVCTest {
                         requestFields(dashboardFieldsForRequest(false)),
                         responseFields(dashboardFieldsForResponse(false))));
 
-        mockMvc.perform(get("/rest/repository/dashboards/1"))
+        mockMvc.perform(get("/rest/repository/dashboards/1")
+                .header(tokenHeader, adminToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.name", is("default_admin")))
