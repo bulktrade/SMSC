@@ -158,9 +158,10 @@ describe('Component: DashboardBoxComponent', () => {
     it('should get kind of chart', async(() => {
         expect(componentFixture.instance.getKindOfChart(<any>'PIE_CHART')).toEqual('pie');
         expect(componentFixture.instance.getKindOfChart(<any>'SERIAL_CHART')).toEqual('doughnut');
-        expect(componentFixture.instance.getKindOfChart(<any>'PIE_CHART')).toEqual('pie');
-        expect(componentFixture.instance.getKindOfChart(<any>'PIE_CHART')).toEqual('pie');
-        expect(componentFixture.instance.getKindOfChart(<any>'PIE_CHART')).toEqual('pie');
+        expect(componentFixture.instance.getKindOfChart(<any>'LINE_CHART')).toEqual('line');
+        expect(componentFixture.instance.getKindOfChart(<any>'BAR_CHART')).toEqual('bar');
+        expect(componentFixture.instance.getKindOfChart(<any>'BUBBLE_CHART')).toEqual('bubble');
+        expect(componentFixture.instance.getKindOfChart(<any>'any')).toBeNull();
     }));
 
     it('.onKeyboard()', async(() => {

@@ -36,7 +36,7 @@ import {DataGridModule} from "primeng/components/datagrid/datagrid";
 import {TabViewModule} from "primeng/components/tabview/tabview";
 import {DashboardBoxTypeCreateComponent} from "./dashboard-box-type/dashboard-box-type-create/dashboard-box-type-create.component";
 import {DashboardBoxTypeUpdateResolve} from "./dashboard-box-type/dashboard-box-type-update/dashboard-box-type-update.resolve";
-import {DashboardBoxTypeUpdateComponent} from "./dashboard-box-type/dashboard-box-type-update/dashboard-box-type-update";
+import {DashboardBoxTypeUpdateComponent} from "./dashboard-box-type/dashboard-box-type-update/dashboard-box-type-update.component";
 import {DashboardBoxTypeDeleteComponent} from "./dashboard-box-type/dashboard-box-type-delete/dashboard-box-type-delete.component";
 
 @NgModule({
