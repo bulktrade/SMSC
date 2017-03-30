@@ -22,8 +22,12 @@ export class DashboardSettingsComponent {
         this.removeDefaultDashboard(this.dashboards);
     }
 
-    idDashboards() {
+    isDashboards() {
         return this.dashboards.length > 0;
+    }
+
+    isDashboardBoxTypes() {
+        return this.dashboardBoxTypes.length > 0;
     }
 
     getDashboards(): Dashboard[] {

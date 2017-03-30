@@ -68,9 +68,14 @@ describe('Component: DashboardSettingsComponent', () => {
         expect(componentFixture.instance.getDashboardBoxTypes().length).toEqual(2);
     }));
 
-    it('.idDashboards()', async(() => {
+    it('.isDashboards()', async(() => {
         componentFixture.instance.dashboards = [];
-        expect(componentFixture.instance.idDashboards()).toBeFalsy();
+        expect(componentFixture.instance.isDashboards()).toBeFalsy();
+    }));
+
+    it('.isDashboardBoxTypes()', async(() => {
+        componentFixture.instance.dashboardBoxTypes = [];
+        expect(componentFixture.instance.isDashboardBoxTypes()).toBeFalsy();
     }));
 
     it('.ngOnInit()', async(() => {

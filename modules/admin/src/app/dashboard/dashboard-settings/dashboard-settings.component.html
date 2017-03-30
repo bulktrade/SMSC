@@ -10,7 +10,7 @@
 
     <p-tabView>
         <p-tabPanel headerStyleClass="ui-sm-12" [header]="'DASHBOARDS' | translate">
-            <p-dataGrid [value]="dashboards" [paginator]="false" [rows]="20">
+            <p-dataGrid [value]="dashboards" [paginator]="false" [rows]="20" *ngIf="isDashboards(); else noDashboards">
                 <ng-template let-dashboard pTemplate="item">
                     <div class="ui-g-12 ui-md-3 item">
                         <p-panel [header]="dashboard.name" [style]="{'text-align':'center'}">
@@ -24,9 +24,15 @@
                     </div>
                 </ng-template>
             </p-dataGrid>
+            <ng-template #noDashboards>
+                <p-panel>
+                    <span>{{ 'dashboards.notFound' | translate }}</span>
+                </p-panel>
+            </ng-template>
         </p-tabPanel>
         <p-tabPanel headerStyleClass="ui-sm-12" [header]="'dashboardBoxType.title' | translate">
-            <p-dataGrid [value]="dashboardBoxTypes" [paginator]="false" [rows]="20">
+            <p-dataGrid [value]="dashboardBoxTypes" [paginator]="false"
+                        [rows]="20" *ngIf="isDashboardBoxTypes(); else noDashboardBoxTypes">
                 <ng-template let-dashboardBoxType pTemplate="item">
                     <div class="ui-g-12 ui-md-3 item">
                         <p-panel [header]="dashboardBoxType.name" [style]="{'text-align':'center'}">
@@ -41,11 +47,11 @@
                     </div>
                 </ng-template>
             </p-dataGrid>
+            <ng-template #noDashboardBoxTypes>
+                <p-panel>
+                    <span>{{ 'dashboardBoxType.notFound' | translate }}</span>
+                </p-panel>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
-
-    <p-panel *ngIf="!idDashboards()">
-        <p-header>{{ 'dashboards.title' | translate }}</p-header>
-        <span>{{ 'dashboards.notFound' | translate }}</span>
-    </p-panel>
 </div>
