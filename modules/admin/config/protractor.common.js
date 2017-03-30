@@ -18,6 +18,9 @@ exports.config = {
     helpers.root('src/app/customers/customers-users/users-delete/*.e2e.ts'),
     helpers.root('src/app/customers/customers-delete/*.e2e.ts'),
     helpers.root('src/app/customers/customers-view/*.e2e.ts'),
+    helpers.root('src/app/dashboard/dashboard-create/*.e2e.ts'),
+    helpers.root('src/app/dashboard/dashboard-update/*.e2e.ts'),
+    helpers.root('src/app/dashboard/dashboard-delete/*.e2e.ts'),
     helpers.root('src/**/**.e2e.ts'),
     helpers.root('src/**/*.e2e.ts')
   ],

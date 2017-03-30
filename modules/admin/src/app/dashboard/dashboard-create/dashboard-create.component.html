@@ -1,49 +1,47 @@
-<div id="dashboards-form">
-    <p-panel>
-        <p-header>
-            <i class="fa fa-chevron-left" (click)="location.back()" aria-hidden="true" title="{{ 'BACK' | translate }}"
-               id="back-button"></i>
-            <span>{{ 'DASHBOARDS' | translate }}</span>
-        </p-header>
-        <form role="form" (ngSubmit)="onSubmit(dashboardForm)" #dashboardForm="ngForm" novalidate>
-            <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-2">
-                        {{ 'name' | translate }}
-                    </div>
-                    <div class="ui-grid-col-6">
-                        <input pInputText class="form-control" [(ngModel)]="model['name']" #name="ngModel"
-                               required name="name" type="text" id="name">
-                    </div>
-                    <div class="ui-grid-col-4">
-                        <control-errors control="name" [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
-                    </div>
+<p-panel>
+    <p-header>
+        <i class="fa fa-chevron-left" (click)="location.back()" aria-hidden="true" title="{{ 'BACK' | translate }}"
+           id="back-button"></i>
+        <span>{{ 'DASHBOARDS' | translate }}</span>
+    </p-header>
+    <form role="form" (ngSubmit)="onSubmit(dashboardForm)" #dashboardForm="ngForm" novalidate>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'name' | translate }}
                 </div>
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-2">
-                        {{ 'icon' | translate }}
-                    </div>
-                    <div class="ui-grid-col-6">
-                        <input pInputText class="form-control" [(ngModel)]="model['icon']"
-                               #icon="ngModel" required name="icon" type="text" id="icon">
-                    </div>
-                    <div class="ui-grid-col-4">
-                        <control-errors control="icon" [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
-                    </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText class="form-control" [(ngModel)]="model['name']" #name="ngModel"
+                           required name="name" type="text" id="name">
                 </div>
-                <div class="ui-grid-row">
-                    <div class="ui-grid-col-2"></div>
-                    <div class="ui-grid-col-6">
-                        <button type="submit" class="btn primeng-primary-btn ui-md-12 ui-sm-12" id="submit-button"
-                                [disabled]="dashboardForm.form.invalid">
-                            <span>{{ 'CREATE' | translate }}</span>
-                            <i *ngIf="isLoading"
-                               class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
-                        </button>
-                    </div>
-                    <div class="ui-grid-col-4"></div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="name" [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
                 </div>
             </div>
-        </form>
-    </p-panel>
-</div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    {{ 'icon' | translate }}
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText class="form-control" [(ngModel)]="model['icon']"
+                           #icon="ngModel" required name="icon" type="text" id="icon">
+                </div>
+                <div class="ui-grid-col-4">
+                    <control-errors control="icon" [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
+                </div>
+            </div>
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2"></div>
+                <div class="ui-grid-col-6">
+                    <button type="submit" class="btn primeng-primary-btn ui-md-12 ui-sm-12" id="submit-button"
+                            [disabled]="dashboardForm.form.invalid">
+                        <span>{{ 'CREATE' | translate }}</span>
+                        <i *ngIf="isLoading"
+                           class="fa fa-spinner fa-pulse fa-3x fa-fw loading-spinner"></i>
+                    </button>
+                </div>
+                <div class="ui-grid-col-4"></div>
+            </div>
+        </div>
+    </form>
+</p-panel>
