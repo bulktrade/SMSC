@@ -13,6 +13,7 @@ import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {UsersUpdateComponent} from "./users-update.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
 
 describe('Component: UsersUpdateComponent', () => {
     let componentFixture: ComponentHelper<UsersUpdateComponent> =
@@ -109,5 +110,16 @@ describe('Component: UsersUpdateComponent', () => {
         spyOn(componentFixture.instance.location, 'back');
         componentFixture.instance.onBack();
         expect(componentFixture.instance.location.back).toHaveBeenCalled();
+
+        spyOn(componentFixture.instance._onBack, 'emit');
+        componentFixture.instance.isDirectiveCall = true;
+        componentFixture.instance.onBack();
+        expect(componentFixture.instance._onBack.emit).toHaveBeenCalledWith(Action.View);
+    }));
+
+    it('.toggleLoading()', async(() => {
+        componentFixture.instance.isLoading = false;
+        componentFixture.instance.toggleLoading();
+        expect(componentFixture.instance.isLoading).toBeTruthy();
     }));
 });

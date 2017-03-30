@@ -88,6 +88,12 @@ describe('Component: CustomersUpdateComponent', () => {
         });
     }));
 
+    it('.toggleLoading()', async(() => {
+        componentFixture.instance.isLoading = false;
+        componentFixture.instance.toggleLoading();
+        expect(componentFixture.instance.isLoading).toBeTruthy();
+    }));
+
     it('submit button name should be `customers.update`', async(() => {
         componentFixture.fixture.detectChanges();
         componentFixture.fixture.whenStable().then(() => {

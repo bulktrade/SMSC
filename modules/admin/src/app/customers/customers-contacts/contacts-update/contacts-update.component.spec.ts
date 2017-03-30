@@ -12,6 +12,7 @@ import {APP_PROVIDERS} from "../../../app.module";
 import {ConfigService} from "../../../config/config.service";
 import {ConfigServiceMock} from "../../../shared/test/stub/config.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
 
 describe('Component: ContactsUpdateComponent', () => {
     let componentFixture: ComponentHelper<ContactsUpdateComponent> =
@@ -108,5 +109,16 @@ describe('Component: ContactsUpdateComponent', () => {
         spyOn(componentFixture.instance.location, 'back');
         componentFixture.instance.onBack();
         expect(componentFixture.instance.location.back).toHaveBeenCalled();
+
+        spyOn(componentFixture.instance._onBack, 'emit');
+        componentFixture.instance.isDirectiveCall = true;
+        componentFixture.instance.onBack();
+        expect(componentFixture.instance._onBack.emit).toHaveBeenCalledWith(Action.View);
+    }));
+
+    it('.toggleLoading()', async(() => {
+        componentFixture.instance.isLoading = false;
+        componentFixture.instance.toggleLoading();
+        expect(componentFixture.instance.isLoading).toBeTruthy();
     }));
 });

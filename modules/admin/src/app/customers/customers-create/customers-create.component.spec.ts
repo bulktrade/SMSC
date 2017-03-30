@@ -58,6 +58,12 @@ describe('Component: CustomersCreateComponent', () => {
         });
     }));
 
+    it('.toggleLoading()', async(() => {
+        componentFixture.instance.isLoading = false;
+        componentFixture.instance.toggleLoading();
+        expect(componentFixture.instance.isLoading).toBeTruthy();
+    }));
+
     it('submit button name should be `customers.create`', async(() => {
         componentFixture.fixture.detectChanges();
         componentFixture.fixture.whenStable().then(() => {

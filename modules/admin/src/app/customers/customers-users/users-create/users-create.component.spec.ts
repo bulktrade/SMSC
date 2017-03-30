@@ -12,6 +12,7 @@ import {ConfigServiceMock} from "../../../shared/test/stub/config.service";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
 
 describe('Component: UsersCreateComponent', () => {
     let componentFixture: ComponentHelper<UsersCreateComponent> =
@@ -110,5 +111,16 @@ describe('Component: UsersCreateComponent', () => {
         spyOn(componentFixture.instance.location, 'back');
         componentFixture.instance.onBack();
         expect(componentFixture.instance.location.back).toHaveBeenCalled();
+
+        spyOn(componentFixture.instance._onBack, 'emit');
+        componentFixture.instance.isDirectiveCall = true;
+        componentFixture.instance.onBack();
+        expect(componentFixture.instance._onBack.emit).toHaveBeenCalledWith(Action.View);
+    }));
+
+    it('.toggleLoading()', async(() => {
+        componentFixture.instance.isLoading = false;
+        componentFixture.instance.toggleLoading();
+        expect(componentFixture.instance.isLoading).toBeTruthy();
     }));
 });

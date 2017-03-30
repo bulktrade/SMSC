@@ -1,20 +1,20 @@
-import {Component, Inject, ViewEncapsulation} from "@angular/core";
-import {Location} from "@angular/common";
+import {AfterViewChecked, Component, Inject, OnInit, ViewEncapsulation} from "@angular/core";
 import {TranslateService} from "ng2-translate/ng2-translate";
-import {Router, ActivatedRoute} from "@angular/router";
-import {ColumnDef} from "../model/column-definition";
-import {Pagination} from "../model/pagination";
-import {CustomersService, REPOSITORY_NAME} from "../customer.service";
-import {NotificationService} from "../../services/notification-service";
-import {Customer} from "../model/customer";
-import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
-import {Sort, SortType} from "../../shared/sort.model";
-import {DOCUMENT} from "@angular/platform-browser";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Message} from "primeng/components/common/api";
-import {Observable} from "rxjs";
+import {DOCUMENT} from "@angular/platform-browser";
+import {Location} from "@angular/common";
 import {Response} from "@angular/http";
-import {ControlCellErrors} from "../model/control-cell-errors";
+import {Observable} from "rxjs";
+
+import {Action, OneToMany} from "../../shared/components/one-to-many/one-to-many.model";
+import {NotificationService} from "../../services/notification-service";
+import {CustomersService, REPOSITORY_NAME} from "../customer.service";
 import {ControlErrorService} from "../../services/control-error";
+import {ControlCellErrors} from "../model/control-cell-errors";
+import {Sort, SortType} from "../../shared/sort.model";
+import {Pagination} from "../model/pagination";
+import {Customer} from "../model/customer";
 
 @Component({
     encapsulation: ViewEncapsulation.None,
@@ -22,13 +22,11 @@ import {ControlErrorService} from "../../services/control-error";
     templateUrl: './customers-view.component.html',
     styleUrls: ['./customers-view.component.scss']
 })
-export class CustomersViewComponent {
+export class CustomersViewComponent implements OnInit, AfterViewChecked {
 
     public showConfirmDeletionWindow: boolean = false;
 
     public pagination: Pagination = new Pagination(10, null, null, 0);
-
-    public columnDefs: ColumnDef[];
 
     public rowData: Customer[] = [];
 
@@ -108,7 +106,7 @@ export class CustomersViewComponent {
             .subscribe(rows => {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
                 this.isFilterLoading[filterName] = false;
-            }, err => {
+            }, () => {
                 this.isFilterLoading[filterName] = false;
             });
     }
@@ -146,7 +144,7 @@ export class CustomersViewComponent {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
                 this.isLoading = false;
                 this.showConfirmDeletionWindow = false;
-            }, err => {
+            }, () => {
                 this.isLoading = false;
             });
     }
@@ -169,7 +167,7 @@ export class CustomersViewComponent {
         });
     }
 
-    onResize(event) {
+    onResize() {
         this.tableHeaderHeight = this.getTableHeaderHeight();
         this.tableBodyHeight = this.getTableBodyHeight();
     }

@@ -1,4 +1,4 @@
-import {TestBed, async, inject} from "@angular/core/testing";
+import {async, inject, TestBed} from "@angular/core/testing";
 import {CustomersViewComponent} from "./customers-view.component";
 import {CustomersModule} from "../customers.module";
 import {TranslateModule} from "ng2-translate";
@@ -6,7 +6,7 @@ import {APP_PROVIDERS} from "../../app.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {ComponentHelper} from "../../shared/component-fixture";
 import {MockBackend} from "@angular/http/testing";
-import {XHRBackend, ResponseOptions, Response} from "@angular/http";
+import {Response, ResponseOptions, XHRBackend} from "@angular/http";
 import {SortType} from "../../shared/sort.model";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {ConfigService} from "../../config/config.service";
@@ -73,25 +73,32 @@ describe('Component: CustomersViewComponent', () => {
             column: 'company',
             filterName: 'globalFilter'
         };
+        mockBackend.connections.subscribe(connection => {
+            let response = new ResponseOptions({body: {_embedded: {customers: []}}});
+            connection.mockRespond(new Response(response));
+        });
         componentFixture.instance.searchModel[event.filterName] = 'SMSC';
         componentFixture.instance.onFilter(event.column, event.filterName);
         expect(componentFixture.instance.filters['company']).toEqual('SMSC');
     }));
 
+    it('should get an error while filtering rows', async(() => {
+        let event = {
+            column: 'company',
+            filterName: 'globalFilter'
+        };
+        mockBackend.connections.subscribe(connection => connection.mockError(new Error('error')));
+        componentFixture.instance.searchModel[event.filterName] = 'SMSC';
+        componentFixture.instance.onFilter(event.column, event.filterName);
+    }));
+
     it('should delete selected customers', async(() => {
         let data = <any>{
-            _links: {
-                self: {
-                    href: ''
-                }
-            },
-            _embedded: {
-                customers: []
-            },
-            page: {
-                totalElements: 10
-            }
+            _links: {self: {href: ''}},
+            _embedded: {customers: []},
+            page: {totalElements: 10}
         };
+        spyOn(componentFixture.instance.notifications, 'createNotification');
         componentFixture.instance.selectedRows = [data];
         mockBackend.connections.subscribe(connection => {
             let response = new ResponseOptions({status: 204, body: data});
@@ -100,6 +107,27 @@ describe('Component: CustomersViewComponent', () => {
         componentFixture.instance.onDeleteCustomers()
             .subscribe(res => {
                 expect(res).toBeDefined();
+                expect(componentFixture.instance.notifications.createNotification)
+                    .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successDeleteCustomers');
+            });
+    }));
+
+    it('should get an error while deleting selected customers', async(() => {
+        let data = <any>{
+            _links: {self: {href: ''}},
+            _embedded: {customers: []},
+            page: {totalElements: 10}
+        };
+        spyOn(componentFixture.instance.notifications, 'createNotification');
+        componentFixture.instance.selectedRows = [data];
+        mockBackend.connections.subscribe(connection => {
+            connection.mockError(new Error('error'));
+        });
+        componentFixture.instance.onDeleteCustomers()
+            .subscribe(null, err => {
+                expect(err.message).toEqual('error');
+                expect(componentFixture.instance.notifications.createNotification)
+                    .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorDeleteCustomers');
             });
     }));
 
@@ -134,5 +162,19 @@ describe('Component: CustomersViewComponent', () => {
         expect(componentFixture.instance.setRowData).toHaveBeenCalled();
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('error', 'ERROR', 'ERROR_UPDATE');
+    }));
+
+    it('.onResize()', async(() => {
+        spyOn(componentFixture.instance, 'getTableHeaderHeight');
+        spyOn(componentFixture.instance, 'getTableBodyHeight');
+        componentFixture.instance.onResize();
+        expect(componentFixture.instance.getTableBodyHeight).toHaveBeenCalled();
+        expect(componentFixture.instance.getTableHeaderHeight).toHaveBeenCalled();
+    }));
+
+    it('should get an error while retrieving customers', async(() => {
+        mockBackend.connections.subscribe(connection => connection.mockError(new Error('error')));
+        componentFixture.instance.setRowData();
+        expect(componentFixture.instance.isLoading).toBeFalsy();
     }));
 });

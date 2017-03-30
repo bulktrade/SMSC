@@ -1,4 +1,4 @@
-<div id="customers-view-window" #customerView (window:resize)="onResize($event)" [hidden]="showConfirmDeletionWindow">
+<div id="customers-view-window" #customerView (window:resize)="onResize()" [hidden]="showConfirmDeletionWindow">
     <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" [immutable]="true"
                  (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
                  [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">
