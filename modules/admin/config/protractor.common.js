@@ -21,6 +21,9 @@ exports.config = {
     helpers.root('src/app/dashboard/dashboard-create/*.e2e.ts'),
     helpers.root('src/app/dashboard/dashboard-update/*.e2e.ts'),
     helpers.root('src/app/dashboard/dashboard-delete/*.e2e.ts'),
+    helpers.root('src/app/dashboard/dashboard-box-type/dashboard-box-type-create/*.e2e.ts'),
+    helpers.root('src/app/dashboard/dashboard-box-type/dashboard-box-type-update/*.e2e.ts'),
+    helpers.root('src/app/dashboard/dashboard-box-type/dashboard-box-type-delete/*.e2e.ts'),
     helpers.root('src/**/**.e2e.ts'),
     helpers.root('src/**/*.e2e.ts')
   ],
