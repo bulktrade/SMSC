@@ -19,10 +19,15 @@ export class DashboardSettingsComponent {
     ngOnInit() {
         this.dashboards = this.getDashboards();
         this.dashboardBoxTypes = this.getDashboardBoxTypes();
+        this.removeDefaultDashboard(this.dashboards);
     }
 
-    idDashboards() {
+    isDashboards() {
         return this.dashboards.length > 0;
+    }
+
+    isDashboardBoxTypes() {
+        return this.dashboardBoxTypes.length > 0;
     }
 
     getDashboards(): Dashboard[] {
@@ -31,5 +36,13 @@ export class DashboardSettingsComponent {
 
     getDashboardBoxTypes(): DashboardBoxType[] {
         return <DashboardBoxType[]>this.route.snapshot.data['dashboards'].dashboardBoxTypes;
+    }
+
+    removeDefaultDashboard(dashboards: Dashboard[]) {
+        dashboards.forEach((dashboard: Dashboard, index, dashboards: Dashboard[]) => {
+            if (dashboard.name === 'default') {
+                dashboards.splice(index, 1);
+            }
+        });
     }
 }

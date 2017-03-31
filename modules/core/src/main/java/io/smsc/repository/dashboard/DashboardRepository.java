@@ -28,12 +28,13 @@ import org.springframework.transaction.annotation.Transactional;
  * to appropriate endpoints.
  *
  * @author Nazar Lipkovskyy
+ * @see DashboardRepositoryCustom
  * @since 0.0.1-SNAPSHOT
  */
 @RepositoryRestResource(collectionResourceRel = "dashboards", path = "dashboards")
 @Transactional(readOnly = true)
 @PreAuthorize("hasRole('ADMIN_USER')")
-public interface DashboardRepository extends PagingAndSortingRepository<Dashboard, Long>,
+public interface DashboardRepository extends PagingAndSortingRepository<Dashboard, Long>, DashboardRepositoryCustom,
         QueryDslPredicateExecutor<Dashboard>,
         QuerydslBinderCustomizer<QDashboard> {
 
@@ -47,12 +48,6 @@ public interface DashboardRepository extends PagingAndSortingRepository<Dashboar
     @Modifying
     @Query("delete from Dashboard d where d.id = ?1 and d.user.id = ?#{principal.id}")
     void delete(Long id);
-
-    @Override
-    @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#dashboard?.id == null) and hasAuthority('DASHBOARD_CREATE')) or " +
-            "(!(#dashboard?.id == null) and hasAuthority('DASHBOARD_WRITE'))")
-    Dashboard save(Dashboard dashboard);
 
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxes"})
@@ -116,12 +111,6 @@ public interface DashboardRepository extends PagingAndSortingRepository<Dashboar
     @RestResource(path = "findAllWithSorting")
     @Query("select d from Dashboard d where d.user.id = ?#{principal.id}")
     Iterable<Dashboard> findAll(Sort sort);
-
-    @Override
-    @Transactional
-    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasAuthority('DASHBOARD_CREATE')) or " +
-            "(!(filterObject.id == null) and hasAuthority('DASHBOARD_WRITE'))")
-    <S extends Dashboard> Iterable<S> save(Iterable<S> dashboards);
 
     @Override
     @Query("select case when count(d) > 0 then true else false end from Dashboard d where d.id = ?1 and " +

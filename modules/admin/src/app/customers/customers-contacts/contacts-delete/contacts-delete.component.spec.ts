@@ -1,8 +1,8 @@
-import {TestBed, async, inject} from "@angular/core/testing";
+import {async, inject, TestBed} from "@angular/core/testing";
 import {TranslateModule} from "ng2-translate";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
-import {XHRBackend, ResponseOptions, Response} from "@angular/http";
+import {Response, ResponseOptions, XHRBackend} from "@angular/http";
 import {ComponentHelper} from "../../../shared/component-fixture";
 import {ContactsDeleteComponent} from "./contacts-delete.component";
 import {CustomersModule} from "../../customers.module";
@@ -11,6 +11,8 @@ import {ConfigService} from "../../../config/config.service";
 import {ConfigServiceMock} from "../../../shared/test/stub/config.service";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
+import {Contact} from "../../model/contact";
+import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
 
 describe('Component: ContactsDeleteComponent', () => {
     let componentFixture: ComponentHelper<ContactsDeleteComponent> =
@@ -56,9 +58,14 @@ describe('Component: ContactsDeleteComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'onBack');
-
         componentFixture.instance.deleteResource();
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successDeleteContact');
+        expect(componentFixture.instance.onBack).toHaveBeenCalled();
 
+        componentFixture.instance.isDirectiveCall = true;
+        componentFixture.instance.entity = <Contact>{_links: {self: {href: 'foo'}}};
+        componentFixture.instance.deleteResource();
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successDeleteContact');
         expect(componentFixture.instance.onBack).toHaveBeenCalled();
@@ -83,6 +90,11 @@ describe('Component: ContactsDeleteComponent', () => {
         spyOn(componentFixture.instance.location, 'back');
         componentFixture.instance.onBack();
         expect(componentFixture.instance.location.back).toHaveBeenCalled();
+
+        spyOn(componentFixture.instance._onBack, 'emit');
+        componentFixture.instance.isDirectiveCall = true;
+        componentFixture.instance.onBack();
+        expect(componentFixture.instance._onBack.emit).toHaveBeenCalledWith(Action.View);
     }));
 
     it('.ngOnInit()', async(() => {

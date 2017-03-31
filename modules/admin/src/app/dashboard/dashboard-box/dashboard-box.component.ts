@@ -1,9 +1,9 @@
-import {Component, Input, HostBinding, HostListener, Renderer, ElementRef, Output, EventEmitter} from "@angular/core";
-import {DashboardBox, Width, Height} from "./dashboard-box.model";
+import {Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, Renderer2} from "@angular/core";
+import {DashboardBox, Height, Width} from "./dashboard-box.model";
 import {DashboardBoxService} from "./dashboard-box.service";
-import {Kind, DashboardBoxType} from "../dashboard-box-type/dashboard-box-type.model";
+import {DashboardBoxType, Kind} from "../dashboard-box-type/dashboard-box-type.model";
 import {CHART_DATA} from "./chart-data";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import * as _clone from "js.clone";
 
 @Component({
@@ -36,13 +36,13 @@ export class DashboardBoxComponent {
     public dashboardBoxModel: DashboardBox = null;
 
     constructor(public dashboardBoxService: DashboardBoxService,
-                public renderer: Renderer,
+                public renderer: Renderer2,
                 public element: ElementRef,
                 public route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params: Params) => this.dashboardId = Number(params['id']));
+        this.dashboardId = Number(this.route.snapshot.paramMap.get('id'));
         this.dashboardBoxType = this.dashboardBox.dashboardBoxType;
         delete this.dashboardBox.dashboardBoxType;
         this.widthChange(<Width>(this.dashboardBox.width));
@@ -98,16 +98,16 @@ export class DashboardBoxComponent {
     heightChange(height: Height) {
         switch (String(height)) {
             case 'HEIGHT_25':
-                this.renderer.setElementStyle(this.element.nativeElement, 'height', '146px');
+                this.renderer.setStyle(this.element.nativeElement, 'height', '146px');
                 break;
             case 'HEIGHT_50':
-                this.renderer.setElementStyle(this.element.nativeElement, 'height', '312px');
+                this.renderer.setStyle(this.element.nativeElement, 'height', '312px');
                 break;
             case 'HEIGHT_75':
-                this.renderer.setElementStyle(this.element.nativeElement, 'height', '476px');
+                this.renderer.setStyle(this.element.nativeElement, 'height', '476px');
                 break;
             case 'HEIGHT_100':
-                this.renderer.setElementStyle(this.element.nativeElement, 'height', '644px');
+                this.renderer.setStyle(this.element.nativeElement, 'height', '644px');
                 break;
         }
     }

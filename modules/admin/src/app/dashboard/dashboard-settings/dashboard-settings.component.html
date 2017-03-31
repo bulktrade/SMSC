@@ -9,43 +9,51 @@
     <!-- /#dashboard toolbar -->
 
     <p-tabView>
-        <p-tabPanel headerStyleClass="ui-sm-12" [header]="'DASHBOARDS' | translate">
-            <p-dataGrid [value]="dashboards" [paginator]="false" [rows]="20">
-                <template let-dashboard pTemplate="item">
+        <p-tabPanel headerStyleClass="ui-sm-12 dashboards-tab" [header]="'DASHBOARDS' | translate">
+            <p-dataGrid [value]="dashboards" [paginator]="false" [rows]="20" *ngIf="isDashboards(); else noDashboards">
+                <ng-template let-dashboard pTemplate="item">
                     <div class="ui-g-12 ui-md-3 item">
                         <p-panel [header]="dashboard.name" [style]="{'text-align':'center'}">
                             <span class="colunm-name">icon:</span> {{ dashboard.icon }}
                             <hr class="ui-widget-content" style="border-top:0">
-                            <button class="ui-button-success" pButton type="button"
+                            <button class="ui-button-success" pButton type="button" id="update-dashboard-button"
                                     [routerLink]="['/dashboard', dashboard.id, 'update']" icon="fa-pencil"></button>
-                            <button class="ui-button-danger" pButton type="button"
+                            <button class="ui-button-danger" pButton type="button" id="delete-dashboard-button"
                                     [routerLink]="['/dashboard', dashboard.id, 'delete']" icon="fa-remove"></button>
                         </p-panel>
                     </div>
-                </template>
+                </ng-template>
             </p-dataGrid>
+            <ng-template #noDashboards>
+                <p-panel>
+                    <span>{{ 'dashboards.notFound' | translate }}</span>
+                </p-panel>
+            </ng-template>
         </p-tabPanel>
-        <p-tabPanel headerStyleClass="ui-sm-12" [header]="'dashboardBoxType.title' | translate">
-            <p-dataGrid [value]="dashboardBoxTypes" [paginator]="false" [rows]="20">
-                <template let-dashboardBoxType pTemplate="item">
+        <p-tabPanel headerStyleClass="ui-sm-12 dashboard-box-types-tab" [header]="'dashboardBoxType.title' | translate">
+            <p-dataGrid [value]="dashboardBoxTypes" [paginator]="false"
+                        [rows]="20" *ngIf="isDashboardBoxTypes(); else noDashboardBoxTypes">
+                <ng-template let-dashboardBoxType pTemplate="item">
                     <div class="ui-g-12 ui-md-3 item">
                         <p-panel [header]="dashboardBoxType.name" [style]="{'text-align':'center'}">
                             <span class="colunm-name">type:</span> {{ dashboardBoxType.type }} <br>
                             <span class="colunm-name">kind:</span> {{ dashboardBoxType.kind }}
                             <hr class="ui-widget-content" style="border-top:0">
-                            <button [routerLink]="['/dashboard', 'dashboard-box-type', dashboardBoxType.id, 'update']"
+                            <button id="update-dashboard-box-type-button"
+                                    [routerLink]="['/dashboard', 'dashboard-box-type', dashboardBoxType.id, 'update']"
                                     class="ui-button-success" pButton type="button" icon="fa-pencil"></button>
-                            <button [routerLink]="['/dashboard', 'dashboard-box-type', dashboardBoxType.id, 'delete']"
+                            <button id="remove-dashboard-box-type-button"
+                                    [routerLink]="['/dashboard', 'dashboard-box-type', dashboardBoxType.id, 'delete']"
                                     class="ui-button-danger" pButton type="button" icon="fa-remove"></button>
                         </p-panel>
                     </div>
-                </template>
+                </ng-template>
             </p-dataGrid>
+            <ng-template #noDashboardBoxTypes>
+                <p-panel>
+                    <span>{{ 'dashboardBoxType.notFound' | translate }}</span>
+                </p-panel>
+            </ng-template>
         </p-tabPanel>
     </p-tabView>
-
-    <p-panel *ngIf="!idDashboards()">
-        <p-header>{{ 'dashboards.title' | translate }}</p-header>
-        <span>{{ 'dashboards.notFound' | translate }}</span>
-    </p-panel>
 </div>

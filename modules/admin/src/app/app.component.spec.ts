@@ -1,14 +1,15 @@
 import {TestBed, async} from "@angular/core/testing";
-import {AppComponent} from "./app.component";
-import {ComponentHelper} from "./shared/component-fixture";
-import {APP_PROVIDERS} from "./app.module";
+import {SimpleNotificationsModule} from "angular2-notifications";
+import {MockBackend} from "@angular/http/testing";
 import {TranslateModule} from "ng2-translate";
+import {XHRBackend} from "@angular/http";
+import {RouterTestingModule} from "@angular/router/testing";
+
+import {ComponentHelper} from "./shared/component-fixture";
+import {AppComponent} from "./app.component";
+import {APP_PROVIDERS} from "./app.module";
 import {ConfigService} from "./config/config.service";
 import {ConfigServiceMock} from "./shared/test/stub/config.service";
-import {SimpleNotificationsModule} from "angular2-notifications";
-import {RouterTestingModule} from "@angular/router/testing";
-import {XHRBackend} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
 
 describe('Component: AppComponent', () => {
     let componentFixture: ComponentHelper<AppComponent> =

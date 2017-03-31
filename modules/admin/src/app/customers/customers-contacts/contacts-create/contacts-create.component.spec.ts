@@ -1,8 +1,8 @@
-import {TestBed, async, inject} from "@angular/core/testing";
+import {async, inject, TestBed} from "@angular/core/testing";
 import {TranslateModule} from "ng2-translate";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
-import {XHRBackend, ResponseOptions, Response} from "@angular/http";
+import {Response, ResponseOptions, XHRBackend} from "@angular/http";
 import {ComponentHelper} from "../../../shared/component-fixture";
 import {UsersCreateComponent} from "./users-create.component";
 import {APP_PROVIDERS} from "../../../app.module";
@@ -13,6 +13,8 @@ import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {ContactsCreateComponent} from "./contacts-create.component";
 import {CustomersContactsModule} from "../customers-contacts.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
 
 describe('Component: ContactsCreateComponent', () => {
     let componentFixture: ComponentHelper<ContactsCreateComponent> =
@@ -22,6 +24,7 @@ describe('Component: ContactsCreateComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
+                BrowserAnimationsModule,
                 CustomersContactsModule,
                 RouterTestingModule,
                 TranslateModule.forRoot()
@@ -110,5 +113,16 @@ describe('Component: ContactsCreateComponent', () => {
         spyOn(componentFixture.instance.location, 'back');
         componentFixture.instance.onBack();
         expect(componentFixture.instance.location.back).toHaveBeenCalled();
+
+        spyOn(componentFixture.instance._onBack, 'emit');
+        componentFixture.instance.isDirectiveCall = true;
+        componentFixture.instance.onBack();
+        expect(componentFixture.instance._onBack.emit).toHaveBeenCalledWith(Action.View);
+    }));
+
+    it('.toggleLoading', async(() => {
+        componentFixture.instance.isLoading = false;
+        componentFixture.instance.toggleLoading();
+        expect(componentFixture.instance.isLoading).toBeTruthy();
     }));
 });

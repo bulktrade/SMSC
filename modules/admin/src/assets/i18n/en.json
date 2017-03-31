@@ -203,6 +203,7 @@
     "oneToOne.errorUpdate": "Relationships were not updated!",
     "oneToOne.notFound": "Data was not found",
     "dashboardBoxType.title": "Dashboard box types",
+    "dashboardBoxType.notFound": "No dashboard box types found",
     "dashboardBoxType.formTitle": "Dashboard box type",
     "dashboardBoxType.name": "Name",
     "dashboardBoxType.type": "Type",

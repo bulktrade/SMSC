@@ -1,9 +1,9 @@
 import {DashboardBoxDeleteComponent} from "./dashboard-box-delete/dashboard-delete.component";
 import {Routes} from "@angular/router";
 import {DashboardBoxTypeCreateComponent} from "./dashboard-box-type-create/dashboard-box-type-create.component";
-import {DashboardBoxTypeUpdateComponent} from "./dashboard-box-type-update/dashboard-box-type-update";
+import {DashboardBoxTypeUpdateComponent} from "./dashboard-box-type-update/dashboard-box-type-update.component";
 import {DashboardBoxTypeUpdateResolve} from "./dashboard-box-type-update/dashboard-box-type-update.resolve";
-import {DashboardBoxTypeDeleteComponent} from "./dashboard-box-type-delete/dashboard-delete.component";
+import {DashboardBoxTypeDeleteComponent} from "./dashboard-box-type-delete/dashboard-box-type-delete.component";
 
 export const dashboardBoxTypeRoutes: Routes = [
     {

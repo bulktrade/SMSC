@@ -62,7 +62,7 @@ describe('Component: LoginComponent', () => {
 
         componentFixture.instance.onSubmit(new LoginModel('', '', false));
 
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(1);
         expect(componentFixture.instance.router.navigateByUrl).toHaveBeenCalledWith('/customers');
     }));
 
@@ -75,8 +75,7 @@ describe('Component: LoginComponent', () => {
 
         componentFixture.instance.onSubmit(new LoginModel('', '', false));
 
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.growlService.show).toHaveBeenCalledWith({severity: 'error', detail: 'login.userNotFound'});
     }));
 
@@ -89,8 +88,13 @@ describe('Component: LoginComponent', () => {
 
         componentFixture.instance.onSubmit(new LoginModel('', '', false));
 
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(0)).toEqual([true]);
-        expect(componentFixture.instance.toggleLoading['calls'].argsFor(1)).toEqual([false]);
+        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.growlService.show).toHaveBeenCalledWith({severity: 'error', detail: 'login.commonError'});
+    }));
+
+    it('should show the loading icon', async(() => {
+        componentFixture.instance.loadingSpinner = false;
+        componentFixture.instance.toggleLoading();
+        expect(componentFixture.instance.loadingSpinner).toBeTruthy();
     }));
 });

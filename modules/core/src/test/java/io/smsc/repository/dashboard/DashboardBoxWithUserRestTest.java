@@ -2,6 +2,9 @@ package io.smsc.repository.dashboard;
 
 import io.smsc.AbstractSpringMVCTest;
 import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
+import io.smsc.model.dashboard.DashboardBox;
+import io.smsc.model.dashboard.Height;
+import io.smsc.model.dashboard.Width;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,27 +40,27 @@ public class DashboardBoxWithUserRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$._embedded.dashboard-boxes", hasSize(0)));
     }
 
-//    @Test
-//    public void testCreateDashboardBox() throws Exception {
-//        DashboardBox dashboardBox = new DashboardBox();
-//        dashboardBox.setName("new box");
-//        dashboardBox.setOrder(99);
-//        dashboardBox.setWidth(Width.WIDTH_100);
-//        dashboardBox.setHeight(Height.HEIGHT_100);
-//        dashboardBox.setDescription("new box desc");
-//        String dashboardBoxJson = json(dashboardBox);
-//        // json is ignoring inserting dashboard and dashboardBoxType through setter
-//        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1)
-//                .concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", \r\n " +
-//                        "\"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
-//
-//        this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
-//                .with(csrf())
-//                .header(tokenHeader, userToken)
-//                .contentType("application/json;charset=UTF-8")
-//                .content(dashboardBoxJson))
-//                .andExpect(status().isCreated());
-//    }
+    @Test
+    public void testCreateDashboardBoxForNotOwnedDashboard() throws Exception {
+        DashboardBox dashboardBox = new DashboardBox();
+        dashboardBox.setName("new box");
+        dashboardBox.setOrder(99);
+        dashboardBox.setWidth(Width.WIDTH_100);
+        dashboardBox.setHeight(Height.HEIGHT_100);
+        dashboardBox.setDescription("new box desc");
+        String dashboardBoxJson = json(dashboardBox);
+        // json is ignoring inserting dashboard and dashboardBoxType through setter
+        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1)
+                .concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", \r\n " +
+                        "\"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
+
+        this.mockMvc.perform(post("/rest/repository/dashboard-boxes")
+                .with(csrf())
+                .header(tokenHeader, userToken)
+                .contentType("application/json;charset=UTF-8")
+                .content(dashboardBoxJson))
+                .andExpect(status().isConflict());
+    }
 
     @Test
     public void testDeleteNotOwnedDashboardBox() throws Exception {
@@ -77,26 +80,26 @@ public class DashboardBoxWithUserRestTest extends AbstractSpringMVCTest {
                 .andExpect(status().isNotFound());
     }
 
-//    @Test
-//    public void testReplaceNotOwnedDashboardBox() throws Exception {
-//        DashboardBox dashboardBox = new DashboardBox();
-//        dashboardBox.setId(1L);
-//        dashboardBox.setName("new box");
-//        dashboardBox.setOrder(99);
-//        dashboardBox.setWidth(Width.WIDTH_100);
-//        dashboardBox.setHeight(Height.HEIGHT_100);
-//        dashboardBox.setDescription("new box desc");
-//        String dashboardBoxJson = json(dashboardBox);
-//        // json is ignoring inserting dashboard and dashboardBoxType through setter
-//        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1)
-//                .concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", " +
-//                        "\r\n \"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
-//
-//        mockMvc.perform(put("/rest/repository/dashboard-boxes/{id}", 1)
-//                .with(csrf())
-//                .header(tokenHeader, userToken)
-//                .contentType("application/json;charset=UTF-8")
-//                .content(dashboardBoxJson))
-//                .andExpect(status().isCreated());
-//    }
+    @Test
+    public void testReplaceNotOwnedDashboardBox() throws Exception {
+        DashboardBox dashboardBox = new DashboardBox();
+        dashboardBox.setId(1L);
+        dashboardBox.setName("new box");
+        dashboardBox.setOrder(99);
+        dashboardBox.setWidth(Width.WIDTH_100);
+        dashboardBox.setHeight(Height.HEIGHT_100);
+        dashboardBox.setDescription("new box desc");
+        String dashboardBoxJson = json(dashboardBox);
+        // json is ignoring inserting dashboard and dashboardBoxType through setter
+        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1)
+                .concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", " +
+                        "\r\n \"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
+
+        mockMvc.perform(put("/rest/repository/dashboard-boxes/{id}", 1)
+                .with(csrf())
+                .header(tokenHeader, userToken)
+                .contentType("application/json;charset=UTF-8")
+                .content(dashboardBoxJson))
+                .andExpect(status().isForbidden());
+    }
 }

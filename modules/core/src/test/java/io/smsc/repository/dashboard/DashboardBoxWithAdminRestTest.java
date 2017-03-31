@@ -77,7 +77,7 @@ public class DashboardBoxWithAdminRestTest extends AbstractSpringMVCTest {
     }
 
     @Test
-    public void testCreateDashboardBox() throws Exception {
+    public void testCreateDashboardBoxForOwnDashboard() throws Exception {
         DashboardBox dashboardBox = new DashboardBox();
         dashboardBox.setName("new box");
         dashboardBox.setOrder(99);

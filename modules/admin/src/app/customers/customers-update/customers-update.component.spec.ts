@@ -14,6 +14,7 @@ import {Customer} from "../model/customer";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {CustomersFormModel} from "../customers-form/customers-form.model";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('Component: CustomersUpdateComponent', () => {
     let componentFixture: ComponentHelper<CustomersUpdateComponent> =
@@ -39,7 +40,7 @@ describe('Component: CustomersUpdateComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CustomersModule, RouterTestingModule, TranslateModule.forRoot()],
+            imports: [BrowserAnimationsModule, CustomersModule, RouterTestingModule, TranslateModule.forRoot()],
             providers: [
                 APP_PROVIDERS,
                 {provide: XHRBackend, useClass: MockBackend},
@@ -85,6 +86,12 @@ describe('Component: CustomersUpdateComponent', () => {
             expect(componentFixture.element.querySelector('#city')).toBeTruthy();
             expect(componentFixture.element.querySelector('#vatid')).toBeTruthy();
         });
+    }));
+
+    it('.toggleLoading()', async(() => {
+        componentFixture.instance.isLoading = false;
+        componentFixture.instance.toggleLoading();
+        expect(componentFixture.instance.isLoading).toBeTruthy();
     }));
 
     it('submit button name should be `customers.update`', async(() => {

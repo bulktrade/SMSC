@@ -10,6 +10,7 @@ import {CustomersCreateComponent} from "./customers-create.component";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {ConfigService} from "../../config/config.service";
 import {CustomersFormModel} from "../customers-form/customers-form.model";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('Component: CustomersCreateComponent', () => {
     let componentFixture: ComponentHelper<CustomersCreateComponent> =
@@ -19,6 +20,7 @@ describe('Component: CustomersCreateComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
+                BrowserAnimationsModule,
                 CustomersModule,
                 RouterTestingModule,
                 TranslateModule.forRoot()
@@ -54,6 +56,12 @@ describe('Component: CustomersCreateComponent', () => {
             expect(componentFixture.element.querySelector('#city')).toBeTruthy();
             expect(componentFixture.element.querySelector('#vatid')).toBeTruthy();
         });
+    }));
+
+    it('.toggleLoading()', async(() => {
+        componentFixture.instance.isLoading = false;
+        componentFixture.instance.toggleLoading();
+        expect(componentFixture.instance.isLoading).toBeTruthy();
     }));
 
     it('submit button name should be `customers.create`', async(() => {

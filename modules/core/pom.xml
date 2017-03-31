@@ -190,7 +190,7 @@
                             <attributes>
                                 <snippets>${snippetsDirectory}</snippets>
                             </attributes>
-                            <sourceDirectory>src/docs/asciidocs</sourceDirectory>
+                            <sourceDirectory>../../docs/asciidocs</sourceDirectory>
                         </configuration>
                     </execution>
                 </executions>

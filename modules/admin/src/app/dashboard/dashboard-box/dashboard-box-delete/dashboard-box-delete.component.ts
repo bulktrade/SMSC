@@ -25,11 +25,9 @@ export class DashboardBoxDeleteComponent {
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params) => this.id = Number(params['dashboardBoxId']));
+        this.id = Number(this.route.snapshot.paramMap.get('dashboardBoxId'));
         this.translate.get('dashboardBox.confirmDelete')
-            .subscribe(detail => {
-                this.msgs.push({severity: 'warn', detail: detail});
-            });
+            .subscribe(detail => this.msgs.push({severity: 'warn', detail: detail}));
     }
 
     onBack() {
