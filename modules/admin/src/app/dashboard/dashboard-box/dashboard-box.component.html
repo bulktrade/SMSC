@@ -3,9 +3,9 @@
         <ng-container *ngSwitchCase="'STATUS'">
             <!-- Status box -->
             <div class="toolbar pull-right">
-                <i class="fa fa-cog" aria-hidden="true" (click)="toggleSettings()"></i>
-                <i class="fa fa-pencil" aria-hidden="true" (click)="toggleDialog()"></i>
-                <i class="fa fa-trash" aria-hidden="true"
+                <i class="fa fa-cog btn-box-conf" aria-hidden="true" (click)="toggleSettings()"></i>
+                <i class="fa fa-pencil btn-update-box" aria-hidden="true" (click)="toggleDialog()"></i>
+                <i class="fa fa-trash btn-remove-box" aria-hidden="true"
                    [routerLink]="['/dashboard', dashboardId, 'dashboard-box', dashboardBox['id'], 'delete']"></i>
                 <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
             </div>
@@ -22,9 +22,9 @@
             <div class="pull-left chart-box-title">{{ dashboardBox.name }}</div>
             <div class="pull-left chart-box-desc">{{ dashboardBox.description }}</div>
             <div class="toolbar pull-right">
-                <i class="fa fa-cog" aria-hidden="true" (click)="toggleSettings()"></i>
-                <i class="fa fa-pencil" aria-hidden="true" (click)="toggleDialog()"></i>
-                <i class="fa fa-trash" aria-hidden="true"
+                <i class="fa fa-cog btn-box-conf" aria-hidden="true" (click)="toggleSettings()"></i>
+                <i class="fa fa-pencil btn-update-box" aria-hidden="true" (click)="toggleDialog()"></i>
+                <i class="fa fa-trash btn-remove-box" aria-hidden="true"
                    [routerLink]="['/dashboard', dashboardId, 'dashboard-box', dashboardBox['id'], 'delete']"></i>
                 <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
             </div>
