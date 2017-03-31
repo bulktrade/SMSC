@@ -1,4 +1,4 @@
-import {TestBed, async} from "@angular/core/testing";
+import {async, TestBed} from "@angular/core/testing";
 import {ComponentHelper} from "../../component-fixture";
 import {ControlErrorsComponent, ControlErrorsModule} from "./control-errors.component";
 
@@ -32,5 +32,11 @@ describe('Component: ControlErrorsComponent', () => {
         };
         componentFixture.instance.findFirst();
         expect(componentFixture.instance.error).toEqual('This field is required.');
+    }));
+
+    it('.ngOnInit()', async(() => {
+        componentFixture.instance.form = null;
+        expect(() => componentFixture.instance.ngOnInit())
+            .toThrowError('control-errors must be used with a parent formGroup directive');
     }));
 });

@@ -25,7 +25,7 @@ export class LoginComponent {
     }
 
     onSubmit(model) {
-        this.toggleLoading(true);
+        this.toggleLoading();
         this.authService.login(model.username, model.password)
             .subscribe(
                 () => {
@@ -42,12 +42,12 @@ export class LoginComponent {
                             break;
                     }
 
-                    this.toggleLoading(false);
+                    this.toggleLoading();
                 }
             );
     }
 
-    toggleLoading(value: boolean) {
-        this.loadingSpinner = value;
+    toggleLoading() {
+        this.loadingSpinner = !this.loadingSpinner;
     }
 }

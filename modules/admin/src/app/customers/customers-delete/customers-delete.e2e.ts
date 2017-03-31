@@ -24,6 +24,6 @@ describe('Delete customer', () => {
 
     it('should delete the customer', () => {
         page.clickOnSubmitButton();
-        expect(page.getMessageTitle()).toEqual('SUCCESS');
+        page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
     });
 });

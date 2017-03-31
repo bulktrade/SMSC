@@ -1,13 +1,13 @@
-import {Component, Input, trigger, style, animate, state, transition} from "@angular/core";
+import {trigger, style, animate, state, transition} from "@angular/animations";
 import {Dashboard} from "../dashboard/dashboard.model";
 import {Router} from "@angular/router";
 import {SidebarModel} from "./sidebar.model";
 import {DashboardService, REPOSITORY_NAME} from "../dashboard/dashboard.service";
+import {Input, Component} from "@angular/core";
 
 @Component({
     selector: 'sidebar-item',
     templateUrl: './sidebar-item.component.html',
-    providers: [],
     animations: [
         trigger('state', [
             state('closed', style({height: 0})),
@@ -20,7 +20,7 @@ import {DashboardService, REPOSITORY_NAME} from "../dashboard/dashboard.service"
 })
 export class SidebarItemComponent {
 
-    @Input('sidebarItem') public sidebarItem: SidebarModel;
+    @Input('sidebarItem') public sidebarItem: SidebarModel = <SidebarModel>{};
 
     @Input('dashboards') public dashboards: Dashboard[] = [];
 

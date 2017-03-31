@@ -32,11 +32,11 @@ describe('Create the user', () => {
 
     it('should set the value to salutation input field', () => {
         page.setSalutation();
-        expect(page.getSalutationLabelText()).toEqual('Missus');
+        page.getSalutationLabelText().then(label => expect(label).toEqual('Missus'));
     });
 
     it('should create the user', () => {
         page.clickOnSubmitButton();
-        expect(page.getMessageTitle()).toEqual('SUCCESS');
+        page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
     });
 });

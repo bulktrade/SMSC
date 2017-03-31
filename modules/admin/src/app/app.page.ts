@@ -1,7 +1,7 @@
-import { EC } from "./shared/expected-conditions";
-import { element, by, browser } from "protractor";
+import {EC} from "./shared/expected-conditions";
+import {browser, by, element} from "protractor";
 
-export class AppTest {
+export class AppPage {
 
     public elemUsername = element(by.id('username'));
     public elemPassword = element(by.id('password'));

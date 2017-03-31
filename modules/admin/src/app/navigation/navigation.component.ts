@@ -1,8 +1,9 @@
-import {Component, animate, style, trigger, transition, state, OnInit, Inject} from "@angular/core";
+import {animate, style, trigger, transition, state} from "@angular/animations";
 import {Router, NavigationStart, NavigationEnd} from "@angular/router";
 import {TokenService} from "../services/auth/token.service";
 import {LoadingRouterOutletService} from "../services/loading/loading-router-outlet.service";
 import {DOCUMENT} from "@angular/platform-browser";
+import {Component, OnInit, Inject} from "@angular/core";
 
 @Component({
     selector: 'navigation',

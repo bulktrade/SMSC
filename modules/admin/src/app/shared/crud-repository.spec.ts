@@ -11,7 +11,7 @@ interface Data extends Entity {
     telephoneNumber: string;
 }
 
-class CrudRepositoryService extends CrudRepository<Data> {
+export class CrudRepositoryService extends CrudRepository<Data> {
     public repositoryName = 'data';
     public titleColumns = 'name';
 

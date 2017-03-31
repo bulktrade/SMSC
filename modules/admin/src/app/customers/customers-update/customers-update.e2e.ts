@@ -26,6 +26,6 @@ describe('Update customer', () => {
     it('should update the customer', () => {
         page.sendKeysToPostcodeInputField();
         page.clickOnSubmitButton();
-        expect(page.getMessageTitle()).toEqual('SUCCESS');
+        page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
     });
 });

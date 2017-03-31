@@ -40,8 +40,7 @@ export class OneToOneComponent implements OnInit, ControlValueAccessor {
 
     private _value: any;
 
-    onModelChange: Function = () => {
-    };
+    onModelChange: Function = () => {};
 
     options: SelectItem[] = [{label: '', value: null}];
 
@@ -82,7 +81,7 @@ export class OneToOneComponent implements OnInit, ControlValueAccessor {
         }
     }
 
-    ngOnInit(): void {
+    retrieveValue() {
         if (this.name && this.entity.hasOwnProperty('_links') && this.entity['_links'].hasOwnProperty(this.name)) {
             this.http.request(this.entity._links[this.name].href, {method: RequestMethod.Get})
                 .map(data => data.json())
@@ -90,7 +89,9 @@ export class OneToOneComponent implements OnInit, ControlValueAccessor {
                     this.value = resource._links.self.href;
                 });
         }
+    }
 
+    retrieveOptions() {
         if (this.crudRepositoryB) {
             this.crudRepositoryB.getResources()
                 .map(res => res['_embedded'][this.crudRepositoryB.repositoryName])
@@ -106,6 +107,11 @@ export class OneToOneComponent implements OnInit, ControlValueAccessor {
                     });
                 }, () => this.notification.createNotification('error', 'ERROR', 'oneToOne.notFound'));
         }
+    }
+
+    ngOnInit(): void {
+        this.retrieveValue();
+        this.retrieveOptions();
     }
 
     getLabelByFileds(resource: any): string {

@@ -12,6 +12,7 @@ import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {Customer} from "../model/customer";
 import {OneToMany, Action} from "../../shared/components/one-to-many/one-to-many.model";
 import {CustomersFormModel} from "./customers-form.model";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('Component: CustomersFormComponent', () => {
     let componentFixture: ComponentHelper<CustomersFormComponent> =
@@ -32,7 +33,7 @@ describe('Component: CustomersFormComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CustomersFormModule, RouterTestingModule, TranslateModule.forRoot()],
+            imports: [BrowserAnimationsModule, CustomersFormModule, RouterTestingModule, TranslateModule.forRoot()],
             providers: [
                 APP_PROVIDERS,
                 {provide: XHRBackend, useClass: MockBackend},

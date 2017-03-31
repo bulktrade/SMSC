@@ -1,7 +1,7 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {Location} from "@angular/common";
 import {NgForm} from "@angular/forms";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {DashboardBox} from "../dashboard-box.model";
 import {DashboardBoxService} from "../dashboard-box.service";
 import {NotificationService} from "../../../services/notification-service";
@@ -13,23 +13,17 @@ import {ControlErrorService} from "../../../services/control-error";
 })
 export class DashboardBoxUpdateComponent {
 
-    isLoading: boolean = false;
-
     @Input() model: DashboardBox = <DashboardBox>{};
 
     @Output() modelChange: EventEmitter<DashboardBox> = new EventEmitter();
 
-    id: number = null;
+    isLoading: boolean = false;
 
     constructor(public dashboardBoxService: DashboardBoxService,
                 public notification: NotificationService,
                 public controlErrorService: ControlErrorService,
                 public location: Location,
                 public route: ActivatedRoute) {
-    }
-
-    ngOnInit() {
-        this.route.params.subscribe((params: Params) => this.id = Number(params['dashboardBoxId']));
     }
 
     onSubmit(dashboardBoxForm: NgForm) {

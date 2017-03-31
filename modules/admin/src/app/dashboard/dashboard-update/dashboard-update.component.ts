@@ -5,7 +5,7 @@ import {NgForm} from "@angular/forms";
 import {DashboardService} from "../dashboard.service";
 import {NotificationService} from "../../services/notification-service";
 import {ControlErrorService} from "../../services/control-error";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'dashboard-update',
@@ -24,7 +24,7 @@ export class DashboardUpdateComponent {
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params: Params) => this.id = Number(params['id']));
+        this.id = Number(this.route.snapshot.paramMap.get('id'));
         this.model = this.getDashboard();
     }
 

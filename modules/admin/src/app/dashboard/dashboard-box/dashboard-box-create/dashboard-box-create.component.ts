@@ -31,7 +31,7 @@ export class DashboardBoxCreateComponent {
     }
 
     ngOnInit() {
-        this.route.params.subscribe((params: Params) => this.dashboardId = Number(params['id']));
+        this.dashboardId = Number(this.route.snapshot.paramMap.get('id'));
     }
 
     onSubmit(dashboardBoxForm: NgForm) {

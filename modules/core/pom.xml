@@ -3,14 +3,14 @@
     <parent>
         <artifactId>smsc</artifactId>
         <groupId>io.smsc</groupId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>0.0.4-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>core</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.3-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
 
     <properties>
         <timestamp>${maven.build.timestamp}</timestamp>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>io.smsc</groupId>
             <artifactId>admin</artifactId>
-            <version>0.0.3-SNAPSHOT</version>
+            <version>0.0.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -190,7 +190,7 @@
                             <attributes>
                                 <snippets>${snippetsDirectory}</snippets>
                             </attributes>
-                            <sourceDirectory>src/docs/asciidocs</sourceDirectory>
+                            <sourceDirectory>../../docs/asciidocs</sourceDirectory>
                         </configuration>
                     </execution>
                 </executions>

@@ -1,31 +1,22 @@
-import {AppTest} from "./app.page";
+import {AppPage} from "./app.page";
 import {browser} from "protractor";
 
-describe('App', () => {
-    beforeEach(() => {
-        this.apptest = new AppTest();
+describe('AppComponent', () => {
+    let page: AppPage = new AppPage();
+
+    beforeAll(() => {
+        page.get();
     });
 
     it('should have a title', () => {
-        let width = 1024,
-            height = 768;
-        browser.driver.manage().window().setSize(width, height);
-
-        this.apptest.get();
-        let subject = browser.getTitle();
-        let result = 'SMSC Admin';
-
-        expect(subject).toEqual(result);
+        browser.getTitle().then(title => expect(title).toEqual('SMSC Admin'));
     });
 
-    it('should have input username', () => {
-        let result = true;
-        expect(this.apptest.isPresentUsername()).toEqual(result);
+    it('should have the username input field', () => {
+        expect(page.isPresentUsername()).toBeTruthy();
     });
 
-    it('should have input password', () => {
-        let result = true;
-        expect(this.apptest.isPresentPassword()).toEqual(result);
+    it('should have the password input field', () => {
+        expect(page.isPresentPassword()).toBeTruthy();
     });
-
 });

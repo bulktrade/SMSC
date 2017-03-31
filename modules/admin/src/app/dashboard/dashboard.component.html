@@ -1,20 +1,23 @@
 <!-- Dashboard toolbar -->
 <div class="dashboard-toolbar">
-    <p-splitButton icon="fa-plus" [title]="'dashboardBox.createDashboardBox' | translate"
-                   menuStyleClass="ui-button-success" (onClick)="router.navigate(['/dashboard', id, 'dashboard-box', 'create'])" [model]="menuItems"></p-splitButton>
+    <div class="create-box-button" [routerLink]="['/dashboard', id, 'dashboard-box', 'create']">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+    </div>
 </div>
 <!-- /#dashboard toolbar -->
 
 <!-- Dashboard boxes -->
-<div class="ui-g dashboard-boxes" *ngIf="isDashboardBoxes()" dragula='dashboard-boxes'
+<div class="ui-g dashboard-boxes" *ngIf="isDashboardBoxes(); else showNoDashboardBoxesPanel" dragula='dashboard-box'
      [dragulaModel]='dashboardBoxes'>
     <dashboard-box *ngFor="let dashboardBox of dashboardBoxes" [dashboardBox]="dashboardBox"></dashboard-box>
 </div>
 <!-- /#dashboard boxes -->
 
 <!-- Have no dashboard boxes panel -->
-<p-panel *ngIf="!isDashboardBoxes()">
-    <p-header>{{ 'dashboardBoxes.title' | translate }}</p-header>
-    <span>{{ 'dashboardBoxes.notFound' | translate }}</span>
-</p-panel>
+<ng-template #showNoDashboardBoxesPanel>
+    <p-panel>
+        <p-header>{{ 'dashboardBoxes.title' | translate }}</p-header>
+        <span>{{ 'dashboardBoxes.notFound' | translate }}</span>
+    </p-panel>
+</ng-template>
 <!-- /#have no dashboard boxes panel -->

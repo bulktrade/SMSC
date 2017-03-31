@@ -11,6 +11,8 @@ import {ConfigServiceMock} from "../../../shared/test/stub/config.service";
 import {UsersModule} from "../customers-users.module";
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
+import {CustomerUser} from "../../model/customer-user";
+import {Action} from "../../../shared/components/one-to-many/one-to-many.model";
 
 describe('Component: UsersDeleteComponent', () => {
     let componentFixture: ComponentHelper<UsersDeleteComponent> =
@@ -56,9 +58,14 @@ describe('Component: UsersDeleteComponent', () => {
         });
         spyOn(componentFixture.instance.notifications, 'createNotification');
         spyOn(componentFixture.instance, 'onBack');
-
         componentFixture.instance.deleteResource();
+        expect(componentFixture.instance.notifications.createNotification)
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successDeleteUser');
+        expect(componentFixture.instance.onBack).toHaveBeenCalled();
 
+        componentFixture.instance.isDirectiveCall = true;
+        componentFixture.instance.entity = <CustomerUser>{_links: {self: {href: 'foo'}}};
+        componentFixture.instance.deleteResource();
         expect(componentFixture.instance.notifications.createNotification)
             .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successDeleteUser');
         expect(componentFixture.instance.onBack).toHaveBeenCalled();
@@ -83,6 +90,11 @@ describe('Component: UsersDeleteComponent', () => {
         spyOn(componentFixture.instance.location, 'back');
         componentFixture.instance.onBack();
         expect(componentFixture.instance.location.back).toHaveBeenCalled();
+
+        spyOn(componentFixture.instance._onBack, 'emit');
+        componentFixture.instance.isDirectiveCall = true;
+        componentFixture.instance.onBack();
+        expect(componentFixture.instance._onBack.emit).toHaveBeenCalledWith(Action.View);
     }));
 
     it('.ngOnInit()', async(() => {
