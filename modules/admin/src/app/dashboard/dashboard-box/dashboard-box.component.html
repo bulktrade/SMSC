@@ -3,11 +3,11 @@
         <ng-container *ngSwitchCase="'STATUS'">
             <!-- Status box -->
             <div class="toolbar pull-right">
-                <i class="fa fa-cog btn-box-conf" aria-hidden="true" (click)="toggleSettings()"></i>
+                <i class="fa fa-cog btn-conf-box" aria-hidden="true" (click)="toggleSettings()"></i>
                 <i class="fa fa-pencil btn-update-box" aria-hidden="true" (click)="toggleDialog()"></i>
                 <i class="fa fa-trash btn-remove-box" aria-hidden="true"
                    [routerLink]="['/dashboard', dashboardId, 'dashboard-box', dashboardBox['id'], 'delete']"></i>
-                <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
+                <i class="fa fa-arrows-alt btn-fullscreen-box" aria-hidden="true" (click)="onFullscreenMode()"></i>
             </div>
             <hr>
             <div class="dashboard-name">
@@ -22,11 +22,11 @@
             <div class="pull-left chart-box-title">{{ dashboardBox.name }}</div>
             <div class="pull-left chart-box-desc">{{ dashboardBox.description }}</div>
             <div class="toolbar pull-right">
-                <i class="fa fa-cog btn-box-conf" aria-hidden="true" (click)="toggleSettings()"></i>
+                <i class="fa fa-cog btn-conf-box" aria-hidden="true" (click)="toggleSettings()"></i>
                 <i class="fa fa-pencil btn-update-box" aria-hidden="true" (click)="toggleDialog()"></i>
                 <i class="fa fa-trash btn-remove-box" aria-hidden="true"
                    [routerLink]="['/dashboard', dashboardId, 'dashboard-box', dashboardBox['id'], 'delete']"></i>
-                <i class="fa fa-arrows-alt" aria-hidden="true" (click)="onFullscreenMode()"></i>
+                <i class="fa fa-arrows-alt btn-fullscreen-box" aria-hidden="true" (click)="onFullscreenMode()"></i>
             </div>
             <hr>
             <p-chart [type]="getKindOfChart(dashboardBoxType.kind)"
@@ -39,11 +39,11 @@
         <div>
             <i class="fa fa-times" (click)="toggleSettings()"></i>
             <span>Width:</span>
-            <p-dropdown (onChange)="onWidthChange($event)" [(ngModel)]="dashboardBox.width"
+            <p-dropdown (onChange)="onWidthChange($event)" [(ngModel)]="dashboardBox.width" id="cog-width"
                         [options]="[{label:'25%', value: 'WIDTH_25'},{label:'50%', value: 'WIDTH_50'},
                                     {label:'75%', value: 'WIDTH_75'},{label:'100%', value: 'WIDTH_100'}]"></p-dropdown>
             <span>Height:</span>
-            <p-dropdown (onChange)="onHeightChange($event)" [(ngModel)]="dashboardBox.height"
+            <p-dropdown (onChange)="onHeightChange($event)" [(ngModel)]="dashboardBox.height" id="cog-height"
                         [options]="[{label:'25%', value: 'HEIGHT_25'},{label:'50%', value: 'HEIGHT_50'},
                                     {label:'75%', value: 'HEIGHT_75'},{label:'100%', value: 'HEIGHT_100'}]"></p-dropdown>
         </div>
