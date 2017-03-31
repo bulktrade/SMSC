@@ -2,6 +2,7 @@ package io.smsc.repository.dashboard;
 
 import io.smsc.AbstractSpringMVCTest;
 import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
+import io.smsc.model.dashboard.Dashboard;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,24 +38,21 @@ public class DashboardWithUserRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$._embedded.dashboards", hasSize(0)));
     }
 
-//    @Test
-//    public void testCreateDashboard() throws Exception {
-//        Dashboard dashboard = new Dashboard();
-//        dashboard.setId(null);
-//        dashboard.setIcon("admin");
-//        dashboard.setName("default_admin");
-//        String dashboardJson = json(dashboard);
-//        // json is ignoring inserting user through setter
-//        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1)
-//                .concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
-//
-//        this.mockMvc.perform(post("/rest/repository/dashboards")
-//                .with(csrf())
-//                .header(tokenHeader, userToken)
-//                .contentType("application/json;charset=UTF-8")
-//                .content(dashboardJson))
-//                .andExpect(status().isCreated());
-//    }
+    @Test
+    public void testCreateDashboard() throws Exception {
+        Dashboard dashboard = new Dashboard();
+        dashboard.setId(null);
+        dashboard.setIcon("admin");
+        dashboard.setName("default_admin");
+        String dashboardJson = json(dashboard);
+
+        this.mockMvc.perform(post("/rest/repository/dashboards")
+                .with(csrf())
+                .header(tokenHeader, userToken)
+                .contentType("application/json;charset=UTF-8")
+                .content(dashboardJson))
+                .andExpect(status().isCreated());
+    }
 
     @Test
     public void testDeleteNotOwnedDashboard() throws Exception {
@@ -74,23 +72,19 @@ public class DashboardWithUserRestTest extends AbstractSpringMVCTest {
                 .andExpect(status().isNotFound());
     }
 
-//    @Test
-//    public void testReplaceNotOwnedDashboard() throws Exception {
-//        Dashboard dashboard = new Dashboard();
-//        dashboard.setId(1L);
-//        dashboard.setIcon("admin");
-//        dashboard.setName("default_admin");
-//        dashboard.setUser(new User());
-//        String dashboardJson = json(dashboard);
-//        // json is ignoring inserting user through setter
-//        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1)
-//                .concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
-//
-//        mockMvc.perform(put("/rest/repository/dashboards/{id}", 1)
-//                .with(csrf())
-//                .header(tokenHeader, userToken)
-//                .contentType("application/json;charset=UTF-8")
-//                .content(dashboardJson))
-//                .andExpect(status().isCreated());
-//    }
+    @Test
+    public void testReplaceNotOwnedDashboard() throws Exception {
+        Dashboard dashboard = new Dashboard();
+        dashboard.setId(1L);
+        dashboard.setIcon("admin");
+        dashboard.setName("default_admin");
+        String dashboardJson = json(dashboard);
+
+        mockMvc.perform(put("/rest/repository/dashboards/{id}", 1)
+                .with(csrf())
+                .header(tokenHeader, userToken)
+                .contentType("application/json;charset=UTF-8")
+                .content(dashboardJson))
+                .andExpect(status().isCreated());
+    }
 }

@@ -78,9 +78,6 @@ public class DashboardWithAdminRestTest extends AbstractSpringMVCTest {
         dashboard.setIcon("admin");
         dashboard.setName("default_admin");
         String dashboardJson = json(dashboard);
-        // json is ignoring inserting user through setter
-        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1)
-                .concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
 
         this.mockMvc.perform(post("/rest/repository/dashboards")
                 .with(csrf())
@@ -139,11 +136,7 @@ public class DashboardWithAdminRestTest extends AbstractSpringMVCTest {
         dashboard.setId(1L);
         dashboard.setIcon("admin");
         dashboard.setName("default_admin");
-        dashboard.setUser(new User());
         String dashboardJson = json(dashboard);
-        // json is ignoring inserting user through setter
-        dashboardJson = dashboardJson.substring(0, dashboardJson.length() - 1)
-                .concat(", \"user\" : \"/rest/repository/users/1\" \r\n }");
 
         mockMvc.perform(put("/rest/repository/dashboards/{id}", 1)
                 .with(csrf())
@@ -224,8 +217,6 @@ public class DashboardWithAdminRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("name").type(String.class).description("Dashboard's name")
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("icon").type(String.class).description("Dashboard's icon")
-                                .attributes(key("mandatory").value(true)),
-                        fieldWithPath("user").type(User.class).description("Dashboard's user")
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
