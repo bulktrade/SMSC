@@ -85,14 +85,15 @@
     "zone.js": "~0.7.7"
   },
   "devDependencies": {
+    "@types/express": "^4.0.35",
     "@types/amcharts": "^0.0.39",
     "@types/hammerjs": "^2.0.34",
-    "@types/jasmine": "^2.5.43",
-    "@types/node": "^7.0.5",
+    "@types/jasmine": "^2.5.47",
+    "@types/node": "^7.0.12",
     "@types/selenium-webdriver": "^2.53.40",
     "@types/source-map": "^0.5.0",
     "@types/uglify-js": "^2.6.28",
-    "@types/webpack": "^2.2.7",
+    "@types/webpack": "^2.2.14",
     "add-asset-html-webpack-plugin": "^1.0.2",
     "amcharts3": "github:amcharts/amcharts3",
     "ammap3": "github:amcharts/ammap3",
