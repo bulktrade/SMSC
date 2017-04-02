@@ -36,7 +36,7 @@ public class DashboardRepositoryImpl implements DashboardRepositoryCustom {
         }
         else {
             currentDashboard = em.find(Dashboard.class, dashboard.getId());
-            if (currentDashboard.getUser().equals(getLoggedUser())) {
+            if (currentDashboard.getUser().getId().equals(getLoggedUser().getId())) {
                 return em.merge(dashboard);
             }
         }
