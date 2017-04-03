@@ -18,7 +18,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WithMockUser(username = "Admin", roles = {"POWER_ADMIN_USER"})
+@WithMockUser(username = "admin", roles = {"POWER_ADMIN_USER"})
 public class CustomerRestTest extends AbstractSpringMVCTest {
 
     @Test
