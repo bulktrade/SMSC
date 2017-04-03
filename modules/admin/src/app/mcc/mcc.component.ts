@@ -18,7 +18,7 @@ export class MCCComponent implements OnInit {
 
     public isFiltering: { [inputFieldName: string]: boolean }[] = [];
 
-    public filters: { [colName: string]: string }[] = [];
+    public filters: { [colName: string]: string } = {};
 
     public selectedRows: MCC[] = [];
 

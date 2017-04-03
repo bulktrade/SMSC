@@ -46,7 +46,7 @@ export class CustomersViewComponent implements OnInit, AfterViewChecked {
 
     public isFiltering: { [inputFieldName: string]: boolean }[] = [];
 
-    public filters: { [colName: string]: string }[] = [];
+    public filters: { [colName: string]: string } = {};
 
     public tableHeaderHeight: number;
 
