@@ -36,7 +36,7 @@ export class SidebarItemComponent {
 
     navigate(sidebarItem: SidebarModel) {
         if (sidebarItem.name === 'DASHBOARDS') {
-            this.dashboardService.getResources(null, null, [{name: 'default'}])
+            this.dashboardService.getResources(null, null, {name: 'default'})
                 .subscribe((dashboards: Dashboard[]) => {
                     let dashboard = dashboards['_embedded'][REPOSITORY_NAME][0];
                     this.router.navigate(['/dashboard', dashboard['id']]);

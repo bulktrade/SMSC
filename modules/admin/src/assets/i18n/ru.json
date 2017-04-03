@@ -228,5 +228,6 @@
     "mcc.mcc": "MCC",
     "mcc.code": "Code",
     "mcc.country": "Country",
-    "mcc.filter": "MCC filter"
+    "mcc.filter": "MCC filter",
+    "mcc.formTitle": "MCC"
 }

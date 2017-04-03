@@ -159,7 +159,7 @@ export abstract class CrudRepository<T> {
      * @param sort
      * @returns {Observable<T>}
      */
-    getResources(page?: number, size?: number, query?: { [colName: string]: string }[], sort?: Sort): Rx.Observable<T[]> {
+    getResources(page?: number, size?: number, query?: { [colName: string]: string }, sort?: Sort): Rx.Observable<T[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {

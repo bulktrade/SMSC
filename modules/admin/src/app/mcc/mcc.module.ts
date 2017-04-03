@@ -6,6 +6,7 @@ import {
     InputTextModule,
     MessagesModule,
     PaginatorModule,
+    PanelModule,
     SharedModule,
     TabViewModule
 } from "primeng/primeng";
@@ -17,6 +18,9 @@ import {TranslateModule} from "ng2-translate";
 import {MCCRoutingModule} from "./mcc-routing.module";
 import {MCCComponent} from "./mcc.component";
 import {MCCService} from "./mcc.service";
+import {MCCCreateComponent} from "./mcc-create/mcc-create.component";
+import {ControlErrorService} from "../services/control-error";
+import {ControlErrorsModule} from "../shared/components/control-errors/control-errors.component";
 
 @NgModule({
     imports: [
@@ -32,11 +36,16 @@ import {MCCService} from "./mcc.service";
         FormsModule,
         CommonModule,
         TranslateModule,
-        InputTextModule
+        InputTextModule,
+        ControlErrorsModule,
+        PanelModule
     ],
     exports: [MCCComponent],
-    declarations: [MCCComponent],
-    providers: [MCCService],
+    declarations: [
+        MCCComponent,
+        MCCCreateComponent
+    ],
+    providers: [MCCService, ControlErrorService],
 })
 export class MCCModule {
 }

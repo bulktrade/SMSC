@@ -1,4 +1,4 @@
-import {browser, element, by, protractor} from "protractor";
+import {browser, by, element, protractor} from "protractor";
 import {ProtractorHelpers} from "../../shared/protractor-helpers";
 
 export class CustomersViewPage {
@@ -9,8 +9,8 @@ export class CustomersViewPage {
     pHeader = element(by.tagName('p-header'));
     pPaginator = element(by.tagName('p-paginator'));
     searchField = element(by.className('search-field'));
-    containerOfRows = element.all(by.css('#customers-view-window tbody tr'));
-    cellsOfFirstRow = element.all(by.css('#customers-view-window tbody tr:first-child > td:nth-child(4)~td'));
+    containerOfRows = element.all(by.css('.customers-view tbody tr'));
+    cellsOfFirstRow = element.all(by.css('.customers-view tbody tr:first-child > td:nth-child(4)~td'));
     clearGlobalSearchField = element(by.css('.search-panel .clear-search-button'));
     selectAllRowsCheckbox = element(by.css('th p-dtcheckbox'));
     deleteButton = element(by.css('.ctrl-panel .delete-button'));
