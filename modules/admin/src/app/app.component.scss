@@ -104,6 +104,18 @@ p-dialog .ui-widget-content {
   padding: 4px 4px 4px 10px;
 }
 
+.customers-view {
+  one-to-one {
+    .ui-dropdown-panel {
+      position: static;
+    }
+
+    .ui-dropdown .ui-dropdown-trigger {
+      height: 32px;
+    }
+  }
+}
+
 .md-card,
 navigation,
 login {

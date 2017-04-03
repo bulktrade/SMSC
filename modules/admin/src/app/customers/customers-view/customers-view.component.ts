@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Inject, OnInit, ViewEncapsulation} from "@angular/core";
+import {AfterViewChecked, Component, Inject, OnInit} from "@angular/core";
 import {TranslateService} from "ng2-translate/ng2-translate";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Message} from "primeng/components/common/api";
@@ -17,10 +17,12 @@ import {Pagination} from "../model/pagination";
 import {Customer} from "../model/customer";
 
 @Component({
-    encapsulation: ViewEncapsulation.None,
     selector: 'customers-view',
     templateUrl: './customers-view.component.html',
-    styleUrls: ['./customers-view.component.scss']
+    styleUrls: [
+        './customers-view.component.scss',
+        '../../shared/styles/view.component.scss'
+    ]
 })
 export class CustomersViewComponent implements OnInit, AfterViewChecked {
 
@@ -40,13 +42,11 @@ export class CustomersViewComponent implements OnInit, AfterViewChecked {
 
     public isLoading: boolean = false;
 
-    public filters: Customer = <Customer>{};
-
     public sort: Sort = null;
 
-    public searchModel: Customer[] = [];
+    public isFiltering: { [inputFieldName: string]: boolean }[] = [];
 
-    public isFilterLoading: Customer[] = [];
+    public filters: { [colName: string]: string }[] = [];
 
     public tableHeaderHeight: number;
 
@@ -68,17 +68,14 @@ export class CustomersViewComponent implements OnInit, AfterViewChecked {
     }
 
     ngOnInit() {
-        this.translate.get('customers.multipleDeleteRecords')
-            .subscribe(detail => {
-                this.msgs.push({severity: 'warn', detail: detail});
-            });
-
+        this.translate.get('MULTIPLE_DELETE_RECORDS')
+            .subscribe(detail => this.msgs.push({severity: 'warn', detail: detail}));
         this.rowData = this.getRowData();
         this.pagination.totalElements = this.getNumberCustomers();
     }
 
     ngAfterViewChecked() {
-        if (this.document.querySelector('#customers-view-window')) {
+        if (this.document.querySelector('.smsc-crud-view')) {
             this.tableHeaderHeight = this.getTableHeaderHeight();
             this.tableBodyHeight = this.getTableBodyHeight();
         }
@@ -97,17 +94,17 @@ export class CustomersViewComponent implements OnInit, AfterViewChecked {
         this.setRowData();
     }
 
-    onFilter(column: string, filterName: string) {
-        this.filters[column] = this.searchModel[filterName];
-        this.isFilterLoading[filterName] = true;
+    onFilter(colName: string, inputField) {
+        this.filters[colName] = inputField.value;
+        this.isFiltering[<string>inputField.name] = true;
 
         this.customersService.getResources(this.pagination.number, this.pagination.size,
             this.filters, this.sort)
             .subscribe(rows => {
                 this.rowData = rows['_embedded'][REPOSITORY_NAME];
-                this.isFilterLoading[filterName] = false;
+                this.isFiltering[<string>inputField.name] = false;
             }, () => {
-                this.isFilterLoading[filterName] = false;
+                this.isFiltering[<string>inputField.name] = false;
             });
     }
 
@@ -173,12 +170,12 @@ export class CustomersViewComponent implements OnInit, AfterViewChecked {
     }
 
     getTableHeaderHeight(): number {
-        return this.document.querySelector('#customers-view-window p-dataTable .ui-datatable-header').offsetHeight +
-            this.document.querySelector('#customers-view-window p-dataTable .ui-datatable-scrollable-header').offsetHeight
+        return this.document.querySelector('.smsc-crud-view p-dataTable .ui-datatable-header').offsetHeight +
+            this.document.querySelector('.smsc-crud-view p-dataTable .ui-datatable-scrollable-header').offsetHeight
     }
 
     getTableBodyHeight(): number {
-        return this.document.querySelector('#customers-view-window p-dataTable tbody').offsetHeight;
+        return this.document.querySelector('.smsc-crud-view p-dataTable tbody').offsetHeight;
     }
 
     getRowData() {

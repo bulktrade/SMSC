@@ -1,7 +1,7 @@
 import * as Rx from "rxjs/Rx";
-import {Http, RequestMethod, RequestOptions, URLSearchParams, Headers, Response} from "@angular/http";
+import {Headers, Http, RequestMethod, RequestOptions, Response, URLSearchParams} from "@angular/http";
 import {ConfigService} from "../config/config.service";
-import {Entity, Links, Link} from "./entity.model";
+import {Entity, Link, Links} from "./entity.model";
 import {Sort} from "./sort.model";
 import {EventEmitter} from "@angular/core";
 import {Observable} from "rxjs";
@@ -159,7 +159,7 @@ export abstract class CrudRepository<T> {
      * @param sort
      * @returns {Observable<T>}
      */
-    getResources(page?: number, size?: number, query?: T, sort?: Sort): Rx.Observable<T[]> {
+    getResources(page?: number, size?: number, query?: { [colName: string]: string }[], sort?: Sort): Rx.Observable<T[]> {
         let search = new URLSearchParams();
 
         if (typeof page !== 'undefined' && typeof size !== 'undefined') {

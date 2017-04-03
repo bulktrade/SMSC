@@ -1,9 +1,9 @@
-import {trigger, style, animate, state, transition} from "@angular/animations";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Dashboard} from "../dashboard/dashboard.model";
 import {Router} from "@angular/router";
 import {SidebarModel} from "./sidebar.model";
 import {DashboardService, REPOSITORY_NAME} from "../dashboard/dashboard.service";
-import {Input, Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
     selector: 'sidebar-item',
@@ -36,7 +36,7 @@ export class SidebarItemComponent {
 
     navigate(sidebarItem: SidebarModel) {
         if (sidebarItem.name === 'DASHBOARDS') {
-            this.dashboardService.getResources(null, null, <Dashboard>{name: 'default'})
+            this.dashboardService.getResources(null, null, [{name: 'default'}])
                 .subscribe((dashboards: Dashboard[]) => {
                     let dashboard = dashboards['_embedded'][REPOSITORY_NAME][0];
                     this.router.navigate(['/dashboard', dashboard['id']]);

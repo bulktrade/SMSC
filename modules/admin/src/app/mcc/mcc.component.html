@@ -1,102 +1,114 @@
-<div id="mcc-view" #mccView (window:resize)="onResize($event)">
-    <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" [immutable]="true"
-                 [rows]="10" [paginator]="true" [pageLinks]="3" (onPage)="onPage($event)"
-                 [rowsPerPageOptions]="[10,20,30,50,100,200]"
-                 (onEditComplete)="onEditComplete($event)" scrollable="true">
-        <p-header class="grid-header">
-            <div class="ui-helper-clearfix">
-                <div class="ui-g ctrl-panel">
-                    <div class="ui-g-12 ui-md-6 search-panel">
-                        <i class="fa fa-search"></i>
-                        <input class="search-field" type="text" #globalFilter
-                               ngModel (ngModelChange)="onFilter('mcc', globalFilter)"
-                               pInputText [placeholder]="'mcc.filter' | translate" name="globalFilter">
-                        <i *ngIf="globalFilter.value && !isFiltering[globalFilter.name]"
-                           class="fa fa-times search-icon clear-search-button"
-                           (click)="globalFilter.value='';onFilter('mcc', globalFilter)"
-                           aria-hidden="true"></i>
-                        <i *ngIf="isFiltering[globalFilter.name]"
-                           class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
-                    </div>
-                    <div class="ui-g-12 ui-md-6 button-panel">
-                        <button type="button" class="ui-button-success create-button"
-                                routerLink="/mcc/create"
-                                pButton icon="fa-plus" [label]="'CREATE' | translate"></button>
-                        <button type="button" pButton class="ui-button-danger delete-button"
-                                [disabled]="!selectedRows.length"
-                                icon="fa-remove" (click)="showConfirmDeletionWindow=true;"
-                                [label]="'DELETE' | translate"></button>
-                    </div>
-                </div>
-            </div>
-        </p-header>
-        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-        <p-column [style]="{'width':'40px'}">
-            <ng-template pTemplate="body" let-col let-row="rowData">
-                <span class="fa fa-pencil update-icon" [routerLink]="['/mcc', row['id'], 'update']"></span>
-            </ng-template>
-        </p-column>
-        <p-column [style]="{'width':'40px'}">
-            <ng-template pTemplate="body" let-col let-row="rowData">
-                <span class="fa fa-trash delete-icon" [routerLink]="['/mcc', row['id'], 'delete']"></span>
-            </ng-template>
-        </p-column>
-        <p-column field="mcc" styleClass="mcc" [header]="'mcc.mcc' | translate"
-                  [style]="{'width': _isMobileDevice ? '200px' : 'auto'}"
-                  [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <div>
-                        <input class="search-field" type="text" #mcc
-                               ngModel (ngModelChange)="onFilter('mcc', mcc)"
-                               pInputText [placeholder]="'SEARCH' | translate" name="mcc">
-                        <i *ngIf="mcc.value && !isFiltering[mcc.name]"
-                           class="fa fa-times search-icon clear-search-button"
-                           (click)="mcc.value='';onFilter('mcc', mcc)"
-                           aria-hidden="true"></i>
-                        <i *ngIf="isFiltering[mcc.name]"
-                           class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+<div class="smsc-crud-view" #mccView (window:resize)="onResize($event)">
+    <div class="mcc-view" [hidden]="isDeleteWindow">
+        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" [immutable]="true"
+                     [rows]="10" [paginator]="true" [pageLinks]="3" (onPage)="onPage($event)"
+                     [rowsPerPageOptions]="[10,20,30,50,100,200]"
+                     (onEditComplete)="onEditComplete($event)" scrollable="true">
+            <p-header class="grid-header">
+                <div class="ui-helper-clearfix">
+                    <div class="ui-g ctrl-panel">
+                        <div class="ui-g-12 ui-md-6 search-panel">
+                            <i class="fa fa-search"></i>
+                            <input class="search-field" type="text" #globalFilter
+                                   ngModel (ngModelChange)="onFilter('mcc', globalFilter)"
+                                   pInputText [placeholder]="'mcc.filter' | translate" name="globalFilter">
+                            <i *ngIf="globalFilter.value && !isFiltering[globalFilter.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="globalFilter.value='';onFilter('mcc', globalFilter)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[globalFilter.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 button-panel">
+                            <button type="button" class="ui-button-success create-button"
+                                    routerLink="/mcc/create"
+                                    pButton icon="fa-plus" [label]="'CREATE' | translate"></button>
+                            <button type="button" pButton class="ui-button-danger delete-button"
+                                    [disabled]="!selectedRows.length"
+                                    icon="fa-remove" (click)="toggleDeleteWindow()"
+                                    [label]="'DELETE' | translate"></button>
+                        </div>
                     </div>
                 </div>
-            </ng-template>
-        </p-column>
-        <p-column field="code" styleClass="code" [header]="'mcc.code' | translate"
-                  [style]="{'width': _isMobileDevice ? '200px' : 'auto'}"
-                  [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <div>
-                        <input class="search-field" type="text" #code
-                               ngModel (ngModelChange)="onFilter('code', code)"
-                               pInputText [placeholder]="'SEARCH' | translate" name="code">
-                        <i *ngIf="code.value && !isFiltering[code.name]"
-                           class="fa fa-times search-icon clear-search-button"
-                           (click)="code.value='';onFilter('code', code)"
-                           aria-hidden="true"></i>
-                        <i *ngIf="isFiltering[code.name]"
-                           class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+            </p-header>
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+            <p-column [style]="{'width':'40px'}">
+                <ng-template pTemplate="body" let-col let-row="rowData">
+                    <span class="fa fa-pencil update-icon" [routerLink]="['/mcc', row['id'], 'update']"></span>
+                </ng-template>
+            </p-column>
+            <p-column [style]="{'width':'40px'}">
+                <ng-template pTemplate="body" let-col let-row="rowData">
+                    <span class="fa fa-trash delete-icon" [routerLink]="['/mcc', row['id'], 'delete']"></span>
+                </ng-template>
+            </p-column>
+            <p-column field="mcc" styleClass="mcc" [header]="'mcc.mcc' | translate"
+                      [style]="{'width': _isMobileDevice ? '200px' : 'auto'}"
+                      [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #mcc
+                                   ngModel (ngModelChange)="onFilter('mcc', mcc)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="mcc">
+                            <i *ngIf="mcc.value && !isFiltering[mcc.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="mcc.value='';onFilter('mcc', mcc)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[mcc.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
                     </div>
-                </div>
-            </ng-template>
-        </p-column>
-        <p-column field="country" styleClass="country" [header]="'mcc.country' | translate"
-                  [style]="{'width': _isMobileDevice ? '200px' : 'auto'}"
-                  [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <div>
-                        <input class="search-field" type="text" #country
-                               ngModel (ngModelChange)="onFilter('country', country)"
-                               pInputText [placeholder]="'SEARCH' | translate" name="country">
-                        <i *ngIf="country.value && !isFiltering[country.name]"
-                           class="fa fa-times search-icon clear-search-button"
-                           (click)="country.value='';onFilter('country', country)"
-                           aria-hidden="true"></i>
-                        <i *ngIf="isFiltering[country.name]"
-                           class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                </ng-template>
+            </p-column>
+            <p-column field="code" styleClass="code" [header]="'mcc.code' | translate"
+                      [style]="{'width': _isMobileDevice ? '200px' : 'auto'}"
+                      [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #code
+                                   ngModel (ngModelChange)="onFilter('code', code)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="code">
+                            <i *ngIf="code.value && !isFiltering[code.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="code.value='';onFilter('code', code)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[code.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
                     </div>
-                </div>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
+                </ng-template>
+            </p-column>
+            <p-column field="country" styleClass="country" [header]="'mcc.country' | translate"
+                      [style]="{'width': _isMobileDevice ? '200px' : 'auto'}"
+                      [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #country
+                                   ngModel (ngModelChange)="onFilter('country', country)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="country">
+                            <i *ngIf="country.value && !isFiltering[country.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="country.value='';onFilter('country', country)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[country.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+    </div>
+    <div id="confirm-deletion-window" [hidden]="!isDeleteWindow">
+        <div class="warning-growl">
+            <p-messages [value]="msgs" [closable]="false"></p-messages>
+        </div>
+        <div class="buttons-panel">
+            <button pButton (click)="toggleDeleteWindow()" id="cancel-button"
+                    [label]="'CANCEL' | translate"></button>
+            <button pButton (click)="onMultipleDelete()" id="ok-button" [label]="'OK' | translate"></button>
+        </div>
+    </div>
 </div>

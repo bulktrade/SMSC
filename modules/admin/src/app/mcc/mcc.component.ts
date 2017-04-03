@@ -1,11 +1,16 @@
 import {Component, OnInit} from "@angular/core";
+import {Message} from "primeng/primeng";
+import {TranslateService} from "ng2-translate";
 
 import {MCC} from "./mcc.model";
 
 @Component({
     selector: 'mcc',
     templateUrl: './mcc.component.html',
-    styleUrls: ['./mcc.component.scss']
+    styleUrls: [
+        './mcc.component.scss',
+        '../shared/styles/view.component.scss'
+    ]
 })
 export class MCCComponent implements OnInit {
 
@@ -19,14 +24,20 @@ export class MCCComponent implements OnInit {
 
     public _isMobileDevice: boolean = false;
 
-    constructor() {
+    public isDeleteWindow: boolean = false;
+
+    public msgs: Message[] = [];
+
+    constructor(public translate: TranslateService) {
         this.rowData = [
-            <MCC>{mcc: 'mcc', code: 'code', country: 'country'},
-            <MCC>{mcc: 'mcc', code: 'code', country: 'country'}
+            <MCC>{mcc: 'mcc1', code: 'code1', country: 'country1'},
+            <MCC>{mcc: 'mcc2', code: 'code2', country: 'country2'}
         ];
     }
 
     ngOnInit() {
+        this.translate.get('MULTIPLE_DELETE_RECORDS')
+            .subscribe(detail => this.msgs.push({severity: 'warn', detail: detail}));
         this._isMobileDevice = this.isMobileDevice(window.innerWidth);
     }
 
@@ -39,11 +50,18 @@ export class MCCComponent implements OnInit {
     onSort(event) {
     }
 
+    onMultipleDelete() {
+    }
+
     onFilter(colName: string, inputField) {
         this.filters[colName] = inputField.value;
         this.isFiltering[<string>inputField.name] = true;
 
         setTimeout(() => this.isFiltering[<string>inputField.name] = false, 500);
+    }
+
+    toggleDeleteWindow() {
+        this.isDeleteWindow = !this.isDeleteWindow;
     }
 
     onResize(event) {

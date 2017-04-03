@@ -69,16 +69,11 @@ describe('Component: CustomersViewComponent', () => {
     }));
 
     it('should get rows with filter', async(() => {
-        let event = {
-            column: 'company',
-            filterName: 'globalFilter'
-        };
         mockBackend.connections.subscribe(connection => {
             let response = new ResponseOptions({body: {_embedded: {customers: []}}});
             connection.mockRespond(new Response(response));
         });
-        componentFixture.instance.searchModel[event.filterName] = 'SMSC';
-        componentFixture.instance.onFilter(event.column, event.filterName);
+        componentFixture.instance.onFilter('company', {value: 'SMSC', name: 'company'});
         expect(componentFixture.instance.filters['company']).toEqual('SMSC');
     }));
 
@@ -88,8 +83,7 @@ describe('Component: CustomersViewComponent', () => {
             filterName: 'globalFilter'
         };
         mockBackend.connections.subscribe(connection => connection.mockError(new Error('error')));
-        componentFixture.instance.searchModel[event.filterName] = 'SMSC';
-        componentFixture.instance.onFilter(event.column, event.filterName);
+        componentFixture.instance.onFilter('company', {value: 'SMSC', name: 'company'});
     }));
 
     it('should delete selected customers', async(() => {

@@ -1,278 +1,302 @@
-<div id="customers-view-window" #customerView (window:resize)="onResize()" [hidden]="showConfirmDeletionWindow">
-    <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" [immutable]="true"
-                 (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
-                 [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">
-        <p-header class="grid-header">
-            <div class="ui-helper-clearfix">
-                <div class="ui-g ctrl-panel">
-                    <div class="ui-g-12 ui-md-6 search-panel">
-                        <i class="fa fa-search"></i>
-                        <input class="search-field" type="text" [ngModel]="searchModel['globalFilter']"
-                               (ngModelChange)="searchModel['globalFilter']=$event;onFilter('companyName', 'globalFilter')"
-                               pInputText [placeholder]="'customers.filter' | translate">
-                        <i *ngIf="searchModel['globalFilter'] && !isFilterLoading['globalFilter']"
-                           class="fa fa-times search-icon clear-search-button"
-                           (click)="searchModel['globalFilter']='';onFilter('companyName', 'globalFilter')"
-                           aria-hidden="true"></i>
-                        <i *ngIf="isFilterLoading['globalFilter']"
-                           class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
-                    </div>
-                    <div class="ui-g-12 ui-md-6 button-panel">
-                        <button type="button" class="ui-button-success create-button"
-                                routerLink="/customers/create"
-                                pButton icon="fa-plus" [label]="'customers.create' | translate"></button>
-                        <button type="button" pButton class="ui-button-danger delete-button"
-                                [disabled]="!selectedRows.length"
-                                icon="fa-remove" (click)="showConfirmDeletionWindow=true;"
-                                [label]="'customers.delete' | translate"></button>
+<div class="smsc-crud-view" #customerView (window:resize)="onResize()">
+    <div class="customers-view" [hidden]="showConfirmDeletionWindow">
+        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" [immutable]="true"
+                     (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
+                     [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">
+            <p-header class="grid-header">
+                <div class="ui-helper-clearfix">
+                    <div class="ui-g ctrl-panel">
+                        <div class="ui-g-12 ui-md-6 search-panel">
+                            <i class="fa fa-search"></i>
+                            <input class="search-field" type="text" #globalFilter
+                                   ngModel (ngModelChange)="onFilter('companyName', globalFilter)"
+                                   pInputText [placeholder]="'customers.filter' | translate" name="globalFilter">
+                            <i *ngIf="globalFilter.value && !isFiltering[globalFilter.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="globalFilter.value='';onFilter('companyName', globalFilter)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[globalFilter.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                        <div class="ui-g-12 ui-md-6 button-panel">
+                            <button type="button" class="ui-button-success create-button"
+                                    routerLink="/customers/create"
+                                    pButton icon="fa-plus" [label]="'customers.create' | translate"></button>
+                            <button type="button" pButton class="ui-button-danger delete-button"
+                                    [disabled]="!selectedRows.length"
+                                    icon="fa-remove" (click)="showConfirmDeletionWindow=true;"
+                                    [label]="'customers.delete' | translate"></button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </p-header>
-        <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
-        <p-column expander="true" styleClass="col-icon" [style]="{'width':'40px'}"></p-column>
-        <p-column [style]="{'width':'40px'}">
-            <ng-template pTemplate="body" let-col let-row="rowData">
+            </p-header>
+            <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+            <p-column expander="true" styleClass="col-icon" [style]="{'width':'40px'}"></p-column>
+            <p-column [style]="{'width':'40px'}">
+                <ng-template pTemplate="body" let-col let-row="rowData">
 				<span class="fa fa-pencil update-icon"
                       style="padding-right: 3px; color: #009688;"
                       [routerLink]="['/customers', row['id'], 'update']"></span>
-            </ng-template>
-        </p-column>
-        <p-column [style]="{'width':'40px'}">
-            <ng-template pTemplate="body" let-col let-row="rowData">
+                </ng-template>
+            </p-column>
+            <p-column [style]="{'width':'40px'}">
+                <ng-template pTemplate="body" let-col let-row="rowData">
                 <span class="fa fa-trash delete-icon" style="color: #E53935;"
                       [routerLink]="['/customers', row['id'], 'delete']"></span>
-            </ng-template>
-        </p-column>
-        <p-column field="companyName" styleClass="col-company-name" [header]="'companyName' | translate"
-                  [editable]="true"
-                  sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
-            <ng-template let-col let-customer="rowData" pTemplate="body">
-                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
-                    {{ customer[col.field] }}
-                </div>
-            </ng-template>
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
-                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
-                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
-                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
-                       class="fa fa-times search-icon clear-search-button"
-                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
-                    <i *ngIf="isFilterLoading[col.field]"
-                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
-                </div>
-            </ng-template>
-        </p-column>
-        <p-column field="street" [header]="'street' | translate" [editable]="true"
-                  sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
-            <ng-template let-col let-customer="rowData" pTemplate="body">
-                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
-                    {{ customer[col.field] }}
-                </div>
-            </ng-template>
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
-                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
-                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
-                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
-                       class="fa fa-times search-icon clear-search-button"
-                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
-                    <i *ngIf="isFilterLoading[col.field]"
-                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
-                </div>
-            </ng-template>
-        </p-column>
-        <p-column field="street2" [header]="'street2' | translate" [editable]="true"
-                  sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
-            <ng-template let-col let-customer="rowData" pTemplate="body">
-                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
-                    {{ customer[col.field] }}
-                </div>
-            </ng-template>
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
-                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
-                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
-                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
-                       class="fa fa-times search-icon clear-search-button"
-                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
-                    <i *ngIf="isFilterLoading[col.field]"
-                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
-                </div>
-            </ng-template>
-        </p-column>
-        <p-column field="postcode" [header]="'postcode' | translate" [editable]="true"
-                  sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
-            <ng-template let-col let-customer="rowData" pTemplate="body">
-                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
-                    {{ customer[col.field] }}
-                </div>
-            </ng-template>
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
-                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
-                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
-                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
-                       class="fa fa-times search-icon clear-search-button"
-                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
-                    <i *ngIf="isFilterLoading[col.field]"
-                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
-                </div>
-            </ng-template>
-        </p-column>
-        <p-column field="country" [header]="'country' | translate" [editable]="true"
-                  sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
-            <ng-template let-col let-customer="rowData" pTemplate="body">
-                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
-                    {{ customer[col.field] }}
-                </div>
-            </ng-template>
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
-                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
-                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
-                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
-                       class="fa fa-times search-icon clear-search-button"
-                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
-                    <i *ngIf="isFilterLoading[col.field]"
-                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
-                </div>
-            </ng-template>
-        </p-column>
-        <p-column field="city" [header]="'city' | translate" [editable]="true"
-                  sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
-            <ng-template let-col let-customer="rowData" pTemplate="body">
-                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
-                    {{ customer[col.field] }}
-                </div>
-            </ng-template>
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
-                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
-                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
-                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
-                       class="fa fa-times search-icon clear-search-button"
-                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
-                    <i *ngIf="isFilterLoading[col.field]"
-                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
-                </div>
-            </ng-template>
-        </p-column>
-        <p-column field="vatid" [header]="'vatid' | translate" [editable]="true"
-                  sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
-            <ng-template let-col let-customer="rowData" pTemplate="body">
-                <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
-                    {{ customer[col.field] }}
-                </div>
-            </ng-template>
-            <ng-template pTemplate="filter" let-col>
-                <div class="ui-sm-12 ui-md-12 filter-container">
-                    <input type="text" class="ui-sm-12 ui-md-12" pInputText
-                           [ngModel]="searchModel[col.field]" [placeholder]="'SEARCH' | translate"
-                           (ngModelChange)="searchModel[col.field]=$event;onFilter(col.field, col.field)"/>
-                    <i *ngIf="searchModel[col.field] && !isFilterLoading[col.field]"
-                       class="fa fa-times search-icon clear-search-button"
-                       aria-hidden="true" (click)="searchModel[col.field]='';onFilter(col.field, col.field)"></i>
-                    <i *ngIf="isFilterLoading[col.field]"
-                       class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
-                </div>
-            </ng-template>
-        </p-column>
+                </ng-template>
+            </p-column>
+            <p-column field="companyName" styleClass="col-company-name" [header]="'companyName' | translate"
+                      [editable]="true"
+                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                <ng-template let-col let-customer="rowData" pTemplate="body">
+                    <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                        {{ customer[col.field] }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #companyName
+                                   ngModel (ngModelChange)="onFilter('companyName', companyName)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="companyName">
+                            <i *ngIf="companyName.value && !isFiltering[companyName.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="companyName.value='';onFilter('companyName', companyName)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[companyName.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-column>
+            <p-column field="street" [header]="'street' | translate" [editable]="true"
+                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                <ng-template let-col let-customer="rowData" pTemplate="body">
+                    <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                        {{ customer[col.field] }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #street
+                                   ngModel (ngModelChange)="onFilter('street', street)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="street">
+                            <i *ngIf="street.value && !isFiltering[street.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="street.value='';onFilter('street', street)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[street.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-column>
+            <p-column field="street2" [header]="'street2' | translate" [editable]="true"
+                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                <ng-template let-col let-customer="rowData" pTemplate="body">
+                    <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                        {{ customer[col.field] }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #street2
+                                   ngModel (ngModelChange)="onFilter('street2', street2)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="street2">
+                            <i *ngIf="street2.value && !isFiltering[street2.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="street2.value='';onFilter('street2', street2)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[street2.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-column>
+            <p-column field="postcode" [header]="'postcode' | translate" [editable]="true"
+                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                <ng-template let-col let-customer="rowData" pTemplate="body">
+                    <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                        {{ customer[col.field] }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #postcode
+                                   ngModel (ngModelChange)="onFilter('postcode', postcode)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="postcode">
+                            <i *ngIf="postcode.value && !isFiltering[postcode.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="postcode.value='';onFilter('postcode', postcode)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[postcode.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-column>
+            <p-column field="country" [header]="'country' | translate" [editable]="true"
+                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                <ng-template let-col let-customer="rowData" pTemplate="body">
+                    <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                        {{ customer[col.field] }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #country
+                                   ngModel (ngModelChange)="onFilter('country', country)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="country">
+                            <i *ngIf="country.value && !isFiltering[country.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="country.value='';onFilter('country', country)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[country.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-column>
+            <p-column field="city" [header]="'city' | translate" [editable]="true"
+                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                <ng-template let-col let-customer="rowData" pTemplate="body">
+                    <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                        {{ customer[col.field] }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #city
+                                   ngModel (ngModelChange)="onFilter('city', city)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="city">
+                            <i *ngIf="city.value && !isFiltering[city.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="city.value='';onFilter('city', city)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[city.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-column>
+            <p-column field="vatid" [header]="'vatid' | translate" [editable]="true"
+                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                <ng-template let-col let-customer="rowData" pTemplate="body">
+                    <div [style.background]="cellsModel[col.field][customer.id] ? '#f78e8b' : 'none'">
+                        {{ customer[col.field] }}
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="filter" let-col>
+                    <div class="ui-sm-12 ui-md-12 filter-container">
+                        <div>
+                            <input class="search-field" type="text" #vatid
+                                   ngModel (ngModelChange)="onFilter('vatid', vatid)"
+                                   pInputText [placeholder]="'SEARCH' | translate" name="vatid">
+                            <i *ngIf="vatid.value && !isFiltering[vatid.name]"
+                               class="fa fa-times search-icon clear-search-button"
+                               (click)="vatid.value='';onFilter('vatid', vatid)"
+                               aria-hidden="true"></i>
+                            <i *ngIf="isFiltering[vatid.name]"
+                               class="fa fa-spinner fa-pulse fa-3x fa-fw search-icon search-loading-spinner"></i>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-column>
 
-        <ng-template let-customer pTemplate="rowexpansion" style="{'overflow':'visible'}">
+            <ng-template let-customer pTemplate="rowexpansion" style="{'overflow':'visible'}">
 
-            <p-tabView headerStyleClass="ui-sm-12 ui-md-12" class="relationship-tabs"
-                       [style]="{'width': (customerView.clientWidth - 20) + 'px'}">
-                <!-- tab with contacts -->
-                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'contacts' | translate" leftIcon="fa-users">
-                    <ng-container [ngSwitch]="contactsModel[customer['id']].action">
-                        <ng-container *ngSwitchDefault>
-                            <one-to-many
-                                    [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
-                                    [link]="customer['_links']['contacts']"
-                                    [mainEntityId]="customer['id']" property="contacts"
-                                    (onDelete)="contactsModel[customer['id']]=$event"
-                                    (onUpdate)="contactsModel[customer['id']]=$event"
-                                    (onCreate)="contactsModel[customer['id']]=$event"></one-to-many>
+                <p-tabView headerStyleClass="ui-sm-12 ui-md-12" class="relationship-tabs"
+                           [style]="{'width': (customerView.clientWidth - 20) + 'px'}">
+                    <!-- tab with contacts -->
+                    <p-tabPanel headerStyleClass="ui-sm-12" [header]="'contacts' | translate" leftIcon="fa-users">
+                        <ng-container [ngSwitch]="contactsModel[customer['id']].action">
+                            <ng-container *ngSwitchDefault>
+                                <one-to-many
+                                        [renderProperties]="['firstname', 'surname', 'phone', 'mobilePhone', 'emailAddress']"
+                                        [link]="customer['_links']['contacts']"
+                                        [mainEntityId]="customer['id']" property="contacts"
+                                        (onDelete)="contactsModel[customer['id']]=$event"
+                                        (onUpdate)="contactsModel[customer['id']]=$event"
+                                        (onCreate)="contactsModel[customer['id']]=$event"></one-to-many>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="action.Delete">
+                                <contacts-delete (onBack)="contactsModel[customer['id']].action=$event"
+                                                 [entity]="contactsModel[customer['id']].entity"></contacts-delete>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="action.Create">
+                                <contacts-create (onBack)="contactsModel[customer['id']].action=$event"
+                                                 [customerId]="customer['id']"></contacts-create>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="action.Update">
+                                <contacts-update (onBack)="contactsModel[customer['id']].action=$event"
+                                                 [entity]="contactsModel[customer['id']].entity"></contacts-update>
+                            </ng-container>
                         </ng-container>
-                        <ng-container *ngSwitchCase="action.Delete">
-                            <contacts-delete (onBack)="contactsModel[customer['id']].action=$event"
-                                             [entity]="contactsModel[customer['id']].entity"></contacts-delete>
+                    </p-tabPanel>
+                    <!-- tab with users -->
+                    <p-tabPanel headerStyleClass="ui-sm-12" [header]="'customerUsers' | translate"
+                                leftIcon="fa-user-secret">
+                        <ng-container [ngSwitch]="usersModel[customer['id']].action">
+                            <ng-container *ngSwitchDefault>
+                                <one-to-many
+                                        [renderProperties]="['firstname', 'surname', 'username', 'email']"
+                                        [link]="customer['_links']['users']"
+                                        [mainEntityId]="customer['id']" property="contacts"
+                                        (onDelete)="usersModel[customer['id']]=$event"
+                                        (onUpdate)="usersModel[customer['id']]=$event"
+                                        (onCreate)="usersModel[customer['id']]=$event"></one-to-many>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="action.Delete">
+                                <contacts-delete (onBack)="usersModel[customer['id']].action=$event"
+                                                 [entity]="usersModel[customer['id']].entity"></contacts-delete>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="action.Create">
+                                <users-create (onBack)="usersModel[customer['id']].action=$event"
+                                              [customerId]="customer['id']"></users-create>
+                            </ng-container>
+                            <ng-container *ngSwitchCase="action.Update">
+                                <users-update (onBack)="usersModel[customer['id']].action=$event"
+                                              [entity]="usersModel[customer['id']].entity"></users-update>
+                            </ng-container>
                         </ng-container>
-                        <ng-container *ngSwitchCase="action.Create">
-                            <contacts-create (onBack)="contactsModel[customer['id']].action=$event"
-                                             [customerId]="customer['id']"></contacts-create>
-                        </ng-container>
-                        <ng-container *ngSwitchCase="action.Update">
-                            <contacts-update (onBack)="contactsModel[customer['id']].action=$event"
-                                             [entity]="contactsModel[customer['id']].entity"></contacts-update>
-                        </ng-container>
-                    </ng-container>
-                </p-tabPanel>
-                <!-- tab with users -->
-                <p-tabPanel headerStyleClass="ui-sm-12" [header]="'customerUsers' | translate"
-                            leftIcon="fa-user-secret">
-                    <ng-container [ngSwitch]="usersModel[customer['id']].action">
-                        <ng-container *ngSwitchDefault>
-                            <one-to-many
-                                    [renderProperties]="['firstname', 'surname', 'username', 'email']"
-                                    [link]="customer['_links']['users']"
-                                    [mainEntityId]="customer['id']" property="contacts"
-                                    (onDelete)="usersModel[customer['id']]=$event"
-                                    (onUpdate)="usersModel[customer['id']]=$event"
-                                    (onCreate)="usersModel[customer['id']]=$event"></one-to-many>
-                        </ng-container>
-                        <ng-container *ngSwitchCase="action.Delete">
-                            <contacts-delete (onBack)="usersModel[customer['id']].action=$event"
-                                             [entity]="usersModel[customer['id']].entity"></contacts-delete>
-                        </ng-container>
-                        <ng-container *ngSwitchCase="action.Create">
-                            <users-create (onBack)="usersModel[customer['id']].action=$event"
-                                          [customerId]="customer['id']"></users-create>
-                        </ng-container>
-                        <ng-container *ngSwitchCase="action.Update">
-                            <users-update (onBack)="usersModel[customer['id']].action=$event"
-                                          [entity]="usersModel[customer['id']].entity"></users-update>
-                        </ng-container>
-                    </ng-container>
 
-                </p-tabPanel>
-                <!-- tab with parent customer -->
-                <p-tabPanel [header]="'parent' | translate" leftIcon="fa-building">
-                    <one-to-one [crudRepositoryA]="customersService"
-                                [crudRepositoryB]="customersService" [hideOwn]="true" [updateResource]="true"
-                                [fields]="['country', 'companyName']" [entity]="customer" name="parent"></one-to-one>
-                </p-tabPanel>
-            </p-tabView>
-        </ng-template>
+                    </p-tabPanel>
+                    <!-- tab with parent customer -->
+                    <p-tabPanel [header]="'parent' | translate" leftIcon="fa-building">
+                        <one-to-one [crudRepositoryA]="customersService"
+                                    [crudRepositoryB]="customersService" [hideOwn]="true" [updateResource]="true"
+                                    [fields]="['country', 'companyName']" [entity]="customer"
+                                    name="parent"></one-to-one>
+                    </p-tabPanel>
+                </p-tabView>
+            </ng-template>
 
-    </p-dataTable>
-    <p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
-                 [rowsPerPageOptions]="[10,20,30,50,100,200]" (onPageChange)="onPaginate($event)"></p-paginator>
+        </p-dataTable>
+        <p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
+                     [rowsPerPageOptions]="[10,20,30,50,100,200]" (onPageChange)="onPaginate($event)"></p-paginator>
 
-    <div *ngIf="isLoading" class="loading-mask"
-         [ngStyle]="{top: tableHeaderHeight+'px', height: tableBodyHeight+'px'}"></div>
-    <div *ngIf="isLoading" class="loading-layer"
-         [ngStyle]="{top: tableHeaderHeight+'px', height: tableBodyHeight+'px'}">
-        <div class="container">
-            <sk-cube-grid class="sk-cube-grid"></sk-cube-grid>
+        <div *ngIf="isLoading" class="loading-mask"
+             [ngStyle]="{top: tableHeaderHeight+'px', height: tableBodyHeight+'px'}"></div>
+        <div *ngIf="isLoading" class="loading-layer"
+             [ngStyle]="{top: tableHeaderHeight+'px', height: tableBodyHeight+'px'}">
+            <div class="container">
+                <sk-cube-grid class="sk-cube-grid"></sk-cube-grid>
+            </div>
         </div>
     </div>
-</div>
-<div id="confirm-deletion-window" [hidden]="!showConfirmDeletionWindow">
-    <div class="warning-growl">
-        <p-messages [value]="msgs" [closable]="false"></p-messages>
-    </div>
-    <div class="buttons-panel">
-        <button pButton (click)="showConfirmDeletionWindow=false" id="cancel-button"
-                [label]="'CANCEL' | translate"></button>
-        <button pButton (click)="onDeleteCustomers().subscribe()" id="ok-button" [label]="'OK' | translate"></button>
+    <div id="confirm-deletion-window" [hidden]="!showConfirmDeletionWindow">
+        <div class="warning-growl">
+            <p-messages [value]="msgs" [closable]="false"></p-messages>
+        </div>
+        <div class="buttons-panel">
+            <button pButton (click)="showConfirmDeletionWindow=false" id="cancel-button"
+                    [label]="'CANCEL' | translate"></button>
+            <button pButton (click)="onDeleteCustomers().subscribe()" id="ok-button" [label]="'OK' | translate"></button>
+        </div>
     </div>
 </div>
