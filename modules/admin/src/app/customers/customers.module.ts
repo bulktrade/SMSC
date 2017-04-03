@@ -2,7 +2,6 @@ import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {TranslateModule} from "ng2-translate";
-import {CustomersComponent} from "./customers.components";
 import {CustomersRoutingModule} from "./customers-routing.module";
 import {MessagesModule} from "primeng/components/messages/messages";
 import {ButtonModule} from "primeng/components/button/button";
@@ -35,7 +34,6 @@ import {UsersCreateModule} from "./customers-users/users-create/users-create.com
 import {UsersUpdateModule} from "./customers-users/users-update/users-update.component";
 
 const CUSTOMERS_DECLARATIONS = [
-    CustomersComponent,
     CustomersUpdateComponent,
     CustomersCreateComponent,
     CustomersDeleteComponent,

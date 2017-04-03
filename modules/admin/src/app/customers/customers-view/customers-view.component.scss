@@ -46,11 +46,13 @@
   }
 
   .search-panel {
+    height: 29px;
     border-bottom: 0 none;
     position: relative;
 
     .search-field {
       width: calc(100% - 24px);
+      height: 29px;
     }
 
     i {
@@ -66,20 +68,16 @@
     }
 
     .clear-search-button {
+      top: 6px;
       right: 3px;
     }
-  }
-
-  #back-button {
-    cursor: pointer;
-    padding-right: 5px;
   }
 
   .grid-header {
     text-align: left;
 
     button {
-      margin-left: 8px;
+      margin-left: 4px;
     }
   }
 
@@ -150,7 +148,7 @@
 @media screen and (max-width: 640px) {
   #customers-view-window {
     .search-panel {
-      padding-bottom: 8px !important;
+      margin-bottom: 4px;
     }
 
     .button-panel {
@@ -158,7 +156,7 @@
         flex-grow: 1;
 
         &:first-of-type {
-          margin: 0 !important;
+          margin: 0;
         }
       }
     }

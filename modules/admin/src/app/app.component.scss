@@ -100,6 +100,10 @@ p-dialog .ui-widget-content {
   overflow: visible !important;
 }
 
+.ui-datatable-header.ui-widget-header {
+  padding: 4px 4px 4px 10px;
+}
+
 .md-card,
 navigation,
 login {

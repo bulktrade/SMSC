@@ -22,7 +22,7 @@ export const ROUTES: Routes = [
                     translationKey: 'DASHBOARDS',
                     showInNavigation: true,
                     icon: 'fa-tachometer'
-                },
+                }
             },
             {
 
@@ -37,6 +37,15 @@ export const ROUTES: Routes = [
             {
                 path: 'profile',
                 loadChildren: './profile/profile.module#ProfileModule'
+            },
+            {
+                path: 'mcc',
+                data: {
+                    translationKey: 'MCC',
+                    showInNavigation: true,
+                    icon: 'fa-id-badge'
+                },
+                loadChildren: './mcc/mcc.module#MCCModule'
             }
         ]
     },

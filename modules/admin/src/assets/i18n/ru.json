@@ -224,5 +224,9 @@
     "dashboardBoxType.successDeleteDashboardBoxType": "Dashboard box type was successful deleted",
     "dashboardBoxType.errorDeleteDashboardBoxType": "Dashboard box type was not deleted",
     "dashboardBoxType.confirmDelete": "You are dropping the dashboard box type. Are you sure?",
-    "dashboardBoxType.createDashboardBoxType": "Create box type"
+    "dashboardBoxType.createDashboardBoxType": "Create box type",
+    "mcc.mcc": "MCC",
+    "mcc.code": "Code",
+    "mcc.country": "Country",
+    "mcc.filter": "MCC filter"
 }
