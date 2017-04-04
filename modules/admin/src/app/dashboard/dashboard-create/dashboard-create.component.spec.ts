@@ -11,7 +11,6 @@ import {DashboardModule} from "../dashboard.module";
 import {APP_PROVIDERS} from "../../app.module";
 import {ConfigService} from "../../config/config.service";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
-import {Observable} from "rxjs";
 
 describe('Component: DashboardCreateComponent', () => {
     let componentFixture: ComponentHelper<DashboardCreateComponent> =
@@ -65,8 +64,6 @@ describe('Component: DashboardCreateComponent', () => {
         spyOn(componentFixture.instance, 'toggleLoading');
         spyOn(componentFixture.instance.location, 'back');
         spyOn(componentFixture.instance.notification, 'createNotification');
-        spyOn(componentFixture.instance.userService, 'getLoggedUser').and
-            .returnValue(Observable.of({_links: {self: {href: 'href'}}}));
         mockBackend.connections.subscribe(c => {
             expect(c.request.method === RequestMethod.Post);
             let response = new ResponseOptions({body: {foo: 'bar'}});
@@ -82,27 +79,11 @@ describe('Component: DashboardCreateComponent', () => {
     it('.onSubmit() - should get an error during creating the dashboard', async(() => {
         spyOn(componentFixture.instance, 'toggleLoading');
         spyOn(componentFixture.instance.controlErrorService, 'formControlErrors');
-        spyOn(componentFixture.instance.userService, 'getLoggedUser').and
-            .returnValue(Observable.of({_links: {self: {href: 'href'}}}));
         mockBackend.connections.subscribe(c => {
             c.mockError(new Response(new ResponseOptions({body: {}})));
         });
         componentFixture.instance.onSubmit(<any>{});
         expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
         expect(componentFixture.instance.controlErrorService.formControlErrors).toHaveBeenCalled()
-    }));
-
-    it('.onSubmit() - should get an error during updating the logged user', async(() => {
-        spyOn(componentFixture.instance, 'toggleLoading');
-        spyOn(componentFixture.instance.notification, 'createNotification');
-        spyOn(componentFixture.instance.userService, 'getLoggedUser').and
-            .returnValue(Observable.create(obs => obs.error(false)));
-        mockBackend.connections.subscribe(c => {
-            c.mockError(new Error('error'));
-        });
-        componentFixture.instance.onSubmit(<any>{});
-        expect(componentFixture.instance.toggleLoading['calls'].count()).toEqual(2);
-        expect(componentFixture.instance.notification.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'user.notFound');
     }));
 });

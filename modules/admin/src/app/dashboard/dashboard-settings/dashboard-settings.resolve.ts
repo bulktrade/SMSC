@@ -15,7 +15,8 @@ export class DashboardSettingsResolve implements Resolve<{dashboards: Dashboard[
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return Observable.create(o => {
-            this.dashboardService.getDashboards()
+            this.dashboardService.getResources()
+                .map(res => res['_embedded'][this.dashboardService.repositoryName])
                 .subscribe((dashboards: Dashboard[]) => {
                     this.dashboardBoxTypeService.getResources()
                         .map(data => data['_embedded'][this.dashboardBoxTypeService.repositoryName])

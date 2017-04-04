@@ -38,8 +38,8 @@ describe('Resolve: DashboardSettingsResolve', () => {
 
     it('should retrieve `dashboards` and `dashboard box types`', () => {
         let dashboards: Dashboard[] = [<any>{id: 1}, <any>{id: 2}];
-        spyOn(resolve.dashboardService, 'getDashboards').and
-            .returnValue(Observable.of(dashboards));
+        spyOn(resolve.dashboardService, 'getResources').and
+            .returnValue(Observable.of({_embedded: {dashboards: dashboards}}));
         spyOn(resolve.dashboardBoxTypeService, 'getResources').and
             .returnValue(Observable.of({_embedded: {'dashboard-box-types': []}}));
         spyOn(resolve.dashboardService, 'createDefaultDashboard').and.returnValue(Observable.of({}));
@@ -48,8 +48,8 @@ describe('Resolve: DashboardSettingsResolve', () => {
 
     it('should retrieve `dashboards` and `dashboard box types` and create the default dashboard', () => {
         let dashboards: Dashboard[] = []; // the user don't have dashboards
-        spyOn(resolve.dashboardService, 'getDashboards').and
-            .returnValue(Observable.of(dashboards));
+        spyOn(resolve.dashboardService, 'getResources').and
+            .returnValue(Observable.of({_embedded: {dashboards: dashboards}}));
         spyOn(resolve.dashboardBoxTypeService, 'getResources').and
             .returnValue(Observable.of({_embedded: {'dashboard-box-types': [{}]}}));
         spyOn(resolve.dashboardService, 'createDefaultDashboard').and.returnValue(Observable.of({}));
@@ -58,8 +58,8 @@ describe('Resolve: DashboardSettingsResolve', () => {
 
     it('should get an error while creating the default dashboard', () => {
         let dashboards: Dashboard[] = [];
-        spyOn(resolve.dashboardService, 'getDashboards').and
-            .returnValue(Observable.of(dashboards));
+        spyOn(resolve.dashboardService, 'getResources').and
+            .returnValue(Observable.of({_embedded: {dashboards: dashboards}}));
         spyOn(resolve.dashboardBoxTypeService, 'getResources').and
             .returnValue(Observable.of({_embedded: {'dashboard-box-types': [{}]}}));
         spyOn(resolve.dashboardService, 'createDefaultDashboard').and.returnValue(Observable.create(obs => obs.error('error')));
@@ -68,15 +68,15 @@ describe('Resolve: DashboardSettingsResolve', () => {
 
     it('should get an error while retrieving dashboard box types', () => {
         let dashboards: Dashboard[] = [];
-        spyOn(resolve.dashboardService, 'getDashboards').and
-            .returnValue(Observable.of(dashboards));
+        spyOn(resolve.dashboardService, 'getResources').and
+            .returnValue(Observable.of({_embedded: {dashboards: dashboards}}));
         spyOn(resolve.dashboardBoxTypeService, 'getResources').and
             .returnValue(Observable.create(obs => obs.error('error')));
         resolve.resolve(<any>{params: {id: 1}}, <any>{}).subscribe(null, err => expect(err).toEqual('error'));
     });
 
     it('should get an error while retrieving dashboards', () => {
-        spyOn(resolve.dashboardService, 'getDashboards').and
+        spyOn(resolve.dashboardService, 'getResources').and
             .returnValue(Observable.create(obs => obs.error('error')));
         resolve.resolve(<any>{params: {id: 1}}, <any>{}).subscribe(null, err => expect(err).toEqual('error'));
     });

@@ -60,16 +60,6 @@ describe('Component: DashboardBoxComponent', () => {
         mockBackend = _mockBackend;
     }));
 
-    it('dashboard box should have the toolbar with buttons', async(() => {
-        componentFixture.fixture.detectChanges();
-        componentFixture.fixture.whenStable().then(() => {
-            expect(componentFixture.element.querySelector('.btn-conf-box')).toBeDefined();
-            expect(componentFixture.element.querySelector('.btn-fullscreen-box')).toBeDefined();
-            expect(componentFixture.element.querySelector('.cog-width')).toBeDefined();
-            expect(componentFixture.element.querySelector('.cog-height')).toBeDefined();
-        });
-    }));
-
     it('.ngOnInit()', async(() => {
         spyOn(componentFixture.instance, 'widthChange');
         spyOn(componentFixture.instance, 'heightChange');

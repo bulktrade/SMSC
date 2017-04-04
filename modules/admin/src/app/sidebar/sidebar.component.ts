@@ -31,6 +31,8 @@ export class SidebarComponent {
     }
 
     updateDashboards() {
-        this.dashboardService.getDashboards().subscribe((_dashboards: Dashboard[]) => this.dashboards = _dashboards);
+        this.dashboardService.getResources()
+            .map(res => res['_embedded'][this.dashboardService.repositoryName])
+            .subscribe((_dashboards: Dashboard[]) => this.dashboards = _dashboards);
     }
 }

@@ -35,15 +35,6 @@ describe('Service: DashboardService', () => {
             .subscribe((res) => expect(res).toEqual(jasmine.objectContaining({name: 'name', icon: 'icon'})));
     });
 
-    it('.createDefaultDashboard() - should get an error during getting the logged user', () => {
-        let error: Error = new Error('the user not found');
-        spyOn(service.userService, 'getLoggedUser').and
-            .returnValue(Observable.create(obs => obs.error(error)));
-        service.createDefaultDashboard().subscribe(null,
-            (e) => expect(e.message).toEqual(error.message)
-        );
-    });
-
     it('.createDefaultDashboard() - should get an error during creating the default dashboard', () => {
         let error: Error = new Error('the dashboards was not created');
         spyOn(service, 'createResource').and.returnValue(Observable.create(obs => obs.error(error)));
@@ -52,42 +43,5 @@ describe('Service: DashboardService', () => {
         service.createDefaultDashboard().subscribe(null,
             (e) => expect(e.message).toEqual(error.message)
         );
-    });
-
-    it('.getDashboards() - should retrieve all dashboard boxes', () => {
-        let response = {
-            json: () => {
-                return {
-                    _embedded: {
-                        dashboards: [
-                            {
-                                name: 'dashboard',
-                                icon: 'fa-rocket'
-                            }
-                        ]
-                    }
-                }
-            }
-        };
-        spyOn(service.userService, 'getLoggedUser').and
-            .returnValue(Observable.of({_links: {dashboards: {href: 'href'}}}));
-        spyOn(service.http, 'request').and.returnValue(Observable.of(response));
-        service.getDashboards().subscribe(
-            (res) => expect(res).toEqual(jasmine.objectContaining(response.json()['_embedded']['dashboards']))
-        );
-    });
-
-    it('.getDashboards() - should get an error during getting the logged user', () => {
-        let error: Error = new Error('the user not found');
-        spyOn(service.userService, 'getLoggedUser').and.returnValue(Observable.create(obs => obs.error(error)));
-        service.getDashboards().subscribe(null, (e) => expect(e.message).toEqual(error.message));
-    });
-
-    it('.getDashboards() - should get an error during retrieving dashboards', () => {
-        let error: Error = new Error('the dashboards was not found');
-        spyOn(service.userService, 'getLoggedUser').and
-            .returnValue(Observable.of({_links: {dashboards: {href: 'href'}}}));
-        spyOn(service.http, 'request').and.returnValue(Observable.create(obs => obs.error(error)));
-        service.getDashboards().subscribe(null, (e) => expect(e.message).toEqual(error.message));
     });
 });
