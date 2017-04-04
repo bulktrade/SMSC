@@ -4,6 +4,7 @@ import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -28,11 +29,12 @@ public class Mcc extends BaseEntity {
     @Access(value = AccessType.PROPERTY)
     private Integer mcc;
 
-    @Column(name = "CODE")
+    @Column(name = "CODE", nullable = false)
+    @NotNull
     @Access(value = AccessType.PROPERTY)
     private Integer code;
 
-    @Column(name = "COUNTRY")
+    @Column(name = "COUNTRY", nullable = false)
     @NotEmpty
     private String country;
 
