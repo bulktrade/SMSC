@@ -35,7 +35,7 @@ public class MccRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testGetSingleMcc() throws Exception {
-        mockMvc.perform(get("/rest/repository/mcc/{id}", "0_0"))
+        mockMvc.perform(get("/rest/repository/mcc/{mcc}", 0))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentType(contentType))
@@ -45,13 +45,13 @@ public class MccRestTest extends AbstractSpringMVCTest {
                 .andDo(document("getMcc",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        pathParameters(getPathParam("Mobile Country Code")),
+                        pathParameters(parameterWithName("mcc").description("Mobile Country Code")),
                         responseFields(mccFieldsForResponse(false))));
     }
 
     @Test
     public void testMccNotFound() throws Exception {
-        mockMvc.perform(get("/rest/repository/mcc/999_999"))
+        mockMvc.perform(get("/rest/repository/mcc/999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -64,7 +64,7 @@ public class MccRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$._embedded.mcc[0].mcc", is(0)))
                 .andExpect(jsonPath("$._embedded.mcc[0].code", is(0)))
                 .andExpect(jsonPath("$._embedded.mcc[0].country", is("Unknown Country")))
-                .andDo(document("getMcc",
+                .andDo(document("getAllMcc",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestParameters(
@@ -93,23 +93,23 @@ public class MccRestTest extends AbstractSpringMVCTest {
                         responseFields(mccFieldsForResponse(false))));
     }
 
-//    @Test
-//    public void testDeleteMcc() throws Exception {
-//        mockMvc.perform(delete("/rest/repository/mcc/0_0" )
-//                .with(csrf()))
-//                .andExpect(status().isNoContent())
-//                .andDo(document("deleteMcc",
-//                        preprocessRequest(prettyPrint()),
-//                        preprocessResponse(prettyPrint()),
-//                        pathParameters(getPathParam("Mobile Country Code"))));
-//
-//        mockMvc.perform(get("/rest/repository/mcc/0_0"))
-//                .andExpect(status().isNotFound());
-//    }
+    @Test
+    public void testDeleteMcc() throws Exception {
+        mockMvc.perform(delete("/rest/repository/mcc/{mcc}", 0)
+                .with(csrf()))
+                .andExpect(status().isNoContent())
+                .andDo(document("deleteMcc",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(parameterWithName("mcc").description("Mobile Country Code"))));
+
+        mockMvc.perform(get("/rest/repository/mcc/0"))
+                .andExpect(status().isNotFound());
+    }
 
     @Test
     public void testUpdateMcc() throws Exception {
-        mockMvc.perform(patch("/rest/repository/mcc/{id}", "0_0")
+        mockMvc.perform(patch("/rest/repository/mcc/{mcc}", 0)
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content("{ \"country\" : \"new country\" }"))
@@ -117,11 +117,11 @@ public class MccRestTest extends AbstractSpringMVCTest {
                 .andDo(document("updateMcc",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        pathParameters(getPathParam("Mobile Country Code")),
+                        pathParameters(parameterWithName("mcc").description("Mobile Country Code")),
                         requestFields(mccFieldsForRequest(true)),
                         responseFields(mccFieldsForResponse(false))));
 
-        mockMvc.perform(get("/rest/repository/mcc/0_0"))
+        mockMvc.perform(get("/rest/repository/mcc/0"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.country", is("new country")));
@@ -135,7 +135,7 @@ public class MccRestTest extends AbstractSpringMVCTest {
         mcc.setCountry("new country");
         String mccJson = json(mcc);
 
-        mockMvc.perform(put("/rest/repository/mcc/{id}", "0_0")
+        mockMvc.perform(put("/rest/repository/mcc/{mcc}", 0)
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(mccJson))
@@ -143,11 +143,11 @@ public class MccRestTest extends AbstractSpringMVCTest {
                 .andDo(document("replaceMcc",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
-                        pathParameters(getPathParam("Mobile Country Code")),
+                        pathParameters(parameterWithName("mcc").description("Mobile Country Code")),
                         requestFields(mccFieldsForRequest(false)),
                         responseFields(mccFieldsForResponse(false))));
 
-        mockMvc.perform(get("/rest/repository/mcc/0_0"))
+        mockMvc.perform(get("/rest/repository/mcc/0"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.country", is("new country")));

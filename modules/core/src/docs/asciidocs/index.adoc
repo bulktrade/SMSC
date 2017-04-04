@@ -140,12 +140,12 @@ include::{snippets}/refreshToken/http-response.adoc[]
 
 
 [[resources-admin-user]]
-== AdminUser
+== Admin User
 
 [[resources-admin-user-get]]
-=== Get single AdminUser
+=== Get single Admin User
 
-A `GET` request will return single AdminUser.
+A `GET` request will return single Admin User.
 
 ==== Path parameters
 
@@ -169,9 +169,9 @@ include::{snippets}/getAdminUser/http-response.adoc[]
 
 
 [[resources-admin-user-getAll]]
-=== Get all AdminUsers
+=== Get all Admin Users
 
-A `GET` request will return all AdminUsers.
+A `GET` request will return all Admin Users.
 
 ==== Request parameters
 
@@ -195,9 +195,9 @@ include::{snippets}/getAdminUsers/http-response.adoc[]
 
 
 [[resources-admin-user-create]]
-=== Create AdminUser
+=== Create Admin User
 
-A `POST` request will create new AdminUser.
+A `POST` request will create new Admin User.
 
 ==== Request fields
 
@@ -221,9 +221,9 @@ include::{snippets}/createAdminUser/http-response.adoc[]
 
 
 [[resources-admin-user-replace]]
-=== Replace existing AdminUser with new one
+=== Replace existing Admin User with new one
 
-A `PUT` request will replace existing AdminUser with new AdminUser.
+A `PUT` request will replace existing Admin User with new Admin User.
 
 ==== Path parameters
 
@@ -251,9 +251,9 @@ include::{snippets}/replaceAdminUser/http-response.adoc[]
 
 
 [[resources-admin-user-update]]
-=== Update AdminUser
+=== Update Admin User
 
-A `PATCH` request will update existing AdminUser partially or fully.
+A `PATCH` request will update existing Admin User partially or fully.
 
 ==== Path parameters
 
@@ -281,9 +281,9 @@ include::{snippets}/updateAdminUser/http-response.adoc[]
 
 
 [[resources-admin-user-delete]]
-=== Delete AdminUser
+=== Delete Admin User
 
-A `DELETE` request will delete existing AdminUser.
+A `DELETE` request will delete existing Admin User.
 
 ==== Path parameters
 
@@ -955,12 +955,12 @@ include::{snippets}/deleteCustomer/http-response.adoc[]
 
 
 [[resources-customer-contact]]
-== CustomerContact
+== Customer Contact
 
 [[resources-customer-contact-get]]
-=== Get single CustomerContact
+=== Get single Customer Contact
 
-A `GET` request will return single CustomerContact.
+A `GET` request will return single Customer Contact.
 
 ==== Path parameters
 
@@ -984,9 +984,9 @@ include::{snippets}/getCustomerContact/http-response.adoc[]
 
 
 [[resources-customer-contact-getAll]]
-=== Get all CustomerContacts
+=== Get all Customer Contacts
 
-A `GET` request will return all CustomerContacts.
+A `GET` request will return all Customer Contacts.
 
 ==== Request parameters
 
@@ -1010,9 +1010,9 @@ include::{snippets}/getCustomerContacts/http-response.adoc[]
 
 
 [[resources-customer-contact-create]]
-=== Create CustomerContact
+=== Create Customer Contact
 
-A `POST` request will create new CustomerContact.
+A `POST` request will create new Customer Contact.
 
 ==== Request fields
 
@@ -1036,9 +1036,9 @@ include::{snippets}/createCustomerContact/http-response.adoc[]
 
 
 [[resources-customer-contact-replace]]
-=== Replace existing CustomerContact with new one
+=== Replace existing Customer Contact with new one
 
-A `PUT` request will replace existing CustomerContact with new CustomerContact.
+A `PUT` request will replace existing Customer Contact with new CustomerContact.
 
 ==== Path parameters
 
@@ -1066,9 +1066,9 @@ include::{snippets}/replaceCustomerContact/http-response.adoc[]
 
 
 [[resources-customer-contact-update]]
-=== Update CustomerContact
+=== Update Customer Contact
 
-A `PATCH` request will update existing CustomerContact partially or fully.
+A `PATCH` request will update existing Customer Contact partially or fully.
 
 ==== Path parameters
 
@@ -1096,9 +1096,9 @@ include::{snippets}/updateCustomerContact/http-response.adoc[]
 
 
 [[resources-customer-contact-delete]]
-=== Delete CustomerContact
+=== Delete Customer Contact
 
-A `DELETE` request will delete existing CustomerContact.
+A `DELETE` request will delete existing Customer Contact.
 
 ==== Path parameters
 
@@ -1118,10 +1118,10 @@ include::{snippets}/deleteCustomerContact/http-response.adoc[]
 
 
 [[resources-customer-user]]
-== CustomerUser
+== Customer User
 
 [[resources-customer-user-get]]
-=== Get single CustomerUser
+=== Get single Customer User
 
 A `GET` request will return single CustomerUser.
 
@@ -1147,9 +1147,9 @@ include::{snippets}/getCustomerUser/http-response.adoc[]
 
 
 [[resources-customer-user-getAll]]
-=== Get all CustomerUsers
+=== Get all Customer Users
 
-A `GET` request will return all CustomerUsers.
+A `GET` request will return all Customer Users.
 
 ==== Request parameters
 
@@ -1173,9 +1173,9 @@ include::{snippets}/getCustomerUsers/http-response.adoc[]
 
 
 [[resources-customer-user-create]]
-=== Create CustomerUser
+=== Create Customer User
 
-A `POST` request will create new CustomerUser.
+A `POST` request will create new Customer User.
 
 ==== Request fields
 
@@ -1199,9 +1199,9 @@ include::{snippets}/createCustomerUser/http-response.adoc[]
 
 
 [[resources-customer-user-replace]]
-=== Replace existing CustomerUser with new one
+=== Replace existing Customer User with new one
 
-A `PUT` request will replace existing CustomerUser with new CustomerUser.
+A `PUT` request will replace existing Customer User with new Customer User.
 
 ==== Path parameters
 
@@ -1229,9 +1229,9 @@ include::{snippets}/replaceCustomerUser/http-response.adoc[]
 
 
 [[resources-customer-user-update]]
-=== Update CustomerUser
+=== Update Customer User
 
-A `PATCH` request will update existing CustomerUser partially or fully.
+A `PATCH` request will update existing Customer User partially or fully.
 
 ==== Path parameters
 
@@ -1259,9 +1259,9 @@ include::{snippets}/updateCustomerUser/http-response.adoc[]
 
 
 [[resources-customer-user-delete]]
-=== Delete CustomerUser
+=== Delete Customer User
 
-A `DELETE` request will delete existing CustomerUser.
+A `DELETE` request will delete existing Customer User.
 
 ==== Path parameters
 
@@ -1444,10 +1444,10 @@ include::{snippets}/deleteDashboard/http-response.adoc[]
 
 
 [[resources-dashboard-box]]
-== DashboardBox
+== Dashboard Box
 
 [[resources-dashboard-box-get]]
-=== Get single DashboardBox
+=== Get single Dashboard Box
 
 A `GET` request will return single DashboardBox.
 
@@ -1473,9 +1473,9 @@ include::{snippets}/getDashboardBox/http-response.adoc[]
 
 
 [[resources-dashboard-box-getAll]]
-=== Get all DashboardBoxes
+=== Get all Dashboard Boxes
 
-A `GET` request will return all DashboardBoxes.
+A `GET` request will return all Dashboard Boxes.
 
 ==== Request parameters
 
@@ -1499,9 +1499,9 @@ include::{snippets}/getDashboardBoxes/http-response.adoc[]
 
 
 [[resources-dashboard-box-create]]
-=== Create DashboardBox
+=== Create Dashboard Box
 
-A `POST` request will create new DashboardBox.
+A `POST` request will create new Dashboard Box.
 
 ==== Request fields
 
@@ -1525,9 +1525,9 @@ include::{snippets}/createDashboardBox/http-response.adoc[]
 
 
 [[resources-dashboard-box-replace]]
-=== Replace existing DashboardBox with new one
+=== Replace existing Dashboard Box with new one
 
-A `PUT` request will replace existing DashboardBox with new DashboardBox.
+A `PUT` request will replace existing Dashboard Box with new Dashboard Box.
 
 ==== Path parameters
 
@@ -1555,9 +1555,9 @@ include::{snippets}/replaceDashboardBox/http-response.adoc[]
 
 
 [[resources-dashboard-box-update]]
-=== Update DashboardBox
+=== Update Dashboard Box
 
-A `PATCH` request will update existing DashboardBox partially or fully.
+A `PATCH` request will update existing Dashboard Box partially or fully.
 
 ==== Path parameters
 
@@ -1585,9 +1585,9 @@ include::{snippets}/updateDashboardBox/http-response.adoc[]
 
 
 [[resources-dashboard-box-delete]]
-=== Delete DashboardBox
+=== Delete Dashboard Box
 
-A `DELETE` request will delete existing DashboardBox.
+A `DELETE` request will delete existing Dashboard Box.
 
 ==== Path parameters
 
@@ -1607,12 +1607,12 @@ include::{snippets}/deleteDashboardBox/http-response.adoc[]
 
 
 [[resources-dashboard-box-type]]
-== DashboardBoxType
+== Dashboard Box Type
 
 [[resources-dashboard-box-type-get]]
-=== Get single DashboardBoxType
+=== Get single Dashboard Box Type
 
-A `GET` request will return single DashboardBoxType.
+A `GET` request will return single Dashboard Box Type.
 
 ==== Path parameters
 
@@ -1636,9 +1636,9 @@ include::{snippets}/getDashboardBoxType/http-response.adoc[]
 
 
 [[resources-dashboard-box-type-getAll]]
-=== Get all DashboardBoxTypes
+=== Get all Dashboard Box Types
 
-A `GET` request will return all DashboardBoxTypes.
+A `GET` request will return all Dashboard Box Types.
 
 ==== Request parameters
 
@@ -1662,9 +1662,9 @@ include::{snippets}/getDashboardBoxTypes/http-response.adoc[]
 
 
 [[resources-dashboard-box-type-create]]
-=== Create DashboardBoxType
+=== Create Dashboard Box Type
 
-A `POST` request will create new DashboardBoxType.
+A `POST` request will create new Dashboard Box Type.
 
 ==== Request fields
 
@@ -1688,10 +1688,10 @@ include::{snippets}/createDashboardBoxType/http-response.adoc[]
 
 
 [[resources-dashboard-box-type-replace]]
-=== Replace existing DashboardBoxType with new one
+=== Replace existing Dashboard Box Type with new one
 
-A `PUT` request will replace existing DashboardBoxType
-with new DashboardBoxType.
+A `PUT` request will replace existing Dashboard Box Type
+with new Dashboard Box Type.
 
 ==== Path parameters
 
@@ -1719,9 +1719,9 @@ include::{snippets}/replaceDashboardBoxType/http-response.adoc[]
 
 
 [[resources-dashboard-box-type-update]]
-=== Update DashboardBoxType
+=== Update Dashboard Box Type
 
-A `PATCH` request will update existing DashboardBoxType partially or fully.
+A `PATCH` request will update existing Dashboard Box Type partially or fully.
 
 ==== Path parameters
 
@@ -1749,9 +1749,9 @@ include::{snippets}/updateDashboardBoxType/http-response.adoc[]
 
 
 [[resources-dashboard-box-type-delete]]
-=== Delete DashboardBoxType
+=== Delete Dashboard Box Type
 
-A `DELETE` request will delete existing DashboardBoxType.
+A `DELETE` request will delete existing Dashboard Box Type.
 
 ==== Path parameters
 
@@ -1768,6 +1768,170 @@ include::{snippets}/deleteDashboardBoxType/curl-request.adoc[]
 ==== HTTP response example
 
 include::{snippets}/deleteDashboardBoxType/http-response.adoc[]
+
+
+[[resources-mcc]]
+== Mobile Country Code (MCC)
+
+[[resources-mcc-get]]
+=== Get single Mobile Country Code
+
+A `GET` request will return single Mobile Country Code.
+
+==== Path parameters
+
+include::{snippets}/getMcc/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getMcc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getMcc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getMcc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getMcc/http-response.adoc[]
+
+
+[[resources-mcc-getAll]]
+=== Get all Mobile Country Codes
+
+A `GET` request will return all Mobile Country Codes.
+
+==== Request parameters
+
+include::{snippets}/getAllMcc/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getAllMcc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getAllMcc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getAllMcc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getAllMcc/http-response.adoc[]
+
+
+[[resources-mcc-create]]
+=== Create Mobile Country Code
+
+A `POST` request will create new Mobile Country Code.
+
+==== Request fields
+
+include::{snippets}/createMcc/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createMcc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createMcc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createMcc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createMcc/http-response.adoc[]
+
+
+[[resources-mcc-replace]]
+=== Replace existing Mobile Country Code with new one
+
+A `PUT` request will replace existing Mobile Country Code
+with new Mobile Country Code.
+
+==== Path parameters
+
+include::{snippets}/replaceMcc/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceMcc/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceMcc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceMcc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceMcc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceMcc/http-response.adoc[]
+
+
+[[resources-mcc-update]]
+=== Update Mobile Country Code
+
+A `PATCH` request will update existing Mobile Country Code partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateMcc/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateMcc/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateMcc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateMcc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateMcc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateMcc/http-response.adoc[]
+
+
+[[resources-mcc-delete]]
+=== Delete Mobile Country Code
+
+A `DELETE` request will delete existing Mobile Country Code.
+
+==== Path parameters
+
+include::{snippets}/deleteMcc/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteMcc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteMcc/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteMcc/http-response.adoc[]
 
 
 

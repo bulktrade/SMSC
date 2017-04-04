@@ -1,20 +1,19 @@
-package io.smsc.repository;
+package io.smsc.repository.mcc;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
 import io.smsc.model.mcc.Mcc;
-import io.smsc.model.mcc.MccPK;
 import io.smsc.model.mcc.QMcc;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.querydsl.binding.SingleValueBinding;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -23,10 +22,18 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * This REST repository class is used for providing default {@link JpaRepository}
+ * CRUD methods to operate with {@link Mcc} entities and exporting them
+ * to appropriate endpoints.
+ *
+ * @author Nazar Lipkovskyy
+ * @since 0.0.4-SNAPSHOT
+ */
 @RepositoryRestResource(collectionResourceRel = "mcc", path = "mcc")
 @Transactional(readOnly = true)
 @PreAuthorize("hasRole('ADMIN_USER')")
-public interface MccRepository extends PagingAndSortingRepository<Mcc, MccPK>,
+public interface MccRepository extends PagingAndSortingRepository<Mcc, Integer>,
         QueryDslPredicateExecutor<Mcc>,
         QuerydslBinderCustomizer<QMcc> {
 
@@ -36,10 +43,9 @@ public interface MccRepository extends PagingAndSortingRepository<Mcc, MccPK>,
     }
 
     @Override
-    @Modifying
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_DELETE')")
-    void delete(MccPK mccPK);
+    void delete(Integer mcc);
 
     @Override
     @Transactional
@@ -49,7 +55,7 @@ public interface MccRepository extends PagingAndSortingRepository<Mcc, MccPK>,
 
     @Override
     @PostAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_READ')")
-    Mcc findOne(MccPK mccPK);
+    Mcc findOne(Integer mcc);
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_READ')")
@@ -98,7 +104,7 @@ public interface MccRepository extends PagingAndSortingRepository<Mcc, MccPK>,
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_EXISTS')")
-    boolean exists(MccPK mccPK);
+    boolean exists(Integer mcc);
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_READ')")
@@ -106,7 +112,7 @@ public interface MccRepository extends PagingAndSortingRepository<Mcc, MccPK>,
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_READ')")
-    Iterable<Mcc> findAll(Iterable<MccPK> mccPKS);
+    Iterable<Mcc> findAll(Iterable<Integer> mcc);
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_COUNT')")
