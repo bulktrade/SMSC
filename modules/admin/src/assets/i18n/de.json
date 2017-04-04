@@ -229,5 +229,8 @@
     "mcc.code": "Code",
     "mcc.country": "Country",
     "mcc.filter": "MCC filter",
-    "mcc.formTitle": "MCC"
+    "mcc.formTitle": "MCC",
+    "mcc.confirmDelete": "You are dropping the mcc. Are you sure?",
+    "SUCCESS_DELETE_RESOURCE": "The resource has been successfully deleted!",
+    "ERROR_DELETE_RESOURCE": "The resource has not been deleted!"
 }

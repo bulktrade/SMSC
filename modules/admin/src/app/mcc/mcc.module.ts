@@ -21,6 +21,9 @@ import {MCCService} from "./mcc.service";
 import {MCCCreateComponent} from "./mcc-create/mcc-create.component";
 import {ControlErrorService} from "../services/control-error";
 import {ControlErrorsModule} from "../shared/components/control-errors/control-errors.component";
+import {DeleteResourceModule} from "../shared/components/delete-resource/delete-resource.component";
+import {MCCDeleteComponent} from "./mcc-delete/mcc-delete.component";
+import {HTTP_INTERCEPTOR_PROVIDER} from "../shared/http-interceptor";
 
 @NgModule({
     imports: [
@@ -38,14 +41,20 @@ import {ControlErrorsModule} from "../shared/components/control-errors/control-e
         TranslateModule,
         InputTextModule,
         ControlErrorsModule,
-        PanelModule
+        PanelModule,
+        DeleteResourceModule
     ],
     exports: [MCCComponent],
     declarations: [
         MCCComponent,
-        MCCCreateComponent
+        MCCCreateComponent,
+        MCCDeleteComponent
     ],
-    providers: [MCCService, ControlErrorService],
+    providers: [
+        MCCService,
+        ControlErrorService,
+        HTTP_INTERCEPTOR_PROVIDER
+    ],
 })
 export class MCCModule {
 }
