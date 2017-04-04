@@ -6,11 +6,13 @@ import {MCCCreateComponent} from "./mcc-create/mcc-create.component";
 import {MCCDeleteComponent} from "./mcc-delete/mcc-delete.component";
 import {MCCUpdateComponent} from "./mcc-update/mcc-update.component";
 import {MCCUpdateResolve} from "./mcc-update/mcc-update.resolve";
+import {MCCResolve} from "./mcc.resolve";
 
 const routes: Routes = [
     {
         path: '',
-        component: MCCComponent
+        component: MCCComponent,
+        resolve: {mcc: MCCResolve},
     },
     {
         path: 'create',

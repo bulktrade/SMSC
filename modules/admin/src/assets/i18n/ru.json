@@ -232,6 +232,8 @@
     "mcc.formTitle": "MCC",
     "mcc.confirmDelete": "You are dropping the mcc. Are you sure?",
     "mcc.successUpdateMCC": "MCC has been successfully updated!",
+    "mcc.successDeleteMCC": "MCC has been successfully deleted!",
+    "mcc.errorDeleteMCC": "MCC has not been deleted!",
     "SUCCESS_DELETE_RESOURCE": "The resource has been successfully deleted!",
     "ERROR_DELETE_RESOURCE": "The resource has not been deleted!"
 }

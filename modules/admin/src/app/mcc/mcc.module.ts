@@ -27,6 +27,7 @@ import {HTTP_INTERCEPTOR_PROVIDER} from "../shared/http-interceptor";
 import {MCCUpdateComponent} from "./mcc-update/mcc-update.component";
 import {MCCUpdateResolve} from "./mcc-update/mcc-update.resolve";
 import {MCCResolve} from "./mcc.resolve";
+import {CubeGridModule} from "../shared/components/cube-grid/cube-grid.component";
 
 @NgModule({
     imports: [
@@ -45,7 +46,8 @@ import {MCCResolve} from "./mcc.resolve";
         InputTextModule,
         ControlErrorsModule,
         PanelModule,
-        DeleteResourceModule
+        DeleteResourceModule,
+        CubeGridModule
     ],
     exports: [MCCComponent],
     declarations: [

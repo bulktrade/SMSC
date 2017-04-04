@@ -33,11 +33,13 @@ export class ControlErrorService {
         }
     }
 
-    gridControlErrors(messages: Message[], onEditCompleteEvent, controlCellErrors: ControlCellErrors) {
+    gridControlErrors(messages: Message[], onEditCompleteEvent, controlCellErrors?: ControlCellErrors) {
         if (messages.length > 0) {
             for (let errorMessage of messages) {
                 if (errorMessage.field) {
-                    controlCellErrors[onEditCompleteEvent.column.field][onEditCompleteEvent.data.id] = true;
+                    if (!!controlCellErrors) {
+                        controlCellErrors[onEditCompleteEvent.column.field][onEditCompleteEvent.data.id] = true;
+                    }
                     this.notificationService.createNotification('error', 'ERROR', errorMessage.message);
                 } else {
                     this.notificationService.createNotification('error', 'ERROR', errorMessage.message);
