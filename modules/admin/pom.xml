@@ -50,7 +50,7 @@
                         <id>exec-npm-install</id>
                         <phase>compile</phase>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>npm.cmd</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>install</argument>
@@ -64,7 +64,7 @@
                         <id>build-app</id>
                         <phase>compile</phase>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>npm.cmd</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>run</argument>
@@ -79,7 +79,7 @@
                         <id>test-app</id>
                         <phase>test</phase>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>npm.cmd</executable>
                             <workingDirectory>${project.basedir}</workingDirectory>
                             <arguments>
                                 <argument>run</argument>

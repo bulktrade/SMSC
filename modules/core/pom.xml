@@ -344,7 +344,7 @@
                         <id>e2e-app</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <executable>npm</executable>
+                            <executable>npm.cmd</executable>
                             <workingDirectory>../admin</workingDirectory>
                             <arguments>
                                 <argument>run</argument>

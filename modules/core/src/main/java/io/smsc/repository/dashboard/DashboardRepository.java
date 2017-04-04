@@ -66,6 +66,10 @@ public interface DashboardRepository extends PagingAndSortingRepository<Dashboar
     @Query("select d from Dashboard d where d.user.id = ?#{principal.id}")
     Page<Dashboard> findAll(Predicate predicate, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"dashboardBoxes"})
+    @Query("select d from Dashboard d where d.user.id = ?#{principal.id} and d.name = :name")
+    Page<Dashboard> findByName(@Param("name") String name, Pageable pageable);
+
     @Override
     @EntityGraph(attributePaths = {"dashboardBoxes"})
     @RestResource(path = "findOneWithPredicate")
