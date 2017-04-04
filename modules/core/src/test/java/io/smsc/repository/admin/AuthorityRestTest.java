@@ -150,6 +150,7 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.authorities[].id").description("Authority's id"),
                         fieldWithPath("_embedded.authorities[].name").description("Authority's name"),
                         fieldWithPath("_embedded.authorities[].lastModifiedDate").type(Date.class).description("Authority's date of last modification"),
+                        fieldWithPath("_embedded.authorities[].createdDate").type(Date.class).description("Authority's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -157,6 +158,7 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("id").description("Authority's id"),
                         fieldWithPath("name").description("Authority's name"),
                         fieldWithPath("lastModifiedDate").type(Date.class).description("Authority's date of last modification"),
+                        fieldWithPath("createdDate").type(Date.class).description("Authority's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -174,6 +176,7 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -182,6 +185,7 @@ public class AuthorityRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };

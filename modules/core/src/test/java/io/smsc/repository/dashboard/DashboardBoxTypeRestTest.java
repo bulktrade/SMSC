@@ -161,6 +161,8 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.dashboard-box-types[].kind").description("DashboardBoxType's kind"),
                         fieldWithPath("_embedded.dashboard-box-types[].lastModifiedDate").type(Date.class)
                                 .description("DashboardBoxType's date of last modification"),
+                        fieldWithPath("_embedded.dashboard-box-types[].createdDate").type(Date.class)
+                                .description("DashboardBoxType's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -171,6 +173,7 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("kind").description("DashboardBoxType's kind"),
                         fieldWithPath("lastModifiedDate").type(Date.class)
                                 .description("DashboardBoxType's date of last modification"),
+                        fieldWithPath("createdDate").type(Date.class).description("DashboardBoxType's creation date"),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };
@@ -192,6 +195,7 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 } :
@@ -204,6 +208,7 @@ public class DashboardBoxTypeRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
+                        fieldWithPath("createdDate").optional().ignored(),
                         fieldWithPath("_links").optional().ignored(),
                         fieldWithPath("page").optional().ignored()
                 };

@@ -81,6 +81,7 @@ public class DashboardUnitTest {
                 ", name = '" + dashboard1.getName() + '\'' +
                 ", icon = '" + dashboard1.getIcon() + '\'' +
                 ", version = " + dashboard1.getVersion() +
+                ", createdDate = '" + dashboard1.getCreatedDate() + '\'' +
                 ", lastModifiedDate = '" + dashboard1.getLastModifiedDate() + '\'' +
                 "}");
     }

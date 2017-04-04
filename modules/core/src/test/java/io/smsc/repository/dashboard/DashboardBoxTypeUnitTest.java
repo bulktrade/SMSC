@@ -97,6 +97,7 @@ public class DashboardBoxTypeUnitTest {
                 ", type = '" + dashboardBoxType1.getType() + '\'' +
                 ", kind = '" + dashboardBoxType1.getKind() + '\'' +
                 ", version = " + dashboardBoxType1.getVersion() +
+                ", createdDate = '" + dashboardBoxType1.getCreatedDate() + '\'' +
                 ", lastModifiedDate = '" + dashboardBoxType1.getLastModifiedDate() + '\'' +
                 "}");
     }

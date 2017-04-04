@@ -1,5 +1,6 @@
 package io.smsc.config;
 
+import io.smsc.model.mcc.Mcc;
 import io.smsc.model.admin.Authority;
 import io.smsc.model.admin.Group;
 import io.smsc.model.admin.Role;
@@ -25,9 +26,7 @@ public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerA
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-
-        // for this time only one solution which works completely
         config.exposeIdsFor(io.smsc.model.admin.User.class, User.class, Role.class, Authority.class, Group.class, Customer.class, Contact.class,
-                Dashboard.class, DashboardBox.class, DashboardBoxType.class);
+                Dashboard.class, DashboardBox.class, DashboardBoxType.class, Mcc.class);
     }
 }

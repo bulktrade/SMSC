@@ -1,7 +1,10 @@
 package io.smsc.model;
 
 import com.fasterxml.jackson.annotation.*;
+
+import io.smsc.model.admin.User;
 import org.springframework.data.annotation.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.persistence.AccessType;
@@ -15,15 +18,33 @@ import java.util.Date;
  * and version properties.
  *
  * @author Nazar Lipkovskyy
- * @see MappedSuperclass
  * @since 0.0.1-SNAPSHOT
  */
 @MappedSuperclass
 @Access(AccessType.FIELD)
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"}, ignoreUnknown = true)
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity implements Serializable {
 
     protected static final long serialVersionUID = 1L;
+
+    @CreatedBy
+    @ManyToOne
+    @JoinColumn(name = "CREATED_BY_ID", updatable = false)
+    @JsonIgnore
+    protected User createdBy;
+
+    @LastModifiedBy
+    @ManyToOne
+    @JoinColumn(name = "LAST_MODIFIED_BY_ID")
+    @JsonIgnore
+    protected User lastModifiedBy;
+
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_DATE", nullable = false, updatable = false)
+    @JsonIgnore
+    protected Date createdDate = new Date();
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -36,11 +57,6 @@ public abstract class BaseEntity implements Serializable {
     @JsonIgnore
     protected Long version;
 
-    @PreUpdate
-    protected void onUpdate() {
-        lastModifiedDate = new Date();
-    }
-
     @JsonProperty
     public Long getVersion() {
         return version;
@@ -49,6 +65,37 @@ public abstract class BaseEntity implements Serializable {
     @JsonIgnore
     public void setVersion(Long versionNumber) {
         this.version = versionNumber;
+    }
+
+    @JsonProperty
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    @JsonIgnore
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    @JsonProperty
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    @JsonIgnore
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @JsonProperty
+    public User getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    @JsonIgnore
+    public void setLastModifiedBy(User lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     @JsonProperty

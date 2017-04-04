@@ -77,6 +77,7 @@ public class RoleUnitTest {
         assertThat(role1.toString()).isEqualTo("{id = " + role1.getId() +
                 ", name = '" + role1.getName() + '\'' +
                 ", version = " + role1.getVersion() +
+                ", createdDate = '" + role1.getCreatedDate() + '\'' +
                 ", lastModifiedDate = '" + role1.getLastModifiedDate() + '\'' +
                 "}");
     }

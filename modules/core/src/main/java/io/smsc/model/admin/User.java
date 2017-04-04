@@ -290,6 +290,7 @@ public class User extends BaseEntity {
                 ", created = '" + created + '\'' +
                 ", blocked = " + blocked +
                 ", version = " + version +
+                ", createdDate = '" + createdDate + '\'' +
                 ", lastModifiedDate = '" + lastModifiedDate + '\'' +
                 "}";
     }

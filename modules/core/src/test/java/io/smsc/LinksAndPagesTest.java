@@ -43,6 +43,8 @@ public class LinksAndPagesTest extends AbstractSpringMVCTest {
             linkWithRel("self").optional().description("The page of current result"),
             linkWithRel("search").optional().description("The page for searching results"),
             linkWithRel("profile").optional().description("The page with common information about current resource"),
+            linkWithRel("createdBy").optional().description("The page with user who created current resource"),
+            linkWithRel("lastModifiedBy").optional().description("The page with user who updated current resource last time"),
             linkWithRel("{name_of_resource}").optional().description("The page with resource which is related to current"));
 
     private FieldDescriptor[] pageSnippet() {

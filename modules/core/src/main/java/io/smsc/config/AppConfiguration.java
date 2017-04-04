@@ -5,15 +5,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 /**
- * The AppConfiguration class is used for customizing encoding and etag.
+ * The AppConfiguration class is used for customizing encoding, etag and provide
+ * auditing support.
  *
  * @author Sergej Kunz
  * @since 0.0.2-SNAPSHOT
  */
 @Configuration
+@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class AppConfiguration {
 
     /**

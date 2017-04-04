@@ -156,6 +156,7 @@ public class CustomerUnitTest {
                 ", city = '" + customer1.getCity() + '\'' +
                 ", vatid = '" + customer1.getVatid() + '\'' +
                 ", version = " + customer1.getVersion() +
+                ", createdDate = '" + customer1.getCreatedDate() + '\'' +
                 ", lastModifiedDate = '" + customer1.getLastModifiedDate() + '\'' +
                 "}");
     }
