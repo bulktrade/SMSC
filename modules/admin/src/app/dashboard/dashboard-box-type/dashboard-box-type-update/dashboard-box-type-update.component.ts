@@ -3,7 +3,7 @@ import {Location} from "@angular/common";
 import {Dashboard} from "../dashboard.model";
 import {NgForm} from "@angular/forms";
 import {DashboardService} from "../dashboard.service";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {DashboardBoxType} from "../dashboard-box-type.model";
 import {DashboardBoxTypeService} from "../dashboard-box-type.service";
 import {NotificationService} from "../../../services/notification-service";
