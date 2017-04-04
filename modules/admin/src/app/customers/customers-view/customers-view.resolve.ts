@@ -1,11 +1,13 @@
-import {ActivatedRouteSnapshot, RouterStateSnapshot, Resolve} from "@angular/router";
 import {Injectable} from "@angular/core";
-import {CustomersService} from "../customer.service";
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
+
+import {Customer} from "../model/customer";
 import {Pagination} from "../model/pagination";
+import {CustomersService} from "../customer.service";
 import {Sort, SortType} from "../../shared/sort.model";
 
 @Injectable()
-export class CustomersViewResolve implements Resolve<any> {
+export class CustomersViewResolve implements Resolve<Customer[]> {
     constructor(public customersService: CustomersService) {
     }
 

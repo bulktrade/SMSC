@@ -26,6 +26,7 @@ import {MCCDeleteComponent} from "./mcc-delete/mcc-delete.component";
 import {HTTP_INTERCEPTOR_PROVIDER} from "../shared/http-interceptor";
 import {MCCUpdateComponent} from "./mcc-update/mcc-update.component";
 import {MCCUpdateResolve} from "./mcc-update/mcc-update.resolve";
+import {MCCResolve} from "./mcc.resolve";
 
 @NgModule({
     imports: [
@@ -57,7 +58,8 @@ import {MCCUpdateResolve} from "./mcc-update/mcc-update.resolve";
         MCCService,
         ControlErrorService,
         HTTP_INTERCEPTOR_PROVIDER,
-        MCCUpdateResolve
+        MCCUpdateResolve,
+        MCCResolve
     ],
 })
 export class MCCModule {
