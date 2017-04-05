@@ -45,8 +45,8 @@
                       [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
-                        <div>
-                            <input class="search-field" type="text" #mcc
+                        <div class="col-md-12">
+                            <input class="search-field col-md-12" type="text" #mcc
                                    ngModel (ngModelChange)="onFilter('mcc', mcc)"
                                    pInputText [placeholder]="'SEARCH' | translate" name="mcc">
                             <i *ngIf="mcc.value && !isFiltering[mcc.name]"
@@ -64,8 +64,8 @@
                       [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
-                        <div>
-                            <input class="search-field" type="text" #code
+                        <div class="col-md-12">
+                            <input class="search-field col-md-12" type="text" #code
                                    ngModel (ngModelChange)="onFilter('code', code)"
                                    pInputText [placeholder]="'SEARCH' | translate" name="code">
                             <i *ngIf="code.value && !isFiltering[code.name]"
@@ -83,8 +83,8 @@
                       [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
-                        <div>
-                            <input class="search-field" type="text" #country
+                        <div class="col-md-12">
+                            <input class="search-field col-md-12" type="text" #country
                                    ngModel (ngModelChange)="onFilter('country', country)"
                                    pInputText [placeholder]="'SEARCH' | translate" name="country">
                             <i *ngIf="country.value && !isFiltering[country.name]"
