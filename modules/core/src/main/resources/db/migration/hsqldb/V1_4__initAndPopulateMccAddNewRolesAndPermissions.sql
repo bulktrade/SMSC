@@ -10,6 +10,11 @@ CREATE TABLE MCC (
   PRIMARY KEY (MCC)
 );
 
+CREATE index mcc_idx ON MCC (MCC);
+CREATE index code_idx ON MCC (CODE);
+CREATE index mcc_code_idx ON MCC (MCC, CODE);
+CREATE index mcc_code_country_idx ON MCC (MCC, CODE, COUNTRY);
+
 INSERT INTO ADMIN_USER_GROUP (NAME, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
   ('MCC_ADMIN', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'),
    (select id from user_account where username = 'admin')),

@@ -16,10 +16,10 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "MCC", indexes =
-                {@Index(columnList = "MCC", name = "mcc_idx"),
-                @Index(columnList = "CODE", name = "code_idx"),
-                @Index(columnList = "MCC,CODE", name = "mcc_code_idx"),
-                @Index(columnList = "MCC,CODE,COUNTRY", name = "mcc_code_country_idx")})
+                    {@Index(columnList = "MCC", name = "mcc_idx"),
+                    @Index(columnList = "CODE", name = "code_idx"),
+                    @Index(columnList = "MCC,CODE", name = "mcc_code_idx"),
+                    @Index(columnList = "MCC,CODE,COUNTRY", name = "mcc_code_country_idx")})
 public class Mcc extends BaseEntity {
 
     protected static final long serialVersionUID = 1L;
