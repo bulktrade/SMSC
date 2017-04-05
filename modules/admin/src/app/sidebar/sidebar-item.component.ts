@@ -2,7 +2,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Dashboard} from "../dashboard/dashboard.model";
 import {Router} from "@angular/router";
 import {SidebarModel} from "./sidebar.model";
-import {DashboardService, REPOSITORY_NAME} from "../dashboard/dashboard.service";
+import {DashboardService} from "../dashboard/dashboard.service";
 import {Component, Input} from "@angular/core";
 
 @Component({
@@ -36,9 +36,8 @@ export class SidebarItemComponent {
 
     navigate(sidebarItem: SidebarModel) {
         if (sidebarItem.name === 'DASHBOARDS') {
-            this.dashboardService.getResources(null, null, {name: 'default'})
-                .subscribe((dashboards: Dashboard[]) => {
-                    let dashboard = dashboards['_embedded'][REPOSITORY_NAME][0];
+            this.dashboardService.getDefaultDashboard()
+                .subscribe((dashboard: Dashboard) => {
                     this.router.navigate(['/dashboard', dashboard['id']]);
                 });
         } else {

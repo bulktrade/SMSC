@@ -44,18 +44,12 @@ describe('Component: SidebarItemComponent', () => {
     }));
 
     it('should navigate to the default dashboard', async(() => {
-        let response = {
-            _embedded: {
-                dashboards: [
-                    {
-                        id: 1,
-                        name: 'default',
-                        icon: 'fa-desktop'
-                    }
-                ]
-            }
+        let dashboard = {
+            id: 1,
+            name: 'default',
+            icon: 'fa-desktop'
         };
-        spyOn(componentFixture.instance.dashboardService, 'getResources').and.returnValue(Observable.of(response));
+        spyOn(componentFixture.instance.dashboardService, 'getDefaultDashboard').and.returnValue(Observable.of(dashboard));
         spyOn(componentFixture.instance.router, 'navigate');
         componentFixture.instance.navigate(<SidebarModel>{name: 'DASHBOARDS'});
         expect(componentFixture.instance.router.navigate).toHaveBeenCalledWith(['/dashboard', 1]);

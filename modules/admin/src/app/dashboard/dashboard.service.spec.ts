@@ -29,7 +29,6 @@ describe('Service: DashboardService', () => {
     }));
 
     it('.createDefaultDashboard() - should create a new default dashboard', () => {
-        spyOn(service.userService, 'getLoggedUser').and.returnValue(Observable.of({_links: {self: {href: 'href'}}}));
         spyOn(service, 'createResource').and.returnValue(Observable.of(<Dashboard>{name: 'name', icon: 'icon'}));
         service.createDefaultDashboard()
             .subscribe((res) => expect(res).toEqual(jasmine.objectContaining({name: 'name', icon: 'icon'})));
@@ -38,9 +37,21 @@ describe('Service: DashboardService', () => {
     it('.createDefaultDashboard() - should get an error during creating the default dashboard', () => {
         let error: Error = new Error('the dashboards was not created');
         spyOn(service, 'createResource').and.returnValue(Observable.create(obs => obs.error(error)));
-        spyOn(service.userService, 'getLoggedUser').and
-            .returnValue(Observable.of({_links: {self: {href: 'href'}}}));
         service.createDefaultDashboard().subscribe(null,
+            (e) => expect(e.message).toEqual(error.message)
+        );
+    });
+
+    it('.getDefaultDashboard() - should retrieve a default dashboard', () => {
+        spyOn(service, 'getDefaultDashboard').and.returnValue(Observable.of(<Dashboard>{name: 'name', icon: 'icon'}));
+        service.getDefaultDashboard()
+            .subscribe((res) => expect(res).toEqual(jasmine.objectContaining({name: 'name', icon: 'icon'})));
+    });
+
+    it('.getDefaultDashboard() - should get an error while retrieving the default dashboard', () => {
+        let error: Error = new Error('the dashboards was not found');
+        spyOn(service, 'getDefaultDashboard').and.returnValue(Observable.create(obs => obs.error(error)));
+        service.getDefaultDashboard().subscribe(null,
             (e) => expect(e.message).toEqual(error.message)
         );
     });
