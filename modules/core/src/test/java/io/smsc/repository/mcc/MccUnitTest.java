@@ -19,9 +19,11 @@ public class MccUnitTest {
     public void setUp() throws Exception {
         mcc1 = new Mcc();
         mcc2 = new Mcc();
+        mcc1.setId(1L);
         mcc1.setMcc(276);
         mcc1.setCode(355);
         mcc1.setCountry("Albania");
+        mcc2.setId(1L);
         mcc2.setMcc(276);
         mcc2.setCode(355);
         mcc2.setCountry("Albania");
@@ -49,20 +51,27 @@ public class MccUnitTest {
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualMcc1() throws Exception {
-        mcc2.setMcc(1);
+        mcc2.setId(2L);
 
         assertThat(mcc1).isNotEqualTo(mcc2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualMcc2() throws Exception {
-        mcc2.setCode(1);
+        mcc2.setMcc(1);
 
         assertThat(mcc1).isNotEqualTo(mcc2);
     }
 
     @Test
     public void testEqualsAndHashcodePairOfNonEqualMcc3() throws Exception {
+        mcc2.setCode(1);
+
+        assertThat(mcc1).isNotEqualTo(mcc2);
+    }
+
+    @Test
+    public void testEqualsAndHashcodePairOfNonEqualMcc4() throws Exception {
         mcc2.setCountry("Ukraine");
 
         assertThat(mcc1).isNotEqualTo(mcc2);
@@ -79,7 +88,8 @@ public class MccUnitTest {
 
     @Test
     public void testMccToString() throws Exception {
-        assertThat(mcc1.toString()).isEqualTo("{mcc = " + mcc1.getMcc() +
+        assertThat(mcc1.toString()).isEqualTo("{id = " + mcc1.getId() +
+                ", mcc = " + mcc1.getMcc() +
                 ", code = " + mcc1.getCode() +
                 ", country = '" + mcc1.getCountry() + '\'' +
                 ", createdBy = '" + mcc1.getCreatedBy() + '\'' +
