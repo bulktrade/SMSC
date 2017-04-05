@@ -42,7 +42,7 @@ describe('Component: MCCUpdateComponent', () => {
         componentFixture.debugElement = componentFixture.fixture.debugElement;
 
         componentFixture.instance.route.snapshot.paramMap.get = () => '40000';
-        componentFixture.instance.route.snapshot.data = {update: <MCC>{mcc: 'foo'}};
+        componentFixture.instance.route.snapshot.data = {update: <MCC>{mcc: 123}};
     });
 
     beforeEach(inject([XHRBackend], (_mockBackend) => {
@@ -70,12 +70,12 @@ describe('Component: MCCUpdateComponent', () => {
         componentFixture.instance.isLoading = false;
         componentFixture.instance.ngOnInit();
         expect(componentFixture.instance.id).toEqual(40000);
-        expect(componentFixture.instance.model.mcc).toEqual('foo');
+        expect(componentFixture.instance.model.mcc).toEqual(123);
     }));
 
     it('should retrieve the mcc', async(() => {
         expect(componentFixture.instance.getMCC()).toBeDefined();
-        expect(componentFixture.instance.getMCC().mcc).toEqual('foo');
+        expect(componentFixture.instance.getMCC().mcc).toEqual(123);
     }));
 
     it('.onSubmit()', async(() => {

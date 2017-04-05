@@ -6,8 +6,8 @@ interface Links {
 }
 
 export interface MCC extends Entity {
-    mcc: string;
-    code: string;
+    mcc: number;
+    code: number;
     country: string;
     _links: Links;
 }

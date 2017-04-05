@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, NgModule, Output} from "@angular/core";
 import {TranslateService} from "ng2-translate/ng2-translate";
-import {ActivatedRoute, RouterModule} from "@angular/router";
+import {RouterModule} from "@angular/router";
 import {CommonModule, Location} from "@angular/common";
 import {Message} from "primeng/components/common/api";
 import {ButtonModule, MessagesModule} from "primeng/primeng";
@@ -30,7 +30,6 @@ export class DeleteResourceComponent {
     public msgs: Message[] = [];
 
     constructor(public translate: TranslateService,
-                public route: ActivatedRoute,
                 public location: Location,
                 public notification: NotificationService) {
     }

@@ -1,7 +1,7 @@
 import {async, inject, TestBed} from "@angular/core/testing";
 import {ActivatedRoute} from "@angular/router";
 import {MockBackend} from "@angular/http/testing";
-import {Response, ResponseOptions, XHRBackend} from "@angular/http";
+import {Http, Response, ResponseOptions, XHRBackend} from "@angular/http";
 import {Observable} from "rxjs";
 
 import {DeleteResourceComponent, DeleteResourceModule} from "./delete-resource.component";
@@ -9,20 +9,30 @@ import {ComponentHelper} from "../../component-fixture";
 import {ConfigService} from "../../../config/config.service";
 import {ConfigServiceMock} from "../../test/stub/config.service";
 import {APP_PROVIDERS} from "../../../app.module";
+import {TranslateModule} from "ng2-translate";
+import {RouterTestingModule} from "@angular/router/testing";
+import {CrudRepositoryService} from "../../crud-repository.spec";
 
 describe('Component: DeleteResourceComponent', () => {
     let componentFixture: ComponentHelper<DeleteResourceComponent> =
         new ComponentHelper<DeleteResourceComponent>(null, null, null, null);
-    let mockBackend;
+    let mockBackend, service: CrudRepositoryService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [DeleteResourceModule],
+            imports: [DeleteResourceModule, RouterTestingModule, TranslateModule.forRoot()],
             providers: [
                 APP_PROVIDERS,
                 {provide: XHRBackend, useClass: MockBackend},
                 {provide: ActivatedRoute, useValue: {params: Observable.of({customerId: 40000})}},
                 {provide: ConfigService, useClass: ConfigServiceMock},
+                {
+                    provide: CrudRepositoryService,
+                    useFactory: (http: Http, configService: ConfigService) => {
+                        return new CrudRepositoryService(http, configService)
+                    },
+                    deps: [Http, ConfigService]
+                }
             ]
         });
 
@@ -32,16 +42,9 @@ describe('Component: DeleteResourceComponent', () => {
         componentFixture.debugElement = componentFixture.fixture.debugElement;
     });
 
-    beforeEach(inject([XHRBackend], (_mockBackend) => {
+    beforeEach(inject([CrudRepositoryService, XHRBackend], (_service, _mockBackend) => {
+        service = _service;
         mockBackend = _mockBackend;
-    }));
-
-    it('should have the cancel button and confirm button', async(() => {
-        componentFixture.fixture.detectChanges();
-        componentFixture.fixture.whenStable().then(() => {
-            expect(componentFixture.element.querySelector('#cancel-button').innerText).toEqual('CANCEL');
-            expect(componentFixture.element.querySelector('#ok-button').innerText).toEqual('OK');
-        });
     }));
 
     it('should delete the resource', async(() => {
@@ -51,11 +54,12 @@ describe('Component: DeleteResourceComponent', () => {
         });
         spyOn(componentFixture.instance.notification, 'createNotification');
         spyOn(componentFixture.instance, 'onBack');
+        componentFixture.instance.crudRepository = service;
 
         componentFixture.instance.deleteResource();
 
         expect(componentFixture.instance.notification.createNotification)
-            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successDeleteCustomer');
+            .toHaveBeenCalledWith('success', 'SUCCESS', 'SUCCESS_DELETE_RESOURCE');
         expect(componentFixture.instance.onBack).toHaveBeenCalled();
     }));
 
@@ -68,18 +72,18 @@ describe('Component: DeleteResourceComponent', () => {
     });
 
     it('should get an error while deleting the resource', async(() => {
-        mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({status: 500});
-            connection.mockError(new Response(response));
-        });
+        componentFixture.instance.crudRepository = service;
         spyOn(componentFixture.instance.notification, 'createNotification');
-        spyOn(console, 'error');
+        spyOn(componentFixture.instance.crudRepository, 'deleteResourceById').and
+            .returnValues(Observable.create(o => {
+                o.error(false);
+                o.complete()
+            }));
 
         componentFixture.instance.deleteResource();
 
         expect(componentFixture.instance.notification.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorDeleteCustomer');
-        expect(console.error).toHaveBeenCalledWith(new Response(new ResponseOptions({status: 500})));
+            .toHaveBeenCalledWith('error', 'ERROR', 'ERROR_DELETE_RESOURCE');
     }));
 
     it('.onBack()', async(() => {

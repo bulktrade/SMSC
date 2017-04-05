@@ -155,8 +155,7 @@ export class MCCComponent implements OnInit, AfterViewInit {
         this.filters[colName] = inputField.value;
         this.isFiltering[<string>inputField.name] = true;
 
-        this.mccService.getResources(this.pagination.number, this.pagination.size,
-            this.filters, this.sort)
+        this.mccService.getResources(null, null, this.filters, this.sort)
             .subscribe(
                 (res) => {
                     this.pagination.totalElements = res['page']['totalElements'];
