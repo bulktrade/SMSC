@@ -31,6 +31,7 @@ exports.config = {
     helpers.root('src/app/mcc/mcc-create/*.e2e.ts'),
     helpers.root('src/app/mcc/mcc-update/*.e2e.ts'),
     helpers.root('src/app/mcc/mcc-delete/*.e2e.ts'),
+    helpers.root('src/app/mcc/*.e2e.ts'),
     helpers.root('src/**/**.e2e.ts'),
     helpers.root('src/**/*.e2e.ts')
   ],

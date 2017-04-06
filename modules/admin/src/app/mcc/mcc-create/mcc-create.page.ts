@@ -16,16 +16,16 @@ export class MCCCreatePage {
         browser.get(browser.baseUrl + '/mcc');
     }
 
-    fillInputFields() {
+    fillInputFields(mcc: string, code: string, country: string) {
         this.protHelpers.isElementPresence(this.mccInputField);
         this.protHelpers.isElementPresence(this.codeInputField);
         this.protHelpers.isElementPresence(this.countryInputField);
         this.mccInputField.clear();
-        this.mccInputField.sendKeys('1000000000');
+        this.mccInputField.sendKeys(mcc);
         this.codeInputField.clear();
-        this.codeInputField.sendKeys('263');
+        this.codeInputField.sendKeys(code);
         this.countryInputField.clear();
-        this.countryInputField.sendKeys('Country');
+        this.countryInputField.sendKeys(country);
     }
 
     isEnabledSubmitButton() {
