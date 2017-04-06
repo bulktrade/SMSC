@@ -32,12 +32,12 @@
             <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
             <p-column [style]="{'width':'40px'}">
                 <ng-template pTemplate="body" let-col let-row="rowData">
-                    <span class="fa fa-pencil update-icon" [routerLink]="['/mcc', row['mcc'], 'update']"></span>
+                    <span class="fa fa-pencil update-icon" [routerLink]="['/mcc', row['id'], 'update']"></span>
                 </ng-template>
             </p-column>
             <p-column [style]="{'width':'40px'}">
                 <ng-template pTemplate="body" let-col let-row="rowData">
-                    <span class="fa fa-trash delete-icon" [routerLink]="['/mcc', row['mcc'], 'delete']"></span>
+                    <span class="fa fa-trash delete-icon" [routerLink]="['/mcc', row['id'], 'delete']"></span>
                 </ng-template>
             </p-column>
             <p-column field="mcc" styleClass="mcc" [header]="'mcc.mcc' | translate"
