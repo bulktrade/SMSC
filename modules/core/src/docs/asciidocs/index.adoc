@@ -1935,7 +1935,7 @@ include::{snippets}/deleteMcc/http-response.adoc[]
 
 
 [[resources-mnc]]
-== Mobile Network Code (MCC)
+== Mobile Network Code (MNC)
 
 [[resources-mnc-get]]
 === Get single Mobile Network Code
