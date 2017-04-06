@@ -39,6 +39,7 @@ import {DashboardService} from "./dashboard/dashboard.service";
 import {UserService} from "./users/user.service";
 import {SidebarService} from "./sidebar/sidebar.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {CrudViewComponent} from "./shared/components/crud-view/crud-view.component";
 
 export type StoreType = {
     state: InternalStateType,
@@ -87,7 +88,8 @@ export const APP_DECLARATIONS = [
     SidebarComponent,
     NotFoundComponent,
     NavigationComponent,
-    SidebarItemComponent
+    SidebarItemComponent,
+    CrudViewComponent
 ];
 
 export const APP_IMPORTS = [
