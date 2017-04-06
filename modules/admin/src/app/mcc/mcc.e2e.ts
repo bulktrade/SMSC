@@ -46,7 +46,7 @@ describe('MCC', () => {
                 .then(className => {
                     expect(className.includes('ui-state-active')).toBeTruthy();
                 });
-            page.getCountRows().then(count => expect(count).toEqual(4));
+            page.getCountRows().then(count => expect(count).toEqual(7));
         });
 
         it('should get the first page', () => {
