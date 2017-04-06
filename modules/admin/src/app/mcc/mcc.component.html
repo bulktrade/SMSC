@@ -7,7 +7,7 @@
                     <div class="ui-g ctrl-panel">
                         <div class="ui-g-12 ui-md-6 search-panel">
                             <i class="fa fa-search"></i>
-                            <input class="search-field" type="text" #globalFilter
+                            <input class="search-field global-filter" type="text" #globalFilter
                                    ngModel (ngModelChange)="onFilter('mcc', globalFilter)"
                                    pInputText [placeholder]="'mcc.filter' | translate" name="globalFilter">
                             <i *ngIf="globalFilter.value && !isFiltering[globalFilter.name]"
