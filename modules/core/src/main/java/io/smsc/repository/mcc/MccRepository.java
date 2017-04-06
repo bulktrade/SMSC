@@ -11,11 +11,11 @@ import io.smsc.model.mcc.QMcc;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.querydsl.binding.SingleValueBinding;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -35,30 +35,31 @@ import org.springframework.transaction.annotation.Transactional;
 @RepositoryRestResource(collectionResourceRel = "mcc", path = "mcc")
 @Transactional(readOnly = true)
 @PreAuthorize("hasRole('ADMIN_USER')")
-public interface MccRepository extends PagingAndSortingRepository<Mcc, Integer>,
+public interface MccRepository extends PagingAndSortingRepository<Mcc, Long>,
         QueryDslPredicateExecutor<Mcc>,
         QuerydslBinderCustomizer<QMcc> {
 
     @Override
     default void customize(QuerydslBindings bindings, QMcc root) {
         bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::containsIgnoreCase);
+
         bindings.bind(Integer.class).first((SingleValueBinding<NumberPath<Integer>, Integer>) NumberExpression::eq);
     }
 
     @Override
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_DELETE')")
-    void delete(Integer mcc);
+    void delete(Long id);
 
     @Override
     @Transactional
-    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#mcc?.mcc == null) and hasAuthority('MCC_CREATE')) or " +
-            "(!(#mcc?.mcc == null) and hasAuthority('MCC_WRITE'))")
+    @PreAuthorize("hasRole('POWER_ADMIN_USER') or ((#mcc?.id == null) and hasAuthority('MCC_CREATE')) or " +
+            "(!(#mcc?.id == null) and hasAuthority('MCC_WRITE'))")
     Mcc save(@Param("mcc") Mcc mcc);
 
     @Override
     @PostAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_READ')")
-    Mcc findOne(Integer mcc);
+    Mcc findOne(Long id);
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_READ')")
@@ -101,13 +102,13 @@ public interface MccRepository extends PagingAndSortingRepository<Mcc, Integer>,
     Iterable<Mcc> findAll(Sort sort);
 
     @Override
-    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.mcc == null) and hasAuthority('MCC_CREATE')) or " +
-            "(!(filterObject.mcc == null) and hasAuthority('MCC_WRITE'))")
+    @PreFilter("hasRole('POWER_ADMIN_USER') or ((filterObject.id == null) and hasAuthority('MCC_CREATE')) or " +
+            "(!(filterObject.id == null) and hasAuthority('MCC_WRITE'))")
     <S extends Mcc> Iterable<S> save(Iterable<S> mcc);
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_EXISTS')")
-    boolean exists(Integer mcc);
+    boolean exists(Long id);
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_READ')")
@@ -115,7 +116,7 @@ public interface MccRepository extends PagingAndSortingRepository<Mcc, Integer>,
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_READ')")
-    Iterable<Mcc> findAll(Iterable<Integer> mcc);
+    Iterable<Mcc> findAll(Iterable<Long> ids);
 
     @Override
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or hasAuthority('MCC_COUNT')")

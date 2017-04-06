@@ -1,9 +1,15 @@
 package io.smsc.model.mcc;
 
 import io.smsc.model.BaseEntity;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -29,10 +35,11 @@ public class Mnc extends BaseEntity {
     private Long id;
 
     @Column(name = "MNC", nullable = false)
-    @NotNull
-    private Integer mnc;
+    @NotEmpty
+    private String mnc;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
+    @Cascade(CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "MCC", referencedColumnName = "MCC", nullable = false)
     private Mcc mcc;
 
@@ -48,11 +55,11 @@ public class Mnc extends BaseEntity {
         this.id = id;
     }
 
-    public Integer getMnc() {
+    public String getMnc() {
         return mnc;
     }
 
-    public void setMnc(Integer mnc) {
+    public void setMnc(String mnc) {
         this.mnc = mnc;
     }
 

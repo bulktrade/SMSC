@@ -15,17 +15,26 @@ import java.util.Objects;
  * @since 0.0.4-SNAPSHOT
  */
 @Entity
-@Table(name = "MCC", indexes =
-                    {@Index(columnList = "MCC", name = "mcc_idx"),
-                    @Index(columnList = "CODE", name = "code_idx"),
-                    @Index(columnList = "MCC,CODE", name = "mcc_code_idx"),
-                    @Index(columnList = "MCC,CODE,COUNTRY", name = "mcc_code_country_idx")})
+@Table(name = "MCC", uniqueConstraints = {
+                        @UniqueConstraint(columnNames = "MCC", name = "mnc_unique_mcc_idx")},
+                    indexes = {
+                        @Index(columnList = "MCC", name = "mcc_idx"),
+                        @Index(columnList = "CODE", name = "code_idx"),
+                        @Index(columnList = "MCC,CODE", name = "mcc_code_idx"),
+                        @Index(columnList = "MCC,CODE,COUNTRY", name = "mcc_code_country_idx")})
 public class Mcc extends BaseEntity {
 
     protected static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "MCC")
+    @SequenceGenerator(name = "mcc_seq", sequenceName = "mcc_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "mcc_seq")
+    @Column(name = "ID")
+    @Access(value = AccessType.PROPERTY)
+    private Long id;
+
+    @Column(name = "MCC", nullable = false)
+    @NotNull
     @Access(value = AccessType.PROPERTY)
     private Integer mcc;
 
@@ -62,6 +71,14 @@ public class Mcc extends BaseEntity {
         this.country = country;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,6 +86,7 @@ public class Mcc extends BaseEntity {
 
         Mcc mcc1 = (Mcc) o;
 
+        if (!getId().equals(mcc1.getId())) return false;
         if (!getMcc().equals(mcc1.getMcc())) return false;
         if (!getCode().equals(mcc1.getCode())) return false;
         return getCountry().equals(mcc1.getCountry());
@@ -76,7 +94,8 @@ public class Mcc extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(getMcc());
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getMcc());
         result = 31 * result + Objects.hashCode(getCode());
         result = 31 * result + Objects.hashCode(getCountry());
         return result;
@@ -84,7 +103,8 @@ public class Mcc extends BaseEntity {
 
     @Override
     public String toString() {
-        return "{mcc = " + mcc +
+        return "{id = " + id +
+                ", mcc = " + mcc +
                 ", code = " + code +
                 ", country = '" + country + '\'' +
                 ", createdBy = '" + createdBy + '\'' +
