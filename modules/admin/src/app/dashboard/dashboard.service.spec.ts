@@ -1,11 +1,12 @@
 import {inject, TestBed} from "@angular/core/testing";
-import {MockBackend} from "@angular/http/testing";
-import {HttpModule, XHRBackend} from "@angular/http";
+import {MockBackend, MockConnection} from "@angular/http/testing";
+import {Observable} from "rxjs";
+import {HttpModule, RequestMethod, Response, ResponseOptions, XHRBackend} from "@angular/http";
+
 import {DashboardService} from "./dashboard.service";
 import {ConfigService} from "../config/config.service";
 import {ConfigServiceMock} from "../shared/test/stub/config.service";
 import {UserService} from "../users/user.service";
-import {Observable} from "rxjs";
 import {Dashboard} from "./dashboard.model";
 
 describe('Service: DashboardService', () => {
@@ -43,16 +44,18 @@ describe('Service: DashboardService', () => {
     });
 
     it('.getDefaultDashboard() - should retrieve a default dashboard', () => {
-        spyOn(service, 'getDefaultDashboard').and.returnValue(Observable.of(<Dashboard>{name: 'name', icon: 'icon'}));
-        service.getDefaultDashboard()
-            .subscribe((res) => expect(res).toEqual(jasmine.objectContaining({name: 'name', icon: 'icon'})));
+        mockBackend.connections.subscribe((c: MockConnection) => {
+            expect(c.request.method).toEqual(RequestMethod.Get);
+            let response = new ResponseOptions({body: {_embedded: {dashboards: [{}]}}});
+            c.mockRespond(new Response(response));
+        });
+        service.getDefaultDashboard().subscribe();
     });
 
     it('.getDefaultDashboard() - should get an error while retrieving the default dashboard', () => {
-        let error: Error = new Error('the dashboards was not found');
-        spyOn(service, 'getDefaultDashboard').and.returnValue(Observable.create(obs => obs.error(error)));
+        mockBackend.connections.subscribe(connection => connection.mockError(new Error('error')));
         service.getDefaultDashboard().subscribe(null,
-            (e) => expect(e.message).toEqual(error.message)
+            (e) => expect(e.message).toEqual('error')
         );
     });
 });

@@ -5,7 +5,6 @@ import {Observable} from "rxjs";
 import {Dashboard} from "./dashboard.model";
 import {CrudRepository} from "../shared/crud-repository";
 import {ConfigService} from "../config/config.service";
-import {UserService} from "../users/user.service";
 
 export const REPOSITORY_NAME: string = 'dashboards';
 
@@ -15,8 +14,7 @@ export class DashboardService extends CrudRepository<Dashboard> {
     public titleColumns = 'name';
 
     constructor(public http: Http,
-                public configService: ConfigService,
-                public userService: UserService) {
+                public configService: ConfigService) {
         super(http, configService);
     }
 
