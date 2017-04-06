@@ -10,6 +10,7 @@ import io.smsc.model.customer.User;
 import io.smsc.model.dashboard.Dashboard;
 import io.smsc.model.dashboard.DashboardBox;
 import io.smsc.model.dashboard.DashboardBoxType;
+import io.smsc.model.mcc.Mnc;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
@@ -27,6 +28,6 @@ public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerA
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(io.smsc.model.admin.User.class, User.class, Role.class, Authority.class, Group.class, Customer.class, Contact.class,
-                Dashboard.class, DashboardBox.class, DashboardBoxType.class, Mcc.class);
+                Dashboard.class, DashboardBox.class, DashboardBoxType.class, Mcc.class, Mnc.class);
     }
 }

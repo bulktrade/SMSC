@@ -1,10 +1,12 @@
 package io.smsc.repository.dashboard;
 
+import io.smsc.model.admin.User;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,12 +27,22 @@ public class DashboardBoxUnitTest {
         dashboardBox1.setWidth(Width.WIDTH_100);
         dashboardBox1.setHeight(Height.HEIGHT_100);
         dashboardBox1.setDescription("new box desc");
+        dashboardBox1.setCreatedBy(new User());
+        dashboardBox1.setLastModifiedBy(new User());
+        dashboardBox1.setCreatedDate(new Date());
+        dashboardBox1.setLastModifiedDate(new Date());
+        dashboardBox1.setVersion(0L);
         dashboardBox2.setId(1L);
         dashboardBox2.setName("new box");
         dashboardBox2.setOrder(99);
         dashboardBox2.setWidth(Width.WIDTH_100);
         dashboardBox2.setHeight(Height.HEIGHT_100);
         dashboardBox2.setDescription("new box desc");
+        dashboardBox2.setCreatedBy(new User());
+        dashboardBox2.setLastModifiedBy(new User());
+        dashboardBox2.setCreatedDate(new Date());
+        dashboardBox2.setLastModifiedDate(new Date());
+        dashboardBox2.setVersion(0L);
     }
 
     @Test

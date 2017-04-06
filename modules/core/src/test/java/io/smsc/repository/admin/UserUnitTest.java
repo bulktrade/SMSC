@@ -36,6 +36,11 @@ public class UserUnitTest {
         user1.setGroups(Collections.emptySet());
         user1.setRoles(Collections.emptySet());
         user1.setDashboards(Collections.emptySet());
+        user1.setCreatedBy(new User());
+        user1.setLastModifiedBy(new User());
+        user1.setCreatedDate(new Date());
+        user1.setLastModifiedDate(new Date());
+        user1.setVersion(0L);
         user2.setId(1L);
         user2.setUsername("Old Johnny");
         user2.setPassword("password");
@@ -49,6 +54,11 @@ public class UserUnitTest {
         user2.setGroups(Collections.emptySet());
         user2.setRoles(Collections.emptySet());
         user2.setDashboards(Collections.emptySet());
+        user2.setCreatedBy(new User());
+        user2.setLastModifiedBy(new User());
+        user2.setCreatedDate(new Date());
+        user2.setLastModifiedDate(new Date());
+        user2.setVersion(0L);
     }
 
     @Test

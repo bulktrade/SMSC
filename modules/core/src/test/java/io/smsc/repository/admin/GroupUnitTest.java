@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,10 +25,20 @@ public class GroupUnitTest {
         group1.setName("NEW_GROUP");
         group1.setUsers(Collections.emptySet());
         group1.setAuthorities(Collections.emptySet());
+        group1.setCreatedBy(new User());
+        group1.setLastModifiedBy(new User());
+        group1.setCreatedDate(new Date());
+        group1.setLastModifiedDate(new Date());
+        group1.setVersion(0L);
         group2.setId(1L);
         group2.setName("NEW_GROUP");
         group2.setUsers(Collections.emptySet());
         group2.setAuthorities(Collections.emptySet());
+        group2.setCreatedBy(new User());
+        group2.setLastModifiedBy(new User());
+        group2.setCreatedDate(new Date());
+        group2.setLastModifiedDate(new Date());
+        group2.setVersion(0L);
     }
 
     @Test

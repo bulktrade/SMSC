@@ -1,10 +1,12 @@
 package io.smsc.repository.mcc;
 
+import io.smsc.model.admin.User;
 import io.smsc.model.mcc.Mcc;
 import io.smsc.model.customer.Customer;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,15 +25,25 @@ public class MccUnitTest {
         mcc1.setMcc(276);
         mcc1.setCode(355);
         mcc1.setCountry("Albania");
+        mcc1.setCreatedBy(new User());
+        mcc1.setLastModifiedBy(new User());
+        mcc1.setCreatedDate(new Date());
+        mcc1.setLastModifiedDate(new Date());
+        mcc1.setVersion(0L);
         mcc2.setId(1L);
         mcc2.setMcc(276);
         mcc2.setCode(355);
         mcc2.setCountry("Albania");
+        mcc2.setCreatedBy(new User());
+        mcc2.setLastModifiedBy(new User());
+        mcc2.setCreatedDate(new Date());
+        mcc2.setLastModifiedDate(new Date());
+        mcc2.setVersion(0L);
     }
 
     @Test
     public void testEqualsAndHashcodeSameMcc() throws Exception {
-        assertThat(mcc1).isEqualTo(mcc2);
+        assertThat(mcc1).isEqualTo(mcc1);
     }
 
     @Test
