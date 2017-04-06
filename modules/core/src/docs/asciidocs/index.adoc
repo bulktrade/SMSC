@@ -1940,7 +1940,7 @@ include::{snippets}/deleteMcc/http-response.adoc[]
 [[resources-mnc-get]]
 === Get single Mobile Network Code
 
-A `GET` request will return single Mobile Country Code.
+A `GET` request will return single Mobile Network Code.
 
 ==== Path parameters
 
