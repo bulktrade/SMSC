@@ -2,6 +2,8 @@ package io.smsc.repository.mcc;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.NumberExpression;
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringExpression;
 import com.querydsl.core.types.dsl.StringPath;
 import io.smsc.model.mcc.Mnc;
@@ -40,6 +42,8 @@ public interface MncRepository extends PagingAndSortingRepository<Mnc, Long>,
     @Override
     default void customize(QuerydslBindings bindings, QMnc root) {
         bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::containsIgnoreCase);
+
+        bindings.bind(Integer.class).first((SingleValueBinding<NumberPath<Integer>, Integer>) NumberExpression::eq);
     }
 
     @Override

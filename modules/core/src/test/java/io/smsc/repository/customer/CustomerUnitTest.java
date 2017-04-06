@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +31,11 @@ public class CustomerUnitTest {
         customer1.setVatid("9999999.0");
         customer1.setUsers(Collections.emptySet());
         customer1.setContacts(Collections.emptySet());
+        customer1.setCreatedBy(new User());
+        customer1.setLastModifiedBy(new User());
+        customer1.setCreatedDate(new Date());
+        customer1.setLastModifiedDate(new Date());
+        customer1.setVersion(0L);
         customer2.setId(1L);
         customer2.setCompanyName("newCompany");
         customer2.setStreet("newStreet");
@@ -40,6 +46,11 @@ public class CustomerUnitTest {
         customer2.setVatid("9999999.0");
         customer2.setUsers(Collections.emptySet());
         customer2.setContacts(Collections.emptySet());
+        customer2.setCreatedBy(new User());
+        customer2.setLastModifiedBy(new User());
+        customer2.setCreatedDate(new Date());
+        customer2.setLastModifiedDate(new Date());
+        customer2.setVersion(0L);
     }
 
     @Test

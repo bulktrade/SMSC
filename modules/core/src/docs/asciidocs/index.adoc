@@ -1934,4 +1934,137 @@ include::{snippets}/deleteMcc/curl-request.adoc[]
 include::{snippets}/deleteMcc/http-response.adoc[]
 
 
+[[resources-mnc]]
+== Mobile Network Code (MNC)
+
+[[resources-mnc-get]]
+=== Get single Mobile Network Code
+
+A `GET` request will return single Mobile Network Code.
+
+==== Path parameters
+
+include::{snippets}/getMnc/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getMnc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getMnc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getMnc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getMnc/http-response.adoc[]
+
+
+[[resources-mnc-getAll]]
+=== Get all Mobile Network Codes
+
+A `GET` request will return all Mobile Network Codes.
+
+==== Request parameters
+
+include::{snippets}/getAllMnc/request-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/getAllMnc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/getAllMnc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/getAllMnc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/getAllMnc/http-response.adoc[]
+
+
+[[resources-mnc-create]]
+=== Create Mobile Network Code
+
+A `POST` request will create new Mobile Network Code.
+
+==== Request fields
+
+include::{snippets}/createMnc/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/createMnc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/createMnc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/createMnc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/createMnc/http-response.adoc[]
+
+
+[[resources-mnc-update]]
+=== Update Mobile Network Code
+
+A `PATCH` request will update existing Mobile Network Code partially or fully.
+
+==== Path parameters
+
+include::{snippets}/updateMnc/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/updateMnc/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/updateMnc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/updateMnc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/updateMnc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/updateMnc/http-response.adoc[]
+
+
+[[resources-mnc-delete]]
+=== Delete Mobile Network Code
+
+A `DELETE` request will delete existing Mobile Network Code.
+
+==== Path parameters
+
+include::{snippets}/deleteMnc/path-parameters.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/deleteMnc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/deleteMnc/curl-request.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/deleteMnc/http-response.adoc[]
+
+
 

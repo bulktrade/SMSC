@@ -1,11 +1,13 @@
 package io.smsc.repository.dashboard;
 
+import io.smsc.model.admin.User;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.dashboard.Dashboard;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,10 +26,20 @@ public class DashboardUnitTest {
         dashboard1.setIcon("admin");
         dashboard1.setName("default_admin");
         dashboard1.setDashboardBoxes(Collections.emptySet());
+        dashboard1.setCreatedBy(new User());
+        dashboard1.setLastModifiedBy(new User());
+        dashboard1.setCreatedDate(new Date());
+        dashboard1.setLastModifiedDate(new Date());
+        dashboard1.setVersion(0L);
         dashboard2.setId(1L);
         dashboard2.setIcon("admin");
         dashboard2.setName("default_admin");
         dashboard2.setDashboardBoxes(Collections.emptySet());
+        dashboard2.setCreatedBy(new User());
+        dashboard2.setLastModifiedBy(new User());
+        dashboard2.setCreatedDate(new Date());
+        dashboard2.setLastModifiedDate(new Date());
+        dashboard2.setVersion(0L);
     }
 
     @Test

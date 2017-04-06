@@ -1,8 +1,6 @@
 package io.smsc.model.mcc;
 
 import io.smsc.model.BaseEntity;
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -10,7 +8,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -38,8 +35,12 @@ public class Mnc extends BaseEntity {
     @NotEmpty
     private String mnc;
 
-    @OneToOne
-    @Cascade(CascadeType.SAVE_UPDATE)
+    @OneToOne(fetch = FetchType.LAZY,
+    cascade = {
+        CascadeType.REFRESH,
+                CascadeType.MERGE,
+                CascadeType.PERSIST
+    })
     @JoinColumn(name = "MCC", referencedColumnName = "MCC", nullable = false)
     private Mcc mcc;
 
@@ -97,5 +98,18 @@ public class Mnc extends BaseEntity {
         result = 31 * result + Objects.hashCode(getMcc());
         result = 31 * result + Objects.hashCode(getCarrier());
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "{id = " + id +
+                ", mnc = '" + mnc + '\'' +
+                ", carrier = '" + carrier + '\'' +
+                ", createdBy = '" + createdBy + '\'' +
+                ", lastModifiedBy = '" + lastModifiedBy + '\'' +
+                ", createdDate = '" + createdDate + '\'' +
+                ", lastModifiedDate = '" + lastModifiedDate + '\'' +
+                ", version = " + version +
+                "}";
     }
 }

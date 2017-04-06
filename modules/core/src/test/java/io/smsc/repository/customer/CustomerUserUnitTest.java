@@ -31,6 +31,11 @@ public class CustomerUserUnitTest {
         user1.setBlocked(false);
         user1.setSalutation(Salutation.MR);
         user1.setCustomer(null);
+        user1.setCreatedBy(new io.smsc.model.admin.User());
+        user1.setLastModifiedBy(new io.smsc.model.admin.User());
+        user1.setCreatedDate(new Date());
+        user1.setLastModifiedDate(new Date());
+        user1.setVersion(0L);
         user2.setId(1L);
         user2.setUsername("Old Johnny");
         user2.setFirstname("John");
@@ -40,6 +45,11 @@ public class CustomerUserUnitTest {
         user2.setBlocked(false);
         user2.setSalutation(Salutation.MR);
         user2.setCustomer(null);
+        user2.setCreatedBy(new io.smsc.model.admin.User());
+        user2.setLastModifiedBy(new io.smsc.model.admin.User());
+        user2.setCreatedDate(new Date());
+        user2.setLastModifiedDate(new Date());
+        user2.setVersion(0L);
     }
 
     @Test

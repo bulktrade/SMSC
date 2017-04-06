@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,9 +24,19 @@ public class RoleUnitTest {
         role1.setId(1L);
         role1.setName("ROLE_NEW");
         role1.setUsers(Collections.emptySet());
+        role1.setCreatedBy(new User());
+        role1.setLastModifiedBy(new User());
+        role1.setCreatedDate(new Date());
+        role1.setLastModifiedDate(new Date());
+        role1.setVersion(0L);
         role2.setId(1L);
         role2.setName("ROLE_NEW");
         role2.setUsers(Collections.emptySet());
+        role2.setCreatedBy(new User());
+        role2.setLastModifiedBy(new User());
+        role2.setCreatedDate(new Date());
+        role2.setLastModifiedDate(new Date());
+        role2.setVersion(0L);
     }
 
     @Test

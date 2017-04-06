@@ -1,5 +1,6 @@
 package io.smsc.repository.customer;
 
+import io.smsc.model.admin.User;
 import io.smsc.model.customer.Contact;
 import io.smsc.model.customer.Customer;
 import io.smsc.model.customer.Salutation;
@@ -7,6 +8,7 @@ import io.smsc.model.customer.Type;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +32,11 @@ public class ContactUnitTest {
         contact1.setEmailAddress("new_fake@gmail.com");
         contact1.setType(Type.PRIMARY);
         contact1.setSalutation(Salutation.MRS);
+        contact1.setCreatedBy(new User());
+        contact1.setLastModifiedBy(new User());
+        contact1.setCreatedDate(new Date());
+        contact1.setLastModifiedDate(new Date());
+        contact1.setVersion(0L);
         contact2.setId(1L);
         contact2.setFirstname("SMSC");
         contact2.setSurname("SMSC");
@@ -39,6 +46,11 @@ public class ContactUnitTest {
         contact2.setEmailAddress("new_fake@gmail.com");
         contact2.setType(Type.PRIMARY);
         contact2.setSalutation(Salutation.MRS);
+        contact2.setCreatedBy(new User());
+        contact2.setLastModifiedBy(new User());
+        contact2.setCreatedDate(new Date());
+        contact2.setLastModifiedDate(new Date());
+        contact2.setVersion(0L);
     }
 
     @Test

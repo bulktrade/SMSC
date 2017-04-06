@@ -8,6 +8,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,10 +25,23 @@ public class AuthorityUnitTest {
         authority1.setName("NEW_AUTHORITY");
         authority1.setUsers(Collections.emptySet());
         authority1.setGroups(Collections.emptySet());
+        authority1.setCreatedBy(new User());
+        authority1.setLastModifiedBy(new User());
+        authority1.setCreatedDate(new Date());
+        authority1.setLastModifiedDate(new Date());
+        authority1.setVersion(0L);
         authority2.setId(1L);
         authority2.setName("NEW_AUTHORITY");
         authority2.setUsers(Collections.emptySet());
         authority2.setGroups(Collections.emptySet());
+        authority2.setCreatedBy(new User());
+        authority2.setCreatedDate(new Date());
+        authority2.setLastModifiedBy(new User());
+        authority2.setCreatedBy(new User());
+        authority2.setLastModifiedBy(new User());
+        authority2.setCreatedDate(new Date());
+        authority2.setLastModifiedDate(new Date());
+        authority2.setVersion(0L);
     }
 
     @Test
