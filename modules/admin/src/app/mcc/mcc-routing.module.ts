@@ -12,7 +12,7 @@ const routes: Routes = [
     {
         path: '',
         component: MCCComponent,
-        resolve: {mcc: MCCResolve},
+        resolve: {view: MCCResolve},
     },
     {
         path: 'create',

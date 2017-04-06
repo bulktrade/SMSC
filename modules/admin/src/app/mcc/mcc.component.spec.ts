@@ -222,7 +222,7 @@ describe('Component: MCCComponent', () => {
     });
 
     it('should retrieve the number of mcc', () => {
-        expect(componentFixture.instance.getNumberCustomers()).toEqual(10);
+        expect(componentFixture.instance.getNumberResources()).toEqual(10);
     });
 
     it('.isMobileDevice()', () => {
