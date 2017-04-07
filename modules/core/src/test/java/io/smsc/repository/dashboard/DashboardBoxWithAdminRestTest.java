@@ -85,7 +85,6 @@ public class DashboardBoxWithAdminRestTest extends AbstractSpringMVCTest {
         dashboardBox.setHeight(Height.HEIGHT_100);
         dashboardBox.setDescription("new box desc");
         String dashboardBoxJson = json(dashboardBox);
-        // json is ignoring inserting dashboard and dashboardBoxType through setter
         dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1)
                 .concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", \r\n " +
                         "\"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
@@ -151,10 +150,6 @@ public class DashboardBoxWithAdminRestTest extends AbstractSpringMVCTest {
         dashboardBox.setHeight(Height.HEIGHT_100);
         dashboardBox.setDescription("new box desc");
         String dashboardBoxJson = json(dashboardBox);
-        // json is ignoring inserting dashboard and dashboardBoxType through setter
-        dashboardBoxJson = dashboardBoxJson.substring(0, dashboardBoxJson.length() - 1)
-                .concat(", \"dashboard\" : \"/rest/repository/dashboards/1\", " +
-                        "\r\n \"dashboardBoxType\" : \"/rest/repository/dashboard-box-types/1\" }");
 
         mockMvc.perform(put("/rest/repository/dashboard-boxes/{id}", 1)
                 .with(csrf())
@@ -262,9 +257,9 @@ public class DashboardBoxWithAdminRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("description").type(String.class).description("DashboardBox's description")
                                 .attributes(key("mandatory").value(true)),
-                        fieldWithPath("dashboard").type(Dashboard.class).description("DashboardBox's dashboard")
+                        fieldWithPath("dashboard").optional().type(Dashboard.class).description("DashboardBox's dashboard")
                                 .attributes(key("mandatory").value(true)),
-                        fieldWithPath("dashboardBoxType").type(DashboardBoxType.class)
+                        fieldWithPath("dashboardBoxType").optional().type(DashboardBoxType.class)
                                 .description("DashboardBox's dashboardBoxType")
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("id").optional().ignored(),

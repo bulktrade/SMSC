@@ -1,6 +1,9 @@
 package io.smsc.model.mcc;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.smsc.model.BaseEntity;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -35,13 +38,9 @@ public class Mnc extends BaseEntity {
     @NotEmpty
     private String mnc;
 
-    @OneToOne(fetch = FetchType.LAZY,
-    cascade = {
-        CascadeType.REFRESH,
-                CascadeType.MERGE,
-                CascadeType.PERSIST
-    })
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MCC", referencedColumnName = "MCC", nullable = false)
+    @JsonBackReference
     private Mcc mcc;
 
     @Column(name = "CARRIER", nullable = false)

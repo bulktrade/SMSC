@@ -147,9 +147,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
         user.setBlocked(true);
         user.setSalutation(Salutation.MR);
         String userJson = json(user);
-        // json is ignoring password and customer
-        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\", \r\n  " +
-                "\"customer\" : \"/rest/repository/customers/40000\" \r\n }");
+        userJson = userJson.substring(0, userJson.length() - 1).concat(", \"password\" : \"john123456\" \r\n}");
 
         mockMvc.perform(put("/rest/repository/customer-users/{id}", 1)
                 .with(csrf())
@@ -269,7 +267,7 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("blocked").type(Boolean.class).optional().description("CustomerUser's blocked")
                                 .attributes(key("mandatory").value(true)),
-                        fieldWithPath("customer").type(Customer.class).description("CustomerUser's customer")
+                        fieldWithPath("customer").optional().type(Customer.class).description("CustomerUser's customer")
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("created").optional().ignored(),
                         fieldWithPath("id").optional().ignored(),

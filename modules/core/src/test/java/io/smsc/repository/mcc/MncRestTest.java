@@ -119,40 +119,32 @@ public class MncRestTest extends AbstractSpringMVCTest {
                 .andExpect(jsonPath("$.carrier", is("new carrier")));
     }
 
-//    @Test
-//    public void testReplaceMnc() throws Exception {
-//        Mnc mnc = new Mnc();
-//        mnc.setId(1L);
-//        mnc.setMnc("1000");
-//        mnc.setCarrier("Carrier");
-//        String mncJson = json(mnc);
-//        mncJson = mncJson.substring(0, mncJson.length() - 1).concat(", \"mcc\" : \"/rest/repository/mcc/5\" \r\n }");
-//
-//        mockMvc.perform(put("/rest/repository/mcc/{id}", 1)
-//                .with(csrf())
-//                .contentType("application/json;charset=UTF-8")
-//                .content(mncJson))
-//                .andExpect(status().isOk())
-//                .andDo(document("replaceMnc",
-//                        preprocessRequest(prettyPrint()),
-//                        preprocessResponse(prettyPrint()),
-//                        pathParameters(getPathParam("Mobile Network Code")),
-//                        requestFields(mncFieldsForRequest(false)),
-//                        responseFields(mncFieldsForResponse(false))));
-//
-//        mockMvc.perform(get("/rest/repository/mnc/1"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(contentType))
-//                .andExpect(jsonPath("$.mnc", is("1000")))
-//                .andExpect(jsonPath("$.carrier", is("Carrier")));
-//
-//        mockMvc.perform(get("/rest/repository/mnc/1/mcc"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(contentType))
-//                .andExpect(jsonPath("$.mcc", is(0)))
-//                .andExpect(jsonPath("$.code", is(0)))
-//                .andExpect(jsonPath("$.country", is("Unknown Country")));
-//    }
+    @Test
+    public void testReplaceMnc() throws Exception {
+        Mnc mnc = new Mnc();
+        mnc.setId(1L);
+        mnc.setMnc("1000");
+        mnc.setCarrier("Carrier");
+        String mncJson = json(mnc);
+
+        mockMvc.perform(put("/rest/repository/mnc/{id}", 1)
+                .with(csrf())
+                .contentType("application/json;charset=UTF-8")
+                .content(mncJson))
+                .andExpect(status().isOk())
+                .andDo(document("replaceMnc",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(getPathParam("Mobile Network Code")),
+                        requestFields(mncFieldsForRequest(false)),
+                        responseFields(mncFieldsForResponse(false))));
+
+        mockMvc.perform(get("/rest/repository/mnc/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(contentType))
+                .andExpect(jsonPath("$.mnc", is("1000")))
+                .andExpect(jsonPath("$.carrier", is("Carrier")));
+    }
 
     /**
      * Mnc fields used in responses.

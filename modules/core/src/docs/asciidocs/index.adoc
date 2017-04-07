@@ -2015,6 +2015,37 @@ include::{snippets}/createMnc/response-fields.adoc[]
 include::{snippets}/createMnc/http-response.adoc[]
 
 
+[[resources-mnc-replace]]
+=== Replace existing Mobile Network Code with new one
+
+A `PUT` request will replace existing Mobile Network Code
+with new Mobile Network Code.
+
+==== Path parameters
+
+include::{snippets}/replaceMnc/path-parameters.adoc[]
+
+==== Request fields
+
+include::{snippets}/replaceMnc/request-fields.adoc[]
+
+==== HTTP request example
+
+include::{snippets}/replaceMnc/http-request.adoc[]
+
+==== CURL request example
+
+include::{snippets}/replaceMnc/curl-request.adoc[]
+
+==== Response fields
+
+include::{snippets}/replaceMnc/response-fields.adoc[]
+
+==== HTTP response example
+
+include::{snippets}/replaceMnc/http-response.adoc[]
+
+
 [[resources-mnc-update]]
 === Update Mobile Network Code
 

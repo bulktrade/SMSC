@@ -154,9 +154,6 @@ public class ContactRestTest extends AbstractSpringMVCTest {
         contact.setType(Type.PRIMARY);
         contact.setSalutation(Salutation.MRS);
         String customerContactJson = json(contact);
-        // json is ignoring inserting customer through setter
-        customerContactJson = customerContactJson.substring(0, customerContactJson.length() - 1)
-                .concat(", \"customer\" : \"/rest/repository/customers/40000\" \r\n }");
 
         mockMvc.perform(put("/rest/repository/customer-contacts/{id}", 2)
                 .with(csrf())
@@ -278,7 +275,7 @@ public class ContactRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("salutation").type(Salutation.class).description("CustomerContact's salutation")
                                 .attributes(key("mandatory").value(true)),
-                        fieldWithPath("customer").type(Customer.class).description("CustomerContact's customer")
+                        fieldWithPath("customer").type(Customer.class).optional().description("CustomerContact's customer")
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
