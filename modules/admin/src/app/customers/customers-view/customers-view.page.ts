@@ -8,7 +8,7 @@ export class CustomersViewPage {
     pDataTable = element(by.tagName('p-dataTable'));
     pHeader = element(by.tagName('p-header'));
     pPaginator = element(by.tagName('p-paginator'));
-    searchField = element(by.className('search-field'));
+    searchField = element(by.className('global-filter'));
     containerOfRows = element.all(by.css('.customers-view tbody tr'));
     cellsOfFirstRow = element.all(by.css('.customers-view tbody tr:first-child > td:nth-child(4)~td'));
     clearGlobalSearchField = element(by.css('.search-panel .clear-search-button'));

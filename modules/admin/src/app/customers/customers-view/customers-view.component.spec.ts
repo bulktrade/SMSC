@@ -6,8 +6,7 @@ import {APP_PROVIDERS} from "../../app.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {ComponentHelper} from "../../shared/component-fixture";
 import {MockBackend} from "@angular/http/testing";
-import {Response, ResponseOptions, XHRBackend} from "@angular/http";
-import {SortType} from "../../shared/sort.model";
+import {XHRBackend} from "@angular/http";
 import {ConfigServiceMock} from "../../shared/test/stub/config.service";
 import {ConfigService} from "../../config/config.service";
 import {Action} from "../../shared/components/one-to-many/one-to-many.model";
@@ -41,134 +40,11 @@ describe('Component: CustomersViewComponent', () => {
         mockBackend = _mockBackend;
     }));
 
-    it('should have `<p-dataTable>` and `<p-paginator>`', async(() => {
-        componentFixture.fixture.detectChanges();
-        componentFixture.fixture.whenStable().then(() => {
-            expect(componentFixture.element.querySelector('p-dataTable')).toBeTruthy();
-            expect(componentFixture.element.querySelector('p-paginator')).toBeTruthy();
-        });
-    }));
-
-    it('should sort rows by field name', async(() => {
-        componentFixture.instance.onSort({field: 'country', order: 1});
-        expect(componentFixture.instance.sort.orderBy).toEqual('country');
-        expect(componentFixture.instance.sort.sortType).toEqual(SortType.ASC);
-        componentFixture.instance.onSort({field: 'country', order: -1});
-        expect(componentFixture.instance.sort.orderBy).toEqual('country');
-        expect(componentFixture.instance.sort.sortType).toEqual(SortType.DESC);
-    }));
-
-    it('should get rows with pagination', async(() => {
-        let event = {
-            page: 0,
-            rows: 10
-        };
-        componentFixture.instance.onPaginate(event);
-        expect(componentFixture.instance.pagination.number).toEqual(0);
-        expect(componentFixture.instance.pagination.size).toEqual(10);
-    }));
-
-    it('should get rows with filter', async(() => {
-        mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({body: {_embedded: {customers: []}}});
-            connection.mockRespond(new Response(response));
-        });
-        componentFixture.instance.onFilter('company', {value: 'SMSC', name: 'company'});
-        expect(componentFixture.instance.filters['company']).toEqual('SMSC');
-    }));
-
-    it('should get an error while filtering rows', async(() => {
-        let event = {
-            column: 'company',
-            filterName: 'globalFilter'
-        };
-        mockBackend.connections.subscribe(connection => connection.mockError(new Error('error')));
-        componentFixture.instance.onFilter('company', {value: 'SMSC', name: 'company'});
-    }));
-
-    it('should delete selected customers', async(() => {
-        let data = <any>{
-            _links: {self: {href: ''}},
-            _embedded: {customers: []},
-            page: {totalElements: 10}
-        };
-        spyOn(componentFixture.instance.notifications, 'createNotification');
-        componentFixture.instance.selectedRows = [data];
-        mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({status: 204, body: data});
-            connection.mockRespond(new Response(response));
-        });
-        componentFixture.instance.onDeleteCustomers()
-            .subscribe(res => {
-                expect(res).toBeDefined();
-                expect(componentFixture.instance.notifications.createNotification)
-                    .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successDeleteCustomers');
-            });
-    }));
-
-    it('should get an error while deleting selected customers', async(() => {
-        let data = <any>{
-            _links: {self: {href: ''}},
-            _embedded: {customers: []},
-            page: {totalElements: 10}
-        };
-        spyOn(componentFixture.instance.notifications, 'createNotification');
-        componentFixture.instance.selectedRows = [data];
-        mockBackend.connections.subscribe(connection => {
-            connection.mockError(new Error('error'));
-        });
-        componentFixture.instance.onDeleteCustomers()
-            .subscribe(null, err => {
-                expect(err.message).toEqual('error');
-                expect(componentFixture.instance.notifications.createNotification)
-                    .toHaveBeenCalledWith('error', 'ERROR', 'customers.errorDeleteCustomers');
-            });
-    }));
-
     it('.onRowExpand()', async(() => {
         componentFixture.instance.onRowExpand({data: {id: 1}});
         expect(componentFixture.instance.contactsModel[1])
             .toEqual(jasmine.objectContaining({propertyName: 'contacts', action: Action.View, entity: null}));
         expect(componentFixture.instance.usersModel[1])
             .toEqual(jasmine.objectContaining({propertyName: 'users', action: Action.View, entity: null}));
-    }));
-
-    it('.onEditComplete() - successful response', async(() => {
-        spyOn(componentFixture.instance.notifications, 'createNotification');
-        mockBackend.connections.subscribe(connection => {
-            let response = new ResponseOptions({body: {}});
-            connection.mockRespond(new Response(response));
-        });
-
-        componentFixture.instance.onEditComplete(<any>{data: {_links: {self: {href: ''}}}});
-        expect(componentFixture.instance.notifications.createNotification)
-            .toHaveBeenCalledWith('success', 'SUCCESS', 'customers.successUpdateCustomer');
-    }));
-
-    it('.onEditComplete() - error response', async(() => {
-        spyOn(componentFixture.instance, 'setRowData');
-        spyOn(componentFixture.instance.notifications, 'createNotification');
-        mockBackend.connections.subscribe(connection => {
-            connection.mockError(<any>{json: () => []});
-        });
-
-        componentFixture.instance.onEditComplete(<any>{data: {_links: {self: {href: ''}}}});
-        expect(componentFixture.instance.setRowData).toHaveBeenCalled();
-        expect(componentFixture.instance.notifications.createNotification)
-            .toHaveBeenCalledWith('error', 'ERROR', 'ERROR_UPDATE');
-    }));
-
-    it('.onResize()', async(() => {
-        spyOn(componentFixture.instance, 'getTableHeaderHeight');
-        spyOn(componentFixture.instance, 'getTableBodyHeight');
-        componentFixture.instance.onResize();
-        expect(componentFixture.instance.getTableBodyHeight).toHaveBeenCalled();
-        expect(componentFixture.instance.getTableHeaderHeight).toHaveBeenCalled();
-    }));
-
-    it('should get an error while retrieving customers', async(() => {
-        mockBackend.connections.subscribe(connection => connection.mockError(new Error('error')));
-        componentFixture.instance.setRowData();
-        expect(componentFixture.instance.isLoading).toBeFalsy();
     }));
 });

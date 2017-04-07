@@ -22,41 +22,33 @@ describe('MCC', () => {
         it('should get the next page', () => {
             page.clickOnNextPage();
             // get the class attribute of the second page link and check for the presence of `ui-state-active` class
+            page.pageLinks.get(1).getText().then(text => expect(text).toEqual('2'));
             page.pageLinks.get(1).getAttribute('class')
-                .then(className => {
-                    expect(className.includes('ui-state-active')).toBeTruthy();
-                });
-            page.getCountRows().then(count => expect(count).toEqual(10));
+                .then(className => expect(className.includes('ui-state-active')).toBeTruthy());
         });
 
         it('should get the previous page', () => {
             page.clickOnPreviousPage();
             // get the class attribute of the first page link and check for the presence of `ui-state-active` class
+            page.pageLinks.get(0).getText().then(text => expect(text).toEqual('1'));
             page.pageLinks.get(0).getAttribute('class')
-                .then(className => {
-                    expect(className.includes('ui-state-active')).toBeTruthy();
-                });
-            page.getCountRows().then(count => expect(count).toEqual(10));
+                .then(className => expect(className.includes('ui-state-active')).toBeTruthy());
         });
 
         it('should get the last page', () => {
             page.clickOnLastPage();
             // get the class attribute of the second page link and check for the presence of `ui-state-active` class
+            page.pageLinks.get(4).getText().then(text => expect(text).toEqual('23'));
             page.pageLinks.get(4).getAttribute('class')
-                .then(className => {
-                    expect(className.includes('ui-state-active')).toBeTruthy();
-                });
-            page.getCountRows().then(count => expect(count).toEqual(7));
+                .then(className => expect(className.includes('ui-state-active')).toBeTruthy());
         });
 
         it('should get the first page', () => {
             page.clickOnFirstPage();
             // get the class attribute of the first page link and check for the presence of `ui-state-active` class
+            page.pageLinks.get(0).getText().then(text => expect(text).toEqual('1'));
             page.pageLinks.get(0).getAttribute('class')
-                .then(className => {
-                    expect(className.includes('ui-state-active')).toBeTruthy();
-                });
-            page.getCountRows().then(count => expect(count).toEqual(10));
+                .then(className => expect(className.includes('ui-state-active')).toBeTruthy());
         });
 
         it('should choose 20 rows per page', () => {
