@@ -12,7 +12,7 @@
                 </div>
                 <div class="ui-grid-col-6">
                     <input pInputText class="form-control"
-                           [(ngModel)]="model.mcc" required name="mcc" type="text" id="mcc">
+                           [(ngModel)]="model.mcc" required name="mcc" type="number" id="mcc">
                 </div>
                 <div class="ui-grid-col-4">
                     <control-errors control="mcc" [errors]="{required: ('REQUIRED'| translate)}"></control-errors>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="ui-grid-col-6">
                     <input pInputText class="form-control"
-                           [(ngModel)]="model.code" required name="code" type="text" id="code">
+                           [(ngModel)]="model.code" required name="code" type="number" id="code">
                 </div>
                 <div class="ui-grid-col-4">
                     <control-errors control="code" [errors]="{required: ('REQUIRED'| translate)}"></control-errors>

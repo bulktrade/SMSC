@@ -75,42 +75,42 @@ describe('MCC', () => {
         });
     });
 
-    describe('inline editing', () => {
-        beforeAll(() => {
-            page.get();
-        });
-
-        it('should editing the first row', () => {
-            page.sendKeysToSearchField('999999999');
-            let inputField = page.cellsOfFirstRow.get(1).element(by.tagName('input')); // get input field
-            page.protHelpers.clickOnElement(page.cellsOfFirstRow.get(1)); // click on cell
-            page.protHelpers.sendKeys(inputField, '999999998'); // enter new value to the cell
-            inputField.sendKeys(protractor.Key.ENTER); // update the row
-            browser.sleep(2000); // delay 1000ms
-            inputField.getAttribute('value').then(value => expect(value).toEqual('999999998')); // to compare the old value with the updated
-        });
-    });
-
-    describe('multiple deleting', () => {
-        beforeAll(() => {
-            page.get();
-        });
-
-        it('should select the row and navigate to delete window', () => {
-            page.sendKeysToSearchField('999999998');
-            page.clickOnSelectAllRowsCheckbox();
-            page.clickOnDeleteButton();
-            expect(page.isDisplayedConfirmDeleteMessage()).toBeTruthy();
-        });
-
-        it('should have the cancel button and the confirm button', () => {
-            expect(page.isDisplayedDeleteCancelButton()).toBeTruthy();
-            expect(page.isDisplayedDeleteOkButton()).toBeTruthy();
-        });
-
-        it('should delete the mcc', () => {
-            page.clickOnConfirmDeleteRowsButton();
-            page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
-        });
-    });
+    // describe('inline editing', () => {
+    //     beforeAll(() => {
+    //         page.get();
+    //     });
+    //
+    //     it('should editing the first row', () => {
+    //         page.sendKeysToSearchField('999999999');
+    //         let inputField = page.cellsOfFirstRow.get(1).element(by.tagName('input')); // get input field
+    //         page.protHelpers.clickOnElement(page.cellsOfFirstRow.get(1)); // click on cell
+    //         page.protHelpers.sendKeys(inputField, '999999998'); // enter new value to the cell
+    //         inputField.sendKeys(protractor.Key.ENTER); // update the row
+    //         browser.sleep(2000); // delay 1000ms
+    //         inputField.getAttribute('value').then(value => expect(value).toEqual('999999998')); // to compare the old value with the updated
+    //     });
+    // });
+    //
+    // describe('multiple deleting', () => {
+    //     beforeAll(() => {
+    //         page.get();
+    //     });
+    //
+    //     it('should select the row and navigate to delete window', () => {
+    //         page.sendKeysToSearchField('999999998');
+    //         page.clickOnSelectAllRowsCheckbox();
+    //         page.clickOnDeleteButton();
+    //         expect(page.isDisplayedConfirmDeleteMessage()).toBeTruthy();
+    //     });
+    //
+    //     it('should have the cancel button and the confirm button', () => {
+    //         expect(page.isDisplayedDeleteCancelButton()).toBeTruthy();
+    //         expect(page.isDisplayedDeleteOkButton()).toBeTruthy();
+    //     });
+    //
+    //     it('should delete the mcc', () => {
+    //         page.clickOnConfirmDeleteRowsButton();
+    //         page.getMessageTitle().then(title => expect(title).toEqual('SUCCESS'));
+    //     });
+    // });
 });
