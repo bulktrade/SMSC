@@ -8,7 +8,8 @@ describe('Delete the mcc', () => {
     });
 
     it('should navigate to delete mcc', () => {
-        page.sendKeysToGlobalFilter(); // filtering rows by mcc
+        page.clickOnColumnMCC();
+        page.clickOnColumnMCC(); // sorting rows by mcc
         page.clickOnRowDeleteButton(); // and choose the first one
         expect(page.isDisplayedMCCDeleteSelector()).toBeTruthy()
     });

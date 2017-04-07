@@ -5,6 +5,7 @@ export class MCCDeletePage {
     protHelper = new ProtractorHelpers();
 
     // DOM elements
+    columnMCC = element(by.cssContainingText('.ui-column-title', 'MCC'));
     globalFilter = element(by.className('global-filter'));
     rowDeleteButton = element.all(by.className('delete-icon')).first();
     mccDeleteSelector = element(by.tagName('mcc-delete'));
@@ -16,6 +17,10 @@ export class MCCDeletePage {
 
     get() {
         browser.get(browser.baseUrl + '/mcc');
+    }
+
+    clickOnColumnMCC() {
+        this.protHelper.clickOnElement(this.columnMCC);
     }
 
     sendKeysToGlobalFilter() {

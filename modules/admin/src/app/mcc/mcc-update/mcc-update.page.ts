@@ -4,6 +4,7 @@ import {ProtractorHelpers} from "../../shared/protractor-helpers";
 export class MCCUpdatePage {
     public protHelpers = new ProtractorHelpers();
 
+    columnMCC = element(by.cssContainingText('.ui-column-title', 'MCC'));
     globalFilter = element(by.className('global-filter'));
     rowUpdateButton = element.all(by.className('update-icon')).first();
     mccForm = element(by.tagName('mcc-update'));
@@ -27,6 +28,10 @@ export class MCCUpdatePage {
         this.codeInputField.sendKeys('243');
         this.countryInputField.clear();
         this.countryInputField.sendKeys('Changed country');
+    }
+
+    clickOnColumnMCC() {
+        this.protHelpers.clickOnElement(this.columnMCC);
     }
 
     isEnabledSubmitButton() {

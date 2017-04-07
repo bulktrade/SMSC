@@ -8,7 +8,8 @@ describe('Update the new mcc', () => {
     });
 
     it('should navigate to the mcc form', () => {
-        page.sendKeysToGlobalFilter(); // filtering rows by mcc
+        page.clickOnColumnMCC();
+        page.clickOnColumnMCC(); // sorting rows by mcc
         page.clickOnRowUpdateButton(); // and choose the first one
         expect(page.isDisplayMCCForm()).toBeTruthy();
     });
