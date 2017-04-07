@@ -85,6 +85,6 @@ public class DashboardWithUserRestTest extends AbstractSpringMVCTest {
                 .header(tokenHeader, userToken)
                 .contentType("application/json;charset=UTF-8")
                 .content(dashboardJson))
-                .andExpect(status().isCreated());
+                .andExpect(status().isForbidden());
     }
 }

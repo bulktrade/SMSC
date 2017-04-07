@@ -1,11 +1,12 @@
 package io.smsc.repository.mcc;
 
 import io.smsc.model.admin.User;
-import io.smsc.model.mcc.Mcc;
 import io.smsc.model.customer.Customer;
+import io.smsc.model.mcc.Mcc;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,7 @@ public class MccUnitTest {
         mcc1.setMcc(276);
         mcc1.setCode(355);
         mcc1.setCountry("Albania");
+        mcc1.setMnc(Collections.emptySet());
         mcc1.setCreatedBy(new User());
         mcc1.setLastModifiedBy(new User());
         mcc1.setCreatedDate(new Date());
@@ -39,6 +41,7 @@ public class MccUnitTest {
         mcc2.setCreatedDate(new Date());
         mcc2.setLastModifiedDate(new Date());
         mcc2.setVersion(0L);
+        mcc2.setMnc(Collections.emptySet());
     }
 
     @Test

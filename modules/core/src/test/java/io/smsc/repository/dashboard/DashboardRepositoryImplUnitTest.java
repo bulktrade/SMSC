@@ -9,6 +9,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+import org.springframework.security.access.AccessDeniedException;
+
 import javax.persistence.EntityManager;
 
 import java.util.ArrayList;
@@ -76,7 +78,7 @@ public class DashboardRepositoryImplUnitTest {
         PowerMockito.verifyPrivate(dashboardRepository, times(1)).invoke("getLoggedUser");
     }
 
-    @Test
+    @Test(expected = AccessDeniedException.class)
     public void testUpdateNotOwnedDashboard() throws Exception {
         User fakeUser = new User();
         fakeUser.setId(2L);

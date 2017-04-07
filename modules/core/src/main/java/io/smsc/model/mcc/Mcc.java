@@ -1,11 +1,14 @@
 package io.smsc.model.mcc;
 
 import io.smsc.model.BaseEntity;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Specifies Mcc class as an entity class.
@@ -47,6 +50,14 @@ public class Mcc extends BaseEntity {
     @NotEmpty
     private String country;
 
+    @OneToMany(
+            mappedBy = "mcc",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<Mnc> mnc;
+
     public Integer getMcc() {
         return mcc;
     }
@@ -77,6 +88,14 @@ public class Mcc extends BaseEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Mnc> getMnc() {
+        return mnc;
+    }
+
+    public void setMnc(Set<Mnc> mnc) {
+        this.mnc = mnc;
     }
 
     @Override
