@@ -2,7 +2,7 @@
     <div class="customers-view" [hidden]="isDeleteWindow">
         <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" [immutable]="true"
                      (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
-                     [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true" [loading]="true">
+                     [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true" [loading]="isLoading">
             <p-header class="grid-header">
                 <div class="ui-helper-clearfix">
                     <div class="ui-g ctrl-panel">
