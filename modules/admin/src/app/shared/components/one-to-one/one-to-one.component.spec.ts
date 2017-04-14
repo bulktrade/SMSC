@@ -1,18 +1,17 @@
-import {async, getTestBed, inject, TestBed} from "@angular/core/testing";
-import {TranslateModule} from "ng2-translate";
-import {RouterTestingModule} from "@angular/router/testing";
-import {MockBackend, MockConnection} from "@angular/http/testing";
 import {Http, RequestMethod, Response, ResponseOptions, XHRBackend} from "@angular/http";
-import {ComponentHelper} from "../../component-fixture";
+import {async, getTestBed, inject, TestBed} from "@angular/core/testing";
+import {MockBackend, MockConnection} from "@angular/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {TranslateModule} from "ng2-translate";
+import {Injector} from "@angular/core";
+
 import {APP_PROVIDERS} from "../../../app.module";
+import {ComponentHelper} from "../../component-fixture";
 import {ConfigService} from "../../../config/config.service";
 import {ConfigServiceMock} from "../../test/stub/config.service";
-// import {Link} from "../../entity.model";
-import {OneToOneComponent, OneToOneModule} from "./one-to-one.component";
-import {CustomersService} from "../../../customers/customer.service";
 import {CrudRepositoryService} from "../../crud-repository.spec";
-import {Injector} from "@angular/core";
-// import {Observable} from "rxjs";
+import {CustomersService} from "../../../customers/customer.service";
+import {OneToOneComponent, OneToOneModule} from "./one-to-one.component";
 
 describe('Component: OneToOneComponent', () => {
     let componentFixture: ComponentHelper<OneToOneComponent> =

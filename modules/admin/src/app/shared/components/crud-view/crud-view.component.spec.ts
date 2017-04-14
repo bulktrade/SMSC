@@ -229,12 +229,8 @@ describe('Component: CrudViewComponent', () => {
     }));
 
     it('.onResize()', async(() => {
-        spyOn(componentFixture.instance, 'getTableHeaderHeight');
-        spyOn(componentFixture.instance, 'getTableBodyHeight');
         spyOn(componentFixture.instance, 'isMobileDevice');
         componentFixture.instance.onResize({target: {innerWidth: 600}});
-        expect(componentFixture.instance.getTableBodyHeight).toHaveBeenCalled();
-        expect(componentFixture.instance.getTableHeaderHeight).toHaveBeenCalled();
         expect(componentFixture.instance.isMobileDevice).toHaveBeenCalledWith(600);
     }));
 
@@ -258,9 +254,7 @@ describe('Component: CrudViewComponent', () => {
 
     it('.toggleLoading()', () => {
         componentFixture.instance.isLoading = true;
-        spyOn(componentFixture.instance, 'ngAfterViewInit');
         componentFixture.instance.toggleLoading();
         expect(componentFixture.instance.isLoading).toBeFalsy();
-        expect(componentFixture.instance.ngAfterViewInit).toHaveBeenCalled();
     });
 });

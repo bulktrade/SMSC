@@ -16,7 +16,7 @@ import {NotificationService} from "../../../services/notification-service";
     selector: 'crud-view',
     template: ''
 })
-export class CrudViewComponent<T extends Entity> implements OnInit, AfterViewInit {
+export class CrudViewComponent<T extends Entity> implements OnInit {
 
     public pagination: Pagination = new Pagination(10, null, null, 0);
 
@@ -38,23 +38,12 @@ export class CrudViewComponent<T extends Entity> implements OnInit, AfterViewIni
 
     public isLoading: boolean = false;
 
-    public tableHeaderHeight: number = 0;
-
-    public tableBodyHeight: number = 0;
-
     constructor(public translate: TranslateService,
                 public route: ActivatedRoute,
                 public crudService: CrudRepository<T>,
                 public controlErrorService: ControlErrorService,
                 public notification: NotificationService,
                 @Inject(DOCUMENT) public document) {
-    }
-
-    ngAfterViewInit() {
-        if (this.document.querySelector('.smsc-crud-view')) {
-            this.tableHeaderHeight = this.getTableHeaderHeight();
-            this.tableBodyHeight = this.getTableBodyHeight();
-        }
     }
 
     ngOnInit() {
@@ -168,23 +157,11 @@ export class CrudViewComponent<T extends Entity> implements OnInit, AfterViewIni
     }
 
     toggleLoading() {
-        this.isLoading && this.ngAfterViewInit();
         this.isLoading = !this.isLoading;
     }
 
     onResize(event) {
         this._isMobileDevice = this.isMobileDevice(event.target.innerWidth);
-        this.tableHeaderHeight = this.getTableHeaderHeight();
-        this.tableBodyHeight = this.getTableBodyHeight();
-    }
-
-    getTableHeaderHeight(): number {
-        return this.document.querySelector('.smsc-crud-view p-dataTable .ui-datatable-header').offsetHeight +
-            this.document.querySelector('.smsc-crud-view p-dataTable .ui-datatable-scrollable-header').offsetHeight
-    }
-
-    getTableBodyHeight(): number {
-        return this.document.querySelector('.smsc-crud-view p-dataTable tbody').offsetHeight;
     }
 
     isMobileDevice(width: number): boolean {

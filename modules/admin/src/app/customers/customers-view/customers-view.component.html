@@ -2,7 +2,7 @@
     <div class="customers-view" [hidden]="isDeleteWindow">
         <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" [immutable]="true"
                      (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
-                     [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true">
+                     [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true" [loading]="true">
             <p-header class="grid-header">
                 <div class="ui-helper-clearfix">
                     <div class="ui-g ctrl-panel">
@@ -244,18 +244,6 @@
         </p-dataTable>
         <p-paginator id="grid-pagination" [rows]="pagination.size" [totalRecords]="pagination.totalElements"
                      [rowsPerPageOptions]="[10,20,30,50,100,200]" (onPageChange)="onPaginate($event)"></p-paginator>
-
-        <ng-container *ngIf="isLoading">
-            <div class="loading-mask"
-                 [ngStyle]="{top: tableHeaderHeight+'px', height: tableBodyHeight+'px'}"></div>
-            <div class="loading-layer"
-                 [ngStyle]="{top: tableHeaderHeight+'px', height: tableBodyHeight+'px'}">
-                <div class="container">
-                    <sk-cube-grid class="sk-cube-grid"></sk-cube-grid>
-                </div>
-            </div>
-        </ng-container>
-
     </div>
     <div id="confirm-deletion-window" [hidden]="!isDeleteWindow">
         <div class="warning-growl">
