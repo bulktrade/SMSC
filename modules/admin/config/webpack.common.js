@@ -15,6 +15,7 @@ const HtmlElementsPlugin = require('./html-elements-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ngcWebpack = require('ngc-webpack');
 
 /*
@@ -201,6 +202,16 @@ module.exports = function (options) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
+      /*
+       * Plugin: CleanWebpackPlugin
+       * Description: A webpack plugin to remove/clean your build folder(s) before building.
+       *
+       * See: https://github.com/johnagan/clean-webpack-plugin
+       */
+      new CleanWebpackPlugin(['dist', 'compiled'], {
+        root: helpers.root(),
+      }),
+
       new AssetsPlugin({
         path: helpers.root('dist'),
         filename: 'webpack-assets.json',
