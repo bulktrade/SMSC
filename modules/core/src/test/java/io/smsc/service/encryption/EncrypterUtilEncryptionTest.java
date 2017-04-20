@@ -56,15 +56,6 @@ public class EncrypterUtilEncryptionTest {
         EncrypterUtil.encrypt(obj1);
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void testDecryptObjectWithOtherSecretKey() throws Exception {
-        EncrypterUtil.encrypt(obj1);
-
-        Whitebox.setInternalState(EncrypterUtil.class, "fake");
-
-        EncrypterUtil.decrypt(obj1);
-    }
-
     @Test
     public void testEncryptAndDecryptPrivateFieldForObjectWithoutSalt() throws Exception {
         checkStringForEncryptedAndDecryptedFieldForFirstObject(obj1);
