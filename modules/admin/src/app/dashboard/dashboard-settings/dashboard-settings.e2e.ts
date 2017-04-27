@@ -18,11 +18,6 @@ describe('Dashboard settings', () => {
         expect(page.isDisplayedDashboardBoxTypesGrid()).toBeTruthy();
     });
 
-    it('should switch to the tab with dashboards', () => {
-        page.clickOnDashboardsTab();
-        expect(page.isDisplayedNoDashboardsPanel()).toBeTruthy();
-    });
-
     it('should have buttons for creating dashboard and dashboard box type', () => {
         page.clickOnSplitButton();
         expect(page.isDisplayedCreateDashboardButton()).toBeTruthy();

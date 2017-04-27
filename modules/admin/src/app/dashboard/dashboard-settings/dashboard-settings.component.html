@@ -10,7 +10,8 @@
 
     <p-tabView>
         <p-tabPanel headerStyleClass="ui-sm-12 dashboards-tab" [header]="'DASHBOARDS' | translate">
-            <p-dataGrid styleClass="dashboards-grid" [value]="dashboards" [paginator]="false" [rows]="20" *ngIf="isDashboards(); else noDashboards">
+            <p-dataGrid styleClass="dashboards-grid" [emptyMessage]="'dashboards.notFound' | translate"
+                        [value]="dashboards" [paginator]="false" [rows]="20">
                 <ng-template let-dashboard pTemplate="item">
                     <div class="ui-g-12 ui-md-3 item">
                         <p-panel [header]="dashboard.name" [style]="{'text-align':'center'}">
@@ -24,15 +25,10 @@
                     </div>
                 </ng-template>
             </p-dataGrid>
-            <ng-template #noDashboards>
-                <p-panel styleClass="no-dashboards">
-                    <span>{{ 'dashboards.notFound' | translate }}</span>
-                </p-panel>
-            </ng-template>
         </p-tabPanel>
         <p-tabPanel headerStyleClass="ui-sm-12 dashboard-box-types-tab" [header]="'dashboardBoxType.title' | translate">
-            <p-dataGrid styleClass="dashboard-box-types-grid" [value]="dashboardBoxTypes" [paginator]="false"
-                        [rows]="20" *ngIf="isDashboardBoxTypes(); else noDashboardBoxTypes">
+            <p-dataGrid styleClass="dashboard-box-types-grid" [emptyMessage]="'dashboardBoxType.notFound' | translate"
+                        [value]="dashboardBoxTypes" [paginator]="false" [rows]="20">
                 <ng-template let-dashboardBoxType pTemplate="item">
                     <div class="ui-g-12 ui-md-3 item">
                         <p-panel [header]="dashboardBoxType.name" [style]="{'text-align':'center'}">
@@ -49,11 +45,6 @@
                     </div>
                 </ng-template>
             </p-dataGrid>
-            <ng-template #noDashboardBoxTypes>
-                <p-panel styleClass="no-dashboard-box-types">
-                    <span>{{ 'dashboardBoxType.notFound' | translate }}</span>
-                </p-panel>
-            </ng-template>
         </p-tabPanel>
     </p-tabView>
 </div>
