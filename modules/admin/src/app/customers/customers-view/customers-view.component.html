@@ -1,6 +1,6 @@
 <div class="smsc-crud-view" #customerView (window:resize)="onResize($event)">
     <div class="customers-view" [hidden]="isDeleteWindow">
-        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" [immutable]="true"
+        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
                      (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
                      [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true" [loading]="isLoading">
             <p-header class="grid-header">

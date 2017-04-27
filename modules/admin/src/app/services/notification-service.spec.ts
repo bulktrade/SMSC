@@ -2,7 +2,7 @@ import {TestBed, inject} from "@angular/core/testing";
 import {TranslateModule} from "ng2-translate";
 import {Observable} from "rxjs";
 import {NotificationService} from "./notification-service";
-import {NotificationsService} from "angular2-notifications/components";
+import {NotificationsService} from "angular2-notifications";
 
 describe('Service: NotificationService', () => {
     let service: NotificationService;

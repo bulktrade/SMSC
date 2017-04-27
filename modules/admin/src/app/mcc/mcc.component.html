@@ -1,6 +1,6 @@
 <div class="smsc-crud-view" #mccView (window:resize)="onResize($event)">
     <div class="mcc-view" [hidden]="isDeleteWindow">
-        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" [immutable]="true"
+        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
                      (onEditComplete)="onEditComplete($event)" scrollable="true" [loading]="isLoading">
             <p-header class="grid-header">
                 <div class="ui-helper-clearfix">

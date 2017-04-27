@@ -3,7 +3,7 @@ import {ControlErrorService} from "./control-error";
 import {NotificationService} from "./notification-service";
 import {Message} from "../shared/components/models/error/message";
 import {TranslateModule} from "ng2-translate";
-import {NotificationsService} from "angular2-notifications/components";
+import {NotificationsService} from "angular2-notifications";
 
 describe('Service: ControlErrorService', () => {
     let service: ControlErrorService;
