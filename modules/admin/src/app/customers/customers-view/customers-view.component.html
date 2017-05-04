@@ -1,6 +1,6 @@
 <div class="smsc-crud-view" #customerView (window:resize)="onResize($event)">
     <div class="customers-view" [hidden]="isDeleteWindow">
-        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
+        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" (onSort)="onSort($event)"
                      (onRowExpand)="onRowExpand($event)" (onEditComplete)="onEditComplete($event)"
                      [style]="{'overflow-y':'visible'}" [expandableRows]="true" scrollable="true" [loading]="isLoading">
             <p-header class="grid-header">
@@ -47,7 +47,7 @@
             </p-column>
             <p-column field="companyName" styleClass="col-company-name" [header]="'companyName' | translate"
                       [editable]="true"
-                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                      sortable="custom" [style]="{'width':'200px'}">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">
@@ -65,7 +65,7 @@
                 </ng-template>
             </p-column>
             <p-column field="street" [header]="'street' | translate" [editable]="true"
-                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                      sortable="custom" [style]="{'width':'200px'}">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">
@@ -83,7 +83,7 @@
                 </ng-template>
             </p-column>
             <p-column field="street2" [header]="'street2' | translate" [editable]="true"
-                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                      sortable="custom" [style]="{'width':'200px'}">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">
@@ -101,7 +101,7 @@
                 </ng-template>
             </p-column>
             <p-column field="postcode" [header]="'postcode' | translate" [editable]="true"
-                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                      sortable="custom" [style]="{'width':'200px'}">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">
@@ -119,7 +119,7 @@
                 </ng-template>
             </p-column>
             <p-column field="country" [header]="'country' | translate" [editable]="true"
-                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                      sortable="custom" [style]="{'width':'200px'}">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">
@@ -137,7 +137,7 @@
                 </ng-template>
             </p-column>
             <p-column field="city" [header]="'city' | translate" [editable]="true"
-                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                      sortable="custom" [style]="{'width':'200px'}">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">
@@ -155,7 +155,7 @@
                 </ng-template>
             </p-column>
             <p-column field="vatid" [header]="'vatid' | translate" [editable]="true"
-                      sortable="custom" (sortFunction)="onSort($event)" [style]="{'width':'200px'}">
+                      sortable="custom" [style]="{'width':'200px'}">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">

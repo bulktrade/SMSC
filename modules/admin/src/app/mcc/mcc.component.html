@@ -1,6 +1,6 @@
 <div class="smsc-crud-view" #mccView (window:resize)="onResize($event)">
     <div class="mcc-view" [hidden]="isDeleteWindow">
-        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows"
+        <p-dataTable [value]="rowData" [editable]="true" [(selection)]="selectedRows" (onSort)="onSort($event)"
                      (onEditComplete)="onEditComplete($event)" scrollable="true" [loading]="isLoading">
             <p-header class="grid-header">
                 <div class="ui-helper-clearfix">
@@ -42,7 +42,7 @@
             </p-column>
             <p-column field="mcc" styleClass="mcc" [header]="'mcc.mcc' | translate"
                       [style]="{'width': _isMobileDevice ? '200px' : 'auto'}"
-                      [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
+                      [editable]="true" sortable="custom">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">
@@ -61,7 +61,7 @@
             </p-column>
             <p-column field="code" styleClass="code" [header]="'mcc.code' | translate"
                       [style]="{'width': _isMobileDevice ? '200px' : 'auto'}"
-                      [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
+                      [editable]="true" sortable="custom">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">
@@ -80,7 +80,7 @@
             </p-column>
             <p-column field="country" styleClass="country" [header]="'mcc.country' | translate"
                       [style]="{'width': _isMobileDevice ? '200px' : 'auto'}"
-                      [editable]="true" sortable="custom" (sortFunction)="onSort($event)">
+                      [editable]="true" sortable="custom">
                 <ng-template pTemplate="filter" let-col>
                     <div class="ui-sm-12 ui-md-12 filter-container">
                         <div class="col-md-12">
