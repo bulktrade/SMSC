@@ -1,5 +1,11 @@
 package io.smsc.config;
 
+import io.smsc.model.gateway.Gateway;
+import io.smsc.model.gateway.settings.Settings;
+import io.smsc.model.gateway.settings.limit.Limit;
+import io.smsc.model.gateway.settings.notification.Notification;
+import io.smsc.model.gateway.settings.policy.MessagePolicy;
+import io.smsc.model.gateway.settings.policy.SenderPolicy;
 import io.smsc.model.mcc.Mcc;
 import io.smsc.model.admin.Authority;
 import io.smsc.model.admin.Group;
@@ -27,7 +33,9 @@ public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerA
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        config.exposeIdsFor(io.smsc.model.admin.User.class, User.class, Role.class, Authority.class, Group.class, Customer.class, Contact.class,
-                Dashboard.class, DashboardBox.class, DashboardBoxType.class, Mcc.class, Mnc.class);
+        config.exposeIdsFor(io.smsc.model.admin.User.class, User.class, Role.class, Authority.class, Group.class,
+                Customer.class, Contact.class, Dashboard.class, DashboardBox.class, DashboardBoxType.class, Mcc.class,
+                Mnc.class, Gateway.class, Settings.class, Limit.class, Notification.class, SenderPolicy.class,
+                MessagePolicy.class);
     }
 }

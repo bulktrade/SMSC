@@ -4063,6 +4063,3 @@ INSERT INTO MNC (MCC, MNC, CARRIER, CREATED_DATE, LAST_MODIFIED_DATE, VERSION, C
    (select id from user_account where username = 'admin')),
   (648, 'x', 'Unknown network', current_timestamp, current_timestamp, 0,(select id from user_account where username = 'admin'),
    (select id from user_account where username = 'admin'));
-
-
-

@@ -506,8 +506,3 @@ INSERT INTO ADMIN_USER_GROUP_USER (USER_ID, GROUP_ID) VALUES
      (select id from user_account where username = 'admin')),
     (901,	882,	'International Networks',	current_timestamp, current_timestamp,	0,	(select id from user_account where username = 'admin'),
      (select id from user_account where username = 'admin'));
-
-
-
-
-
