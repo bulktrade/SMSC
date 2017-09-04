@@ -1,13 +1,13 @@
-package io.smsc.jwt;
+package io.smsc.controller;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.smsc.AbstractSpringMVCTest;
+import io.smsc.jwt.model.JWTAuthenticationRequest;
+import io.smsc.jwt.model.JWTRefreshTokenRequest;
 import io.smsc.jwt.model.JWTUser;
 import io.smsc.jwt.service.impl.JWTUserDetailsServiceImpl;
 import io.smsc.model.admin.User;
-import io.smsc.jwt.model.JWTAuthenticationRequest;
-import io.smsc.jwt.model.JWTRefreshTokenRequest;
 import io.smsc.model.customer.Salutation;
 import org.assertj.core.util.DateUtil;
 import org.junit.Test;
@@ -26,14 +26,12 @@ import static io.smsc.jwt.service.impl.JWTTokenGenerationServiceImpl.CLAIM_KEY_C
 import static io.smsc.jwt.service.impl.JWTTokenGenerationServiceImpl.CLAIM_KEY_USERNAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class JWTAuthenticationTest extends AbstractSpringMVCTest {
+public class AuthControllerRestTest extends AbstractSpringMVCTest {
 
     @Test
     public void testLoginUser() throws Exception {
