@@ -33,25 +33,25 @@ public class DashboardBox extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "WIDTH", nullable = false)
-    @NotNull(message = "{dashboardBox.width.validation}")
+    @NotNull(message = "{dashboardBox.width.null.message}")
     private Width width;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "HEIGHT", nullable = false)
-    @NotNull(message = "{dashboardBox.height.validation}")
+    @NotNull(message = "{dashboardBox.height.null.message}")
     private Height height;
 
     // order is reserved keyword in postgreSQL
     @Column(name = "ORDER_NUMBER", nullable = false)
-    @NotNull(message = "{dashboardBox.order.validation}")
+    @NotNull(message = "{dashboardBox.order.null.message}")
     private Integer order;
 
     @Column(name = "NAME", nullable = false)
-    @NotEmpty(message = "{dashboardBox.name.validation}")
+    @NotEmpty(message = "{dashboardBox.name.empty.message}")
     private String name;
 
     @Column(name = "DESCRIPTION", nullable = false)
-    @NotEmpty(message = "{dashboardBox.description.validation}")
+    @NotEmpty(message = "{dashboardBox.description.empty.message}")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)

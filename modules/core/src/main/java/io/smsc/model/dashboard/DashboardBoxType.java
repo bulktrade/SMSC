@@ -32,17 +32,17 @@ public class DashboardBoxType extends BaseEntity {
     private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
-    @NotEmpty(message = "{dashboardBoxType.name.validation}")
+    @NotEmpty(message = "{dashboardBoxType.name.empty.message}")
     private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
-    @NotNull(message = "{dashboardBoxType.type.validation}")
+    @NotNull(message = "{dashboardBoxType.type.null.message}")
     private Type type;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "KIND", nullable = false)
-    @NotNull(message = "{dashboardBoxType.kind.validation}")
+    @NotNull(message = "{dashboardBoxType.kind.null.message}")
     private Kind kind;
 
     @OneToMany(

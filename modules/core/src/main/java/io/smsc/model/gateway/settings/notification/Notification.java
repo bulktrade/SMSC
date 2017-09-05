@@ -27,11 +27,11 @@ public class Notification extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "PUSH_TYPE", nullable = false)
-    @NotNull(message = "{gateway.notification.pushType.validation}")
+    @NotNull(message = "{gateway.notification.pushType.null.message}")
     private PushType pushType;
 
     @Column(name = "PUSH_URL", nullable = false)
-    @NotEmpty(message = "{gateway.notification.pushUrl.validation}")
+    @NotEmpty(message = "{gateway.notification.pushUrl.empty.message}")
     private String pushUrl;
 
     public Long getId() {

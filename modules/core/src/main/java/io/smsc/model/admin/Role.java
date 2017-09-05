@@ -1,12 +1,9 @@
 package io.smsc.model.admin;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.smsc.model.BaseEntity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.util.Objects;
 import java.util.Set;
@@ -31,8 +28,8 @@ public class Role extends BaseEntity {
     private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
-    @NotEmpty(message = "{role.empty.validation}")
-    @Pattern(regexp = "[R][O][L][E][_][A-Z_]+", message = "{role.name.validation}")
+    @NotEmpty(message = "{role.name.empty.message}")
+    @Pattern(regexp = "[R][O][L][E][_][A-Z_]+", message = "{role.name.format.message}")
     private String name;
 
     @ManyToMany(cascade =

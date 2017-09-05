@@ -27,21 +27,21 @@ public class Gateway extends BaseEntity {
     private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
-    @NotEmpty(message = "{gateway.name.validation}")
+    @NotEmpty(message = "{gateway.name.empty.message}")
     private String name;
 
     @Column(name = "ACTIVE", nullable = false)
-    @NotNull(message = "{gateway.active.validation}")
+    @NotNull(message = "{gateway.active.null.message}")
     private boolean active;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="SETTINGS_ID", nullable = false)
-    @NotNull(message = "{gateway.settings.validation}")
+    @NotNull(message = "{gateway.settings.null.message}")
     private Settings settings;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
-    @NotNull(message = "{gateway.type.validation}")
+    @NotNull(message = "{gateway.type.null.message}")
     private Type type;
 
     public Long getId() {

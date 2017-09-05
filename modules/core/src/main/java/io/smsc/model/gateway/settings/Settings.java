@@ -30,31 +30,31 @@ public class Settings extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "PAYMENT", nullable = false)
-    @NotNull(message = "{gateway.settings.payment.validation}")
+    @NotNull(message = "{gateway.settings.payment.null.message}")
     private Payment payment;
 
     @Column(name = "DEPOSIT", nullable = false)
-    @NotNull(message = "{gateway.settings.deposit.validation}")
+    @NotNull(message = "{gateway.settings.deposit.null.message}")
     private Double deposit;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="NOTIFICATION_ID", nullable = false)
-    @NotNull(message = "{gateway.settings.notification.validation}")
+    @NotNull(message = "{gateway.settings.notification.null.message}")
     private Notification notification;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="LIMIT_ID", nullable = false)
-    @NotNull(message = "{gateway.settings.limit.validation}")
+    @NotNull(message = "{gateway.settings.limit.null.message}")
     private Limit limit;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="SENDER_POLICY_ID", nullable = false)
-    @NotNull(message = "{gateway.settings.sender.policy.validation}")
+    @NotNull(message = "{gateway.settings.senderPolicy.null.message}")
     private SenderPolicy senderPolicy;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="MESSAGE_POLICY_ID", nullable = false)
-    @NotNull(message = "{gateway.settings.message.policy.validation}")
+    @NotNull(message = "{gateway.settings.messagePolicy.null.message}")
     private MessagePolicy messagePolicy;
 
     public Long getId() {

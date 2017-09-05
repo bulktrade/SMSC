@@ -29,8 +29,8 @@ public class Group extends BaseEntity {
     private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
-    @NotEmpty(message = "{group.empty.validation}")
-    @Pattern(regexp = "[A-Z_]+", message = "{group.name.validation}")
+    @NotEmpty(message = "{group.name.empty.message}")
+    @Pattern(regexp = "[A-Z_]+", message = "{group.name.format.message}")
     private String name;
 
     @ManyToMany(cascade =

@@ -27,20 +27,20 @@ public class SenderPolicy extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "MESSAGE_TYPE", nullable = false)
-    @NotNull(message = "{gateway.sender.policy.message.type.validation}")
+    @NotNull(message = "{gateway.senderPolicy.messageType.null.message}")
     private MessageType messageType;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
-    @NotNull(message = "{gateway.sender.policy.type.validation}")
+    @NotNull(message = "{gateway.senderPolicy.type.null.message}")
     private Type type;
 
     @Column(name = "VALUE", nullable = false)
-    @NotEmpty(message = "{gateway.sender.policy.value.validation}")
+    @NotEmpty(message = "{gateway.senderPolicy.value.empty.message}")
     private String value;
 
     @Column(name = "POLICY", nullable = false)
-    @NotEmpty(message = "{gateway.sender.policy.policy.validation}")
+    @NotEmpty(message = "{gateway.senderPolicy.policy.empty.message}")
     private String policy;
 
     public Long getId() {

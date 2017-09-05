@@ -36,30 +36,30 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "SALUTATION", nullable = false)
-    @NotNull(message = "{user.salutation.validation}")
+    @NotNull(message = "{user.salutation.null.message}")
     private Salutation salutation;
 
     @Column(name = "USERNAME", nullable = false, unique = true)
-    @NotEmpty(message = "{user.username.validation}")
+    @NotEmpty(message = "{user.username.empty.message}")
     private String username;
 
     @Convert(converter = CryptoConverter.class)
     @Column(name = "PASSWORD", nullable = false)
-    @NotEmpty(message = "{user.password.empty.validation}")
+    @NotEmpty(message = "{user.password.empty.message}")
     @JsonIgnore
     private String password;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "{user.firstname.validation}")
+    @NotEmpty(message = "{user.firstname.empty.message}")
     private String firstname;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "{user.surname.validation}")
+    @NotEmpty(message = "{user.surname.empty.message}")
     private String surname;
 
     @Column(name = "EMAIL", nullable = false)
-    @Email(message = "{user.email.format.validation}")
-    @NotEmpty(message = "{user.email.empty.validation}")
+    @Email(message = "{user.email.format.message}")
+    @NotEmpty(message = "{user.email.empty.message}")
     private String email;
 
     @Column(name = "ACTIVE", nullable = false)

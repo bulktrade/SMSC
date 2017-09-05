@@ -26,11 +26,11 @@ public class Limit extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
-    @NotNull(message = "{gateway.limit.type.validation}")
+    @NotNull(message = "{gateway.limit.type.null.message}")
     private Type type;
 
     @Column(name = "MESSAGE_LIMIT", nullable = false)
-    @NotNull(message = "{gateway.limit.messageLimit.validation}")
+    @NotNull(message = "{gateway.limit.messageLimit.null.message}")
     private Double messageLimit;
 
     public Long getId() {

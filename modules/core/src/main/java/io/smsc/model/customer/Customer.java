@@ -33,27 +33,27 @@ public class Customer extends BaseEntity {
     private Long id;
 
     @Column(name = "COMPANY_NAME", nullable = false)
-    @NotEmpty(message = "{customer.companyName.validation}")
+    @NotEmpty(message = "{customer.companyName.empty.message}")
     private String companyName;
 
     @Column(name = "STREET", nullable = false)
-    @NotEmpty(message = "{customer.street.validation}")
+    @NotEmpty(message = "{customer.street.empty.message}")
     private String street;
 
     @Column(name = "STREET2", nullable = false)
-    @NotEmpty(message = "{customer.street2.validation}")
+    @NotEmpty(message = "{customer.street2.empty.message}")
     private String street2;
 
     @Column(name = "POSTCODE", nullable = false)
-    @NotEmpty(message = "{customer.postcode.validation}")
+    @NotEmpty(message = "{customer.postcode.empty.message}")
     private String postcode;
 
     @Column(name = "COUNTRY", nullable = false)
-    @NotEmpty(message = "{customer.country.validation}")
+    @NotEmpty(message = "{customer.country.empty.message}")
     private String country;
 
     @Column(name = "CITY", nullable = false)
-    @NotEmpty(message = "{customer.city.validation}")
+    @NotEmpty(message = "{customer.city.empty.message}")
     private String city;
 
     @Column(name = "VATID")

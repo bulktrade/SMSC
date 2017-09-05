@@ -33,28 +33,28 @@ public class Contact extends BaseEntity {
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "{customer.contact.firstname.validation}")
+    @NotEmpty(message = "{customer.contact.firstname.empty.message}")
     private String firstname;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "{customer.contact.surname.validation}")
+    @NotEmpty(message = "{customer.contact.surname.empty.message}")
     private String surname;
 
     @Column(name = "PHONE", nullable = false)
-    @NotEmpty(message = "{customer.contact.phone.validation}")
+    @NotEmpty(message = "{customer.contact.phone.empty.message}")
     private String phone;
 
     @Column(name = "MOBILE_PHONE", nullable = false)
-    @NotEmpty(message = "{customer.contact.mobilePhone.validation}")
+    @NotEmpty(message = "{customer.contact.mobilePhone.empty.message}")
     private String mobilePhone;
 
     @Column(name = "FAX", nullable = false)
-    @NotEmpty(message = "{contact.fax.validation}")
+    @NotEmpty(message = "{customer.contact.fax.empty.message}")
     private String fax;
 
     @Column(name = "EMAIL_ADDRESS", nullable = false, unique = true)
-    @Email(message = "{customer.contact.emailAddress.format.validation}")
-    @NotEmpty(message = "{customer.contact.emailAddress.validation}")
+    @Email(message = "{customer.contact.emailAddress.format.message}")
+    @NotEmpty(message = "{customer.contact.emailAddress.empty.message}")
     private String emailAddress;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,12 +64,12 @@ public class Contact extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "TYPE", nullable = false)
-    @NotNull(message = "{customer.contact.type.validation}")
+    @NotNull(message = "{customer.contact.type.null.message}")
     private Type type;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "SALUTATION", nullable = false)
-    @NotNull(message = "{customer.contact.salutation.validation}")
+    @NotNull(message = "{customer.contact.salutation.null.message}")
     private Salutation salutation;
 
     public Long getId() {

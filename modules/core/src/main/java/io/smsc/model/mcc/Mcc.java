@@ -37,17 +37,17 @@ public class Mcc extends BaseEntity {
     private Long id;
 
     @Column(name = "MCC", nullable = false)
-    @NotNull
+    @NotNull(message = "{mcc.mcc.null.message}")
     @Access(value = AccessType.PROPERTY)
     private Integer mcc;
 
     @Column(name = "CODE", nullable = false)
-    @NotNull
+    @NotNull(message = "{mcc.code.null.message}")
     @Access(value = AccessType.PROPERTY)
     private Integer code;
 
     @Column(name = "COUNTRY", nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "{mcc.country.empty.message}")
     private String country;
 
     @OneToMany(

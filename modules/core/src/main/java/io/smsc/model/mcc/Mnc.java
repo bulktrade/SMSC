@@ -35,7 +35,7 @@ public class Mnc extends BaseEntity {
     private Long id;
 
     @Column(name = "MNC", nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "{mnc.mnc.empty.message}")
     private String mnc;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,7 +44,7 @@ public class Mnc extends BaseEntity {
     private Mcc mcc;
 
     @Column(name = "CARRIER", nullable = false)
-    @NotEmpty
+    @NotEmpty(message = "{mnc.carrier.empty.message}")
     private String carrier;
 
     public Long getId() {

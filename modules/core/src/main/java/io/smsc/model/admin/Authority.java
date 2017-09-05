@@ -30,8 +30,8 @@ public class Authority extends BaseEntity {
     private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
-    @NotEmpty(message = "{authority.empty.validation}")
-    @Pattern(regexp = "[A-Z_]+", message = "{authority.name.validation}")
+    @NotEmpty(message = "{authority.name.empty.message}")
+    @Pattern(regexp = "[A-Z_]+", message = "{authority.name.format.message}")
     private String name;
 
     @ManyToMany(cascade =

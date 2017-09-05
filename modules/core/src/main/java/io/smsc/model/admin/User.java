@@ -42,30 +42,30 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "SALUTATION", nullable = false)
-    @NotNull(message = "EMPTY_VALIDATION_ERROR")
+    @NotNull(message = "user.salutation.null.message")
     private Salutation salutation;
 
     @Column(name = "USERNAME", nullable = false, unique = true)
-    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
+    @NotEmpty(message = "user.username.empty.message")
     private String username;
 
     @Convert(converter = CryptoConverter.class)
     @Column(name = "PASSWORD", nullable = false)
-    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
+    @NotEmpty(message = "user.password.empty.message")
     @JsonIgnore
     private String password;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
+    @NotEmpty(message = "user.firstname.empty.message")
     private String firstname;
 
     @Column(name = "SURNAME", nullable = false)
-    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
+    @NotEmpty(message = "user.surname.empty.message")
     private String surname;
 
     @Column(name = "EMAIL", nullable = false, unique = true)
-    @Email(message = "EMAIL_FORMAT_VALIDATION_ERROR")
-    @NotEmpty(message = "EMPTY_VALIDATION_ERROR")
+    @Email(message = "user.email.format.message")
+    @NotEmpty(message = "user.email.empty.message")
     private String email;
 
     @Column(name = "ACTIVE", nullable = false)

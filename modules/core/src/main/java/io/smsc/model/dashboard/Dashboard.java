@@ -33,11 +33,11 @@ public class Dashboard extends BaseEntity {
     private Long id;
 
     @Column(name = "NAME", nullable = false, unique = true)
-    @NotEmpty(message = "{dashboard.name.validation}")
+    @NotEmpty(message = "{dashboard.name.empty.message}")
     private String name;
 
     @Column(name = "ICON", nullable = false)
-    @NotEmpty(message = "{dashboard.icon.validation}")
+    @NotEmpty(message = "{dashboard.icon.empty.message}")
     private String icon;
 
     @ManyToOne(fetch = FetchType.LAZY)
