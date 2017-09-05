@@ -99,11 +99,11 @@ public class SenderPolicy extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(id.hashCode());
-        result = 31 * result + Objects.hashCode(messageType.hashCode());
-        result = 31 * result + Objects.hashCode(type.hashCode());
-        result = 31 * result + Objects.hashCode(value.hashCode());
-        result = 31 * result + Objects.hashCode(policy.hashCode());
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getMessageType());
+        result = 31 * result + Objects.hashCode(getType());
+        result = 31 * result + Objects.hashCode(getValue());
+        result = 31 * result + Objects.hashCode(getPolicy());
         return result;
     }
 

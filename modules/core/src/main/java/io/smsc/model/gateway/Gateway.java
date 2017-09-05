@@ -91,7 +91,6 @@ public class Gateway extends BaseEntity {
 
         Gateway gateway = (Gateway) o;
 
-        if (active != gateway.active) return false;
         if (!id.equals(gateway.id)) return false;
         if (!name.equals(gateway.name)) return false;
         return type == gateway.type;
@@ -99,10 +98,9 @@ public class Gateway extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(id.hashCode());
-        result = 31 * result + Objects.hashCode(name.hashCode());
-        result = 31 * result + (active ? 1 : 0);
-        result = 31 * result + Objects.hashCode(type.hashCode());
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getName());
+        result = 31 * result + Objects.hashCode(getType());
         return result;
     }
 

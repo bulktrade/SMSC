@@ -71,9 +71,9 @@ public class Limit extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(id.hashCode());
-        result = 31 * result + Objects.hashCode(type.hashCode());
-        result = 31 * result + Objects.hashCode(messageLimit.hashCode());
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getType());
+        result = 31 * result + Objects.hashCode(getMessageLimit());
         return result;
     }
 

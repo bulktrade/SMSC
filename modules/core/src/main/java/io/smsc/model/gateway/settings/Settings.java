@@ -127,9 +127,9 @@ public class Settings extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(id.hashCode());
-        result = 31 * result + Objects.hashCode(payment.hashCode());
-        result = 31 * result + Objects.hashCode(deposit.hashCode());
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getPayment());
+        result = 31 * result + Objects.hashCode(getDeposit());
         return result;
     }
 

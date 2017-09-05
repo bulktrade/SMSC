@@ -35,10 +35,10 @@ public class GenericExceptionHandlerTest extends AbstractSpringMVCTest {
                 .with(csrf())
                 .contentType("application/json;charset=UTF-8")
                 .content(json(new Role())))
-                .andExpect(status().isConflict())
+                .andExpect(status().isBadRequest())
                 .andReturn();
 
-        this.compareMessages(result, "name", "{role.empty.validation}", MessageType.ERROR);
+        this.compareMessages(result, "NotEmpty.Role.name", "Role name cannot be empty", MessageType.ERROR);
 
     }
 

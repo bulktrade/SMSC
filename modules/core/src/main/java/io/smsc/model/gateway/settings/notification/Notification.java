@@ -1,6 +1,7 @@
 package io.smsc.model.gateway.settings.notification;
 
 import io.smsc.model.BaseEntity;
+import io.smsc.validator.PushUrlValid;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Objects;
  * @since 0.0.4-SNAPSHOT
  */
 @Entity
+@PushUrlValid
 @Table(name = "GATEWAY_NOTIFICATION")
 public class Notification extends BaseEntity {
 
@@ -30,8 +32,7 @@ public class Notification extends BaseEntity {
     @NotNull(message = "{gateway.notification.pushType.null.message}")
     private PushType pushType;
 
-    @Column(name = "PUSH_URL", nullable = false)
-    @NotEmpty(message = "{gateway.notification.pushUrl.empty.message}")
+    @Column(name = "PUSH_URL")
     private String pushUrl;
 
     public Long getId() {
@@ -72,9 +73,9 @@ public class Notification extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(id.hashCode());
-        result = 31 * result + Objects.hashCode(pushType.hashCode());
-        result = 31 * result + Objects.hashCode(pushUrl.hashCode());
+        int result = Objects.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getPushType());
+        result = 31 * result + Objects.hashCode(getPushUrl());
         return result;
     }
 
