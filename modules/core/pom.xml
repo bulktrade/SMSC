@@ -341,7 +341,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>e2e-app</id>
+                        <id>rebuild-node-sass</id>
                         <phase>integration-test</phase>
                         <configuration>
                             <executable>npm</executable>
