@@ -347,6 +347,21 @@
                             <executable>npm</executable>
                             <workingDirectory>../admin</workingDirectory>
                             <arguments>
+                                <argument>rebuild</argument>
+                                <argument>node-sass</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>e2e-app</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <executable>npm</executable>
+                            <workingDirectory>../admin</workingDirectory>
+                            <arguments>
                                 <argument>run</argument>
                                 <argument>e2e</argument>
                             </arguments>
