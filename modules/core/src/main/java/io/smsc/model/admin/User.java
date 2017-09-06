@@ -28,8 +28,8 @@ import java.util.Set;
  * @since 0.0.1-SNAPSHOT
  */
 @Entity(name = "AdminUser")
-@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = "USERNAME", name = "users_username_idx"),
-        @UniqueConstraint(columnNames = "EMAIL", name = "users_email_idx")})
+@Table(name = "USER_ACCOUNT", uniqueConstraints = {@UniqueConstraint(columnNames = "USERNAME", name = "admin_user_username_idx"),
+        @UniqueConstraint(columnNames = "EMAIL", name = "admin_user_email_idx")})
 public class User extends BaseEntity {
 
     @Id
@@ -70,10 +70,6 @@ public class User extends BaseEntity {
 
     @Column(name = "ACTIVE", nullable = false)
     private Boolean active = true;
-
-    @Column(name = "CREATED", nullable = false, updatable = false)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "UTC")
-    private Date created = new Date();
 
     @Column(name = "BLOCKED", nullable = false)
     private Boolean blocked = false;
@@ -194,14 +190,6 @@ public class User extends BaseEntity {
         this.active = active;
     }
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
     public boolean isBlocked() {
         return blocked;
     }
@@ -262,8 +250,7 @@ public class User extends BaseEntity {
         if (!getUsername().equals(user.getUsername())) return false;
         if (!getFirstname().equals(user.getFirstname())) return false;
         if (!getSurname().equals(user.getSurname())) return false;
-        if (!getEmail().equals(user.getEmail())) return false;
-        return getCreated().equals(user.getCreated());
+        return getEmail().equals(user.getEmail());
     }
 
     @Override
@@ -274,7 +261,6 @@ public class User extends BaseEntity {
         result = 31 * result + Objects.hashCode(getFirstname());
         result = 31 * result + Objects.hashCode(getSurname());
         result = 31 * result + Objects.hashCode(getEmail());
-        result = 31 * result + Objects.hashCode(getCreated());
         return result;
     }
 
@@ -287,7 +273,6 @@ public class User extends BaseEntity {
                 ", surname = '" + surname + '\'' +
                 ", email = '" + email + '\'' +
                 ", active = " + active +
-                ", created = '" + created + '\'' +
                 ", blocked = " + blocked +
                 ", version = " + version +
                 ", createdDate = '" + createdDate + '\'' +

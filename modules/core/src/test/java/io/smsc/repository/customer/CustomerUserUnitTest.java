@@ -6,7 +6,6 @@ import io.smsc.model.customer.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -117,13 +116,6 @@ public class CustomerUserUnitTest {
     }
 
     @Test
-    public void testEqualsAndHashcodePairOfNonEqualCustomerUsers7() throws Exception {
-        user2.setCreated(Date.from(Instant.EPOCH));
-
-        assertThat(user1).isNotEqualTo(user2);
-    }
-
-    @Test
     public void testEqualsAndHashcodeEqualCustomerUsersInSet() throws Exception {
         Set<User> set = new HashSet<>();
         set.add(user1);
@@ -141,7 +133,6 @@ public class CustomerUserUnitTest {
                 ", surname = '" + user1.getSurname() + '\'' +
                 ", email = '" + user1.getEmail() + '\'' +
                 ", active = " + user1.isActive() +
-                ", created = '" + user1.getCreated() + '\'' +
                 ", blocked = " + user1.isBlocked() +
                 ", version = " + user1.getVersion() +
                 ", createdDate = '" + user1.getCreatedDate() + '\'' +

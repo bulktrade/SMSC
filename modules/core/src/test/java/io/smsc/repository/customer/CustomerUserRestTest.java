@@ -190,7 +190,6 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.customer-users[].surname").description("CustomerUser's surname"),
                         fieldWithPath("_embedded.customer-users[].email").description("CustomerUser's email"),
                         fieldWithPath("_embedded.customer-users[].active").description("CustomerUser's active"),
-                        fieldWithPath("_embedded.customer-users[].created").description("CustomerUser's created"),
                         fieldWithPath("_embedded.customer-users[].blocked").description("CustomerUser's blocked"),
                         fieldWithPath("_embedded.customer-users[].lastModifiedDate").type(Date.class)
                                 .description("CustomerUser's date of last modification"),
@@ -207,7 +206,6 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("surname").description("CustomerUser's surname"),
                         fieldWithPath("email").description("CustomerUser's email"),
                         fieldWithPath("active").description("CustomerUser's active"),
-                        fieldWithPath("created").description("CustomerUser's created"),
                         fieldWithPath("blocked").description("CustomerUser's blocked"),
                         fieldWithPath("lastModifiedDate").type(Date.class)
                                 .description("CustomerUser's date of last modification"),
@@ -243,7 +241,6 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("customer").optional().type(Customer.class).description("CustomerUser's customer")
                                 .attributes(key("mandatory").value(false)),
-                        fieldWithPath("created").optional().ignored(),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
                         fieldWithPath("createdDate").optional().ignored(),
@@ -269,7 +266,6 @@ public class CustomerUserRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("customer").optional().type(Customer.class).description("CustomerUser's customer")
                                 .attributes(key("mandatory").value(true)),
-                        fieldWithPath("created").optional().ignored(),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
                         fieldWithPath("createdDate").optional().ignored(),

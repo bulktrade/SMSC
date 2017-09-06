@@ -1,5 +1,6 @@
 package io.smsc.config;
 
+import io.smsc.model.customer.SmppUser;
 import io.smsc.model.gateway.Gateway;
 import io.smsc.model.gateway.settings.Settings;
 import io.smsc.model.gateway.settings.limit.Limit;
@@ -36,6 +37,6 @@ public class RepositoryIdExposingConfiguration extends RepositoryRestConfigurerA
         config.exposeIdsFor(io.smsc.model.admin.User.class, User.class, Role.class, Authority.class, Group.class,
                 Customer.class, Contact.class, Dashboard.class, DashboardBox.class, DashboardBoxType.class, Mcc.class,
                 Mnc.class, Gateway.class, Settings.class, Limit.class, Notification.class, SenderPolicy.class,
-                MessagePolicy.class);
+                MessagePolicy.class, SmppUser.class);
     }
 }

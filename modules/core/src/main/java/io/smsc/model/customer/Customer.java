@@ -88,6 +88,15 @@ public class Customer extends BaseEntity {
     @OrderBy("id asc")
     private Set<User> users;
 
+    @OneToMany(
+            mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OrderBy("id asc")
+    private Set<SmppUser> smppUsers;
+
     public Long getId() {
         return id;
     }
@@ -174,6 +183,14 @@ public class Customer extends BaseEntity {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public Set<SmppUser> getSmppUsers() {
+        return smppUsers;
+    }
+
+    public void setSmppUsers(Set<SmppUser> smppUsers) {
+        this.smppUsers = smppUsers;
     }
 
     @Override

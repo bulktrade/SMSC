@@ -27,7 +27,6 @@ public class JWTUserTest extends AbstractSpringMVCTest {
         assertThat(jwtUser.getEmail()).isEqualTo("admin@gmail.com");
         assertThat(jwtUser.getFirstName()).isEqualTo("adminName");
         assertThat(jwtUser.getSurName()).isEqualTo("adminSurname");
-        assertThat(jwtUser.getCreated().getDate()).isEqualTo(admin.getCreated().getDate());
         assertThat(jwtUser.getPassword()).isEqualTo(admin.getPassword());
         assertThat(jwtUser.isEnabled()).isEqualTo(admin.isActive());
     }
@@ -45,7 +44,6 @@ public class JWTUserTest extends AbstractSpringMVCTest {
         assertThat(jwtUser.getEmail()).isEqualTo("admin@gmail.com");
         assertThat(jwtUser.getFirstName()).isEqualTo("adminName");
         assertThat(jwtUser.getSurName()).isEqualTo("adminSurname");
-        assertThat(jwtUser.getCreated().getDate()).isEqualTo(admin.getCreated().getDate());
         assertThat(jwtUser.getPassword()).isEqualTo(admin.getPassword());
         assertThat(jwtUser.isEnabled()).isEqualTo(admin.isActive());
     }

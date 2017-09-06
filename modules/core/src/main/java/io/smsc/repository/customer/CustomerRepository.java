@@ -41,7 +41,7 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
         QuerydslBinderCustomizer<QCustomer> {
 
     @Override
-    default public void customize(QuerydslBindings bindings, QCustomer root) {
+    default void customize(QuerydslBindings bindings, QCustomer root) {
         bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::startsWithIgnoreCase);
         bindings.bind(Long.class).first((SingleValueBinding<NumberPath<Long>, Long>) NumberExpression::in);
     }

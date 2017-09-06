@@ -1,9 +1,9 @@
 -- CALL IDENTITY() return last inserted id value but cannot be set in variable
 
-INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION, CREATED_DATE) VALUES
-  ('user', '$2a$10$a3a2Kyi1qbe/SHxTM51khOFMM5kWtzhZgEPcwjmr.DlT8oLh6Eeda', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, 'MR', current_timestamp, current_timestamp, 0, current_timestamp),
-  ('admin', '$2a$10$i2sFEDw4WXZt7tKz9bpin.kkA0NrEJnJ07Uf5e0JEcKRhXeHOvF1K', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0, current_timestamp),
-  ('demo', '$2a$10$iWvz1Yik784hP54My05uTekx7XxDfLekDyoCJjxK6PuyDnTMzswSK', 'demoName', 'demoSurname', 'demo@gmail.com', TRUE, FALSE, 'MR', current_timestamp, current_timestamp, 0, current_timestamp);
+INSERT INTO USER_ACCOUNT (USERNAME, PASSWORD, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, LAST_MODIFIED_DATE, VERSION, CREATED_DATE) VALUES
+  ('user', '$2a$10$a3a2Kyi1qbe/SHxTM51khOFMM5kWtzhZgEPcwjmr.DlT8oLh6Eeda', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, 'MR', current_timestamp, 0, current_timestamp),
+  ('admin', '$2a$10$i2sFEDw4WXZt7tKz9bpin.kkA0NrEJnJ07Uf5e0JEcKRhXeHOvF1K', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, 0, current_timestamp),
+  ('demo', '$2a$10$iWvz1Yik784hP54My05uTekx7XxDfLekDyoCJjxK6PuyDnTMzswSK', 'demoName', 'demoSurname', 'demo@gmail.com', TRUE, FALSE, 'MR', current_timestamp, 0, current_timestamp);
 
 INSERT INTO CUSTOMER (COMPANY_NAME, STREET, STREET2, POSTCODE, COUNTRY, CITY, VATID, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
   ('Default company', 'First default street', 'Second default street', '9119', 'Ukraine', 'Lviv', '1234567.0', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
@@ -13,9 +13,9 @@ INSERT INTO CUSTOMER_CONTACT (FIRST_NAME, SURNAME, PHONE, MOBILE_PHONE, FAX, EMA
   ('Default first name', 'Default surname', '0671234567', '0501234567', 'default fax', 'default@gmail.com', (select id from customer where company_name = 'Default company'), 'MRS', 'CEO', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
   ('SMSC', 'SMSC', '0674329568', '0504569753', 'fake_fax', 'smsc@bulk.io', (select id from customer where company_name = 'SMSC'), 'MR', 'CEO', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin'));
 
-INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, CREATED, LAST_MODIFIED_DATE, VERSION, CUSTOMER_ID, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
-  ('user', '$2a$10$a3a2Kyi1qbe/SHxTM51khOFMM5kWtzhZgEPcwjmr.DlT8oLh6Eeda', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, 'MR', current_timestamp, current_timestamp, 0, (select id from customer where company_name = 'Default company'), current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
-  ('admin', '$2a$10$i2sFEDw4WXZt7tKz9bpin.kkA0NrEJnJ07Uf5e0JEcKRhXeHOvF1K', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, current_timestamp, 0, (select id from customer where company_name = 'SMSC'), current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin'));
+INSERT INTO CUSTOMER_USER_ACCOUNT (USERNAME, PASSWORD, FIRST_NAME, SURNAME, EMAIL, ACTIVE, BLOCKED, SALUTATION, LAST_MODIFIED_DATE, VERSION, CUSTOMER_ID, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
+  ('user', '$2a$10$a3a2Kyi1qbe/SHxTM51khOFMM5kWtzhZgEPcwjmr.DlT8oLh6Eeda', 'userName', 'userSurname', 'user@gmail.com', TRUE, FALSE, 'MR', current_timestamp, 0, (select id from customer where company_name = 'Default company'), current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
+  ('admin', '$2a$10$i2sFEDw4WXZt7tKz9bpin.kkA0NrEJnJ07Uf5e0JEcKRhXeHOvF1K', 'adminName', 'adminSurname', 'admin@gmail.com', TRUE, FALSE, 'MRS', current_timestamp, 0, (select id from customer where company_name = 'SMSC'), current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin'));
 
 INSERT INTO ADMIN_USER_GROUP (NAME, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
   ('ADMIN_USER_ADMIN', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),

@@ -196,7 +196,6 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("_embedded.users[].surname").description("AdminUser's surname"),
                         fieldWithPath("_embedded.users[].email").description("AdminUser's email"),
                         fieldWithPath("_embedded.users[].active").description("AdminUser's active"),
-                        fieldWithPath("_embedded.users[].created").description("AdminUser's created"),
                         fieldWithPath("_embedded.users[].blocked").description("AdminUser's blocked"),
                         fieldWithPath("_embedded.users[].lastModifiedDate").type(Date.class)
                                 .description("AdminUser's date of last modification"),
@@ -213,7 +212,6 @@ public class UserRestTest extends AbstractSpringMVCTest {
                         fieldWithPath("surname").description("AdminUser's surname"),
                         fieldWithPath("email").description("AdminUser's email"),
                         fieldWithPath("active").description("AdminUser's active"),
-                        fieldWithPath("created").description("AdminUser's created"),
                         fieldWithPath("blocked").description("AdminUser's blocked"),
                         fieldWithPath("lastModifiedDate").type(Date.class).type(Date.class)
                                 .description("AdminUser's date of last modification"),
@@ -247,7 +245,6 @@ public class UserRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(false)),
                         fieldWithPath("blocked").optional().type(Boolean.class).description("AdminUser's blocked")
                                 .attributes(key("mandatory").value(false)),
-                        fieldWithPath("created").optional().ignored(),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
                         fieldWithPath("createdDate").optional().ignored(),
@@ -271,7 +268,6 @@ public class UserRestTest extends AbstractSpringMVCTest {
                                 .attributes(key("mandatory").value(true)),
                         fieldWithPath("blocked").type(Boolean.class).description("AdminUser's blocked")
                                 .attributes(key("mandatory").value(true)),
-                        fieldWithPath("created").optional().ignored(),
                         fieldWithPath("id").optional().ignored(),
                         fieldWithPath("lastModifiedDate").optional().ignored(),
                         fieldWithPath("createdDate").optional().ignored(),

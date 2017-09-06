@@ -30,6 +30,7 @@ public class CustomerUnitTest {
         customer1.setCity("Lviv");
         customer1.setVatid("9999999.0");
         customer1.setUsers(Collections.emptySet());
+        customer1.setSmppUsers(Collections.emptySet());
         customer1.setContacts(Collections.emptySet());
         customer1.setCreatedBy(new User());
         customer1.setLastModifiedBy(new User());
@@ -45,6 +46,7 @@ public class CustomerUnitTest {
         customer2.setCity("Lviv");
         customer2.setVatid("9999999.0");
         customer2.setUsers(Collections.emptySet());
+        customer2.setSmppUsers(Collections.emptySet());
         customer2.setContacts(Collections.emptySet());
         customer2.setCreatedBy(new User());
         customer2.setLastModifiedBy(new User());
@@ -63,6 +65,7 @@ public class CustomerUnitTest {
         assertThat(customer1).isEqualTo(customer2);
         assertThat(customer1.getParent()).isEqualTo(customer2.getParent());
         assertThat(customer1.getUsers()).isEqualTo(customer2.getUsers());
+        assertThat(customer1.getSmppUsers()).isEqualTo(customer2.getSmppUsers());
         assertThat(customer1.getContacts()).isEqualTo(customer2.getContacts());
     }
 
