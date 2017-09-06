@@ -29,16 +29,16 @@ exports.config = objectMerge(commonConfig.config, {
         }
     },
 
-    plugins: [{
-        package: 'protractor-screenshoter-plugin',
-        screenshotPath: './REPORTS/e2e/' + new Date().toISOString(),
-        screenshotOnExpect: 'failure+success',
-        screenshotOnSpec: 'none',
-        withLogs: 'true',
-        writeReportFreq: 'asap',
-        imageToAscii: 'failure',
-        clearFoldersBeforeTest: true
-    }],
+    // plugins: [{
+    //     package: 'protractor-screenshoter-plugin',
+    //     screenshotPath: './REPORTS/e2e/' + new Date().toISOString(),
+    //     screenshotOnExpect: 'failure+success',
+    //     screenshotOnSpec: 'none',
+    //     withLogs: 'true',
+    //     writeReportFreq: 'asap',
+    //     imageToAscii: 'failure',
+    //     clearFoldersBeforeTest: true
+    // }],
 
     onPrepare: function () {
         browser.ignoreSynchronization = true;
