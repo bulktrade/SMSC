@@ -145,7 +145,7 @@
     "ng2-translate": "5.0.0",
     "ngc-webpack": "^1.2.0",
     "node-bourbon": "^4.2.8",
-    "node-sass": "^4.5.0",
+    "node-sass": "^4.5.3",
     "normalize.css": "^5.0.0",
     "object-merge": "^2.5.1",
     "optimize-js-plugin": "0.0.4",
