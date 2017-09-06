@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -50,14 +51,20 @@ public class GenericExceptionHandler {
      * @return the {@link ResponseEntity} with {@link Message}, http headers and status
      */
     @ExceptionHandler({RepositoryConstraintViolationException.class})
-    ResponseEntity handleConstraintViolationException(RepositoryConstraintViolationException e) {
+    public ResponseEntity<List<Message>> handleConstraintViolationException(RepositoryConstraintViolationException e) {
         List<Message> messages = new ArrayList<>();
 
-        for (FieldError error : e.getErrors().getFieldErrors()) {
-            messages.add(new Message(messageSourceAccessor.getMessage(error.getDefaultMessage()), MessageType.ERROR, error.getField()));
+        for (ObjectError error : e.getErrors().getAllErrors()) {
+            try {
+                FieldError error1 = (FieldError) error;
+                messages.add(new Message(messageSourceAccessor.getMessage(error1.getDefaultMessage()), MessageType.ERROR, error1.getField()));
+            } catch (ClassCastException ex) {
+                messages.add(new Message(messageSourceAccessor.getMessage(error.getDefaultMessage()), MessageType.ERROR, null));
+            }
         }
 
-        return new ResponseEntity(messages, new HttpHeaders(), HttpStatus.CONFLICT);
+        LOG.error("Validation failed");
+        return new ResponseEntity<>(messages, new HttpHeaders(), HttpStatus.CONFLICT);
     }
 
     /**
@@ -68,11 +75,10 @@ public class GenericExceptionHandler {
      * @return the {@link ResponseEntity} with {@link Message}, http headers and status
      */
     @ExceptionHandler({DataIntegrityViolationException.class})
-    ResponseEntity handleDataIntegrityViolationException(DataIntegrityViolationException e) {
-        List<Message> messages = new ArrayList<>();
-        messages.add(new Message(e.getCause().getCause().getClass().getSimpleName(), MessageType.ERROR, null));
-
-        return new ResponseEntity(messages, new HttpHeaders(), HttpStatus.CONFLICT);
+    public ResponseEntity<Message> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        Message message = new Message(e.getCause().getCause().getMessage(), MessageType.ERROR, null);
+        LOG.error("Validation failed");
+        return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.CONFLICT);
     }
 
 //    @ExceptionHandler
