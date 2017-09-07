@@ -341,23 +341,38 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>e2e-app</id>
+                        <id>rebuild-node-sass</id>
                         <phase>integration-test</phase>
                         <configuration>
                             <executable>npm</executable>
                             <workingDirectory>../admin</workingDirectory>
                             <arguments>
-                                <argument>run</argument>
-                                <argument>e2e</argument>
+                                <argument>rebuild</argument>
+                                <argument>node-sass</argument>
                             </arguments>
-                            <environmentVariables>
-                                <TOMCAT_HTTP_PORT>${tomcat.http.port}</TOMCAT_HTTP_PORT>
-                            </environmentVariables>
                         </configuration>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                     </execution>
+                    <!--<execution>-->
+                        <!--<id>e2e-app</id>-->
+                        <!--<phase>integration-test</phase>-->
+                        <!--<configuration>-->
+                            <!--<executable>npm</executable>-->
+                            <!--<workingDirectory>../admin</workingDirectory>-->
+                            <!--<arguments>-->
+                                <!--<argument>run</argument>-->
+                                <!--<argument>e2e</argument>-->
+                            <!--</arguments>-->
+                            <!--<environmentVariables>-->
+                                <!--<TOMCAT_HTTP_PORT>${tomcat.http.port}</TOMCAT_HTTP_PORT>-->
+                            <!--</environmentVariables>-->
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                            <!--<goal>exec</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
                 </executions>
             </plugin>
             <plugin>

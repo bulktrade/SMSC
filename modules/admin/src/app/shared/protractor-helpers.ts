@@ -11,13 +11,13 @@ export class ProtractorHelpers {
         element.click();
     }
 
-    isElementPresence(element: ElementFinder): wdpromise.Promise<boolean> {
+    isElementPresence(element: ElementFinder) {
         browser.wait(EC.presenceOf(element), this.timeout,
             `No element found using locator: ${element.locator()}`);
         return element.isPresent();
     }
 
-    isEnabledElement(element: ElementFinder): wdpromise.Promise<boolean> {
+    isEnabledElement(element: ElementFinder) {
         browser.wait(EC.presenceOf(element), this.timeout,
             `No element found using locator: ${element.locator()}`);
         return element.isEnabled();
