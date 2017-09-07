@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This REST repository class is used for providing default {@link JpaRepository}
- * CRUD methods to operate with {@link io.smsc.model.admin.User} entities and exporting them to
+ * CRUD methods to operate with {@link User} entities and exporting them to
  * appropriate endpoints.
  *
  * @author Nazar Lipkovskyy
@@ -152,6 +152,4 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>,
     @Transactional
     @PreAuthorize("hasRole('POWER_ADMIN_USER') or (hasRole('ADMIN_USER') and hasAuthority('CUSTOMER_USER_DELETE'))")
     void deleteAll();
-
-
 }

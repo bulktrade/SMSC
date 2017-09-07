@@ -43,7 +43,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long>,
         QuerydslBinderCustomizer<QUser> {
 
     @Override
-    default public void customize(QuerydslBindings bindings, QUser root) {
+    default void customize(QuerydslBindings bindings, QUser root) {
         bindings.bind(String.class).first((SingleValueBinding<StringPath, String>) StringExpression::containsIgnoreCase);
         bindings.excluding(root.password);
     }

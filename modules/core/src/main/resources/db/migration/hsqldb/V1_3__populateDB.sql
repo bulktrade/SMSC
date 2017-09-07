@@ -49,9 +49,11 @@ INSERT INTO ADMIN_USER_GROUP (NAME, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, C
   ('MESSAGE_POLICY_ADMIN', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
   ('MESSAGE_POLICY_READ_ONLY', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
   ('SENDER_POLICY_ADMIN', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
-  ('SENDER_POLICY_READ_ONLY', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin'));
+  ('SENDER_POLICY_READ_ONLY', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
+  ('SMPP_CUSTOMER_USER_ADMIN', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
+  ('SMPP_CUSTOMER_USER_READ_ONLY', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin'));
 
-INSERT INTO ADMIN_USER_AUTHORITY (NAME, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
+  INSERT INTO ADMIN_USER_AUTHORITY (NAME, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
   ('ADMIN_USER_READ', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
   ('ADMIN_USER_WRITE', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
   ('ADMIN_USER_CREATE', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
@@ -147,9 +149,15 @@ INSERT INTO ADMIN_USER_AUTHORITY (NAME, LAST_MODIFIED_DATE, VERSION, CREATED_DAT
   ('SENDER_POLICY_CREATE', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
   ('SENDER_POLICY_DELETE', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
   ('SENDER_POLICY_EXISTS', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
-  ('SENDER_POLICY_COUNT', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin'));
+  ('SENDER_POLICY_COUNT', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
+  ('SMPP_CUSTOMER_USER_READ', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
+  ('SMPP_CUSTOMER_USER_WRITE', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
+  ('SMPP_CUSTOMER_USER_CREATE', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
+  ('SMPP_CUSTOMER_USER_DELETE', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
+  ('SMPP_CUSTOMER_USER_EXISTS', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
+  ('SMPP_CUSTOMER_USER_COUNT', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin'));
 
-INSERT INTO ADMIN_USER_ROLE (NAME, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
+  INSERT INTO ADMIN_USER_ROLE (NAME, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
   ('ROLE_ADMIN_USER', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin')),
   ('ROLE_POWER_ADMIN_USER', current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin'));
 
@@ -270,7 +278,14 @@ INSERT INTO ADMIN_USER_GROUP_AUTHORITY (GROUP_ID, AUTHORITY_ID) VALUES
   ((select id from admin_user_group where name = 'SENDER_POLICY_ADMIN'), (select id from admin_user_authority where name = 'SENDER_POLICY_DELETE')),
   ((select id from admin_user_group where name = 'SENDER_POLICY_ADMIN'), (select id from admin_user_authority where name = 'SENDER_POLICY_EXISTS')),
   ((select id from admin_user_group where name = 'SENDER_POLICY_ADMIN'), (select id from admin_user_authority where name = 'SENDER_POLICY_COUNT')),
-  ((select id from admin_user_group where name = 'SENDER_POLICY_READ_ONLY'), (select id from admin_user_authority where name = 'SENDER_POLICY_READ'));
+  ((select id from admin_user_group where name = 'SENDER_POLICY_READ_ONLY'), (select id from admin_user_authority where name = 'SENDER_POLICY_READ')),
+  ((select id from admin_user_group where name = 'SMPP_CUSTOMER_USER_ADMIN'), (select id from admin_user_authority where name = 'SMPP_CUSTOMER_USER_READ')),
+  ((select id from admin_user_group where name = 'SMPP_CUSTOMER_USER_ADMIN'), (select id from admin_user_authority where name = 'SMPP_CUSTOMER_USER_WRITE')),
+  ((select id from admin_user_group where name = 'SMPP_CUSTOMER_USER_ADMIN'), (select id from admin_user_authority where name = 'SMPP_CUSTOMER_USER_CREATE')),
+  ((select id from admin_user_group where name = 'SMPP_CUSTOMER_USER_ADMIN'), (select id from admin_user_authority where name = 'SMPP_CUSTOMER_USER_DELETE')),
+  ((select id from admin_user_group where name = 'SMPP_CUSTOMER_USER_ADMIN'), (select id from admin_user_authority where name = 'SMPP_CUSTOMER_USER_EXISTS')),
+  ((select id from admin_user_group where name = 'SMPP_CUSTOMER_USER_ADMIN'), (select id from admin_user_authority where name = 'SMPP_CUSTOMER_USER_COUNT')),
+  ((select id from admin_user_group where name = 'SMPP_CUSTOMER_USER_READ_ONLY'), (select id from admin_user_authority where name = 'SMPP_CUSTOMER_USER_READ'));
 
 INSERT INTO ADMIN_USER_GROUP_USER (USER_ID, GROUP_ID) VALUES
   ((select id from user_account where username = 'user'), (select id from admin_user_group where name = 'ADMIN_USER_ADMIN')),
@@ -289,6 +304,7 @@ INSERT INTO ADMIN_USER_GROUP_USER (USER_ID, GROUP_ID) VALUES
   ((select id from user_account where username = 'user'), (select id from admin_user_group where name = 'NOTIFICATION_ADMIN')),
   ((select id from user_account where username = 'user'), (select id from admin_user_group where name = 'MESSAGE_POLICY_ADMIN')),
   ((select id from user_account where username = 'user'), (select id from admin_user_group where name = 'SENDER_POLICY_ADMIN')),
+  ((select id from user_account where username = 'user'), (select id from admin_user_group where name = 'SMPP_CUSTOMER_USER_ADMIN')),
   ((select id from user_account where username = 'demo'), (select id from admin_user_group where name = 'ADMIN_USER_READ_ONLY')),
   ((select id from user_account where username = 'demo'), (select id from admin_user_group where name = 'CONTACT_READ_ONLY')),
   ((select id from user_account where username = 'demo'), (select id from admin_user_group where name = 'CUSTOMER_USER_READ_ONLY')),
@@ -304,9 +320,10 @@ INSERT INTO ADMIN_USER_GROUP_USER (USER_ID, GROUP_ID) VALUES
   ((select id from user_account where username = 'demo'), (select id from admin_user_group where name = 'LIMIT_READ_ONLY')),
   ((select id from user_account where username = 'demo'), (select id from admin_user_group where name = 'NOTIFICATION_READ_ONLY')),
   ((select id from user_account where username = 'demo'), (select id from admin_user_group where name = 'MESSAGE_POLICY_READ_ONLY')),
-  ((select id from user_account where username = 'demo'), (select id from admin_user_group where name = 'SENDER_POLICY_READ_ONLY'));
+  ((select id from user_account where username = 'demo'), (select id from admin_user_group where name = 'SENDER_POLICY_READ_ONLY')),
+  ((select id from user_account where username = 'demo'), (select id from admin_user_group where name = 'SMPP_CUSTOMER_USER_READ_ONLY'));
 
-INSERT INTO DASHBOARD (NAME, ICON, USER_ACCOUNT_ID, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
+  INSERT INTO DASHBOARD (NAME, ICON, USER_ACCOUNT_ID, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES
   ('default', 'user', (select id from user_account where username = 'admin'), current_timestamp, 0, current_timestamp, (select id from user_account where username = 'admin'), (select id from user_account where username = 'admin'));
 
 INSERT INTO DASHBOARD_BOX_TYPE (NAME, TYPE, KIND, LAST_MODIFIED_DATE, VERSION, CREATED_DATE, CREATED_BY_ID, LAST_MODIFIED_BY_ID) VALUES

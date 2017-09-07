@@ -1,14 +1,14 @@
 package io.smsc.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.smsc.converters.CryptoConverter;
 import io.smsc.model.BaseEntity;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -33,11 +33,13 @@ public class SmppUser extends BaseEntity {
 
     @Column(name = "USERNAME", nullable = false, unique = true)
     @Pattern(regexp = "[0-9a-zA-Z+\\-\\\\]{0,8}", message = "{smpp.user.username.format.message}")
+    @NotEmpty(message = "{user.username.empty.message}")
     private String username;
 
     @Convert(converter = CryptoConverter.class)
     @Column(name = "PASSWORD", nullable = false)
     @Pattern(regexp = "[0-9a-zA-Z+\\-\\\\]{0,8}", message = "{smpp.user.password.format.message}")
+    @NotEmpty(message = "{user.password.empty.message}")
     @JsonIgnore
     private String password;
 
@@ -65,10 +67,12 @@ public class SmppUser extends BaseEntity {
         this.username = username;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
