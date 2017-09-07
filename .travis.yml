@@ -66,6 +66,5 @@ notifications:
     on_failure: always
 
 addons:
-  srcclr: true
   sonarqube: true
   sauce_connect: true

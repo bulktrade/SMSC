@@ -210,6 +210,11 @@
                     <maxmem>256m</maxmem>
                     <aggregate>true</aggregate>
                     <check />
+                    <instrumentation>
+                        <excludes>
+                            <exclude>io/smsc/model/QBaseEntity.class</exclude>
+                        </excludes>
+                    </instrumentation>
                 </configuration>
             </plugin>
             <plugin>
